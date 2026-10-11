@@ -4216,7 +4216,7 @@
         }
       ],
       "bom": {
-        "scope": "The printed reference sculpture and its interchangeable specimens. Geometry and prepared print projects describe unprinted parts; the feature guide states each comparison and its scope.",
+        "scope": "The print reference sculpture, its captive basin mechanisms and removable specimens. Geometry and prepared native projects describe unprinted parts; the feature guide states each comparison and its scope.",
         "source": "printed-parts/calibration/soda-studies/manifest.json",
         "items": [
           {
@@ -4224,7 +4224,55 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "P cascade carrier"
+              "P basin and captive rails"
+            ]
+          },
+          {
+            "material": "HSM-000225",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q24 captive ripple shutter"
+            ]
+          },
+          {
+            "material": "HSM-000226",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q48 captive ripple shutter"
+            ]
+          },
+          {
+            "material": "HSM-000227",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q72 captive ripple shutter"
+            ]
+          },
+          {
+            "material": "HSM-000228",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "H fluted helix and keyed fin docks"
+            ]
+          },
+          {
+            "material": "HSM-000229",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S05R sliding receiver"
+            ]
+          },
+          {
+            "material": "HSM-000230",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S05 sliding tongue"
             ]
           },
           {
@@ -4344,7 +4392,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "N08D neck storage shoe"
+              "N08D neck cut-face foot"
             ]
           },
           {
@@ -4352,7 +4400,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "N08K neck keeper bar"
+              "N08K neck T-slot keeper"
             ]
           },
           {
@@ -4364,11 +4412,59 @@
             ]
           },
           {
+            "material": "HSM-000208",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12D neck cut-face foot"
+            ]
+          },
+          {
+            "material": "HSM-000209",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12K neck T-slot keeper"
+            ]
+          },
+          {
+            "material": "HSM-000210",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000220",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24D neck cut-face foot"
+            ]
+          },
+          {
+            "material": "HSM-000221",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24K neck T-slot keeper"
+            ]
+          },
+          {
+            "material": "HSM-000222",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24 faucet neck"
+            ]
+          },
+          {
             "material": "HSM-000199",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR00D neck storage shoe"
+              "NR00D neck cut-face foot"
             ]
           },
           {
@@ -4376,7 +4472,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR00K neck keeper bar"
+              "NR00K neck T-slot keeper"
             ]
           },
           {
@@ -4392,7 +4488,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR05D neck storage shoe"
+              "NR05D neck cut-face foot"
             ]
           },
           {
@@ -4400,7 +4496,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR05K neck keeper bar"
+              "NR05K neck T-slot keeper"
             ]
           },
           {
@@ -4416,7 +4512,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR15D neck storage shoe"
+              "NR15D neck cut-face foot"
             ]
           },
           {
@@ -4424,7 +4520,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NR15K neck keeper bar"
+              "NR15K neck T-slot keeper"
             ]
           },
           {
@@ -4436,35 +4532,11 @@
             ]
           },
           {
-            "material": "HSM-000208",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12D neck storage shoe"
-            ]
-          },
-          {
-            "material": "HSM-000209",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12K neck keeper bar"
-            ]
-          },
-          {
-            "material": "HSM-000210",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12 faucet neck"
-            ]
-          },
-          {
             "material": "HSM-000211",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS00D neck storage shoe"
+              "NS00D neck cut-face foot"
             ]
           },
           {
@@ -4472,7 +4544,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS00K neck keeper bar"
+              "NS00K neck T-slot keeper"
             ]
           },
           {
@@ -4488,7 +4560,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS10D neck storage shoe"
+              "NS10D neck cut-face foot"
             ]
           },
           {
@@ -4496,7 +4568,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS10K neck keeper bar"
+              "NS10K neck T-slot keeper"
             ]
           },
           {
@@ -4512,7 +4584,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS20D neck storage shoe"
+              "NS20D neck cut-face foot"
             ]
           },
           {
@@ -4520,7 +4592,7 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "NS20K neck keeper bar"
+              "NS20K neck T-slot keeper"
             ]
           },
           {
@@ -4529,30 +4601,6 @@
             "unit": "ea",
             "bodies": [
               "NS20 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000220",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24D neck storage shoe"
-            ]
-          },
-          {
-            "material": "HSM-000221",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24K neck keeper bar"
-            ]
-          },
-          {
-            "material": "HSM-000222",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24 faucet neck"
             ]
           },
           {
@@ -4570,6 +4618,30 @@
             "bodies": [
               "G complete grip insert"
             ]
+          },
+          {
+            "material": "HSM-000231",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R6 expanding round structural buttress"
+            ]
+          },
+          {
+            "material": "HSM-000232",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FH complete rigid groove host"
+            ]
+          },
+          {
+            "material": "HSM-000233",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FC complete relaxed Industrial cover"
+            ]
           }
         ]
       },
@@ -4586,14 +4658,14 @@
     },
     {
       "id": "HSM-000181",
-      "description": "The Pour · P cascade carrier",
+      "description": "The Pour · P basin and captive rails",
       "kind": "manufactured",
       "aliases": [
         "P"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/p-cascade-carrier.step"
+          "file": "printed-parts/calibration/soda-studies/parts/p-basin-and-captive-rails.step"
         }
       ],
       "documents": [
@@ -4871,14 +4943,14 @@
     },
     {
       "id": "HSM-000196",
-      "description": "The Pour · N08D neck storage shoe",
+      "description": "The Pour · N08D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "N08D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n08d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -4890,14 +4962,14 @@
     },
     {
       "id": "HSM-000197",
-      "description": "The Pour · N08K neck keeper bar",
+      "description": "The Pour · N08K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "N08K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n08k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -4928,14 +5000,14 @@
     },
     {
       "id": "HSM-000199",
-      "description": "The Pour · NR00D neck storage shoe",
+      "description": "The Pour · NR00D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NR00D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr00d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -4947,14 +5019,14 @@
     },
     {
       "id": "HSM-000200",
-      "description": "The Pour · NR00K neck keeper bar",
+      "description": "The Pour · NR00K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NR00K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr00k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -4985,14 +5057,14 @@
     },
     {
       "id": "HSM-000202",
-      "description": "The Pour · NR05D neck storage shoe",
+      "description": "The Pour · NR05D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NR05D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr05d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5004,14 +5076,14 @@
     },
     {
       "id": "HSM-000203",
-      "description": "The Pour · NR05K neck keeper bar",
+      "description": "The Pour · NR05K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NR05K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr05k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5042,14 +5114,14 @@
     },
     {
       "id": "HSM-000205",
-      "description": "The Pour · NR15D neck storage shoe",
+      "description": "The Pour · NR15D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NR15D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr15d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5061,14 +5133,14 @@
     },
     {
       "id": "HSM-000206",
-      "description": "The Pour · NR15K neck keeper bar",
+      "description": "The Pour · NR15K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NR15K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/nr15k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5099,14 +5171,14 @@
     },
     {
       "id": "HSM-000208",
-      "description": "The Pour · N12D neck storage shoe",
+      "description": "The Pour · N12D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "N12D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n12d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5118,14 +5190,14 @@
     },
     {
       "id": "HSM-000209",
-      "description": "The Pour · N12K neck keeper bar",
+      "description": "The Pour · N12K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "N12K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n12k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5156,14 +5228,14 @@
     },
     {
       "id": "HSM-000211",
-      "description": "The Pour · NS00D neck storage shoe",
+      "description": "The Pour · NS00D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NS00D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns00d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5175,14 +5247,14 @@
     },
     {
       "id": "HSM-000212",
-      "description": "The Pour · NS00K neck keeper bar",
+      "description": "The Pour · NS00K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NS00K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns00k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5213,14 +5285,14 @@
     },
     {
       "id": "HSM-000214",
-      "description": "The Pour · NS10D neck storage shoe",
+      "description": "The Pour · NS10D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NS10D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns10d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5232,14 +5304,14 @@
     },
     {
       "id": "HSM-000215",
-      "description": "The Pour · NS10K neck keeper bar",
+      "description": "The Pour · NS10K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NS10K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns10k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5270,14 +5342,14 @@
     },
     {
       "id": "HSM-000217",
-      "description": "The Pour · NS20D neck storage shoe",
+      "description": "The Pour · NS20D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "NS20D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns20d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5289,14 +5361,14 @@
     },
     {
       "id": "HSM-000218",
-      "description": "The Pour · NS20K neck keeper bar",
+      "description": "The Pour · NS20K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "NS20K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/ns20k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5327,14 +5399,14 @@
     },
     {
       "id": "HSM-000220",
-      "description": "The Pour · N24D neck storage shoe",
+      "description": "The Pour · N24D neck cut-face foot",
       "kind": "manufactured",
       "aliases": [
         "N24D"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n24d-neck-cut-face-foot.step"
         }
       ],
       "documents": [
@@ -5346,14 +5418,14 @@
     },
     {
       "id": "HSM-000221",
-      "description": "The Pour · N24K neck keeper bar",
+      "description": "The Pour · N24K neck T-slot keeper",
       "kind": "manufactured",
       "aliases": [
         "N24K"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.step"
+          "file": "printed-parts/calibration/soda-studies/parts/n24k-neck-t-slot-keeper.step"
         }
       ],
       "documents": [
@@ -5411,6 +5483,177 @@
       "models": [
         {
           "file": "printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000225",
+      "kind": "manufactured",
+      "description": "The Pour · Q24 captive ripple shutter",
+      "aliases": [
+        "Q24"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/q24-captive-ripple-shutter.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000226",
+      "kind": "manufactured",
+      "description": "The Pour · Q48 captive ripple shutter",
+      "aliases": [
+        "Q48"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000227",
+      "kind": "manufactured",
+      "description": "The Pour · Q72 captive ripple shutter",
+      "aliases": [
+        "Q72"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/q72-captive-ripple-shutter.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000228",
+      "kind": "manufactured",
+      "description": "The Pour · H fluted helix and keyed fin docks",
+      "aliases": [
+        "H"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000229",
+      "kind": "manufactured",
+      "description": "The Pour · S05R sliding receiver",
+      "aliases": [
+        "S05R"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s05r-sliding-receiver.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000230",
+      "kind": "manufactured",
+      "description": "The Pour · S05 sliding tongue",
+      "aliases": [
+        "S05"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s05-sliding-tongue.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000231",
+      "kind": "manufactured",
+      "description": "The Pour · R6 expanding round structural buttress",
+      "aliases": [
+        "R6"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/r6-expanding-round-structural-buttress.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000232",
+      "kind": "manufactured",
+      "description": "The Pour · FH complete rigid groove host",
+      "aliases": [
+        "FH"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/fh-complete-rigid-groove-host.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000233",
+      "kind": "manufactured",
+      "description": "The Pour · FC complete relaxed Industrial cover",
+      "aliases": [
+        "FC"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/fc-complete-relaxed-industrial-cover.step"
         }
       ],
       "documents": [

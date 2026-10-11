@@ -64,12 +64,12 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.stl",
-      "stl_sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6",
-      "triangles": 81722,
+      "stl_sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
+      "triangles": 91530,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
-        0.0,
-        0.0,
+        0.24000000953674316,
+        -6.6063690185546875,
         43.0
       ],
       "build_transform": [
@@ -82,13 +82,13 @@
         0.0,
         -0.0,
         1.0,
-        140.0,
-        160.0,
+        185.0,
+        158.97906494140625,
         43.0
       ],
       "plate_translation_mm": [
-        140.0,
-        160.0,
+        185.0,
+        158.97906494140625,
         43.0
       ],
       "plate_origin_mm": [
@@ -98,19 +98,20 @@
       ],
       "plate_bounds_mm": [
         [
-          134.0,
-          138.0,
+          178.75999999046326,
+          143.58543395996094,
           0.0
         ],
         [
-          146.0,
-          182.0,
+          191.24000000953674,
+          174.37269592285156,
           86.0
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000018177270249e-10
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "layer_range_object_index": 1
     },
     {
       "name": "N24 faucet neck",
@@ -138,13 +139,13 @@
         0.0,
         -0.0,
         1.0,
-        177.5,
-        154.41456604003906,
+        147.25999999046326,
+        160.0,
         9.100000381469727
       ],
       "plate_translation_mm": [
-        177.5,
-        154.41456604003906,
+        147.25999999046326,
+        160.0,
         9.100000381469727
       ],
       "plate_origin_mm": [
@@ -154,25 +155,26 @@
       ],
       "plate_bounds_mm": [
         [
-          164.0,
-          138.0,
+          133.75999999046326,
+          143.58543395996094,
           0.0
         ],
         [
-          191.0,
-          170.82913208007812,
+          160.75999999046326,
+          176.41456604003906,
           18.200000762939453
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000000413701855e-10
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "layer_range_object_index": 2
     }
   ],
-  "project_sha256": "baf0472dcd6bfc58fd93840552f77ba8921ee9826a6f3af2df3630c01a31989e",
+  "project_sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55",
   "settings_preserved_byte_for_byte": false,
-  "manifest_sha256": "478955e2e154dd98e94df9c5b7244dce49018569a863f54e0a8e9f0fad0914a3",
-  "preparation_source_sha256": "85d7753ef4541006977ee7a7320a4ba1569710bebda5a0bca09781bdbefdd146",
+  "manifest_sha256": "706c472bbf40228e4c87a373b2ee7ee8052d0d3a820f6ade199f68b7e1103fa3",
+  "preparation_source_sha256": "65d147209db8ca7044117e2f10136c9e7a3b2296ff34567c81eaedbb609ab078",
   "requested_layer_height_mm": 0.24,
   "first_layer_height_mm": 0.2,
   "changes_after_profile_refresh": {
@@ -191,27 +193,220 @@
       "name": "A24 angle and curve blade",
       "kind": "angle_blade",
       "source": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.stl",
-      "source_stl_sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6",
+      "source_stl_sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
       "identify_id": 1901,
       "object_id": "2",
       "rotation_x_degrees": 0.0,
       "requested_layer_height_mm": 0.24,
       "object_overrides": {},
+      "effective_supports_enabled": true,
       "plate_bounds_mm": [
         [
-          134.0,
-          138.0,
+          178.75999999046326,
+          143.58543395996094,
           0.0
         ],
         [
-          146.0,
-          182.0,
+          191.24000000953674,
+          174.37269592285156,
           86.0
         ]
       ],
+      "layer_range_object_index": 1,
       "plate_offset_mm": [
-        -22.5,
-        0.0
+        22.5,
+        -1.02093505859375
+      ],
+      "label_windows": [
+        {
+          "text": "A24",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 4.0,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": -4.0,
+          "view_axis": "x",
+          "outward_sign": -1,
+          "bounds_mm": [
+            [
+              -4.48,
+              5.7288889625,
+              46.3310546875
+            ],
+            [
+              -4.0,
+              8.6038891625,
+              53.5771484375
+            ]
+          ]
+        },
+        {
+          "text": "X",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 4.0,
+          "nominal_raise_mm": 0.48,
+          "surface_z_mm": 15,
+          "bounds_mm": [
+            [
+              -4.333984375,
+              -18.3212890625,
+              15.0
+            ],
+            [
+              -1.6718749999999998,
+              -15.4580078125,
+              15.48
+            ]
+          ]
+        },
+        {
+          "text": "0",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 6.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              6.0,
+              -14.84990244375,
+              4.26689443125
+            ],
+            [
+              6.48,
+              -13.176464743750001,
+              6.898339943750001
+            ]
+          ]
+        },
+        {
+          "text": "15",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              -10.342444148234614,
+              4.797362681655711
+            ],
+            [
+              4.48,
+              -6.543262971700602,
+              7.992307531920599
+            ]
+          ]
+        },
+        {
+          "text": "30",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              -5.368270644471061,
+              6.643595128207335
+            ],
+            [
+              4.48,
+              -1.502443514210283,
+              10.168818890638041
+            ]
+          ]
+        },
+        {
+          "text": "45",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              -0.5143849632421804,
+              9.89220489767695
+            ],
+            [
+              4.48,
+              2.901928466662517,
+              13.949230154734765
+            ]
+          ]
+        },
+        {
+          "text": "60",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              2.6454902585248967,
+              14.284298307413238
+            ],
+            [
+              4.48,
+              6.109858802212688,
+              18.0799821975835
+            ]
+          ]
+        },
+        {
+          "text": "75",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              4.776756592146082,
+              19.51821743059463
+            ],
+            [
+              4.48,
+              8.049755533826982,
+              23.346093160301546
+            ]
+          ]
+        },
+        {
+          "text": "90",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 3.6,
+          "nominal_raise_mm": 0.48,
+          "surface_x_mm": 4.0,
+          "view_axis": "x",
+          "bounds_mm": [
+            [
+              4.0,
+              5.888922394425452,
+              24.89937161317545
+            ],
+            [
+              4.48,
+              8.522125719425452,
+              28.611871813175455
+            ]
+          ]
+        }
       ]
     },
     {
@@ -225,27 +420,29 @@
       "rotation_x_degrees": 0.0,
       "requested_layer_height_mm": 0.24,
       "object_overrides": {},
+      "effective_supports_enabled": true,
       "plate_bounds_mm": [
         [
-          164.0,
-          138.0,
+          133.75999999046326,
+          143.58543395996094,
           0.0
         ],
         [
-          191.0,
-          170.82913208007812,
+          160.75999999046326,
+          176.41456604003906,
           18.200000762939453
         ]
       ],
+      "layer_range_object_index": 2,
       "plate_offset_mm": [
-        15.0,
-        -5.5854339599609375
+        -15.240000009536743,
+        0.0
       ]
     }
   ],
   "printer_name": "Mark2",
   "requested_z_trim_mm": 0.04,
-  "support_policy": "Saved Tree(auto)/Default; automatic normal sections retained.",
+  "support_policy": "Saved Tree(auto)/Default for support-enabled objects, including automatic normal sections. Explicit source or separate captive-group recipes can disable support locally.",
   "support_top_z_distance_mm": 0.45,
   "support_bottom_z_distance_mm": 0.3,
   "preparation_only": true,
@@ -254,8 +451,8 @@
   "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
   "native": {
     "archive": ".cache/prints/soda-studies/finish-024/the-pour-finish-024-petgf-left04-z004-mark2.gcode.3mf",
-    "archive_sha256": "8834947378cbb786085a0e28d2367c746cef646a749db7b11d54b34c95c817f5",
-    "gcode_sha256": "f0de2b2e7b9d87996f11efaae172115634adf6897f52ddc0fc46d63eab2970ba",
+    "archive_sha256": "81d1aaaa7ec35361152615be467d8448328ba95091e3244212f7c0cc2c31a374",
+    "gcode_sha256": "4314ca2f80e8f3dcc3b8302e718d8cddc3ddd4f08eef955712e0272200509351",
     "layer_count": 359,
     "first_layer_z_mm": 0.2,
     "emitted_deposition_heights_mm": [
@@ -273,16 +470,379 @@
         "id": "A24",
         "identify_id": 1901,
         "model_layer_count": 359,
+        "model_layer_nozzle_z_mm": [
+          0.2,
+          0.44,
+          0.68,
+          0.92,
+          1.16,
+          1.4,
+          1.64,
+          1.88,
+          2.12,
+          2.36,
+          2.6,
+          2.84,
+          3.08,
+          3.32,
+          3.56,
+          3.8,
+          4.04,
+          4.28,
+          4.52,
+          4.76,
+          5.0,
+          5.24,
+          5.48,
+          5.72,
+          5.96,
+          6.2,
+          6.44,
+          6.68,
+          6.92,
+          7.16,
+          7.4,
+          7.64,
+          7.88,
+          8.12,
+          8.36,
+          8.6,
+          8.84,
+          9.08,
+          9.32,
+          9.56,
+          9.8,
+          10.04,
+          10.28,
+          10.52,
+          10.76,
+          11.0,
+          11.24,
+          11.48,
+          11.72,
+          11.96,
+          12.2,
+          12.44,
+          12.68,
+          12.92,
+          13.16,
+          13.4,
+          13.64,
+          13.88,
+          14.12,
+          14.36,
+          14.6,
+          14.84,
+          15.08,
+          15.32,
+          15.56,
+          15.8,
+          16.04,
+          16.28,
+          16.52,
+          16.76,
+          17.0,
+          17.24,
+          17.48,
+          17.72,
+          17.96,
+          18.2,
+          18.44,
+          18.68,
+          18.92,
+          19.16,
+          19.4,
+          19.64,
+          19.88,
+          20.12,
+          20.36,
+          20.6,
+          20.84,
+          21.08,
+          21.32,
+          21.56,
+          21.8,
+          22.04,
+          22.28,
+          22.52,
+          22.76,
+          23.0,
+          23.24,
+          23.48,
+          23.72,
+          23.96,
+          24.2,
+          24.44,
+          24.68,
+          24.92,
+          25.16,
+          25.4,
+          25.64,
+          25.88,
+          26.12,
+          26.36,
+          26.6,
+          26.84,
+          27.08,
+          27.32,
+          27.56,
+          27.8,
+          28.04,
+          28.28,
+          28.52,
+          28.76,
+          29.0,
+          29.24,
+          29.48,
+          29.72,
+          29.96,
+          30.2,
+          30.44,
+          30.68,
+          30.92,
+          31.16,
+          31.4,
+          31.64,
+          31.88,
+          32.12,
+          32.36,
+          32.6,
+          32.84,
+          33.08,
+          33.32,
+          33.56,
+          33.8,
+          34.04,
+          34.28,
+          34.52,
+          34.76,
+          35.0,
+          35.24,
+          35.48,
+          35.72,
+          35.96,
+          36.2,
+          36.44,
+          36.68,
+          36.92,
+          37.16,
+          37.4,
+          37.64,
+          37.88,
+          38.12,
+          38.36,
+          38.6,
+          38.84,
+          39.08,
+          39.32,
+          39.56,
+          39.8,
+          40.04,
+          40.28,
+          40.52,
+          40.76,
+          41.0,
+          41.24,
+          41.48,
+          41.72,
+          41.96,
+          42.2,
+          42.44,
+          42.68,
+          42.92,
+          43.16,
+          43.4,
+          43.64,
+          43.88,
+          44.12,
+          44.36,
+          44.6,
+          44.84,
+          45.08,
+          45.32,
+          45.56,
+          45.8,
+          46.04,
+          46.28,
+          46.52,
+          46.76,
+          47.0,
+          47.24,
+          47.48,
+          47.72,
+          47.96,
+          48.2,
+          48.44,
+          48.68,
+          48.92,
+          49.16,
+          49.4,
+          49.64,
+          49.88,
+          50.12,
+          50.36,
+          50.6,
+          50.84,
+          51.08,
+          51.32,
+          51.56,
+          51.8,
+          52.04,
+          52.28,
+          52.52,
+          52.76,
+          53.0,
+          53.24,
+          53.48,
+          53.72,
+          53.96,
+          54.2,
+          54.44,
+          54.68,
+          54.92,
+          55.16,
+          55.4,
+          55.64,
+          55.88,
+          56.12,
+          56.36,
+          56.6,
+          56.84,
+          57.08,
+          57.32,
+          57.56,
+          57.8,
+          58.04,
+          58.28,
+          58.52,
+          58.76,
+          59.0,
+          59.24,
+          59.48,
+          59.72,
+          59.96,
+          60.2,
+          60.44,
+          60.68,
+          60.92,
+          61.16,
+          61.4,
+          61.64,
+          61.88,
+          62.12,
+          62.36,
+          62.6,
+          62.84,
+          63.08,
+          63.32,
+          63.56,
+          63.8,
+          64.04,
+          64.28,
+          64.52,
+          64.76,
+          65.0,
+          65.24,
+          65.48,
+          65.72,
+          65.96,
+          66.2,
+          66.44,
+          66.68,
+          66.92,
+          67.16,
+          67.4,
+          67.64,
+          67.88,
+          68.12,
+          68.36,
+          68.6,
+          68.84,
+          69.08,
+          69.32,
+          69.56,
+          69.8,
+          70.04,
+          70.28,
+          70.52,
+          70.76,
+          71.0,
+          71.24,
+          71.48,
+          71.72,
+          71.96,
+          72.2,
+          72.44,
+          72.68,
+          72.92,
+          73.16,
+          73.4,
+          73.64,
+          73.88,
+          74.12,
+          74.36,
+          74.6,
+          74.84,
+          75.08,
+          75.32,
+          75.56,
+          75.8,
+          76.04,
+          76.28,
+          76.52,
+          76.76,
+          77.0,
+          77.24,
+          77.48,
+          77.72,
+          77.96,
+          78.2,
+          78.44,
+          78.68,
+          78.92,
+          79.16,
+          79.4,
+          79.64,
+          79.88,
+          80.12,
+          80.36,
+          80.6,
+          80.84,
+          81.08,
+          81.32,
+          81.56,
+          81.8,
+          82.04,
+          82.28,
+          82.52,
+          82.76,
+          83.0,
+          83.24,
+          83.48,
+          83.72,
+          83.96,
+          84.2,
+          84.44,
+          84.68,
+          84.92,
+          85.16,
+          85.4,
+          85.64,
+          85.88,
+          86.12
+        ],
+        "first_attributed_model_nozzle_z_mm": 0.2,
         "model_layer_steps_mm": [
           0.24
         ],
+        "model_layer_schedule_scope": "Complete native object model deposition.",
         "model_deposition_heights_mm": [
           0.2,
           0.24,
           0.4
         ],
-        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
-        "outer_wall_depositing_moves": 5475,
+        "deposition_height_scope": "Strand heights include native bridge thickness; shared object Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 7096,
         "outer_wall_depositing_moves_with_z": 0,
         "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
       },
@@ -290,47 +850,444 @@
         "id": "N24",
         "identify_id": 1902,
         "model_layer_count": 76,
+        "model_layer_nozzle_z_mm": [
+          0.2,
+          0.44,
+          0.68,
+          0.92,
+          1.16,
+          1.4,
+          1.64,
+          1.88,
+          2.12,
+          2.36,
+          2.6,
+          2.84,
+          3.08,
+          3.32,
+          3.56,
+          3.8,
+          4.04,
+          4.28,
+          4.52,
+          4.76,
+          5.0,
+          5.24,
+          5.48,
+          5.72,
+          5.96,
+          6.2,
+          6.44,
+          6.68,
+          6.92,
+          7.16,
+          7.4,
+          7.64,
+          7.88,
+          8.12,
+          8.36,
+          8.6,
+          8.84,
+          9.08,
+          9.32,
+          9.56,
+          9.8,
+          10.04,
+          10.28,
+          10.52,
+          10.76,
+          11.0,
+          11.24,
+          11.48,
+          11.72,
+          11.96,
+          12.2,
+          12.44,
+          12.68,
+          12.92,
+          13.16,
+          13.4,
+          13.64,
+          13.88,
+          14.12,
+          14.36,
+          14.6,
+          14.84,
+          15.08,
+          15.32,
+          15.56,
+          15.8,
+          16.04,
+          16.28,
+          16.52,
+          16.76,
+          17.0,
+          17.24,
+          17.48,
+          17.72,
+          17.96,
+          18.2
+        ],
+        "first_attributed_model_nozzle_z_mm": 0.2,
         "model_layer_steps_mm": [
           0.24
         ],
+        "model_layer_schedule_scope": "Complete native object model deposition.",
         "model_deposition_heights_mm": [
           0.2,
           0.24,
           0.4
         ],
-        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
-        "outer_wall_depositing_moves": 14461,
+        "deposition_height_scope": "Strand heights include native bridge thickness; shared object Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 14458,
         "outer_wall_depositing_moves_with_z": 0,
         "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
       }
     ],
-    "estimated_time": "35m 27s",
+    "estimated_time": "33m 52s",
     "saved_profile_filament_estimate_g": [
-      13.3
+      12.38
     ],
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
-          127.417794,
-          137.791794
+          133.533334,
+          143.35833399999999
         ],
         [
-          191.208206,
-          182.208206
+          197.387666,
+          176.602666
         ]
       ],
-      "maximum_line_width_mm": 0.636412,
-      "bounds_padding_mm": 0.41820599999999997
+      "maximum_line_width_mm": 0.673332,
+      "bounds_padding_mm": 0.436666
     },
-    "minimum_full_bead_bed_margin_mm": 127.417794,
+    "minimum_full_bead_bed_margin_mm": 127.612334,
     "emitted_z_trim_mm": [
       0.0,
       0.02
     ],
-    "support_feature_count": 363,
-    "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization and sloped contacts change the emitted gap; removal and finish remain physical observations.",
-    "reviewer_sha256": "bd148e5b410a3b775c279972640be4aacc63594f75964ee2c8613e479b2f968a",
+    "support_feature_count": 360,
+    "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
+    "reviewer_sha256": "65d147209db8ca7044117e2f10136c9e7a3b2296ff34567c81eaedbb609ab078",
     "sliced_locally": true,
-    "submitted": false
+    "submitted": false,
+    "lettering_reading": {
+      "scope": "Positive native model centerlines in CAD marking windows. XY labels exclude nominal slabs touching the body face; side labels exclude centerlines inside the plain side face. Path retention does not establish physical legibility.",
+      "label_window_count": 9,
+      "windows_with_deposition": 9,
+      "plot": ".cache/prints/soda-studies/finish-024/native-lettering.png",
+      "labels": [
+        {
+          "id": "A24",
+          "text": "A24",
+          "view_axis": "x",
+          "outward_sign": -1,
+          "clipped_depositing_segment_count": 190,
+          "depositing_layer_z_mm": [
+            46.76,
+            47.0,
+            47.24,
+            47.48,
+            47.72,
+            47.96,
+            48.2,
+            48.44,
+            48.68,
+            48.92,
+            49.64,
+            49.88,
+            50.12,
+            50.36,
+            50.6,
+            50.84,
+            51.08,
+            51.32,
+            51.8,
+            52.04,
+            52.28,
+            52.52,
+            52.76,
+            53.0,
+            53.24,
+            53.48
+          ],
+          "commanded_strand_widths_mm": [
+            0.11992,
+            0.12486,
+            0.25724,
+            0.26805,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 22.039
+        },
+        {
+          "id": "A24",
+          "text": "X",
+          "view_axis": "z",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 26,
+          "depositing_layer_z_mm": [
+            15.32,
+            15.56
+          ],
+          "commanded_strand_widths_mm": [
+            0.37946
+          ],
+          "model_features": [
+            "Outer wall"
+          ],
+          "retained_centerline_length_mm": 24.177
+        },
+        {
+          "id": "A24",
+          "text": "0",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 69,
+          "depositing_layer_z_mm": [
+            4.52,
+            4.76,
+            5.0,
+            5.24,
+            5.48,
+            5.72,
+            5.96,
+            6.2,
+            6.44,
+            6.68,
+            6.92
+          ],
+          "commanded_strand_widths_mm": [
+            0.13987,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 3.851
+        },
+        {
+          "id": "A24",
+          "text": "15",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 86,
+          "depositing_layer_z_mm": [
+            5.24,
+            5.48,
+            5.72,
+            5.96,
+            6.2,
+            6.44,
+            6.68,
+            6.92,
+            7.16,
+            7.4,
+            7.64,
+            7.88
+          ],
+          "commanded_strand_widths_mm": [
+            0.17725,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 6.283
+        },
+        {
+          "id": "A24",
+          "text": "30",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 119,
+          "depositing_layer_z_mm": [
+            6.92,
+            7.16,
+            7.4,
+            7.64,
+            7.88,
+            8.12,
+            8.36,
+            8.6,
+            8.84,
+            9.08,
+            9.32,
+            9.56,
+            9.8,
+            10.04
+          ],
+          "commanded_strand_widths_mm": [
+            0.21278,
+            0.28919,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 7.394
+        },
+        {
+          "id": "A24",
+          "text": "45",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 101,
+          "depositing_layer_z_mm": [
+            10.28,
+            10.52,
+            10.76,
+            11.0,
+            11.24,
+            11.48,
+            11.72,
+            11.96,
+            12.2,
+            12.44,
+            12.68,
+            12.92,
+            13.16,
+            13.4,
+            13.64
+          ],
+          "commanded_strand_widths_mm": [
+            0.17844,
+            0.21206,
+            0.26831,
+            0.27766,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 7.696
+        },
+        {
+          "id": "A24",
+          "text": "60",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 107,
+          "depositing_layer_z_mm": [
+            14.6,
+            14.84,
+            15.08,
+            15.32,
+            15.56,
+            15.8,
+            16.04,
+            16.28,
+            16.52,
+            16.76,
+            17.0,
+            17.24,
+            17.48,
+            17.72,
+            17.96
+          ],
+          "commanded_strand_widths_mm": [
+            0.13069,
+            0.19319,
+            0.24246,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 10.679
+        },
+        {
+          "id": "A24",
+          "text": "75",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 96,
+          "depositing_layer_z_mm": [
+            19.88,
+            20.12,
+            20.36,
+            20.6,
+            20.84,
+            21.08,
+            21.32,
+            21.56,
+            21.8,
+            22.04,
+            22.28,
+            22.52,
+            22.76,
+            23.0,
+            23.24
+          ],
+          "commanded_strand_widths_mm": [
+            0.26378,
+            0.27172,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 6.841
+        },
+        {
+          "id": "A24",
+          "text": "90",
+          "view_axis": "x",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 85,
+          "depositing_layer_z_mm": [
+            25.16,
+            25.4,
+            25.64,
+            26.12,
+            26.36,
+            26.6,
+            27.08,
+            27.32,
+            27.56,
+            27.8,
+            28.04,
+            28.28,
+            28.52
+          ],
+          "commanded_strand_widths_mm": [
+            0.27504,
+            0.42,
+            0.45
+          ],
+          "model_features": [
+            "Gap infill",
+            "Outer wall",
+            "Overhang wall"
+          ],
+          "retained_centerline_length_mm": 13.051
+        }
+      ]
+    }
   }
 }
