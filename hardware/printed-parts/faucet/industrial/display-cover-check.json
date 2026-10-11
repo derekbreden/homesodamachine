@@ -2,21 +2,21 @@
   "passed": true,
   "geometry_source_sha256": {
     "hardware/printed-parts/faucet/industrial/check_display_cover.py": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
-    "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
-    "hardware/faucet-layout/faucet_assembly.py": "3855ac2629d461d9b45cf1d6b17c4768ecaaa90ffe45516827172ed5f18673f6",
+    "hardware/scripts/check_faucet_geometry.py": "849ac6051df29486ffdc4885ecd7bb1dd7afa79d85bb8f2a9455a59dce17435e",
+    "hardware/faucet-layout/faucet_assembly.py": "ebc1ef1c0a35f3dd66bfa6c37826ddb27bf146396188bee1d73fa3da3e2aa4e7",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b4bd58e0ab474fae08cf6d133f029fe9524fad639c3ba64e0bc3f1123a3f8268",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "571381ae897a5fdaece192c605e5af0e11ca8b64bb984184d2d9bf2a1b55b604",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
   },
   "saved_geometry_sha256": {
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "3df28b22e8053d5a7ffa053ba9417f41ad6509f5b453152cdd388521f0416952",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "9eba7ef55e49b94a1173186636020bc33f745fd757c927e4d5bfa17415af28fe",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "f68a26ea0656403fba59a8d4fec43aa6474654d142cecc3ba86d7d986902bbf8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648"
   },
   "checks": {
     "provenance:saved-cover-current-builder": {
@@ -55,7 +55,7 @@
     },
     "clearance:seated-ribbon": {
       "overlap_mm3": 0.0,
-      "gap_mm": 3.1460537,
+      "gap_mm": 2.8966381,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -103,7 +103,7 @@
     },
     "clearance:relaxed-ribbon": {
       "overlap_mm3": 0.0,
-      "gap_mm": 2.4773951,
+      "gap_mm": 2.2284032,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -767,7 +767,7 @@
     "clearance:snap-travel-ribbon-neck": {
       "maximum_sampled_overlap_mm3": 0.0,
       "maximum_overlap_pose": null,
-      "minimum_sampled_gap_lower_bound_mm": 0.2874659,
+      "minimum_sampled_gap_lower_bound_mm": 3.3678737,
       "required_gap_mm": 0.1,
       "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
       "passed": true
@@ -1367,7 +1367,7 @@
       "passed": true
     },
     "coverage:display-rear-electronics": {
-      "sample_count": 209,
+      "sample_count": 210,
       "missing_barrier_count": 0,
       "independent_edge_boolean_crosschecks": [
         {
@@ -2098,20 +2098,8 @@
         },
         {
           "x_mm": -6.0,
-          "n_mm": 10.2,
-          "hardware_rear_s_mm": 40.2314268,
-          "printed_rear_barrier_s_intervals_mm": [
-            [
-              47.24,
-              50.7500001
-            ]
-          ],
-          "present": true
-        },
-        {
-          "x_mm": -6.0,
           "n_mm": 10.7,
-          "hardware_rear_s_mm": 40.2300199,
+          "hardware_rear_s_mm": 40.5416116,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2123,7 +2111,7 @@
         {
           "x_mm": -6.0,
           "n_mm": 11.2,
-          "hardware_rear_s_mm": 40.2288875,
+          "hardware_rear_s_mm": 40.5401615,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2135,11 +2123,35 @@
         {
           "x_mm": -6.0,
           "n_mm": 11.7,
-          "hardware_rear_s_mm": 34.4064437,
+          "hardware_rear_s_mm": 33.523839,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
               50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 14.9439593,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 14.5553564,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              49.2865134
             ]
           ],
           "present": true
@@ -2339,7 +2351,7 @@
         {
           "x_mm": -3.0,
           "n_mm": 10.2,
-          "hardware_rear_s_mm": 42.7853977,
+          "hardware_rear_s_mm": 43.2707498,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2351,7 +2363,7 @@
         {
           "x_mm": -3.0,
           "n_mm": 10.7,
-          "hardware_rear_s_mm": 42.7804635,
+          "hardware_rear_s_mm": 42.756298,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2363,7 +2375,7 @@
         {
           "x_mm": -3.0,
           "n_mm": 11.2,
-          "hardware_rear_s_mm": 40.3395701,
+          "hardware_rear_s_mm": 39.7453539,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2603,7 +2615,7 @@
         {
           "x_mm": 0.0,
           "n_mm": 10.2,
-          "hardware_rear_s_mm": 43.434812,
+          "hardware_rear_s_mm": 43.1787402,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -2615,7 +2627,7 @@
         {
           "x_mm": 0.0,
           "n_mm": 10.7,
-          "hardware_rear_s_mm": 41.0672133,
+          "hardware_rear_s_mm": 40.7105587,
           "printed_rear_barrier_s_intervals_mm": [
             [
               47.24,
@@ -7368,7 +7380,7 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+      "sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
       "tolerance_mm": 0.005,
       "tolerance_is_relative": false,
       "angular_tolerance_rad": 0.05,
@@ -7389,37 +7401,9 @@
     "bezel_n_bottom": 21.05
   },
   "reference_artifact_sha256": {
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "f68a26ea0656403fba59a8d4fec43aa6474654d142cecc3ba86d7d986902bbf8",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648"
   },
   "validation_script_sha256": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
-  "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.",
-  "retained_measurement_scope": {
-    "source_geometry_sha256": {
-      "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "3df28b22e8053d5a7ffa053ba9417f41ad6509f5b453152cdd388521f0416952",
-      "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "d7e0a9f4615d449991f9217a5070a762159b9ea51b1fbfd7c386e92901bf3c89",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
-    },
-    "source_builder_sha256": {
-      "hardware/printed-parts/faucet/industrial/check_display_cover.py": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
-      "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
-      "hardware/faucet-layout/faucet_assembly.py": "3855ac2629d461d9b45cf1d6b17c4768ecaaa90ffe45516827172ed5f18673f6",
-      "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
-      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b0e041857b8c9800a30e4ba70f341f6a9ebb59355f558a166c00ea4fb40dd2d7",
-      "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
-      "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
-      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
-      "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
-      "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
-    },
-    "current_lower_stock_reading": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
-    "unchanged_complete_tip_native_DATA": true,
-    "changed_executable_builders": [
-      "build_lever_front_clearance",
-      "build_zone3_inner_cut"
-    ],
-    "changed_stock_cad_z_max_mm": 57.5,
-    "scope": "The 45 cover measurements and complete display obstacle remain unchanged. The only executable corrections open donor/lever clearances below CAD Z57.5; the complete tip native STEP DATA and all cover geometry are unchanged."
-  }
+  "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial."
 }
