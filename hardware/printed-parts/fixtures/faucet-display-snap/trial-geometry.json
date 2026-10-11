@@ -18,10 +18,10 @@
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "1e4422901de580b6ce5aaaf4d7e81097444008da30b7307e69d19f119b024cf8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "ea3f53bee855e3752bc3f9e5473ba0a51055f1daf4c62acf3b312c17d8b223f1",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "467ee7b216d4ebc14b37fa46eba8410961ef323696ef1c427e9d68c021616a94",
     "hardware/printed-parts/faucet/_display_snap.py": "60838fcc586c22594d1a8e5eb4ee3de24d1633668ccf4b137007b6d895629223",
-    "hardware/faucet-layout/faucet_assembly.py": "cd46123f3b7757b4ab11e74d96de622a0b02041822fff64e4589ada2e1d4f870",
+    "hardware/faucet-layout/faucet_assembly.py": "d72826fdace594638fcb20efaef62756682ad5416806e361012515609da2f1c5",
     "hardware/printed-parts/faucet/refresh_print_project.py": "2626228baccd719a7abc6688af45d92c4afb87b8c9f14615b085d21fe5a0bd87",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "4652b1b24a2546c1e8938eb364103abe499fc2c878ca25149880fa726f7e77dc",
     "hardware/printed-parts/faucet/_faucet_interface.py": "4c70a7fa69be411583953525c31008de150a3fc6f6f35ac7304ee161c23310ca",
@@ -30,7 +30,7 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "788f23baed327e3972a71ca48f2f2fe70b2317dfa1f673ae1a9e4d543c74efdb",
+      "sha256": "58b09908afcfcbb0f4191ff76f9addb3e9028f7248cbfb3ed900d29443690176",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
       "volume_mm3": 23656.36973635334,
@@ -52,7 +52,7 @@
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "bdbf30bb6584c188cdfd086b5bd4ee869cd3189da995d512ea273968682840c6",
+      "sha256": "5cb6c9587c65386ef485e66fcabe9363b2dd0707f0f3036effa8846aa26263fc",
       "source_rotation_x_degrees": -50.0,
       "source_stl_already_in_print_pose": true,
       "volume_mm3": 3803.4641634210147,
