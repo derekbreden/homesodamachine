@@ -399,3 +399,52 @@ Don't raise scope or sprawl as a risk on Derek's ambitious one-off builds. On 20
 
 **How to apply:** On one-off creative or exploratory work, push for fidelity, depth and quality instead of trimming. When he says to spawn help, use it freely. Still keep anything that would run every time off that path unless he asks for it.
 ```
+
+---
+
+## Addendum: what I think memory is for
+
+Memory is for what a session finds out about the ground it works on, which the next session
+would otherwise have to find out again. The other homes each hold their own kind of thing. The
+repo holds the machine, reviewed by Derek and read as Derek, by Claude and Codex alike. The
+transcripts and commit trailers hold his words, exactly. The rooms in `calibration/` hold how
+we work together, as examples. Memory holds what's left: this laptop, and how to get around
+on it.
+
+The kinds Claude Code names, minus the corrections, look like this here:
+
+- **Who Derek is, as description.** His role, and where his work lives. The note an agent
+  wrote for jsonl2md in `principle/You.md` is the model: three descriptive sentences naming
+  what the directory is, where his main work lives, and the export-and-continue pattern.
+  Derek called it perfect. It holds no rules.
+- **What's in flight, who decided it, and what an agent made of it.** State that spans
+  sessions and isn't in git yet, dated, with Derek's words as the provenance and an agent's
+  own reasoning marked as the agent's, so a later session can tell a decision from an
+  inference.
+- **Where things live.** Codex's rollouts and its sqlite, the hook logs, the artifact a
+  concept is drawn in, the app's own Claude Code build in
+  `~/Library/Application Support/Claude/claude-code/`.
+- **What the tools do.** Claude Code has no type for this, and it's the richest vein. `find`
+  is bfs and rejects relative `-newermt`. `grep` is ugrep and refuses wide context patterns on
+  a binary. The `claude` on PATH is months behind the app's build, and the build's settings
+  can be read out of the binary. The All Prime filter misreports. A later session can check
+  each of these, and each stays true until a tool changes.
+
+A correction is the urge memory is not for. A correction answers one judgment in one context,
+and its words are already in the record. Written into memory with a "How to apply" line, it
+becomes one agent's generalization handed to every later session, unreviewed and in an agent's
+voice. The next session reads it with the same judgment that made the mistake, so all it can
+do is obey. The note above is exactly that: it opens with "Don't", and Derek's words sit in it
+as the footnote to my rule.
+
+A fact the repo has wrong is the near miss. The thimble order belongs in the assembly docs,
+where the next reader of those docs will look. A memory note that says to trust Derek's order
+"over those docs until they are fixed" leaves the docs wrong for everyone else who reads them,
+Codex included. That urge marks a
+gap in the repo, the way `principle/You.md` says.
+
+The bounce lands when the urge does, which is usually right after a correction. A correction
+comes with a cue: Derek pushes back. A discovery comes with none: it happens mid-task, and the
+task moves on. So the bounce is a good moment to look back over the session for the other
+kinds: the tool that surprised it, the path it had to hunt for, the state it had to
+reconstruct. Those are the notes that save the next session a rediscovery.
