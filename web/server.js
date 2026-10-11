@@ -16,6 +16,7 @@ import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
+import { mountStyleGuideRoutes } from "./lib/style-guide.js";
 import { mountFirmwareRoutes } from "./lib/firmware.js";
 import { mountEvents } from "./lib/events.js";
 import {
@@ -297,6 +298,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
+  mountStyleGuideRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountFirmwareRoutes(app, { commit });
   attachSubscribe(app, pool);
 
