@@ -2,7 +2,7 @@
 
 ## Complete 0.12 mm shoulder faucet — held 2026-10-09, Mark2
 
-- [Complete five-part plate](prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md),
+- Complete five-part plate (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md`, in git at 45dd5672e9),
   including the side-down lever, corrected continuous six-wall solid foot,
   base Arachne and 15% infill/wall overlap.
 - 0.20 mm first bed layers and normal 0.24 mm layers; the base alone uses

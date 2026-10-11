@@ -2,7 +2,7 @@
 
 This Mark2 plate contains the industrial shell base, shared shell tip, industrial
 display cover, above-counter plate and accepted side-down lever replica. The
-normal process settings match the [complete solid-foot plate](../2026-10-09-all008-solid-foot-mark2/README.md)
+normal process settings match the complete solid-foot plate (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/README.md`, in git at 45dd5672e9)
 byte-for-byte. The model meshes, placements, 0.20 mm first bed layer, temperatures,
 tree supports, speeds, acceleration, retract wiping and Auto Lift are retained.
 
@@ -11,7 +11,7 @@ print Z2.12 mm, then 0.08 mm above. The emitted sequence is a 0.20 mm first bed
 layer, eight 0.24 mm model layers ending at Z2.12, then 0.08 mm model layers starting
 at Z2.20. The other four models use 0.08 mm above their first bed layers.
 
-[The operator's observation](../2026-10-09-all008-tip-grid-no-wipe-mark2/physical-result/physical-result.json)
+The operator's observation (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/physical-result/physical-result.json`, in git at 45dd5672e9)
 identifies the model's narrow starting edge as the lifting material in the last
 article. The [native first/second-layer comparison](tip-root-comparison.png) shows
 1.339 mm² of model bead footprint for the all-0.08 tip start and 2.636 mm² for this
