@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "reviewed_at_utc": "2026-10-11T00:03:10.111195+00:00",
+  "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+  "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+  "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+  "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+  "live_geometry_review": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/live-geometry-review.json",
+  "publish_live_before_lint": true,
+  "geometry_lint": {
+    "facets": 1644,
+    "findings": 0
+  },
+  "native_scarf_length_maximum_error_mm": 0.0009043992158215275,
+  "preparation_only": true,
+  "physical_surface_evaluated": false,
+  "scope": "Cropped solid, native paths and published geometry only; no physical swatch result."
+}
