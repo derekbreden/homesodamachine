@@ -611,6 +611,8 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the non-Bambu filaments (SpoolHaus PEBA, Siraya Tech Flex TPU, the Polymaker Fiberon grades) — kept separate because the vendor and receipt trail are distinct.
 
 Receipts grouped by order; itemized orders separate equipment, filament and tax. Hotend sizes, sides and flow variants are from the Gmail order confirmations, reconciled 2026-09-15.
+A confirmation carries no order date. The number after `us` is a snowflake ID: `(n >> 22)` milliseconds after
+2020-11-03 03:32:25 UTC is when the order was placed, and its America/Chicago date is the order date below.
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
