@@ -1,0 +1,30 @@
+# Current STL SHA256: 7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[thin] These exact 1.12 mm readings bound the outer footer stock above the source wing-slot exit: manufacturing Z 2.38 to Z 3.50. The slot retains the complete grip span and 1.68 mm wing with 0.45 mm retaining air. The receiver itself retains 3.00 mm end walls and 12.00 mm stock above the slot within those walls; the added outer footer is a separate storage adaptation. The exit stays open for source-wing insertion and support cleanup. This local footer web has no physical handling-load or lifetime acceptance.
+alternatives: A 4.50 mm outer footer gives 2.12 mm above the same slot, and a 5.38 mm footer gives 3.00 mm; either enlarges the side module and needs its storage/removal access reviewed. Trimming the footer away from the wing exit eliminates this local web but reduces the storage bridge. Closing the exit fills the opening but changes the represented source-wing access and support-removal geometry.
+file: hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step
+click: x=-43.037 y=-2.295 z=2.380
+click: x=-43.037 y=-2.295 z=3.500
+click: x=43.037 y=2.295 z=2.380
+click: x=43.037 y=2.295 z=3.500
+
+[thin] These exact pairs bound 3.00 mm receiver back-web or end-wall stock. The back web runs manufacturing Y 6.00–9.00; the end walls are X 40.00–43.00 and X -43.00–-40.00. The full source wing slots and span remain in those end walls. This is ordinary connected receiver stock rather than a clearance rung or flexible calibration wall. The vertical reference has no physical load, stiffness or handling-life qualification.
+alternatives: A 4.00 or 6.00 mm back web can grow outward while keeping its inner face, but enlarges the side module and needs a new dock/removal review. Thicker end walls increase wing-slot engagement length and change the source receiver section unless the new stock stays beyond its original span. Separate broad receiver blocks use more material and another alignment joint instead of this full-span web.
+file: hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step
+click: x=-44.697 y=9.000 z=13.980
+click: x=-44.697 y=6.000 z=13.980
+click: x=-39.849 y=9.000 z=13.411
+click: x=-39.849 y=6.000 z=13.411
+click: x=43.257 y=9.000 z=3.605
+click: x=43.257 y=6.000 z=3.605
+click: x=-43.000 y=-6.037 z=0.874
+click: x=-40.000 y=-6.037 z=0.874
+click: x=43.000 y=-6.037 z=0.874
+click: x=40.000 y=-6.037 z=0.874
+
+[ledge] This underside belongs to the downward-open lower storage channel in the added GR footer, not a source grip retaining surface. In the manufacturing pose its roof is Z 2.30 over a 4.30 mm Y bridge span, leaving 1.20 mm solid stock to the footer top Z 3.50. The channel is open through the footer bottom and along the world -X withdrawal path. Current native first roof nozzle Z 2.60 has 6 Bridge and 2 Overhang-wall deposits with no channel support, followed by solid infill at Z 2.84. The assembled rooted P key preserves 0.15 mm nominal Y air per side and 0.27 mm nominal top air; physical release and handling force remain unmeasured.
+alternatives: A 4.50 or 5.30 mm manufacturing footer provides 2.20 or 3.00 mm roof stock over the same channel, but grows the outboard module and needs its grip access and withdrawal envelope reviewed. A separately bedded socket cap removes this bridge while adding an attachment/alignment joint. Opening through the roof removes the local roof but changes the lower module bearing and requires a different storage fixture.
+file: hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step
+click: x=-47.950 y=-0.717 z=2.300
