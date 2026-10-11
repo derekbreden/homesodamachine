@@ -393,13 +393,13 @@
   "viewer_hosts": [
     {
       "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "cff980456744825e585956292b370088ab69520aadadc850a801661d19368da6",
+      "sha256": "30563852249cf8b1c8a912aa76475fb2dc94564eedeee026780edcec09631647",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     },
     {
       "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "4a08513526788ddfc25818f85bd291814ae0704d4aadff7237427efa6e075299",
+      "sha256": "9b20f0aad586583927759d56f9acc875fa64d28183a1a0dbc024d864add049ad",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     }
