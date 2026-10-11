@@ -1,0 +1,52 @@
+# Current STL SHA256: b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[step] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=0.643 y=9.563 z=23.480
+
+[sliver] This 1.00 mm wide top strip is the exposed rear margin of the 3.00 mm thick base outside the 4.00 mm upright, not a one-millimetre wall or free fin. The base spans 30 by 9 mm and carries the two underside storage sockets; the upright starts at Y 9 and ends at Y 13 while the base reaches Y 14. Preserve the same heel on all three ceilings.
+alternatives: A deeper base adds a broader margin but changes the common footprint and storage clearance. Extending the upright to the rear base edge removes the strip by adding stock, but thickens the upright and changes this cantilever's backing stiffness. Cutting the strip off narrows the base without enlarging any structural section.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=0.000 y=13.500 z=3.000
+
+[ceiling] This is the required identical 3.00 mm thick, 30 by 21 mm flat cantilever ceiling at Z 17.00. It deliberately receives automatic supports so R30/R45/R60 can compare top-distance settings with three open removal directions: front -Y and both X sides. Native first roof nozzle Z 17.24 with 0.24 mm model step gives underside Z 17.00; highest supports Z 16.76/16.52/16.28 command 0.24/0.48/0.72 mm air for requested 0.30/0.45/0.60 mm. Physical removal and sag of these new specimens are unrecorded.
+alternatives: A self-supporting sloped roof or a bed-facing separately printed roof avoids this ceiling but removes the supported flat surface that the comparison measures. Increasing roof thickness improves stock while changing cooling and bending during removal. A shorter cantilever changes its span and support contact area rather than isolating support distance.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=0.000 y=-1.500 z=17.000
+
+[ceiling] These are the blind underside storage sockets: diameter 6.30 mm, roof Z 2.25, mating the 6.00 mm carrier pegs of height 2.00 mm. The 0.15 mm radial air and 0.25 mm top air keep these gravity-parked samples removable. Their bed-facing openings provide removal access; the saved project retains its automatic support decisions. This describes nominal docking geometry, not measured release force or roof strength.
+alternatives: An open through-bore eliminates the socket roof but cuts the sample's upper face or active comparison surface. A 3.00 mm roof requires 2.25 mm more local stock above the current 3.00 mm heel; it raises or enlarges the heel and needs new display placements. A shallower peg preserves a thicker roof but reduces the two-millimetre storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=-9.000 y=9.500 z=2.250
+click: x=9.000 y=9.500 z=2.250
+
+[thin] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=-0.930 y=8.384 z=23.360
+click: x=-0.930 y=8.179 z=23.360
+
+[thin] These exact opposite surfaces bound the 0.75 mm roof over a 6.30 mm diameter, 2.25 mm deep storage socket in the 3.00 mm heel. It is a local docking roof, not the active angle or support-ceiling comparison. The socket is open from the bed side and the prepared project records the actual support/bridge treatment; the nominal thickness is not a strength or lifetime claim.
+alternatives: Thickening this roof to 3.00 mm requires a 5.25 mm heel with the same socket depth, adding 2.25 mm and changing the heel/display datum. Opening the socket through the heel removes the roof but perforates the upper sample face. Shorter pegs reduce socket depth and leave more roof, with less storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=-7.110 y=7.542 z=3.000
+click: x=-7.110 y=7.542 z=2.250
+click: x=11.860 y=8.630 z=3.000
+click: x=11.860 y=8.630 z=2.250
+
+[thin] These shortest approaches are around the common 24 by 7 by 3 mm identifier pad above the cantilever, toward its rounded edge or the start of the raised identifier. The pad is backed by the full roof and upright; the readings are not the 3.00 mm active cantilever thickness. The larger roof-thickness reading is answered separately.
+alternatives: A wider or square-edged identifier pad increases these local corner distances but adds material/cooling area above the comparison roof. Making the entire upper region uniformly thicker also changes roof rigidity and thermal exposure. Moving the identifier to a separate tag removes this pad but introduces a detachable identity that can be mismatched.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=-0.892 y=6.000 z=22.660
+click: x=-0.802 y=8.179 z=23.000
+click: x=-2.614 y=13.000 z=22.695
+click: x=-2.614 y=10.558 z=23.000
+
+[thin] These opposite surfaces bound the actual 3.00 mm cantilever roof. All three R specimens retain this identical section while only the prepared support top distance differs. The stock is a removable finish/support comparison; it carries no appliance load or removal-life acceptance.
+alternatives: A 4.00 or 6.00 mm roof provides more stock but changes bending/cooling and the support-removal comparison. A shorter unsupported span lowers bending without retaining the common 30 by 21 mm supported surface. A backed wall eliminates the cantilever at the cost of its three-sided removal access.
+file: hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step
+click: x=14.641 y=8.899 z=17.000
+click: x=14.641 y=8.899 z=20.000
