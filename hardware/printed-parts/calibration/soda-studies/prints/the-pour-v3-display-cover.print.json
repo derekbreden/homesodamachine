@@ -1,0 +1,1341 @@
+{
+  "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v3-display-cover.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "e79b2443db4b9ebf229e18da05182411ded371b8fd1e6439c17a49e81d011af6",
+  "source_settings_sha256": "1dd0722ab9703ac0011c2e0c246ebcfc6474c7c8badde88117fdaa4fb8832f57",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 60.0,
+  "plate_count": 1,
+  "project_sha256": "9a6305bd43068c7b24e61418879272fc78cea7a432c27444b7e33d618e81b93e",
+  "settings_preserved_byte_for_byte": false,
+  "print_objects": [
+    {
+      "id": "display_cover",
+      "name": "Full flat-wing display bezel",
+      "manufacturing_frame": {
+        "id": "display_cover-native-print",
+        "baked_into_meshes": true,
+        "from_source_matrix_mm": [
+          [
+            0.8660254037844376,
+            -0.43301270189222063,
+            -0.25000000000000183,
+            47.870190528382565
+          ],
+          [
+            0.5000000000000021,
+            0.7499999999999979,
+            0.43301270189222063,
+            -82.91360216316274
+          ],
+          [
+            0.0,
+            -0.5000000000000021,
+            0.8660254037844376,
+            -74.64299419705495
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "authority": "Native production axis retained after rigid service-section placement"
+      },
+      "object_id": "2",
+      "identify_id": 1901,
+      "layer_range_object_index": 1,
+      "object_overrides": {
+        "layer_height": "0.24",
+        "enable_support": "0",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "wall_generator": "classic",
+        "wall_loops": "2",
+        "wall_sequence": "inner wall/outer wall",
+        "infill_wall_overlap": "15%",
+        "seam_position": "aligned",
+        "brim_type": "no_brim",
+        "brim_width": "0"
+      },
+      "layer_ranges": [
+        {
+          "min_z_mm": 0.2,
+          "max_z_mm": 0.48,
+          "options": {
+            "layer_height": "0.28"
+          }
+        }
+      ],
+      "manufacturing_to_plate_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          162.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          160.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          8.328484909725375e-06
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "native_review": {},
+      "pauses": [],
+      "recipe_sources": [
+        {
+          "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_print.py",
+          "sha256": "b1fb704b839502d228d6337db7805cd71af0c0957a7f262bd65e3666701cb66a"
+        }
+      ],
+      "physical_part_ids": [
+        "display_cover"
+      ],
+      "volumes": [
+        {
+          "id": "display_cover",
+          "part_id": "display_cover",
+          "print_object_id": "display_cover",
+          "subtype": "normal_part",
+          "object_id": "2",
+          "volume_id": "1",
+          "identify_id": 1901,
+          "layer_range_object_index": 1,
+          "member": "3D/Objects/object_1.model",
+          "triangles": 3088,
+          "shared_frame_bounds_mm": [
+            [
+              -74.74117279052734,
+              -65.11890411376953,
+              -8.328484909725375e-06
+            ],
+            [
+              74.74117279052734,
+              65.11890411376953,
+              3.8400075435638428
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              87.75882720947266,
+              94.88109588623047,
+              0.0
+            ],
+            [
+              237.24117279052734,
+              225.11890411376953,
+              3.8400158720487525
+            ]
+          ],
+          "source_center_mm": [
+            0.0,
+            0.0,
+            1.9199996075394665
+          ],
+          "plate_translation_mm": [
+            162.5,
+            160.0,
+            1.9200079360243762
+          ],
+          "embedded_vertex_error_mm": 5.000018177270249e-10,
+          "source": "hardware/printed-parts/calibration/soda-studies/parts/display_cover.stl",
+          "source_stl_sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db",
+          "filament_slot": 1,
+          "source_to_shared_frame_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "region_overrides": {},
+          "source_part": {
+            "id": "display_cover",
+            "name": "Full flat-wing display bezel",
+            "stl": "hardware/printed-parts/calibration/soda-studies/parts/display_cover.stl",
+            "stl_sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db"
+          },
+          "native_review": {}
+        }
+      ],
+      "native_schedule_scope": "One model schedule per parent, including registered material/captive volumes. Leaf deposition witnesses require their supplied windows or material tool attribution."
+    }
+  ],
+  "volumes": [
+    {
+      "id": "display_cover",
+      "part_id": "display_cover",
+      "print_object_id": "display_cover",
+      "subtype": "normal_part",
+      "object_id": "2",
+      "volume_id": "1",
+      "identify_id": 1901,
+      "layer_range_object_index": 1,
+      "member": "3D/Objects/object_1.model",
+      "triangles": 3088,
+      "shared_frame_bounds_mm": [
+        [
+          -74.74117279052734,
+          -65.11890411376953,
+          -8.328484909725375e-06
+        ],
+        [
+          74.74117279052734,
+          65.11890411376953,
+          3.8400075435638428
+        ]
+      ],
+      "plate_bounds_mm": [
+        [
+          87.75882720947266,
+          94.88109588623047,
+          0.0
+        ],
+        [
+          237.24117279052734,
+          225.11890411376953,
+          3.8400158720487525
+        ]
+      ],
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.9199996075394665
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        1.9200079360243762
+      ],
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/display_cover.stl",
+      "source_stl_sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db",
+      "filament_slot": 1,
+      "source_to_shared_frame_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "region_overrides": {},
+      "source_part": {
+        "id": "display_cover",
+        "name": "Full flat-wing display bezel",
+        "stl": "hardware/printed-parts/calibration/soda-studies/parts/display_cover.stl",
+        "stl_sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db"
+      },
+      "native_review": {}
+    }
+  ],
+  "schema": 3,
+  "cohort": "rigid",
+  "requested_global_overrides": {
+    "initial_layer_print_height": ".20",
+    "spiral_mode": "0",
+    "layer_height": "0.24",
+    "is_infill_first": "0"
+  },
+  "first_layer_height_mm": 0.2,
+  "material_volume_counts": {
+    "display_cover": 1
+  },
+  "printable_part_ids": [
+    "display_cover"
+  ],
+  "preparation_source_sha256": "8c6881349c10c7c818ad5bdef1e596da9c350b91727595040c43952ee20838a9",
+  "preparation_only": false,
+  "submitted": false,
+  "reader_source_sha256": "3cf264a56c5787795ff361232a4462523c2d8425ff028d797b2d784ff5e177c0",
+  "slicer_option_scope_source": {
+    "tag": "v02.08.02.61",
+    "path": "src/libslic3r/PrintConfig.hpp",
+    "sha256": "ec03ce1948fc40ba8be27525f95eadbe4ad925356ccb4d51a81d8bf23b09a9db",
+    "url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PrintConfig.hpp"
+  },
+  "saved_project_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "material_source": {},
+  "native_material_mapping": {
+    "filament_settings_id": [
+      "Polymaker PET-GF @BBL H2C"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "extruder_offset": [
+      "0x0",
+      "0x0"
+    ],
+    "enable_prime_tower": "1"
+  },
+  "physical_result": "Unprinted V3 preparation; no release, fit, strength or lifetime acceptance.",
+  "plate_id": "display-cover",
+  "source_manifest": "hardware/printed-parts/calibration/soda-studies/manifest.json",
+  "source_manifest_sha256": "a0ad64923f93e3bb8093072deb4139899afd402708fa2236a4674dd39833fb7a",
+  "requested_layout": {
+    "offsets_mm": [
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "model_border_mm": 60.0,
+    "model_spacing_mm": 40.0
+  },
+  "native": {
+    "archive": ".cache/prints/soda-studies-v3/the-pour-v3-display-cover/native/the-pour-v3-display-cover.gcode.3mf",
+    "archive_sha256": "653c4dda8adf135cc28a442f8625ad2121012814165b503aa66fc6fe92ff9c2b",
+    "source_project_sha256": "9a6305bd43068c7b24e61418879272fc78cea7a432c27444b7e33d618e81b93e",
+    "gcode_sha256": "93f9a3d5cef2420f738e17aaf8abdd57b0b8f45cb17000978b4cb6eaf1d6fc4f",
+    "layer_count": 16,
+    "first_layer_z_mm": 0.2,
+    "object_model_deposition": [
+      {
+        "id": "display_cover",
+        "identify_id": 1901,
+        "physical_part_ids": [
+          "display_cover"
+        ],
+        "manufacturing_frame": {
+          "id": "display_cover-native-print",
+          "baked_into_meshes": true,
+          "from_source_matrix_mm": [
+            [
+              0.8660254037844376,
+              -0.43301270189222063,
+              -0.25000000000000183,
+              47.870190528382565
+            ],
+            [
+              0.5000000000000021,
+              0.7499999999999979,
+              0.43301270189222063,
+              -82.91360216316274
+            ],
+            [
+              0.0,
+              -0.5000000000000021,
+              0.8660254037844376,
+              -74.64299419705495
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "authority": "Native production axis retained after rigid service-section placement"
+        },
+        "requested_object_overrides": {
+          "layer_height": "0.24",
+          "enable_support": "0",
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "wall_generator": "classic",
+          "wall_loops": "2",
+          "wall_sequence": "inner wall/outer wall",
+          "infill_wall_overlap": "15%",
+          "seam_position": "aligned",
+          "brim_type": "no_brim",
+          "brim_width": "0"
+        },
+        "requested_layer_ranges": [
+          {
+            "min_z_mm": 0.2,
+            "max_z_mm": 0.48,
+            "options": {
+              "layer_height": "0.28"
+            }
+          }
+        ],
+        "emitted_model_layers": [
+          {
+            "model_nozzle_z_mm": 0.2,
+            "nominal_model_layer_z_mm": 0.2,
+            "nominal_model_z_step_mm": 0.2,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              0.2,
+              0.2
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.2
+            ],
+            "commanded_strand_widths_mm": [
+              0.5,
+              0.5002
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Bottom surface"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 773.26203,
+            "outer_wall_depositing_moves": 138,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 0.48,
+            "nominal_model_layer_z_mm": 0.48,
+            "nominal_model_z_step_mm": 0.28,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              0.48,
+              0.48
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.28
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.420489,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Internal solid infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 772.94784,
+            "outer_wall_depositing_moves": 143,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 0.72,
+            "nominal_model_layer_z_mm": 0.72,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              0.72,
+              0.72
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.420494,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Internal solid infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 772.94855,
+            "outer_wall_depositing_moves": 143,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 0.96,
+            "nominal_model_layer_z_mm": 0.96,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              0.96,
+              0.96
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.419994,
+              0.42,
+              0.420025,
+              0.420027,
+              0.441976,
+              0.443389,
+              0.444329,
+              0.45,
+              0.461344,
+              0.462524,
+              0.483044,
+              0.483534,
+              0.485939,
+              0.486174,
+              0.486194,
+              0.490179,
+              0.492999,
+              0.514804,
+              0.517234,
+              0.517254,
+              0.529903,
+              0.536969,
+              0.541669,
+              0.543822,
+              0.545524,
+              0.547474,
+              0.547854
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill",
+              "Internal solid infill",
+              "Sparse infill",
+              "Internal solid infill",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 772.9485,
+            "outer_wall_depositing_moves": 145,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 1.2,
+            "nominal_model_layer_z_mm": 1.2,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              1.2,
+              1.2
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.419994,
+              0.42,
+              0.420025,
+              0.420027,
+              0.420051,
+              0.442026,
+              0.443389,
+              0.444333,
+              0.444339,
+              0.45,
+              0.460964,
+              0.462524,
+              0.483044,
+              0.483569,
+              0.486089,
+              0.486184,
+              0.486199,
+              0.490179,
+              0.493009,
+              0.493029,
+              0.514804,
+              0.517224,
+              0.517229,
+              0.530153,
+              0.536969,
+              0.541686,
+              0.541719,
+              0.543837,
+              0.545524,
+              0.547464,
+              0.547875
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 772.94862,
+            "outer_wall_depositing_moves": 148,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 1.44,
+            "nominal_model_layer_z_mm": 1.44,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              1.44,
+              1.44
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.121403,
+              0.121541,
+              0.121552,
+              0.123153,
+              0.123158,
+              0.123159,
+              0.12316,
+              0.123161,
+              0.123162,
+              0.123163,
+              0.123523,
+              0.127686,
+              0.165967,
+              0.166001,
+              0.170819,
+              0.17082,
+              0.170821,
+              0.170824,
+              0.170825,
+              0.170826,
+              0.170827,
+              0.170832,
+              0.170833,
+              0.171107,
+              0.210394,
+              0.210451,
+              0.21848,
+              0.218481,
+              0.21849,
+              0.218491,
+              0.218492,
+              0.218493,
+              0.218501,
+              0.218502,
+              0.218503,
+              0.21869,
+              0.25482,
+              0.254901,
+              0.299351,
+              0.299553,
+              0.334624,
+              0.33491,
+              0.368042,
+              0.368047,
+              0.408757,
+              0.408769,
+              0.42,
+              0.449492,
+              0.45,
+              0.455665
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Top surface",
+              "Gap infill",
+              "Sparse infill",
+              "Top surface",
+              "Gap infill",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 772.95074,
+            "outer_wall_depositing_moves": 149,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 1.68,
+            "nominal_model_layer_z_mm": 1.68,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              1.68,
+              1.68
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.45,
+              0.479619,
+              0.479659,
+              0.494479,
+              0.498999,
+              0.524129,
+              0.529109,
+              0.546309,
+              0.546311
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25762,
+            "outer_wall_depositing_moves": 121,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 1.92,
+            "nominal_model_layer_z_mm": 1.92,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              1.92,
+              1.92
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.45,
+              0.479619,
+              0.480679,
+              0.495284,
+              0.497964,
+              0.524129,
+              0.546197,
+              0.546306
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Floating vertical shell",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25863,
+            "outer_wall_depositing_moves": 121,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 2.16,
+            "nominal_model_layer_z_mm": 2.16,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              2.16,
+              2.16
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25687,
+            "outer_wall_depositing_moves": 118,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 2.4,
+            "nominal_model_layer_z_mm": 2.4,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              2.4,
+              2.4
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25763,
+            "outer_wall_depositing_moves": 121,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 2.64,
+            "nominal_model_layer_z_mm": 2.64,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              2.64,
+              2.64
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.391504,
+              0.42,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill",
+              "Floating vertical shell",
+              "Sparse infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25665,
+            "outer_wall_depositing_moves": 119,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 2.88,
+            "nominal_model_layer_z_mm": 2.88,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              2.88,
+              2.88
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24,
+              0.4
+            ],
+            "commanded_strand_widths_mm": [
+              0.40012,
+              0.42,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Bridge"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25756,
+            "outer_wall_depositing_moves": 120,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 3.12,
+            "nominal_model_layer_z_mm": 3.12,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              3.12,
+              3.12
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.420484,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Internal solid infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.2583,
+            "outer_wall_depositing_moves": 121,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 3.36,
+            "nominal_model_layer_z_mm": 3.36,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              3.36,
+              3.36
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.420924,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Internal solid infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25649,
+            "outer_wall_depositing_moves": 118,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 3.6,
+            "nominal_model_layer_z_mm": 3.6,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              3.6,
+              3.6
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.42,
+              0.420484,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Inner wall",
+              "Outer wall",
+              "Inner wall",
+              "Outer wall",
+              "Internal solid infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25543,
+            "outer_wall_depositing_moves": 115,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          },
+          {
+            "model_nozzle_z_mm": 3.84,
+            "nominal_model_layer_z_mm": 3.84,
+            "nominal_model_z_step_mm": 0.24,
+            "commanded_depositing_nozzle_z_extent_mm": [
+              3.84,
+              3.84
+            ],
+            "nonplanar_model_depositing_move_count": 0,
+            "commanded_strand_heights_mm": [
+              0.24
+            ],
+            "commanded_strand_widths_mm": [
+              0.112018,
+              0.11514,
+              0.115707,
+              0.115988,
+              0.116745,
+              0.118463,
+              0.118785,
+              0.120748,
+              0.121175,
+              0.121644,
+              0.123151,
+              0.123157,
+              0.123158,
+              0.123159,
+              0.12316,
+              0.123161,
+              0.123162,
+              0.123163,
+              0.123164,
+              0.123165,
+              0.123166,
+              0.137915,
+              0.14931,
+              0.151597,
+              0.154627,
+              0.156446,
+              0.157225,
+              0.157709,
+              0.163605,
+              0.170815,
+              0.170818,
+              0.170819,
+              0.17082,
+              0.170825,
+              0.170826,
+              0.170827,
+              0.170832,
+              0.170833,
+              0.170834,
+              0.170839,
+              0.17084,
+              0.171811,
+              0.18663,
+              0.189239,
+              0.193492,
+              0.193815,
+              0.20194,
+              0.204621,
+              0.206462,
+              0.212588,
+              0.218478,
+              0.21848,
+              0.218481,
+              0.218482,
+              0.21849,
+              0.218491,
+              0.218492,
+              0.218493,
+              0.218501,
+              0.218502,
+              0.218503,
+              0.218505,
+              0.218513,
+              0.218515,
+              0.226057,
+              0.226314,
+              0.227954,
+              0.229637,
+              0.246807,
+              0.249253,
+              0.267401,
+              0.269279,
+              0.284675,
+              0.302537,
+              0.307655,
+              0.312549,
+              0.42,
+              0.45
+            ],
+            "depositing_feature_sequence": [
+              "Outer wall",
+              "Top surface",
+              "Gap infill"
+            ],
+            "first_wall_precedes_first_infill": true,
+            "selected_filament_codes": [
+              0
+            ],
+            "outer_wall_centerline_length_mm": 759.25609,
+            "outer_wall_depositing_moves": 116,
+            "outer_wall_depositing_moves_with_z": 0,
+            "outer_wall_depositing_z_ramp_move_count": 0,
+            "native_filament_selector_indices": [
+              0
+            ]
+          }
+        ],
+        "model_layer_count": 16,
+        "first_model_nozzle_z_mm": 0.2,
+        "model_layer_steps_mm": [
+          0.24,
+          0.28
+        ],
+        "emitted_object_support_segment_count": 0,
+        "model_z_reading_scope": "The model_nozzle_z_mm compatibility field and nominal_model_layer_z_mm read the native layer comment. Actual depositing nozzle Z endpoints are reported separately; spiral/scarf ramps are not planar slabs.",
+        "attribution_scope": "Complete parent print object. Registered colours and captive bodies share this schedule; no individual leaf schedule is inferred."
+      }
+    ],
+    "estimated_time": "23m 27s",
+    "saved_profile_filament_estimate_g": [
+      10.11
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          87.663,
+          94.783
+        ],
+        [
+          237.336,
+          225.217
+        ]
+      ],
+      "maximum_line_width_mm": 0.547875,
+      "arc_sampling_allowance_mm": 0.1,
+      "scope": "Commanded width footprints for model, support, brim/skirt and prime-tower layer deposits. Machine Custom purge is excluded."
+    },
+    "minimum_full_bead_bed_margin_mm": 87.663,
+    "layer_depositing_segment_counts_by_feature": {
+      "Inner wall": 1830,
+      "Outer wall": 2056,
+      "Bottom surface": 918,
+      "Internal solid infill": 6421,
+      "Sparse infill": 1711,
+      "Floating vertical shell": 196,
+      "Top surface": 762,
+      "Gap infill": 1125,
+      "Bridge": 941
+    },
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "reviewer_sha256": "3cf264a56c5787795ff361232a4462523c2d8425ff028d797b2d784ff5e177c0",
+    "sliced_locally": true,
+    "submitted": false,
+    "physical_scope": "Requested settings and native model slabs/strand footprints; physical release, fit, seal, finish, strength and lifetime remain unmeasured.",
+    "material_frame_reading": {
+      "filament_map": [
+        1
+      ],
+      "physical_extruder_map": [
+        1,
+        0
+      ],
+      "extruder_offset_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "material_slots": [
+        {
+          "filament_slot": 1,
+          "native_T_selector_index": 0,
+          "native_extruder_id_one_based": 1,
+          "physical_extruder_map_id": 1,
+          "offset_to_add_to_Gcode_XY_for_model_frame_mm": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "scope": "Native Tn is a filament selector. The emitted filament_map chooses its extruder; model XY equals G-code XY plus that extruder offset. This is source coordinate compensation, not observed physical registration."
+    },
+    "material_frame_reader_source_sha256": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb"
+  },
+  "bound_to_current_manifest_sha256": "a0ad64923f93e3bb8093072deb4139899afd402708fa2236a4674dd39833fb7a",
+  "reviewed_original_manifest": {
+    "path": ".cache/pour-restart/final-native-manifest.json",
+    "sha256": "5dfa90c7e88b49dff99ee1b7fea1dd64c94be8b33760dd91007a77417144e57a"
+  },
+  "current_binding_source_sha256": "14287244745b5910c22b72e8fb644d963938a21d8ff9db1875668318a0895d8c",
+  "source_filename_binding_scope": "Current public source paths and manifest digest bind the same embedded mesh bytes, manufacturing transforms, settings and native archive. The immutable editable project retains original internal filenames; no reslice is implied.",
+  "retained_reviewed_project": ".cache/pour-v3-publish/prints/the-pour-v3-display-cover.3mf",
+  "retention_scope": "Byte-identical reviewed project/native archive; current source hashes, transforms, settings and placements matched. Source filenames inside the immutable project retain their reviewed names."
+}

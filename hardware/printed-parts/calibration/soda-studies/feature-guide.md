@@ -1,342 +1,121 @@
-# Reading The Pour
+# The Pour — Service Section
 
-The Pour is a physical reference for the home soda machine's printed surfaces
-and interfaces. Keep one assembled example for each filament and saved recipe
-set. Its alternatives help select a setting to try on a particular machine
-part; production dimensions and settings remain in their own source files.
+This is an appliance-shaped print reference. Its four shell sections enclose a working drawer, tee-release column, plumbing seats and service openings. A complete faucet stands on its own counter plate and gasket. The native joints hold the parts; the drawer crossmembers, faucet neck bands and captive rear dust shutters provide the deliberate comparisons.
 
-Use diffuse light to compare overall finish, then grazing light to reveal layer
-steps and seams. Stroke the same region in the same direction on each specimen.
-For a sliding comparison, use the same tongue in each receiver. Read initial
-release before handling changes it.
+The [full feature map](fullfeature-map.json) maps all 83 inventory entries to source builders, native roles, mates, print orientation and current part hashes. Some entries describe the same geometry, its material or a process condition. They are not 83 separate mechanisms. The assembly is unprinted; the source physical records below apply only to their identified articles and properties.
 
-Write a reference ID on P's exposed **BATCH / DATE** flat and use the same ID in
-a local copy of the blank [reference card](reference-card.csv). Enter one sample
-per row, with filament/spool, printer/nozzle and saved project. State the setting
-convention: X per side, Y per side, Z top air, support distance, layer height or
-seam-gap percentage. Record initial condition separately from after-handling
-feel, surface or travel. The last columns connect that reading to one setting
-to try on a named part region and its recorded result. The card contains no
-prefilled physical results. P's underside identifies the master as **POUR V2 /
-MASTER 2026-10-11**.
+## Print identity and coordinates
 
-The source necks carry no added lettering. Their D feet and K keepers both bear
-the recipe ID: N08 uses N08D and N08K, each marked N08. Keep those three pieces
-together. Sliders bear their decimal clearance, support windows their R IDs,
-angle blades their A IDs, and captive shutters their decimal Z-top air. G/GR,
-R6 and FH/FC are recognizable unmarked source components; their file and
-assembled-model names identify them.
+Use the prepared native projects and their material assignments. All individual manufacturing meshes use millimetres, XY as the bed and +Z as the build direction; their source rotations are already baked in. The assembled viewer is a reading pose. `back-top` prints with world −Z upward, whereas the other three shell sections print with world +Z upward. The complete faucet body `FB` uses source X −15°, tip `FT` −105° and relaxed cover `FC` −50°. Keep registered colour volumes together in their shared frame.
 
-Essential horizontal recipe IDs and clearance numbers use Arial Bold at a
-nominal 4 mm size with 0.48 mm raised relief. Side angle values use 3.6 mm bold
-type aligned with their facet directions. The
-[native lettering review](lettering-review.json) records emitted paths;
-identifiers are recognizable in its overlays for all 69 raised marking windows
-and both recessed underside identities. Physical readability is unrecorded.
+World −Y is forward, +Y rearward and +Z upward. “Per side” or “per face” means the air at one named face; a diametral allowance applies across the entire diameter. A nominal CAD gap, a commanded native deposit gap and a physical gap are separate quantities.
 
-## Read a feature, choose one next setting
+The rigid parts use their PET-GF object recipes. The full `FB` neck uses Arachne, aligned seams and a 15% regular gap. The selected tee surface and `R30`/`R45`/`R60` source roofs use Classic. The cabinet `front-top` uses 0.08 mm layers throughout its 60 mm body after the 0.20 mm first layer. Other inward/top rounds and expanding downward rounds have distinct local layer/wall treatments; retain those regions when changing material.
 
-| Mark or feature | Read it | Setting or action to try on the named machine region |
-| --- | --- | --- |
-| N08, N12, N24 — 0.08 / 0.12 / 0.24 mm layers | Compare the actual tilted neck, checking its seam and a clean region separately. | Try the coarsest acceptable height on the corresponding complete curved band. |
-| A08, A12, A24 — the same three heights | Compare the facet closest to the part's slope and its matching curve direction. | Try that height in the corresponding print orientation and local show band. |
-| NR00, NR05, NR15 — regular gaps 0 / 5 / 15% | Feel for a ridge, groove or open join; inspect the nearby wall. | Try one regular-gap value on the complete part while keeping its other seam settings fixed. |
-| NS00, NS10, NS20 — scarf gaps 0 / 10 / 20% | Compare the curved join and any broad trough or disturbed finish around it. | Try one scarf-gap value with the remaining scarf settings held fixed. |
-| S05, S15, S25, S35, S45 — X air 0.05 / 0.15 / 0.25 / 0.35 / 0.45 mm per side | Find the smallest lane with full hand travel and play suitable for the intended joint. | Try that lateral allowance on the specific moving interface, retaining its own roof/floor allowances. |
-| Q24, Q48, Q72 — Z top air 0.24 / 0.48 / 0.72 mm | Record free off bed, gently freed at the handle, or fused; then travel, capture and surface damage. | Try one Z-top value on a fresh captive module with transverse Y and lower Z air held fixed. |
-| R30, R45, R60 — requested support distance 0.30 / 0.45 / 0.60 mm | Compare removal and the remaining roof strands and continuity. | Try one top support distance on the affected supported ceiling, recording its emitted gap. |
-| G, GR — complete grip strip and receiver | Compare full-span bowing, recovery and wing seating in this material. | Try a filament or print-recipe candidate on the full grip interface, preserving the wing section and span. |
-| R6 — source expanding and top rounds | Compare the bed-start transition, retained curve and fine top shoulder. | Use its local wall/layer recipe on the corresponding expanding show round; inspect its fresh bead overlap and support contacts. |
-| H fluted apron | Read the flute depth, fade and smooth lands under grazing light and touch. | Use N/A to select one wall-height candidate for the actual enclosure field. |
-| FH, FC — complete source faucet snap | Compare whole-cover spreading, seating and recovery after support cleanup. | Try a filament or print-recipe candidate on the complete snap, keeping both full catches and the rigid host stock. |
-| P bores and small lettering | Inspect hole shape, tube fit, layer starts and retained letter strokes. | Try a passage-size or detail-printing candidate on the actual organizer contact or marked part. |
+The three compliant parts are separate print cohorts:
 
-Every project uses a 0.20 mm first bed layer. The N and A heights apply above
-that first layer. Their finish specimens print separately from the carrier,
-so each retains its own layer schedule. Physical results for The Pour are
-unrecorded. Short sections and multi-object plates change cooling, layer return
-time, warping and support placement. Judge the corresponding complete part
-before changing its production recipe. Surface finish and hand feel do not
-measure load capacity or lifetime.
-
-## Assemble and remove the samples
-
-Use files at 100% scale in their saved print poses. Print
-[PIP-BASE](print-assemblies/pip-base.stl) or its editable project: P and Q24/Q48/Q72 share
-that frame and all begin on the bed. Keep their positions and gaps together.
-H is separately printed with automatic supports. The assembled STEP shows
-display placement; the individual specimens use their own manufacturing frames.
-
-With the basin upright:
-
-1. Let PIP-BASE cool and record each shutter's initial condition before working
-   it. Use its intended handle and X travel direction. Stop if release requires
-   bending, levering, cutting or cracking the model.
-2. Clear the separate pieces' supports. Seat S05R, S15R, S25R, S35R and S45R on
-   the front peg pairs, numbered faces forward. Insert their tongues from the
-   front with handles forward. Seat R30/R45/R60 on their peg pairs as shown in
-   the assembled model; R45 is the rear window beneath the fin platform.
-3. Seat R6 on its two right-side pegs and slide GR's lower footer onto P's
-   rooted left storage key toward world +X. The lower pocket is open downward,
-   with 0.15 mm nominal Y air per side and 0.27 mm nominal top air. Lower H
-   vertically so its two root keys enter P, its right key enters
-   R6's open interior top socket, and its upper cup receives GR's solid top
-   footer. Keep the source round surfaces and grip slots exposed.
-4. Seat A08/A12/A24 on H's three fin docks in the order shown in the assembled
-   model. Their displayed rotation leaves their manufacturing azimuths intact.
-5. Fit G into GR's upper and lower wing slots. Engage one wing, bow the centre
-   outward to the left, then enter the other wing and release the strip.
-   Its finger face points outboard left (world −X). Pull the centre in that
-   same direction to free a wing for removal; the front of the receiver remains
-   open for access.
-6. Put each neck on its matching D foot: its bottom cut ring bears on the foot
-   and the locator enters its existing passage. Place the matching K keeper's
-   open local +Y slot over the internal T-head and slide K toward local +Y
-   until its closed end seats against the T-head. Positions ascend along the
-   helix as N08, N12, N24, NR00, NR05, NR15, NS00, NS10, NS20. Install each
-   complete holder by reversing its withdrawal route below; the complete grip
-   module comes off for N12.
-7. Seat FH's rear S55 cut face on P's rear adapter and existing-passage locator.
-   Park FC's two rear cut edges on the saddles behind S25R. This places the
-   complete relaxed cover at its open loading offset, native N +9.5 mm.
-
-Each neck holder removes independently. Lift the complete D/N/K unit 3 mm along
-its foot's cut normal (local +Z), then pull radially outward along local +X,
-parallel to the basin, to 50 mm total outward travel. Two units have an extra
-step:
-
-| Unit | Withdrawal route |
+| Part | Geometry and source recipe |
 | --- | --- |
-| N08, N24, NR00, NR05, NR15, NS00, NS10 | Lift 3 mm locally, then pull 50 mm radially outward. |
-| N12 | First slide the complete G/GR module 10 mm outboard left (world −X) and set it aside; then use the standard holder route. |
-| NS20 | Lift 3 mm locally, pull 10 mm radially outward, lift another 3 mm vertically (world +Z), then continue outward to 50 mm total. |
+| `FG` | Full 2 mm counter gasket; TPU 85A, 0.6 mm nozzle, 0.30 mm first / 0.18 mm body, nonspiral Arachne, two walls and 100% infill. |
+| `FS` | Full donor-port thimble; TPU 85A, 0.6 mm nozzle, 0.30 mm first / 0.18 mm body, Classic spiral, one wall, 0% infill, zero top and three bottom layers. |
+| `display_gasket_90A` | Separate 1 mm ring; the prepared white TPU 90A source profile uses a nominal right 0.6 mm nozzle, 0.30 mm first / 0.18 mm body, Arachne, two walls, 100% zigzag infill, three top/bottom layers and supports off. Its compression is unmeasured. |
 
-Hand-support H while the grip module's left bearing is absent. Return G/GR
-along world +X so P's rooted left storage key and H's open upper cup seat. These
-routes have sampled nominal CAD clearance; printed release force, stability
-and lifetime are unrecorded.
+The nameplate uses the current face-up flat-wing geometry, with a 0.20 mm first layer, 0.28 mm second layer and 0.24 mm remaining layers in its registered project. Its 0.48 mm raised artwork retains the full wordmark, faucet-drop mark and QR quiet border. DATA and the port chips retain their own registered volumes and closing schedules. On Mark2, the right nozzle's source correction is X −0.50 / Y +0.70 mm. CO2 uses white on the left and red on the right; preserve the correction on the red body. `TC` has flush SODA lettering: its source preview is blue, while the reviewed native project uses black/white.
 
-With a holder off H, hold the foot and neck, slide K **uphill toward local
-negative Y** by 7.2 mm, then slide
-the neck off along its existing passage axis, leaning toward local positive Y
-(away from the caption) by 15° from the cut-face normal. This is 0.268 mm of
-positive Y travel per 1 mm of positive Z travel. The K underside clears the
-source cut top by
-0.10 mm; its T-slot has 0.15 mm side air and 0.30 mm roof air. Refit the same
-marked keeper and foot. After unloading the neck holders and lifting the A fins
-from their pegs, lift H vertically 4 mm to clear P's keys, R6's open top and
-GR's upper-footer cup. G can remain fitted in GR.
-R45 sits beneath the fin lands; its underside is accessible from the front.
-Lift H off before lifting R45 from its pegs. R30 and R60 lift directly from P.
+## Open, inspect and reassemble
 
-Lift FC out of its parking saddles before trying the snap. The production
-loading path approaches from the tube-outlet end at native N +9.5 mm, slides
-along the neck's S axis to align, then lowers squarely toward the neck. Both
-complete lips enter their grooves; the broad walls spread elastically. Lift the
-removable FH out of its rear adapter when closer access is needed. The open
-display pose and storage saddles are separate from the snap's seated fit.
+Keep the shell supported while working on one joint. Release its native fasteners before sliding a shell section, and detach tubes/leads that cross a service boundary before moving that assembly. The [assembly review](assembly-review.json) binds these sampled rigid motions to the current parts; physical release force and repeated handling remain unmeasured.
 
-The keepers, source cover and removable storage seats park on an upright desk
-reference. Their nominal clearances and modeled motions do not establish
-printed release or qualify the assembly for inversion.
+1. Withdraw `front-top` forward along world −Y through 72 mm to disengage the complete source rail, then lift along +Z and set the display/facet section aside. The nominal lift is clear through the sampled 60 mm. This exposes the full drawer pull and forward cartridge opening.
+2. Withdraw `pump_drawer`, its fitted `pump_cap` and all three bolted roof crossmembers together along world −Y, through 175 mm. The nameplate stays on the forward fascia. Keep the two native M3 × 60 clamp screws fitted during whole-drawer withdrawal.
+3. With the drawer outside the cabinet, remove those two clamp screws to lift `pump_cap` along world +Z. To inspect a support underside, unbolt the corresponding `R30`, `R45` or `R60`. Each roof uses two M3 × 8 screws and inserts in the moving floor pads. Remove its supports with the roof loose, through either open Y end of the complete lifting profile.
+4. After `front-top` is removed, raise `vertical_window_cover` 22.5 mm along world +Z to clear its native tongue/post, then move it inward toward −X. The tee column's native release moves 2 mm toward −Y. For extraction, remove the window cover, disconnect the tee's actual tubes, move the column 10.896 mm toward +Y to staging, then 40 mm outward toward +X. Record spring return separately from the accepted low-force slide.
+5. To remove `removable_plumbing_lid`, first remove `front-top` and withdraw the drawer. Release the handhold grip and lower/middle Y-joint fasteners, then slide `front-bottom` 130 mm forward along world −Y and set it aside. The complete lid can then slide 37 mm toward its local −Y before lifting 30 mm along +Z. Keep the full hook, catch, stop, front-right cabinet rail and R20/R27 bearing quadrant intact.
+6. With `front-top` set aside and the upper seam screws released, slide `back-top` toward world +Y. Its surviving source Z rail disengages at 82.2 mm; continue to 112.25 mm so the lower plumbing ceiling clears the rear wall, then lift along +Z. The nominal lift is clear through the sampled 80 mm. Its faucet/counter stack, registered DATA/port faces and captive flags belong to this service section. Retain the faucet fasteners, support the complete section and detach crossing plumbing/leads before moving it. `FO`, `TC` and both tied neck controls remain on the disconnected lower bundle; they do not move through the counter passages.
+7. The complete `handhold_grip` bows at its centre to engage or release one end wing, then the other. Preserve the full 84.5 mm span. Use each nameplate, DATA and display plate's own entry bevel, retaining lip and push-out or support-exit access. Clear supports before seating the plate.
 
-## Captive ripple readings
+Reassemble in the reverse service order, with the source floor scarf and telescoping Y lips fully seated before fitting the joint fasteners. The source curved `FB`/`FT` lap retains its complete socket and plug. Print `FC` in its relaxed manufacturing shape; the viewer's seated elastic cover model is a separate source representation. Read its broad-wall snap and residual bow on the complete cover.
 
-Q24, Q48 and Q72 bear **.24**, **.48** and **.72**. These are model-to-model
-**Z TOP** gaps above P's fixed rail. The finite X travel is 26 mm. Transverse
-running air is **Y 0.35 mm per face**; it does not describe X end space. Lower
-Z air stays at 1.44 mm. Both bed-mouth edges have 0.30 mm chamfers. Only top
-release air changes across this bracket.
+## Read a feature and act on it
 
-The [native print reading](print-preparation.json) places the fixed rail's last
-top nozzle Z at 6.44 mm. Each moving roof's nominal underside is its first
-roof nozzle Z minus the common 0.24 mm model step:
+Use the same light and viewing angle when comparing surfaces, then touch the relevant face or operate its actual mate. Record the filament, drying and prepared recipe with the object ID. A useful result ends in a local setting to try or a decision to retain that feature's present setting.
 
-| Shutter | Marked CAD gap | First roof nozzle Z | Nominal roof underside Z | Commanded top air |
-| --- | ---: | ---: | ---: | ---: |
-| Q24 | 0.24 mm | 6.92 mm | 6.68 mm | 0.24 mm |
-| Q48 | 0.48 mm | 7.16 mm | 6.92 mm | 0.48 mm |
-| Q72 | 0.72 mm | 7.40 mm | 7.16 mm | 0.72 mm |
+| Object or location | Read | Setting or assembly action | Record |
+| --- | --- | --- | --- |
+| Shell skin, corners and vents | Groove crests, smooth fades, corner phase and complete open vent cells. | Retain the native 4 mm groove, 1.2 mm depth and 5 mm fade. The compact field closes with 181 grooves at 5.123747 mm pitch. Compare wall paths and the actual local layer schedule before changing the skin. | Surface, orientation, light, blocked slot or ragged edge. |
+| Facet, roof and rolled shoulders | Stair stepping on the 30° facet, inward/top R6/R12/R18 curves and expanding lower rounds. | Apply fine layers to the actual inward/top span. Preserve the expanding underside's additive profile, normal local layers and six-wall region. | Exact face and finish preference. |
+| Shell Y lip, floor scarf, Z hook and M3 cross pins | Seating, seam, catch and running play. | Clear debris and follow the source direction first. Change the relevant static/running/supported-face allowance only at the identified bind. Enclosure M3 heads are Ø5.8 × 3.5 mm; faucet mount heads have their own Ø6.15 datum. | Bind location, seating and remaining play. |
+| `handhold_grip` and its receiver | Support cleanup, bow, wing capture and touch edges. | Retain the selected full strip/receiver dimensions and the actual supported ceiling recipe. | Insertion and residual bow; keep lifting load separate. |
+| `R30` / `R45` / `R60` | Release effort, underside scar and sag on the same complete 80 mm opening / 35.25 mm ceiling / 12 mm roof. | Compare the requested 0.30 / 0.45 / 0.60 mm top distances with XY/interface settings held fixed. Select the useful cleanup/finish compromise for the material. | Requested rung, current commanded air and actual underside result. |
+| `FB`, `NR00`, `NR05` | Layer texture and the ridge or groove at the seam. | Use the identified band or regular-gap control below. Keep the source wall generator and recorded layer height visible in the comparison. | Band/control code, touch, appearance and preferred setting. |
+| `Q24` / `Q48` / `Q72` | Whether the solid-skin captive foot releases and completes its 26 mm X travel. | Read it off the bed first, then gently try the intended raised flag. Choose a useful Z rung with the lateral gap fixed; keep support-interface results separate. | Free off bed, gently freed at the handle, or fused; then travel/bind location. |
+| Nameplate, DATA, TAP, CO2, OVER and TC | Full strokes, body/ink registration, raised edge or flush word. | Keep source material slots, closing layers and nozzle correction. For a QR scan, inspect quiet border and deposition as well as the artwork. | Exact volume/edge, scan conditions and decoded URL if actually scanned. |
+| Display bezel, 90A ring and nominal backer | Flush seating, bow, both wing catches and dry stack capture. | Use the complete native support exits and display-specific 0.60 mm wing air. Keep the 90A recipe distinct. | Seating, bow, cleanup and compression. |
+| Pump well, cap, M3 hosts and full side pull | Actual pump location and clamp access through the full service opening. | Use both source clamp screws and intended inserts; withdraw the drawer before lifting the cap. | Pump movement with fasteners seated and service access. |
+| Pogo pair and sealed RC62 pockets | Connector ear/lead fit, compression, magnet insertion and docking. | Retain M1.4 datums, native pause planes and C3 pockets. Actual continuity and magnetic retention require their own observations. | Fit, compression, continuity, rattle and seating as separate results. |
+| Tee shoulder, journals, trough and spring tunnels | Tube release/relock, low-force slide, tilt and return. | Preserve the selected 1.00 mm roof / 0.25 mm floor air and whole tee/tie route. | Slide, return and actual collet operation separately. |
+| Valve posts, loom clip, tube anchor and hardware seats | Real valve, braid, tube/fitting, Wago, RJ11 and C14 seating and access. | Use each stated hardware family and full native seat; V69 is the selected valve socket, with V70 only when the actual valve does not fit V69. | Part identity, seating, tie/lead path and latch access. |
+| Flow/ASSE roof, PRV chase, MQ6 chute, cold-core and condenser seats | Paired collar/body seating, common tie exits, card route and native contact lands. | Keep the matched roof rooms open and the full active seats rooted. Use actual hardware before making an operating claim. | Housing/contact seating, exit openness and cleanup access. |
+| `FB` / `FT` / `FC` | Real bend flanks, supported shoulder recovery, curved lap, snap and thin bezel. | Retain source orientation and complete flexing spans. Compare support scar and layer recovery on the actual source face. | Face, supported region, seating and residual bow. |
+| `FO` and `TC` | Individual beverage/drain bores, flat signal slot and horizontal tube grip. | Use the separately selected Ø6.65 / Ø4.40 organizer bores. Tune the 5.4 × 1.8 mm signal slot from its own fit; record TC's PET-GF tube fit directly. | Each line's seating and the actual slot/collar fit. |
+| `FPD`, `FG`, `FS`, `FL` and counter passages | Plate/gasket seating, native shank/pill/ribbon routing, thimble elasticity and lever snap/swing. | Retain the 4 mm plate, 2 mm 85A gasket, all three M3 axes and separate passages. Use the thimble's saved spiral recipe and the full side-down lever. | Compression, passage, snap and travel; sealing and valve function separately. |
 
-The lower air is 1.44 mm: P's first rail nozzle Z4.28 minus its 0.24 mm model
-step gives underside Z4.04, above the moving floor's last top nozzle Z2.60.
-P and all three eyes begin with model deposition at nozzle Z0.20. The current
-Bridge strand-flow HEIGHT is also 0.24 mm; it remains separate from the nominal
-model slab used to compute air. No support strands enter the sampled gap windows.
+The three supported roofs are bolted to the moving fore-floor at world Y 20, 48 and 76 mm. Their underside is world Z 47.50 mm, or nominal manufacturing Z 35.25 mm above the foot plane. The end bolts and 13 mm feet remain outside the full active opening. The moving pads provide 6.25 mm of total insert stock, with Ø4 mm pilots 5.7 mm deep and a 0.55 mm blind floor. These new fastened crossmembers are unprinted.
 
-The following full commanded-width footprint readings match at both +Y and
-−Y probe lines on all three eyes. They subtract half of each facing strand's
-width from its measured centerline separation:
+## Neck comparison key
 
-| Probe region / nozzle Z | Centerline separation | Fixed / moving width | Footprint air per face |
-| --- | ---: | ---: | ---: |
-| First bed mouth and foot / 0.20 mm | 1.500 mm | 0.500 / 0.500 mm | 1.000 mm |
-| First rail slab / 4.28 mm | 0.770 mm | 0.450 / 0.420 mm | 0.335 mm |
-| Rail / 4.52–6.20 mm | 0.770 mm | 0.420 / 0.420 mm | 0.350 mm |
+Read `FB` bands in manufacturing print Z, measured from its baked STL bed plane. The visible assembled neck is rotated relative to those layers. Read the interiors at least 0.48 mm from a band boundary; layer transitions themselves answer a different question.
 
-These are sampled commanded slabs and width footprints. Strand shape, sag,
-solid-skin contact, physical clearance and release remain unmeasured.
+| Band | Manufacturing print Z, mm | Comparison |
+| --- | --- | --- |
+| LH080 | 76.04–84.20 | 0.08 mm layers, aligned regular gap 15%, no scarf. |
+| LH120 | 84.20–92.36 | 0.12 mm layers, otherwise the same height comparison. |
+| LH240 | 92.36–100.52 | 0.24 mm layers, otherwise the same height comparison. |
+| REG15 | 100.52–112.04 | 0.24 mm layers, regular gap 15%, no scarf. |
+| SCF00 | 112.04–123.56 | 0.24 mm layers, external scarf gap 0%, regular gap 15%. |
+| SCF10 | 123.56–135.08 | 0.24 mm layers, external scarf gap 10%, regular gap 15%. |
+| SCF20 | 135.08–146.60 | 0.24 mm layers, external scarf gap 20%, regular gap 15%. |
 
-Record **free off bed**, **gently freed at the intended handle**, or **fused**
-before repeated motion. Then separately record full travel, continued capture,
-roughness/play, and any loose or missing model strands. A gently freed sample
-has a different initial result from one already free. A useful candidate is the
-smallest top gap that releases without model damage and provides travel/play
-suitable for this reference. If it binds, inspect the contact first, then try
-one larger Z-top value on a fresh module. Do not infer a universal planar fit
-or support-removal allowance from this reading.
+All these bands use Arachne and aligned seams. The external scarf bands use a 10% start height, 10 mm minimum length and ten steps; inner walls retain their normal seam. The native paths contain the requested scarf Z ramps. The two source shoulder bands at print Z 13.4–29.0 and 55.16–68.12 use 0.12 mm layers independently of the straight-neck comparison.
 
-The [PET-GF interface-edge result](../../../print-tests/petgf-interface-edges/results.json)
-selected all eight 0.48 mm planned-gap specimens for the cleanest release with
-roof strands preserved; none of the eight 0.24 mm specimens were in that
-selected group. That comparison used sparse support interfaces. The solid
-model skins here have different contact, anchorage and cooling. The result
-informs the middle bracket value; it does not establish PIP pass/failure or
-qualify the 0.72 mm bracket.
+`NR00` and `NR05` are unchanged short source necks, with Arachne, aligned seams and no scarf. Only their regular gap changes, to 0% or 5%; their fine comparison span is print Z 4.04–16.04 at 0.12 mm. Mark the code on the cut face or adjacent native anchor after printing. Their below-counter reference bundle uses the source neck sizes: water OD 9.525 mm, two flavour lines OD 6.35 mm, drain OD 4 mm and ribbon 4.6 × 1.18 mm. The passage is one smooth shared hull. Source-convention nylon straps, 1.0 mm thick and 4.8 mm wide, loop around the four round tubes and complete ribbon lane at both ends of each neck. The nominal loop is larger than the shared opening and does not overlap the cable. Actual strap size, tightening, axial grip and tube/cable compression remain unmeasured. A short section's cooling and print time differ from the complete neck.
 
-## Surface and seam readings
+The two water tube sizes belong to different line sections. In the [native faucet routing](../../../assembly/faucet-and-umbilical.md), the upstream blue umbilical is OD 6.35 mm and enters the donor's lower compression port. A separate OD 9.525 mm soda tube leaves the donor's top through `FS` and runs through the gooseneck. `FO` has three Ø6.65 mm beverage bores for the 6.35 mm upstream tails; `TC`'s Ø6.68 mm SODA bore identifies that upstream tail. The below-counter `NR` bundle is a dry reference of the larger neck section, kept separate from the `FO`/`TC` supply tail. The 9.525 mm tube does not pass through either smaller gauge.
 
-The neck specimens retain the actual Industrial faucet section: a 27 mm round
-exterior, internal passages and production −15° manufacturing pose, cut
-horizontally into an 18.2 mm tall section. Their frozen source is the
-[faucet neck swatch](../../faucet/finish-coupons/scarf-swatches-v1/README.md).
-Every source STL triangle is retained. The
-[Industrial acceptance](../../faucet/industrial/physical-acceptance.json)
-establishes the identified complete faucet's shipping appearance. The short
-section's heat exposure and bed start differ from the complete faucet.
+The lower `FB` mounting form carries Industrial geometry on source X < 0 and the complete Sculpted loft/skin on X > 0 below source Z 67.5 mm, with their common mounting cavity and full upper neck. Both halves use one object-wide recipe. The identified accepted Industrial print establishes its recorded appearance; it does not physically qualify this hybrid.
 
-The prepared N and seam comparisons hold Classic walls. The accepted complete
-Industrial base has its own Arachne object override. N12 matches that base's
-0.12 mm fine-band height; it does not reproduce the complete variable-layer
-recipe. NR15 matches its 15% regular seam gap, while the reference uses back
-placement and the complete base uses aligned placement. The accepted recipe
-has scarf off. NS10 and the other scarf specimens are exploratory comparisons.
-Baseline marks identify only the matched parameter.
+## Release and support readings
 
-Regular and scarf gap percentages describe distance relative to the 0.4 mm
-nozzle diameter: 5% is 0.02 mm, 15% is 0.06 mm and 20% is 0.08 mm. They are not
-flow percentages. NS specimens keep a 10 mm scarf length, 10% start height,
-ten steps, the smart 155° setting and inner-wall scarf; entire-loop scarf is
-off. Their regular gap stays at 15%. Read the rear join under grazing light
-and touch, then the nearby wall for an open gap, broad trough or disturbed finish.
+`R30`, `R45` and `R60` name requested slicer top support distances. The current full-roof native slice gives the following commanded air after layer quantization:
 
-The A blades are representative surfaces constructed for this object. Marked
-ramps run from 0° to 90° above their manufacturing bed in 15° increments. Upper
-R6 curves lie in the YZ print plane; the X-marked R6 shoulder lies in XZ.
-Compare both directions on each blade. Their nominal curved strip is 3 mm
-thick; N supplies the direct faucet-geometry comparison.
+| Roof | Requested top distance, mm | First roof nozzle Z, mm | Nominal roof underside, mm | Highest support nozzle Z, mm | Commanded nominal air, mm |
+| --- | --- | --- | --- | --- | --- |
+| `R30` | 0.30 | 35.48 | 35.24 | 35.00 | 0.24 |
+| `R45` | 0.45 | 35.48 | 35.24 | 34.76 | 0.48 |
+| `R60` | 0.60 | 35.48 | 35.24 | 34.52 | 0.72 |
 
-H's fluted apron uses the enclosure field dimensions: 4 mm flute width,
-1.2 mm depth, nominal 5.1221 mm pitch and 5 mm end fades, with 5.8 mm intact backing
-at full depth. It is a new short field using that profile, not a cropped complete
-enclosure wall. The [enclosure flute evidence](../../cadlib/flute-evidence/README.md)
-and shared [reeding geometry](../../cadlib/reeding.py) describe its source.
-The full-enclosure photographs are qualitative appearance evidence without
-calibrated light or scale. Compare a groove, its fade and an adjacent smooth land
-separately.
+All Z values here are manufacturing coordinates. The actual model step is 0.24 mm; the Bridge strand-flow HEIGHT is 0.239998 mm. The named central probe lies within the source 544 mm² flat face, whose support contact edge has the native 0.8 mm inset. Read that flat underside separately from the small rounded perimeter. Physical sag and support removal remain unmeasured.
 
-## Sliding, support and grip readings
+`Q24`, `Q48` and `Q72` name nominal manufacturing-Z top release gaps of 0.24, 0.48 and 0.72 mm. Their lower release air is 1.44 mm, running lateral Y air is 0.35 mm per face, and X travel is 26 mm. Print all three with `back-top` in the prepared common frame; each flag begins on the same bed. The new captive shutters are reference additions. Solid model skin can sag or contact differently from sparse support-interface deposits.
 
-The S tongues travel front to back in Y; their numbers describe transverse X
-air per side. S05 has 0.10 mm total X air; S45 has 0.90 mm. Floor air stays at 0.25 mm and
-wing-roof air at 0.45 mm. The five functional tongues have the same geometry;
-their printed values differ. Clear receiver supports before comparing with the
-same tongue. The **.25 MOVE** mark identifies the current moving-fit convention.
-Ordinary assembly seats use 0.15 mm per face, moving service fits 0.25 mm per
-face, and a supported mating face has another 0.25 mm assigned once to its gap
-in [fits.py](../../cadlib/fits.py). These are current design conventions.
+The current native reading puts each moving foot's top at manufacturing Z 50.12 mm. With the 0.24 mm model step, the fixed cap readings are:
 
-The [tee-carrier low-force fit](../../enclosure/tee-carrier/low-force-trial/physical-acceptance.json)
-is accepted at an asymmetric 1.00 mm roof gap and 0.25 mm floor gap. Its roof
-roughness and available actuation force belong to that joint; a small reference
-lane does not establish a gap for every mechanism. The storage keys also have
-their own allowances: 0.15 mm per face for static seats and 0.25 mm per face for
-the removable 6 × 8 mm neck keys. Those moving keys insert 2.5 mm with 0.25 mm
-bottom air.
+| Shutter | First fixed cap nozzle Z, mm | Nominal cap underside, mm | Commanded top air, mm |
+| --- | --- | --- | --- |
+| `Q24` | 50.60 | 50.36 | 0.24 |
+| `Q48` | 50.84 | 50.60 | 0.48 |
+| `Q72` | 51.08 | 50.84 | 0.72 |
 
-R windows share a 30 mm wide, 3 mm thick cantilever roof with open removal
-access. Let them cool, inspect with supports still attached, then remove the
-supports and compare remaining model edges, strands and continuity. Keep the
-removed supports identified until comparison is complete. Their first roof
-slab is Z17.00–17.24 mm in each specimen's manufacturing frame:
+The fixed lower ledge ends at nozzle Z 45.32 mm; the moving foot begins at nozzle Z 47.00 mm, giving a nominal underside of 46.76 mm and 1.44 mm lower air. The six named vertical gap windows contain no model or support deposits. The bridge flow HEIGHT values are approximately 0.24 mm and remain separate from these slab readings. Lateral commanded bead air varies with the sampled face and height: the +Y running foot reads 0.335 mm at its first contact layer and 0.350 mm above it. The opposite curved faces have their own readings; a uniform emitted 0.35 mm on both sides is not claimed.
 
-| Window | Requested top distance | Last interface nozzle Z | Emitted planned gap |
-| --- | ---: | ---: | ---: |
-| R30 | 0.30 mm | 16.76 mm | 0.24 mm |
-| R45 | 0.45 mm | 16.52 mm | 0.48 mm |
-| R60 | 0.60 mm | 16.28 mm | 0.72 mm |
+For native gap readings, subtract the actual model layer step from the first model roof nozzle Z to locate its nominal underside, then subtract the last underlying model or support nozzle Z. Name both contributing surfaces: a support roof reads against support deposits, while a captive release reads against the opposing solid part. Keep Bridge flow-height and width metadata separate from the nominal model slab. These are commanded footprints and planes; physical sag, release, fit and legibility require the printed result.
 
-The first roof nozzle Z is 17.24 mm with a 0.24 mm nominal model step and
-0.24 mm Bridge flow-height metadata. These commanded gaps use the nominal
-roof underside at Z17.00 mm; finished strand position and cleanup are physical
-results. The
-[interface-pattern result](../../../print-tests/petgf-interface-patterns/results.json)
-identifies retained horizontal underside strands as the first model bridge
-layer. Easy removal can include lost model material. Removal alone does not
-establish the remaining roof's thickness or fit.
+## Source evidence and local notes
 
-G uses the complete [flat-wing grip](../../enclosure/grip-cover/README.md):
-79.7 × 11.558 × 3.36 mm body, 84.5 mm full length, with 2.4 mm reach × 5 mm span
-× 1.68 mm thick end wings. Its complete flexible span is retained. GR keeps
-3 mm end walls, 12 mm roof stock, 0.15 mm at body ends and wing sides, 0.45 mm
-at retention faces and 0.25 mm behind the strip. G prints throughout at 0.08 mm
-in this reference. The
-[accepted grip receiver trial](../../enclosure/grip-cover/physical-acceptance.json)
-establishes support removal and assembled fit for its identified coupons and
-strip. This vertical side receiver has new storage footers and its own print
-recipe; its physical assembly and repeated-flexing behavior are unrecorded.
-The complete G/GR module also slides out of the sculpture without removing G
-from its receiver, using P's rooted left key, GR's open-bottom pocket and H's
-outboard-open cup. The rooted key's native cap is Z 9.08 mm. At the lower socket's
-center Y 0, sampled commanded top air is 0.42 mm on the first bed layer and about
-0.27 mm over root layers Z 0.44–2.12 mm. These readings describe the prepared
-print paths; physical fit is unprinted.
+The accepted source records are deliberately scoped. [Grip](../../enclosure/grip-cover/physical-acceptance.json), [nameplate](../../enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json) and [display](../../enclosure/display-cover/face-up-trial/physical-acceptance.json) records concern identified fit/finish coupons; the display retains its recorded residual bow. [Tee surface](../../enclosure/tee-carrier/physical-acceptance.json) and [tee slide](../../enclosure/tee-carrier/low-force-trial/physical-acceptance.json) evidence separates underside appearance from the selected slide. [Pump](../../../reference/kamoer-kphm400/physical-fit.json), [pogo](../../../reference/yyfkgcp-pogo-4p/physical-observations.json) and [magnet](../../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) records do not establish this complete drawer's force, electrical performance or life.
 
-## Source rounds, complete snap and details
+The [Industrial faucet](../../faucet/industrial/physical-acceptance.json), [full cover](../../faucet/faucet-display-cover/physical-acceptance.json), [lever](../../faucet/lever-replica/physical-acceptance.json) and [organizer bores](../../faucet/umbilical-organizer/physical-acceptance.json) retain their named physical scopes. The current hybrid, comparison bands, shared control mounts, relocated source joints and assembled service section have no physical acceptance result.
 
-R6 retains the tee column's exterior section and additive chamfer tangent to
-its expanding round. Its plain stock excludes the spring and tee hardware.
-The exterior spans 16.9 × 58.872 mm and 21.054 mm build height. Expansion is
-0.5 mm outward per millimetre of build rise, tangent at about 3.317 mm with a
-2.292 mm bed inset. The recipe uses Classic walls, 0.24 mm body/expanding layers,
-0.08 mm in the top-round band, six walls locally through Z0–6.1 mm, walls before
-infill, and 15% infill/wall overlap. Exterior transition supports are off.
-The native slice has six wall roads at the expanding-wall witness through
-nozzle Z6.20 mm and two from Z6.44 mm. Its fine band starts at nozzle Z15.16 mm
-after Z15.08 mm. The first two outer-wall commanded-width footprints overlap
-by 0.161 mm at that witness; physical bead contact and bonding are unmeasured.
-No support strands are emitted for R6, and the first wall precedes the first
-infill in each object layer. Its underside storage sockets and open interior
-top seat preserve the source show surfaces. The
-[tee surface acceptance](../../enclosure/tee-carrier/physical-acceptance.json)
-establishes the identified bottom taper's reported appearance; it does not
-establish this reference's finish, sliding fit or lifting load. The shared
-[overhang geometry](../../cadlib/overhang_round.py) defines the profile.
+The printed `nominal_*_flange/nut` pairs reproduce source fitting datums and clamp the port chips with M3 hardware. The 1 mm `display_nominal_backer` occupies the glass space. The rooted `FPD` donor provides the thimble and lever datums. These dry dimensional parts do not establish threads, pressure sealing, glass behaviour, electronic operation or dispensing.
 
-FH and FC use the [frozen source features](inputs/source-features/sources.json).
-FC is the complete relaxed Industrial cover: 29.8 × 49.75 mm, 1.3 mm bezel and
-both broad side walls/lips intact. FH is the actual rigid tip cropped only at
-rear S55; both full grooves, radial stock and source passages remain. The
-1.2 mm lip engagement, 3 mm lip height, 0.48 mm bearing air and 0.30 mm end air
-remain at source scale. Elastic spreading is required: the relaxed rigid cover
-intersects the host at the seated datum. An open CAD pose does not establish a
-seated elastic fit. P's rear-face adapter is a storage feature; its 1.8 mm
-passage locator has a measured minimum CAD air of about 0.202 mm, rather than
-a uniform per-face slip.
-
-The [faucet snap acceptance](../../faucet/faucet-display-cover/physical-acceptance.json)
-establishes the broad-wall design approach on its identified complete
-cover. The current frozen FC bytes differ from the cover identified in the
-Industrial shipping record. This complete cover/cropped-host reference has no
-recorded assembled result. Keep full walls and catches intact when comparing
-material behavior; a small catch alone changes the spring span and load path.
-
-P's Ø4.40 and Ø6.65 mm holes use the
-[umbilical organizer's nominal passages](../../faucet/umbilical-organizer/README.md).
-Their 6.2 mm straight contact is shorter than the organizer's 9.2 mm contact and
-lacks its 0.4 mm entrance chamfers. A tube passing through P records that
-sample's fit, rather than the complete organizer contact. Raised top markings,
-recessed master identification, smooth lands and the bed face provide detail
-and first-layer appearance references. Record those under the same reference
-ID and saved recipe as the larger surfaces. Use the uninked smooth edge beside
-**BATCH / DATE** as P's finish datum.
+Use the [blank reference card](reference-card.csv) for local observations. Fill in sample ID, date, printer/nozzle, filament/batch/drying, recipe/archive and source STL hash before recording a result. Keep the initial result separate from cleanup or freeing, add the next setting you actually intend to try, and link a photo or manual record. Every observation field starts blank. The [mechanical evidence index](../../../mechanical-qualification/README.md) identifies the production records when a real accepted result is available.

@@ -1,23 +1,22 @@
-"""Prepare The Pour's interchangeable print specimens with the saved Mark2 profile.
+"""Prepare The Pour from explicit manufacturing objects and material cohorts.
 
-    tools/cad-venv/bin/python hardware/printed-parts/calibration/soda-studies/prepare_prints.py
-    tools/cad-venv/bin/python hardware/printed-parts/calibration/soda-studies/prepare_prints.py --slice
-
-Each layer-height comparison has its own fixed-height project. Support-gap
-specimens also have separate projects, retaining the same nominal layer height.
-The seam comparison shares one plate. Preparation and local native slicing do
-not connect to a printer or submit a job.
+Call prepare_plate() for one plate or use the explicit print_plates in a manifest.
+Preparation and requested local native slicing never connect to a printer or
+change source CAD. Manufacturing transforms belong to print objects; display
+assembly poses do not enter these functions. Temporary placement envelopes are
+replaced by exact named volumes before the editable project is saved.
 """
 from __future__ import annotations
 
+from collections import Counter
 import argparse
-from collections import defaultdict
 import hashlib
 import json
 import math
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -28,206 +27,360 @@ import trimesh
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/bambu_print.py").is_file())
-PROFILE = ROOT / "hardware/printed-parts/petgf.3mf"
-MANIFEST = HERE / "manifest.json"
-PROJECTS = HERE / "prints"
-WORK = ROOT / ".cache/prints/soda-studies"
-SLICER = Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio")
-
-# The shared 3MF writer imports the faucet generator for default dimensions.
-# This preparer cuts no CAD and must not supersede a running geometry build.
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
-sys.path[:0] = [str(ROOT / "hardware/printed-parts/faucet"),
-               str(ROOT / "hardware/scripts")]
-import refresh_print_project as writer  # noqa: E402
+sys.path[:0] = [str(ROOT / "hardware/printed-parts/faucet"), str(ROOT / "hardware/scripts")]
+import refresh_print_project as writer
 
-GROUP_HEIGHTS = {"kit": .24, "finish-008": .08, "finish-012": .12,
-                 "finish-024": .24, "seam": .12, "support-030": .24,
-                 "support-045": .24, "support-060": .24,
-                 "r6": .24, "cover": .24, "host": .24}
-SUPPORT_GAPS = {"support-030": .30, "support-045": .45, "support-060": .60}
-SEAMS = {"NR00": ("regular", 0), "NR05": ("regular", 5),
-         "NR15": ("regular", 15), "NS00": ("scarf", 0),
-         "NS10": ("scarf", 10), "NS20": ("scarf", 20)}
-_PRINT_SIZES = {}
+sys.path.insert(0, str(HERE))
+import native_reading as reading
+from native_reading import native_deposits, is_model_deposit, clipped_segment
+
+SLICER_SCOPE_SOURCE = {'tag': 'v02.08.02.61', 'path': 'src/libslic3r/PrintConfig.hpp', 'sha256': 'ec03ce1948fc40ba8be27525f95eadbe4ad925356ccb4d51a81d8bf23b09a9db', 'url': 'https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PrintConfig.hpp'}
+
+OBJECT_KEYS = frozenset("""
+    apply_scarf_seam_on_circles bridge_no_support brim_object_gap brim_type brim_width
+    circle_compensation_manual_offset detect_floating_vertical_shell detect_narrow_internal_solid_infill elefant_foot_compensation enable_circle_compensation
+    enable_support enable_support_ironing enforce_support_layers flush_into_infill flush_into_objects
+    flush_into_support interface_shells interlocking_beam interlocking_beam_layer_count interlocking_beam_width
+    interlocking_boundary_avoidance interlocking_depth interlocking_orientation internal_bridge_support_thickness layer_height
+    line_width max_bridge_length min_bead_width min_feature_size mmu_segmented_region_interlocking_depth
+    mmu_segmented_region_max_width only_one_wall_first_layer precise_z_height raft_contact_distance raft_expansion
+    raft_first_layer_density raft_first_layer_expansion raft_layers role_base_wipe_speed scarf_angle_threshold
+    seam_gap seam_placement_away_from_overhangs seam_position slice_closing_radius slicing_mode
+    support_angle support_base_pattern support_base_pattern_spacing support_bottom_interface_spacing support_bottom_z_distance
+    support_critical_regions_only support_expansion support_filament support_interface_bottom_layers support_interface_filament
+    support_interface_loop_pattern support_interface_not_for_body support_interface_pattern support_interface_spacing support_interface_speed
+    support_interface_top_layers support_ironing_direction support_ironing_flow support_ironing_inset support_ironing_pattern
+    support_ironing_spacing support_ironing_speed support_line_width support_object_first_layer_gap support_object_xy_distance
+    support_on_build_plate_only support_remove_small_overhang support_speed support_style support_threshold_angle
+    support_top_z_distance support_type thick_bridges top_area_threshold top_one_wall_type
+    tree_support_branch_angle tree_support_branch_diameter tree_support_branch_diameter_angle tree_support_branch_distance tree_support_wall_count
+    wall_distribution_count wall_generator wall_transition_angle wall_transition_filter_deviation wall_transition_length
+    wipe_speed xy_contour_compensation xy_hole_compensation
+""".split())
+
+REGION_KEYS = frozenset("""
+    alternate_extra_wall bottom_color_penetration_layers bottom_shell_layers bottom_shell_thickness bottom_surface_density
+    bottom_surface_pattern bridge_angle bridge_flow bridge_speed counterbore_hole_bridging
+    detect_overhang_wall detect_thin_wall embedding_wall_into_infill enable_height_slowdown enable_overhang_speed
+    ensure_vertical_shell_thickness fill_multiline filter_out_gap_fill fuzzy_skin fuzzy_skin_first_layer
+    fuzzy_skin_mode fuzzy_skin_noise_type fuzzy_skin_octaves fuzzy_skin_persistence fuzzy_skin_point_distance
+    fuzzy_skin_scale fuzzy_skin_thickness gap_infill_speed infill_combination infill_direction
+    infill_instead_top_bottom_surfaces infill_lock_depth infill_rotate_step infill_shift_step infill_wall_overlap
+    initial_layer_flow_ratio inner_wall_line_width inner_wall_speed internal_solid_infill_line_width internal_solid_infill_pattern
+    internal_solid_infill_speed ironing_direction ironing_flow ironing_inset ironing_pattern
+    ironing_spacing ironing_speed ironing_type locked_skeleton_infill_pattern locked_skin_infill_pattern
+    minimum_sparse_infill_area monotonic_travel_into_wall outer_wall_line_width outer_wall_speed overhang_1_4_speed
+    overhang_2_4_speed overhang_3_4_speed overhang_4_4_speed overhang_totally_speed override_filament_scarf_seam_setting
+    precise_outer_wall print_flow_ratio seam_slope_conditional seam_slope_entire_loop seam_slope_gap
+    seam_slope_inner_walls seam_slope_min_length seam_slope_start_height seam_slope_steps seam_slope_type
+    skeleton_infill_density skeleton_infill_line_width skin_infill_density skin_infill_depth skin_infill_line_width
+    slowdown_end_acc slowdown_end_height slowdown_end_speed slowdown_start_acc slowdown_start_height
+    slowdown_start_speed small_perimeter_speed small_perimeter_threshold smooth_coefficient smooth_speed_discontinuity_area
+    solid_infill_filament sparse_infill_anchor sparse_infill_anchor_max sparse_infill_density sparse_infill_filament
+    sparse_infill_lattice_angle_1 sparse_infill_lattice_angle_2 sparse_infill_line_width sparse_infill_pattern sparse_infill_speed
+    symmetric_infill_y_axis top_color_penetration_layers top_shell_layers top_shell_thickness top_solid_infill_flow_ratio
+    top_surface_density top_surface_line_width top_surface_pattern top_surface_speed vertical_shell_speed
+    wall_filament wall_loops wall_sequence
+""".split())
+
+IDENTITY = np.eye(4)
+SUPPORTED_SUBTYPES = {"normal_part", "modifier_part", "support_blocker", "support_enforcer"}
+SLICER = Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio")
+WORK = ROOT / ".cache/prints/soda-studies-v3"
 
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def save(path, value):
-    Path(path).write_text(json.dumps(value, indent=2) + "\n")
+def path_of(value):
+    path = Path(value)
+    return path if path.is_absolute() else ROOT / path
 
 
-def source_path(row):
-    path = Path(row["stl"])
-    if path.is_absolute():
-        return path
-    return ROOT / path if path.parts[0] == "hardware" else HERE / path
+def relative(path):
+    path = Path(path)
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
 
 
-def assembly_id(row):
-    value = row.get("print_assembly")
-    return value.get("id") if isinstance(value, dict) else value
+def scalar(value):
+    if isinstance(value, bool):
+        return "1" if value else "0"
+    if isinstance(value, (int, float)):
+        if not math.isfinite(value):
+            raise ValueError("Print metadata numbers must be finite")
+        return f"{value:g}"
+    if not isinstance(value, str):
+        raise ValueError("Object, volume and band metadata must be scalar slicer values")
+    return value
 
 
-def print_units(rows, assemblies=None):
-    """Keep each declared print assembly indivisible during plate placement."""
-    assemblies = assemblies or {}
-    grouped = {}
-    for row in rows:
-        identifier = assembly_id(row)
-        key = ("assembly", identifier) if identifier else ("leaf", row["id"])
-        grouped.setdefault(key, []).append(row)
-    units = []
-    for (kind, identifier), members in grouped.items():
-        if kind == "leaf":
-            units.append(dict(row=members[0], members=members, assembly=None))
-            continue
-        if identifier not in assemblies:
-            raise ValueError(f"{identifier}: declared print assembly is absent from manifest.print_assemblies")
-        assembly = assemblies[identifier]
-        expected = [member["id"] for member in assembly["members"]]
-        if set(expected) != {row["id"] for row in members}:
-            raise ValueError(f"{identifier}: a plate must retain all declared assembly leaf bodies together")
-        by_id = {row["id"]: row for row in members}
-        members = [by_id[identifier] for identifier in expected]
-        unit_row = dict(id=f"assembly:{identifier}", name=assembly.get("name", identifier),
-                        stl=assembly["stl"], rotation_x_degrees=0.)
-        units.append(dict(row=unit_row, members=members, assembly=assembly))
-    return units
+def sparse_options(options, scope, identifier):
+    allowed = {"object": OBJECT_KEYS | REGION_KEYS,
+               "region": REGION_KEYS,
+               "band": REGION_KEYS | {"layer_height"}}[scope]
+    unsupported = set(options)-allowed
+    if unsupported:
+        details = {key: ("object-wide" if key in OBJECT_KEYS else "global or unknown")
+                   for key in sorted(unsupported)}
+        raise ValueError(f"{identifier}: {scope} settings cannot take effect here: {details}")
+    return {key: scalar(value) for key, value in options.items()}
 
 
-def member_transform(member):
-    matrix = np.asarray(member.get("transform_mm", np.eye(4)), dtype=float).reshape(4, 4)
-    if not np.all(np.isfinite(matrix)) or not np.allclose(matrix[3], [0, 0, 0, 1]):
-        raise ValueError(f"{member['id']}: a print-assembly member requires a finite 4×4 rigid transform")
-    if not np.allclose(matrix[:3, :3].T @ matrix[:3, :3], np.eye(3), atol=1e-8) or not np.isclose(np.linalg.det(matrix[:3, :3]), 1.):
-        raise ValueError(f"{member['id']}: print-assembly member transforms must preserve physical dimensions")
+def rigid_matrix(value, identifier):
+    matrix = np.asarray(value if value is not None else IDENTITY, dtype=float).reshape(4, 4)
+    if (not np.all(np.isfinite(matrix)) or not np.allclose(matrix[3], [0, 0, 0, 1])
+            or not np.allclose(matrix[:3, :3].T @ matrix[:3, :3], np.eye(3), atol=1e-8)
+            or not np.isclose(np.linalg.det(matrix[:3, :3]), 1, atol=1e-8)):
+        raise ValueError(f"{identifier}: manufacturing transforms must be finite rigid 4×4 matrices")
     return matrix
 
 
-def placement_source(unit):
-    """A temporary envelope asks the existing writer for one common bed transform.
+def resolved_object(obj, parts):
+    if not obj.get("manufacturing_frame", {}).get("id"):
+        raise ValueError(f"{obj['id']}: give the shared manufacturing frame an explicit ID")
+    volumes, meshes = [], []
+    for index, value in enumerate(obj["volumes"], 1):
+        part_id = value["part_id"]
+        part = parts[part_id]
+        identifier = value.get("id", part_id)
+        path = path_of(value.get("stl", part["stl"]))
+        digest = sha(path)
+        expected = value.get("stl_sha256", part.get("stl_sha256") if "stl" not in value else None)
+        if expected and expected != digest:
+            raise ValueError(f"{identifier}: frozen source STL hash does not match {path}")
+        mesh = trimesh.load(path, force="mesh", process=True)
+        if not mesh.is_watertight or not mesh.is_winding_consistent or mesh.volume <= 0:
+            raise ValueError(f"{identifier}: a normal-part volume requires closed oriented source stock")
+        paint = value.get("support_paint", {})
+        if paint:
+            if paint.get("source_stl_sha256") != digest:
+                raise ValueError(f"{identifier}: exterior support paint needs this exact source STL hash")
+            indices = np.asarray(paint.get("block_triangle_indices", []), dtype=np.int64)
+            if indices.ndim != 1 or np.any(indices < 0) or np.any(indices >= len(mesh.faces)):
+                raise ValueError(f"{identifier}: support paint indices must refer to processed source STL triangles")
+            for index, code in paint.get("triangle_codes", {}).items():
+                if not str(index).isdigit() or int(index) >= len(mesh.faces) or not re.fullmatch(r"[038]+", str(code)):
+                    raise ValueError(f"{identifier}: source support paint requires valid triangle indices and Bambu subdivision codes")
+        transform = rigid_matrix(value.get("transform_mm"), identifier)
+        mesh.apply_transform(transform)
+        meshes.append(mesh)
+        slot = int(value.get("filament_slot", obj.get("filament_slot", 1)))
+        if slot < 1:
+            raise ValueError(f"{identifier}: filament slots are one-based")
+        volumes.append({**value, "id": identifier, "part_id": part_id,
+                        "name": value.get("name", part["name"]), "stl": relative(path),
+                        "stl_sha256": digest, "mesh": mesh, "transform_mm": transform.tolist(),
+                        "filament_slot": slot,
+                        "region_overrides": sparse_options(value.get("region_overrides", {}), "region", identifier),
+                        "source_part": {key: part[key] for key in (
+                            "id", "name", "stl", "stl_sha256", "native_review", "native_body_window",
+                            "label_windows", "recessed_label_windows", "native_release_probes", "native_gap_probes",
+                            "travel_x_mm", "y_running_air_per_side_mm", "first_layer_chamfer_mm") if key in part}})
+    if not volumes:
+        raise ValueError(f"{obj['id']}: a printable object requires at least one named normal-part volume")
+    bounds = np.array([np.min([m.bounds[0] for m in meshes], axis=0),
+                       np.max([m.bounds[1] for m in meshes], axis=0)])
+    if abs(bounds[0, 2]) > .002:
+        raise ValueError(f"{obj['id']}: shared object frame must already be bed-normalized (minZ={bounds[0, 2]:g})")
+    options = sparse_options(obj.get("object_overrides", {}), "object", obj["id"])
+    return {**obj, "volumes": volumes, "bounds_mm": bounds, "object_overrides": options}
 
-    The envelope's mesh is replaced by the exact named leaf volumes before the
-    editable project is saved. It never remains printable project geometry.
-    """
-    if unit["assembly"] is None:
-        return source_path(unit["row"])
-    mesh = trimesh.load_mesh(source_path(unit["row"]), process=True)
-    low, high = mesh.bounds
-    envelope = trimesh.creation.box(extents=high-low)
-    envelope.apply_translation((low+high)/2)
-    folder = WORK / "assembly-placement"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / (re.sub(r"[^a-zA-Z0-9_-]", "-", unit["assembly"]["id"]) + ".stl")
-    envelope.export(path)
+
+def normalized_ranges(obj, default_height):
+    ranges, previous = [], None
+    for value in sorted(obj.get("layer_ranges", []), key=lambda r: float(r["min_z_mm"])):
+        low, high = float(value["min_z_mm"]), float(value["max_z_mm"])
+        if not math.isfinite(low+high) or low < 0 or high <= low:
+            raise ValueError(f"{obj['id']}: layer bands require increasing nonnegative finite print Z")
+        if previous is not None and low < previous-1e-8:
+            raise ValueError(f"{obj['id']}: overlapping layer bands need one explicit merged recipe")
+        if high > obj["bounds_mm"][1, 2]+.01:
+            raise ValueError(f"{obj['id']}: a layer band exceeds this manufacturing object's height")
+        options = sparse_options(value["options"], "band", obj["id"])
+        # The slicer consumes layer_height specially; include it even for a
+        # scarf-only range so the model's layer schedule stays explicit.
+        options.setdefault("layer_height", obj["object_overrides"].get("layer_height", scalar(default_height)))
+        ranges.append({"min_z_mm": low, "max_z_mm": high, "options": options})
+        previous = high
+    return ranges
+
+
+def placement_envelope(obj, directory):
+    low, high = obj["bounds_mm"]
+    mesh = trimesh.creation.box(extents=high-low)
+    mesh.apply_translation((low+high)/2)
+    path = directory / (re.sub(r"[^A-Za-z0-9_-]", "-", obj["id"])+".stl")
+    mesh.export(path)
     return path
 
 
-def embed_print_assemblies(members, config, report, units):
-    """Replace each placement envelope with separately named normal-part volumes."""
+def object_document(part_id, mesh, center, support_paint=None):
+    document = ET.Element(writer.qn("model"), unit="millimeter")
+    resources = ET.SubElement(document, writer.qn("resources"))
+    obj = ET.SubElement(resources, writer.qn("object"), id=part_id, type="model")
+    geometry = ET.SubElement(obj, writer.qn("mesh"))
+    vertices = ET.SubElement(geometry, writer.qn("vertices"))
+    triangles = ET.SubElement(geometry, writer.qn("triangles"))
+    for vertex in mesh.vertices-center:
+        ET.SubElement(vertices, writer.qn("vertex"), **dict(zip("xyz", (f"{v:.9f}" for v in vertex))))
+    blocked = set((support_paint or {}).get("block_triangle_indices", []))
+    codes = (support_paint or {}).get("triangle_codes", {})
+    for index, face in enumerate(mesh.faces):
+        attributes = dict(zip(("v1", "v2", "v3"), map(str, face)))
+        if index in blocked:
+            attributes["paint_supports"] = "8"
+        if str(index) in codes:
+            attributes["paint_supports"] = codes[str(index)]
+        ET.SubElement(triangles, writer.qn("triangle"), **attributes)
+    return writer.xml(document)
+
+
+def embed_objects(members, report, objects, default_height):
     model = ET.fromstring(members["3D/3dmodel.model"])
+    config = ET.fromstring(members["Metadata/model_settings.config"])
     relationships = ET.fromstring(members["3D/_rels/3dmodel.model.rels"])
-    next_id = 2*len(units)+1
-    expanded, assembly_rows = [], []
-    for index, (unit, placement) in enumerate(zip(units, report["parts"], strict=True), 1):
-        if unit["assembly"] is None:
-            expanded.append({**placement, "layer_range_object_index": index})
-            continue
-        assembly = unit["assembly"]
+    ranges_xml = ET.Element("objects")
+    next_id = 2*len(objects)+1
+    object_reports, volume_reports = [], []
+    for index, (obj, placement) in enumerate(zip(objects, report["parts"], strict=True), 1):
+        center = np.asarray(placement["source_center_mm"])
+        shift = np.asarray(placement["plate_translation_mm"])-center
         owner = model.find(f".//{writer.qn('object')}[@id='{placement['object_id']}']")
         components = owner.find(writer.qn("components"))
-        for component in list(components):
-            components.remove(component)
+        components.clear()
         cfg = config.find(f"object[@id='{placement['object_id']}']")
         for part in list(cfg.findall("part")):
             cfg.remove(part)
-        center = np.array(placement["source_center_mm"])
-        matrix = np.array(placement["build_transform"][:9]).reshape(3, 3).T
-        shift = np.array(placement["plate_translation_mm"])
-        poses = {member["id"]: member_transform(member) for member in assembly["members"]}
-        leaf_records = []
-        for leaf_index, row in enumerate(unit["members"]):
-            path = source_path(row)
-            mesh = trimesh.load_mesh(path, process=True)
-            pose = poses[row["id"]]
-            body = mesh.copy()
-            body.apply_transform(pose)
-            vertices = body.vertices-center
-            part_id = placement["part_id"] if leaf_index == 0 else str(next_id)
-            member = placement["member"] if leaf_index == 0 else f"3D/Objects/assembly-leaf-{next_id}.model"
-            if leaf_index:
+        replace_metadata(cfg, {"name": obj.get("name", obj["id"]), **obj["object_overrides"]})
+        geometry_entries = [*obj["volumes"]]
+        for modifier in obj.get("modifiers", []):
+            subtype = modifier["subtype"]
+            if subtype not in SUPPORTED_SUBTYPES-{"normal_part"}:
+                raise ValueError(f"{modifier['id']}: unsupported modifier role {subtype}")
+            transform = rigid_matrix(modifier.get("transform_mm"), modifier["id"])
+            bounds = np.asarray(modifier["bounds_mm"], dtype=float) if "bounds_mm" in modifier else None
+            geometry_source = {}
+            if "stl" in modifier:
+                source = path_of(modifier["stl"])
+                digest = sha(source)
+                if modifier.get("stl_sha256") and modifier["stl_sha256"] != digest:
+                    raise ValueError(f"{modifier['id']}: frozen modifier STL hash does not match")
+                mesh = trimesh.load(source, force="mesh", process=True)
+                geometry_source = {"stl": relative(source), "stl_sha256": digest}
+            elif bounds is not None:
+                if bounds.shape != (2, 3) or not np.all(np.isfinite(bounds)) or np.any(bounds[1] <= bounds[0]):
+                    raise ValueError(f"{modifier['id']}: primitive modifier bounds require increasing finite XYZ")
+                mesh = trimesh.creation.box(extents=bounds[1]-bounds[0])
+                mesh.apply_translation(bounds.mean(axis=0))
+            else:
+                raise ValueError(f"{modifier['id']}: give an exact modifier STL or source primitive bounds")
+            mesh.apply_transform(transform)
+            options = sparse_options(modifier.get("options", {}), "region", modifier["id"])
+            geometry_entries.append({**modifier, "name": modifier.get("name", modifier["id"]),
+                                     "mesh": mesh, "region_overrides": options,
+                                     "bounds_mm": bounds.tolist() if bounds is not None else None,
+                                     "transform_mm": transform.tolist(), **geometry_source})
+        source_reports = []
+        for volume_index, entry in enumerate(geometry_entries):
+            part_id = placement["part_id"] if volume_index == 0 else str(next_id)
+            member = placement["member"] if volume_index == 0 else f"3D/Objects/volume-{next_id}.model"
+            if volume_index:
                 next_id += 1
-                ET.SubElement(relationships, "{http://schemas.openxmlformats.org/package/2006/relationships}Relationship",
-                              Target="/"+member, Id=f"assembly-leaf-{part_id}",
-                              Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
-            document = ET.Element(writer.qn("model"), unit="millimeter")
-            resources = ET.SubElement(document, writer.qn("resources"))
-            volume = ET.SubElement(resources, writer.qn("object"), id=part_id, type="model")
-            geometry = ET.SubElement(volume, writer.qn("mesh"))
-            points, triangles = ET.SubElement(geometry, writer.qn("vertices")), ET.SubElement(geometry, writer.qn("triangles"))
-            for point in vertices:
-                ET.SubElement(points, writer.qn("vertex"), **dict(zip("xyz", (f"{v:.9f}" for v in point))))
-            for triangle in mesh.faces:
-                ET.SubElement(triangles, writer.qn("triangle"), **dict(zip(("v1", "v2", "v3"), map(str, triangle))))
-            members[member] = writer.xml(document)
+                ET.SubElement(relationships, f"{{{writer.REL}}}Relationship", Target="/"+member,
+                              Id=f"volume-{part_id}", Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
+            mesh = entry["mesh"]
+            members[member] = object_document(part_id, mesh, center, entry.get("support_paint"))
             ET.SubElement(components, writer.qn("component"), objectid=part_id,
                           transform="1 0 0 0 1 0 0 0 1 0 0 0", **{
                               f"{{{writer.PROD}}}path": "/"+member,
-                              f"{{{writer.PROD}}}UUID": writer.identifier(row["name"]+"/component")})
-            normal = ET.SubElement(cfg, "part", id=part_id, subtype="normal_part",
-                                   uuid=writer.identifier(row["name"]+"/normal-part"))
-            for key, value in dict(name=row["name"], matrix="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                                   source_file=path.name, source_object_id=0, source_volume_id=0,
-                                   source_offset_x=center[0], source_offset_y=center[1], source_offset_z=center[2]).items():
-                writer.metadata(normal, key, value)
-            ET.SubElement(normal, "mesh_stat", face_count=str(len(mesh.faces)), edges_fixed="0",
+                              f"{{{writer.PROD}}}UUID": writer.identifier(obj["id"]+"/"+entry["id"]+"/component")})
+            subtype = entry.get("subtype", "normal_part")
+            part_cfg = ET.SubElement(cfg, "part", id=part_id, subtype=subtype,
+                                     uuid=writer.identifier(obj["id"]+"/"+entry["id"]+"/part"))
+            metadata = {"name": entry["name"], "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"}
+            if subtype == "normal_part":
+                metadata.update(extruder=entry["filament_slot"], source_file=Path(entry["stl"]).name,
+                                source_object_id=0, source_volume_id=volume_index,
+                                source_offset_x=center[0], source_offset_y=center[1], source_offset_z=center[2])
+            metadata.update(entry["region_overrides"])
+            for key, value in metadata.items():
+                writer.metadata(part_cfg, key, value)
+            ET.SubElement(part_cfg, "mesh_stat", face_count=str(len(mesh.faces)), edges_fixed="0",
                           degenerate_facets="0", facets_removed="0", facets_reversed="0", backwards_edges="0")
-            placed = vertices @ matrix.T + shift
-            leaf = {**placement, "name": row["name"], "source": str(path.relative_to(ROOT)),
-                    "stl_sha256": sha(path), "triangles": len(mesh.faces), "part_id": part_id,
-                    "member": member, "print_assembly_id": assembly["id"],
-                    "member_transform_mm": pose.tolist(), "source_leaf_bounds_mm": mesh.bounds.tolist(),
-                    "assembly_body_bounds_mm": body.bounds.tolist(), "layer_range_object_index": index,
-                    "plate_bounds_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
-                    "source_center_scope": "Common print-assembly center; attribution windows use shared manufacturing coordinates",
-                    "embedded_vertex_error_mm": float(np.max(np.abs(np.round(vertices, 9)-vertices)))}
-            expanded.append(leaf)
-            leaf_records.append(dict(id=row["id"], part_id=part_id, source=leaf["source"],
-                                     source_stl_sha256=leaf["stl_sha256"], member_transform_mm=pose.tolist()))
+            row = {"id": entry["id"], "part_id": entry.get("part_id"), "print_object_id": obj["id"],
+                   "subtype": subtype, "object_id": placement["object_id"], "volume_id": part_id,
+                   "identify_id": placement["identify_id"], "layer_range_object_index": index,
+                   "member": member, "triangles": len(mesh.faces),
+                   "shared_frame_bounds_mm": mesh.bounds.tolist(),
+                   "plate_bounds_mm": (mesh.bounds+shift).tolist(),
+                   "source_center_mm": center.tolist(), "plate_translation_mm": placement["plate_translation_mm"],
+                   "embedded_vertex_error_mm": float(np.max(np.abs(np.round(mesh.vertices-center, 9)-(mesh.vertices-center))))}
+            if subtype == "normal_part":
+                row.update(source=entry["stl"], source_stl_sha256=entry["stl_sha256"],
+                           filament_slot=entry["filament_slot"], source_to_shared_frame_mm=entry["transform_mm"],
+                           region_overrides=entry["region_overrides"], source_part=entry["source_part"],
+                           native_review=entry.get("native_review", {}))
+                if entry.get("support_paint"):
+                    row["support_paint"] = entry["support_paint"]
+            else:
+                row.update(modifier_bounds_mm=entry["bounds_mm"], region_overrides=entry["region_overrides"],
+                           source_to_shared_frame_mm=entry["transform_mm"])
+                if "stl" in entry:
+                    row.update(source=entry["stl"], source_stl_sha256=entry["stl_sha256"])
+            source_reports.append(row)
+            volume_reports.append(row)
         for metadata in cfg.findall("metadata"):
             if "face_count" in metadata.attrib:
-                metadata.set("face_count", str(sum(p["triangles"] for p in expanded
-                                                   if p["object_id"] == placement["object_id"])))
-        assembly_rows.append(dict(id=assembly["id"], object_id=placement["object_id"],
-                                  identify_id=placement["identify_id"], members=leaf_records,
-                                  source=assembly["stl"], source_stl_sha256=sha(source_path(unit["row"])),
-                                  build_transform=placement["build_transform"],
-                                  common_source_center_mm=placement["source_center_mm"],
-                                  placement_scope="One shared object; separate named normal parts; one bed transform preserves member XYZ gaps"))
+                metadata.set("face_count", str(sum(len(v["mesh"].faces) for v in obj["volumes"])))
+        ranges = normalized_ranges(obj, default_height)
+        if ranges:
+            range_obj = ET.SubElement(ranges_xml, "object", id=str(index))
+            for value in ranges:
+                band = ET.SubElement(range_obj, "range", min_z=f"{value['min_z_mm']:.9f}", max_z=f"{value['max_z_mm']:.9f}")
+                for key, val in value["options"].items():
+                    ET.SubElement(band, "option", opt_key=key).text = val
+        object_reports.append({"id": obj["id"], "name": obj.get("name", obj["id"]),
+                               "manufacturing_frame": obj["manufacturing_frame"],
+                               "object_id": placement["object_id"], "identify_id": placement["identify_id"],
+                               "layer_range_object_index": index,
+                               "object_overrides": obj["object_overrides"], "layer_ranges": ranges,
+                               "manufacturing_to_plate_mm": np.vstack([np.column_stack([np.eye(3), shift]), [0, 0, 0, 1]]).tolist(),
+                               "native_review": obj.get("native_review", {}),
+                               "pauses": obj.get("pauses", []),
+                               "recipe_sources": obj.get("recipe_sources", []),
+                               "physical_part_ids": sorted({v["part_id"] for v in obj["volumes"]}),
+                               "volumes": source_reports,
+                               "native_schedule_scope": "One model schedule per parent, including registered material/captive volumes. Leaf deposition witnesses require their supplied windows or material tool attribution."})
     members["3D/3dmodel.model"] = writer.xml(model)
+    members["Metadata/model_settings.config"] = writer.xml(config)
     members["3D/_rels/3dmodel.model.rels"] = writer.xml(relationships).replace(b"ns0:", b"").replace(b"xmlns:ns0=", b"xmlns=")
-    report["parts"] = expanded
-    if assembly_rows:
-        report["print_assemblies"] = assembly_rows
-
-
-def print_size(row):
-    path = source_path(row)
-    stamp = path.stat()
-    angle_degrees = float(row.get("rotation_x_degrees", 0))
-    key = (path, stamp.st_mtime_ns, stamp.st_size, angle_degrees)
-    if key not in _PRINT_SIZES:
-        mesh = trimesh.load(path, force="mesh", process=True)
-        angle = math.radians(angle_degrees)
-        turn = np.array([[1, 0, 0], [0, math.cos(angle), -math.sin(angle)],
-                         [0, math.sin(angle), math.cos(angle)]])
-        posed = mesh.vertices @ turn.T
-        _PRINT_SIZES[key] = posed.max(axis=0) - posed.min(axis=0)
-    return _PRINT_SIZES[key]
+    if list(ranges_xml):
+        members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges_xml)
+    else:
+        members.pop("Metadata/layer_config_ranges.xml", None)
+    pauses = ET.Element("custom_gcodes_per_layer")
+    plate = ET.SubElement(pauses, "plate")
+    ET.SubElement(plate, "plate_info", id="1")
+    events = []
+    for obj in objects:
+        for pause in obj.get("pauses", []):
+            z = float(pause["print_z_mm"])
+            if not math.isfinite(z) or not 0 < z < obj["bounds_mm"][1, 2]:
+                raise ValueError(f"{obj['id']}: an insertion pause needs a finite interior print height")
+            events.append((z, pause))
+    for z, pause in sorted(events, key=lambda event: event[0]):
+        ET.SubElement(plate, "layer", top_z=f"{z:.6f}", type="1", extruder="1", color="",
+                      extra=pause["message"], gcode="M400 U1")
+    ET.SubElement(plate, "mode", value="SingleExtruder")
+    if events:
+        members["Metadata/custom_gcode_per_layer.xml"] = writer.xml(pauses)
+    else:
+        members.pop("Metadata/custom_gcode_per_layer.xml", None)
+    report["print_objects"] = object_reports
+    report["volumes"] = volume_reports
+    report.pop("parts")  # The placement envelopes are not physical source parts.
 
 
 def plate_layout(rows, settings, gap=18., border=40.):
@@ -248,7 +401,7 @@ def plate_layout(rows, settings, gap=18., border=40.):
     low = np.max([a.min(axis=0) for a in areas], axis=0)
     high = np.min([a.max(axis=0) for a in areas], axis=0)
     available = high - low - 2 * border
-    sizes = [print_size(row)[:2] for row in rows]
+    sizes = [trimesh.load(path_of(row["stl"]), force="mesh").extents[:2] for row in rows]
     order = sorted(range(len(rows)), key=lambda i: (-sizes[i][1], -sizes[i][0]))
     candidates = []
     max_width = max(s[0] for s in sizes)
@@ -272,1309 +425,454 @@ def plate_layout(rows, settings, gap=18., border=40.):
     return tuple(tuple(float(v) for v in np.array(placed[i]) - occupied / 2)
                  for i in range(len(rows)))
 
-
 def replace_metadata(element, changes):
     for key, value in changes.items():
         for previous in list(element.findall(f"metadata[@key='{key}']")):
             element.remove(previous)
         writer.metadata(element, key, value)
 
-
-def seam_recipe(identifier):
-    method, gap = SEAMS[identifier]
-    return dict(wall_generator="classic", seam_position="back",
-                override_filament_scarf_seam_setting="1",
-                seam_slope_conditional="1", scarf_angle_threshold="155",
-                seam_slope_entire_loop="0", seam_slope_steps="10",
-                seam_slope_inner_walls="1", seam_slope_min_length="10",
-                seam_slope_start_height="10%",
-                seam_slope_type="external" if method == "scarf" else "none",
-                seam_gap=f"{gap:g}%" if method == "regular" else "15%",
-                seam_slope_gap=f"{gap:g}%" if method == "scarf" else "0%")
-
-
-def object_recipe(row, group):
-    overrides = dict(row.get("object_overrides", {}))
-    recipe = row.get("print_recipe", {})
-    if recipe:
-        if "wall_generator" in recipe:
-            if recipe["wall_generator"] not in {"classic", "arachne"}:
-                raise ValueError(f"{row['id']}: unsupported source wall_generator")
-            overrides["wall_generator"] = recipe["wall_generator"]
-        if "layer_height_mm" in recipe or "bottom_and_body_layer_height_mm" in recipe:
-            overrides["layer_height"] = f"{recipe_height(row, group):g}"
-        if "supports_enabled" in recipe:
-            overrides["enable_support"] = "1" if recipe["supports_enabled"] else "0"
-        if recipe.get("supports"):
-            if not str(recipe["supports"]).lower().startswith("tree (auto)"):
-                raise ValueError(f"{row['id']}: print_recipe supports must retain Tree (auto)")
-            overrides.update(enable_support="1", support_type="tree(auto)", support_style="default")
-        if "elsewhere_wall_loops" in recipe:
-            overrides["wall_loops"] = str(int(recipe["elsewhere_wall_loops"]))
-        if "wall_infill_order" in recipe:
-            if recipe["wall_infill_order"] != "inner wall/outer wall, then infill":
-                raise ValueError(f"{row['id']}: source wall order must retain walls before infill")
-            overrides.update(wall_sequence="inner wall/outer wall", is_infill_first="0")
-        if "infill_wall_overlap" in recipe:
-            overrides["infill_wall_overlap"] = str(recipe["infill_wall_overlap"])
-        if "initial_layer_height_mm" in recipe and abs(float(recipe["initial_layer_height_mm"])-.20) > 1e-9:
-            raise ValueError(f"{row['id']}: these shared plates retain the 0.20 mm first bed layer")
-    if row["id"] == "G":
-        overrides["enable_support"] = "0"
-    if group == "seam":
-        overrides.update(seam_recipe(row["id"]))
-    return overrides
+def turn_single_instance(members,report,angle):
+    """Turn one complete native parent in the bed plane; source volumes stay exact."""
+    if len(report['print_objects'])!=1:
+        raise ValueError('A bed-plane turn currently requires one complete parent on its plate')
+    rad=math.radians(float(angle));c,s=math.cos(rad),math.sin(rad)
+    rotation=np.array([[c,-s,0.],[s,c,0.],[0.,0.,1.]])
+    obj=report['print_objects'][0];first=obj['volumes'][0]
+    center=np.asarray(first['source_center_mm']);placement=np.asarray(first['plate_translation_mm'])
+    transform=' '.join(f'{v:.9f}' for v in [c,s,0.,-s,c,0.,0.,0.,1.,*placement])
+    model=ET.fromstring(members['3D/3dmodel.model'])
+    item=model.find(f".//{writer.qn('item')}[@objectid='{obj['object_id']}']")
+    item.set('transform',transform);members['3D/3dmodel.model']=writer.xml(model)
+    config=ET.fromstring(members['Metadata/model_settings.config'])
+    for item in config.findall('assemble/assemble_item'):
+        if item.get('object_id')==str(obj['object_id']):item.set('transform',transform)
+    members['Metadata/model_settings.config']=writer.xml(config)
+    obj['native_probe_to_plate_mm']=obj['manufacturing_to_plate_mm']
+    matrix=np.eye(4);matrix[:3,:3]=rotation;matrix[:3,3]=placement-rotation@center
+    obj['manufacturing_to_plate_mm']=matrix.tolist()
+    obj['plate_rotation_z_degrees']=float(angle)
+    for volume in obj['volumes']:
+        b=np.asarray(volume['shared_frame_bounds_mm'])
+        corners=np.array([[x,y,z] for x in b[:,0] for y in b[:,1] for z in b[:,2]])
+        q=(corners-center)@rotation.T+placement
+        volume['plate_bounds_mm']=[q.min(axis=0).tolist(),q.max(axis=0).tolist()]
+        volume['plate_bounds_scope']='Containment envelope of the turned volume; contact/probe readings inverse-transform actual native paths, without oblique gap envelopes.'
+    inverse=np.eye(4);inverse[:3,:3]=rotation.T;inverse[:3,3]=placement-rotation.T@placement
+    report['deposition_xy_transform_mm']=inverse[:2,[0,1,3]].tolist()
+    report['plate_rotation_z_degrees']=float(angle)
+    report['native_probe_frame_scope']='Actual native XY paths are inverse-turned about the instance origin into its translated manufacturing frame before clipping source contact/body/letter windows. Source STL, common captive transforms and print-up axis remain unchanged.'
 
 
-def recipe_height(row, group):
-    recipe = row.get("print_recipe", {})
-    height = float(recipe.get("bottom_and_body_layer_height_mm",
-                              recipe.get("layer_height_mm", GROUP_HEIGHTS[group])))
-    if not math.isfinite(height) or height <= 0:
-        raise ValueError(f"{row['id']}: print_recipe needs a positive finite layer height")
-    return height
-
-
-def recipe_layer_ranges(row, group):
-    """Merge height and wall bands into the production Bambu range format."""
-    recipe = row.get("print_recipe", {})
-    bands = []
-    for span_key, value_key, option_key in (
-            ("top_round_print_z_mm", "top_round_layer_height_mm", "layer_height"),
-            ("local_wall_print_z_mm", "local_wall_loops", "wall_loops")):
-        if span_key not in recipe and value_key not in recipe:
-            continue
-        if span_key not in recipe or value_key not in recipe:
-            raise ValueError(f"{row['id']}: {span_key} and {value_key} must be supplied together")
-        span = np.asarray(recipe[span_key], dtype=float)
-        if span.shape != (2,) or not np.all(np.isfinite(span)) or span[0] < 0 or span[1] <= span[0]:
-            raise ValueError(f"{row['id']}: invalid manufacturing Z band {span_key}")
-        value = float(recipe[value_key])
-        if not math.isfinite(value) or value <= 0 or (option_key == "wall_loops" and value != int(value)):
-            raise ValueError(f"{row['id']}: invalid {value_key}")
-        bands.append((span, option_key, f"{value:g}"))
-    if not bands:
-        return []
-    if abs(float(row.get("rotation_x_degrees", 0))) > 1e-6:
-        raise ValueError(f"{row['id']}: source-profile ranges require its manufacturing rotation baked into the STL")
-    cuts = sorted({0., *(float(v) for span, _, _ in bands for v in span)})
-    ranges = []
-    for low, high in zip(cuts, cuts[1:]):
-        options = dict(layer_height=f"{recipe_height(row, group):g}")
-        for span, key, value in bands:
-            if span[0] <= (low+high)/2 <= span[1]:
-                options[key] = value
-        ranges.append(dict(min_z_mm=low, max_z_mm=high, options=options))
-    return ranges
-
-
-def layer_ranges_member(specimens):
-    """Range object IDs are the one-based loaded-object indices, as in production."""
-    objects = ET.Element("objects")
-    by_object = defaultdict(list)
-    for index, specimen in enumerate(specimens, 1):
-        ranges = specimen.get("requested_layer_ranges", [])
-        if not ranges:
-            continue
-        by_object[specimen.get("layer_range_object_index", index)].extend(ranges)
-    for index, ranges in sorted(by_object.items()):
-        obj = ET.SubElement(objects, "object", id=str(index))
-        cuts = sorted({r[k] for r in ranges for k in ("min_z_mm", "max_z_mm")})
-        merged = []
-        for low, high in zip(cuts, cuts[1:]):
-            options = {}
-            for row in ranges:
-                if row["min_z_mm"] <= (low+high)/2 <= row["max_z_mm"]:
-                    for key, value in row["options"].items():
-                        if key in options and options[key] != value:
-                            raise ValueError(f"Shared print object {index} has conflicting {key} Z ranges")
-                        options[key] = value
-            if options:
-                merged.append(dict(min_z_mm=low, max_z_mm=high, options=options))
-        for row in merged:
-            band = ET.SubElement(obj, "range", min_z=f"{row['min_z_mm']:.6f}",
-                                 max_z=f"{row['max_z_mm']:.6f}")
-            for key, value in row["options"].items():
-                ET.SubElement(band, "option", opt_key=key).text = value
-    return writer.xml(objects)
-
-
-def make_project(group, rows, baseline, project_group=None, assemblies=None):
-    PROJECTS.mkdir(parents=True, exist_ok=True)
-    project_group = project_group or group
-    project = PROJECTS / f"the-pour-{project_group}-petgf-left04-z004-mark2.3mf"
-    previous = json.loads(project.with_suffix(".print.json").read_text()) if project.with_suffix(".print.json").is_file() else None
-    units = print_units(rows, assemblies)
-    layout_rows = [unit["row"] for unit in units]
-    rows = [row for unit in units for row in unit["members"]]
-    border = 80.
-    try:
-        offsets = plate_layout(layout_rows, baseline, border=border)
-    except ValueError:
-        border = 40.
-        offsets = plate_layout(layout_rows, baseline, border=border)
-    report = writer.refresh(PROFILE, project,
-                            parts=tuple((unit["row"]["name"], placement_source(unit),
-                                         float(unit["row"].get("rotation_x_degrees", 0))) for unit in units),
-                            offsets=offsets, plate_border=border, z_trim=.04,
-                            title=f"The Pour — {project_group}")
-    with zipfile.ZipFile(project) as archive:
+def prepare_plate(manifest, cohort, print_objects, output, *, offsets=None, border_mm=30., spacing_mm=18., rotation_z_degrees=0.):
+    """Create one editable plate from an explicit cohort and native-parent list."""
+    output = Path(output).resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    work = WORK / output.stem
+    work.mkdir(parents=True, exist_ok=True)
+    source_profile = path_of(cohort["settings_source"])
+    with zipfile.ZipFile(source_profile) as archive:
+        profile_members = {name: archive.read(name) for name in archive.namelist()}
+    saved_settings = profile_members[writer.SETTINGS_MEMBER]
+    settings = json.loads(saved_settings)
+    settings.update(cohort.get("global_overrides", {}))
+    profile_members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2)+"\n").encode()
+    profile = work / "cohort-profile.3mf"
+    writer.archive_write(profile, profile_members)
+    parts = {row["id"]: row for row in manifest["parts"]}
+    objects = [resolved_object(obj, parts) for obj in print_objects]
+    slots = len(settings["filament_settings_id"])
+    for obj in objects:
+        if any(v["filament_slot"] > slots for v in obj["volumes"]):
+            raise ValueError(f"{obj['id']}: a volume references a missing cohort material slot")
+    folder = work / "placement-envelopes"
+    folder.mkdir(exist_ok=True)
+    envelopes = [placement_envelope(obj, folder) for obj in objects]
+    if offsets is None:
+        offsets = plate_layout([{ "stl": str(path), "rotation_x_degrees": 0 }
+                                        for path in envelopes], settings, gap=spacing_mm, border=border_mm)
+    report = writer.refresh(profile, output,
+                            parts=tuple((obj.get("name", obj["id"]), path, 0.) for obj, path in zip(objects, envelopes)),
+                            offsets=tuple(offsets), title=f"The Pour V3 — {cohort['id']}",
+                            z_trim=cohort.get("requested_z_trim_mm"), plate_border=border_mm)
+    with zipfile.ZipFile(output) as archive:
         members = {name: archive.read(name) for name in archive.namelist()}
-    settings = json.loads(members[writer.SETTINGS_MEMBER])
-    height = GROUP_HEIGHTS[group]
-    changes = dict(layer_height=f"{height:g}", initial_layer_print_height="0.2")
-    if group.startswith("finish-") or group == "seam":
-        changes.update(seam_position="back", seam_gap="15%", seam_slope_type="none")
-    if group in SUPPORT_GAPS:
-        changes["support_top_z_distance"] = f"{SUPPORT_GAPS[group]:g}"
-    settings.update(changes)
-    settings["print_settings_id"] = f"The Pour {group} {height:g} mm PET-GF"
-    members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
-    config = ET.fromstring(members["Metadata/model_settings.config"])
-    if any(unit["assembly"] for unit in units):
-        embed_print_assemblies(members, config, report, units)
-    else:
-        for index, part in enumerate(report["parts"], 1):
-            part["layer_range_object_index"] = index
-    specimens = []
-    shared_overrides = defaultdict(dict)
-    for row, part in zip(rows, report["parts"], strict=True):
-        overrides = object_recipe(row, group)
-        cfg = config.find(f"object[@id='{part['object_id']}']")
-        for key, value in overrides.items():
-            held = shared_overrides[part["object_id"]]
-            if key in held and held[key] != value:
-                raise ValueError(f"{row['id']}: shared print-assembly object has conflicting {key} settings")
-            held[key] = value
-        replace_metadata(cfg, overrides)
-        specimen = dict(id=row["id"], name=row["name"], kind=row["kind"],
-                        source=part["source"], source_stl_sha256=part["stl_sha256"],
-                        identify_id=part["identify_id"], object_id=part["object_id"],
-                        rotation_x_degrees=part["rotation_x_degrees"],
-                        requested_layer_height_mm=recipe_height(row, group), object_overrides=overrides,
-                        effective_supports_enabled=str(overrides.get("enable_support", settings.get("enable_support", "0"))) == "1",
-                        plate_bounds_mm=part["plate_bounds_mm"],
-                        layer_range_object_index=part["layer_range_object_index"],
-                        plate_offset_mm=list(offsets[part["layer_range_object_index"]-1]))
-        if part.get("print_assembly_id"):
-            specimen["print_assembly_id"] = part["print_assembly_id"]
-        if row.get("print_recipe"):
-            specimen["requested_print_recipe"] = row["print_recipe"]
-        ranges = recipe_layer_ranges(row, group)
-        if ranges:
-            if max(r["max_z_mm"] for r in ranges) > float(print_size(row)[2])+.01:
-                raise ValueError(f"{row['id']}: a source-profile Z band exceeds the printed body")
-            specimen["requested_layer_ranges"] = ranges
-        if group == "seam":
-            method, gap = SEAMS[row["id"]]
-            specimen.update(seam_method=method, gap_percent_of_nozzle=gap,
-                            gap_mm=.4 * gap / 100,
-                            controlling_gap_key="seam_gap" if method == "regular" else "seam_slope_gap")
-        if group in SUPPORT_GAPS:
-            specimen["requested_support_top_gap_mm"] = SUPPORT_GAPS[group]
-        for key in ("support_ceiling_z_mm", "ceiling_xy_bounds_mm", "label_windows",
-                    "recessed_label_windows",
-                    "native_body_window", "native_release_probes", "native_gap_probes",
-                    "travel_x_mm", "top_release_gap_mm", "lower_release_gap_mm",
-                    "y_running_air_per_side_mm", "first_layer_chamfer_mm"):
-            if key in row:
-                specimen[key] = row[key]
-        specimens.append(specimen)
-    members["Metadata/model_settings.config"] = writer.xml(config)
-    if any(s.get("requested_layer_ranges") for s in specimens):
-        members["Metadata/layer_config_ranges.xml"] = layer_ranges_member(specimens)
-    writer.archive_write(project, members)
-    report.update(project=str(project.relative_to(ROOT)), project_sha256=sha(project),
-                  manifest_sha256=sha(MANIFEST), preparation_source_sha256=sha(__file__),
-                  settings_sha256=hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest(),
-                  settings_preserved_byte_for_byte=False,
-                  layer_height_mm=height, requested_layer_height_mm=height,
-                  first_layer_height_mm=.2, process=settings["print_settings_id"],
-                  changes_after_profile_refresh=changes, print_settings_id=settings["print_settings_id"],
-                  group=project_group, comparison_group=group, specimens=specimens,
-                  printer_name="Mark2", requested_z_trim_mm=.04,
-                  support_policy="Saved Tree(auto)/Default for support-enabled objects, including automatic normal sections. Explicit source or separate captive-group recipes can disable support locally.",
-                  support_top_z_distance_mm=float(settings["support_top_z_distance"]),
-                  support_bottom_z_distance_mm=float(settings["support_bottom_z_distance"]),
-                  preparation_only=True, submitted=False,
-                  physical_result="Unprinted; finish, removal effort and tactile fit are unmeasured.",
-                  transfer_limit="Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.")
-    if previous and previous.get("project_sha256") == report["project_sha256"] and previous.get("native"):
-        archive = ROOT / previous["native"]["archive"]
-        if archive.is_file() and sha(archive) == previous["native"]["archive_sha256"]:
-            report["native"] = native_summary(project, report, archive, archive.parent)
-            report["native"]["reused_identical_input_project"] = True
-            print(f"Reusing native slice {project_group}: identical input project and recorded archive", flush=True)
-    save(project.with_suffix(".print.json"), report)
-    return project, report
+    embed_objects(members, report, objects, float(settings["layer_height"]))
+    if rotation_z_degrees:turn_single_instance(members,report,rotation_z_degrees)
+    writer.archive_write(output, members)
+    counts = Counter(v["part_id"] for obj in report["print_objects"] for v in obj["volumes"] if v["subtype"] == "normal_part")
+    report.update(schema=3, cohort=cohort["id"], project=relative(output), project_sha256=sha(output),
+                  settings_source=relative(source_profile), settings_source_sha256=sha(source_profile),
+                  requested_global_overrides=cohort.get("global_overrides", {}),
+                  first_layer_height_mm=float(settings["initial_layer_print_height"]),
+                  material_volume_counts=dict(counts), printable_part_ids=sorted(counts),
+                  preparation_source_sha256=sha(__file__), preparation_only=True, submitted=False,
+                  reader_source_sha256=sha(reading.__file__), slicer_option_scope_source=SLICER_SCOPE_SOURCE,
+                  saved_project_settings_sha256=hashlib.sha256(saved_settings).hexdigest(),
+                  material_source=cohort.get("material_source", {}),
+                  native_material_mapping={key: settings.get(key) for key in (
+                      "filament_settings_id", "filament_colour", "filament_type", "filament_nozzle_map",
+                      "nozzle_diameter", "extruder_offset", "enable_prime_tower")},
+                  physical_result="Unprinted V3 preparation; no release, fit, strength or lifetime acceptance.")
+    output.with_suffix(".print.json").write_text(json.dumps(report, indent=2)+"\n")
+    return output, report
+
+
+def save(path, value):
+    Path(path).write_text(json.dumps(value, indent=2)+"\n")
 
 
 def native_summary(project, report, archive_path, directory):
+    """Read requested native facts without connecting to a printer."""
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(archive_path) as archive:
         text = archive.read("Metadata/plate_1.gcode").decode()
         thumbnail = archive.read("Metadata/plate_1.png") if "Metadata/plate_1.png" in archive.namelist() else None
-    gcode = directory / "plate_1.gcode"
-    gcode.write_text(text)
-    beads = writer.object_toolpaths(gcode, directory / "all-layer-beads.gcode", None)
-    low, high = beads["extrusion_bounds_xy_mm"]
-    bed_low, bed_high = report["shared_printable_area_mm"]
-    margin = min(*(a-b for a,b in zip(low, bed_low)), *(b-a for a,b in zip(high, bed_high)))
-    layers = [float(v) for v in re.findall(r"^; Z_HEIGHT:\s*([\d.]+)", text, re.M)]
-    heights = [float(v) for v in re.findall(r"^; LAYER_HEIGHT:\s*([\d.]+)", text, re.M)]
-    labels = sorted({int(v) for v in re.findall(r"^; (?:start printing object, unique label id:|OBJECT_ID:)\s*(\d+)", text, re.M)})
+    (directory / "plate_1.gcode").write_text(text)
+    if thumbnail:
+        Path(project).with_suffix(".png").write_bytes(thumbnail)
+    low, high, max_width = np.full(2, np.inf), np.full(2, -np.inf), 0.
+    feature_counts = Counter()
+    for deposit in native_deposits(text):
+        feature = deposit["feature"]
+        if feature.startswith("Custom"):
+            continue
+        width = deposit["strand_width_mm"] or .6
+        max_width = max(max_width, width)
+        padding = width/2+.1  # Arc-sampling allowance in addition to commanded width.
+        low = np.minimum(low, deposit["points"].min(axis=0)-padding)
+        high = np.maximum(high, deposit["points"].max(axis=0)+padding)
+        feature_counts[feature] += 1
+    if not np.all(np.isfinite([low, high])):
+        raise ValueError(f"{project}: native archive contains no attributable layer deposits")
+    bed_low, bed_high = np.asarray(report["shared_printable_area_mm"])
+    margin = float(min(*(low-bed_low), *(bed_high-high)))
+    layer_zs = [float(v) for v in re.findall(r"^; Z_HEIGHT:\s*([\d.]+)", text, re.M)]
     estimated = re.search(r"total estimated time:\s*(.+)", text)
     grams = re.search(r"^; total filament weight \[g\]\s*:\s*([\d.,]+)", text, re.M)
-    if thumbnail:
-        (PROJECTS / f"{project.stem}.png").write_bytes(thumbnail)
-    result = dict(archive=str(archive_path.relative_to(ROOT)), archive_sha256=sha(archive_path),
-                gcode_sha256=hashlib.sha256(text.encode()).hexdigest(),
-                layer_count=len(layers), first_layer_z_mm=layers[0] if layers else None,
-                emitted_deposition_heights_mm=sorted({round(h, 4) for h in heights}),
-                deposition_height_scope="Native LAYER_HEIGHT comments describe strand height, including 0.4 mm bridge strands. Per-object model_layer_steps_mm records the fixed model schedule.",
-                model_object_identify_ids=labels,
-                object_model_deposition=model_deposition_facts(text, report),
-                estimated_time=estimated.group(1).strip() if estimated else None,
-                saved_profile_filament_estimate_g=[float(v) for v in grams.group(1).split(",")] if grams else None,
-                complete_layer_bead_bounds=beads, minimum_full_bead_bed_margin_mm=margin,
-                emitted_z_trim_mm=[float(v) for v in re.findall(r"^\s*G29\.1 Z([-+.\d]+)", text, re.M)],
-                support_feature_count=len(re.findall(r"^; FEATURE: Support", text, re.M)),
-                support_gap_note="Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
-                reviewer_sha256=sha(__file__), sliced_locally=True, submitted=False)
-    if report["comparison_group"] in SUPPORT_GAPS:
-        result["ceiling_support_reading"] = ceiling_support_reading(text, report)
-    if any(s.get("label_windows") for s in report["specimens"]):
-        result["lettering_reading"] = native_lettering_reading(text, report, directory)
-    if any(s.get("recessed_label_windows") for s in report["specimens"]):
-        result["recessed_identity_reading"] = native_recessed_lettering_reading(text, report, directory)
-    if any(s.get("requested_print_recipe") for s in report["specimens"]):
-        result["source_profile_reading"] = native_source_profile_reading(text, report)
-    if any(s.get("native_release_probes") or s.get("native_gap_probes") for s in report["specimens"]):
-        result["captive_release_reading"] = native_release_reading(text, report, result["object_model_deposition"])
+    schedules = reading.object_schedule_readings(text, report)
+    result = dict(archive=relative(archive_path), archive_sha256=sha(archive_path),
+        source_project_sha256=sha(project), gcode_sha256=hashlib.sha256(text.encode()).hexdigest(),
+        layer_count=len(layer_zs), first_layer_z_mm=layer_zs[0] if layer_zs else None,
+        object_model_deposition=schedules,
+        estimated_time=estimated.group(1).strip() if estimated else None,
+        saved_profile_filament_estimate_g=[float(v) for v in grams.group(1).split(",")] if grams else None,
+        complete_layer_bead_bounds=dict(extrusion_bounds_xy_mm=[low.tolist(), high.tolist()],
+            maximum_line_width_mm=max_width, arc_sampling_allowance_mm=.1,
+            scope="Commanded width footprints for model, support, brim/skirt and prime-tower layer deposits. Machine Custom purge is excluded."),
+        minimum_full_bead_bed_margin_mm=margin,
+        layer_depositing_segment_counts_by_feature=dict(feature_counts),
+        emitted_z_trim_mm=[float(v) for v in re.findall(r"^\s*G29\.1 Z([-+.\d]+)", text, re.M)],
+        reviewer_sha256=sha(reading.__file__), sliced_locally=True, submitted=False,
+        physical_scope="Requested settings and native model slabs/strand footprints; physical release, fit, seal, finish, strength and lifetime remain unmeasured.")
+    result['material_frame_reading']=reading.native_material_frames(text)
+    ceilings = reading.ceiling_support_readings(text, report, schedules)
+    if ceilings:
+        result["ceiling_support_readings"] = ceilings
+    bands = reading.comparison_band_readings(report, schedules)
+    if bands:
+        result["comparison_band_readings"] = bands
+    adapter = reading.v3_probe_adapter(report)
+    specimens = adapter["specimens"]
+    if any(s.get("label_windows") for s in specimens):
+        result["lettering_reading"] = reading.native_lettering_reading(text, adapter, directory)
+    if any(s.get("recessed_label_windows") for s in specimens):
+        result["recessed_identity_reading"] = reading.native_recessed_lettering_reading(text, adapter, directory)
+    if any(s.get("requested_print_recipe", {}).get("wall_probes") for s in specimens):
+        result["source_profile_reading"] = reading.native_source_profile_reading(text, adapter)
+    if any(s.get("native_release_probes") or s.get("native_gap_probes") for s in specimens):
+        body = reading.model_deposition_facts(text, adapter)
+        result["attributed_body_deposition"] = body
+        result["captive_release_reading"] = reading.native_release_reading(text, adapter, body)
+    if any(obj.get("pauses") for obj in report["print_objects"]):
+        result["insertion_pause_reading"] = reading.native_pause_reading(text, report)
     return result
 
 
-def native_deposits(text):
-    """Yield positive native XY deposits, preserving model Z and strand flow.
-
-    Model Z comes from the native layer comment; explicit Z ramps are retained
-    separately. Arc moves are subdivided by the existing native-path reader.
-    """
-    from enclosure_support_audit import _WORD, _arc_points
-
-    x = y = e = 0.
-    current = None
-    layer_z = height = width = feed = None
-    feature = ""
-    absolute_xy, relative_e = True, True
-    for raw in text.splitlines():
-        line = raw.strip()
-        label = re.match(r"; (?:start printing object, unique label id:|OBJECT_ID:)\s*(\d+)", line)
-        if label:
-            current = int(label.group(1))
-        elif line.startswith("; stop printing object"):
-            current = None
-        elif line.startswith("; Z_HEIGHT:"):
-            layer_z = float(line.split(":", 1)[1])
-        elif line.startswith(("; LAYER_HEIGHT:", "; HEIGHT:")):
-            height = float(line.split(":", 1)[1])
-        elif line.startswith(("; LINE_WIDTH:", "; WIDTH:")):
-            width = float(line.split(":", 1)[1])
-        elif line.startswith("; FEATURE:"):
-            feature = line.split(":", 1)[1].strip()
-        code = line.split(";", 1)[0].strip()
-        if not code:
-            continue
-        command = code.split(None, 1)[0]
-        words = {k: float(v) for k, v in _WORD.findall(code)}
-        if command in {"G90", "G91"}:
-            absolute_xy = command == "G90"
-        elif command in {"M82", "M83"}:
-            relative_e = command == "M83"
-        elif command == "G92":
-            x, y, e = words.get("X", x), words.get("Y", y), words.get("E", e)
-        elif command in {"G0", "G1", "G2", "G3"}:
-            nx = words.get("X", x) if absolute_xy else x+words.get("X", 0.)
-            ny = words.get("Y", y) if absolute_xy else y+words.get("Y", 0.)
-            de = words.get("E", 0.) if relative_e else words.get("E", e)-e
-            feed = words.get("F", feed)
-            if layer_z is not None and de > 1e-9 and (nx != x or ny != y):
-                points = ([(x, y), (nx, ny)] if command in {"G0", "G1"}
-                          else _arc_points((x, y), (nx, ny), words, command == "G2"))
-                yield dict(identify_id=current, model_z_mm=layer_z, strand_height_mm=height,
-                           strand_width_mm=width, feature=feature,
-                           feed_mm_s=feed/60 if feed is not None else None,
-                           explicit_z_move="Z" in words, points=np.array(points))
-            x, y = nx, ny
-            if "E" in words:
-                e = e+words["E"] if relative_e else words["E"]
-
-
-def is_model_deposit(deposit):
-    return not deposit["feature"].startswith(("Support", "Skirt", "Brim", "Custom", "Prime"))
-
-
-def native_bounds(value, identifier):
-    bounds = np.asarray(value.get("bounds_mm") if isinstance(value, dict) else value, dtype=float)
-    if bounds.shape != (2, 3) or not np.all(np.isfinite(bounds)) or np.any(bounds[1] <= bounds[0]):
-        raise ValueError(f"{identifier}: native attribution requires finite increasing 2×3 XYZ bounds")
-    return bounds
-
-
-def intersects_native_window(deposit, bounds):
-    if not bounds[0, 2]-1e-6 <= deposit["model_z_mm"] <= bounds[1, 2]+1e-6:
-        return False
-    return any(clipped_segment(a, b, bounds[0, :2], bounds[1, :2]) is not None
-               for a, b in zip(deposit["points"], deposit["points"][1:]))
-
-
-def native_targets(report):
-    """Leaf identities remain distinct even when their native object label is shared."""
-    targets, by_object = {}, defaultdict(list)
-    for specimen, part in zip(report["specimens"], report["parts"], strict=True):
-        shift = np.array(part["plate_translation_mm"])-np.array(part["source_center_mm"])
-        window = specimen.get("native_body_window")
-        if window is not None and abs(float(part["rotation_x_degrees"])) > 1e-6:
-            raise ValueError(f"{specimen['id']}: native attribution windows require a bed-normalized manufacturing frame")
-        if specimen.get("print_assembly_id") and window is None:
-            raise ValueError(f"{specimen['id']}: shared native object needs a unique native_body_window")
-        bounds = native_bounds(window, specimen["id"])+shift if window is not None else None
-        target = dict(specimen=specimen, part=part, shift=shift, bounds=bounds)
-        targets[specimen["id"]] = target
-        by_object[specimen["identify_id"]].append(target)
-    return targets, by_object
-
-
-def model_deposition_facts(text, report):
-    """Retain leaf deposit witnesses and the correct shared nominal Z schedule."""
-    targets, by_object = native_targets(report)
-    facts = {identifier: dict(layers=set(), heights=set(), outer_wall_moves=0, outer_wall_z_moves=0)
-             for identifier in targets}
-    object_zs = defaultdict(set)
-    for deposit in native_deposits(text):
-        if not is_model_deposit(deposit):
-            continue
-        label, z = deposit["identify_id"], deposit["model_z_mm"]
-        if label not in by_object:
-            continue
-        object_zs[label].add(z)
-        for target in by_object[label]:
-            if target["bounds"] is not None and not intersects_native_window(deposit, target["bounds"]):
-                continue
-            fact = facts[target["specimen"]["id"]]
-            fact["layers"].add(z)
-            if deposit["strand_height_mm"] is not None:
-                fact["heights"].add(deposit["strand_height_mm"])
-            if deposit["feature"] in ("Outer wall", "Overhang wall"):
-                fact["outer_wall_moves"] += 1
-                fact["outer_wall_z_moves"] += int(deposit["explicit_z_move"])
-    readings = []
-    for identifier, target in targets.items():
-        specimen, fact = target["specimen"], facts[identifier]
-        zs = sorted(fact["layers"])
-        schedule = sorted(object_zs[specimen["identify_id"]])
-        reading = dict(id=identifier, identify_id=specimen["identify_id"],
-                       model_layer_count=len(zs), model_layer_nozzle_z_mm=zs,
-                       first_attributed_model_nozzle_z_mm=zs[0] if zs else None,
-                       model_layer_steps_mm=sorted({round(b-a, 4) for a, b in zip(schedule, schedule[1:])}),
-                       model_layer_schedule_scope=("Common print-assembly object schedule; leaf deposition is clipped to its unique supplied window."
-                           if specimen.get("print_assembly_id") else "Complete native object model deposition."),
-                       model_deposition_heights_mm=sorted({round(h, 4) for h in fact["heights"]}),
-                       deposition_height_scope="Strand heights include native bridge thickness; shared object Z steps describe the nominal layer schedule.",
-                       outer_wall_depositing_moves=fact["outer_wall_moves"],
-                       outer_wall_depositing_moves_with_z=fact["outer_wall_z_moves"],
-                       z_witness_scope="Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness.")
-        if specimen.get("print_assembly_id"):
-            reading.update(print_assembly_id=specimen["print_assembly_id"],
-                           sampled_body_window=specimen["native_body_window"])
-        readings.append(reading)
-    return readings
-
-
-def probe_crossing(a, b, start, end):
-    """Position of a transverse wall centerline crossing on a finite probe."""
-    direction, probe = b-a, end-start
-    def cross(u, v):
-        return float(u[0]*v[1]-u[1]*v[0])
-    denominator = cross(direction, probe)
-    if abs(denominator) < 1e-10:
-        return None
-    t, u = cross(start-a, probe)/denominator, cross(start-a, direction)/denominator
-    if -1e-7 <= t <= 1+1e-7 and -1e-7 <= u <= 1+1e-7:
-        return float(u*np.linalg.norm(probe))
-    return None
-
-
-def native_source_profile_reading(text, report):
-    """Read model Z schedules, feature order and local wall lanes from native moves.
-
-    A wall probe is a transverse manufacturing-frame XY line through one simple
-    wall land. Its crossings count emitted road centerlines, independent of the
-    saved wall_loops option; coincident endpoints are counted only once. The
-    source's physical bead shape and overhang surface remain unmeasured.
-    """
-    from enclosure_support_audit import _WORD, _arc_points
-
-    targets = {}
-    for specimen, part in zip(report["specimens"], report["parts"], strict=True):
-        recipe = specimen.get("requested_print_recipe")
-        if not recipe:
-            continue
-        if abs(float(part["rotation_x_degrees"])) > 1e-6:
-            raise ValueError(f"{specimen['id']}: native source-profile probes require a bed-normalized STL")
-        shift = np.array(part["plate_translation_mm"])-np.array(part["source_center_mm"])
-        probes = []
-        for probe in recipe.get("wall_probes", []):
-            line = np.array(probe["line_xy_mm"], dtype=float)
-            span = np.array(probe.get("print_z_mm", recipe.get("local_wall_print_z_mm")), dtype=float)
-            if line.shape != (2, 2) or not np.all(np.isfinite(line)) or np.linalg.norm(line[1]-line[0]) < 1e-6:
-                raise ValueError(f"{specimen['id']}: invalid wall probe line")
-            if span.shape != (2,) or not np.all(np.isfinite(span)) or span[1] <= span[0]:
-                raise ValueError(f"{specimen['id']}: wall probes need a finite increasing print_z_mm span")
-            probes.append(dict(id=specimen["id"], name=probe.get("name", "source wall land"),
-                               source_line=line, plate_line=line+shift[:2],
-                               span=span, layers=defaultdict(list),
-                               expected=probe.get("expected_wall_roads", recipe.get("local_wall_loops"))))
-        target = targets.setdefault(specimen["identify_id"], dict(specimens=[], shift=shift,
-                                                                  probes=[], layers={}, support_segments=0))
-        if not np.allclose(target["shift"], shift):
-            raise ValueError(f"{specimen['id']}: shared native object has inconsistent manufacturing-frame shifts")
-        target["specimens"].append(specimen)
-        target["probes"].extend(probes)
-    for target in targets.values():
-        label = target["specimens"][0]["identify_id"]
-        target["specimens"] = [s for s in report["specimens"] if s["identify_id"] == label]
-    x = y = e = 0.
-    current = None
-    layer_z = strand_height = strand_width = feed = None
-    feature = ""
-    absolute_xy, relative_e = True, True
-    walls = {"Inner wall", "Outer wall", "Overhang wall"}
-    infill = {"Sparse infill", "Internal solid infill", "Bottom surface", "Top surface", "Bridge"}
-    for raw in text.splitlines():
-        line = raw.strip()
-        label = re.match(r"; (?:start printing object, unique label id:|OBJECT_ID:)\s*(\d+)", line)
-        if label:
-            current = int(label.group(1))
-        elif line.startswith("; stop printing object"):
-            current = None
-        elif line.startswith("; Z_HEIGHT:"):
-            layer_z = float(line.split(":", 1)[1])
-        elif line.startswith(("; LAYER_HEIGHT:", "; HEIGHT:")):
-            strand_height = float(line.split(":", 1)[1])
-        elif line.startswith(("; LINE_WIDTH:", "; WIDTH:")):
-            strand_width = float(line.split(":", 1)[1])
-        elif line.startswith("; FEATURE:"):
-            feature = line.split(":", 1)[1].strip()
-        code = line.split(";", 1)[0].strip()
-        if not code:
-            continue
-        command = code.split(None, 1)[0]
-        words = {k: float(v) for k, v in _WORD.findall(code)}
-        if command in {"G90", "G91"}:
-            absolute_xy = command == "G90"
-        elif command in {"M82", "M83"}:
-            relative_e = command == "M83"
-        elif command == "G92":
-            x, y, e = words.get("X", x), words.get("Y", y), words.get("E", e)
-        elif command in {"G0", "G1", "G2", "G3"}:
-            nx = words.get("X", x) if absolute_xy else x+words.get("X", 0.)
-            ny = words.get("Y", y) if absolute_xy else y+words.get("Y", 0.)
-            de = words.get("E", 0.) if relative_e else words.get("E", e)-e
-            feed = words.get("F", feed)
-            target = targets.get(current)
-            if target and layer_z is not None and de > 1e-9 and (nx != x or ny != y):
-                if feature.startswith("Support"):
-                    target["support_segments"] += 1
-                elif not feature.startswith(("Skirt", "Brim", "Custom", "Prime")):
-                    z = round(layer_z-target["shift"][2], 5)
-                    layer = target["layers"].setdefault(z, dict(features=[], heights=set(), feeds=defaultdict(set)))
-                    if not layer["features"] or layer["features"][-1] != feature:
-                        layer["features"].append(feature)
-                    if strand_height is not None:
-                        layer["heights"].add(round(strand_height, 5))
-                    if feed is not None:
-                        layer["feeds"][feature].add(round(feed/60, 3))
-                    if feature in walls:
-                        points = ([(x, y), (nx, ny)] if command in {"G0", "G1"}
-                                  else _arc_points((x, y), (nx, ny), words, command == "G2"))
-                        points = [np.array(p) for p in points]
-                        for probe in target["probes"]:
-                            if not probe["span"][0]-1e-6 <= z <= probe["span"][1]+1e-6:
-                                continue
-                            for a, b in zip(points, points[1:]):
-                                position = probe_crossing(a, b, *probe["plate_line"])
-                                if position is not None:
-                                    probe["layers"][z].append(dict(distance_on_probe_mm=round(position, 5),
-                                                                   feature=feature, commanded_width_mm=strand_width))
-            x, y = nx, ny
-            if "E" in words:
-                e = e+words["E"] if relative_e else words["E"]
-    readings = []
-    for target in targets.values():
-        specimen = target["specimens"][0]
-        zs = sorted(target["layers"])
-        previous_z = 0.
-        layer_rows = []
-        for z in zs:
-            layer = target["layers"][z]
-            sequence = layer["features"]
-            wall_positions = [i for i, name in enumerate(sequence) if name in walls]
-            infill_positions = [i for i, name in enumerate(sequence) if name in infill]
-            layer_rows.append(dict(model_nozzle_z_mm=z, nominal_model_z_step_mm=round(z-previous_z, 5),
-                                   commanded_strand_heights_mm=sorted(layer["heights"]),
-                                   depositing_feature_sequence=sequence,
-                                   first_wall_precedes_first_infill=(min(wall_positions) < min(infill_positions)
-                                       if wall_positions and infill_positions else None),
-                                   commanded_wall_feed_rates_mm_s=sorted({v for name in walls for v in layer["feeds"].get(name, [])})))
-            previous_z = z
-        probe_rows = []
-        for probe in target["probes"]:
-            layers = []
-            expected = int(probe["expected"]) if probe["expected"] is not None else None
-            for z, hits in sorted(probe["layers"].items()):
-                unique = []
-                for hit in sorted(hits, key=lambda h: h["distance_on_probe_mm"]):
-                    if not unique or abs(hit["distance_on_probe_mm"]-unique[-1]["distance_on_probe_mm"]) > 1e-4:
-                        unique.append(hit)
-                layers.append(dict(model_nozzle_z_mm=z, wall_lane_count=len(unique), crossings=unique,
-                                   matches_requested_wall_roads=(len(unique) == expected if expected is not None else None)))
-            outer_roads = []
-            for layer in layers[:2]:
-                outer = [hit for hit in layer["crossings"] if hit["feature"] in {"Outer wall", "Overhang wall"}]
-                if outer:
-                    outer_roads.append(dict(model_nozzle_z_mm=layer["model_nozzle_z_mm"],
-                                             **min(outer, key=lambda hit: hit["distance_on_probe_mm"])))
-            overlap = None
-            if len(outer_roads) == 2 and all(hit["commanded_width_mm"] is not None for hit in outer_roads):
-                overlap = (sum(hit["commanded_width_mm"] for hit in outer_roads)/2
-                           -abs(outer_roads[1]["distance_on_probe_mm"]-outer_roads[0]["distance_on_probe_mm"]))
-            probe_rows.append(dict(id=probe["id"], name=probe["name"], line_xy_mm=probe["source_line"].tolist(),
-                                   print_z_mm=probe["span"].tolist(), requested_wall_roads=expected,
-                                   sampled_model_layer_count=len(layers),
-                                   emitted_wall_lane_counts=sorted({r["wall_lane_count"] for r in layers}),
-                                   first_two_sampled_outer_wall_roads=outer_roads,
-                                   first_two_sampled_outer_wall_nominal_footprint_overlap_mm=round(overlap, 5) if overlap is not None else None,
-                                   footprint_overlap_scope="Two commanded line-width footprints on this transverse land; physical bead shape, contact area and bonding are unmeasured.",
-                                   layers=layers))
-        shared = specimen.get("print_assembly_id")
-        reading = dict(id=shared or specimen["id"], identify_id=specimen["identify_id"],
-                       emitted_model_layers=layer_rows,
-                       emitted_object_support_segment_count=target["support_segments"],
-                       wall_probes=probe_rows,
-                       local_wall_count_scope=("Emitted wall-road crossings on supplied simple lands; corners, narrow stock and other islands can have different wall counts."
-                           if probe_rows else "No wall probe supplied; emitted local wall count has not been measured."))
-        if shared:
-            reading.update(print_assembly_id=shared,
-                           member_ids=[s["id"] for s in target["specimens"]],
-                           requested_member_recipes=[dict(id=s["id"], print_recipe=s.get("requested_print_recipe", {}),
-                                                         layer_ranges=s.get("requested_layer_ranges", []))
-                                                     for s in target["specimens"]],
-                           attribution_scope="Complete shared print-object schedule, reported once under the assembly ID; no individual leaf schedule is inferred from this object label.")
-        else:
-            reading.update(requested_print_recipe=specimen["requested_print_recipe"],
-                           requested_layer_ranges=specimen.get("requested_layer_ranges", []),
-                           attribution_scope="Complete standalone source specimen native object.")
-        readings.append(reading)
-    return dict(scope="Native positive extrusion moves attributed to standalone source objects or shared assembly objects. Model nozzle-Z steps, strand-flow heights, wall-lane counts, commanded wall feeds and feature order are observed separately from requested 3MF options. Per-layer feature sequences can contain multiple islands; first-wall order does not qualify every island. Physical bead shape, infill overlap, surface and strength are unmeasured.",
-                specimens=readings)
-
-
-def clipped_segment(a, b, low, high):
-    """Clip a centerline to a supplied Cartesian marking window."""
-    delta = b-a
-    begin, end = 0., 1.
-    for position, change, minimum, maximum in zip(a, delta, low, high):
-        if abs(change) < 1e-10:
-            if position < minimum or position > maximum:
-                return None
-            continue
-        enter, leave = sorted(((minimum-position)/change, (maximum-position)/change))
-        begin, end = max(begin, enter), min(end, leave)
-        if begin > end:
-            return None
-    return a+begin*delta, a+end*delta
-
-
-def native_release_reading(text, report, body_deposition=None):
-    """Observe captive contacts in their preserved common manufacturing frame."""
-    targets, by_object = native_targets(report)
-    contacts, lateral = [], []
-    for specimen in report["specimens"]:
-        target = targets[specimen["id"]]
-        for probe in specimen.get("native_release_probes", []):
-            fixed, moving = targets[probe["fixed_body_id"]], targets[probe["moving_body_id"]]
-            if not np.allclose(fixed["shift"], moving["shift"]):
-                raise ValueError(f"{specimen['id']}: captive release contacts require one common manufacturing frame")
-            sides = {}
-            for side, body, default in (("fixed", fixed, "top"), ("moving", moving, "bottom")):
-                kind = probe.get(f"{side}_surface", default)
-                if kind not in {"top", "bottom"}:
-                    raise ValueError(f"{specimen['id']}: captive contact surface must be top or bottom")
-                sides[side] = dict(target=body, kind=kind,
-                                   bounds=native_bounds(probe[f"{side}_contact_bounds_mm"], specimen["id"])+body["shift"],
-                                   layers=defaultdict(list))
-            if {side["kind"] for side in sides.values()} != {"top", "bottom"}:
-                raise ValueError(f"{specimen['id']}: a vertical air probe requires one top and one bottom contact")
-            gap_bounds = native_bounds(probe["support_gap_bounds_mm"], specimen["id"])+target["shift"]
-            # Given planes delimit the air; depositing exactly on either
-            # contact plane belongs to the contact rather than its interior.
-            gap_bounds[0, 2] += 1e-5
-            gap_bounds[1, 2] -= 1e-5
-            contacts.append(dict(id=specimen["id"], probe=probe, sides=sides,
-                                 support_bounds=gap_bounds, support_layers=set(), support_segments=0,
-                                 model_in_gap_layers=set()))
-        for probe in specimen.get("native_gap_probes", []):
-            fixed, moving = targets[probe["fixed_body_id"]], targets[probe["moving_body_id"]]
-            if not np.allclose(fixed["shift"], moving["shift"]):
-                raise ValueError(f"{specimen['id']}: lateral captive probes require a common manufacturing frame")
-            line = np.asarray(probe["line_xy_mm"], dtype=float)
-            span = np.asarray(probe["print_z_mm"], dtype=float)
-            intervals = {side: np.asarray(probe[f"{side}_interval_mm"], dtype=float) for side in ("fixed", "moving")}
-            if line.shape != (2, 2) or not np.all(np.isfinite(line)) or np.linalg.norm(line[1]-line[0]) < 1e-6:
-                raise ValueError(f"{specimen['id']}: invalid lateral probe line")
-            if span.shape != (2,) or not np.all(np.isfinite(span)) or span[1] <= span[0]:
-                raise ValueError(f"{specimen['id']}: lateral probes need an increasing print_z_mm span")
-            if any(v.shape != (2,) or not np.all(np.isfinite(v)) or v[1] <= v[0] for v in intervals.values()):
-                raise ValueError(f"{specimen['id']}: lateral probe wall intervals must increase")
-            if not (intervals["fixed"][1] < intervals["moving"][0] or intervals["moving"][1] < intervals["fixed"][0]):
-                raise ValueError(f"{specimen['id']}: lateral wall intervals must be disjoint")
-            lateral.append(dict(id=specimen["id"], probe=probe, fixed=fixed, moving=moving,
-                                line=line+fixed["shift"][:2], span=span+fixed["shift"][2],
-                                intervals=intervals, layers=defaultdict(lambda: defaultdict(list))))
-    schedules = defaultdict(set)
-    for deposit in native_deposits(text):
-        label, z = deposit["identify_id"], deposit["model_z_mm"]
-        model = is_model_deposit(deposit)
-        if model and label in by_object:
-            schedules[label].add(z)
-        for contact in contacts:
-            for side in contact["sides"].values():
-                if model and label == side["target"]["specimen"]["identify_id"] and intersects_native_window(deposit, side["bounds"]):
-                    side["layers"][z].append((deposit["strand_height_mm"], deposit["feature"]))
-            if intersects_native_window(deposit, contact["support_bounds"]):
-                if deposit["feature"].startswith("Support"):
-                    contact["support_layers"].add(z)
-                    contact["support_segments"] += 1
-                elif model:
-                    contact["model_in_gap_layers"].add(z)
-        if not model or deposit["feature"] not in {"Inner wall", "Outer wall", "Overhang wall"}:
-            continue
-        for probe in lateral:
-            if not probe["span"][0]-1e-6 <= z <= probe["span"][1]+1e-6:
-                continue
-            for side in ("fixed", "moving"):
-                if label != probe[side]["specimen"]["identify_id"]:
-                    continue
-                interval = probe["intervals"][side]
-                for a, b in zip(deposit["points"], deposit["points"][1:]):
-                    position = probe_crossing(a, b, *probe["line"])
-                    if position is not None and interval[0]-1e-6 <= position <= interval[1]+1e-6:
-                        probe["layers"][z][side].append(dict(distance_on_probe_mm=round(position, 5),
-                                                              commanded_width_mm=deposit["strand_width_mm"],
-                                                              feature=deposit["feature"]))
-    schedule_steps = {}
-    for label, zs in schedules.items():
-        previous = 0.
-        for z in sorted(zs):
-            schedule_steps[label, z] = z-previous
-            previous = z
-    vertical_rows = []
-    for contact in contacts:
-        sides = {}
-        for name, side in contact["sides"].items():
-            body = side["target"]
-            zs = sorted(side["layers"])
-            selected = ((max(zs) if side["kind"] == "top" else min(zs)) if zs else None)
-            step = schedule_steps.get((body["specimen"]["identify_id"], selected))
-            surface = selected if side["kind"] == "top" else (selected-step if selected is not None and step is not None else None)
-            selected_strands = side["layers"].get(selected, [])
-            sides[name] = dict(body_id=body["specimen"]["id"], surface=side["kind"],
-                               sampled_contact_bounds_mm=contact["probe"][f"{name}_contact_bounds_mm"],
-                               contact_model_nozzle_z_mm=round(selected, 5) if selected is not None else None,
-                               nominal_model_z_step_mm=round(step, 5) if step is not None else None,
-                               nominal_contact_surface_z_mm=round(surface, 5) if surface is not None else None,
-                               contact_strand_flow_heights_mm=sorted({h for h, _ in selected_strands if h is not None}),
-                               contact_features=sorted({f for _, f in selected_strands}),
-                               sampled_model_nozzle_z_mm=zs)
-        top = next(side for side in sides.values() if side["surface"] == "top")
-        bottom = next(side for side in sides.values() if side["surface"] == "bottom")
-        air = (bottom["nominal_contact_surface_z_mm"]-top["nominal_contact_surface_z_mm"]
-               if bottom["nominal_contact_surface_z_mm"] is not None and top["nominal_contact_surface_z_mm"] is not None else None)
-        vertical_rows.append(dict(id=contact["id"], name=contact["probe"].get("name", "captive contact"),
-                                  requested_geometry_gap_mm=contact["probe"].get("requested_gap_mm"),
-                                  fixed=sides["fixed"], moving=sides["moving"],
-                                  commanded_nominal_air_mm=round(air, 5) if air is not None else None,
-                                  support_gap_bounds_mm=contact["probe"]["support_gap_bounds_mm"],
-                                  emitted_support_segment_count_in_gap=contact["support_segments"],
-                                  emitted_support_nozzle_z_mm_in_gap=sorted(contact["support_layers"]),
-                                  emitted_model_nozzle_z_mm_in_gap=sorted(contact["model_in_gap_layers"])))
-    lateral_rows = []
-    for probe in lateral:
-        layers = []
-        fixed_is_lower = probe["intervals"]["fixed"][1] < probe["intervals"]["moving"][0]
-        for z, hits in sorted(probe["layers"].items()):
-            selected = {}
-            for side in ("fixed", "moving"):
-                if hits[side]:
-                    choose = max if (side == "fixed") == fixed_is_lower else min
-                    selected[side] = choose(hits[side], key=lambda h: h["distance_on_probe_mm"])
-            if len(selected) == 2:
-                center_air = abs(selected["fixed"]["distance_on_probe_mm"]-selected["moving"]["distance_on_probe_mm"])
-                widths = [selected[side]["commanded_width_mm"] for side in ("fixed", "moving")]
-                footprint = center_air-sum(widths)/2 if all(v is not None for v in widths) else None
-                layers.append(dict(model_nozzle_z_mm=round(z-probe["fixed"]["shift"][2], 5),
-                                   fixed_wall=selected["fixed"], moving_wall=selected["moving"],
-                                   centerline_separation_mm=round(center_air, 5),
-                                   commanded_width_footprint_air_mm=round(footprint, 5) if footprint is not None else None))
-        lateral_rows.append(dict(id=probe["id"], name=probe["probe"].get("name", "lateral motion gap"),
-                                 requested_per_face_geometry_gap_mm=probe["probe"].get("requested_gap_mm"),
-                                 line_xy_mm=probe["probe"]["line_xy_mm"], print_z_mm=probe["probe"]["print_z_mm"],
-                                 sampled_model_layer_count=len(layers),
-                                 emitted_commanded_width_footprint_air_mm=sorted({row["commanded_width_footprint_air_mm"]
-                                      for row in layers if row["commanded_width_footprint_air_mm"] is not None}),
-                                 layers=layers))
-    body_deposition = body_deposition if body_deposition is not None else model_deposition_facts(text, report)
-    first_z = {row["id"]: row["first_attributed_model_nozzle_z_mm"] for row in body_deposition}
-    bodies = [dict(id=s["id"], print_assembly_id=s.get("print_assembly_id"),
-                   first_attributed_model_nozzle_z_mm=first_z.get(s["id"]),
-                   geometric_travel_x_mm=s.get("travel_x_mm"),
-                   y_running_air_per_face_geometry_mm=s.get("y_running_air_per_side_mm"),
-                   first_layer_chamfer_geometry_mm=s.get("first_layer_chamfer_mm"))
-              for s in report["specimens"] if s.get("native_release_probes")]
-    return dict(scope="Native model-to-model contacts in the preserved print-assembly frame. Nominal bottom surfaces are first model nozzle Z minus the actual shared object model Z step; top surfaces are last model nozzle Z. Bridge strand-flow height is reported separately. Gap-window deposits exclude the exact contact planes. Lateral air subtracts half of each commanded line width from measured centerline separation. Travel is the supplied geometric stroke, not observed physical motion. These commanded slabs and strand-width footprints do not measure bead shape, sag, physical clearance, release force or reliable motion.",
-                moving_bodies=bodies,
-                vertical_contacts=vertical_rows, lateral_contacts=lateral_rows)
-
-
-def native_recessed_lettering_reading(text, report, directory):
-    """Compare first bed-layer footprints with the CAD's actual recessed voids."""
-    from shapely.geometry import Polygon, LineString, box as rectangle
-    from shapely.geometry.polygon import orient
-    from shapely.ops import polygonize, unary_union
-    from matplotlib import pyplot as plt
-    from matplotlib.path import Path as PlotPath
-    from matplotlib.patches import PathPatch
-
-    windows, by_object = [], defaultdict(list)
-    for specimen, part in zip(report["specimens"], report["parts"], strict=True):
-        shift = np.array(part["plate_translation_mm"])-np.array(part["source_center_mm"])
-        for label in specimen.get("recessed_label_windows", []):
-            if label.get("view_axis") != "-z" or abs(float(part["rotation_x_degrees"])) > 1e-6:
-                raise ValueError(f"{specimen['id']}: recessed identity review requires a bed-normalized underside -Z marking")
-            bounds = native_bounds(label, specimen["id"])
-            window = dict(id=specimen["id"], specimen=specimen, part=part, label=label,
-                          shift=shift, bounds=bounds, layers=defaultdict(list))
-            windows.append(window)
-            by_object[specimen["identify_id"]].append(window)
-    for deposit in native_deposits(text):
-        if not is_model_deposit(deposit) or deposit["strand_width_mm"] is None:
-            continue
-        for window in by_object.get(deposit["identify_id"], []):
-            label, shift = window["label"], window["shift"]
-            z = round(deposit["model_z_mm"]-shift[2], 5)
-            if not float(label["surface_z_mm"])+1e-6 < z < float(label["surface_z_mm"])+float(label["nominal_recess_mm"])-1e-6:
-                continue
-            low, high = window["bounds"][:, :2]
-            points = deposit["points"]-shift[:2]
-            for a, b in zip(points, points[1:]):
-                clipped = clipped_segment(a, b, low-.75, high+.75)
-                if clipped is not None and np.linalg.norm(clipped[1]-clipped[0]) > 1e-8:
-                    window["layers"][z].append((clipped, deposit["strand_width_mm"]))
-    # Every current underside channel is straight through the first two model
-    # layers. Section below the first nozzle plane avoids boundary ambiguity.
-    meshes, materials = {}, {}
-    readings, visual = [], []
-    for window in windows:
-        part, label, bounds = window["part"], window["label"], window["bounds"]
-        source = ROOT / part["source"]
-        mesh = meshes.setdefault(source, None)
-        if mesh is None:
-            mesh = meshes[source] = trimesh.load_mesh(source, process=True)
-        surface = float(label["surface_z_mm"])
-        sample_z = surface+min(float(label["nominal_recess_mm"])/2, float(report["first_layer_height_mm"])/2)
-        key = (source, sample_z)
-        if key not in materials:
-            segments = trimesh.intersections.mesh_plane(mesh, plane_origin=[0, 0, sample_z],
-                                                       plane_normal=[0, 0, 1])
-            if not len(segments):
-                raise ValueError(f"{window['id']}: no CAD bed section at recessed marking")
-            # Work directly from mesh-plane segments: trimesh's contour graph
-            # needs the optional networkx package. Quantization rejoins the
-            # floating endpoints of adjacent triangles, far below STL precision.
-            contours = polygonize(unary_union([LineString(np.round(points[:, :2], 7))
-                                               for points in segments]))
-            rings_by_key = {}
-            for contour in contours:
-                for ring in (contour.exterior, *contour.interiors):
-                    polygon = Polygon(ring).normalize()
-                    rings_by_key[polygon.wkb] = polygon
-            material = Polygon()
-            rings = sorted(rings_by_key.values(), key=lambda shape: shape.area, reverse=True)
-            for ring in rings:
-                material = material.symmetric_difference(ring)
-            materials[key] = material
-        low, high = bounds[:, :2]
-        view = rectangle(*low, *high)
-        channel = view.difference(materials[key])
-        layer_rows = []
-        first_footprint = None
-        for z, roads in sorted(window["layers"].items()):
-            footprint = unary_union([LineString(points).buffer(width/2)
-                                     for points, width in roads]).intersection(view)
-            covered = channel.intersection(footprint).area
-            layer_rows.append(dict(model_nozzle_z_mm=z, depositing_segment_count=len(roads),
-                                   commanded_strand_widths_mm=sorted({width for _, width in roads}),
-                                   commanded_footprint_in_CAD_channel_mm2=round(covered, 5),
-                                   CAD_channel_area_clear_of_commanded_footprints_fraction=round(max(0., 1-covered/channel.area), 6)
-                                       if channel.area > 0 else None))
-            if first_footprint is None:
-                first_footprint = footprint
-        readings.append(dict(id=window["id"], text=label["text"], view_axis="-z",
-                             source_stl_sha256=window["specimen"]["source_stl_sha256"],
-                             CAD_section_z_mm=sample_z, nominal_recess_mm=label["nominal_recess_mm"],
-                             CAD_recessed_channel_area_mm2=round(channel.area, 5),
-                             sampled_open_model_layer_count=len(layer_rows), layers=layer_rows))
-        visual.append((window, channel, first_footprint))
-    plot_path = directory / "native-recessed-identity.png"
-    if visual:
-        figure, axes = plt.subplots(len(visual), 1, figsize=(12, 2.8*len(visual)), squeeze=False)
-        for ax, (window, channel, footprint) in zip(axes.flat, visual):
-            for geometry, color, alpha in ((channel, "#db9f42", .45), (footprint, "#255c82", .85)):
-                if geometry is None:
-                    continue
-                for polygon in (list(geometry.geoms) if hasattr(geometry, "geoms") else [geometry]):
-                    if polygon.is_empty or not hasattr(polygon, "exterior"):
-                        continue
-                    polygon = orient(polygon)
-                    points, codes = [], []
-                    for ring in (polygon.exterior, *polygon.interiors):
-                        contour = np.array(ring.coords)
-                        points.extend(contour)
-                        codes.extend([PlotPath.MOVETO, *([PlotPath.LINETO]*(len(contour)-2)), PlotPath.CLOSEPOLY])
-                    ax.add_patch(PathPatch(PlotPath(np.array(points), codes), facecolor=color,
-                                           edgecolor="none", alpha=alpha))
-            low, high = window["bounds"][:, :2]
-            ax.set_xlim(high[0]+.4, low[0]-.4)
-            ax.set_ylim(low[1]-.4, high[1]+.4)
-            ax.set_aspect("equal")
-            ax.set_title(f"{window['id']}: {window['label']['text']} — underside first-layer footprints", fontsize=11)
-            ax.axis("off")
-        figure.suptitle("Gold: CAD recessed channels; blue: commanded positive bead footprints; physical legibility unmeasured", fontsize=11)
-        figure.tight_layout()
-        figure.savefig(plot_path, dpi=140)
-        plt.close(figure)
-    return dict(scope="Negative-space underside identity review. Actual STL bed-section channels are compared with positive native road centerlines buffered by half their commanded width on the open recess layers. Coverage is a nominal strand-width footprint, not physical bead shape, recess depth or legibility.",
-                windows=readings, plot=str(plot_path.relative_to(ROOT)) if visual else None)
-
-
-def native_lettering_reading(text, report, directory):
-    """Retain positive native model deposits beyond each marking's body face.
-
-    This manual native-slice review witnesses retained glyph paths. It does not
-    measure physical legibility or require a check on routine CAD builds.
-    """
-    from enclosure_support_audit import _WORD, _arc_points
-    from matplotlib import pyplot as plt
-
-    nominal_height = float(report["requested_layer_height_mm"])
-    windows, by_object = [], defaultdict(list)
-    for specimen, part in zip(report["specimens"], report["parts"], strict=True):
-        shift = np.array(part["plate_translation_mm"])-np.array(part["source_center_mm"])
-        for label in specimen.get("label_windows", []):
-            bounds = np.array(label["bounds_mm"], dtype=float)+shift
-            axis = label.get("view_axis", "x" if "surface_x_mm" in label else "z")
-            if axis == "z":
-                # A complete nominal slab above the face cannot be the base.
-                bounds[0, 2] = float(label["surface_z_mm"])+shift[2]+nominal_height-1e-6
-                bounds[1, 2] += nominal_height
-                projected = (0, 1)
-            elif axis == "x":
-                # Body outer walls have their centerline inside the plain face.
-                outward = int(label.get("outward_sign", 1))
-                if outward not in {-1, 1}:
-                    raise ValueError(f"{specimen['id']}: side lettering needs outward_sign -1 or +1")
-                surface = float(label["surface_x_mm"])+shift[0]
-                if outward > 0:
-                    bounds[0, 0] = max(bounds[0, 0], surface+1e-6)
-                else:
-                    bounds[1, 0] = min(bounds[1, 0], surface-1e-6)
-                bounds[0, 2] -= nominal_height
-                bounds[1, 2] += nominal_height
-                projected = (1, 2)
-            else:
-                raise ValueError(f"Unsupported label view axis {axis!r} for {specimen['id']}")
-            window = dict(id=specimen["id"], text=label["text"], view_axis=axis,
-                          outward_sign=int(label.get("outward_sign", 1)),
-                          bounds=bounds, shift=shift, projected=projected,
-                          layers=set(), features=set(), widths=set(), segments=[])
-            windows.append(window)
-            by_object[specimen["identify_id"]].append(window)
-    x = y = e = 0.
-    layer_z = None
-    line_width = None
-    current = None
-    feature = ""
-    absolute_xy, relative_e = True, True
-    for raw in text.splitlines():
-        line = raw.strip()
-        label = re.match(r"; (?:start printing object, unique label id:|OBJECT_ID:)\s*(\d+)", line)
-        if label:
-            current = int(label.group(1))
-        elif line.startswith("; stop printing object"):
-            current = None
-        elif line.startswith("; Z_HEIGHT:"):
-            layer_z = float(line.split(":", 1)[1])
-        elif line.startswith(("; LINE_WIDTH:", "; WIDTH:")):
-            line_width = float(line.split(":", 1)[1])
-        elif line.startswith("; FEATURE:"):
-            feature = line.split(":", 1)[1].strip()
-        code = line.split(";", 1)[0].strip()
-        if not code:
-            continue
-        command = code.split(None, 1)[0]
-        words = {k: float(v) for k, v in _WORD.findall(code)}
-        if command in {"G90", "G91"}:
-            absolute_xy = command == "G90"
-        elif command in {"M82", "M83"}:
-            relative_e = command == "M83"
-        elif command == "G92":
-            x, y, e = words.get("X", x), words.get("Y", y), words.get("E", e)
-        elif command in {"G0", "G1", "G2", "G3"}:
-            nx = words.get("X", x) if absolute_xy else x+words.get("X", 0.)
-            ny = words.get("Y", y) if absolute_xy else y+words.get("Y", 0.)
-            de = words.get("E", 0.) if relative_e else words.get("E", e)-e
-            eligible = [w for w in by_object.get(current, [])
-                        if layer_z is not None and w["bounds"][0, 2] <= layer_z <= w["bounds"][1, 2]]
-            if eligible and de > 1e-9 and (nx != x or ny != y) and not feature.startswith(("Support", "Skirt", "Brim", "Custom", "Prime")):
-                points = [(x, y), (nx, ny)] if command in {"G0", "G1"} else _arc_points((x, y), (nx, ny), words, command == "G2")
-                points = [np.array((px, py, layer_z)) for px, py in points]
-                for window in eligible:
-                    for a, b in zip(points, points[1:]):
-                        clipped = clipped_segment(a, b, *window["bounds"])
-                        if clipped is not None and np.linalg.norm(clipped[1]-clipped[0]) > 1e-6:
-                            window["segments"].append(tuple((p-window["shift"])[list(window["projected"])] for p in clipped))
-                            window["layers"].add(round(layer_z, 5))
-                            window["features"].add(feature)
-                            if line_width is not None:
-                                window["widths"].add(round(line_width, 5))
-            x, y = nx, ny
-            if "E" in words:
-                e = e+words["E"] if relative_e else words["E"]
-    count = len(windows)
-    plot_path = directory/"native-lettering.png"
-    if count:
-        columns = min(3, count)
-        rows = math.ceil(count/columns)
-        figure, axes = plt.subplots(rows, columns, figsize=(4*columns, 2.3*rows), squeeze=False)
-        for ax, window in zip(axes.flat, windows):
-            for a, b in window["segments"]:
-                ax.plot((a[0], b[0]), (a[1], b[1]), color="#19262c", linewidth=1.0)
-            bounds = window["bounds"]-window["shift"]
-            indices = list(window["projected"])
-            low, high = bounds[:, indices]
-            ax.set_xlim(low[0]-.8, high[0]+.8)
-            ax.set_ylim(low[1]-.8, high[1]+.8)
-            ax.set_aspect("equal")
-            ax.set_title(f"{window['id']}: {window['text']} ({len(window['segments'])} segments)", fontsize=10)
-            ax.axis("off")
-        for ax in list(axes.flat)[count:]:
-            ax.axis("off")
-        figure.suptitle("Native depositing centerlines in marking windows; physical legibility unmeasured", fontsize=12)
-        figure.tight_layout()
-        figure.savefig(plot_path, dpi=130)
-        plt.close(figure)
-    readings = [dict(id=w["id"], text=w["text"], view_axis=w["view_axis"],
-                     outward_sign=w["outward_sign"],
-                     clipped_depositing_segment_count=len(w["segments"]),
-                     depositing_layer_z_mm=sorted(w["layers"]),
-                     commanded_strand_widths_mm=sorted(w["widths"]),
-                     model_features=sorted(w["features"]),
-                     retained_centerline_length_mm=round(sum(float(np.linalg.norm(b-a)) for a, b in w["segments"]), 3))
-                for w in windows]
-    return dict(scope="Positive native model centerlines in CAD marking windows. XY labels exclude nominal slabs touching the body face; side labels exclude centerlines inside the plain side face. Path retention does not establish physical legibility.",
-                label_window_count=count,
-                windows_with_deposition=sum(bool(w["segments"]) for w in windows),
-                plot=str(plot_path.relative_to(ROOT)) if count else None,
-                labels=readings)
-
-
-def ceiling_support_reading(text, report):
-    """Read support nozzle Z and the first roof's nominal layer slab.
-
-    The slab underside uses the fixed model schedule, not a bridge strand's
-    flow height. This does not measure deposited shape or physical free air.
-    """
-    from enclosure_support_audit import _WORD, _arc_points
-
-    specimen = report["specimens"][0]
-    if "support_ceiling_z_mm" not in specimen or "ceiling_xy_bounds_mm" not in specimen:
-        return dict(scope="No flat-ceiling window supplied; no contact-gap reading.")
-    part = report["parts"][0]
-    center = np.array(part["source_center_mm"])
-    translation = np.array(part["plate_translation_mm"])
-    window = np.array(specimen["ceiling_xy_bounds_mm"], dtype=float)
-    # Exported specimens stand in their manufacturing frame, without a 3MF turn.
-    if abs(part["rotation_x_degrees"]) > 1e-6:
-        return dict(scope="Flat-ceiling reading requires a bed-normalized specimen.")
-    window += translation[:2] - center[:2]
-    ceiling = float(specimen["support_ceiling_z_mm"]) + translation[2] - center[2]
-    # Avoid the corner transition and vertical jambs at the window boundary.
-    inset = np.minimum((window[1] - window[0]) / 5., 1.)
-    low, high = window[0] + inset, window[1] - inset
-    x = y = e = 0.
-    layer_z = height = None
-    feature = ""
-    absolute_xy, relative_e = True, True
-    support_z = set()
-    nominal_height = float(report["requested_layer_height_mm"])
-    model_deposits = set()
-    for raw in text.splitlines():
-        line = raw.strip()
-        if line.startswith("; Z_HEIGHT:"):
-            layer_z = float(line.split(":", 1)[1])
-        elif line.startswith(("; LAYER_HEIGHT:", "; HEIGHT:")):
-            height = float(line.split(":", 1)[1])
-        elif line.startswith("; FEATURE:"):
-            feature = line.split(":", 1)[1].strip()
-        code = line.split(";", 1)[0].strip()
-        if not code:
-            continue
-        command = code.split(None, 1)[0]
-        words = {k: float(v) for k, v in _WORD.findall(code)}
-        if command in {"G90", "G91"}:
-            absolute_xy = command == "G90"
-        elif command in {"M82", "M83"}:
-            relative_e = command == "M83"
-        elif command == "G92":
-            x, y, e = words.get("X", x), words.get("Y", y), words.get("E", e)
-        elif command in {"G0", "G1", "G2", "G3"}:
-            nx = words.get("X", x) if absolute_xy else x + words.get("X", 0.)
-            ny = words.get("Y", y) if absolute_xy else y + words.get("Y", 0.)
-            de = words.get("E", 0.) if relative_e else words.get("E", e) - e
-            if de > 1e-9 and layer_z is not None and (nx != x or ny != y):
-                points = [(x, y), (nx, ny)] if command in {"G0", "G1"} else _arc_points((x, y), (nx, ny), words, command == "G2")
-                points = np.array(points)
-                occupied = np.any(np.all((points >= low) & (points <= high), axis=1))
-                # A straight deposit may cross the window with both ends outside it.
-                p_low, p_high = points.min(axis=0), points.max(axis=0)
-                crosses = np.all(p_high >= low) and np.all(p_low <= high)
-                if occupied or crosses:
-                    if feature.startswith("Support") and layer_z < ceiling:
-                        support_z.add(round(layer_z, 5))
-                    elif feature in ("Bottom surface", "Bridge", "Internal solid infill") and height is not None and layer_z >= ceiling:
-                        model_deposits.add((round(layer_z, 5), round(height, 5), feature))
-            x, y = nx, ny
-            if "E" in words:
-                e = e + words["E"] if relative_e else words["E"]
-    roof_z = min((z for z, _, _ in model_deposits), default=None)
-    roof = (round(roof_z-nominal_height, 5), roof_z, nominal_height) if roof_z is not None else None
-    first_strands = [(height, feature) for z, height, feature in sorted(model_deposits) if z == roof_z]
-    top = max(support_z) if support_z else None
-    separation = round(roof[0]-top, 5) if roof and top is not None else None
-    return dict(scope="Commanded separation from the highest support nozzle Z to the first roof's nominal underside (roof nozzle Z minus fixed model layer height), within the flat-ceiling window. Circular strand flow height and physical sag do not define this nominal underside; deposited free-air gap and bead shape are unmeasured.",
-                nominal_cad_ceiling_z_mm=round(ceiling, 5),
-                sampled_window_xy_mm=[low.tolist(), high.tolist()],
-                requested_support_top_gap_mm=specimen["requested_support_top_gap_mm"],
-                highest_support_nozzle_z_mm=top,
-                first_ceiling_model_nozzle_z_mm=roof_z,
-                nominal_model_layer_height_mm=nominal_height,
-                first_ceiling_model_slab_mm=list(roof) if roof else None,
-                first_ceiling_strand_flow_heights_mm=sorted({height for height, _ in first_strands}),
-                first_ceiling_features=sorted({feature for _, feature in first_strands}),
-                commanded_nominal_roof_separation_mm=separation,
-                commanded_slab_gap_mm=separation,
-                support_layer_tops_below_ceiling_mm=sorted(support_z))
-
-
 def native_slice(project, report):
-    directory = WORK / report["group"]
+    directory = WORK / Path(project).stem / "native"
     directory.mkdir(parents=True, exist_ok=True)
-    archive_name = project.stem + ".gcode.3mf"
+    archive_name = Path(project).stem+".gcode.3mf"
     command = [str(SLICER), "--slice", "0", "--arrange", "0", "--orient", "0",
                "--outputdir", str(directory), "--export-3mf", archive_name, str(project)]
     save(directory / "slice-command.json", dict(argv=command, printer_connection=False))
-    print(f"Native slicing {report['group']}: {len(report['specimens'])} specimens", flush=True)
+    print(f"Native slicing {report['plate_id']}: {len(report['print_objects'])} print objects", flush=True)
     with (directory / "slice.log").open("w") as log:
         result = subprocess.run(command, cwd=directory, stdout=log, stderr=subprocess.STDOUT)
     if result.returncode:
         raise RuntimeError(f"Bambu Studio exited {result.returncode}: {directory / 'slice.log'}")
-    archive_path = directory / archive_name
-    report["native"] = native_summary(project, report, archive_path, directory)
-    save(project.with_suffix(".print.json"), report)
-    reading = report["native"]
-    print(json.dumps(dict(group=report["group"], estimated_time=reading["estimated_time"],
-                          filament_g=reading["saved_profile_filament_estimate_g"],
-                          layers=reading["layer_count"],
-                          full_bead_margin_mm=round(reading["minimum_full_bead_bed_margin_mm"], 2),
-                          ceiling_gap_mm=reading.get("ceiling_support_reading", {}).get("commanded_slab_gap_mm"))), flush=True)
+    report["native"] = native_summary(project, report, directory / archive_name, directory)
+    report["preparation_only"] = False
+    save(Path(project).with_suffix(".print.json"), report)
+    print(json.dumps(dict(plate=report["plate_id"], estimated_time=report["native"]["estimated_time"],
+        filament_g=report["native"]["saved_profile_filament_estimate_g"],
+        full_bead_margin_mm=round(report["native"]["minimum_full_bead_bed_margin_mm"], 2))), flush=True)
 
 
-def report_matches_manifest(report, current, assemblies):
-    """Retain a partial run only for identical source bodies, poses and recipes."""
-    if not report.get("specimens") or report.get("settings_source_sha256") != sha(PROFILE):
+def by_id(rows):
+    values = list(rows.values()) if isinstance(rows, dict) else list(rows)
+    result = {row["id"]: row for row in values}
+    if len(result) != len(values):
+        raise ValueError("Print manifest IDs must be unique within each collection")
+    return result
+
+
+def estimates_seconds(value):
+    return sum(float(amount)*dict(d=86400, h=3600, m=60, s=1)[unit]
+               for amount, unit in re.findall(r"([\d.]+)\s*([dhms])", value or ""))
+
+
+def report_matches_plan(report, manifest, cohort, objects):
+    """Bind a retained plate to unchanged source bytes, transforms and settings."""
+    if (report.get("settings_source_sha256") != sha(path_of(cohort["settings_source"]))
+            or report.get("requested_global_overrides") != cohort.get("global_overrides", {})):
         return False
-    project = ROOT / report["project"]
-    if not project.is_file() or sha(project) != report.get("project_sha256"):
+    existing = {obj["id"]: obj for obj in report.get("print_objects", [])}
+    if set(existing) != {obj["id"] for obj in objects}:
         return False
-    if report.get("native"):
-        archive = ROOT / report["native"]["archive"]
-        if not archive.is_file() or sha(archive) != report["native"]["archive_sha256"]:
+    parts = by_id(manifest["parts"])
+    for obj in objects:
+        prior = existing[obj["id"]]
+        if (prior["manufacturing_frame"] != obj["manufacturing_frame"]
+                or prior["object_overrides"] != sparse_options(obj.get("object_overrides", {}), "object", obj["id"])
+                or prior.get("pauses", []) != obj.get("pauses", [])
+                or prior.get("native_review", {}) != obj.get("native_review", {})):
             return False
-    held_assemblies = {row["id"]: row for row in report.get("print_assemblies", [])}
-    for specimen in report["specimens"]:
-        row = current.get(specimen["id"])
-        if row is None:
+        previous_volumes = {v["id"]: v for v in prior["volumes"] if v["subtype"] == "normal_part"}
+        if set(previous_volumes) != {v.get("id", v["part_id"]) for v in obj["volumes"]}:
             return False
-        group = report["comparison_group"]
-        if (row["print_group"] != group or row["name"] != specimen["name"]
-                or float(row.get("rotation_x_degrees", 0)) != specimen["rotation_x_degrees"]
-                or object_recipe(row, group) != specimen["object_overrides"]
-                or recipe_height(row, group) != specimen["requested_layer_height_mm"]
-                or recipe_layer_ranges(row, group) != specimen.get("requested_layer_ranges", [])
-                or row.get("print_recipe", {}) != specimen.get("requested_print_recipe", {})
-                or (assembly_id(row) or None) != specimen.get("print_assembly_id")
-                or sha(source_path(row)) != specimen["source_stl_sha256"]):
+        for value in obj["volumes"]:
+            part = parts[value["part_id"]]
+            identifier = value.get("id", value["part_id"])
+            volume = previous_volumes[identifier]
+            source = path_of(value.get("stl", part["stl"]))
+            if (volume["source_stl_sha256"] != sha(source)
+                    or volume["filament_slot"] != int(value.get("filament_slot", obj.get("filament_slot", 1)))
+                    or not np.allclose(volume["source_to_shared_frame_mm"], rigid_matrix(value.get("transform_mm"), identifier))
+                    or volume["region_overrides"] != sparse_options(value.get("region_overrides", {}), "region", identifier)
+                    or volume.get("support_paint", {}) != value.get("support_paint", {})
+                    or volume.get("native_review", {}) != value.get("native_review", {})):
+                return False
+        bounds = np.array([np.min([v["shared_frame_bounds_mm"][0] for v in previous_volumes.values()], axis=0),
+                           np.max([v["shared_frame_bounds_mm"][1] for v in previous_volumes.values()], axis=0)])
+        if prior["layer_ranges"] != normalized_ranges({**obj, "bounds_mm": bounds,
+                "object_overrides": sparse_options(obj.get("object_overrides", {}), "object", obj["id"])}, report["layer_height_mm"]):
             return False
-        for key in ("support_ceiling_z_mm", "ceiling_xy_bounds_mm", "label_windows",
-                    "recessed_label_windows",
-                    "native_body_window", "native_release_probes", "native_gap_probes",
-                    "travel_x_mm", "top_release_gap_mm", "lower_release_gap_mm",
-                    "y_running_air_per_side_mm", "first_layer_chamfer_mm"):
-            if row.get(key) != specimen.get(key):
+        prior_modifiers = [v for v in prior["volumes"] if v["subtype"] != "normal_part"]
+        if len(prior_modifiers) != len(obj.get("modifiers", [])):
+            return False
+        for prior_modifier, modifier in zip(prior_modifiers, obj.get("modifiers", []), strict=True):
+            if (prior_modifier["id"] != modifier["id"] or prior_modifier["subtype"] != modifier["subtype"]
+                    or prior_modifier["modifier_bounds_mm"] != modifier.get("bounds_mm")
+                    or not np.allclose(prior_modifier["source_to_shared_frame_mm"], rigid_matrix(modifier.get("transform_mm"), modifier["id"]))
+                    or ("stl" in modifier and prior_modifier.get("source_stl_sha256") != sha(path_of(modifier["stl"])))
+                    or prior_modifier["region_overrides"] != sparse_options(modifier.get("options", {}), "region", modifier["id"])):
                 return False
-        identifier = assembly_id(row)
-        if identifier:
-            assembly, held = assemblies.get(identifier), held_assemblies.get(identifier)
-            if assembly is None or held is None or sha(source_path(assembly)) != held["source_stl_sha256"]:
-                return False
-            if [m["id"] for m in assembly["members"]] != [m["id"] for m in held["members"]]:
-                return False
-            for member, old in zip(assembly["members"], held["members"], strict=True):
-                if not np.allclose(member_transform(member), np.array(old["member_transform_mm"]), atol=1e-9, rtol=0):
-                    return False
     return True
+
+
+def retained_layout_matches(report, plate):
+    """A retained native project keeps the same parent placements and inset."""
+    if abs(float(report.get('plate_border_mm', 0))-float(plate.get('model_border_mm', 30))) > 1e-6:
+        return False
+    if abs(float(report.get('plate_rotation_z_degrees',0))-float(plate.get('rotation_z_degrees',0))) > 1e-7:
+        return False
+    requested=plate.get('offsets_mm')
+    if requested is None:
+        if len(report['print_objects'])==1:
+            requested=[[0.,0.]]
+        else:
+            return report.get('requested_layout') == {key:plate.get(key) for key in
+                ('offsets_mm','model_border_mm','model_spacing_mm')}
+    center=np.asarray(report['shared_printable_area_mm']).mean(axis=0)
+    placements=report.get('parts') or [obj['volumes'][0] for obj in report['print_objects']]
+    offsets=[(np.asarray(row['plate_translation_mm'])[:2]-center).tolist() for row in placements]
+    return len(offsets)==len(requested) and np.allclose(offsets,requested,atol=1e-5)
+
+
+def retain_reviewed_projects(manifest_path, output_directory, source_directories):
+    """Copy exact reviewed editable projects and retain their native archives.
+
+    Only unchanged source hashes, rigid manufacturing transforms, recipes and
+    placements qualify. Public source-path rebinding is metadata; serialization
+    is deliberately avoided so the reviewed project and archive stay identical.
+    """
+    manifest_path=Path(manifest_path).resolve();manifest=json.loads(manifest_path.read_text())
+    objects,cohorts=(by_id(manifest[k]) for k in ('print_objects','print_cohorts'))
+    output_directory=Path(output_directory).resolve();output_directory.mkdir(parents=True,exist_ok=True)
+    retained=[]
+    for plate in manifest['print_plates']:
+        name=plate.get('filename','the-pour-v3-'+plate['id']);target=output_directory/(name+'.3mf')
+        for folder in source_directories:
+            candidate=Path(folder).resolve()/(name+'.3mf');sidecar=candidate.with_suffix('.print.json')
+            if not candidate.exists() or not sidecar.exists():continue
+            report=json.loads(sidecar.read_text());native=report.get('native',{})
+            values=[objects[i] for i in plate['object_ids']]
+            if (not native or sha(candidate)!=report['project_sha256']
+                    or not report_matches_plan(report,manifest,cohorts[plate['cohort']],values)
+                    or not retained_layout_matches(report,plate)
+                    or not path_of(native['archive']).exists()
+                    or sha(path_of(native['archive']))!=native['archive_sha256']):
+                continue
+            if candidate != target:shutil.copyfile(candidate,target)
+            if candidate.with_suffix('.png').exists() and candidate != target:
+                shutil.copyfile(candidate.with_suffix('.png'),target.with_suffix('.png'))
+            rebind_current_sources(report,manifest,cohorts[plate['cohort']],plate,manifest_path,target)
+            report.update(bound_to_current_manifest_sha256=sha(manifest_path),
+                retained_reviewed_project=relative(candidate),
+                requested_layout={key:plate.get(key) for key in ('offsets_mm','model_border_mm','model_spacing_mm')},
+                retention_scope='Byte-identical reviewed project/native archive; current source hashes, transforms, settings and placements matched. Source filenames inside the immutable project retain their reviewed names.')
+            save(target.with_suffix('.print.json'),report);retained.append(plate['id']);break
+    return retained
+
+
+def rebind_current_sources(report,manifest,cohort,plate,manifest_path,project):
+    """Bind reviewed embedded geometry to its current public source filenames."""
+    parts=by_id(manifest['parts']);objects=by_id(manifest['print_objects'])
+    lookup={}
+    for obj in report['print_objects']:
+        inputs={v.get('id',v['part_id']):v for v in objects[obj['id']]['volumes']}
+        for volume in obj['volumes']:
+            if volume['subtype']!='normal_part':continue
+            part=parts[volume['part_id']];source=inputs[volume['id']].get('stl',part['stl'])
+            if sha(path_of(source))!=volume['source_stl_sha256']:
+                raise ValueError(f"{volume['id']}: rebinding requires byte-identical source geometry")
+            volume['source']=source;volume['source_part']['stl']=part['stl']
+            lookup[volume['id']]=volume
+    for volume in report.get('volumes',[]):
+        if volume.get('id') in lookup:
+            source=lookup[volume['id']];volume['source']=source['source']
+            volume['source_part']['stl']=source['source_part']['stl']
+    report.setdefault('reviewed_original_manifest',dict(path=report.get('source_manifest'),
+        sha256=report.get('source_manifest_sha256')))
+    report.update(project=relative(project),source_manifest=relative(manifest_path),
+        source_manifest_sha256=sha(manifest_path),bound_to_current_manifest_sha256=sha(manifest_path),
+        material_source=cohort.get('material_source',{}),current_binding_source_sha256=sha(__file__),
+        source_filename_binding_scope='Current public source paths and manifest digest bind the same embedded mesh bytes, manufacturing transforms, settings and native archive. The immutable editable project retains original internal filenames; no reslice is implied.')
+
+
+def compact_project_report(report,output_directory):
+    """Link the full per-project evidence while keeping the kit index readable."""
+    metadata=Path(output_directory)/Path(report['project']).with_suffix('.print.json').name
+    native=report.get('native',{})
+    def compact(value):
+        if isinstance(value,list):return [compact(v) for v in value]
+        if isinstance(value,dict):return {k:compact(v) for k,v in value.items() if k not in
+            ('layers','emitted_model_layers','model_layer_nozzle_z_mm','support_layer_tops_below_ceiling_mm','segments','paths')}
+        return value
+    keep=('archive','archive_sha256','gcode_sha256','source_project_sha256','estimated_time',
+        'saved_profile_filament_estimate_g','minimum_full_bead_bed_margin_mm','first_layer_z_mm','layer_count',
+        'ceiling_support_readings','comparison_band_readings','captive_release_reading','insertion_pause_reading',
+        'lettering_reading','recessed_identity_reading','source_profile_reading','registered_marking_readings',
+        'material_frame_reading','sliced_locally','submitted')
+    return dict(plate_id=report.get('plate_id'),project=report['project'],project_sha256=report['project_sha256'],
+        preparation_metadata=relative(metadata),preparation_metadata_sha256=sha(metadata),
+        cohort=report['cohort'],settings_source=report['settings_source'],settings_source_sha256=report['settings_source_sha256'],
+        material_source=report.get('material_source',{}),native_material_mapping=report.get('native_material_mapping',{}),
+        print_object_ids=[o['id'] for o in report['print_objects']],
+        physical_part_ids=sorted({i for o in report['print_objects'] for i in o['physical_part_ids']}),
+        native=compact({k:native[k] for k in keep if k in native}),
+        submitted=False,scope='Full source paint, geometry transforms and native deposition arrays are in the linked per-project metadata.')
+
+
+def prepare_manifest(manifest_path, *, output_directory=None, selected_plates=None, slice_native=False,
+                     collect_only=False, reuse_directories=()):
+    """Prepare an explicit manual plate plan; existing unrelated projects are retained."""
+    manifest_path = Path(manifest_path).resolve()
+    manifest = json.loads(manifest_path.read_text())
+    if not all(key in manifest for key in ("print_objects", "print_cohorts", "print_plates")):
+        raise ValueError("The Pour requires a V3 manifest with print_objects, print_cohorts and print_plates; existing V2 generated projects are retained.")
+    objects, cohorts, plates = (by_id(manifest[key]) for key in ("print_objects", "print_cohorts", "print_plates"))
+    assigned = Counter(identifier for plate in plates.values() for identifier in plate["object_ids"])
+    if set(assigned) != set(objects) or any(count != 1 for count in assigned.values()):
+        raise ValueError("Each declared native print object must occur on exactly one explicit plate")
+    selected = set(selected_plates or plates)
+    unknown = selected-set(plates)
+    if unknown:
+        raise ValueError(f"Unknown plate IDs: {sorted(unknown)}")
+    output_directory = Path(output_directory or manifest_path.parent / "prints").resolve()
+    output_directory.mkdir(parents=True, exist_ok=True)
+    if reuse_directories:
+        retain_reviewed_projects(manifest_path,output_directory,reuse_directories)
+    digest = sha(manifest_path)
+    reports = []
+    for plate_id, plate in plates.items():
+        path = output_directory / (plate.get("filename", "the-pour-v3-"+plate_id)+".3mf")
+        previous_path = path.with_suffix(".print.json")
+        previous = json.loads(previous_path.read_text()) if previous_path.exists() else None
+        cohort = cohorts[plate["cohort"]]
+        values = [objects[identifier] for identifier in plate["object_ids"]]
+        if collect_only or plate_id not in selected:
+            if (previous and report_matches_plan(previous, manifest, cohort, values)
+                    and retained_layout_matches(previous,plate)
+                    and path.exists() and sha(path) == previous["project_sha256"]):
+                rebind_current_sources(previous,manifest,cohort,plate,manifest_path,path)
+                previous["bound_to_current_manifest_sha256"] = digest
+                save(previous_path,previous)
+                reports.append(previous)
+            continue
+        if any(value["cohort"] != cohort["id"] for value in values):
+            raise ValueError(f"{plate_id}: every native object must belong to this material/process cohort")
+        if (previous and report_matches_plan(previous,manifest,cohort,values)
+                and retained_layout_matches(previous,plate) and path.exists()
+                and sha(path)==previous['project_sha256'] and previous.get('native')
+                and path_of(previous['native']['archive']).exists()
+                and sha(path_of(previous['native']['archive']))==previous['native']['archive_sha256']):
+            previous['bound_to_current_manifest_sha256']=digest
+            save(previous_path,previous)
+            reports.append(previous)
+            print(f"Reusing {plate_id}: unchanged source, recipe, placement and reviewed native archive",flush=True)
+            continue
+        project, report = prepare_plate(manifest, cohort, values, path,
+            offsets=plate.get("offsets_mm"), border_mm=float(plate.get("model_border_mm", 30)),
+            spacing_mm=float(plate.get("model_spacing_mm", 18)),rotation_z_degrees=float(plate.get('rotation_z_degrees',0)))
+        report.update(plate_id=plate_id, source_manifest=relative(manifest_path), source_manifest_sha256=digest)
+        report['requested_layout']={key:plate.get(key) for key in ('offsets_mm','model_border_mm','model_spacing_mm')}
+        if (previous and previous.get("project_sha256") == report["project_sha256"] and previous.get("native")
+                and path_of(previous["native"]["archive"]).exists()
+                and sha(path_of(previous["native"]["archive"])) == previous["native"]["archive_sha256"]):
+            report["native"] = previous["native"]
+            report["native"]["reused_identical_input_project"] = True
+            report["preparation_only"] = False
+            print(f"Reusing {plate_id}: byte-identical editable project and frozen native archive", flush=True)
+        elif slice_native:
+            native_slice(project, report)
+        save(previous_path, report)
+        reports.append(report)
+    index_path = output_directory.parent / "print-preparation.json"
+    index = dict(schema=3, title="The Pour V3 — Service Section", source_manifest=relative(manifest_path),
+        source_manifest_sha256=digest, preparation_source_sha256=sha(__file__), reader_source_sha256=sha(reading.__file__),
+        requested_plate_ids=list(plates), prepared_plate_ids=[row.get("plate_id") for row in reports],
+        native_project_count=sum(bool(row.get("native")) for row in reports), projects=[], submitted=False)
+    expected_parts = {row["id"] for row in manifest["parts"] if row.get("printable", True)}
+    coverage = Counter(identifier for report in reports for obj in report["print_objects"] for identifier in obj["physical_part_ids"])
+    index["physical_part_coverage"] = dict(expected_part_count=len(expected_parts),
+        prepared_unique_part_count=len(coverage), missing_part_ids=sorted(expected_parts-set(coverage)),
+        unexpected_part_ids=sorted(set(coverage)-expected_parts),
+        parts_in_multiple_native_parents={identifier: count for identifier, count in coverage.items() if count > 1},
+        material_volume_scope="Registered colour volumes count as one physical part inside their common parent.")
+    native = [row["native"] for row in reports if row.get("native")]
+    index.update(total_estimated_seconds=sum(estimates_seconds(row["estimated_time"]) for row in native),
+        total_saved_profile_filament_estimate_g=round(sum(sum(row.get("saved_profile_filament_estimate_g") or []) for row in native), 2),
+        minimum_full_bead_bed_margin_mm=min((row["minimum_full_bead_bed_margin_mm"] for row in native), default=None),
+        native_estimate_scope="Prepared native projects only; saved profile material/time estimates, not observed consumption or runtime.")
+    index['projects']=[compact_project_report(row,output_directory) for row in reports]
+    save(index_path, index)
+    return index
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    modes = parser.add_mutually_exclusive_group()
-    modes.add_argument("--slice", action="store_true", help="Run local Bambu Studio CLI; do not submit a print")
-    modes.add_argument("--review", action="store_true", help="Read existing native archives without re-preparing or re-slicing")
-    parser.add_argument("--group", choices=tuple(GROUP_HEIGHTS), action="append", help="Prepare only these project groups")
+    parser.add_argument("--manifest", type=Path, default=HERE / "manifest.json")
+    parser.add_argument("--output-directory", type=Path)
+    parser.add_argument("--plate", action="append", help="Prepare only this explicit plate ID; can be repeated")
+    parser.add_argument("--slice", action="store_true", help="Slice locally; never submit to a printer")
+    parser.add_argument('--collect',action='store_true',help='Collect matching existing projects without preparing or slicing')
+    parser.add_argument('--reuse-reviewed',action='append',type=Path,default=[],help='Copy matching reviewed projects from this directory, preserving their bytes')
     args = parser.parse_args()
-    manifest = json.loads(MANIFEST.read_text())
-    assemblies = {row["id"]: row for row in manifest.get("print_assemblies", [])}
-    with zipfile.ZipFile(PROFILE) as archive:
-        baseline = json.loads(archive.read(writer.SETTINGS_MEMBER))
-    groups = defaultdict(list)
-    for row in manifest["printable"]:
-        group = row["print_group"]
-        if group not in GROUP_HEIGHTS:
-            raise ValueError(f"{row['id']} declares unsupported print_group {group!r}; expected one of {', '.join(GROUP_HEIGHTS)}")
-        if not args.group or group in args.group:
-            groups[group].append(row)
-    if args.group:
-        absent = set(args.group) - groups.keys()
-        if absent:
-            raise ValueError(f"The printable manifest has no specimens for {', '.join(sorted(absent))}")
-    reports = []
-    if args.review:
-        for path in sorted(PROJECTS.glob("*.print.json")):
-            report = json.loads(path.read_text())
-            if args.group and report["comparison_group"] not in args.group:
-                continue
-            if "native" not in report:
-                continue
-            project = ROOT / report["project"]
-            if sha(project) != report["project_sha256"]:
-                raise ValueError(f"{project.name} differs from the input project recorded for its native slice")
-            archive_path = ROOT / report["native"]["archive"]
-            if sha(archive_path) != report["native"]["archive_sha256"]:
-                raise ValueError(f"{archive_path.name} differs from its recorded native slice")
-            report["native"] = native_summary(project, report, archive_path, archive_path.parent)
-            save(path, report)
-            reports.append(report)
-    else:
-        for group in GROUP_HEIGHTS:
-            if group not in groups:
-                continue
-            batches = [groups[group]]
-            if group == "kit":
-                batches = split_kit(groups[group], baseline, assemblies)
-            for index, batch in enumerate(batches, 1):
-                label = group if len(batches) == 1 else f"{group}-{index:02d}"
-                project, report = make_project(group, batch, baseline, project_group=label, assemblies=assemblies)
-                if args.slice and "native" not in report:
-                    native_slice(project, report)
-                reports.append(report)
-        remove_stale_projects(groups.keys(), {r["project"] for r in reports})
-    if args.group or args.review:
-        # Carrier/display-placement refinements do not change a stable specimen's
-        # manufacturing geometry. Keep its already-sliced project when every
-        # specimen and recipe still belongs to the current printable manifest.
-        current = {row["id"]: row for row in manifest["printable"]}
-        held_reports = [json.loads(path.read_text()) for path in sorted(PROJECTS.glob("*.print.json"))]
-        reports = [r for r in held_reports if report_matches_manifest(r, current, assemblies)]
-    specimen_ids = [s["id"] for r in reports for s in r["specimens"]]
-    manifest_ids = {row["id"] for row in manifest["printable"]}
-    native_ids = {s["id"] for r in reports if "native" in r for s in r["specimens"]}
-    complete_native = bool(reports) and all("native" in r for r in reports)
-    seconds = sum(sum(int(v) * {"h": 3600, "m": 60, "s": 1}[unit]
-                      for v, unit in re.findall(r"(\d+)\s*([hms])", r["native"].get("estimated_time") or ""))
-                  for r in reports) if complete_native else None
-    grams = sum(sum(r["native"].get("saved_profile_filament_estimate_g") or [])
-                for r in reports) if complete_native else None
-    index = dict(schema=1, name="The Pour", material="Fiberon PET-GF15", nozzle_mm=.4,
-                 printer="Mark2", requested_z_trim_mm=.04, first_layer_height_mm=.2,
-                 manifest=str(MANIFEST.relative_to(ROOT)), manifest_sha256=sha(MANIFEST),
-                 settings_source=str(PROFILE.relative_to(ROOT)), settings_source_sha256=sha(PROFILE),
-                 preparation_source_sha256=sha(__file__), projects=reports,
-                 project_count=len(reports), native_project_count=sum("native" in r for r in reports),
-                 printable_specimen_count=len(specimen_ids), unique_specimen_count=len(set(specimen_ids)),
-                 manifest_specimen_count=len(manifest_ids),
-                 missing_manifest_specimen_ids=sorted(manifest_ids-set(specimen_ids)),
-                 extra_specimen_ids=sorted(set(specimen_ids)-manifest_ids),
-                 duplicate_specimen_ids=sorted(identifier for identifier in set(specimen_ids)
-                                               if specimen_ids.count(identifier) > 1),
-                 native_complete_for_manifest=native_ids == manifest_ids and len(specimen_ids) == len(manifest_ids),
-                 total_saved_profile_estimated_seconds=seconds,
-                 total_saved_profile_filament_estimate_g=round(grams, 2) if grams is not None else None,
-                 physical_result="Unprinted; comparative specimens have no physical acceptance.",
-                 preparation_only=True, submitted=False)
-    save(HERE / "print-preparation.json", index)
-    print(f"Prepared {len(reports)} The Pour projects; no jobs submitted", flush=True)
-
-
-def split_kit(rows, baseline, assemblies=None):
-    """Give the complete kit as many centered plates as its actual footprint needs."""
-    units = print_units(rows, assemblies)
-    sizes = {unit["row"]["id"]: print_size(unit["row"]) for unit in units}
-    ordered = sorted(units, key=lambda unit: -float(np.prod(sizes[unit["row"]["id"]][:2])))
-    batches = []
-    for unit in ordered:
-        for batch in batches:
-            try:
-                plate_layout([item["row"] for item in [*batch, unit]], baseline, border=40.)
-            except ValueError:
-                continue
-            batch.append(unit)
-            break
-        else:
-            batches.append([unit])
-    return [[row for unit in batch for row in unit["members"]] for batch in batches]
-
-
-def remove_stale_projects(selected_groups, current_projects):
-    """Keep only this preparation's editable plates for the selected families."""
-    for path in PROJECTS.glob("*.print.json"):
-        report = json.loads(path.read_text())
-        if report.get("comparison_group") not in selected_groups or report.get("project") in current_projects:
-            continue
-        project = ROOT / report["project"]
-        if project.parent != PROJECTS or not project.name.startswith("the-pour-"):
-            continue
-        for obsolete in (project, project.with_suffix(".print.json"), project.with_suffix(".png")):
-            obsolete.unlink(missing_ok=True)
+    prepare_manifest(args.manifest, output_directory=args.output_directory,
+                     selected_plates=args.plate, slice_native=args.slice,collect_only=args.collect,
+                     reuse_directories=args.reuse_reviewed)
 
 
 if __name__ == "__main__":

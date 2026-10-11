@@ -1,93 +1,335 @@
 {
   "schema": 1,
   "name": "The Pour",
+  "release_tag": "the-pour-v3",
+  "download_url": "https://github.com/derekbreden/homesodamachine/releases/download/the-pour-v3/print-kit.zip",
   "archive": "print-kit.zip",
-  "bytes": 63610420,
-  "sha256": "d6a65c8c6887e81e984469512adc2a28a3509c891502226d2d029d2fb9c57167",
+  "bytes": 152709136,
+  "sha256": "0f522ac517dbb903566c06098599bb99509439ccfae405462a6a3c7cc767bc06",
   "files": [
     {
       "path": "README.md",
-      "bytes": 6056,
-      "sha256": "8a3b74c99ec543636f2191c30b0518a2e7b72f1e1a8666f274a70ee65bf5c281",
-      "source_sha256": "a8d9acdb1411b60917f989a80aee9a793044e2950be9e32b5d7a71850df5ed66"
+      "bytes": 4826,
+      "sha256": "8849d282caee8b24ca06c4b69e794894eb69a1e9eddd2d897594bbbd8933434f",
+      "source_sha256": "d8315b285d1a5c1fbf1c44a33b004e2f7b2a0cce33278804e646de7c6eabfab2"
     },
     {
       "path": "feature-guide.md",
-      "bytes": 23730,
-      "sha256": "50dbee1cb0ce86b1fd350c56d1014bc2eb1d42a69b39fc534c7d14e4d30266b3",
-      "source_sha256": "ff561294576359d4e42664f6f12555e2783718825273b4e3105a060b35487b7b"
+      "bytes": 22259,
+      "sha256": "15d926df1684dc37d74ea380ec9b77706cf16f7712ce9df00331cf1bcbb1a5ed",
+      "source_sha256": "f431d810df0f64a9f221f726fff7fabdf54020c7e4b5454c93977ee5ebed082e"
     },
     {
       "path": "manifest.json",
-      "bytes": 354187,
-      "sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
-      "source_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804"
+      "bytes": 21910430,
+      "sha256": "a0ad64923f93e3bb8093072deb4139899afd402708fa2236a4674dd39833fb7a",
+      "source_sha256": "a0ad64923f93e3bb8093072deb4139899afd402708fa2236a4674dd39833fb7a"
     },
     {
       "path": "print-preparation.json",
-      "bytes": 3249962,
-      "sha256": "5a60a458c7562d2fcb48915978ce5a9e3f8d8bbf000152fc3a6ee13acac5a2b6",
-      "source_sha256": "5a60a458c7562d2fcb48915978ce5a9e3f8d8bbf000152fc3a6ee13acac5a2b6"
+      "bytes": 225448,
+      "sha256": "45634a50b1326f0b84b1eb57151909959e3500c3723b2a4c0d143db4ebb77365",
+      "source_sha256": "45634a50b1326f0b84b1eb57151909959e3500c3723b2a4c0d143db4ebb77365"
     },
     {
       "path": "assembly-review.json",
-      "bytes": 68273,
-      "sha256": "57e410190b5b82ca39678e352e24d8d44f76d6a8050145700d5e1b02ef94ed8b",
-      "source_sha256": "57e410190b5b82ca39678e352e24d8d44f76d6a8050145700d5e1b02ef94ed8b"
+      "bytes": 90573,
+      "sha256": "6dd2917d8ceb0027b0bf9d4c2aa6257eb0fafc9854868f30af6aa82100efb10b",
+      "source_sha256": "6dd2917d8ceb0027b0bf9d4c2aa6257eb0fafc9854868f30af6aa82100efb10b"
     },
     {
       "path": "lettering-review.json",
-      "bytes": 50951,
-      "sha256": "b2e8a98ad265ee68d5233f6f09de2ee5a45734b4036f156afd23c20090c87188",
-      "source_sha256": "b2e8a98ad265ee68d5233f6f09de2ee5a45734b4036f156afd23c20090c87188"
+      "bytes": 74687,
+      "sha256": "1be13dcc8475fb87a76748c299a984ead759a832353cb60ae13561ce428a4043",
+      "source_sha256": "1be13dcc8475fb87a76748c299a984ead759a832353cb60ae13561ce428a4043"
     },
     {
       "path": "reference-card.csv",
-      "bytes": 228,
-      "sha256": "74ca851912bdf75c4fd312cf4df446f86a9238a61de61f6eb1d73dc96d8a3b2b",
-      "source_sha256": "74ca851912bdf75c4fd312cf4df446f86a9238a61de61f6eb1d73dc96d8a3b2b"
+      "bytes": 3079,
+      "sha256": "e5ca3be3d60164ff21f0b3cfe13bdc1fa6b067d46448387cb7cc6577a433d799",
+      "source_sha256": "e5ca3be3d60164ff21f0b3cfe13bdc1fa6b067d46448387cb7cc6577a433d799"
+    },
+    {
+      "path": "fullfeature-map.json",
+      "bytes": 479633,
+      "sha256": "5a2fa132427c0c482891f3e1e34101d0f99af5ef974b2df7e77d78d680bc0533",
+      "source_sha256": "5a2fa132427c0c482891f3e1e34101d0f99af5ef974b2df7e77d78d680bc0533"
+    },
+    {
+      "path": "faucet-module.json",
+      "bytes": 55384,
+      "sha256": "a95cdc47c5a6aecfac6ae349b63f7cacac76555e5d8e7a49e21b028c6b6a0063",
+      "source_sha256": "a95cdc47c5a6aecfac6ae349b63f7cacac76555e5d8e7a49e21b028c6b6a0063"
+    },
+    {
+      "path": "faucet-proof.json",
+      "bytes": 4523,
+      "sha256": "f1db1215eee2aff0ef0597df440d604e12001cc592d94b8a8e1d3def593267d7",
+      "source_sha256": "f1db1215eee2aff0ef0597df440d604e12001cc592d94b8a8e1d3def593267d7"
+    },
+    {
+      "path": "faucet-plan.json",
+      "bytes": 28136,
+      "sha256": "620c974530becc0ad402453504725c1acdc085ef2a0fb9088626b0b3c6665490",
+      "source_sha256": "620c974530becc0ad402453504725c1acdc085ef2a0fb9088626b0b3c6665490"
+    },
+    {
+      "path": "geometry.json",
+      "bytes": 191044,
+      "sha256": "cb68d86c58469ce980b9a1d6aaa9cb5e0502c963ebfa4a20db379e66c857f8a6",
+      "source_sha256": "cb68d86c58469ce980b9a1d6aaa9cb5e0502c963ebfa4a20db379e66c857f8a6"
     },
     {
       "path": "the-pour.step.png",
-      "bytes": 764214,
-      "sha256": "f74a7958ef986e81609f9a06ebac948df290be54626d1d50458e1e4f8e9c0743",
-      "source_sha256": "f74a7958ef986e81609f9a06ebac948df290be54626d1d50458e1e4f8e9c0743"
+      "bytes": 534563,
+      "sha256": "2d6d14490474f0a47fba0d5c28ed530f2b9c38a249ab49af8ceec5be19cb89de",
+      "source_sha256": "2d6d14490474f0a47fba0d5c28ed530f2b9c38a249ab49af8ceec5be19cb89de"
     },
     {
-      "path": "reference.py",
-      "bytes": 46593,
-      "sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162",
-      "source_sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162"
+      "path": "cabinet_module.py",
+      "bytes": 17967,
+      "sha256": "2a0afa4a4c835bf0cfc1c641c37120a581fa3fdda284558caaaaf33deb1e86b4",
+      "source_sha256": "2a0afa4a4c835bf0cfc1c641c37120a581fa3fdda284558caaaaf33deb1e86b4"
     },
     {
-      "path": "source_features.py",
-      "bytes": 25282,
-      "sha256": "77e1ce93250a376494e07bf55bd85503a25499a09b4418e2eceb2690b6c88176",
-      "source_sha256": "77e1ce93250a376494e07bf55bd85503a25499a09b4418e2eceb2690b6c88176"
+      "path": "captive_shutters.py",
+      "bytes": 4312,
+      "sha256": "bba88ab8696848151709df73542b4239a5d583956bf406e877246401f7256aff",
+      "source_sha256": "bba88ab8696848151709df73542b4239a5d583956bf406e877246401f7256aff"
     },
     {
-      "path": "mount_geometry.py",
-      "bytes": 3363,
-      "sha256": "12d325e330617d9ed9518e3080fdb85eb829d4ec9d22ec1f59b2c0052a2536ed",
-      "source_sha256": "12d325e330617d9ed9518e3080fdb85eb829d4ec9d22ec1f59b2c0052a2536ed"
+      "path": "ceiling_hardware_rooms.py",
+      "bytes": 2055,
+      "sha256": "57efc4ab72765b272df43236cd79b792fc69edcdef9dee3b3c5610e91f4866f5",
+      "source_sha256": "57efc4ab72765b272df43236cd79b792fc69edcdef9dee3b3c5610e91f4866f5"
     },
     {
-      "path": "prepare_prints.py",
-      "bytes": 95363,
-      "sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003",
-      "source_sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003"
+      "path": "comparison_additions_v3.py",
+      "bytes": 17889,
+      "sha256": "95d7eb839b24f536e9b3fdae7382632fc7c7b9e74340cc041ebb2d98cee326b0",
+      "source_sha256": "95d7eb839b24f536e9b3fdae7382632fc7c7b9e74340cc041ebb2d98cee326b0"
     },
     {
-      "path": "viewer_payload.py",
-      "bytes": 1921,
-      "sha256": "dbe95667e95fcc82aa395266186a3733318729b15c26a48c07c4cd7ae4591fa1",
-      "source_sha256": "dbe95667e95fcc82aa395266186a3733318729b15c26a48c07c4cd7ae4591fa1"
+      "path": "drawer_v3.py",
+      "bytes": 12793,
+      "sha256": "fee89c5d2956658f2c683b7f0dcee7883685416bf0b1d97cb3760cd5c2cff167",
+      "source_sha256": "fee89c5d2956658f2c683b7f0dcee7883685416bf0b1d97cb3760cd5c2cff167"
+    },
+    {
+      "path": "enclosure_core.py",
+      "bytes": 7492,
+      "sha256": "e5ee9e9c6c82dae3f6e7f3e9281544fee042ac9b79d8539289fedbac5bc36500",
+      "source_sha256": "e5ee9e9c6c82dae3f6e7f3e9281544fee042ac9b79d8539289fedbac5bc36500"
+    },
+    {
+      "path": "enclosure_features.py",
+      "bytes": 35284,
+      "sha256": "4463a221c3beff03b4af67d9eff84ca4f8407ceecd3642bab65e03461a47e477",
+      "source_sha256": "4463a221c3beff03b4af67d9eff84ca4f8407ceecd3642bab65e03461a47e477"
+    },
+    {
+      "path": "faucet_module.py",
+      "bytes": 36268,
+      "sha256": "283e85fb0b67fb13100cfb2d7e00b62f0a708ea8688038175dbeeca572757c3e",
+      "source_sha256": "283e85fb0b67fb13100cfb2d7e00b62f0a708ea8688038175dbeeca572757c3e"
+    },
+    {
+      "path": "funnel_joint_v3.py",
+      "bytes": 7336,
+      "sha256": "8c0d6f5c582f4f8c970149a1f141b2483635af864c730cb372855d667cda2911",
+      "source_sha256": "8c0d6f5c582f4f8c970149a1f141b2483635af864c730cb372855d667cda2911"
+    },
+    {
+      "path": "native_reading.py",
+      "bytes": 65871,
+      "sha256": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb",
+      "source_sha256": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb"
     },
     {
       "path": "package_kit.py",
-      "bytes": 3835,
-      "sha256": "a91041fb1864394622aa8003576abddd80dd5f58bf8cbabc227de332ac18c62d",
-      "source_sha256": "a91041fb1864394622aa8003576abddd80dd5f58bf8cbabc227de332ac18c62d"
+      "bytes": 4369,
+      "sha256": "d93aa3a72f437d63d686a4c6d8c46577fa3dab514f7a4d193f38f11e42efde8a",
+      "source_sha256": "d93aa3a72f437d63d686a4c6d8c46577fa3dab514f7a4d193f38f11e42efde8a"
+    },
+    {
+      "path": "prepare_prints.py",
+      "bytes": 57584,
+      "sha256": "14287244745b5910c22b72e8fb644d963938a21d8ff9db1875668318a0895d8c",
+      "source_sha256": "14287244745b5910c22b72e8fb644d963938a21d8ff9db1875668318a0895d8c"
+    },
+    {
+      "path": "print_plan.py",
+      "bytes": 7869,
+      "sha256": "50fb146744f5f0b8404201ee5c7fcc61a22f905f85fd003c141948d36d20c867",
+      "source_sha256": "50fb146744f5f0b8404201ee5c7fcc61a22f905f85fd003c141948d36d20c867"
+    },
+    {
+      "path": "recipe_v3.py",
+      "bytes": 28584,
+      "sha256": "be27748246b2cb335a83534061f58b3abedfb569553791c77896d52b393434fb",
+      "source_sha256": "be27748246b2cb335a83534061f58b3abedfb569553791c77896d52b393434fb"
+    },
+    {
+      "path": "reference.py",
+      "bytes": 17017,
+      "sha256": "31b1f8e34b9fb9123663bfef25930516b1d41a0090d4c3bd7ac3c78cc47493eb",
+      "source_sha256": "31b1f8e34b9fb9123663bfef25930516b1d41a0090d4c3bd7ac3c78cc47493eb"
+    },
+    {
+      "path": "small_fronts_v3.py",
+      "bytes": 16689,
+      "sha256": "2504057ddee1f91c42ea5b26fc903db314a582afacc636fc82bafcf72e3a673e",
+      "source_sha256": "2504057ddee1f91c42ea5b26fc903db314a582afacc636fc82bafcf72e3a673e"
+    },
+    {
+      "path": "viewer_payload.py",
+      "bytes": 3529,
+      "sha256": "89fd6b6e74aa4c460a5d9da7ef67935bb04f14dc8247a9013cc3b25411910c6a",
+      "source_sha256": "89fd6b6e74aa4c460a5d9da7ef67935bb04f14dc8247a9013cc3b25411910c6a"
+    },
+    {
+      "path": "inputs/co2-settings.3mf",
+      "bytes": 726019,
+      "sha256": "c3a505ee5562945644cc64b24af50319d192ebd2f100283f8048f1194752da27",
+      "source_sha256": "c3a505ee5562945644cc64b24af50319d192ebd2f100283f8048f1194752da27"
+    },
+    {
+      "path": "inputs/faucet/cover-relaxed.step.gz",
+      "bytes": 62122,
+      "sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955",
+      "source_sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955"
+    },
+    {
+      "path": "inputs/faucet/cover-relaxed.stl.gz",
+      "bytes": 94229,
+      "sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528",
+      "source_sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528"
+    },
+    {
+      "path": "inputs/faucet/cover-seated.step.gz",
+      "bytes": 49677,
+      "sha256": "06e439f15e6248dc0fa132556774c0adb699f2e0a86420ce7b9bc01723ac13df",
+      "source_sha256": "06e439f15e6248dc0fa132556774c0adb699f2e0a86420ce7b9bc01723ac13df"
+    },
+    {
+      "path": "inputs/faucet/cover-seated.stl.gz",
+      "bytes": 116943,
+      "sha256": "a3d5b54ab22e1ff4669bc8a836773368778031178156897ac436fce1bfcabf8f",
+      "source_sha256": "a3d5b54ab22e1ff4669bc8a836773368778031178156897ac436fce1bfcabf8f"
+    },
+    {
+      "path": "inputs/faucet/donor.step.gz",
+      "bytes": 25790,
+      "sha256": "8767e95f432e499539632300a09d7120757ea7bbd4ad9e3078354fd007618214",
+      "source_sha256": "8767e95f432e499539632300a09d7120757ea7bbd4ad9e3078354fd007618214"
+    },
+    {
+      "path": "inputs/faucet/gasket.step.gz",
+      "bytes": 5689,
+      "sha256": "ff5ebdc5c5c2f8c0eb5f60bfe8f8c06a7f83adfc4477e08e96b18acec989c67f",
+      "source_sha256": "ff5ebdc5c5c2f8c0eb5f60bfe8f8c06a7f83adfc4477e08e96b18acec989c67f"
+    },
+    {
+      "path": "inputs/faucet/gasket.stl.gz",
+      "bytes": 28671,
+      "sha256": "479e63117cc866c59f2da9b4a74a6decbd5eb43b180f2fb20d34a0e681d7b2a7",
+      "source_sha256": "479e63117cc866c59f2da9b4a74a6decbd5eb43b180f2fb20d34a0e681d7b2a7"
+    },
+    {
+      "path": "inputs/faucet/industrial-base.step.gz",
+      "bytes": 602826,
+      "sha256": "657d4a2f7504b052af1b05f4a227dc17f3838d02e783ef3eec87cb4a0328fec5",
+      "source_sha256": "657d4a2f7504b052af1b05f4a227dc17f3838d02e783ef3eec87cb4a0328fec5"
+    },
+    {
+      "path": "inputs/faucet/industrial-base.stl.gz",
+      "bytes": 2858798,
+      "sha256": "44eda2c2d5ef46ef73ec287a72399bb2389c32dcee99e3adbcc19d7261053150",
+      "source_sha256": "44eda2c2d5ef46ef73ec287a72399bb2389c32dcee99e3adbcc19d7261053150"
+    },
+    {
+      "path": "inputs/faucet/lever-side-down.stl.gz",
+      "bytes": 99114,
+      "sha256": "506116ff5f11b9d0c15026eeb0223412569614c875d20ff0b7a5634d34220755",
+      "source_sha256": "506116ff5f11b9d0c15026eeb0223412569614c875d20ff0b7a5634d34220755"
+    },
+    {
+      "path": "inputs/faucet/lever.step.gz",
+      "bytes": 181203,
+      "sha256": "8d78abaceddd580987162f64f552416225e7bb75e6640e8c61a1c2f455a7c54f",
+      "source_sha256": "8d78abaceddd580987162f64f552416225e7bb75e6640e8c61a1c2f455a7c54f"
+    },
+    {
+      "path": "inputs/faucet/lever.stl.gz",
+      "bytes": 94753,
+      "sha256": "e2c6efc436650865e78360baa60296db2cc19ff77d8436ca527c61a9a09b1444",
+      "source_sha256": "e2c6efc436650865e78360baa60296db2cc19ff77d8436ca527c61a9a09b1444"
+    },
+    {
+      "path": "inputs/faucet/organizer.step.gz",
+      "bytes": 15583,
+      "sha256": "7746f4cb2a01c93ec55b5b767ae4dd249d367118604ccc93cde677ec7a474603",
+      "source_sha256": "7746f4cb2a01c93ec55b5b767ae4dd249d367118604ccc93cde677ec7a474603"
+    },
+    {
+      "path": "inputs/faucet/organizer.stl.gz",
+      "bytes": 86853,
+      "sha256": "8a1646e07df1ea7d16f28fad5a2b3695bb8efab2cddb0590e8deee4318feb6b3",
+      "source_sha256": "8a1646e07df1ea7d16f28fad5a2b3695bb8efab2cddb0590e8deee4318feb6b3"
+    },
+    {
+      "path": "inputs/faucet/plate.step.gz",
+      "bytes": 13475,
+      "sha256": "31054cd0e6137cf717d1fbdc8ec5e606ff647cac096069c49652c6234e5fd6c6",
+      "source_sha256": "31054cd0e6137cf717d1fbdc8ec5e606ff647cac096069c49652c6234e5fd6c6"
+    },
+    {
+      "path": "inputs/faucet/plate.stl.gz",
+      "bytes": 182953,
+      "sha256": "098897f2d65b93cd88d3cf53e061d115bc0ffd4d4420231fb2ee5f8ca02aa925",
+      "source_sha256": "098897f2d65b93cd88d3cf53e061d115bc0ffd4d4420231fb2ee5f8ca02aa925"
+    },
+    {
+      "path": "inputs/faucet/sculpted-base.step.gz",
+      "bytes": 627458,
+      "sha256": "cf5ffa1e7402a70805a59460879c79d0eeddba36bfdd21302b3cedb25515e837",
+      "source_sha256": "cf5ffa1e7402a70805a59460879c79d0eeddba36bfdd21302b3cedb25515e837"
+    },
+    {
+      "path": "inputs/faucet/sculpted-base.stl.gz",
+      "bytes": 5135154,
+      "sha256": "70c5b2f205acaec3f2bc96ab92b8f471a25a5c4500d13df9f1738c55cc5144bb",
+      "source_sha256": "70c5b2f205acaec3f2bc96ab92b8f471a25a5c4500d13df9f1738c55cc5144bb"
+    },
+    {
+      "path": "inputs/faucet/sources.json",
+      "bytes": 11625,
+      "sha256": "15fd6915c529b335a0c1c6d6b328d3a43292ca99ffedd3bfeea0855cabc70b8d",
+      "source_sha256": "15fd6915c529b335a0c1c6d6b328d3a43292ca99ffedd3bfeea0855cabc70b8d"
+    },
+    {
+      "path": "inputs/faucet/thimble.step.gz",
+      "bytes": 3793,
+      "sha256": "daab4f6b29ff2395ed45bf83740c8121b66d03d424b87035ccdafb675ff16d25",
+      "source_sha256": "daab4f6b29ff2395ed45bf83740c8121b66d03d424b87035ccdafb675ff16d25"
+    },
+    {
+      "path": "inputs/faucet/tip.step.gz",
+      "bytes": 426072,
+      "sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68",
+      "source_sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68"
+    },
+    {
+      "path": "inputs/faucet/tip.stl.gz",
+      "bytes": 3699877,
+      "sha256": "cedd1ed1b2052f189bb2662e32953ee77d1565febb3a7c199e463d0cb88fda3e",
+      "source_sha256": "cedd1ed1b2052f189bb2662e32953ee77d1565febb3a7c199e463d0cb88fda3e"
+    },
+    {
+      "path": "inputs/faucet/tube-collar.step.gz",
+      "bytes": 298811,
+      "sha256": "879a515f70a8fb817d735ab65659f4bfedd9bb23296d0b2399fdfbbfd8687bac",
+      "source_sha256": "879a515f70a8fb817d735ab65659f4bfedd9bb23296d0b2399fdfbbfd8687bac"
     },
     {
       "path": "inputs/faucet-neck-swatch.step.gz",
@@ -102,838 +344,880 @@
       "source_sha256": "accce0b6c8e29a514a27e8d031cc3a6a4cdda45dfa959eba9df4670a4a2d5d19"
     },
     {
-      "path": "inputs/source-features/sources.json",
-      "bytes": 6991,
-      "sha256": "93780f18760a4090fd9c5e453e8c9550ad73b161ecb17b664247b9cbf03b4267",
-      "source_sha256": "93780f18760a4090fd9c5e453e8c9550ad73b161ecb17b664247b9cbf03b4267"
-    },
-    {
-      "path": "inputs/source-features/faucet-shell-tip.step.gz",
-      "bytes": 426072,
-      "sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68",
-      "source_sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68"
-    },
-    {
-      "path": "inputs/source-features/industrial-display-cover.step.gz",
-      "bytes": 62122,
-      "sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955",
-      "source_sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955"
-    },
-    {
-      "path": "inputs/source-features/industrial-display-cover.stl.gz",
-      "bytes": 94229,
-      "sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528",
-      "source_sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528"
+      "path": "the-pour-open.step.png",
+      "bytes": 548784,
+      "sha256": "56b3965e3b4dc519f8905e0f6b3a84f6bb23cba774005cec346c64df0562e4be",
+      "source_sha256": "56b3965e3b4dc519f8905e0f6b3a84f6bb23cba774005cec346c64df0562e4be"
     },
     {
       "path": "the-pour.step",
-      "bytes": 39071983,
-      "sha256": "f2cb2abc59f849b20c008799d9d2600578b18bb68ba2f5dbb290784f41304a2e",
-      "source_sha256": "f2cb2abc59f849b20c008799d9d2600578b18bb68ba2f5dbb290784f41304a2e"
+      "bytes": 41439978,
+      "sha256": "dce2a890f423e46f6bce46aba0188b2feeea5a78ed361e0792cb9e77bd2cb08f",
+      "source_sha256": "dce2a890f423e46f6bce46aba0188b2feeea5a78ed361e0792cb9e77bd2cb08f"
     },
     {
-      "path": "parts/p-basin-and-captive-rails.stl",
-      "bytes": 11813284,
-      "sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
-      "source_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419"
+      "path": "parts/FB.stl",
+      "bytes": 9711984,
+      "sha256": "ec5a12c06e7001103cabdc1562d52441ad35646e230e6f9e899a6777052bb45c",
+      "source_sha256": "ec5a12c06e7001103cabdc1562d52441ad35646e230e6f9e899a6777052bb45c"
     },
     {
-      "path": "parts/p-basin-and-captive-rails.step",
-      "bytes": 6555510,
-      "sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a",
-      "source_sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a"
+      "path": "parts/FB.step",
+      "bytes": 3408368,
+      "sha256": "559af305e712fe48beb08df872164048ffb400ca12777a06bd2f3f2585ce20e5",
+      "source_sha256": "559af305e712fe48beb08df872164048ffb400ca12777a06bd2f3f2585ce20e5"
     },
     {
-      "path": "parts/q24-captive-ripple-shutter.stl",
-      "bytes": 276884,
-      "sha256": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2",
-      "source_sha256": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2"
+      "path": "parts/FT.stl",
+      "bytes": 8565684,
+      "sha256": "8c43490e8a365e350cb99d5215fa58b1b8491c364e320289e63c81d09bb661b5",
+      "source_sha256": "8c43490e8a365e350cb99d5215fa58b1b8491c364e320289e63c81d09bb661b5"
     },
     {
-      "path": "parts/q24-captive-ripple-shutter.step",
-      "bytes": 264014,
-      "sha256": "28347c3f91a5990cbc8f621b96e26672761b853eb60bedd66decfc40799b551b",
-      "source_sha256": "28347c3f91a5990cbc8f621b96e26672761b853eb60bedd66decfc40799b551b"
+      "path": "parts/FT.step",
+      "bytes": 1649280,
+      "sha256": "83326936fce83986dc9c72fd90e55639cbfe8170fa97b582bb9202c5684e3175",
+      "source_sha256": "83326936fce83986dc9c72fd90e55639cbfe8170fa97b582bb9202c5684e3175"
     },
     {
-      "path": "parts/q48-captive-ripple-shutter.stl",
-      "bytes": 769384,
-      "sha256": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474",
-      "source_sha256": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474"
-    },
-    {
-      "path": "parts/q48-captive-ripple-shutter.step",
-      "bytes": 338431,
-      "sha256": "03f11a1382320543ae336750874694c119b1479d69c98a8f4657600b0687e400",
-      "source_sha256": "03f11a1382320543ae336750874694c119b1479d69c98a8f4657600b0687e400"
-    },
-    {
-      "path": "parts/q72-captive-ripple-shutter.stl",
-      "bytes": 289684,
-      "sha256": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e",
-      "source_sha256": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e"
-    },
-    {
-      "path": "parts/q72-captive-ripple-shutter.step",
-      "bytes": 257187,
-      "sha256": "7c62f7a0c0cf4776369edd8c20fd0f68070970b34fd805522f76e9abdcd5816c",
-      "source_sha256": "7c62f7a0c0cf4776369edd8c20fd0f68070970b34fd805522f76e9abdcd5816c"
-    },
-    {
-      "path": "parts/h-fluted-helix-and-keyed-fin-docks.stl",
-      "bytes": 3484284,
-      "sha256": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340",
-      "source_sha256": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340"
-    },
-    {
-      "path": "parts/h-fluted-helix-and-keyed-fin-docks.step",
-      "bytes": 6166645,
-      "sha256": "28875b358e658294adcaa17b68048437d544e347439e7e778942dcc83d4efafc",
-      "source_sha256": "28875b358e658294adcaa17b68048437d544e347439e7e778942dcc83d4efafc"
-    },
-    {
-      "path": "parts/s05r-sliding-receiver.stl",
-      "bytes": 1133184,
-      "sha256": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98",
-      "source_sha256": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98"
-    },
-    {
-      "path": "parts/s05r-sliding-receiver.step",
-      "bytes": 465479,
-      "sha256": "5baa74084c683b704032d986826f3cc8ce2ae14a8b8824e585a9d0f016c43775",
-      "source_sha256": "5baa74084c683b704032d986826f3cc8ce2ae14a8b8824e585a9d0f016c43775"
-    },
-    {
-      "path": "parts/s05-sliding-tongue.stl",
-      "bytes": 1112784,
-      "sha256": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d",
-      "source_sha256": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d"
-    },
-    {
-      "path": "parts/s05-sliding-tongue.step",
-      "bytes": 470328,
-      "sha256": "8034829a80c6e3f706825712153ae69dfd67e11ad8f065611ad607076d36ccb4",
-      "source_sha256": "8034829a80c6e3f706825712153ae69dfd67e11ad8f065611ad607076d36ccb4"
-    },
-    {
-      "path": "parts/s15r-sliding-receiver.stl",
-      "bytes": 813584,
-      "sha256": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7",
-      "source_sha256": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7"
-    },
-    {
-      "path": "parts/s15r-sliding-receiver.step",
-      "bytes": 382821,
-      "sha256": "8ec13468ed118daeb1db1d7c5e6385526320c266833e892c6a04eb4ab28adab1",
-      "source_sha256": "8ec13468ed118daeb1db1d7c5e6385526320c266833e892c6a04eb4ab28adab1"
-    },
-    {
-      "path": "parts/s15-sliding-tongue.stl",
-      "bytes": 789384,
-      "sha256": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1",
-      "source_sha256": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1"
-    },
-    {
-      "path": "parts/s15-sliding-tongue.step",
-      "bytes": 387413,
-      "sha256": "6e65240cb0d51f39a18d1dedc71786eb95f4937db40a55e0f23287d2f32037c7",
-      "source_sha256": "6e65240cb0d51f39a18d1dedc71786eb95f4937db40a55e0f23287d2f32037c7"
-    },
-    {
-      "path": "parts/s25r-sliding-receiver.stl",
-      "bytes": 1013384,
-      "sha256": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a",
-      "source_sha256": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a"
-    },
-    {
-      "path": "parts/s25r-sliding-receiver.step",
-      "bytes": 559709,
-      "sha256": "cdd7373dd77c18e1eab047b28b952386dca4735135cdfde6018164ac229774ef",
-      "source_sha256": "cdd7373dd77c18e1eab047b28b952386dca4735135cdfde6018164ac229774ef"
-    },
-    {
-      "path": "parts/s25-sliding-tongue.stl",
-      "bytes": 985684,
-      "sha256": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d",
-      "source_sha256": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d"
-    },
-    {
-      "path": "parts/s25-sliding-tongue.step",
-      "bytes": 467457,
-      "sha256": "c91bb53aa8bb6838a51f939c135b5e3ddc35567ccf05a55b553fc1602aa0050f",
-      "source_sha256": "c91bb53aa8bb6838a51f939c135b5e3ddc35567ccf05a55b553fc1602aa0050f"
-    },
-    {
-      "path": "parts/s35r-sliding-receiver.stl",
-      "bytes": 1317684,
-      "sha256": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a",
-      "source_sha256": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a"
-    },
-    {
-      "path": "parts/s35r-sliding-receiver.step",
-      "bytes": 505170,
-      "sha256": "e3d17a57418ba4d2acccb30e57824b3171efe961940d334993aa19b3f1a07d0d",
-      "source_sha256": "e3d17a57418ba4d2acccb30e57824b3171efe961940d334993aa19b3f1a07d0d"
-    },
-    {
-      "path": "parts/s35-sliding-tongue.stl",
-      "bytes": 1292284,
-      "sha256": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f",
-      "source_sha256": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f"
-    },
-    {
-      "path": "parts/s35-sliding-tongue.step",
-      "bytes": 510348,
-      "sha256": "4b5967096e75f3bc511a6a1f5046ecc09c84c92f33f622794c4fcff000120f48",
-      "source_sha256": "4b5967096e75f3bc511a6a1f5046ecc09c84c92f33f622794c4fcff000120f48"
-    },
-    {
-      "path": "parts/s45r-sliding-receiver.stl",
-      "bytes": 792384,
-      "sha256": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316",
-      "source_sha256": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316"
-    },
-    {
-      "path": "parts/s45r-sliding-receiver.step",
-      "bytes": 400740,
-      "sha256": "b00ba58da0b08c15e05036cbc285e9d3315f0d283a50c42c81810ddd88d84cea",
-      "source_sha256": "b00ba58da0b08c15e05036cbc285e9d3315f0d283a50c42c81810ddd88d84cea"
-    },
-    {
-      "path": "parts/s45-sliding-tongue.stl",
-      "bytes": 767784,
-      "sha256": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb",
-      "source_sha256": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb"
-    },
-    {
-      "path": "parts/s45-sliding-tongue.step",
-      "bytes": 405243,
-      "sha256": "b3314093b430f6c06d7bc67e86e58519a203046e88148a364bbee3e150e9115c",
-      "source_sha256": "b3314093b430f6c06d7bc67e86e58519a203046e88148a364bbee3e150e9115c"
-    },
-    {
-      "path": "parts/r30-support-ceiling.stl",
-      "bytes": 1271184,
-      "sha256": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f",
-      "source_sha256": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f"
-    },
-    {
-      "path": "parts/r30-support-ceiling.step",
-      "bytes": 503076,
-      "sha256": "8a4604b0372140a4917255c977a61c587ec315750ce4984c7234b5094c80f5da",
-      "source_sha256": "8a4604b0372140a4917255c977a61c587ec315750ce4984c7234b5094c80f5da"
-    },
-    {
-      "path": "parts/r45-support-ceiling.stl",
-      "bytes": 700184,
-      "sha256": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d",
-      "source_sha256": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d"
-    },
-    {
-      "path": "parts/r45-support-ceiling.step",
-      "bytes": 393208,
-      "sha256": "4cacab06b1022381549d254b9d070576679c12007f331dafde474741a15a9000",
-      "source_sha256": "4cacab06b1022381549d254b9d070576679c12007f331dafde474741a15a9000"
-    },
-    {
-      "path": "parts/r60-support-ceiling.stl",
-      "bytes": 1252584,
-      "sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
-      "source_sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f"
-    },
-    {
-      "path": "parts/r60-support-ceiling.step",
-      "bytes": 485787,
-      "sha256": "30afb2f8262d793daf2a1c6f17ab1e4b116be63e56ed67de5268e484c267f71c",
-      "source_sha256": "30afb2f8262d793daf2a1c6f17ab1e4b116be63e56ed67de5268e484c267f71c"
-    },
-    {
-      "path": "parts/a08-angle-and-curve-blade.stl",
-      "bytes": 5406384,
-      "sha256": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71",
-      "source_sha256": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71"
-    },
-    {
-      "path": "parts/a08-angle-and-curve-blade.step",
-      "bytes": 1935519,
-      "sha256": "62df70a184df552c6e52d3fec8339791a05de9b11e5d3b30c300551759eff3cd",
-      "source_sha256": "62df70a184df552c6e52d3fec8339791a05de9b11e5d3b30c300551759eff3cd"
-    },
-    {
-      "path": "parts/a12-angle-and-curve-blade.stl",
-      "bytes": 4598884,
-      "sha256": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e",
-      "source_sha256": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e"
-    },
-    {
-      "path": "parts/a12-angle-and-curve-blade.step",
-      "bytes": 1819928,
-      "sha256": "f15dd6930cd0c8c6dc56f04db2be66d27a774f06db3cfcb277d373ac0ded8e9d",
-      "source_sha256": "f15dd6930cd0c8c6dc56f04db2be66d27a774f06db3cfcb277d373ac0ded8e9d"
-    },
-    {
-      "path": "parts/a24-angle-and-curve-blade.stl",
-      "bytes": 4576584,
-      "sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
-      "source_sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25"
-    },
-    {
-      "path": "parts/a24-angle-and-curve-blade.step",
-      "bytes": 1841514,
-      "sha256": "742716d6c580942c58465b2af382e605e553cd321c890f3f3017fecbd3f1aa7f",
-      "source_sha256": "742716d6c580942c58465b2af382e605e553cd321c890f3f3017fecbd3f1aa7f"
-    },
-    {
-      "path": "parts/n08d-neck-cut-face-foot.stl",
-      "bytes": 1361784,
-      "sha256": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab",
-      "source_sha256": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab"
-    },
-    {
-      "path": "parts/n08d-neck-cut-face-foot.step",
-      "bytes": 651577,
-      "sha256": "63fc4aaf2c78eaee7e6ba260a54c32a918e00656a4b4111175c922ce47b47eb5",
-      "source_sha256": "63fc4aaf2c78eaee7e6ba260a54c32a918e00656a4b4111175c922ce47b47eb5"
-    },
-    {
-      "path": "parts/n08k-neck-t-slot-keeper.stl",
-      "bytes": 1108684,
-      "sha256": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887",
-      "source_sha256": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887"
-    },
-    {
-      "path": "parts/n08k-neck-t-slot-keeper.step",
-      "bytes": 416459,
-      "sha256": "d5cac0374fe4dff9b3b376014e26dd30d23d3b0c0bb457091ed6260193b5691b",
-      "source_sha256": "d5cac0374fe4dff9b3b376014e26dd30d23d3b0c0bb457091ed6260193b5691b"
-    },
-    {
-      "path": "parts/n08-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/n08-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "efb5abc293482c7b3385c0c45feef2bbd367ea5d2de32c533a7eb46e65642da9",
-      "source_sha256": "efb5abc293482c7b3385c0c45feef2bbd367ea5d2de32c533a7eb46e65642da9"
-    },
-    {
-      "path": "parts/n12d-neck-cut-face-foot.stl",
-      "bytes": 553784,
-      "sha256": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25",
-      "source_sha256": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25"
-    },
-    {
-      "path": "parts/n12d-neck-cut-face-foot.step",
-      "bytes": 475303,
-      "sha256": "7387651ce9ae1b097fd983c5f3913fd83abd6591fe8def842902e16e4d483704",
-      "source_sha256": "7387651ce9ae1b097fd983c5f3913fd83abd6591fe8def842902e16e4d483704"
-    },
-    {
-      "path": "parts/n12k-neck-t-slot-keeper.stl",
-      "bytes": 299884,
-      "sha256": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05",
-      "source_sha256": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05"
-    },
-    {
-      "path": "parts/n12k-neck-t-slot-keeper.step",
-      "bytes": 252766,
-      "sha256": "a350de18a4663deb27b549d8e1792dfaa97c08171a2b2a17f9707124bf6ff4e6",
-      "source_sha256": "a350de18a4663deb27b549d8e1792dfaa97c08171a2b2a17f9707124bf6ff4e6"
-    },
-    {
-      "path": "parts/n12-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/n12-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "344c5ac3f684aab0d1a7f6f55d94e0f6e9b6c0ad77d4be8c92917c488d3a1e6c",
-      "source_sha256": "344c5ac3f684aab0d1a7f6f55d94e0f6e9b6c0ad77d4be8c92917c488d3a1e6c"
-    },
-    {
-      "path": "parts/n24d-neck-cut-face-foot.stl",
-      "bytes": 539184,
-      "sha256": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e",
-      "source_sha256": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e"
-    },
-    {
-      "path": "parts/n24d-neck-cut-face-foot.step",
-      "bytes": 491819,
-      "sha256": "8c116022ccd127f9e8d92e6b72096a07e6e112b0edcb9c0dc720cea6f24a5a79",
-      "source_sha256": "8c116022ccd127f9e8d92e6b72096a07e6e112b0edcb9c0dc720cea6f24a5a79"
-    },
-    {
-      "path": "parts/n24k-neck-t-slot-keeper.stl",
-      "bytes": 276384,
-      "sha256": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3",
-      "source_sha256": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3"
-    },
-    {
-      "path": "parts/n24k-neck-t-slot-keeper.step",
-      "bytes": 269151,
-      "sha256": "b3f73fc788f87f7b5a5dab5713fac4635ab1ccbad190edef3e2b3952f0cfcdc9",
-      "source_sha256": "b3f73fc788f87f7b5a5dab5713fac4635ab1ccbad190edef3e2b3952f0cfcdc9"
-    },
-    {
-      "path": "parts/n24-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/n24-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "4227d19653d708600a41c5de0f4ca3645abe56f7239dd8908df38d035fbb7b94",
-      "source_sha256": "4227d19653d708600a41c5de0f4ca3645abe56f7239dd8908df38d035fbb7b94"
-    },
-    {
-      "path": "parts/nr00d-neck-cut-face-foot.stl",
-      "bytes": 1205984,
-      "sha256": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb",
-      "source_sha256": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb"
-    },
-    {
-      "path": "parts/nr00d-neck-cut-face-foot.step",
-      "bytes": 698909,
-      "sha256": "9a36b678dbe76d25a63b4861c79adb787fcabfa5d14ec03b4758e16f75874d0b",
-      "source_sha256": "9a36b678dbe76d25a63b4861c79adb787fcabfa5d14ec03b4758e16f75874d0b"
-    },
-    {
-      "path": "parts/nr00k-neck-t-slot-keeper.stl",
-      "bytes": 949684,
-      "sha256": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3",
-      "source_sha256": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3"
-    },
-    {
-      "path": "parts/nr00k-neck-t-slot-keeper.step",
-      "bytes": 474102,
-      "sha256": "44a6ead9ac7495e83cf6c8d4bd0dfd4ea6584b1dc403c0a9b19ea4f62a436d8d",
-      "source_sha256": "44a6ead9ac7495e83cf6c8d4bd0dfd4ea6584b1dc403c0a9b19ea4f62a436d8d"
-    },
-    {
-      "path": "parts/nr00-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/nr00-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "dd60b8fd231334463f2dcd01e52e78b988be5bd5e4e3972af5cd22f0079d85c5",
-      "source_sha256": "dd60b8fd231334463f2dcd01e52e78b988be5bd5e4e3972af5cd22f0079d85c5"
-    },
-    {
-      "path": "parts/nr05d-neck-cut-face-foot.stl",
-      "bytes": 1146184,
-      "sha256": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5",
-      "source_sha256": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5"
-    },
-    {
-      "path": "parts/nr05d-neck-cut-face-foot.step",
-      "bytes": 691877,
-      "sha256": "f5340dfb1ea80191e34df23ded06403306ecc7442a209e5a48a89c2454cec3c4",
-      "source_sha256": "f5340dfb1ea80191e34df23ded06403306ecc7442a209e5a48a89c2454cec3c4"
-    },
-    {
-      "path": "parts/nr05k-neck-t-slot-keeper.stl",
-      "bytes": 887684,
-      "sha256": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac",
-      "source_sha256": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac"
-    },
-    {
-      "path": "parts/nr05k-neck-t-slot-keeper.step",
-      "bytes": 466679,
-      "sha256": "a6d50fde9399b5c14befbffcb46636171f39012cf5275499e280ab639b10d584",
-      "source_sha256": "a6d50fde9399b5c14befbffcb46636171f39012cf5275499e280ab639b10d584"
-    },
-    {
-      "path": "parts/nr05-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/nr05-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "9762ab3c752b886b850ef3d7be9ddcbf3a255d12c615d2fb46d689deb104c72b",
-      "source_sha256": "9762ab3c752b886b850ef3d7be9ddcbf3a255d12c615d2fb46d689deb104c72b"
-    },
-    {
-      "path": "parts/nr15d-neck-cut-face-foot.stl",
-      "bytes": 825184,
-      "sha256": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10",
-      "source_sha256": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10"
-    },
-    {
-      "path": "parts/nr15d-neck-cut-face-foot.step",
-      "bytes": 606732,
-      "sha256": "8ccb8bf1a23410697c301734c3abf1325ba02b3b0745b03b72debd904b38e0df",
-      "source_sha256": "8ccb8bf1a23410697c301734c3abf1325ba02b3b0745b03b72debd904b38e0df"
-    },
-    {
-      "path": "parts/nr15k-neck-t-slot-keeper.stl",
-      "bytes": 567784,
-      "sha256": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2",
-      "source_sha256": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2"
-    },
-    {
-      "path": "parts/nr15k-neck-t-slot-keeper.step",
-      "bytes": 382736,
-      "sha256": "e1db6346bad786fbf1146a1a86468790fea967d5d58eec0560c6bf75795f99cc",
-      "source_sha256": "e1db6346bad786fbf1146a1a86468790fea967d5d58eec0560c6bf75795f99cc"
-    },
-    {
-      "path": "parts/nr15-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/nr15-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "7c26e180c10d59021bddcdd1fe7fe55d46e4ba28603df2388197c52b0f2c8aae",
-      "source_sha256": "7c26e180c10d59021bddcdd1fe7fe55d46e4ba28603df2388197c52b0f2c8aae"
-    },
-    {
-      "path": "parts/ns00d-neck-cut-face-foot.stl",
-      "bytes": 1501884,
-      "sha256": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d",
-      "source_sha256": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d"
-    },
-    {
-      "path": "parts/ns00d-neck-cut-face-foot.step",
-      "bytes": 738170,
-      "sha256": "137720d00849459034c09e323372b3933f435d94328ffcb8360ee11f1d33c9f1",
-      "source_sha256": "137720d00849459034c09e323372b3933f435d94328ffcb8360ee11f1d33c9f1"
-    },
-    {
-      "path": "parts/ns00k-neck-t-slot-keeper.stl",
-      "bytes": 1246884,
-      "sha256": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84",
-      "source_sha256": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84"
-    },
-    {
-      "path": "parts/ns00k-neck-t-slot-keeper.step",
-      "bytes": 513217,
-      "sha256": "b4c587f2da86e179ef45db0c7dd9b829a50cb6643570cd5c87d2b1e5442096ba",
-      "source_sha256": "b4c587f2da86e179ef45db0c7dd9b829a50cb6643570cd5c87d2b1e5442096ba"
-    },
-    {
-      "path": "parts/ns00-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/ns00-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "29d03cc51c8ebdfbf9750c7f9e9ebd30e3c1857bc9545a4e596f00ff64e378d7",
-      "source_sha256": "29d03cc51c8ebdfbf9750c7f9e9ebd30e3c1857bc9545a4e596f00ff64e378d7"
-    },
-    {
-      "path": "parts/ns10d-neck-cut-face-foot.stl",
-      "bytes": 1183784,
-      "sha256": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79",
-      "source_sha256": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79"
-    },
-    {
-      "path": "parts/ns10d-neck-cut-face-foot.step",
-      "bytes": 652704,
-      "sha256": "45d175ae92325225f6a98ccb3b9665f6607bde34b191dca0d570af1ecb944f34",
-      "source_sha256": "45d175ae92325225f6a98ccb3b9665f6607bde34b191dca0d570af1ecb944f34"
-    },
-    {
-      "path": "parts/ns10k-neck-t-slot-keeper.stl",
-      "bytes": 926084,
-      "sha256": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422",
-      "source_sha256": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422"
-    },
-    {
-      "path": "parts/ns10k-neck-t-slot-keeper.step",
-      "bytes": 428944,
-      "sha256": "c6be273cc7873b23d425d08e386eddf6422642baeb6ee178ee8cfbd11b938701",
-      "source_sha256": "c6be273cc7873b23d425d08e386eddf6422642baeb6ee178ee8cfbd11b938701"
-    },
-    {
-      "path": "parts/ns10-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/ns10-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "fcf24ae043f2b9272f66c508d8ab132cde740c3b902c06f632f1e6476d1bbe3a",
-      "source_sha256": "fcf24ae043f2b9272f66c508d8ab132cde740c3b902c06f632f1e6476d1bbe3a"
-    },
-    {
-      "path": "parts/ns20d-neck-cut-face-foot.stl",
-      "bytes": 1376284,
-      "sha256": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7",
-      "source_sha256": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7"
-    },
-    {
-      "path": "parts/ns20d-neck-cut-face-foot.step",
-      "bytes": 734555,
-      "sha256": "2969c09bd8d2dbd5916725850af68396913e81920e3ace76ac79a806ba137828",
-      "source_sha256": "2969c09bd8d2dbd5916725850af68396913e81920e3ace76ac79a806ba137828"
-    },
-    {
-      "path": "parts/ns20k-neck-t-slot-keeper.stl",
-      "bytes": 1120884,
-      "sha256": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90",
-      "source_sha256": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90"
-    },
-    {
-      "path": "parts/ns20k-neck-t-slot-keeper.step",
-      "bytes": 509288,
-      "sha256": "00310a5dc55d20c9991c2ec62cbca75b9ac8e575db208a4a809769fddcb9ad28",
-      "source_sha256": "00310a5dc55d20c9991c2ec62cbca75b9ac8e575db208a4a809769fddcb9ad28"
-    },
-    {
-      "path": "parts/ns20-faucet-neck.stl",
-      "bytes": 82284,
-      "sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
-      "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
-    },
-    {
-      "path": "parts/ns20-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "f50f553057ce2b30dd39372b21382c8d8441eabd542b3e808515d2d2e8a5608d",
-      "source_sha256": "f50f553057ce2b30dd39372b21382c8d8441eabd542b3e808515d2d2e8a5608d"
-    },
-    {
-      "path": "parts/gr-grip-receiver-bridge.stl",
-      "bytes": 6284,
-      "sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
-      "source_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f"
-    },
-    {
-      "path": "parts/gr-grip-receiver-bridge.step",
-      "bytes": 117147,
-      "sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5",
-      "source_sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5"
-    },
-    {
-      "path": "parts/g-complete-grip-insert.stl",
-      "bytes": 936084,
-      "sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
-      "source_sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e"
-    },
-    {
-      "path": "parts/g-complete-grip-insert.step",
-      "bytes": 95205,
-      "sha256": "6e76ce448f055e678bea2bef49515502fdab605ea348b129fab3c37319641802",
-      "source_sha256": "6e76ce448f055e678bea2bef49515502fdab605ea348b129fab3c37319641802"
-    },
-    {
-      "path": "parts/r6-expanding-round-structural-buttress.stl",
-      "bytes": 801984,
-      "sha256": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f",
-      "source_sha256": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f"
-    },
-    {
-      "path": "parts/r6-expanding-round-structural-buttress.step",
-      "bytes": 96366,
-      "sha256": "3ad39e4125e4fd07b3fadb6cfeee325f95e4078a94a0c26ba3f059a831d00f58",
-      "source_sha256": "3ad39e4125e4fd07b3fadb6cfeee325f95e4078a94a0c26ba3f059a831d00f58"
-    },
-    {
-      "path": "parts/fh-complete-rigid-groove-host.stl",
-      "bytes": 3374084,
-      "sha256": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810",
-      "source_sha256": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810"
-    },
-    {
-      "path": "parts/fh-complete-rigid-groove-host.step",
-      "bytes": 605879,
-      "sha256": "6348c2464907f51f34532be14e66ec0918a5ee633d501e577c11a65239538163",
-      "source_sha256": "6348c2464907f51f34532be14e66ec0918a5ee633d501e577c11a65239538163"
-    },
-    {
-      "path": "parts/fc-complete-relaxed-industrial-cover.stl",
+      "path": "parts/FC.stl",
       "bytes": 218684,
       "sha256": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad",
       "source_sha256": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad"
     },
     {
-      "path": "parts/fc-complete-relaxed-industrial-cover.step",
-      "bytes": 308738,
-      "sha256": "28d35c7deacb88fc61292456032d13d972fd298e7a4fb48f9c7951575b34b570",
-      "source_sha256": "28d35c7deacb88fc61292456032d13d972fd298e7a4fb48f9c7951575b34b570"
+      "path": "parts/FC.step",
+      "bytes": 306587,
+      "sha256": "86e648565b07a2e3be06ac34da9762bf96d831253f0a41ee141ab9f50dd1a119",
+      "source_sha256": "86e648565b07a2e3be06ac34da9762bf96d831253f0a41ee141ab9f50dd1a119"
     },
     {
-      "path": "print-assemblies/pip-base.stl",
-      "bytes": 13148984,
-      "sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5",
-      "source_sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5"
+      "path": "parts/FC-seated-display.stl",
+      "bytes": 302784,
+      "sha256": "7e6caea5a61435da385efe55b6df386ce67a57aabbc0c1f28e375a92cc74ec5b",
+      "source_sha256": "7e6caea5a61435da385efe55b6df386ce67a57aabbc0c1f28e375a92cc74ec5b"
     },
     {
-      "path": "print-assemblies/pip-base.step",
-      "bytes": 7471055,
-      "sha256": "eded432cf138c2cd80b05f991b79474a5258628c637768a3688301187453e6c8",
-      "source_sha256": "eded432cf138c2cd80b05f991b79474a5258628c637768a3688301187453e6c8"
+      "path": "parts/FC-seated-display.step",
+      "bytes": 237778,
+      "sha256": "648947d6c7c34c9121444534d46441cc2d6e2181a71096fb89cb29d0da899e9b",
+      "source_sha256": "648947d6c7c34c9121444534d46441cc2d6e2181a71096fb89cb29d0da899e9b"
     },
     {
-      "path": "prints/the-pour-cover-petgf-left04-z004-mark2.3mf",
-      "bytes": 77142,
-      "sha256": "532b16550d95d76976a1dd343d968e306ee2b94bf59feeeb9c23be54cefa324f",
-      "source_sha256": "532b16550d95d76976a1dd343d968e306ee2b94bf59feeeb9c23be54cefa324f"
+      "path": "parts/FPD.stl",
+      "bytes": 1061784,
+      "sha256": "a6de5ca63adc85bcf3129656184f0787792327bc47e54300465c89e6ccd005d7",
+      "source_sha256": "a6de5ca63adc85bcf3129656184f0787792327bc47e54300465c89e6ccd005d7"
     },
     {
-      "path": "prints/the-pour-cover-petgf-left04-z004-mark2.print.json",
-      "bytes": 129757,
-      "sha256": "77c73e189f6b7bbaa5958706b599c134ccf5bf81c0a2d5918074c1074b0ea668",
-      "source_sha256": "77c73e189f6b7bbaa5958706b599c134ccf5bf81c0a2d5918074c1074b0ea668"
+      "path": "parts/FPD.step",
+      "bytes": 206407,
+      "sha256": "8de55e051bb305762620bef900d4439f8bb3635e4f2c4cdb9cbea47e2383c4aa",
+      "source_sha256": "8de55e051bb305762620bef900d4439f8bb3635e4f2c4cdb9cbea47e2383c4aa"
     },
     {
-      "path": "prints/the-pour-finish-008-petgf-left04-z004-mark2.3mf",
-      "bytes": 1633552,
-      "sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f",
-      "source_sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f"
+      "path": "parts/FG.stl",
+      "bytes": 303684,
+      "sha256": "72c70f5d4aa9f13552727f8ce3ff10b352deff95df1f7df8f537cbe80d523c45",
+      "source_sha256": "72c70f5d4aa9f13552727f8ce3ff10b352deff95df1f7df8f537cbe80d523c45"
     },
     {
-      "path": "prints/the-pour-finish-008-petgf-left04-z004-mark2.print.json",
-      "bytes": 52939,
-      "sha256": "5f2a562c928cd2f163e536fe4435f8abb1463ad652ffe40a23827c36690cfe10",
-      "source_sha256": "5f2a562c928cd2f163e536fe4435f8abb1463ad652ffe40a23827c36690cfe10"
+      "path": "parts/FG.step",
+      "bytes": 36388,
+      "sha256": "e0fb80ac3f68ca051c7208715f146f5c2ed6bf3baa9b5d82eebcd6dd6ecdf0f1",
+      "source_sha256": "e0fb80ac3f68ca051c7208715f146f5c2ed6bf3baa9b5d82eebcd6dd6ecdf0f1"
     },
     {
-      "path": "prints/the-pour-finish-012-petgf-left04-z004-mark2.3mf",
-      "bytes": 1207127,
-      "sha256": "8f826d33dd3667a7e5247fc97dc5960e3882f7fda3555a31eaec57442ff39468",
-      "source_sha256": "8f826d33dd3667a7e5247fc97dc5960e3882f7fda3555a31eaec57442ff39468"
+      "path": "parts/FL.stl",
+      "bytes": 253684,
+      "sha256": "55ee875537f9cc38c6c5a4a6c4a2f03574402e775e5bff7f30ad34c3ff4622f2",
+      "source_sha256": "55ee875537f9cc38c6c5a4a6c4a2f03574402e775e5bff7f30ad34c3ff4622f2"
     },
     {
-      "path": "prints/the-pour-finish-012-petgf-left04-z004-mark2.print.json",
-      "bytes": 39461,
-      "sha256": "65507a23421060cac080602bc090524cc3f8c7d01e50c154b379c2f789cb8216",
-      "source_sha256": "65507a23421060cac080602bc090524cc3f8c7d01e50c154b379c2f789cb8216"
+      "path": "parts/FL.step",
+      "bytes": 779216,
+      "sha256": "8baab2dff9fff1196943d7bad7bcad0d1c71955b6f730598e7d874c0d9bcabec",
+      "source_sha256": "8baab2dff9fff1196943d7bad7bcad0d1c71955b6f730598e7d874c0d9bcabec"
     },
     {
-      "path": "prints/the-pour-finish-024-petgf-left04-z004-mark2.3mf",
-      "bytes": 1201622,
-      "sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55",
-      "source_sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55"
+      "path": "parts/FS.stl",
+      "bytes": 151284,
+      "sha256": "3384329ef2ac3c731033f7671cbd760b0d9d966d0d0ad2710665b86b9e92f192",
+      "source_sha256": "3384329ef2ac3c731033f7671cbd760b0d9d966d0d0ad2710665b86b9e92f192"
     },
     {
-      "path": "prints/the-pour-finish-024-petgf-left04-z004-mark2.print.json",
-      "bytes": 29738,
-      "sha256": "1f19be1770f02400c52b354cb583e115feec891f17942b94b9a623c9136dfd98",
-      "source_sha256": "1f19be1770f02400c52b354cb583e115feec891f17942b94b9a623c9136dfd98"
+      "path": "parts/FS.step",
+      "bytes": 14067,
+      "sha256": "63daaad825fb160c4730fc58b836da78e950fa9ea320d562130e8c38219069eb",
+      "source_sha256": "63daaad825fb160c4730fc58b836da78e950fa9ea320d562130e8c38219069eb"
     },
     {
-      "path": "prints/the-pour-host-petgf-left04-z004-mark2.3mf",
-      "bytes": 1003693,
-      "sha256": "56225972cfe9e9b2e3372f08998dae3a8d18d20e3df3d89ffbe9d31ba6a02a3e",
-      "source_sha256": "56225972cfe9e9b2e3372f08998dae3a8d18d20e3df3d89ffbe9d31ba6a02a3e"
+      "path": "parts/FO.stl",
+      "bytes": 317284,
+      "sha256": "ef69d2d5ea20697ebc622b554c3ffa252ef434f75706c6ef4df46209237e27b1",
+      "source_sha256": "ef69d2d5ea20697ebc622b554c3ffa252ef434f75706c6ef4df46209237e27b1"
     },
     {
-      "path": "prints/the-pour-host-petgf-left04-z004-mark2.print.json",
-      "bytes": 411321,
-      "sha256": "99f653404e75e7ff76c1455d530c770ec117d22067c3af5b3289576c424e10e4",
-      "source_sha256": "99f653404e75e7ff76c1455d530c770ec117d22067c3af5b3289576c424e10e4"
+      "path": "parts/FO.step",
+      "bytes": 87284,
+      "sha256": "73d6a9c89d8e8031a16ab3e0997453fb371215a9ffabfd11cad43f50949175de",
+      "source_sha256": "73d6a9c89d8e8031a16ab3e0997453fb371215a9ffabfd11cad43f50949175de"
     },
     {
-      "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
-      "bytes": 5297083,
-      "sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800",
-      "source_sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800"
+      "path": "parts/TC.stl",
+      "bytes": 6900484,
+      "sha256": "c12e0665fcf7ae9d8c2b37f4b40102ba7a4444d177c63e09d37e19a0dadd2f23",
+      "source_sha256": "c12e0665fcf7ae9d8c2b37f4b40102ba7a4444d177c63e09d37e19a0dadd2f23"
     },
     {
-      "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.print.json",
-      "bytes": 330678,
-      "sha256": "03146157e1f27a092d790eb88129b021f87b94a917d3a3d3c3d0a927c2e15334",
-      "source_sha256": "03146157e1f27a092d790eb88129b021f87b94a917d3a3d3c3d0a927c2e15334"
+      "path": "parts/TC.step",
+      "bytes": 2024303,
+      "sha256": "0e222a424b6e4be61b0e9053b0eb47040d247529e0570d980242cd89065a2c13",
+      "source_sha256": "0e222a424b6e4be61b0e9053b0eb47040d247529e0570d980242cd89065a2c13"
     },
     {
-      "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.3mf",
-      "bytes": 3578103,
-      "sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921",
-      "source_sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921"
+      "path": "parts/TC-body.stl",
+      "bytes": 3488684,
+      "sha256": "61aa2dfc4a6a63951cdec3774efbb84b25a018c795766341bb2325c19b2148e6",
+      "source_sha256": "61aa2dfc4a6a63951cdec3774efbb84b25a018c795766341bb2325c19b2148e6"
     },
     {
-      "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.print.json",
-      "bytes": 1532233,
-      "sha256": "dc510f0d9f21298dc4e4c64cc688a7776dd32f4664a8223ada632db35785d5f5",
-      "source_sha256": "dc510f0d9f21298dc4e4c64cc688a7776dd32f4664a8223ada632db35785d5f5"
+      "path": "parts/TC-body.step",
+      "bytes": 1018589,
+      "sha256": "0ae8d31950edd793c644d9463ac0d0db70679dfe8db627895b6226f4d571cbf7",
+      "source_sha256": "0ae8d31950edd793c644d9463ac0d0db70679dfe8db627895b6226f4d571cbf7"
     },
     {
-      "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.3mf",
-      "bytes": 2164594,
-      "sha256": "720f127f5e6fe17c9ce832354adcae954ca972a28f27785e1f7179198b6df20e",
-      "source_sha256": "720f127f5e6fe17c9ce832354adcae954ca972a28f27785e1f7179198b6df20e"
+      "path": "parts/TC-word.stl",
+      "bytes": 3411884,
+      "sha256": "3fa693d05db52f481cb9cb8ecdf80049138600275eb39e1d679a0ef282262acf",
+      "source_sha256": "3fa693d05db52f481cb9cb8ecdf80049138600275eb39e1d679a0ef282262acf"
     },
     {
-      "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.print.json",
-      "bytes": 55725,
-      "sha256": "2d657e9abfdc4348010e0d6747d153054d65e31b56af1fa14447005450aa8842",
-      "source_sha256": "2d657e9abfdc4348010e0d6747d153054d65e31b56af1fa14447005450aa8842"
+      "path": "parts/TC-word.step",
+      "bytes": 994055,
+      "sha256": "35599560cd5d6bec7ea73bd465545e39d4fb1caacd284e014abb3efb73149158",
+      "source_sha256": "35599560cd5d6bec7ea73bd465545e39d4fb1caacd284e014abb3efb73149158"
     },
     {
-      "path": "prints/the-pour-r6-petgf-left04-z004-mark2.3mf",
-      "bytes": 223642,
-      "sha256": "d1c52a0f14d4dff0541cf0bcca55a07f751dbab388df90633dd821eaaada1215",
-      "source_sha256": "d1c52a0f14d4dff0541cf0bcca55a07f751dbab388df90633dd821eaaada1215"
+      "path": "parts/front-bottom.stl",
+      "bytes": 15859484,
+      "sha256": "4492616250a5b23147a828c519db44191bf202448035dd77430ed36bddad3331",
+      "source_sha256": "4492616250a5b23147a828c519db44191bf202448035dd77430ed36bddad3331"
     },
     {
-      "path": "prints/the-pour-r6-petgf-left04-z004-mark2.print.json",
-      "bytes": 165782,
-      "sha256": "7fcb9e2cbb7e370b0c09b1f1a3e0409938995253ea0822c62030333dd3d7f74a",
-      "source_sha256": "7fcb9e2cbb7e370b0c09b1f1a3e0409938995253ea0822c62030333dd3d7f74a"
+      "path": "parts/front-bottom.step",
+      "bytes": 2704926,
+      "sha256": "4529e044a366a8c2b7cf4cd22ec3f8a05e37e3a195fbbf06ca1f4418a07aff16",
+      "source_sha256": "4529e044a366a8c2b7cf4cd22ec3f8a05e37e3a195fbbf06ca1f4418a07aff16"
     },
     {
-      "path": "prints/the-pour-seam-petgf-left04-z004-mark2.3mf",
-      "bytes": 145971,
-      "sha256": "8475c0255ad42f3f6332be09277d752e360489135b19762bc28298e95fb769a8",
-      "source_sha256": "8475c0255ad42f3f6332be09277d752e360489135b19762bc28298e95fb769a8"
+      "path": "parts/front-top.stl",
+      "bytes": 8839884,
+      "sha256": "1246dff2ddf3eda33dd1c68a88fc2e38cc7b697bf247843b9000125e5262895d",
+      "source_sha256": "1246dff2ddf3eda33dd1c68a88fc2e38cc7b697bf247843b9000125e5262895d"
     },
     {
-      "path": "prints/the-pour-seam-petgf-left04-z004-mark2.print.json",
-      "bytes": 40554,
-      "sha256": "34525929fff182513a9a234fa3d8c4a60dae8ac812ac73f3d7b6f1c55b53ac09",
-      "source_sha256": "34525929fff182513a9a234fa3d8c4a60dae8ac812ac73f3d7b6f1c55b53ac09"
+      "path": "parts/front-top.step",
+      "bytes": 2059097,
+      "sha256": "fe6f4e9e5fb36af939d30abc159a0be6a7585242539ff4b0038eaa42065a6b63",
+      "source_sha256": "fe6f4e9e5fb36af939d30abc159a0be6a7585242539ff4b0038eaa42065a6b63"
     },
     {
-      "path": "prints/the-pour-support-030-petgf-left04-z004-mark2.3mf",
-      "bytes": 325296,
-      "sha256": "e0058d39a6cddd81d9c4a1fed70f5cd109a2f0f3f8ab2d6cd78137501436d9a1",
-      "source_sha256": "e0058d39a6cddd81d9c4a1fed70f5cd109a2f0f3f8ab2d6cd78137501436d9a1"
+      "path": "parts/back-bottom.stl",
+      "bytes": 44734784,
+      "sha256": "6c2ef0589062862c280697a697de094a4817e440547b24d3bc25059d535faa2d",
+      "source_sha256": "6c2ef0589062862c280697a697de094a4817e440547b24d3bc25059d535faa2d"
     },
     {
-      "path": "prints/the-pour-support-030-petgf-left04-z004-mark2.print.json",
-      "bytes": 12843,
-      "sha256": "f3ccb5f6aa2ee2f5c8416eedaca170ed28cbd96d97e29c2f9918985b6d1377e9",
-      "source_sha256": "f3ccb5f6aa2ee2f5c8416eedaca170ed28cbd96d97e29c2f9918985b6d1377e9"
+      "path": "parts/back-bottom.step",
+      "bytes": 11377764,
+      "sha256": "2c049743e2824f6e4cfb19a0eefecef48a199fe9d36b6c398115dd1a8fd22960",
+      "source_sha256": "2c049743e2824f6e4cfb19a0eefecef48a199fe9d36b6c398115dd1a8fd22960"
     },
     {
-      "path": "prints/the-pour-support-045-petgf-left04-z004-mark2.3mf",
-      "bytes": 179920,
-      "sha256": "bb97517ac6443477ab74b5d52618a68dc53ef631380fc61b697a58b6955dd27f",
-      "source_sha256": "bb97517ac6443477ab74b5d52618a68dc53ef631380fc61b697a58b6955dd27f"
+      "path": "parts/back-top.stl",
+      "bytes": 20521084,
+      "sha256": "632d72cc8072c97bc1e43c96bffc987dc2d08d1cb9231aecfa155fdaedaf3657",
+      "source_sha256": "632d72cc8072c97bc1e43c96bffc987dc2d08d1cb9231aecfa155fdaedaf3657"
     },
     {
-      "path": "prints/the-pour-support-045-petgf-left04-z004-mark2.print.json",
-      "bytes": 12849,
-      "sha256": "43ffd87016adb5a3987d7938a8af458cbde7563771a77099d289566803d295b6",
-      "source_sha256": "43ffd87016adb5a3987d7938a8af458cbde7563771a77099d289566803d295b6"
+      "path": "parts/back-top.step",
+      "bytes": 1839702,
+      "sha256": "5be2e3ef3c88667b968cca0a2ec869f7e307fac989cda714c028efd9a3660dea",
+      "source_sha256": "5be2e3ef3c88667b968cca0a2ec869f7e307fac989cda714c028efd9a3660dea"
     },
     {
-      "path": "prints/the-pour-support-060-petgf-left04-z004-mark2.3mf",
-      "bytes": 321372,
-      "sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f",
-      "source_sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f"
+      "path": "parts/pump_drawer.stl",
+      "bytes": 8661984,
+      "sha256": "8bde8475630a47015b3d35a51d36de551e28013755074305e6a9b9bd0e9033f8",
+      "source_sha256": "8bde8475630a47015b3d35a51d36de551e28013755074305e6a9b9bd0e9033f8"
     },
     {
-      "path": "prints/the-pour-support-060-petgf-left04-z004-mark2.print.json",
-      "bytes": 12813,
-      "sha256": "6c2755d8820e72d73b015cee1d38bad71774bd55211ff99327dcfd8ddefe6765",
-      "source_sha256": "6c2755d8820e72d73b015cee1d38bad71774bd55211ff99327dcfd8ddefe6765"
+      "path": "parts/pump_drawer.step",
+      "bytes": 881911,
+      "sha256": "90dbb03c0171878a9076963a40386d2bc970a729a31fdafb385e44982e0728ea",
+      "source_sha256": "90dbb03c0171878a9076963a40386d2bc970a729a31fdafb385e44982e0728ea"
+    },
+    {
+      "path": "parts/pump_cap.stl",
+      "bytes": 610984,
+      "sha256": "39fb99e5c82f6fd342122e529ac9cf97635eeb1139a29d41dc78364dc7e628c1",
+      "source_sha256": "39fb99e5c82f6fd342122e529ac9cf97635eeb1139a29d41dc78364dc7e628c1"
+    },
+    {
+      "path": "parts/pump_cap.step",
+      "bytes": 291927,
+      "sha256": "767f915c58539cbdc5f7b42bd25aa8674fcfa50171d8be8e6c310e53a99b7c54",
+      "source_sha256": "767f915c58539cbdc5f7b42bd25aa8674fcfa50171d8be8e6c310e53a99b7c54"
+    },
+    {
+      "path": "parts/moving_tee_carrier.stl",
+      "bytes": 853484,
+      "sha256": "38f8951f0a4f98bcb7bce0b2c185fbf22dd08ceefc7c7b533c0c8393834f50c7",
+      "source_sha256": "38f8951f0a4f98bcb7bce0b2c185fbf22dd08ceefc7c7b533c0c8393834f50c7"
+    },
+    {
+      "path": "parts/moving_tee_carrier.step",
+      "bytes": 163951,
+      "sha256": "8dc66aa38d27ee62c56e64a6ff79fb867c1dea5371ab01603c3984c5e80c8806",
+      "source_sha256": "8dc66aa38d27ee62c56e64a6ff79fb867c1dea5371ab01603c3984c5e80c8806"
+    },
+    {
+      "path": "parts/vertical_window_cover.stl",
+      "bytes": 1884,
+      "sha256": "e2272f1e04b193b55e8bad4386a478579bbe3c7d72c9dcdfbc13feeaa4a58df8",
+      "source_sha256": "e2272f1e04b193b55e8bad4386a478579bbe3c7d72c9dcdfbc13feeaa4a58df8"
+    },
+    {
+      "path": "parts/vertical_window_cover.step",
+      "bytes": 35934,
+      "sha256": "43de9316ada3758a649b9fcf6b734115978c4ef49913315a1bf8c3cdc6c31a89",
+      "source_sha256": "43de9316ada3758a649b9fcf6b734115978c4ef49913315a1bf8c3cdc6c31a89"
+    },
+    {
+      "path": "parts/removable_plumbing_lid.stl",
+      "bytes": 551584,
+      "sha256": "58d88fb647be0e66d8d6275f629a17b2ff613d7dc1957adcf8f90abb0a077919",
+      "source_sha256": "58d88fb647be0e66d8d6275f629a17b2ff613d7dc1957adcf8f90abb0a077919"
+    },
+    {
+      "path": "parts/removable_plumbing_lid.step",
+      "bytes": 196343,
+      "sha256": "17fae6a871f2f5c54d48092c1228858ddc74674c71ce717bece619bcff20f0aa",
+      "source_sha256": "17fae6a871f2f5c54d48092c1228858ddc74674c71ce717bece619bcff20f0aa"
+    },
+    {
+      "path": "parts/nominal_water_flange.stl",
+      "bytes": 201684,
+      "sha256": "2568188dd080b478caf0614b1bb1b16644caa9fb37fb503135310ddd3851203a",
+      "source_sha256": "2568188dd080b478caf0614b1bb1b16644caa9fb37fb503135310ddd3851203a"
+    },
+    {
+      "path": "parts/nominal_water_flange.step",
+      "bytes": 17268,
+      "sha256": "eb15e178c8c6e7607ae2d2eee98fe937128e83bff59175211ed8111f7966ac82",
+      "source_sha256": "eb15e178c8c6e7607ae2d2eee98fe937128e83bff59175211ed8111f7966ac82"
+    },
+    {
+      "path": "parts/nominal_water_nut.stl",
+      "bytes": 100684,
+      "sha256": "5bc1581d0a07100a700f1e6073bc4b8fb4304b2d5bd3c6bd816933f5be254589",
+      "source_sha256": "5bc1581d0a07100a700f1e6073bc4b8fb4304b2d5bd3c6bd816933f5be254589"
+    },
+    {
+      "path": "parts/nominal_water_nut.step",
+      "bytes": 9631,
+      "sha256": "57f4644443db3fd40aac7afaa64df2166d739fe45d72507e63ad7cc76f4dc567",
+      "source_sha256": "57f4644443db3fd40aac7afaa64df2166d739fe45d72507e63ad7cc76f4dc567"
+    },
+    {
+      "path": "parts/nominal_co2_flange.stl",
+      "bytes": 201684,
+      "sha256": "b6d6c78fed72264d56c2439fc7010e3a80de8d69360033088da15637a1af1871",
+      "source_sha256": "b6d6c78fed72264d56c2439fc7010e3a80de8d69360033088da15637a1af1871"
+    },
+    {
+      "path": "parts/nominal_co2_flange.step",
+      "bytes": 17593,
+      "sha256": "b8995c64285bc295d6aa24fea71f87e1ae4af444dfba8d65debeb3b1f8bb8539",
+      "source_sha256": "b8995c64285bc295d6aa24fea71f87e1ae4af444dfba8d65debeb3b1f8bb8539"
+    },
+    {
+      "path": "parts/nominal_co2_nut.stl",
+      "bytes": 100684,
+      "sha256": "7fdb61fc48dc4f05ded56171848af6c50fa91d514a3c2cd0c32cccfbe46e1964",
+      "source_sha256": "7fdb61fc48dc4f05ded56171848af6c50fa91d514a3c2cd0c32cccfbe46e1964"
+    },
+    {
+      "path": "parts/nominal_co2_nut.step",
+      "bytes": 9843,
+      "sha256": "a50eb86c7b41e0356f45d963f0f36ba7adffacb0f81416f8da277c2158189092",
+      "source_sha256": "a50eb86c7b41e0356f45d963f0f36ba7adffacb0f81416f8da277c2158189092"
+    },
+    {
+      "path": "parts/nominal_drain_flange.stl",
+      "bytes": 201684,
+      "sha256": "ce92efff99aa4df1fde5e57a1998e616a43999653d30f682112530dabd15c2bb",
+      "source_sha256": "ce92efff99aa4df1fde5e57a1998e616a43999653d30f682112530dabd15c2bb"
+    },
+    {
+      "path": "parts/nominal_drain_flange.step",
+      "bytes": 17464,
+      "sha256": "7e48ed73f525cebe461c61545f1178518f68eec147bd993494f8413ce95736ad",
+      "source_sha256": "7e48ed73f525cebe461c61545f1178518f68eec147bd993494f8413ce95736ad"
+    },
+    {
+      "path": "parts/nominal_drain_nut.stl",
+      "bytes": 100684,
+      "sha256": "91d14e124a9295bb807228d53decb2b08705ad7453506bdfb1c5bf915e1a2d66",
+      "source_sha256": "91d14e124a9295bb807228d53decb2b08705ad7453506bdfb1c5bf915e1a2d66"
+    },
+    {
+      "path": "parts/nominal_drain_nut.step",
+      "bytes": 9697,
+      "sha256": "644f5b316b85384d4d3037eae918d405d74fab010160ebe4f2a06fc2f01a9d7c",
+      "source_sha256": "644f5b316b85384d4d3037eae918d405d74fab010160ebe4f2a06fc2f01a9d7c"
+    },
+    {
+      "path": "parts/Q24.stl",
+      "bytes": 659984,
+      "sha256": "36630c472d2f6d7e56f08a3e02670fb3c254c4063e9e90d29c51e34fe05ce25e",
+      "source_sha256": "36630c472d2f6d7e56f08a3e02670fb3c254c4063e9e90d29c51e34fe05ce25e"
+    },
+    {
+      "path": "parts/Q24.step",
+      "bytes": 316324,
+      "sha256": "9dd839e44fbff8215ff08d73bbaa8b17af449fc69cb87d4a56d57bd1ece3d924",
+      "source_sha256": "9dd839e44fbff8215ff08d73bbaa8b17af449fc69cb87d4a56d57bd1ece3d924"
+    },
+    {
+      "path": "parts/Q48.stl",
+      "bytes": 1089084,
+      "sha256": "3ed6994dc6e6343bdc835480c55c8289eed47c8da5f027c85255b85054a3ebe5",
+      "source_sha256": "3ed6994dc6e6343bdc835480c55c8289eed47c8da5f027c85255b85054a3ebe5"
+    },
+    {
+      "path": "parts/Q48.step",
+      "bytes": 395332,
+      "sha256": "415fc2c792c28edbc4d4a2fcf5025de1aee0fe561c7955fb641b79735eeaf452",
+      "source_sha256": "415fc2c792c28edbc4d4a2fcf5025de1aee0fe561c7955fb641b79735eeaf452"
+    },
+    {
+      "path": "parts/Q72.stl",
+      "bytes": 674284,
+      "sha256": "89f9acf03e63f3aadb0d64b85c7247c5e36633fa8dcdad6f902e636ee6abb023",
+      "source_sha256": "89f9acf03e63f3aadb0d64b85c7247c5e36633fa8dcdad6f902e636ee6abb023"
+    },
+    {
+      "path": "parts/Q72.step",
+      "bytes": 316225,
+      "sha256": "b5cd1115be5ff6191d7d2d6dba0cf6dc8d185a50afa030a0868964938b88c536",
+      "source_sha256": "b5cd1115be5ff6191d7d2d6dba0cf6dc8d185a50afa030a0868964938b88c536"
+    },
+    {
+      "path": "parts/display_cover.stl",
+      "bytes": 154484,
+      "sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db",
+      "source_sha256": "0bf475b48df1fd32548314c2473c3f94b31613a39664692b300271eb26b979db"
+    },
+    {
+      "path": "parts/display_cover.step",
+      "bytes": 119406,
+      "sha256": "aeed71cd1e3b372900ba86d104e4b5c87d9aa824dd0d9c3aacfa42f7033dd6ed",
+      "source_sha256": "aeed71cd1e3b372900ba86d104e4b5c87d9aa824dd0d9c3aacfa42f7033dd6ed"
+    },
+    {
+      "path": "parts/display_gasket_90A.stl",
+      "bytes": 102484,
+      "sha256": "df0886cda2671affc2e148a4e076ec15001539d4bdc5b572585bf4f74fbb2336",
+      "source_sha256": "df0886cda2671affc2e148a4e076ec15001539d4bdc5b572585bf4f74fbb2336"
+    },
+    {
+      "path": "parts/display_gasket_90A.step",
+      "bytes": 67085,
+      "sha256": "228d1a6f69d012a9d30ff979b729874a40c8134ae285582930bafa147c50f517",
+      "source_sha256": "228d1a6f69d012a9d30ff979b729874a40c8134ae285582930bafa147c50f517"
+    },
+    {
+      "path": "parts/display_nominal_backer.stl",
+      "bytes": 51084,
+      "sha256": "b38fa9d98cc586f50ce5ada79c3a47ef3d87aa187140a760b2cb415d4fca9389",
+      "source_sha256": "b38fa9d98cc586f50ce5ada79c3a47ef3d87aa187140a760b2cb415d4fca9389"
+    },
+    {
+      "path": "parts/display_nominal_backer.step",
+      "bytes": 34943,
+      "sha256": "55dbe0216d06609f81a8f6e3296d5237e4307d6def27471431e72f135b62f1f5",
+      "source_sha256": "55dbe0216d06609f81a8f6e3296d5237e4307d6def27471431e72f135b62f1f5"
+    },
+    {
+      "path": "parts/handhold_grip.stl",
+      "bytes": 936284,
+      "sha256": "7df877911f9ff4d99fbe6eb9474afced973918f42f9b20df637afd1fe645c878",
+      "source_sha256": "7df877911f9ff4d99fbe6eb9474afced973918f42f9b20df637afd1fe645c878"
+    },
+    {
+      "path": "parts/handhold_grip.step",
+      "bytes": 102041,
+      "sha256": "c2449f3e151071fa3221e28b77267a08447790fc57d06937bb52048fcf5f8347",
+      "source_sha256": "c2449f3e151071fa3221e28b77267a08447790fc57d06937bb52048fcf5f8347"
+    },
+    {
+      "path": "parts/R30.stl",
+      "bytes": 13085884,
+      "sha256": "50287c80a31c812d1887c8ef797f83e8bdb2dde3e3a8e560a412bb566a02398c",
+      "source_sha256": "50287c80a31c812d1887c8ef797f83e8bdb2dde3e3a8e560a412bb566a02398c"
+    },
+    {
+      "path": "parts/R30.step",
+      "bytes": 871797,
+      "sha256": "305fa5874c3321a42c64127208140846932c88f7331317cae447ae5caf01feb1",
+      "source_sha256": "305fa5874c3321a42c64127208140846932c88f7331317cae447ae5caf01feb1"
+    },
+    {
+      "path": "parts/R45.stl",
+      "bytes": 12403284,
+      "sha256": "322f8aa5675a9472f5a6dca485f23b8616bd952ea4b4b38e532387ab1ac7a52c",
+      "source_sha256": "322f8aa5675a9472f5a6dca485f23b8616bd952ea4b4b38e532387ab1ac7a52c"
+    },
+    {
+      "path": "parts/R45.step",
+      "bytes": 777603,
+      "sha256": "868ed87992df1a15cff5d681a318b27b18f43523e47882d2b42a278f5be15e44",
+      "source_sha256": "868ed87992df1a15cff5d681a318b27b18f43523e47882d2b42a278f5be15e44"
+    },
+    {
+      "path": "parts/R60.stl",
+      "bytes": 13046384,
+      "sha256": "4657e5ebcb31dec4542b5c96d4840bd198d0ab24ee2e5a4655a1396d1ecd9f6d",
+      "source_sha256": "4657e5ebcb31dec4542b5c96d4840bd198d0ab24ee2e5a4655a1396d1ecd9f6d"
+    },
+    {
+      "path": "parts/R60.step",
+      "bytes": 867043,
+      "sha256": "6f83725e669fdb8bd1b72179735c38d76f29ef602808bc54a48acb8523898406",
+      "source_sha256": "6f83725e669fdb8bd1b72179735c38d76f29ef602808bc54a48acb8523898406"
+    },
+    {
+      "path": "parts/nameplate.stl",
+      "bytes": 1360784,
+      "sha256": "2493bad709fed63fd84bcb716f772ae1d0aeac72d322a79ab553914f3ffd72e5",
+      "source_sha256": "2493bad709fed63fd84bcb716f772ae1d0aeac72d322a79ab553914f3ffd72e5"
+    },
+    {
+      "path": "parts/nameplate.step",
+      "bytes": 5397783,
+      "sha256": "7a33370bc1b728705589cd075ea603db7742360629330f00007c2f1a3f165045",
+      "source_sha256": "7a33370bc1b728705589cd075ea603db7742360629330f00007c2f1a3f165045"
+    },
+    {
+      "path": "parts/nameplate_black.stl",
+      "bytes": 1531384,
+      "sha256": "9c2dc2a3e7501573a63389ff38a0830e42c5eb21192452d5e9da3c7c37beefcd",
+      "source_sha256": "9c2dc2a3e7501573a63389ff38a0830e42c5eb21192452d5e9da3c7c37beefcd"
+    },
+    {
+      "path": "parts/nameplate_black.step",
+      "bytes": 2531458,
+      "sha256": "34305469cb9e16290a28e71c35325884c840f58b435e36419a546fa799412172",
+      "source_sha256": "34305469cb9e16290a28e71c35325884c840f58b435e36419a546fa799412172"
+    },
+    {
+      "path": "parts/nameplate_white.stl",
+      "bytes": 2019184,
+      "sha256": "b1c510447c9c79e9493db87f3520a25533e9358833b038e8fcaa09de01306c87",
+      "source_sha256": "b1c510447c9c79e9493db87f3520a25533e9358833b038e8fcaa09de01306c87"
+    },
+    {
+      "path": "parts/nameplate_white.step",
+      "bytes": 2809824,
+      "sha256": "4eab2efddad345043664b7bc8d79795f4e3058123426311b09e14549bc4cdf28",
+      "source_sha256": "4eab2efddad345043664b7bc8d79795f4e3058123426311b09e14549bc4cdf28"
+    },
+    {
+      "path": "parts/DATA.stl",
+      "bytes": 446784,
+      "sha256": "5582f117de9903a7091575f76743f65ec93afa08ac0d2dbf5e2481274a4728e9",
+      "source_sha256": "5582f117de9903a7091575f76743f65ec93afa08ac0d2dbf5e2481274a4728e9"
+    },
+    {
+      "path": "parts/DATA.step",
+      "bytes": 522828,
+      "sha256": "25c5e9308fd885ed49c042885f783a9b65c24dac9389eb06c0f134c08dff3328",
+      "source_sha256": "25c5e9308fd885ed49c042885f783a9b65c24dac9389eb06c0f134c08dff3328"
+    },
+    {
+      "path": "parts/DATA_body.stl",
+      "bytes": 276484,
+      "sha256": "8e09d80dbffe3399831a57a90ac971ad8fc0073f5f17a6938e412453eac2958f",
+      "source_sha256": "8e09d80dbffe3399831a57a90ac971ad8fc0073f5f17a6938e412453eac2958f"
+    },
+    {
+      "path": "parts/DATA_body.step",
+      "bytes": 313933,
+      "sha256": "2bafe14bfb5bc22a11ea5ee2cf106f44a43500aaa14dcaf235713e5a2a5a94c7",
+      "source_sha256": "2bafe14bfb5bc22a11ea5ee2cf106f44a43500aaa14dcaf235713e5a2a5a94c7"
+    },
+    {
+      "path": "parts/DATA_word.stl",
+      "bytes": 203784,
+      "sha256": "896c436578be63c8d5e84c11d66c983f1469b8621808c2d94eb0403beaf80c81",
+      "source_sha256": "896c436578be63c8d5e84c11d66c983f1469b8621808c2d94eb0403beaf80c81"
+    },
+    {
+      "path": "parts/DATA_word.step",
+      "bytes": 202711,
+      "sha256": "3cd86865df3d89cd26827be4238c73a098560d33c61c493e4ad995d9e2c8e50d",
+      "source_sha256": "3cd86865df3d89cd26827be4238c73a098560d33c61c493e4ad995d9e2c8e50d"
+    },
+    {
+      "path": "parts/TAP.stl",
+      "bytes": 525284,
+      "sha256": "0ef47e8c7a2c45ac157cf096a8759e5fae2ff000c415b5f3300c10b887935aeb",
+      "source_sha256": "0ef47e8c7a2c45ac157cf096a8759e5fae2ff000c415b5f3300c10b887935aeb"
+    },
+    {
+      "path": "parts/TAP.step",
+      "bytes": 353439,
+      "sha256": "8aa72202a839c2f04683729d92ae25a0a87cbf90cd2c45e1bf91905b867006e3",
+      "source_sha256": "8aa72202a839c2f04683729d92ae25a0a87cbf90cd2c45e1bf91905b867006e3"
+    },
+    {
+      "path": "parts/port_water_body.stl",
+      "bytes": 295084,
+      "sha256": "b05c126c5b2596fdb8aa5b265c2025e2322a3713e5fda9de792353ad25c60fe4",
+      "source_sha256": "b05c126c5b2596fdb8aa5b265c2025e2322a3713e5fda9de792353ad25c60fe4"
+    },
+    {
+      "path": "parts/port_water_body.step",
+      "bytes": 193528,
+      "sha256": "2eb9d9f2f5cc4da3274d27122e9dbe815a6799caf511947f435bd123cfd653f9",
+      "source_sha256": "2eb9d9f2f5cc4da3274d27122e9dbe815a6799caf511947f435bd123cfd653f9"
+    },
+    {
+      "path": "parts/port_water_word.stl",
+      "bytes": 263284,
+      "sha256": "a14194e8c654239a8eda6c3ade06c12427ef63c1894cf2b66ab8ffa089c9b520",
+      "source_sha256": "a14194e8c654239a8eda6c3ade06c12427ef63c1894cf2b66ab8ffa089c9b520"
+    },
+    {
+      "path": "parts/port_water_word.step",
+      "bytes": 154029,
+      "sha256": "745620e0a4495fdcd366a625194b83e6023a8b564bb46f6b14a1275c86849a91",
+      "source_sha256": "745620e0a4495fdcd366a625194b83e6023a8b564bb46f6b14a1275c86849a91"
+    },
+    {
+      "path": "parts/CO2.stl",
+      "bytes": 2013784,
+      "sha256": "03cc8fd82826ba9d79a7138750240dde737d5d8c63bf1d2329d78f317002d880",
+      "source_sha256": "03cc8fd82826ba9d79a7138750240dde737d5d8c63bf1d2329d78f317002d880"
+    },
+    {
+      "path": "parts/CO2.step",
+      "bytes": 677421,
+      "sha256": "f67e8fa4ce3a718b13313a4f864e2c033b040d0b87cad66ece7396b369995d1a",
+      "source_sha256": "f67e8fa4ce3a718b13313a4f864e2c033b040d0b87cad66ece7396b369995d1a"
+    },
+    {
+      "path": "parts/port_co2_body.stl",
+      "bytes": 1015384,
+      "sha256": "6ac229a9849523c152f2364fae0d1c42d13180d39d1f7d877a644e671eea8fb0",
+      "source_sha256": "6ac229a9849523c152f2364fae0d1c42d13180d39d1f7d877a644e671eea8fb0"
+    },
+    {
+      "path": "parts/port_co2_body.step",
+      "bytes": 401553,
+      "sha256": "06a02e151b7d0695f4e4483b76d9e811bccfb404f020fac7925cb833953a816c",
+      "source_sha256": "06a02e151b7d0695f4e4483b76d9e811bccfb404f020fac7925cb833953a816c"
+    },
+    {
+      "path": "parts/port_co2_word.stl",
+      "bytes": 1162584,
+      "sha256": "5ffbf84804f8f8cc6b3342590d073125608c6446322a0c0849aed259b305ae7a",
+      "source_sha256": "5ffbf84804f8f8cc6b3342590d073125608c6446322a0c0849aed259b305ae7a"
+    },
+    {
+      "path": "parts/port_co2_word.step",
+      "bytes": 263467,
+      "sha256": "f00891e14bcd84fe0b4092433604b14c4cddde555eecb2b60745d10d7155a5ac",
+      "source_sha256": "f00891e14bcd84fe0b4092433604b14c4cddde555eecb2b60745d10d7155a5ac"
+    },
+    {
+      "path": "parts/OVER.stl",
+      "bytes": 1534484,
+      "sha256": "8b2db9894562394f4b30bda7282e6580e2099e5be4e094d22e4eda678828ccfb",
+      "source_sha256": "8b2db9894562394f4b30bda7282e6580e2099e5be4e094d22e4eda678828ccfb"
+    },
+    {
+      "path": "parts/OVER.step",
+      "bytes": 697048,
+      "sha256": "54a07c4757b900cd7c1fbfe8313f4976b82e66466836b68054f3efa0e8415e8c",
+      "source_sha256": "54a07c4757b900cd7c1fbfe8313f4976b82e66466836b68054f3efa0e8415e8c"
+    },
+    {
+      "path": "parts/port_drain_body.stl",
+      "bytes": 770284,
+      "sha256": "285bcba2864a308c055a595006be1182854b59ae2381dcaf2d9fa7100e371361",
+      "source_sha256": "285bcba2864a308c055a595006be1182854b59ae2381dcaf2d9fa7100e371361"
+    },
+    {
+      "path": "parts/port_drain_body.step",
+      "bytes": 384267,
+      "sha256": "13d6b003e748a9a4520caaffb09932a4aaa052beeebf23247a96209a5d04e1cb",
+      "source_sha256": "13d6b003e748a9a4520caaffb09932a4aaa052beeebf23247a96209a5d04e1cb"
+    },
+    {
+      "path": "parts/port_drain_word.stl",
+      "bytes": 876484,
+      "sha256": "4e96c7d82e045c0375e1c22ad324735ab153a7037cd744f755254394b220225b",
+      "source_sha256": "4e96c7d82e045c0375e1c22ad324735ab153a7037cd744f755254394b220225b"
+    },
+    {
+      "path": "parts/port_drain_word.step",
+      "bytes": 296776,
+      "sha256": "a9416e14220d3807594fdedd805ca92b2ec50de880dfcf6dbcfe9d90c92a4dfe",
+      "source_sha256": "a9416e14220d3807594fdedd805ca92b2ec50de880dfcf6dbcfe9d90c92a4dfe"
+    },
+    {
+      "path": "parts/NR00.stl",
+      "bytes": 82284,
+      "sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "source_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "path": "parts/NR00.step",
+      "bytes": 55696,
+      "sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+      "source_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707"
+    },
+    {
+      "path": "parts/NR05.stl",
+      "bytes": 82284,
+      "sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "source_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "path": "parts/NR05.step",
+      "bytes": 55696,
+      "sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+      "source_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-rigid.3mf",
+      "bytes": 5915412,
+      "sha256": "71037ecc5b938173cbb8fc8017b26367d92e62887dcbc89a88dd0e579c8fbcff",
+      "source_sha256": "71037ecc5b938173cbb8fc8017b26367d92e62887dcbc89a88dd0e579c8fbcff"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-rigid.print.json",
+      "bytes": 6816842,
+      "sha256": "f54267b11542ec43432b1c8e37fa348e6397908a6a7ed69884fabc60f9efc2dd",
+      "source_sha256": "f54267b11542ec43432b1c8e37fa348e6397908a6a7ed69884fabc60f9efc2dd"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-colour.3mf",
+      "bytes": 1581893,
+      "sha256": "3259b1fc29b3f7eca4bc93d099bdfb21ed32b2c1417649e24fbe9b38935b56f8",
+      "source_sha256": "3259b1fc29b3f7eca4bc93d099bdfb21ed32b2c1417649e24fbe9b38935b56f8"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-colour.print.json",
+      "bytes": 108773,
+      "sha256": "748593fc810296ea8d9183d53df1a5f712a2575c8b987e44042cb524aaf6c80e",
+      "source_sha256": "748593fc810296ea8d9183d53df1a5f712a2575c8b987e44042cb524aaf6c80e"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-tpu85a.3mf",
+      "bytes": 80800,
+      "sha256": "50b90293c5432fbe7571ed66a63bcf8bc1c429f6b4108f41a7563cb1fb3138ac",
+      "source_sha256": "50b90293c5432fbe7571ed66a63bcf8bc1c429f6b4108f41a7563cb1fb3138ac"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-tpu85a.print.json",
+      "bytes": 28084,
+      "sha256": "bc7bd341d1eb01c85c621cd2d25ca6331baa18df91bd2ce650b65dc199bffb46",
+      "source_sha256": "bc7bd341d1eb01c85c621cd2d25ca6331baa18df91bd2ce650b65dc199bffb46"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-tpu85a-spiral.3mf",
+      "bytes": 42574,
+      "sha256": "98bd7c27510bcbda68d768b400b913c49fdc9096a7f5d1b5fca24f5cba414046",
+      "source_sha256": "98bd7c27510bcbda68d768b400b913c49fdc9096a7f5d1b5fca24f5cba414046"
+    },
+    {
+      "path": "prints/the-pour-v3-faucet-tpu85a-spiral.print.json",
+      "bytes": 103103,
+      "sha256": "bc2a8de594b83b16e25cbb64c389a89e0db853249c73d9c6b7570544fdd428b3",
+      "source_sha256": "bc2a8de594b83b16e25cbb64c389a89e0db853249c73d9c6b7570544fdd428b3"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-front-bottom.3mf",
+      "bytes": 3574387,
+      "sha256": "8cc4a8ffc13fa8190da86eeab3d56f6bb141c7f08fbb973c37e5a93ca2d5b393",
+      "source_sha256": "8cc4a8ffc13fa8190da86eeab3d56f6bb141c7f08fbb973c37e5a93ca2d5b393"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-front-bottom.print.json",
+      "bytes": 5818562,
+      "sha256": "9594361701ef9fd8a1d742f9a9543ee256aa39801ec1f50e7799af55c9a5e7a3",
+      "source_sha256": "9594361701ef9fd8a1d742f9a9543ee256aa39801ec1f50e7799af55c9a5e7a3"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-front-top.3mf",
+      "bytes": 1907873,
+      "sha256": "dca9a7135387b792961a7b642daaa43e5e96119b87745824a74316f55c2330ce",
+      "source_sha256": "dca9a7135387b792961a7b642daaa43e5e96119b87745824a74316f55c2330ce"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-front-top.print.json",
+      "bytes": 5620886,
+      "sha256": "dfd19c7032b36297bbd2afb62c7b25797454afe4ec4392f3b5debceae765806b",
+      "source_sha256": "dfd19c7032b36297bbd2afb62c7b25797454afe4ec4392f3b5debceae765806b"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-back-bottom.3mf",
+      "bytes": 10920286,
+      "sha256": "1756a0af4dbbddda22d105bae1361e051250461608081a6c9cd81f5371342641",
+      "source_sha256": "1756a0af4dbbddda22d105bae1361e051250461608081a6c9cd81f5371342641"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-back-bottom.print.json",
+      "bytes": 2784877,
+      "sha256": "062c55dc788ac115bfa3eab897e501039572e97b7cdd966781b8f9a982e579f4",
+      "source_sha256": "062c55dc788ac115bfa3eab897e501039572e97b7cdd966781b8f9a982e579f4"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-back-top.3mf",
+      "bytes": 4445554,
+      "sha256": "e1544b3be3b9f66ebd555585fe3d1e5d67578a1e033bc093b826d25173b33dae",
+      "source_sha256": "e1544b3be3b9f66ebd555585fe3d1e5d67578a1e033bc093b826d25173b33dae"
+    },
+    {
+      "path": "prints/the-pour-v3-cabinet-back-top.print.json",
+      "bytes": 3688151,
+      "sha256": "91a8b92291295292bed3454281ca4f3f94a6c16818e6243cb0cee135a838325c",
+      "source_sha256": "91a8b92291295292bed3454281ca4f3f94a6c16818e6243cb0cee135a838325c"
+    },
+    {
+      "path": "prints/the-pour-v3-drawer.3mf",
+      "bytes": 2272239,
+      "sha256": "c5df34fb511438faffbeeac1c962cd53baf0c00eff73a3dfd696904d99152fb2",
+      "source_sha256": "c5df34fb511438faffbeeac1c962cd53baf0c00eff73a3dfd696904d99152fb2"
+    },
+    {
+      "path": "prints/the-pour-v3-drawer.print.json",
+      "bytes": 5833772,
+      "sha256": "c292ce9a41da5c0f13e306190d916a9212b0463d12724cc42460bbcfad1c1454",
+      "source_sha256": "c292ce9a41da5c0f13e306190d916a9212b0463d12724cc42460bbcfad1c1454"
+    },
+    {
+      "path": "prints/the-pour-v3-service-parts.3mf",
+      "bytes": 541926,
+      "sha256": "5a94ebccf4813760ba05293fe39f4cf3d57536d8281493fd5f51ea13f36c66d2",
+      "source_sha256": "5a94ebccf4813760ba05293fe39f4cf3d57536d8281493fd5f51ea13f36c66d2"
+    },
+    {
+      "path": "prints/the-pour-v3-service-parts.print.json",
+      "bytes": 1462742,
+      "sha256": "53fbf110de6b5c044fae765e2cca25691e01303d15c893e161030669545aae86",
+      "source_sha256": "53fbf110de6b5c044fae765e2cca25691e01303d15c893e161030669545aae86"
+    },
+    {
+      "path": "prints/the-pour-v3-display-cover.3mf",
+      "bytes": 56208,
+      "sha256": "9a6305bd43068c7b24e61418879272fc78cea7a432c27444b7e33d618e81b93e",
+      "source_sha256": "9a6305bd43068c7b24e61418879272fc78cea7a432c27444b7e33d618e81b93e"
+    },
+    {
+      "path": "prints/the-pour-v3-display-cover.print.json",
+      "bytes": 40160,
+      "sha256": "6f967e30e88eddc122cfb776c3f0e3e2c4005a372003c9835f5a61da5223828e",
+      "source_sha256": "6f967e30e88eddc122cfb776c3f0e3e2c4005a372003c9835f5a61da5223828e"
+    },
+    {
+      "path": "prints/the-pour-v3-dry-hardware.3mf",
+      "bytes": 451485,
+      "sha256": "f6d546c5d481a25b552e9d34088297b6bdd904520e10c631e1c0a574c9154775",
+      "source_sha256": "f6d546c5d481a25b552e9d34088297b6bdd904520e10c631e1c0a574c9154775"
+    },
+    {
+      "path": "prints/the-pour-v3-dry-hardware.print.json",
+      "bytes": 387177,
+      "sha256": "ba4cf56ec8e4a892536b7d25cdb5bc8f366a0ffcd8fa2afcd22b3480d60e4d6d",
+      "source_sha256": "ba4cf56ec8e4a892536b7d25cdb5bc8f366a0ffcd8fa2afcd22b3480d60e4d6d"
+    },
+    {
+      "path": "prints/the-pour-v3-support-roofs.3mf",
+      "bytes": 10570315,
+      "sha256": "b2b0c427155a24d76b3a58d91d1bb906e8fa4665592ac70ac849b77acf4a99d2",
+      "source_sha256": "b2b0c427155a24d76b3a58d91d1bb906e8fa4665592ac70ac849b77acf4a99d2"
+    },
+    {
+      "path": "prints/the-pour-v3-support-roofs.print.json",
+      "bytes": 28909284,
+      "sha256": "a7e1ec20cb7d6559934d5558b55e2baf090b23097bdbfd6309b8fad5b8e76c7d",
+      "source_sha256": "a7e1ec20cb7d6559934d5558b55e2baf090b23097bdbfd6309b8fad5b8e76c7d"
+    },
+    {
+      "path": "prints/the-pour-v3-regular-seams.3mf",
+      "bytes": 59307,
+      "sha256": "6e5b7a011747c79d2492fd56a7fc39c1bec7d64702d1f77eb817c64acb4f04b0",
+      "source_sha256": "6e5b7a011747c79d2492fd56a7fc39c1bec7d64702d1f77eb817c64acb4f04b0"
+    },
+    {
+      "path": "prints/the-pour-v3-regular-seams.print.json",
+      "bytes": 348485,
+      "sha256": "3bd09e644244af58d28aee4f9c968fda75d18305549f7b2f92e493d0d8076f00",
+      "source_sha256": "3bd09e644244af58d28aee4f9c968fda75d18305549f7b2f92e493d0d8076f00"
+    },
+    {
+      "path": "prints/the-pour-v3-nameplate-data.3mf",
+      "bytes": 1063211,
+      "sha256": "174ae0c75f423caaf138143fd9fa232eb77c303d00d9dd7991e5a35ca2b8933e",
+      "source_sha256": "174ae0c75f423caaf138143fd9fa232eb77c303d00d9dd7991e5a35ca2b8933e"
+    },
+    {
+      "path": "prints/the-pour-v3-nameplate-data.print.json",
+      "bytes": 158603,
+      "sha256": "0731fca368f87fe4803de8fded0309cf54fbde97223e31752e020200c8b73a4c",
+      "source_sha256": "0731fca368f87fe4803de8fded0309cf54fbde97223e31752e020200c8b73a4c"
+    },
+    {
+      "path": "prints/the-pour-v3-tap-over.3mf",
+      "bytes": 588147,
+      "sha256": "77333f6d26b981ce5e9b504b33e6f6a4f5965db3fa8cfbfa46d62756ba341c3a",
+      "source_sha256": "77333f6d26b981ce5e9b504b33e6f6a4f5965db3fa8cfbfa46d62756ba341c3a"
+    },
+    {
+      "path": "prints/the-pour-v3-tap-over.print.json",
+      "bytes": 87149,
+      "sha256": "c5d16575ebf605c8f2a53952a7584773e01bbc018bdbe3a7cf4a58df0250c2b5",
+      "source_sha256": "c5d16575ebf605c8f2a53952a7584773e01bbc018bdbe3a7cf4a58df0250c2b5"
+    },
+    {
+      "path": "prints/the-pour-v3-co2.3mf",
+      "bytes": 590586,
+      "sha256": "5829e02cd958d97ac80ebb33275b4b0f9bcd69271ab4b47af614a4568e688b18",
+      "source_sha256": "5829e02cd958d97ac80ebb33275b4b0f9bcd69271ab4b47af614a4568e688b18"
+    },
+    {
+      "path": "prints/the-pour-v3-co2.print.json",
+      "bytes": 51689,
+      "sha256": "558e5d307dc514f7053573fca980836d01476fab819a4fb1a4534005a997d41b",
+      "source_sha256": "558e5d307dc514f7053573fca980836d01476fab819a4fb1a4534005a997d41b"
+    },
+    {
+      "path": "prints/the-pour-v3-display-gasket90a.3mf",
+      "bytes": 41366,
+      "sha256": "89e90432291e865ec3df5dcb9b21260e5750df501c94165e006b6747b6c6ea35",
+      "source_sha256": "89e90432291e865ec3df5dcb9b21260e5750df501c94165e006b6747b6c6ea35"
+    },
+    {
+      "path": "prints/the-pour-v3-display-gasket90a.print.json",
+      "bytes": 28738,
+      "sha256": "bb9eacb04d989bf4e85b8fb63ba3fe9e289f0f8c738748b2802171a64e5b72fb",
+      "source_sha256": "bb9eacb04d989bf4e85b8fb63ba3fe9e289f0f8c738748b2802171a64e5b72fb"
     }
   ]
 }
