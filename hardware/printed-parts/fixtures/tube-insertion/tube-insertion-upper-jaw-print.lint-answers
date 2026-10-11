@@ -1,0 +1,5 @@
+[thin] Both ranked places are the same continuous 3 mm flat backing below the 28.3 × 20.5 mm upward-open print pocket. It backs the full 8 mm TPU pad; the 5.75 mm side stock and 3.35/6.85 mm end stock bound the pocket. The rigid mating faces limit radial squeeze, and the rear pocket end wall carries the pad's axial seating reaction. The flat outside prints directly on the bed, and the bolt-bearing wings retain the full 11 mm stock. This ranking describes broad pad backing and does not establish physical grip or load capacity.
+alternatives: Adding backing inside the existing half-jaw envelope reduces the 8 mm pad height and its 3.375 mm minimum TPU backing. Increasing both mirrored half-jaws to 12 mm preserves the pad but moves the lower jaw and screw heads down by 1 mm, consuming the current 1 mm guide-top and stop-to-head clearances and requiring different shelf/guide datums. The broad 3 mm backing keeps the specified pad geometry and clearance stack.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step
+click: x=5.379 y=-10.002 z=0.000
+click: x=29.315 y=-8.112 z=3.000
