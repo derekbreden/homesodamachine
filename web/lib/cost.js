@@ -266,7 +266,7 @@ function hm(min) {
   return m ? `${h} h ${m} m` : `${h} h`;
 }
 
-const COST_CSS = `
+export const COST_CSS = `
 .cost-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; width: 100%; }
 .cost-title { font-size: 1.5rem; font-weight: 700; margin: 0.25rem 0 1.25rem; letter-spacing: -0.01em; scroll-margin-top: 5rem; }
 .cost-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
