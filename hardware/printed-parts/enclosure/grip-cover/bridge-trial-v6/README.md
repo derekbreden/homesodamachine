@@ -23,7 +23,7 @@ On, Flow Calibration Auto and Nozzle Offset Calibration Auto. Starts must be
 at least 180 seconds apart.
 
 `prepare.py H2C` and `prepare.py Mark2` create separate native archives under
-`.cache/prints`. `verify.py` reads their actual G-code, checks every support road
+`.cache/prints`. [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/bridge-trial-v6/verify.py) (in Git at `9884d0e7f4`) reads their actual G-code, checks every support road
 including those without object labels, verifies the slot is empty of support,
 and checks first-layer support and the bridge roof paths. Printer-specific
 `preflight.json` files contain archive hashes and measured coverage. Launch

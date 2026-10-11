@@ -80,7 +80,7 @@ The final machine file is
 Generate with `tools/cad-venv/bin/python hardware/print-tests/petgf-interface-patterns/prepare.py`.
 Slice its input with Bambu Studio 02.08.02.61, using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into that input directory.
-Run `python3 hardware/print-tests/petgf-interface-patterns/finish.py`, then
-`python3 hardware/print-tests/petgf-interface-patterns/verify.py` before sending.
+Run [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-patterns/finish.py), then
+[`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-patterns/verify.py) before sending; both are in Git at `9884d0e7f4`.
 The actual gap is 0.24 mm for the requested 0.30 mm organic-support setting.
 The textured-plate trim is G29.1 Z0.02: stock −0.02 plus the requested +0.04.

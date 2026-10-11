@@ -14,7 +14,7 @@
 # THE KERNEL HERE IS THE RUNNER'S, NOT THE MAC'S. `cadquery-ocp` at the pin resolves to the
 # manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
 # byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
-# (`cad-runner-bench.yml` says why: 95 of 124 members differ across the two wheels). A session here can
+# (95 of 124 members differ across the two wheels). A session here can
 # build, check, derive and compare, and a commit it makes lands on main by itself.
 #
 # IT PUBLISHES TO THE SITE'S STORE. The GitHub release refuses a cloud session's writes:
@@ -27,18 +27,16 @@
 # way the Mac's does, from `publish_now.py` off the post-commit hook.
 #
 # WHAT EACH STEP BUYS:
-#   node 22                     `npm test` hands node a glob node 20 does not expand, so
-#                               `check_web_tests.py` reads red on the box's own node
-#   web/node_modules            `npm test`, and `check_web_tests.py` reads red without it
+#   node 22                     `npm test` hands node a glob node 20 does not expand
+#   web/node_modules            `npm test`
 #   tools/cad-venv              every generator and every check that imports one
 #   the pointed-at solids       `check_paths`, `check_step_colours`, the parts-tree tests
-#   gh                          `check_release_room` reads through it; the release refuses this
+#   gh                          `pack.py` uploads with it; the release refuses this
 #                               session's uploads, so `pack.py --write` cannot finish here
 #   bazel                       `bazel build <target>`, `sync_tree.py`, `affected.py`
 #   .cache                      `.bazelrc.paths` mounts it and bazel refuses an absent mount
-#   the whole history           `check_release_room` refuses a shallow clone, `check_paths`
-#                               resolves the archive tags, `check_print_profile` reads
-#                               `git:<sha>:<path>`, and `git log` reaches past fifty commits
+#   the whole history           `check_paths` resolves the archive tags, and `git log`
+#                               reaches past fifty commits
 #   the checkout on main        the harness starts a session on a branch it names; nobody
 #                               here works on one, and that branch is never pushed
 #   the hooks and the driver    a commit lands on main and reads the checks by itself, and a
@@ -66,7 +64,7 @@ need() { missing=1; say "missing: $*"; }
 # --- node 22, which web/package.json asks for and `npm test` needs ----------------------------
 # The box links /usr/local/bin/node to its node 20 and carries a node 22 beside it under /opt;
 # `web/package.json` says >=22 and `npm test` hands node a glob that 20 does not expand, which is
-# `check_web_tests.py` reading red for the machine rather than the tree. The links are moved to
+# a red suite for the machine rather than the tree. The links are moved to
 # the 22 the box holds, or 22 is installed the way `tools/ci-image/Dockerfile` does it.
 node_major() { node --version 2>/dev/null | sed 's/^v//; s/\..*//'; }
 if [ "$(node_major)" -ge 22 ] 2>/dev/null; then
@@ -137,7 +135,7 @@ else
   NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs
 fi
 
-# --- gh, which pack.py uploads with and check_release_room reads through -----------------------
+# --- gh, which pack.py uploads with ------------------------------------------------------------
 # The token the session runs under is on the proxy, so a bare `gh` reaches the release.
 if command -v gh >/dev/null; then
   say "gh: $(gh --version | head -1)"
@@ -152,7 +150,7 @@ elif [ "$(id -u)" = 0 ] && command -v apt-get >/dev/null; then
     > /etc/apt/sources.list.d/github-cli.list
   apt-get update -qq >/dev/null && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq gh >/dev/null
 else
-  say "gh: not installed (no root apt here); check_release_room takes no reading without it"
+  say "gh: not installed (no root apt here); pack.py cannot upload without it"
 fi
 
 # --- bazel at .bazelversion --------------------------------------------------------------------
@@ -177,12 +175,11 @@ if [ "$CHECK" = 0 ]; then
 fi
 
 # --- the history the checks read -----------------------------------------------------------------
-# The whole of it: 8078 commits and 2.3 GB of .git, fetched in 1m48s here. `check_release_room`
-# reads reachability off history and refuses a shallow clone; `check_paths` holds every
-# archive tag a doc names; `check_print_profile` reads a 3MF at the commit a print log
-# cites; and `git log` answers past the clone's fifty commits, which is where this tree keeps
-# its history. When the full fetch does not answer, the tags and the cited commits are fetched
-# on their own, which is what those three checks need and `git log` does without.
+# The whole of it: 8078 commits and 2.3 GB of .git, fetched in 1m48s here. `check_paths` holds
+# every archive tag a doc names, and `git log` answers past the clone's fifty commits, which is
+# where this tree keeps its history. When the full fetch does not answer, the tags and the
+# cited commits are fetched on their own, which is what `check_paths` needs and `git log`
+# does without.
 if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
   if [ "$CHECK" = 1 ]; then
     need "full history (shallow clone, $(git rev-list --count HEAD) commits)"

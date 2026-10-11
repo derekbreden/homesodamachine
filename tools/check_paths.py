@@ -5,14 +5,14 @@
     python3 tools/check_paths.py selftest   (the rules below, held against fixtures)
 
 Every other check here guards a NUMBER or a RECORD: `check_pinmap` the pin assignments,
-`_bom_totals` the sums, `check_tracked` the sidecar beside each artifact, `check_step_colours`
+`_bom_totals` the sums, `check_step_colours`
 the material. This one guards the PATH — the other half of what a doc says, and the half that
 a rename breaks silently. A figure that drifts is caught by the script that derives it. A link
 that rots is caught by nobody, because nothing derives a link.
 
 WHERE A PATH RESOLVES IS FOUR PLACES, NOT ONE.
 
-  1. The index. `git ls-files`, the same reading `check_tracked` takes: a file the index does
+  1. The index. `git ls-files`: a file the index does
      not hold is a file a fresh clone does not have.
 
   2. The solids manifest. `hardware/cad-artifacts.json` names 103 solids that are FETCHED

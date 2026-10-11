@@ -119,8 +119,8 @@ comparison of central interface, tree and ceiling paths against the native slice
 Generate with `tools/cad-venv/bin/python hardware/print-tests/petgf-interface-edges/prepare.py`.
 Slice the generated input with Bambu Studio 02.08.02.61 using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into the input directory.
-Run `setback.py --input <native.gcode.3mf> --output <petgf-interface-edges-mark2.gcode.3mf>`,
-then `python3 hardware/print-tests/petgf-interface-edges/verify.py` before sending.
+Run [`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-edges/setback.py) `--input <native.gcode.3mf> --output <petgf-interface-edges-mark2.gcode.3mf>`,
+then [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-edges/verify.py) before sending; both are in Git at `9884d0e7f4`.
 
 The installed slicer's default tree style selects organic support. That path
 uses whole-layer top-gap rounding. Its local overhang clearance can differ from

@@ -28,11 +28,10 @@ The prepared archive is
 Hashes and source identities are in [preparation.json](preparation.json) and
 [preflight.json](preflight.json). The import copy has the same hash.
 
-Run the preparation and verification from the repository root:
+Run the preparation from the repository root; [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/verify.py) is in Git at `9884d0e7f4`:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/prepare.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/verify.py
 ```
 
 The builder refuses to overwrite an existing reviewed project. It prepares files

@@ -14,13 +14,11 @@ import copy
 import math
 import xml.etree.ElementTree as ET
 
-from PIL import Image, ImageDraw
+from PIL import Image
 
 from build_brand_assets import NS, PALETTE, ROOT, render, svg
 
 NUM_FRAMES = 16
-FRAME_MS = 100
-OUT_DIR = ROOT / "tools/anim_frames"
 HEADER_DIR = ROOT / "firmware/src_front/images"
 REVIEW_DIR = ROOT / "web/public/brand/motion"
 SVG_SIZE = 1024
@@ -83,15 +81,10 @@ def variant_frames(variant):
 
 
 def render_frames():
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
     frames = []
     for i in range(NUM_FRAMES):
         artwork = generate_frame_svg(i, NUM_FRAMES)
-        (OUT_DIR / f"frame_{i:02d}.svg").write_text(artwork)
         frames.append(render(artwork, RENDER_SIZE, opaque=True))
-    previews = [rgb565_preview(frame) for frame in frames]
-    previews[0].save(OUT_DIR / "preview.gif", save_all=True, append_images=previews[1:],
-                     duration=FRAME_MS, loop=0)
     return frames
 
 
@@ -121,16 +114,7 @@ def write_review(frames):
         for i, frame in enumerate(sequence):
             sprite.paste(rgb565_preview(frame), (i * RENDER_SIZE, 0))
         sprite.save(REVIEW_DIR / f"{variant}.png", optimize=True)
-    # A contact sheet keeps the complete installed sequence inspectable without
-    # playing it. The web comparison uses unscaled 360 px frames from the sprites.
-    contact = Image.new("RGB", (720, 816), "#F3F6FF")
-    draw = ImageDraw.Draw(contact)
-    for i, frame in enumerate(frames):
-        x, y = (i % 4) * 180, (i // 4) * 204
-        contact.paste(rgb565_preview(frame).resize((180, 180)), (x, y))
-        draw.text((x + 8, y + 184), f"{i:02d} / {i * FRAME_MS} ms", fill=PALETTE["navy"])
-    contact.save(OUT_DIR / "contact.png", optimize=True)
-    template = ROOT / "brand/motion.html"
+    template =ROOT / "brand/motion.html"
     (REVIEW_DIR.parent / "motion.html").write_text(template.read_text())
     print("Motion review: web/public/brand/motion.html")
 

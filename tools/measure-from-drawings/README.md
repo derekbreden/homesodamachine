@@ -115,7 +115,7 @@ Distributors that reliably attach technical drawings:
 - **AutomationDirect / SMC USA / Bimba** — pneumatics, valves, actuators.
 
 ### 3.3 3D CAD libraries
-When a manufacturer or distributor offers a STEP/IGES, the model itself is dimensionally authoritative — you can `tools/step_validate.py`-style measure it directly.
+When a manufacturer or distributor offers a STEP/IGES, the model itself is dimensionally authoritative — you can measure it directly.
 
 - **TraceParts** (traceparts.com) — huge, manufacturer-curated.
 - **GrabCAD** (grabcad.com) — community uploads, sometimes user-modeled approximations. Check provenance.

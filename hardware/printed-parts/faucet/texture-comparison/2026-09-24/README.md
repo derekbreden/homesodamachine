@@ -83,7 +83,7 @@ After that common normalization, native settings differ only in the intended
 layer schedule. The geometry members and placement are checked byte for byte
 against the source project.
 
-`compare.py` reproduces the four Sculpted timing candidates, and `lever.py`
+`compare.py` reproduces the four Sculpted timing candidates, and [`lever.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/faucet/texture-comparison/2026-09-24/lever.py) (in Git at `9884d0e7f4`)
 reproduces the two lever timings, under
 `.cache/prints/2026-09-24-faucet-texture-comparison/`. Both use the project's
 CadQuery Python and installed Bambu Studio; neither connects to a printer.
