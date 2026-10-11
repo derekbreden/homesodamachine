@@ -1,0 +1,55 @@
+{
+  "status": "SB scarf and E coarse-start native slice reviewed",
+  "project_sha256": "f8f0682956f69ba802438e06e62e18e4215a8a43756b2386a32ed261df14375c",
+  "print_report_sha256": "9d00feed971e8a6560e5123af7da5fbfc9bef49d8aa8c30d64a1255a159af09d",
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
+    "archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
+    "gcode_sha256": "317f3ceeedf45fa70ca04de8e8c7fadb3ed8de6982ab4ab7b9bf9820f5d84239",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.16
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1244,
+    "estimated_seconds": 21065.4296875,
+    "estimated_grams_saved_profile_density": 160.71649169921875,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "preparation_only": false,
+  "launch_authorized": true,
+  "submitted": false,
+  "finish_choices_pending": [],
+  "physical_finish_evaluated": false,
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/native-check.json",
+  "native_check_sha256": "283e37f32617c721a03e2caec158e160656722d410d5b1c81064c4047621689e",
+  "support_audit_sha256": "d663da72110eb8a3741e7eaad650d2f6d7ded324a0f418daaab2f059c113a889",
+  "insert_beads_sha256": "6cdd020ee94f9380198bf42b4397c6e515e4fd3d55c021cf64734e0f298d2a0d",
+  "lower_supports_sha256": "98e28080f0567468be5f73457349a57e404cec0d1aab979072a5facfa74f1ec2"
+}

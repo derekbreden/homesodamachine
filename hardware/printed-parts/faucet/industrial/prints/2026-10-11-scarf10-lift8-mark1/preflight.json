@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-11T16:30:40.460237+00:00",
+  "fresh_printer_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-11T16:30:18.675357+00:00",
+      "task_id": "1325371485",
+      "job_id": "1325371485",
+      "subtask_name": "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 813,
+      "total_layer_num": 813,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 24.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 32,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 25,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 25,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-11T16:30:18.505552+00:00",
+      "task_id": "1328441515",
+      "job_id": "1328441515",
+      "subtask_name": "2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 269,
+      "total_layer_num": 269,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 27,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    }
+  ],
+  "destination_idle_ready": true,
+  "unresolved_destination_fault": false,
+  "bed_clear_confirmed_by_derek": true,
+  "destination_left_spool_matches_reviewed_type_and_colour": true,
+  "fixed_left_hardened_standard_flow_04_verified": true,
+  "original_source_project_native_and_gcode_hashes_verified": true,
+  "peer_most_recent_known_accepted_start_utc": "2026-10-11T06:41:41.582967+00:00",
+  "peer_seconds_since_accepted_start": 35338.87727,
+  "minimum_spacing_seconds": 180,
+  "resume_observed_since_that_start": false,
+  "printer_selection": {
+    "basis": "Earlier retained completion forecasts while both had suitable PET-GF, followed by fresh cold FINISH readings",
+    "idle_duration_is_estimated_not_measured": true,
+    "Mark1_native_finish_forecast_central": "2026-10-11T05:00:01.716965-05:00",
+    "Mark2_native_finish_forecast_central": "2026-10-11T08:29:50.534139-05:00"
+  },
+  "prior_matching_sender_receipts": 0,
+  "send_count_before_this_transaction": 0,
+  "probing_clump_detection": false,
+  "pass": true,
+  "prior_transaction_outcome": {
+    "foreground_transaction": 1,
+    "started_at_utc": "2026-10-11T16:20:02.062688+00:00",
+    "completed": true,
+    "exit_code": 1,
+    "outcome": "Bambu Connect had no printer cards after computer restart; stopped in Devices before archive import",
+    "archive_imported": false,
+    "send_clicked": false,
+    "send_click_count": 0,
+    "accepted": false,
+    "evidence": "Foreground sender log and prepare_dialog control ordering; fresh peer/destination readings retained the previous FINISH jobs"
+  },
+  "foreground_retry_reason": "Existing Bambu Connect session reconnected after quitting and reopening the idle app",
+  "final_dialog_verified": true
+}

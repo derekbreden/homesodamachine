@@ -1,5 +1,47 @@
 # Industrial faucet print log
 
+## Selected SB/E complete faucet — launched 2026-10-11, Mark1
+
+- Derek selected SB scarf gap 10% and E eight coarse layers from the
+  [combined coupon plate](../finish-coupons/coarse-start-v1/combined/physical-result.json).
+  He reports difficulty distinguishing scarf finishes, ugly recovery through
+  four coarse layers, and recovery in the latter four layers of E. The
+  supplied images identify the labels; they are not physical surface photos.
+- The [complete five-part plate](prints/2026-10-11-scarf10-lift8-mark1/README.md)
+  uses the current centered Industrial base, shared tip, cover, counter plate
+  and side-down lever. Current source geometry retains the reviewed 70° joint,
+  smooth common passages, 0.50 mm cover reach and unsealed Ø4 mm fault drip.
+- The base retains eight 0.24 mm layers from the last-starting lip at nozzle
+  Z15.32–17.00 mm, then 0.12 mm at Z17.12 mm. Fine bands are base-only
+  Z17.00–29.00 and Z55.16–68.12 mm. All five parts carry SB contour scarf:
+  10% slope gap, 10 mm length, 10% start height, ten steps, smart 155°,
+  inner walls, partial loop, ordinary gap 15% and Back seam. Base Arachne and
+  the continuous six-wall solid foot are retained.
+- Mark1 uses black PET-GF in left external slot 254, fixed left hardened
+  standard-flow 0.4 mm, Textured PEI and its normal +0.18/+0.16 mm trim.
+  Saved temperatures, cooling and Tree(auto)/Default with all automatic
+  sections are retained. Timelapse and leveling are On; dynamic-flow and
+  nozzle-offset calibration are Auto. Probing clump detection is disabled.
+- The [native review](prints/2026-10-11-scarf10-lift8-mark1/native-check.json)
+  confirms exact meshes/poses, emitted scarf ramps, eight coarse layers,
+  first/second-layer footprint contact, absent screw-host partition tracks,
+  nominal reinforcement and at least 44.86 mm full-bead bed clearance.
+  The insert reading projects scarf passes into nominal layers; it does not
+  establish instantaneous scarf volume or deposited strength.
+- Exact task/job `1329852853` and archive
+  `2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf`
+  were observed RUNNING at 2026-10-11 16:31:18.176833 UTC / 11:31:18 am CDT,
+  layer 0/1,244, no print error and no HMS fault. Both printers were freshly
+  read before the single Send; the peer's known accepted start was over
+  three minutes earlier. The two earlier sender transactions stopped before
+  importing or sending. Original archive and G-code hashes and actual options
+  are in the [receipt](prints/2026-10-11-scarf10-lift8-mark1/launch.json).
+- Native estimate: 5 h 51 min 5 s, 160.72 g at saved profile density.
+  Finish forecast from observed acceptance: 5:22 pm CDT, plus calibration
+  and any pauses. Physical underside continuity, cleanup, seam finish and
+  centered-mounting fit remain unassessed. Earlier shipping acceptance and
+  its tag retain their original physical scope.
+
 ## Complete 0.12 mm shoulder faucet — held 2026-10-09, Mark2
 
 - Complete five-part plate (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md`, in git at 45dd5672e9),
