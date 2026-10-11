@@ -248,11 +248,13 @@ def flavor_mount_x(x_sign):
 
 
 def step_theta(x_sign):
-    return math.acos(1.0-abs(union_x(x_sign)-organizer_flavor_x(x_sign))/(2.0*step_bend_radius))
+    offset = math.dist(organizer_flavor_xy(x_sign),
+                       (union_x(x_sign), flavor_tube_depth_lower))
+    return math.acos(1.0-offset/(2.0*step_bend_radius))
 
 
-def organizer_flavor_x(x_sign):
-    return umbilical_organizer.axis("F1" if x_sign > 0 else "F2")[0]
+def organizer_flavor_xy(x_sign):
+    return umbilical_organizer.axis("F1" if x_sign > 0 else "F2")
 
 
 # The organizer stands on the parallel bare tubes below the mounting workspace.
@@ -266,10 +268,10 @@ step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
 step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
 
 # The two White-faucet unions stand end to end below the completed returns.
-union_b_top_z = organizer_return_start_z - step_rise - organizer_union_gap    # [-128.1 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-169.9 mm](UNION_A_TOP_Z)
+union_b_top_z = organizer_return_start_z - step_rise - organizer_union_gap    # [-132 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-173.8 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-211.7 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-215.6 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -305,7 +307,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-254.2 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-258.1 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -340,7 +342,7 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [204.2 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [208.1 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
@@ -523,30 +525,39 @@ def _faucet_flavor_path(x_sign=1):
 def _step_path(x_sign, bottom_z):
     """Mounting row to organizer, then R30 return below it to the union.
 
-    In `splay_path_plane`, relative to the mounting X and plate underside.
+    Each return lies in its own vertical plane. Coordinates are relative
+    to the flavor's mounting axis and the plate underside.
     """
-    path = cq.Workplane(splay_path_plane).moveTo(0.0, 0.0)
-    lead = flavor_a_step_lead if x_sign > 0 else flavor_b_step_lead
-    if lead:
-        path = path.lineTo(0.0, -lead)
-    foot_x = 0.0
-    for destination_x, start_z in ((organizer_flavor_x(x_sign), mount_return_start_z),
-                                   (union_x(x_sign), organizer_return_start_z)):
-        local_z = start_z - under_counter_plate_bottom_z
-        # The organizer's straight section separates these two returns.
-        if abs(local_z + lead) > 1e-7:
-            path = path.lineTo(foot_x, local_z)
-        out = destination_x - flavor_mount_x(x_sign) - foot_x
-        if abs(out) < 1e-7:
+    edges = []
+    current = (0.0, 0.0, 0.0)
+    mount_xy = (flavor_mount_x(x_sign), flavor_tube_depth_lower)
+    for destination, start_z in ((organizer_flavor_xy(x_sign), mount_return_start_z),
+                                 ((union_x(x_sign), flavor_tube_depth_lower), organizer_return_start_z)):
+        start = (*current[:2], start_z - under_counter_plate_bottom_z)
+        if math.dist(current, start) > 1e-7:
+            edges.append(cq.Edge.makeLine(cq.Vector(*current), cq.Vector(*start)))
+        dx, dy = (destination[i] - mount_xy[i] - start[i] for i in (0, 1))
+        offset = math.hypot(dx, dy)
+        if offset < 1e-7:
+            current = start
             continue
-        theta = math.acos(1.0 - abs(out)/(2.0*step_bend_radius))
-        a1_mid, a1_end, a1_tan = _arc_from_tangent(
-            (foot_x, local_z), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
-        a2_mid, a2_end, _a2_tan = _arc_from_tangent(
-            a1_end, a1_tan, step_bend_radius, theta, ccw=(out < 0))
-        path = path.threePointArc(a1_mid, a1_end).threePointArc(a2_mid, a2_end)
-        foot_x = a2_end[0]
-    return path.lineTo(foot_x, bottom_z - under_counter_plate_bottom_z)
+        theta = math.acos(1.0 - offset/(2.0*step_bend_radius))
+        ux, uy = dx/offset, dy/offset
+
+        def world(point):
+            return cq.Vector(start[0] + ux*point[0], start[1] + uy*point[0], point[1])
+
+        local = (0.0, start[2])
+        for turn in (True, False):
+            mid, end, tangent = _arc_from_tangent(
+                local, (0.0, -1.0) if turn else tangent, step_bend_radius, theta, turn)
+            edges.append(cq.Edge.makeThreePointArc(world(local), world(mid), world(end)))
+            local = end
+        current = (destination[0] - mount_xy[0], destination[1] - mount_xy[1], local[1])
+    end = (*current[:2], bottom_z - under_counter_plate_bottom_z)
+    if math.dist(current, end) > 1e-7:
+        edges.append(cq.Edge.makeLine(cq.Vector(*current), cq.Vector(*end)))
+    return cq.Workplane(obj=cq.Wire.assembleEdges(edges))
 
 
 def _gather_plane(x_sign):
@@ -828,7 +839,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [0.1681 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [0.9939 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)

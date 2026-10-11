@@ -23,7 +23,8 @@ access are unmeasured.
 | Tube entrance chamfers, both ends | [0.4 mm](ORGANIZER_ENTRY) × 45° |
 | Smooth tube contact length | [9.2 mm](ORGANIZER_CONTACT) |
 | Cable entrance chamfers, both ends | [0.2 mm](ORGANIZER_CABLE_ENTRY) × 45° |
-| Outer rim chamfers | [0.6 mm](ORGANIZER_RIM_EASE) × 45° |
+| Outer rim chamfers | [0.2 mm](ORGANIZER_RIM_EASE) × 45° |
+| Minimum material between passages or to the outside, including chamfers | [1.5 mm](ORGANIZER_MIN_MATERIAL) |
 
 The body is one cylinder with four straight round bores, one straight capsule
 slot and entrance/rim chamfers. The slot is wide along faucet X and holds the
@@ -45,9 +46,23 @@ steel plate for the illustrated 30 mm slab, or 42.476 mm below the plate for a
 38 mm slab. These are modeled gaps, not a reported washer/nut access result.
 The rear passages follow the plate's F1–D–F2 row, with the flat ribbon behind D.
 The soda bore stays on the shank axis. Relative to the mounting row, each flavor
-bore is 1.2 mm farther outward and D is 1.2 mm forward; the signal slot is directly
-under its mounting axis. These small offsets leave separate bore walls and
-entrance chamfers. All lines are straight and parallel through the puck.
+bore is [2.4 mm](ORGANIZER_FLAVOR_SPREAD) farther outward along X and
+[1.8 mm](ORGANIZER_FLAVOR_FORWARD) forward along Y; D is
+[2.3 mm](ORGANIZER_DRAIN_FORWARD) forward. The signal slot is directly under its
+mounting axis. The flavor spread provides room for the central drain while the
+forward offsets keep the round stock inside the countertop opening.
+All lines are straight and parallel through the puck; tangent R30 flavor
+and R25 drain bends connect it to the mounting row above.
+
+The minimum material requirement is [1.5 mm](ORGANIZER_MIN_MATERIAL), measured
+edge to edge between every passage and from each passage to the outside,
+including both entrance chamfers and the outer rim chamfers. At the flat faces,
+the drain-to-ribbon web is 1.5625 mm, either flavor-to-drain web is 1.5764 mm,
+and each beverage bore has 1.6140 mm to the outside. Those figures increase
+through the straight portion to 2.1625, 2.3764 and 2.2140 mm respectively.
+The [manual integration check](integration-check.json) records every passage
+pair and exterior wall. These are geometric thicknesses; physical load capacity
+and endurance are unmeasured.
 
 The flavor R30 and drain R25 returns to the union layout begin 3 mm below the
 organizer's bottom. The White faucet's upper union begins 7 mm below the
@@ -81,7 +96,7 @@ printer metadata reports PET-CF/GFT01.
 The [A/B/C native job and bead review](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
 retain the three printed samples: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
 bores, B Ø6.75/4.40/5.10 mm and C Ø6.85/4.50/5.20 mm. Production combines
-A's beverage bore dimensions with B's drain bore dimensions. Its round stock,
+A's beverage bore dimensions with B's drain bore dimensions. Its stock diameter,
 tube contact length, tube chamfers and upright orientation match the trials.
 The production axes follow the mounting row and its ribbon passage is a flat
 slot. The fit evidence applies to the selected round-bore profiles, not to the
