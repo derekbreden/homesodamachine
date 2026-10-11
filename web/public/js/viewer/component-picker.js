@@ -234,6 +234,9 @@ function selectComponent(name) {
   drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
+  window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
+    detail: { file: state.mountedDetail?.file, name },
+  }));
 }
 
 function clearSelectionOverlay() {

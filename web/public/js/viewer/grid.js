@@ -2,9 +2,8 @@
 // Model and chart cards lazy-load their thumbnails and open their detail modal.
 // Document cards link to PDFs and show committed covers on /drawings.
 //
-// /3d's parts stand in the machine's two units — contracts/parts-tree.js states
-// the tree, parts.js renders it, and everything below the two is reached by
-// opening one of them. The other three pages group by a path segment.
+// /3d presents description search, the two product units and their tooling.
+// The other three pages group by a path segment.
 
 import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code

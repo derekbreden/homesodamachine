@@ -1,74 +1,69 @@
-// The /3d page: the machine's two units, one thumbnail each.
-//
-// A card draws the model it opens (grid.js's paintStepThumb), so what is on the
-// card and what is behind it are one read of one file.
-//
-// contracts/parts-tree.js states the tree — imported here over the URL the server
-// serves it at and by path on the Node side, one file either way. Each root is one
-// card, and the card opens that assembly in the detail modal. EVERY OTHER PART IS
-// REACHED BY OPENING IT: arm Select → Component, click a solid, take the file the
-// panel offers. That includes the cold core, which is one component of the
-// enclosure and an assembly in its own right — so the page has no third card for
-// it and no shelf under the two.
-//
-// A CARD IS A PART, NOT A FILE. `seatParts` folds the `.step` and the `.dxf` of
-// one cut part into a single part; `data-file` and `data-type` are what grid.js's
-// lazy window and live.js's repaint select on.
-//
-// THIS RUNS AHEAD OF EVERY CAD RENDER IN THE REPOSITORY. `main.js` calls
-// `applyInitialRoute` after `buildGrid`, and the render family in tools/render/
-// opens `/3d?file=…` and waits on `__hsm.mountedStepFile` — so a throw here is
-// not a broken page, it is a scene that never mounts. contracts/parts-tree.js
-// names them.
-
-import { openDetail } from "./cad-detail.js";
-import { seatParts } from "/contracts/parts-tree.js";
-import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor } from "/contracts/faucet-options.js";
-import { state } from "./state.js";
+// The two product units and their tooling open the same models their thumbnails
+// draw. Description lookup reaches every material and uncataloged CAD model.
+import { openDetail } from './cad-detail.js';
+import { seatParts } from '/contracts/parts-tree.js';
+import { materialForFile, materialIndex } from '/contracts/materials.js';
+import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor } from '/contracts/faucet-options.js';
+import { state } from './state.js';
+import { makeMaterialSearch } from './material-search.js';
+import { openMaterial, materialHash } from './material-nav.js';
 
 export function syncFaucetCard(card) {
   const style = FAUCET_STYLES.find((s) => s.id === state.faucetStyle) || FAUCET_STYLES[0];
   const finish = FAUCET_FINISHES.find((f) => f.id === state.faucetFinish) || FAUCET_FINISHES[0];
   card.dataset.file = style.assembly;
   card.dataset.finish = finish.id;
-  card.querySelector(".faucet-card-options").textContent = `${style.label} · ${finish.label} · Choose style and finish`;
+  const material = materialForFile(state.materialCatalog, style.assembly);
+  if (material) { card.dataset.material = material.id; card.href = '/3d#' + materialHash(material.id); }
+  card.querySelector('.faucet-card-options').textContent = `${style.label} · ${finish.label} · Choose style and finish`;
 }
 
-function esc(s) {
-  return String(s ?? "")
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-// An assembly: its render, the name the machine's docs call it by, and what it
-// holds. The click opens the assembly, which is where its own parts are reached.
-function renderAssembly(assembly) {
-  const card = document.createElement("div");
-  card.className = "card card-assembly";
-  card.dataset.file = assembly.model.primary.file;
-  card.dataset.type = assembly.model.primary.type;
-  card.innerHTML = `<img alt="">` +
-    `<div class="label"><span class="name-row">` +
-    `<span class="name">${esc(assembly.label)}</span></span>` +
-    `<span class="assembly-note">${esc(assembly.note)}</span></div>`;
-  if (faucetStyleFor(assembly.model.primary.file)) {
-    card.dataset.faucet = "1";
-    const options = document.createElement("span");
-    options.className = "faucet-card-options";
-    card.querySelector(".label").appendChild(options);
-    syncFaucetCard(card);
+function renderAssembly({ description, note, file, id }) {
+  const card = document.createElement('a');
+  card.className = 'card card-assembly';
+  card.dataset.file = file;
+  card.dataset.type = 'step';
+  if (id) card.dataset.material = id;
+  card.href = '/3d#' + (id ? materialHash(id) : 'step:' + encodeURIComponent(file));
+  const image = document.createElement('img'); image.alt = '';
+  const label = document.createElement('div'); label.className = 'label';
+  const name = document.createElement('span'); name.className = 'name'; name.textContent = description;
+  const detail = document.createElement('span'); detail.className = 'assembly-note'; detail.textContent = note;
+  label.append(name, detail); card.append(image, label);
+  if (faucetStyleFor(file)) {
+    card.dataset.faucet = '1';
+    const options = document.createElement('span'); options.className = 'faucet-card-options';
+    label.append(options); syncFaucetCard(card);
   }
-  card.addEventListener("click", () => openDetail(card.dataset.file));
+  card.addEventListener('click', (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (card.dataset.material) openMaterial(card.dataset.material);
+    else openDetail(card.dataset.file);
+  });
   return card;
 }
 
 export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
-  const tree = seatParts({ steps, dxfs, glbs });
-
-  const row = document.createElement("div");
-  row.className = "assembly-row";
-  for (const assembly of tree.assemblies) {
-    if (assembly.model) row.appendChild(renderAssembly(assembly));
+  const search = makeMaterialSearch(); gridEl.append(search);
+  if (!state.materialCatalog) {
+    const note = document.createElement('p'); note.className = 'material-catalog-status';
+    note.textContent = 'The material catalog is unavailable. You can still search and open CAD models.'; gridEl.append(note);
+    const row = document.createElement('div'); row.className = 'assembly-row';
+    for (const assembly of seatParts({ steps, dxfs, glbs }).assemblies) if (assembly.model) {
+      row.append(renderAssembly({ description: assembly.label, note: assembly.note, file: assembly.model.primary.file }));
+    }
+    gridEl.append(row); return;
   }
-  gridEl.appendChild(row);
+  const index = materialIndex(state.materialCatalog);
+  const roots = state.materialCatalog.roots.map((id) => index.get(id)).filter(Boolean);
+  for (const [kind, heading] of [['assembly', 'The machine'], ['tooling', 'Build tools']]) {
+    const title = document.createElement('h2'); title.className = 'material-section-title'; title.textContent = heading;
+    const row = document.createElement('div'); row.className = 'assembly-row';
+    for (const m of roots.filter((m) => m.kind === kind)) {
+      const file = m.models?.[0]?.file; if (!file || !steps.includes(file)) continue;
+      row.append(renderAssembly({ description: m.description, note: m.id + ' · Parts, relationships and guides', file, id: m.id }));
+    }
+    if (row.childElementCount) gridEl.append(title, row);
+  }
 }

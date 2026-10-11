@@ -51,7 +51,7 @@ function setupNav() {
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp, materialResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
@@ -59,7 +59,9 @@ export async function fetchFiles() {
     fetch("/api/glbs"),
     fetch("/api/documents"),
     fetch("/api/objects"),
+    fetch("/api/materials").catch(() => null),
   ]);
+  state.materialCatalog = materialResp?.ok ? await materialResp.json() : null;
   // Where each model's bytes are on the store, when the store has a public address; empty
   // otherwise, and every loader reads this site's own routes.
   state.memberUrls.clear();
@@ -82,6 +84,7 @@ export async function fetchFiles() {
   for (const d of dxfData) state.dxfMeta.set(d.path, d);
   state.dxfFiles = dxfData.map((d) => d.path).sort();
   buildGrid();
+  state.materialPanel?.sync();
 }
 
 setupNav();
