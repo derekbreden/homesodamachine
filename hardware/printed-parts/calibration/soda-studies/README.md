@@ -1,90 +1,71 @@
 # The Pour
 
-The Pour gathers the home soda machine's printed surfaces and interfaces into a
-single reference sculpture. Real faucet sections spiral around three angle
-blades, with their curved faces and seams exposed to the light. Sliding fits,
-support windows, the complete grip insert and a faucet cover snap give the hands
-as much to compare as the eyes. Removable samples come out for close comparison
-and return to marked places in the sculpture.
+The Pour is a print reference shaped as a working section of the home soda
+machine. The complete faucet rises from its counter plate. The fluted enclosure
+opens on the machine's joints; its cartridge drawer carries the support
+comparisons. Inside are the actual clips, hardware seats, passages and service
+interfaces. Three captive rear shutters add a print-in-place release comparison.
 
-The upright desk reference occupies about 179 × 147 mm and stands 127 mm tall.
-Its 53 printed components include the basin, captive shutters, helix, specimens
-and marked holders. Every feature has a question to answer in the
-[feature guide](feature-guide.md).
+The assembled reference occupies approximately 271 × 239 × 389 mm. Its 41
+logical printed parts have 47 registered display volumes. The
+[feature guide](feature-guide.md) explains how to open it, read each feature and
+choose a local setting to try. The [source map](fullfeature-map.json) connects all
+83 inventory entries to their native roles and source builders; overlapping
+geometry, materials and process conditions share their actual parts.
 
 [Explore the assembled model](https://homesodamachine.com/3d#step:printed-parts%2Fcalibration%2Fsoda-studies%2Fthe-pour.step).
 
 ![The Pour](the-pour.step.png)
 
-## Print and assemble
+## Print and handle
 
-The [print kit](print-kit.zip) contains STL meshes, STEP geometry, editable Bambu
-Studio projects, source snapshots and the guide. Its basin and three captive ripple shutters share
-one print assembly. The projects use the
-saved black PET-GF recipe and Mark2's left 0.4 mm nozzle with a 0.20 mm first layer. The
-project files identify the layer height, seam settings or support gap assigned
-to each specimen. Printer-specific trim and material mapping belong to the
-chosen printer; the included Mark2 projects use its +0.04 mm requested trim.
+The [print kit](https://github.com/derekbreden/homesodamachine/releases/download/the-pour-v3/print-kit.zip) contains manufacturing STL meshes, STEP geometry,
+editable Bambu Studio projects, frozen faucet inputs, source helpers and the
+reading key. The complete archive is hosted in the versioned repository release;
+[print-kit.json](print-kit.json) identifies every member and its digest. Import at 100% scale. Each mesh already carries its manufacturing
+orientation; the assembled STEP carries the separate display pose. Keep colour
+volumes registered and print the three captive flags with their rear-shell
+parent in its shared frame.
 
-Print the basin assembly, helix and tactile components from the kit projects. Print the three
-finish projects, the seam project and the three support projects to populate
-the sculpture. Keep the marked identities with their samples. Use the
-[feature guide](feature-guide.md) to assemble the parts and read each comparison.
-Keep the sculpture upright. Its removable samples and cut-face holders let a
-reference surface sit beside a complete machine part under the same light.
+Use the prepared projects for their source PET-GF, registered colour and three
+separate TPU recipes. They preserve the saved Mark2 material assignments,
+nozzle correction and requested trim. The kit contains eighteen editable
+projects. Their saved-profile estimates total 75 h 51 min and 2.07 kg across
+all plates, including supports and registered colours. The smallest complete
+bead margin is 20.210 mm. Per-plate readings are recorded in
+[print-preparation.json](print-preparation.json). Printer and material mapping
+belong to the chosen printer. Preparation and local slicing send nothing to a
+printer.
 
-The complete set has thirteen editable projects: three kit plates, three finish
-plates, one seam plate, three support plates and separate projects for the R6
-round, faucet cover and groove section. Native slicing estimates a total of
-about 19 hours and 408 g using the saved material profile. Complete
-model/support/brim paths stay at least 34 mm inside the usable bed boundary.
-These are planning estimates for the prepared projects.
+The neck contains layer-height and scarf comparisons in height bands on the
+complete faucet. Two untouched short necks provide the regular-gap settings
+that require separate native parents. Three bolted drawer crossmembers compare
+support release on the same complete handhold profile. The native shell rails,
+drawer, tee column and full-span snaps are the tactile fits. The guide gives
+all gap conventions, band coordinates, service dependencies and support exits.
 
-Import the meshes at 100% scale. Use the combined basin print-assembly STL or its
-editable project to preserve the captive shutters' positions and gaps. The
-individual specimen meshes stand in their own print frames. The assembled STEP
-arranges them for display; it is a view of the completed object. The editable
-projects retain independent print schedules for the comparisons.
+![Upper front set aside, drawer partly withdrawn](the-pour-open.step.png)
 
-## What the object contains
+Record a filament, lot, date and recipe with each object. The underside carries
+THE POUR, V3 and a writable BATCH / DATE field. A blank
+[reference card](reference-card.csv) separates the initial result from cleanup,
+freeing and the next complete-part result. Compare surfaces under the same light
+and orientation, and keep one physical reference per material/recipe when that
+comparison is useful.
 
-| Family | Comparison |
-| --- | --- |
-| N08, N12, N24 | Actual faucet neck sections at 0.08, 0.12 and 0.24 mm layers |
-| NR00, NR05, NR15 | Regular seam closure with 0%, 5% and 15% seam gaps |
-| NS00, NS10, NS20 | Contour scarf closure with 0%, 10% and 20% scarf gaps; length and start height held fixed |
-| A08, A12, A24 | Curves and slopes at the three layer heights |
-| R30, R45, R60 | Requested 0.30, 0.45 and 0.60 mm support distances; nominal roof separations of 0.24, 0.48 and 0.72 mm in the native slices |
-| S05, S15, S25, S35, S45 | Sliding feel at 0.05, 0.15, 0.25, 0.35 and 0.45 mm clearance per side |
-| G, GR | The complete grip insert at 0.08 mm layers and its adapted retaining receiver |
-| Q24, Q48, Q72 | Captive print-in-place shutters with 0.24, 0.48 and 0.72 mm top gaps, with other clearances held fixed |
-| Source surfaces and snap | The expanding R6 show round, enclosure flutes, and complete faucet display cover with its original groove section |
-| Small details | Tube bores, raised/recessed markings, first-layer finish and a writable reference identity |
+The service section is unprinted. CAD establishes nominal geometry and sampled
+service clearance; native slices establish commanded deposits and settings.
+Physical release, fit, finish, sealing, force, inversion and lifetime remain
+unmeasured. Accepted machine observations retain the scope of their identified
+source prints in the guide.
 
-An identifier establishes which specimen is in a slot. The saved print project
-establishes its recipe. Keep filament and printer details with each completed
-object when comparing different setups. Record the observed sample, the setting
-it suggests trying, and the corresponding complete-part result. Its original
-full-scale geometry and the application scope of each sample are in the feature
-guide. A blank [reference card](reference-card.csv) keeps the reference ID,
-recipe, initial observation and complete-part result together.
+## Generate the current master
 
-Physical assembly, support cleanup and surface results for this object are
-unrecorded. Accepted appearances and
-fits from the machine remain scoped to their identified source prints. Small
-samples help select a finish or fit to investigate on the complete part; they
-do not establish the machine's load capacity or lifetime.
-
-## Source and outputs
-
-`reference.py` generates the individually printable geometry, labeled assembly
-and `manifest.json`. Its compressed geometry inputs preserve the actual faucet
-sections and complete cover used by the reference. `source_features.py` provides
-the source cover, groove section and expanding R6 surface; `mount_geometry.py`
-provides its rear-face locator. `prepare_prints.py` builds the editable comparison
-projects from the saved PET-GF profile. `viewer_payload.py` retains the print
-triangles in the 3D viewer; `package_kit.py` gathers the current meshes, projects
-and guide into the downloadable kit. These are manual tools for this object.
+These are manual repository tools. The geometry generator reads production CAD
+interfaces and frozen faucet inputs, then emits the meshes, assembly and
+explicit print plan. The preparation tool reads that plan without changing the
+geometry. Source helpers require this repository and its normal CAD runtime;
+the editable print projects contain their complete saved settings.
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/calibration/soda-studies/reference.py
@@ -92,7 +73,9 @@ tools/cad-venv/bin/python hardware/printed-parts/calibration/soda-studies/prepar
 tools/cad-venv/bin/python hardware/printed-parts/calibration/soda-studies/package_kit.py
 ```
 
-The manifest records each part's identity, print frame, display placement and
-source geometry. The print-project metadata records the saved settings and
-native slicing results. Native slices and estimates describe the prepared
-projects; they are not print results.
+[manifest.json](manifest.json) records each physical part, its exact inputs,
+manufacturing frame, material volumes and assembled pose.
+[assembly-review.json](assembly-review.json) records the nominal service,
+capture and passage review. [lettering-review.json](lettering-review.json) records
+native deposit readings for the markings. The viewer retains the supplied print
+triangles, including the separate source seated elastic cover representation.
