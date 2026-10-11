@@ -89,10 +89,16 @@ resume or scheduled monitoring is authorized.
 Mark2 accepted this exact plate as task **1327799013** at **6:45:52 pm CDT
 October 10, 2026**. The native duration projects completion at **2:13:55 am CDT
 October 11**. [Launch receipt](launch.json) records the archive, options and
-fresh readings of both printers. The [in-progress physical observation](physical-result/physical-result.json)
-records the founder's October 11 report of lifting on all three foot specimens,
-with a visible opening under their front curved lips above the support interface.
-The close-up shows a wider opening through the middle than at the ends.
-The amount beyond programmed support clearance and the initiating movement are
-unmeasured. No cooling winner or final surface ranking is recorded. The operator
-continues the print for D/E/F scarf results, which remain pending.
+fresh readings of both printers. The [physical observations](physical-result/physical-result.json)
+record the founder's October 11 report of the affected region on all three foot
+specimens. The first model layer above the supports falls away and is reported
+to have no connection to the model layers above. This is model-layer separation;
+the ease of removal includes loss of model material. A successful supported
+underside must retain that layer attached to the subsequent model layers while
+allowing support removal.
+
+The photos show an opening under the front curved lips above the support
+interface, widest through the middle in the close-up. The amount beyond programmed
+support clearance, the strand positions during deposition and the cause of the
+missing connection are unmeasured. No cooling winner or final surface ranking is
+recorded. D/E/F scarf results remain pending.

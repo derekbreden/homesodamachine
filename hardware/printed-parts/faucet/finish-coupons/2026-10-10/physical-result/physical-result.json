@@ -2,7 +2,7 @@
   "schema": 1,
   "reported_date": "2026-10-11",
   "recorded_at_utc": "2026-10-11T05:36:59.117042+00:00",
-  "status": "In-progress operator report; scarf results pending",
+  "status": "Operator-reported first model-layer separation; scarf results pending",
   "authority": "Direct user report and two supplied photographs",
   "printer": "Mark2",
   "printer_task_id": "1327799013",
@@ -10,6 +10,17 @@
   "native_archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
   "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
   "operator_observation_quote": "I am letting the print continue so we get scarf results, but I can see already that all 3 faucet bases have the lifting problem.",
+  "operator_model_layer_observation": {
+    "reported_date": "2026-10-11",
+    "recorded_at_utc": "2026-10-11T05:52:51+00:00",
+    "quote": "In these faucet base prints, at that \"lifting\" area, the first layer just falls off, it is not connected to the layers above it all. So this lifting is actually \"perfect removal\" for the removal I was initially seeking, before I realized that was removing the first layer.",
+    "layer_identity": "The first model layer above the supports",
+    "location": "The affected lower front lip of the faucet base specimens",
+    "physical_result": "The first model layer falls away and is reported to have no connection to the model layers above.",
+    "classification": "First model-layer separation",
+    "removal_interpretation": "The easy removal sheds model material. Clean release alone does not establish an intact supported underside.",
+    "evidence_scope": "Direct operator observation of these faucet base prints; no per-specimen bond-strength measurement or initiating sequence supplied."
+  },
   "photo_observations": [
     {
       "photos": [
@@ -58,8 +69,8 @@
     "F": null,
     "status": "Awaiting completion and physical evaluation"
   },
-  "inference": "The founder reports replication on A, B and C under the three model-cooling treatments. No cooling winner or severity ranking is recorded.",
-  "measurement_limits": "A support clearance is programmed. These photographs do not quantify excess separation or establish whether model edges lifted, bridge strands sagged, or either caused nozzle contact.",
+  "inference": "The founder reports replication on A, B and C under the three model-cooling treatments and identifies the affected material as the first model layer separating from the layers above. No cooling winner or severity ranking is recorded.",
+  "measurement_limits": "A support clearance is programmed. The operator establishes first model-layer separation in the affected region. The photographs do not quantify excess separation; initiating movement, physical strand position during deposition, cause of the missing connection and any nozzle contact remain unresolved.",
   "photos": [
     {
       "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-1.jpg",
@@ -77,5 +88,5 @@
     }
   ],
   "disposition": "Operator continues this print to obtain scarf results. No stop, resume, settings change or new launch is requested.",
-  "scope": "Visible front-lip opening and founder-reported lifting on all three foot specimens during this print; no completed scarf, adhesion-strength or causal result."
+  "scope": "Visible front-lip opening and founder-reported replication on all three foot specimens, with the affected material identified as the first model layer falling free of the layers above; no completed scarf, quantitative adhesion-strength or causal result."
 }
