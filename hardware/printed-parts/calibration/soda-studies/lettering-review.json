@@ -3,8 +3,8 @@
   "title": "The Pour lettering",
   "version": "POUR V2",
   "master_date": "2026-10-11",
-  "manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
-  "generator_sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6",
+  "manifest_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
+  "generator_sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162",
   "status": "All 69 raised marking windows and both underside identities are recognizable in the reviewed native commanded envelopes; physical legibility is unrecorded",
   "reviewed_counts": {
     "raised_windows": 69,
@@ -46,7 +46,7 @@
     },
     "P": {
       "stl": "parts/p-basin-and-captive-rails.stl",
-      "stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1"
+      "stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419"
     },
     "Q24": {
       "stl": "parts/q24-captive-ripple-shutter.stl",
@@ -229,10 +229,10 @@
     {
       "group": "kit-01",
       "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
-      "project_sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372",
+      "project_sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800",
       "archive": ".cache/prints/soda-studies/kit-01/the-pour-kit-01-petgf-left04-z004-mark2.gcode.3mf",
-      "archive_sha256": "b0b0e824efbed8bdc27826df6c1d38b504a2468f8a0a72dcc382565d8d24d117",
-      "gcode_sha256": "ae62d88efe03dc9ca6f607fa653b78da37e96a013d350a3122a72bc34da0c500"
+      "archive_sha256": "f62e32eb0e4475143304c35996ae252effe8e1475e5c27560b648c1b0bdca594",
+      "gcode_sha256": "b341a756eb56f0c5c87b217236319aec1b05fb25d276170f1a5ea1b8dd060407"
     },
     {
       "group": "kit-02",
@@ -1388,7 +1388,7 @@
         0.9811,
         0.9847,
         0.9829,
-        0.9704,
+        0.97,
         0.9906,
         0.9867,
         0.981,
@@ -1448,7 +1448,7 @@
         0.8982,
         0.9789,
         0.9808,
-        0.9798,
+        0.9799,
         0.993,
         0.9815,
         0.9837
@@ -1519,7 +1519,7 @@
       "text": "6.65",
       "view_axis": "z",
       "recognizable_in_manual_commanded_envelope_review": true,
-      "commanded_glyph_coverage_fraction": 0.9735,
+      "commanded_glyph_coverage_fraction": 0.9736,
       "source_component_coverage": [
         0.9738,
         0.8968,
@@ -1538,7 +1538,7 @@
       "recognizable_in_manual_commanded_envelope_review": true,
       "commanded_glyph_coverage_fraction": 0.9456,
       "source_component_coverage": [
-        0.8969,
+        0.8968,
         0.9801,
         0.9153
       ],
@@ -2089,14 +2089,14 @@
       "id": "P",
       "text": "POUR V2",
       "view_axis": "-z",
-      "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
       "recognizable_in_manual_commanded_void_review": true,
       "CAD_section_z_mm": 0.1,
       "nominal_recess_mm": 0.48,
       "layers": [
         {
           "model_nozzle_z_mm": 0.2,
-          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.998133
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.998128
         },
         {
           "model_nozzle_z_mm": 0.44,
@@ -2108,18 +2108,18 @@
       "id": "P",
       "text": "MASTER 2026-10-11",
       "view_axis": "-z",
-      "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
       "recognizable_in_manual_commanded_void_review": true,
       "CAD_section_z_mm": 0.1,
       "nominal_recess_mm": 0.48,
       "layers": [
         {
           "model_nozzle_z_mm": 0.2,
-          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.99796
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.997959
         },
         {
           "model_nozzle_z_mm": 0.44,
-          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.995584
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.995583
         }
       ]
     }

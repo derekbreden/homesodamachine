@@ -743,7 +743,7 @@
   ],
   "project_sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921",
   "settings_preserved_byte_for_byte": false,
-  "manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+  "manifest_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
   "preparation_source_sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003",
   "requested_layer_height_mm": 0.24,
   "first_layer_height_mm": 0.2,
@@ -57836,6 +57836,7 @@
           "attribution_scope": "Complete standalone source specimen native object."
         }
       ]
-    }
+    },
+    "reused_identical_input_project": true
   }
 }

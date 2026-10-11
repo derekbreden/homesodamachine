@@ -307,7 +307,7 @@ def basin_body(host):
     for y in (7,43):
         body=body.fuse(peg(65,y,BASE_T))
     body=body.fuse(box(-78,-75,-4,4,BASE_T-.1,12.2))
-    body=body.fuse(box(-80,-77.9,-2,2,7.7,10.7))
+    body=body.fuse(box(-80,-77.9,-2,2,BASE_T-.1,9.08))
     body=body.fuse(source_host_foot(host))
     # Accessible smooth identity/date/material patch and adjacent raking-light
     # datum, with no recipes or implementation details on the show surfaces.
@@ -465,7 +465,7 @@ def grip_receiver(grip):
     # back datum; the complete strip is installed with its finger face up.
     for x in (-46, 46):
         body = body.fuse(box(x-3, x+3, -6, 9, 0, 3.5))
-    body=body.cut(box(-47.65,-44.35,-2.15,2.15,-.1,2.3))
+    body=body.cut(box(-49.15,-45.85,-2.15,2.15,-.1,2.3))
     for slot in grip.receiver_slots():
         body = body.cut(slot.translate((0, 0, .25)))
     return body.clean()
@@ -636,6 +636,10 @@ def main():
         writable_batch_flat_mm=[[-77,20,BASE_T],[-51,39,BASE_T]],
         smooth_comparison_datum_mm=[[-80,34,BASE_T],[-59,39,BASE_T]],
         datum_scope="Smooth neighboring edge of the writable flat; clear prior ink before raking-light comparison",
+        grip_column_lower_dock=dict(key_world_bounds_mm=[[-80,-2,BASE_T],[-77.9,2,9.08]],
+            construction="Solid key rooted directly on the basin; GR storage socket opens downward through its footer",
+            nominal_top_air_mm=.27,nominal_y_air_each_side_mm=.15,
+            removal="Complete G/GR module slides world -X; source grip and wing receivers retain their full span"),
         native_body_window=dict(bounds_mm=[[-8,-63,0],[8,-58,BASE_T]]),
         master_identity=dict(version=VERSION,date=MASTER_DATE,placement="Underside recessed .48 mm; mirrored for reading from below"),
         recessed_label_windows=[dict(text=t,font="Arial",font_kind="bold",font_size_mm=4.,
@@ -727,7 +731,11 @@ def main():
     emit("GR","grip receiver bridge",grip_receiver(grip),placement=(-78,0,55.2),rotation=(0,-90,0),
          kind="grip_receiver",source_path="hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
          endwall_mm=3,roof_stock_mm=12,retaining_air_mm=.45,supported_back_air_mm=.25,
-         geometry_adaptation="Solid storage footers; lower static key socket. Full production wing slots and span retained.",
+         geometry_adaptation="Solid storage footers; downward-open lower static key socket over a basin-rooted key. Full production wing slots and span retained.",
+         lower_storage_socket=dict(manufacturing_cut_bounds_mm=[[-49.15,-2.15,-.1],[-45.85,2.15,2.3]],
+             world_z_mm=[6.05,9.35],nominal_top_air_mm=.27,nominal_y_air_each_side_mm=.15,
+             open_direction="World -Z through lower footer",manufacturing_bridge_span_y_mm=4.3,
+             manufacturing_bridge_stock_z_mm=1.2),
          complete_module_removal="Slide G/GR together world -X10mm clear of the horizontal lower key and open upper H cup; set aside. Hand-support H while its left bearing is absent.")
     emit("G","complete grip insert",grip.cover(),"finish-008",placement=(-78.25,0,55.2),rotation=(0,-90,0),
          kind="grip",source_path="hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
