@@ -323,6 +323,7 @@ cannot undo the wake.
 ## The interface
 
 Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html).
+The sixteen-direction colour and type study is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The 104 px flavor rail carries both actual images and Settings at the bottom. Flavor
 pages keep a 234 px portrait column with “✓ Selected”; Fill, Prime and Clean sit above
