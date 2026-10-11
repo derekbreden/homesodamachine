@@ -1,0 +1,5 @@
+[thin] Both ranked places are the same continuous 3 mm flat floor below the 28.3 × 20.5 mm liner pocket. It backs the full 8 mm thick TPU pad and prints directly on the bed. During pressing, the jaw's flat outer face rests on the full-length 32 mm wide ram shelf. The 3.35 mm front and 6.85 mm rear pocket walls retain the pad axially; the mating faces stop further squeeze at the designed bore. This ranking is the pocket backing, rather than a narrow unsupported end wall.
+alternatives: Adding floor stock inside the existing 11 mm half-jaw envelope reduces the 8 mm pad height and its 3.375 mm minimum TPU backing. Increasing both mirrored half-jaws to 12 mm preserves the pad but moves the lower jaw and its screw heads down by 1 mm, consuming the 1 mm guide-top and stop-to-head clearances and requiring different shelf/guide datums. The broad 3 mm floor keeps the specified pad geometry and clearance stack.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw.step
+click: x=10.613 y=10.056 z=0.000
+click: x=31.508 y=9.850 z=3.000
