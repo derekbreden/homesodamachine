@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    ".cache/printer-control/faucet-scarf10-lift8-mark1-20261011",
+    "--export-3mf",
+    "2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.3mf"
+  ],
+  "native_cli": "Bambu Studio v02.08.02.61",
+  "printer_connection": false
+}

@@ -46,7 +46,7 @@ def box_section(corners, height):
     return MultiPoint(points).convex_hull
 
 
-def review(project: Path) -> dict:
+def review(project: Path, *, nominal_layer_projection: bool = False) -> dict:
     report = json.loads(project.with_suffix(".print.json").read_text())
     ready = json.loads(project.with_suffix(".readiness.json").read_text())
     preparation.verify_sources(report)
@@ -87,7 +87,9 @@ def review(project: Path) -> dict:
         if (segment["object"] != row["identify_id"] or segment["feature"].startswith("Support")
                 or not low <= segment["a"][2] <= high + 1):
             continue
-        z = round(segment["a"][2], 4)
+        # Both scarf passes belong to one nominal model layer. Grouping each
+        # ramp vertex as a complete slab would omit the rest of that layer.
+        z = round(segment["layer"] if nominal_layer_projection else segment["a"][2], 4)
         slabs[z] = segment["height"]
         roads.setdefault(z, []).append(LineString([segment["a"][:2], segment["b"][:2]])
                                       .buffer(segment["width"] / 2, cap_style=1, join_style=1))
@@ -197,6 +199,11 @@ def review(project: Path) -> dict:
               "parts": records, "pass": all(region["pass"] for region in records),
               "scope": "Commanded deposition and nominal radial backing. Deposited density, bonds, insert retention, load capacity and lifetime are unmeasured.",
               "image": preparation.relative(image)}
+    if nominal_layer_projection:
+        result["nominal_layer_projection"] = True
+        result["method"] = ("XY footprints of all commanded passes in each nominal model layer, including both scarf ramps, "
+                            "are compared with the mid-height source STL section. " + result["method"])
+        result["scope"] += " Scarf ramp volume at an instantaneous physical Z plane is not evaluated by this projection."
     preparation.save(project.with_suffix(".insert-beads.json"), result)
     print(json.dumps({"pass": result["pass"], "parts": [{key: region[key] for key in ("name", "native_layers_reviewed", "minimum_coverage_fraction", "minimum_host_body_and_cap_coverage_fraction", "minimum_connected_component_outer_backing_mm", "pass")} for region in records]}, indent=2))
     if not result["pass"]:
