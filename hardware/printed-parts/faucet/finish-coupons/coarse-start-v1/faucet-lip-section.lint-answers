@@ -1,0 +1,19 @@
+[thin] The upper horizontal truncation meets an oblique parent interior surface at a thin endpoint. This local endpoint is above the underside recovery test; the identical truncation is present in every treatment. It is a section coupon, not a new shipping wall specification. Its physical printability remains unestablished.
+alternatives: Adding stock would change the cropped parent section and its thermal behavior. Lowering the top cut or smoothing this endpoint would change the section, and would require a new native comparison; it can be considered if it disturbs this experiment.
+file: hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.step
+click: x=9.915 y=-3.696 z=24.885
+click: x=9.915 y=-3.696 z=25.000
+
+[thin] These endpoints lie on surfaces retained from the frozen A/B/C foot to within 0.001 mm of its mesh. They preserve the inside passage termination and print-down underside in this replication section. This is not approval of a new thin feature in a shipped faucet.
+alternatives: Filling the local opening or removing its wall would change the geometry of the problem being replicated. A larger coupon retains more of the parent but costs the space needed for the complete five-case comparison.
+file: hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.step
+click: x=14.603 y=-2.886 z=22.127
+click: x=14.677 y=-2.725 z=22.083
+click: x=8.341 y=30.968 z=13.831
+click: x=8.813 y=30.817 z=13.872
+
+[ledge] These down-facing surfaces are retained from the frozen parent section to within 0.001 mm. Bambu's automatic tree support decisions remain enabled and emit support in every lip specimen. The open section gives a removal route from its exposed cuts. The native report records bead overlap at the front-lip witness; removability and retained model material are the physical question being tested.
+alternatives: Reshaping these undersides or blocking their supports would change the supported-layer case. A full foot retains the same surfaces but costs roughly five times the volume and more plate space.
+file: hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.step
+click: x=4.600 y=31.835 z=13.599
+click: x=1.029 y=-19.028 z=21.482
