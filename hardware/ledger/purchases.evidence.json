@@ -7860,6 +7860,61 @@
       "source_ids": [
         "src-15a0dd5bd1ed4f618820a186549645d2"
       ]
+    },
+    "pur-ad87bb1e2d7548aa9fdf66293915a4f4": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "amazon:114-9279946-8137001"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586",
+        "src-41d4c76c12f640de929a81e7e06b4322"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-10"
+        }
+      ]
+    },
+    "pur-250afee3f9d341c9a9d18d4e33c0fd0e": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8160692-2465006"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ]
+    },
+    "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5708094-2581869"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+      ]
+    },
+    "pur-d8a8a1e239ff48b6a6b19c43e22b4858": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5870152-3334654"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ]
     }
   },
   "orders": {
@@ -13407,6 +13462,54 @@
       "source_ids": [
         "src-15a0dd5bd1ed4f618820a186549645d2"
       ]
+    },
+    "amazon:114-9279946-8137001": {
+      "vendor": "Amazon",
+      "reference": "114-9279946-8137001",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586"
+      ]
+    },
+    "amazon:112-8160692-2465006": {
+      "vendor": "Amazon",
+      "reference": "112-8160692-2465006",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ]
+    },
+    "amazon:114-5708094-2581869": {
+      "vendor": "Amazon",
+      "reference": "114-5708094-2581869",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+      ]
+    },
+    "amazon:114-5870152-3334654": {
+      "vendor": "Amazon",
+      "reference": "114-5870152-3334654",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ]
     }
   },
   "events": [
@@ -16110,6 +16213,77 @@
       "order_ids": [
         "amazon:112-1633049-9300204"
       ]
+    },
+    {
+      "event_id": "evt-a581db47af7146ef95a329e497e4fbe6",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "amount_minor": 19302,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-41d4c76c12f640de929a81e7e06b4322"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "amazon:114-9279946-8137001"
+      ]
+    },
+    {
+      "event_id": "evt-e5f1a5d1860941fe82124df7e77e67fe",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 2358,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "amazon:112-8160692-2465006"
+      ]
+    },
+    {
+      "event_id": "evt-bad47324ad83426992a3db494d58e295",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 21245,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "amazon:114-5708094-2581869"
+      ]
+    },
+    {
+      "event_id": "evt-ef96ebf561264b5dafd229959a5acabe",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 9640,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "amazon:114-5870152-3334654"
+      ]
     }
   ],
   "allocations": [
@@ -16999,6 +17173,38 @@
       "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790",
       "order_id": "amazon:112-1633049-9300204",
       "amount_minor": 852,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-8bb78428ad344b5b9c3eabd28822fbfc",
+      "event_id": "evt-a581db47af7146ef95a329e497e4fbe6",
+      "purchase_id": "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
+      "order_id": "amazon:114-9279946-8137001",
+      "amount_minor": 19302,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-836e72fcf01b4021ad6a308c786ef035",
+      "event_id": "evt-e5f1a5d1860941fe82124df7e77e67fe",
+      "purchase_id": "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+      "order_id": "amazon:112-8160692-2465006",
+      "amount_minor": 2358,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-528e0bd836064b22951f5f082f472d1e",
+      "event_id": "evt-bad47324ad83426992a3db494d58e295",
+      "purchase_id": "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+      "order_id": "amazon:114-5708094-2581869",
+      "amount_minor": 21245,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ac33f04542b041feb258e80a7703d5a2",
+      "event_id": "evt-ef96ebf561264b5dafd229959a5acabe",
+      "purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+      "order_id": "amazon:114-5870152-3334654",
+      "amount_minor": 9640,
       "currency": "USD"
     }
   ],
@@ -25954,6 +26160,83 @@
       ],
       "verified_at": "2026-10-11",
       "note": "Signed-in Amazon order history and individual order details: two LOCTITE 406 20 g bottles at $9.86 each (sold by ACTOOLS, shipped by Amazon) and two Loctite Super Glue Plastics Bonding System kits at $3.97 each (sold by Amazon.com); $27.66 item subtotal, $0.00 shipping, $2.00 estimated tax and $29.66 grand total; ordered 2026-10-11, arriving 2026-10-13. Both listings showed the Prime logo on 2026-10-11. The order states one tax amount; the rows split it per unit at 7.25% ($0.71 per 406 bottle, $0.29 per kit), which sums to the stated $2.00. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-35211ba10f6a424385cd56f235caa586": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-9279946-8137001",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Signed-in Amazon order history and individual order details: three Polymaker Fiberon PET-GF15 1.75 mm 3 kg Black spools at $59.99 each, sold by Polymaker LLC; $179.97 item subtotal, $0.00 shipping, $13.05 estimated tax and $193.02 grand total; ordered 2026-10-07. Two shipments (one spool, then two) both show Delivered October 10."
+    },
+    "src-41d4c76c12f640de929a81e7e06b4322": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-9279946-8137001",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the order total. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      }
+    },
+    "src-f5c929d3032043f28bdc2e1dc38d137c": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-8160692-2465006",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Signed-in Amazon order history and individual order details: two Bessey GSCC2.506 clutch-style 6 in bar clamps at $10.99 each, sold by Amazon.com; $21.98 item subtotal, $0.00 shipping, $1.60 estimated tax and $23.58 grand total; ordered 2026-10-10, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5708094-2581869",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Signed-in Amazon order history and individual order details: five Kamoer KPHM600-SW3B17 peristaltic pumps at $39.62 each, sold by Kamoer Fluid Tech (Shanghai) Co., Ltd.; $198.10 item subtotal, $0.00 shipping, $14.35 estimated tax and $212.45 grand total; ordered 2026-10-11, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-73f93ccef6d4495f9740151c9a066f44": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5870152-3334654",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Signed-in Amazon order history and individual order details: ten Beduan 12 V 1/4 in normally closed solenoid valves at $8.99 each, sold by Beduan; $89.90 item subtotal, $0.00 shipping, $6.50 estimated tax and $96.40 grand total; ordered 2026-10-11, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date."
     }
   },
   "coverage": [
@@ -26972,6 +27255,33 @@
         "amazon:112-1633049-9300204"
       ],
       "note": "Scoped review of the named adhesive order and its individual order summary. No claim of complete Amazon account coverage, completed payment or physical delivery."
+    },
+    {
+      "coverage_id": "coverage-bd8d0957451549b2bd2006065f3ef7cb",
+      "vendor": "Amazon",
+      "stream": "selected project orders and order-scoped Transactions",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "checked_at": "2026-10-11",
+      "examined_period": {
+        "start": "2026-10-07",
+        "end": "2026-10-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586",
+        "src-41d4c76c12f640de929a81e7e06b4322",
+        "src-f5c929d3032043f28bdc2e1dc38d137c",
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb",
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ],
+      "order_ids": [
+        "amazon:114-9279946-8137001",
+        "amazon:112-8160692-2465006",
+        "amazon:114-5708094-2581869",
+        "amazon:114-5870152-3334654"
+      ],
+      "note": "Order details and order-scoped Transactions for four named project orders: one Completed charge (114-9279946-8137001); the other three listed no transactions yet. No claim of complete Amazon account coverage."
     }
   ],
   "gaps": [
