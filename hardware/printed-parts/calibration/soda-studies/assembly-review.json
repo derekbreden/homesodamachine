@@ -4,19 +4,19 @@
   "files": {
     "the-pour.step": {
       "path": "hardware/printed-parts/calibration/soda-studies/the-pour.step",
-      "sha256": "1d26a832335195133e32741615b264cdd98cfa4012b716f0ff384ae51b25f8f7"
+      "sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69"
     },
     "arch-body.step": {
       "path": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "sha256": "ae4c3caacdd5e0a0362996ce859e78def5aa0145117853682c972431f58f72cc"
+      "sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94"
     },
     "arch-body.stl": {
       "path": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
-      "sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01"
+      "sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a"
     },
     "arch-moving.step": {
       "path": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
-      "sha256": "7a052b772ba451e5b037ec559ee43b290416f554a74b9abf53cf22527ca94c5c"
+      "sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241"
     },
     "arch-moving.stl": {
       "path": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
@@ -37,8 +37,8 @@
     ]
   },
   "cad_stock": {
-    "total_volume_mm3": 46137.00325280121,
-    "solid_mass_g_at_1_3": 59.97810422864158,
+    "total_volume_mm3": 46309.053252801226,
+    "solid_mass_g_at_1_3": 60.201769228641595,
     "ordinary_backing_mm": 3
   },
   "shape_status": {
@@ -48,7 +48,7 @@
       "STL_watertight": true,
       "STL_positive_volume": true,
       "STL_facets": 43998,
-      "STL_volume_mm3": 43998.083088504936,
+      "STL_volume_mm3": 44170.133079635765,
       "STL_bounds_mm": [
         [
           -30.0,
@@ -106,10 +106,28 @@
       "minimum_mm": 2.9944727554411465,
       "maximum_mm": 9.000614358555918,
       "nominal_mm": 3,
-      "analytic_basis": "the inward 3 mm offset of the full rounded envelope is retained; the keeper only adds stock; the exposed keeper corner is 3 mm behind the outer tangent"
+      "analytic_basis": "the inward 3 mm offset of the full rounded envelope is retained; the keeper only adds stock; the exposed keeper corner is 3 mm behind the outer tangent",
+      "sample_source_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
+      "retained_region": "Front-boundary samples have abs(X) >=20.5 or Z >=39.5, Y <6.01, Z >6; fixed-stop addition is confined to abs(X)17.25..18 and Z0..10.4, so the measured keeper geometry is retained."
     },
     "flute_backing_mm": 3,
-    "flute_production_field": "hardware/printed-parts/cadlib/flute_skin.py"
+    "flute_production_field": "hardware/printed-parts/cadlib/flute_skin.py",
+    "stationary_stop_junction": {
+      "working_planes_x_mm": [
+        -14.25,
+        14.25
+      ],
+      "outboard_planes_x_mm": [
+        -18,
+        18
+      ],
+      "nominal_axial_stop_stock_mm": 3.75,
+      "aperture_jamb_planes_x_mm": [
+        -15,
+        15
+      ],
+      "jamb_to_stop_overlap_mm": 3
+    }
   },
   "integrated_motion": {
     "axis": [
@@ -162,7 +180,7 @@
         "fixed": {
           "valid": true,
           "solids": 1,
-          "volume_mm3": 5285.400000000001
+          "volume_mm3": 5589.6
         },
         "moving": {
           "valid": true,
@@ -324,5 +342,12 @@
     "standing_R6": "rear vertical corner; the controlled seam is on the left rear contour",
     "teardrop": "native diameter 11 mm with tangent roof at 36 degrees from horizontal; through the rear wall"
   },
-  "physical_scope": "The CAD capture and stock records describe nominal geometry. Native toolpaths describe emitted roads. Print handling and finish provide the physical results."
+  "physical_scope": "The CAD capture and stock records describe nominal geometry. Native toolpaths describe emitted roads. Print handling and finish provide the physical results.",
+  "source_bindings": {
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df",
+    "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22"
+  }
 }

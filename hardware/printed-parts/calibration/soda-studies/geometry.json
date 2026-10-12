@@ -15,8 +15,8 @@
     "body": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 44190.986586134546,
-      "cad_mass_g_at_1_3": 57.448282561974914,
+      "volume_mm3": 44363.03658613456,
+      "cad_mass_g_at_1_3": 57.67194756197493,
       "bounds": {
         "min": [
           -30.00933051692632,
@@ -39,7 +39,7 @@
       "mesh": {
         "watertight": true,
         "positive_volume": true,
-        "volume_mm3": 43998.083088504936,
+        "volume_mm3": 44170.133079635765,
         "bounds": [
           [
             -30.0,
@@ -101,8 +101,8 @@
       }
     }
   },
-  "total_volume_mm3": 46137.00325280121,
-  "total_cad_mass_g_at_1_3": 59.97810422864158,
+  "total_volume_mm3": 46309.053252801226,
+  "total_cad_mass_g_at_1_3": 60.201769228641595,
   "display": {
     "straight_mm": 12.0,
     "degrees_from_horizontal": 30,
@@ -212,6 +212,7 @@
       "bar": 3.36,
       "lips": 3.0,
       "walls_and_stops": 3.0,
+      "stop_axial": 3.75,
       "central_plinth_height": 3.08
     },
     "bed_relief": {
@@ -320,23 +321,23 @@
     },
     "actual_stock_bounds_mm": {
       "front_wall": [
-        -17.25,
-        17.25,
+        -18.0,
+        18.0,
         2.0,
         5.0,
         0.0,
         10.4
       ],
       "back_wall": [
-        -17.25,
-        17.25,
+        -18.0,
+        18.0,
         24.5,
         27.5,
         0.0,
         10.4
       ],
       "left_stop": [
-        -17.25,
+        -18.0,
         -14.25,
         2.0,
         27.5,
@@ -345,7 +346,7 @@
       ],
       "right_stop": [
         14.25,
-        17.25,
+        18.0,
         2.0,
         27.5,
         0.0,
@@ -542,7 +543,7 @@
     "integrated_nominal_rigid_overlap_mm3": 0.0
   },
   "native_support_paint": {
-    "body_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
+    "body_stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
     "processed_trimesh_facets": 43998,
     "bed_R6_exterior_transition_faces": [
       0,
@@ -18787,13 +18788,25 @@
       54.0
     ]
   },
-  "sha256": {
-    "the-pour.step": "1d26a832335195133e32741615b264cdd98cfa4012b716f0ff384ae51b25f8f7",
-    "arch-body.step": "ae4c3caacdd5e0a0362996ce859e78def5aa0145117853682c972431f58f72cc",
-    "arch-body.stl": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
-    "arch-moving.step": "7a052b772ba451e5b037ec559ee43b290416f554a74b9abf53cf22527ca94c5c",
-    "arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c"
+  "source_bindings": {
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df",
+    "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22"
   },
+  "sha256": {
+    "the-pour.step": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69",
+    "arch-moving.step": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
+    "arch-body.step": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
+    "arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
+    "arch-body.stl": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a"
+  },
+  "required_native_readings": [
+    "support/contact slabs",
+    "motion-gap and bridge paths"
+  ],
+  "physical_result": "Unprinted; release, removal and finish remain unmeasured",
   "integrated_motion": [
     {
       "slide_x_mm": -5,
@@ -18823,18 +18836,8 @@
     "minimum_mm": 2.9944727554411465,
     "maximum_mm": 9.000614358555918,
     "nominal_mm": 3,
-    "analytic_basis": "the inward 3 mm offset of the full rounded envelope is retained; the keeper only adds stock; the exposed keeper corner is 3 mm behind the outer tangent"
-  },
-  "source_bindings": {
-    "hardware/printed-parts/calibration/soda-studies/reference.py": "5e16f3b6f083701cc59a920b41be196ac7875cb4119f6a8abd9bf417702bb762",
-    "hardware/printed-parts/calibration/soda-studies/pip.py": "32857704f9a6b96c52a735174a2eef838094b2a370111365b48163c298af4ca8",
-    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
-    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
-    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22"
-  },
-  "required_native_readings": [
-    "support/contact slabs",
-    "motion-gap and bridge paths"
-  ],
-  "physical_result": "Unprinted; release, removal and finish remain unmeasured"
+    "analytic_basis": "the inward 3 mm offset of the full rounded envelope is retained; the keeper only adds stock; the exposed keeper corner is 3 mm behind the outer tangent",
+    "sample_source_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
+    "retained_region": "Front-boundary samples have abs(X) >=20.5 or Z >=39.5, Y <6.01, Z >6; fixed-stop addition is confined to abs(X)17.25..18 and Z0..10.4, so the measured keeper geometry is retained."
+  }
 }

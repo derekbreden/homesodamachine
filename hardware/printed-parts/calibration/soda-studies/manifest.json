@@ -21,8 +21,8 @@
       "name": "Arch frame",
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
-      "step_sha256": "ae4c3caacdd5e0a0362996ce859e78def5aa0145117853682c972431f58f72cc",
+      "stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
+      "step_sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
       "color_rgb": [
         0.18,
         0.18,
@@ -63,7 +63,7 @@
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
       "stl_sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
-      "step_sha256": "7a052b772ba451e5b037ec559ee43b290416f554a74b9abf53cf22527ca94c5c",
+      "step_sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
       "color_rgb": [
         0.36,
         0.36,
@@ -105,8 +105,8 @@
       "name": "body",
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
-      "step_sha256": "ae4c3caacdd5e0a0362996ce859e78def5aa0145117853682c972431f58f72cc",
+      "stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
+      "step_sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
       "color_rgb": [
         0.18,
         0.18,
@@ -147,7 +147,7 @@
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
       "stl_sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
-      "step_sha256": "7a052b772ba451e5b037ec559ee43b290416f554a74b9abf53cf22527ca94c5c",
+      "step_sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
       "color_rgb": [
         0.36,
         0.36,
@@ -187,5 +187,6 @@
     "geometry": "geometry.json",
     "features": "feature-guide.md",
     "observations": "reference-card.csv"
-  }
+  },
+  "assembly_sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69"
 }
