@@ -85,6 +85,20 @@ small bodies without interface labels count. A fine layer band alone excludes no
 Other parts using the shared geometry still require their own native slice and physical
 surface check before claiming the tee result transfers to them.
 
+## Local reinforcement
+
+Reinforcement boxes for screw/insert hosts and their supporting roots use 100%
+zig-zag infill and inherit the object's ordinary wall settings. Leave wall-count
+overrides (`wall_loops`) out of these boxes. In the reviewed back-top and faucet
+slices, a different wall count inside a box partitions the perimeters at its
+faces and creates artificial outer-wall tracks through solid material, reaching
+the interior and exterior surfaces. Enlarging or joining wall-count boxes still
+leaves those boundaries. The [back-top wall-path comparison](drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/wall-path-comparison.png)
+and [reinforcement specification](enclosure/enclosure/heat-set-review/README.md#deposition-and-evidence)
+give the evidence and required infill settings. Whole-object wall counts and
+complete-layer transition bands, including the six-wall additive show transition
+above, have a different scope.
+
 ## Filament use
 
 Derek wants every spool used fully, with reloading during a print as needed. Remaining
