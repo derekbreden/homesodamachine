@@ -2,28 +2,28 @@
   "schema": 4,
   "title": "The Pour V5 \u2014 Corner",
   "source_manifest": "hardware/printed-parts/calibration/soda-studies/manifest.json",
-  "source_manifest_sha256": "45f69280c2b74edd4df25732e4256276291cbd3d7195b4bc0997b399f7a15264",
+  "source_manifest_sha256": "0784f31afc3ed5940ea1f5c207b6af0c9fcfa3bbe10a67f4b50fbc55f2dbd66a",
   "variation_scope": "One geometry configuration and one recipe per complete object; compare settings across complete prints.",
   "projects": [
     {
       "plate_id": "compact-corner",
       "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v5-petgf.3mf",
-      "project_sha256": "7a39b881167095a0954f1162904a12187d42a1e2e13002b24dd532c1a58ab374",
+      "project_sha256": "2ba70d42e29b9ebdd874954e4ce1167cd473ef5cdc9493ca4e1ec1c91a0676d0",
       "preparation_metadata": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v5-petgf.print.json",
-      "preparation_metadata_sha256": "5b7ab9412ddbb0d670b055291300f7fe4b3558b6e018c919dec9b1d298ee6b3d",
+      "preparation_metadata_sha256": "c689f5489b1597d90c88f2affb632cdd73ae9a2f1ea1ab5385980ad0d66f7bfe",
       "native_parent_count": 1,
       "normal_volume_count": 2,
       "support_blocker_volume_count": 13,
       "first_layer_mm": 0.2,
       "uniform_model_layer_mm": 0.24,
-      "estimated_time": "1h 1m 25s",
-      "estimated_seconds": 3685.0,
+      "estimated_time": "1h 3m 24s",
+      "estimated_seconds": 3804.0,
       "saved_profile_filament_estimate_g": [
-        24.88
+        25.29
       ],
-      "minimum_full_bead_bed_margin_mm": 133.799,
+      "minimum_full_bead_bed_margin_mm": 133.318,
       "motion_path_image": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v5-petgf-motion-paths.png",
-      "motion_path_image_sha256": "b093d1b64ab395e094bd19f66e5297431b525db950cc701e24680b6be89b1ee7"
+      "motion_path_image_sha256": "0c14bf2d6f8352efa8f0f33ed863c7d79a05ead2719478c771eb023f8dc9071a"
     }
   ],
   "physical_part_coverage": {
@@ -42,7 +42,7 @@
   "preparation_only": false,
   "sliced_locally": true,
   "submitted": false,
-  "total_estimated_seconds": 3685.0,
-  "total_saved_profile_filament_estimate_g": 24.88,
-  "minimum_full_bead_bed_margin_mm": 133.799
+  "total_estimated_seconds": 3804.0,
+  "total_saved_profile_filament_estimate_g": 25.29,
+  "minimum_full_bead_bed_margin_mm": 133.318
 }
