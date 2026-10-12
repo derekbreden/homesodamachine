@@ -423,7 +423,8 @@ once while the previous cancellation error was pending and once after it was cle
 same plate with one swatch removed was accepted as task 1331779977, as was an earlier
 35-object plate from the same preparation (task 1331755396). The two archives differ only
 by that object; the G-code header's `; object max height:` and `; model label id:` lines
-grow from 195 and 192 characters to 200 and 198. Why the printer refuses is unknown. A
+grow from 195 and 192 characters to 200 and 197, excluding the newline. Why the printer
+refuses is unknown. A
 fixed-length header field is one hypothesis, and Mark1 is untested.
 
 
