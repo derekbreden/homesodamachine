@@ -148,9 +148,9 @@ def main():
                           transform="1 0 0 0 1 0 0 0 1 0 0 0", **{f"{{{writer.PROD}}}path": "/"+member,
                           f"{{{writer.PROD}}}UUID": writer.identifier(name+"/foot")})
             part = ET.SubElement(obj, "part", id=pid, subtype="modifier_part", uuid=writer.identifier(name+"/modifier"))
-            for key, value in {"name": "Parent continuous six-wall solid foot",
+            for key, value in {"name": "Parent solid-infill foot",
                                "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                               "wall_loops": 6, "sparse_infill_density": "100%",
+                               "sparse_infill_density": "100%",
                                "sparse_infill_pattern": "zig-zag"}.items():
                 writer.metadata(part, key, value)
             ET.SubElement(relationships, f"{{{writer.REL}}}Relationship", Target="/"+member, Id="foot-"+pid,
@@ -166,6 +166,7 @@ def main():
     members["Metadata/layer_config_ranges.xml"] = writer.xml(layer_ranges)
     writer.archive_write(project, members)
     report.update(project=str(project.relative_to(ROOT)), project_sha256=sha(project),
+                  reinforcement_wall_loops=None,
                   source_step=str(source_step.relative_to(ROOT)), source_step_sha256=sha(source_step),
                   source_stl=str(source_stl.relative_to(ROOT)), source_stl_sha256=sha(source_stl),
                   shipping_reference=selected["native_archive"], shipping_reference_sha256=selected["native_archive_sha256"],

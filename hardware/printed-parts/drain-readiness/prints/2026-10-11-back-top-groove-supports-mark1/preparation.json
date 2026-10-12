@@ -1,0 +1,781 @@
+{
+  "project": "hardware/printed-parts/drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/2026-10-11-back-top-solid-hosts-local-groove-ribbons-black-z018-mark1.3mf",
+  "settings_source": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.3mf",
+  "settings_source_sha256": "f0a32edbab06109c379271e8892a26537e308546be6e78b6ebcf6799c41b0a22",
+  "settings_sha256": "84ed0d4b343c4a633daa802c59ba6f32b237cdc005cf8cb1399bb0ae5d65507c",
+  "source_settings_sha256": "bab599f9aa271c742c06b41e63006d3c94455329996dd3c648be0a382ee8caed",
+  "settings_changes": {
+    "tree_support_branch_diameter": {
+      "from": "2",
+      "to": "3"
+    }
+  },
+  "printer": "Mark1",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+      "triangles": 689932,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        335.6499938964844,
+        257.5
+      ],
+      "build_transform": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.2246467991473532e-16,
+        1.2246467991473532e-16,
+        0.0,
+        -1.0,
+        157.5,
+        160.0,
+        97.50000000000001
+      ],
+      "plate_translation_mm": [
+        157.5,
+        160.0,
+        97.50000000000001
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          21.850006103999988,
+          52.5,
+          0.0
+        ],
+        [
+          293.149993896,
+          267.5,
+          195.00000000000003
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "rotation_z_degrees": 90.0
+    }
+  ],
+  "project_sha256": "f274fac1ebc0df02e768888c0cc282380e04fa9890c29606ca74104da318743e",
+  "settings_preserved_byte_for_byte": false,
+  "show_support_blocked_faces": 53543,
+  "solid_host_regions": [
+    {
+      "name": "Y seam shank and fore ligament +1/282.05",
+      "machine_bounds_mm": [
+        -107.5,
+        -98.5,
+        200.0,
+        219.8,
+        274.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -98.5,
+        200.00100000048437,
+        219.8,
+        274.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Y seam shank and fore ligament -1/291.05",
+      "machine_bounds_mm": [
+        98.5,
+        107.5,
+        200.0,
+        219.8,
+        283.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.5,
+        107.499,
+        200.00100000048437,
+        219.8,
+        283.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root -1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.0,
+        200.0,
+        471.3,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.0,
+        200.00100000048437,
+        471.2989877924844,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root +1",
+      "machine_bounds_mm": [
+        90.0,
+        107.5,
+        200.0,
+        471.3,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.0,
+        107.499,
+        200.00100000048437,
+        471.2989877924844,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 361.3/262.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        357.3,
+        365.3,
+        258.65,
+        266.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        357.3,
+        365.3,
+        258.65,
+        266.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 459.3/262.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        455.3,
+        463.3,
+        258.65,
+        266.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        455.3,
+        463.3,
+        258.65,
+        266.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 361.3/295.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        357.3,
+        365.3,
+        291.65,
+        299.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        357.3,
+        365.3,
+        291.65,
+        299.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 459.3/295.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        455.3,
+        463.3,
+        291.65,
+        299.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        455.3,
+        463.3,
+        291.65,
+        299.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 245.3/256.9",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        241.3,
+        249.3,
+        250.65000000000003,
+        260.90000000000003
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        241.3,
+        249.3,
+        250.65000000000003,
+        260.90000000000003
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 323.3/256.9",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        319.3,
+        327.3,
+        250.65000000000003,
+        260.90000000000003
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        319.3,
+        327.3,
+        250.65000000000003,
+        260.90000000000003
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 323.3/323.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        319.3,
+        327.3,
+        316.95,
+        327.2
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        319.3,
+        327.3,
+        316.95,
+        327.2
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 245.3/323.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        241.3,
+        249.3,
+        316.95,
+        327.2
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        241.3,
+        249.3,
+        316.95,
+        327.2
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 347.8/321.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        343.8,
+        351.8,
+        315.15,
+        325.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        343.8,
+        351.8,
+        315.15,
+        325.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 334.8/321.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        330.8,
+        338.8,
+        315.15,
+        325.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        330.8,
+        338.8,
+        315.15,
+        325.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 347.8/255.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        343.8,
+        351.8,
+        249.14999999999998,
+        259.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        343.8,
+        351.8,
+        249.14999999999998,
+        259.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 334.8/255.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        330.8,
+        338.8,
+        249.14999999999998,
+        259.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        330.8,
+        338.8,
+        249.14999999999998,
+        259.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 324.8/331.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        320.8,
+        328.8,
+        324.95000000000005,
+        335.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        320.8,
+        328.8,
+        324.95000000000005,
+        335.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 324.8/344.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        320.8,
+        328.8,
+        337.95000000000005,
+        348.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        320.8,
+        328.8,
+        337.95000000000005,
+        348.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 258.8/331.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        254.8,
+        262.8,
+        324.95000000000005,
+        335.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        254.8,
+        262.8,
+        324.95000000000005,
+        335.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 258.8/344.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        254.8,
+        262.8,
+        337.95000000000005,
+        348.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        254.8,
+        262.8,
+        337.95000000000005,
+        348.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 338.8/338.044",
+      "machine_bounds_mm": [
+        92.25,
+        107.5,
+        334.80000010000003,
+        342.80000010000003,
+        327.7942287340604,
+        342.0442287340604
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        92.25,
+        107.499,
+        334.80000010000003,
+        342.80000010000003,
+        327.7942287340604,
+        342.0442287340604
+      ]
+    },
+    {
+      "name": "C14 host and wall 46.9",
+      "machine_bounds_mm": [
+        41.900000000000006,
+        51.900000000000006,
+        463.05,
+        471.3,
+        331.2105808375568,
+        341.2105808375568
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        41.900000000000006,
+        51.900000000000006,
+        463.05,
+        471.2989877924844,
+        331.2105808375568,
+        341.2105808375568
+      ]
+    },
+    {
+      "name": "C14 host and wall 86.9",
+      "machine_bounds_mm": [
+        81.9,
+        91.9,
+        463.05,
+        471.3,
+        331.2105808375568,
+        341.2105808375568
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        81.9,
+        91.9,
+        463.05,
+        471.2989877924844,
+        331.2105808375568,
+        341.2105808375568
+      ]
+    }
+  ],
+  "solid_host_region_source_sha256": "c3453fa6e8fb35f8881e977ea983477494829785899afde85d9425e580340095",
+  "support_type": "tree(auto)",
+  "solid_host_wall_loops": null,
+  "detect_narrow_internal_solid_infill": "0",
+  "top_one_wall_type": "not apply",
+  "support_reason": "The three sliding catch roofs use short project-only disposable ribbons rooted within their own grooves. Only their six downward roof triangles and the ribbons themselves suppress automatic support. The operator reports easy release of small local groove supports on other enclosure quadrants; these particular ribbon volumes are unprinted. Native readings find .24 mm below and .48 mm above them, no automatic support inside them, and contact beneath the six original catch slabs. Other overhangs retain Bambu Tree(auto), Default, with 3 mm branch diameter and the existing .5 degree growth for the required bed footprint.",
+  "requested_z_trim_mm": 0.18,
+  "source_retry_project": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.3mf",
+  "source_retry_project_sha256": "1dc973acde1489e06b3ca943f2a7fd4eeb9a0a4c6c8fcac60612f785058316b6",
+  "placement_translation_change_mm": [
+    0,
+    0,
+    0
+  ],
+  "support_style": "default",
+  "tree_support_branch_angle_degrees": 45,
+  "tree_support_branch_diameter_angle_degrees": 0.5,
+  "standard_trim_preserved": true,
+  "scope": "Next-print preparation with 23 infill-only solid regions, three local removable groove ribbons, default automatic trees elsewhere and normal Mark1 trim. Native box-boundary walls, gaps, coverage and full-bead placement require review; physical finish and removal remain unassessed.",
+  "authorization": {
+    "preparation_quote": "Please fix this for the next print.",
+    "finish_quote": "The defects are visible on both the interior surface and exterior surface of the X+ wall. Vertical lines on each side (Y+/Y- side) of these holes.",
+    "scope": "Prepare and review the next back-top print; no new Send is recorded or authorized by this preparation."
+  },
+  "auto_resume_authorized": false,
+  "send_attempted": false,
+  "submitted": false,
+  "status": "Native preparation reviewed; physical cleanup and finish unassessed",
+  "accepted": false,
+  "send_count": 0,
+  "import_count": 0,
+  "monitor_scheduled": false,
+  "max_bridge_length_mm": 50,
+  "launch_authorized": false,
+  "send_click_count": 0,
+  "import_attempted": false,
+  "schema": 2,
+  "source_project": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.3mf",
+  "source_project_sha256": "f0a32edbab06109c379271e8892a26537e308546be6e78b6ebcf6799c41b0a22",
+  "modifier_changes": {
+    "from_count": 23,
+    "to_count": 23,
+    "wall_loops": {
+      "from": "10",
+      "to": "no override; ordinary process walls retained"
+    },
+    "all_original_bounds_and_100_percent_zigzag_retained": true
+  },
+  "preparation_only": true,
+  "automatic_next_print": false,
+  "reinforcement_scope": "The 23 original host/root modifiers retain their bounds and 100% zig-zag infill. No reinforcement box overrides wall loops or another wall setting. Original product geometry, ordinary process walls and the six-wall additive layer band are retained. Only six catch-roof support-paint triangles change; three separate disposable ribbon volumes support those named roofs.",
+  "placement_change_mm": [
+    0,
+    0,
+    0
+  ],
+  "tree_branch_diameter_mm": 3,
+  "tree_branch_growth_angle_degrees": 0.5,
+  "temporary_groove_ribbons": [
+    {
+      "name": "fore-left",
+      "part_id": "26",
+      "member": "3D/Objects/temporary-groove-fore-left.model",
+      "plate_bounds_mm": [
+        [
+          46.05,
+          56.65,
+          180.2
+        ],
+        [
+          139.25,
+          61.1,
+          185.72
+        ]
+      ],
+      "width_mm": 4.45,
+      "length_mm": 93.2,
+      "height_mm": 5.52,
+      "side_clearance_mm": 0.4,
+      "bottom_geometry_gap_mm": 0.25,
+      "upper_geometry_gap_mm": 0.58,
+      "overrides": {
+        "name": "Temporary removable groove ribbon fore-left",
+        "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+        "extruder": "1",
+        "wall_loops": "2",
+        "sparse_infill_density": "0%",
+        "top_shell_layers": "2",
+        "bottom_shell_layers": "2",
+        "top_shell_thickness": "0",
+        "bottom_shell_thickness": "0"
+      },
+      "all_faces_support_blocked": true,
+      "disposable_not_product_geometry": true
+    },
+    {
+      "name": "fore-right",
+      "part_id": "27",
+      "member": "3D/Objects/temporary-groove-fore-right.model",
+      "plate_bounds_mm": [
+        [
+          152.05,
+          56.65,
+          180.2
+        ],
+        [
+          277.75,
+          61.1,
+          185.72
+        ]
+      ],
+      "width_mm": 4.45,
+      "length_mm": 125.69999999999999,
+      "height_mm": 5.52,
+      "side_clearance_mm": 0.4,
+      "bottom_geometry_gap_mm": 0.25,
+      "upper_geometry_gap_mm": 0.58,
+      "overrides": {
+        "name": "Temporary removable groove ribbon fore-right",
+        "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+        "extruder": "1",
+        "wall_loops": "2",
+        "sparse_infill_density": "0%",
+        "top_shell_layers": "2",
+        "bottom_shell_layers": "2",
+        "top_shell_thickness": "0",
+        "bottom_shell_thickness": "0"
+      },
+      "all_faces_support_blocked": true,
+      "disposable_not_product_geometry": true
+    },
+    {
+      "name": "aft",
+      "part_id": "28",
+      "member": "3D/Objects/temporary-groove-aft.model",
+      "plate_bounds_mm": [
+        [
+          46.05,
+          258.9,
+          180.2
+        ],
+        [
+          277.75,
+          263.35,
+          185.72
+        ]
+      ],
+      "width_mm": 4.45,
+      "length_mm": 231.7,
+      "height_mm": 5.52,
+      "side_clearance_mm": 0.4,
+      "bottom_geometry_gap_mm": 0.25,
+      "upper_geometry_gap_mm": 0.58,
+      "overrides": {
+        "name": "Temporary removable groove ribbon aft",
+        "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+        "extruder": "1",
+        "wall_loops": "2",
+        "sparse_infill_density": "0%",
+        "top_shell_layers": "2",
+        "bottom_shell_layers": "2",
+        "top_shell_thickness": "0",
+        "bottom_shell_thickness": "0"
+      },
+      "all_faces_support_blocked": true,
+      "disposable_not_product_geometry": true
+    }
+  ],
+  "groove_roof_support_blocked_triangles": 6,
+  "recorded_at_utc": "2026-10-12T01:52:08.794381+00:00",
+  "source_product_vertex_and_triangle_indices_unchanged": true,
+  "native_archive": "hardware/printed-parts/drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/2026-10-11-back-top-solid-hosts-local-groove-ribbons-black-z018-mark1.gcode.3mf",
+  "native_archive_sha256": "e5c840b0f88a607a83a6327a116b2f9651261a05bfbe12b3080c91a925cd77c1",
+  "gcode_sha256": "d8aca5c2a20eb10391fd96a79307a7a551ca448e1b060f0dfa42c341247a18d4",
+  "native_review": "hardware/printed-parts/drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/native-review.json",
+  "native_review_sha256": "71c447da0c0d96840d3ecfe7845a785caeb1ddd344f73067493c42298bb07e04",
+  "estimated_seconds": 90275.3984375,
+  "estimated_grams_saved_profile_density": 825.9267578125,
+  "reinforcement_wall_setting_overrides": false,
+  "physical_surface_finish_assessed": false,
+  "physical_local_ribbon_release_assessed": false
+}

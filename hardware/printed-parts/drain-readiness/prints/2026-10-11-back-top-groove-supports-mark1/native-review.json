@@ -1,0 +1,48 @@
+{
+  "archive_sha256": "e5c840b0f88a607a83a6327a116b2f9651261a05bfbe12b3080c91a925cd77c1",
+  "project_sha256": "f274fac1ebc0df02e768888c0cc282380e04fa9890c29606ca74104da318743e",
+  "gcode_sha256": "d8aca5c2a20eb10391fd96a79307a7a551ca448e1b060f0dfa42c341247a18d4",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "zip_crc_and_gcode_md5_pass": true,
+  "slicer_computed_fields": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "first_layer_mm": 0.2,
+  "ordinary_layer_mm": 0.24,
+  "wall_layer_count": 823,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "probing_clump_calls": 0,
+  "insertion_pause_count": 0,
+  "support_type": "tree(auto)",
+  "support_style": "default",
+  "max_bridge_length_mm": 50.0,
+  "complete_bead_bounds_xy_mm": [
+    [
+      20.887999999999998,
+      52.4
+    ],
+    [
+      304.879,
+      267.6
+    ]
+  ],
+  "complete_bead_margin_mm": 20.12099999999998,
+  "required_margin_mm": 20,
+  "footprint_pass": true,
+  "native_estimated_seconds": 90275.3984375,
+  "native_weight_g_saved_profile_density": 825.9267578125,
+  "native_warnings": "",
+  "support_roads": 256175,
+  "scope": "Archive integrity, native settings, nominal bead footprint and layer schedule. Physical adhesion, finish and release remain unassessed."
+}

@@ -281,7 +281,7 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "63fa0369c4c0d6eaa32429fdb3e59e148c2591420092db4be4ce8a6a8faa497c",
+  "project_sha256": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -312,7 +312,7 @@
         ]
       ],
       "modifier_part_id": "9",
-      "wall_loops": 6,
+      "wall_loops": null,
       "sparse_infill_percent": 100,
       "sparse_infill_pattern": "zig-zag"
     },
@@ -344,7 +344,7 @@
         ]
       ],
       "modifier_part_id": "10",
-      "wall_loops": 6,
+      "wall_loops": null,
       "sparse_infill_percent": 100,
       "sparse_infill_pattern": "zig-zag"
     },
@@ -376,7 +376,7 @@
         ]
       ],
       "modifier_part_id": "11",
-      "wall_loops": 6,
+      "wall_loops": null,
       "sparse_infill_percent": 100,
       "sparse_infill_pattern": "zig-zag"
     }

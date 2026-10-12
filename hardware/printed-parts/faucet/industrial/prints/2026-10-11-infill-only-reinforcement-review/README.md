@@ -1,0 +1,5 @@
+# Industrial faucet — infill-only reinforcement review
+
+The complete current five-part PET-GF project uses **100% zig-zag infill in the foot**, with ordinary wall settings inherited by the modifier. Base Arachne, the selected SB seam settings, eight coarse supported-lip layers and 0.12 mm shoulder bands are retained. Geometry, display-wing reach, tube passages, curved joint, lever, orientations and material settings are unchanged.
+
+The [native reading](box-face-wall-review.json) checks all 1,149 qualifying outer-wall segments at the foot-box faces and finds **0 mm through material**. The [archive review](native-review.json) binds the current five source meshes, native CRC/MD5, settings and normal Mark1 +0.18/+0.16 mm trim. The complete [editable project](2026-10-11-industrial-faucet-infill-only-scarf10-lift8-petgf-left04-z018-mark1.3mf) is byte-identical to the working Industrial project. No import or Send has occurred for this preparation; physical finish remains unassessed. Earlier identified print archives retain their own process and acceptance scope.

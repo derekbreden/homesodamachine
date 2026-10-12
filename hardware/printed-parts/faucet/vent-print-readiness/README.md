@@ -1,5 +1,7 @@
 # Faucet print artifacts
 
+The two retained faucet plate archives require regeneration from current meshes with infill-only reinforcement before printing. Their archived readings retain their identified geometry and process scope. See the [current Industrial preparation](../industrial/prints/2026-10-11-infill-only-reinforcement-review/README.md).
+
 The [complete Industrial selection](../industrial/selected-print.json)
 contains the base, shared tip, display cover, counter plate and side-down
 lever. It uses 0.20 mm first bed layers, 0.24 mm normal layers and 0.12 mm

@@ -76,7 +76,8 @@ improve the printed fore-ligament capacity.
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, both Y seam jambs and
 their fore strips, and Z hook/foot/stop roots. These modifiers change deposition
-only inside the existing material. General infill remains 15%; normal walls,
+only inside the existing material. Reinforcement boxes set infill density and pattern
+and inherit the ordinary wall settings. General infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the
 interior solid. The [current RC62 jobs](../magnet-retention/queue.json) must include

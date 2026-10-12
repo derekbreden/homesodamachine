@@ -1,0 +1,20 @@
+{
+  "views": [
+    {
+      "host": "347.8/255.4",
+      "print_layer_top_z_mm": 99.56,
+      "cad_mid_slab_z_mm": 255.56
+    },
+    {
+      "host": "323.3/256.9",
+      "print_layer_top_z_mm": 98.12,
+      "cad_mid_slab_z_mm": 257.0
+    },
+    {
+      "host": "338.8/338.044",
+      "print_layer_top_z_mm": 17.0,
+      "cad_mid_slab_z_mm": 338.12
+    }
+  ],
+  "scope": "Native paths and unchanged stock sections. Physical surface finish remains untested."
+}

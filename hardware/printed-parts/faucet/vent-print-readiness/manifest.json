@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "ready to print; all five native plate records finalized",
+  "status": "faucet plates require regeneration with current meshes and infill-only reinforcement",
   "scope": "Current geometry approval, source meshes, editable projects, native G-code archives, commanded bead reviews and geometric support cleanup access. Estimates use the saved profile density. Physical fit, support release, seal containment, insert retention and appliance qualification are not established by these files.",
   "geometry_approval_sha256": {
     "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe",
@@ -241,5 +241,9 @@
   ],
   "submitted": false,
   "physical_print_evaluated": false,
-  "consumer_assembly_qualified": false
+  "consumer_assembly_qualified": false,
+  "reinforcement": {
+    "wall_setting_overrides": false,
+    "scope": "The two retained faucet native archives contain wall-count modifiers and older geometry; regenerate those faucet plates through the current preparer before printing. Other recorded plates retain their individual scope."
+  }
 }

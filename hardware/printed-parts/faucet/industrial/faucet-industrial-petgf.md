@@ -1,6 +1,6 @@
 # Complete Industrial faucet PET-GF project
 
-[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains all five current rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The [selected SB/E preparation and native review](prints/2026-10-11-scarf10-lift8-mark1/README.md) are for Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI.
+[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains all five current rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The [current infill-only preparation and native review](prints/2026-10-11-infill-only-reinforcement-review/README.md) are for Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI.
 
 The [combined coupon result](../finish-coupons/coarse-start-v1/combined/physical-result.json) selects SB scarf gap 10% and E eight coarse lip layers for a complete-print trial. The exact [launch receipt](prints/2026-10-11-scarf10-lift8-mark1/launch.json) records submission and acceptance. Physical confirmation of the selected finish remains pending. Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
 
@@ -20,7 +20,7 @@ The curved joint is at 70°, with a female base and male tip and 20/18 mm overla
 
 The cover has 0.50 mm longer wings and matching arch headroom with the retaining-lip datum preserved. The [geometry review](prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json) compares current meshes with the embedded meshes of the [accepted complete print](physical-acceptance.json), and binds the current [assembly readings](geometry-check.json) and [cover readings](display-cover-check.json). The upper base, cover and lever retain the accepted surfaces within the stated sampled comparison. Source review confines tip changes to the fault-drip cut and mesh cleanup.
 
-One continuous foot modifier supplies six walls and 100% zigzag infill, with base Arachne and 15% infill/wall overlap. The [native check](prints/2026-10-11-scarf10-lift8-mark1/native-check.json) finds no reinforcement-partition starts/stops at the three reported screw-host exterior defect sites. The [insert deposition reading](faucet-industrial-petgf.insert-beads.json) retains the three host/root regions and their commanded backing stock.
+One foot modifier supplies 100% zigzag infill and inherits the ordinary wall settings, with base Arachne and 15% infill/wall overlap. The [native box-face reading](prints/2026-10-11-infill-only-reinforcement-review/box-face-wall-review.json) finds zero artificial outer wall through material at the modifier faces. The existing three insert-host/root volumes are retained.
 
 ## Selected trial process
 
@@ -32,7 +32,7 @@ The saved process uses two global walls, 15% grid infill, 265/280 °C nozzle tem
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The selected native estimate and saved-density mass are recorded in the [native check](prints/2026-10-11-scarf10-lift8-mark1/native-check.json). All emitted model/support/brim beads retain at least 40 mm of usable-bed clearance. The selected finish has no physical acceptance on the current complete faucet yet.
+The current native estimate is 5 h 49 min, with 160.9 g at the saved profile density, in the [native review](prints/2026-10-11-infill-only-reinforcement-review/native-review.json). All emitted model/support/brim beads retain 45.00 mm of usable-bed clearance. The selected finish has no physical acceptance on the current complete faucet yet.
 
 ## Support cleanup and evidence
 

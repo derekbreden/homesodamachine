@@ -1,9 +1,9 @@
 {
-  "status": "ready to print; native geometry and support access reviewed",
+  "status": "infill-only reinforcement prepared; current meshes and native slice require refresh",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "63fa0369c4c0d6eaa32429fdb3e59e148c2591420092db4be4ce8a6a8faa497c",
+  "project_sha256": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
   "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "print_report_sha256": "7ed8be352ea1db4d41abddc02c5126f2821e36ad8f92e7dc88e945a65bc233ec",
+  "print_report_sha256": "29264f9bdf646135e563daef0555974bae027c1eb7bb1983723e67049a54ae96",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
     "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
@@ -187,5 +187,20 @@
   "geometry_review_pending": false,
   "geometry_approval_sha256": {
     "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe"
+  },
+  "preparation_only": true,
+  "launch_authorized": false,
+  "ready_to_launch": false,
+  "offline_slice": {
+    "completed": false
+  },
+  "reinforcement": {
+    "region_count": 3,
+    "infill_percent": 100,
+    "pattern": "zig-zag",
+    "wall_setting_overrides": false
+  },
+  "printer_submission": {
+    "performed_by_this_preparation": false
   }
 }
