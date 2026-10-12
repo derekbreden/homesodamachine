@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-12T21:28:13.807098+00:00",
+  "authorization_quote": "Black TPU 85A is loaded in right hotend 0.6 mm on Mark 1, textured plate, ready for your print.",
+  "printer": "Mark1",
+  "material_authority": "Derek confirms black TPU 85A on right 0.6 mm with textured plate installed",
+  "source_archive": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "cd1b2fadb0d036ca9890e46d44420dd7dbb8866b33fa1260d8617968037e031d",
+  "gcode_sha256": "1a0985f51371713af61d40badfcac7c17f865d6a443311148089bb21cd02fd1d",
+  "project": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf",
+  "project_sha256": "be827799b383045a148f92c9659708bef3e3326ff57df970764339bbf33cd728",
+  "native_review_sha256": "d8ed3e2b53b7e38f81621577a8d87b9c4c6d1b8c10f43f37ac1b9d2d5a631ab3",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "external_spool_slot": 255,
+  "nozzle_side": "right",
+  "nozzle_diameter_mm": 0.6,
+  "readings": [
+    {
+      "printer": "Mark1",
+      "observed_at_utc": "2026-10-12T21:28:13.383335+00:00",
+      "task_id": "1332859109",
+      "job_id": "1332859109",
+      "subtask_name": "2026-10-12-tube-insertion-rigid-parts-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 63,
+      "total_layer_num": 63,
+      "print_error": 0,
+      "hms": [],
+      "mc_remaining_time": 0,
+      "stg_cur": -1,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "observed_at_utc": "2026-10-12T21:28:13.805044+00:00",
+      "task_id": "1333551449",
+      "job_id": "1333551449",
+      "subtask_name": "faucet-best-mark2-r2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 53,
+      "total_layer_num": 1244,
+      "print_error": 0,
+      "hms": [],
+      "mc_remaining_time": 260,
+      "stg_cur": 0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    }
+  ],
+  "peer_last_start_or_resume_utc": "2026-10-12T19:42:29.365434+00:00",
+  "peer_last_job_id": "1333551449",
+  "shared_circuit_minimum_seconds": 180,
+  "printer_2_coordination": "Mark1 reserved for two liners; Insert owns launch; no conflicting printer UI work; no separate right-0.6 TPU trim override is recorded",
+  "existing_app_lock_held": true,
+  "peer_start_elapsed_seconds": 6344.442188
+}
