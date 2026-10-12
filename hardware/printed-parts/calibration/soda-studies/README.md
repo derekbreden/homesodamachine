@@ -14,7 +14,7 @@ readings cover surface finish, local fit and support release.
 
 The prepared editable PET-GF project uses Mark2's left 0.4 mm nozzle, a
 0.20 mm first layer, uniform 0.24 mm model layers and six walls. The native
-estimate is **1 h 1 min and 24.88 g**, including supports.
+estimate is **1 h 3 min and 25.29 g**, including supports.
 [Print preparation](print-preparation.json) records the recipe and native slice.
 The Corner is unprinted.
 

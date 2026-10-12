@@ -119,14 +119,12 @@ def envelope():
         if on_side and b.zmin >= p["foot"][1]-1e-6 and b.ymin < DEPTH-1e-6:
             sides.append(edge)
     rounded = raw.fillet(RIM_R, sides)
-    standing = []
-    for edge in rounded.Edges():
-        b = edge.BoundingBox()
-        if (abs(b.ymin-DEPTH)<1e-6 and abs(b.ymax-DEPTH)<1e-6
-                and b.zlen > HEIGHT-2*RIM_R-1 and b.xlen<1e-6):
-            standing.append(edge)
-    if standing:
-        rounded = rounded.fillet(RIM_R, standing)
+    # The rear plan round keeps the roof edge square.
+    plan = cq.Workplane("XY", origin=(0, DEPTH/2, 0)).rect(WIDTH, DEPTH).val()
+    rear_vertices = [v for v in plan.Vertices() if abs(v.Center().y-DEPTH)<1e-6]
+    plan = plan.fillet2D(RIM_R, rear_vertices)
+    standing = cq.Solid.extrudeLinear(plan, [], cq.Vector(0, 0, HEIGHT))
+    rounded = rounded.intersect(standing).clean()
     before_bed_round = rounded
     bed_edges=[]
     for edge in rounded.Edges():
@@ -137,10 +135,6 @@ def envelope():
     if len(bed_edges)!=1:
         raise ValueError(f"one rear bed edge expected, got {len(bed_edges)}")
     rounded=rounded.fillet(RIM_R,bed_edges)
-    # Offset the analytic round before adding its tangent planes. OCC cannot
-    # consistently offset the union's tangent seam; the retained round is the
-    # backing authority and every subsequent addition increases that backing.
-    core_authority=rounded
     # A closed-loop version of native three_side_fill. Both sections offset
     # the entire rounded plan: a corner keeps its true radius-minus-inset,
     # rather than gaining stock from the union of two rectangular caps.
@@ -152,16 +146,51 @@ def envelope():
     fill=cq.Solid.makeLoft([bed_section(0,foot),
                            bed_section(h,foot-OUTWARD_PER_HEIGHT*h)],ruled=True)
     rounded=rounded.fuse(fill.intersect(before_bed_round))
-    return rounded.clean(), p, core_authority
+    return rounded.clean(), p
 
 
-def inner_core(outer, core_authority):
-    """Exact inward 3 mm offset, plus local backing for the fluted flank."""
-    shell = core_authority.shell([], -WALL, kind="intersection")
-    shells = sorted(shell.Shells(), key=lambda s:s.Area())
-    if len(shells) != 2:
-        raise ValueError(f"closed 3 mm stock expected two shells, got {len(shells)}")
-    core = cq.Solid.makeSolid(shells[0])
+def inner_core():
+    """Concentric inner crown and plan curves retain the 3 mm wall section."""
+    p = _profile()
+    a = math.radians(source_display.ANGLE)
+    rb = source_display.FRONT_RADIUS-WALL
+    rt = source_display.TOP_RADIUS-WALL
+    rr = RIM_R-WALL
+    cy, cz = PROFILE_RUN, HEIGHT-source_display.TOP_RADIUS
+    mid_angle = math.radians(180-(90-source_display.ANGLE)/2)
+    foot = (WALL, p["foot"][1])
+    start = (source_display.FRONT_RADIUS-rb*math.sin(a),
+             foot[1]+rb*math.cos(a))
+    front_mid = (source_display.FRONT_RADIUS+rb*math.cos(mid_angle),
+                 foot[1]+rb*math.sin(mid_angle))
+    end = (cy-rt*math.sin(a), cz+rt*math.cos(a))
+    top_mid = (cy-rt*math.sin(a/2), cz+rt*math.cos(a/2))
+    wire = (cq.Workplane("YZ", origin=(-WIDTH/2+WALL, 0, 0))
+            .moveTo(WALL, WALL).lineTo(*foot)
+            .threePointArc(front_mid, start).lineTo(*end)
+            .threePointArc(top_mid, (cy, HEIGHT-WALL))
+            .lineTo(DEPTH-WALL, HEIGHT-WALL).lineTo(DEPTH-WALL, WALL)
+            .close().val())
+    raw = cq.Solid.extrudeLinear(wire, [], cq.Vector(WIDTH-2*WALL, 0, 0))
+    sides = []
+    for edge in raw.Edges():
+        b = edge.BoundingBox()
+        on_side = (abs(abs(b.xmin)-(WIDTH/2-WALL))<1e-6 and b.xlen<1e-6)
+        if on_side and b.zmin>=foot[1]-1e-6 and b.ymin<DEPTH-WALL-1e-6:
+            sides.append(edge)
+    core = raw.fillet(rr, sides)
+    plan = (cq.Workplane("XY", origin=(0, DEPTH/2, WALL))
+            .rect(WIDTH-2*WALL, DEPTH-2*WALL).val())
+    vertices = [v for v in plan.Vertices() if abs(v.Center().y-(DEPTH-WALL))<1e-6]
+    plan = plan.fillet2D(rr, vertices)
+    mask = cq.Solid.extrudeLinear(plan, [], cq.Vector(0, 0, HEIGHT-2*WALL))
+    core = core.intersect(mask).clean()
+    bed = [edge for edge in core.Edges()
+           if abs(edge.BoundingBox().ymin-(DEPTH-WALL))<1e-6
+           and edge.BoundingBox().ylen<1e-6
+           and abs(edge.BoundingBox().zmin-WALL)<1e-6
+           and edge.BoundingBox().zlen<1e-6 and edge.BoundingBox().xlen>1]
+    core = core.fillet(rr, bed).clean()
     # The existing right flank keeps 3 mm backing beneath its deepest flute.
     flute_backing=box(WIDTH/2-WALL-1.2,WIDTH/2+1,FLUTE_Y0,FLUTE_Y1,FLUTE_Z0,FLUTE_Z1)
     return core.cut(flute_backing).clean(), core
@@ -174,12 +203,12 @@ def teardrop_cut():
 
 
 def build(include_pip=True, *, xy_air=.25, z_air=.48):
-    outer, p, core_authority = envelope()
-    core, full_core = inner_core(outer, core_authority)
+    outer, p = envelope()
+    core, full_core = inner_core()
     body = outer.cut(core).clean()
-    front_access=box(-WIDTH/2+WALL,WIDTH/2-WALL,-1,WALL+.5,PORTAL.FLOOR_Z,p["foot"][1])
-    body=body.cut(front_access).clean()
-    nose_relief=box(-WIDTH/2-1,WIDTH/2+1,-1,2,-1,p["foot"][1])
+    # The lower carrier starts at the fore round's straight station. One
+    # complete crop opens the nose without leaving curved mouth end scraps.
+    nose_relief=box(-WIDTH/2-1,WIDTH/2+1,-1,RIM_R,-1,p["foot"][1])
     body=body.cut(nose_relief).clean()
     # The rear mouth serves both the gate and the actual crown underside.
     rear_access=box(-WIDTH/2+RIM_R+WALL,WIDTH/2-RIM_R-WALL,
@@ -234,7 +263,7 @@ def native_surface_intent(stl):
     support={"body_stl_sha256":hashlib.sha256(stl.read_bytes()).hexdigest(),
              "processed_trimesh_facets":len(mesh.faces),
              "bed_R6_exterior_transition_faces":np.flatnonzero(bed).tolist(),
-                          "functional_horizontal_faces_excluded":True,
+             "functional_horizontal_faces_excluded":True,
              "paint_normal_threshold_z":[-.98,-.02]}
     seam_record={"standing_left_rear_R6_faces":np.flatnonzero(seam).tolist(),
                  "world_corner_center_xy_mm":centre,

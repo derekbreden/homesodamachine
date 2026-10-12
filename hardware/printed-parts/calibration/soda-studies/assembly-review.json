@@ -9,14 +9,14 @@
   ],
   "ordinary_stock_mm": 3,
   "source_sha256": {
-    "the-pour.step": "04f7f81dd168f2bd7bc503ee428325574e831c57458ac5285f72b36ee8469a0d",
-    "arch-moving.step": "7ff0c580d09bd3959b0fda9f05fe34855f80e6bdd0426818cff5a077fedbff12",
-    "arch-body.step": "8c32714de8058eac32d15ad8790dbad04b061448feeacbd445fa1fe622100b8c",
+    "the-pour.step": "345dd05143e2e03c286a704df56b9b86712d30799636d0894b6623d3ee724093",
+    "arch-moving.step": "913df2bb3f3069e7876b0bd985556a10de6bcddc66d9cc0f13e5b49111008f9b",
+    "arch-body.step": "cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f",
     "arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
-    "arch-body.stl": "8c8febd25ada568fee6838ed4b8aec6e2fd79a5200891ddb83b4ad9345b283d3"
+    "arch-body.stl": "0fc8f6c8234203e33a7328591c982a30de0fc3bab6b56fe5cce0284f1fa5f500"
   },
   "source_bindings": {
-    "hardware/printed-parts/calibration/soda-studies/reference.py": "f7ee461a2afd5f3e2100a873353b3956b0979e5f18f50aef1168da11f23a0797",
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "8fb7d84d01e311d3dc2a7b5c31897b6b9eb4504bf49ca0970f85259dbcefe16d",
     "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
     "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
     "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
@@ -91,5 +91,18 @@
     "ceiling_over_handle_mm": 15.479999999999999,
     "scope": "Nominal access geometry; handling and support cleanup unprinted."
   },
-  "physical_result": "Unprinted."
+  "physical_result": "Unprinted.",
+  "actual_flat_ceiling_faces": [
+    {
+      "bounds_mm": [
+        -15.25,
+        15.25,
+        25.392304845413,
+        34.392304845413,
+        29.36,
+        29.36
+      ],
+      "area_mm2": 256.5
+    }
+  ]
 }
