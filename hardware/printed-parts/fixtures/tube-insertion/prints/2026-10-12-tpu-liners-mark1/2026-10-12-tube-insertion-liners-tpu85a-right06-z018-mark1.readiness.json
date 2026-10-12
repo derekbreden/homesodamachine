@@ -1,0 +1,69 @@
+{
+  "status": "Native Mark1 slice reviewed; physical print result pending",
+  "project": "2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf",
+  "project_sha256": "be827799b383045a148f92c9659708bef3e3326ff57df970764339bbf33cd728",
+  "archive": "2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+  "archive_sha256": "cd1b2fadb0d036ca9890e46d44420dd7dbb8866b33fa1260d8617968037e031d",
+  "gcode_sha256": "1a0985f51371713af61d40badfcac7c17f865d6a443311148089bb21cd02fd1d",
+  "source_project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-tpu-85a-mark2.3mf",
+  "source_project_sha256": "6807d30546e2952f98aafa38bed671459deafaf3e1851218715394efb60cddae",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "c2a5640db52062b94533d3c355977376a391e3a889b13b0dcc312aea02a761c8"
+  },
+  "printer": "Mark1 (H2C)",
+  "requested_z_trim_mm": 0.18,
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "recipe_changes": [
+    "machine_start_gcode",
+    "print_compatible_printers",
+    "printer_settings_id"
+  ],
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "extruder_offset": [
+    "0x0",
+    "0x0"
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        153.3947625380948,
+        149.894776
+      ],
+      [
+        201.605224,
+        170.105224
+      ]
+    ],
+    "maximum_line_width_mm": 0.630448,
+    "bounds_padding_mm": 0.41522400000000004
+  },
+  "bead_margin_mm": [
+    128.3947625380948,
+    149.894776,
+    128.394776,
+    149.894776
+  ],
+  "layers": 155,
+  "estimated_seconds": 3940.966552734375,
+  "estimated_filament_g": 8.756891250610352,
+  "slicer_warning": "",
+  "deposition_review": {
+    "all_commands_from_first_layer_through_print_end_identical_to_reviewed_mark2_slice": true,
+    "command_count": 34580,
+    "first_second_layer_and_support_review_scope": "Same deposited commands, mesh, part poses and recipe as the reviewed liner plate; native Mark1 startup has its own verified trim."
+  }
+}

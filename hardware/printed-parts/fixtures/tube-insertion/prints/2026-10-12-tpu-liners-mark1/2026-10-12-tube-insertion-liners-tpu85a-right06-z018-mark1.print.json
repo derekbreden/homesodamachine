@@ -1,0 +1,185 @@
+{
+  "project": "2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf",
+  "settings_source": ".cache/tube-insertion-tpu-mark1-native-v2/mark1-settings.3mf",
+  "settings_source_sha256": "c685ee0015c21446bc85010bdad1a902d61a6a333fe6177b582c5dff63b1d9fa",
+  "settings_sha256": "bcfeac97cf830f01613176fe7022fcba327cf292aa22e683199095fdcde5d633",
+  "source_settings_sha256": "dd5a2b75d357e7a48e33a8eff760c03bdefc0994517cf30fd719ebf97c479f0b",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "915a8b39a88148a6629caaa0d947cba7b635738f962d2221fad43b449342b56d",
+      "to_sha256": "9f1a4bce361763d577afafcdf8448af3ae314b591531e5ffb37778929a582344",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.6 Standard +0.18 Z trim",
+  "process": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+  "filament": [
+    "Bambu TPU 85A @BBL H2C"
+  ],
+  "layer_height_mm": 0.18,
+  "nozzle_diameter_mm": [
+    0.6,
+    0.6
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.62,
+    "inner_wall_line_width": 0.62,
+    "sparse_infill_line_width": 0.62,
+    "internal_solid_infill_line_width": 0.62,
+    "top_surface_line_width": 0.62,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "F lower TPU liner",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl",
+      "stl_sha256": "c2a5640db52062b94533d3c355977376a391e3a889b13b0dcc312aea02a761c8",
+      "triangles": 332,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        4.0,
+        0.0,
+        14.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        157.5,
+        160.0,
+        14.0
+      ],
+      "plate_translation_mm": [
+        157.5,
+        160.0,
+        14.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          153.5,
+          150.0,
+          0.0
+        ],
+        [
+          161.5,
+          170.0,
+          28.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996336677720592e-10
+    },
+    {
+      "name": "F upper TPU liner",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl",
+      "stl_sha256": "c2a5640db52062b94533d3c355977376a391e3a889b13b0dcc312aea02a761c8",
+      "triangles": 332,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        4.0,
+        0.0,
+        14.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        197.5,
+        160.0,
+        14.0
+      ],
+      "plate_translation_mm": [
+        197.5,
+        160.0,
+        14.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          193.5,
+          150.0,
+          0.0
+        ],
+        [
+          201.5,
+          170.0,
+          28.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996336677720592e-10
+    }
+  ],
+  "project_sha256": "be827799b383045a148f92c9659708bef3e3326ff57df970764339bbf33cd728",
+  "settings_preserved_byte_for_byte": false,
+  "intended_printer": "Mark1 (H2C)",
+  "material": "Black TPU 85A",
+  "nozzle_mapping": "Right fixed 0.6 mm; external spool 255",
+  "print_pose": "Tube axis vertical; two preformed half-channel liners",
+  "changed_settings": [
+    "machine_start_gcode",
+    "print_compatible_printers",
+    "printer_settings_id"
+  ],
+  "original_settings_source": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-tpu-85a-mark2.3mf",
+  "original_settings_source_sha256": "6807d30546e2952f98aafa38bed671459deafaf3e1851218715394efb60cddae"
+}
