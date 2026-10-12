@@ -14,7 +14,7 @@ sliding fit, support release, a teardrop opening, seam finish and texture.
 
 The prepared editable PET-GF project uses Mark2's left 0.4 mm nozzle, a
 0.20 mm first layer, uniform 0.24 mm model layers and six walls. The native
-estimate is **2 h 11 min and 64.32 g**, including supports, with a complete-bead
+estimate is **2 h 11 min and 64.54 g**, including supports, with a complete-bead
 edge margin of 123.379 mm. [Print preparation](print-preparation.json) records
 the recipe and slice. The Arch is unprinted.
 

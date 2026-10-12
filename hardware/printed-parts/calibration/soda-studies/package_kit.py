@@ -42,6 +42,9 @@ def main():
     sources.append(HERE / manifest["assembly"])
     for part in manifest["parts"]:
         sources.extend((ROOT / part["stl"], ROOT / part["step"]))
+        answer = (ROOT / part["stl"]).with_suffix(".lint-answers")
+        if answer.exists():
+            sources.append(answer)
         for volume in part.get("material_volumes", []):
             sources.extend(ROOT / volume[key] for key in ("stl", "step") if key in volume)
         for key in ("stl", "step"):
@@ -50,6 +53,7 @@ def main():
     for project in preparation["projects"]:
         path = ROOT / project["project"]
         sources.extend((path, path.with_suffix(".print.json")))
+        sources.extend(sorted(path.parent.glob(path.stem + "*.png")))
     # Editable source projects carry every material assignment and schedule.
     # Locally sliced archives remain identified by hash in the reading records.
     sources = list(dict.fromkeys(sources))

@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "name": "The Pour \u2014 Arch",
+  "release_tag": "the-pour-v4",
+  "download_url": "https://github.com/derekbreden/homesodamachine/releases/download/the-pour-v4/print-kit.zip",
+  "archive": "print-kit.zip",
+  "bytes": 3383375,
+  "sha256": "d79c261a3216b9fe25168b530a9239f816378a96a9a5e3cebce00eefc0172fbe",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2431,
+      "sha256": "55e1c2cf1409f0ee4924204296109155dcbd21f91611d3a49d5b5d56c834ae50",
+      "source_sha256": "55e1c2cf1409f0ee4924204296109155dcbd21f91611d3a49d5b5d56c834ae50"
+    },
+    {
+      "path": "feature-guide.md",
+      "bytes": 5101,
+      "sha256": "98ee3e21fb72198ac34adb8e0e73061980d16ec5273ff17fb7e4c87145c08027",
+      "source_sha256": "98ee3e21fb72198ac34adb8e0e73061980d16ec5273ff17fb7e4c87145c08027"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 4179,
+      "sha256": "94ca66ab1da7da32aee027f2c60ce60d5fdb8851eded6e0ce818865b72bdaa38",
+      "source_sha256": "94ca66ab1da7da32aee027f2c60ce60d5fdb8851eded6e0ce818865b72bdaa38"
+    },
+    {
+      "path": "print-preparation.json",
+      "bytes": 1746,
+      "sha256": "5984f7716820abe61772209f0d02995598aee64426a0409c40d6390040e73cc6",
+      "source_sha256": "5984f7716820abe61772209f0d02995598aee64426a0409c40d6390040e73cc6"
+    },
+    {
+      "path": "geometry.json",
+      "bytes": 246194,
+      "sha256": "4287834cab01eb7aae712478b42e1455e127cdb22e17a9f5ac99cdab0240b633",
+      "source_sha256": "4287834cab01eb7aae712478b42e1455e127cdb22e17a9f5ac99cdab0240b633"
+    },
+    {
+      "path": "assembly-review.json",
+      "bytes": 10384,
+      "sha256": "abe55731b314443fbf2834e6c6f632b375fb6ae355750eecfda1ca008c2b782d",
+      "source_sha256": "abe55731b314443fbf2834e6c6f632b375fb6ae355750eecfda1ca008c2b782d"
+    },
+    {
+      "path": "print-plan.json",
+      "bytes": 357013,
+      "sha256": "8a16118b4580924049f741477f3544a98b29cef496f343c8103802358c0c07d0",
+      "source_sha256": "8a16118b4580924049f741477f3544a98b29cef496f343c8103802358c0c07d0"
+    },
+    {
+      "path": "native-summary.json",
+      "bytes": 1394,
+      "sha256": "e180d066a0ed807eecafb062e94ef8805b3d778b6e80b5e99e633cc6d8baf9c5",
+      "source_sha256": "e180d066a0ed807eecafb062e94ef8805b3d778b6e80b5e99e633cc6d8baf9c5"
+    },
+    {
+      "path": "reference-card.csv",
+      "bytes": 693,
+      "sha256": "ea08cca36e1a858c24201b98ef5547c4574f290c7935d2d75bb6fdaae7435bd0",
+      "source_sha256": "ea08cca36e1a858c24201b98ef5547c4574f290c7935d2d75bb6fdaae7435bd0"
+    },
+    {
+      "path": "the-pour.step.png",
+      "bytes": 564413,
+      "sha256": "781956de5eb3eb2b8f1ec86557435b51cc14b1b26e7718292eb30d50bfe17ae2",
+      "source_sha256": "781956de5eb3eb2b8f1ec86557435b51cc14b1b26e7718292eb30d50bfe17ae2"
+    },
+    {
+      "path": "the-pour-rear.step.png",
+      "bytes": 422488,
+      "sha256": "0cb9e8b4b21cb0b58e65fcfd11eb124a9001d30729fc71d37ba6432b23bb1c55",
+      "source_sha256": "0cb9e8b4b21cb0b58e65fcfd11eb124a9001d30729fc71d37ba6432b23bb1c55"
+    },
+    {
+      "path": "native_reading.py",
+      "bytes": 65871,
+      "sha256": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb",
+      "source_sha256": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb"
+    },
+    {
+      "path": "package_kit.py",
+      "bytes": 4318,
+      "sha256": "22eaf84495f679ba38c0f4e01a8db9ecc39a663614dd9c6211d107fe309d8771",
+      "source_sha256": "22eaf84495f679ba38c0f4e01a8db9ecc39a663614dd9c6211d107fe309d8771"
+    },
+    {
+      "path": "pip.py",
+      "bytes": 14430,
+      "sha256": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
+      "source_sha256": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6"
+    },
+    {
+      "path": "prepare_prints.py",
+      "bytes": 57550,
+      "sha256": "70b5c74c66f08e5d03960561941888f25bc026c4c1080511ee2927ad0906fc37",
+      "source_sha256": "70b5c74c66f08e5d03960561941888f25bc026c4c1080511ee2927ad0906fc37"
+    },
+    {
+      "path": "prepare_reference.py",
+      "bytes": 35812,
+      "sha256": "e0e6fa3c6e8a62b2a94513393072b56642198e58dd29b8671e7ddac15df88ea3",
+      "source_sha256": "e0e6fa3c6e8a62b2a94513393072b56642198e58dd29b8671e7ddac15df88ea3"
+    },
+    {
+      "path": "reference.py",
+      "bytes": 15725,
+      "sha256": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df",
+      "source_sha256": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df"
+    },
+    {
+      "path": "viewer_payload.py",
+      "bytes": 3529,
+      "sha256": "89fd6b6e74aa4c460a5d9da7ef67935bb04f14dc8247a9013cc3b25411910c6a",
+      "source_sha256": "89fd6b6e74aa4c460a5d9da7ef67935bb04f14dc8247a9013cc3b25411910c6a"
+    },
+    {
+      "path": "the-pour.step",
+      "bytes": 848833,
+      "sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69",
+      "source_sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69"
+    },
+    {
+      "path": "arch-body.stl",
+      "bytes": 2199984,
+      "sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
+      "source_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a"
+    },
+    {
+      "path": "arch-body.step",
+      "bytes": 776222,
+      "sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
+      "source_sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94"
+    },
+    {
+      "path": "arch-body.lint-answers",
+      "bytes": 10734,
+      "sha256": "dd991126373fe842e209dd5e321cecfeb7e44e678843695f82b85640904b6f86",
+      "source_sha256": "dd991126373fe842e209dd5e321cecfeb7e44e678843695f82b85640904b6f86"
+    },
+    {
+      "path": "arch-moving.stl",
+      "bytes": 3084,
+      "sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
+      "source_sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c"
+    },
+    {
+      "path": "arch-moving.step",
+      "bytes": 64755,
+      "sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
+      "source_sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241"
+    },
+    {
+      "path": "arch-moving.lint-answers",
+      "bytes": 2035,
+      "sha256": "2d6026a6e77be45181d83494b0bbf5d4491725423d9b7abc36232b2a76190cca",
+      "source_sha256": "2d6026a6e77be45181d83494b0bbf5d4491725423d9b7abc36232b2a76190cca"
+    },
+    {
+      "path": "prints/the-pour-v4-petgf.3mf",
+      "bytes": 611937,
+      "sha256": "2af4f0009359a3471f75d357da5fda0264249b965cdef65ed4eca605b583efda",
+      "source_sha256": "2af4f0009359a3471f75d357da5fda0264249b965cdef65ed4eca605b583efda"
+    },
+    {
+      "path": "prints/the-pour-v4-petgf.print.json",
+      "bytes": 3382384,
+      "sha256": "feacd67a7e21ad2e95796b2182f217a66782ac73911a0da0d84cd074fb9ea883",
+      "source_sha256": "feacd67a7e21ad2e95796b2182f217a66782ac73911a0da0d84cd074fb9ea883"
+    },
+    {
+      "path": "prints/the-pour-v4-petgf-motion-paths.png",
+      "bytes": 148945,
+      "sha256": "1165f2dcf9786a4acb1af510a620e6cf5ce1a3424ea0dd826bbc830a4655f902",
+      "source_sha256": "1165f2dcf9786a4acb1af510a620e6cf5ce1a3424ea0dd826bbc830a4655f902"
+    },
+    {
+      "path": "prints/the-pour-v4-petgf.png",
+      "bytes": 9220,
+      "sha256": "487745beb988f2c4fdac8d8592e2d36e0e13ceec4b809ae0d389c9a33fe18965",
+      "source_sha256": "487745beb988f2c4fdac8d8592e2d36e0e13ceec4b809ae0d389c9a33fe18965"
+    }
+  ]
+}
