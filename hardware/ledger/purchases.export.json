@@ -905,6 +905,14 @@
       "purchase_id": "pur-463d466001c749268d68ca8789562a84"
     },
     {
+      "allocation_id": "alloc-f90825e1cf9f48269660d34b5ad5b4a8",
+      "amount_minor": 5579,
+      "currency": "USD",
+      "event_id": "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
+      "order_id": "cnckitchen:CNC3278",
+      "purchase_id": "pur-9835cb05727440fa98029e6134ffd627"
+    },
+    {
       "allocation_id": "alloc-f9c0423bdb1a4e74becff41fd1deb8ed",
       "amount_minor": 5028,
       "currency": "USD",
@@ -1604,6 +1612,26 @@
       "vendor": "Polymaker"
     },
     {
+      "checked_at": "2026-10-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-a998dc52b4624eb9affda84a3920c174",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-11",
+        "start": "2026-10-09"
+      },
+      "note": "Scoped Gmail search for CNC Kitchen mail from the last two days and review of the named order confirmation; no claim of complete CNCKitchen USA account coverage or completed payment/fulfillment evidence.",
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "stream": "heat-set insert tip order",
+      "vendor": "CNCKitchen USA"
+    },
+    {
       "checked_at": "2026-10-05",
       "complete_period": null,
       "coverage": "partial",
@@ -2274,6 +2302,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-f90825e1cf9f48269660d34b5ad5b4a8"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 5579,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
+      "event_type": "charge",
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "purchase_ids": [
+        "pur-9835cb05727440fa98029e6134ffd627"
+      ],
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "CNCKitchen USA",
+      "verified_at": "2026-10-11"
     },
     {
       "allocation_ids": [
@@ -5802,7 +5854,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:a2a4b8d5e0549824dfff2c76f2422565d4ac0944ba3bca8b53a6b489b79bc88c",
+  "input_fingerprint": "sha256:071e736f1e15c150377779d8af517f94be7d8681fbe3037919a14e886a7568c6",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13430,6 +13482,25 @@
         "src-8012514f15e048978a64c5b0f321992b"
       ],
       "vendor": "BrewHardware"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-2619ee4d42f24811a5f57b01f6fa6a1f"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_id": "cnckitchen:CNC3278",
+      "purchase_ids": [
+        "pur-9835cb05727440fa98029e6134ffd627"
+      ],
+      "reference": "CNC3278",
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "vendor": "CNCKitchen USA"
     },
     {
       "allocation_status": "all_project",
@@ -33055,6 +33126,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 5579,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "CNCKitchen USA order #CNC3278 — Installation Tips SET+ Adapter compatible with 900M & T18 (T18 adapter with a male M5 thread + M2–M8 straight insert tips) + 90° Installation Tip for Tricky Places, Full Set M2 to M8 — right-angle insert tips for the FX-888D. The 90° M3 presses the 17 M3 inserts on back-top's +X wall bosses from inside the box, with the iron parallel to the wall. The 90° tips' female M5 threads need this adapter; the B0CS662NVK kit's adapter takes male-stud tips",
+      "event_ids": [
+        "evt-2619ee4d42f24811a5f57b01f6fa6a1f"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-9835cb05727440fa98029e6134ffd627",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-9835cb05727440fa98029e6134ffd627",
+      "purpose": "equipment_tooling",
+      "quantity": 2,
+      "quantity_text": "2 line items",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "row_date_basis": "order_date",
+      "section": "14. Soldering + small-signal electrical tools",
+      "service_period": null,
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "CNCKitchen USA"
     },
     {
       "allocation_status": "all_project",
@@ -54058,6 +54175,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90° Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "CNC3278",
+      "source_id": "src-b679143bb2f74c96a6f795fc0501e303",
+      "vendor": "CNCKitchen USA",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-28"
       },
       "document_type": "merchant_monetary_receipt",
@@ -55873,7 +56006,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 174784,
+          "amount_minor": 180363,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -55888,6 +56021,7 @@
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+            "pur-9835cb05727440fa98029e6134ffd627",
             "pur-99a0644333ed4c5a8e5d5514098319fa",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
@@ -55924,6 +56058,7 @@
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+        "pur-9835cb05727440fa98029e6134ffd627",
         "pur-99a0644333ed4c5a8e5d5514098319fa",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
@@ -55942,6 +56077,7 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
         "evt-4991502f7a0d484788efb14e364fc889",
         "evt-4f7b7d18ceab43979159e02bdb2a306d",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
@@ -56238,6 +56374,7 @@
             "evt-0447af18f1f34778b9cd0f9facee2d40",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
             "evt-4991502f7a0d484788efb14e364fc889",
             "evt-4f7b7d18ceab43979159e02bdb2a306d",
             "evt-5a6637d18fab4dbaa2c3a7428c33273f",
@@ -56907,7 +57044,7 @@
           "currency": "USD",
           "estimate_minor": 49749,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 70684,
+          "final_vendor_amount_minor": 76263,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -56925,6 +57062,7 @@
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+            "pur-9835cb05727440fa98029e6134ffd627",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
@@ -56937,7 +57075,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 151067,
+          "total_minor": 156646,
           "unknown_amount_ids": []
         },
         {
@@ -56985,7 +57123,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2156602,
+          "amount_minor": 2162181,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -57004,9 +57142,9 @@
         {
           "currency": "USD",
           "estimate_minor": 206842,
-          "final_vendor_amount_minor": 1090558,
+          "final_vendor_amount_minor": 1096137,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4619299
+          "total_minor": 4624878
         }
       ],
       "undated_unallocated": [
@@ -57162,7 +57300,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3891762,
+          "purchases_without_merchant_charge_minor": 3897341,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 918334,
@@ -57228,6 +57366,7 @@
         "coverage-a71252470d6e40c4b10bc82bd951d28b",
         "coverage-a7c1d71c0a38472580eea22c396eafd5",
         "coverage-a914738fc688438f8d509e94711f1e9c",
+        "coverage-a998dc52b4624eb9affda84a3920c174",
         "coverage-a9a30503bf134e929097ac22eefffcbf",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
@@ -58121,6 +58260,7 @@
         "pur-9795fe78ee6d4da5b43b92ef9cf3bf97",
         "pur-97a56b4c9691429f87b40c74bd003f43",
         "pur-980827d049cf41ef8ac67be0b46d35fc",
+        "pur-9835cb05727440fa98029e6134ffd627",
         "pur-9910099ea22c4c47900afde42039954e",
         "pur-9931009cf0e74b788958a69bc7951900",
         "pur-9975a463fa7c4564a160d7c783ef6b6a",
@@ -58346,6 +58486,7 @@
         "evt-0447af18f1f34778b9cd0f9facee2d40",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
         "evt-4991502f7a0d484788efb14e364fc889",
         "evt-4f7b7d18ceab43979159e02bdb2a306d",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
@@ -58521,6 +58662,7 @@
       "coverage-a71252470d6e40c4b10bc82bd951d28b: evidence coverage is unknown",
       "coverage-a7c1d71c0a38472580eea22c396eafd5: evidence coverage is unknown",
       "coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
+      "coverage-a998dc52b4624eb9affda84a3920c174: evidence coverage is partial",
       "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",

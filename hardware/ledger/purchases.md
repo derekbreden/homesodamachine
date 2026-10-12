@@ -611,6 +611,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | <!--purchase:pur-5aa327f373ac404dbb22c1a44820cc54--> VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | 112-7486016-3622668 | 2026-06-14 | 2026-06-15 | ACQUIRED |
 | <!--purchase:pur-bac9194045da4b729039b68e0a04aac4--> Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | 112-8278354-1449064 | 2026-06-14 | 2026-06-15 | ACQUIRED |
 | <!--purchase:pur-5372b0c6d4fd4f98a02d371fb1c2ea0a--> No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $13.93 | 112-4685860-9927453 | 2026-06-17 | 2026-06-18 | ACQUIRED |
+| <!--purchase:pur-9835cb05727440fa98029e6134ffd627--> CNCKitchen USA order #CNC3278 — **Installation Tips SET+ Adapter compatible with 900M & T18** (T18 adapter with a male M5 thread + M2–M8 straight insert tips) + **90° Installation Tip for Tricky Places, Full Set M2 to M8** — right-angle insert tips for the FX-888D. The 90° M3 presses the 17 M3 inserts on back-top's +X wall bosses from inside the box, with the iron parallel to the wall. The 90° tips' female M5 threads need this adapter; the B0CS662NVK kit's adapter takes male-stud tips | [tip set + adapter](https://cnckitchenus.store/products/soldering-tips-set-adapter-compatible-with-900m-t18-e-g-hakko), [90° tips](https://cnckitchenus.store/products/installation-tips-kopie) | 2 line items | $55.79 | CNC3278 | 2026-10-11 | — | ON-ORDER (estimated delivery 2026-10-15. Merchandise by line: tip set + adapter $19.90; 90° full set $23.90 — $43.80 merchandise + $11.99 shipping + $0.00 tax. Gmail order confirmation verified 2026-10-11) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -789,16 +790,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,912.69](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,392.08](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,747.84](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,803.63](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,192.99](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,248.78](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$10,905.58](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$10,961.37](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,068.42](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
