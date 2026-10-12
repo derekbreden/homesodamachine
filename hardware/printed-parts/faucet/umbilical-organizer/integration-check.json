@@ -377,11 +377,11 @@
     }
   ],
   "evidence_limits": [
-    "The mounting-row organizer and ribbon slot are unprinted.",
+    "The complete printed mounting-row organizer and ribbon-slot fit remain physically unassessed.",
     "The retained donor washer, nut and compression fitting are absent from the CAD reference.",
     "The complete ribbon continuation below the puck is not modeled.",
     "Braid is a nominal envelope; its weave, folds and physical passage are unmeasured.",
-    "Feature-level physical fit selection: round beverage bore dimensions from A and round drain bore dimensions from B, with the same tube chamfers, contact length, PET-GF and upright orientation. The mounting-row organizer layout and flat signal slot are unprinted. Quantified force, endurance and complete installation remain unmeasured."
+    "Feature-level physical fit selection: round beverage bore dimensions from A and round drain bore dimensions from B, with the same tube chamfers, contact length, PET-GF and upright orientation. The complete mounting-row organizer and ribbon slot have completed print telemetry; their physical fit remains unassessed. Quantified force, endurance and complete installation remain unmeasured."
   ],
   "measured_ribbon_to_faucet_stock_intersection_volume_mm3": {
     "shell_base": 0.0,
@@ -403,5 +403,6 @@
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     }
-  ]
+  ],
+  "complete_organizer_print_record": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/launch.json"
 }
