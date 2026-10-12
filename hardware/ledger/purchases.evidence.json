@@ -7915,6 +7915,18 @@
       "source_ids": [
         "src-73f93ccef6d4495f9740151c9a066f44"
       ]
+    },
+    "pur-9835cb05727440fa98029e6134ffd627": {
+      "vendor": "CNCKitchen USA",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ]
     }
   },
   "orders": {
@@ -13510,6 +13522,18 @@
       "source_ids": [
         "src-73f93ccef6d4495f9740151c9a066f44"
       ]
+    },
+    "cnckitchen:CNC3278": {
+      "vendor": "CNCKitchen USA",
+      "reference": "CNC3278",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ]
     }
   },
   "events": [
@@ -16284,6 +16308,23 @@
       "order_ids": [
         "amazon:114-5870152-3334654"
       ]
+    },
+    {
+      "event_id": "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
+      "vendor": "CNCKitchen USA",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 5579,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ]
     }
   ],
   "allocations": [
@@ -17205,6 +17246,14 @@
       "purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
       "order_id": "amazon:114-5870152-3334654",
       "amount_minor": 9640,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-f90825e1cf9f48269660d34b5ad5b4a8",
+      "event_id": "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
+      "purchase_id": "pur-9835cb05727440fa98029e6134ffd627",
+      "order_id": "cnckitchen:CNC3278",
+      "amount_minor": 5579,
       "currency": "USD"
     }
   ],
@@ -26237,6 +26286,21 @@
       ],
       "verified_at": "2026-10-11",
       "note": "Signed-in Amazon order history and individual order details: ten Beduan 12 V 1/4 in normally closed solenoid valves at $8.99 each, sold by Beduan; $89.90 item subtotal, $0.00 shipping, $6.50 estimated tax and $96.40 grand total; ordered 2026-10-11, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-b679143bb2f74c96a6f795fc0501e303": {
+      "vendor": "CNCKitchen USA",
+      "document_type": "email_order_confirmation",
+      "reference": "CNC3278",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90° Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -27282,6 +27346,26 @@
         "amazon:114-5870152-3334654"
       ],
       "note": "Order details and order-scoped Transactions for four named project orders: one Completed charge (114-9279946-8137001); the other three listed no transactions yet. No claim of complete Amazon account coverage."
+    },
+    {
+      "coverage_id": "coverage-a998dc52b4624eb9affda84a3920c174",
+      "vendor": "CNCKitchen USA",
+      "stream": "heat-set insert tip order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-11",
+      "examined_period": {
+        "start": "2026-10-09",
+        "end": "2026-10-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-b679143bb2f74c96a6f795fc0501e303"
+      ],
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "note": "Scoped Gmail search for CNC Kitchen mail from the last two days and review of the named order confirmation; no claim of complete CNCKitchen USA account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
