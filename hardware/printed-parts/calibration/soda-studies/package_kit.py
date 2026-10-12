@@ -36,13 +36,9 @@ def main():
     preparation = json.loads((HERE / "print-preparation.json").read_text())
     sources = [HERE / name for name in (
         "README.md", "feature-guide.md", "manifest.json", "print-preparation.json",
-        "assembly-review.json", "lettering-review.json", "reference-card.csv", "fullfeature-map.json",
-        "faucet-module.json", "faucet-proof.json", "faucet-plan.json", "geometry.json",
-        "the-pour.step.png")]
+        "geometry.json", "assembly-review.json", "print-plan.json", "native-summary.json", "reference-card.csv",
+        "the-pour.step.png", "the-pour-rear.step.png")]
     sources.extend(sorted(HERE.glob("*.py")))
-    sources.extend(sorted(path for path in (HERE / "inputs").rglob("*") if path.is_file()))
-    if (HERE / "the-pour-open.step.png").exists():
-        sources.append(HERE / "the-pour-open.step.png")
     sources.append(HERE / manifest["assembly"])
     for part in manifest["parts"]:
         sources.extend((ROOT / part["stl"], ROOT / part["step"]))

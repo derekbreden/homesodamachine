@@ -1,0 +1,20 @@
+{
+  "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v4-petgf.3mf",
+  "project_sha256": "93a2b7d3ece4af1e470a592a5268fd37c97bc758ae18ac8beabff6c51b138238",
+  "normal_volume_count": 2,
+  "native_parent_count": 1,
+  "plate_count": 1,
+  "first_layer_mm": 0.2,
+  "uniform_model_layer_mm": 0.24,
+  "saved_profile_source": "hardware/printed-parts/petgf.3mf",
+  "saved_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "submitted": false,
+  "estimated_time": "2h 11m 11s",
+  "estimated_seconds": 7871.0,
+  "saved_profile_filament_estimate_g": [
+    64.32
+  ],
+  "minimum_full_bead_bed_margin_mm": 123.37900000000002,
+  "archive": ".cache/pour-compact/native-work/the-pour-v4-petgf/native/the-pour-v4-petgf.gcode.3mf",
+  "archive_sha256": "eaa9fd46205c1018e2acd18157a9e1837e374807dd9ae3fb34e3f106a9d6de4f"
+}

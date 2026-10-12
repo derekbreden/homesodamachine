@@ -87,7 +87,7 @@ REGION_KEYS = frozenset("""
 IDENTITY = np.eye(4)
 SUPPORTED_SUBTYPES = {"normal_part", "modifier_part", "support_blocker", "support_enforcer"}
 SLICER = Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio")
-WORK = ROOT / ".cache/prints/soda-studies-v3"
+WORK = ROOT / ".cache/prints/soda-studies"
 
 
 def sha(path):
@@ -492,7 +492,7 @@ def prepare_plate(manifest, cohort, print_objects, output, *, offsets=None, bord
                                         for path in envelopes], settings, gap=spacing_mm, border=border_mm)
     report = writer.refresh(profile, output,
                             parts=tuple((obj.get("name", obj["id"]), path, 0.) for obj, path in zip(objects, envelopes)),
-                            offsets=tuple(offsets), title=f"The Pour V3 — {cohort['id']}",
+                            offsets=tuple(offsets), title=f"{manifest.get('title', 'The Pour')} — {cohort['id']}",
                             z_trim=cohort.get("requested_z_trim_mm"), plate_border=border_mm)
     with zipfile.ZipFile(output) as archive:
         members = {name: archive.read(name) for name in archive.namelist()}
@@ -512,7 +512,7 @@ def prepare_plate(manifest, cohort, print_objects, output, *, offsets=None, bord
                   native_material_mapping={key: settings.get(key) for key in (
                       "filament_settings_id", "filament_colour", "filament_type", "filament_nozzle_map",
                       "nozzle_diameter", "extruder_offset", "enable_prime_tower")},
-                  physical_result="Unprinted V3 preparation; no release, fit, strength or lifetime acceptance.")
+                  physical_result="Unprinted reference preparation; no release, fit, strength or lifetime acceptance.")
     output.with_suffix(".print.json").write_text(json.dumps(report, indent=2)+"\n")
     return output, report
 
@@ -702,7 +702,7 @@ def retain_reviewed_projects(manifest_path, output_directory, source_directories
     output_directory=Path(output_directory).resolve();output_directory.mkdir(parents=True,exist_ok=True)
     retained=[]
     for plate in manifest['print_plates']:
-        name=plate.get('filename','the-pour-v3-'+plate['id']);target=output_directory/(name+'.3mf')
+        name=plate.get('filename','the-pour-'+plate['id']);target=output_directory/(name+'.3mf')
         for folder in source_directories:
             candidate=Path(folder).resolve()/(name+'.3mf');sidecar=candidate.with_suffix('.print.json')
             if not candidate.exists() or not sidecar.exists():continue
@@ -781,7 +781,7 @@ def prepare_manifest(manifest_path, *, output_directory=None, selected_plates=No
     manifest_path = Path(manifest_path).resolve()
     manifest = json.loads(manifest_path.read_text())
     if not all(key in manifest for key in ("print_objects", "print_cohorts", "print_plates")):
-        raise ValueError("The Pour requires a V3 manifest with print_objects, print_cohorts and print_plates; existing V2 generated projects are retained.")
+        raise ValueError("A plate manifest requires print_objects, print_cohorts and print_plates.")
     objects, cohorts, plates = (by_id(manifest[key]) for key in ("print_objects", "print_cohorts", "print_plates"))
     assigned = Counter(identifier for plate in plates.values() for identifier in plate["object_ids"])
     if set(assigned) != set(objects) or any(count != 1 for count in assigned.values()):
@@ -797,7 +797,7 @@ def prepare_manifest(manifest_path, *, output_directory=None, selected_plates=No
     digest = sha(manifest_path)
     reports = []
     for plate_id, plate in plates.items():
-        path = output_directory / (plate.get("filename", "the-pour-v3-"+plate_id)+".3mf")
+        path = output_directory / (plate.get("filename", "the-pour-"+plate_id)+".3mf")
         previous_path = path.with_suffix(".print.json")
         previous = json.loads(previous_path.read_text()) if previous_path.exists() else None
         cohort = cohorts[plate["cohort"]]
@@ -840,7 +840,7 @@ def prepare_manifest(manifest_path, *, output_directory=None, selected_plates=No
         save(previous_path, report)
         reports.append(report)
     index_path = output_directory.parent / "print-preparation.json"
-    index = dict(schema=3, title="The Pour V3 — Service Section", source_manifest=relative(manifest_path),
+    index = dict(schema=3, title=manifest.get("title", "The Pour"), source_manifest=relative(manifest_path),
         source_manifest_sha256=digest, preparation_source_sha256=sha(__file__), reader_source_sha256=sha(reading.__file__),
         requested_plate_ids=list(plates), prepared_plate_ids=[row.get("plate_id") for row in reports],
         native_project_count=sum(bool(row.get("native")) for row in reports), projects=[], submitted=False)
