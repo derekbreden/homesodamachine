@@ -1,0 +1,76 @@
+{
+  "status": "Native Mark1 slice reviewed; physical print result pending",
+  "project": "2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf",
+  "project_sha256": "c725ea268af3985944ece5f65e8df893d0f75258167def251e338831962755cf",
+  "archive": "2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.gcode.3mf",
+  "archive_sha256": "ee9069ff97a38bb50cbd164febeb489764c96180d2632ab853f933e7915465c1",
+  "gcode_sha256": "74d2f0525e42fd80ea63610f340dbfb39c0cf7bc5595383dc66283d8fd47490b",
+  "source_project": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf",
+  "source_project_sha256": "be827799b383045a148f92c9659708bef3e3326ff57df970764339bbf33cd728",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "c2a5640db52062b94533d3c355977376a391e3a889b13b0dcc312aea02a761c8"
+  },
+  "printer": "Mark1 (H2C)",
+  "requested_z_trim_mm": 0.0,
+  "plate_trim_commands_mm": [
+    0.0,
+    -0.02
+  ],
+  "recipe_changes": [
+    "machine_start_gcode",
+    "print_compatible_printers",
+    "printer_settings_id"
+  ],
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "extruder_offset": [
+    "0x0",
+    "0x0"
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        168.3947625380948,
+        149.894776
+      ],
+      [
+        186.605224,
+        170.105224
+      ]
+    ],
+    "maximum_line_width_mm": 0.630448,
+    "bounds_padding_mm": 0.41522400000000004
+  },
+  "bead_margin_mm": [
+    143.3947625380948,
+    149.894776,
+    143.394776,
+    149.894776
+  ],
+  "model_edge_gap_mm": 2.0,
+  "object_center_spacing_mm": 10.0,
+  "object_centres_xy_mm": [
+    [
+      172.5,
+      160.0
+    ],
+    [
+      182.5,
+      160.0
+    ]
+  ],
+  "layers": 155,
+  "estimated_seconds": 3924.260009765625,
+  "estimated_filament_g": 8.756891250610352,
+  "slicer_warning": ""
+}

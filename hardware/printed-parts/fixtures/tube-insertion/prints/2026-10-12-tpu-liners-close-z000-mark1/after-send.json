@@ -1,0 +1,30 @@
+[
+  {
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-12T22:28:44.424765+00:00",
+    "task_id": "1333964128",
+    "job_id": "1333964128",
+    "subtask_name": "2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 155,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 65,
+    "stg_cur": -1
+  },
+  {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-10-12T22:28:44.902598+00:00",
+    "task_id": "1333551449",
+    "job_id": "1333551449",
+    "subtask_name": "faucet-best-mark2-r2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 124,
+    "total_layer_num": 1244,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 199,
+    "stg_cur": 0
+  }
+]

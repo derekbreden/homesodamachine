@@ -1,0 +1,67 @@
+{
+  "status": "Native first and second deposited layers reviewed",
+  "gcode_sha256": "74d2f0525e42fd80ea63610f340dbfb39c0cf7bc5595383dc66283d8fd47490b",
+  "prior_gcode_sha256": "1a0985f51371713af61d40badfcac7c17f865d6a443311148089bb21cd02fd1d",
+  "model_edge_gap_mm": 2.0,
+  "conservative_full_bead_gap_mm": 1.7895385380948028,
+  "first_two_layer_z_mm": [
+    0.3,
+    0.48
+  ],
+  "first_two_layer_extrusion_commands_match_prior_after_translation": false,
+  "maximum_normalized_xy_difference_mm": 0.0010000000000000009,
+  "extrusion_recipe_matches_prior": true,
+  "comparison_scope": "Per-object first/second-layer extrusion moves, bead widths, feature order, arc offsets and extrusion amounts; one 0.001 mm rounded arc endpoint differs after translation.",
+  "support_or_brim_features": [],
+  "parts": [
+    {
+      "name": "F lower TPU liner",
+      "identify_id": 1901,
+      "full_bead_envelope": {
+        "extrusion_bounds_xy_mm": [
+          [
+            168.3947625380948,
+            149.894776
+          ],
+          [
+            176.605224,
+            170.105224
+          ]
+        ],
+        "maximum_line_width_mm": 0.630448,
+        "bounds_padding_mm": 0.41522400000000004
+      },
+      "first_layer_extrusion_moves": 70,
+      "second_layer_extrusion_moves": 75,
+      "first_layer_bead_area_mm2": 116.21658226121899,
+      "second_layer_bead_area_mm2": 125.19869240833829,
+      "second_layer_projection_overlap_first_mm2": 115.08775899782496,
+      "second_layer_projection_overlap_fraction": 0.9192409024725571
+    },
+    {
+      "name": "F upper TPU liner",
+      "identify_id": 1902,
+      "full_bead_envelope": {
+        "extrusion_bounds_xy_mm": [
+          [
+            178.3947625380948,
+            149.894776
+          ],
+          [
+            186.605224,
+            170.105224
+          ]
+        ],
+        "maximum_line_width_mm": 0.630448,
+        "bounds_padding_mm": 0.41522400000000004
+      },
+      "first_layer_extrusion_moves": 70,
+      "second_layer_extrusion_moves": 75,
+      "first_layer_bead_area_mm2": 116.21658226121899,
+      "second_layer_bead_area_mm2": 125.19869240833829,
+      "second_layer_projection_overlap_first_mm2": 115.08775899782496,
+      "second_layer_projection_overlap_fraction": 0.9192409024725571
+    }
+  ],
+  "scope": "Toolpath geometry and projected bead contact; physical bed adhesion is unmeasured."
+}

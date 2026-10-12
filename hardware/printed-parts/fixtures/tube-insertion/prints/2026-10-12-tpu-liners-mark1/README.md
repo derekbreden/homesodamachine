@@ -1,5 +1,11 @@
 # Tube insertion TPU grip liners — Mark1
 
+Task **1333827786** has a failed physical result: Derek reports that one liner
+fell over. The [failure record](failure.json) binds that observation to this
+archive; Mark1 reports FAILED with no current error or HMS. The
+[compact 0.00 mm trim retry](../2026-10-12-tpu-liners-close-z000-mark1/README.md)
+contains the replacement print.
+
 The final [tube insertion tool](../../README.md) plate contains two identical
 preformed TPU 85A liners F. Their tube axes are vertical, with each 8 × 20 mm
 end on the bed and the constant half-round gripping channel carried through
@@ -35,5 +41,5 @@ The [preflight](preflight.json), [launch receipt](launch.json) and
 [post-send readings](after-send.json) bind source and submitted G-code hashes,
 printer mapping, options and shared-circuit spacing. Printer 2 retains the
 launch time for job management. This is plate three of three. Both PET-GF
-plates have telemetry completion records; physical liner adhesion, cleanup,
-fit, grip performance and printed strength remain unassessed.
+plates have telemetry completion records. Liner cleanup, fit, grip performance
+and printed strength remain unassessed.
