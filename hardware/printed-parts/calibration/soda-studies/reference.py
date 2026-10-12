@@ -308,6 +308,11 @@ def export(include_pip=True, *, xy_air=.25, z_air=.48):
                        "field_mm":[30,30,10,30,18,40]},
             "pip":generated["pip"],
             "native_support_paint":support_paint,"native_seam_paint":seam_paint,
+            "source_bindings":{str(file.relative_to(ROOT)):hashlib.sha256(file.read_bytes()).hexdigest()
+                               for file in (HERE/"reference.py",HERE/"pip.py",
+                                   ROOT/"hardware/printed-parts/cadlib/overhang_round.py",
+                                   ROOT/"hardware/printed-parts/cadlib/flute_skin.py",
+                                   ROOT/"hardware/printed-parts/enclosure/enclosure/_swept_top.py")},
             "sha256":{file.name:hashlib.sha256(file.read_bytes()).hexdigest()
                       for file in [HERE/"the-pour.step", *HERE.glob("arch-*.step"), *HERE.glob("arch-*.stl")]},
             "required_native_readings":["support/contact slabs", "motion-gap and bridge paths"],

@@ -2,8 +2,11 @@
 
 The two legs provide the crossbar's first bridge anchors. A fixed central
 plinth precedes that bridge, and two fixed lips print above its shoulders.
-The intended motion gaps contain no slicer-generated support. The separate
-supported-ceiling feature belongs outside this module's swept keepout.
+The model-to-model release air separates those shoulders, lips and running
+faces. Automatic ceiling supports may root in the empty terminal travel
+pockets; remove those roots with the ceiling supports before assessing motion.
+Native readings distinguish those removable roots from support touching the
+initially printed moving stock. Physical cleanup and release remain unmeasured.
 """
 from __future__ import annotations
 
@@ -78,15 +81,15 @@ def build(*, xy_air=XY_AIR, z_air=Z_AIR, stroke=STROKE,
     if not 0 <= foot_relief < LEG_THICKNESS/2:
         raise ValueError("Foot relief leaves no positive bed contact")
 
-    # 18.5 mm engagement plus exact 10 mm travel, bounded by 3 mm stops.
+    # 18.5 mm engagement plus exact 10 mm travel, bounded by 3.75 mm stops.
     length = 18.5
     half_leg = length/2
     x0, x1 = centre_x-half_leg, centre_x+half_leg
     stop0 = x0-stroke/2
     stop1 = x1+stroke/2
-    end0, end1 = stop0-3., stop1+3.
+    end0, end1 = stop0-3.75, stop1+3.75
     # One quarter-millimetre overlap with the arch's X +/-18 jambs.
-    tie0, tie1 = end0-1., end1+1.
+    tie0, tie1 = stop0-4., stop1+4.
 
     fy0, fy1 = front_y, front_y+3.
     leg0 = fy1+xy_air
@@ -154,8 +157,9 @@ def build(*, xy_air=XY_AIR, z_air=Z_AIR, stroke=STROKE,
                            centre_x+tab_half_x+stroke/2,
                            tab_y1, catch1, lip0, lip1),
     }
-    # The complete swept corridor is the intended motion volume: supports
-    # there would prevent the feature from performing its named action.
+    # Suppress support contacts inside the intended motion corridor. Native
+    # footprint readings also distinguish removable end-pocket roots from
+    # deposits touching the initially printed moving stock.
     blockers = {**cuts, **gaps}
     common_phase = all(abs((z-.20)/.24-round((z-.20)/.24)) < 1e-7
                        for z in (floor_z, bar0, bar1, lip0))
@@ -172,7 +176,8 @@ def build(*, xy_air=XY_AIR, z_air=Z_AIR, stroke=STROKE,
         "stock_mm": {"legs": LEG_THICKNESS,
                      "bed_contact_after_relief": LEG_THICKNESS-2*foot_relief,
                      "bar": BAR_THICKNESS, "lips": LIP_THICKNESS,
-                     "walls_and_stops": 3., "central_plinth_height": floor_z},
+                     "walls_and_stops": 3., "stop_axial": 3.75,
+                     "central_plinth_height": floor_z},
         "bed_relief": {"per_face_mm": foot_relief, "height_mm": FOOT_HEIGHT,
                        "scope": "Moving leg bed contacts only; full 3 mm leg stock above Z1."},
         "actual_bounds_mm": {"fixed": bounds(fixed), "moving": bounds(moving),
@@ -193,7 +198,7 @@ def build(*, xy_air=XY_AIR, z_air=Z_AIR, stroke=STROKE,
             "Read floor-to-first-bar-slab and last-bar-to-first-lip-slab gaps.",
             "Report bridge flow heights independently of nominal model slabs.",
             "No model, support or brim roads connect the moving first-layer feet.",
-            "No support deposits occupy the intentional moving and release gaps.",
+            "No support deposits touch the initially printed moving stock or bridge its model-to-model release air; report removable terminal-pocket roots separately.",
             "Keep accessible automatic supports under the independent fixed roof.",
         ],
         "contact_planes_on_common_layer_phase": common_phase,
