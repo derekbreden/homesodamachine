@@ -241,6 +241,14 @@
       "purchase_id": "pur-bd9cd829101241ce9c11a341dfe51b42"
     },
     {
+      "allocation_id": "alloc-42c00c64777940d9ae77694127f43343",
+      "amount_minor": 852,
+      "currency": "USD",
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "order_id": "amazon:112-1633049-9300204",
+      "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790"
+    },
+    {
       "allocation_id": "alloc-476ac9466741403eafba9207206b01e5",
       "amount_minor": 10998,
       "currency": "USD",
@@ -327,6 +335,14 @@
       "event_id": "evt-5ae4ed3af50640259e25b3bf4db9737b",
       "order_id": "anthropic:HYODLCRX-0010",
       "purchase_id": "pur-d27a2797f45d4698a8f9eaa0438eae41"
+    },
+    {
+      "allocation_id": "alloc-54ff87adfa2c44768a8dd96e4f8a9a5d",
+      "amount_minor": 2114,
+      "currency": "USD",
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "order_id": "amazon:112-1633049-9300204",
+      "purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8"
     },
     {
       "allocation_id": "alloc-5bb4c343bfb548fa910c2fb1aed70882",
@@ -1752,6 +1768,26 @@
       "vendor": "Namecheap"
     },
     {
+      "checked_at": "2026-10-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-eee3337cad824a7788c806a39d1436fe",
+      "evidence_type": "order_details",
+      "examined_period": {
+        "end": "2026-10-11",
+        "start": "2026-10-11"
+      },
+      "note": "Scoped review of the named adhesive order and its individual order summary. No claim of complete Amazon account coverage, completed payment or physical delivery.",
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "stream": "valve-retention adhesive order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -2719,6 +2755,32 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-42c00c64777940d9ae77694127f43343",
+        "alloc-54ff87adfa2c44768a8dd96e4f8a9a5d"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 2966,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "purchase_ids": [
+        "pur-3ce173932d6c45f184bcd60237a2c790",
+        "pur-a667e3ee975c42218852bc7b225d75a8"
+      ],
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "allocation_ids": [
@@ -5582,7 +5644,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:c08b109cf57a741eeb44e9f2c01a5fa9c94e989bbcb2a97bc1db6e8bff732d7a",
+  "input_fingerprint": "sha256:7b9ecb130800b4068ea6d1fc55c6abdc0a195d38714134626e428a8835f0ae45",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -6405,6 +6467,26 @@
       "reference": "112-1627637-9419449",
       "source_ids": [
         "saved-amazon:112-1627637-9419449"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-4f7b7d18ceab43979159e02bdb2a306d"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_id": "amazon:112-1633049-9300204",
+      "purchase_ids": [
+        "pur-3ce173932d6c45f184bcd60237a2c790",
+        "pur-a667e3ee975c42218852bc7b225d75a8"
+      ],
+      "reference": "112-1633049-9300204",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
       ],
       "vendor": "Amazon"
     },
@@ -20231,6 +20313,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Polymaker"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 852,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Loctite Super Glue Plastics Bonding System 681925, heptane-base activator pen (4 g) + ethyl cyanoacrylate (2 g) — the activator primes the Beduan valve posts for the same retention trial. Two kits, $3.97 ea + $0.58 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping",
+      "event_ids": [
+        "evt-4f7b7d18ceab43979159e02bdb2a306d"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790",
+      "purpose": "consumables_materials",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -34194,6 +34322,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 2114,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "LOCTITE 406 instant adhesive, 20 g, low-viscosity ethyl cyanoacrylate for plastics and rubber — Beduan valve-post retention trial: wicked into the PET-GF sockets around primed posts. Two bottles, $9.86 ea + $1.42 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping",
+      "event_ids": [
+        "evt-4f7b7d18ceab43979159e02bdb2a306d"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8",
+      "purpose": "consumables_materials",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -51297,6 +51471,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: two LOCTITE 406 20 g bottles at $9.86 each (sold by ACTOOLS, shipped by Amazon) and two Loctite Super Glue Plastics Bonding System kits at $3.97 each (sold by Amazon.com); $27.66 item subtotal, $0.00 shipping, $2.00 estimated tax and $29.66 grand total; ordered 2026-10-11, arriving 2026-10-13. Both listings showed the Prime logo on 2026-10-11. The order states one tax amount; the rows split it per unit at 7.25% ($0.71 per 406 bottle, $0.29 per kit), which sums to the stated $2.00. Delivery is pending; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-1633049-9300204",
+      "source_id": "src-15a0dd5bd1ed4f618820a186549645d2",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-27"
       },
       "document_type": "merchant_monetary_receipt",
@@ -55172,7 +55362,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 138575,
+          "amount_minor": 141541,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -55181,11 +55371,13 @@
             "pur-1394610e499a45c08ba665ed1200053c",
             "pur-27bb6c07598243e390e2ca407e908695",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
+            "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-99a0644333ed4c5a8e5d5514098319fa",
+            "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d36058a2086244bb96897635d4ec352a",
@@ -55212,11 +55404,13 @@
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-27bb6c07598243e390e2ca407e908695",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
+        "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-65c979f1bb194148918426361d985f73",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
         "pur-99a0644333ed4c5a8e5d5514098319fa",
+        "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e",
@@ -55232,6 +55426,7 @@
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-4991502f7a0d484788efb14e364fc889",
+        "evt-4f7b7d18ceab43979159e02bdb2a306d",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-822df10968c94d009e356f29f845abc5",
         "evt-859aaf61508e423492ba56484ab9f2df",
@@ -55523,6 +55718,7 @@
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-4991502f7a0d484788efb14e364fc889",
+            "evt-4f7b7d18ceab43979159e02bdb2a306d",
             "evt-5a6637d18fab4dbaa2c3a7428c33273f",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-69d186cf3c4c436788b6706105b50532",
@@ -56185,7 +56381,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 13540,
+          "estimate_minor": 16506,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 51382,
           "legacy_unverified_minor": 30634,
@@ -56195,6 +56391,7 @@
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
             "pur-27bb6c07598243e390e2ca407e908695",
+            "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-633abd30f0524d80a397fcee998a7658",
@@ -56203,6 +56400,7 @@
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+            "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
@@ -56211,7 +56409,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 95556,
+          "total_minor": 98522,
           "unknown_amount_ids": []
         },
         {
@@ -56244,7 +56442,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 572513,
+          "amount_minor": 575479,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -56277,10 +56475,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 170633,
+          "estimate_minor": 173599,
           "final_vendor_amount_minor": 1071256,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4563788
+          "total_minor": 4566754
         }
       ],
       "undated_unallocated": [
@@ -56432,11 +56630,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 170633,
+          "estimated_purchase_minor": 173599,
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3855553,
+          "purchases_without_merchant_charge_minor": 3858519,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 918334,
@@ -56449,12 +56647,14 @@
       "estimated_purchase_ids": [
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
+        "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-88c94356779a413f95d4e1b878b4bb18",
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
+        "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
@@ -56508,6 +56708,7 @@
         "coverage-dad019e8b30b485e9203a063ea3654ba",
         "coverage-dc497fe458424d6e96f59f91a9cd428e",
         "coverage-e361f03c5b404f3f92334c4f92bab5f8",
+        "coverage-eee3337cad824a7788c806a39d1436fe",
         "coverage-f000ac62945a4ef1b60842f89aa45a31",
         "coverage-f18d82d4491b433d80956e513f0c3242",
         "coverage-f3f98441b0e444bc9a4b46e0e90093fe",
@@ -57163,6 +57364,7 @@
         "pur-3b72c994b94b43c29f76326060b40799",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
         "pur-3be1b856906740fcbb8abccf195fcf8c",
+        "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
@@ -57413,6 +57615,7 @@
         "pur-a53ccd97d110495190a9b5e728f00720",
         "pur-a5a649c9e5d44becb55d3921d1a625f7",
         "pur-a65c9eb5bab34a92879abe95032c7fad",
+        "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-a748e002d30f4feaa479ad9601062796",
         "pur-a905c347f2ff42f5a0870c953cb18946",
         "pur-aa976356e62445be80822f3ba9966bd3",
@@ -57609,6 +57812,7 @@
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-4991502f7a0d484788efb14e364fc889",
+        "evt-4f7b7d18ceab43979159e02bdb2a306d",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-69d186cf3c4c436788b6706105b50532",
@@ -57790,6 +57994,7 @@
       "coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
       "coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",
       "coverage-e361f03c5b404f3f92334c4f92bab5f8: evidence coverage is unknown",
+      "coverage-eee3337cad824a7788c806a39d1436fe: evidence coverage is partial",
       "coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
       "coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
       "coverage-f3f98441b0e444bc9a4b46e0e90093fe: evidence coverage is partial",
