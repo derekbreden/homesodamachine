@@ -10,8 +10,9 @@ The [three-increment Mark2 fit comparison](../../../../future/umbilical-organize
 selects A's Ø6.65 mm bores for the three quarter-inch tubes and B's Ø4.40 mm
 bore for the received 4 mm drain tube. The [physical acceptance record](physical-acceptance.json) binds
 these feature-level selections to the exact printed samples, job and settings.
-The combined production puck is unprinted; the selected bore fits have physical
-evidence. Quantified sliding force, endurance and complete installed mounting
+The combined production puck has [completed Mark1 print telemetry](prints/2026-10-11-current-mark1/README.md);
+its complete fit and flat ribbon slot remain physically unassessed. The selected
+round-bore fits have physical evidence. Quantified sliding force, endurance and complete installed mounting
 access are unmeasured.
 
 | Feature | Dimension |
@@ -103,8 +104,8 @@ bores, B Ø6.75/4.40/5.10 mm and C Ø6.85/4.50/5.20 mm. Production combines
 A's beverage bore dimensions with B's drain bore dimensions. Its stock diameter,
 tube contact length, tube chamfers and upright orientation match the trials.
 The production axes follow the mounting row and its ribbon passage is a flat
-slot. The fit evidence applies to the selected round-bore profiles, not to the
-unprinted organizer layout or signal slot.
+slot. The fit evidence applies to the selected round-bore profiles; complete
+organizer layout and signal-slot fit remain unassessed.
 The separate frozen [Ø4.30 mm drain-fit archive](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
 is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry manually with

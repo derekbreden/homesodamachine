@@ -24,4 +24,6 @@ from acceptance, plus additional calibration and any pauses. [Preflight](preflig
 and the 180-second peer startup spacing. No automatic next print or scheduled
 monitor is requested.
 
-Physical adhesion, combined organizer fit and appearance are pending.
+The machine reports **FINISH / 42 of 42 layers / no fault** at **7:27 pm CDT**.
+Combined organizer fit, ribbon-slot threading, adhesion and appearance remain
+unassessed by physical inspection.

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "recorded_at_utc": "2026-10-12T00:06:38.235612+00:00",
-  "status": "Accepted one latest production organizer; physical result pending",
+  "status": "Completed telemetry; complete production fit and appearance pending",
   "printer": "Mark1",
   "connection_alias": "H2C",
   "authorization_quotes": [
@@ -182,5 +182,17 @@
   "ui_acceptance": "Bambu Connect Mark1 device page shows exact new archive, Cooling chamber, 0/42 layers",
   "native_forecast_completion_central": "2026-10-11T19:22:19.658218-05:00",
   "forecast_scope": "Native estimate from first observed acceptance; add additional calibration and any pauses",
-  "start_notification_reported": true
+  "start_notification_reported": true,
+  "completion_observation": {
+    "observed_at_utc": "2026-10-12T00:27:09.284562+00:00",
+    "task_id": "1331044065",
+    "job_id": "1331044065",
+    "subtask_name": "2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 42,
+    "total_layer_num": 42,
+    "print_error": 0,
+    "hms": []
+  },
+  "completion_scope": "Machine reports exact accepted organizer completed; no visual inspection, complete fit or slot acceptance inferred."
 }
