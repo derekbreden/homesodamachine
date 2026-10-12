@@ -329,6 +329,14 @@
       "purchase_id": "pur-9539742cc443494b8fedbcf768c872a5"
     },
     {
+      "allocation_id": "alloc-528e0bd836064b22951f5f082f472d1e",
+      "amount_minor": 21245,
+      "currency": "USD",
+      "event_id": "evt-bad47324ad83426992a3db494d58e295",
+      "order_id": "amazon:114-5708094-2581869",
+      "purchase_id": "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+    },
+    {
       "allocation_id": "alloc-52ef0524698b45909f4699bcd7e9578d",
       "amount_minor": 5012,
       "currency": "USD",
@@ -433,6 +441,14 @@
       "purchase_id": "pur-0de724fb2be44bf9b3730bcdec8c7d10"
     },
     {
+      "allocation_id": "alloc-836e72fcf01b4021ad6a308c786ef035",
+      "amount_minor": 2358,
+      "currency": "USD",
+      "event_id": "evt-e5f1a5d1860941fe82124df7e77e67fe",
+      "order_id": "amazon:112-8160692-2465006",
+      "purchase_id": "pur-250afee3f9d341c9a9d18d4e33c0fd0e"
+    },
+    {
       "allocation_id": "alloc-83fc3767fb9c46f2b5a07a3677537047",
       "amount_minor": 6370,
       "currency": "USD",
@@ -447,6 +463,14 @@
       "event_id": "evt-278aa22ab69d415e9381c8f7a01b2ee0",
       "order_id": "anthropic:HYODLCRX-0055",
       "purchase_id": "pur-9e4cb7cabe0d49589e61a4b9445bfb81"
+    },
+    {
+      "allocation_id": "alloc-8bb78428ad344b5b9c3eabd28822fbfc",
+      "amount_minor": 19302,
+      "currency": "USD",
+      "event_id": "evt-a581db47af7146ef95a329e497e4fbe6",
+      "order_id": "amazon:114-9279946-8137001",
+      "purchase_id": "pur-ad87bb1e2d7548aa9fdf66293915a4f4"
     },
     {
       "allocation_id": "alloc-8c05096e7c2a4f05913e6d08942d51a7",
@@ -623,6 +647,14 @@
       "event_id": "evt-859aaf61508e423492ba56484ab9f2df",
       "order_id": "amazon:112-4198441-3661019",
       "purchase_id": "pur-87565d390bcc451a9fbfb44dc871d585"
+    },
+    {
+      "allocation_id": "alloc-ac33f04542b041feb258e80a7703d5a2",
+      "amount_minor": 9640,
+      "currency": "USD",
+      "event_id": "evt-ef96ebf561264b5dafd229959a5acabe",
+      "order_id": "amazon:114-5870152-3334654",
+      "purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858"
     },
     {
       "allocation_id": "alloc-af5bec4281844814b9c44e31fe83058f",
@@ -1672,6 +1704,33 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "RiteAV"
+    },
+    {
+      "checked_at": "2026-10-11",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bd8d0957451549b2bd2006065f3ef7cb",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "examined_period": {
+        "end": "2026-10-11",
+        "start": "2026-10-07"
+      },
+      "note": "Order details and order-scoped Transactions for four named project orders: one Completed charge (114-9279946-8137001); the other three listed no transactions yet. No claim of complete Amazon account coverage.",
+      "order_ids": [
+        "amazon:112-8160692-2465006",
+        "amazon:114-5708094-2581869",
+        "amazon:114-5870152-3334654",
+        "amazon:114-9279946-8137001"
+      ],
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586",
+        "src-41d4c76c12f640de929a81e7e06b4322",
+        "src-73f93ccef6d4495f9740151c9a066f44",
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb",
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ],
+      "stream": "selected project orders and order-scoped Transactions",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -4097,6 +4156,33 @@
     },
     {
       "allocation_ids": [
+        "alloc-8bb78428ad344b5b9c3eabd28822fbfc"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 19302,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "event_id": "evt-a581db47af7146ef95a329e497e4fbe6",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-9279946-8137001"
+      ],
+      "purchase_ids": [
+        "pur-ad87bb1e2d7548aa9fdf66293915a4f4"
+      ],
+      "source_ids": [
+        "src-41d4c76c12f640de929a81e7e06b4322"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "allocation_ids": [
         "alloc-3437890f213849e3a7efc26e6ba0615e"
       ],
       "allocation_status": "all_project",
@@ -4254,6 +4340,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-528e0bd836064b22951f5f082f472d1e"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 21245,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-bad47324ad83426992a3db494d58e295",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-5708094-2581869"
+      ],
+      "purchase_ids": [
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+      ],
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "allocation_ids": [
@@ -4939,6 +5049,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-836e72fcf01b4021ad6a308c786ef035"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 2358,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-e5f1a5d1860941fe82124df7e77e67fe",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-8160692-2465006"
+      ],
+      "purchase_ids": [
+        "pur-250afee3f9d341c9a9d18d4e33c0fd0e"
+      ],
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "allocation_ids": [
         "alloc-23443621519f40f587dc62f972b96b0b"
       ],
       "allocation_status": "all_project",
@@ -5064,6 +5198,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-ac33f04542b041feb258e80a7703d5a2"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 9640,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-ef96ebf561264b5dafd229959a5acabe",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-5870152-3334654"
+      ],
+      "purchase_ids": [
+        "pur-d8a8a1e239ff48b6a6b19c43e22b4858"
+      ],
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "allocation_ids": [
@@ -5644,7 +5802,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:7b9ecb130800b4068ea6d1fc55c6abdc0a195d38714134626e428a8835f0ae45",
+  "input_fingerprint": "sha256:a2a4b8d5e0549824dfff2c76f2422565d4ac0944ba3bca8b53a6b489b79bc88c",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -9294,6 +9452,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-e5f1a5d1860941fe82124df7e77e67fe"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "order_id": "amazon:112-8160692-2465006",
+      "purchase_ids": [
+        "pur-250afee3f9d341c9a9d18d4e33c0fd0e"
+      ],
+      "reference": "112-8160692-2465006",
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -10904,6 +11081,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-bad47324ad83426992a3db494d58e295"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_id": "amazon:114-5708094-2581869",
+      "purchase_ids": [
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+      ],
+      "reference": "114-5708094-2581869",
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -10936,6 +11132,25 @@
       "reference": "114-5825243-4744249",
       "source_ids": [
         "saved-amazon:114-5825243-4744249"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-ef96ebf561264b5dafd229959a5acabe"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_id": "amazon:114-5870152-3334654",
+      "purchase_ids": [
+        "pur-d8a8a1e239ff48b6a6b19c43e22b4858"
+      ],
+      "reference": "114-5870152-3334654",
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
       ],
       "vendor": "Amazon"
     },
@@ -11270,6 +11485,25 @@
       "reference": "114-8935189-9054653",
       "source_ids": [
         "saved-amazon:114-8935189-9054653"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-a581db47af7146ef95a329e497e4fbe6"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "order_id": "amazon:114-9279946-8137001",
+      "purchase_ids": [
+        "pur-ad87bb1e2d7548aa9fdf66293915a4f4"
+      ],
+      "reference": "114-9279946-8137001",
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586"
       ],
       "vendor": "Amazon"
     },
@@ -17978,6 +18212,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-3443368-0402610"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 2358,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "BESSEY GSCC2.506 clutch-style bar clamps, 6\" opening × 2.5\" throat, 600 lb — C1/C2, the two outboard metal screw clamps of the tube insertion guide. Two clamps, $10.99 ea + $1.60 estimated tax, free shipping",
+      "event_ids": [
+        "evt-e5f1a5d1860941fe82124df7e77e67fe"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "order_ids": [
+        "amazon:112-8160692-2465006"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+      "purpose": "equipment_tooling",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-f5c929d3032043f28bdc2e1dc38d137c"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -34797,6 +35077,62 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 19302,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-10"
+        }
+      ],
+      "description": "Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $59.99 ea × 3 + $13.05 NE tax, free shipping; $193.02 charged, $21.45/kg",
+      "event_ids": [
+        "evt-a581db47af7146ef95a329e497e4fbe6"
+      ],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
+      "merchant_charge_allocated_minor": 19302,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "order_ids": [
+        "amazon:114-9279946-8137001"
+      ],
+      "payment_evidence": "merchant_charge",
+      "price_basis": "row_total",
+      "purchase_id": "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
+      "purpose": "consumables_materials",
+      "quantity": 3,
+      "quantity_text": "3",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "row_date_basis": "order_date",
+      "section": "13. Printing consumables",
+      "service_period": null,
+      "source_ids": [
+        "src-35211ba10f6a424385cd56f235caa586",
+        "src-41d4c76c12f640de929a81e7e06b4322"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 857,
       "contributes": true,
@@ -40254,6 +40590,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 9640,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Beduan 12 V 1/4\" inlet water solenoid (NC) — ten valves, $8.99 ea + $6.50 estimated tax, free shipping",
+      "event_ids": [
+        "evt-ef96ebf561264b5dafd229959a5acabe"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_ids": [
+        "amazon:114-5870152-3334654"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+      "purpose": "components",
+      "quantity": 10,
+      "quantity_text": "10",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "row_date_basis": "order_date",
+      "section": "5. Flavor subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-73f93ccef6d4495f9740151c9a066f44"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 5011,
       "contributes": true,
@@ -43690,6 +44072,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-4838401-4353060"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 21245,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) — five pumps, $39.62 ea + $14.35 estimated tax, free shipping",
+      "event_ids": [
+        "evt-bad47324ad83426992a3db494d58e295"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "order_ids": [
+        "amazon:114-5708094-2581869"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+      "purpose": "components",
+      "quantity": 5,
+      "quantity_text": "5",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "row_date_basis": "order_date",
+      "section": "5. Flavor subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -51974,6 +52402,23 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: three Polymaker Fiberon PET-GF15 1.75 mm 3 kg Black spools at $59.99 each, sold by Polymaker LLC; $179.97 item subtotal, $0.00 shipping, $13.05 estimated tax and $193.02 grand total; ordered 2026-10-07. Two shipments (one spool, then two) both show Delivered October 10.",
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "reference": "114-9279946-8137001",
+      "source_id": "src-35211ba10f6a424385cd56f235caa586",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-18"
       },
       "document_type": "merchant_monetary_receipt",
@@ -52115,6 +52560,23 @@
       "source_id": "src-408e299690494cb2ac124d29e13d8fa5",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "note": "Order-scoped Transactions lists one Completed charge equal to the order total. No bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "114-9279946-8137001",
+      "source_id": "src-41d4c76c12f640de929a81e7e06b4322",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "document_date": null,
@@ -52807,6 +53269,22 @@
       "source_id": "src-72b9bf2b7b654b58afdf06d6fa228e74",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: ten Beduan 12 V 1/4 in normally closed solenoid valves at $8.99 each, sold by Beduan; $89.90 item subtotal, $0.00 shipping, $6.50 estimated tax and $96.40 grand total; ordered 2026-10-11, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-5870152-3334654",
+      "source_id": "src-73f93ccef6d4495f9740151c9a066f44",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "document_date": {
@@ -54360,6 +54838,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: five Kamoer KPHM600-SW3B17 peristaltic pumps at $39.62 each, sold by Kamoer Fluid Tech (Shanghai) Co., Ltd.; $198.10 item subtotal, $0.00 shipping, $14.35 estimated tax and $212.45 grand total; ordered 2026-10-11, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-5708094-2581869",
+      "source_id": "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-06-30"
       },
       "document_type": "merchant_monetary_receipt",
@@ -54456,6 +54950,22 @@
       "source_id": "src-ef75a3632eb640eea6986af69e05a1ed",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: two Bessey GSCC2.506 clutch-style 6 in bar clamps at $10.99 each, sold by Amazon.com; $21.98 item subtotal, $0.00 shipping, $1.60 estimated tax and $23.58 grand total; ordered 2026-10-10, arriving 2026-10-13. Order-scoped Transactions listed no transactions on 2026-10-11; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-8160692-2465006",
+      "source_id": "src-f5c929d3032043f28bdc2e1dc38d137c",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-11"
     },
     {
       "document_date": {
@@ -54697,7 +55207,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4412186,
+          "amount_minor": 4431488,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -55127,6 +55637,7 @@
             "pur-ab4666fecc0947408ccb9177de425c95",
             "pur-ab6c1aedc885487f9041593fc16cc55f",
             "pur-abc14bfb204440ea95552fa9d52b468c",
+            "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-adb86d9b3bbd4c5cacd3e74beda4c9d2",
             "pur-ade22aba11974e1d9fe5963fbb9f2d40",
             "pur-ae7d727516254dc59f65e97677d5ac9a",
@@ -55362,13 +55873,14 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 141541,
+          "amount_minor": 174784,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
+            "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-27bb6c07598243e390e2ca407e908695",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-3ce173932d6c45f184bcd60237a2c790",
@@ -55381,7 +55893,9 @@
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d36058a2086244bb96897635d4ec352a",
+            "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+            "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
           "unknown_amount_ids": []
@@ -55402,6 +55916,7 @@
         "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
+        "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-27bb6c07598243e390e2ca407e908695",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-3ce173932d6c45f184bcd60237a2c790",
@@ -55416,7 +55931,9 @@
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d36058a2086244bb96897635d4ec352a",
+        "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
         "pur-f98feadd5dec4c1cba460dd7c74baa09"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
@@ -55430,9 +55947,12 @@
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-822df10968c94d009e356f29f845abc5",
         "evt-859aaf61508e423492ba56484ab9f2df",
+        "evt-bad47324ad83426992a3db494d58e295",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-d1da698db2c940a09ec686643f142b0d"
+        "evt-d1da698db2c940a09ec686643f142b0d",
+        "evt-e5f1a5d1860941fe82124df7e77e67fe",
+        "evt-ef96ebf561264b5dafd229959a5acabe"
       ],
       "monthly": [
         {
@@ -55652,19 +56172,20 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 17940,
+          "charges_minor": 37242,
           "currency": "USD",
           "event_ids": [
             "evt-0a248482126b481c9dc3c58fd1f7b687",
             "evt-386ad2f294484e34be366468ee01c432",
             "evt-859aaf61508e423492ba56484ab9f2df",
+            "evt-a581db47af7146ef95a329e497e4fbe6",
             "evt-c0203246ff88423a9af71d1977ede6c4",
             "evt-e1c554d60bb24823b9f662d1d7a5147d",
             "evt-fbf07ae494714e37ad3336ebf5f2b76a"
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-10",
-          "net_minor": 17940,
+          "net_minor": 37242,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -55700,9 +56221,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 710422,
+          "charges_minor": 729724,
           "currency": "USD",
-          "net_minor": 710422,
+          "net_minor": 729724,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -55725,8 +56246,11 @@
             "evt-822df10968c94d009e356f29f845abc5",
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
+            "evt-bad47324ad83426992a3db494d58e295",
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-            "evt-d1da698db2c940a09ec686643f142b0d"
+            "evt-d1da698db2c940a09ec686643f142b0d",
+            "evt-e5f1a5d1860941fe82124df7e77e67fe",
+            "evt-ef96ebf561264b5dafd229959a5acabe"
           ],
           "net_minor": 57998,
           "noncash_credits_minor": 0,
@@ -56381,15 +56905,16 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 16506,
+          "estimate_minor": 49749,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 51382,
+          "final_vendor_amount_minor": 70684,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
             "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
+            "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-27bb6c07598243e390e2ca407e908695",
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
@@ -56401,15 +56926,18 @@
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-a667e3ee975c42218852bc7b225d75a8",
+            "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d22466e29dac4d8ca46fdc5c575dde2c",
+            "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+            "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 98522,
+          "total_minor": 151067,
           "unknown_amount_ids": []
         },
         {
@@ -56437,12 +56965,12 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1038792,
+          "amount_minor": 1069677,
           "currency": "USD",
           "purpose": "components"
         },
         {
-          "amount_minor": 575479,
+          "amount_minor": 594781,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -56457,7 +56985,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2154244,
+          "amount_minor": 2156602,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -56475,10 +57003,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 173599,
-          "final_vendor_amount_minor": 1071256,
+          "estimate_minor": 206842,
+          "final_vendor_amount_minor": 1090558,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4566754
+          "total_minor": 4619299
         }
       ],
       "undated_unallocated": [
@@ -56630,11 +57158,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 173599,
+          "estimated_purchase_minor": 206842,
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3858519,
+          "purchases_without_merchant_charge_minor": 3891762,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 918334,
@@ -56647,6 +57175,7 @@
       "estimated_purchase_ids": [
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
+        "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-5090fe33ed404b20b5f3401171bf8565",
@@ -56659,7 +57188,9 @@
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
-        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
+        "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
       ],
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
@@ -56702,6 +57233,7 @@
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
+        "coverage-bd8d0957451549b2bd2006065f3ef7cb",
         "coverage-c57ca481544248138b803bc112966160",
         "coverage-c7f0244fd78749e6a3eda6f37122dba0",
         "coverage-d4baf4542f40450189a7fdcacc197039",
@@ -57320,6 +57852,7 @@
         "pur-231e62f4d5184efe8dea6ec5f44a1a7a",
         "pur-2457df51398f4e368395d5ee52488c9b",
         "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
+        "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-256b2c67900b47178deeae21da804833",
         "pur-2652d8ca1192405996c3cbee93805c40",
         "pur-26a055757240455891e7ea95c995df3e",
@@ -57720,6 +58253,7 @@
         "pur-d7eab3c386f748a095e9643c083d30ed",
         "pur-d83d321239db48ee949f436e89843a22",
         "pur-d84786a4222e445d8af1bf8d2725bd01",
+        "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
         "pur-d93ee965bacf499aa09cd8ddb8f80f01",
         "pur-d9a7fc46c6a94ed792dea9b448ecdf05",
         "pur-dc2db914953b4bfc837b9ddc3c762e61",
@@ -57779,6 +58313,7 @@
         "pur-f34a0cbf6ba74d11887b5ec0c8206984",
         "pur-f35fe0e3500e48a39375f599a22c10b7",
         "pur-f388c05169ab4897ac280a4f223c0c5f",
+        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
         "pur-f6b7d75f40e1438eb4f40369415eae9b",
         "pur-f70555b4b44a48bfb6a721df7ce9c67a",
         "pur-f72654878f064c6181771847d3914c8d",
@@ -57819,8 +58354,11 @@
         "evt-822df10968c94d009e356f29f845abc5",
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
+        "evt-bad47324ad83426992a3db494d58e295",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-d1da698db2c940a09ec686643f142b0d"
+        "evt-d1da698db2c940a09ec686643f142b0d",
+        "evt-e5f1a5d1860941fe82124df7e77e67fe",
+        "evt-ef96ebf561264b5dafd229959a5acabe"
       ],
       "undated_unallocated_purchase_ids": [
         "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -57988,6 +58526,7 @@
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
+      "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
       "coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
       "coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
