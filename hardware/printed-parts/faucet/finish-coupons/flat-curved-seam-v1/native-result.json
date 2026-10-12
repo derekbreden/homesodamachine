@@ -1,0 +1,109 @@
+{
+    "error_string": "Success.",
+    "export_time": 759,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 212,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 78.61119842529297,
+                "Bridge": 99.95489501953125,
+                "Custom": 305.4227600097656,
+                "Flush": 15.0,
+                "Gap infill": 3.891998052597046,
+                "Inner wall": 124.61913299560547,
+                "Internal solid infill": 138.28787231445313,
+                "Outer wall": 148.4567108154297,
+                "Sparse infill": 152.22288513183594,
+                "Top surface": 39.1727409362793,
+                "Travel": 154.62335205078125,
+                "Undefined": 145.01539611816406
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 7.963032245635986,
+                    "total_used_g": 7.963032245635986
+                }
+            ],
+            "generate_support_material_time": 25,
+            "id": 1,
+            "infill_time": 72,
+            "layer_filament_change": 0,
+            "main_predication": 924.8262329101563,
+            "make_perimeters_time": 152,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 28.414310455322266,
+                        "height": 7.159999847412109,
+                        "width": 26.99999237060547,
+                        "x": 131.5,
+                        "y": 128.2928466796875,
+                        "z": 2.9394531253501555e-10
+                    },
+                    "id": 5,
+                    "name": "A flat face",
+                    "triangle_count": 25344
+                },
+                {
+                    "bbox": {
+                        "depth": 29.868318557739258,
+                        "height": 7.159999847412109,
+                        "width": 26.999998092651367,
+                        "x": 166.5,
+                        "y": 127.56584167480469,
+                        "z": 2.9394531253501555e-10
+                    },
+                    "id": 9,
+                    "name": "B curved face",
+                    "triangle_count": 27392
+                },
+                {
+                    "bbox": {
+                        "depth": 29.868318557739258,
+                        "height": 7.159999847412109,
+                        "width": 26.999998092651367,
+                        "x": 131.5,
+                        "y": 162.5658416748047,
+                        "z": 2.9394531253501555e-10
+                    },
+                    "id": 13,
+                    "name": "C curved face",
+                    "triangle_count": 27392
+                },
+                {
+                    "bbox": {
+                        "depth": 28.414310455322266,
+                        "height": 7.159999847412109,
+                        "width": 26.99999237060547,
+                        "x": 166.5,
+                        "y": 163.2928466796875,
+                        "z": 2.9394531253501555e-10
+                    },
+                    "id": 17,
+                    "name": "D flat face",
+                    "triangle_count": 25344
+                }
+            ],
+            "sliced_time": 824,
+            "sliced_time_with_cache": 546,
+            "total_predication": 1250.6409912109375,
+            "triangle_count": 105472,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

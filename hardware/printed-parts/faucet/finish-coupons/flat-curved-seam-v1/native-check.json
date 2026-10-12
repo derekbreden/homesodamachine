@@ -1,0 +1,376 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "7832fff335428e8a4c8f32d4f9610e85f877a1c9624888f4163d6e200863365a",
+    "gcode_sha256": "297165a78dec538551f7ee4e0a76b8c9286227ac6f1bce07b581955e7778dbd6",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 30,
+    "estimated_seconds": 1250.6409912109375,
+    "estimated_grams_saved_profile_density": 7.963032245635986,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 4
+  },
+  "geometry": [
+    {
+      "name": "A flat face",
+      "native_vertex_error_mm": 5.264953699679609e-07,
+      "triangles_identical": true,
+      "seam_paint_retained": true
+    },
+    {
+      "name": "B curved face",
+      "native_vertex_error_mm": 5.264953699679609e-07,
+      "triangles_identical": true,
+      "seam_paint_retained": true
+    },
+    {
+      "name": "C curved face",
+      "native_vertex_error_mm": 5.264953699679609e-07,
+      "triangles_identical": true,
+      "seam_paint_retained": true
+    },
+    {
+      "name": "D flat face",
+      "native_vertex_error_mm": 5.264953699679609e-07,
+      "triangles_identical": true,
+      "seam_paint_retained": true
+    }
+  ],
+  "seam_readings": [
+    {
+      "id": "A",
+      "face": "flat",
+      "layers": 30,
+      "largest_absolute_seam_x_mm": 0.07499284744261558,
+      "flat_face_corner_clearance_mm": 5.925007152557384,
+      "minimum_second_wall_bed_overlap_fraction": 0.48238875485830834,
+      "witnesses": [
+        {
+          "z_mm": 0.44,
+          "source_start_mm": [
+            -0.05599284744263855,
+            45.67901750946044,
+            0.4399999999999977
+          ],
+          "area_mm2": 562.6631250000155,
+          "start_mm": [
+            144.944,
+            154.664,
+            0.44
+          ],
+          "end_mm": [
+            145.004,
+            154.664,
+            0.44
+          ],
+          "gap_mm": 0.060000000000002274
+        },
+        {
+          "z_mm": 3.8,
+          "source_start_mm": [
+            -0.053992847442629,
+            46.58001750946045,
+            3.7999999999999976
+          ],
+          "area_mm2": 562.6774275000043,
+          "start_mm": [
+            144.946,
+            155.565,
+            3.8
+          ],
+          "end_mm": [
+            145.006,
+            155.565,
+            3.8
+          ],
+          "gap_mm": 0.060000000000002274
+        },
+        {
+          "z_mm": 6.68,
+          "source_start_mm": [
+            -0.05199284744261945,
+            47.35101750946046,
+            6.679999999999998
+          ],
+          "area_mm2": 562.6642339999962,
+          "start_mm": [
+            144.948,
+            156.336,
+            6.68
+          ],
+          "end_mm": [
+            145.008,
+            156.336,
+            6.68
+          ],
+          "gap_mm": 0.060000000000002274
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "face": "curved",
+      "layers": 30,
+      "largest_absolute_seam_x_mm": 0.13699856948852585,
+      "flat_face_corner_clearance_mm": null,
+      "minimum_second_wall_bed_overlap_fraction": 0.4833981318301688,
+      "witnesses": [
+        {
+          "z_mm": 0.44,
+          "source_start_mm": [
+            -0.10999856948853903,
+            47.13286079406737,
+            0.43999999999999995
+          ],
+          "area_mm2": 574.2675910000034,
+          "start_mm": [
+            179.89,
+            155.39,
+            0.44
+          ],
+          "end_mm": [
+            179.95,
+            155.389,
+            0.44
+          ],
+          "gap_mm": 0.060008332754711874
+        },
+        {
+          "z_mm": 3.8,
+          "source_start_mm": [
+            -0.06699856948853267,
+            48.032860794067375,
+            3.8
+          ],
+          "area_mm2": 574.2401004999974,
+          "start_mm": [
+            179.933,
+            156.29,
+            3.8
+          ],
+          "end_mm": [
+            179.993,
+            156.289,
+            3.8
+          ],
+          "gap_mm": 0.060008332754712346
+        },
+        {
+          "z_mm": 6.68,
+          "source_start_mm": [
+            0.008001430511484386,
+            48.802860794067385,
+            6.68
+          ],
+          "area_mm2": 574.277363499994,
+          "start_mm": [
+            180.008,
+            157.06,
+            6.68
+          ],
+          "end_mm": [
+            180.068,
+            157.059,
+            6.68
+          ],
+          "gap_mm": 0.060008332754712346
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "face": "curved",
+      "layers": 30,
+      "largest_absolute_seam_x_mm": 0.13699856948852585,
+      "flat_face_corner_clearance_mm": null,
+      "minimum_second_wall_bed_overlap_fraction": 0.4833981318301688,
+      "witnesses": [
+        {
+          "z_mm": 0.44,
+          "source_start_mm": [
+            -0.10999856948853903,
+            47.13286079406737,
+            0.43999999999999995
+          ],
+          "area_mm2": 574.2675050000089,
+          "start_mm": [
+            144.89,
+            190.39,
+            0.44
+          ],
+          "end_mm": [
+            144.95,
+            190.389,
+            0.44
+          ],
+          "gap_mm": 0.060008332754711874
+        },
+        {
+          "z_mm": 3.8,
+          "source_start_mm": [
+            -0.06699856948853267,
+            48.032860794067375,
+            3.8
+          ],
+          "area_mm2": 574.2380240000057,
+          "start_mm": [
+            144.933,
+            191.29,
+            3.8
+          ],
+          "end_mm": [
+            144.993,
+            191.289,
+            3.8
+          ],
+          "gap_mm": 0.060008332754712346
+        },
+        {
+          "z_mm": 6.68,
+          "source_start_mm": [
+            0.008001430511484386,
+            48.802860794067385,
+            6.68
+          ],
+          "area_mm2": 574.2789150000099,
+          "start_mm": [
+            145.008,
+            192.06,
+            6.68
+          ],
+          "end_mm": [
+            145.068,
+            192.059,
+            6.68
+          ],
+          "gap_mm": 0.060008332754712346
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "face": "flat",
+      "layers": 30,
+      "largest_absolute_seam_x_mm": 0.07499284744261558,
+      "flat_face_corner_clearance_mm": 5.925007152557384,
+      "minimum_second_wall_bed_overlap_fraction": 0.48238875485830834,
+      "witnesses": [
+        {
+          "z_mm": 0.44,
+          "source_start_mm": [
+            -0.05599284744263855,
+            45.67901750946044,
+            0.4399999999999977
+          ],
+          "area_mm2": 562.6625195000197,
+          "start_mm": [
+            179.944,
+            189.664,
+            0.44
+          ],
+          "end_mm": [
+            180.004,
+            189.664,
+            0.44
+          ],
+          "gap_mm": 0.060000000000002274
+        },
+        {
+          "z_mm": 3.8,
+          "source_start_mm": [
+            -0.053992847442629,
+            46.58001750946045,
+            3.7999999999999976
+          ],
+          "area_mm2": 562.6765114999889,
+          "start_mm": [
+            179.946,
+            190.565,
+            3.8
+          ],
+          "end_mm": [
+            180.006,
+            190.565,
+            3.8
+          ],
+          "gap_mm": 0.060000000000002274
+        },
+        {
+          "z_mm": 6.68,
+          "source_start_mm": [
+            -0.05199284744261945,
+            47.35101750946046,
+            6.679999999999998
+          ],
+          "area_mm2": 562.6636005,
+          "start_mm": [
+            179.948,
+            191.336,
+            6.68
+          ],
+          "end_mm": [
+            180.008,
+            191.336,
+            6.68
+          ],
+          "gap_mm": 0.060000000000002274
+        }
+      ]
+    }
+  ],
+  "only_geometry_factor": "Outer inspection-face curvature",
+  "process_settings_common": true,
+  "common_seam_paint": true,
+  "no_object_process_overrides": true,
+  "minimum_full_bead_bed_margin_mm": 127.39309849999998,
+  "full_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        131.2840985,
+        127.4360985
+      ],
+      [
+        193.7159015,
+        192.60690150000002
+      ]
+    ],
+    "maximum_line_width_mm": 0.651803,
+    "bounds_padding_mm": 0.42590150000000004
+  },
+  "support_segments": 0,
+  "scarf_ramp_segments": 0,
+  "clump_probing_calls": 0,
+  "gcode_postprocessed": false,
+  "review_script_sha256": "fc12027fe4b491dd03aab1a6f1c092214e781ef17a46c3c7efa6a5a139341677",
+  "passed": true,
+  "scope": "Native geometry, settings, painted seam location, commanded gap, bed overlap and footprint. Physical seam shape remains unassessed."
+}
