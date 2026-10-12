@@ -1,353 +1,95 @@
 {
-  "object": "The Pour",
-  "scope": "Nominal geometric integration and local source stock; physical release, support removal and finish are unrecorded.",
-  "files": {
-    "the-pour.step": {
-      "path": "hardware/printed-parts/calibration/soda-studies/the-pour.step",
-      "sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69"
-    },
-    "arch-body.step": {
-      "path": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94"
-    },
-    "arch-body.stl": {
-      "path": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
-      "sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a"
-    },
-    "arch-moving.step": {
-      "path": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
-      "sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241"
-    },
-    "arch-moving.stl": {
-      "path": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
-      "sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c"
-    }
+  "schema": 1,
+  "name": "The Pour V5 \u2014 Corner",
+  "scope": "Exact analytic frame and slide at five rigid stroke positions; no physical release, feel or support-removal acceptance. Mesh-only flutes displace away from the moving bay.",
+  "dimensions_mm": [
+    42.5,
+    34.392304845413264,
+    32.36
+  ],
+  "ordinary_stock_mm": 3,
+  "source_sha256": {
+    "the-pour.step": "04f7f81dd168f2bd7bc503ee428325574e831c57458ac5285f72b36ee8469a0d",
+    "arch-moving.step": "7ff0c580d09bd3959b0fda9f05fe34855f80e6bdd0426818cff5a077fedbff12",
+    "arch-body.step": "8c32714de8058eac32d15ad8790dbad04b061448feeacbd445fa1fe622100b8c",
+    "arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
+    "arch-body.stl": "8c8febd25ada568fee6838ed4b8aec6e2fd79a5200891ddb83b4ad9345b283d3"
   },
-  "manufacturing_frame": {
-    "up": [
-      0,
-      0,
-      1
-    ],
-    "shared_body_and_slide_pose": true,
-    "dimensions_mm": [
-      60,
-      48,
-      60
-    ]
-  },
-  "cad_stock": {
-    "total_volume_mm3": 46309.053252801226,
-    "solid_mass_g_at_1_3": 60.201769228641595,
-    "ordinary_backing_mm": 3
-  },
-  "shape_status": {
-    "body": {
-      "valid_B_rep": true,
-      "B_rep_solids": 1,
-      "STL_watertight": true,
-      "STL_positive_volume": true,
-      "STL_facets": 43998,
-      "STL_volume_mm3": 44170.133079635765,
-      "STL_bounds_mm": [
-        [
-          -30.0,
-          -1.5543122344752192e-15,
-          -8.881784197001252e-16
-        ],
-        [
-          30.0,
-          48.0,
-          60.0
-        ]
-      ]
-    },
-    "moving": {
-      "valid_B_rep": true,
-      "B_rep_solids": 1,
-      "STL_watertight": true,
-      "STL_positive_volume": true,
-      "STL_facets": 60,
-      "STL_volume_mm3": 1946.0167022609712,
-      "STL_bounds_mm": [
-        [
-          -9.25,
-          5.25,
-          0.0
-        ],
-        [
-          9.25,
-          24.25,
-          13.880000114440918
-        ]
-      ]
-    }
-  },
-  "source_stock": {
-    "core_authority": "Exact inward 3 mm offset of the full analytically rounded envelope before the additive print-down tangent planes; the additions increase backing.",
-    "localized_front_keeper_mm": {
-      "x": [
-        -21,
-        21
-      ],
-      "y": [
-        -1,
-        9
-      ],
-      "z": [
-        -1,
-        40.04
-      ]
-    },
-    "normal_probe_result": {
-      "method": "mesh-centre normals at the localized keeper boundary; STL chord tolerance 0.03 mm",
-      "samples": 600,
-      "hits": 600,
-      "minimum_mm": 2.9944727554411465,
-      "maximum_mm": 9.000614358555918,
-      "nominal_mm": 3,
-      "analytic_basis": "the inward 3 mm offset of the full rounded envelope is retained; the keeper only adds stock; the exposed keeper corner is 3 mm behind the outer tangent",
-      "sample_source_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
-      "retained_region": "Front-boundary samples have abs(X) >=20.5 or Z >=39.5, Y <6.01, Z >6; fixed-stop addition is confined to abs(X)17.25..18 and Z0..10.4, so the measured keeper geometry is retained."
-    },
-    "flute_backing_mm": 3,
-    "flute_production_field": "hardware/printed-parts/cadlib/flute_skin.py",
-    "stationary_stop_junction": {
-      "working_planes_x_mm": [
-        -14.25,
-        14.25
-      ],
-      "outboard_planes_x_mm": [
-        -18,
-        18
-      ],
-      "nominal_axial_stop_stock_mm": 3.75,
-      "aperture_jamb_planes_x_mm": [
-        -15,
-        15
-      ],
-      "jamb_to_stop_overlap_mm": 3
-    }
-  },
-  "integrated_motion": {
-    "axis": [
-      1,
-      0,
-      0
-    ],
-    "travel_limits_mm": [
-      -5,
-      5
-    ],
-    "mechanical_stroke_mm": 10,
-    "STEP_imported_pose_samples": [
-      {
-        "slide_x_mm": -5,
-        "overlap_mm3": 0.0
-      },
-      {
-        "slide_x_mm": -2.5,
-        "overlap_mm3": 0.0
-      },
-      {
-        "slide_x_mm": 0,
-        "overlap_mm3": 0.0
-      },
-      {
-        "slide_x_mm": 2.5,
-        "overlap_mm3": 0.0
-      },
-      {
-        "slide_x_mm": 5,
-        "overlap_mm3": 0.0
-      }
-    ],
-    "nominal_gaps_mm": {
-      "xy_per_face": 0.25,
-      "lower_z": 0.48,
-      "upper_z": 0.48
-    },
-    "contact_planes_z_mm": {
-      "floor": 3.08,
-      "bar_bottom": 3.56,
-      "bar_top": 6.92,
-      "lip_underside": 7.4,
-      "lip_top": 10.4,
-      "handle_top": 13.88
-    },
-    "module_capture_measurements": {
-      "finished_shapes": {
-        "fixed": {
-          "valid": true,
-          "solids": 1,
-          "volume_mm3": 5589.6
-        },
-        "moving": {
-          "valid": true,
-          "solids": 1,
-          "volume_mm3": 1946.0166666666657
-        }
-      },
-      "actual_cad_z_gap_mm": {
-        "lower": 0.48,
-        "upper": 0.4800000000000004
-      },
-      "stroke_samples": [
-        {
-          "dx_mm": -5.0,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.0,
-          "pose_bounds_mm": [
-            -14.2500001,
-            4.2500001,
-            5.2499999,
-            24.2500001,
-            -1e-07,
-            13.88
-          ],
-          "expected_state": "Mechanical end-stop contact"
-        },
-        {
-          "dx_mm": -2.5,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.25,
-          "pose_bounds_mm": [
-            -11.7500001,
-            6.7500001,
-            5.2499999,
-            24.2500001,
-            -1e-07,
-            13.88
-          ],
-          "expected_state": "Positive running clearance"
-        },
-        {
-          "dx_mm": 0.0,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.25,
-          "pose_bounds_mm": [
-            -9.2500001,
-            9.2500001,
-            5.2499999,
-            24.2500001,
-            -1e-07,
-            13.88
-          ],
-          "expected_state": "Positive running clearance"
-        },
-        {
-          "dx_mm": 2.5,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.25,
-          "pose_bounds_mm": [
-            -6.7500001,
-            11.7500001,
-            5.2499999,
-            24.2500001,
-            -1e-07,
-            13.88
-          ],
-          "expected_state": "Positive running clearance"
-        },
-        {
-          "dx_mm": 5.0,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.0,
-          "pose_bounds_mm": [
-            -4.2500001,
-            14.2500001,
-            5.2499999,
-            24.2500001,
-            -1e-07,
-            13.88
-          ],
-          "expected_state": "Mechanical end-stop contact"
-        }
-      ],
-      "z_capture_samples": [
-        {
-          "dz_mm": -0.48,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.0
-        },
-        {
-          "dz_mm": 0.0,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.25
-        },
-        {
-          "dz_mm": 0.4800000000000004,
-          "common_volume_mm3": 0.0,
-          "minimum_surface_distance_mm": 0.0
-        }
-      ],
-      "capture_area_samples": [
-        {
-          "dx_mm": -5.0,
-          "upper_catch_area_mm2": 161.99999999995418,
-          "lower_bearing_area_mm2": 231.24999999997453
-        },
-        {
-          "dx_mm": -2.5,
-          "upper_catch_area_mm2": 191.9999999999457,
-          "lower_bearing_area_mm2": 231.24999999997453
-        },
-        {
-          "dx_mm": 0.0,
-          "upper_catch_area_mm2": 221.99999999997007,
-          "lower_bearing_area_mm2": 231.24999999997453
-        },
-        {
-          "dx_mm": 2.5,
-          "upper_catch_area_mm2": 191.9999999999457,
-          "lower_bearing_area_mm2": 231.24999999997453
-        },
-        {
-          "dx_mm": 5.0,
-          "upper_catch_area_mm2": 161.99999999995418,
-          "lower_bearing_area_mm2": 231.24999999997453
-        }
-      ],
-      "capture_probe_depth_mm": 0.001,
-      "cad_captured_through_stroke": true,
-      "rigid_motion_clear": true,
-      "source_scope": "Short square working faces, not the complete source Z-seam geometry or its qualified assembly."
-    },
-    "basis": "The integrated body uses the module swept-clearance cutter; the module fixed capture surfaces are fused after that cut."
-  },
-  "support_access": {
-    "rear_window_mm": [
-      -20,
-      20,
-      44.5,
-      49,
-      6,
-      38
-    ],
-    "actual_rear_crown_ceiling_probe_mm": [
-      -8,
-      8,
-      28.5,
-      44.5,
-      57,
-      57
-    ],
-    "motion_support_exclusions": "Exact named moving-gap volumes in pip.py",
-    "native_contact_authority": "print-preparation.json"
-  },
-  "surface_kernels": {
-    "display": "native R12 / 30 degrees from horizontal / R18 section with 12 mm straight field and pure upward R6 side blend",
-    "elevated_print_down_R6": "source overhang_round.roof_rim compound return on the aperture upper edge",
-    "bed_print_down_R6": "closed-loop form of overhang_round.three_side_fill with outward/build-rise slope 0.5, from source transition(6)",
-    "standing_R6": "rear vertical corner; the controlled seam is on the left rear contour",
-    "teardrop": "native diameter 11 mm with tangent roof at 36 degrees from horizontal; through the rear wall"
-  },
-  "physical_scope": "The CAD capture and stock records describe nominal geometry. Native toolpaths describe emitted roads. Print handling and finish provide the physical results.",
   "source_bindings": {
-    "hardware/printed-parts/calibration/soda-studies/reference.py": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df",
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "f7ee461a2afd5f3e2100a873353b3956b0979e5f18f50aef1168da11f23a0797",
     "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
     "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
     "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
-    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22"
-  }
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6fef4c74f652eca13686be1b125862bbec43701afcb22d05c45a6730499cce9"
+  },
+  "slide_motion": [
+    {
+      "dx_mm": -5.0,
+      "overlap_mm3": 0.0,
+      "surface_distance_mm": 0.0
+    },
+    {
+      "dx_mm": -2.5,
+      "overlap_mm3": 0.0,
+      "surface_distance_mm": 0.25
+    },
+    {
+      "dx_mm": 0.0,
+      "overlap_mm3": 0.0,
+      "surface_distance_mm": 0.25
+    },
+    {
+      "dx_mm": 2.5,
+      "overlap_mm3": 0.0,
+      "surface_distance_mm": 0.25
+    },
+    {
+      "dx_mm": 5.0,
+      "overlap_mm3": 0.0,
+      "surface_distance_mm": 0.0
+    }
+  ],
+  "shared_surfaces": {
+    "crown_outer": [
+      "display profile",
+      "inward/top side round"
+    ],
+    "crown_inner": [
+      "supported ceiling"
+    ],
+    "standing_rear_round": [
+      "side finish",
+      "contour seam"
+    ],
+    "rear_bed_round": [
+      "expanding print-down finish"
+    ],
+    "right_flank": [
+      "flute fade",
+      "adjacent flat"
+    ],
+    "left_flank": [
+      "production teardrop"
+    ],
+    "floor_and_bay": [
+      "captive slide",
+      "solid-skin release"
+    ]
+  },
+  "access": {
+    "rear_opening_mm": [
+      -12.25,
+      12.25,
+      30.892304845413264,
+      35.392304845413264,
+      6.0,
+      29.36
+    ],
+    "handle_sweep_width_mm": 18.5,
+    "rear_to_handle_reach_mm": 16.392304845413264,
+    "ceiling_over_handle_mm": 15.479999999999999,
+    "scope": "Nominal access geometry; handling and support cleanup unprinted."
+  },
+  "physical_result": "Unprinted."
 }

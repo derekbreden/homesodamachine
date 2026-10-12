@@ -1,4 +1,4 @@
-"""The Pour: a compact arch carrying nine local print references.
+"""The Pour: a compact corner whose surfaces share nine print readings.
 
 Export one body and one captive slide in their shared manufacturing frame.
 The native display and overhang kernels retain their radii and tangent rules.
@@ -7,6 +7,7 @@ Each whole print uses one recipe; compare recipes across complete prints.
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import importlib.util
 import json
@@ -23,16 +24,67 @@ ROOT = next(p for p in HERE.parents if (p / "tools/bambu_print.py").is_file())
 sys.path.insert(0, str(ROOT / "hardware/printed-parts/cadlib"))
 sys.path.insert(0, str(ROOT / "hardware/printed-parts/enclosure/enclosure"))
 import _swept_top as source_display
-from overhang_round import roof_rim, transition, OUTWARD_PER_HEIGHT
+from overhang_round import transition, OUTWARD_PER_HEIGHT
 import flute_skin
 
-WIDTH, DEPTH, HEIGHT = 60.0, 48.0, 60.0
 WALL = 3.0
 DISPLAY_FLAT = 12.0
-WINDOW_HALF_WIDTH = 15.0
-WINDOW_ROOF = 34.04
-RIM_R = 6.0
-FRONT_BACKING = 9.0
+RIM_R = source_display.SIDE_RADIUS
+ENCLOSURE_SOURCE = ROOT / "hardware/printed-parts/enclosure/enclosure/enclosure.py"
+
+
+def _local_portal():
+    path = HERE / "pip.py"
+    spec = importlib.util.spec_from_file_location("pour_corner_portal", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def _source_bore():
+    """Load the production bore and its four small construction dependencies."""
+    tree = ast.parse(ENCLOSURE_SOURCE.read_text())
+    function_names = {"_ring", "_xcyl", "_yz_prism", "_teardrop_x"}
+    constants = {"pogo_lead_r", "teardrop_roof_angle"}
+    nodes = [node for node in tree.body
+             if isinstance(node, ast.FunctionDef) and node.name in function_names
+             or isinstance(node, ast.Assign)
+             and any(isinstance(t, ast.Name) and t.id in constants for t in node.targets)]
+    namespace = {"cq": cq, "math": math}
+    exec(compile(ast.Module(body=nodes, type_ignores=[]), str(ENCLOSURE_SOURCE), "exec"), namespace)
+    return namespace
+
+
+def _phase_up(value):
+    """Shared 0.20 + n*0.24 datum also lies on the 0.12 and 0.08 grids."""
+    return .20 + math.ceil((value-.20)/.24-1e-9)*.24
+
+
+PORTAL = _local_portal()
+BORE = _source_bore()
+REFERENCE_BAY = PORTAL.build()
+REFERENCE_BOUNDS = REFERENCE_BAY["fixed"].BoundingBox()
+LIP_TOP = REFERENCE_BAY["proof"]["contact_planes_z_mm"]["lip_top"]
+WIDTH = REFERENCE_BOUNDS.xlen + 2*WALL
+_previous_flat = source_display.FLAT
+try:
+    source_display.FLAT = DISPLAY_FLAT
+    _local_profile = source_display.profile((-WIDTH/2, WIDTH/2, 0, 0, 0, 0))
+finally:
+    source_display.FLAT = _previous_flat
+PROFILE_RUN = _local_profile["roof"][0]
+PROFILE_RISE = -_local_profile["foot"][1]
+CEILING_LAND = RIM_R
+NOSE_REVEAL = WALL  # Chosen viewing allowance over the fixed lip, not finger room.
+DEPTH = PROFILE_RUN + CEILING_LAND + WALL
+HEIGHT = _phase_up(PROFILE_RISE + LIP_TOP + NOSE_REVEAL)
+FLUTE_Y0, FLUTE_LENGTH = 7.5, 20.0
+FLUTE_Y1 = FLUTE_Y0 + FLUTE_LENGTH
+FLUTE_Z0, FLUTE_Z1 = RIM_R, RIM_R+15.0
+BORE_R = BORE["pogo_lead_r"]
+BORE_Y = DEPTH-RIM_R-WALL-BORE_R
+BORE_Z = _phase_up(LIP_TOP+BORE_R+PORTAL.Z_AIR)
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -58,8 +110,7 @@ def envelope():
             .threePointArc(p["top_mid"], p["roof"])
             .lineTo(DEPTH, HEIGHT).lineTo(DEPTH, 0).close().val())
     raw = cq.Solid.extrudeLinear(wire, [], cq.Vector(WIDTH, 0, 0))
-    # This is the upward-printing side round. Do not copy the production
-    # back-top's inverted exterior-roof additive fill onto this top surface.
+    # This inward/upward-printing side round is the crown's own edge.
     sides = []
     for edge in raw.Edges():
         b = edge.BoundingBox()
@@ -80,11 +131,11 @@ def envelope():
     bed_edges=[]
     for edge in rounded.Edges():
         b=edge.BoundingBox()
-        if (abs(b.ymin)<1e-6 and abs(b.ymax)<1e-6
+        if (abs(b.ymin-DEPTH)<1e-6 and abs(b.ymax-DEPTH)<1e-6
                 and abs(b.zmin)<1e-6 and abs(b.zmax)<1e-6 and b.xlen>1):
             bed_edges.append(edge)
     if len(bed_edges)!=1:
-        raise ValueError(f"one front bed edge expected, got {len(bed_edges)}")
+        raise ValueError(f"one rear bed edge expected, got {len(bed_edges)}")
     rounded=rounded.fillet(RIM_R,bed_edges)
     # Offset the analytic round before adding its tangent planes. OCC cannot
     # consistently offset the union's tangent seam; the retained round is the
@@ -105,92 +156,40 @@ def envelope():
 
 
 def inner_core(outer, core_authority):
-    """The exact inward 3 mm offset of the envelope, with a local rim backing."""
+    """Exact inward 3 mm offset, plus local backing for the fluted flank."""
     shell = core_authority.shell([], -WALL, kind="intersection")
     shells = sorted(shell.Shells(), key=lambda s:s.Area())
     if len(shells) != 2:
         raise ValueError(f"closed 3 mm stock expected two shells, got {len(shells)}")
     core = cq.Solid.makeSolid(shells[0])
-    # Ordinary walls stay 3 mm. Only the local front opening's R6 roll keeps
-    # enough source stock for its entire six-millimetre depth and backing.
-    rim_stock = box(-WINDOW_HALF_WIDTH-RIM_R, WINDOW_HALF_WIDTH+RIM_R,
-                    -1, FRONT_BACKING, -1, WINDOW_ROOF+RIM_R)
-    flute_backing=box(WIDTH/2-WALL-1.2,WIDTH/2+1,10,30,18,40)
-    return core.cut(rim_stock.fuse(flute_backing)).clean(), core
-
-
-def aperture():
-    """Source handhold's downward-open cut with its R6 upper inside corners."""
-    opening = box(-WINDOW_HALF_WIDTH, WINDOW_HALF_WIDTH, -1,
-                  FRONT_BACKING+2, -1, WINDOW_ROOF)
-    corners = []
-    for edge in opening.Edges():
-        b = edge.BoundingBox()
-        if abs(b.zmin-WINDOW_ROOF)<1e-6 and abs(b.zmax-WINDOW_ROOF)<1e-6 and b.ylen>1:
-            corners.append(edge)
-    return opening.fillet(RIM_R, corners)
-
-
-def rounded_aperture(body):
-    before = body.cut(aperture()).clean()
-    rim = []
-    for edge in before.Edges():
-        b = edge.BoundingBox()
-        if (abs(b.ymin)<1e-6 and abs(b.ymax)<1e-6
-                and b.xmin>=-WINDOW_HALF_WIDTH-1e-6
-                and b.xmax<=WINDOW_HALF_WIDTH+1e-6
-                and b.zmin>=-1e-6 and b.zmax<=WINDOW_ROOF+1e-6
-                and b.zmax>1e-6):
-            rim.append(edge)
-    if not rim:
-        raise ValueError("no native lifting rim found")
-    rounded = before.fillet(RIM_R, rim)
-    # roof_rim's local X is normal to the opening. Rotate +Y-inward into its
-    # +X-inward frame, then restore the object after the source loft fill.
-    local_before = before.rotate((0,0,0),(0,0,1),-90)
-    local_round = rounded.rotate((0,0,0),(0,0,1),-90)
-    filled = roof_rim(local_before, local_round, 0, 1,
-                      -WINDOW_HALF_WIDTH, WINDOW_HALF_WIDTH,
-                      WINDOW_ROOF, RIM_R, RIM_R)
-    return filled.rotate((0,0,0),(0,0,1),90).clean()
+    # The existing right flank keeps 3 mm backing beneath its deepest flute.
+    flute_backing=box(WIDTH/2-WALL-1.2,WIDTH/2+1,FLUTE_Y0,FLUTE_Y1,FLUTE_Z0,FLUTE_Z1)
+    return core.cut(flute_backing).clean(), core
 
 
 def teardrop_cut():
-    """The native Ø11 lead bore's tangent 36-degree crown, across rear stock."""
-    r, a, z = 5.5, math.radians(36.0), 47.0
-    tangent_x = r*math.sin(a)
-    tangent_z = z+r*math.cos(a)
-    apex = z+r/math.cos(a)
-    wire = (cq.Workplane("XZ", origin=(0, DEPTH+1, 0))
-            .moveTo(-tangent_x,tangent_z).threePointArc((0,z-r),(tangent_x,tangent_z))
-            .lineTo(0,apex).close().val())
-    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0,-WALL-2,0))
+    """Production lead-bore profile, carried through the existing left flank."""
+    return BORE["_teardrop_x"](BORE_R, BORE_Y, BORE_Z,
+                                -WIDTH/2-1, -WIDTH/2+WALL+1)
 
 
 def build(include_pip=True, *, xy_air=.25, z_air=.48):
     outer, p, core_authority = envelope()
     core, full_core = inner_core(outer, core_authority)
-    body = rounded_aperture(outer.cut(core).clean())
-    # One rear access cut exposes the actual crown ceiling and permits its
-    # automatically generated support to be reached through a broad opening.
-    # This also opens the sculpture to the light instead of enclosing a rack.
-    rear_access=box(-20,20,DEPTH-WALL-.5,DEPTH+1,6,38)
+    body = outer.cut(core).clean()
+    front_access=box(-WIDTH/2+WALL,WIDTH/2-WALL,-1,WALL+.5,PORTAL.FLOOR_Z,p["foot"][1])
+    body=body.cut(front_access).clean()
+    nose_relief=box(-WIDTH/2-1,WIDTH/2+1,-1,2,-1,p["foot"][1])
+    body=body.cut(nose_relief).clean()
+    # The rear mouth serves both the gate and the actual crown underside.
+    rear_access=box(-WIDTH/2+RIM_R+WALL,WIDTH/2-RIM_R-WALL,
+                    DEPTH-WALL-.5,DEPTH+1,RIM_R,HEIGHT-WALL)
     body=body.cut(rear_access).clean()
     body = body.cut(teardrop_cut()).clean()
     moving = None
     pip_proof = None
-    pip_path = HERE/"pip.py"
-    if include_pip and pip_path.exists():
-        spec = importlib.util.spec_from_file_location("compact_arch_pip", pip_path)
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[spec.name] = module
-        spec.loader.exec_module(module)
-        if hasattr(module,"build"):
-            bay = module.build(xy_air=xy_air, z_air=z_air)
-        elif hasattr(module,"build_bay"):
-            bay = module.build_bay()
-        else:
-            raise ValueError("pip.py must expose build() or build_bay()")
+    if include_pip:
+        bay = PORTAL.build(xy_air=xy_air, z_air=z_air)
         # The bay owns its moving-gap topology. These names are its placement
         # contract; retain them in the integrated geometry review.
         fixed = bay["fixed"]
@@ -226,10 +225,6 @@ def native_surface_intent(stl):
                    RIM_R-np.sqrt(np.maximum(0,RIM_R**2-(RIM_R-z)**2)))
     downward=(n[:,2]<-.02)&(n[:,2]>-.98)
     bed=(z>=-1e-5)&(z<=RIM_R+.01)&(np.abs(sd+inset)<.075)&downward
-    upper=((c[:,1]>=-.01)&(c[:,1]<=RIM_R+.01)
-           &(np.abs(c[:,0])<=WINDOW_HALF_WIDTH+RIM_R+.01)
-           &(z>=WINDOW_ROOF-RIM_R-.01)&(z<=WINDOW_ROOF+RIM_R+.01)
-           &(n[:,1]<-.05)&downward)
     centre=[-WIDTH/2+RIM_R,DEPTH-RIM_R]
     angle=np.degrees(np.arctan2(n[:,1],-n[:,0]))
     distance=np.hypot(c[:,0]-centre[0],c[:,1]-centre[1])
@@ -239,8 +234,7 @@ def native_surface_intent(stl):
     support={"body_stl_sha256":hashlib.sha256(stl.read_bytes()).hexdigest(),
              "processed_trimesh_facets":len(mesh.faces),
              "bed_R6_exterior_transition_faces":np.flatnonzero(bed).tolist(),
-             "aperture_R6_exterior_transition_faces":np.flatnonzero(upper).tolist(),
-             "functional_horizontal_faces_excluded":True,
+                          "functional_horizontal_faces_excluded":True,
              "paint_normal_threshold_z":[-.98,-.02]}
     seam_record={"standing_left_rear_R6_faces":np.flatnonzero(seam).tolist(),
                  "world_corner_center_xy_mm":centre,
@@ -269,8 +263,8 @@ def export(include_pip=True, *, xy_air=.25, z_air=.48):
         removed=original_facets-len(mesh.faces)
         if name=="body":
             rail=flute_skin.Rail(
-                at=lambda s:((WIDTH/2,s+7.5),(1.0,0.0)),
-                length=20.0,start=2.5,closed=False,band=(18.0,40.0))
+                at=lambda s:((WIDTH/2,s+FLUTE_Y0),(1.0,0.0)),
+                length=FLUTE_LENGTH,start=0.0,closed=False,band=(FLUTE_Z0,FLUTE_Z1))
             mesh=flute_skin.flute(mesh,[rail],5.0,1.2,5.0)
         mesh.export(stl)
         records[name]={"valid":shape.isValid(),"solids":len(shape.Solids()),
@@ -280,14 +274,14 @@ def export(include_pip=True, *, xy_air=.25, z_air=.48):
                        "mesh":{"watertight":mesh.is_watertight,"positive_volume":mesh.is_volume,
                                "volume_mm3":mesh.volume,"bounds":mesh.bounds.tolist(),
                                "facets":len(mesh.faces),"zero_area_facets_removed":removed}}
-    asm=cq.Assembly(name="The Arch")
+    asm=cq.Assembly(name="The Pour Corner")
     asm.add(generated["body"],name="frame",color=cq.Color(.18,.18,.19))
     if generated["moving"] is not None:
         asm.add(generated["moving"],name="slide",color=cq.Color(.36,.36,.37))
     asm.save(str(HERE/"the-pour.step"))
     support_paint,seam_paint=native_surface_intent(HERE/"arch-body.stl")
     h,f=transition(RIM_R)
-    report={"name":"The Pour V4 — Arch","manufacturing_up":[0,0,1],
+    report={"name":"The Pour V5 — Corner","manufacturing_up":[0,0,1],
             "dimensions_mm":[WIDTH,DEPTH,HEIGHT],"nominal_ordinary_stock_mm":WALL,
             "parts":records,"total_volume_mm3":sum(r["volume_mm3"] for r in records.values()),
             "total_cad_mass_g_at_1_3":sum(r["cad_mass_g_at_1_3"] for r in records.values()),
@@ -297,22 +291,34 @@ def export(include_pip=True, *, xy_air=.25, z_air=.48):
             "print_down_round":{"radius_mm":6,"outward_per_build_rise":.5,
                                 "chamfer_height_mm":h,"foot_inset_mm":f},
             "ceiling":{"source":"inside of the actual rear crown",
-                       "reading_rectangle_mm":[-8,8,28.5,44.5,57,57],
-                       "rear_access_mm":[-20,20,44.5,49,6,38],
+                       "reading_rectangle_mm":[-6,6,PROFILE_RUN,DEPTH-WALL,HEIGHT-WALL,HEIGHT-WALL],
+                       "rear_access_mm":[-12.25,12.25,DEPTH-WALL-.5,DEPTH+1,RIM_R,HEIGHT-WALL],
                        "expected_paint":"horizontal functional flat; retain automatic support",
-                       "reading_record":"prints/the-pour-v4-petgf.print.json"},
+                       "reading_record":"prints/the-pour-v5-petgf.print.json"},
             "texture":{"source":"cadlib/flute_skin.py",
                        "mesh_only":True,"pitch_mm":5,"width_mm":4,
                        "depth_mm":1.2,"fade_mm":5,
                        "backing_after_deepest_groove_mm":3,
-                       "field_mm":[30,30,10,30,18,40]},
+                       "field_mm":[WIDTH/2,WIDTH/2,FLUTE_Y0,FLUTE_Y1,FLUTE_Z0,FLUTE_Z1]},
+            "teardrop":{"source":"enclosure.py:_teardrop_x and pogo_lead_r",
+                        "radius_mm":BORE_R,"roof_degrees_from_horizontal":BORE["teardrop_roof_angle"],
+                        "axis_yz_mm":[BORE_Y,BORE_Z],"axis_direction":[1,0,0]},
+            "design":{"width":{"bay_ties_mm":REFERENCE_BOUNDS.xlen,"side_stock_each_mm":WALL},
+                      "depth":{"native_crown_run_mm":PROFILE_RUN,"flat_ceiling_land_mm":CEILING_LAND,
+                               "rear_stock_mm":WALL},
+                      "height":{"native_crown_rise_mm":PROFILE_RISE,"fixed_lip_top_mm":LIP_TOP,
+                                "chosen_fore_viewing_reveal_mm":NOSE_REVEAL,
+                                "actual_fore_reveal_mm":generated["profile"]["foot"][1]-LIP_TOP,
+                                "top_grid_mm":[.20,.24]},
+                      "access":"One rear opening reaches the tab and actual crown underside. The fore reveal is for viewing.",
+                      "extent_scope":"Sample lengths and viewing allowances are design choices, not qualified minima."},
             "pip":generated["pip"],
             "native_support_paint":support_paint,"native_seam_paint":seam_paint,
             "source_bindings":{str(file.relative_to(ROOT)):hashlib.sha256(file.read_bytes()).hexdigest()
                                for file in (HERE/"reference.py",HERE/"pip.py",
                                    ROOT/"hardware/printed-parts/cadlib/overhang_round.py",
                                    ROOT/"hardware/printed-parts/cadlib/flute_skin.py",
-                                   ROOT/"hardware/printed-parts/enclosure/enclosure/_swept_top.py")},
+                                   ROOT/"hardware/printed-parts/enclosure/enclosure/_swept_top.py", ENCLOSURE_SOURCE)},
             "sha256":{file.name:hashlib.sha256(file.read_bytes()).hexdigest()
                       for file in [HERE/"the-pour.step", *HERE.glob("arch-*.step"), *HERE.glob("arch-*.stl")]},
             "required_native_readings":["support/contact slabs", "motion-gap and bridge paths"],

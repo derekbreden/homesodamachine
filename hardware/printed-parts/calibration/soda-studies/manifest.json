@@ -1,12 +1,12 @@
 {
   "schema": 4,
-  "title": "The Pour \u2014 Arch",
-  "version": "V4",
+  "title": "The Pour \u2014 Corner",
+  "version": "V5",
   "assembly": "the-pour.step",
   "dimensions_mm": [
-    60.0,
-    48.0,
-    60.0
+    42.5,
+    34.392304845413264,
+    32.36
   ],
   "manufacturing_up": [
     0,
@@ -18,11 +18,11 @@
   "parts": [
     {
       "id": "body",
-      "name": "Arch frame",
+      "name": "Corner body",
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
-      "step_sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
+      "stl_sha256": "8c8febd25ada568fee6838ed4b8aec6e2fd79a5200891ddb83b4ad9345b283d3",
+      "step_sha256": "8c32714de8058eac32d15ad8790dbad04b061448feeacbd445fa1fe622100b8c",
       "color_rgb": [
         0.18,
         0.18,
@@ -63,7 +63,7 @@
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
       "stl_sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
-      "step_sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
+      "step_sha256": "7ff0c580d09bd3959b0fda9f05fe34855f80e6bdd0426818cff5a077fedbff12",
       "color_rgb": [
         0.36,
         0.36,
@@ -105,8 +105,8 @@
       "name": "body",
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-body.step",
-      "stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
-      "step_sha256": "606fa10eb6110ffd8d20feb3fc0d23fca20967ea5474bcc40a986bf7c2920b94",
+      "stl_sha256": "8c8febd25ada568fee6838ed4b8aec6e2fd79a5200891ddb83b4ad9345b283d3",
+      "step_sha256": "8c32714de8058eac32d15ad8790dbad04b061448feeacbd445fa1fe622100b8c",
       "color_rgb": [
         0.18,
         0.18,
@@ -147,7 +147,7 @@
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-moving.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/arch-moving.step",
       "stl_sha256": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
-      "step_sha256": "e558df03f9b952e4a6e74da67b475a4de851a5a96b0bded4a73f5145510cf241",
+      "step_sha256": "7ff0c580d09bd3959b0fda9f05fe34855f80e6bdd0426818cff5a077fedbff12",
       "color_rgb": [
         0.36,
         0.36,
@@ -188,5 +188,5 @@
     "features": "feature-guide.md",
     "observations": "reference-card.csv"
   },
-  "assembly_sha256": "3444e01333ecd171429dd4e73a6f918edaf5178f60386a7903fac0bb561ebf69"
+  "assembly_sha256": "04f7f81dd168f2bd7bc503ee428325574e831c57458ac5285f72b36ee8469a0d"
 }
