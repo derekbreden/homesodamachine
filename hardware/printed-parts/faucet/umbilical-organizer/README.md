@@ -85,6 +85,9 @@ settle as the bundle bends.
 ## Print
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
+The [current complete organizer print](prints/2026-10-11-current-mark1/README.md)
+uses Mark1’s normal +0.18 mm requested/+0.16 mm emitted trim. Its complete
+production layout and ribbon-slot fit remain pending physical assessment.
 The accepted Mark2 article used its fixed left hardened 0.4 mm nozzle,
 0.20 mm first layer, 0.24 mm layers above it, two walls and 15% grid infill.
 No support or brim was emitted. Nozzle temperatures were 265 °C first / 280 °C

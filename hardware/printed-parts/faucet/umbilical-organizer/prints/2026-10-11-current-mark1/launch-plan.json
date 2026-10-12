@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-12T00:06:38.235612+00:00",
+  "status": "Accepted one latest production organizer; physical result pending",
+  "printer": "Mark1",
+  "connection_alias": "H2C",
+  "authorization_quotes": [
+    "And when you get a chance, I'd like the latest cable organizer printed on whichever bed is still free.",
+    "tube organizer, the organizer below the faucet, whatever it is called."
+  ],
+  "archive": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "0cbf91becead2342aad0554894106954a605bf49ef81995fcf4c92aba9d74cc3",
+  "gcode_sha256": "6b73ef71ccd0d88b5a1bc9bf66ac2177757d2dd036e343c11f4edb450744f19f",
+  "project": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "6ce943ed2fde1d799dddcb8249449cbfeaa060152120ea8812dd41b6e7f8fd17",
+  "preparation_record_sha256": "e67b68e4105c7a97f031b159269f6a552624177144de627e11f502e2f4a355b5",
+  "native_review_sha256": "5366da982da7f54ca9148146082b23953bd585c621486483b130ce06fb3ee602",
+  "quantity": 1,
+  "normal_mark1_trim_mm": 0.18,
+  "launch_authorized": true,
+  "start_now": false,
+  "import_attempted": true,
+  "send_attempted": true,
+  "accepted": true,
+  "maximum_send_clicks": 1,
+  "foreground_transaction_count": 1,
+  "launch_method": "Bambu Connect foreground UI through cua_repl",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "native_estimated_seconds": 845.9756469726562,
+  "automatic_next_print": false,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "archive_imported": true,
+  "send_click_count": 1,
+  "send_attempted_at_utc": "2026-10-12T00:07:58.265511+00:00",
+  "send_in_progress": false,
+  "preflight_sha256": "65cd9707799518458e864d245448e696203d3411ec0120e9b0e8d547a536a06e",
+  "submitted": true,
+  "printer_task_id": "1331044065",
+  "printer_job_id": "1331044065",
+  "accepted_at_utc": "2026-10-12T00:08:13.682571+00:00",
+  "accepted_at_central": "2026-10-11T19:08:13.682571-05:00",
+  "observed_acceptance_state": "RUNNING",
+  "accepted_archive_name": "2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+  "after_send_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-12T00:08:13.682571+00:00",
+      "task_id": "1331044065",
+      "job_id": "1331044065",
+      "subtask_name": "2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 42,
+      "mc_percent": 0,
+      "mc_remaining_time": 14,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 27.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 34,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 28,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-12T00:08:14.659245+00:00",
+      "task_id": "1330991481",
+      "job_id": "1330991481",
+      "subtask_name": "2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 25,
+      "total_layer_num": 76,
+      "mc_percent": 39,
+      "mc_remaining_time": 35,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 46,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 36,
+        "target_c": 0
+      }
+    }
+  ],
+  "ui_acceptance": "Bambu Connect Mark1 device page shows exact new archive, Cooling chamber, 0/42 layers",
+  "native_forecast_completion_central": "2026-10-11T19:22:19.658218-05:00",
+  "forecast_scope": "Native estimate from first observed acceptance; add additional calibration and any pauses",
+  "start_notification_reported": true
+}
