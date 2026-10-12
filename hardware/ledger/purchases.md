@@ -189,11 +189,13 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | <!--purchase:pur-6d7afc35360b4480aa5cda2d3c02377b--> Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 1 | $34.91 | 114-1015191-6799441 | 2026-02-18 | — | ACQUIRED |
 | <!--purchase:pur-d4adc853109e40bb8d221d35850778a1--> Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 2 | $69.82 | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
 | <!--purchase:pur-c236a1fde9dc4036911e3ac588e4571a--> Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) | [B09MVPJXFJ](https://www.amazon.com/dp/B09MVPJXFJ) | 2 | $84.98 | 112-3347068-4029052 | 2026-08-28 | 2026-08-30 | ACQUIRED (stands in for the KPHM400-SW3B25 above, which Amazon now lists Currently unavailable with no offers on its listing or its offer page, and which is the only KPHM400 12 V brush unit in Kamoer's Amazon catalogue. Same KPHM head series — Kamoer rates that head 380–600 ml/min and the B## suffix is a tube code on it — so the 50 mm bracket pattern and the pump tray are expected to carry, unverified until the pumps land. Its 6.4 mm tube ID is a clearance fit on 1/4" LLDPE where the 400's 4.8 mm was interference; the pump-side joint is open, per [`bom.md`](/hardware/ledger/bom.md) §5) |
+| <!--purchase:pur-f4ddddb90dbd4ae2bba5008f74f8d4b6--> Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) — five pumps, $39.62 ea + $14.35 estimated tax, free shipping | [B09MVPJXFJ](https://www.amazon.com/dp/B09MVPJXFJ) | 5 | $212.45 | 114-5708094-2581869 | 2026-10-11 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
 | <!--purchase:pur-05f3b0f5d0e04c6e937ae6180b8064c3--> Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 1 | $9.64 | 114-3476722-1893810 | 2026-02-22 | — | ACQUIRED |
 | <!--purchase:pur-66c97ae5c6ad4297ae368293a49ce4e2--> Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $18.87 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
 | <!--purchase:pur-3d76f4776f4b4092b93462762f916385--> Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $19.28 | 112-9365343-6646655 | 2026-03-14 | — | ACQUIRED |
 | <!--purchase:pur-b006b6b2eaea4464a39fd874fac180ae--> Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 1 | $9.64 | 112-4838242-5164262 | 2026-03-14 | — | ACQUIRED |
 | <!--purchase:pur-17f4721d02834227a3e74aed2e175e21--> Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | 112-3576572-8551422 | 2026-06-14 | 2026-06-17 | ACQUIRED (with 6 on hand, covers the 10-valve flavor manifold with 4 spare) |
+| <!--purchase:pur-d8a8a1e239ff48b6a6b19c43e22b4858--> Beduan 12 V 1/4" inlet water solenoid (NC) — ten valves, $8.99 ea + $6.50 estimated tax, free shipping | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 10 | $96.40 | 114-5870152-3334654 | 2026-10-11 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
 | <!--purchase:pur-c8954e3441d741bb80f12bc273931eec--> Hosyond 5-pack MG90S 9 g metal-gear micro servo | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | 112-1012254-8551456 | 2026-06-01 | 2026-06-04 | ACQUIRED |
 | <!--purchase:pur-64c8b3ecef7e4e3f9eed85ad447f40c3--> NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack) | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | 112-1012254-8551456 | 2026-06-01 | 2026-06-04 | ACQUIRED |
 | <!--purchase:pur-8f87a19df58047289a1551263f7f645d--> ~~Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk)~~ | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | 114-4194868-8174607 | 2026-03-02 | — | ACQUIRED (de-scoped — the bag-in-box flavor path is not in the shipping product) |
@@ -509,6 +511,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| <!--purchase:pur-250afee3f9d341c9a9d18d4e33c0fd0e--> BESSEY GSCC2.506 clutch-style bar clamps, 6" opening × 2.5" throat, 600 lb — C1/C2, the two outboard metal screw clamps of the [tube insertion guide](/hardware/tube-insertion-guide/README.md). Two clamps, $10.99 ea + $1.60 estimated tax, free shipping | [B000FA0BL8](https://www.amazon.com/dp/B000FA0BL8) | 2 | $23.58 | 112-8160692-2465006 | 2026-10-10 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
 | <!--purchase:pur-6efcbbd5fcb44c888f18a2ef86a18960--> VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | 114-1978684-7068269 | 2026-04-20 | 2026-04-27 | ACQUIRED |
 | <!--purchase:pur-9d460728372b4fa4ac76a549453697e0--> VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 112-2273377-9628208 | 2026-04-06 | — | ACQUIRED |
 | <!--purchase:pur-60c1a189dc3247959d5e1f71c5c6e3b7--> VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
@@ -563,6 +566,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-8c33b046bb6e465ba1473e2fb5e8a0d2--> Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, White — $29.99 + $2.17 NE tax | [B0FBW9JLFR](https://www.amazon.com/dp/B0FBW9JLFR) | 1 | $32.16 | 112-5158473-3421830 | 2026-09-16 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-6b52fe7813d94d5c8363ae1f8d1c2f74--> Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Dark Grey — $29.99 + $2.17 NE tax | [B0FBWM5J8X](https://www.amazon.com/dp/B0FBWM5J8X) | 1 | $32.16 | 112-7997113-5902601 | 2026-09-21 | 2026-09-22 | ACQUIRED |
 | <!--purchase:pur-633abd30f0524d80a397fcee998a7658--> Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $74.99 ea × 3 before promotion and tax; $217.14 charged, $24.13/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $217.14 | 114-2631637-5080268 | 2026-10-01 | 2026-10-03 | ACQUIRED |
+| <!--purchase:pur-ad87bb1e2d7548aa9fdf66293915a4f4--> Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $59.99 ea × 3 + $13.05 NE tax, free shipping; $193.02 charged, $21.45/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $193.02 | 114-9279946-8137001 | 2026-10-07 | 2026-10-10 | ACQUIRED |
 | <!--purchase:pur-cabc20925e1746ac9027c8970efad533--> Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | 2026-09-03 | ACQUIRED |
 | <!--purchase:pur-3be1b856906740fcbb8abccf195fcf8c--> Polymaker order #190118 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 2, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 2 | $149.98 | — | 2026-09-04 | 2026-09-09 | ACQUIRED |
 | <!--purchase:pur-2b1b4051619a4c01885f6d2ca0f72b84--> Polymaker order #192064 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 4, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 4 | $299.96 | — | 2026-09-12 | 2026-09-18 | ACQUIRED |
@@ -782,29 +786,29 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$37,719.67](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$37,912.69](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$44,199.06](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,415.41](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$44,392.08](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,747.84](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,667.54](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,192.99](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$10,712.56](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$1,735.99](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$10,905.58](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,068.42](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$7,104.22](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$7,297.24](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$7,104.22](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$7,297.24](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -824,7 +828,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$282.80](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$2,500.53](LEDGER_SEC12) |
-| 13 | Printing consumables | [$3,336.75](LEDGER_SEC13) |
+| 13 | Printing consumables | [$3,529.77](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,229.31](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |

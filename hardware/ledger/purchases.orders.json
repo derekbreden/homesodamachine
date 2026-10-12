@@ -1,8 +1,8 @@
 {
   "_meta": {
     "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-24. The 2026-09-21 walk read the list pages back to 2026-08-27 and opened the invoices for the three orders no earlier pass held \u2014 112-7997113-5902601 (PET-GF15 Dark Grey), 114-4531838-9243459 (two DUROZZLE 0.4 PCD) and 112-4818896-3446652 (the single ASVPP1LF) \u2014 plus the cancelled 114-8422321-4073051. The 2026-09-24 passes read the list's first page back to that PET-GF15 order, the newest one already held, and added the five placed since; the WR1105 order placed 2026-10-03 was read from its detail page on 2026-10-04; the three Polymaker orders placed 2026-10-01 (114-2631637-5080268, 114-3202733-4767455, 114-4680955-8473844) and the 112-7997113-5902601 delivery read from their Gmail order, shipment and delivery emails, 2026-10-04",
-    "orders": 393,
-    "ordered/total": "ordered present for all 393; total absent only on the four cancelled orders, which were never charged",
+    "orders": 397,
+    "ordered/total": "ordered present for all 397; total absent only on the four cancelled orders, which were never charged",
     "delivered": "present only where Amazon still shows a shipment banner \u2014 orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
     "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 \u00d7 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 \u00d7 60, M3 \u00d7 20 and the three washer ODs) read from their own invoices; the 2026-09-21 walk added the PET-GF15 Dark Grey, the two-nozzle DUROZZLE and the single ASVPP1LF invoices; the 2026-09-24 passes added the flap-wheel and Knipex 70 11 110 invoices and the $0.00 Revopoint replacement; the 2026-10-03 WR1105 order from its detail page, 2026-10-04",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
@@ -43,6 +43,16 @@
       "date": "2026-10-11",
       "source": "Signed-in Amazon order history and individual order details; both purchased listings showed the Prime logo 2026-10-11",
       "order": "112-1633049-9300204"
+    },
+    "october_project_orders_verification": {
+      "date": "2026-10-11",
+      "source": "Signed-in Amazon order history, individual order details and order-scoped Transactions",
+      "orders": [
+        "114-9279946-8137001",
+        "112-8160692-2465006",
+        "114-5708094-2581869",
+        "114-5870152-3334654"
+      ]
     }
   },
   "orders": {
@@ -2784,6 +2794,83 @@
           "asin": "B000Y3LHXW",
           "title": "Loctite Super Glue Plastics Bonding System, Clear, 0.21 fl oz Kit, 1 Pack",
           "quantity": 2
+        }
+      ]
+    },
+    "114-9279946-8137001": {
+      "ordered": "2026-10-07",
+      "delivered": "2026-10-10",
+      "subtotal": 179.97,
+      "shipping": 0.0,
+      "tax": 13.05,
+      "tax_estimated": true,
+      "total": 193.02,
+      "in_transit": false,
+      "status": "Delivered",
+      "project": true,
+      "verified": "2026-10-11",
+      "items": [
+        {
+          "asin": "B0FBWGTW9W",
+          "title": "Polymaker Fiberon PET-GF15 Glass Fiber PET Filament 1.75mm, Black, 3kg",
+          "quantity": 3
+        }
+      ]
+    },
+    "112-8160692-2465006": {
+      "ordered": "2026-10-10",
+      "subtotal": 21.98,
+      "shipping": 0.0,
+      "tax": 1.6,
+      "tax_estimated": true,
+      "total": 23.58,
+      "status": "Ordered; arriving 2026-10-13",
+      "project": true,
+      "verified": "2026-10-11",
+      "expected_delivery": "2026-10-13",
+      "items": [
+        {
+          "asin": "B000FA0BL8",
+          "title": "Bessey Clutch Style Bar Clamps - 6 In 600 lb - GSCC2.506",
+          "quantity": 2
+        }
+      ]
+    },
+    "114-5708094-2581869": {
+      "ordered": "2026-10-11",
+      "subtotal": 198.1,
+      "shipping": 0.0,
+      "tax": 14.35,
+      "tax_estimated": true,
+      "total": 212.45,
+      "status": "Ordered; arriving 2026-10-13",
+      "project": true,
+      "verified": "2026-10-11",
+      "expected_delivery": "2026-10-13",
+      "items": [
+        {
+          "asin": "B09MVPJXFJ",
+          "title": "Kamoer KPHM600-SW3B17 600ml/min High Flow Rate Peristaltic Pump Brush Motor",
+          "quantity": 5
+        }
+      ]
+    },
+    "114-5870152-3334654": {
+      "ordered": "2026-10-11",
+      "subtotal": 89.9,
+      "shipping": 0.0,
+      "tax": 6.5,
+      "tax_estimated": true,
+      "total": 96.4,
+      "status": "Ordered; arriving 2026-10-13",
+      "project": true,
+      "verified": "2026-10-11",
+      "expected_delivery": "2026-10-13",
+      "items": [
+        {
+          "asin": "B07NWCQJK9",
+          "title": "Beduan 12V 1/4\" Inlet Water Solenoid Valve Normally Closed for RO Reverse Osmosis Pure System",
+          "quantity": 10
         }
       ]
     }
