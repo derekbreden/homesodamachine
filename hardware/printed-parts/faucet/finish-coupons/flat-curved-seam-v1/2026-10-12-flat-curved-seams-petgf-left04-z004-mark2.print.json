@@ -1,0 +1,428 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A flat face",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.stl",
+      "stl_sha256": "519ca4897514669868ee0347b5d6e159f13a207947b2b15f9c337dd030451c83",
+      "triangles": 25344,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        7.152557373046875e-06,
+        33.51501750946045,
+        3.579999923706054
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        145.0,
+        142.5,
+        3.579999923706056
+      ],
+      "plate_translation_mm": [
+        145.0,
+        142.5,
+        3.579999923706056
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          131.50000715255737,
+          128.29284191131592,
+          0.0
+        ],
+        [
+          158.49999284744263,
+          156.70715808868408,
+          7.159999847412111
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.997566804831877e-10
+    },
+    {
+      "name": "B curved face",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.stl",
+      "stl_sha256": "3e53b369a4b4f3c626be8e98eb995f650bfbbbed0b8413aa7863163d9ca418e2",
+      "triangles": 27392,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        1.430511474609375e-06,
+        34.24286079406738,
+        3.5799999237060547
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        180.0,
+        142.5,
+        3.5799999237060547
+      ],
+      "plate_translation_mm": [
+        180.0,
+        142.5,
+        3.5799999237060547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          166.50000143051147,
+          127.56583976745605,
+          0.0
+        ],
+        [
+          193.49999856948853,
+          157.43416023254395,
+          7.159999847412109
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "C curved face",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.stl",
+      "stl_sha256": "3e53b369a4b4f3c626be8e98eb995f650bfbbbed0b8413aa7863163d9ca418e2",
+      "triangles": 27392,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        1.430511474609375e-06,
+        34.24286079406738,
+        3.5799999237060547
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        145.0,
+        177.5,
+        3.5799999237060547
+      ],
+      "plate_translation_mm": [
+        145.0,
+        177.5,
+        3.5799999237060547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          131.50000143051147,
+          162.56583976745605,
+          0.0
+        ],
+        [
+          158.49999856948853,
+          192.43416023254395,
+          7.159999847412109
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "D flat face",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.stl",
+      "stl_sha256": "519ca4897514669868ee0347b5d6e159f13a207947b2b15f9c337dd030451c83",
+      "triangles": 25344,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        7.152557373046875e-06,
+        33.51501750946045,
+        3.579999923706054
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        180.0,
+        177.5,
+        3.579999923706056
+      ],
+      "plate_translation_mm": [
+        180.0,
+        177.5,
+        3.579999923706056
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          166.50000715255737,
+          163.29284191131592,
+          0.0
+        ],
+        [
+          193.49999284744263,
+          191.70715808868408,
+          7.159999847412111
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.997566804831877e-10
+    }
+  ],
+  "project_sha256": "ba8a4df6c9adc694a5ea2b621fc2dac1516caecf13a7b4f33f3372f5ee8146eb",
+  "settings_preserved_byte_for_byte": false,
+  "requested_z_trim_mm": 0.04,
+  "active_nozzle": 0,
+  "geometry": {
+    "reference_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+    "reference_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+    "height_mm": 7.16,
+    "outer_radius_mm": 13.5,
+    "axis_location_mm": [
+      0.0,
+      29.933155999808,
+      -12.50426096885
+    ],
+    "axis_rotation_x_degrees": -15.000000000027539,
+    "flat_face_axis_frame_y_mm": 12.093386622447824,
+    "flat_face_width_mm": 12.0,
+    "minimum_continuous_backing_mm": 3,
+    "backing_missing_volume_mm3": 0.0,
+    "added_stock_mm3": 0,
+    "interior_bores_unchanged": true,
+    "uniform_subdivision_iterations": 2,
+    "meshes": {
+      "curved": {
+        "step": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.step",
+        "step_sha256": "4c426edfb102475b8f9ec4e39fbbb7c1178872a426b1f5e0e03e28759232b001",
+        "stl": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.stl",
+        "stl_sha256": "3e53b369a4b4f3c626be8e98eb995f650bfbbbed0b8413aa7863163d9ca418e2",
+        "cad_volume_mm3": 2773.2127739976363,
+        "triangles": 27392,
+        "bounds_mm": [
+          [
+            -13.49999713897705,
+            19.308700561523438,
+            0.0
+          ],
+          [
+            13.5,
+            49.17702102661133,
+            7.159999847412109
+          ]
+        ]
+      },
+      "flat": {
+        "step": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.step",
+        "step_sha256": "3ba8cea2a049d0f2985639f43d39eb6871dcff2034959eb3ae11e88a1574e9c6",
+        "stl": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.stl",
+        "stl_sha256": "519ca4897514669868ee0347b5d6e159f13a207947b2b15f9c337dd030451c83",
+        "cad_volume_mm3": 2688.889921284091,
+        "triangles": 25344,
+        "bounds_mm": [
+          [
+            -13.499985694885254,
+            19.307859420776367,
+            -2.100622015674641e-15
+          ],
+          [
+            13.5,
+            47.72217559814453,
+            7.159999847412109
+          ]
+        ]
+      }
+    }
+  },
+  "seam_painting": [
+    {
+      "identify_id": 1901,
+      "enforcer_triangles": 16,
+      "blocker_triangles": 12656,
+      "target": "Center region of the outward Y+ inspection face",
+      "target_strip_half_width_mm": 1.1,
+      "selection": "Side triangles intersecting the target strip"
+    },
+    {
+      "identify_id": 1902,
+      "enforcer_triangles": 192,
+      "blocker_triangles": 13504,
+      "target": "Center region of the outward Y+ inspection face",
+      "target_strip_half_width_mm": 1.1,
+      "selection": "Side triangles intersecting the target strip"
+    },
+    {
+      "identify_id": 1903,
+      "enforcer_triangles": 192,
+      "blocker_triangles": 13504,
+      "target": "Center region of the outward Y+ inspection face",
+      "target_strip_half_width_mm": 1.1,
+      "selection": "Side triangles intersecting the target strip"
+    },
+    {
+      "identify_id": 1904,
+      "enforcer_triangles": 16,
+      "blocker_triangles": 12656,
+      "target": "Center region of the outward Y+ inspection face",
+      "target_strip_half_width_mm": 1.1,
+      "selection": "Side triangles intersecting the target strip"
+    }
+  ],
+  "specimens": [
+    {
+      "id": "A",
+      "face": "flat",
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "identify_id": 1901
+    },
+    {
+      "id": "B",
+      "face": "curved",
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "identify_id": 1902
+    },
+    {
+      "id": "C",
+      "face": "curved",
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "identify_id": 1903
+    },
+    {
+      "id": "D",
+      "face": "flat",
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "identify_id": 1904
+    }
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "7d5234c8003ea368201a4008dec72022c9107d882455fbbce5df154cee1a962a",
+    "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/prepare.py": "36cfce428db1168d5bd80834405a73bbf9840de2a88528aa95e7eefc2d9e0020",
+    "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.stl": "3e53b369a4b4f3c626be8e98eb995f650bfbbbed0b8413aa7863163d9ca418e2",
+    "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.stl": "519ca4897514669868ee0347b5d6e159f13a207947b2b15f9c337dd030451c83"
+  },
+  "factor": "Outer inspection-face curvature; all process settings common",
+  "common_process": "petgf.3mf defaults, regular aligned seam, scarf off, 15% seam gap",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false
+}
