@@ -390,7 +390,9 @@ The signed printer-control application handles protected operations. Bambu's net
 library checks the calling application's signature for those operations; loading the
 library in a standalone helper does not provide print-start authorization
 ([Bambu authorization controls](https://blog.bambulab.com/firmware-update-introducing-new-authorization-control-system-2/)).
-The printer ignores MQTT `stop` from an unsigned client.
+The printer ignores MQTT `stop` from an unsigned client. On 2026-10-12 Mark2 also ignored
+`clean_print_error` from one; each of those two commands raised HMS attr 83887360, code
+65543, and changed nothing. Derek stopped the job and cleared its error himself.
 
 The `.gcode.3mf` carries the sliced machine G-code, including the printer's
 [Z trim](#z-trim). The
@@ -414,6 +416,15 @@ accepted once that nozzle has cooled
 ([CO2 ring](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
 `ams_status` 0x300 and an extruder `stat` with 0x0300 set also appear while a printer
 prints normally, so neither marks an open load.
+
+On 2026-10-12 Mark2 refused a 36-object seam and scarf plate twice with `ERROR STATE`,
+err_code 83902534 (05004046, "The print has stopped because the 3MF file is invalid…"):
+once while the previous cancellation error was pending and once after it was cleared. The
+same plate with one swatch removed was accepted as task 1331779977, as was an earlier
+35-object plate from the same preparation (task 1331755396). The two archives differ only
+by that object; the G-code header's `; object max height:` and `; model label id:` lines
+grow from 195 and 192 characters to 200 and 198. Why the printer refuses is unknown. A
+fixed-length header field is one hypothesis, and Mark1 is untested.
 
 
 ## Printer storage
