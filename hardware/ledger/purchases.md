@@ -473,6 +473,8 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| <!--purchase:pur-a667e3ee975c42218852bc7b225d75a8--> LOCTITE 406 instant adhesive, 20 g, low-viscosity ethyl cyanoacrylate for plastics and rubber — Beduan valve-post retention trial: wicked into the PET-GF sockets around primed posts. Two bottles, $9.86 ea + $1.42 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping | [B07H2YGBTJ](https://www.amazon.com/dp/B07H2YGBTJ) | 2 | $21.14 | 112-1633049-9300204 | 2026-10-11 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
+| <!--purchase:pur-3ce173932d6c45f184bcd60237a2c790--> Loctite Super Glue Plastics Bonding System 681925, heptane-base activator pen (4 g) + ethyl cyanoacrylate (2 g) — the activator primes the Beduan valve posts for the same retention trial. Two kits, $3.97 ea + $0.58 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping | [B000Y3LHXW](https://www.amazon.com/dp/B000Y3LHXW) | 2 | $8.52 | 112-1633049-9300204 | 2026-10-11 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
 | <!--purchase:pur-cfc338b991f7400a851a0ea5a018e44e--> ZWMSSLL M1.4 brass heat-set inserts, M1.4 × 4 mm × Ø2.3 mm, 200 pc — four per pump-cartridge contact pair; $7.99 item + $0.58 estimated tax, free shipping | [B0DFWTJSYD](https://www.amazon.com/dp/B0DFWTJSYD) | 1 pk (200) | $8.57 | 112-1800134-0339456 | 2026-10-03 | — | ON-ORDER (Amazon estimate 2026-10-07; order details verified 2026-10-04) |
 | <!--purchase:pur-87565d390bcc451a9fbfb44dc871d585--> Kozelo M1.4-0.3 × 8 mm socket-head cap screws, alloy steel, black oxide, 50 pc — four per pump-cartridge contact pair; 1.3 mm hex socket, hand driver required; $8.19 item + $0.59 estimated tax, free shipping | [B0DFYKBQ2S](https://www.amazon.com/dp/B0DFYKBQ2S) | 1 pk (50) | $8.78 | 112-4198441-3661019 | 2026-10-03 | — | ON-ORDER (Amazon estimate 2026-10-07; order details verified 2026-10-04) |
 | <!--purchase:pur-8b8ba8e2137c4191a05b5752259df5bc--> Probrico 3-3/4" CC solid cabinet pulls, SS round T-bar, black (5 pk) | [B0DHHK94Y5](https://www.amazon.com/dp/B0DHHK94Y5) | 1 pk | $13.93 | 114-3717852-7039428 | 2026-03-07 | — | ACQUIRED |
@@ -783,17 +785,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,719.67](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,199.06](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,385.75](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,415.41](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,637.88](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,667.54](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$10,712.56](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$1,706.33](LEDGER_ESTIMATES) |
+| Estimated amounts | [$1,735.99](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

@@ -7836,6 +7836,30 @@
       "source_ids": [
         "src-68c3c555ba354b03a40e08e8375f0c42"
       ]
+    },
+    "pur-a667e3ee975c42218852bc7b225d75a8": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ]
+    },
+    "pur-3ce173932d6c45f184bcd60237a2c790": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ]
     }
   },
   "orders": {
@@ -13371,6 +13395,18 @@
       "source_ids": [
         "src-68c3c555ba354b03a40e08e8375f0c42"
       ]
+    },
+    "amazon:112-1633049-9300204": {
+      "vendor": "Amazon",
+      "reference": "112-1633049-9300204",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ]
     }
   },
   "events": [
@@ -16057,6 +16093,23 @@
       "order_ids": [
         "fws:WEBFWS100711471"
       ]
+    },
+    {
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 2966,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "verified_at": "2026-10-11",
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ]
     }
   ],
   "allocations": [
@@ -16930,6 +16983,22 @@
       "purchase_id": "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
       "order_id": "fws:WEBFWS100711471",
       "amount_minor": 4118,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-54ff87adfa2c44768a8dd96e4f8a9a5d",
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8",
+      "order_id": "amazon:112-1633049-9300204",
+      "amount_minor": 2114,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-42c00c64777940d9ae77694127f43343",
+      "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
+      "purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790",
+      "order_id": "amazon:112-1633049-9300204",
+      "amount_minor": 852,
       "currency": "USD"
     }
   ],
@@ -25870,6 +25939,21 @@
       ],
       "verified_at": "2026-10-07",
       "note": "Gmail order confirmation received 2026-10-07 00:57 America/Chicago: neoFit AEU44-E bag of 10 at USD 16.14, neoFit ATBC44-E bag of 10 at USD 9.00; USD 25.14 subtotal, USD 13.25 shipping, USD 2.79 tax, USD 41.18 total; shipping method 2 business days. No shipment, delivery or completed merchant charge is stated."
+    },
+    "src-15a0dd5bd1ed4f618820a186549645d2": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-1633049-9300204",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-11",
+      "note": "Signed-in Amazon order history and individual order details: two LOCTITE 406 20 g bottles at $9.86 each (sold by ACTOOLS, shipped by Amazon) and two Loctite Super Glue Plastics Bonding System kits at $3.97 each (sold by Amazon.com); $27.66 item subtotal, $0.00 shipping, $2.00 estimated tax and $29.66 grand total; ordered 2026-10-11, arriving 2026-10-13. Both listings showed the Prime logo on 2026-10-11. The order states one tax amount; the rows split it per unit at 7.25% ($0.71 per 406 bottle, $0.29 per kit), which sums to the stated $2.00. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     }
   },
   "coverage": [
@@ -26868,6 +26952,26 @@
         "fws:WEBFWS100711471"
       ],
       "note": "Scoped Gmail search for order mail from the last day and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-eee3337cad824a7788c806a39d1436fe",
+      "vendor": "Amazon",
+      "stream": "valve-retention adhesive order",
+      "evidence_type": "order_details",
+      "checked_at": "2026-10-11",
+      "examined_period": {
+        "start": "2026-10-11",
+        "end": "2026-10-11"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-15a0dd5bd1ed4f618820a186549645d2"
+      ],
+      "order_ids": [
+        "amazon:112-1633049-9300204"
+      ],
+      "note": "Scoped review of the named adhesive order and its individual order summary. No claim of complete Amazon account coverage, completed payment or physical delivery."
     }
   ],
   "gaps": [
