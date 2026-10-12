@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-12T15:38:46.406199+00:00",
+  "source_archive": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-parts-h2c.gcode.3mf",
+  "source_archive_sha256": "b6f2ef86c281651892aa2fa24c36805a27997e6aa2d4d67c6916984bed7b458a",
+  "gcode_sha256": "684cc61cdcc50a8ae7460f65a627c03c69718e64cfb4f200e06d778876e52c88",
+  "ui_import_copy": ".cache/printer-control/tube-insertion-rigid-parts-mark1/2026-10-12-tube-insertion-rigid-parts-petgf-left04-z018-mark1.gcode.3mf",
+  "ui_import_copy_sha256_before_import": "b6f2ef86c281651892aa2fa24c36805a27997e6aa2d4d67c6916984bed7b458a",
+  "settings_baseline": "hardware/printed-parts/petgf.3mf",
+  "settings_baseline_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_validation": {
+    "archive_matches_review": true,
+    "gcode_matches_review": true,
+    "embedded_md5_ok": true,
+    "zip_ok": true,
+    "project_matches_review": true,
+    "meshes_match_review": true,
+    "baseline_matches_preparation": true
+  },
+  "requested_z_trim_mm": 0.18,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "prepared_settings": {
+    "printer_model": "Bambu Lab H2C",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_type": [
+      "PET-CF"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "6",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default"
+  },
+  "parts": [
+    "B guided carrier",
+    "D lower jaw",
+    "E upper jaw",
+    "G cap-support puck"
+  ],
+  "support_scope": "Four previously reviewed bed-rooted automatic supports in lower jaw D; underside locator-key pockets and side-entry carrier nut pockets",
+  "minimum_full_bead_margin_mm": 46.214408,
+  "printer": "Mark1",
+  "external_spool_slot": 254,
+  "shared_circuit_minimum_seconds": 180,
+  "readings": [
+    {
+      "printer": "Mark1",
+      "connection_alias": "H2C",
+      "observed_at_utc": "2026-10-12T15:38:46.404631+00:00",
+      "task_id": "1331280889",
+      "job_id": "1331280889",
+      "subtask_name": "2026-10-11-tube-insertion-base-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 225,
+      "total_layer_num": 225,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "stg_cur": -1,
+      "bed_temper": 32.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 32.0,
+      "nozzle_target_temper": 0.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "connection_alias": "Mark2",
+      "observed_at_utc": "2026-10-12T15:38:45.911690+00:00",
+      "task_id": "1331779977",
+      "job_id": "1331779977",
+      "subtask_name": "seam-wide-plate-35-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 32,
+      "total_layer_num": 32,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "stg_cur": -1,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 27.0,
+      "nozzle_target_temper": 0.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    }
+  ],
+  "peer_last_start_or_resume_utc": "2026-10-12T15:42:52.323641+00:00",
+  "peer_last_job_id": "1332835991",
+  "printer_2_coordination": "Printer 2 reserves Mark1 for this plate. Final fresh status identifies peer job 1332835991; its accepted start receipt establishes elapsed startup spacing.",
+  "before_send_readings": [
+    {
+      "printer": "Mark1",
+      "observed_at_utc": "2026-10-12T15:49:52.093502+00:00",
+      "task_id": "1331280889",
+      "job_id": "1331280889",
+      "subtask_name": "2026-10-11-tube-insertion-base-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 225,
+      "total_layer_num": 225,
+      "print_error": 0,
+      "hms": []
+    },
+    {
+      "printer": "Mark2",
+      "observed_at_utc": "2026-10-12T15:49:52.122767+00:00",
+      "task_id": "1332835991",
+      "job_id": "1332835991",
+      "subtask_name": "seam-b5d6-plate-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 32,
+      "print_error": 0,
+      "hms": []
+    }
+  ],
+  "send_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "peer_receipt": ".cache/printer-control/Mark2-1332835991-launch.json",
+  "peer_spacing_cleared_at_utc": "2026-10-12T15:45:52.323641+00:00",
+  "peer_spacing_check": {
+    "checked_at_utc": "2026-10-12T15:49:52.124132+00:00",
+    "elapsed_seconds": 419.800471,
+    "receipt_matches_observed_job": true
+  },
+  "existing_print_application_lock_held": true
+}
