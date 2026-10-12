@@ -213,7 +213,8 @@ def create_plan(geometry, portal):
             "geometry_source_sha256": {relative(HERE/"geometry.json"): sha(HERE/"geometry.json"),
                                        relative(HERE/"reference.py"): sha(HERE/"reference.py"),
                                        relative(HERE/"pip.py"): sha(HERE/"pip.py")},
-            "recipe_source_sha256": sha(__file__), "submitted": False,
+            "recipe_source_sha256": sha(__file__),
+            "recipe_functions_sha256": recipe_functions_sha(), "submitted": False,
             "seam_paint": geometry.get("native_seam_paint", {}),
             "variation_scope": "One whole object uses one recipe. Change a setting and reprint the complete object for comparison.",
             "layer_scope": "0.20 mm bed layer followed by uniform 0.24 mm model layers; no height bands.",
@@ -252,7 +253,10 @@ def retitle(project, report, generic, plan):
     report.update(project_sha256=sha(project), printer="Mark2",
                   requested_z_trim_mm=.04, expected_textured_plate_trim_mm=.02,
                   physical_result="Unprinted compact reference; release, motion, finish, strength and lifetime remain unmeasured.",
-                  compact_recipe_source_sha256=sha(__file__),
+                  generated_with_compact_preparer_source_sha256=sha(__file__),
+                  current_compact_preparer_source_sha256=sha(__file__),
+                  recipe_functions_sha256=recipe_functions_sha(),
+                  recipe_binding_scope="The generated-with digest binds the source bytes used for this editable project. Current preparer and native reader digests bind their recorded sources. The recipe-function digest binds construction and requested settings; project and native archive digests bind their saved bytes.",
                   generic_preparer_source_sha256=sha(generic.__file__))
 
 
@@ -260,6 +264,143 @@ def footprint(deposit, shift):
     points = np.asarray(deposit["points"])-shift[:2]
     width = deposit["strand_width_mm"] or .6
     return LineString(points).buffer(width/2, cap_style=2, join_style=2)
+
+
+def moving_support_contact_reading(deposits,report,bay,generic):
+    """Separate removable end-pocket roots from contact with printed stock."""
+    import math
+    import trimesh
+    from shapely.geometry import Point
+    from shapely.ops import polygonize
+    from shapely.prepared import prep
+    from matplotlib import pyplot as plt
+    from matplotlib.patches import Patch, Polygon as PlotPolygon
+
+    obj=report["print_objects"][0]
+    shift=np.asarray(obj["manufacturing_to_plate_mm"])[:3,3]
+    volume=next(v for v in obj["volumes"] if v["part_id"] == "moving")
+    source=ROOT/volume["source"]
+    mesh=trimesh.load(source,force="mesh",process=True)
+    mesh.apply_transform(np.asarray(volume["source_to_shared_frame_mm"]))
+    model_height=float(report["layer_height_mm"])
+    first_height=float(report["first_layer_height_mm"])
+    top=float(mesh.bounds[1,2])
+    slices={}
+    prepared={}
+    moving_lines={}
+    fixed_lines={}
+    support_lines={}
+    support_heights={}
+    for d in deposits:
+        if d["feature"].startswith("Custom"):continue
+        nozzle=d["commanded_nozzle_end_z_mm"]
+        z=round((d["model_z_mm"] if nozzle is None else nozzle)-shift[2],5)
+        if d["feature"].startswith("Support"):
+            if z>top+model_height:continue
+            support_lines.setdefault(z,[]).append(footprint(d,shift))
+            support_heights[z]=max(support_heights.get(z,0.),d["strand_height_mm"] or model_height)
+            continue
+        if not generic.reading.is_model_deposit(d) or d["identify_id"] !=obj["identify_id"]:
+            continue
+        if z>top+.01:continue
+        height=first_height if abs(z-first_height)<1e-5 else model_height
+        if z not in slices:
+            section=mesh.section(plane_origin=[0.,0.,z-height/2],plane_normal=[0.,0.,1.])
+            if section is None:
+                slices[z]=None
+            else:
+                # Planar intersection segments are already in the shared
+                # XY frame; polygonize them without an optional graph backend.
+                polygons=list(polygonize([LineString(section.vertices[e.points,:2])
+                                          for e in section.entities]))
+                slices[z]=unary_union(polygons)
+                prepared[z]=prep(slices[z].buffer(.002))
+        for a,b in zip(d["points"],d["points"][1:]):
+            a,b=a-shift[:2],b-shift[:2]
+            is_moving=slices[z] is not None and prepared[z].covers(Point((a+b)/2))
+            if not is_moving and abs(z-first_height)>1e-5 and abs(z-5.96)>1e-5:
+                continue
+            width=d["strand_width_mm"] or .6
+            poly=LineString([a,b]).buffer(width/2,cap_style=2,join_style=2)
+            (moving_lines if is_moving else fixed_lines).setdefault(z,[]).append(poly)
+    moving={z:unary_union(p) for z,p in moving_lines.items()}
+    fixed={z:unary_union(p) for z,p in fixed_lines.items()}
+    supports={z:unary_union(p) for z,p in support_lines.items()}
+    pairs=[]
+    best_3d=None
+    for mz,mp in sorted(moving.items()):
+        mh=first_height if abs(mz-first_height)<1e-5 else model_height
+        for sz,sp in sorted(supports.items()):
+            sh=support_heights[sz]
+            zgap=max(0.,sz-sh-mz,mz-mh-sz)
+            if best_3d is not None and zgap>best_3d["nominal_slab_distance_3d_mm"]+.00001:
+                continue
+            gap=float(mp.distance(sp))
+            distance=math.hypot(gap,zgap)
+            item={"moving_model_nozzle_z_mm":mz,"support_nozzle_z_mm":sz,
+                  "minimum_xy_width_footprint_gap_mm":gap,
+                  "nominal_slab_z_air_mm":zgap,"nominal_slab_distance_3d_mm":distance}
+            if best_3d is None or distance<best_3d["nominal_slab_distance_3d_mm"]:
+                best_3d=item
+            if zgap<1e-5:
+                item["xy_width_footprint_overlap_area_mm2"]=float(mp.intersection(sp).area)
+                pairs.append(item)
+    limits=bay["proof"]["actual_bounds_mm"]["moving"][:2]
+    stop0=limits[0]-bay["proof"]["mechanical_stroke_mm"]/2
+    stop1=limits[1]+bay["proof"]["mechanical_stroke_mm"]/2
+    s=stations(bay)
+    pockets=unary_union([rectangle(stop0,s["front_wall_max"],limits[0],s["back_wall_min"]),
+                        rectangle(limits[1],s["front_wall_max"],stop1,s["back_wall_min"])])
+    route_rows=[]
+    for z,sp in sorted(supports.items()):
+        if z>bay["proof"]["contact_planes_z_mm"]["lip_underside"]+1e-5:continue
+        material=sp.intersection(pockets)
+        if material.area>1e-6:
+            route_rows.append({"support_nozzle_z_mm":z,
+                               "end_pocket_width_footprint_area_mm2":float(material.area),
+                               "end_pocket_width_footprint_bounds_mm":list(material.bounds)})
+    image=PROJECT.with_name(PROJECT.stem+"-motion-paths.png")
+    selected=[first_height,min(moving,key=lambda z:abs(z-5.96))]
+    fig,axes=plt.subplots(1,2,figsize=(11,4.5),constrained_layout=True)
+    colours={"fixed":"#b9b4aa","moving":"#2389b0","supports":"#d8892d"}
+    def draw(ax,geometry,colour):
+        if geometry is None:return
+        polygons=list(geometry.geoms) if hasattr(geometry,"geoms") else [geometry]
+        for p in polygons:
+            if p.geom_type!="Polygon":continue
+            ax.add_patch(PlotPolygon(np.asarray(p.exterior.coords),closed=True,
+                facecolor=colour,edgecolor=colour,linewidth=.15))
+            for hole in p.interiors:
+                ax.add_patch(PlotPolygon(np.asarray(hole.coords),closed=True,
+                    facecolor="white",edgecolor=colour,linewidth=.15))
+    for ax,z in zip(axes,selected):
+        draw(ax,fixed.get(z),colours["fixed"])
+        draw(ax,supports.get(z),colours["supports"])
+        draw(ax,moving.get(z),colours["moving"])
+        ax.axvline(limits[0],color="#2389b0",linestyle="--",linewidth=.6)
+        ax.axvline(limits[1],color="#2389b0",linestyle="--",linewidth=.6)
+        ax.set(xlim=[stop0-4,stop1+4],ylim=[s["front_wall_min"]-1,s["back_wall_min"]+4],
+               xlabel="X · slide axis (mm)",ylabel="Y (mm)",title=f"Native nozzle Z {z:.2f} mm")
+        ax.set_aspect("equal")
+        ax.grid(alpha=.15)
+    fig.legend(handles=[Patch(facecolor=colours[k],label=l) for k,l in
+        (("fixed","Fixed model"),("moving","Moving model"),("supports","Automatic support"))],
+        loc="outside lower center",ncol=3,frameon=False)
+    fig.suptitle("Native support roots and printed moving paths",fontsize=12)
+    fig.savefig(image,dpi=180)
+    plt.close(fig)
+    overlaps=[p for p in pairs if p["xy_width_footprint_overlap_area_mm2"]>1e-7]
+    return {"moving_source_stl":relative(source),"moving_source_stl_sha256":sha(source),
+        "moving_model_layers_classified":len(moving),
+        "minimum_nominal_extrusion_slab_distance":best_3d,
+        "minimum_xy_footprint_gap_with_touching_z_slabs_mm":min(p["minimum_xy_width_footprint_gap_mm"] for p in pairs),
+        "maximum_xy_width_footprint_overlap_area_mm2":max(p["xy_width_footprint_overlap_area_mm2"] for p in pairs),
+        "overlapping_slab_and_footprint_pair_count":len(overlaps),
+        "no_commanded_support_contact_with_moving_stock":not overlaps,
+        "slab_contact_pair_readings":pairs,"end_pocket_support_routes":route_rows,
+        "path_image":relative(image),"path_image_sha256":sha(image),
+        "cleanup_scope":"Remove the automatic ceiling supports and their end-pocket roots before assessing the slide. The pockets are open upward beyond the initial lip ends, through the front aperture; rear crown access is retained. Actual removal and release remain unprinted physical results.",
+        "measurement_scope":"Model commands are classified by the frozen moving STL's nominal layer-midplane sections. Distances use commanded line-width footprints and model slabs, including neighboring slabs that share a Z plane. Strand sag, physical bead shape, removal force and reliable release are not measured."}
 
 
 def compact_native_readings(text, report, bay, generic):
@@ -338,11 +479,12 @@ def compact_native_readings(text, report, bay, generic):
     contours=[]
     previous=None
     current=None
+    outer_features={"Outer wall","Overhang wall"}
     for d in deposits:
-        if d["identify_id"] == label and d["feature"] == "Outer wall":
+        if d["identify_id"] == label and d["feature"] in outer_features:
             start=d["points"][0]-shift[:2]
             end=d["points"][-1]-shift[:2]
-            continuation = (previous is not None and previous["feature"] == "Outer wall"
+            continuation = (previous is not None and previous["feature"] in outer_features
                 and previous["identify_id"] == label and abs(previous["model_z_mm"]-d["model_z_mm"]) < 1e-6
                 and np.linalg.norm(previous["points"][-1]-d["points"][0]) < .0001)
             if not continuation:
@@ -362,6 +504,7 @@ def compact_native_readings(text, report, bay, generic):
         c.update(radius_from_corner_mm=radius,
             degrees_from_minus_x_toward_plus_y=float(np.degrees(np.arctan2(delta[1],-delta[0]))),
             endpoint_centerline_gap_mm=float(np.linalg.norm(start-np.asarray(c["end_xy_mm"]))))
+        c["closed_contour_endpoint_witness"] = c["endpoint_centerline_gap_mm"] < 1.
         seam_starts.append(c)
     blocker_rows = []
     for name, shape in bay["support_blockers"].items():
@@ -384,11 +527,12 @@ def compact_native_readings(text, report, bay, generic):
         "moving_leg_bed_witnesses":foot_rows,"first_crossbar_model_nozzle_z_mm":first_bar,
         "first_layer_model_footprint_isolation":first_isolation,
         "standing_R6_outer_contour_start_witnesses":seam_starts,
-        "contour_start_scope":"First/last positive outer-wall path points in contiguous native contour runs. This witnesses commanded seam placement and path endpoints, not a physical ridge, groove or scarf outcome.",
+        "contour_start_scope":"First/last positive Outer wall or Overhang wall points in contiguous native contour runs. Open runs are marked separately and their endpoint distance is not a seam gap. This witnesses commanded placement and path endpoints, not a physical ridge, groove or scarf outcome.",
         "first_crossbar_bridge_roads":bridge_rows,
         "first_crossbar_bridge_roads_follow_y_anchors":bool(bridge_rows)
             and all(r["runs_along_y"] and r["connects_both_leg_regions"] for r in bridge_rows),
         "motion_blocker_footprint_readings":blocker_rows,
+        "moving_support_contact_reading":moving_support_contact_reading(deposits,report,bay,generic),
         "no_support_brim_or_prime_in_motion_volume":all(not r["commanded_support_brim_or_prime_intrusions"] for r in blocker_rows),
         "saved_and_native_layers_scope":"Both leaves share the single parent schedule. No individual leaf schedule or physical first-layer bonding is inferred."}
 
@@ -420,6 +564,10 @@ def write_totals(report,generic):
               "normal_volume_count":2,"native_parent_count":1,"plate_count":1,
               "first_layer_mm":.20,"uniform_model_layer_mm":.24,
               "saved_profile_source":relative(PROFILE),"saved_profile_sha256":sha(PROFILE),
+              "source_compact_plan_sha256":report["source_compact_plan_sha256"],
+              "generated_with_compact_preparer_source_sha256":report.get("generated_with_compact_preparer_source_sha256"),
+              "current_compact_preparer_source_sha256":report.get("current_compact_preparer_source_sha256"),
+              "recipe_functions_sha256":report.get("recipe_functions_sha256"),
               "submitted":False}
     if "native" in report:
         native=report["native"]
@@ -427,7 +575,8 @@ def write_totals(report,generic):
             estimated_seconds=generic.estimates_seconds(native["estimated_time"]),
             saved_profile_filament_estimate_g=native["saved_profile_filament_estimate_g"],
             minimum_full_bead_bed_margin_mm=native["minimum_full_bead_bed_margin_mm"],
-            archive=native["archive"],archive_sha256=native["archive_sha256"])
+            archive=native["archive"],archive_sha256=native["archive_sha256"],
+            compact_reader_source_sha256=native.get("compact_reader_source_sha256"))
     SUMMARY.write_text(json.dumps(totals,indent=2)+"\n")
     print(json.dumps(totals,indent=2))
 
@@ -442,10 +591,12 @@ def read_existing():
     """Read the saved immutable native archive without preparing or slicing."""
     generic,portal=libraries()
     geometry=json.loads((HERE/"geometry.json").read_text())
-    plan,bay=create_plan(geometry,portal)
-    plan["recipe_functions_sha256"]=recipe_functions_sha()
-    PLAN.write_text(json.dumps(plan,indent=2)+"\n")
     report=json.loads(PROJECT.with_suffix(".print.json").read_text())
+    for volume in report["print_objects"][0]["volumes"]:
+        if sha(ROOT/volume["source"]) != volume["source_stl_sha256"]:
+            raise ValueError("Saved native readings require their frozen source meshes; current geometry differs")
+    requested=geometry["pip"]["nominal_gaps_mm"]
+    bay=portal.build(xy_air=requested["xy_per_face"],z_air=requested["lower_z"])
     native=report["native"]
     archive_path=ROOT/native["archive"]
     with zipfile.ZipFile(archive_path) as archive:
@@ -454,9 +605,9 @@ def read_existing():
     native["compact_reader_source_sha256"]=sha(__file__)
     report.pop("compact_recipe_source_sha256",None)
     report.update(current_compact_preparer_source_sha256=sha(__file__),
-                  recipe_functions_sha256=recipe_functions_sha(),
+                  current_recipe_functions_sha256=recipe_functions_sha(),
                   source_compact_plan_sha256=sha(PLAN),
-                  recipe_binding_scope="The recipe-function digest binds the construction and requested-setting functions. Whole-file digests bind the current generator and reader. Editable project and native archive digests bind their actual saved inputs and paths.")
+                  recipe_binding_scope="Generated-with source and recipe-function digests retain the editable project's construction inputs. Current preparer, current recipe-function and native reader digests identify the current reading code. The existing plan, editable project and native archive keep their saved byte digests.")
     PROJECT.with_suffix(".print.json").write_text(json.dumps(report,indent=2)+"\n")
     write_totals(report,generic)
 

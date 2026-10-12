@@ -26,6 +26,10 @@ layer height throughout each object, after the same 0.20 mm first layer.
 
 The gate has 10 mm of nominal travel, 0.25 mm XY air per face, and 0.48 mm lower
 and upper Z release gaps in CAD. Record actual deposited gaps with the recipe.
+Remove the ceiling supports and their roots from the open end-travel pockets
+through the arch opening before assessing the slide. Read the ceiling with its
+support attached first, then after cleanup.
+
 The gate is a local fit reference. Print-in-place release does not qualify the
 machine's separately assembled service joints. If it does not release, record
 that result; forceful break-in can deform the fit and change later readings.

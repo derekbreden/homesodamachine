@@ -2,23 +2,23 @@
   "schema": 4,
   "title": "The Pour V4 \u2014 Arch",
   "source_manifest": "hardware/printed-parts/calibration/soda-studies/manifest.json",
-  "source_manifest_sha256": "3f35e1f24cc4ea230908988c0a473874376651aba0350aab875e770fd4d013db",
+  "source_manifest_sha256": "94ca66ab1da7da32aee027f2c60ce60d5fdb8851eded6e0ce818865b72bdaa38",
   "variation_scope": "One geometry configuration and one recipe per complete object; compare settings across complete prints.",
   "projects": [
     {
       "plate_id": "compact-arch",
       "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v4-petgf.3mf",
-      "project_sha256": "93a2b7d3ece4af1e470a592a5268fd37c97bc758ae18ac8beabff6c51b138238",
+      "project_sha256": "2af4f0009359a3471f75d357da5fda0264249b965cdef65ed4eca605b583efda",
       "preparation_metadata": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v4-petgf.print.json",
-      "preparation_metadata_sha256": "884c48cba3c29b7b37045e9203a67de884f47ea2ef8daddf9e4e7012a3098455",
+      "preparation_metadata_sha256": "feacd67a7e21ad2e95796b2182f217a66782ac73911a0da0d84cd074fb9ea883",
       "native_parent_count": 1,
       "normal_volume_count": 2,
       "first_layer_mm": 0.2,
       "uniform_model_layer_mm": 0.24,
-      "estimated_time": "2h 11m 11s",
-      "estimated_seconds": 7871.0,
+      "estimated_time": "2h 11m 26s",
+      "estimated_seconds": 7886.0,
       "saved_profile_filament_estimate_g": [
-        64.32
+        64.54
       ],
       "minimum_full_bead_bed_margin_mm": 123.37900000000002
     }
@@ -39,7 +39,7 @@
   "preparation_only": false,
   "sliced_locally": true,
   "submitted": false,
-  "total_estimated_seconds": 7871.0,
-  "total_saved_profile_filament_estimate_g": 64.32,
+  "total_estimated_seconds": 7886.0,
+  "total_saved_profile_filament_estimate_g": 64.54,
   "minimum_full_bead_bed_margin_mm": 123.37900000000002
 }

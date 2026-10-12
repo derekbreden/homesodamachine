@@ -6,7 +6,7 @@
       "id": "body",
       "name": "The Pour frame",
       "stl": "hardware/printed-parts/calibration/soda-studies/arch-body.stl",
-      "stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
+      "stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
       "native_body_window": [
         [
           -5.0,
@@ -18835,11 +18835,11 @@
           "index_scope": "trimesh.load(force=mesh,process=True) frozen STL face order",
           "scope": "Outward/downward source R6 bed and aperture transition faces only. Horizontal functional ceilings remain supportable.",
           "source_selection": {
-            "body_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01",
+            "body_stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a",
             "processed_trimesh_facets": 43998,
             "functional_horizontal_faces_excluded": true
           },
-          "source_stl_sha256": "f105990e6224e22dde0e2cde69e88aa0b1d7e17515b54481a984a4c347057c01"
+          "source_stl_sha256": "42f3aa6e4ffe1844bebbe7358e7c75b799f8ac9e95b8e293a257ffa2de185b1a"
         }
       },
       {
@@ -18878,11 +18878,12 @@
     "model_border_mm": 80.0
   },
   "geometry_source_sha256": {
-    "hardware/printed-parts/calibration/soda-studies/geometry.json": "0546b8b13cc65bb39f36e2654b1e518f7de0a65aa24de18197e3801ca9ed32c3",
-    "hardware/printed-parts/calibration/soda-studies/reference.py": "5e16f3b6f083701cc59a920b41be196ac7875cb4119f6a8abd9bf417702bb762",
-    "hardware/printed-parts/calibration/soda-studies/pip.py": "32857704f9a6b96c52a735174a2eef838094b2a370111365b48163c298af4ca8"
+    "hardware/printed-parts/calibration/soda-studies/geometry.json": "4287834cab01eb7aae712478b42e1455e127cdb22e17a9f5ac99cdab0240b633",
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "d532b5cf04c0bd1d4792663813f10dfff557ab2556aa96df15f320829eaf35df",
+    "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6"
   },
-  "recipe_source_sha256": "a7a5296007f59638c5deda6fe22e07b42f02d08e5dee378895ebb21393fd1e09",
+  "recipe_source_sha256": "e0e6fa3c6e8a62b2a94513393072b56642198e58dd29b8671e7ddac15df88ea3",
+  "recipe_functions_sha256": "b4872c9a0a4f2d02680818d359f6f80c58d9a9159a77a583cf0ba8c44d65e2b6",
   "submitted": false,
   "seam_paint": {
     "standing_left_rear_R6_faces": [
@@ -18910,6 +18911,5 @@
   },
   "variation_scope": "One whole object uses one recipe. Change a setting and reprint the complete object for comparison.",
   "layer_scope": "0.20 mm bed layer followed by uniform 0.24 mm model layers; no height bands.",
-  "support_scope": "Default Tree(auto), retaining automatic normal sections. Only intentional PIP motion volumes and named exterior R6 faces are blocked.",
-  "recipe_functions_sha256": "09cbb92abc56d9c86869967173d2eccf79ba06833f12a99a78d6aecad7308988"
+  "support_scope": "Default Tree(auto), retaining automatic normal sections. Only intentional PIP motion volumes and named exterior R6 faces are blocked."
 }
