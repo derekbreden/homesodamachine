@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "status": "Machine reports base print complete; physical result unassessed",
+  "observed_at_utc": "2026-10-12T15:38:46.404631+00:00",
+  "observed_at_central": "2026-10-12T10:38:46.404631-05:00",
+  "printer": "Mark1",
+  "task_id": "1331280889",
+  "job_id": "1331280889",
+  "subtask_name": "2026-10-11-tube-insertion-base-petgf-left04-z018-mark1.gcode.3mf",
+  "gcode_state": "FINISH",
+  "layer_num": 225,
+  "total_layer_num": 225,
+  "print_error": 0,
+  "hms": [],
+  "scope": "Telemetry completion for the accepted base job; no visual, fit, strength or grip acceptance inferred"
+}
