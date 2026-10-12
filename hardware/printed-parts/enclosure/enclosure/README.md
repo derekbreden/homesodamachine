@@ -746,12 +746,15 @@ are read on the physical print and nowhere else.
 **What decides removal is the lane, not the reading.** A body comes away easily when its faces
 stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
 It fights when it is walled on several sides, when a branch re-enters a pocket behind its own
-interface, or when the hardware goes in first. The Z-seam catches are the case that separates
-the two: model-rooted, with the shortest build-up on their pieces — the two marks a reader
-scanning the table would stop on — and among the easiest supports on the enclosure to remove.
-The groove beneath a catch is open air from the arm's sliding face out past the exterior plane,
-so what stands in it is a ribbon running the whole rail with one face fully exposed, nothing
-over it and no branch turning back into anything. It peels off the flank in a single pull. A
+interface, or when the hardware goes in first. The Z-seam catches need a short support ribbon contained in the open sliding
+groove and rooted on nearby model stock. The operator reports easy release of
+that arrangement on the other enclosure quadrants. The
+[back-top article](../../drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json)
+has long fragile stems trapped in walls and failed sliding-groove cleanup. Their
+physical starting points are unknown. A back-top preparation must trace the
+groove contacts below their own model floor and keep the support removal lane
+clear; diameter growth alone does not establish that routing. Short native
+roots still require physical cleanup assessment. A
 stub of the same build-up inside a 3 mm tie channel is a different job entirely.
 
 What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
