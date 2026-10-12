@@ -26,7 +26,7 @@ ROOT = next(p for p in HERE.parents if (p/"tools/bambu_print.py").is_file())
 GENERIC = ROOT/"hardware/printed-parts/calibration/soda-studies"
 PROFILE = ROOT/"hardware/printed-parts/petgf.3mf"
 IDENTITY = np.eye(4).tolist()
-PROJECT = HERE/"prints/the-pour-v4-petgf.3mf"
+PROJECT = HERE/"prints/the-pour-v5-petgf.3mf"
 PLAN = HERE/"print-plan.json"
 SUMMARY = HERE/"native-summary.json"
 
@@ -64,7 +64,7 @@ def load_module(path, name):
 
 def libraries():
     generic = load_module(GENERIC/"prepare_prints.py", "compact_generic_prepare")
-    generic.WORK = ROOT/".cache/pour-compact/native-work"
+    generic.WORK = ROOT/".cache/pour-wedge/native-work"
     portal = load_module(HERE/"pip.py", "compact_portal_recipe")
     return generic, portal
 
@@ -78,7 +78,8 @@ def stations(bay):
             "leg3":b["back_wall"][2]-g,
             "front_wall_min":b["front_wall"][2],
             "front_wall_max":b["front_wall"][3],
-            "back_wall_min":b["back_wall"][2]}
+            "back_wall_min":b["back_wall"][2],
+            "back_wall_max":b["back_wall"][3]}
 
 
 def probes(bay):
@@ -134,6 +135,9 @@ def create_plan(geometry, portal):
     bay = portal.build(xy_air=requested["xy_per_face"],z_air=requested["lower_z"])
     planes = bay["proof"]["contact_planes_z_mm"]
     station=stations(bay)
+    width,depth,height=geometry["dimensions_mm"]
+    bed_probe_x=geometry["ceiling"]["rear_access_mm"][1]-4.
+    bed_probe_start=station["back_wall_max"]+.12
     release, lateral = probes(bay)
     parts = []
     for name, title in (("body", "The Pour frame"), ("moving", "Captive portal slide")):
@@ -144,9 +148,9 @@ def create_plan(geometry, portal):
             part["native_body_window"] = [[-5.,station["front_wall_min"]+.05,0.],
                                           [5.,station["front_wall_max"]-.05,planes["lip_top"]]]
             part["native_review"] = {"wall_probes": [
-                {"name": "Left fixed bed round", "line_xy_mm": [[-23.5,0.],[-23.5,9.]],
+                {"name": "Left rear bed round", "line_xy_mm": [[-bed_probe_x,bed_probe_start],[-bed_probe_x,depth]],
                  "print_z_mm": [0.,1.], "expected_wall_roads": 6},
-                {"name": "Right fixed bed round", "line_xy_mm": [[23.5,0.],[23.5,9.]],
+                {"name": "Right rear bed round", "line_xy_mm": [[bed_probe_x,bed_probe_start],[bed_probe_x,depth]],
                  "print_z_mm": [0.,1.], "expected_wall_roads": 6}]}
         else:
             part.update(native_body_window=[[-5.,station["leg0"],0.],[5.,station["leg1"],planes["bar_top"]]],
@@ -175,11 +179,10 @@ def create_plan(geometry, portal):
     if "body_stl_sha256" in source_paint:
         if source_paint["body_stl_sha256"] != parts[0]["stl_sha256"]:
             raise ValueError("Frozen exterior support paint does not match the current body STL")
-        indices = sorted(set(source_paint["bed_R6_exterior_transition_faces"])
-                         | set(source_paint["aperture_R6_exterior_transition_faces"]))
+        indices = sorted(set(source_paint["bed_R6_exterior_transition_faces"]))
         paint = {"block_triangle_indices": indices,
                  "index_scope": "trimesh.load(force=mesh,process=True) frozen STL face order",
-                 "scope": "Outward/downward source R6 bed and aperture transition faces only. Horizontal functional ceilings remain supportable.",
+                 "scope": "Outward/downward source R6 rear bed transition faces only. Horizontal functional ceilings remain supportable.",
                  "source_selection": {k:v for k,v in source_paint.items() if not isinstance(v,list)}}
     if paint is None:
         paint = geometry["parts"]["body"].get("support_paint")
@@ -188,7 +191,7 @@ def create_plan(geometry, portal):
     paint = {**paint, "source_stl_sha256": parts[0]["stl_sha256"]}
     if "block_triangle_indices" not in paint:
         raise ValueError("Exterior support paint requires exact processed STL triangle indices")
-    cohort = {"id": "compact-arch-petgf", "settings_source": relative(PROFILE),
+    cohort = {"id": "compact-corner-petgf", "settings_source": relative(PROFILE),
               "requested_z_trim_mm": .04, "global_overrides": GLOBAL_OPTIONS,
               "material_source": {"scope": "Saved PET-GF single-slot profile; no printer state inferred",
                                   "printer": "Mark2", "physical_nozzle": "left 0.4 mm",
@@ -199,26 +202,28 @@ def create_plan(geometry, portal):
         native_review["ceiling_probes"] = [{"name": "Accessible rear supported crown flat",
             "nominal_ceiling_z_mm": c[4], "window_xy_mm": [[c[0],c[2]],[c[1],c[3]]],
             "requested_support_top_gap_mm": .45}]
-    obj = {"id": "compact-arch", "name": "The Pour",
-           "manufacturing_frame": {"id": "compact-arch-print-up-plus-z",
+    obj = {"id": "compact-corner", "name": "The Pour",
+           "manufacturing_frame": {"id": "compact-corner-print-up-plus-z",
                                    "from_source_matrix_mm": IDENTITY},
            "object_overrides": {}, "layer_ranges": [], "modifiers": modifiers,
            "volumes": [{"part_id": "body", "filament_slot": 1, "support_paint": paint},
                        {"part_id": "moving", "filament_slot": 1}],
            "native_review": native_review}
     plan = {"schema": 1, "name": "The Pour compact print reference",
+            "geometry_dimensions_mm":[width,depth,height],
             "parts": parts, "cohort": cohort, "print_object": obj,
-            "plate": {"id": "compact-arch", "offsets_mm": [[0.,0.]],
+            "plate": {"id": "compact-corner", "offsets_mm": [[0.,0.]],
                       "model_border_mm": 80.},
             "geometry_source_sha256": {relative(HERE/"geometry.json"): sha(HERE/"geometry.json"),
                                        relative(HERE/"reference.py"): sha(HERE/"reference.py"),
                                        relative(HERE/"pip.py"): sha(HERE/"pip.py")},
             "recipe_source_sha256": sha(__file__),
             "recipe_functions_sha256": recipe_functions_sha(), "submitted": False,
-            "seam_paint": geometry.get("native_seam_paint", {}),
+            "seam_paint": {**geometry.get("native_seam_paint", {}),
+                           "radius_mm":geometry["display"]["side_radius_mm"]},
             "variation_scope": "One whole object uses one recipe. Change a setting and reprint the complete object for comparison.",
             "layer_scope": "0.20 mm bed layer followed by uniform 0.24 mm model layers; no height bands.",
-            "support_scope": "Default Tree(auto), retaining automatic normal sections. Only intentional PIP motion volumes and named exterior R6 faces are blocked."}
+            "support_scope": "Default Tree(auto), retaining automatic normal sections. Only intentional PIP motion volumes and the named rear bed R6 faces are blocked."}
     return plan, bay
 
 
@@ -228,7 +233,7 @@ def retitle(project, report, generic, plan):
     document = ET.fromstring(members["3D/3dmodel.model"])
     for item in document.findall(generic.writer.qn("metadata")):
         if item.get("name") == "Title":
-            item.text = "The Pour — compact PET-GF reference, Mark2"
+            item.text = "The Pour V5 — Corner PET-GF reference, Mark2"
     seam = plan.get("seam_paint", {})
     if seam:
         ET.SubElement(document,generic.writer.qn("metadata"),
@@ -247,7 +252,7 @@ def retitle(project, report, generic, plan):
     config = ET.fromstring(members["Metadata/model_settings.config"])
     for item in config.findall("plate/metadata"):
         if item.get("key") == "plater_name":
-            item.set("value", "The Pour — compact PET-GF reference, Mark2")
+            item.set("value", "The Pour V5 — Corner PET-GF reference, Mark2")
     members["Metadata/model_settings.config"] = generic.writer.xml(config)
     generic.writer.archive_write(project, members)
     report.update(project_sha256=sha(project), printer="Mark2",
@@ -399,7 +404,7 @@ def moving_support_contact_reading(deposits,report,bay,generic):
         "no_commanded_support_contact_with_moving_stock":not overlaps,
         "slab_contact_pair_readings":pairs,"end_pocket_support_routes":route_rows,
         "path_image":relative(image),"path_image_sha256":sha(image),
-        "cleanup_scope":"Remove the automatic ceiling supports and their end-pocket roots before assessing the slide. The pockets are open upward beyond the initial lip ends, through the front aperture; rear crown access is retained. Actual removal and release remain unprinted physical results.",
+        "cleanup_scope":"Remove the automatic ceiling supports and any terminal-pocket roots before assessing the slide. Empty pockets remain beyond the initial lip ends, and the rear opening reaches the crown underside and tab. Actual removal and release remain unprinted physical results.",
         "measurement_scope":"Model commands are classified by the frozen moving STL's nominal layer-midplane sections. Distances use commanded line-width footprints and model slabs, including neighboring slabs that share a Z plane. Strand sag, physical bead shape, removal force and reliable release are not measured."}
 
 
@@ -462,7 +467,8 @@ def compact_native_readings(text, report, bay, generic):
     first_skin = unary_union([footprint(d,shift) for d in first_layer_models])
     components = list(first_skin.geoms) if hasattr(first_skin,"geoms") else [first_skin]
     witness_regions = {
-        "fixed": rectangle(-24.,3.,-22.,7.),
+        "fixed": rectangle(-2.,station["front_wall_min"]+.5,
+                            2.,station["front_wall_max"]-.5),
         "front_moving_leg": rectangle(-2.,station["leg0"]+.75,2.,station["leg1"]-.75),
         "back_moving_leg": rectangle(-2.,station["leg2"]+.75,2.,station["leg3"]-.75),
     }
@@ -494,12 +500,16 @@ def compact_native_readings(text, report, bay, generic):
             else:
                 current["end_xy_mm"]=end.tolist()
         previous=d
-    corner=np.array([-24.,42.])
+    seam_record=report["contour_seam_paint"]
+    corner=np.asarray(seam_record["world_corner_center_xy_mm"])
+    seam_z0,seam_z1=seam_record["z_band_mm"]
+    seam_radius=seam_record["radius_mm"]
     seam_starts=[]
     for c in contours:
         start=np.asarray(c["start_xy_mm"]); delta=start-corner
         radius=float(np.linalg.norm(delta))
-        if not (8 <= c["model_nozzle_z_mm"] <=54 and 5.6 <= radius <=6.4
+        if not (seam_z0 <= c["model_nozzle_z_mm"] <=seam_z1
+                and seam_radius-.4 <= radius <=seam_radius+.4
                 and delta[0] <0 and delta[1] >0):continue
         c.update(radius_from_corner_mm=radius,
             degrees_from_minus_x_toward_plus_y=float(np.degrees(np.arctan2(delta[1],-delta[0]))),
@@ -544,7 +554,7 @@ def prepare(slice_native=False):
     PLAN.write_text(json.dumps(plan,indent=2)+"\n")
     project, report = generic.prepare_plate(plan,plan["cohort"],[plan["print_object"]],
         PROJECT,offsets=[[0.,0.]],border_mm=80.)
-    report["plate_id"] = "compact-arch"
+    report["plate_id"] = "compact-corner"
     report["source_compact_plan_sha256"] = sha(PLAN)
     retitle(project,report,generic,plan)
     if slice_native:
@@ -578,7 +588,50 @@ def write_totals(report,generic):
             archive=native["archive"],archive_sha256=native["archive_sha256"],
             compact_reader_source_sha256=native.get("compact_reader_source_sha256"))
     SUMMARY.write_text(json.dumps(totals,indent=2)+"\n")
+    write_preparation_index(report,totals)
     print(json.dumps(totals,indent=2))
+
+
+def write_preparation_index(report,totals):
+    """One current project and its saved source/output bindings."""
+    manifest=HERE/"manifest.json"
+    normal_volumes=[v for o in report["print_objects"] for v in o["volumes"]
+                    if v["subtype"]=="normal_part"]
+    blocker_count=sum(v["subtype"]=="support_blocker"
+                      for o in report["print_objects"] for v in o["volumes"])
+    counts={part:sum(v["part_id"]==part for v in normal_volumes)
+            for part in ("body","moving")}
+    project=ROOT/report["project"]
+    metadata=project.with_suffix(".print.json")
+    value={"schema":4,"title":"The Pour V5 — Corner",
+        "source_manifest":relative(manifest),"source_manifest_sha256":sha(manifest),
+        "variation_scope":"One geometry configuration and one recipe per complete object; compare settings across complete prints.",
+        "projects":[{"plate_id":report["plate_id"],"project":relative(project),
+            "project_sha256":sha(project),"preparation_metadata":relative(metadata),
+            "preparation_metadata_sha256":sha(metadata),
+            "native_parent_count":len(report["print_objects"]),
+            "normal_volume_count":len(normal_volumes),
+            "support_blocker_volume_count":blocker_count,
+            "first_layer_mm":totals["first_layer_mm"],
+            "uniform_model_layer_mm":totals["uniform_model_layer_mm"]}],
+        "physical_part_coverage":{"expected_part_ids":["body","moving"],
+            "material_volume_counts":counts,
+            "missing_part_ids":[p for p,n in counts.items() if not n],
+            "parts_in_multiple_native_parents":[p for p,n in counts.items() if n>1]},
+        "physical_result":"Unprinted. Release, sliding feel, support removal and finish remain unmeasured.",
+        "preparation_only":"native" not in report,
+        "sliced_locally":"native" in report,"submitted":False}
+    if "native" in report:
+        for key in ("estimated_time","estimated_seconds","saved_profile_filament_estimate_g",
+                    "minimum_full_bead_bed_margin_mm"):
+            value["projects"][0][key]=totals[key]
+        contact=report["native"]["compact_readings"]["moving_support_contact_reading"]
+        value["projects"][0].update(motion_path_image=contact["path_image"],
+            motion_path_image_sha256=contact["path_image_sha256"])
+        value.update(total_estimated_seconds=totals["estimated_seconds"],
+            total_saved_profile_filament_estimate_g=sum(totals["saved_profile_filament_estimate_g"]),
+            minimum_full_bead_bed_margin_mm=totals["minimum_full_bead_bed_margin_mm"])
+    (HERE/"print-preparation.json").write_text(json.dumps(value,indent=2)+"\n")
 
 
 def recipe_functions_sha():
@@ -593,6 +646,7 @@ def read_existing():
     geometry=json.loads((HERE/"geometry.json").read_text())
     report=json.loads(PROJECT.with_suffix(".print.json").read_text())
     for volume in report["print_objects"][0]["volumes"]:
+        if volume["subtype"]!="normal_part":continue
         if sha(ROOT/volume["source"]) != volume["source_stl_sha256"]:
             raise ValueError("Saved native readings require their frozen source meshes; current geometry differs")
     requested=geometry["pip"]["nominal_gaps_mm"]

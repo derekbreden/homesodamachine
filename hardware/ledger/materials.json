@@ -4216,7 +4216,7 @@
         }
       ],
       "bom": {
-        "scope": "One 60 × 48 × 60 mm print-in-place arch with nine local print references and one captive slide. One recipe per whole print; compare complete prints. Physical release, finish and support removal remain unmeasured.",
+        "scope": "One 42.5 × 34.4 × 32.4 mm print-in-place corner whose shared surfaces carry nine selected print readings and one captive slide. One recipe per whole print; compare complete prints. Physical release, finish and support removal remain unmeasured.",
         "source": "printed-parts/calibration/soda-studies/manifest.json",
         "items": [
           {
@@ -4251,7 +4251,7 @@
     {
       "id": "HSM-000266",
       "kind": "manufactured",
-      "description": "The Pour · Arch frame",
+      "description": "The Pour · Corner body",
       "aliases": [
         "body"
       ],
