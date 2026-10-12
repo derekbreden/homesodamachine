@@ -1,0 +1,74 @@
+{
+  "archive_sha256": "e5c840b0f88a607a83a6327a116b2f9651261a05bfbe12b3080c91a925cd77c1",
+  "gcode_sha256": "d8aca5c2a20eb10391fd96a79307a7a551ca448e1b060f0dfa42c341247a18d4",
+  "ribbons": [
+    {
+      "name": "fore-left",
+      "native_first_top_z_mm": 180.44,
+      "native_first_bottom_z_mm": 180.199995,
+      "native_last_top_z_mm": 185.72,
+      "native_wall_floor_last_top_z_mm": 179.96,
+      "native_catch_first_bottom_z_mm": 186.2,
+      "bottom_commanded_gap_mm": 0.2399949999999933,
+      "top_commanded_gap_mm": 0.47999999999998977,
+      "ribbon_layers": 23,
+      "model_roads": 1134,
+      "automatic_support_roads_inside_ribbon": 0,
+      "features": {
+        "Inner wall": 88,
+        "Outer wall": 88,
+        "Internal solid infill": 363,
+        "Bridge": 420,
+        "Top surface": 167,
+        "Overhang wall": 8
+      }
+    },
+    {
+      "name": "fore-right",
+      "native_first_top_z_mm": 180.44,
+      "native_first_bottom_z_mm": 180.199995,
+      "native_last_top_z_mm": 185.72,
+      "native_wall_floor_last_top_z_mm": 179.96,
+      "native_catch_first_bottom_z_mm": 186.2,
+      "bottom_commanded_gap_mm": 0.2399949999999933,
+      "top_commanded_gap_mm": 0.47999999999998977,
+      "ribbon_layers": 23,
+      "model_roads": 1466,
+      "automatic_support_roads_inside_ribbon": 0,
+      "features": {
+        "Inner wall": 88,
+        "Outer wall": 88,
+        "Internal solid infill": 492,
+        "Bridge": 566,
+        "Top surface": 224,
+        "Overhang wall": 8
+      }
+    },
+    {
+      "name": "aft",
+      "native_first_top_z_mm": 180.44,
+      "native_first_bottom_z_mm": 180.199995,
+      "native_last_top_z_mm": 185.72,
+      "native_wall_floor_last_top_z_mm": 179.96,
+      "native_catch_first_bottom_z_mm": 186.2,
+      "bottom_commanded_gap_mm": 0.2399949999999933,
+      "top_commanded_gap_mm": 0.47999999999998977,
+      "ribbon_layers": 23,
+      "model_roads": 2234,
+      "automatic_support_roads_inside_ribbon": 0,
+      "features": {
+        "Inner wall": 88,
+        "Outer wall": 88,
+        "Internal solid infill": 895,
+        "Bridge": 743,
+        "Top surface": 412,
+        "Overhang wall": 8
+      }
+    }
+  ],
+  "geometry_gap_floor_mm": 0.25,
+  "geometry_gap_roof_mm": 0.58,
+  "only_named_six_catch_roof_triangles_repainted": true,
+  "pass": true,
+  "scope": "Commanded local ribbon heights and clearances. Straight extraction is geometrically open; physical release of this preparation remains untested."
+}

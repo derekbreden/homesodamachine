@@ -24,7 +24,7 @@ faces in the [exterior review](show-support-clearance-summary.json).
 The [larger contact reading](large-overhang-support-review.json) retains
 automatic interface contact beneath all eight inspected large original
 support-contact components. These readings establish commanded paths;
-the [physical result](physical-result.json) records trapped, fragile sliding-groove support stems, failed cleanup and interrupted X+ exterior flutes opposite interior features. The support-clearance reading does not establish model-wall continuity or physical finish. Other support release and installed fit are unassessed.
+the [physical result](physical-result.json) records trapped, fragile sliding-groove support stems, failed cleanup and reinforcement-boundary tracks on both the interior and exterior X+ wall faces. The [photograph](physical-xplus-reinforcement-tracks.jpg) shows the tracks extending past the ends of the screw/heat-set pads. The support-clearance reading does not establish model-wall continuity or physical finish. Other support release and installed fit are unassessed.
 
 The [launch receipt](launch.json) records the one authorized foreground Send.
 Mark1 accepted task/job `1325371485` at 2026-10-10 01:36:57 CDT.

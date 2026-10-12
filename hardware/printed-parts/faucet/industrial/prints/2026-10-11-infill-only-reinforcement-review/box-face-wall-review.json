@@ -1,0 +1,16 @@
+{
+  "archive_sha256": "5386e52414e7500518978da94a658cc17fed556ac548ea9146970d751fa15c0e",
+  "gcode_sha256": "3f1176ee4510e0ffc26e323a781696291615ed87b2a5dd6289afa4cd6faca49b",
+  "object": "industrial-shell-base",
+  "candidate_segment_count": 1149,
+  "all_candidates_measured": true,
+  "box_face_tolerance_mm": 0.3,
+  "minimum_surface_distance_mm": 0.6,
+  "outer_wall_on_box_faces_mm": 2258.7069453226304,
+  "outer_wall_through_material_mm": 0.0,
+  "outer_wall_on_or_near_real_surface_mm": 2258.7069453226304,
+  "modifier_count": 1,
+  "wall_count_overrides": {},
+  "passed": true,
+  "scope": "Every qualifying native outer-wall segment at non-horizontal modifier faces. Distance is measured against the embedded normal-part mesh. This is commanded-path evidence, not physical surface or load qualification."
+}

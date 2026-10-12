@@ -72,7 +72,7 @@ def archive_write(path: Path, members: dict[str, bytes]):
 
 
 def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ...]) -> dict:
-    """Apply six-wall, solid-infill regions in the source STL's CAD frame.
+    """Apply solid-infill regions in the source STL's CAD frame.
 
     Each modifier is a component of its actual normal part. Native road review
     remains necessary: saved modifier metadata alone does not prove deposition.
@@ -95,8 +95,7 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
             low = np.maximum(requested[0], mesh_low + .001)
             high = np.minimum(requested[1], mesh_high - .001)
         else:
-            # A perimeter-spanning modifier extends past the normal mesh so its
-            # boundary does not split that perimeter. It creates no model stock.
+            # Deposition is clipped to the part's existing stock.
             low, high = requested
         if not np.all(np.isfinite(requested)) or np.any(high <= low):
             raise ValueError(f"Invalid solid modifier bounds: {region['name']}")
@@ -125,7 +124,7 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
                                  uuid=identifier(region["name"] + "/modifier"))
         settings = {"name": region["name"],
                     "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                    "wall_loops": 6, "sparse_infill_density": "100%",
+                    "sparse_infill_density": "100%",
                     "sparse_infill_pattern": "zig-zag"}
         for key, value in settings.items():
             metadata(modifier, key, value)
@@ -133,7 +132,7 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
                       Id=f"solid-region-{next_id}",
                       Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
         records.append({**region, "applied_source_bounds_mm": [low.tolist(), high.tolist()],
-                        "modifier_part_id": part_id, "wall_loops": 6,
+                        "modifier_part_id": part_id, "wall_loops": None,
                         "sparse_infill_percent": 100, "sparse_infill_pattern": "zig-zag"})
         next_id += 1
     members["3D/3dmodel.model"] = xml(model)

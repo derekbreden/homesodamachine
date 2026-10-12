@@ -99,7 +99,9 @@ def main():
             assert len(modifiers) == (1 if specimen["kind"] == "foot" else 0)
             if modifiers:
                 fields = {m.get("key"):m.get("value") for m in modifiers[0].findall("metadata")}
-                assert fields["wall_loops"] == "6" and fields["sparse_infill_density"] == "100%"
+                recorded_walls = prep.get("reinforcement_wall_loops", 6)
+                assert fields.get("wall_loops") == (str(recorded_walls) if recorded_walls is not None else None)
+                assert fields["sparse_infill_density"] == "100%"
             normal = obj.find("part[@subtype='normal_part']")
             component = next(c for c in resources[obj.get("id")].findall("m:components/m:component",ns)
                              if c.get("objectid") == normal.get("id"))

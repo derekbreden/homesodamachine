@@ -154,7 +154,10 @@ def main():
         assert base.find("metadata[@key='wall_generator']").get("value") == "arachne"
         mods = base.findall("part[@subtype='modifier_part']")
         assert len(mods) == 1
-        for key, value in dict(wall_loops="6", sparse_infill_density="100%", sparse_infill_pattern="zig-zag").items():
+        recorded_walls = report["local_solid_regions"][0].get("wall_loops")
+        wall_setting = mods[0].find("metadata[@key='wall_loops']")
+        assert (wall_setting.get("value") if wall_setting is not None else None) == (str(recorded_walls) if recorded_walls is not None else None)
+        for key, value in dict(sparse_infill_density="100%", sparse_infill_pattern="zig-zag").items():
             assert mods[0].find(f"metadata[@key='{key}']").get("value") == value
         model = ET.fromstring(arc.read("3D/3dmodel.model")); qn = prep.writer.qn
         resources = {o.get("id"): o for o in model.find(qn("resources"))}
