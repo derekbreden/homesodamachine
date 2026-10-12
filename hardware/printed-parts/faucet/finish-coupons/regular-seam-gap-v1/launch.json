@@ -386,5 +386,16 @@
   "start_reported": true,
   "start_notification_count": 1,
   "timelapse_selected": true,
-  "timelapse_recording_verified": false
+  "timelapse_recording_verified": false,
+  "past_first_layer_observation": {
+    "observed_at_utc": "2026-10-11T23:59:51.745648+00:00",
+    "task_id": "1330991481",
+    "job_id": "1330991481",
+    "gcode_state": "RUNNING",
+    "layer_num": 9,
+    "total_layer_num": 76,
+    "print_error": 0,
+    "hms": [],
+    "scope": "Telemetry confirms exact accepted job advancing beyond the first layer. Adhesion, seam appearance and specimen quality are unassessed."
+  }
 }
