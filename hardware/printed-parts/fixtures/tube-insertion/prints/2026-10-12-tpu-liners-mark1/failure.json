@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "Failed print; one liner fell over",
+  "printer": "Mark1",
+  "printer_task_id": "1333827786",
+  "source_archive": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "cd1b2fadb0d036ca9890e46d44420dd7dbb8866b33fa1260d8617968037e031d",
+  "gcode_sha256": "1a0985f51371713af61d40badfcac7c17f865d6a443311148089bb21cd02fd1d",
+  "physical_observation_quote": "One liner fell over.",
+  "observer": "Derek",
+  "reported_date": "2026-10-12",
+  "failure_time_and_layer": "Unmeasured",
+  "requested_retry_z_trim_mm": 0.0,
+  "spacing_observation_quote": "With both ASA Aero and TPU I am finding that the distance between objects increases risk of problems on these \"unclean start/stop\" filaments.",
+  "spacing_observation_scope": "Reported experience with TPU and ASA Aero; spacing-related failure causation is not measured.",
+  "requested_retry": "Closer object placement with 0.00 mm user Z trim",
+  "retry_directory": "../2026-10-12-tpu-liners-close-z000-mark1/",
+  "telemetry": {
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-12T22:25:40.682957+00:00",
+    "task_id": "1333827786",
+    "job_id": "1333827786",
+    "subtask_name": "2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+    "gcode_state": "FAILED",
+    "layer_num": 0,
+    "total_layer_num": 155,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 0,
+    "stg_cur": -1
+  }
+}

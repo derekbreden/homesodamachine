@@ -60,6 +60,15 @@ inset for the part and occupied footprint; keep calibration conditions together.
 Verify the emitted bead envelope, including bead width and arc extrema, before
 sending. CAD containment alone does not establish adhesion.
 
+For TPU and ASA Aero, keep multiple objects close together to shorten travel
+between extrusion stops and starts, while retaining clearance between their
+native model/support/brim beads. Derek reports increasing problems with greater
+object separation on these filaments. The
+[TPU liner observation](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json)
+records a fallen liner; the
+[compact retry](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/README.md)
+uses a 2 mm model gap. The effect of spacing on failure risk is unmeasured.
+
 Mark2's [edge-adhesion report](../hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
 records poor first layers near unseasoned edges. The
 [centered fit trial](../hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
