@@ -1,0 +1,104 @@
+{
+  "authorization_quote": "Please prepare that plate (for mark2 which is likely to be available next)",
+  "customer_outcome": "Identify whether the visible seam requires a curved surface, with a flat reference for a sideways step",
+  "specimens": [
+    {
+      "id": "A",
+      "face": "flat",
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "identify_id": 1901
+    },
+    {
+      "id": "B",
+      "face": "curved",
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "identify_id": 1902
+    },
+    {
+      "id": "C",
+      "face": "curved",
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "identify_id": 1903
+    },
+    {
+      "id": "D",
+      "face": "flat",
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "identify_id": 1904
+    }
+  ],
+  "factor": "Outer inspection-face curvature; all process settings common",
+  "fixed_settings": "Saved temperature, cooling, flow, wall count/order, speed, wipe, retraction and motion settings. 0.20 mm first layer and 0.24 mm above; no scarf or fine layer bands.",
+  "geometry": {
+    "reference_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+    "reference_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+    "height_mm": 7.16,
+    "outer_radius_mm": 13.5,
+    "axis_location_mm": [
+      0.0,
+      29.933155999808,
+      -12.50426096885
+    ],
+    "axis_rotation_x_degrees": -15.000000000027539,
+    "flat_face_axis_frame_y_mm": 12.093386622447824,
+    "flat_face_width_mm": 12.0,
+    "minimum_continuous_backing_mm": 3,
+    "backing_missing_volume_mm3": 0.0,
+    "added_stock_mm3": 0,
+    "interior_bores_unchanged": true,
+    "uniform_subdivision_iterations": 2,
+    "meshes": {
+      "curved": {
+        "step": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.step",
+        "step_sha256": "4c426edfb102475b8f9ec4e39fbbb7c1178872a426b1f5e0e03e28759232b001",
+        "stl": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.stl",
+        "stl_sha256": "3e53b369a4b4f3c626be8e98eb995f650bfbbbed0b8413aa7863163d9ca418e2",
+        "cad_volume_mm3": 2773.2127739976363,
+        "triangles": 27392,
+        "bounds_mm": [
+          [
+            -13.49999713897705,
+            19.308700561523438,
+            0.0
+          ],
+          [
+            13.5,
+            49.17702102661133,
+            7.159999847412109
+          ]
+        ]
+      },
+      "flat": {
+        "step": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.step",
+        "step_sha256": "3ba8cea2a049d0f2985639f43d39eb6871dcff2034959eb3ae11e88a1574e9c6",
+        "stl": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.stl",
+        "stl_sha256": "519ca4897514669868ee0347b5d6e159f13a207947b2b15f9c337dd030451c83",
+        "cad_volume_mm3": 2688.889921284091,
+        "triangles": 25344,
+        "bounds_mm": [
+          [
+            -13.499985694885254,
+            19.307859420776367,
+            -2.100622015674641e-15
+          ],
+          [
+            13.5,
+            47.72217559814453,
+            7.159999847412109
+          ]
+        ]
+      }
+    }
+  },
+  "comparison": "Two copies of each face with positions swapped. Both use a central painted seam zone. The curved reference retains the full-scale faucet neck and both retain its 15-degree axis and interior bores.",
+  "assessment": "Keep letters with specimens. Inspect the Y+ painted face after removal, under several light directions and across the surface. Record whether the seam has a lateral step, raised/recessed material, or a texture-only line, and whether the result repeats in the other copy.",
+  "limitation": "Shape changes perimeter length and per-object extrusion duration. The common plate shares layer return time; this does not duplicate a complete faucet's thermal history. Visual inspection alone is not a measured surface profile.",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "send_attempted": false,
+  "physical_result_pending": true
+}

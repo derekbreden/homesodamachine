@@ -1,0 +1,28 @@
+{
+  "status": "Prepared native slice; not submitted",
+  "printer": "Mark2",
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "7832fff335428e8a4c8f32d4f9610e85f877a1c9624888f4163d6e200863365a",
+  "gcode_sha256": "297165a78dec538551f7ee4e0a76b8c9286227ac6f1bce07b581955e7778dbd6",
+  "estimated_seconds": 1250.6409912109375,
+  "estimated_grams_saved_profile_density": 7.963032245635986,
+  "active_nozzle": "left 0.4 mm hardened standard-flow",
+  "material": "external PET-GF",
+  "plate": "Textured PEI",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "desired_send_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "clump_probing": false,
+  "launch_authorized": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "automatic_next_print": false,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false
+}
