@@ -1,247 +1,325 @@
-"""The Pour: a working sectional appliance made from native machine interfaces.
+"""The Pour: a compact arch carrying nine local print references.
 
-Generate the current reference geometry manually. Manufacturing coordinates,
-colour registration and assembled display coordinates are distinct. Factory
-faucet facets are frozen inputs; source cabinet functions construct native joints.
+Export one body and one captive slide in their shared manufacturing frame.
+The native display and overhang kernels retain their radii and tangent rules.
+Each whole print uses one recipe; compare recipes across complete prints.
 """
 from __future__ import annotations
+
 import argparse
-from copy import deepcopy
 import hashlib
+import importlib.util
 import json
+import math
 from pathlib import Path
-import shutil
 import sys
+
 import cadquery as cq
 import numpy as np
 import trimesh
 
-HERE=Path(__file__).resolve().parent
-ROOT=next(p for p in HERE.parents if (p/'hardware/scripts').is_dir())
-sys.path[:0]=[str(HERE),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/printed-parts/cadlib')]
-import cabinet_module as cabinet
-import enclosure_features
-import faucet_module as faucet
-import comparison_additions_v3 as comparisons
-import captive_shutters
-import recipe_v3
-from viewer_payload import write_part_payloads
-from _cadq_export import export_assembly
+HERE = Path(__file__).resolve().parent
+ROOT = next(p for p in HERE.parents if (p / "tools/bambu_print.py").is_file())
+sys.path.insert(0, str(ROOT / "hardware/printed-parts/cadlib"))
+sys.path.insert(0, str(ROOT / "hardware/printed-parts/enclosure/enclosure"))
+import _swept_top as source_display
+from overhang_round import roof_rim, transition, OUTWARD_PER_HEIGHT
 import flute_skin
-import _mesh_payload
-from flute_payload import creased
 
-I=np.eye(4)
-BLACK=[.20,.20,.21]; WHITE=[235/255,236/255,234/255]; RED=[228/255,83/255,87/255]
-QUADRANTS={'front-bottom':(0,0,1),'front-top':(0,0,1),'back-bottom':(0,0,1),'back-top':(0,0,-1)}
-GROUPS={
- 'nameplate':['nameplate_black','nameplate_white'],
- 'DATA':['DATA_body','DATA_word'],
- 'TAP':['port_water_body','port_water_word'],
- 'CO2':['port_co2_body','port_co2_word'],
- 'OVER':['port_drain_body','port_drain_word'],
-}
-PART_NAMES={
- 'front-bottom':'Lower front shell and plumbing divider',
- 'front-top':'Sliding upper front and display facet',
- 'back-bottom':'Lower rear shell and fixed cartridge dock',
- 'back-top':'Upper rear shell, counter and plumbing ceilings',
- 'pump_drawer':'Working cartridge drawer and front nameplate host',
- 'pump_cap':'Native pump clamp and pogo lead spine',
- 'handhold_grip':'Complete flat-wing handhold liner',
- 'moving_tee_carrier':'Native low-force tee carrier',
- 'vertical_window_cover':'Native tee window cover',
- 'removable_plumbing_lid':'Complete native funnel corner and hooked rail',
- 'display_cover':'Full flat-wing display bezel',
- 'display_gasket_90A':'Native display gasket, white TPU 90A',
- 'display_nominal_backer':'Nominal one-millimetre glass-space backer',
- 'nameplate':'Native two-colour unit 001 nameplate',
- 'DATA':'Native flat-wing DATA plate',
- 'TAP':'Native clamped TAP label', 'CO2':'Native clamped CO2 label', 'OVER':'Native clamped OVER label',
-}
+WIDTH, DEPTH, HEIGHT = 60.0, 48.0, 60.0
+WALL = 3.0
+DISPLAY_FLAT = 12.0
+WINDOW_HALF_WIDTH = 15.0
+WINDOW_ROOF = 34.04
+RIM_R = 6.0
+FRONT_BACKING = 9.0
 
-def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-def relative(path):return str(Path(path).resolve().relative_to(ROOT))
-def read(path):return json.loads(Path(path).read_text())
-def write(path,value):Path(path).write_text(json.dumps(value,indent=2)+'\n')
-def transform(shape,matrix):return faucet.transformed(shape,np.asarray(matrix))
-def frame(shape,up):
-    rotation=trimesh.geometry.align_vectors(np.asarray(up,float),[0.,0.,1.])
-    b=transform(shape,rotation).BoundingBox()
-    rotation[:3,3]=[-(b.xmin+b.xmax)/2,-(b.ymin+b.ymax)/2,-b.zmin]
-    return rotation
 
-def mesh(shape):
-    from _meshes import mesh_shape
-    v,f=mesh_shape(shape.copy(mesh=False),.005,.05)
-    result=trimesh.Trimesh(vertices=v,faces=f,process=True)
-    return result
+def box(x0, x1, y0, y1, z0, z1):
+    return cq.Solid.makeBox(x1-x0, y1-y0, z1-z0, cq.Vector(x0, y0, z0))
 
-def canonical(mesh):
-    # Manifold performs the source skin union after float32 representation.
-    return trimesh.boolean.union([flute_skin.as_written(mesh)],engine='manifold',check_volume=False)
 
-def inscription(shape):
-    for words,size,x,y in [('THE POUR',8.,0.,35.),('V3',6.,0.,52.),('BATCH / DATE',4.,-93.,30.)]:
-        text=cq.Workplane('XY').text(words,size,.72,font='Helvetica',kind='bold',halign='center',valign='center').val()
-        text=text.rotate((0,0,0),(1,0,0),180).translate((x,y,.71))
-        shape=shape.cut(text)
-    return shape.clean()
+def _profile():
+    """Native R12/30-degree/R18 stations, shortening only its straight field."""
+    previous = source_display.FLAT
+    try:
+        source_display.FLAT = DISPLAY_FLAT
+        return source_display.profile((-WIDTH/2, WIDTH/2, 0, DEPTH, 0, HEIGHT))
+    finally:
+        source_display.FLAT = previous
 
-def stage_faucet(output):
-    record=read(faucet.HERE/'faucet-module.json')
-    parts=[]
-    for source in record['parts']:
-        row=deepcopy(source)
-        for key in ('step','stl'):
-            old=ROOT/row[key]; new=output/'parts'/old.name
-            shutil.copyfile(old,new);row[key]=relative(new);row[key+'_sha256']=digest(new)
-        if row.get('seated_display'):
-            for key in ('step','stl'):
-                old=ROOT/row['seated_display'][key];new=output/'parts'/old.name
-                shutil.copyfile(old,new);row['seated_display'][key]=relative(new)
-            row['seated_display']['assembly_matrix_mm']=faucet.matrix(faucet.ROOT_POINT).tolist()
-        obj=next(x for x in record['print_objects'] if x['id']==row['id'])
-        volumes=deepcopy(obj['volumes'])
-        if len(volumes)>1:
-            for v in volumes:
-                old=ROOT/v['stl'];new=output/'parts'/old.name
-                shutil.copyfile(old,new);v['stl']=relative(new);v['stl_sha256']=digest(new)
-                solid=cq.importers.importStep(str(ROOT/row['step'])).val()
-                bodies=sorted(solid.Solids(),key=lambda s:s.Volume(),reverse=True)
-                selected=bodies[0] if v['id'].endswith('body') else cq.Compound.makeCompound(bodies[1:])
-                vp=output/'parts'/(v['id']+'.step');cq.exporters.export(selected,str(vp));v['step']=relative(vp)
-            row['material_volumes']=volumes
-        row['assembly']={'matrix_mm':row['assembly_matrix_mm']}
-        row['color_rgb']=BLACK if row['material']!='TPU' else WHITE
-        row['logical_quantity']=1
-        parts.append(row)
-    return parts,record
 
-def cabinet_up(name,metadata):
-    if name in QUADRANTS:return QUADRANTS[name]
-    if name in ('Q24','Q48','Q72'):return (0,0,-1)
-    if name.startswith('R'):return (0,0,1)
-    if name in ('nameplate','DATA'):return (0,-1,0) if name=='nameplate' else (0,1,0)
-    if name=='handhold_grip':return (0,0,-1)
-    if name in metadata['drawer']['part_print_up']:return metadata['drawer']['part_print_up'][name]
-    aliases={'TAP':'port_water_body','CO2':'port_co2_body','OVER':'port_drain_body'}
-    target=aliases.get(name,name)
-    for feature in metadata['features']:
-        if target in feature['part_print_up']:
-            axis=np.asarray(feature['part_print_up'][target],float)
-            # Cached reports predating placed-axis serialization have native
-            # axes; report layout supplies the rigid source station rotation.
-            angle=np.radians(feature.get('layout',{}).get('rotation_z_deg',0.))
-            if feature['name'].startswith('port_') and not feature.get('layout',{}).get('axes_rotated'):
-                axis=np.array([np.cos(angle)*axis[0]-np.sin(angle)*axis[1],np.sin(angle)*axis[0]+np.cos(angle)*axis[1],axis[2]])
-            return axis
-    raise KeyError('Native manufacturing direction absent: '+name)
+def envelope():
+    p = _profile()
+    wire = (cq.Workplane("YZ", origin=(-WIDTH/2, 0, 0))
+            .moveTo(0, 0).lineTo(*p["foot"])
+            .threePointArc(p["front_mid"], p["start"])
+            .lineTo(*p["end"])
+            .threePointArc(p["top_mid"], p["roof"])
+            .lineTo(DEPTH, HEIGHT).lineTo(DEPTH, 0).close().val())
+    raw = cq.Solid.extrudeLinear(wire, [], cq.Vector(WIDTH, 0, 0))
+    # This is the upward-printing side round. Do not copy the production
+    # back-top's inverted exterior-roof additive fill onto this top surface.
+    sides = []
+    for edge in raw.Edges():
+        b = edge.BoundingBox()
+        on_side = (abs(b.xmin+WIDTH/2)<1e-6 and abs(b.xmax+WIDTH/2)<1e-6
+                   or abs(b.xmin-WIDTH/2)<1e-6 and abs(b.xmax-WIDTH/2)<1e-6)
+        if on_side and b.zmin >= p["foot"][1]-1e-6 and b.ymin < DEPTH-1e-6:
+            sides.append(edge)
+    rounded = raw.fillet(RIM_R, sides)
+    standing = []
+    for edge in rounded.Edges():
+        b = edge.BoundingBox()
+        if (abs(b.ymin-DEPTH)<1e-6 and abs(b.ymax-DEPTH)<1e-6
+                and b.zlen > HEIGHT-2*RIM_R-1 and b.xlen<1e-6):
+            standing.append(edge)
+    if standing:
+        rounded = rounded.fillet(RIM_R, standing)
+    before_bed_round = rounded
+    bed_edges=[]
+    for edge in rounded.Edges():
+        b=edge.BoundingBox()
+        if (abs(b.ymin)<1e-6 and abs(b.ymax)<1e-6
+                and abs(b.zmin)<1e-6 and abs(b.zmax)<1e-6 and b.xlen>1):
+            bed_edges.append(edge)
+    if len(bed_edges)!=1:
+        raise ValueError(f"one front bed edge expected, got {len(bed_edges)}")
+    rounded=rounded.fillet(RIM_R,bed_edges)
+    # Offset the analytic round before adding its tangent planes. OCC cannot
+    # consistently offset the union's tangent seam; the retained round is the
+    # backing authority and every subsequent addition increases that backing.
+    core_authority=rounded
+    # A closed-loop version of native three_side_fill. Both sections offset
+    # the entire rounded plan: a corner keeps its true radius-minus-inset,
+    # rather than gaining stock from the union of two rectangular caps.
+    h,foot=transition(RIM_R)
+    def bed_section(z,inset):
+        wire=(cq.Workplane("XY",origin=(0,DEPTH/2,z))
+              .rect(WIDTH-2*inset,DEPTH-2*inset).val())
+        return wire.fillet2D(RIM_R-inset,wire.Vertices())
+    fill=cq.Solid.makeLoft([bed_section(0,foot),
+                           bed_section(h,foot-OUTWARD_PER_HEIGHT*h)],ruled=True)
+    rounded=rounded.fuse(fill.intersect(before_bed_round))
+    return rounded.clean(), p, core_authority
 
-def native_part(identifier,shapes,output,metadata,all_meshes,native,box):
-    names=GROUPS.get(identifier,[identifier]);shape=cq.Compound.makeCompound([shapes[n] for n in names]) if len(names)>1 else shapes[names[0]]
-    if identifier=='front-bottom':shape=inscription(shape)
-    m=frame(shape,cabinet_up(identifier,metadata))
-    physical_mesh=mesh(shape)
-    if identifier in QUADRANTS:
-        rails=native.flute_rails(box,[v for n,v in all_meshes.items() if n!=identifier])
-        plains=[]
-        for n in ('DATA_body','port_water_body','port_co2_body','port_drain_body'):
-            bb=shapes[n].BoundingBox();plains.append((bb.xmin-.25,bb.xmax+.25,bb.ymin-.25,bb.ymax+.25,bb.zmin-.25,bb.zmax+.25))
-        rails=[r._replace(plain=r.plain+tuple(plains)) for r in rails]
-        physical_mesh=flute_skin.flute(physical_mesh,rails,native.flute_pitch(box.outer),native.flute_depth,native.flute_rise)
-        if identifier=='back-bottom':
-            physical_mesh=trimesh.boolean.union([flute_skin.as_written(physical_mesh),flute_skin.as_written(mesh(native.disposal_letters(box.outer)))],engine='manifold',check_volume=False)
-    elif identifier=='pump_drawer':
-        bb=shape.BoundingBox()
-        rail=flute_skin.Rail(at=lambda s:((s,0.),(0.,-1.)),length=bb.xmax-bb.xmin,start=bb.xmin,closed=False,band=(6.25,70.),berthed=tuple(all_meshes[n] for n in ('nameplate_black','nameplate_white')),mouth=(0,-1),plain=((-56.,60.,-4.,4.,8.,65.),))
-        physical_mesh=flute_skin.flute(physical_mesh,[rail],native.flute_pitch(box.outer),native.flute_depth,native.flute_rise)
-    physical_mesh=canonical(physical_mesh)
-    physical_mesh.apply_transform(m)
-    stl=output/'parts'/(identifier+'.stl');step=output/'parts'/(identifier+'.step')
-    physical_mesh.export(stl);cq.exporters.export(transform(shape,m),str(step))
-    row={'id':identifier,'name':PART_NAMES.get(identifier,identifier.replace('_',' ')),
-         'material':'TPU90A' if identifier=='display_gasket_90A' else 'PET-GF',
-         'step':relative(step),'stl':relative(stl),'step_sha256':digest(step),'stl_sha256':digest(stl),
-         'manufacturing_frame':{'id':identifier+'-native-print','baked_into_meshes':True,'from_source_matrix_mm':m.tolist(),'authority':'Native production axis retained after rigid service-section placement'},
-         'assembly_matrix_mm':np.linalg.inv(m).tolist(),'assembly':{'matrix_mm':np.linalg.inv(m).tolist()},
-         'print_bounds_mm':physical_mesh.bounds.tolist(),'native_group_members':names,
-         'color_rgb':WHITE if identifier=='display_gasket_90A' else BLACK,'logical_quantity':1}
-    if identifier.startswith('Q'):
-        row['assembly_matrix_mm']=(faucet.matrix((-13,0,0))@np.linalg.inv(m)).tolist();row['assembly']['matrix_mm']=row['assembly_matrix_mm']
-        row['native_review']=captive_shutters.witnesses()[identifier]
-        row['print_transform_mm']=I.tolist()
-        row['assembly_scope']='Closed display position,13mm left of the as-printed middle position;26mm total travel.'
-    if len(names)>1:
-        volumes=[]
-        for n in names:
-            vm=canonical(mesh(shapes[n]));vm.apply_transform(m)
-            vp=output/'parts'/(n+'.stl');vs=output/'parts'/(n+'.step')
-            vm.export(vp);cq.exporters.export(transform(shapes[n],m),str(vs))
-            ink=n.endswith(('white','word'))
-            rgb=WHITE if ink else BLACK
-            if identifier in ('TAP','OVER'):rgb=BLACK if ink else WHITE
-            if identifier=='CO2':rgb=WHITE if ink else RED
-            slot=2 if rgb==WHITE else 1
-            if identifier=='CO2':slot=1 if rgb==WHITE else 2
-            volumes.append({'id':n,'part_id':identifier,'stl':relative(vp),'step':relative(vs),'stl_sha256':digest(vp),'transform_mm':I.tolist(),'filament_slot':slot,'color_rgb':rgb})
-        row['material_volumes']=volumes
-    return row
 
-def generate(output,*,reuse=False):
-    output=Path(output).resolve();(output/'parts').mkdir(parents=True,exist_ok=True)
-    if not reuse:
-        result=cabinet.build(use_core_cache=False);cabinet.export_cache(result)
-        faucet.export_cache()
-    source_folder=cabinet.CACHE_DIR;metadata=read(source_folder/'geometry.json')
-    native=cabinet.enclosure_core.source_module()
-    box=cabinet.enclosure_core.compact_box(native)
-    shapes={n:cq.importers.importStep(str(source_folder/(n+'.step'))).val() for n in metadata['parts']}
-    all_meshes={n:mesh(s) for n,s in shapes.items()}
-    parts,faucet_record=stage_faucet(output)
-    grouped={member for group in GROUPS.values() for member in group}
-    for name in [*[n for n in shapes if n not in grouped],*GROUPS]:
-        print('Emit',name,flush=True)
-        parts.append(native_part(name,shapes,output,metadata,all_meshes,native,box))
-    necks,_,neck_record=comparisons.neck_controls()
-    _,_,stepbytes,stlbytes,_=comparisons.frozen_neck()
-    for identifier,z in [('NR00',20.),('NR05',58.)]:
-        _,_,_,_,source=comparisons.frozen_neck();origin=source['source_axis_origin_print_frame_mm']
-        m=faucet.matrix((-83.,179.,z))@faucet.matrix(rot=(15.,0.,0.))@faucet.matrix(tuple(-v for v in origin))
-        stl=output/'parts'/(identifier+'.stl');step=output/'parts'/(identifier+'.step')
-        stl.write_bytes(stlbytes);step.write_bytes(stepbytes)
-        parts.append({'id':identifier,'name':identifier+' regular seam control on native tubes','material':'PET-GF','step':relative(step),'stl':relative(stl),'step_sha256':digest(step),'stl_sha256':digest(stl),'manufacturing_frame':{'id':identifier+'-native-print','baked_into_meshes':True,'from_source_matrix_mm':I.tolist(),'authority':'Frozen native -15 degree source print pose'},'assembly_matrix_mm':m.tolist(),'assembly':{'matrix_mm':m.tolist()},'color_rgb':BLACK,'print_recipe':neck_record['recipes'][identifier],'notes':neck_record,'logical_quantity':1})
-    assembly=cq.Assembly(name='The Pour')
-    parent=next(r for r in parts if r['id']=='back-top')
-    for row in parts:
-        if row['id'] in ('Q24','Q48','Q72'):
-            row['print_transform_mm']=(np.asarray(parent['manufacturing_frame']['from_source_matrix_mm']) @ np.linalg.inv(row['manufacturing_frame']['from_source_matrix_mm'])).tolist()
-    payload=[];printable=[];bounds=[]
-    for row in parts:
-        volumes=row.get('material_volumes',[row])
-        for volume in volumes:
-            stl=ROOT/volume['stl'];step=ROOT/volume.get('step',row['step']);matrix=np.asarray(row['assembly_matrix_mm'])
-            if row.get('seated_display'):
-                stl=ROOT/row['seated_display']['stl'];step=ROOT/row['seated_display']['step'];matrix=np.asarray(row['seated_display']['assembly_matrix_mm'])
-            shaped=transform(cq.importers.importStep(str(step)).val(),matrix)
-            name=volume.get('id',row['id']);rgb=volume.get('color_rgb',row['color_rgb'])
-            if row['id']=='TC':rgb=[105/255,180/255,247/255] if name.endswith('body') else WHITE
-            assembly.add(shaped,name=name,color=cq.Color(*rgb))
-            vm=trimesh.load_mesh(stl,process=True);vm.apply_transform(matrix);bounds.append(vm.bounds)
-            pos,nrm,idx,fac=creased(vm)
-            payload.append({'name':name,'color':rgb,'pos':pos.ravel().tolist(),'nrm':nrm.ravel().tolist(),'idx':idx.ravel().tolist(),'fac':fac.tolist()})
-            printable.append({**row,'name':name,'stl':relative(stl),'step':relative(step),'assembly':{'matrix_mm':matrix.tolist()}})
-    target=output/'the-pour.step';export_assembly(assembly,str(target))
-    _mesh_payload.write(payload,str(target)+'.mesh',src=_mesh_payload.source_digest(target),cut={'dev':0,'bound':0})
-    extrema=np.asarray(bounds);low=extrema[:,0,:].min(axis=0);high=extrema[:,1,:].max(axis=0)
-    manifest={'schema':3,'version':'V3','title':'The Pour','concept':'Service Section','assembly':target.name,'assembly_sha256':digest(target),'parts':parts,'printable':printable,'bounds_mm':[low.tolist(),high.tolist()],'dimensions_mm':(high-low).tolist(),'logical_printed_parts':len(parts),'viewer_components':len(payload),'cabinet_source':metadata,'faucet_source':faucet_record,'neck_controls':neck_record,'physical_scope':'Unprinted service-section integration. Native source observations retain their recorded scopes; CAD and native slice establish geometry and deposited paths, not release, force, finish, sealing or lifetime.','assembly_hardware':{'native_cartridge':['Two M3 x 60 clamp screws, native M3 inserts, source pogo connector and M1.4 screws','Two RC62 magnets installed at native sealed pause planes'],'roofs':'Six M3 x 8 screws and M3 inserts in the moving floor pads','ports':'Three M3 x 12 draw screws and RX-M3Sx4.0 inserts for declared dry nominal clamps','faucet_counter':'Native three M3 plate/base axes through the perforated85A gasket and counter','seam_controls':'Real9.525mm water, two6.35mm flavors,4mm drain and4.6×1.18mm ribbon in the unchanged shared opening. Nominal1.0×4.8mm real nylon strap loops stop each cut end, enclosing all four round tubes and the full ribbon lane; assembly-review.json records the dimensioned envelope.','retention_scope':'Positive nominal joints and tied controls; unprinted assembly, tie friction, magnet force and repeated handling remain unmeasured.'},'reference_additions':['Three captive print-in-place inspection flags, with independent Z-release gaps','Printed dry fitting envelopes and nominal glass-space backer','Faucet dimensional donor rooted in its actual counter plate','Three native-profile support roofs bolted into the actual moving cartridge drawer']}
-    manifest.update(recipe_v3.build_plan(manifest))
-    write(output/'manifest.json',manifest)
-    write_part_payloads(manifest)
-    write(output/'geometry.json',{'parts':{r['id']:{'step_sha256':r['step_sha256'],'stl_sha256':r['stl_sha256'],'manufacturing_frame':r['manufacturing_frame'],'assembly_matrix_mm':r['assembly_matrix_mm']} for r in parts},'native_cabinet':metadata,'faucet_review':faucet_record['review']})
-    print('The Pour:',len(parts),'physical parts;',len(payload),'viewer volumes;',manifest['dimensions_mm'],flush=True)
-    return manifest
+def inner_core(outer, core_authority):
+    """The exact inward 3 mm offset of the envelope, with a local rim backing."""
+    shell = core_authority.shell([], -WALL, kind="intersection")
+    shells = sorted(shell.Shells(), key=lambda s:s.Area())
+    if len(shells) != 2:
+        raise ValueError(f"closed 3 mm stock expected two shells, got {len(shells)}")
+    core = cq.Solid.makeSolid(shells[0])
+    # Ordinary walls stay 3 mm. Only the local front opening's R6 roll keeps
+    # enough source stock for its entire six-millimetre depth and backing.
+    rim_stock = box(-WINDOW_HALF_WIDTH-RIM_R, WINDOW_HALF_WIDTH+RIM_R,
+                    -1, FRONT_BACKING, -1, WINDOW_ROOF+RIM_R)
+    flute_backing=box(WIDTH/2-WALL-1.2,WIDTH/2+1,10,30,18,40)
+    return core.cut(rim_stock.fuse(flute_backing)).clean(), core
 
-if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--reuse-geometry',action='store_true');parser.add_argument('--output',type=Path,default=HERE)
-    args=parser.parse_args();generate(args.output,reuse=args.reuse_geometry)
+
+def aperture():
+    """Source handhold's downward-open cut with its R6 upper inside corners."""
+    opening = box(-WINDOW_HALF_WIDTH, WINDOW_HALF_WIDTH, -1,
+                  FRONT_BACKING+2, -1, WINDOW_ROOF)
+    corners = []
+    for edge in opening.Edges():
+        b = edge.BoundingBox()
+        if abs(b.zmin-WINDOW_ROOF)<1e-6 and abs(b.zmax-WINDOW_ROOF)<1e-6 and b.ylen>1:
+            corners.append(edge)
+    return opening.fillet(RIM_R, corners)
+
+
+def rounded_aperture(body):
+    before = body.cut(aperture()).clean()
+    rim = []
+    for edge in before.Edges():
+        b = edge.BoundingBox()
+        if (abs(b.ymin)<1e-6 and abs(b.ymax)<1e-6
+                and b.xmin>=-WINDOW_HALF_WIDTH-1e-6
+                and b.xmax<=WINDOW_HALF_WIDTH+1e-6
+                and b.zmin>=-1e-6 and b.zmax<=WINDOW_ROOF+1e-6
+                and b.zmax>1e-6):
+            rim.append(edge)
+    if not rim:
+        raise ValueError("no native lifting rim found")
+    rounded = before.fillet(RIM_R, rim)
+    # roof_rim's local X is normal to the opening. Rotate +Y-inward into its
+    # +X-inward frame, then restore the object after the source loft fill.
+    local_before = before.rotate((0,0,0),(0,0,1),-90)
+    local_round = rounded.rotate((0,0,0),(0,0,1),-90)
+    filled = roof_rim(local_before, local_round, 0, 1,
+                      -WINDOW_HALF_WIDTH, WINDOW_HALF_WIDTH,
+                      WINDOW_ROOF, RIM_R, RIM_R)
+    return filled.rotate((0,0,0),(0,0,1),90).clean()
+
+
+def teardrop_cut():
+    """The native Ø11 lead bore's tangent 36-degree crown, across rear stock."""
+    r, a, z = 5.5, math.radians(36.0), 47.0
+    tangent_x = r*math.sin(a)
+    tangent_z = z+r*math.cos(a)
+    apex = z+r/math.cos(a)
+    wire = (cq.Workplane("XZ", origin=(0, DEPTH+1, 0))
+            .moveTo(-tangent_x,tangent_z).threePointArc((0,z-r),(tangent_x,tangent_z))
+            .lineTo(0,apex).close().val())
+    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0,-WALL-2,0))
+
+
+def build(include_pip=True, *, xy_air=.25, z_air=.48):
+    outer, p, core_authority = envelope()
+    core, full_core = inner_core(outer, core_authority)
+    body = rounded_aperture(outer.cut(core).clean())
+    # One rear access cut exposes the actual crown ceiling and permits its
+    # automatically generated support to be reached through a broad opening.
+    # This also opens the sculpture to the light instead of enclosing a rack.
+    rear_access=box(-20,20,DEPTH-WALL-.5,DEPTH+1,6,38)
+    body=body.cut(rear_access).clean()
+    body = body.cut(teardrop_cut()).clean()
+    moving = None
+    pip_proof = None
+    pip_path = HERE/"pip.py"
+    if include_pip and pip_path.exists():
+        spec = importlib.util.spec_from_file_location("compact_arch_pip", pip_path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        if hasattr(module,"build"):
+            bay = module.build(xy_air=xy_air, z_air=z_air)
+        elif hasattr(module,"build_bay"):
+            bay = module.build_bay()
+        else:
+            raise ValueError("pip.py must expose build() or build_bay()")
+        # The bay owns its moving-gap topology. These names are its placement
+        # contract; retain them in the integrated geometry review.
+        fixed = bay["fixed"]
+        moving = bay["moving"]
+        cuts = bay.get("clearance_cut")
+        if cuts is not None:
+            body = body.cut(cuts).clean()
+        body = body.fuse(fixed).clean()
+        pip_proof = bay.get("proof")
+        overlap=body.intersect(moving).Volume()
+        if pip_proof is not None:
+            pip_proof=dict(pip_proof,integrated_nominal_rigid_overlap_mm3=overlap)
+    return {"body":body,"moving":moving,"profile":p,"pip":pip_proof,
+            "outer":outer,"core":core,"full_core":full_core}
+
+
+def _bounds(shape):
+    b=shape.BoundingBox()
+    return {"min":[b.xmin,b.ymin,b.zmin],"max":[b.xmax,b.ymax,b.zmax],
+            "dimensions":[b.xlen,b.ylen,b.zlen]}
+
+
+def native_surface_intent(stl):
+    """Native painting indices bound to the actual exported frame triangles."""
+    mesh=trimesh.load(stl)
+    c,n=mesh.triangles_center,mesh.face_normals
+    z=c[:,2]
+    h,foot=transition(RIM_R)
+    q=np.abs(c[:,:2]-[0,DEPTH/2])-[WIDTH/2-RIM_R,DEPTH/2-RIM_R]
+    sd=(np.linalg.norm(np.maximum(q,0),axis=1)
+        +np.minimum(np.maximum(q[:,0],q[:,1]),0)-RIM_R)
+    inset=np.where(z<=h,foot-OUTWARD_PER_HEIGHT*z,
+                   RIM_R-np.sqrt(np.maximum(0,RIM_R**2-(RIM_R-z)**2)))
+    downward=(n[:,2]<-.02)&(n[:,2]>-.98)
+    bed=(z>=-1e-5)&(z<=RIM_R+.01)&(np.abs(sd+inset)<.075)&downward
+    upper=((c[:,1]>=-.01)&(c[:,1]<=RIM_R+.01)
+           &(np.abs(c[:,0])<=WINDOW_HALF_WIDTH+RIM_R+.01)
+           &(z>=WINDOW_ROOF-RIM_R-.01)&(z<=WINDOW_ROOF+RIM_R+.01)
+           &(n[:,1]<-.05)&downward)
+    centre=[-WIDTH/2+RIM_R,DEPTH-RIM_R]
+    angle=np.degrees(np.arctan2(n[:,1],-n[:,0]))
+    distance=np.hypot(c[:,0]-centre[0],c[:,1]-centre[1])
+    seam=((c[:,0]<=centre[0]+.1)&(c[:,1]>=centre[1]-.1)
+          &(np.abs(distance-RIM_R)<.075)&(np.abs(n[:,2])<.05)
+          &(z>=8)&(z<=HEIGHT-RIM_R)&(angle>=40)&(angle<=50))
+    support={"body_stl_sha256":hashlib.sha256(stl.read_bytes()).hexdigest(),
+             "processed_trimesh_facets":len(mesh.faces),
+             "bed_R6_exterior_transition_faces":np.flatnonzero(bed).tolist(),
+             "aperture_R6_exterior_transition_faces":np.flatnonzero(upper).tolist(),
+             "functional_horizontal_faces_excluded":True,
+             "paint_normal_threshold_z":[-.98,-.02]}
+    seam_record={"standing_left_rear_R6_faces":np.flatnonzero(seam).tolist(),
+                 "world_corner_center_xy_mm":centre,
+                 "degrees_from_minus_x_towards_plus_y":[40,50],
+                 "z_band_mm":[8,HEIGHT-RIM_R]}
+    return support,seam_record
+
+
+def export(include_pip=True, *, xy_air=.25, z_air=.48):
+    generated = build(include_pip, xy_air=xy_air, z_air=z_air)
+    HERE.mkdir(parents=True, exist_ok=True)
+    records = {}
+    for name in ("body","moving"):
+        shape=generated[name]
+        if shape is None: continue
+        step=HERE/f"arch-{name}.step"
+        stl=HERE/f"arch-{name}.stl"
+        cq.exporters.export(shape,str(step))
+        cq.exporters.export(shape,str(stl),tolerance=.03,angularTolerance=.1)
+        # OCC triangulates a few pole faces with coincident vertices. Remove
+        # only zero-area triangles; no nondegenerate vertex is moved here.
+        mesh=trimesh.load(stl)
+        original_facets=len(mesh.faces)
+        mesh.update_faces(mesh.nondegenerate_faces(height=1e-7))
+        mesh.remove_unreferenced_vertices()
+        removed=original_facets-len(mesh.faces)
+        if name=="body":
+            rail=flute_skin.Rail(
+                at=lambda s:((WIDTH/2,s+7.5),(1.0,0.0)),
+                length=20.0,start=2.5,closed=False,band=(18.0,40.0))
+            mesh=flute_skin.flute(mesh,[rail],5.0,1.2,5.0)
+        mesh.export(stl)
+        records[name]={"valid":shape.isValid(),"solids":len(shape.Solids()),
+                       "volume_mm3":shape.Volume(),"cad_mass_g_at_1_3":shape.Volume()/1000*1.3,
+                       "bounds":_bounds(shape),"step":str(step.relative_to(ROOT)),
+                       "stl":str(stl.relative_to(ROOT)),
+                       "mesh":{"watertight":mesh.is_watertight,"positive_volume":mesh.is_volume,
+                               "volume_mm3":mesh.volume,"bounds":mesh.bounds.tolist(),
+                               "facets":len(mesh.faces),"zero_area_facets_removed":removed}}
+    asm=cq.Assembly(name="The Arch")
+    asm.add(generated["body"],name="frame",color=cq.Color(.18,.18,.19))
+    if generated["moving"] is not None:
+        asm.add(generated["moving"],name="slide",color=cq.Color(.36,.36,.37))
+    asm.save(str(HERE/"the-pour.step"))
+    support_paint,seam_paint=native_surface_intent(HERE/"arch-body.stl")
+    h,f=transition(RIM_R)
+    report={"name":"The Pour V4 — Arch","manufacturing_up":[0,0,1],
+            "dimensions_mm":[WIDTH,DEPTH,HEIGHT],"nominal_ordinary_stock_mm":WALL,
+            "parts":records,"total_volume_mm3":sum(r["volume_mm3"] for r in records.values()),
+            "total_cad_mass_g_at_1_3":sum(r["cad_mass_g_at_1_3"] for r in records.values()),
+            "display":{"straight_mm":DISPLAY_FLAT,"degrees_from_horizontal":30,
+                        "front_radius_mm":12,"roof_radius_mm":18,"side_radius_mm":6,
+                        "profile":generated["profile"]},
+            "print_down_round":{"radius_mm":6,"outward_per_build_rise":.5,
+                                "chamfer_height_mm":h,"foot_inset_mm":f},
+            "ceiling":{"source":"inside of the actual rear crown",
+                       "reading_rectangle_mm":[-8,8,28.5,44.5,57,57],
+                       "rear_access_mm":[-20,20,44.5,49,6,38],
+                       "expected_paint":"horizontal functional flat; retain automatic support",
+                       "reading_record":"prints/the-pour-v4-petgf.print.json"},
+            "texture":{"source":"cadlib/flute_skin.py",
+                       "mesh_only":True,"pitch_mm":5,"width_mm":4,
+                       "depth_mm":1.2,"fade_mm":5,
+                       "backing_after_deepest_groove_mm":3,
+                       "field_mm":[30,30,10,30,18,40]},
+            "pip":generated["pip"],
+            "native_support_paint":support_paint,"native_seam_paint":seam_paint,
+            "sha256":{file.name:hashlib.sha256(file.read_bytes()).hexdigest()
+                      for file in [HERE/"the-pour.step", *HERE.glob("arch-*.step"), *HERE.glob("arch-*.stl")]},
+            "required_native_readings":["support/contact slabs", "motion-gap and bridge paths"],
+            "physical_result":"Unprinted; release, removal and finish remain unmeasured"}
+    (HERE/"geometry.json").write_text(json.dumps(report,indent=2)+"\n")
+    print(json.dumps({k:report[k] for k in ("name","dimensions_mm","total_volume_mm3","physical_result")},indent=2))
+
+
+if __name__=="__main__":
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--no-pip",action="store_true")
+    parser.add_argument("--xy-air",type=float,default=.25,help="One running clearance per face, in mm")
+    parser.add_argument("--z-air",type=float,default=.48,help="One floor and lip release gap, in mm")
+    args=parser.parse_args()
+    export(not args.no_pip,xy_air=args.xy_air,z_air=args.z_air)
