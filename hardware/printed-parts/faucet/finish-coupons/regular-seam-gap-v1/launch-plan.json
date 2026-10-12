@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "recorded_at_utc": "2026-10-11T23:40:07.832450+00:00",
-  "status": "Accepted ordinary seam-gap-only comparison; physical result pending",
+  "status": "Completed ordinary seam-gap comparison; operator inspection pending",
   "printer": "Mark2",
   "connection_alias": "Mark2",
   "authorization_quotes": [
@@ -386,5 +386,72 @@
   "start_reported": true,
   "start_notification_count": 1,
   "timelapse_selected": true,
-  "timelapse_recording_verified": false
+  "timelapse_recording_verified": false,
+  "completed_observed_at_utc": "2026-10-12T00:47:05.909552+00:00",
+  "completion_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-12T00:47:05.909552+00:00",
+    "task_id": "1330991481",
+    "job_id": "1330991481",
+    "subtask_name": "2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 76,
+    "total_layer_num": 76,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 61.0,
+    "bed_target_temper": 0.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "external_snow": 65535,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 46,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "external_snow": 65024,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 72,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 35,
+      "target_c": 0
+    }
+  },
+  "monitoring_required": false
 }

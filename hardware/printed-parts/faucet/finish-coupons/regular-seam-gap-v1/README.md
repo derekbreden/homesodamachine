@@ -51,3 +51,5 @@ damage beside the seam. Record each observation in [results](results.json).
 Short sections and seven simultaneous objects change thermal/return-time
 conditions from a complete faucet. There is no physical winner yet and no
 change to the complete-faucet recipe from this comparison.
+
+Mark2 reported **FINISH, 76/76 layers**, at **7:47 pm CDT on October 11**, with no error or HMS fault. This is telemetry completion. Derek’s preliminary inspection finds little difference on most specimens and a few slightly worse; no individual selection is recorded.

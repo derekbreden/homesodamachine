@@ -1,0 +1,437 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-12T00:56:59.676604+00:00",
+  "status": "Accepted ordinary larger-gap comparison; physical result pending",
+  "printer": "Mark2",
+  "connection_alias": "Mark2",
+  "authorization_quotes": [
+    "Oh, that map helps so much, okay, we need to see 40 50 60 percent at least, if not more. Start it on a printer or two, both beds are clear."
+  ],
+  "authorization_scope": "One nine-specimen ordinary seam-gap-only comparison at 15% control, 30% reference and 40..100% in 10 percentage-point steps",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "e6438348cd673e89850d50325ceb7a5cb03d7d6d24a63edaf6f5d6bfd16633e3",
+  "gcode_sha256": "204d8de83265acfa2af1877f1b3a4b620a23f248426119b8ed50fa0197abbfb8",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "9c397e63622c1b4777ac079d244f8ea1a85eed476932f204d4afbe6e857268cf",
+  "preparation_record": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/preparation.json",
+  "preparation_record_sha256": "ce5de7efb026757f1ce22afd3e472a4a9ae34a9ea6d479e730a851a264d838d0",
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/native-check.json",
+  "native_check_sha256": "35169f8da5d01ebe7dc2c844412cb56ed008c9bcb9e1aca75862324c374c21e9",
+  "source_hashes": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "1e35507fe56b4eee0f432d6ff4f7da26e94d897fae83bd51a7c985d10334b340",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/prepare.py": "8c7543fa8e93f06ed8e63e671eaf871c6fb0fe2e5b536c825c6ab503794f5d2b"
+  },
+  "launch_authorized": true,
+  "start_now": false,
+  "import_attempted": true,
+  "archive_imported": true,
+  "send_attempted": true,
+  "accepted": true,
+  "submitted": true,
+  "maximum_send_clicks": 1,
+  "maximum_foreground_transactions": 1,
+  "foreground_transaction_count": 1,
+  "launch_method": "Bambu Connect foreground UI through cua_repl",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "native_estimated_seconds": 4329.40966796875,
+  "minimum_full_bead_bed_margin_mm": 104.415794,
+  "scarf_enabled": false,
+  "only_process_factor": "ordinary seam_gap",
+  "control_id": "E",
+  "reference_id": "G",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A seam gap 40%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 40,
+      "nominal_path_gap_mm": 0.16,
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "identify_id": 1901,
+      "object_id": "2",
+      "object_overrides": {
+        "seam_gap": "40%"
+      },
+      "plate_bounds_mm": [
+        [
+          115.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          142.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "name": "B seam gap 50%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 50,
+      "nominal_path_gap_mm": 0.2,
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "identify_id": 1902,
+      "object_id": "4",
+      "object_overrides": {
+        "seam_gap": "50%"
+      },
+      "plate_bounds_mm": [
+        [
+          149.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "name": "C seam gap 60%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 60,
+      "nominal_path_gap_mm": 0.24,
+      "row_from_front": 1,
+      "column_from_left": 3,
+      "identify_id": 1903,
+      "object_id": "6",
+      "object_overrides": {
+        "seam_gap": "60%"
+      },
+      "plate_bounds_mm": [
+        [
+          183.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          210.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "name": "D seam gap 70%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 70,
+      "nominal_path_gap_mm": 0.28,
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "identify_id": 1904,
+      "object_id": "8",
+      "object_overrides": {
+        "seam_gap": "70%"
+      },
+      "plate_bounds_mm": [
+        [
+          115.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          142.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "name": "E seam gap 15% control",
+      "control": true,
+      "seam_gap_percent_of_nozzle": 15,
+      "nominal_path_gap_mm": 0.06,
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "identify_id": 1905,
+      "object_id": "10",
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          149.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "name": "F seam gap 80%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 80,
+      "nominal_path_gap_mm": 0.32,
+      "row_from_front": 2,
+      "column_from_left": 3,
+      "identify_id": 1906,
+      "object_id": "12",
+      "object_overrides": {
+        "seam_gap": "80%"
+      },
+      "plate_bounds_mm": [
+        [
+          183.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          210.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "name": "G seam gap 30%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 30,
+      "nominal_path_gap_mm": 0.12,
+      "row_from_front": 3,
+      "column_from_left": 2,
+      "identify_id": 1907,
+      "object_id": "14",
+      "object_overrides": {
+        "seam_gap": "30%"
+      },
+      "plate_bounds_mm": [
+        [
+          149.0,
+          182.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          215.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "name": "H seam gap 90%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 90,
+      "nominal_path_gap_mm": 0.36,
+      "row_from_front": 3,
+      "column_from_left": 1,
+      "identify_id": 1908,
+      "object_id": "16",
+      "object_overrides": {
+        "seam_gap": "90%"
+      },
+      "plate_bounds_mm": [
+        [
+          115.0,
+          182.58543395996094,
+          0.0
+        ],
+        [
+          142.0,
+          215.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "name": "I seam gap 100%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 100,
+      "nominal_path_gap_mm": 0.4,
+      "row_from_front": 3,
+      "column_from_left": 3,
+      "identify_id": 1909,
+      "object_id": "18",
+      "object_overrides": {
+        "seam_gap": "100%"
+      },
+      "plate_bounds_mm": [
+        [
+          183.0,
+          182.58543395996094,
+          0.0
+        ],
+        [
+          210.0,
+          215.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    }
+  ],
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "transaction_started_at_utc": "2026-10-12T00:57:14.804328+00:00",
+  "send_in_progress": false,
+  "send_input_reserved_at_utc": "2026-10-12T00:59:05.091885+00:00",
+  "send_click_record_status": "Exactly one foreground cua_repl Send followed by matching new task/job acceptance",
+  "send_click_count": 1,
+  "send_input_completed_at_utc": "2026-10-12T00:59:32.254188+00:00",
+  "ready_to_launch": false,
+  "printer_task_id": "1331147501",
+  "printer_job_id": "1331147501",
+  "accepted_at_utc": "2026-10-12T00:59:33.469202+00:00",
+  "accepted_at_central": "2026-10-11T19:59:33.469202-05:00",
+  "accepted_archive_name": "2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "RUNNING",
+  "acceptance_time_basis": "First fresh read-only matching new exact-name job after one foreground Send",
+  "acceptance_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-12T00:59:33.143022+00:00",
+      "task_id": "1331044065",
+      "job_id": "1331044065",
+      "subtask_name": "2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 42,
+      "total_layer_num": 42,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 40.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 40,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 36,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 32,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-12T00:59:33.469202+00:00",
+      "task_id": "1331147501",
+      "job_id": "1331147501",
+      "subtask_name": "2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 76,
+      "mc_percent": 0,
+      "mc_remaining_time": 72,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 48.0,
+      "bed_target_temper": 48.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "external_snow": 65535,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 44,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "external_snow": 65024,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 42,
+            "target_c": 200
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 36,
+        "target_c": 0
+      }
+    }
+  ],
+  "forecast_finish_utc": "2026-10-12T02:11:42.878870+00:00",
+  "forecast_finish_central": "2026-10-11T21:11:42.878870-05:00",
+  "forecast_scope": "Native time from observed acceptance; additional startup/calibration or pauses may extend this",
+  "start_notification_reported": true
+}
