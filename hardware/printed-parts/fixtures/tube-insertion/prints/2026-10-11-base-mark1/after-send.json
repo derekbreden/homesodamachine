@@ -1,0 +1,70 @@
+{
+  "send_click_at_utc": "2026-10-12T02:08:41.250Z",
+  "send_click_count": 1,
+  "readings": [
+    {
+      "printer": "Mark1",
+      "observed_at_utc": "2026-10-12T02:09:03.765054+00:00",
+      "task_id": "1331280889",
+      "job_id": "1331280889",
+      "subtask_name": "2026-10-11-tube-insertion-base-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 225,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 0,
+      "mc_remaining_time": 715,
+      "stg_cur": 13,
+      "bed_temper": 28.0,
+      "bed_target_temper": 28.0,
+      "nozzle_temper": 50.0,
+      "nozzle_target_temper": 200.0,
+      "upload": {
+        "file_size": 0,
+        "finish_size": 0,
+        "message": "Good",
+        "oss_url": "",
+        "progress": 0,
+        "sequence_id": "0903",
+        "speed": 0,
+        "status": "idle",
+        "task_id": "",
+        "time_remaining": 0,
+        "trouble_id": ""
+      }
+    },
+    {
+      "printer": "Mark2",
+      "observed_at_utc": "2026-10-12T02:09:03.894093+00:00",
+      "task_id": "1331147501",
+      "job_id": "1331147501",
+      "subtask_name": "2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 76,
+      "total_layer_num": 76,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 97,
+      "mc_remaining_time": 2,
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "nozzle_temper": 280.0,
+      "nozzle_target_temper": 280.0,
+      "upload": {
+        "file_size": 0,
+        "finish_size": 0,
+        "message": "Good",
+        "oss_url": "",
+        "progress": 0,
+        "sequence_id": "0903",
+        "speed": 0,
+        "status": "idle",
+        "task_id": "",
+        "time_remaining": 0,
+        "trouble_id": ""
+      }
+    }
+  ]
+}

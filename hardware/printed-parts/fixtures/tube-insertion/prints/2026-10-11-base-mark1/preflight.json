@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-12T02:04:55.243465+00:00",
+  "source_archive": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.gcode.3mf",
+  "source_archive_sha256": "ad78f326b9974573faa9ed91e055ea17da71c2fc009f2f199a06fee21b7fcdd4",
+  "gcode_sha256": "c135035c8d29272eda7187710d4b164052bdcb3973313224386e1aae010defe0",
+  "ui_import_copy": ".cache/printer-control/tube-insertion-base-mark1/2026-10-11-tube-insertion-base-petgf-left04-z018-mark1.gcode.3mf",
+  "ui_import_copy_sha256_before_import": "ad78f326b9974573faa9ed91e055ea17da71c2fc009f2f199a06fee21b7fcdd4",
+  "settings_baseline": "hardware/printed-parts/petgf.3mf",
+  "settings_baseline_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "first_layer_mm": 0.2,
+  "normal_layer_mm": 0.24,
+  "walls": 6,
+  "infill_percent": 100,
+  "infill_pattern": "zig-zag",
+  "printer": "Mark1",
+  "external_spool_slot": 254,
+  "material_authority": "Derek confirms PET-GF in left 0.4 mm hotend with textured plate installed",
+  "printer_coordination": "Printer 2 reserves Mark1 for this base and has no conflicting launch",
+  "peer_last_start_or_resume_utc": "2026-10-12T00:59:33.469202+00:00",
+  "shared_circuit_minimum_seconds": 180,
+  "readings": [
+    {
+      "printer": "Mark1",
+      "connection_alias": "H2C",
+      "observed_at_utc": "2026-10-12T02:04:55.035995+00:00",
+      "task_id": "1331044065",
+      "job_id": "1331044065",
+      "subtask_name": "2026-10-11-umbilical-organizer-current-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 42,
+      "total_layer_num": 42,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "stg_cur": -1,
+      "bed_temper": 28.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 29.0,
+      "nozzle_target_temper": 0.0,
+      "upload": {
+        "file_size": 0,
+        "finish_size": 0,
+        "message": "Good",
+        "oss_url": "",
+        "progress": 0,
+        "sequence_id": "0903",
+        "speed": 0,
+        "status": "idle",
+        "task_id": "",
+        "time_remaining": 0,
+        "trouble_id": ""
+      },
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "connection_alias": "Mark2",
+      "observed_at_utc": "2026-10-12T02:04:55.197566+00:00",
+      "task_id": "1331147501",
+      "job_id": "1331147501",
+      "subtask_name": "2026-10-11-faucet-regular-seam-gap-v2-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 73,
+      "total_layer_num": 76,
+      "print_error": 0,
+      "hms": [],
+      "mc_percent": 90,
+      "mc_remaining_time": 6,
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "nozzle_temper": 280.0,
+      "nozzle_target_temper": 280.0,
+      "upload": {
+        "file_size": 0,
+        "finish_size": 0,
+        "message": "Good",
+        "oss_url": "",
+        "progress": 0,
+        "sequence_id": "0903",
+        "speed": 0,
+        "status": "idle",
+        "task_id": "",
+        "time_remaining": 0,
+        "trouble_id": ""
+      },
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    }
+  ],
+  "fresh_mark1_before_send": {
+    "observed_at_utc": "2026-10-12T02:08:21.668349+00:00",
+    "job_id": "1331044065",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "inspection_flags": {
+      "xcam": {
+        "allow_skip_parts": false,
+        "buildplate_marker_detector": true,
+        "cfg": 1772695,
+        "first_layer_inspector": true,
+        "halt_print_sensitivity": "medium",
+        "print_halt": true,
+        "printing_monitor": true,
+        "spaghetti_detector": true
+      },
+      "xcam_status": "0"
+    }
+  }
+}
