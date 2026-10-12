@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Physical results pending",
+  "status": "Completed plate; preliminary operator comparison recorded, no selection",
   "control_id": "E",
   "factor": "ordinary seam_gap",
   "source_profile": "hardware/printed-parts/petgf.3mf",
@@ -64,5 +64,14 @@
     }
   ],
   "full_faucet_recipe_changed": false,
-  "scope": "Screen on short actual faucet-neck sections; no physical winner or complete-faucet transfer has been established."
+  "scope": "Screen on short actual faucet-neck sections; no physical winner or complete-faucet transfer has been established.",
+  "operator_observations": [
+    {
+      "reported_date": "2026-10-11",
+      "quote": "I need the map for this. Upon inspection so far, I can't see much difference on most of them other than some are slightly worse.",
+      "scope": "Preliminary whole-plate comparison; individual worse specimens not identified."
+    }
+  ],
+  "selected_variant": null,
+  "next_test": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/study-plan.json"
 }
