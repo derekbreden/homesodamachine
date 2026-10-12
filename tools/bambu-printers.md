@@ -417,15 +417,15 @@ accepted once that nozzle has cooled
 `ams_status` 0x300 and an extruder `stat` with 0x0300 set also appear while a printer
 prints normally, so neither marks an open load.
 
-On 2026-10-12 Mark2 refused a 36-object seam and scarf plate twice with `ERROR STATE`,
-err_code 83902534 (05004046, "The print has stopped because the 3MF file is invalid…"):
-once while the previous cancellation error was pending and once after it was cleared. The
-same plate with one swatch removed was accepted as task 1331779977, as was an earlier
-35-object plate from the same preparation (task 1331755396). The two archives differ only
-by that object; the G-code header's `; object max height:` and `; model label id:` lines
-grow from 195 and 192 characters to 200 and 197, excluding the newline. Why the printer
-refuses is unknown. A
-fixed-length header field is one hypothesis, and Mark1 is untested.
+On 2026-10-12 Mark2 twice answered `project_file` with `ERROR STATE`, err_code 83902534
+(05004046, "The print has stopped because the 3MF file is invalid…"), for a 36-object plate:
+once while a cancellation error was pending and once after it was cleared. A 35-object
+version under a new file name was then accepted (task 1331779977). Later the same day, a
+complete faucet archive accepted as task 1333499862 and then cancelled was refused with the
+same code on resend under its original name, with the error cleared, the nozzle at 44 °C
+and no HMS. The byte-identical archive under a new name was accepted as task 1333551449.
+The object-count comparison is therefore confounded by the file name. Why the printer
+refuses is unknown, and Mark1 is untested.
 
 
 ## Printer storage
