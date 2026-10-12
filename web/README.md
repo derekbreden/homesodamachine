@@ -131,7 +131,7 @@ State sharing pattern is **one shared object** (`state.js`'s exported `state`). 
 
 `GET /api/materials` reads [`hardware/ledger/materials.json`](/hardware/ledger/materials.json) through `lib/material-catalog.js`, resolving authored part-list imports such as the insertion fixture's `parts.json`. `contracts/materials.js` traverses quantities, ancestry and model bindings in the browser and Node. [`hardware/ledger/materials.md`](/hardware/ledger/materials.md) describes the catalog's identity and authoring rules. The financial BOM remains [`hardware/ledger/bom.md`](/hardware/ledger/bom.md).
 
-Model views start with the material companion collapsed. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones. Closing the panel restores the model; material records without geometry open directly as a full panel.
+Model views start with the material companion collapsed. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel restores the model; material records without geometry open directly as a full panel.
 
 The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](/tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
 

@@ -46,8 +46,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
 
   function select(id, path = []) {
-    selected = id; selectedPath = path; workspace.classList.add("materials-open");
-    workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "true");
+    selected = id; selectedPath = path;
     render();
   }
 
