@@ -1,0 +1,17 @@
+{
+  "status": "prepared_not_started",
+  "printer": "Mark1",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "import_count": 0,
+  "send_click_count": 0,
+  "accepted": false,
+  "automatic_next_print": false,
+  "monitor_scheduled": false,
+  "auto_resume_authorized": false,
+  "native_archive": "hardware/printed-parts/drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/2026-10-11-back-top-solid-hosts-local-groove-ribbons-black-z018-mark1.gcode.3mf",
+  "native_archive_sha256": "e5c840b0f88a607a83a6327a116b2f9651261a05bfbe12b3080c91a925cd77c1",
+  "gcode_sha256": "d8aca5c2a20eb10391fd96a79307a7a551ca448e1b060f0dfa42c341247a18d4",
+  "required_next_launch_readings": "Fresh readings of both printers and at least 180 seconds after the other accepted start/resume; Mark1 is reserved for the separately authorized Insert job.",
+  "named_local_support_exception": "The three sliding catch roofs use short project-only disposable ribbons rooted within their own grooves. Only their six downward roof triangles and the ribbons themselves suppress automatic support. The operator reports easy release of small local groove supports on other enclosure quadrants; these particular ribbon volumes are unprinted. Native readings find .24 mm below and .48 mm above them, no automatic support inside them, and contact beneath the six original catch slabs. Other overhangs retain Bambu Tree(auto), Default, with 3 mm branch diameter and the existing .5 degree growth for the required bed footprint."
+}

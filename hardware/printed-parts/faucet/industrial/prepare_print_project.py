@@ -167,8 +167,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
     report = writer.refresh(settings_from, output, parts=parts,
                             offsets=PART_OFFSETS, title=TITLE, plate_border=40.0,
                             z_trim=trim)
-    # One perimeter-spanning region retains the accepted reinforcement without
-    # splitting the outside wall at the three screw hosts.
+    # The complete foot receives solid infill with the ordinary wall settings.
     regions = tuple({"part": r["part"], "name": r["name"],
                      "source_bounds_mm": r["source_bounds_mm"], "clip_to_part_bounds": False}
                     for r in recipe_report["local_solid_regions"])

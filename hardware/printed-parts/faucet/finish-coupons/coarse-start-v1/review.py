@@ -168,7 +168,9 @@ def review(combined, seam_only=False):
             assert len(mods) == (1 if specimen["kind"] == "lip" else 0)
             if mods:
                 m = {n.get("key"): n.get("value") for n in mods[0].findall("metadata")}
-                assert m["wall_loops"] == "6" and m["sparse_infill_density"] == "100%" and m["sparse_infill_pattern"] == "zig-zag"
+                recorded_walls = prep.get("reinforcement_wall_loops", 6)
+                assert m.get("wall_loops") == (str(recorded_walls) if recorded_walls is not None else None)
+                assert m["sparse_infill_density"] == "100%" and m["sparse_infill_pattern"] == "zig-zag"
             geometries.append(dict(id=specimen["id"], native_vertex_rounding_maximum_mm=error,
                                    triangle_indices_identical=True, source_stl_sha256=sha(stl)))
         for member, target in (("Metadata/plate_1.png", "native-preview.png"), ("Metadata/top_1.png", "native-top.png")):

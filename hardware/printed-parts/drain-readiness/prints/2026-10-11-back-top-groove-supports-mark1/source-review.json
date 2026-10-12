@@ -1,0 +1,24 @@
+{
+  "source_project_sha256": "f0a32edbab06109c379271e8892a26537e308546be6e78b6ebcf6799c41b0a22",
+  "project_sha256": "f274fac1ebc0df02e768888c0cc282380e04fa9890c29606ca74104da318743e",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "product_vertices_and_triangle_indices_identical": true,
+  "changed_product_support_paint_triangles": [
+    12647,
+    24051,
+    139303,
+    152428,
+    348454,
+    496692
+  ],
+  "original_modifier_count": 23,
+  "modifier_count": 23,
+  "modifier_geometry_byte_identical": true,
+  "original_100_percent_zigzag_settings_retained": true,
+  "reinforcement_wall_setting_overrides": false,
+  "layer_ranges_byte_identical": true,
+  "placement_identical": true,
+  "disposable_project_only_normal_volumes": 3,
+  "passed": true,
+  "scope": "Frozen source geometry, modifier stock and requested deposition settings; physical strength and print finish are unassessed."
+}

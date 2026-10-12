@@ -81,9 +81,9 @@ def add_foot_modifier(members, model, config, relationships, part, mesh, index):
     cfg = config.find(f"object[@id='{part['object_id']}']")
     mod_config = ET.SubElement(cfg, "part", id=pid, subtype="modifier_part",
                                uuid=writer.identifier(part["name"] + "/modifier"))
-    for key, value in dict(name="Parent continuous six-wall solid foot",
+    for key, value in dict(name="Parent solid-infill foot",
                            matrix="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                           wall_loops=6, sparse_infill_density="100%",
+                           sparse_infill_density="100%",
                            sparse_infill_pattern="zig-zag").items():
         writer.metadata(mod_config, key, value)
     ET.SubElement(relationships, f"{{{writer.REL}}}Relationship", Target="/" + member,
@@ -126,6 +126,7 @@ def make_project(folder, stem, source_project, definitions, modifier_mesh, sourc
     members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges)
     writer.archive_write(project, members)
     report.update(source_info, project=str(project.relative_to(ROOT)), project_sha256=sha(project),
+                  reinforcement_wall_loops=None,
                   specimens=specimens, native_settings_sha256=writer.digest(members[writer.SETTINGS_MEMBER]),
                   preparation_only=True, launch_authorized=False, start_now=False,
                   submitted=False, import_attempted=False, send_attempted=False, accepted=False)

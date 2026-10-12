@@ -73,8 +73,8 @@ def back_top():
     settings = json.loads(members[writer.SETTINGS_MEMBER])
     # Retain the production profile's tree supports. The native footprint review
     # checks their bed margin; a failed fit does not select normal supports.
-    # Complete insert hosts/root stock need the locally proven wall envelope.
-    # Ordinary stock retains two walls; the roof transition retains its local six.
+    # Complete insert hosts and roots receive solid infill. Ordinary stock
+    # retains two walls; the roof transition retains its local six-wall band.
     settings["wall_loops"] = "2"
     settings["detect_narrow_internal_solid_infill"] = "0"
     settings["minimum_sparse_infill_area"] = "15"
@@ -137,8 +137,7 @@ def back_top():
                       transform="1 0 0 0 1 0 0 0 1 0 0 0", **{f"{{{writer.PROD}}}path": "/" + member})
         part_cfg = ET.SubElement(owner, "part", id=str(index), subtype="modifier_part")
         for k, value in {"name": region["name"], "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                         "sparse_infill_density": "100%", "sparse_infill_pattern": "zig-zag",
-                         "wall_loops": "10"}.items():
+                         "sparse_infill_density": "100%", "sparse_infill_pattern": "zig-zag"}.items():
             writer.metadata(part_cfg, k, value)
         ET.SubElement(relations, f"{{{writer.REL}}}Relationship", Target="/" + member,
                       Type=next(iter(relations)).get("Type"), Id=f"solid-host-{index}")
@@ -156,7 +155,7 @@ def back_top():
                   printer="Mark2", show_support_blocked_faces=count,
                   solid_host_regions=modifiers, solid_host_region_source_sha256=sha(region_path),
                   support_type=settings["support_type"],
-                  wall_loops=2, solid_host_wall_loops=10,
+                  wall_loops=2, solid_host_wall_loops=None,
                   detect_narrow_internal_solid_infill="0", top_one_wall_type="not apply",
                   support_reason="Shared PET-GF tree support profile; the complete model/support/brim footprint requires its native 20 mm bed-margin review.")
     save(p.with_suffix(".preparation.json"), report)
