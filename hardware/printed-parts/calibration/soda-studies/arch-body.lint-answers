@@ -1,0 +1,114 @@
+# Printed body: arch-body.stl SHA256 0fc8f6c8234203e33a7328591c982a30de0fc3bab6b56fe5cce0284f1fa5f500.
+# Analytic stock witness: arch-body.step SHA256 cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f.
+# All six classes were read once from this published mesh: step 0, sliver 5, ceiling 4, slope 0, thin 20, ledge 1.
+# Thin and ledge remain rankings. These answers cover geometry and print intent; physical release, support removal, finish, strength and lifetime are unmeasured.
+
+[sliver] The 1.2 mm top strip is the edge of the local flute backing pad. The backing is joined continuously to the enclosing wall and supplies the additional stock needed for the 1.2 mm deep source grooves, retaining 3 mm behind their deepest section. Its exposed edge width is not a freestanding wall thickness.
+alternatives: A 4.2 mm flank throughout the body removes this local pad end but adds stock outside the texture field and narrows the cavity. Extending the backing above Z21 adds material beyond the selected 15 mm high flute field and changes the inner crown boundary.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=17.650 y=17.797 z=21.000
+
+[sliver] This 0.25 mm wide underside is where the local flute backing extends beyond the X18 fixed stop and meets the ordinary curved side wall. The projection is joined to broad wall stock above and beside it; 0.25 mm describes the exposed face width, not the normal section of a thin wall.
+alternatives: Extending the fixed stop to X18.25 covers the exposed strip with additional stop material outside its working plane. Continuing the backing to the bed adds stock below the texture field. A thicker full flank removes the local projection at the cost of material throughout the unfluted regions.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=18.125 y=16.000 z=6.000
+
+[sliver] These 0.25 mm strips are the exposed ends of the guide ties: the ties end at X18.25 in magnitude and the stops end at X18. The fore tie retains 3 mm stock between Y2 and Y5; the rear tie retains 3 mm between Y24.5 and Y27.5. Both are bed-rooted and joined to the full guide beam. The small exposed axial width does not make either guide a 0.25 mm plate.
+alternatives: Extending the stops outboard to the tie ends hides these strips with added stock outside the motion stop planes. Increasing guide stock to 4 mm inward consumes the running clearance; increasing it outward adds material and reduces the open viewing and cleanup space.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=-18.125 y=5.000 z=5.200
+click: x=18.125 y=5.000 z=5.200
+click: x=-18.125 y=24.500 z=7.601
+
+[ceiling] The Z29.36 face is the actual 3 mm crown underside, including the selected 12 by 6 mm supported reading rectangle. Automatic supports are retained here. The rear opening at X +/-12.25 and Z6..29.36 exposes the crown underside and its supports. The prepared native paths emit 0.48 mm air beneath the ceiling for the requested 0.45 mm support-top distance; geometric access and planned separation do not establish easy physical removal.
+alternatives: A corbel replaces the flat supported reading with a different surface. Columns beneath it obstruct the shared slide and support-removal space. More roof stock above the same underside adds material without changing its first-layer support interface.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=0.000 y=29.892 z=29.360
+
+[ceiling] These are the fixed capture-lip undersides at Z7.40. The body-only lint omits the moving shoulders whose tops are Z6.92, so their model-to-model release air is 0.48 mm, not the reported 4.3 mm drop to the fixed floor. Each lip has 3 mm stock up to Z10.40 and is rooted on its 3 mm guide wall. The native project preserves the central release windows. Remove all automatic supports from the empty travel spaces before assessing motion; physical cleanup and release remain unmeasured.
+alternatives: A corbel under a lip consumes the release air or the moving stroke. Thickening a lip upward adds material without changing its first release layer. Increasing Z air changes the local fit and belongs to a separate whole-object print.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=0.000 y=8.125 z=7.400
+click: x=0.000 y=21.375 z=7.400
+
+[ceiling] This is the lower cut face of the native front crown at Z13.556. The all-width fore clearance ends at Y6; the crown retains its inward 3 mm offset and source display profile above that cut. Automatic support decisions are retained for the flat underside. It is exposed along the fore cut and through the rear opening above the guide; the 3.156 mm fore reveal is a viewing allowance, and removal effort remains a physical result.
+alternatives: A sloped replacement changes the native crown's lower section and the support interface. Filling downward to the fixed guide closes the fore reveal and adds stock outside the selected surface readings. Additional stock above this face does not improve deposition on its first underside layer.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=0.000 y=3.000 z=13.556
+
+[thin] This isolated 0.189 mm diagonal ends at the finite top edge of the flute backing where it meets the crown's inner curve. Exact CAD traces inward from that curved face for 3.000 mm and from the adjacent backing plane for 3.699 mm. The diagonal measures proximity to the end boundary; it is not the section of a 0.189 mm wall.
+alternatives: Extending the backing above Z21 moves this end boundary into the crown and adds material outside the texture field. Making the full flank 4.2 mm thick removes the local pad end with additional stock in unfluted areas and less interior access.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=17.020 y=7.922 z=20.926
+click: x=17.050 y=8.093 z=21.000
+
+[thin] These two 0.493 mm measurements lie along the fixed stops' X +/-18 end planes into the curved side-wall boundary at the Y6 fore cut. Exact CAD traces inward from each stop end for 3.750 mm, from the curved face for 3.000 mm, and from the fore cut for more than 27 mm of connected stock. These are finite end-plane/curve junctions, not thin stationary fins or model-to-model release gaps.
+alternatives: Extending each stop outboard covers this end-plane junction with additional stop stock beyond the motion stop plane. A 4 mm shell adds material and narrows the cavity; enlarging the outside to preserve that cavity increases the reference object's size. Filling the curved boundary with square stock removes part of the retained curve from view.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=-18.000 y=5.950 z=4.311
+click: x=-18.000 y=6.000 z=4.801
+click: x=18.000 y=5.950 z=4.311
+click: x=18.000 y=6.000 z=4.801
+
+[thin] The 1.080 mm minimum is at the lower end of the flute backing beside the stop's upper corner. Exact CAD supplies 4.200 mm inward through the backing and 3.750 mm through the stop's end plane, with 20 mm of connected stock along the pad. The ranking gathers the surrounding ordinary 3 mm skins into the same place; its minimum diagonal does not describe those skins' normal thickness.
+alternatives: Extending the stop outward covers the corner with stock outside its working plane. Continuing the backing to the bed removes its lower end but adds material below the texture field. A 4.2 mm full flank adds stock outside that field and reduces cavity access.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=17.050 y=7.683 z=10.879
+click: x=18.000 y=7.500 z=10.400
+
+[thin] These curved-skin rankings read the analytic 3 mm inward offset of the R6 envelope. Exact CAD normal traces at all six anchors supply 3.000 mm; the printed mesh reads 2.998..2.999 mm across its chords. The additive tangent fill increases stock outside the retained offset. These readings establish local geometry, not load capacity or surface acceptance.
+alternatives: A 4 mm shell adds material across the compact body and reduces the interior cavity. Enlarging the outside envelope to preserve the cavity increases the reference object's size. More printed walls changes the recipe, not the analytic offset.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=10.168 y=34.040 z=3.978
+click: x=10.168 y=31.217 z=4.989
+click: x=10.167 y=31.213 z=4.978
+click: x=10.167 y=34.032 z=3.956
+click: x=20.767 y=15.159 z=3.644
+click: x=18.000 y=15.159 z=4.801
+
+[thin] The two 3.000 mm readings run through the fixed capture-lip stock from Z7.40 to Z10.40. The lips are joined to their guide walls and geometrically retain the moving shoulders through the 10 mm stroke. Their 0.48 mm lower release air is a functional void and does not reduce the lip's own 3 mm stock; release and retention remain physically unmeasured.
+alternatives: A 4 mm lip adds material above the same release surface. Thickening downward consumes the release air. Increasing overlap into the handle space narrows that space and changes the fit being observed.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=8.901 y=11.194 z=7.400
+click: x=8.901 y=11.194 z=10.400
+click: x=8.901 y=24.444 z=7.400
+click: x=8.901 y=24.444 z=10.400
+
+[thin] These seven 3.000 mm readings measure the bed-rooted fore guide between Y2 and Y5, including its exposed tie ends. Exact CAD supplies 3 mm normal stock at each anchor. The guide supports the front capture lip and defines the outside of the moving leg's corridor; the 0.25 mm lateral air is outside the solid.
+alternatives: Thickening inward reduces the running clearance. Thickening outward to 4 mm adds stock below the fore reveal without changing the fit. Translating the guide and moving leg to preserve the gap changes the compact mechanism's placement.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=-18.113 y=5.000 z=1.037
+click: x=-18.113 y=2.000 z=1.037
+click: x=13.767 y=2.000 z=0.939
+click: x=13.767 y=5.000 z=0.939
+click: x=-18.151 y=2.000 z=1.769
+click: x=-18.151 y=5.000 z=1.769
+click: x=-18.156 y=2.000 z=4.317
+click: x=-18.156 y=5.000 z=4.317
+click: x=18.156 y=2.000 z=6.083
+click: x=18.156 y=5.000 z=6.083
+click: x=18.149 y=2.000 z=3.491
+click: x=18.149 y=5.000 z=3.491
+click: x=18.166 y=2.000 z=0.986
+click: x=18.166 y=5.000 z=0.986
+
+[thin] These three 3.000 mm readings measure the rear guide and tie between Y24.5 and Y27.5. The tie is rooted on the connected floor, joined to the stop and side stock, and supports the rear capture lip. Exact CAD normal traces supply 3 mm at every named anchor.
+alternatives: A 4 mm guide thickened inward reduces the moving-leg air. Thickening outward adds stock and reduces access behind the gate. Extending the stops to hide the tie end faces adds outboard stock without increasing this guide's normal section.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=-18.050 y=24.500 z=4.928
+click: x=-18.050 y=27.500 z=4.928
+click: x=-13.661 y=27.500 z=10.048
+click: x=-13.661 y=24.500 z=10.048
+click: x=18.015 y=24.500 z=5.401
+click: x=18.015 y=27.500 z=5.401
+
+[thin] This 3.000 mm reading measures the connected ordinary floor from Z0 to Z3. It roots the rear wall and the fixed guide/stop stock. The central running plinth has its separate Z3.08 datum; its 0.48 mm gap to the moving crossbar is not floor material.
+alternatives: Thickening upward adds stock outside the running plinth and reduces the cavity. Thickening below Z0 changes the bed datum and requires translating the mechanism. Raising the running plinth instead changes the release gap being measured.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=-15.021 y=27.562 z=0.000
+click: x=-15.021 y=27.562 z=3.000
+
+[ledge] The 4.25 square millimetre face is the exposed lower edge of the local flute backing beside the stop, at Z6. The adjacent ordinary wall and connected backing retain their full normal stock; its small 0.25 mm exposed width is not a thin wall. Automatic support choices remain permitted here, with cleanup through the open rear and unused travel spaces; removal effort is unmeasured.
+alternatives: Extending the stop to X18.25 covers the ledge with additional outboard stock. Continuing the backing to the bed adds material outside the flute field. A sloped inner transition adds a further wall shape and changes local support deposition without adding a selected reading.
+file: hardware/printed-parts/calibration/soda-studies/arch-body.step
+click: x=18.083 y=18.833 z=6.000

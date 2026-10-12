@@ -4,8 +4,8 @@
   "release_tag": "the-pour-v5",
   "download_url": "https://github.com/derekbreden/homesodamachine/releases/download/the-pour-v5/print-kit.zip",
   "archive": "print-kit.zip",
-  "bytes": 2232586,
-  "sha256": "86385e5e07e5d8ce2b27e7399a624092627e07323037007a0a2a408ce0a8a0b2",
+  "bytes": 2236840,
+  "sha256": "e7bc496558876219194610fd1555309b471490fe736c0ca7d7fa7d5dff63dd68",
   "files": [
     {
       "path": "README.md",
@@ -132,6 +132,12 @@
       "bytes": 327899,
       "sha256": "cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f",
       "source_sha256": "cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f"
+    },
+    {
+      "path": "arch-body.lint-answers",
+      "bytes": 12671,
+      "sha256": "8e6784f3ff5212e2ef1ef166f3b6ed8a9642add5d810d5d71d35ee0123537f3f",
+      "source_sha256": "8e6784f3ff5212e2ef1ef166f3b6ed8a9642add5d810d5d71d35ee0123537f3f"
     },
     {
       "path": "arch-moving.stl",
