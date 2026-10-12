@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-v5-petgf.3mf",
-  "project_sha256": "7a39b881167095a0954f1162904a12187d42a1e2e13002b24dd532c1a58ab374",
+  "project_sha256": "2ba70d42e29b9ebdd874954e4ce1167cd473ef5cdc9493ca4e1ec1c91a0676d0",
   "normal_volume_count": 2,
   "native_parent_count": 1,
   "plate_count": 1,
@@ -8,18 +8,18 @@
   "uniform_model_layer_mm": 0.24,
   "saved_profile_source": "hardware/printed-parts/petgf.3mf",
   "saved_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "source_compact_plan_sha256": "956d2d60a20b9a704a541467453c404ef5115554e6cf4577cd1c7a397f8151c2",
-  "generated_with_compact_preparer_source_sha256": "467d062015843aa17515ac254ccb7476936a40d0d704663457050de20fae54f9",
+  "source_compact_plan_sha256": "65de4fc0fe3e383b627de923ee43f755e1102b647bb89ce2d9dd1301fa845246",
+  "generated_with_compact_preparer_source_sha256": "b2b60ea75e10ab3f62f07542e19d090ac6c0cdfdd0fad25171d1368f80810d78",
   "current_compact_preparer_source_sha256": "b2b60ea75e10ab3f62f07542e19d090ac6c0cdfdd0fad25171d1368f80810d78",
   "recipe_functions_sha256": "d66c928820a83f5bf4faf2682dd956e2c442fb09b06887a13dfbfb1d6d1a0ae3",
   "submitted": false,
-  "estimated_time": "1h 1m 25s",
-  "estimated_seconds": 3685.0,
+  "estimated_time": "1h 3m 24s",
+  "estimated_seconds": 3804.0,
   "saved_profile_filament_estimate_g": [
-    24.88
+    25.29
   ],
-  "minimum_full_bead_bed_margin_mm": 133.799,
+  "minimum_full_bead_bed_margin_mm": 133.318,
   "archive": ".cache/pour-wedge/native-work/the-pour-v5-petgf/native/the-pour-v5-petgf.gcode.3mf",
-  "archive_sha256": "09f5ce85bf0b22241c6146c1619feed333a8a3570a2ab8893860a05f173ba3b6",
-  "compact_reader_source_sha256": "467d062015843aa17515ac254ccb7476936a40d0d704663457050de20fae54f9"
+  "archive_sha256": "f37bba7767a09d960a9e495340e1bd7ef19bda0ae2855c5d34f76f210e59efe1",
+  "compact_reader_source_sha256": "b2b60ea75e10ab3f62f07542e19d090ac6c0cdfdd0fad25171d1368f80810d78"
 }
