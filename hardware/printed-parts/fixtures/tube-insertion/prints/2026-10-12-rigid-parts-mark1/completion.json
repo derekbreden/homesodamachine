@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "Machine reports four PET-GF parts complete; physical result unassessed",
+  "observed_at_utc": "2026-10-12T21:28:13.383335+00:00",
+  "printer": "Mark1",
+  "task_id": "1332859109",
+  "job_id": "1332859109",
+  "subtask_name": "2026-10-12-tube-insertion-rigid-parts-petgf-left04-z018-mark1.gcode.3mf",
+  "gcode_state": "FINISH",
+  "layer_num": 63,
+  "total_layer_num": 63,
+  "print_error": 0,
+  "hms": [],
+  "scope": "Telemetry completion of the accepted rigid-parts plate; no visual, support-removal, fit or strength acceptance inferred"
+}
