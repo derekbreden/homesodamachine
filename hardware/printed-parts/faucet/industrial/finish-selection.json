@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "selected_date": "2026-10-13",
-  "selection_basis": "Current complete-faucet recipe: A2 with Back on base, tip and mounting plate; default corner seams on cover and lever; E coarse lip layers.",
+  "selection_basis": "Current complete-faucet recipe: A2 with Back on base, tip and mounting plate; rear center seam enforcement on the base neck; default corner seams on cover and lever; E coarse lip layers.",
   "seam_specimen": "A2",
   "seam_parts": [
     "industrial-shell-base",
@@ -58,5 +58,14 @@
   "lift_coupon_preparation_sha256": "8c88a822e4f5dede5c12efc785eb07936381c2cbf8b557a993dfebf76a90a746",
   "lift_coupon_task_id": "1328441515",
   "lift_physical_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
-  "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json"
+  "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
+  "rear_seam_enforcement": {
+    "part": "industrial-shell-base",
+    "half_width_mm": 0.25,
+    "minimum_cad_z_mm": 80.0,
+    "target": "Outer rear silhouette at CAD X=0; facets crossing the center strip",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json",
+    "physical_result": "Pending a print of the constrained seam placement"
+  },
+  "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json"
 }

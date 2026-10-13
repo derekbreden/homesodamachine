@@ -1,5 +1,13 @@
 # Industrial faucet print log
 
+## Rear-center placement correction — prepared 2026-10-13
+
+The [complete corrected slice](seam-placement/rear-center-v1/README.md) retains
+all settings and geometry of task `1335906696` and adds rear-center seam paint
+to the base neck. Its maximum measured start offset is 0.45 mm. The saved
+selection and preparer carry the enforcer. The printed article remains the
+approved physical reference; the placement correction has not been printed.
+
 ## Selected Back/A2 recipe — launched 2026-10-13, Mark2
 
 The [complete print](prints/2026-10-13-a2-back-mark2/README.md) is task `1335906696`.

@@ -1,10 +1,10 @@
 {
   "schema": 2,
-  "status": "Identified complete Industrial print approved with known base seam placement wobble",
+  "status": "Approved complete physical reference; next complete project has rear-center seam enforcement",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "finish_selection_sha256": "0bc3f0ec7935e6255376e7fd8036251db47fa0a3a136a0e76bdc0b374bbdd783",
+  "finish_selection_sha256": "4d85945d58119e56e48836760ffd8a2cd8689a41aa7e151f6f07859021efc9e2",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "canonical_project_sha256": "ecc428cc942d77e5dcb3b1c98755514661e5de97febbdddf9b796ec7d879408f",
+  "canonical_project_sha256": "0f60dc915fb659d2252446fb4b5ec0361ca1aac8a96a791865f291272973d11f",
   "canonical_default_printer": "Mark1",
   "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json",
   "printer": "Mark2",
@@ -66,6 +66,15 @@
   },
   "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
   "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "Current selected printing recipe and identified physical article; overall user acceptance with reported rear seam wobble.",
-  "approved_tag": "faucet-industrial-approved-2026-10-13"
+  "scope": "Task 1335906696 is the approved physical reference with a known seam wobble. The saved recipe adds native-verified rear seam enforcement whose physical result is pending.",
+  "approved_tag": "faucet-industrial-approved-2026-10-13",
+  "rear_seam_enforcement": {
+    "part": "industrial-shell-base",
+    "half_width_mm": 0.25,
+    "minimum_cad_z_mm": 80.0,
+    "target": "Outer rear silhouette at CAD X=0; facets crossing the center strip",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json",
+    "physical_result": "Pending a print of the constrained seam placement"
+  },
+  "next_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json"
 }
