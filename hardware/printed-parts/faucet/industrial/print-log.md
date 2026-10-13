@@ -107,7 +107,7 @@ line. The recipe is the current selection; physical finish is unassessed.
   supports. Loose debris is visible on the plate; the still photos do not
   establish whether a piece tipped, shifted or contacted the nozzle.
 - Possible print-head dragging, potentially worsened by layer lifting, is
-  the operator's hypothesis. The initiating event and failure height are
+  Derek's hypothesis. The initiating event and failure height are
   unmeasured. No timelapse causal diagnosis is made for this article.
 - A fresh matching-job reading at 2026-10-10 03:25:28 UTC reports `FAILED`,
   layer 0, print error 0 and no HMS entries. The terminal layer counter is

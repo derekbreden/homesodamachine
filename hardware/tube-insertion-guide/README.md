@@ -8,9 +8,9 @@ The [fixture](../printed-parts/fixtures/tube-insertion/README.md) is bench tooli
 The accepted faucet lever attaches to the bare Touch-Flo before the tube or shell.
 It remains down at unpressed rest during sleeve fitting and donor insertion. The
 TPU thimble goes evenly onto the square-cut LLDPE tube outside the donor and reaches
-its annular cap before the sleeved end enters the empty metal port. The
-[operator observations](../printed-parts/faucet/lever-replica/assembly-observations.json)
-and [faucet procedure](../assembly/faucet-and-umbilical.md) establish that sequence.
+its annular cap before the sleeved end enters the empty metal port.
+[Derek's observations](../printed-parts/faucet/lever-replica/assembly-observations.json)
+and the [faucet procedure](../assembly/faucet-and-umbilical.md) establish that sequence.
 
 The later shell insertion belongs to the
 [faucet assembly guide](../faucet-assembly-guide/README.md). The attached faucet

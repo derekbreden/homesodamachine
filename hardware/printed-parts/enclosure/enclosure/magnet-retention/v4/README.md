@@ -6,7 +6,7 @@ PET-GF on Mark2's fixed left standard-flow 0.4 mm nozzle. Requested trim is
 +0.04 mm; emitted Textured PEI trim is +0.02 mm. Saved process, filament,
 tree supports and the cartridge's grip layer bands remain bound to the source.
 
-Native estimate is **15 h 10 min 47 sec**, excluding the operator pause.
+Native estimate is **15 h 10 min 47 sec**, excluding the insertion pause.
 The one `M400 U1` pause occurs before layer **344**, cartridge print Z
 **31.16 mm**, about **6 h 35 min after starting**. The completed open rim
 is **30.92 mm**; first closing beads clear the conservative maximum RC62 by
@@ -35,7 +35,7 @@ targets the October 4, 2026 magnet pause at **12:15 pm local Central time**
 (America/Chicago, CDT UTC−05:00), with Mark2 acceptance around **5:40 am**.
 The [preflight](mark2-preflight.json) verifies both printers, current source hashes,
 the Mark2 Send dialog, external left PET-CF mapping and standing print options.
-The operator reports PET-GF loaded in the fixed left 0.4 mm hotend and the
+Derek reports PET-GF loaded in the fixed left 0.4 mm hotend and the
 Textured PEI bed clear after task 1307189764.
 
 The [timed launcher](timed_launch.py) opens preparation at 5:30 am, observes

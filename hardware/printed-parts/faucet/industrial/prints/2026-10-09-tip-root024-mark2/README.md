@@ -11,7 +11,7 @@ print Z2.12 mm, then 0.08 mm above. The emitted sequence is a 0.20 mm first bed
 layer, eight 0.24 mm model layers ending at Z2.12, then 0.08 mm model layers starting
 at Z2.20. The other four models use 0.08 mm above their first bed layers.
 
-The operator's observation (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/physical-result/physical-result.json`, in git at 45dd5672e9)
+Derek's observation (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/physical-result/physical-result.json`, in git at 45dd5672e9)
 identifies the model's narrow starting edge as the lifting material in the last
 article. The [native first/second-layer comparison](tip-root-comparison.png) shows
 1.339 mm² of model bead footprint for the all-0.08 tip start and 2.636 mm² for this
@@ -51,7 +51,7 @@ print error0 and no HMS faults. First-layer adhesion is not visually observed.
 The native completion forecast is 2026-10-10 04:52:43 CDT.
 
 The [physical result and five photographs](physical-result/physical-result.json)
-record the operator's failed tip and wing report. Local raised/ragged bands and
+record Derek's failed tip and wing report. Local raised/ragged bands and
 loose extrusion are visible; nozzle contact, tipping and initiating layer lifting
 are unconfirmed. A matching-job reading at 2026-10-10 03:25:28 UTC reports FAILED.
 Further whole-faucet fine-layer iteration is deferred. The

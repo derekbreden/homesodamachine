@@ -218,7 +218,7 @@
     "status": "operator_finish_selection_recorded",
     "record": "physical-result.json",
     "preferred_condition": "OFF",
-    "scope": "Visual and tactile operator assessment of flat PETG squares on Mark2 with the left 0.8 mm Standard hotend. This is a finish selection; it supplies no reservoir water-hold, seal-compression or lifetime result."
+    "scope": "Derek's visual and tactile assessment of flat PETG squares on Mark2 with the left 0.8 mm Standard hotend. This is a finish selection; it supplies no reservoir water-hold, seal-compression or lifetime result."
   },
   "completion": {
     "observed_at_utc": "2026-10-06T17:00:49.301060+00:00",

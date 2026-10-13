@@ -83,7 +83,7 @@ but the lever remains easy to remove. Pressing it without the tube can slide
 it aft off the metal cylinder. Remove the soda tube before removing the lever;
 the tube blocks that disengagement path while installed.
 
-The [operator assembly record](../lever-replica/assembly-observations.json)
+[Derek's assembly record](../lever-replica/assembly-observations.json)
 records the attachment order, sleeve-on-tube sequence and shell-guided lever
 motion. These are observed assembly facts; the record adds no force or lifetime
 measurement to the lever's accepted fit and operation.

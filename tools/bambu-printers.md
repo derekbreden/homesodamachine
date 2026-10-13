@@ -198,8 +198,8 @@ the other machine. Read both machines after a power interruption; a job already 
 does not need another send. Apply the spacing to recovery starts as well.
 
 The interval is Derek's proposed trial based on his previous experience. The sender's
-foreground lock serializes app access but does not enforce this interval; the operator
-must wait and record both launch times.
+foreground lock serializes app access but does not enforce this interval; keep it by
+hand and record both launch times.
 
 The [2026-09-28 startup trial](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
 records Derek's report of repeated breaker trips when both machines start close together,

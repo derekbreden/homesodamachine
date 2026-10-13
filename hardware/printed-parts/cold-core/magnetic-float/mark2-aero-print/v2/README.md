@@ -19,7 +19,7 @@ printer progress beyond the first layer; visual first-layer acceptance, printed
 density and physical fit remain unreported.
 
 At 2026-10-03 04:17 UTC, the same task reported **FAILED**, with `print_error`
-0 and no HMS fault. The operator reported: **"Stopped again. Bed clear. Try same
+0 and no HMS fault. Derek reported: **"Stopped again. Bed clear. Try same
 plate again back to 0.04 all else the same."** A specific print defect is
 unreported. Neither part has a completed-print or physical-acceptance result.
 The active combined trial is [v3](../v3/README.md).

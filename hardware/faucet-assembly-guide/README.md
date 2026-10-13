@@ -112,7 +112,7 @@ not a dimension or template.
   donor and lever seating, neck/base closure, USB-C toward the dispense face,
   display motion and clearance. The shell's USB keepout and assembly's display
   placement define the installed orientation.
-- [Operator assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json):
+- [Derek's assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json):
   lever attachment order, sleeve-on-tube fitting, sliding behavior and
   shell-guided lever motion.
 - [Tube insertion jig](../printed-parts/fixtures/tube-insertion/README.md):

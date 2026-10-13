@@ -20,12 +20,12 @@
   "finished_fit_assessed": false,
   "affected_groove_count": null,
   "quantified_removal_force_or_time": null,
-  "scope": "Operator reports trapped, fragile support branches and reinforcement-boundary tracks on both the interior and exterior X+ wall faces. Whole-part disposition, installed fit, strength and other support release remain unassessed. Frozen native tie-cavity and show-face support-clearance readings retain their original scope; they do not establish model-wall continuity or physical surface finish.",
+  "scope": "Derek reports trapped, fragile support branches and reinforcement-boundary tracks on both the interior and exterior X+ wall faces. Whole-part disposition, installed fit, strength and other support release remain unassessed. Frozen native tie-cavity and show-face support-clearance readings retain their original scope; they do not establish model-wall continuity or physical surface finish.",
   "next_preparation": "hardware/printed-parts/drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/README.md",
   "support_starting_points": "Unknown; trapped branches could not be traced to their roots.",
   "user_origin_clarification": "That's fine, I couldn't trace them all to the plate either, because they were stuck in the walls, so I've no idea where they actually started.",
   "user_additional_observation": "Okay, good find. There were many supports embedded in walls and failing, and that seems like the likely cause of all of those.",
-  "causal_attribution": "Unconfirmed. The 0.5 degree diameter-growth setting produces thinner long stems than the saved 5 degree value; the operator reports embedded and failing supports. Native candidate readings separate trunk growth from support routing.",
+  "causal_attribution": "Unconfirmed. The 0.5 degree diameter-growth setting produces thinner long stems than the saved 5 degree value; Derek reports embedded and failing supports. Native candidate readings separate trunk growth from support routing.",
   "exterior_finish": {
     "reported_date": "2026-10-11",
     "surface": "X+ exterior fluted wall",
@@ -59,7 +59,7 @@
     ],
     "operator_clarification": "The defects are visible on both the interior surface and exterior surface of the X+ wall. Vertical lines on each side (Y+/Y- side) of these holes.",
     "initial_operator_identification": "this seems identical to the problem we had on the faucet base with some artifact from the screws/heatsets showing on the exterior surface.",
-    "observed_in_photograph": "Extra raised tracks extend beyond the Y- and Y+ ends of multiple screw/heat-set pads and beside plain holes. The operator supplied an arrow-marked version identifying these extensions.",
+    "observed_in_photograph": "Extra raised tracks extend beyond the Y- and Y+ ends of multiple screw/heat-set pads and beside plain holes. Derek supplied an arrow-marked version identifying these extensions.",
     "photo": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-xplus-reinforcement-tracks.jpg",
     "photo_sha256": "72d7312d9901b62364a57d63aa3f4d5999677061a16fd89fa979f06dd7353cff",
     "viewer_pick": {

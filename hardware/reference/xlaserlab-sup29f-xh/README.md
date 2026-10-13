@@ -58,7 +58,7 @@ recomputes it from the committed source cloud.
 | Housing CAD proxy | 134.4 mm long, 33.9 mm across Y, 36.7 mm high | Nominal dimensions fitted to observed faces; the detailed mesh retains their actual relief. |
 | Grip CAD proxy | 38 × 34 mm section; 83 mm to the boot; 29.91° rearward from vertical | Scan side profile and corner tangencies; unobserved front face is inferred. |
 | Exposed copper nozzle | 25 mm long; Ø17.9 mm collar, Ø14.6 mm taper base, Ø8.4 mm nose | Photos scaled locally against the scanned silver sleeve. |
-| Boot cuff | 31 mm long; maximum 40.5 × 35.8 mm section | Photo estimate and the operator's grip-sized initial-section observation. |
+| Boot cuff | 31 mm long; maximum 40.5 × 35.8 mm section | Photo estimate and Derek's grip-sized initial-section observation. |
 | Boot continuation | 80 mm total modelled length; 29 × 28.5 mm neck | Visible cuff, shoulder and neck profile; arbitrary truncation of the flexible umbilical. |
 | Trigger | 38 × 10 mm paddle; Ø7.6 mm button | Photo-derived clearance envelope in the released position. |
 | Feeder hollows and missing brass projection | Explicit openings and thread-diameter envelope | Scan bounds and photos; hidden surfaces are inferred. |

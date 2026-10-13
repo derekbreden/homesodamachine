@@ -82,7 +82,7 @@ measurements identify a shortfall. The work and machine time are tracked in
 The repository is a manufacturing system, and that is deliberate. It cuts the parts, prices
 them, names them, and publishes what it holds, so that the fiftieth unit costs what the
 ledgers say and not what the first one taught. A generator that draws a part also writes its
-own documentation, its figures, and the card the operator builds from, so a figure in a
+own documentation, its figures, and the card Derek builds from, so a figure in a
 document is read off the part rather than typed beside it. A check runs when someone asks
 the question it answers, not on every commit or build.
 

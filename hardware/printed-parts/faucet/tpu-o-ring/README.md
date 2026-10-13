@@ -74,7 +74,7 @@ The [0.22 mm](WESTBRASS_SQUEEZE) nominal radial compression at the outer
 face engages the port wall. Total sleeve height is [15.6 mm](TOTAL_H);
 nominal port depth is ≥ [20 mm](PORT_DEPTH_MIN).
 
-The [operator observation](../lever-replica/assembly-observations.json)
+[Derek's observation](../lever-replica/assembly-observations.json)
 establishes that TPU slides against metal far more easily than against LLDPE.
 An empty sleeve placed in the donor first scrunches beneath the entering
 tube. Keep it on the tube throughout port insertion. Once seated, water

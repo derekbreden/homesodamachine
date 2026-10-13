@@ -747,7 +747,7 @@ are read on the physical print and nowhere else.
 stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
 It fights when it is walled on several sides, when a branch re-enters a pocket behind its own
 interface, or when the hardware goes in first. The Z-seam catches need a short support ribbon contained in the open sliding
-groove and rooted on nearby model stock. The operator reports easy release of
+groove and rooted on nearby model stock. Derek reports easy release of
 that arrangement on the other enclosure quadrants. The
 [back-top article](../../drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json)
 has long fragile stems trapped in walls and failed sliding-groove cleanup. Their

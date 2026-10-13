@@ -199,7 +199,7 @@
       ]
     },
     "conditional_alternate_rule": "Try explicitly selected V70 only when a valve or print orientation does not fit V69 well; no automatic fallback or universal fit claim.",
-    "physical_acceptance_scope": "The operator selected V69 for the tested valve and enclosure-oriented PET-GF four-post panel. V70 is a conditional alternative to try, not a separately qualified general fit.",
+    "physical_acceptance_scope": "Derek selected V69 for the tested valve and enclosure-oriented PET-GF four-post panel. V70 is a conditional alternative to try, not a separately qualified general fit.",
     "production_parameter_source": "../../../../valve-seat/valve_seat.py",
     "preferred_socket_radial_clearance_mm": 0.0,
     "conditional_alternate_socket_radial_clearance_mm": 0.05,
@@ -211,5 +211,5 @@
       "Physical acceptance of every shared seat, tray or cold-core mounting station"
     ]
   },
-  "scope": "Current operator preferences bind printed labels to the exact completed H2C trial. Native hashes establish the sample identity and commanded geometry; the quotations establish the limited physical preferences. Production geometry and future paused prints require their own review and physical result."
+  "scope": "Derek's current preferences bind printed labels to the exact completed H2C trial. Native hashes establish the sample identity and commanded geometry; the quotations establish the limited physical preferences. Production geometry and future paused prints require their own review and physical result."
 }

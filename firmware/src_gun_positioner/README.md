@@ -72,7 +72,7 @@ python3 -m venv /tmp/gun-positioner-host
   --port /dev/cu.usbmodemYOUR_PICO --log /tmp/gun-positioner-session.jsonl
 ```
 
-`inspect` only requests status. `console` permits explicit operator actions and
+`inspect` only requests status. `console` permits Derek's explicit actions and
 closes with a stop. It starts 100 ms heartbeats after `arm` and never chooses a
 serial port automatically.
 
@@ -109,7 +109,7 @@ Use the 8-lowercase-hex-digit `boot` from `STATUS` and the next integer after
 The boot token is stale-command protection, not network authentication.
 Mutating ACK/error replies echo `op` and `seq`; the client matches both.
 A missing, partial or ambiguous mutating reply sends STOP, attempts a STATUS
-sequence resync and latches host failure. It never retries the move. Operator
+sequence resync and latches host failure. It never retries the move. A manual
 `recover` stops, resyncs and rechecks controller profile/scaling explicitly;
 an incompatible replacement/reset cannot clear host failure. Then `clear` and an actual central datum
 are required before reference/arming. STOP accepts any case and suffix;
