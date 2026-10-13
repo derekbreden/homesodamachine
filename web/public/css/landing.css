@@ -1,0 +1,162 @@
+body { background: var(--brand-blue); }
+.home-main {
+  flex: 1;
+  background: var(--brand-blue);
+  padding:
+    0
+    calc(env(safe-area-inset-right, 0px) + clamp(1.25rem, 4vw, 3rem))
+    calc(env(safe-area-inset-bottom, 0px) + 6rem)
+    calc(env(safe-area-inset-left, 0px) + clamp(1.25rem, 4vw, 3rem));
+}
+.home-wrap { width: 100%; max-width: 76rem; margin: 0 auto; }
+.home-main h1, .home-main h2, .home-main p, .home-main figure { margin: 0; }
+.home-main a { color: var(--text-2); text-underline-offset: 4px; }
+.home-main a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 3px; }
+.home-main section { scroll-margin-top: 5rem; }
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding: clamp(2rem, 5vw, 4.5rem) 0 2.5rem;
+}
+.home-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+}
+.home-brand img { display: block; width: 2.5rem; height: 2.5rem; }
+.home-main h1 {
+  margin-top: 1.5rem;
+  max-width: 11ch;
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+.home-title-dot { color: var(--brand-orange); }
+.home-main .home-intro {
+  margin-top: 1.625rem;
+  max-width: 29rem;
+  color: var(--text-2);
+  font-size: clamp(1rem, 1.45vw, 1.125rem);
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+.home-main .home-stage { margin-top: 1rem; color: var(--text-3); font-size: 0.8125rem; }
+.home-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.home-explore:hover { text-decoration: underline; }
+.home-explore svg { width: 1rem; height: 1rem; }
+.home-illustration { position: relative; }
+.home-illustration > img { display: block; width: 100%; height: auto; }
+.home-figure-label {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  pointer-events: none;
+  font-size: clamp(0.75rem, 1.1vw, 0.875rem);
+  line-height: 1.3;
+}
+.home-figure-label span { color: var(--text-3); font-size: 0.75rem; }
+.home-figure-label strong { color: var(--text); font-weight: 500; }
+.home-figure-label::after { content: ""; width: 2.5rem; height: 1px; margin-top: 0.25rem; background: var(--border); }
+.home-figure-label--faucet { left: 11%; top: 18%; }
+.home-figure-label--machine { left: 12%; top: 72%; width: 31%; }
+.home-illustration figcaption { text-align: right; color: var(--text-3); font-size: 0.75rem; padding-right: 8%; }
+.home-anatomy { border-top: 1px solid var(--border); padding: 2.75rem 0 3.5rem; }
+.home-main h2 { font-size: clamp(1.375rem, 2.1vw, 1.75rem); font-weight: 500; line-height: 1.3; letter-spacing: -0.025em; }
+.home-parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 6vw, 7rem); margin: 2rem 0 0; }
+.home-parts > div { min-width: 0; }
+.home-parts dt { font-size: 1.0625rem; font-weight: 500; }
+.home-parts dt span { display: block; color: var(--text-3); font-size: 0.75rem; font-weight: 400; margin-bottom: 0.5rem; }
+.home-parts dd { margin: 0.75rem 0 0; max-width: 32rem; color: var(--text-2); font-size: 0.9375rem; line-height: 1.75; text-wrap: pretty; }
+.home-film-section { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); padding: 3rem 0; border-top: 1px solid var(--border); }
+.home-main .home-section-label { color: var(--text-3); font-size: 0.75rem; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+.home-film-copy > p:last-child { color: var(--text-2); font-size: 0.9375rem; margin-top: 0.875rem; }
+.film { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; background: var(--bg); }
+.film iframe { display: block; width: 100%; height: 100%; border: 0; }
+.suppliers { border-top: 1px solid var(--border); padding: 3rem 0; }
+.home-main .suppliers h2 { font-size: 0.875rem; letter-spacing: 0.025em; color: var(--text-2); }
+.suppliers ul { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+.suppliers li { min-width: 0; }
+.suppliers li a { display: flex; align-items: center; height: 3rem; width: fit-content; max-width: 100%; margin-bottom: 1rem; }
+.suppliers img { display: block; max-width: 100%; height: auto; }
+.home-main .suppliers li p { color: var(--text-2); font-size: 0.8125rem; line-height: 1.7; text-wrap: pretty; }
+.home-main .suppliers-all { margin-top: 2rem; color: var(--text-3); font-size: 0.8125rem; }
+.home-availability { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; border-top: 1px solid var(--border); padding-top: 2.25rem; }
+.home-main .home-availability h2 { font-size: 1rem; letter-spacing: 0; }
+.home-main .home-availability p { margin-top: 0.625rem; max-width: 27rem; color: var(--text-3); font-size: 0.8125rem; line-height: 1.7; }
+.home-signup label { display: block; margin-bottom: 0.5rem; color: var(--text-2); font-size: 0.75rem; }
+.home-signup-controls { display: flex; gap: 0.75rem; }
+.home-signup input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.home-signup input::placeholder { color: var(--text-3); }
+.home-signup input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.home-main .signup-btn { width: auto; background: transparent; border-color: var(--border); color: var(--text-2); font-size: 0.875rem; }
+.home-main .signup-btn:hover:not(:disabled) { background: var(--surface); }
+.home-main .signup-btn.done { background: var(--ok); color: var(--brand-navy); }
+.home-main .signup-btn .spinner { border-color: var(--border); border-top-color: var(--text); }
+.status { min-height: 1.5rem; margin-top: 0.75rem; color: var(--text-2); font-size: 0.8125rem; }
+.status.ok, .status.err { padding: 0.35rem 0.75rem; border-radius: 6px; background: var(--bg); }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.signup-btn.shake { animation: shake 0.35s; }
+@media (max-width: 960px) {
+  .suppliers ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 2.5rem; }
+}
+@media (max-width: 760px) {
+  .home-hero { grid-template-columns: 1fr; gap: 0.75rem; padding-top: 1.5rem; padding-bottom: 2rem; }
+  .home-main h1 { max-width: 17ch; margin-top: 1rem; font-size: clamp(2.125rem, 6.3vw, 3rem); }
+  .home-main .home-intro { max-width: 34rem; margin-top: 1.25rem; }
+  .home-explore { display: none; }
+  .home-illustration { max-width: 36rem; width: 100%; margin: 0 auto; }
+  .home-figure-label { font-size: 0.8125rem; }
+  .home-figure-label span { font-size: 0.6875rem; }
+  .home-anatomy { padding: 2rem 0 2.5rem; }
+  .home-parts { gap: 1.75rem; margin-top: 1.5rem; }
+  .home-film-section { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0; }
+  .suppliers { padding: 2.5rem 0; }
+  .home-availability { grid-template-columns: 1fr; gap: 1.25rem; padding-top: 2rem; }
+  .home-signup { max-width: 34rem; }
+}
+@media (max-width: 480px) {
+  .home-parts { grid-template-columns: 1fr; }
+  .suppliers ul { grid-template-columns: 1fr; gap: 1.75rem; }
+  .suppliers li { max-width: 25rem; }
+  .home-signup-controls { flex-direction: column; }
+  .home-main .signup-btn { align-self: flex-start; min-height: 44px; }
+}
+@media (max-width: 360px) {
+  .site-nav, .site-nav .nav-right { gap: 0.25rem; }
+  .site-nav a.nav-icon { padding-inline: 0.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-main *, .home-main *::before, .home-main *::after { transition: none; }
+  .signup-btn.shake { animation: none; }
+}
