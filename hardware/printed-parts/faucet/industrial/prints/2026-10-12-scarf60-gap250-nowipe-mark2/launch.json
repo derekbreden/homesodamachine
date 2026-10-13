@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "printer": "Mark2",
-  "status": "Accepted one-off complete-faucet seam trial; physical result unassessed",
+  "status": "Finished one-off complete-faucet seam trial; physical result unassessed",
   "authorization_quotes": [
     "I'd rather see a full size print, a complete faucet, with our best attempt.",
     "I went ahead and stopped your job, so you can send again once you've confirmed all that."
@@ -9,6 +9,8 @@
   "authorization_scope": "One complete current five-part Industrial faucet with the swatch-selected seam settings; the working recipe is unchanged",
   "printer_task_id": "1333551449",
   "accepted_observed_at_utc": "2026-10-12T19:42:29.365434+00:00",
+  "finish_observed_at_utc": "2026-10-13T01:44:54.888100+00:00",
+  "finish_observed_layers": "1244/1244",
   "archive_name": "faucet-best-mark2-r2.gcode.3mf",
   "archive_sha256": "ed585abfe3b3d7776721da8e39ac441ec7a35bb341aaaa316259817a08290a51",
   "gcode_sha256": "69b60244f39fed78de067f5cd4cd896369e36fb9a102477991a1e5787b142305",
@@ -48,6 +50,9 @@
       "printer_settings_id": ["Bambu Lab H2C 0.4 Standard +0.18 Z trim", "Bambu Lab H2C 0.4 Standard +0.04 Z trim"],
       "machine_start_gcode": "Z trim block only: +0.18 to +0.04 mm"
     }
+  },
+  "differences_from_swatch_plates": {
+    "seam_position": ["aligned", "back (reviewed project object setting, all five parts)"]
   },
   "identical_to_reviewed_project": [
     "object set and ids",
