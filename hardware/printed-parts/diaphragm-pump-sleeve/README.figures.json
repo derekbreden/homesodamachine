@@ -1,0 +1,21 @@
+{
+  "/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
+    "BARB_BORE": "9.00",
+    "BARB_DEPTH": "11",
+    "BARB_OD": "14.6",
+    "BARB_OD_INSTALLED": "15.41",
+    "BEYOND_TIP": "17.51",
+    "CREST": "10.26",
+    "CREST_STRETCH": "14",
+    "LENGTH": "28.51",
+    "MIN_WALL": "2.80",
+    "ROOT": "10.26",
+    "TAPER_ANGLE": "60",
+    "TUBE_BORE": "6.10",
+    "TUBE_DEPTH": "15",
+    "TUBE_OD": "11.7",
+    "TUBE_OD_INSTALLED": "11.83",
+    "VALLEY": "9.23",
+    "VOLUME": "2.531"
+  }
+}

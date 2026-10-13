@@ -3008,6 +3008,33 @@
       "hardware/printed-parts/collet-press/collet-press.stl"
     ]
   },
+  "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
+    "reads": [
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.figures.json",
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.md",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
+      "hardware/reference/g-ganen-pump/g_ganen_pump.py",
+      "hardware/reference/g-ganen-pump/reference-parameters.json",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.figures.json",
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.figures.json",
+      "hardware/printed-parts/diaphragm-pump-sleeve/README.md",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step"
+    ]
+  },
   "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": {
     "reads": [
       "hardware/pcb/pcba/out/pcba.glb",
