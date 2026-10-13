@@ -1,5 +1,5 @@
 {
-  "project": "donor-hold-down-transition-tpu85a-right06-z018-mark1.3mf",
+  "project": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf",
   "settings_source": ".cache/donor-hold-down-settings.3mf",
   "settings_source_sha256": "6d6d3fab88a68f37f7292e4c4225af97be8ab71682f3d2227c2347f10466d75a",
   "settings_sha256": "bcfeac97cf830f01613176fe7022fcba327cf292aa22e683199095fdcde5d633",
@@ -57,20 +57,20 @@
   "plate_count": 1,
   "parts": [
     {
-      "name": "TPU transition and flat-face hand pad",
+      "name": "TPU upper-half donor cover",
       "plate": 1,
       "object_id": "2",
       "part_id": "1",
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl",
-      "stl_sha256": "eca70b51231bef8b973dabdd97b4292083ec9bd118130e89a237cf1759a96dd1",
-      "triangles": 218,
+      "stl_sha256": "7e4205226fc944d9e93a5dd98fdfb1dff67d382bb2bb1b0cc891d327c096ebcb",
+      "triangles": 522,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
-        5.25,
+        6.75,
         0.0,
-        8.75
+        13.0
       ],
       "build_transform": [
         1.0,
@@ -84,12 +84,12 @@
         1.0,
         177.5,
         160.0,
-        8.75
+        13.0
       ],
       "plate_translation_mm": [
         177.5,
         160.0,
-        8.75
+        13.0
       ],
       "plate_origin_mm": [
         0.0,
@@ -98,29 +98,29 @@
       ],
       "plate_bounds_mm": [
         [
-          146.75,
-          147.0,
+          145.25,
+          141.0,
           0.0
         ],
         [
-          208.25,
-          173.0,
-          17.5
+          209.75,
+          179.0,
+          26.0
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.980460488468452e-10
+      "embedded_vertex_error_mm": 5.000018177270249e-10
     }
   ],
-  "project_sha256": "16cd5b578f1b5289030b8505a0ded4740f898f44ebb1badd78d910b7ac8430d8",
+  "project_sha256": "361ed7d9d7819540824e5946829b687ae1e54f629d7a941da04ffa5420114464",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,
   "intended_printer": "Mark1 (H2C)",
   "material": "Black TPU 85A",
   "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
-  "print_pose": "Broad flat hand face down; conforming transition and flat contact upward",
+  "print_pose": "Broad flat hand face down; conforming upper-half donor cavity upward",
   "z_trim_basis": "Mark1 standard +0.18 mm; the liner job's +0.00 mm exception is local to that job",
   "original_settings_source": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf",
   "original_settings_source_sha256": "c725ea268af3985944ece5f65e8df893d0f75258167def251e338831962755cf",
