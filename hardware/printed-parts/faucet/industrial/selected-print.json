@@ -1,21 +1,47 @@
 {
-  "schema": 1,
-  "printer": "Mark1",
-  "connection_alias": "H2C",
-  "status": "Current complete faucet with provisional SB/E finish accepted on Mark1; physical result pending",
-  "authorization_quotes": [
-    "So yeah, these are the picks. Both beds are clean. Let's get a new faucet started on one of the fronters now, please. Thanks."
+  "schema": 2,
+  "status": "Current complete Industrial printing recipe selected and launched on Mark2",
+  "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
+  "finish_selection_sha256": "0bc3f0ec7935e6255376e7fd8036251db47fa0a3a136a0e76bdc0b374bbdd783",
+  "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "canonical_project_sha256": "ecc428cc942d77e5dcb3b1c98755514661e5de97febbdddf9b796ec7d879408f",
+  "canonical_default_printer": "Mark1",
+  "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json",
+  "printer": "Mark2",
+  "printer_task_id": "1335906696",
+  "accepted_observed_at_utc": "2026-10-13T15:19:24.551315+00:00",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "cafbe85ec25f30ddec486fd4995ffbe78191f7345b23f019d8a47ffd3ab8a78f",
+  "gcode_sha256": "6abf0a083cacd5b6eaeed8cbad76cce8bca25c21cd23ff70a5294d4011be8194",
+  "seam_parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-above-counter-plate"
   ],
-  "authorization_scope": "One complete current five-part Industrial faucet with selected SB scarf and E coarse-start finish",
-  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
-  "archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
-  "gcode_sha256": "317f3ceeedf45fa70ca04de8e8c7fadb3ed8de6982ab4ab7b9bf9820f5d84239",
-  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.3mf",
-  "prepared_project_sha256": "f8f0682956f69ba802438e06e62e18e4215a8a43756b2386a32ed261df14375c",
-  "preparation_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/preparation.json",
-  "preparation_record_sha256": "9d00feed971e8a6560e5123af7da5fbfc9bef49d8aa8c30d64a1255a159af09d",
-  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/native-check.json",
-  "native_check_sha256": "283e37f32617c721a03e2caec158e160656722d410d5b1c81064c4047621689e",
+  "seam_object_overrides": {
+    "seam_position": "back",
+    "override_filament_scarf_seam_setting": "1",
+    "seam_slope_conditional": "1",
+    "scarf_angle_threshold": "155",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_steps": "10",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_min_length": "60",
+    "seam_slope_start_height": "10%",
+    "seam_slope_type": "external",
+    "seam_gap": "150%",
+    "seam_slope_gap": "0%"
+  },
+  "corner_seam_object_overrides": {
+    "seam_position": "aligned",
+    "seam_gap": "15%",
+    "override_filament_scarf_seam_setting": "0",
+    "seam_slope_type": "none"
+  },
+  "filament_overrides": {
+    "filament_wipe": "0",
+    "filament_wipe_distance": "0"
+  },
   "source_geometry_hashes": {
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
@@ -23,266 +49,11 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
   },
-  "launch_authorized": true,
-  "import_attempted": true,
-  "send_attempted": true,
-  "accepted": true,
-  "submitted": true,
-  "maximum_foreground_transactions": 3,
-  "maximum_send_clicks": 1,
-  "foreground_transaction_count": 3,
-  "transaction_started_at_utc": "2026-10-11T16:28:02.189909+00:00",
-  "auto_resume_authorized": false,
-  "scheduled_monitor_requested": false,
-  "options": {
-    "Timelapse": "On",
-    "Auto bed leveling": "On",
-    "Flow dynamic calibration": "Auto",
-    "Nozzle Offset Calibration": "Auto"
-  },
-  "launch_command": "tools/cad-venv/bin/python tools/bambu_print.py hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf H2C --attempts 1",
-  "native_estimated_seconds": 21065.4296875,
-  "preparation_only": false,
-  "start_now": false,
-  "bed_clear_authority": "So yeah, these are the picks. Both beds are clean. Let's get a new faucet started on one of the fronters now, please. Thanks.",
-  "requested_z_trim_mm": 0.18,
-  "emitted_z_trim_mm": 0.16,
-  "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "send_click_count": 1,
-  "import_completed": true,
-  "prior_transactions": [
-    {
-      "foreground_transaction": 1,
-      "started_at_utc": "2026-10-11T16:20:02.062688+00:00",
-      "completed": true,
-      "exit_code": 1,
-      "outcome": "Bambu Connect had no printer cards after computer restart; stopped in Devices before archive import",
-      "archive_imported": false,
-      "send_clicked": false,
-      "send_click_count": 0,
-      "accepted": false,
-      "evidence": "Foreground sender log and prepare_dialog control ordering; fresh peer/destination readings retained the previous FINISH jobs"
-    },
-    {
-      "foreground_transaction": 2,
-      "started_at_utc": "2026-10-11T16:27:07.929749+00:00",
-      "completed": true,
-      "exit_code": 1,
-      "outcome": "Existing sender expected an exact Import Gcode 3MF control label; current app labels it import Import Gcode 3MF. Stopped on empty Import file page before import or Send.",
-      "archive_imported": false,
-      "send_clicked": false,
-      "send_click_count": 0,
-      "accepted": false,
-      "evidence": "Foreground sender log and fresh Bambu Connect Import file page with no loaded archive"
-    }
-  ],
-  "launch_method": "Bambu Connect foreground controls through cua_repl",
-  "archive_imported": true,
-  "send_in_progress": false,
-  "send_input_reserved_at_utc": "2026-10-11T16:30:40.460237+00:00",
-  "send_click_record_status": "One foreground cua_repl Send click; matching new exact-name printer job observed",
-  "dialog_verified": {
-    "printer": "Mark1",
-    "left_filament_tile": "Ext PET-CF black",
-    "right_nozzle_unused": true,
-    "Timelapse": "On",
-    "Auto bed leveling": "On",
-    "Flow dynamic calibration": "Auto",
-    "Nozzle Offset Calibration": "Auto",
-    "Send_enabled": true
-  },
-  "ready_to_launch": false,
-  "send_count": 1,
-  "task_id": "1329852853",
-  "job_id": "1329852853",
-  "printer_task_id": "1329852853",
-  "accepted_at_utc": "2026-10-11T16:31:18.176833+00:00",
-  "accepted_at_central": "2026-10-11T11:31:18.176833-05:00",
-  "accepted_archive_name": "2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
-  "accepted_state": "RUNNING",
-  "acceptance_time_basis": "First fresh read-only matching-job observation after the single foreground Send; actual transition time within the preceding read interval is not measured",
-  "last_old_job_observed_at_utc": "2026-10-11T16:30:56.916196+00:00",
-  "forecast_finish_utc": "2026-10-11T22:22:23.606521+00:00",
-  "forecast_finish_central": "2026-10-11T17:22:23.606521-05:00",
-  "forecast_scope": "Native duration from observed acceptance; additional startup/calibration and any pause time are not included",
-  "start_reported": true,
-  "start_notification_count": 1,
-  "initial_layer_count_not_used_as_progress": true,
-  "acceptance_readings": [
-    {
-      "printer": "Mark1",
-      "read_alias": "H2C",
-      "observed_at_utc": "2026-10-11T16:31:18.176833+00:00",
-      "task_id": "1329852853",
-      "job_id": "1329852853",
-      "subtask_name": "2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
-      "gcode_state": "RUNNING",
-      "layer_num": 0,
-      "total_layer_num": 1244,
-      "mc_percent": 0,
-      "mc_remaining_time": 351,
-      "print_error": 0,
-      "hms": [],
-      "stg_cur": 13,
-      "bed_temper": 24.0,
-      "bed_target_temper": 24.0,
-      "timelapse": null,
-      "external_spools": [
-        {
-          "id": "254",
-          "tray_type": "PET-CF",
-          "tray_info_idx": "GFT01",
-          "tray_color": "000000FF"
-        },
-        {
-          "id": "255",
-          "tray_type": "TPU",
-          "tray_info_idx": "GFU04",
-          "tray_color": "161616FF"
-        }
-      ],
-      "fixed_extruders": [
-        {
-          "id": 0,
-          "external_snow": 65535,
-          "mounted_nozzle": {
-            "id": 0,
-            "type": "HS01",
-            "diameter": 0.4
-          },
-          "temperature": {
-            "actual_c": 32,
-            "target_c": 0
-          }
-        },
-        {
-          "id": 1,
-          "external_snow": 65024,
-          "mounted_nozzle": {
-            "id": 1,
-            "type": "HS01",
-            "diameter": 0.4
-          },
-          "temperature": {
-            "actual_c": 50,
-            "target_c": 200
-          }
-        }
-      ],
-      "chamber": {
-        "actual_c": 25,
-        "target_c": 0
-      }
-    },
-    {
-      "printer": "Mark2",
-      "read_alias": "Mark2",
-      "observed_at_utc": "2026-10-11T16:31:17.870673+00:00",
-      "task_id": "1328441515",
-      "job_id": "1328441515",
-      "subtask_name": "2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.gcode.3mf",
-      "gcode_state": "FINISH",
-      "layer_num": 269,
-      "total_layer_num": 269,
-      "mc_percent": 100,
-      "mc_remaining_time": 0,
-      "print_error": 0,
-      "hms": [],
-      "stg_cur": -1,
-      "bed_temper": 25.0,
-      "bed_target_temper": 0.0,
-      "timelapse": null,
-      "external_spools": [
-        {
-          "id": "254",
-          "tray_type": "PET-CF",
-          "tray_info_idx": "GFT01",
-          "tray_color": "161616FF"
-        },
-        {
-          "id": "255",
-          "tray_type": "ASA-AERO",
-          "tray_info_idx": "GFB02",
-          "tray_color": "FFFFFFFF"
-        }
-      ],
-      "fixed_extruders": [
-        {
-          "id": 0,
-          "external_snow": 65535,
-          "mounted_nozzle": {
-            "id": 0,
-            "type": "HS01",
-            "diameter": 0.4
-          },
-          "temperature": {
-            "actual_c": 33,
-            "target_c": 0
-          }
-        },
-        {
-          "id": 1,
-          "external_snow": 65024,
-          "mounted_nozzle": {
-            "id": 1,
-            "type": "HS01",
-            "diameter": 0.4
-          },
-          "temperature": {
-            "actual_c": 27,
-            "target_c": 0
-          }
-        }
-      ],
-      "chamber": {
-        "actual_c": 26,
-        "target_c": 0
-      }
-    }
-  ],
-  "timelapse_selected": true,
-  "timelapse_recording_verified": false,
-  "recorded_at_utc": "2026-10-11T16:36:24.170720+00:00",
-  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
-  "native_archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
-  "parts": [
-    {
-      "name": "industrial-shell-base",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
-      "rotation_x_degrees": -14.999999999999998
-    },
-    {
-      "name": "faucet-shell-tip",
-      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
-      "rotation_x_degrees": -105.0
-    },
-    {
-      "name": "industrial-display-cover",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
-      "stl_sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
-      "rotation_x_degrees": -50.0
-    },
-    {
-      "name": "industrial-above-counter-plate",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
-      "stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-      "rotation_x_degrees": 0.0
-    },
-    {
-      "name": "lever-replica",
-      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-      "rotation_x_degrees": 0.0
-    }
-  ],
-  "process": {
-    "first_bed_layer_height_mm": 0.2,
-    "default_model_layer_height_mm": 0.24,
-    "fine_model_layer_height_mm": 0.12,
-    "fine_object": "industrial-shell-base",
-    "fine_bands_print_z_mm": [
+  "lift": {
+    "additional_coarse_model_layers": 8,
+    "coarse_layer_height_mm": 0.24,
+    "fine_layer_height_mm": 0.12,
+    "base_fine_bands_print_z_mm": [
       [
         17.0,
         29.0
@@ -291,78 +62,9 @@
         55.16,
         68.12
       ]
-    ],
-    "supported_lip_coarse_model_layers": 8,
-    "coarse_start": {
-      "lip_reference_z_mm": 15.32,
-      "coarse_nozzle_z_mm": [
-        15.32,
-        15.56,
-        15.8,
-        16.04,
-        16.28,
-        16.52,
-        16.76,
-        17.0
-      ],
-      "count": 8,
-      "first_fine_model_layer": [
-        17.12,
-        0.120001
-      ]
-    },
-    "seam_specimen": "SB",
-    "seam_object_overrides": {
-      "seam_position": "back",
-      "override_filament_scarf_seam_setting": "1",
-      "seam_slope_conditional": "1",
-      "scarf_angle_threshold": "155",
-      "seam_slope_entire_loop": "0",
-      "seam_slope_steps": "10",
-      "seam_slope_inner_walls": "1",
-      "seam_slope_min_length": "10",
-      "seam_slope_start_height": "10%",
-      "seam_slope_type": "external",
-      "seam_gap": "15%",
-      "seam_slope_gap": "10%"
-    },
-    "printer": "Mark1",
-    "material": "PET-GF",
-    "printer_material_label": "PET-CF/GFT01",
-    "external_slot": 254,
-    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
-    "plate": "Textured PEI",
-    "requested_z_trim_mm": 0.18,
-    "emitted_z_trim_mm": 0.16,
-    "nozzle_temperature_c": [
-      265,
-      280
-    ],
-    "bed_temperature_c": 80,
-    "wall_loops": 2,
-    "infill": "15% grid",
-    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
-    "supports": "Tree (auto), saved Default style and automatic sections",
-    "probing_clump_detection": false
+    ]
   },
-  "native_estimate": "5 h 51 min 5 s",
-  "native_estimated_grams_saved_profile_density": 160.71649169921875,
-  "minimum_full_bead_bed_margin_mm": 44.85551699999996,
-  "screw_point_boundary_tracks_absent_in_native_paths": true,
-  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.insert-beads.json",
-  "insert_deposition_review_sha256": "6cdd020ee94f9380198bf42b4397c6e515e4fd3d55c021cf64734e0f298d2a0d",
-  "geometry_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json",
-  "geometry_review_sha256": "cf7047aed48d6b31e5db2d075d5f2ad874f4a7429c887bdd68218d792a3b9b87",
-  "finish_selection_sha256": "4ed3bb2992fd49b3c749485fc9ac05faf764edadc01b1cd3f7df8256681a8e18",
-  "coupon_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
-  "current_physical_finish_evaluated": false,
-  "shipping_accepted": false,
-  "shipping_reference": {
-    "record": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-    "record_sha256": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "tag": "faucet-industrial-shipping-2026-10-10",
-    "task_id": "1325534650",
-    "scope": "Prior identified shipping-accepted physical article and its exact variable-layer recipe; no physical acceptance is transferred to this current centered-mounting SB/E print."
-  },
-  "scope": "Native geometry and emitted process review, provisional coupon selections, and exact-job acceptance. Current complete-print seam finish, underside continuity, support cleanup, centered mounting fit, strength and lifetime remain unassessed."
+  "physical_result": null,
+  "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
+  "scope": "Current printing recipe and actual launch; no new physical finish or centered-mounting fit acceptance."
 }

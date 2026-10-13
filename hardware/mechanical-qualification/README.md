@@ -46,10 +46,10 @@ The cover wings include 0.50 mm additional reach; the shared tip has a round
 Ø4 mm unsealed fault-drip opening and the 70° curved joint.
 Fine-layer lifting on supported base surfaces and the visible seam remain
 recorded finish observations. Cover seating force and physical fault discharge are unmeasured.
-The [current centered Industrial print](../printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md)
-has current geometry, cover, insert-deposition and native support-access readings
-for all five rigid parts. Derek selected SB scarf gap 10% and E eight coarse
-lip layers from the combined coupons for the accepted Mark1 job `1329852853`.
+The [current centered Industrial print](../printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/README.md)
+uses Back with A2 on the base, tip and mounting plate, default corner seams on
+the cover and lever, and E eight coarse lip layers before 0.12 mm. Its native
+record binds the five rigid meshes, poses, layer bands and selected settings.
 Full-faucet finish and centered-mounting fit remain unassessed.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
