@@ -108,7 +108,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | <!--purchase:pur-f34a0cbf6ba74d11887b5ec0c8206984--> Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | 1566 | 2026-02-01 | — | ACQUIRED |
 | <!--purchase:pur-b86a89ee080e491c901fb20e4ea4f353--> TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | 114-0170640-0334629 | 2026-02-13 | — | ACQUIRED |
 | <!--purchase:pur-28f5f5bc86674717aa6f6b96b2079ca8--> WELLBOM 0–120 PSI CO2 dual-gauge regulator, CGA-320, with pressure-release valve | [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY) | 1 | $49.32 | 112-8121022-3791448 | 2026-06-22 | 2026-06-25 | ACQUIRED |
-| <!--purchase:pur-8c01bda97e5f42a49e5b956f6f1a46c9--> Taprite 3741 soda primary CO2 regulator, CGA-320 inlet, 0–120 PSI working pressure, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges, 1/4" flare outlet with check (Draft Warehouse SKU CGR266) — the appliance's shipped primary, set at the factory to 75 PSI. Draft Warehouse order 244592: 1 @ $61.95 + $13.68 UPS Ground + $0.00 tax | [draftwarehouse.com](https://www.draftwarehouse.com/products/co2-primary-soda-regulator-cga320-in-1-4-flare-outlet-with-check-taprite) | 1 | $75.63 | 244592 | 2026-10-05 | — | ACQUIRED (delivery confirmed; exact day unknown) |
+| <!--purchase:pur-8c01bda97e5f42a49e5b956f6f1a46c9--> Taprite 3741 soda primary CO2 regulator, CGA-320 inlet, 0–120 PSI working pressure, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges, 1/4" flare outlet with check (Draft Warehouse SKU CGR266) — the appliance's shipped primary, set at the factory to 75 PSI. Draft Warehouse order 244592: 1 @ $61.95 + $13.68 UPS Ground + $0.00 tax | [draftwarehouse.com](https://www.draftwarehouse.com/products/co2-primary-soda-regulator-cga320-in-1-4-flare-outlet-with-check-taprite) | 1 | $75.63 | 244592 | 2026-10-05 | 2026-10-07 | ACQUIRED |
 | <!--purchase:pur-3fd35fa4c22c45f1b2d62e92652a2757--> Airgas #8160436286 — prototype CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | — | — | — | ACQUIRED |
 | <!--purchase:pur-bdfb7e29142444e5abdb35a26ac1d2f2--> Airgas #8160436286 — CO2 fill, 5 lb food-grade (prototype cylinder) | airgas.com (Lincoln NE) | 1 | $47.93 | — | — | — | ACQUIRED |
 | <!--purchase:pur-49684c5ced9c4ff1803b0db05925ead5--> Airgas #8162013342 — testing CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | — | — | — | ACQUIRED |
@@ -122,6 +122,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | <!--purchase:pur-2ea84071bce44b5fbac595a3c4e6cd90--> Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | <!--purchase:pur-ce1b4970208b4c6a9adec93c9a7f950e--> Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | — | — | 2026-05-19 | ACQUIRED |
 | <!--purchase:pur-99a0644333ed4c5a8e5d5514098319fa--> Fresh Water Systems order WEBFWS100708594 — JG **PI450822S** gray acetal female adapter, 1/4" tube × 1/4" NPTF (3 × bag of 10) | [FWS](https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708594) | 3 bags (30) | $94.54 | WEBFWS100708594 | 2026-09-23 | 2026-10-05 | ACQUIRED |
+| <!--purchase:pur-dd66c6108002403fb32b17b27c67cb50--> Fresh Water Systems order WEBFWS100708929 — neoFit **AFA4-N2-G** acetal gray female adapter, 1/4" tube × 1/4" NPTF, flat type (3 × bag of 10) — the alternate FWS named when PI450822S was backordered with no ETA; not the BOM's PI450822S. $66.90 + $11.46 UPS SurePost + $5.68 tax | [FWS](https://www.freshwatersystems.com/products/neofit-acetal-gray-female-adapter-1-4-tube-x-1-4-nptf-flat-type), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708929) | 3 bags (30) | $84.04 | WEBFWS100708929 | 2026-09-24 | 2026-09-28 | ACQUIRED |
 
 ## 3. Water supply + backflow prevention
 
@@ -462,8 +463,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | <!--purchase:pur-c0a6d79ff3c7456896e951e6bf38d090--> Klein Tools VDV427-300 impact punchdown tool, 66/110 blade, adjustable force — seats the J3 loom on the keystone's 110 IDC; the bench's first IDC tool. $39.97 item + $2.90 allocated tax | [B08J2DN6HC](https://www.amazon.com/dp/B08J2DN6HC) | 1 | $42.87 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
 | <!--purchase:pur-c9d2cb0399624026b7b4b61b7ac1e914--> Cable Matters keystone jack punch-down stand — holds the jack square under the Klein. $6.99 item + $0.51 allocated tax | [B00MHWRYMQ](https://www.amazon.com/dp/B00MHWRYMQ) | 1 | $7.50 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
 | <!--purchase:pur-8c7f433f6cae402394b0f3b5eef083bb--> VCE RJ45 / RJ11-12 / RJ22 modular-plug crimper, cutter + stripper — closes the 6P4C plug on the ribbon. $13.99 item + $1.01 allocated tax | [B07XD98YYT](https://www.amazon.com/dp/B07XD98YYT) | 1 | $15.00 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
-| <!--purchase:pur-375429e1cb9c4b95bb3584b04f7284da--> JST WC-110 hand crimper — loose SXH-001T-P0.6 contacts, AWG 22–28, supplied with flap locator; DigiKey 455-1136-ND. $536.51 item + $40.24 final line tariff + $50.14 allocated shipping/tax | [Gmail confirmation](https://mail.google.com/mail/u/0/#search/101910359), [JST](https://www.jst.co.uk/productSeries.php?pid=10793) | 1 | $626.89 | DigiKey 101910359 | 2026-09-29 | — | ON-ORDER (shipped 2026-09-29; delivery pending) |
-| <!--purchase:pur-d36058a2086244bb96897635d4ec352a--> JST WC-110P FLAP LOCATOR — spare contact-positioning flap for WC-110; DigiKey 455-WC-110PFLAPLOCATOR-ND. $51.23 item + $4.10 final line tariff + $4.79 allocated shipping/tax | [Gmail confirmation](https://mail.google.com/mail/u/0/#search/101910359) | 1 | $60.12 | DigiKey 101910359 | 2026-09-29 | — | ON-ORDER (shipped 2026-09-29; delivery pending) |
+| <!--purchase:pur-375429e1cb9c4b95bb3584b04f7284da--> JST WC-110 hand crimper — loose SXH-001T-P0.6 contacts, AWG 22–28, supplied with flap locator; DigiKey 455-1136-ND. $536.51 item + $40.24 final line tariff + $50.14 allocated shipping/tax | [Gmail confirmation](https://mail.google.com/mail/u/0/#search/101910359), [JST](https://www.jst.co.uk/productSeries.php?pid=10793) | 1 | $626.89 | DigiKey 101910359 | 2026-09-29 | 2026-10-01 | ACQUIRED |
+| <!--purchase:pur-d36058a2086244bb96897635d4ec352a--> JST WC-110P FLAP LOCATOR — spare contact-positioning flap for WC-110; DigiKey 455-WC-110PFLAPLOCATOR-ND. $51.23 item + $4.10 final line tariff + $4.79 allocated shipping/tax | [Gmail confirmation](https://mail.google.com/mail/u/0/#search/101910359) | 1 | $60.12 | DigiKey 101910359 | 2026-09-29 | 2026-10-01 | ACQUIRED |
 
 DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confirmation and attached PO acknowledgement show $587.74 merchandise + $44.34 estimated tariffs + $8.49 FedEx Ground shipping + $46.44 sales tax = **$687.01 order value**. Each row carries its own acknowledgement line's tariff; the combined $54.93 shipping/tax is allocated by merchandise value. Final invoice **133544471** and shipment confirmation dated **2026-09-29** establish the same $687.01 order value. Delivery and completed payment are not established.
 
@@ -680,9 +681,9 @@ Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 |---|---|---|---|---|---|---|---|
 | <!--purchase:pur-c08cee116c73400bae488deb2d2015f4--> Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — isolated DB9 RS232 link to the X1 Pro rear-port console; two-way comms established at 115200 8N1. $33.99 item + $2.46 estimated tax; free shipping | [B07L2VLY5D](https://www.amazon.com/dp/B07L2VLY5D) | 1 | $36.45 | 112-5001639-8705857 | 2026-10-04 | 2026-10-07 | ACQUIRED |
-| <!--purchase:pur-406788001c4d41f39213bbd4ec7a35ad--> MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; harness is machine pins 2/3/5 straight through to adapter pins 2/3/5 (the unit transmits on pin 2, not the pin 3 the manual labels TXD). $7.99 item + $0.58 estimated tax; free shipping | [B0DRZ15WW8](https://www.amazon.com/dp/B0DRZ15WW8) | 1 pk (4) | $8.57 | 112-8546983-6242641 | 2026-10-04 | 2026-10-07 | ACQUIRED |
+| <!--purchase:pur-406788001c4d41f39213bbd4ec7a35ad--> MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; harness is machine pins 2/3/5 straight through to adapter pins 2/3/5 (the unit transmits on pin 2, not the pin 3 the manual labels TXD). $7.99 item + $0.58 estimated tax; free shipping | [B0DRZ15WW8](https://www.amazon.com/dp/B0DRZ15WW8) | 1 pk (4) | $8.57 | 112-8546983-6242641 | 2026-10-04 | 2026-10-06 | ACQUIRED |
 
-Both single-item orders were placed 2026-10-04 and total **$45.02**, including estimated sales tax. Both arrived and were bench-wired on 2026-10-07, establishing two-way communication with the welder's RT-Thread controller console over the rear RS232 port ([tools/x1_control](/tools/x1_control/README.md)). These are [diagnostic inventory](/hardware/ledger/inventory.md#diagnostic).
+Both single-item orders were placed 2026-10-04 and total **$45.02**, including estimated sales tax. The breakout kit arrived 2026-10-06 and the adapter 2026-10-07; both were bench-wired on 2026-10-07, establishing two-way communication with the welder's RT-Thread controller console over the rear RS232 port ([tools/x1_control](/tools/x1_control/README.md)). These are [diagnostic inventory](/hardware/ledger/inventory.md#diagnostic).
 
 ## 17. Domain / infrastructure
 
@@ -795,19 +796,19 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$38,716.81](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$45,236.32](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,287.54](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$600.53](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,576.93](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,660.97](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$11,175.70](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$11,259.74](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,182.24](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
@@ -815,9 +816,9 @@ Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$7,850.78](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$8,200.34](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$7,850.78](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$8,200.34](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
@@ -826,14 +827,14 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | § | Section | $ |
 |---|---|---|
 | 1 | Carbonator fabrication | [$4,664.67](LEDGER_SEC1) |
-| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,096.15](LEDGER_SEC2) |
+| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$2,180.19](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$1,616.71](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$344.93](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$1,695.79](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$1,858.47](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$2,545.48](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$300.15](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$2,510.54](LEDGER_SEC12) |

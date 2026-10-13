@@ -1214,7 +1214,8 @@
         "legacy-ledger-2026",
         "saved-fws:WEBFWS100708594",
         "src-2c42df8ef8704561930e3cd7dbd072c1",
-        "src-04a78124a620475eafab0e924d41d393"
+        "src-04a78124a620475eafab0e924d41d393",
+        "src-117e403c37554a9a8fb3c3a727d52a1f"
       ],
       "delivery_dates": [
         {
@@ -4977,7 +4978,8 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-digikey:101910359",
-        "src-6dabd673b2df4a069b57b61513850f8f"
+        "src-6dabd673b2df4a069b57b61513850f8f",
+        "src-4e08c0d7e6d94ee5a5a4f2e90649f1f1"
       ],
       "invoice_date": {
         "precision": "day",
@@ -4993,6 +4995,12 @@
             "saved-digikey:101910359"
           ]
         }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-01"
+        }
       ]
     },
     "pur-d36058a2086244bb96897635d4ec352a": {
@@ -5006,7 +5014,8 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-digikey:101910359",
-        "src-6dabd673b2df4a069b57b61513850f8f"
+        "src-6dabd673b2df4a069b57b61513850f8f",
+        "src-4e08c0d7e6d94ee5a5a4f2e90649f1f1"
       ],
       "invoice_date": {
         "precision": "day",
@@ -5021,6 +5030,12 @@
           "source_ids": [
             "saved-digikey:101910359"
           ]
+        }
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-01"
         }
       ]
     },
@@ -7082,7 +7097,14 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-8546983-6242641",
-        "src-56ff2acbdcd64c3cb13874ee14cfc549"
+        "src-56ff2acbdcd64c3cb13874ee14cfc549",
+        "src-a2565875b0ea45b48cebf2da9068bf23"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-06"
+        }
       ]
     },
     "pur-0528c779989e48999b774c692381a635": {
@@ -7807,7 +7829,14 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-6698dae129114345b350a05a4a1294d3",
-        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f"
+        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f",
+        "src-c1646f8b65a94d21848983adc8dfee29"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-07"
+        }
       ]
     },
     "pur-6bc71f4f15b34503ac9bf8beea6ef815": {
@@ -7890,7 +7919,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-535edab39a23469dad7dadceae02fad6",
-        "src-1042316a1a3844c88425bb784064d9d8"
+        "src-1042316a1a3844c88425bb784064d9d8",
+        "src-6870d57f15054a39ac5a74855231739a"
       ],
       "delivery_dates": [
         {
@@ -7909,7 +7939,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-68c3c555ba354b03a40e08e8375f0c42",
-        "src-e92825093cca43c699c00dcf08d7c239"
+        "src-e92825093cca43c699c00dcf08d7c239",
+        "src-4b25cd060a7d4d5589a8830b9fec5efb"
       ],
       "delivery_dates": [
         {
@@ -8012,7 +8043,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-b679143bb2f74c96a6f795fc0501e303",
-        "src-92da1acd0f8f40fdbfaef8238f169457"
+        "src-92da1acd0f8f40fdbfaef8238f169457",
+        "src-dac272c88bc94c09a5877bf6f013fd1d"
       ]
     },
     "pur-25f35741f88e40729bec555987f79640": {
@@ -8038,7 +8070,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-9cef8a7480a642d4b3d06cf8a90586d5",
-        "src-956ac1ef318249d481a2006fa4ef3831"
+        "src-956ac1ef318249d481a2006fa4ef3831",
+        "src-f112583f1a9a4ee0b69e45cc860de414"
       ],
       "delivery_dates": [
         {
@@ -8158,6 +8191,26 @@
         {
           "precision": "day",
           "value": "2026-10-12"
+        }
+      ]
+    },
+    "pur-dd66c6108002403fb32b17b27c67cb50": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100708929"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-64d40ab3942d444899272cb7d8c24701",
+        "src-2397788b9661450eab5a6cefddbd067f",
+        "src-91634a943d524f098b92880a80961fd7"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-09-28"
         }
       ]
     }
@@ -8835,7 +8888,8 @@
       "source_ids": [
         "saved-fws:WEBFWS100708594",
         "src-2c42df8ef8704561930e3cd7dbd072c1",
-        "src-04a78124a620475eafab0e924d41d393"
+        "src-04a78124a620475eafab0e924d41d393",
+        "src-117e403c37554a9a8fb3c3a727d52a1f"
       ]
     },
     "amazon:112-4601641-4469804": {
@@ -11202,7 +11256,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-digikey:101910359",
-        "src-6dabd673b2df4a069b57b61513850f8f"
+        "src-6dabd673b2df4a069b57b61513850f8f",
+        "src-4e08c0d7e6d94ee5a5a4f2e90649f1f1"
       ]
     },
     "amazon:114-8283262-7030641": {
@@ -12424,7 +12479,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:112-8546983-6242641"
+        "saved-amazon:112-8546983-6242641",
+        "src-a2565875b0ea45b48cebf2da9068bf23"
       ]
     },
     "namecheap:197680608": {
@@ -13628,7 +13684,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-6698dae129114345b350a05a4a1294d3",
-        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f"
+        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f",
+        "src-c1646f8b65a94d21848983adc8dfee29"
       ]
     },
     "lulu:USD-C4516450": {
@@ -13693,7 +13750,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-535edab39a23469dad7dadceae02fad6",
-        "src-1042316a1a3844c88425bb784064d9d8"
+        "src-1042316a1a3844c88425bb784064d9d8",
+        "src-6870d57f15054a39ac5a74855231739a"
       ]
     },
     "fws:WEBFWS100711471": {
@@ -13706,7 +13764,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-68c3c555ba354b03a40e08e8375f0c42",
-        "src-e92825093cca43c699c00dcf08d7c239"
+        "src-e92825093cca43c699c00dcf08d7c239",
+        "src-4b25cd060a7d4d5589a8830b9fec5efb"
       ]
     },
     "amazon:112-1633049-9300204": {
@@ -13779,7 +13838,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-b679143bb2f74c96a6f795fc0501e303",
-        "src-92da1acd0f8f40fdbfaef8238f169457"
+        "src-92da1acd0f8f40fdbfaef8238f169457",
+        "src-dac272c88bc94c09a5877bf6f013fd1d"
       ]
     },
     "bambu:us784775952755326977": {
@@ -13805,7 +13865,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-9cef8a7480a642d4b3d06cf8a90586d5",
-        "src-956ac1ef318249d481a2006fa4ef3831"
+        "src-956ac1ef318249d481a2006fa4ef3831",
+        "src-f112583f1a9a4ee0b69e45cc860de414"
       ]
     },
     "anthropic:8C2842D3-0012": {
@@ -13851,6 +13912,19 @@
       "allocation_status": "mixed_partial",
       "source_ids": [
         "src-e8198e9ae2bb4c07be57b21931bcde0d"
+      ]
+    },
+    "fws:WEBFWS100708929": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100708929",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-09-24"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-64d40ab3942d444899272cb7d8c24701",
+        "src-91634a943d524f098b92880a80961fd7"
       ]
     }
   },
@@ -16510,15 +16584,19 @@
       "event_id": "evt-4991502f7a0d484788efb14e364fc889",
       "vendor": "Fresh Water Systems",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
       "amount_minor": 10998,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-535edab39a23469dad7dadceae02fad6"
+        "src-535edab39a23469dad7dadceae02fad6",
+        "src-6870d57f15054a39ac5a74855231739a"
       ],
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "fws:WEBFWS100711469"
       ]
@@ -16527,15 +16605,19 @@
       "event_id": "evt-822df10968c94d009e356f29f845abc5",
       "vendor": "Fresh Water Systems",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
       "amount_minor": 4118,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-68c3c555ba354b03a40e08e8375f0c42"
+        "src-68c3c555ba354b03a40e08e8375f0c42",
+        "src-4b25cd060a7d4d5589a8830b9fec5efb"
       ],
-      "verified_at": "2026-10-07",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "fws:WEBFWS100711471"
       ]
@@ -16648,15 +16730,19 @@
       "event_id": "evt-2619ee4d42f24811a5f57b01f6fa6a1f",
       "vendor": "CNCKitchen USA",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
       "amount_minor": 5579,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-b679143bb2f74c96a6f795fc0501e303"
+        "src-b679143bb2f74c96a6f795fc0501e303",
+        "src-dac272c88bc94c09a5877bf6f013fd1d"
       ],
-      "verified_at": "2026-10-11",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "cnckitchen:CNC3278"
       ]
@@ -16682,13 +16768,17 @@
       "event_id": "evt-2c87a77f5afa46d080a6f8a9fed380bb",
       "vendor": "InnoAddi",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
       "amount_minor": 6698,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-9cef8a7480a642d4b3d06cf8a90586d5"
+        "src-9cef8a7480a642d4b3d06cf8a90586d5",
+        "src-f112583f1a9a4ee0b69e45cc860de414"
       ],
       "verified_at": "2026-10-13",
       "order_ids": [
@@ -16818,6 +16908,43 @@
       "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:114-4649388-6034615"
+      ]
+    },
+    {
+      "event_id": "evt-ed4b655c12a24295898f2074f883b6a9",
+      "vendor": "Draft Warehouse",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "amount_minor": 7563,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-c1646f8b65a94d21848983adc8dfee29"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "draftwarehouse:244592"
+      ]
+    },
+    {
+      "event_id": "evt-5fddb80e882c4533bf9042d5a74088cc",
+      "vendor": "Fresh Water Systems",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 8404,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-64d40ab3942d444899272cb7d8c24701"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "fws:WEBFWS100708929"
       ]
     }
   ],
@@ -17828,6 +17955,22 @@
       "purchase_id": "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
       "order_id": "amazon:114-4649388-6034615",
       "amount_minor": 2290,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-b27ca2492f8046fa95699ae6f6f40e68",
+      "event_id": "evt-ed4b655c12a24295898f2074f883b6a9",
+      "purchase_id": "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+      "order_id": "draftwarehouse:244592",
+      "amount_minor": 7563,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-b4a9b98fd2f8455f8c76c220c6050831",
+      "event_id": "evt-5fddb80e882c4533bf9042d5a74088cc",
+      "purchase_id": "pur-dd66c6108002403fb32b17b27c67cb50",
+      "order_id": "fws:WEBFWS100708929",
+      "amount_minor": 8404,
       "currency": "USD"
     }
   ],
@@ -26481,7 +26624,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-09",
-      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110–120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated."
+      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110\u2013120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated."
     },
     "src-d6f9512dde3e40729b20f6af320816bd": {
       "vendor": "Howdy Brewer",
@@ -26707,7 +26850,7 @@
         "price"
       ],
       "verified_at": "2026-10-05",
-      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 × 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 \u00d7 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     },
     "src-aa79e0fc10164b8086dd556b9cdec6fb": {
       "vendor": "Amazon",
@@ -26722,7 +26865,7 @@
         "price"
       ],
       "verified_at": "2026-10-05",
-      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 × 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 \u00d7 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     },
     "src-5b11f53981d74149bcc6a2119c6eddc8": {
       "vendor": "Bambu Lab",
@@ -26752,7 +26895,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-07",
-      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 × 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated."
+      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 \u00d7 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4\u20135 business days in transit. No shipment, delivery or completed merchant charge is stated."
     },
     "src-68c3c555ba354b03a40e08e8375f0c42": {
       "vendor": "Fresh Water Systems",
@@ -26874,7 +27017,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-11",
-      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90° Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
+      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90\u00b0 Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
     },
     "src-69cd4bc147fd4e9eb7b6db4f753f08e1": {
       "vendor": "Bambu Lab",
@@ -27377,6 +27520,192 @@
         "precision": "day",
         "value": "2026-10-12"
       }
+    },
+    "src-6870d57f15054a39ac5a74855231739a": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100711469",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email without signing in. Its payment line shows USD 109.98 dated 2026-10-07, the order total; fulfillment status Delivered Oct 9 at 5:46pm. Line items: ARD4M4-E bag of 10, LLDPE4M-WHITE 25 ft x 4, ABU44M-E bag of 10. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      }
+    },
+    "src-4b25cd060a7d4d5589a8830b9fec5efb": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100711471",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email without signing in. Its payment line shows USD 41.18 dated 2026-10-07, the order total; fulfillment status Delivered Oct 9 at 5:46pm. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      }
+    },
+    "src-f112583f1a9a4ee0b69e45cc860de414": {
+      "vendor": "InnoAddi",
+      "document_type": "merchant_order_page",
+      "reference": "2941",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email without signing in. Its payment line shows USD 66.98 dated 2026-10-06, the order total; fulfillment status Delivered Oct 10 at 11:42am. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      }
+    },
+    "src-dac272c88bc94c09a5877bf6f013fd1d": {
+      "vendor": "CNCKitchen USA",
+      "document_type": "merchant_order_page",
+      "reference": "CNC3278",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email without signing in. Its payment line shows USD 55.79 dated 2026-10-11, the order total; fulfillment status Arrives tomorrow (in transit). No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      }
+    },
+    "src-c1646f8b65a94d21848983adc8dfee29": {
+      "vendor": "Draft Warehouse",
+      "document_type": "merchant_order_page",
+      "reference": "244592",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email without signing in. Its payment line shows USD 75.63 dated 2026-10-05, the order total; fulfillment status Delivered Oct 7 at 11:10am (UPS), which fixes the delivery day. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      }
+    },
+    "src-117e403c37554a9a8fb3c3a727d52a1f": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100708594",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the vendor's order email: fulfillment status Delivered Oct 5 at 12:58pm for the three PI450822S bags. The link had expired, so payment details were hidden; no charge is established."
+    },
+    "src-4e08c0d7e6d94ee5a5a4f2e90649f1f1": {
+      "vendor": "DigiKey",
+      "document_type": "delivery_confirmation",
+      "reference": "101910359",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail carrier notices for the DigiKey invoice 133544471 shipment (FedEx Ground): out for delivery 2026-10-01 and delivered Thu 10/01/2026 10:28am; the same-day out-for-delivery notice establishes the delivery day. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-01"
+      }
+    },
+    "src-a2565875b0ea45b48cebf2da9068bf23": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-8546983-6242641",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order history: Delivered October 6."
+    },
+    "src-64d40ab3942d444899272cb7d8c24701": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100708929",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-09-24"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail order confirmation received 2026-09-24 15:14 America/Chicago: NeoFit Acetal Gray Female Adapter 1/4\" tube x 1/4\" NPTF, Flat Type (AFA4-N2-G), bag of 10 x 3, USD 66.90; UPS SurePost USD 11.46; taxes USD 5.68; total USD 84.04. It does not establish a completed charge."
+    },
+    "src-2397788b9661450eab5a6cefddbd067f": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "backorder_notice",
+      "reference": "WEBFWS100708594",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-09-24"
+      },
+      "proves": [],
+      "verified_at": "2026-10-13",
+      "note": "Customer Solutions message of 2026-09-24 on order WEBFWS100708594: PI450822S backordered with no ETA; AFA4-N2-G named as a potential alternate."
+    },
+    "src-91634a943d524f098b92880a80961fd7": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "merchant_order_page",
+      "reference": "WEBFWS100708929",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Account order page opened from the order email: fulfillment status Delivered Sep 28 at 1:02pm; Gmail out-for-delivery and delivered notices of 2026-09-28 agree. The link had expired, so payment details were hidden; no charge is established."
     }
   },
   "coverage": [
@@ -28642,6 +28971,92 @@
         "amazon:114-4649388-6034615"
       ],
       "note": "Order details and order-scoped Transactions for the named project orders, including three mixed orders whose SodaStream lines are project purchases: deliveries, Completed charges and one pending debit. No claim of complete Amazon account coverage."
+    },
+    {
+      "coverage_id": "coverage-f793ca689f7448fbb52cc6a48e492007",
+      "vendor": "Fresh Water Systems",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-09-23",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-117e403c37554a9a8fb3c3a727d52a1f",
+        "src-4b25cd060a7d4d5589a8830b9fec5efb",
+        "src-6870d57f15054a39ac5a74855231739a",
+        "src-91634a943d524f098b92880a80961fd7"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100708594",
+        "fws:WEBFWS100708929",
+        "fws:WEBFWS100711469",
+        "fws:WEBFWS100711471"
+      ],
+      "note": "Account order pages opened from the four named orders' emails without signing in: payment lines for WEBFWS100711469 and WEBFWS100711471; expired links hid payment for WEBFWS100708594 and WEBFWS100708929. No claim of complete account coverage."
+    },
+    {
+      "coverage_id": "coverage-42b7855cb5784d1bb68d3fa2ebe3ebdd",
+      "vendor": "Draft Warehouse",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-05",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-c1646f8b65a94d21848983adc8dfee29"
+      ],
+      "order_ids": [
+        "draftwarehouse:244592"
+      ],
+      "note": "Account order page for the named order: payment line and delivery time. No claim of complete account coverage."
+    },
+    {
+      "coverage_id": "coverage-9addde8548284bd9b7e2677f30b1c80a",
+      "vendor": "InnoAddi",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-06",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-f112583f1a9a4ee0b69e45cc860de414"
+      ],
+      "order_ids": [
+        "innoaddi:2941"
+      ],
+      "note": "Account order page for the named order: payment line and delivery time. No claim of complete account coverage."
+    },
+    {
+      "coverage_id": "coverage-9d1de87f70a241d1ace3c918c49d2c65",
+      "vendor": "CNCKitchen USA",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-11",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-dac272c88bc94c09a5877bf6f013fd1d"
+      ],
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "note": "Account order page for the named order: payment line; still in transit. No claim of complete account coverage."
     }
   ],
   "gaps": [
@@ -28914,46 +29329,6 @@
       ]
     },
     {
-      "gap_id": "gap-c6f8ac11a09a42aea90f001d75de8668",
-      "vendor": "Fresh Water Systems",
-      "purchase_ids": [
-        "pur-65c979f1bb194148918426361d985f73"
-      ],
-      "order_ids": [
-        "fws:WEBFWS100711469"
-      ],
-      "event_ids": [
-        "evt-4991502f7a0d484788efb14e364fc889"
-      ],
-      "source_ids": [
-        "src-535edab39a23469dad7dadceae02fad6"
-      ],
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 109.98 charge remains expected.",
-      "sources_checked": [
-        "Fresh Water Systems order confirmation WEBFWS100711469"
-      ]
-    },
-    {
-      "gap_id": "gap-3cd573a027fe4639b56f650860b96095",
-      "vendor": "Fresh Water Systems",
-      "purchase_ids": [
-        "pur-03fa2eeee1cd4eae8e6991441f9f90ed"
-      ],
-      "order_ids": [
-        "fws:WEBFWS100711471"
-      ],
-      "event_ids": [
-        "evt-822df10968c94d009e356f29f845abc5"
-      ],
-      "source_ids": [
-        "src-68c3c555ba354b03a40e08e8375f0c42"
-      ],
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 41.18 charge remains expected.",
-      "sources_checked": [
-        "Fresh Water Systems order confirmation WEBFWS100711471"
-      ]
-    },
-    {
       "gap_id": "gap-3a79a763497f4ccca670aa04fa98a501",
       "purchase_ids": [
         "pur-25f35741f88e40729bec555987f79640"
@@ -28974,23 +29349,25 @@
       ]
     },
     {
-      "gap_id": "gap-6955cf761b944255be580bf5cd43112e",
+      "gap_id": "gap-9738d616dea64eaabb2b35df6ba49073",
+      "vendor": "Fresh Water Systems",
       "purchase_ids": [
-        "pur-5c066280c9c7489f8f90b851374b4995"
+        "pur-dd66c6108002403fb32b17b27c67cb50"
       ],
       "order_ids": [
-        "innoaddi:2941"
+        "fws:WEBFWS100708929"
       ],
       "event_ids": [
-        "evt-2c87a77f5afa46d080a6f8a9fed380bb"
+        "evt-5fddb80e882c4533bf9042d5a74088cc"
       ],
       "source_ids": [
-        "src-9cef8a7480a642d4b3d06cf8a90586d5",
-        "src-956ac1ef318249d481a2006fa4ef3831"
+        "src-64d40ab3942d444899272cb7d8c24701",
+        "src-91634a943d524f098b92880a80961fd7"
       ],
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation or fulfillment notices; the USD 66.98 charge remains expected.",
+      "missing_fact": "A completed merchant charge and its event date are not established; the order page's payment details were behind an expired link and the USD 84.04 charge remains expected.",
       "sources_checked": [
-        "InnoAddi order confirmation, shipment and delivery notices #2941"
+        "Fresh Water Systems order confirmation WEBFWS100708929",
+        "Fresh Water Systems account order page WEBFWS100708929 (link expired)"
       ]
     }
   ],
@@ -29146,7 +29523,7 @@
     "pur-95fc0f0d3a9e416681c286ceeb960800": [
       {
         "purchase_id": "pur-0de724fb2be44bf9b3730bcdec8c7d10",
-        "description": "Jun 28–Jul 28, 2026 Max plan - 20x",
+        "description": "Jun 28\u2013Jul 28, 2026 Max plan - 20x",
         "amount_minor": 20000,
         "currency": "USD",
         "quantity": 1,
@@ -29174,7 +29551,7 @@
       },
       {
         "purchase_id": "pur-51cad0064ff44d83871965e7765a65c9",
-        "description": "Jul 28–Aug 28, 2026 Max plan - 20x",
+        "description": "Jul 28\u2013Aug 28, 2026 Max plan - 20x",
         "amount_minor": 20000,
         "currency": "USD",
         "quantity": 1,
