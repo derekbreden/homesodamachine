@@ -189,9 +189,18 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         settings = json.loads(members[writer.SETTINGS_MEMBER])
         original_colour = settings["filament_colour"]
         settings["filament_colour"] = [filament_colour]
+        for key, value in finish["filament_overrides"].items():
+            settings[key][0] = value
         members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
         for obj in config.findall("object"):
-            for key, value in finish["seam_object_overrides"].items():
+            name = obj.find("metadata[@key='name']").get("value")
+            for setting in list(obj.findall("metadata")):
+                key = setting.get("key", "")
+                if key.startswith("seam_") or key in ("scarf_angle_threshold", "override_filament_scarf_seam_setting"):
+                    obj.remove(setting)
+            overrides = (finish["seam_object_overrides"] if name in finish["seam_parts"]
+                         else finish["corner_seam_object_overrides"])
+            for key, value in overrides.items():
                 writer.metadata(obj, key, value)
         ranges = ET.fromstring(members["Metadata/layer_config_ranges.xml"])
         for entry, band in zip(ranges.find("object").findall("range"),
@@ -208,7 +217,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
     after_settings = json.loads(actual_profile[writer.SETTINGS_MEMBER])
     changed_settings = {k for k in set(before_settings) | set(after_settings)
                         if before_settings.get(k) != after_settings.get(k)}
-    if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour"}:
+    if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour", *finish["filament_overrides"]}:
         raise ValueError("Unexpected change to the complete PET-GF profile")
     if any(actual_profile.get(n) != data for n, data in preserved.items()
            if n != writer.SETTINGS_MEMBER):
@@ -246,8 +255,11 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "provisional_finish": "SB scarf slope gap 10%; E eight coarse lip layers before 0.12 mm; full-print confirmation pending",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
     })
+    for key in finish["filament_overrides"]:
+        if before_settings.get(key) != after_settings.get(key):
+            report["settings_changes"][key] = {"from": before_settings.get(key), "to": after_settings.get(key)}
     if original_colour != [filament_colour]:
         report["settings_changes"]["filament_colour"] = {"from": original_colour, "to": [filament_colour]}
     for face, band in zip(report["selected_faces"], finish["base_fine_bands_print_z_mm"], strict=True):

@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Complete selected-finish print](industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Current complete print](industrial/prints/2026-10-13-a2-back-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -64,9 +64,11 @@ The organizer is a separate PET-GF print, fitted during
 
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
 identifies the tested physical article. The current complete Industrial
-project has a [native review and Mark1 launch](industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md)
-with Derek's provisional SB scarf gap 10% and E eight coarse lip layers before
-the 0.12 mm band. Complete-print finish and centered-mounting fit remain unassessed. The
+project uses the [selected printing recipe](industrial/finish-selection.json):
+Back with A2 on the base, tip and mounting plate, default Aligned/15%/scarf-off
+seams on the cover and lever, and E eight coarse lip layers before the 0.12 mm band.
+The [current complete print](industrial/prints/2026-10-13-a2-back-mark2/README.md)
+binds the native settings and launch. Complete-print finish and centered-mounting fit remain unassessed. The
 [retained sealed-cavity reviews](vent-print-readiness/README.md) apply to
 their exact archived geometry.
 
