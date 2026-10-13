@@ -166,7 +166,7 @@ unit is boxed and shipped back.
 | What can be serviced | Answered | One operation, the pump swap; every other fault is answered by shipping a replacement ([design pressures](/hardware/design-pressures.md)). |
 | Pulling the cartridge | Answered | The fixed plate carries the removal reaction, braced by a hand, a foot or the machine's own weight ([design pressures](/hardware/design-pressures.md)). |
 | Zip-tied pump tube joints | Answered | The tie is treated as load-bearing and each joint is tug-tested ([pump replacement](/hardware/service/pump-replacement.md)). |
-| Replacing the thermal cutoff | Answered | At the factory it slides out along its clamp channel ([SF76E](/hardware/reference/sf76e-thermal-fuse/README.md)); the customer's only service is the pump swap. |
+| Replacing the thermal cutoff | Answered | On Derek's bench it slides out along its clamp channel ([SF76E](/hardware/reference/sf76e-thermal-fuse/README.md)); the customer's only service is the pump swap. |
 
 ## What the drink touches
 

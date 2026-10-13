@@ -1,7 +1,7 @@
 # Cap-weld rotation rig
 
 This bench fixture stands the 5-inch 316L carbonator tube vertically and turns
-it under the operator-held XLaserlab X1 Pro head while either end-cap closure
+it under the hand-held XLaserlab X1 Pro head while either end-cap closure
 is welded. The tube end in the fixture may be bare or already closed; the
 replaceable nest registers on both its ID and OD without reaching an installed
 end plate.
@@ -228,7 +228,7 @@ console prints `RUN`.
 
 **The pedal is the whole of the control.** Held, the table turns at the stored
 speed; released, it stops. Nothing counts a revolution and nothing takes the
-table away from the operator mid-bead — the lap length is a judgement made at
+table away from Derek mid-bead — the lap length is a judgement made at
 the index mark, watching the puddle, not a number the controller enforces.
 
 The driver holds the motor while the table turns and for ten seconds after a
@@ -237,7 +237,7 @@ the next press, which energises the coils before the first pulse. An `ENA`
 left unwired holds the motor whenever the driver has power.
 
 The console reports how far the table has come in degrees, and says so again
-when the pedal is released. That readout is the operator's, and is never a
+when the pedal is released. That readout is Derek's, and is never a
 limit.
 
 Connect the ESP32 USB serial console at 115200 baud. Commands are accepted only
@@ -283,7 +283,7 @@ orientation is set only after this direction convention is true.
    revolution. The table must not stop, pause or change speed as the mark comes
    round, and the console's degrees must agree with the mark within one pass.
 9. Run a complete disabled-laser rehearsal with head, wire guide, purge hose,
-   work lead and operator position present. Nothing may enter the belt or wrap
+   work lead in place and Derek in his welding position. Nothing may enter the belt or wrap
    around the tube.
 
 ## Per-weld sequence

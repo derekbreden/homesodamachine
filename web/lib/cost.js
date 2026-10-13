@@ -510,7 +510,7 @@ function renderLaborSection(labor) {
     <div class="cost-big">${hm(minutes)}</div>
     <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} hand operations across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
   </div>
-  <p class="cost-note">Planned hands-on time for a repeatable batch build, with an experienced operator and fixtures ready. Our early builds take substantially longer. These operation times are estimates.</p>
+  <p class="cost-note">Planned hands-on time per machine at an ideal pace, with practiced hands and fixtures ready. Our early builds take substantially longer. These operation times are estimates.</p>
   <h3 class="cost-h2">All work, ranked</h3>
   <div class="cost-chart">
 ${bars}
@@ -645,7 +645,7 @@ function renderRecovery(unitCost, labor, investment) {
     </div>
     <div class="cost-assumptions" id="assumptions">
       <h3 class="cost-title">Where the estimates need care</h3>
-      <p><strong>The build cost is an estimate.</strong> The <a href="#labor">${hm(labor.minutes)} labor allowance</a> assumes a practiced operator, fixtures ready${labor.batchSize ? ` and a batch of ${labor.batchSize} machines` : " and machines built in batches"}. We&rsquo;re still developing that process. The per-machine cost slider lets you explore a larger allowance for making and supporting each machine.</p>
+      <p><strong>The build cost is an estimate.</strong> The <a href="#labor">${hm(labor.minutes)} labor allowance</a> is deliberately ideal: practiced hands, fixtures ready${labor.batchSize ? ` and setup shared across ${labor.batchSize} machines` : " and setup shared across machines"}. We&rsquo;re still developing that process. The per-machine cost slider lets you explore a larger allowance for making and supporting each machine.</p>
       <p><strong>The investment is recorded cash.</strong> It includes paid development services, but puts no dollar value on our own design, software, testing or process-development time. The calculation sets aside the full parts cost on every sale to replenish inventory, including parts we have already bought.</p>
       <p><strong>There are costs still to budget.</strong> Payment fees, delivery or installation, warranty and support, ongoing overhead, further development and taxes are not included in the per-unit estimate. These reduce the money available to repay the investment and can push recovery further out. Passing the line on this chart does not mean all of that money is profit.</p>
     </div>

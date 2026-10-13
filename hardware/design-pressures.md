@@ -25,7 +25,7 @@ own front opening. Pulling the cartridge draws four tees to a fixed release face
 plate carries removal reaction into the whole enclosure, which can be
 braced by a hand, foot, cupboard edge or its own weight. `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
-internet to customers in other states, and the returned unit comes back to the factory. Diagnosis
+internet to customers in other states, and the returned unit comes back to Derek. Diagnosis
 of a returned unit is a teardown with factory tools — cutting included — not a repair.
 
 **Disassembly.** Not a goal and not a tiebreaker. A part that can only come out by being

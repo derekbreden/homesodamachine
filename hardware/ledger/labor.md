@@ -4,9 +4,9 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [178.7](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
-**An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
+**Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and per-batch setup shared across [10](BATCH_SIZE) units, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
 
-**The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
+**The pace is a practiced one.** Three minutes an operation is a relaxed rate for repetitive work once it is practiced, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
 
 **Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what the site's `/cost` page prices the labor column with; it reads the number from the marker above, so this file sets it.
 
@@ -76,7 +76,7 @@ One cast part per unit: the funnel, [219.4](FUNNEL_VOLUME_ML) mL of finished CAD
 
 ## 5. Foam pouring
 
-Three pour-in-place foam operations: both cold-core caps, the body foam around the carbonator, and the insulating sleeve on the soda umbilical tube. Same operator motion as the silicone — mix, pour, walk away — but with a shorter cream time and a much bigger mess when a rim overflows.
+Three pour-in-place foam operations: both cold-core caps, the body foam around the carbonator, and the insulating sleeve on the soda umbilical tube. Same motion as the silicone — mix, pour, walk away — but with a shorter cream time and a much bigger mess when a rim overflows.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
@@ -138,7 +138,7 @@ Everything that is putting parts together with fasteners and hands. The print mo
 
 ## 9. Power-on & testing
 
-The unit is fully built. Now it gets plugged in for the first time: load the firmware, walk every sensor and every actuator, dispense from it, and leave it running overnight. The 8-hour burn-in is not counted — firmware logs it and the operator checks in three times.
+The unit is fully built. Now it gets plugged in for the first time: load the firmware, walk every sensor and every actuator, dispense from it, and leave it running overnight. The 8-hour burn-in is not counted — firmware logs it and Derek checks in three times.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
