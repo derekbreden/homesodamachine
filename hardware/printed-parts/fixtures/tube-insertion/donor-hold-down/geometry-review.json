@@ -2,10 +2,63 @@
   "solid_count": 1,
   "valid_brep": true,
   "donor_intersection_mm3": 0.0,
-  "base_interference_mm3": 197.62499999999898,
+  "base_interference_mm3": 197.62499999999918,
   "interference_outside_compression_tongue_mm3": 0.0,
-  "section_count": 251,
+  "section_count": 176,
   "max_new_section_area_mm2": 0.0,
-  "first_section_area_mm2": 782.4000000000002,
-  "scope": "Nominal CAD fit and face-down layer support. Installed lever pose, printed press-fit force and manual hold-down performance are unmeasured."
+  "first_section_area_mm2": 1084.2,
+  "contact_faces": [
+    {
+      "surface_type": "CYLINDER",
+      "shared_contact_area_mm2": 10.1240903820544,
+      "donor_face_bounds_mm": [
+        [
+          -1.0000000174860126e-07,
+          -15.7500001,
+          14.2499999
+        ],
+        [
+          42.56462752548478,
+          15.7500001,
+          45.7500001
+        ]
+      ]
+    },
+    {
+      "surface_type": "PLANE",
+      "shared_contact_area_mm2": 442.0,
+      "donor_face_bounds_mm": [
+        [
+          19.0,
+          -13.259430606171605,
+          38.5
+        ],
+        [
+          46.0,
+          13.259430606184742,
+          38.50000000000001
+        ]
+      ]
+    },
+    {
+      "surface_type": "CYLINDER",
+      "shared_contact_area_mm2": 170.14024591107298,
+      "donor_face_bounds_mm": [
+        [
+          12.999999899999999,
+          -13.259430706169999,
+          38.4999999
+        ],
+        [
+          19.00000010000002,
+          13.259430706176,
+          44.50000010000001
+        ]
+      ]
+    }
+  ],
+  "scope": "Nominal contact on donor transition and flat face, canyon-only interference and face-down layer support. Installed lever pose, printed press-fit force and manual hold-down performance are unmeasured.",
+  "source_sha256": "1b765f7e4adb778192bfee4b3af1e0cdef712b79c74ee8622c258abd8632cec5",
+  "fixture_source_sha256": "231f31db75a2645e3d89fdddf077c558d5f472a6ce274aa4ca0d7f880f4893c4",
+  "printed_stl_sha256": "eca70b51231bef8b973dabdd97b4292083ec9bd118130e89a237cf1759a96dd1"
 }

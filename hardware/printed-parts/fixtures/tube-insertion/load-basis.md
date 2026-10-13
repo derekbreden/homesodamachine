@@ -39,13 +39,15 @@ above. They provide no positive upward restraint. Off-axis contact during
 insertion can therefore lift the donor; the axial and yaw calculations
 below do not assess this motion or the required downward counterforce.
 The separate [TPU hand pad](donor-hold-down/README.md) bears on the
-cylindrical metal body and supplies a flat surface for manual downward
-pressure. Its tongue retains the pad in the shank canyon; its press fit
-has no assigned hold-down capacity. The tongue joins the solid crown
-above the saddle and has 10.25 mm nominal clearance above the threaded
-shank, with 8.25 mm of canyon engagement. The pad clears the lower cradle
-by 1 mm. Hand-pressure performance
-and installed lever clearance remain physically unqualified.
+rounded cylinder-to-column transition and the upper flat metal face,
+covering axial coordinates 13.5–36 mm. Its bearing surface ends 3 mm
+before the lever attachment plateau and its flat hand face stands 2 mm
+above the reaction walls. A narrow bridge clears the cylindrical base
+by 1 mm and reaches the tongue in the shank canyon. That tongue has
+10.25 mm nominal thread clearance and 8.25 mm of canyon engagement.
+Its press fit retains the pad's position and has no assigned hold-down
+capacity. Hand-pressure performance and installed lever clearance remain
+physically unqualified.
 
 Each rigid collar half is 15 mm high. Its transverse wings have 30.5 mm
 axial depth from X8 to X38.5, with screw stations 16 mm beyond the 32 mm
