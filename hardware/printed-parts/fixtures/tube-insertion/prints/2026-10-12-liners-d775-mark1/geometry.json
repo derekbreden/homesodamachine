@@ -1,0 +1,28 @@
+{
+  "channel_diameter_mm": 7.75,
+  "added_radial_tpu_mm": 0.75,
+  "added_volume_per_liner_mm3": 280.38714433288897,
+  "removed_existing_tpu_mm3": 0.0,
+  "manufacturing_bounds_mm": {
+    "min_mm": [
+      0.0,
+      -10.0,
+      0.0
+    ],
+    "max_mm": [
+      8.000000000000004,
+      10.0,
+      28.0
+    ],
+    "size_mm": [
+      8.000000000000004,
+      20.0,
+      28.0
+    ]
+  },
+  "scope": "Requested liner-channel reduction; outside envelope comparison and exact added B-rep volume. No physical grip or load-capacity claim.",
+  "source_sha256": "231f31db75a2645e3d89fdddf077c558d5f472a6ce274aa4ca0d7f880f4893c4",
+  "source_stl": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl",
+  "source_stl_sha256": "d551348d61b156f650d0fb9b6e2ac604be126ee0834ebe3063a66e080bc4b515",
+  "minimum_backing_mm": 4.125
+}
