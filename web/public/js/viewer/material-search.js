@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { searchMaterials } from "/contracts/materials.js";
+import { searchMaterials, bomCounts, bomCountText } from "/contracts/materials.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 
 const modelLabel = (file) => file.split("/").at(-1).replace(/\.step$/, "").replace(/[-_]/g, " ");
@@ -41,6 +41,8 @@ export function makeMaterialSearch({ compact = false } = {}) {
       link.href = "/3d#" + materialHash(m.id);
       const title = document.createElement("strong"); title.textContent = m.description;
       const meta = document.createElement("span"); meta.textContent = `${m.id} · ${m.kind}`;
+      const counts = bomCounts(state.materialCatalog, m.id, { finish: state.faucetFinish });
+      if (counts.total) meta.textContent += " · " + bomCountText(counts);
       link.append(title, meta);
       link.addEventListener("click", (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -74,5 +76,6 @@ export function makeMaterialSearch({ compact = false } = {}) {
     if (event.key === "ArrowDown") { results.querySelector("a")?.focus(); event.preventDefault(); }
     if (event.key === "Enter" && results.querySelectorAll("a").length === 1) results.querySelector("a").click();
   });
+  host.refresh = update;
   return host;
 }

@@ -60,6 +60,28 @@ export function explodeBom(catalog, id, options = {}) {
   return rows;
 }
 
+// Count tree entries. A row's physical quantity is listed separately in the BOM.
+export function bomCounts(catalog, id, options = {}) {
+  const rows = explodeBom(catalog, id, options);
+  return { direct: rows.filter((row) => row.depth === 0).length, total: rows.length };
+}
+
+export function bomCountText({ direct, total }) {
+  return `${direct} direct · ${total} total BOM item${total === 1 ? "" : "s"}`;
+}
+
+// The document list includes containing assemblies, with one entry per linked path.
+export function materialDocuments(catalog, id, options = {}) {
+  const index = materialIndex(catalog), docs = new Map();
+  function collect(material, inherited = false) {
+    for (const doc of material?.documents || [])
+      if (!docs.has(doc.path)) docs.set(doc.path, { ...doc, inherited, owner: material.description });
+  }
+  collect(index.get(id));
+  for (const row of whereUsed(catalog, id, options)) collect(row.material, true);
+  return [...docs.values()];
+}
+
 export function whereUsed(catalog, id, options = {}) {
   const index = materialIndex(catalog), parents = new Map(), result = [];
   for (const parent of index.values()) for (const item of bomItems(parent, options)) {
@@ -77,6 +99,13 @@ export function whereUsed(catalog, id, options = {}) {
   }
   climb(id, [id], 1, new Set([id]));
   return result;
+}
+
+export function materialUses(catalog, id, options = {}) {
+  const materials = catalog?.materials || [];
+  const incoming = (kind) => materials.filter((material) => material.relations?.some((relation) =>
+    relation.material === id && relation.kind === kind));
+  return { assemblies: whereUsed(catalog, id, options), tools: incoming("tool-for"), equipment: incoming("used-with") };
 }
 
 const normalizedBody = (name) => name.replace(/\/\d+$/, "");

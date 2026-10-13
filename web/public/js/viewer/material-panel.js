@@ -1,5 +1,5 @@
 import { state } from "./state.js";
-import { materialIndex, materialForFile, explodeBom, whereUsed, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
+import { materialIndex, materialForFile, explodeBom, bomCountText, bomCounts, materialDocuments, materialUses, occurrenceBodies, occurrenceForBody, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, scenePartNames } from "./part-highlight.js";
 import { openMaterial, materialHash } from "./material-nav.js";
@@ -29,7 +29,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   let lastFile = file;
   const scroll = el("div", "material-panel-scroll");
   const headHost = el("div", "material-head-host"), tabsHost = el("div", "material-tabs-host");
-  panel.append(makeMaterialSearch({ compact: true }), headHost, tabsHost, scroll);
+  const search = makeMaterialSearch({ compact: true });
+  panel.append(search, headHost, tabsHost, scroll);
   let disposed = false;
   let pendingRootFocus = false;
   function contextPath() {
@@ -114,9 +115,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       }
     }
     head.append(actions); headHost.replaceChildren(head);
+    const rows = explodeBom(state.materialCatalog, root, options());
+    const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
+    const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
+    const counts = { bom: rows.length, used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
     for (const [key, label] of [["bom", "BOM"], ["used", "Where used"], ["docs", "Documents"]]) {
-      const button = el("button", "", label); button.type = "button";
+      const button = el("button", "", `${label} (${counts[key]})`); button.type = "button";
+      if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
       button.addEventListener("click", () => { tab = key; render(); }); tabs.append(button);
     }
@@ -124,28 +130,31 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
     content.setAttribute("aria-label", { bom: "Exploded bill of materials", used: "Where used", docs: "Documents" }[tab]);
     scroll.append(content);
-    if (tab === "bom") renderBom(content, rootMaterial, index);
-    if (tab === "used") renderUsed(content, current, index);
-    if (tab === "docs") renderDocs(content, current || rootMaterial, index);
+    if (tab === "bom") renderBom(content, rootMaterial, index, rows);
+    if (tab === "used") renderUsed(content, current, used);
+    if (tab === "docs") renderDocs(content, docs);
     scroll.scrollTop = top;
   }
 
-  function renderBom(content, rootMaterial, index) {
+  function renderBom(content, rootMaterial, index, rows) {
     if (!rootMaterial?.bom?.items.length) {
       content.append(el("p", "material-empty", rootMaterial ? "No child materials listed for this part." : "Assembly relationships have not been recorded for this model."));
     } else {
+      const summary = el("p", "material-bom-counts", bomCountText({ direct: rows.filter(row => row.depth === 0).length, total: rows.length }));
+      summary.title = "One item per BOM row; the total includes every nested level. Quantities appear beside each row.";
+      content.append(summary);
       content.append(el("p", "material-scope", rootMaterial.bom.scope));
       const tools = el("div", "bom-tools");
       const all = el("button", "", "Expand all"); all.type = "button";
       const collapse = el("button", "", "Collapse all"); collapse.type = "button";
-      const rows = explodeBom(state.materialCatalog, root, options());
       all.addEventListener("click", () => { rows.forEach((r) => expanded.add(pathKey(r.path))); render(); });
       collapse.addEventListener("click", () => { expanded.clear(); render(); });
       tools.append(all, collapse, el("span", "", "Quantities per assembly")); content.append(tools);
       const tree = el("div", "bom-tree");
       for (const row of rows) {
         if (row.path.slice(0, -1).some((_, i) => !expanded.has(pathKey(row.path.slice(0, i + 1))))) continue;
-        const key = pathKey(row.path), branch = !!row.material.bom?.items.length;
+        const childCounts = bomCounts(state.materialCatalog, row.material.id, options());
+        const key = pathKey(row.path), branch = childCounts.total > 0;
         const line = el("div", "bom-row" + (selectedPath.length && key === pathKey(selectedPath) ? " selected" : ""));
         line.style.setProperty("--depth", row.depth);
         const disclosure = el("button", "bom-disclosure", branch ? (expanded.has(key) ? "−" : "+") : "·");
@@ -155,7 +164,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         disclosure.addEventListener("click", () => { if (expanded.has(key)) expanded.delete(key); else expanded.add(key); render(); });
         const pick = el("button", "bom-select"); pick.type = "button";
         pick.append(el("span", "bom-description", row.material.description), el("span", "bom-number", row.material.id));
-        pick.setAttribute("aria-label", `${row.material.description}, ${quantity(row.quantity, row.item.unit)} in this assembly`);
+        if (branch) pick.append(el("span", "bom-counts", bomCountText(childCounts)));
+        pick.setAttribute("aria-label", `${row.material.description}, ${quantity(row.quantity, row.item.unit)} in this assembly${branch ? ", " + bomCountText(childCounts) : ""}`);
         pick.setAttribute("aria-pressed", String(selectedPath.length > 0 && key === pathKey(selectedPath)));
         pick.addEventListener("click", () => {
           const loading = state.mountedDetail?.file !== lastFile;
@@ -180,36 +190,26 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     renderRelations(content, index.get(selected) || rootMaterial, index);
   }
 
-  function renderUsed(content, current, index) {
+  function renderUsed(content, current, used) {
     if (!current) return;
-    const used = whereUsed(state.materialCatalog, current.id, options());
-    if (!used.length) content.append(el("p", "material-empty", "No containing assemblies recorded."));
-    for (const result of used) {
+    if (!used.assemblies.length) content.append(el("p", "material-empty", "No containing assemblies recorded."));
+    for (const result of used.assemblies) {
       const card = el("div", "material-used");
       card.append(materialLink(result.material), el("span", "material-meta", `${result.direct ? "Direct parent" : "Ancestor"} · ${quantity(result.quantity, result.unit)}`));
       card.append(el("p", "material-path", result.path.map((id) => index.get(id)?.description || id).join(" → "))); content.append(card);
     }
-    const tooling = (state.materialCatalog?.materials || []).filter((m) => m.relations?.some((r) => r.material === current.id && r.kind === "tool-for"));
-    if (tooling.length) {
+    if (used.tools.length) {
       content.append(el("h3", "", "Tools for this material"));
-      tooling.forEach((m) => content.append(materialLink(m)));
+      used.tools.forEach((m) => content.append(materialLink(m)));
     }
-    const equipmentUse = (state.materialCatalog?.materials || []).filter((m) => m.relations?.some((r) => r.material === current.id && r.kind === "used-with"));
-    if (equipmentUse.length) {
-      content.append(el("h3", "", "Used with")); equipmentUse.forEach((m) => content.append(materialLink(m)));
+    if (used.equipment.length) {
+      content.append(el("h3", "", "Used with")); used.equipment.forEach((m) => content.append(materialLink(m)));
     }
   }
 
-  function renderDocs(content, current, index) {
-    if (!current) return;
-    const docs = new Map();
-    function collect(m, inherited = false) {
-      for (const d of m?.documents || []) if (!docs.has(d.path)) docs.set(d.path, { ...d, inherited, owner: m.description });
-    }
-    collect(current);
-    for (const row of whereUsed(state.materialCatalog, current.id, options())) collect(row.material, true);
-    if (!docs.size) content.append(el("p", "material-empty", "No documents linked to this material or its assemblies."));
-    for (const d of docs.values()) {
+  function renderDocs(content, docs) {
+    if (!docs.length) content.append(el("p", "material-empty", "No documents linked to this material or its assemblies."));
+    for (const d of docs) {
       const link = el("a", "material-document"); link.href = docHref(d.path); link.target = "_blank"; link.rel = "noopener";
       link.append(el("strong", "", d.title), el("span", "", `${d.path.endsWith(".pdf") ? "PDF" : "Details"}${d.inherited ? " · " + d.owner : ""}`)); content.append(link);
     }
@@ -229,6 +229,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function sync(event) {
     if (disposed) return;
+    if (event?.type === HSM_EVENTS.FAUCET_OPTIONS) search.refresh();
     const mountedFile = state.mountedDetail?.file || file;
     if (file && mountedFile !== lastFile) {
       selectedBody = null;
@@ -274,7 +275,12 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
   window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
-  const handle = { select, setRoot, sync, dispose: () => {
+  const handle = { select, setRoot, sync, showBom: () => {
+    tab = "bom";
+    workspace.classList.add("materials-open");
+    workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "true");
+    render();
+  }, dispose: () => {
     disposed = true;
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
