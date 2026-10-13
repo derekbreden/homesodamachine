@@ -1,0 +1,50 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T04:20:27.191644+00:00",
+  "archive": {
+    "name": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
+    "sha256": "524d907ca815cdcf0e19173caad81f6c64bd0734cc00f383a4ec563a3486a8ec",
+    "gcode_sha256": "08bd29a553c0ad1dbebc862daa826bf7274d2db58b049372dcac37ccb6ef89cd",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "TPU upper-half donor cover"
+    ]
+  },
+  "printer_task_id": "1334637551",
+  "gcode_state": "RUNNING",
+  "subtask_name": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 144,
+  "mc_remaining_time": 239,
+  "display_printer": "Mark1",
+  "source_archive": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
+  "project": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf",
+  "design_commit": "12871f44b",
+  "requested_user_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "bed_clear_authorization": "Please print it. Mark1 is ready.",
+  "contact_region": "Continuous inverse of the donor upper half from axial 0 to 39 mm, covering cylinder, transition and flat-sided column",
+  "source_stl": "../../donor-hold-down-print.stl",
+  "printed_stl_sha256": "7e4205226fc944d9e93a5dd98fdfb1dff67d382bb2bb1b0cc891d327c096ebcb",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_task": "1334579700",
+    "other_acceptance_observed_at_utc": "2026-10-13T03:40:15.650751+00:00",
+    "this_acceptance_observed_at_utc": "2026-10-13T04:20:27.191644+00:00",
+    "observed_separation_seconds": 2411.540893,
+    "required_minimum_seconds": 180
+  }
+}

@@ -13,7 +13,8 @@ inverse of the donor's upper half below the attached lever. It wraps around
 the cylindrical portion, rounded transition and flat-sided column. Its
 flat hand face stands 2 mm above the reaction walls. Hand pressure supplies
 downward restraint; the compression tongue in the open shank canyon
-retains the cover's position. The cover is an unprinted fit candidate.
+retains the cover's position. Physical fit and hand-pressure performance
+remain unqualified.
 
 Use the [illustrated assembly guide](../../../tube-insertion-guide/README.md)
 for the assembly sequence and the [print instructions](PRINTING.md) for
