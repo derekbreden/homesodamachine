@@ -78,8 +78,8 @@ main {
      (for PWA home indicator). Top doesn't need it — the sticky nav above
      already eats safe-area-top. */
   /* The bottom clears a notification toast, which is fixed 12px off the
-     bottom and about 67px tall — the film under the form is the last thing
-     on the page and the toast arrives over it. */
+     bottom and about 67px tall — the suppliers are the last thing on the
+     page and the toast arrives over them. */
   padding:
     2rem
     calc(env(safe-area-inset-right, 0px) + 1.5rem)
@@ -194,6 +194,61 @@ ${SIGNUP_BUTTON_CSS}
   height: 100%;
   border: 0;
 }
+/* Suppliers, under the film: one line of four on a desktop, two rows of two
+   on a tablet, one column on a phone. Every logo is white on the blue, sized
+   by its own proportions so the four carry about the same visual weight. */
+.suppliers {
+  width: 100%;
+  max-width: 60rem;
+  margin-top: 4.5rem;
+}
+.suppliers h2 {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  font-weight: 600;
+  margin: 0 0 2rem;
+}
+.suppliers ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2.25rem;
+}
+@media (min-width: 560px) {
+  .suppliers ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 2rem; }
+}
+@media (min-width: 960px) {
+  .suppliers ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+/* One height for every logo row, so the blurbs under a line start level. */
+.suppliers li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: fit-content;
+  margin: 0 auto 0.875rem;
+  border-radius: 4px;
+}
+.suppliers li a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.suppliers img { display: block; }
+.suppliers li p {
+  max-width: 17rem;
+  margin: 0 auto;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.suppliers .suppliers-all {
+  margin: 2.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
+.suppliers-all a { color: var(--accent); text-underline-offset: 3px; }
+.suppliers-all a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 `;
 
 const BODY = `<main>
@@ -232,6 +287,28 @@ const BODY = `<main>
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen></iframe>
   </div>
+  <section class="suppliers" aria-labelledby="suppliers-heading">
+    <h2 id="suppliers-heading">Suppliers include</h2>
+    <ul>
+      <li>
+        <a href="https://www.freshwatersystems.com/"><img src="/suppliers/fresh-water-systems.png" width="137" height="48" alt="Fresh Water Systems"></a>
+        <p>The food-grade fittings and tubing that carry water, soda, flavor and CO₂ through the machine.</p>
+      </li>
+      <li>
+        <a href="https://jlcpcb.com/"><img src="/suppliers/jlcpcb.svg" width="141" height="31" alt="JLCPCB"></a>
+        <p>Makes our circuit boards and fully assembles the main controller that runs the pumps and valves.</p>
+      </li>
+      <li>
+        <a href="https://sendcutsend.com/"><img src="/suppliers/sendcutsend.svg" width="169" height="30" alt="SendCutSend"></a>
+        <p>Laser-cuts the quarter-inch 316 stainless end caps of the carbonator tank, and the faucet’s under-counter plate.</p>
+      </li>
+      <li>
+        <a href="https://www.lulu.com/"><img src="/suppliers/lulu.svg" width="106" height="37" alt="Lulu"></a>
+        <p>Prints and binds the 32-page install guide, the first thing an owner sees when they open the kit.</p>
+      </li>
+    </ul>
+    <p class="suppliers-all">The <a href="/cost">cost page</a> lists every part of the machine and where it comes from.</p>
+  </section>
 </main>
 <script src="/landing.js" defer></script>
 `;
