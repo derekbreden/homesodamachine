@@ -48,6 +48,7 @@ CATEGORIES = {
     "vent-filter":    "Vent filter",
     "welding":        "Welding filler",
     "cold-kit":       "Cold kit",
+    "documentation":  "Printed documentation",
 }
 
 TAG = re.compile(r"<!--@([a-z][a-z-]*)-->")

@@ -22,6 +22,7 @@ export const CATEGORY_NAMES = {
   "vent-filter": "Vent filter",
   welding: "Welding filler",
   "cold-kit": "Cold kit",
+  documentation: "Printed documentation",
   supplies: "Other supplies",
 };
 
