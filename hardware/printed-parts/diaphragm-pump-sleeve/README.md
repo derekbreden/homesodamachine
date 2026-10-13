@@ -69,9 +69,11 @@ not an elastomer strain, sealing pressure or retained clamp load.
 Both joints carry pressure. The suction side sees supply pressure while V-K
 is open; the discharge side sees the pump's own outlet pressure, advertised at
 110 psi. Print the trial in **Bambu TPU 95A HF**, the hardest of the shop's
-soft TPUs (85A, 90A, 95A HF). A harder sleeve relaxes less under its clamp and
-resists blow-off better, and [14](CREST_STRETCH)% stretch over the crest is within what a 95A
-tube takes onto a barb. Use dry filament and a solid process: 100% infill and
+soft TPUs (85A, 90A, 95A HF), for the most grip at a given stretch over the
+barb; [14](CREST_STRETCH)% stretch over the crest is within what a 95A tube takes onto a
+barb. How much a sleeve relaxes under its clamp depends on the TPU's chemistry
+and temperature, not its hardness alone, and no grade here has a relaxation
+result. Use dry filament and a solid process: 100% infill and
 at least four wall loops. Keep hole and contour compensation at zero for the
 first fit.
 
