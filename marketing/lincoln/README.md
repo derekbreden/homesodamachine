@@ -105,12 +105,12 @@ a concrete purpose and keep the exhibit workable for the people actually staffin
 A larger footprint can accommodate the demonstration while the presentation clearly
 identifies Derek as the local builder and the machine's actual development stage.
 
-The immediate website audience is **Michaela, the home-show organizer**, who might visit
-after an exhibitor inquiry to understand what is being proposed. Assume she knows little
-beyond "soda machine," has no close personal connection to Derek, and has not followed
-the project. She needs to picture the kitchen appliance, understand its actual stage,
-and assess its relevance to the show. The [home page audience brief](working-materials.md#home-page-audience-brief)
-uses that concrete reader to guide a page that also works for other newcomers.
+The website is for a newcomer who knows little beyond "soda machine." **Michaela, the
+home-show organizer**, is one concrete example: she might visit after an exhibitor
+inquiry without having followed the project. The page's main job is to make the
+kitchen appliance and its above-and-below-counter arrangement understandable, with
+brief development context. The [home page audience brief](working-materials.md#home-page-audience-brief)
+sets that focus for all newcomers.
 The proposed exhibit and its readiness belong in the organizer inquiry; neither the
 website nor the booth needs to imply an imminent sale.
 

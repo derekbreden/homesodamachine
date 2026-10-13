@@ -12,7 +12,7 @@ The [website style guide](https://homesodamachine.com/style-guide) is a small wo
 
 ## Home page audience
 
-The home page is for someone who knows little more than "soda machine" and has no earlier context. The [home page audience brief](/marketing/lincoln/working-materials.md#home-page-audience-brief) sets what [`lib/landing.js`](/web/lib/landing.js) has to explain, in what order, and the first-impression test it is judged by.
+The home page is for someone who knows little more than "soda machine" and has no earlier context. Its main job is to explain the equipment under the kitchen counter, the dedicated faucet above it, and cold, carbonated soda poured into a glass. The integrated appliance is presented as under development. The one-time availability notification signup is a small secondary feature after the explanation. The [home page audience brief](/marketing/lincoln/working-materials.md#home-page-audience-brief) sets the priorities for [`lib/landing.js`](/web/lib/landing.js).
 
 ## Running it
 
@@ -74,7 +74,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 |---|---|---|
 | [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
 | [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
-| [`lib/landing.js`](/web/lib/landing.js) | `/` | Marketing landing: email signup form, the One Less Errand film, and the suppliers section. |
+| [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview: equipment under the counter, a dedicated kitchen faucet and soda poured into a glass, with development context and a secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | Parts, planned batch labor, sale price, investment recovery and remaining-purchase forecasts for the first 5/10/20 machines. Reads the parts, labor, machine-time, purchase and batch-forecast ledgers. [`lib/batch-forecast.js`](/web/lib/batch-forecast.js) deducts dated stock and already-ordered quantities before comparing whole purchase lots. [`lib/batch-forecast-view.js`](/web/lib/batch-forecast-view.js) renders ranked purchase bars and collapsible stock, supply and cash-budget details; [`lib/cost-categories.js`](/web/lib/cost-categories.js) shares the BOM category names between both cost views. |
 | [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |

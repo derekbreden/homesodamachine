@@ -6,34 +6,30 @@ represent a published offer or requests already sent to vendors.
 
 ## Home page audience brief
 
-The immediate audience scenario for `homesodamachine.com/` is **Michaela, the Nebraska
-Builders Home & Garden Show organizer**, opening the site after a brief exhibitor
-inquiry. She may be trying to understand the proposed exhibit and whether it belongs
-at the show. Design for someone who has heard little beyond "soda machine," does not
-know Derek well, and has none of the context supplied by earlier conversations or
-demonstrations. A formal website review by the organizer is not established.
+The audience for `homesodamachine.com/` is a newcomer who knows little beyond "soda
+machine" and has none of the context supplied by earlier conversations or
+demonstrations. **Michaela, the Nebraska Builders Home & Garden Show organizer**, is
+one concrete example: she may open the site after a brief exhibitor inquiry to
+understand the appliance. A formal website review by the organizer is not established.
 
-The page should answer these questions in order:
+The page's main job is to make the appliance understandable immediately. Equipment
+goes under the kitchen counter; a dedicated faucet sits above it; the user pours cold,
+carbonated soda into a glass. Opening text and a clear visual should explain that
+physical arrangement without requiring a video to play or a tour of the engineering
+documents. After a brief look, a newcomer should be able to explain what the machine
+is and picture where it fits in a kitchen.
 
-1. **What is it?** Equipment goes under the kitchen sink; a dedicated faucet sits
-   above it; the user pours cold, carbonated soda into a glass. Make that physical
-   arrangement understandable from the opening text and visual without requiring a
-   video to play or a tour of the engineering documents.
-2. **What exists, and what is still being developed?** Show evidence of the working
-   prototype and identify the integrated appliance's actual stage. A functional
-   demonstration using the project's own carbonator is the possible February scope;
-   sales readiness and a release date remain separate decisions.
-3. **Who is making it?** Introduce Derek as the builder in Lincoln. Real project
-   evidence and the supplier section can substantiate how the machine is being made
-   after the visitor understands the product.
-4. **How can I follow its availability?** Present the notification signup after the
-   explanation. Keep the existing promise to notify subscribers when they can buy one.
+The integrated appliance is under development. Keep that context brief. The existing
+prototype uses an external carbonator; any prototype image or footage should identify
+that scope. Illustrations of the integrated appliance should be presented as the
+design under development.
 
-The organizer scenario supplies a concrete first-impression test for the public home
-page. Other visitors arriving through a brief introduction or referral should get the
-same clear account of the appliance, maker and development stage. Details of the
-proposed booth belong in the exhibitor inquiry. The [November 1 decision](README.md#february-2027-home--garden-show)
-leaves sales, a prototype demonstration and no February exhibit open.
+Keep the existing one-time availability notification signup as a small secondary
+feature after the appliance explanation, with the promise to notify subscribers when
+they can buy one.
+
+Exhibitor plans and timing belong in the [local plan](README.md#february-2027-home--garden-show)
+and the exhibitor inquiry.
 
 This brief concerns the public home page. The local inquiry page below serves a
 prospective household considering a demonstration, purchase or installation in Lincoln.
