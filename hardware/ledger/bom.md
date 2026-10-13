@@ -318,6 +318,14 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 |---|---|---:|---:|---:|
 | [Mudder 3 Pieces PTFE Plastic Tubing Cutter, OD up to 3/4", polyacetal body + 304 SS replaceable blade](https://www.amazon.com/dp/B08VW15TK8) | the cold kit's cutter: trims the umbilical's wall end to the cabinet's own length before the tubes go back into their rear-wall PTC bulkheads; OD range 1/8"–3/4" covers the 1/4" OD LLDPE umbilical easily. 3-pack = 1 cutter per kit × 3 kits per pack. Amazon 112-8598924 May 17: $11.99 + $0.87 tax = $12.86 ÷ 3 = $4.29/ea | 1 (of 3 pk) | $4.29 | $4.29 <!--@cold-kit--> |
 
+## 15. Customer documentation
+
+The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) "Customer documentation packet"). Its signed Founder Edition welcome letter is an open item there and has no cost here.
+
+| Part | Notes | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Install guide, printed by Lulu](/hardware/install-guide/README.md) | the bound install guide, one per machine: Small Landscape 9 × 7 in, 32 interior pages, perfect bound, Premium Color on 80# white coated paper, matte cover, from the upload files and settings in [`install-guide/press/ORDER.md`](/hardware/install-guide/press/ORDER.md). Lulu USD-C4516450 Oct 6: 3 × $9.03 printing = $27.09 + $43.24 shipping and handling + $5.09 tax = $75.42 ÷ 3 = $25.14/ea. Shipping is most of that delivered price, so a larger print order lowers it. **ON-ORDER** ([purchases.md §22](/hardware/ledger/purchases.md)) | 1 | $25.14 | $25.14 <!--@documentation--> |
+
 ## Totals
 
 | Section | $ |
@@ -336,7 +344,8 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$35.66](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.02](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,424.32](BOM_GRAND)** |
+| 15. Customer documentation | [$25.14](BOM_SEC15) |
+| **Total** | **[$1,449.46](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

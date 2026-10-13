@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "checkedAt": "2026-10-04",
-  "bomSha256": "14277f256b28589def264a58531081ecfa3bfb41a81915cb679dc61bd92249be",
-  "bomRowCount": 167,
+  "bomSha256": "81a4774aa36c79de10bc513c01627f616e7093f19d5906500c8a8c82f1233f6e",
+  "bomRowCount": 168,
   "scope": "Additional spending from inventory as of October 13 (filament through the prints logged October 13) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
   "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
@@ -14,6 +14,10 @@
     {
       "line": 258,
       "reason": "Reed columns are assembled from the separately purchased reeds and wires; no second purchase."
+    },
+    {
+      "line": 327,
+      "reason": "The printed install guide is inside the $40/machine packaging allowance (cartons, protective packing and printed customer guides); no separate purchase line."
     }
   ],
   "suppliers": [
