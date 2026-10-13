@@ -67,20 +67,20 @@
       ]
     },
     {
-      "id": "tpu-85a-mark2",
-      "project": "tube-insertion-tpu-85a-mark2.3mf",
-      "title": "Tube insertion grip liners - TPU 85A - Mark2",
-      "printer": "Mark2",
+      "id": "tpu-85a-mark1",
+      "project": "tube-insertion-tpu-85a-mark1.3mf",
+      "title": "Tube insertion grip liners - TPU 85A - Mark1",
+      "printer": "Mark1 (H2C)",
       "material": "TPU 85A",
-      "settings_source": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
-      "z_trim_mm": 0.04,
+      "settings_source": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf",
+      "z_trim_mm": 0.0,
       "nozzle_mapping": "Right fixed 0.6 mm; TPU 85A external spool 255",
       "parts": [
         {
           "name": "F lower TPU liner",
           "source": "tube-insertion-liner-print.stl",
           "offset_mm": [
-            -20,
+            -5,
             0
           ]
         },
@@ -88,7 +88,7 @@
           "name": "F upper TPU liner",
           "source": "tube-insertion-liner-print.stl",
           "offset_mm": [
-            20,
+            5,
             0
           ]
         }
