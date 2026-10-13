@@ -1,4 +1,4 @@
-# Bulkhead ring
+# Enclosure port identification plates
 
 A flat printed chip lying in a pocket cut into the +Y wall of back-top's outer face, under a
 through-wall fitting's own flange. The pocket is the chip's own thickness deep, so colour and wall come out one

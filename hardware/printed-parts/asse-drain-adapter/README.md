@@ -1,4 +1,4 @@
-# ASSE drain adapter
+# ASSE 1022 vent adapter sleeve · TPU 85A
 
 One TPU 85A sleeve connects the Multiplex 19-0897 atmospheric-vent barb
 directly to the white neoFlo 4 mm OD / 2.5 mm ID LLDPE drain. Two existing

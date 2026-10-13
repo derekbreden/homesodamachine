@@ -17,6 +17,45 @@ several model files and documents. A numbered assembly describes a coherent unit
 its identity alone makes no promise about separate stocking, sale or replacement.
 Build and service documents establish those meanings and their acceptance scope.
 
+## Names and descriptions
+
+`description` is the canonical material name in search results, BOM rows,
+component selection, Find results, model titles and navigation. It must make sense on its own.
+Use sentence case and the part's actual form and function. Add context when it
+distinguishes the part: **Faucet lever**, **Machine display gasket** and
+**Weld rotator motor carriage**. Assembly instructions can use **lever** or
+**gasket** once the surrounding text establishes which part they mean.
+
+Use a ` · ` suffix for a distinguishing style, channel, position, size or stock.
+Name style-specific faucet parts **Sculpted faucet …** or **Industrial faucet …**;
+shared parts use **Faucet …**. Flavor channels use **A** and **B**, matching the
+[fluid topology](../topology/fluid-topology.md). Standard hardware uses its type,
+dimensions and useful manufacturer designation, such as **M3 × 10 socket-head
+screw**. Bought parts use the manufacturer identity specified by the current
+build and purchasing records.
+
+Names describe the supplied part and its present purpose. Construction methods,
+scan provenance and fabrication instructions belong in its documentation. A
+sealing thimble has a cylindrical wall and a cap; a copper-slot cover is a plastic
+cover around a copper tube. Identification plates and collars are named for the
+port or line they mark. Fitted tubes are named for their circuit and connection
+role, with stock details where useful.
+
+| Material | Canonical description | Naming role |
+| --- | --- | --- |
+| HSM-000268 | Faucet lever · PET-GF | Shared faucet part with its print stock |
+| HSM-000090 | Faucet tube sealing thimble · TPU 85A | Physical form, sealing role and stock |
+| HSM-000023 | Cold-core copper-slot covers | Covers supplied as a two-piece set |
+| HSM-000277 | Flavor A pump suction flex tube · 1/4 inch black LLDPE | Circuit, connection role and stock |
+| HSM-000055 | Interstate Pneumatics WR1105 CO₂ secondary regulator | Installed manufacturer identity and function |
+
+CAD body keys, route IDs and file paths identify engineering representations.
+The component inspector shows the body key alongside the material name and
+number, so repeated occurrences and geometry reports remain distinguishable.
+`aliases` carries searchable bench vocabulary and those engineering identifiers.
+Description edits retain the material number, geometry bindings and physical
+acceptance records.
+
 ## Contents and quantities
 
 `bom.items` contains direct child occurrences. Each names a `material`, `quantity`
@@ -105,3 +144,6 @@ The KPHM600-SW3B17 pump's fitted representation lives in the `kamoer-kphm400`
 reference directory. The two water-pump fitting models live in `seaflo-*`
 directories and are installed with the G Ganen water pump. Manufacturer identity
 and current assembly descriptions are stated independently of those model paths.
+The WR1105 secondary regulator uses the scanned WR1110 exterior representation;
+its [fit and representation scope](../reference/wr1110-regulator/README.md) remains
+attached to the material record.

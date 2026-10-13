@@ -1,4 +1,4 @@
-# Tube collar
+# Tube identification collars
 
 A printed collar threaded onto a 1/4-inch or 4 mm line, carrying the word and the colour of the bulkhead ring that
 line goes through. The chip in [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md) marks the wall; this marks

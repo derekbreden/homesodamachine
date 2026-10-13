@@ -1,4 +1,4 @@
-# Copper-slot covers
+# Cold-core copper-slot covers
 
 Two identical PETG covers close the foam shell's copper slots, one in each lane.
 Each slides down from the open top and seats its bottom arch around the copper.

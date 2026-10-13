@@ -1,4 +1,4 @@
-# Fuse clamp
+# Compressor thermal-cutoff clamp
 
 Printed bracket that holds the BOJACK SF76E thermal cutoff's case against the
 compressor's power box — the moulded cover over the terminal block and the PTC

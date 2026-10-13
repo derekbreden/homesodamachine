@@ -1,7 +1,7 @@
 // Find box — the edge picker's round trip, and the way in for anyone who
-// only knows what a thing is CALLED. Type a component name (`fluid-17`,
-// `seaflo-pump`, or just `tee` for all seven) and every solid answering to
-// it lights up. Paste pick text — a copy-all blob, a single row, a whole
+// only knows what a thing is called. Type a material description, part number
+// or CAD key (`Faucet lever`, `HSM-000090`, `fluid-17`) and its bodies light
+// up. Paste pick text — a copy-all blob, a single row, a whole
 // multi-pick message from either side of the conversation — and every
 // recognizable pick in it is matched against the loaded model's
 // reconstructed edges and classified faces. Both land in one overlay,
@@ -25,6 +25,7 @@ import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
 import { makeToolButton } from "./tool-rail.js";
+import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
@@ -179,7 +180,7 @@ function buildPanel() {
   textarea = document.createElement("textarea");
   textarea.className = "pick-find-input";
   textarea.rows = 5;
-  textarea.placeholder = "Type a part name — fluid-17, seaflo-pump, tee\nor paste pick text — edge / face / click lines";
+  textarea.placeholder = "Type a material name, part number or CAD body\nor paste pick text — edge / face / click lines";
   textarea.spellcheck = false;
   // Enter runs it, because a name is one word and reaching for a button to
   // finish typing one word is the wrong shape. Shift+Enter still breaks the
@@ -236,13 +237,31 @@ function setPanelOpen(open) {
 // a part that lives in a different file, and saying so beats a silent zero.
 const SHOWN_NAMES = 6;
 
+function materialBodies(query, available) {
+  if (query.replace(/[^\p{L}\p{N}]/gu, "").length < 2) return null;
+  const catalog = state.materialCatalog, file = state.mountedDetail?.file;
+  const parent = materialForFile(catalog, file);
+  if (!parent) return null;
+  const ids = new Set(searchMaterials(catalog, query).map((material) => material.id));
+  if (!ids.size) return null;
+  if (ids.has(parent.id)) return [...available];
+  const options = { finish: state.faucetFinish };
+  const names = explodeBom(catalog, parent.id, options).filter((row) => ids.has(row.material.id))
+    .flatMap((row) => occurrenceBodies(catalog, row.path, available, options));
+  for (const relation of parent.relations || []) if (ids.has(relation.material))
+    names.push(...[...available].filter((name) => relation.bodies?.some((body) => matchesBody(name, body))));
+  return [...new Set(names)];
+}
+
 function nameStatus(hits) {
   const out = [];
   const found = [...new Set(hits.flatMap((h) => h.names))];
   if (found.length) {
-    const head = found.slice(0, SHOWN_NAMES).join(", ");
-    const rest = found.length > SHOWN_NAMES ? ` +${found.length - SHOWN_NAMES}` : "";
-    out.push(`${found.length} part${found.length === 1 ? "" : "s"}: ${head}${rest}`);
+    const labels = [...new Set(found.map((name) => materialForComponent(state.materialCatalog,
+      state.mountedDetail?.file, name, { finish: state.faucetFinish })?.description || name))];
+    const head = labels.slice(0, SHOWN_NAMES).join(", ");
+    const rest = labels.length > SHOWN_NAMES ? ` +${labels.length - SHOWN_NAMES}` : "";
+    out.push(`${found.length} CAD bod${found.length === 1 ? "y" : "ies"}: ${head}${rest}`);
   }
   const missed = hits.filter((h) => !h.names.length).map((h) => h.query);
   if (missed.length) out.push(`nothing named ${missed.join(", ")}`);
@@ -257,6 +276,10 @@ async function runFind() {
     return;
   }
   const { picks, files, names } = parsePicks(textarea.value);
+  // Known material descriptions can include units, punctuation and more words
+  // than the compact CAD-key grammar used by pasted geometry reports.
+  for (const line of textarea.value.split("\n").map((line) => line.trim()).filter(Boolean))
+    if (searchMaterials(state.materialCatalog, line).length && !names.includes(line)) names.push(line);
   clearOverlay();
   if (!picks.length && !files.length && !names.length) {
     setStatus("nothing recognizable — type a part name, or paste pick text");
@@ -283,7 +306,11 @@ async function runFind() {
 
   // Names first — they're resolved against the meshes, which are already
   // built, while the picks may still be waiting on the edge reconstruction.
-  const nameHits = matchNames(names, scenePartNames());
+  const available = scenePartNames();
+  const nameHits = names.map((query) => {
+    const bodies = materialBodies(query, available);
+    return bodies ? { query, names: bodies } : matchNames([query], available)[0];
+  });
   if (nameHits.length) {
     for (const name of new Set(nameHits.flatMap((h) => h.names))) addPartHighlight(name, box);
     status.push(nameStatus(nameHits));
@@ -337,7 +364,7 @@ export function makePickFindToggle() {
     className: "pick-find-toggle",
     label: "Find",
     icon: "find",
-    title: "Type a part name, or paste pick text, to highlight it on the model",
+    title: "Type a material name, part number or CAD body, or paste pick text, to highlight it on the model",
     onClick: () => setPanelOpen(!panelOpen),
   });
   btn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
