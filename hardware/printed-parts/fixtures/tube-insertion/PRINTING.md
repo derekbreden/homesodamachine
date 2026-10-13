@@ -24,8 +24,10 @@ The jaw plate contains only the two replacement halves. The TPU pieces
 have a 2 mm model gap. The corresponding `.print.json` and `.readiness.json`
 files bind the meshes, settings, native material process and emitted trim.
 The [Mark1 jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
-records accepted task 1335878319 and preserves its exact slice. The Mark2
-jaw plate and TPU liner plate have no printer submission.
+records task 1335878319 with software completion at 63/63 layers. The
+[Mark1 insert launch](prints/2026-10-13-centered-liners-mark1/README.md)
+records accepted task 1336534713 and preserves its exact slice. The Mark2
+jaw plate has no printer submission. Printed fit and grip remain pending.
 
 | Plate | Estimated time | Estimated filament | Layers | Minimum full-bead margin |
 | --- | ---: | ---: | ---: | ---: |

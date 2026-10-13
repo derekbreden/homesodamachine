@@ -147,8 +147,11 @@ centred candidate is pending.
 
 The [Mark1 PET-GF jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
 preserves the exact two-jaw slice for task 1335878319, accepted on October
-13 at 10:08 am CDT. Its fresh startup status reports layer 0 of 63 without
-errors. Printed fit and grip results are pending.
+13 at 10:08 am CDT. Its [completion observation](prints/2026-10-13-centered-grip-mark1/completion.json)
+reports 63/63 layers without errors. The
+[matching TPU insert launch](prints/2026-10-13-centered-liners-mark1/README.md)
+records task 1336534713, accepted at 1:59 pm CDT with startup free of
+reported errors. Printed fit and grip results are pending.
 
 Physical grip, printed sliding fit, complete insertion, strength and
 lifetime remain unqualified. Factory clamp force does not rate the
