@@ -1,12 +1,16 @@
 {
   "schemaVersion": 2,
   "checkedAt": "2026-10-04",
-  "bomSha256": "658c985f57cb584fdb755515c9425f4f5d8f85969ab678335e2977f10baa4205",
+  "bomSha256": "2936125a05d0518fc77fbfc6626502fae1ec360ad47df42ec7d98f37aff668ab",
   "bomRowCount": 167,
-  "scope": "Additional spending from current inventory (filament through October 6, other stock as of October 4) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
+  "scope": "Additional spending from inventory as of October 13 (filament through the prints logged October 13) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
   "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
   "excludedBomLines": [
+    {
+      "line": 55,
+      "reason": "The printed ASSE drain sleeve draws on the TPU seal stock (BOM row note); its ~3.7 g of TPU 85A is inside the TPU stock item's per-machine allowance. No separate purchase."
+    },
     {
       "line": 258,
       "reason": "Reed columns are assembled from the separately purchased reeds and wires; no second purchase."
@@ -31,7 +35,7 @@
         "10": 1500,
         "20": 1500
       },
-      "note": "Live product variant catalog: singles, discounted bags and cut lengths compared. Most orders over $89 qualify for free shipping; $15 is reserved for exclusions until checkout."
+      "note": "Live product variant catalog (October 4; the 4 mm drain parts October 13): singles, discounted bags and cut lengths compared. Most orders over $89 qualify for free shipping; $15 is reserved for exclusions until checkout."
     },
     {
       "id": "bambu",
@@ -41,7 +45,7 @@
         "10": 0,
         "20": 0
       },
-      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. Ten Clear 32101 refills ordered October 5 are credited as incoming, so only the twenty-machine plan buys more. The $10 five-machine reserve covers an order below the free-shipping threshold and applies only if that plan buys from Bambu. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers all three batches. Freight applies only to a new order; existing printers/spools retained."
+      "note": "Exact Clear 32101 and Black 30105 refills listed in stock October 4. Replenishment uses current 2/4/6/10-roll tiers. The ten Clear 32101 refills ordered October 5 arrived October 8 and are in the clear balance. The $10 five-machine reserve covers an order below the free-shipping threshold and applies only if that plan buys from Bambu. ASA Aero White 46100 is listed and orderable October 13; two spools ordered October 8 are in transit. Freight applies only to a new order; existing printers/spools retained."
     },
     {
       "id": "jlc",
@@ -184,7 +188,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 336
+            "line": 343
           }
         ],
         "note": "Ten batch-2 assembled boards credited, including the reusable bench board, subject to normal acceptance. The ten batch-1 boards are excluded: the bench log records undrilled vias and explicitly rules out rework. See hardware/pcb/pcba/bench-log.md."
@@ -219,7 +223,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 434
+            "line": 441
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -254,15 +258,15 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 328
+            "line": 335
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 330
+            "line": 337
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 331
+            "line": 338
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -297,15 +301,15 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 329
+            "line": 336
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 332
+            "line": 339
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 333
+            "line": 340
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -340,11 +344,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 446
+            "line": 453
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 447
+            "line": 454
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1147,110 +1151,10 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 232
+            "line": 234
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
-    },
-    {
-      "id": "B07D9DK94V",
-      "name": "Sealproof 1/4\" ID \u00d7 3/8\" OD clear PVC, 10 ft",
-      "bomLines": [
-        54
-      ],
-      "perUnit": 1,
-      "unit": "ft",
-      "supplier": "amazon",
-      "priceBasis": "delivered",
-      "status": "unconfirmed",
-      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
-      "options": [
-        {
-          "quantity": 10,
-          "priceCents": 850,
-          "label": "10 ft roll",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B07D9DK94V",
-      "inventory": {
-        "onHand": 9.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 136
-          }
-        ],
-        "note": "Recorded purchase supplies 10 ft. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
-      }
-    },
-    {
-      "id": "B0B2W76MB1",
-      "name": "Shutao 6-pc water sensor module, LM393, 3.3\u20135 V",
-      "bomLines": [
-        55
-      ],
-      "perUnit": 1.0,
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 6,
-          "priceCents": 699,
-          "label": "6-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0B2W76MB1",
-      "inventory": {
-        "onHand": 6.0,
-        "incoming": 0,
-        "basis": "ledger_estimate",
-        "estimated": true,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 363
-          }
-        ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
-    },
-    {
-      "id": "B076Q7QVNM",
-      "name": "LOKMAN 304 SS worm-gear clamps, 10\u201316 mm (20-pk)",
-      "bomLines": [
-        56
-      ],
-      "perUnit": 1.0,
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 20,
-          "priceCents": 899,
-          "label": "20-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B076Q7QVNM",
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
       }
     },
     {
@@ -1432,7 +1336,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 220
+            "line": 222
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1675,7 +1579,7 @@
         66,
         195
       ],
-      "perUnit": 10.11,
+      "perUnit": 10.37,
       "unit": "ft",
       "supplier": "fws",
       "priceBasis": "merchandise",
@@ -1720,7 +1624,7 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing",
       "inventory": {
-        "onHand": 89.89,
+        "onHand": 89.63,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
@@ -1782,7 +1686,7 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 234
+            "line": 236
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1924,7 +1828,7 @@
       "supplier": "draftwarehouse",
       "priceBasis": "merchandise",
       "status": "listed",
-      "note": "Draft Warehouse listing (SKU CGR266) in stock October 5; one unit already ordered. Full-batch stock not reserved.",
+      "note": "Draft Warehouse listing (SKU CGR266) in stock October 5. Full-batch stock not reserved.",
       "options": [
         {
           "quantity": 1,
@@ -1935,8 +1839,8 @@
       ],
       "sourceUrl": "https://www.draftwarehouse.com/products/co2-primary-soda-regulator-cga320-in-1-4-flare-outlet-with-check-taprite",
       "inventory": {
-        "onHand": 0,
-        "incoming": 1,
+        "onHand": 1,
+        "incoming": 0,
         "basis": "counted",
         "estimated": false,
         "sources": [
@@ -1945,7 +1849,7 @@
             "line": 111
           }
         ],
-        "note": "Draft Warehouse order 244592, placed October 5; delivery pending."
+        "note": "Draft Warehouse order 244592, placed October 5 and delivered October 7."
       }
     },
     {
@@ -1970,17 +1874,17 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0CGFCJNMG",
       "inventory": {
-        "onHand": 0,
-        "incoming": 3,
-        "basis": "ledger_estimate",
-        "estimated": true,
+        "onHand": 3,
+        "incoming": 0,
+        "basis": "counted",
+        "estimated": false,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
             "line": 121
           }
         ],
-        "note": "Three WR1105 regulators already shipped, estimated arrival October 7. Confirmed October 4 charge of $91.56 is excluded from future spending; no second order for these three."
+        "note": "Three WR1105 regulators delivered October 7 (Amazon 112-6207769-5063458). The confirmed October 4 charge of $91.56 is excluded from future spending."
       }
     },
     {
@@ -2203,8 +2107,8 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf",
       "inventory": {
-        "onHand": 0,
-        "incoming": 30,
+        "onHand": 30,
+        "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
@@ -2213,7 +2117,7 @@
             "line": 124
           }
         ],
-        "note": "Thirty PI450822S already shipped October 1; delivery pending. Use them before ordering more. Payment evidence is incomplete; the full recorded $94.54 is reserved separately as a possible unpaid balance."
+        "note": "Thirty PI450822S delivered October 5 (FWS WEBFWS100708594). Usable remainder after development is not separately counted; the payment reserve below carries the order until a charge is confirmed."
       }
     },
     {
@@ -2245,7 +2149,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 261
+            "line": 268
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2280,7 +2184,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 263
+            "line": 270
           }
         ],
         "note": "Recorded purchase supplies 3 coil cuts. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2315,7 +2219,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 437
+            "line": 444
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2350,7 +2254,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 267
+            "line": 274
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2399,7 +2303,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 268
+            "line": 275
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2434,7 +2338,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 441
+            "line": 448
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2469,7 +2373,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 442
+            "line": 449
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2504,7 +2408,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 277
+            "line": 284
           }
         ],
         "note": "Recorded purchase supplies 12 charges. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2539,7 +2443,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 274
+            "line": 281
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2574,7 +2478,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 288
+            "line": 295
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2609,7 +2513,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 286
+            "line": 293
           }
         ],
         "note": "Recorded purchase supplies 3 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2644,7 +2548,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 287
+            "line": 294
           }
         ],
         "note": "Recorded purchase supplies 20 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2680,7 +2584,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 432
+            "line": 439
           }
         ],
         "note": "Recorded purchase supplies 25 ft. A provisional one-machine consumption reserve of 1.3 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2715,7 +2619,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 295
+            "line": 302
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2751,7 +2655,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 296
+            "line": 303
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2786,7 +2690,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 265
+            "line": 272
           }
         ],
         "note": "Recorded purchase supplies 7 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2821,7 +2725,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 291
+            "line": 298
           }
         ],
         "note": "Recorded purchase supplies 180 ft. A provisional one-machine consumption reserve of 15 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2856,7 +2760,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 292
+            "line": 299
           }
         ],
         "note": "Recorded purchase supplies 50 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2891,7 +2795,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 293
+            "line": 300
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2926,7 +2830,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 294
+            "line": 301
           }
         ],
         "note": "Recorded purchase supplies 50 pairs. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2955,16 +2859,20 @@
       "sourceUrl": "https://www.amazon.com/dp/B09MVPJXFJ",
       "inventory": {
         "onHand": 2.0,
-        "incoming": 0,
+        "incoming": 5,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
             "line": 191
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 192
           }
         ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+        "note": "Two acquired pumps plus five ordered October 11 (Amazon 114-5708094-2581869), charged $212.45 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
       }
     },
     {
@@ -2991,14 +2899,10 @@
       "sourceUrl": "https://www.amazon.com/dp/B07NWCQJK9",
       "inventory": {
         "onHand": 14.0,
-        "incoming": 0,
+        "incoming": 10,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 192
-          },
           {
             "path": "hardware/ledger/purchases.md",
             "line": 193
@@ -3014,9 +2918,17 @@
           {
             "path": "hardware/ledger/purchases.md",
             "line": 196
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 197
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 198
           }
         ],
-        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+        "note": "Fourteen acquired valves plus ten ordered October 11 (Amazon 114-5870152-3334654), charged $96.40 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
       }
     },
     {
@@ -3048,7 +2960,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 235
+            "line": 237
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3084,7 +2996,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 236
+            "line": 238
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3119,7 +3031,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 311
+            "line": 318
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3173,7 +3085,7 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 233
+            "line": 235
           }
         ],
         "note": "Forty elbows acquired: ten in FWS order WEBFWS100675224 and thirty in WEBFWS100684731. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3208,7 +3120,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 746
+            "line": 763
           }
         ],
         "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 273 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3243,7 +3155,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 747
+            "line": 764
           }
         ],
         "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3278,7 +3190,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 748
+            "line": 765
           }
         ],
         "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3313,7 +3225,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 749
+            "line": 766
           }
         ],
         "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3349,7 +3261,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 303
+            "line": 310
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3535,11 +3447,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 312
+            "line": 319
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 313
+            "line": 320
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3574,7 +3486,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 316
+            "line": 323
           }
         ],
         "note": "Recorded purchase supplies 12 ft. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3610,7 +3522,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 416
+            "line": 423
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3645,7 +3557,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 417
+            "line": 424
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2.2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3681,7 +3593,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 418
+            "line": 425
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.55 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3717,7 +3629,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 419
+            "line": 426
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3752,7 +3664,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 386
+            "line": 393
           }
         ],
         "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 10 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3764,7 +3676,7 @@
       "bomLines": [
         219
       ],
-      "perUnit": 22.0,
+      "perUnit": 24.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3780,17 +3692,17 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BC1VH4XB",
       "inventory": {
-        "onHand": 178.0,
+        "onHand": 176.0,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 423
+            "line": 430
           }
         ],
-        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 22 is deducted for development; the remaining stock is uncounted and marked *."
+        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 24 is deducted for development; the remaining stock is uncounted and marked *."
       }
     },
     {
@@ -3822,7 +3734,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 422
+            "line": 429
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3857,7 +3769,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 424
+            "line": 431
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3892,7 +3804,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 397
+            "line": 404
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3928,7 +3840,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 450
+            "line": 457
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3963,7 +3875,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 451
+            "line": 458
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3991,25 +3903,25 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0GCBNTBT8",
       "inventory": {
-        "onHand": 4,
-        "incoming": 6,
+        "onHand": 10,
+        "incoming": 0,
         "basis": "counted",
         "estimated": false,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 452
+            "line": 459
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 453
+            "line": 460
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 454
+            "line": 461
           }
         ],
-        "note": "Four pairs received. Six already ordered are delayed and unshipped as of October 4; no duplicate order. The received portion is already charged; the pending $43.74 is reserved separately."
+        "note": "Ten pairs received: four by October 4 and the six delayed pairs on October 9. All three charges are confirmed."
       }
     },
     {
@@ -4041,7 +3953,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 398
+            "line": 405
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4077,7 +3989,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 399
+            "line": 406
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4112,7 +4024,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 388
+            "line": 395
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4148,7 +4060,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 387
+            "line": 394
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4183,7 +4095,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 389
+            "line": 396
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4218,7 +4130,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 425
+            "line": 432
           }
         ],
         "note": "Recorded purchase supplies 250 ft. A provisional one-machine consumption reserve of 30 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4253,7 +4165,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 430
+            "line": 437
           }
         ],
         "note": "Recorded purchase supplies 100 ft. A provisional one-machine consumption reserve of 5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4307,7 +4219,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 359
+            "line": 366
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4342,7 +4254,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 368
+            "line": 375
           }
         ],
         "note": "Recorded purchase supplies 5 rods. A provisional one-machine consumption reserve of 2.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4377,7 +4289,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 354
+            "line": 361
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4412,7 +4324,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 483
+            "line": 492
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4447,11 +4359,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 481
+            "line": 490
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 482
+            "line": 491
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4486,7 +4398,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 492
+            "line": 501
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4514,17 +4426,17 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DFWTJSYD",
       "inventory": {
-        "onHand": 0,
-        "incoming": 200,
+        "onHand": 200,
+        "incoming": 0,
         "basis": "counted",
         "estimated": false,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 476
+            "line": 485
           }
         ],
-        "note": "One 200-piece pack already ordered; estimated October 7 arrival. No duplicate purchase. Possible remaining $8.57 payment reserved separately."
+        "note": "One 200-piece pack delivered October 6; its $8.57 charge is confirmed."
       }
     },
     {
@@ -4556,7 +4468,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 489
+            "line": 498
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4591,7 +4503,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 485
+            "line": 494
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4626,7 +4538,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 488
+            "line": 497
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4661,7 +4573,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 487
+            "line": 496
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4697,7 +4609,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 495
+            "line": 504
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4732,7 +4644,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 496
+            "line": 505
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4761,17 +4673,17 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DFYKBQ2S",
       "inventory": {
-        "onHand": 0,
-        "incoming": 50,
+        "onHand": 50,
+        "incoming": 0,
         "basis": "counted",
         "estimated": false,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 477
+            "line": 486
           }
         ],
-        "note": "One 50-piece pack already ordered; estimated October 7 arrival. A further pack is needed for twenty machines. Expected $8.78 payment reserved separately."
+        "note": "One 50-piece pack delivered October 7; its $8.78 charge is confirmed. A further pack is needed for twenty machines."
       }
     },
     {
@@ -4804,7 +4716,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 498
+            "line": 507
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4839,7 +4751,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 493
+            "line": 502
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4874,7 +4786,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 494
+            "line": 503
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4910,7 +4822,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 491
+            "line": 500
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4945,7 +4857,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 500
+            "line": 509
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4979,7 +4891,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 384
+            "line": 391
           }
         ],
         "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
@@ -5013,7 +4925,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 385
+            "line": 392
           }
         ],
         "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
@@ -5076,7 +4988,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 431
+            "line": 438
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5110,7 +5022,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 431
+            "line": 438
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5150,7 +5062,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 420
+            "line": 427
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5185,7 +5097,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 429
+            "line": 436
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5220,7 +5132,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 427
+            "line": 434
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5255,7 +5167,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 428
+            "line": 435
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5290,7 +5202,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 595
+            "line": 607
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5352,7 +5264,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 411
+            "line": 418
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5387,7 +5299,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 412
+            "line": 419
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5427,12 +5339,12 @@
         151,
         152
       ],
-      "perUnit": 6.01,
+      "perUnit": 6.02,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.01 kg/machine, rounded from the 6.0091 kg BOM split; the 15% process reserve is applied to that planning mass.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.02 kg/machine, rounded from the 6.0165 kg BOM split; the 15% process reserve is applied to that planning mass.",
       "options": [
         {
           "quantity": 3,
@@ -5450,12 +5362,17 @@
       "sourceUrl": "https://www.amazon.com/dp/B0FBWGTW9W",
       "materialAllowance": 0.15,
       "inventory": {
-        "onHand": 10.4,
+        "onHand": 14.3,
         "incoming": 0,
         "basis": "reported",
         "estimated": true,
-        "sources": [],
-        "note": "Approximately 10.4 kg: the October 4 report of about 12 kg less about 1.6 kg in the nine Black PET-GF15 prints logged through October 6 (1,455 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon). This current balance replaces purchase totals as the forecast credit."
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 575
+          }
+        ],
+        "note": "Approximately 14.3 kg: the October 4 report of about 12 kg, less about 1.6 kg in the prints logged through October 6 and about 5.1 kg in the 35 Black PET-GF15 jobs logged October 7\u201313 (4,590 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon; failed and stopped jobs at their upper bounds, jobs still printing in full), plus the three 3 kg spools delivered October 10. This current balance replaces purchase totals as the forecast credit."
       }
     },
     {
@@ -5492,12 +5409,12 @@
         151,
         152
       ],
-      "perUnit": 0.1363,
+      "perUnit": 0.1425,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5516,7 +5433,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 561
+            "line": 572
           }
         ],
         "note": "Remaining quantity is provisional: 0.8 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5556,12 +5473,12 @@
         151,
         152
       ],
-      "perUnit": 0.0068,
+      "perUnit": 0.006,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5580,7 +5497,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 560
+            "line": 571
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5620,12 +5537,12 @@
         151,
         152
       ],
-      "perUnit": 0.0068,
+      "perUnit": 0.006,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.171 kg PET-GF per machine; white faucet 0.122 kg, rings/collars split across their six stations (blue, white \u00d72, red, black \u00d72), nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5644,7 +5561,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 559
+            "line": 570
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5719,17 +5636,17 @@
       "sourceUrl": "https://us.store.bambulab.com/products/petg-translucent",
       "materialAllowance": 0.15,
       "inventory": {
-        "onHand": 3,
-        "incoming": 10,
+        "onHand": 12.3,
+        "incoming": 0,
         "basis": "reported",
         "estimated": true,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 653
+            "line": 668
           }
         ],
-        "note": "Approximately 3 kg: the October 4 report of about 4 kg less about 1 kg used or committed by the six clear-PETG prints logged through October 6, counting the two still printing in full. This current balance replaces purchase totals as the forecast credit. Ten 1 kg refills ordered October 5 (Bambu us783865986561351681) are incoming; delivery pending."
+        "note": "Approximately 12.3 kg: about 3 kg after the prints logged through October 6, less 0.65 kg in the funnel-mold core and the right reservoir and cap printed October 7, plus the ten 1 kg refills delivered October 8. This current balance replaces purchase totals as the forecast credit."
       }
     },
     {
@@ -5766,7 +5683,7 @@
         151,
         152
       ],
-      "perUnit": 0.155,
+      "perUnit": 0.136,
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
@@ -5806,7 +5723,7 @@
         "basis": "reported",
         "estimated": true,
         "sources": [],
-        "note": "Approximately 10 kg remaining, reported October 4, 2026; no print logged since uses it. This current balance replaces purchase totals as the forecast credit."
+        "note": "Approximately 10 kg remaining, reported October 4, 2026; no print logged through October 13 uses it. This current balance replaces purchase totals as the forecast credit."
       }
     },
     {
@@ -5819,62 +5736,163 @@
       "unit": "kg",
       "supplier": "bambu",
       "priceBasis": "merchandise",
-      "status": "unavailable",
-      "note": "OUT OF STOCK in manufacturer variant data. $49.99 is an estimate for replenishment. Three floats \u00d7 14.067 g feed per machine from the accepted v1 slice; v2 and production purge/yield unmeasured. No interchangeable foaming filament assumed.",
+      "status": "listed",
+      "note": "Bambu store lists White 46100 with spool at $49.99 and orderable on October 13. Three floats \u00d7 14.067 g feed per machine from the accepted v1 slice; v2 and production purge/yield unmeasured. No interchangeable foaming filament assumed.",
       "options": [
         {
           "quantity": 1,
           "priceCents": 4999,
           "label": "1 kg spool",
-          "available": false
+          "available": true
         }
       ],
       "sourceUrl": "https://us.store.bambulab.com/products/asa-aero",
       "materialAllowance": 0.15,
       "inventory": {
-        "onHand": 1,
-        "incoming": 0,
+        "onHand": 0.958,
+        "incoming": 2,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 634
+            "line": 649
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 669
           }
         ],
-        "note": "Remaining quantity is provisional: one of the two acquired 1 kg White 46100 spools credited; the other is reserved for development. This covers all three batches if at least 0.971 kg remains. No replacement is assumed."
+        "note": "Remaining quantity is provisional: one of the two 1 kg White 46100 spools acquired in April is credited, less the 42 g three-float print of October 8; the other remains reserved for development. Two more spools ordered October 8 are in transit."
       }
     },
     {
       "id": "tpu",
-      "name": "TPU 90A gasket stock",
+      "name": "Bambu TPU 90A / 85A seal and sleeve stock",
       "bomLines": [],
-      "perUnit": 0.01,
+      "perUnit": 0.0137,
       "unit": "kg",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Existing gasket material purchase $33.88; spool size and 10 g/machine consumption are provisional. Added because whole-spool startup cash is not in the BOM.",
+      "note": "BOM soft seals (TPU 90A gaskets, washers, rings and o-ring; the TPU 85A above-counter gasket) are per-unit-trivial and not costed in the BOM. 10 g per machine is provisional for those, plus about 3.7 g for the TPU 85A ASSE drain sleeve (solid CAD volume at 1.22 g/cm\u00b3; unprinted). Replenishment uses the September 16 Bambu TPU 90A 1 kg price.",
       "options": [
         {
           "quantity": 1,
-          "priceCents": 3388,
-          "label": "1 kg spool allowance",
+          "priceCents": 4199,
+          "label": "1 kg spool",
           "available": true
         }
       ],
       "inventory": {
-        "onHand": 0.5,
+        "onHand": 0.4,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 536
+            "line": 652
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 666
           }
         ],
-        "note": "Remaining quantity is provisional: 0.5 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
+        "note": "Remaining quantity is provisional: 0.5 kg credited across the acquired Bambu TPU 90A and 85A spools after a development-use reserve, less about 0.1 kg in the TPU jobs logged October 8\u201313. No current measured balance; estimate marked *."
+      }
+    },
+    {
+      "id": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
+      "name": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
+      "bomLines": [
+        54
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 13; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 278,
+          "label": "Single",
+          "available": true,
+          "sku": "ABU44M-E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2758,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "ABU44M-E:10PK"
+        },
+        {
+          "quantity": 300.0,
+          "priceCents": 75761,
+          "label": "Box of 300",
+          "available": true,
+          "sku": "ABU44M-E:300PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 156
+          }
+        ],
+        "note": "Bag of ten from FWS WEBFWS100711469, delivered October 9. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "neoFlo White 4 mm OD LLDPE tubing (LLDPE4M-WHITE)",
+      "name": "neoFlo White 4 mm OD LLDPE tubing (LLDPE4M-WHITE)",
+      "bomLines": [
+        56
+      ],
+      "perUnit": 1,
+      "unit": "8 ft drain cuts",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 13; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Each build takes an 8 ft allowance: the continuous 2000 mm faucet drain plus the internal return and trim. A 25 ft length yields three; 5 ft lengths cannot supply the continuous drain and are not used.",
+      "options": [
+        {
+          "quantity": 3,
+          "priceCents": 450,
+          "label": "25 Feet: three 8 ft cuts",
+          "available": true,
+          "sku": "LLDPE4M-WHITE:25FT"
+        },
+        {
+          "quantity": 82,
+          "priceCents": 6825,
+          "label": "656 Foot Roll: 82 cuts",
+          "available": true,
+          "sku": "LLDPE-4MM-200M-W"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 11,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 156
+          }
+        ],
+        "note": "Four 25 ft lengths (100 ft) from FWS WEBFWS100711469, delivered October 9, yield twelve cuts. A provisional one-machine reserve of 1 is deducted for the drain fit trials; remaining lengths are not measured."
       }
     }
   ],
@@ -5906,44 +5924,39 @@
     "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
     "The 5-, 10- and 20-machine alternatives use the same opening inventory; do not add the columns. Each includes the current integrated unit under development.",
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
-    "The possible-payment reserve covers only identified pending component orders whose remaining merchant charge is unresolved. The confirmed $91.56 WR1105 charge and $21.87 received-pogo charge are excluded. Release the reserve when payment is confirmed; do not pay the same order twice.",
-    "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 1 kg from 2 kg acquired; a lower actual balance could require unavailable replacement filament.",
+    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, all ten pogo pairs, the M1.4 inserts and screws, and the October PET-GF15 Black, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
+    "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 0.96 kg from the first 2 kg acquired, with two more spools in transit.",
     "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
     "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Donor interfaces remain qualification items with positive purchase allowances."
   ],
-  "inventoryAsOf": "2026-10-06",
-  "inventoryNote": "Black PET-GF15 about 10.4 kg, Clear PETG about 3 kg and Black PETG about 10 kg are the approximate balances reported October 4 less the prints logged through October 6, counting jobs still printing in full. Other credits reconcile acquired packs, same-part supplier swaps and recorded in-transit orders as of October 4. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
+  "inventoryAsOf": "2026-10-13",
+  "inventoryNote": "Black PET-GF15 about 14.3 kg, Clear PETG about 12.3 kg and Black PETG about 10 kg are the approximate balances reported October 4 less the prints logged through October 13, counting jobs still printing in full and failed jobs at their upper bounds, plus the filament delivered since. Other credits reconcile acquired packs, same-part supplier swaps, deliveries and recorded in-transit orders as of October 13. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
   "pendingPayments": [
     {
-      "name": "PI450822S shipment already ordered",
+      "name": "PI450822S order already delivered",
       "costCents": 9454,
-      "note": "Shipped; merchant payment confirmation is absent from reviewed evidence. Full recorded amount is a conservative possible-balance reserve."
+      "note": "FWS WEBFWS100708594, delivered October 5. Merchant payment confirmation is absent from reviewed evidence; the full recorded amount is a conservative possible-balance reserve."
     },
     {
-      "name": "Six delayed pogo contact pairs already ordered",
-      "costCents": 4374,
-      "note": "Unshipped portion; delivered pairs were charged separately. Payment timing remains unconfirmed."
-    },
-    {
-      "name": "M1.4 insert pack already ordered",
-      "costCents": 857,
-      "note": "Estimated delivered order amount; payment not confirmed."
-    },
-    {
-      "name": "M1.4 screw pack already ordered",
-      "costCents": 878,
-      "note": "Expected charge; confirmation absent."
-    },
-    {
-      "name": "Taprite 3741 regulator already ordered",
+      "name": "Taprite 3741 regulator already delivered",
       "costCents": 7563,
-      "note": "Draft Warehouse order 244592, October 5: $61.95 + $13.68 UPS Ground + $0.00 tax. Payment confirmation absent from reviewed evidence."
+      "note": "Draft Warehouse order 244592, October 5: $61.95 + $13.68 UPS Ground + $0.00 tax; delivered October 7. Payment confirmation absent from reviewed evidence."
     },
     {
-      "name": "Ten Clear PETG refills already ordered",
+      "name": "Ten Clear PETG refills already delivered",
       "costCents": 12005,
-      "note": "Bambu order us783865986561351681, October 5: ten 1 kg PETG Translucent Clear 32101 refills at the 10-roll tier ($111.93) + $8.12 tax, free shipping. Payment confirmation absent from reviewed evidence."
+      "note": "Bambu order us783865986561351681, October 5: ten 1 kg PETG Translucent Clear 32101 refills at the 10-roll tier ($111.93) + $8.12 tax, free shipping; delivered October 8. Payment confirmation absent from reviewed evidence."
+    },
+    {
+      "name": "Two ASA Aero White spools already ordered",
+      "costCents": 10723,
+      "note": "Bambu order us784775952755326977, October 8: two 1 kg White 46100 spools ($99.98) + $7.25 tax, free shipping; in transit. Payment confirmation absent from reviewed evidence."
+    },
+    {
+      "name": "FWS drain-line order already delivered",
+      "costCents": 10998,
+      "note": "FWS WEBFWS100711469, October 7: ABU44M-E bag, ARD4M4-E bag and 100 ft white 4 mm LLDPE, $57.47 + $45.07 shipping + $7.44 tax; delivered October 9. The ARD4M4-E reducers are not in the current BOM. Payment confirmation absent from reviewed evidence."
     }
   ]
 }

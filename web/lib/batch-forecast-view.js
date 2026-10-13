@@ -71,7 +71,7 @@ export function renderBatchForecast(forecast) {
   const tableRow = (label, key, className = "") => `<tr${className ? ` class="${className}"` : ""}><th scope="row">${escape(label)}</th>${cells(batch => batch[key])}</tr>`;
   const day = iso => new Date(iso + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
   const date = day(data.checkedAt);
-  const stockDate = data.inventoryAsOf === data.checkedAt ? `${date} inventory` : `${day(data.inventoryAsOf)} filament balances and ${date} parts inventory`;
+  const stockDate = `${day(data.inventoryAsOf)} inventory`;
   const onHand = id => count(data.items.find(item => item.id === id).inventory.onHand);
   const unavailable = first.rows.filter(row => row.status === "unavailable").map(row => {
     const rows = batches.map(batch => batch.rows.find(other => other.id === row.id));
@@ -94,7 +94,7 @@ export function renderBatchForecast(forecast) {
     <p class="forecast-result" role="status" aria-live="polite" hidden></p>
     ${batches.map(batch => renderPurchasePlan(batch, first.units)).join("")}
     <noscript><style>.forecast-groups[data-group-by="category"] .forecast-group[hidden], .forecast-part[hidden] { display: block !important; }</style></noscript>
-    <p class="cost-note forecast-footnote">${star} Estimated stock, pricing or supply. Prices and quantities checked ${date}; availability details are below.</p>
+    <p class="cost-note forecast-footnote">${star} Estimated stock, pricing or supply. Supplier prices checked ${date} unless an item notes a later check; availability details are below.</p>
     <details class="forecast-assumptions forecast-budget"><summary>Cash budget, delivery &amp; paid labor</summary>
       <p class="forecast-table-help">Scroll sideways to compare all three plans.</p>
       <div class="forecast-scroll" tabindex="0" role="region" aria-label="Batch expense comparison"><table class="forecast-comparison"><caption class="cost-sr-only">Batch expense forecast</caption><thead><tr><th scope="col">Expense</th>${batches.map(batch => `<th scope="col">${batch.units} machines</th>`).join("")}</tr></thead><tbody>
