@@ -110,7 +110,7 @@ ${root.documents.map(document => `  <a class="material-document" href="${documen
   </section>
   <section class="guide-section" id="controls" aria-labelledby="controls-title">
     <h2 class="cost-title" id="controls-title">Links and controls</h2>
-    ${example({ id: 'buttons', title: 'Actions, links and keyboard focus', usage: 'Use a link for navigation and a button for an action. The orange landing-page button gives a primary action emphasis; the compact material button supports it. Try Tab to see their production focus indicators. These buttons focus and clear the search below.', markup: buttonsMarkup, sources: [['web/lib/landing.js', '.signup-btn'], ['web/public/css/materials.css', '.material-actions and .material-link']] })}
+    ${example({ id: 'buttons', title: 'Actions, links and keyboard focus', usage: 'Use a link for navigation and a button for an action. The orange button gives a primary action emphasis; the compact material button supports it. Try Tab to see their production focus indicators. These buttons focus and clear the search below.', markup: buttonsMarkup, sources: [['web/lib/landing.js', '.signup-btn'], ['web/public/css/materials.css', '.material-actions and .material-link']] })}
     ${example({ id: 'search', title: 'Material search', usage: 'Give the field a visible label and supporting status. Results put the description first and the identity second. This working sample filters three catalog records; its result links open the real materials.', markup: searchMarkup, sources: [['web/public/css/materials.css', '.material-search'], ['web/public/js/viewer/material-search.js', 'Production search behavior']] })}
   </section>
   <section class="guide-section" id="data" aria-labelledby="data-title">
