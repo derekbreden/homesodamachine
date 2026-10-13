@@ -65,7 +65,7 @@ foot. Its full-width foot starts at X96.5, behind the donor. The forward
 the carrier; locating keys assist assembly. The 7 mm high coupling seats
 have radius 10 mm, giving 4.9 mm radial stock around the Ø10.2 countersink
 and 4.65 mm minimum retained shelf thickness. The lower-jaw square nuts
-have 9 mm of floor; the countersunk screw tips have 1.8 mm of relief.
+have 7.6 mm of floor; the countersunk screw tips have 1.8 mm of relief.
 The coupling must remain tightened without slip for the guide-only yaw
 calculation to apply.
 

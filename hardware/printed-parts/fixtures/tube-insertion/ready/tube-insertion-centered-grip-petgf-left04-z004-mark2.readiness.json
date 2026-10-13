@@ -2,13 +2,13 @@
   "status": "offline slice reviewed; no physical print or force qualification",
   "printer_submission": false,
   "project": "tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
-  "project_sha256": "a36c195f200dac5e1ff83459e426974950fd8b188a91cdce657acb4f2b79aa18",
+  "project_sha256": "691ec0605c917211eef76704ce2aad50a9788befe89b21d83ebbffa2782ce60e",
   "archive": "tube-insertion-centered-grip-petgf-left04-z004-mark2.gcode.3mf",
-  "archive_sha256": "540ba25b8e395e1620e775645d17cf1fd777e35ceeb62f7528f24741eb0ad5d3",
-  "gcode_sha256": "1626843c1cfb4ad82fcd380e3d386b001efb4d89007847b8c946c758948c0d05",
+  "archive_sha256": "ea1b97f79b26f48590dbc9e515e7b93b159de1371acbed5d3327ff3dad85e72e",
+  "gcode_sha256": "56c7f82e3eef1d276b028e45be37485c0104713e00932d2a54d46a833b17e953",
   "source_stls": {
-    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "e4d69315c0cc75d2637d39279662165f74e88c8ba1293d7503aea00ee47d7d0c",
-    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "6bc0ec2ac30efd79f77d5b1abe48db011aa8d4f8e83dfd6459e95dbc9885cd10"
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "96e40fac7292d83a9e6f160001ee27ae2f8b478ab293807894a43a7dad76042b",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "887a01c451d410f633eaf0e101dfc9e8e4b30a62d0cc658f88e2f2db753c0618"
   },
   "printer": "Mark2",
   "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
@@ -35,26 +35,26 @@
   "bead_envelope": {
     "extrusion_bounds_xy_mm": [
       [
-        115.29744799999999,
-        100.252448
+        115.3,
+        100.25500000000001
       ],
       [
-        209.702552,
-        219.747552
+        209.7,
+        219.745
       ]
     ],
-    "maximum_line_width_mm": 0.625104,
-    "bounds_padding_mm": 0.41255200000000003
+    "maximum_line_width_mm": 0.62,
+    "bounds_padding_mm": 0.41000000000000003
   },
   "bead_margin_mm": [
-    115.29744799999999,
-    100.252448,
-    115.297448,
-    100.25244799999999
+    115.3,
+    100.25500000000001,
+    115.30000000000001,
+    100.255
   ],
   "layers": 63,
-  "estimated_seconds": 9204.9599609375,
-  "estimated_filament_g": 126.70439910888672,
+  "estimated_seconds": 9180.7373046875,
+  "estimated_filament_g": 126.67079162597656,
   "slicer_warning": "",
   "native_process": {
     "layer_height": 0.23999999463558197,

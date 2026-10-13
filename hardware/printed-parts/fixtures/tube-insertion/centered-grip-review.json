@@ -1,6 +1,6 @@
 {
   "customer_outcome": "Grip the LLDPE tube with centred axial closure loading before the rigid jaw faces bottom out.",
-  "source_sha256": "03447f050a8aa1d32a5cbe97172e84f74c6139702b85d11215a91b14d7df427f",
+  "source_sha256": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
   "liner_axial_range_mm": [
     8.0,
     36.0
@@ -31,5 +31,7 @@
     "cap-support-puck"
   ],
   "physical_failure_record": "prints/2026-10-12-liners-d775-mark1/grip-failure.json",
-  "status": "Prepared geometry candidate; no grip acceptance or load rating."
+  "status": "Prepared geometry candidate; no grip acceptance or load rating.",
+  "carrier_nut_pocket_roof_mm": 3.2,
+  "carrier_nut_pocket_floor_mm": 7.6
 }
