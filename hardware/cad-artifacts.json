@@ -15,13 +15,7 @@
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
-    "paths": [
-      "marketing/lincoln/working-materials.md",
-      "web/README.md",
-      "web/lib/landing.js",
-      "web/public/css/landing.css",
-      "web/public/landing/kitchen-overview.svg"
-    ],
+    "paths": [],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -2622,7 +2616,7 @@
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down.step": "d0e569759ee87e0704c219349f866735769395c3d83df7133d691dfce2f2d451",
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down.step.mesh": "709f575c621ae19c8c74116025283a855e715ba7a97bffdba9d846b20ccf132f",
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-mark1/cylindrical-body-pad-print.stl": "068172e31934ae209e1cf03f32005023d9b10a1a9c908e88a13afd8301c66b53",
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "5715ca08421d67c3f95612291033407fb20dc39db504e960792765a565eaef87"
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "40343d4ab7cba7c3ccc47aef96571881c22bb637760f73d246a8d15b80645214"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c0b3fee0aabe719722d3a90a3ada4467bd75088940713b8abfa7e2d32bb74ee0",
@@ -2804,7 +2798,7 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": 1789519123,
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": 1791068517,
     "hardware/printed-parts/collet-press/collet-press.step": 1791257167,
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": 1791911434,
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": 1791922338,
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": 1791085747,
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": 1791085747,
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step": 1790713276,
