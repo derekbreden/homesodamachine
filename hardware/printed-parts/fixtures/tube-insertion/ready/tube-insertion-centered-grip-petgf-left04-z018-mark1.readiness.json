@@ -1,0 +1,91 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "00fd619741e5cc7854d3e7e570172e71d4f05998cbf06d4e9271e47bdd395a15",
+  "archive": "tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "771bf00b3d3643193106201e9f28d7f75793dba3672cb15640e1c2d962a4fa31",
+  "gcode_sha256": "a669296a2f10fc1cc448aec09127854619bf0ae83dfef7270e045d190b07002c",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "96e40fac7292d83a9e6f160001ee27ae2f8b478ab293807894a43a7dad76042b",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "887a01c451d410f633eaf0e101dfc9e8e4b30a62d0cc658f88e2f2db753c0618"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Support",
+    "Support interface",
+    "Top surface"
+  ],
+  "support_generated": true,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        115.3,
+        100.25500000000001
+      ],
+      [
+        209.7,
+        219.745
+      ]
+    ],
+    "maximum_line_width_mm": 0.62,
+    "bounds_padding_mm": 0.41000000000000003
+  },
+  "bead_margin_mm": [
+    115.3,
+    100.25500000000001,
+    115.30000000000001,
+    100.255
+  ],
+  "layers": 63,
+  "estimated_seconds": 9180.7373046875,
+  "estimated_filament_g": 126.67079162597656,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  },
+  "native_material_process": {
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_settings_id": [
+      "Polymaker PET-GF @BBL H2C"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "6",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default"
+  },
+  "reference_slice": {
+    "project": "tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
+    "archive_sha256": "ea1b97f79b26f48590dbc9e515e7b93b159de1371acbed5d3327ff3dad85e72e",
+    "comparison": "All executable G-code lines match the reviewed Mark2 slice after excluding the printer-specific G29.1 Z trim commands; source STL hashes and native material/process settings match except spool colour."
+  }
+}

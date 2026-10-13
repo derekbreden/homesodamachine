@@ -1,0 +1,17 @@
+{
+  "other_printer": "Mark2",
+  "other_task": "1334704608",
+  "other_acceptance_observed_at_utc": "2026-10-13T05:08:21.992810+00:00",
+  "pre_send_checked_at_utc": "2026-10-13T15:08:10.031558+00:00",
+  "pre_send_elapsed_seconds": 35988.038748,
+  "required_minimum_seconds": 180,
+  "other_state": {
+    "job_id": "1334704608",
+    "gcode_state": "FINISH",
+    "subtask_name": "faucet-a2-corner-defaults-mark2.gcode.3mf",
+    "layer_num": 1244,
+    "total_layer_num": 1244,
+    "print_error": 0,
+    "hms": []
+  }
+}

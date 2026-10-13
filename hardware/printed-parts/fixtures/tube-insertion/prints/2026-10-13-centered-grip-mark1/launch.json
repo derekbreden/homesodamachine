@@ -1,0 +1,50 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T15:08:40.122092+00:00",
+  "archive": {
+    "name": "tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+    "sha256": "771bf00b3d3643193106201e9f28d7f75793dba3672cb15640e1c2d962a4fa31",
+    "gcode_sha256": "a669296a2f10fc1cc448aec09127854619bf0ae83dfef7270e045d190b07002c",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "D centered lower jaw",
+      "E centered upper jaw"
+    ]
+  },
+  "printer_task_id": "1335878319",
+  "gcode_state": "RUNNING",
+  "subtask_name": "tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 144,
+  "total_layer_num": 63,
+  "mc_remaining_time": 0,
+  "display_printer": "Mark1",
+  "design_commit": "b67ed572f",
+  "requested_user_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "bed_clear_authorization": "Mark1 is available for PET-GF right now, please print your new plus handle there.",
+  "external_spool_id": 254,
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_task": "1334704608",
+    "other_acceptance_observed_at_utc": "2026-10-13T05:08:21.992810+00:00",
+    "required_minimum_seconds": 180,
+    "this_acceptance_observed_at_utc": "2026-10-13T15:08:40.122092+00:00",
+    "observed_separation_seconds": 36018.129282
+  },
+  "project": "tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
+  "readiness": "tube-insertion-centered-grip-petgf-left04-z018-mark1.readiness.json"
+}

@@ -52,6 +52,29 @@
       "filament_colour": "#161616"
     },
     {
+      "id": "centered-grip-mark1",
+      "project": "tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
+      "title": "Centered plus grip - PET-GF - Mark1",
+      "printer": "Mark1 (H2C)",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.18,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+      "parts": [
+        {
+          "name": "D centered lower jaw",
+          "source": "tube-insertion-lower-jaw-print.stl",
+          "offset_mm": [-25, 0]
+        },
+        {
+          "name": "E centered upper jaw",
+          "source": "tube-insertion-upper-jaw-print.stl",
+          "offset_mm": [25, 0]
+        }
+      ],
+      "filament_colour": "#000000"
+    },
+    {
       "id": "centered-liners-mark1",
       "project": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf",
       "title": "Centered grip liners - 1 mm proud backing - TPU 85A - Mark1",
