@@ -8,7 +8,7 @@
     "core": [
       211.0000000000001,
       163.68301584656257,
-      42.352046644008766
+      42.35204664400405
     ],
     "funnel": [
       179.0000002,
@@ -23,8 +23,8 @@
   },
   "volume_ml": {
     "cavity": 792.2316315355904,
-    "core": 593.8436960684887,
-    "funnel": 219.3800457634789,
+    "core": 593.8436950139899,
+    "funnel": 219.38004576347902,
     "rod": 0.7068583470577035
   },
   "shell_thickness_mm": 5.0,
@@ -38,7 +38,7 @@
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.63555771996963,
+      "retained_volume_ml": 242.63555919590505,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -86,7 +86,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "cc0bbe4b7f346e12bb2329ef78e12b7e89d75b953a20bdaceb1e8cd1f9350b2b",
+  "finished_funnel_step_sha256": "f4e2e4d3f73590d103d67ad688a0f8f5f3a6668b26f55ccc5314533550d7e163",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -282,8 +282,8 @@
     "cavity.step": "9630245e7494e50031f3f12a9de84a68b2216fbebece6aed4777de22bfe00b53",
     "cavity.stl": "68b5dc90e63919f0d78e71ccd9d1fa68c75b19e854fc43ffabef6f74e94dd8a9",
     "cavity.step.mesh": "167efdece0f1aec8a40beeba604ac5f2cd083385f77345ab22ff0f5af463c520",
-    "core.step": "7fbc9099db0b50d6cf1f0fac4db4285cdbb6afae1a2637b69076ce9ec6eb9115",
-    "core.stl": "76745546b39c24c39d6d9c2f8f789f65755584a77947b4a6f6f193499e49dd1f",
-    "core.step.mesh": "f5576ea96362c9f3f05eae7d4c359ed6913d0996f5aa1d57e97e80d32d070aea"
+    "core.step": "5b08aed583b81ec2738105a1fb08ab18dcb881c8ab2131e464dda5c19b3d6455",
+    "core.stl": "63a839ef37c38957a6a771719b8bcd57b1fb86ef46f1eead3f5a5352e8b70922",
+    "core.step.mesh": "191a81fbeed1ed52284885cd1f26111ceed42a095193b434ad458bf11a54b43e"
   }
 }

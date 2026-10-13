@@ -21,7 +21,7 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "ea3f53bee855e3752bc3f9e5473ba0a51055f1daf4c62acf3b312c17d8b223f1",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "467ee7b216d4ebc14b37fa46eba8410961ef323696ef1c427e9d68c021616a94",
     "hardware/printed-parts/faucet/_display_snap.py": "60838fcc586c22594d1a8e5eb4ee3de24d1633668ccf4b137007b6d895629223",
-    "hardware/faucet-layout/faucet_assembly.py": "d72826fdace594638fcb20efaef62756682ad5416806e361012515609da2f1c5",
+    "hardware/faucet-layout/faucet_assembly.py": "79925ca3d9e59127784d40563bc61404c4ed5ada22a7fe2ec20a5ed0cacd1e4d",
     "hardware/printed-parts/faucet/refresh_print_project.py": "284cca3745b578aee0de9ae57d83aae638af263b586df004a62456bb65eb27c9",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "4652b1b24a2546c1e8938eb364103abe499fc2c878ca25149880fa726f7e77dc",
     "hardware/printed-parts/faucet/_faucet_interface.py": "4c70a7fa69be411583953525c31008de150a3fc6f6f35ac7304ee161c23310ca",
