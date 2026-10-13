@@ -27,5 +27,11 @@
     "sha256": "532a3b2b2d591ebbce654be2cdd36ea3bcfbf7286df83952b74370c8b1532c91",
     "scope": "View of the current CAD; not a photograph measuring the physical pressure distribution."
   },
-  "scope": "Physical grip failure and reported uneven compression. CAD establishes the axial screw offset; it does not establish the pressure distribution or that centering alone resolves grip."
+  "scope": "Physical grip failure and reported uneven compression. CAD establishes the axial screw offset; it does not establish the pressure distribution or that centering alone resolves grip.",
+  "resolution": {
+    "status": "addressed for functional tube insertion with the centred plus handle and proud TPU inserts",
+    "observed_date": "2026-10-13",
+    "evidence": "../../physical-acceptance.json",
+    "scope": "The combined geometry and insert revision works in the reported operation. The individual effects of centering and added backing, and the physical X-axis pressure distribution, were not measured separately."
+  }
 }

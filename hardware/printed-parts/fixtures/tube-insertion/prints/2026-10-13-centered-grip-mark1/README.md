@@ -4,7 +4,10 @@ Mark1 accepted both PET-GF jaw halves on October 13 at 10:08 am CDT.
 Derek authorized the launch with “Mark1 is available for PET-GF right now,
 please print your new plus handle there.” The printer's
 [completion observation](completion.json) reports FINISH at 63/63 layers
-with no printer error or HMS fault. Printed fit and grip results are pending.
+with no printer error or HMS fault. The
+[physical acceptance](../../physical-acceptance.json) records successful
+insertion: the handle alone starts the tube well, and the full tool makes
+the final press very easy.
 
 D and E use the reviewed centred plus geometry from source commit
 `b67ed572f`. Their closure screws, liner length and crossbar share X22.

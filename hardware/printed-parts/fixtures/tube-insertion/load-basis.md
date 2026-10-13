@@ -7,6 +7,13 @@ establish the order and difficult sliding on the tube. They establish no
 numerical insertion force. The customer's outcome is controlled coaxial
 insertion without a broken tool, a scrunched sleeve or a damaged tube.
 
+The [physical acceptance record](physical-acceptance.json) documents successful
+insertion with the centred plus handle and proud TPU inserts on October 13,
+2026. Derek reports that the handle alone works well for starting insertion,
+the full tool makes the final press very easy, and the operation is far
+easier than before. This establishes functional use for the identified
+prints; no numerical insertion force or structural load rating is assigned.
+
 Two complete [BESSEY GSCC2.506 clamps](https://www.amazon.com/dp/B000FA0BL8)
 supply the actuation and long reaction loops. Each uses its factory spindle,
 steel rail and cast-iron jaws. The
@@ -150,5 +157,6 @@ warning against using them as design specifications. These unannealed
 prints have no established production allowable. The analytical values
 above receive no safety factor or load rating from those coupon numbers.
 Saved native slicing establishes the prepared process; B-rep review
-establishes the stated geometry. Neither supplies physical grip, insertion
-force, printed strength or lifetime qualification.
+establishes the stated geometry. The separate physical acceptance records
+functional grip and successful insertion. Insertion force, grip force,
+printed strength and lifetime remain unmeasured.

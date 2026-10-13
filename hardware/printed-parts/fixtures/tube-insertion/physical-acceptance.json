@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "part": "tube-insertion-tool with centred plus handle and proud TPU inserts",
+  "status": "accepted for successful functional tube insertion",
+  "authority": "Derek's direct physical observation",
+  "observed_date": "2026-10-13",
+  "observation": "The tool works very well. Successful insertion, far easier than before. Handle alone works well for starting it, and the full tool makes the final press very easy. Please document the success.",
+  "accepted_results": [
+    "Successful tube insertion using the tool.",
+    "Insertion is far easier than before, as a qualitative comparison reported by Derek.",
+    "The plus handle alone works well for starting insertion.",
+    "The full tool makes the final press very easy."
+  ],
+  "engineering_interpretation": "The assembled grip and fixture provide usable functional grip and pressing for the reported insertion. This is physical operation evidence for the identified printed configuration.",
+  "identification_basis": "The report follows the Mark1 launches of the centred PET-GF plus-handle jaws and their new TPU inserts in this conversation; the existing base and carrier were retained.",
+  "printed_configuration": {
+    "nominal_workpiece": "3/8-inch LLDPE tube with TPU sealing thimble into the Touch-Flo donor",
+    "jaws": {
+      "parts": [
+        "D lower plus-handle jaw",
+        "E upper plus-handle jaw"
+      ],
+      "printer": "Mark1",
+      "printer_task_id": "1335878319",
+      "launch_record": "prints/2026-10-13-centered-grip-mark1/launch.json",
+      "archive": "prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+      "archive_sha256": "771bf00b3d3643193106201e9f28d7f75793dba3672cb15640e1c2d962a4fa31",
+      "gcode_sha256": "a669296a2f10fc1cc448aec09127854619bf0ae83dfef7270e045d190b07002c",
+      "readiness_record": "prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.readiness.json",
+      "source_stls": {
+        "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "96e40fac7292d83a9e6f160001ee27ae2f8b478ab293807894a43a7dad76042b",
+        "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "887a01c451d410f633eaf0e101dfc9e8e4b30a62d0cc658f88e2f2db753c0618"
+      },
+      "requested_user_z_trim_mm": 0.18,
+      "emitted_textured_pei_trim_mm": 0.16
+    },
+    "inserts": {
+      "parts": [
+        "F lower TPU insert",
+        "F upper TPU insert"
+      ],
+      "printer": "Mark1",
+      "printer_task_id": "1336534713",
+      "launch_record": "prints/2026-10-13-centered-liners-mark1/launch.json",
+      "archive": "prints/2026-10-13-centered-liners-mark1/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+      "archive_sha256": "ffe10e87b662474e0eaffa9318b1a66b43de85f1f2ccd1827e0e8945bdb30524",
+      "gcode_sha256": "713bf1faef7098e5655da8bf4b3871818079c6d49d7d17e10a9e549675228c22",
+      "readiness_record": "prints/2026-10-13-centered-liners-mark1/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.readiness.json",
+      "source_stls": {
+        "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "1825f948b9ae9c9a1a2de113e69f48050af9b58f524899bc1da8aa5702415647"
+      },
+      "requested_user_z_trim_mm": 0.18,
+      "emitted_textured_pei_trim_mm": 0.16
+    },
+    "reused_base": {
+      "part": "A base",
+      "printer": "Mark1",
+      "printer_task_id": "1331280889",
+      "launch_record": "prints/2026-10-11-base-mark1/launch.json",
+      "archive": "ready/tube-insertion-rigid-base-h2c.gcode.3mf",
+      "archive_sha256": "ad78f326b9974573faa9ed91e055ea17da71c2fc009f2f199a06fee21b7fcdd4",
+      "printed_stl": "tube-insertion-base-print.stl",
+      "printed_stl_sha256": "56cb2992d1cb4cb99e2392daae3de425ebd8c67c0a0fd35b0328aba3b5488991"
+    },
+    "reused_carrier": {
+      "part": "B guided carrier",
+      "printer": "Mark1",
+      "printer_task_id": "1332859109",
+      "launch_record": "prints/2026-10-12-rigid-parts-mark1/launch.json",
+      "archive": "prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
+      "archive_sha256": "b6f2ef86c281651892aa2fa24c36805a27997e6aa2d4d67c6916984bed7b458a",
+      "printed_stl": "tube-insertion-carrier-print.stl",
+      "printed_stl_sha256": "774508d21a6a5c2bd4bf011a3580208d02cc9507df3b1582be7ebe3efc3eb060"
+    },
+    "nominal_grip_geometry": {
+      "closure_screws_liners_crossbar_center_x_mm": 22.0,
+      "liner_flat_back_addition_each_mm": 1.0,
+      "liner_thickness_mm": 9.0,
+      "liner_projection_each_mm": 1.0,
+      "paired_added_closure_reserve_mm": 2.0,
+      "half_groove_diameter_mm": 7.75
+    },
+    "cad_source": "tube_insertion.py",
+    "cad_source_sha256": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
+    "geometry_review": "centered-grip-review.json"
+  },
+  "addressed_issue": {
+    "record": "prints/2026-10-12-liners-d775-mark1/grip-failure.json",
+    "status": "addressed for functional tube insertion by the identified centred plus handle and proud inserts",
+    "scope": "The combined geometry and insert revision works in the reported operation. The individual effects of centering and added backing, and the physical X-axis pressure distribution, were not measured separately."
+  },
+  "evidence_limits": [
+    "Effort comparison is qualitative; insertion force, grip force, screw torque and elapsed insertion time were not measured.",
+    "The number of insertion repetitions, structural load capacity and endurance were not reported.",
+    "No pressure or leak-test result was reported.",
+    "The donor hold-down cover, cap-support puck and support-removal effort were not assessed separately in this report."
+  ]
+}
