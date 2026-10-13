@@ -401,7 +401,7 @@ library in a standalone helper does not provide print-start authorization
 ([Bambu authorization controls](https://blog.bambulab.com/firmware-update-introducing-new-authorization-control-system-2/)).
 The printer ignores MQTT `stop` from an unsigned client. On 2026-10-12 Mark2 also ignored
 `clean_print_error` from one; each of those two commands raised HMS attr 83887360, code
-65543, and changed nothing. Derek stopped the job and cleared its error himself.
+65543, and changed nothing. A send needs no cleared error: `FAILED` takes the next job.
 
 The `.gcode.3mf` carries the sliced machine G-code, including the printer's
 [Z trim](#z-trim). The
