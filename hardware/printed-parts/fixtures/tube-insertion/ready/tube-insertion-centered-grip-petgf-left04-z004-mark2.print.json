@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl",
-      "stl_sha256": "e4d69315c0cc75d2637d39279662165f74e88c8ba1293d7503aea00ee47d7d0c",
-      "triangles": 4612,
+      "stl_sha256": "96e40fac7292d83a9e6f160001ee27ae2f8b478ab293807894a43a7dad76042b",
+      "triangles": 4580,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         22.0,
@@ -120,8 +120,8 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl",
-      "stl_sha256": "6bc0ec2ac30efd79f77d5b1abe48db011aa8d4f8e83dfd6459e95dbc9885cd10",
-      "triangles": 2004,
+      "stl_sha256": "887a01c451d410f633eaf0e101dfc9e8e4b30a62d0cc658f88e2f2db753c0618",
+      "triangles": 1972,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         22.0,
@@ -169,7 +169,7 @@
       "embedded_vertex_error_mm": 4.999982650133461e-10
     }
   ],
-  "project_sha256": "a36c195f200dac5e1ff83459e426974950fd8b188a91cdce657acb4f2b79aa18",
+  "project_sha256": "691ec0605c917211eef76704ce2aad50a9788befe89b21d83ebbffa2782ce60e",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,

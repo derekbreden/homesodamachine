@@ -131,7 +131,8 @@ M5_NUT_H = 4.2
 COUPLING_BOLT_X = 31.0
 COUPLING_BOLT_Y = 40.0
 COUPLING_TOE_R = 10.0
-COUPLING_NUT_Z0 = -6.0
+COUPLING_NUT_ROOF_H = 3.2
+COUPLING_NUT_Z0 = -COUPLING_NUT_ROOF_H - M5_NUT_H
 COUPLING_KEY_X0, COUPLING_KEY_X1 = 26.0, 34.0
 COUPLING_KEY_Y = 12.0
 COUPLING_KEY_W = 6.0
@@ -313,12 +314,6 @@ def build_lower_jaw(with_coupling=True):
             jaw = jaw.cut(block(COUPLING_BOLT_X - M5_NUT_WIDTH / 2,
                                  COUPLING_BOLT_X + M5_NUT_WIDTH / 2,
                                  ya, yb, COUPLING_NUT_Z0, COUPLING_NUT_Z0 + M5_NUT_H))
-    # The marks lie outside the Ø30 rear bearing disks; both halves present
-    # one contiguous flat plane across their seam within each disk.
-    for side in (-1, 1):
-        y = side * (SCREW_OFFSET_Y + FACTORY_PAD_ENVELOPE_D / 2 + 1.5)
-        jaw = jaw.cut(block(JAW_HANDLE_END_X - 0.3, JAW_HANDLE_END_X + 1,
-                             y - 0.4, y + 0.4, -3, 0.1))
     return jaw
 
 
