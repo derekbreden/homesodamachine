@@ -54,7 +54,9 @@ compensation is `G29.1 Z0.16` after the reset to zero.
 The native slice has 138 layers, no generated supports, at least 133.4 mm
 full-bead bed-edge clearance and no slicer warning. Estimated use is
 12.8 g and 1 hour 36 minutes. These files are prepared offline; no pad
-print has been submitted.
+print result is established by the slice. The [Mark1 launch record](prints/2026-10-12-mark1/launch.json)
+identifies task 1334447551 accepted on October 12 at 9:20 pm CDT. The pad's
+physical fit and hand-pressure result are pending.
 
 ## Fit and use
 
