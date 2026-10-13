@@ -3032,7 +3032,8 @@
     "writes": [
       "hardware/printed-parts/diaphragm-pump-sleeve/README.figures.json",
       "hardware/printed-parts/diaphragm-pump-sleeve/README.md",
-      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step"
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh"
     ]
   },
   "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": {
