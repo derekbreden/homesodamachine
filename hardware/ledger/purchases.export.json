@@ -1659,6 +1659,28 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-10-13",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
+      "evidence_type": "merchant_payments",
+      "examined_period": {
+        "end": "2026-10-13",
+        "start": "2026-10-05"
+      },
+      "note": "Signed-in Bambu US store: order details for the two named October orders and an empty Unpaid tab. Earlier Bambu orders were listed but not reviewed for payment; no claim of complete account coverage.",
+      "order_ids": [
+        "bambu:us783865986561351681",
+        "bambu:us784775952755326977"
+      ],
+      "source_ids": [
+        "src-3bee25f04ac04511b9b79200683fab02",
+        "src-8f254298770d47ef917186489f593f32"
+      ],
+      "stream": "merchant account order pages",
+      "vendor": "Bambu Lab"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -5324,9 +5346,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 12005,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
       "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
       "event_type": "charge",
       "order_ids": [
@@ -5336,11 +5361,12 @@
         "pur-27bb6c07598243e390e2ca407e908695"
       ],
       "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
+        "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-8f254298770d47ef917186489f593f32"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Bambu Lab",
-      "verified_at": "2026-10-05"
+      "verified_at": "2026-10-13"
     },
     {
       "allocation_ids": [
@@ -5348,9 +5374,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 10723,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
       "event_id": "evt-d3b134e34785419c80b032d8ae15d6d1",
       "event_type": "charge",
       "order_ids": [
@@ -5360,6 +5389,7 @@
         "pur-25f35741f88e40729bec555987f79640"
       ],
       "source_ids": [
+        "src-3bee25f04ac04511b9b79200683fab02",
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
       ],
       "unallocated_to_purchase_minor": 0,
@@ -6325,26 +6355,6 @@
       ]
     },
     {
-      "event_ids": [
-        "evt-d3b134e34785419c80b032d8ae15d6d1"
-      ],
-      "gap_id": "gap-3a79a763497f4ccca670aa04fa98a501",
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation or shipment notice; the USD 107.23 charge remains expected.",
-      "order_ids": [
-        "bambu:us784775952755326977"
-      ],
-      "purchase_ids": [
-        "pur-25f35741f88e40729bec555987f79640"
-      ],
-      "source_ids": [
-        "src-2f1601429d6545338d5a5eaaada1ba89",
-        "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
-      ],
-      "sources_checked": [
-        "Bambu Lab order confirmation and shipment notice us784775952755326977"
-      ]
-    },
-    {
       "gap_id": "gap-404bcade77c84fc880a7330c6f6ebfc9",
       "missing_fact": "Order confirmation for the matching part says 38.99 item + 9.99 shipping + 3.54 tax = 52.52; current ledger says 61.49. No final invoice retrieved. Preserve conflict rather than choosing an amount silently.",
       "order_ids": [
@@ -6403,25 +6413,6 @@
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100708929",
         "Fresh Water Systems account order page WEBFWS100708929 (link expired)"
-      ]
-    },
-    {
-      "event_ids": [
-        "evt-d1da698db2c940a09ec686643f142b0d"
-      ],
-      "gap_id": "gap-b1f53214b3d74f37ac28c35ac094f60e",
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 120.05 charge remains expected.",
-      "order_ids": [
-        "bambu:us783865986561351681"
-      ],
-      "purchase_ids": [
-        "pur-27bb6c07598243e390e2ca407e908695"
-      ],
-      "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
-      ],
-      "sources_checked": [
-        "Bambu Lab order confirmation us783865986561351681"
       ]
     },
     {
@@ -6542,7 +6533,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:95e5c3941f5b6e8e410d238419c3085c53a61575f5861aa3fe758189f6717acf",
+  "input_fingerprint": "sha256:ad242adb1dca8b7f2dbe00cbd8f9eb721e66efdf419b68efdb1222a48544b74a",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -14237,6 +14228,7 @@
       "reference": "us783865986561351681",
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-8f254298770d47ef917186489f593f32",
         "src-c973b756b58544d39e305b70f10fc72f"
       ],
       "vendor": "Bambu Lab"
@@ -14257,6 +14249,7 @@
       "reference": "us784775952755326977",
       "source_ids": [
         "src-2f1601429d6545338d5a5eaaada1ba89",
+        "src-3bee25f04ac04511b9b79200683fab02",
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
       ],
       "vendor": "Bambu Lab"
@@ -19382,7 +19375,7 @@
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-25f35741f88e40729bec555987f79640",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 10723,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -19391,7 +19384,7 @@
       "order_ids": [
         "bambu:us784775952755326977"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-25f35741f88e40729bec555987f79640",
       "purpose": "consumables_materials",
@@ -19408,6 +19401,7 @@
       "service_period": null,
       "source_ids": [
         "src-2f1601429d6545338d5a5eaaada1ba89",
+        "src-3bee25f04ac04511b9b79200683fab02",
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
       ],
       "split_charge": false,
@@ -19623,7 +19617,7 @@
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 12005,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -19632,7 +19626,7 @@
       "order_ids": [
         "bambu:us783865986561351681"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
       "purpose": "consumables_materials",
@@ -19649,6 +19643,7 @@
       "service_period": null,
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-8f254298770d47ef917186489f593f32",
         "src-c973b756b58544d39e305b70f10fc72f"
       ],
       "split_charge": false,
@@ -54238,6 +54233,26 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-13"
+      },
+      "document_type": "merchant_order_page",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "note": "Signed-in Bambu US store order page: Net Payment USD 107.23; progress Order Confirmed Oct 8 2026 12:11, Processing Oct 8 14:11, Shipped Oct 9 18:52, not yet delivered. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "us784775952755326977",
+      "source_id": "src-3bee25f04ac04511b9b79200683fab02",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-07-28"
       },
       "document_type": "merchant_monetary_receipt",
@@ -55583,6 +55598,27 @@
       "source_id": "src-8e5ad95786dc43d8866006ad4f59c60d",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "document_type": "merchant_order_page",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "note": "Signed-in Bambu US store order page: Net Payment USD 120.05; progress Order Confirmed Oct 5 2026 23:55, Processing Oct 6 01:55, Shipped Oct 6 18:46, Delivered Oct 8 15:47. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "reference": "us783865986561351681",
+      "source_id": "src-8f254298770d47ef917186489f593f32",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-10-13"
     },
     {
       "document_date": {
@@ -58307,8 +58343,6 @@
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-d1da698db2c940a09ec686643f142b0d",
-        "evt-d3b134e34785419c80b032d8ae15d6d1",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
       ],
       "monthly": [
@@ -58531,7 +58565,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 120592,
+          "charges_minor": 143320,
           "currency": "USD",
           "event_ids": [
             "evt-07fc9a2979134192b3cc752f32f2b460",
@@ -58548,6 +58582,8 @@
             "evt-a581db47af7146ef95a329e497e4fbe6",
             "evt-bad47324ad83426992a3db494d58e295",
             "evt-c0203246ff88423a9af71d1977ede6c4",
+            "evt-d1da698db2c940a09ec686643f142b0d",
+            "evt-d3b134e34785419c80b032d8ae15d6d1",
             "evt-db226e9820d147058384c3bfe695bab8",
             "evt-e1c554d60bb24823b9f662d1d7a5147d",
             "evt-e5f1a5d1860941fe82124df7e77e67fe",
@@ -58557,7 +58593,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-10",
-          "net_minor": 120592,
+          "net_minor": 143320,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -58593,9 +58629,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 820034,
+          "charges_minor": 842762,
           "currency": "USD",
-          "net_minor": 820034,
+          "net_minor": 842762,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -58616,9 +58652,7 @@
             "evt-69d186cf3c4c436788b6706105b50532",
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
-            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-            "evt-d1da698db2c940a09ec686643f142b0d",
-            "evt-d3b134e34785419c80b032d8ae15d6d1"
+            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
           ],
           "net_minor": 57998,
           "noncash_credits_minor": 0,
@@ -59521,11 +59555,9 @@
         "gap-27cbc75a60d0482493e9ec246cda4795",
         "gap-2e0c753bea0943db858dcaadb275439f",
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
-        "gap-3a79a763497f4ccca670aa04fa98a501",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
         "gap-8703c8fb55124412b9d51de641020ca7",
         "gap-9738d616dea64eaabb2b35df6ba49073",
-        "gap-b1f53214b3d74f37ac28c35ac094f60e",
         "gap-b513fdee8791439ca43d36cdba1179f2",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
@@ -59540,7 +59572,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3852624,
+          "purchases_without_merchant_charge_minor": 3829896,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -59604,6 +59636,7 @@
         "coverage-683c80d033e445e5a06780abc6fd7762",
         "coverage-6ae0fe39a22446b5af11066bec38e300",
         "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
+        "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
         "coverage-78a9ed2f481043abade203167e2c5d18",
         "coverage-7f9a057786a54dddb3e660fd3d934198",
         "coverage-81ab195b3a1745e79ed28e5764633055",
@@ -60250,11 +60283,9 @@
         "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-256b2c67900b47178deeae21da804833",
-        "pur-25f35741f88e40729bec555987f79640",
         "pur-2652d8ca1192405996c3cbee93805c40",
         "pur-26a055757240455891e7ea95c995df3e",
         "pur-278cde3de6144b749c07b867ca90ec3d",
-        "pur-27bb6c07598243e390e2ca407e908695",
         "pur-282830cd6af447a48756484207c3d6b2",
         "pur-2833c10788ff489fbcdfebb7972b7522",
         "pur-2850d5f759ee4578bc347281154850c5",
@@ -60742,9 +60773,7 @@
         "evt-69d186cf3c4c436788b6706105b50532",
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
-        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
-        "evt-d1da698db2c940a09ec686643f142b0d",
-        "evt-d3b134e34785419c80b032d8ae15d6d1"
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
       "undated_unallocated_purchase_ids": [
         "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -60872,7 +60901,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "15 authored evidence gap(s) remain",
+      "13 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -60901,6 +60930,7 @@
       "coverage-683c80d033e445e5a06780abc6fd7762: evidence coverage is unknown",
       "coverage-6ae0fe39a22446b5af11066bec38e300: evidence coverage is unknown",
       "coverage-6e94055bf3074d6eb35fed6a91a4a83a: evidence coverage is partial",
+      "coverage-6ef6cf03f4f84bfbb645acce4d20418b: evidence coverage is partial",
       "coverage-78a9ed2f481043abade203167e2c5d18: evidence coverage is unknown",
       "coverage-7f9a057786a54dddb3e660fd3d934198: evidence coverage is unknown",
       "coverage-81ab195b3a1745e79ed28e5764633055: evidence coverage is unknown",
