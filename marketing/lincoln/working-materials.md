@@ -4,6 +4,40 @@ Drafts and blank records for the [local plan](README.md). The offer, installatio
 scope, price and budget are unresolved. These are preparation materials; they do not
 represent a published offer or requests already sent to vendors.
 
+## Home page audience brief
+
+The immediate audience scenario for `homesodamachine.com/` is **Michaela, the Nebraska
+Builders Home & Garden Show organizer**, opening the site after a brief exhibitor
+inquiry. She may be trying to understand the proposed exhibit and whether it belongs
+at the show. Design for someone who has heard little beyond "soda machine," does not
+know Derek well, and has none of the context supplied by earlier conversations or
+demonstrations. A formal website review by the organizer is not established.
+
+The page should answer these questions in order:
+
+1. **What is it?** Equipment goes under the kitchen sink; a dedicated faucet sits
+   above it; the user pours cold, carbonated soda into a glass. Make that physical
+   arrangement understandable from the opening text and visual without requiring a
+   video to play or a tour of the engineering documents.
+2. **What exists, and what is still being developed?** Show evidence of the working
+   prototype and identify the integrated appliance's actual stage. A functional
+   demonstration using the project's own carbonator is the possible February scope;
+   sales readiness and a release date remain separate decisions.
+3. **Who is making it?** Introduce Derek as the builder in Lincoln. Real project
+   evidence and the supplier section can substantiate how the machine is being made
+   after the visitor understands the product.
+4. **How can I follow its availability?** Present the notification signup after the
+   explanation. Keep the existing promise to notify subscribers when they can buy one.
+
+The organizer scenario supplies a concrete first-impression test for the public home
+page. Other visitors arriving through a brief introduction or referral should get the
+same clear account of the appliance, maker and development stage. Details of the
+proposed booth belong in the exhibitor inquiry. The [November 1 decision](README.md#february-2027-home--garden-show)
+leaves sales, a prototype demonstration and no February exhibit open.
+
+This brief concerns the public home page. The local inquiry page below serves a
+prospective household considering a demonstration, purchase or installation in Lincoln.
+
 ## Local inquiry page brief
 
 Proposed destination: `homesodamachine.com/lincoln`. This route is **not implemented**.

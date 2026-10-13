@@ -105,11 +105,14 @@ a concrete purpose and keep the exhibit workable for the people actually staffin
 A larger footprint can accommodate the demonstration while the presentation clearly
 identifies Derek as the local builder and the machine's actual development stage.
 
-The website's first job is to explain the appliance to an unfamiliar visitor: equipment
-under the sink, a dedicated faucet above it, and cold soda poured into a glass. Show
-working-prototype evidence and identify what remains under development. The availability
-signup follows that explanation. The proposed exhibit and its readiness belong in the
-organizer inquiry; neither the website nor the booth needs to imply an imminent sale.
+The immediate website audience is **Michaela, the home-show organizer**, who might visit
+after an exhibitor inquiry to understand what is being proposed. Assume she knows little
+beyond "soda machine," has no close personal connection to Derek, and has not followed
+the project. She needs to picture the kitchen appliance, understand its actual stage,
+and assess its relevance to the show. The [home page audience brief](working-materials.md#home-page-audience-brief)
+uses that concrete reader to guide a page that also works for other newcomers.
+The proposed exhibit and its readiness belong in the organizer inquiry; neither the
+website nor the booth needs to imply an imminent sale.
 
 For a demonstration, useful outcomes include questions about kitchen fit, flavors,
 maintenance and price; local households who want a later conversation; and introductions
