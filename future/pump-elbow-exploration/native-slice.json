@@ -1,0 +1,32 @@
+{
+  "scope": "Offline native Bambu slice; no printer launch; no seal qualification",
+  "slicer": "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "bed_shift_mm": -3.2869043369999993,
+  "template_sha256": "56d108b34ad04287361876a8af40cfe06de20e777ac08dccd40ec439330cd4ed",
+  "project_sha256": "3e4cbb240b2514f20837c752fd984a62cf10da6a13759c99a84a12adb428de28",
+  "gcode_sha256": "2bba88798fb6ec60f3f10f61f55780f77e72b72d629344576614faa57f44c484",
+  "nozzle_mm": 0.6,
+  "layer_mm": 0.12,
+  "first_layer_mm": 0.2,
+  "support_enabled": false,
+  "wall_loops": 6,
+  "native_full_bead_bounds_xy_mm": [
+    142.74538567540606,
+    149.412,
+    212.27499600000002,
+    170.588
+  ],
+  "bed_edge_margin_lower_bound_mm": 112.72500399999998,
+  "native_feature_counts": {
+    "Custom": 2,
+    "Brim": 1,
+    "Inner wall": 756,
+    "Outer wall": 757,
+    "Internal solid infill": 28,
+    "Sparse infill": 16,
+    "Floating vertical shell": 2,
+    "Top surface": 2
+  },
+  "estimated_print_minutes": 83.683,
+  "filament_g": 7.9
+}

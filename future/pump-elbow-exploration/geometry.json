@@ -1,0 +1,44 @@
+{
+  "suction-elbow": {
+    "closed_stl": true,
+    "consistent_winding": true,
+    "minimum_downward_surface_angle_deg": 44.99277810113316,
+    "volume_mm3": 3049.8379058647783,
+    "bounds_mm": [
+      [
+        -15.75650691986084,
+        -7.300000190734863,
+        -1.2686059600322572e-17
+      ],
+      [
+        15.75650691986084,
+        7.300000190734863,
+        21.416284561157227
+      ]
+    ],
+    "tube_insertion_mm": 12,
+    "barb_insertion_mm": 11,
+    "stl_sha256": "06235d64e2b52a3b8ad4fbe81d64115050309f37eaa3d45826b89a76ca21c463"
+  },
+  "discharge-elbow": {
+    "closed_stl": true,
+    "consistent_winding": true,
+    "minimum_downward_surface_angle_deg": 44.99134134622669,
+    "volume_mm3": 3284.68127118691,
+    "bounds_mm": [
+      [
+        -16.817167282104492,
+        -7.300000190734863,
+        1.778633875720707e-15
+      ],
+      [
+        16.817167282104492,
+        7.300000190734863,
+        22.218050003051758
+      ]
+    ],
+    "tube_insertion_mm": 15,
+    "barb_insertion_mm": 11,
+    "stl_sha256": "ec3293d79797f4fdaaf9dc34dd70611629003e0fee103c777de7d4231caedb30"
+  }
+}

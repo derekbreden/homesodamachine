@@ -1,0 +1,1047 @@
+{
+  "status": "Unprinted prototype",
+  "scope": "Nominal native occupancy, routed ends and R14 bends; closed clamp bands",
+  "baseline_world_sha256": "7e7643619b564085d27df5928fcc0d354262efecf6135af67050394cd7b8b9ec",
+  "baseline_source_sha256": {
+    "hardware/assembly/_acceptance_and_burn_in_sync.py": "6387891c7cfe29fac72cc6db75f6a6c7a29fbbf80c72d9e0ea7f093877792955",
+    "hardware/assembly/_asse_drain_sync.py": "55566a325abc22258b2801f849c8c67a1daad3d3c360254d3705874d8260e9da",
+    "hardware/assembly/_cable_assemblies_sync.py": "29087b67b3c5370c9585bbbd57cbfbe8f3fad3672d5acb74229fd31f482222a4",
+    "hardware/assembly/_cold_core_sync.py": "5bc9621ef68561de425ca803ae75c8093e2482ec13fc727aca6f2b9a45137693",
+    "hardware/assembly/_electronics_bay_sync.py": "4c8f6547243a2d202e10b75f3f3cdd6baa8b706ba38409f4e948ab8f5de1aa75",
+    "hardware/assembly/_enclosure_mechanical_sync.py": "bac67772c15fa3b0e641955a1abaae570353003f4aafb7f445c62a2514d8a01a",
+    "hardware/assembly/_faucet_and_umbilical_sync.py": "5919cf7d827a816cdeadf069a4f68508cd37606f0839cf06770680a65985c22a",
+    "hardware/assembly/_finish_pack_ship_sync.py": "f553861d54ece7945de298a4c58ae43560e34f11ea3723bf39fec1259c2ee352",
+    "hardware/assembly/_firmware_and_commissioning_sync.py": "aec65d663bdc4e5ac00eb38ae314a3bf88319af6992016f8f165b6fc974ad02f",
+    "hardware/assembly/_handwork_sync.py": "037c8ccd6f3fa768e22fd2adfbced60e4d9c4a522d036f42973a2160ae5aaffe",
+    "hardware/assembly/_internal_plumbing_sync.py": "cf3bc291c837f6ec9bae7b0ab85676c1444ca2c90659778f8f88c6b862fbbf12",
+    "hardware/assembly/_pressure_vessel_sync.py": "9651246c9497c9cef34425172d8a4a52b5004e567f88e729dc324152d9964654",
+    "hardware/assembly/_refrigerant_loop_sync.py": "08c542b89ad899b73a628e9f761e2e43566cc12ab9e1fe8a27c378e7e3f270e6",
+    "hardware/assembly/_water_inlet_jet_sync.py": "ca80a35316ccebea7f24c532fe232062607aa5b917c53e0a9a9b8da3d69319ce",
+    "hardware/assembly/_weld_rotation_rig_sync.py": "fb2b4988fbce2cecf01e7f9753d3d525be7028480baa716dcccd461ba46f5f84",
+    "hardware/assembly/_wiring_sync.py": "516b5cdab7742dbef6c87c0b7aaf49eb2ff64ca5747cdf742f06d2fc9e16d86d",
+    "hardware/assembly/scenes/_local_service.py": "41c2e3099fb9ddb92d457684dc0ed79fe0cc66f8f27101f7a6224d5ff543d338",
+    "hardware/assembly/scenes/_scenes.py": "66e794c78d21005586b0df47b536ad2b741c2644fa510b07ee60ade98d123582",
+    "hardware/assembly/scenes/render_scenes.py": "4cb4d71947c9e564e747d63122750a9f12cd1db0194b8ae5942288e637d908e2",
+    "hardware/cold-core-layout/_bom.py": "5420cc50373a15501bdb1d31dfdce8907e47debab72d6ed063708509813c9877",
+    "hardware/cold-core-layout/_carbonator.py": "597528039b8d71856a93151a9124d4c2b430c4b92df6479bb6ddc10aeabbefb5",
+    "hardware/cold-core-layout/_coil.py": "398143e159f82e033f9ee22c7e2b8c064ae9f1b4d527ba1d11c6a11bec92a471",
+    "hardware/cold-core-layout/_cold_core_style.py": "d3bfbfe9a51ac16417786fb1a62857c3697fe9da9f04e253d565da101396ad2d",
+    "hardware/cold-core-layout/_cold_scorecard.py": "33ea758429d20a51d714f3bfe4a6392764049974b18edc7be481281d750656ec",
+    "hardware/cold-core-layout/_fittings.py": "3f93ec1fb4be185744c72b0ef844f2403cc37674231a91cb9d1c7b3e0c773d0d",
+    "hardware/cold-core-layout/_internals.py": "2f88745d32ea9607b44a4a63e3b12b21099e355984e33f676035bbb723c21157",
+    "hardware/cold-core-layout/_water_inlet_jet.py": "10178e16d8764e1d0753b8199031e796ccbe9cef0bc163983d98825e15bf2cd5",
+    "hardware/cold-core-layout/cold_core_assembly.py": "4eaf41925cf46c0322750da1212cf8e433ef4493c17815acab0f0ff2f5b42181",
+    "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py": "04e243cc63736243b3dbbb02a8b80e8d6a83c971ff7e38f31bc42201c37ca223",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py": "a9d1e6abf52a1037aa34e63e2092c4a7ec65dfe06ea02e703ebca9e9dfdd52a3",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py": "4100025cf0e0da234e29e45ed5ef539613175a778b578ea3417fdaa7e696b9b9",
+    "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "6bf1410e83c47411e930a301fad40412326fa1f4c6b76bbc007cbba5fc4af59c",
+    "hardware/faucet-layout/faucet_assembly.py": "7b41880a83106aa6074215ac7b4bde8272a36f3bd69b26e46911b9b0811dd338",
+    "hardware/faucet-layout/faucet_industrial_assembly.py": "94dc32253ff87320d843dee4a5d7c12be4c46f9d01d5d70000132e9f344345b9",
+    "hardware/install-guide/_cad_art.py": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+    "hardware/install-guide/_install_art.py": "f677597ab54734dc2fe6abcbd35494c18af3ff4655f857eff3a57c8de7af5186",
+    "hardware/install-guide/installation_art.py": "71be504e73366c860435052000ac47aa8cf935453a7f1882de5318a7a454e120",
+    "hardware/install-guide/out/scene-2-review/study.py": "955f9dac07cb4cd1bc51a9c3f6540623bd4d8936c23480237c1dac7fd99e84c0",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": "ed45d4b349bae03c5d12adfa811f4b5606ceef2d74987d7db8b4db43b75cf0fa",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": "d6698b2fd5c4ebf00d5e1cf31371f25922bac8a659f2b1e0afd17e484afd711c",
+    "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
+    "hardware/manifold-layout/_gas_chain.py": "d650ec1d0166b1a3878153d5ad062df36c504af51d1cd7e90805f8bc8bfa9617",
+    "hardware/manifold-layout/_lines.py": "87e89188eb77e425049ee9513a29cfec8e3967c24f81712b080d0be5be9e7f81",
+    "hardware/manifold-layout/_scorecard.py": "61d85788c13532eefe42dd9af7b3b33c2ec1cb67a99aff0f933d1acdc897a50f",
+    "hardware/manifold-layout/enclosure_assembly.py": "4178df5f1e800cebd024c396c4065e314aab6c77f73adc28ba6849cd405c8030",
+    "hardware/manifold-layout/enclosure_box.py": "37aede7f7a726bef5bf03b72dc273ac9dcade2b279a7d673e6a4bddaf32e3f1d",
+    "hardware/manifold-layout/manifold_layout.py": "fc1a1e92e175840797f7fac5a6c558a4c6b26d989b522181d4aa92ce1c780c58",
+    "hardware/markings/build.py": "aceca8b0dd8ed54cf9297794739374e4ca96fecbf05791a374b62e0e38fed2c7",
+    "hardware/pcb/pcba/board-3d.py": "247d610304ecad8acecdcbd9cc16d8b54d20d424d68d26e9e27a7de2dc175338",
+    "hardware/pcb/pcba/part-orientation-audit.py": "771ff32875e25c60263b9c71f473c667813a1ad786ca632a6e73e858674e9d50",
+    "hardware/pcb/pcba/plot-region.py": "f1a35dcfcdc194ce86327dc2098537955726ed10143e952e626cf44644c8235a",
+    "hardware/pcb/pcba/silk-audit.py": "6d33326616b5b3767ebe9fd06d5572d0b75035c4e1cbdb8f0818a38ada2f8bfd",
+    "hardware/pcb/pcba/topreach.py": "2127bafd71a52655b48b54478e013cc949c0aed569718e6e41a4adefc91ff250",
+    "hardware/pcb/pcba/trace-check.py": "3e1107bfd90648eaa99efa87fd8266337f6575c228ddf6d8a7bed71df7a49e1f",
+    "hardware/print-tests/petgf-interface-edges/prepare.py": "4eb018d66c7bd04dc94f4b4dfb5b493682c7d656df66f6ecbfea5fe83170d8e6",
+    "hardware/print-tests/petgf-interface-patterns/prepare.py": "ad14fc90c1d1fa3378a409b3211dbf37ed8ab642e921af7c72136ca7308ec605",
+    "hardware/print-tests/petgf-support-interface/prepare.py": "b616613af3d8a93f74b730f5a277bda3c84013d53a61d1f74226fd0e52f9cb6d",
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "6e3e624ca10c1f81d2e487d27a16facc8cfb12ea4567dbac6bd8788148eddded",
+    "hardware/printed-parts/cadlib/cable_clip.py": "6aee5eb9a73a9c9c41c1637d3330580300018376115aa5c6c7371419db8fef85",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/cadlib/plan.py": "a30028cb3f7154a072d58e4cdb87816360ecf41ddf7da77219f945976c63ba23",
+    "hardware/printed-parts/cadlib/port_chip.py": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7",
+    "hardware/printed-parts/cadlib/print_mesh.py": "aeebebd41360dd1fa605d7908e944ce3800d0b7be1fcc45cc05d5604fafebcfa",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "72d103bbd972ebfd4c8b3c8b83fe575a654e27ec2e8fac31d67962f8c2791d40",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "c02df4abc6349785e9a041afda349892800b05fc7314b6633607cc6831fbcbd5",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py": "aeabbb8f437393d6946421a8e1735d72d1ad44d3b06ea747c78cc3b36a549ae6",
+    "hardware/printed-parts/calibration/soda-studies/native_reading.py": "c1003b252ea9571cb78836d00420fc4233845ee578ae8e3b0b32f7462bf56dcb",
+    "hardware/printed-parts/calibration/soda-studies/package_kit.py": "22eaf84495f679ba38c0f4e01a8db9ecc39a663614dd9c6211d107fe309d8771",
+    "hardware/printed-parts/calibration/soda-studies/pip.py": "cce026b680f4cc8f75982fccb18e0e91eba1cd71dcf031418ecc9aff509784d6",
+    "hardware/printed-parts/calibration/soda-studies/prepare_prints.py": "70b5c74c66f08e5d03960561941888f25bc026c4c1080511ee2927ad0906fc37",
+    "hardware/printed-parts/calibration/soda-studies/prepare_reference.py": "b2b60ea75e10ab3f62f07542e19d090ac6c0cdfdd0fad25171d1368f80810d78",
+    "hardware/printed-parts/calibration/soda-studies/reference.py": "8fb7d84d01e311d3dc2a7b5c31897b6b9eb4504bf49ca0970f85259dbcefe16d",
+    "hardware/printed-parts/calibration/soda-studies/viewer_payload.py": "89fd6b6e74aa4c460a5d9da7ef67935bb04f14dc8247a9013cc3b25411910c6a",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "1c4895612e8d674e9e2ddc176b4ebb023cd3df40442a92e627036387efa80512",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "ebec8ddaed127e39cecd25f0dccc12dbe063e6bcd484d9619391a589fe96bdbf",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "a0d9e0957cd0884aee86d94bd293e7d97879e8b8a45dd24c2f2770a57f649ae4",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "902e234ce80ccc395532e5f7910a4d3c068c1fb0ddfe1c913a1357e97a33399c",
+    "hardware/printed-parts/cold-core/_port_cuts.py": "8d451512b80df2af309d3c01911ee9a18cad90135b4f74e0a55b2c5d50f99d30",
+    "hardware/printed-parts/cold-core/_reed_channels.py": "9248a47c7eaac98e914697caabc9720b00a3cf4c643d5c2c63ff29bfe10a0e62",
+    "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py": "a44c15132bba8d4816f89160b11e92124f07915489b31ed5e61ec8e3e2d65a90",
+    "hardware/printed-parts/cold-core/_reservoir_supports.py": "801c3d811848789530d209c113d2cfd6cd10de1cfa3a826fcb2baac8ce504520",
+    "hardware/printed-parts/cold-core/_show_skin.py": "788a9ffc756cb1d08d09b2a3cc09d13f37859361435f9a94ea5f3509d02576bd",
+    "hardware/printed-parts/cold-core/_support_ring.py": "4d382e80be2cd6ee4b88a9c77171d97f56b251e8747ed1ffbffdc14712b9ee64",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py": "ad63830ad6b80fc2fc8761cc3c90ce3fe4d6ea3d09c052c8f22da9c6576186e6",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "8c0ad703024dfb364f469322bf8cfc76ac52c5f77fe06ccf0884700d8889d2bd",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "8f2cf55934d1899a866bf68164bd4b43ae1fb5bda7457dc472e612ac922304be",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7cd8e9fbfb249622b084f870977ea328d9f2e7ff847e13d768d03286551b92d7",
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py": "9d452418fd69d80201b122697b6cc5a6c77570870c14757d0f5b1007afe8b5d6",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py": "d2dbb40fbe78e990a86605ab64edc5ef6fcfc57777c57358a565f57e54ab189b",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/prepare.py": "97d947ca4e4499eb4ba8f71398531f342fa6e9d130a741b6e4e4c7f6051056da",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/review.py": "5993e470859e8b3230f44e4f8180fc73fd79a591a6b9df291fa26f763bb84e21",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/all_aero_float.py": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/source-snapshot/all_aero_float.py": "aa60072961ce7dc4962d48e99cdc51434f14fb254bd26c8e626f31cb927cf4d0",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/source-snapshot/prepare_print.py": "eb84256c4116c20da51be847a71fc4a132c7561e899272a21db9eec212a8523a",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.py": "2b2d08d643ea5c80d457ac78c038c8cfc8bf459390587fd28e6b8c7752f27da7",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": "7d427f044916de750ba9e3cf93ca5b0445bac988d3dc555900f47af1342c4355",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v1/prepare.py": "aa38e57fdda2fc66f15fcfa8dd9c926cd7fece7973e993abaa8874e0118edadc",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v2/prepare.py": "f4700dc1ecb4ced4c32ef8c0c08289a8b77840a387a14572ab4e12f63327da23",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/prepare.py": "f4c7730044174ec91aff0b50667833227e3af61d422c230015ab08b7061a2c75",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v4/prepare.py": "9522cff505d202cc882da07438df9795ac140d37d4cd5bbb1e320f961952bc99",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/prepare.py": "45e234b14c15a10a4d8284a4a5f484ea97c7521c5225f6c8908a76f50a45432d",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v7/prepare.py": "dc6397f5ab6f99cb90bda44389e01f50a3a31564d1743d0e68a58b8743a75047",
+    "hardware/printed-parts/cold-core/magnetic-float/prepare_print.py": "b42d0cedae4090451937a22642e01aa62be4352f9960136f140b47c376b9db39",
+    "hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py": "c529ac3215ecd15f3130cf96d215c35b0488110e7a41dc5d5c6fe71eb37e839d",
+    "hardware/printed-parts/cold-core/magnetic-float/verify.py": "c5852a09e46a4e07404ec67fbee06864275c9bb24ca2ef3214c4c456b1d695ca",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "ff5cad47a535410eebf5be8a6ebdcf958ed6399ac20fefed9579b1f292e0cf25",
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py": "f6f44d9a17033e3833d94ed71a262e26c3e7090b5d1a97d9f35636e412bbe480",
+    "hardware/printed-parts/cold-core/reservoir/prepare_print.py": "e93560844f2b9601014659456945401e4664ad160d56aa62fc29842b135763ba",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py": "5963156322f1038547e86454b4d7935457802b890e01af605aa05d5b1e17436c",
+    "hardware/printed-parts/cold-core/reservoir/review_slice.py": "c80dce1cd2bdaefab322884046440ed9112850dd10b89f257b455141424242b2",
+    "hardware/printed-parts/collet-press/collet_press.py": "8aeec32c44c60ebcac14c0f0a4731ef7c65c677cfb729485dabd066cc9f5e832",
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": "9f49fde9475cc05088f334fb315a74c193173715c90eb8c0e798b44d628a1aac",
+    "hardware/printed-parts/drain-readiness/check_prototype_back_top.py": "4307bad0c162544aca4fad7a30da4fa502a10f2ee6b6280d5f6743c046b3026e",
+    "hardware/printed-parts/drain-readiness/finalize_prints.py": "bdbc257964a277c77cbf814b720fd31d874578a44996daa245202b0120e3bba9",
+    "hardware/printed-parts/drain-readiness/prepare.py": "6ab278e4b031bcc8d731937724a9cae26ecadbafa184dc1ed589728d426f1f4e",
+    "hardware/printed-parts/drain-readiness/review_dense_regions.py": "548ad341b19f088b7c8ac5dc5d5cc789fe3f371fa490ede105cd4e3b76ce9d63",
+    "hardware/printed-parts/drain-readiness/review_insert_backing.py": "5ad34a849eb77cfe50911bdab1c467989e51eb1d659a21d25c49ac79f601c3df",
+    "hardware/printed-parts/drain-readiness/review_native.py": "83c1fc6c982266c06367c6005b203c72f691a910370138179f0f0396ccb53344",
+    "hardware/printed-parts/drain-readiness/review_roads.py": "d957e61b94c37da558f154286b4ff0b6df257a4df223580424b88994540c9c92",
+    "hardware/printed-parts/drain-readiness/review_show_support.py": "d398dcc4eb85390323206bab86ef2cd48b0a85fa948f02a2621a287c3788001d",
+    "hardware/printed-parts/electronics/module_tray.py": "ac2fcb4fe818aa240b3fcdaef2cf0c3c83417dd1897a17a5f1b2802f16d8312e",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": "854047137f8023d7b1bc6d7c6d2a26c95cfeace52cc1e2ef52517b60fd68ad15",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
+    "hardware/printed-parts/enclosure/_enclosure_dimensions.py": "f3a3d7b7d92dca7ccfa8e9880b85ca5e4008d88da598fdb7c3d57900dd294173",
+    "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": "da83f2fde0b4aa887c1feb8bc7dc706016e68da87360ba373163bd0c38f6746f",
+    "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py": "0d43b805a9831a068ffa694d7fe54861bf2e6d78d9f16c776a78703e2623c08f",
+    "hardware/printed-parts/enclosure/bottom-grip-print/verify.py": "aedfa19c08a900de128d1d0dbdf066e4870b75349c8da67d5c8db70d0812f75e",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/prepare_print.py": "3f9c97329b71a86563e5301e49569248bbd346b3d82d421bf7b135becc6f9c3a",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": "f49e828e0dc2c0569d102f4033a088dd2944d6101b9e5c6b3a65257f29b1b1d0",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/verify_print.py": "34236dfdb24d3ac7fb2bacd3e20deb6bdfe14dc56f931ade6a4cfa5f6d70ff8c",
+    "hardware/printed-parts/enclosure/data-ring/check_fit.py": "80ea45e21a4369cac59f72982ecb2f359f0d32228b1fe0afbd31026fa3884a8c",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py": "d985727db6870a6f60eb5ae04b705e819198e719dd2f5f17d0e7525c75ab3a5a",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "3e3d56319182d43bff6d0fae098333edd2348e7a5ee3b49937b23c364bad66c8",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": "406303e006b630c12d0486922cdc43cdd9b76ce3bdbe1315ea8c76dcc1ed190a",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_print.py": "b1fb704b839502d228d6337db7805cd71af0c0957a7f262bd65e3666701cb66a",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/verify_print.py": "7d0d4362a69fe5b35afee9490e87a9a64ceeb8c3a9e99a56978b311cab2e8bf6",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py": "b6ed3c009bc46836403863a404744c91e97e3da27892ce6e3eeb3322dc92f2a4",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py": "779959604ee55778e66c7d6db0258e01823b2776395424e45e662cf782dd9db8",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/check_support_contacts.py": "d494c1ff1e01c4e3593e9175de9af3a2647c598c4fe280f9319e1db2d316f4e9",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py": "cc3349656e03bc590fb605ac1490286e0c0aaa63d77c85eeb2b1fdaf2c4cb2d9",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.py": "c01b144dad2143f344f055156c63405d6d5d4c5d3345e5c06c6e153d2444ac1b",
+    "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py": "18d533a5ca7979f1f081bbb6781baae06d6599d94b5de4b01daf2d48cf7aa2c1",
+    "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py": "92d054b9fe578b63abf957f304fc6ea43cfff691f9ec1bf65d5dadf9d0a00679",
+    "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py": "b60e84e0e687adac6faf66e75b44303e79d032853efec5ce3b53415260dd6d47",
+    "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py": "7339b4fa853dc0bf674886787f2c7e97d9fcffa02564f014f9ff7abcd64ec66f",
+    "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py": "da280811fc1c7956758a0d813499f4a74e4a778d32c6fe04262a24003d232250",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "84eee2de875fb5ebecf4a23b56bb84fdb115cbf9d842a455a3bd43d1dfee2147",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "b13fa03ee31082d5a57f180616a541afa53ca1a4f2c44e31276cfc7d547b1670",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/prepare_geometry.py": "3a2a65ecae8349a68b30c4d8f33027433efb9c8ea78d176dae9d1a8d9596e9ec",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/prepare_prints.py": "70739c7f5053e55f0273a5da0d41e8f642f34a74babf410ca18199f480497397",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_early_layers.py": "7432a587f67090ff651c8560aaa1c0ce9d91020f41095950b0e906cc4645e561",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py": "5b1e96525aac40073c41f7cdd848eb72e8b170bec6c895d27b919a4ebd08e90f",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_prints.py": "1ee5c10224e346560563ae691c0e0574eb1d683379c389c6387ab008696e15d5",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_sources.py": "9b3d2b799c6c3b4df4f4dbeaf950edacbe3d922ac060fab4b2e5087fa5da4023",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "d92fd2c963b9de32091d18ac52f1cd35cb781e75a189afd8e7259a5304a60f6e",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py": "b8c2b33000b10925580ae5cbf493b027a9c049a96e05176ddf7f75d78223ba5f",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py": "b6c8193f39c12a5bb71decc8f02edfe538ec5a6552782ad443795cdbe03b97d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6fef4c74f652eca13686be1b125862bbec43701afcb22d05c45a6730499cce9",
+    "hardware/printed-parts/enclosure/enclosure/handhold-joint/prepare_geometry.py": "6d44ecb93371382c8ff392309da825a5ab863b5c66dd87a9d3b8d572c1367071",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py": "5f37f066201f863d2fb85fc24bbf5a28020a699804084f5c055fc015e1856a98",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/placement_comparison.py": "d24320880995ecab741e7f6a5e0942bfd034b35e4f93cbfc25ea11636feb0179",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "47bfbdcd3fb501b394616338e8f0c3c82b457e6e6b0e2fad72f288765b8a3f9c",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py": "3fb9b4cd8c9f069e5e802113a4a6408f42249e3d80384f540ea94193745279be",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/review_bottom.py": "bc4bf50f844150db29aef6b5d0b202d2793159234305f27598d82d1604c4086e",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/review_pump.py": "562210f212d654e5c32c7a75f4b373db0d0d8b484f83a0356371369c72b35c05",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py": "eb4ed03a58d7e70fa4ee1511b4980e9bf670b3e2566cd92a17d305e84e4b3939",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_cartridge_pair.py": "ea7f34322db2179e552eb77ef8130aef89b9534dfdce07200f7dc5d393bd2c35",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_prints.py": "b15381c7ffc808862483dbd30f40443b18a27a97eaf70b719b28dd23ec71b2d3",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/prepare.py": "af7ccf6770efe1f28226a183d4f94a817c87495e66582c6dd0c12f0a356aab2a",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py": "b34340dfad061d36a5a90ca0ba188b5ad0d5a91bd7ed47d3abcbd7c2ed62cefc",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/generate.py": "a2d8a070cf5eea13ad14fe088f5e222801b4a6600a15d2ed4ba21ee13f128792",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py": "1d76a4467e98b15af3d7115bf3d4d45cae5e8fc572aa29fa0b7cb375785aebdf",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py": "fe1411ba54a9fab8d23fe16c8876d16d28a801148cd36764abf0e6a86d50063d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py": "ff3714de561f99720a4b699d12ec2e9c05de7776681041e911c82706c6d47c7d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/review_timing.py": "d3b3c779cd825f0fec1ebf5c0967e06bf2ecf2a1bc9e43f9d144f6a4f67b306d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/timed_launch.py": "4d1c1b003b0e37247c4fab8a0cf15af8afdd0432309646041ce719254866450c",
+    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "a43732936efac65d57372b5e51ea21cb3b33d72b563c9e155ae4e3150a41f0b7",
+    "hardware/printed-parts/enclosure/enclosure/prepare_pump_print.py": "47be5de2abccc148947077f73aeff2dce3799fbb7f48a62072ee44a1312c8eb1",
+    "hardware/printed-parts/enclosure/enclosure/review_pump_print.py": "d4e3a8259a4826a4950a17d9406cf4d7ce72978c75f5ab4dfe356fd2a1744b29",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/check_centered_samples.py": "21135597a43f7f7a03aee6ce0e979af6033a76b949aaa9a140acb650df8e349c",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/check_picked_roots.py": "abc21f92cc981d9cdfd551915451aedb651ebef40b56fde1d32630555aa3cf30",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_display_strip.py": "59e838fcc46936eaf83cd91168cc0fd3c11ae1d64df849903ba9f17c84c05a27",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_front_top.py": "dd9ba6608674f95571b5f8ebba09e057e0358b4eb19141fc576bbf0e9ee716dd",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "30cb8cc563da4909813f228bcd74c714bcb371f6543f018936687f0bb92f89aa",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py": "ab12ecba1874040c6c24838432bdeda825857c38abc01f18d7fadc85ed1d0a31",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_combined.py": "9358765c168c3ab80f241ad73b88ed781c1b44318be1779a4540bf35af1de75d",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_front_top.py": "4cc96fa5fec2f61804d2b8b1e8b1fa2f6d127a5675bd6f9c43904ab40054286a",
+    "hardware/printed-parts/enclosure/grip-cover/bridge-trial-v6/prepare.py": "488ad386f0288ff7021fa431ec2d5b4f445e0e5d3d49ecb223a04529c7cdd62b",
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "42a5c1c0952642d807b4d2ee6090193e2fac0e9d80bce835346bd5e305e3d543",
+    "hardware/printed-parts/enclosure/grip-cover/h2c-second-insert/prepare.py": "4d3541dc5c1cd9301b3e3be98cf67ce0e193bf61a401d941683151920443c95e",
+    "hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/prepare.py": "e79dd159681d71c0f1c8addf9a260429f7d9105c4313721d7111bb974fab3962",
+    "hardware/printed-parts/enclosure/grip-cover/prepare_print.py": "71c651c45a0de89088897381d1820d0620e6c7d4e7d1e2e2b5e868731e6a4c2d",
+    "hardware/printed-parts/enclosure/grip-cover/verify_print.py": "d316de1068845210f0add03396dccbf27307592295bfe96fddb4bd7a377cc333",
+    "hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/materialize.py": "fd121ac14214e48464e3c5d945aa251257ea3650c6cb1a5e365b96b722ffcf3c",
+    "hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/verify_fit.py": "d5fa6065c9f1774d3117bac3768c99c2aeeeccef26686fd0340a602fe60648b7",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "c3a59930689b4f5421dbe48d22bbd6048276b41f066fb9077ab7d6fcc4114994",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/face_up_trial.py": "57b1d1d1059180daa302ab513e0c8b7422b9910d4b7d8c9d78c3615950d74bc0",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/prepare_print.py": "0fb89639464c5a9cc9300dedbdb79c41a06a2a1db13992f731fd5be519deb329",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/verify_print.py": "3d9f88b95f8e4fa39bdd7319b3af3c70160d04b00f4eb39f747e7838535ef7d3",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "6b2df8c2a43b0e1db6cadc5810f8049bb5e3c3a8717603bb6e34e5c2afde003b",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_pair.py": "696764a176c21857353024428e6a7fcb5c661ad7dd60e5193a83d1c25228efc4",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "a1c36ff73a095d10e252defd075ba134808dfe2a9405a356c0d22c4927e345d6",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_insertion.py": "ef3102b1d71aee662b5e07b8fa70b63ea9c11b4692667851220158ed82e0f82b",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "687c23cfc3ea2f6bc395bcebf01be2a6930eae2fdd6a0c2b139f20e61f56577d",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "c2cc0e2ec6f74a6f28d00a23e20ef202772877c3787168139d45902d197a5b2b",
+    "hardware/printed-parts/enclosure/nameplate/prepare_print.py": "c8e970161cfdbc4ce65a3c664bdd8bcdb47d7f905bb6459b83db3bf341a907c6",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/verify_mark2_print.py": "a9486e58993f28dbd2806901a41fcbba3f5f9d17850edc26cec5cfe00ce35302",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "f999466b1e4f0125815aea462111715e2cf32e52dd809f806734f8aaf90c25e3",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "58e0412f1da55f67b3810c65e127358ab419064b995c73eb9b0d37db3802654b",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py": "1453a43f5cdcb86ee09e4d428531e9297f74ace0be6f9f67cfdc66969fbc161c",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/verify_print.py": "485dd9a576365f094a9b1d91ed9a6a37188bc20092015cb19b03234c3bf2efaf",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "f95e15933f29da47f44f2fdaee765954d29c184cad90945c3cb6ee2b87c8fcfc",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/hard-contact-review/probe_hard_contacts.py": "2cba6495357fb856e229e639fc355e3a3fb5a0fa9c25b13dea9c16731fde5774",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/hard-contact-review/verify_c14_frozen_reference.py": "3ff55a43557672890dc69e53143f0cc2973f8c5950e86401d8bb388493f2d314",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/hard-contact-review/verify_c14_pocket_preservation.py": "6db5cf96c9f36255866cdf4bd6149046fd24cff1019ce377128b3c9f95e4b4f4",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/_swept_top.py": "bb7242c11423694f0ce3bc58e942e847813a1446f9b4cede91bff32b4320d14e",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py": "06f3460bf00bbf857708dbbbeb7ee228da2532951eefdef7586934a7bf80f7ce",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/check_round_contacts.py": "09ee7bfce46ce1f837d1e729d77ba7297568316cffaf1c8fbe63e2176d10845d",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/prepare.py": "d66d068701f8d733d180f8d37250532e6d7fd34b51f8051e1f225448f02a9272",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/verify.py": "67cc7f6fdd25aeced22ff6fbf22f163b0e89995d8be5ca5f4b4e691eee27a4f4",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/check_round_contacts.py": "78831f8d6c907270d955e72638bed9015f8354168c6e08da71de21fefb262a94",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/prepare.py": "06d91befc1f701d1a6994eb0ee242b69ff03bec81934736f528d65e1d37a1a98",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/prepare_rounds.py": "519cc6f7f5a9c54b10290a34110ba4b191cdfc41a611816bace53c58ad0a17d3",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/verify.py": "e256e576fba30b74ecc6524cc7ec597d10d9cc2b21841945f15a8cc4470c7119",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/prepare.py": "105db81e5ec91696251cc4ecfa054e0e47cc64979ae79ecae65285558a2e85be",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/verify.py": "0a0fc69168ec584f7c085469662a5ad0ff6c3ea0babf2267d934d9b455b31f00",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/prepare.py": "8d967d8962413966d4a08f0300fd847a1b4bc07ddcd66a035cd143c1d462a31e",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/verify.py": "e406c6885bc942e13849e4dfe7c764eac15b6a673a4ab6a0213597e702df434a",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/prepare.py": "1cfd905f8162362e9f4ecf81e5bf5e0dac8bad7667eec00f3db6714911fac3bb",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/review_walls.py": "b4fac94d7edebddd09440a906a0923cb1ef217c22ecf4de87cc741cf62fc4a7d",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/verify.py": "9ba3cf628e3fd3478a80e28c901d87cfec9c759d5123029dfd653aab589bf560",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5/check-geometry-delta.py": "8020527a4ff4b59e42f2476c39ed1124587c79dd914ca1d9e9acaba243a63747",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/check-geometry-delta.py": "8020527a4ff4b59e42f2476c39ed1124587c79dd914ca1d9e9acaba243a63747",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/prepare.py": "a27b59f70bace3bdc7a03b1f038e52d338c069cd6040806340589afc22e822e8",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/verify.py": "754730b295848fa57e42f36c4eda529e62552c2e78460c0c68d0930e3e5631b7",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/prepare.py": "0b6fe00de7230e8251982d8f1c983a38f2b4b157d564359bd2cd2b190aa2644b",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/verify.py": "996e97eccbae50e7029b27dad2ae7953dc27a7585b224c2f6914a451443ee6cb",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_corrected_routes.py": "31af4559df5a2b7aee569d8001421a066e5ab2047fa66d31adc75bacf68e662c",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_fluid2_guard_equivalence.py": "58718c10682d52b69ff3f0ca3f31a7fca9d8b03a524f6214573591af3b949931",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_inner_limb_drop.py": "18792fe18431b22c3c3a4e8eaf054db0979997efa76bcfe02a15cfcbca713505",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_postpublish_front_top_stock.py": "c1914ef0e3fbb5b356c4706da05f2e8195ec7628c4073837fcd06de524009f0c",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_pump_rear_boundary_equivalence.py": "fba07d10b3ca6055689c6446ad3b8b5e6fab30739ea77249e85ca6f86ef6891f",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_rear_neighbor_correction.py": "1cbceb0226eebb41468072fd8418ea070a2f71bd920cb14c1fb6538bd7b52d80",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_split_regulator_wall.py": "968c75fd80206b7488197a83eab4c0f8a481231a25f2ff92b912e86a0b6b2593",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "6c44ca9a82b4bde10b08cd18a22e06f1abd61f66960b7a5e4e03718ccc60ed6b",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "67801a3ac7e5985151797f50c2f0bb774b6c9cf4b511ec6adcab958bd4a5a0c1",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/asse-vent-seals/check_ribbon_native.py": "e24b812a5f90a68ddd41e126cbb5e4728b5122a1279fafabe6d61f8ec182a5b1",
+    "hardware/printed-parts/faucet/asse-vent-seals/check_tool_bearing.py": "ad5e7ce9b6c3aeb15ff9134ea2e8de6ce85cb59746776df151bccdbe41ff133f",
+    "hardware/printed-parts/faucet/asse-vent-seals/check_tool_motion.py": "30cf61e9d7502fd9e7549de51021454bae7db92a0d4ac648f333a5d4699fe110",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "571381ae897a5fdaece192c605e5af0e11ca8b64bb984184d2d9bf2a1b55b604",
+    "hardware/printed-parts/faucet/faucet_paths.py": "6f716f7d3f5e4dd237d82adc69cecc0225d7500c14f87b7a89d8613269c62c27",
+    "hardware/printed-parts/faucet/finalize_vent_prints.py": "79c1691477d8a947c9b1daaf5bad428e9b444ceabec12eb7716207c2d25c5601",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py": "3e5defe1dacd4e9f475e45fa07150cd954f4dbdce3b6d25a29b987cc32a250be",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/prepare.py": "db40495348d392fb0a56dace7219d3c2a46ad5a4e1428c107e24cdfe7b9b0efa",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/review.py": "81d049b45b891e16f8d1cc242e5cf89a2c49c9b88560ba34cb1aec87638cd91c",
+    "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/prepare.py": "0fcc1970628900dc85b8cb839154b2d3c6bade95e303ea02ecfc14fefa80e0f1",
+    "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/review.py": "6d28d03abbca9e224454caad299f5de98885a282adba47726c97b1c2068cf505",
+    "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/prepare.py": "36cfce428db1168d5bd80834405a73bbf9840de2a88528aa95e7eefc2d9e0020",
+    "hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/review.py": "fc12027fe4b491dd03aab1a6f1c092214e781ef17a46c3c7efa6a5a139341677",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/prepare.py": "5e18374f5b8942402e2d4228ab08ed514bb759a62a76d7ab0ce3d64a2ba05100",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/review.py": "e4c0b92c5ea6b30c994f38f409bcf38f33975add55d4536264c3779afbfecf74",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/prepare.py": "8c7543fa8e93f06ed8e63e671eaf871c6fb0fe2e5b536c825c6ab503794f5d2b",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v2/review.py": "6bdecfb3c8b6bbed7b4f9578c435a6570a9115c71815ed366c5231b639e98b04",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/prepare.py": "491c61ba3e441cd2f728a8b8178736d950d42ff72906ce8a7de1f8d31e810735",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/review.py": "645d42f2f89b6473854484b598048f08c31ca92ee2c8a9ca92eedf09c92f0f4d",
+    "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/prepare.py": "ef5c277d9c5ee7420292968b092be5a9b5c80718d48f3f5281fbe43785582295",
+    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
+    "hardware/printed-parts/faucet/industrial/check_geometry.py": "d05929557fd62657384fc1d0f4eab3e8aaaa47249bd099d0db65a6418ce0bee1",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "b1022b1ea75c053330c3a5a286c91b29240dd9647a3e3b1ce61e5cd91ad2d7cd",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/compare_geometry.py": "5fe723f2c1bd9e5aeaf0bffffc9b4fb6d1807211b9b9ae55f0c4ad67f587f8d7",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/compare_supports.py": "46878d1789ea2b47e762ab4a77e9d9d02f7b551f2ed542e7e9c23d37a4919912",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/compare_tip_supports.py": "eba82e7d27222f5c9e2f11e6cbb7f727e1ac265204b79982ca199444c4fdfc6f",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/review.py": "94d29ba69b16fbc65452da1282e95248e601f56a085ca8008497b34b1a2fc61e",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/review.py": "5eb81fba57678fa480f99426aef6b048168588f6d43ea7059b713e025e4f83f9",
+    "hardware/printed-parts/faucet/lever-replica/check_replica.py": "5137dd58881ce9c0b732ca07b467ce6b49849c3d674f833a11996e07a2719fb4",
+    "hardware/printed-parts/faucet/lever-replica/lever_replica.py": "14daf4a7c3cffbc2827ab0dc674d01b88440ed2799de074d933c623b46a418b0",
+    "hardware/printed-parts/faucet/lever-replica/physical_acceptance.py": "a6c2fc0be5f44c76eb3a79c33d3da6746efc75242e23a25c78da4a954f7b8b41",
+    "hardware/printed-parts/faucet/lever-replica/prepare_print.py": "7568db597383c474d0198d3571f877ea1f50dc0ed6c810dd0179ac4735b6f7a7",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "2bd8716a8522fa8313d24a66a2af6a5df58cc27869e3c6c670d6c9ddeabc065f",
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "7d5234c8003ea368201a4008dec72022c9107d882455fbbce5df154cee1a962a",
+    "hardware/printed-parts/faucet/review_faucet_inserts.py": "28699686585943a642849b29c17f44252b54de28a2538601f1e168c91c27eee3",
+    "hardware/printed-parts/faucet/review_gasket_beads.py": "6df2839656e44e6d5e62afffe76411a5f49d9d5dd54435500c56f6ed1cc1efc6",
+    "hardware/printed-parts/faucet/review_lower_supports.py": "9e2354eebedb38b7999f980047bdd5f0854ce3270736a82cbf413d74b15bcd4d",
+    "hardware/printed-parts/faucet/review_vent_prints.py": "c87d9cf4952e0774e3b358d3c6169aead66238848052b332b7251fcbf04269ab",
+    "hardware/printed-parts/faucet/texture-comparison/2026-09-24/compare.py": "e5907f8b03c7a2fb4b1537a0d1904ea0f1b3db83dc0633be7e30263adcc6c7ca",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b961084e29064b2c9c9c492bbf89582f5795b01422d6f4d0cb7b2eb98eb7fa23",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": "d9f1a720adb2475fc4f370e6ba52b30c4e378fe97971e87977e33229ad69e4c4",
+    "hardware/printed-parts/faucet/vent-qualification/check_base_witnesses.py": "caacaed50f5e7af3c6d553b90b6abd635b42bce7913bfed1dca63028a072277e",
+    "hardware/printed-parts/faucet/vent-qualification/check_lint_supports.py": "b712c2e1b20371de615cbc60a2e8ecbcc943d87dc1c8e5effaaa79eadc0acd44",
+    "hardware/printed-parts/faucet/vent-qualification/check_port.py": "e5430d74d7e668735630b4094098e48927caea31aaf2a76e00b4e9b85be2665d",
+    "hardware/printed-parts/faucet/vent-qualification/hydraulics.py": "99d1b026217ee8a6b70c8708796090ae340d05dbccb6e52815ca9e80044f8482",
+    "hardware/printed-parts/faucet/vent-qualification/measure_route.py": "46ae73528cf6cf3e430686fc0e8e27a427c541e3034defbfba316cfba47d5a91",
+    "hardware/printed-parts/faucet/vent-qualification/native_inputs.py": "2572d4333f0e9bb29b33901cc6a284116ffac653651994043da30134b6c35ce5",
+    "hardware/printed-parts/faucet/vent_seals.py": "2a234324193fdaaf82ab713835cc03347414ebfe97b43f4196c3712066fd3283",
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": "7ee2afda2348f3a5e60bf4087779b90f7027c672ff144b2797681c990b3e83bc",
+    "hardware/printed-parts/fixtures/fake-countertop/prepare_print.py": "025088548ba6c1a37761b9079eca8071f9401296dd937519e1c26f7997c2241e",
+    "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": "9a41ea63bb4a14d8b42785b692b962d5aec14d321e9db9600a93435a1706e151",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+    "hardware/printed-parts/fixtures/faucet-display-snap/prepare_print_project.py": "101a3106a9d7c3948e6f1ee3cc9b9924a1fc3d4487398100125779ae8b693ea3",
+    "hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py": "652e34469f38db3bf1f22e874deb7224a3a4ced7af39ebf1b2aff68d2c11ae02",
+    "hardware/printed-parts/fixtures/pgfun-positioner/build.py": "7d50458349f687f769a944212e166572841ae49740f978b17111c6fab4e0fa68",
+    "hardware/printed-parts/fixtures/pgfun-positioner/check.py": "a58c7d5bf593423331147c92f6d9774fba17966666f4c41e0a01e048b1f3f62a",
+    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py": "595189b8d8de0577f6807c24374155da11015c3f1bd72db1bf5816b7e439f9c6",
+    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py": "65da31f933eee7e1575b584ea65d26200f742fdbf2a5366755a0350fe77547e5",
+    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prepare_print.py": "e7883b4b48091010cbad3a167eb97f5e6a286a78dac0a270a9228fb4510ba359",
+    "hardware/printed-parts/fixtures/tube-insertion/prepare_print.py": "ae7b817171d1662680e3b3618014f2a104125162ed4a03e736fd7bc57b5a32db",
+    "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/prepare_mark1.py": "661d10fe21c06fecacd35995d1b79fbce5c003c93cb89068d867f37df9a0924a",
+    "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/prepare_mark1.py": "d8875fdca7a511840b3fe1f678d4af0552f1ea9c828a3d3eced3472a77b683bc",
+    "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/prepare_mark1.py": "7c953ff4dd6401a20210aaa348cbeeda5cfdc1c8f3be5ef1bdaaf32edd46f5c9",
+    "hardware/printed-parts/fixtures/tube-insertion/review_geometry.py": "c4172014983fe96ad663ea26b5c3afd70fc93a23ea457dfd197057bb08459319",
+    "hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
+    "hardware/printed-parts/fixtures/tube-miter-box/prepare_print.py": "2fb605d7fda970a995ac8c278d358770b81eb4b0cc9fe06c6fddb2404180a5e0",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py": "8181e906ab6a2a0be5beaec0d449233fd7271de2fcfdb09b865ae36688c7ff0b",
+    "hardware/printed-parts/fixtures/valve-socket-fit/prepare_print.py": "1050487176b30ac32ba0a46a104d6d89e45b8c98ee7e8e4baa758763ffaa6cbf",
+    "hardware/printed-parts/fixtures/valve-socket-fit/review_print.py": "e1d6a8dbc533c9f9baf39f4a01f10e4fa25d71a0e80744d92a8ec29ae1a9f1b8",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/generate.py": "67ea40944453a14ace52fe99bbc074aff8fe858ce7211a2b0b8bba1544957960",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/review_centered_pair.py": "f8c3ba7a6c07d673de8a33eab35c4813b4e42c8b644fdf58efe2f935e766fa27",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/review_centered_plates.py": "5e068860e4bb0d84226618049aba47c6f95e4187e3ec9ed7e768132a11c6cbac",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/review_native.py": "15637c83b7f815c831cda5e20060d69c0b1f2b02ab47c8ff3d8fe0a27ce32649",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "d33b372148b48d5e893070be7b22bdcda099d6c5fa2fcf83b7699009df8c22af",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": "61043a32088e1512e8fda5c7045ba010d4bfb66b256daea7d006e8b7badd993b",
+    "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": "3591096ec36f4b63b4bfbbb8bd17a84c659fbaaa9c420daca77880e446ee38db",
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": "340bac6bc85b6ba4f2c5aefcb07113467ab92251fb01d5ec9d5333a95f84bbb4",
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": "618e0e65463e0ac5defa0e185741fce03987f52565fb24b3d9a11853ca7e887e",
+    "hardware/printed-parts/shop-storage/_bound.py": "ade3aca8574dce7455b2eb4e38b8922c00a88cd72d84250aafcd77907e4e06bc",
+    "hardware/printed-parts/shop-storage/_holder.py": "e2a09535b9ba11c0610b30f206ebc331a1f66bca7c85f75dae4d17096d39ceae",
+    "hardware/printed-parts/shop-storage/_kit.py": "b137f3092013d406b09fa6b49cd4f07be750aa2c37f4f5f00c4ac8ff58e0cd73",
+    "hardware/printed-parts/shop-storage/catalog.py": "0199353a3efa2a74cfc53408f3672a0aa84ef781d5e357a8bab5f3235a4216c1",
+    "hardware/printed-parts/shop-storage/holders.py": "1df01a134cfb02659b9349b148594e843a2fb88b2b51574a427cd286cb99fbd0",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "4cf0d7fefa46bc9ecf7d0c4d61d235feb70f7e9ad0b5b8ddb56c249ba04b50c9",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "c49a270dd07bb8ca3ced753f7d3e9eba2ad89941f922fb489176484bf9cea95f",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare.py": "9b9e37da6e4ae8a0938d190478b1f322a078ce1f56d12c767ebb3da40f4cfc38",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare_split.py": "a13419a2259c029618f1052da596fd0016234f9ba19633763112e411fcad5295",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/prepare_v2.py": "cf9f61c094e8162a1f4dcfbd419defd120bb6c49e8a0a9d6b40fadc30ba50810",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/prepare_v3.py": "662fcb6b9ed59b13f91c224c9c4295377c430f158ccfc6648b883f7950be7b3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/prepare_v4.py": "835da0fb101e220b8052b3a04be9fb0f0af2120d9339b8f2495d0cc36a1cbfde",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/verify.py": "bd153c7f70385804ac47ae528fa080973121ff2a06230d8f0c616fc9c981b2ed",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "e8169074e5bc9926a436fce38616a92eea0a2bab13bed3d4e8c381bcdbccc11b",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_display_strip.py": "136a6f9036f776f01cc85fba37283a579dc6a89f40e38ed366256d5e658f69f1",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py": "25e2675f47775bb25d6db36069889d09b2093610696b60c93b8fa9c95e9c4f66",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py": "0b3dee336ea83b3156369531b7960f0b14a021e785d07132140c80c4878b6985",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py": "0fa522d2d9882ecce92d7e59af25324fdd138a81632d594a9da97a087b7c8ec5",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "f8e52835e199c500d961377c4ac92954567e9150ff44a2200dbf193aab277a0a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "23d0a099e1db16d30654a446e575123fddf19db803b53a7fa25503512a9ce7aa",
+    "hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py": "636ffe3e5167bfc66571349ffda822a4ddd2d45607c0ab87ed7fbec59846f2fa",
+    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "7f3413182eb9dc5fe6f8fe742a3d9ff91eace68806d198ed07db1b1b34a208f0",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "770b538d217b1113d49ffc972afe0929fd6858c57a3af55110553359f687af6b",
+    "hardware/printed-parts/zone-c/funnel-cover/prepare_print.py": "f838fea6948dc8fa7557a8a2a342b11572158328c2cdafad6667d3491e11a96b",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "b58689920c5bc3b9dc014d73a2fadbb881ed7cac7e434c89fe9398a5d094a9a0",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/review.py": "de3e9dce4fad0c3e9b8bb8b602f8b56c0b3c078e203834eb7715b89886c07f28",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/package.py": "6c3c7d6646a4454c4d3eec2e6db225d4312eabb13a2e5293f80694ecc6f87b3a",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/prepare.py": "06840241732b81b206c4030e0e242b4f9e315c0ef2b70a998a5bee926ecf3823",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py": "fd76746121deb87f665294e62533b3e934e526818e5a39f6ab96c3c8b32a04a3",
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
+    "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py": "222a19202180eadabfa107e5b9563dcb609d3d8bf0b149e0bb22a68b22ea70d9",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/beduan-solenoid/validate_scan.py": "5dd97c697563756ca7e7bc94058fb04274b86e6df6d53d5dbed154053f1e4e69",
+    "hardware/reference/compressor/compressor.py": "3e81c68115eb419ebefc2339ec715a145168cae77faa3d6dc65164803b09f06a",
+    "hardware/reference/condenser-block/condenser_block.py": "506cf17f52447545adb58c405eeda2c8cc45a65b5e7de73ac8c0cd621f82e8dd",
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513",
+    "hardware/reference/elbow-connector/elbow_connector.py": "822b9fbc6c341c0b8c539a092fb59cab62b74b53e0ac68cf058b006c35058fd3",
+    "hardware/reference/ffl38barb38/ffl38barb38.py": "57bb04ad0d2a6cf574e6231f6bcdf3da1e051c78a2380bcc86107c89311f3872",
+    "hardware/reference/flare38-14ptc/flare38_14ptc.py": "76008e6a6280fcf895e989d21b6086cd2b2d388ba48de709995e7f6a357dc630",
+    "hardware/reference/funnel-drain-stub/funnel_drain_stub.py": "88f906ed6118b3f6c77408d922f901dcf2c032d121146e1ad177dbc6515bca10",
+    "hardware/reference/g-ganen-pump/_scratch/detail_plots.py": "34e697cebaf019d9476cd906830644fee0aff5ea749bc43a89e718fd9c9cd7be",
+    "hardware/reference/g-ganen-pump/_scratch/feature_trials.py": "15079535cd93b5469f46f43117fcd4ecd7619244995c04ff3132a7b897c1f171",
+    "hardware/reference/g-ganen-pump/_scratch/head_flange.py": "056ed658a7fb1bf3c2de57475d8148226d953667793fbcbc7cfd27f345662297",
+    "hardware/reference/g-ganen-pump/_scratch/precheck.py": "c8d7f407dcbce50667a4a8a2f26987708af68b8b774f02fa5b2f2457b76030ed",
+    "hardware/reference/g-ganen-pump/_scratch/rail_sections.py": "d5c55549c9a89bb0044003421294aa975fabf33e602dc06939634c97f7f7ec12",
+    "hardware/reference/g-ganen-pump/_scratch/residual_plot.py": "0f0186c0fb1420e66305e65decfeb4d9b09f2f1f2c6cbd20363022cbeba2f7fb",
+    "hardware/reference/g-ganen-pump/analyze_registered.py": "1a397ea07e300cb7c32440f16b96ecff5bb839138cb1916566f2010c798a7c38",
+    "hardware/reference/g-ganen-pump/analyze_scan.py": "e5c3d5b38f5e4d9afc70bf85f824bbc2ac7c2048e0b47ac27cfd806a71ddec19",
+    "hardware/reference/g-ganen-pump/benchmark_native.py": "4a37d58bd00b145eed49083199ea38aaa29c524cee815002d001abe5d9bf7b42",
+    "hardware/reference/g-ganen-pump/build_reference.py": "ef3a0d53b0970dde2a016ab549155aefc65f94b3826e0fad0434bcc1408360a8",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/common-foot/inspect_axial_faces.py": "d9f81772eef3a05129e5bb27df326bc63e8ce7cd05cc5d0a06664b246eebf1c6",
+    "hardware/reference/g-ganen-pump/common-foot/inspect_common_foot.py": "cc32b8dae1051343e9c07c0a0b0e637eabde7a4be038324a28fe1ce86e3524a2",
+    "hardware/reference/g-ganen-pump/common-foot/measure_common_foot.py": "0631abe6a6b698c5f0d8002d92bebd186c987c7197010dcc34fe9120eacb9ae1",
+    "hardware/reference/g-ganen-pump/common-foot/plot_sections.py": "d8780120f3bc70a662a5fe865609165b4d635e4f6b69eeeea1397581db48b31e",
+    "hardware/reference/g-ganen-pump/common-foot/preview_common_foot.py": "d3d794893dddce8ab7c11e7caadc22e8e59e1fed5c32b266681a2f69335aa45b",
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/freeze_reference.py": "4b70b613f3355d1375a5dfb929ec49ca3fdf745663cddb6b43ee91fe5006b4c1",
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/derive_envelope.py": "74bc334a33f779a5f2417ff13bea04b745c97e34d3069b7b313ac6b3dcba6e14",
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/freeze_envelope.py": "e99ffa8570eec603b7695b8fa0b6e910b68a36ff7747870245b0689f8d76616d",
+    "hardware/reference/g-ganen-pump/common-foot/update_native_reference.py": "c16557764ebc7d752a4d6f0a10d23081d69a0df382067e84c1c195494e843446",
+    "hardware/reference/g-ganen-pump/derive_casing.py": "642682a70c8d27711c8df3deb6f1a610a5c2f55731d4e276e197be5c2e831462",
+    "hardware/reference/g-ganen-pump/freeze_reference.py": "587763463df7e9f62ef02d187aef5376f3305defbf79d98ba9975b10f8d4e8eb",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "hardware/reference/g-ganen-pump/inspect_scan.py": "59bd0fe615343d6499d830d1af274526669544f091728b5a8d98f4e66c9ad4dc",
+    "hardware/reference/g-ganen-pump/installation/feet-correction-validation/reproduce.py": "61412bef236fa03c3994bf7a6a429f8438e6382507621630e3c1de23499bbdef",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/installation/inspect_placement.py": "f1cf361a708f9d80030e38345b6f09f2259522a0fa20508b68b81951d4ad2106",
+    "hardware/reference/g-ganen-pump/installation/validate_installation.py": "a70605d2c8f5167633d849f1cc9e82f3f6d54e37c00a0765e0a9160fd308b2e5",
+    "hardware/reference/g-ganen-pump/installation/verify_cap_contact.py": "4bbe21eedd1e19e0dc6203630aed2433eb9af413ec9dbcd1ee0c7b7f1ce1ce5b",
+    "hardware/reference/g-ganen-pump/installation/verify_placement_clearance.py": "4f1a9d54f48e09735b796739b2252c29ee2aefa14da86a27657dc0a8dfd9884b",
+    "hardware/reference/g-ganen-pump/installation/verify_pump_routes.py": "cbfa58a2bb0a13fca65e59d933f2dfe1b641ab2ded11b62b8997ce9f6f8edfde",
+    "hardware/reference/g-ganen-pump/integration-envelope/benchmark_component_sections.py": "384839847f975c3e94175909e0d96cb043f4a26d66ca1f4fa8eaf98500912413",
+    "hardware/reference/g-ganen-pump/integration-envelope/benchmark_integration.py": "2bf28a796eeb295ef010bebfe60703e4adfc1e4de545cb74de931f6f8360bbcf",
+    "hardware/reference/g-ganen-pump/integration-envelope/derive_envelope.py": "4a7418269a05be21d64ee312d61fc43f49e03cd88fddd3bbda555f58fa320f55",
+    "hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py": "9ea843ffb91113a36a89c7effa81de85fb1d33b5fafa8555c13a43c10bc71897",
+    "hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py": "b8abc3114babfa06abdda54bf68c6506f5208ffe9e5fc76f879cb936fece9846",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/reference/g-ganen-pump/integration-envelope/selftest_envelope.py": "9f551bc5927f74df3626b585743d4b34de1a036dd0f787438c16005b19e2f4bc",
+    "hardware/reference/g-ganen-pump/measure_interfaces.py": "c0717e11cfb6b2eb74390f12f728ec3b344f343dc713e38f95cffd3a12240d6d",
+    "hardware/reference/g-ganen-pump/register_scan.py": "aba1151e7c52562666e75cbb52e0cac2fce560cec6ca3883f6cb4c15ef63dba0",
+    "hardware/reference/g-ganen-pump/scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
+    "hardware/reference/g-ganen-pump/selftest_analysis.py": "f4efc3080839dc710dbce422ef7e772fe5c7aae8fc235fbcafffff7cca9cbb2b",
+    "hardware/reference/g-ganen-pump/validate_reference.py": "b0ae1ed0803bba0f2278ed4c4b786649f6db7de015cc051027aa9c9be8106bbc",
+    "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": "214616588d7c7286d40c4116bfd9fd406007f7d03e75a2d6be94b2e243aa0e11",
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": "bc6043a5736f6a5ca93b9814fdc8f844eb19e80a37e4f762ca9016f540967892",
+    "hardware/reference/ground-ring-stack/ground_ring_stack.py": "dfddc9d966cd48223c52e4c37b91e82255fc3f56cedc6a6e1fbea3ed3efddcb3",
+    "hardware/reference/iec-c14-inlet/analyze_scan.py": "b15ca4b0b9ec62f193ff39f52566ab6f15bf712561584fbbfc7c1fa6879afbfb",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "833422c7c9cad6e0cd1cb63efa559bb50f12f649314d572ed78752bb5036cba9",
+    "hardware/reference/iec-c14-inlet/validate_scan.py": "4b6303c1cfdb7987e37f7b53b7c66d764e0940b1a9533668a9f07456f9cef445",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
+    "hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py": "7e21fb4a09484bc2332dacb5799dc5cf4bb0308ee478973f405a7b75b3a75408",
+    "hardware/reference/jg-pp0208e-tee/fit_scan.py": "abebc79190fc1e5e5b728350fecb1993eca9b17c2039554c71a473d47e4929cd",
+    "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py": "628e0e5879ce5b8cd991af4113f5db02510673a6d6280a2d8fc6abc18bac7595",
+    "hardware/reference/jg-pp0308e-elbow/check_artifacts.py": "edb7d25d6319be3afe4fd247fecf92dc68950335febe6842920092ec51b6efbc",
+    "hardware/reference/jg-pp0308e-elbow/derive_profiles.py": "a834e270d042ba1fcdb27653ca5cd4db67e03b8ff060eba5b1a3d2f5e8d61c33",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/measure_scan.py": "7c395ef20ea281e76343e5bbf02f012f056659de69fa6829300f56efdaaef0c8",
+    "hardware/reference/jg-pp0308e-elbow/render_reference.py": "90523afe025defc4e914c8995273d2910a1d58ecf93f21146b0e8c63c2c619fc",
+    "hardware/reference/jg-pp0308e-elbow/scan_tools.py": "d9a4e55d0119928d8cc1ecf91238af678ba3d0cd1b2fbe2d6222765addf56fea",
+    "hardware/reference/jg-pp0308e-elbow/validate_scan.py": "1bed550633a0216e0e7ea2f40f58fcbdad473265f042d112439fe79bb6c33efa",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": "25261c2422d20e1fe597e7486981efc6b2ab1eb0e63f5633f46bf0db194d7a11",
+    "hardware/reference/jg-pp061208w/jg_pp061208w.py": "177f5dd31adef63d9064113fbe2828e974cc3c5e46591a099a58ed04e1f832db",
+    "hardware/reference/jg-pp451223w/jg_pp451223w.py": "e7895c35c2cc2c054b305be60e361a1bc8b9bb44cf50f18c9273ab5855d2a164",
+    "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py": "9018ec7cb13fb531297255d1af213aa4c46cf504aba503e749c4ca89d3271f96",
+    "hardware/reference/kamoer-kphm400/analyze_scan.py": "84e9822b31dea9219e03613ffd8bc7d09b0e11abd73b89d639e790f471dae810",
+    "hardware/reference/kamoer-kphm400/check_pump_contacts.py": "9751cf18927c954dc6974c8e04c5740ccceeb20532b0e1f110f50e9e25837591",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "f732bc6f64fa6af529a274d877e5ae1b7f15e486411beb57db5b295c9c31770b",
+    "hardware/reference/kamoer-kphm400/register_scan.py": "5ff7f73abf6bf3b6aa58b12bbf3321e6b7265cd983b36ecc3e847c05ad8be32d",
+    "hardware/reference/lldpe-tubes/analyze_scan.py": "a10b12f0de281ff003db2ba82432faedc19c8ce5b6fdfd75b0e6fad8d7a315a0",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "3c9d59730395e51736a377435f6248d103711b834066dc2c203137742c785036",
+    "hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py": "41e513bea7cce67541bf04465693c083bcc01f3ed1f311ab70ae6a1231240e9c",
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": "90f5c6e4363d76fc5cda143a437a8c98edcfc4d1c6736dd5ad214cb79a16a74a",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "ef3668b27b4a7373a24ce19ce484954fcc09f6a2a78442df2dc1d3ba35407c24",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
+    "hardware/reference/neofit-flow-control/neofit_flow_control.py": "3b4d571d757042b8bafc7834246b52746acc0283533357d493a6c8c94c8e4fa9",
+    "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
+    "hardware/reference/seaflo-22-pump/seaflo_22_pump.py": "1cf799e2bf6848a156e683becc173670b52c52c1bbd57da90c78751ad88c77f2",
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": "6705f235e34c6a2b1fa3451c9ff06f890f9ca4dab7768533021ca9a8c80b8585",
+    "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py": "e0c0c3867a5f001184aa4d69e8b84bfc6206822dbe25d2624d7ae80e6f242771",
+    "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py": "450b01f002060b9fd3411d71daabfe6170729e34271c00ca7f6ef4fe98809f0e",
+    "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py": "d7f5254e8e82f082a1844ff0ad30c8579280b54e4391904430ac31a16e8777b5",
+    "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py": "166f1262db8f4976f98940f2354c4983bc93de25c3c485dd7a278dacc9f01bb8",
+    "hardware/reference/tee-connector/tee_connector.py": "4c9b3d086073f4b1d237c7df3b64c9a82dc59b09d866f76afa729376230dd369",
+    "hardware/reference/teyleten-relay/teyleten_relay.py": "399a018b815d29ffe60b9f751475539184d1f6eec14a5eb61db0ba9ce19da608",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/register_scan.py": "1c576b69a57fba9ac679a093783586e5c19c5a8c775d0fc179da62c0fb6c25a0",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/reference/water-split/water_split.py": "899d7bde162dd27b3416c58301bf4ead5590d84e343ce1c474b280193820d2dd",
+    "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": "8cb16b3c86db6655d32b728736a80ff3283e5b8e9654bf3ebc98ebcf56311502",
+    "hardware/reference/worm-clamp/worm_clamp.py": "0518fad8d86886811ed0b261eb7dbc97f20dbf819b018d9bed2ddcf8a3a4e8f9",
+    "hardware/reference/wr1110-regulator/analyze_scan.py": "3a36fa11910d544cf2cac6016d4fbd2b438252bb0d37144f87a297a3b1cc6361",
+    "hardware/reference/wr1110-regulator/validate_scan.py": "685db4040649d9ea62f1fa150b3372cc1074a90a524214a497b855763bc7ab53",
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "c03d2848209d140d64c25ed42785c145b3a6a9f3e9e2474358b7662e1fd31e87",
+    "hardware/reference/xlaserlab-sup29f-xh/fit_frame.py": "d15dc3bf96bff634dd9d10b498f1f109cf83d6e58b8dea48f185bfdc0e6fe780",
+    "hardware/reference/xlaserlab-sup29f-xh/measure_photos.py": "a4a6a0eec1366767e10bfeb854839810a423132805b5d7f41c25297d904a03a8",
+    "hardware/reference/xlaserlab-sup29f-xh/mesh_tools.py": "d787d709693d047e9f3bfe603de26907390b20ec72969bc5e36a0dd64c71e874",
+    "hardware/reference/xlaserlab-sup29f-xh/package_models.py": "d2f6c1334b3f1baf11c2c379fe4facfb89ddb5c92dcf24c3e4a89097bdca385f",
+    "hardware/reference/xlaserlab-sup29f-xh/reconstruct.py": "f887e2e885d1a4c6ab1122e3e6055e922ae7a676f3f3fdf159c3880562ba867e",
+    "hardware/reference/xlaserlab-sup29f-xh/render_reference.py": "d8b7342b2373e10edac6ce1a0ff7a39ffa15445f18c1266eb5cf18ff665d4e35",
+    "hardware/reference/xlaserlab-sup29f-xh/validate.py": "3a98c7dc8a81174baad94a338d1da3b210d92eb8c34aa3aedb5bca2342667049",
+    "hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py": "337e9cd63a1b1b8d85c5d4bdb65304df518b243f395489282115977a253a9d2a",
+    "hardware/reference/y-divider/y_divider.py": "eee4b08107633bcab7a17c3add8de464fb63fbf2fee2d6ba2d48df19c188b607",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "694e9ad0f50cd7b781265fbbce4b03b47177d8cc838afee45eb982a9ef83ab98",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
+    "hardware/scripts/_bom_categories.py": "a6d1e07fcc67c348e5b881b1f37822688ab43efa6b7c6a13dca86de1f8e28c2c",
+    "hardware/scripts/_bom_masses.py": "c57eff30aa9e6bf20e57d64b4c144272c6d9b6f90af9279b76bce347eb2b10b9",
+    "hardware/scripts/_bom_sync.py": "40d53b373f73afc3d0e8a52d330a6b24cd46369e86c3db52d4421fc1be78fe58",
+    "hardware/scripts/_bom_totals.py": "809f75376a26539b7f3fd7529968e27301a1c7afd843aafc982040be15afc0f2",
+    "hardware/scripts/_box_spec.py": "ad960841cd9c780fde4e95f7db640d583e9b27db47d0ffdfa9613b5820ef02a3",
+    "hardware/scripts/_boxes.py": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+    "hardware/scripts/_build_time.py": "c6deddec54b3f9f9be869fa9a0eee870bbbc44f1c3ada511016a43552124aaed",
+    "hardware/scripts/_cadq_export.py": "b8f6e40c22217e392782391428a64360099297dacae1db5052ab73af4803e5ae",
+    "hardware/scripts/_card.py": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f",
+    "hardware/scripts/_clearing.py": "da8783baaa09ed5e561af114fc21dca16a97feb3b3a14a531976844a35baa4ad",
+    "hardware/scripts/_facts.py": "b1f0f42be16360d81724b1398e09e5c47696e8e0d659410e60c884a2d6b03259",
+    "hardware/scripts/_finishes.py": "68a1833c9d2f423dda071ffcea1bfaa0da4a5acf42d794252010f446acfd96a4",
+    "hardware/scripts/_funnel_casting.py": "e5fe68a60e026d4a945ce10bd564bcb827b6214a1c819520c4507dee89e43aea",
+    "hardware/scripts/_labor_totals.py": "c87d12605e13896817245142507abcff974f86c4b4ede0ab556a6f0dd86aacd2",
+    "hardware/scripts/_ledger_analysis.py": "4cba3ccdb36d3f3d17b34ba76c9c629af8b65c2a3d9f646f593c43ad4b9e547f",
+    "hardware/scripts/_ledger_totals.py": "22ca79ac2886361831fa744abcac63fc196417ff43e880d227d9050145fd8026",
+    "hardware/scripts/_machine_time.py": "851eede38f9ff42c2bc6a5bb045bb56ad89dcefb6667f3e00e802c0c4a390f31",
+    "hardware/scripts/_material_base.py": "1e4489c91391a8b05ebfc4ccfcd4408e3b9468d37549336108a33200ebbfad57",
+    "hardware/scripts/_materials.py": "7fe7f99e43d6264b17554e4433ebfb72a225e4c56a1e59842e1c05fd9edb14d3",
+    "hardware/scripts/_measuring.py": "3978b06f38f46681c022f0e7ec2ca862f5750bd6f544c25dfb8e7d8ac7eebcb5",
+    "hardware/scripts/_mesh_payload.py": "1c8d9adc22a4c3c7d31a451680ad8c70f125a48a16f0bd88e0909680451f7514",
+    "hardware/scripts/_meshes.py": "9959f2378b89a28631b1c2895cf04d922dfbc142fdedaf11dceff397416e70db",
+    "hardware/scripts/_overlap.py": "bd2ba9143feaae4ddea1a1cd0b1bc130eeee17ac2721ce4c1b7603843410962a",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_routing.py": "bed6ac3add88ca1912958fe3ebeec092a88181c8d55f2287d798d44160e2a048",
+    "hardware/scripts/_run_lock.py": "9ce7c1557358f7ce2912ee05bc37406b169bce424bcf96f9c782d4bff699161d",
+    "hardware/scripts/_seating.py": "bc953256c777dc4766e38168f2fe52a1ba870e381484f589b09ab57f3a4470f2",
+    "hardware/scripts/_solids.py": "1d60abf0c0c68e7f70256f87f8eeada9c5a10823fbfbea45b62d83b9ac7189cf",
+    "hardware/scripts/_stated_bounds.py": "aceb3e758743cfeb90e79c235a161898388ce8b4ad309bcc4839964fbfd86741",
+    "hardware/scripts/_tools_totals.py": "b0b037cfd4b1231a130f46ab906071c7a46bbeccd294dd1e49d07850ed4a9cf3",
+    "hardware/scripts/_tube_export.py": "9783f1a05cfbb08cb5f1a3d8573e54570846a53346ff87e4b370dc79305de9ec",
+    "hardware/scripts/_tube_relax.py": "59c23cc62f10f30cda0d967c3c12258269b058f8c9f4085e732ae859aa8055ad",
+    "hardware/scripts/_world_sdf.py": "bdfe20ba0c138abeda130730b1142df08fb2f01865a60eeb16ecf96596b31582",
+    "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
+    "hardware/scripts/check_copper_plug_clearance.py": "cdeacec0eda5388bd699de3f0635e266619de500318ed2465f7fca9a8696f19a",
+    "hardware/scripts/check_core_and_faucet_heatsets.py": "144e3852a7b8b046daa2881b3cd85fbe24204e5f1d7428f1d0004823d96a6e43",
+    "hardware/scripts/check_enclosure_mating_clearance.py": "b45ccfb4898facb94cfd1f2177d09cd8eb63413dc2b61457f68f87f56947d799",
+    "hardware/scripts/check_faucet_geometry.py": "849ac6051df29486ffdc4885ecd7bb1dd7afa79d85bb8f2a9455a59dce17435e",
+    "hardware/scripts/check_finishes.py": "c7ba0aca96d8720fc3ce97ce9510e5b92dabd1a947009631a79ecf2d72e56bac",
+    "hardware/scripts/check_ledger.py": "73bb101ce8999f09073d49eb24a138b63d51cedc8c060d20b1b78d7bcc54a077",
+    "hardware/scripts/check_pinmap.py": "11b67fed2567caa7429e04e982cb58875582141a28914d0e13f9fc2fc116c0ee",
+    "hardware/scripts/check_purchase_evidence.py": "ce595e4ccbe08cde92d62f33095f7523d713a7d734b1ae86ca194d44bb72de25",
+    "hardware/scripts/check_step_colours.py": "f66618608e6a005fa05eb63e7711d848e2f2a987731742ea354b1d6edd2a4df1",
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/scripts/fit.py": "7a2215056ef65b3aae09e82fbab3b17321ad2689f9372e8b4189022454ad0090",
+    "hardware/scripts/flute_payload.py": "d4991728bea855039bcc251e4e71537ba261bde64fb5514a8c9183d9096e71f2",
+    "hardware/scripts/flute_payload_cold_core.py": "409095d1bc36c51fd0debb7a6e1e986b1f6d03cfcdd1d8d739cc1a8ce72fd36b",
+    "hardware/scripts/flute_payload_enclosure.py": "b87954eca93698e76e883e7e9a2a6abde32d316c20773dae219b22d41979499b",
+    "hardware/scripts/flute_payload_faucet.py": "9dd86f43b67565c46cf3d5e099ac4f84c9caccaca88f8a81813e1b879400eff6",
+    "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b",
+    "hardware/scripts/lanes.py": "75dc8385a57c3f67e6238694e3025e7e612d3499d83de293dab6c3e36690adba",
+    "hardware/scripts/materialize_grip_assembly.py": "4090098a554ea81a57aee1723350869dcfa3833c8c67662d6faa7bc1814419f7",
+    "hardware/scripts/materialize_material_colors.py": "6cd30d723b3df36d7d91f03cb8a0c2d2c958bae5a962469544ba6afd1278c857",
+    "hardware/scripts/materialize_pump_cartridge.py": "d0e67fd7ce6f0d423f953d4a8831862f8e759f851d97ea246441b9881efd715b",
+    "hardware/scripts/pick_read.py": "59a005a35d8cce2e5bce407ebf0ec110b8de9057294e35b8504fe3d0072c35d7",
+    "hardware/scripts/pick_text.py": "5f38dee585665016d5a7766588a15e6ecfca13c98d92a5e69a3cb7a3fd39396d",
+    "hardware/scripts/probe.py": "c0bf21294a3098f1444d5572f9358ebadc43886ffb5367d84ebd68740e5493cb",
+    "hardware/scripts/test_ledger_analysis.py": "328cf40313c9333554f09c6d58355a32f920c3c7acaad2b716404e0f64062be4",
+    "hardware/scripts/tube_routes.py": "67aa9796e817f653de8d61a91245608ec2f8db0094216b42da3e7dd570a668ee",
+    "hardware/scripts/verify_round_layer_band.py": "ea8891fa47415d580a45066503cc5a54881d9beef3bbc79701ace0c90fb357cc",
+    "hardware/service/_pump_replacement_sync.py": "4e6339fc46340236c7a2931a46d9ed36c3eb282bbc0eae0b1b56d45c399ccbdc",
+    "hardware/topology/_fluid_topology_sync.py": "6ff6d2e0923b894494a89145cbd89a31341935d739b88d9ebf7102ca18b020c8",
+    "hardware/tube-insertion-guide/out/write_build_pages.py": "1fa0045dd5a5ca08ec163a7c03f30e40bd58a36384ad5df3a6126ba17e6661cf",
+    "hardware/tube-insertion-guide/out/write_operation_pages.py": "70809cfdbcbf8a341a97769bacc772872aa095b2469d2f66ab05ae253b916952",
+    "hardware/wiring/_ac_wiring_schedule_sync.py": "c1a6ab825593a99a1f2b9b002ae78afaba05177fc5ba80772c853ad2295e98d9",
+    "hardware/wiring/_run_lengths.py": "668dfe370393db198a1df1c8b15f726494823a9c84767e8c4e6dc2b2c3c91750"
+  },
+  "plumbing": {
+    "ports": {
+      "suction": [
+        [
+          42.24919915226643,
+          324.4700578081154,
+          280.13530733457463
+        ],
+        [
+          0.004651351626468471,
+          -0.9999891823528579,
+          1.0262039915530084e-05
+        ]
+      ],
+      "discharge": [
+        [
+          -42.05743291856682,
+          323.22218696982515,
+          272.40288480114015
+        ],
+        [
+          -0.006712810831753312,
+          -0.9063112002918736,
+          -0.4225576249415462
+        ]
+      ]
+    },
+    "routes": {
+      "suction-link": {
+        "points_mm": [
+          [
+            42.24919915226643,
+            324.4700578081154,
+            280.13530733457463
+          ],
+          [
+            42.31896942666346,
+            309.47022007282254,
+            280.1354612651734
+          ],
+          [
+            65.05000000697481,
+            283.28,
+            268.1000001
+          ],
+          [
+            65.05000000697481,
+            261.28,
+            268.1000001
+          ]
+        ],
+        "exposed_length_mm": 72.55567419247097,
+        "minimum_radius_mm": 14.0,
+        "radii_mm": {
+          "1": 14.0,
+          "2": 14.0
+        }
+      },
+      "discharge-link": {
+        "points_mm": [
+          [
+            -42.05743291856682,
+            323.22218696982515,
+            272.40288480114015
+          ],
+          [
+            -42.1178482160526,
+            315.06538616719826,
+            268.59986617666624
+          ],
+          [
+            -60.5,
+            305.3,
+            268.1000001
+          ],
+          [
+            -60.5,
+            291.3,
+            268.1000001
+          ]
+        ],
+        "exposed_length_mm": 40.302428589707475,
+        "minimum_radius_mm": 14.0,
+        "radii_mm": {
+          "1": 14.0,
+          "2": 14.0
+        }
+      },
+      "check-to-core": {
+        "points_mm": [
+          [
+            -60.5,
+            217.8,
+            268.1000001
+          ],
+          [
+            -60.5,
+            203.8,
+            268.1000001
+          ],
+          [
+            -55.999999993025185,
+            188.89999999999995,
+            267.4000001
+          ],
+          [
+            -55.999999993025185,
+            188.89999999999995,
+            253.4000001
+          ]
+        ],
+        "exposed_length_mm": 38.142616267900266,
+        "minimum_radius_mm": 14.0,
+        "radii_mm": {
+          "1": 14.0,
+          "2": 14.0
+        }
+      },
+      "split-to-VK": {
+        "points_mm": [
+          [
+            -89.85,
+            243.26,
+            271.6605808375568
+          ],
+          [
+            -89.85,
+            243.26,
+            256.50000009999997
+          ],
+          [
+            -94.0,
+            226.3,
+            256.50000009999997
+          ],
+          [
+            -94.0,
+            180.8,
+            261.00000009999997
+          ],
+          [
+            -30.0,
+            180.8,
+            261.00000009999997
+          ],
+          [
+            -22.0,
+            184.3,
+            261.00000009999997
+          ],
+          [
+            -5.5,
+            184.3,
+            261.00000009999997
+          ],
+          [
+            20.0,
+            180.8,
+            261.00000009999997
+          ],
+          [
+            65.05000000697481,
+            164.0,
+            268.1000001
+          ],
+          [
+            65.05000000697481,
+            201.77999999999997,
+            268.1000001
+          ]
+        ],
+        "exposed_length_mm": 254.24548654794594,
+        "minimum_radius_mm": 14.0,
+        "radii_mm": {
+          "1": 14.0,
+          "2": 14.0,
+          "3": 14.0,
+          "4": 14.0,
+          "5": 14.0,
+          "6": 14.0,
+          "7": 14.0,
+          "8": 14.0
+        }
+      }
+    },
+    "hits": {
+      "elbow-suction": [],
+      "band-suction-barb": [],
+      "band-suction-tube": [],
+      "elbow-discharge": [],
+      "band-discharge-barb": [],
+      "band-discharge-tube": [],
+      "vk-candidate": [],
+      "check-water": [],
+      "check-in-PP010822E": [],
+      "check-out-PP450822E": [],
+      "water-check-cradle": [],
+      "suction-link": [],
+      "discharge-link": [],
+      "check-to-core": [],
+      "split-to-VK": []
+    }
+  },
+  "funnel": {
+    "scope": "Unprinted geometry study; installed bodies, existing shell pieces and revised tube paths",
+    "capacity_ml": 715.056939428836,
+    "drain_world_mm": [
+      1.85,
+      164.55,
+      306.05
+    ],
+    "rear_frame_floor_z_mm": 329,
+    "cover_contact": {
+      "pad_contact_mm3": 41.72745948506716,
+      "outside_pads_mm3": 0.0
+    },
+    "relocated_mounts": {
+      "insert_stations": [
+        [
+          409.8,
+          336.7,
+          96.25
+        ],
+        [
+          409.8,
+          349.7,
+          96.25
+        ],
+        [
+          343.8,
+          336.7,
+          96.25
+        ],
+        [
+          343.8,
+          349.7,
+          96.25
+        ],
+        [
+          423.8000001,
+          341.5442287340595,
+          92.25
+        ]
+      ],
+      "insert_fills": [
+        [
+          "ground-stack ceiling column",
+          [
+            92.25,
+            98.5,
+            419.8000001,
+            427.8000001,
+            345.5442287340595,
+            348.0
+          ],
+          [
+            [
+              423.8000001,
+              341.5442287340595
+            ]
+          ]
+        ],
+        [
+          "relay-1 y=343.8 ceiling column",
+          [
+            96.25,
+            98.5,
+            339.8,
+            347.8,
+            332.7,
+            348.0
+          ],
+          [
+            [
+              343.8,
+              336.7
+            ],
+            [
+              343.8,
+              349.7
+            ]
+          ]
+        ],
+        [
+          "relay-1 y=409.8 ceiling column",
+          [
+            96.25,
+            98.5,
+            405.8,
+            413.8,
+            332.7,
+            348.0
+          ],
+          [
+            [
+              409.8,
+              336.7
+            ],
+            [
+              409.8,
+              349.7
+            ]
+          ]
+        ]
+      ],
+      "co2_check_cradle": [
+        [
+          32.65,
+          341.1526,
+          335.9605808375568
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        7.9,
+        [
+          null,
+          null
+        ]
+      ],
+      "basis": "Existing production mounting constructors; new positions are unprinted"
+    },
+    "routes": {
+      "carb-1-candidate": {
+        "points_mm": [
+          [
+            77.50000000697483,
+            271.59999999999997,
+            253.4000001
+          ],
+          [
+            77.50000000697483,
+            271.59999999999997,
+            281.4
+          ],
+          [
+            48.5,
+            271.59999999999997,
+            281.4
+          ],
+          [
+            48.5,
+            301.8,
+            281.4
+          ],
+          [
+            48.5,
+            301.8,
+            327.5
+          ],
+          [
+            -43.709999999999994,
+            301.8,
+            327.5
+          ],
+          [
+            -43.709999999999994,
+            337.0,
+            332.1
+          ],
+          [
+            -43.709999999999994,
+            363.51,
+            332.1
+          ]
+        ],
+        "exposed_length_mm": 257.47247427986207,
+        "minimum_radius_mm": 14.0
+      },
+      "co2-1-candidate": {
+        "points_mm": [
+          [
+            -3.350000000000004,
+            315.5326,
+            335.9605808375568
+          ],
+          [
+            -3.350000000000004,
+            300.5,
+            335.9605808375568
+          ],
+          [
+            32.65,
+            300.5,
+            335.9605808375568
+          ],
+          [
+            32.65,
+            317.1526,
+            335.9605808375568
+          ]
+        ],
+        "exposed_length_mm": 55.66749715025712,
+        "minimum_radius_mm": 14.0
+      },
+      "co2-2-candidate": {
+        "points_mm": [
+          [
+            32.65,
+            390.6526,
+            335.9605808375568
+          ],
+          [
+            32.65,
+            406.6526,
+            335.9605808375568
+          ],
+          [
+            65.5,
+            406.6526,
+            335.9605808375568
+          ],
+          [
+            65.5,
+            322.29999999999995,
+            335.9605808375568
+          ],
+          [
+            65.5,
+            322.29999999999995,
+            297.0
+          ],
+          [
+            77.50000000697483,
+            322.29999999999995,
+            267.4000001
+          ],
+          [
+            77.50000000697483,
+            322.29999999999995,
+            253.4000001
+          ]
+        ],
+        "exposed_length_mm": 199.9412432872261,
+        "minimum_radius_mm": 14.0
+      }
+    },
+    "hits": {
+      "funnel-715ml": [],
+      "funnel-frame-715ml": [],
+      "back-top-funnel-opening": [],
+      "funnel-cover-715ml": [],
+      "relay-1-candidate": [],
+      "ground-stack-candidate": [],
+      "gasher-co2-candidate": [],
+      "co2-adapter-check-in-candidate": [],
+      "co2-adapter-check-out-candidate": [],
+      "carb-1-candidate": [],
+      "co2-1-candidate": [],
+      "co2-2-candidate": []
+    },
+    "candidate_pairs": []
+  },
+  "combined_candidate_overlaps": [],
+  "unmeasured": [
+    "clamp wings and screw access",
+    "printed cuff fit and insertion force",
+    "pressure holding",
+    "wet tube retention",
+    "relaxation and lifetime",
+    "complete insertion/service motion",
+    "wetted grade suitability"
+  ]
+}
