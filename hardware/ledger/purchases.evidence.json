@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-07",
+  "as_of": "2026-10-13",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -1166,7 +1166,14 @@
         "legacy-ledger-2026",
         "saved-amazon:112-6207769-5063458",
         "src-46117fb96c294b1387c08bde47fda251",
-        "src-6b3d9e0448dc4af18ef1846c7f7cef98"
+        "src-6b3d9e0448dc4af18ef1846c7f7cef98",
+        "src-40cb8737c36c4fb18d3e9b2e20bfb63e"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-07"
+        }
       ]
     },
     "pur-2ea84071bce44b5fbac595a3c4e6cd90": {
@@ -1206,7 +1213,14 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-fws:WEBFWS100708594",
-        "src-2c42df8ef8704561930e3cd7dbd072c1"
+        "src-2c42df8ef8704561930e3cd7dbd072c1",
+        "src-04a78124a620475eafab0e924d41d393"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-05"
+        }
       ]
     },
     "pur-2aa2349ca254425ba4ef67c46431c772": {
@@ -4903,7 +4917,14 @@
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-amazon:114-7873884-6062600"
+        "saved-amazon:114-7873884-6062600",
+        "src-7284ef5b846846f5a9ff294141ce211d"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-09"
+        }
       ]
     },
     "pur-c0a6d79ff3c7456896e951e6bf38d090": {
@@ -5066,7 +5087,15 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-1800134-0339456",
-        "src-bf06a37b70d84aa98751411c8804ca2a"
+        "src-bf06a37b70d84aa98751411c8804ca2a",
+        "src-fca85e683e25457dbfe48a380ee6d856",
+        "src-a9a8a868059a4bb6964b776af6c99b6e"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-06"
+        }
       ]
     },
     "pur-87565d390bcc451a9fbfb44dc871d585": {
@@ -5080,7 +5109,15 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-4198441-3661019",
-        "src-4db1cbaf3b464ca7887f6f4643806383"
+        "src-4db1cbaf3b464ca7887f6f4643806383",
+        "src-621d0701ca9b40db89c8ff3a186a2638",
+        "src-10895b89073f4d378c40bb702f81590a"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-07"
+        }
       ]
     },
     "pur-8b8ba8e2137c4191a05b5752259df5bc": {
@@ -5550,7 +5587,14 @@
         "legacy-ledger-2026",
         "saved-amazon:112-9011811-0810621",
         "src-058c2b4535314a7c8f984e377b4f437f",
-        "src-f63f6fc25aba4312acd12da1bf3ab09f"
+        "src-f63f6fc25aba4312acd12da1bf3ab09f",
+        "src-c88b76e7898e4e1f9e417091e092e327"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-05"
+        }
       ]
     },
     "pur-641b9c213fe8433b9886a54f204dabdf": {
@@ -7762,7 +7806,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-6698dae129114345b350a05a4a1294d3"
+        "src-6698dae129114345b350a05a4a1294d3",
+        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f"
       ]
     },
     "pur-6bc71f4f15b34503ac9bf8beea6ef815": {
@@ -7774,7 +7819,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8",
+        "src-ca0f600b2a7a45648473f456e27749f9"
       ]
     },
     "pur-1394610e499a45c08ba665ed1200053c": {
@@ -7786,7 +7832,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-9e46e329e03f4adeab99ed97e39b5839"
+        "src-9e46e329e03f4adeab99ed97e39b5839",
+        "src-e43f43d41fa6421fb4530c8eecb627ea"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-06"
+        }
       ]
     },
     "pur-f24cd0a88f4b4a8ca76f3abc490f81b3": {
@@ -7798,7 +7851,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+        "src-aa79e0fc10164b8086dd556b9cdec6fb",
+        "src-d8d4e9ee419545059ca2064ea7079601"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-07"
+        }
       ]
     },
     "pur-27bb6c07598243e390e2ca407e908695": {
@@ -7810,7 +7870,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
+        "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-c973b756b58544d39e305b70f10fc72f"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-08"
+        }
       ]
     },
     "pur-65c979f1bb194148918426361d985f73": {
@@ -7822,7 +7889,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-535edab39a23469dad7dadceae02fad6"
+        "src-535edab39a23469dad7dadceae02fad6",
+        "src-1042316a1a3844c88425bb784064d9d8"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-09"
+        }
       ]
     },
     "pur-03fa2eeee1cd4eae8e6991441f9f90ed": {
@@ -7834,7 +7908,14 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-68c3c555ba354b03a40e08e8375f0c42"
+        "src-68c3c555ba354b03a40e08e8375f0c42",
+        "src-e92825093cca43c699c00dcf08d7c239"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-09"
+        }
       ]
     },
     "pur-a667e3ee975c42218852bc7b225d75a8": {
@@ -7846,7 +7927,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-15a0dd5bd1ed4f618820a186549645d2"
+        "src-15a0dd5bd1ed4f618820a186549645d2",
+        "src-492886a1a67f4b4483ffbe0450503153"
       ]
     },
     "pur-3ce173932d6c45f184bcd60237a2c790": {
@@ -7858,7 +7940,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-15a0dd5bd1ed4f618820a186549645d2"
+        "src-15a0dd5bd1ed4f618820a186549645d2",
+        "src-492886a1a67f4b4483ffbe0450503153"
       ]
     },
     "pur-ad87bb1e2d7548aa9fdf66293915a4f4": {
@@ -7889,7 +7972,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-f5c929d3032043f28bdc2e1dc38d137c"
+        "src-f5c929d3032043f28bdc2e1dc38d137c",
+        "src-562421f6676e46688ceddbd93e34ddb2"
       ]
     },
     "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6": {
@@ -7901,7 +7985,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb",
+        "src-d6692141e5ea4f9d95d74c8b010bd99a"
       ]
     },
     "pur-d8a8a1e239ff48b6a6b19c43e22b4858": {
@@ -7913,7 +7998,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-73f93ccef6d4495f9740151c9a066f44"
+        "src-73f93ccef6d4495f9740151c9a066f44",
+        "src-fed4085cf6854b39945f1783a4dc635c"
       ]
     },
     "pur-9835cb05727440fa98029e6134ffd627": {
@@ -7925,7 +8011,154 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-b679143bb2f74c96a6f795fc0501e303"
+        "src-b679143bb2f74c96a6f795fc0501e303",
+        "src-92da1acd0f8f40fdbfaef8238f169457"
+      ]
+    },
+    "pur-25f35741f88e40729bec555987f79640": {
+      "vendor": "Bambu Lab",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "bambu:us784775952755326977"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
+        "src-2f1601429d6545338d5a5eaaada1ba89"
+      ]
+    },
+    "pur-5c066280c9c7489f8f90b851374b4995": {
+      "vendor": "InnoAddi",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "innoaddi:2941"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9cef8a7480a642d4b3d06cf8a90586d5",
+        "src-956ac1ef318249d481a2006fa4ef3831"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-10"
+        }
+      ]
+    },
+    "pur-ad8073cabdb043f5988b69d7acae93c1": {
+      "vendor": "Anthropic",
+      "purpose": "engineering_software_services",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "anthropic:8C2842D3-0012"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4e5455e1ba4a48ecbdb38d25ee309119"
+      ],
+      "stream": "automatic_top_up",
+      "service_period": null,
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "row_date_basis": "receipt_date"
+    },
+    "pur-7cb5c1d8028249feb0e80687059fc82e": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-3307778-2637053"
+      ],
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-0049e6c1f42d478fa96e8bb2adeecc4b",
+        "src-5d083eea56e14138b6e28e093f2938d4"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-09-29"
+        }
+      ]
+    },
+    "pur-3e2e38c4658c47eba0f7b8efe6bb4734": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-3307778-2637053"
+      ],
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-0049e6c1f42d478fa96e8bb2adeecc4b",
+        "src-5d083eea56e14138b6e28e093f2938d4"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-09-29"
+        }
+      ]
+    },
+    "pur-0504233f1bc64d7cbd4faa23bf63edd9": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5603942-4632220"
+      ],
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-d9cc17ab8b7746e0805b3a20283e3a9e",
+        "src-fbb4e0c686d24622894cb9e38658f1cd"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-09-30"
+        }
+      ]
+    },
+    "pur-e7fa6e37def64cf3baaf64a1a2458232": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-4649388-6034615"
+      ],
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-e8198e9ae2bb4c07be57b21931bcde0d",
+        "src-f64aaaf37efc4695b5349c3bd4ffa228"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-12"
+        }
+      ]
+    },
+    "pur-8d0598d87bd8438496d8a9fbf38dcf9a": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-4649388-6034615"
+      ],
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-e8198e9ae2bb4c07be57b21931bcde0d",
+        "src-f64aaaf37efc4695b5349c3bd4ffa228"
+      ],
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-10-12"
+        }
       ]
     }
   },
@@ -8578,7 +8811,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:112-6207769-5063458"
+        "saved-amazon:112-6207769-5063458",
+        "src-40cb8737c36c4fb18d3e9b2e20bfb63e"
       ]
     },
     "fws:WEBFWS100675224": {
@@ -8600,7 +8834,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-fws:WEBFWS100708594",
-        "src-2c42df8ef8704561930e3cd7dbd072c1"
+        "src-2c42df8ef8704561930e3cd7dbd072c1",
+        "src-04a78124a620475eafab0e924d41d393"
       ]
     },
     "amazon:112-4601641-4469804": {
@@ -10941,7 +11176,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:114-7873884-6062600"
+        "saved-amazon:114-7873884-6062600",
+        "src-7284ef5b846846f5a9ff294141ce211d"
       ]
     },
     "amazon:112-9068130-2805061": {
@@ -11002,7 +11238,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:112-1800134-0339456"
+        "saved-amazon:112-1800134-0339456",
+        "src-fca85e683e25457dbfe48a380ee6d856"
       ]
     },
     "amazon:112-4198441-3661019": {
@@ -11014,7 +11251,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:112-4198441-3661019"
+        "saved-amazon:112-4198441-3661019",
+        "src-621d0701ca9b40db89c8ff3a186a2638"
       ]
     },
     "amazon:114-3717852-7039428": {
@@ -11362,7 +11600,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-amazon:112-9011811-0810621"
+        "saved-amazon:112-9011811-0810621",
+        "src-c88b76e7898e4e1f9e417091e092e327"
       ]
     },
     "amazon:112-1104114-3043411": {
@@ -13388,7 +13627,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-6698dae129114345b350a05a4a1294d3"
+        "src-6698dae129114345b350a05a4a1294d3",
+        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f"
       ]
     },
     "lulu:USD-C4516450": {
@@ -13400,7 +13640,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8",
+        "src-ca0f600b2a7a45648473f456e27749f9"
       ]
     },
     "amazon:114-5418576-5300228": {
@@ -13412,7 +13653,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-9e46e329e03f4adeab99ed97e39b5839"
+        "src-9e46e329e03f4adeab99ed97e39b5839",
+        "src-e43f43d41fa6421fb4530c8eecb627ea"
       ]
     },
     "amazon:112-5477760-5177827": {
@@ -13424,7 +13666,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+        "src-aa79e0fc10164b8086dd556b9cdec6fb",
+        "src-d8d4e9ee419545059ca2064ea7079601"
       ]
     },
     "bambu:us783865986561351681": {
@@ -13436,7 +13679,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
+        "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-c973b756b58544d39e305b70f10fc72f"
       ]
     },
     "fws:WEBFWS100711469": {
@@ -13448,7 +13692,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-535edab39a23469dad7dadceae02fad6"
+        "src-535edab39a23469dad7dadceae02fad6",
+        "src-1042316a1a3844c88425bb784064d9d8"
       ]
     },
     "fws:WEBFWS100711471": {
@@ -13460,7 +13705,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-68c3c555ba354b03a40e08e8375f0c42"
+        "src-68c3c555ba354b03a40e08e8375f0c42",
+        "src-e92825093cca43c699c00dcf08d7c239"
       ]
     },
     "amazon:112-1633049-9300204": {
@@ -13532,7 +13778,79 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-b679143bb2f74c96a6f795fc0501e303"
+        "src-b679143bb2f74c96a6f795fc0501e303",
+        "src-92da1acd0f8f40fdbfaef8238f169457"
+      ]
+    },
+    "bambu:us784775952755326977": {
+      "vendor": "Bambu Lab",
+      "reference": "us784775952755326977",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
+        "src-2f1601429d6545338d5a5eaaada1ba89"
+      ]
+    },
+    "innoaddi:2941": {
+      "vendor": "InnoAddi",
+      "reference": "2941",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9cef8a7480a642d4b3d06cf8a90586d5",
+        "src-956ac1ef318249d481a2006fa4ef3831"
+      ]
+    },
+    "anthropic:8C2842D3-0012": {
+      "vendor": "Anthropic",
+      "reference": "8C2842D3-0012",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4e5455e1ba4a48ecbdb38d25ee309119"
+      ]
+    },
+    "amazon:114-3307778-2637053": {
+      "vendor": "Amazon",
+      "reference": "114-3307778-2637053",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-09-28"
+      },
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-0049e6c1f42d478fa96e8bb2adeecc4b"
+      ]
+    },
+    "amazon:114-5603942-4632220": {
+      "vendor": "Amazon",
+      "reference": "114-5603942-4632220",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-09-28"
+      },
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-d9cc17ab8b7746e0805b3a20283e3a9e"
+      ]
+    },
+    "amazon:114-4649388-6034615": {
+      "vendor": "Amazon",
+      "reference": "114-4649388-6034615",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-11"
+      },
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-e8198e9ae2bb4c07be57b21931bcde0d"
       ]
     }
   },
@@ -16083,18 +16401,19 @@
       "event_id": "evt-859aaf61508e423492ba56484ab9f2df",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "event_date": {
         "precision": "day",
-        "value": "2026-10-04"
+        "value": "2026-10-06"
       },
       "amount_minor": 878,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-4db1cbaf3b464ca7887f6f4643806383"
+        "src-4db1cbaf3b464ca7887f6f4643806383",
+        "src-10895b89073f4d378c40bb702f81590a"
       ],
-      "verified_at": "2026-10-04",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:112-4198441-3661019"
       ]
@@ -16225,15 +16544,19 @@
       "event_id": "evt-4f7b7d18ceab43979159e02bdb2a306d",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
       "amount_minor": 2966,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-15a0dd5bd1ed4f618820a186549645d2"
+        "src-15a0dd5bd1ed4f618820a186549645d2",
+        "src-492886a1a67f4b4483ffbe0450503153"
       ],
-      "verified_at": "2026-10-11",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:112-1633049-9300204"
       ]
@@ -16263,14 +16586,18 @@
       "vendor": "Amazon",
       "event_type": "charge",
       "confirmation": "expected",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
       "amount_minor": 2358,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-f5c929d3032043f28bdc2e1dc38d137c"
+        "src-f5c929d3032043f28bdc2e1dc38d137c",
+        "src-562421f6676e46688ceddbd93e34ddb2"
       ],
-      "verified_at": "2026-10-11",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:112-8160692-2465006"
       ]
@@ -16279,15 +16606,19 @@
       "event_id": "evt-bad47324ad83426992a3db494d58e295",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
       "amount_minor": 21245,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb"
+        "src-e7b8ab9e0c0a4fbd83c7cd46df67e9cb",
+        "src-d6692141e5ea4f9d95d74c8b010bd99a"
       ],
-      "verified_at": "2026-10-11",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:114-5708094-2581869"
       ]
@@ -16296,15 +16627,19 @@
       "event_id": "evt-ef96ebf561264b5dafd229959a5acabe",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
       "amount_minor": 9640,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-73f93ccef6d4495f9740151c9a066f44"
+        "src-73f93ccef6d4495f9740151c9a066f44",
+        "src-fed4085cf6854b39945f1783a4dc635c"
       ],
-      "verified_at": "2026-10-11",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "amazon:114-5870152-3334654"
       ]
@@ -16324,6 +16659,165 @@
       "verified_at": "2026-10-11",
       "order_ids": [
         "cnckitchen:CNC3278"
+      ]
+    },
+    {
+      "event_id": "evt-d3b134e34785419c80b032d8ae15d6d1",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 10723,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us784775952755326977"
+      ]
+    },
+    {
+      "event_id": "evt-2c87a77f5afa46d080a6f8a9fed380bb",
+      "vendor": "InnoAddi",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 6698,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9cef8a7480a642d4b3d06cf8a90586d5"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "innoaddi:2941"
+      ]
+    },
+    {
+      "event_id": "evt-07fc9a2979134192b3cc752f32f2b460",
+      "vendor": "Anthropic",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "amount_minor": 4012,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4e5455e1ba4a48ecbdb38d25ee309119"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "anthropic:8C2842D3-0012"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "service_period": null
+    },
+    {
+      "event_id": "evt-db226e9820d147058384c3bfe695bab8",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "amount_minor": 4374,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e566d9df694948ae96ee68ec724d8195"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "amazon:114-7873884-6062600"
+      ]
+    },
+    {
+      "event_id": "evt-422e912275ec4062a0eed9ac2913a016",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "amount_minor": 857,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a9a8a868059a4bb6964b776af6c99b6e"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "amazon:112-1800134-0339456"
+      ]
+    },
+    {
+      "event_id": "evt-c8c576f2b6a9470f933223df989c2365",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-09-28"
+      },
+      "amount_minor": 4403,
+      "currency": "USD",
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-5d083eea56e14138b6e28e093f2938d4"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "amazon:114-3307778-2637053"
+      ]
+    },
+    {
+      "event_id": "evt-3ef8b3fcfc004afca6f8abc3c2a0928d",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-09-29"
+      },
+      "amount_minor": 2557,
+      "currency": "USD",
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-fbb4e0c686d24622894cb9e38658f1cd"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "amazon:114-5603942-4632220"
+      ]
+    },
+    {
+      "event_id": "evt-8b786496a51248269419124e3f7b6073",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
+      "amount_minor": 4422,
+      "currency": "USD",
+      "allocation_status": "mixed_partial",
+      "source_ids": [
+        "src-f64aaaf37efc4695b5349c3bd4ffa228"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "amazon:114-4649388-6034615"
       ]
     }
   ],
@@ -17254,6 +17748,86 @@
       "purchase_id": "pur-9835cb05727440fa98029e6134ffd627",
       "order_id": "cnckitchen:CNC3278",
       "amount_minor": 5579,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-a8d253b1bdc84e81adca675a14fb9329",
+      "event_id": "evt-d3b134e34785419c80b032d8ae15d6d1",
+      "purchase_id": "pur-25f35741f88e40729bec555987f79640",
+      "order_id": "bambu:us784775952755326977",
+      "amount_minor": 10723,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-7ffa793214944f6c9f6265e124055fc3",
+      "event_id": "evt-2c87a77f5afa46d080a6f8a9fed380bb",
+      "purchase_id": "pur-5c066280c9c7489f8f90b851374b4995",
+      "order_id": "innoaddi:2941",
+      "amount_minor": 6698,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-e78df5ef750e434096c1a49d205880a4",
+      "event_id": "evt-07fc9a2979134192b3cc752f32f2b460",
+      "purchase_id": "pur-ad8073cabdb043f5988b69d7acae93c1",
+      "order_id": "anthropic:8C2842D3-0012",
+      "amount_minor": 4012,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-a4e122f7a13546b7bef3ac0bf533039e",
+      "event_id": "evt-db226e9820d147058384c3bfe695bab8",
+      "purchase_id": null,
+      "order_id": "amazon:114-7873884-6062600",
+      "amount_minor": 4374,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-9693bdb37c5845bc94b85966a4110287",
+      "event_id": "evt-422e912275ec4062a0eed9ac2913a016",
+      "purchase_id": "pur-cfc338b991f7400a851a0ea5a018e44e",
+      "order_id": "amazon:112-1800134-0339456",
+      "amount_minor": 857,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-602b69251ac147518c66fd63f7a555cb",
+      "event_id": "evt-c8c576f2b6a9470f933223df989c2365",
+      "purchase_id": "pur-7cb5c1d8028249feb0e80687059fc82e",
+      "order_id": "amazon:114-3307778-2637053",
+      "amount_minor": 2280,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-a2c116f16d8843448dd448daee798bb5",
+      "event_id": "evt-c8c576f2b6a9470f933223df989c2365",
+      "purchase_id": "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
+      "order_id": "amazon:114-3307778-2637053",
+      "amount_minor": 2123,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-75d6192c5bdb4729bd8df9d839c8d5de",
+      "event_id": "evt-3ef8b3fcfc004afca6f8abc3c2a0928d",
+      "purchase_id": "pur-0504233f1bc64d7cbd4faa23bf63edd9",
+      "order_id": "amazon:114-5603942-4632220",
+      "amount_minor": 2557,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-c3fc67e198464187960fa6d57670e26d",
+      "event_id": "evt-8b786496a51248269419124e3f7b6073",
+      "purchase_id": "pur-e7fa6e37def64cf3baaf64a1a2458232",
+      "order_id": "amazon:114-4649388-6034615",
+      "amount_minor": 2132,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-aca5cd03784741a09b7a3ba45abbbfe2",
+      "event_id": "evt-8b786496a51248269419124e3f7b6073",
+      "purchase_id": "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
+      "order_id": "amazon:114-4649388-6034615",
+      "amount_minor": 2290,
       "currency": "USD"
     }
   ],
@@ -26301,6 +26875,508 @@
       ],
       "verified_at": "2026-10-11",
       "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90° Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
+    },
+    "src-69cd4bc147fd4e9eb7b6db4f753f08e1": {
+      "vendor": "Bambu Lab",
+      "document_type": "email_order_confirmation",
+      "reference": "us784775952755326977",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail order confirmation received 2026-10-08 12:12 America/Chicago: two ASA Aero White 46100 filaments with spool, 1 kg each, USD 99.98; USD 99.98 subtotal, USD 0.00 credit, USD 0.00 shipping, USD 7.25 tax (state 5.5% USD 5.50 + city 1.75% USD 1.75), USD 107.23 grand total and net payment. The order number's timestamp places the order at 2026-10-08 12:11 America/Chicago. No completed merchant charge is stated."
+    },
+    "src-2f1601429d6545338d5a5eaaada1ba89": {
+      "vendor": "Bambu Lab",
+      "document_type": "shipment_confirmation",
+      "reference": "us784775952755326977",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "proves": [],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice received 2026-10-08 15:25 America/Chicago: both ASA Aero White 46100 spools shipped by UPS. On 2026-10-13 the carrier tracking showed the delivery delayed and arriving that day. Fulfillment alone does not establish delivery or payment."
+    },
+    "src-c973b756b58544d39e305b70f10fc72f": {
+      "vendor": "Bambu Lab",
+      "document_type": "delivery_confirmation",
+      "reference": "us783865986561351681",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice 2026-10-06, out-for-delivery notice 2026-10-08 and delivered notice received 2026-10-08 17:25 America/Chicago, which reports delivery according to the carrier's tracking. The same-day out-for-delivery notice establishes the 2026-10-08 delivery day. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      }
+    },
+    "src-04a78124a620475eafab0e924d41d393": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "delivery_confirmation",
+      "reference": "WEBFWS100708594",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail out-for-delivery notice 2026-10-05 and delivered notice received 2026-10-05 12:03 America/Chicago; the same-day out-for-delivery notice establishes the delivery day. The delivered shipment lists all three bags of ten PI450822S. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      }
+    },
+    "src-1042316a1a3844c88425bb784064d9d8": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "delivery_confirmation",
+      "reference": "WEBFWS100711469",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-09"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice 2026-10-07, out-for-delivery notice 2026-10-09 and delivered notice received 2026-10-09 17:48 America/Chicago; the same-day out-for-delivery notice establishes the delivery day. The delivered shipment lists all three line items. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-09"
+      }
+    },
+    "src-e92825093cca43c699c00dcf08d7c239": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "delivery_confirmation",
+      "reference": "WEBFWS100711471",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-09"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice 2026-10-07, out-for-delivery notice 2026-10-09 and delivered notice received 2026-10-09 17:48 America/Chicago; the same-day out-for-delivery notice establishes the delivery day. The delivered shipment lists both line items. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-09"
+      }
+    },
+    "src-7a0dcfa2b9cd4fe7804116a75fe22a7f": {
+      "vendor": "Draft Warehouse",
+      "document_type": "delivery_confirmation",
+      "reference": "244592",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice 2026-10-05 (UPS), shipping-status update 2026-10-06 and delivered notice received 2026-10-07 11:11 America/Chicago for the one Taprite 3741. Vendor notification confirms actual delivery. The notification calendar date does not independently establish the exact delivery day; no completed payment is inferred.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      }
+    },
+    "src-9cef8a7480a642d4b3d06cf8a90586d5": {
+      "vendor": "InnoAddi",
+      "document_type": "email_order_confirmation",
+      "reference": "2941",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail order confirmation received 2026-10-06 09:19 America/Chicago: one Induction Heating Assembly - Right (H2C and H2C Laser) at USD 58.99; USD 58.99 subtotal, USD 7.99 standard shipping, USD 0.00 taxes, USD 66.98 total. No completed merchant charge is stated."
+    },
+    "src-956ac1ef318249d481a2006fa4ef3831": {
+      "vendor": "InnoAddi",
+      "document_type": "delivery_confirmation",
+      "reference": "2941",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice 2026-10-06 (USPS), out-for-delivery notice 2026-10-10 and delivered notice received 2026-10-10 11:47 America/Chicago; the same-day out-for-delivery notice establishes the delivery day. No completed merchant charge is stated.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-10-10"
+      }
+    },
+    "src-4e5455e1ba4a48ecbdb38d25ee309119": {
+      "vendor": "Anthropic",
+      "document_type": "merchant_monetary_receipt",
+      "reference": "2538-0740-3184",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Gmail receipt received 2026-10-07 02:24 America/Chicago: auto-recharge credits, quantity 1, USD 40.12; paid 2026-10-07, amount paid USD 40.12. Project service purchase of prepaid usage credit.",
+      "invoice_reference": "8C2842D3-0012",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      }
+    },
+    "src-ca0f600b2a7a45648473f456e27749f9": {
+      "vendor": "Lulu",
+      "document_type": "shipment_confirmation",
+      "reference": "USD-C4516450",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
+      "proves": [],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice received 2026-10-12: the order has shipped. Fulfillment alone does not establish delivery or payment."
+    },
+    "src-92da1acd0f8f40fdbfaef8238f169457": {
+      "vendor": "CNCKitchen USA",
+      "document_type": "shipment_confirmation",
+      "reference": "CNC3278",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
+      "proves": [],
+      "verified_at": "2026-10-13",
+      "note": "Gmail shipment notice received 2026-10-12, sent through KB-3D for CNCKitchen USA: the order shipped by FedEx. Fulfillment alone does not establish delivery or payment."
+    },
+    "src-40cb8737c36c4fb18d3e9b2e20bfb63e": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-6207769-5063458",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: the three WR1105 regulators show Delivered October 7. The completed USD 91.56 charge is recorded separately."
+    },
+    "src-7284ef5b846846f5a9ff294141ce211d": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-7873884-6062600",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: the six delayed pairs show Delivered October 9; the first three pairs were delivered October 3."
+    },
+    "src-e566d9df694948ae96ee68ec724d8195": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-7873884-6062600",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists a second Completed charge of USD 43.74 on 2026-10-06 beside the USD 21.87 charge of 2026-10-04; together they equal the USD 65.61 order total. Neither transaction names the pairs it covers. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      }
+    },
+    "src-fca85e683e25457dbfe48a380ee6d856": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-1800134-0339456",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: Delivered October 6."
+    },
+    "src-a9a8a868059a4bb6964b776af6c99b6e": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-1800134-0339456",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the USD 8.57 order total. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      }
+    },
+    "src-621d0701ca9b40db89c8ff3a186a2638": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-4198441-3661019",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: Delivered October 7."
+    },
+    "src-10895b89073f4d378c40bb702f81590a": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-4198441-3661019",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the USD 8.78 order total; the debit shown Pending on 2026-10-04 has completed. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      }
+    },
+    "src-d8d4e9ee419545059ca2064ea7079601": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-5477760-5177827",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: Delivered October 7."
+    },
+    "src-e43f43d41fa6421fb4530c8eecb627ea": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5418576-5300228",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: Delivered October 6."
+    },
+    "src-c88b76e7898e4e1f9e417091e092e327": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-9011811-0810621",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: Delivered October 5."
+    },
+    "src-d6692141e5ea4f9d95d74c8b010bd99a": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-5708094-2581869",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the USD 212.45 order total. Delivery is pending. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      }
+    },
+    "src-fed4085cf6854b39945f1783a4dc635c": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-5870152-3334654",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the USD 96.40 order total. Delivery is pending. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      }
+    },
+    "src-492886a1a67f4b4483ffbe0450503153": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-1633049-9300204",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge equal to the USD 29.66 order total. Delivery is pending. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      }
+    },
+    "src-562421f6676e46688ceddbd93e34ddb2": {
+      "vendor": "Amazon",
+      "document_type": "pending_merchant_transaction",
+      "reference": "112-8160692-2465006",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      },
+      "proves": [],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists the USD 23.58 debit In Progress (Pending) on 2026-10-12; this is an expected charge, without completed-charge or authorization proof. Delivery is pending."
+    },
+    "src-0049e6c1f42d478fa96e8bb2adeecc4b": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-3307778-2637053",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: ordered 2026-09-28, delivered 2026-09-29. Mixed order; only the project lines are published: one SodaStream Diet Mountain Dew Drink Mix 4-pack at USD 21.74 and one SodaStream Zero Lemonade 4-pack at USD 20.24, with the order's estimated tax allocated in proportion to item price (USD 1.06 and USD 0.99), a USD 44.03 project share. Other lines and the full order total are outside the export."
+    },
+    "src-5d083eea56e14138b6e28e093f2938d4": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-3307778-2637053",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge for the whole order. Mixed order; only the USD 44.03 project share is published; the full merchant payment is outside the export. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-09-28"
+      }
+    },
+    "src-d9cc17ab8b7746e0805b3a20283e3a9e": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5603942-4632220",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: ordered 2026-09-28, delivered 2026-09-30. Mixed order; only the project line is published: one SodaStream Bubly Burst Peach Mango 4-pack at USD 24.99, with USD 0.58 of the order's estimated tax allocated in proportion to its item price, a USD 25.57 project share. Other lines and the full order total are outside the export."
+    },
+    "src-fbb4e0c686d24622894cb9e38658f1cd": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-5603942-4632220",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge for the whole order. Mixed order; only the USD 25.57 project share is published; the full merchant payment is outside the export. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-09-29"
+      }
+    },
+    "src-e8198e9ae2bb4c07be57b21931bcde0d": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-4649388-6034615",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Amazon order details: ordered 2026-10-11, delivered 2026-10-12. Mixed order; only the project lines are published: one SodaStream Zero Lemonade 4-pack at USD 20.24 and one SodaStream Diet Mountain Dew Drink Mix 4-pack at USD 21.74, with the order's estimated tax allocated in proportion to item price (USD 1.08 and USD 1.16), a USD 44.22 project share. Other lines and the full order total are outside the export."
+    },
+    "src-f64aaaf37efc4695b5349c3bd4ffa228": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-4649388-6034615",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Order-scoped Transactions lists one Completed charge for the whole order. Mixed order; only the USD 44.22 project share is published; the full merchant payment is outside the export. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-12"
+      }
     }
   },
   "coverage": [
@@ -27366,6 +28442,206 @@
         "cnckitchen:CNC3278"
       ],
       "note": "Scoped Gmail search for CNC Kitchen mail from the last two days and review of the named order confirmation; no claim of complete CNCKitchen USA account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-b8b45e49d70542c79e84138ae30ce7a7",
+      "vendor": "Bambu Lab",
+      "stream": "filament orders",
+      "evidence_type": "order_price_fulfillment",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-06",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
+        "src-2f1601429d6545338d5a5eaaada1ba89",
+        "src-c973b756b58544d39e305b70f10fc72f"
+      ],
+      "order_ids": [
+        "bambu:us784775952755326977",
+        "bambu:us783865986561351681"
+      ],
+      "note": "Scoped Gmail review of order, shipment and delivery mail for the two named Bambu orders; no claim of complete Bambu account coverage or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-c6521989f3144cb39f81df95603c72c3",
+      "vendor": "Fresh Water Systems",
+      "stream": "CO2 adapter and drain-line fitting orders",
+      "evidence_type": "fulfillment_notices",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-01",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-04a78124a620475eafab0e924d41d393",
+        "src-1042316a1a3844c88425bb784064d9d8",
+        "src-e92825093cca43c699c00dcf08d7c239"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100708594",
+        "fws:WEBFWS100711469",
+        "fws:WEBFWS100711471"
+      ],
+      "note": "Scoped Gmail review of shipment, out-for-delivery and delivery notices for the three named orders; no claim of complete Fresh Water Systems account coverage or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-ba4bf9754c174c37ad1d77933b5a2574",
+      "vendor": "Draft Warehouse",
+      "stream": "primary regulator order",
+      "evidence_type": "fulfillment_notices",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-05",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-7a0dcfa2b9cd4fe7804116a75fe22a7f"
+      ],
+      "order_ids": [
+        "draftwarehouse:244592"
+      ],
+      "note": "Scoped Gmail review of shipment and delivery notices for the named order; no claim of complete Draft Warehouse account coverage or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-de8e0cfc0b9c4cc3921494a23e27e4f3",
+      "vendor": "InnoAddi",
+      "stream": "induction heating assembly order",
+      "evidence_type": "order_price_fulfillment",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-06",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-9cef8a7480a642d4b3d06cf8a90586d5",
+        "src-956ac1ef318249d481a2006fa4ef3831"
+      ],
+      "order_ids": [
+        "innoaddi:2941"
+      ],
+      "note": "Scoped Gmail review of the named order's confirmation, shipment and delivery mail; no claim of complete InnoAddi account coverage or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-1e5ff8b479474162add55828fd8b8864",
+      "vendor": "Anthropic",
+      "stream": "prepaid usage-credit receipt",
+      "evidence_type": "merchant_receipts",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-07",
+        "end": "2026-10-07"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-4e5455e1ba4a48ecbdb38d25ee309119"
+      ],
+      "order_ids": [
+        "anthropic:8C2842D3-0012"
+      ],
+      "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
+    },
+    {
+      "coverage_id": "coverage-289b30c85ed54017820f5c3461d2a7b8",
+      "vendor": "Lulu",
+      "stream": "install-guide print order",
+      "evidence_type": "fulfillment_notices",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-12",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-ca0f600b2a7a45648473f456e27749f9"
+      ],
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "note": "Scoped Gmail review of the named order's shipment notice; no claim of complete Lulu account coverage, delivery or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-27569856b3b641519414ed37185cfa22",
+      "vendor": "CNCKitchen USA",
+      "stream": "heat-set insert tip order",
+      "evidence_type": "fulfillment_notices",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-12",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-92da1acd0f8f40fdbfaef8238f169457"
+      ],
+      "order_ids": [
+        "cnckitchen:CNC3278"
+      ],
+      "note": "Scoped Gmail review of the named order's shipment notice; no claim of complete CNCKitchen USA account coverage, delivery or completed payment evidence."
+    },
+    {
+      "coverage_id": "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
+      "vendor": "Amazon",
+      "stream": "selected project orders and order-scoped Transactions",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-09-28",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-40cb8737c36c4fb18d3e9b2e20bfb63e",
+        "src-7284ef5b846846f5a9ff294141ce211d",
+        "src-e566d9df694948ae96ee68ec724d8195",
+        "src-fca85e683e25457dbfe48a380ee6d856",
+        "src-a9a8a868059a4bb6964b776af6c99b6e",
+        "src-621d0701ca9b40db89c8ff3a186a2638",
+        "src-10895b89073f4d378c40bb702f81590a",
+        "src-d8d4e9ee419545059ca2064ea7079601",
+        "src-e43f43d41fa6421fb4530c8eecb627ea",
+        "src-c88b76e7898e4e1f9e417091e092e327",
+        "src-d6692141e5ea4f9d95d74c8b010bd99a",
+        "src-fed4085cf6854b39945f1783a4dc635c",
+        "src-492886a1a67f4b4483ffbe0450503153",
+        "src-562421f6676e46688ceddbd93e34ddb2",
+        "src-0049e6c1f42d478fa96e8bb2adeecc4b",
+        "src-5d083eea56e14138b6e28e093f2938d4",
+        "src-d9cc17ab8b7746e0805b3a20283e3a9e",
+        "src-fbb4e0c686d24622894cb9e38658f1cd",
+        "src-e8198e9ae2bb4c07be57b21931bcde0d",
+        "src-f64aaaf37efc4695b5349c3bd4ffa228"
+      ],
+      "order_ids": [
+        "amazon:112-6207769-5063458",
+        "amazon:114-7873884-6062600",
+        "amazon:112-1800134-0339456",
+        "amazon:112-4198441-3661019",
+        "amazon:112-5477760-5177827",
+        "amazon:114-5418576-5300228",
+        "amazon:112-9011811-0810621",
+        "amazon:114-5708094-2581869",
+        "amazon:114-5870152-3334654",
+        "amazon:112-1633049-9300204",
+        "amazon:112-8160692-2465006",
+        "amazon:114-3307778-2637053",
+        "amazon:114-5603942-4632220",
+        "amazon:114-4649388-6034615"
+      ],
+      "note": "Order details and order-scoped Transactions for the named project orders, including three mixed orders whose SodaStream lines are project purchases: deliveries, Completed charges and one pending debit. No claim of complete Amazon account coverage."
     }
   ],
   "gaps": [
@@ -27375,16 +28651,18 @@
         "amazon:114-7873884-6062600"
       ],
       "event_ids": [
-        "evt-0a248482126b481c9dc3c58fd1f7b687"
+        "evt-0a248482126b481c9dc3c58fd1f7b687",
+        "evt-db226e9820d147058384c3bfe695bab8"
       ],
       "purchase_ids": [
         "pur-45f46a866eb640d0be16bab2fd7493b3",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44"
       ],
       "source_ids": [
-        "src-c62cfb60610e4045a644302b490b909c"
+        "src-c62cfb60610e4045a644302b490b909c",
+        "src-e566d9df694948ae96ee68ec724d8195"
       ],
-      "missing_fact": "Completed project charge is linked to the order, but merchant evidence does not allocate it to the received or pending purchase row.",
+      "missing_fact": "Two completed project charges, USD 21.87 on 2026-10-04 and USD 43.74 on 2026-10-06, are linked to the order, but merchant evidence does not allocate either one to the first- or second-shipment purchase row.",
       "sources_checked": [
         "Amazon project order detail and order-scoped Transactions"
       ]
@@ -27673,6 +28951,46 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 41.18 charge remains expected.",
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100711471"
+      ]
+    },
+    {
+      "gap_id": "gap-3a79a763497f4ccca670aa04fa98a501",
+      "purchase_ids": [
+        "pur-25f35741f88e40729bec555987f79640"
+      ],
+      "order_ids": [
+        "bambu:us784775952755326977"
+      ],
+      "event_ids": [
+        "evt-d3b134e34785419c80b032d8ae15d6d1"
+      ],
+      "source_ids": [
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
+        "src-2f1601429d6545338d5a5eaaada1ba89"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation or shipment notice; the USD 107.23 charge remains expected.",
+      "sources_checked": [
+        "Bambu Lab order confirmation and shipment notice us784775952755326977"
+      ]
+    },
+    {
+      "gap_id": "gap-6955cf761b944255be580bf5cd43112e",
+      "purchase_ids": [
+        "pur-5c066280c9c7489f8f90b851374b4995"
+      ],
+      "order_ids": [
+        "innoaddi:2941"
+      ],
+      "event_ids": [
+        "evt-2c87a77f5afa46d080a6f8a9fed380bb"
+      ],
+      "source_ids": [
+        "src-9cef8a7480a642d4b3d06cf8a90586d5",
+        "src-956ac1ef318249d481a2006fa4ef3831"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation or fulfillment notices; the USD 66.98 charge remains expected.",
+      "sources_checked": [
+        "InnoAddi order confirmation, shipment and delivery notices #2941"
       ]
     }
   ],
