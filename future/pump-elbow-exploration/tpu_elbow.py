@@ -52,40 +52,67 @@ class Elbow:
     def mouth(self):
         return self.tube_stop + self.tube_depth
 
+    @property
+    def neck_length(self):
+        """Smooth reduction ends before the complete 9 mm tube clamp seat."""
+        return self.tube_stop + 3.0
+
     def local(self, installed=False):
         rb = (self.installed_barb_od if installed else self.barb_od) / 2
         rt = (self.installed_tube_od if installed else self.tube_od) / 2
         bore_b = (reference.crest() if installed else self.barb_bore) / 2
         bore_t = (6.35 if installed else self.tube_bore) / 2
-        k = rt
-        past = self.axis + k
         foot_offset = self.axis / math.sqrt(2) + self.passage / 2 + self.wall
         x = lambda r, a, b: cq.Solid.makeCylinder(r, b-a, cq.Vector(a, 0, 0), cq.Vector(1, 0, 0))
         y = lambda r, a, b: cq.Solid.makeCylinder(r, b-a, cq.Vector(self.axis, a, 0), cq.Vector(0, 1, 0))
-        outer = x(rb, -self.barb_depth, 0).fuse(
-            cq.Solid.makeBox(past, 2*k, 2*k, cq.Vector(0, -k, -k)), y(rt, 0, self.mouth))
+
+        # Exact fifth-degree Bezier: r(t) = rb + (rt-rb)*(10t³-15t⁴+6t⁵).
+        # Radius, slope and curvature meet both circular ends. The decreasing
+        # radius makes the neck's lower skin steeper than its 45-degree axis.
+        # The expanded placement envelope also extends the smooth reduction;
+        # its larger heel must remain contained in the neck on the +Y side.
+        # This is conservative envelope stock, not a deformation prediction.
+        length = self.neck_length + (1.0 if installed else 0.0)
+        profile = (cq.Workplane("XY").moveTo(0, 0).lineTo(rb, 0)
+                   .bezier([(rb, length/5), (rb, 2*length/5),
+                            (rt, 3*length/5), (rt, 4*length/5), (rt, length)],
+                           includeCurrent=True)
+                   .lineTo(0, length).close())
+        neck = profile.revolve(360, (0, 0, 0), (0, 1, 0)).val().translate((self.axis, 0, 0))
+        heel = cq.Solid.makeSphere(rb, cq.Vector(self.axis, 0, 0), angleDegrees1=-90)
+        # Sequential unions retain the tangent sphere quadrant in OCC.
+        outer = (x(rb, -self.barb_depth, self.axis).fuse(heel)
+                 .fuse(neck).fuse(y(rt, length, self.mouth)))
         span = 4 * (self.barb_depth + self.mouth)
         clip = (cq.Solid.makeBox(span, span, span, cq.Vector(0, -span/2, -span/2))
                 .rotate((0, 0, 0), (0, 0, 1), -45)
                 .translate(cq.Vector(foot_offset/math.sqrt(2), -foot_offset/math.sqrt(2), 0)))
         outer = outer.cut(clip)
         lead = self.entry * math.tan(math.radians(60))
-        cavity = x(bore_b, -self.barb_depth-.01, .01).fuse(
+        cavity = x(bore_b, -self.barb_depth-.01, 0).fuse(
             cq.Solid.makeCone(bore_b+self.entry, bore_b, lead,
                              cq.Vector(-self.barb_depth, 0, 0), cq.Vector(1, 0, 0)),
-            x(self.passage/2, -.01, self.axis+.05),
-            y(self.passage/2, -.05, self.tube_stop+.01),
+            x(self.passage/2, 0, self.axis),
+            y(self.passage/2, 0, self.tube_stop),
             y(bore_t, self.tube_stop, self.mouth+.01),
             cq.Solid.makeCone(bore_t, bore_t+self.entry, lead,
                              cq.Vector(self.axis, self.mouth-lead, 0), cq.Vector(0, 1, 0)))
-        return outer.cut(cavity).clean()
+        body = outer.cut(cavity)
+        # Expanded envelopes are placement hypotheses. Keeping their native
+        # face boundaries avoids a costly same-domain merge at tangent skins.
+        return body if installed else body.clean()
 
     def print_shape(self):
         s = 1 / math.sqrt(2)
         posed = self.local().moved(cq.Location(cq.Plane(
             origin=(0, 0, 0), xDir=(s, 0, -s), normal=(0, -1, 0))))
-        b = posed.BoundingBox()
-        return posed.translate(cq.Vector(-(b.xmin+b.xmax)/2, -(b.ymin+b.ymax)/2, -b.zmin))
+        # The analytic foot plane is exact. Spline bounding boxes include a
+        # conservative tolerance and would otherwise leave the foot above Z0.
+        foot_offset = self.axis / math.sqrt(2) + self.passage / 2 + self.wall
+        # The mouth rims are the extrema in print X; local Z is symmetric.
+        xmin = (-self.barb_depth-self.barb_od/2) / math.sqrt(2)
+        xmax = (self.axis+self.tube_od/2+self.mouth) / math.sqrt(2)
+        return posed.translate(cq.Vector(-(xmin+xmax)/2, 0, foot_offset))
 
     def frame(self, tip, axis, toward):
         p = cq.Vector(*tip)
