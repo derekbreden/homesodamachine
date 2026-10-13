@@ -1,8 +1,8 @@
 # Complete Industrial faucet PET-GF project
 
-[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains all five current rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The [current infill-only preparation and native review](prints/2026-10-11-infill-only-reinforcement-review/README.md) are for Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI.
+[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains all five current rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The saved project targets Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI. The [current Mark2 print](prints/2026-10-13-a2-back-mark2/README.md) uses the same geometry and process with Mark2's own trim and spool colour.
 
-The [combined coupon result](../finish-coupons/coarse-start-v1/combined/physical-result.json) selects SB scarf gap 10% and E eight coarse lip layers for a complete-print trial. The exact [launch receipt](prints/2026-10-11-scarf10-lift8-mark1/launch.json) records submission and acceptance. Physical confirmation of the selected finish remains pending. Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
+The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip and mounting plate, ordinary corner seams on the cover and lever, and E's eight coarse lip layers. The exact [launch record](prints/2026-10-13-a2-back-mark2/launch.json) binds the current print. Selecting the settings does not establish physical seam-flatness or underside continuity. Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
 
 | Position | Part | CAD X rotation |
 | --- | --- | ---: |
@@ -22,17 +22,24 @@ The cover has 0.50 mm longer wings and matching arch headroom with the retaining
 
 One foot modifier supplies 100% zigzag infill and inherits the ordinary wall settings, with base Arachne and 15% infill/wall overlap. The [native box-face reading](prints/2026-10-11-infill-only-reinforcement-review/box-face-wall-review.json) finds zero artificial outer wall through material at the modifier faces. The existing three insert-host/root volumes are retained.
 
-## Selected trial process
+## Selected printing process
 
 The first bed layer is 0.20 mm and normal model layers are 0.24 mm. The base retains eight 0.24 mm layers from the last-starting supported lip, nozzle Z15.32–17.00 mm, before the first 0.12 mm layer at Z17.12 mm. Base-only fine ranges are Z17.00–29.00 and Z55.16–68.12 mm; the lower shoulder deliberately retains its coarse starting portion.
 
-All five rigid objects carry SB contour scarf: 10% slope gap (0.04 mm of path clipping), 10 mm length, 10% layer-relative start height, ten steps, smart application at 155°, inner-wall scarf and partial-loop mode. Ordinary seam gap is 15%, seam position Back. Base Arachne retains the continuous reinforced foot; other objects retain Classic. These are provisional coupon selections for complete-print confirmation.
+| Parts | Seam position | Ordinary seam gap | Scarf |
+| --- | --- | --- | --- |
+| Base, shared tip, above-counter mounting plate | Back | 150% | A2: 60 mm length, 0% scarf gap |
+| Display cover, lever | Aligned | 15% | Off; petgf.3mf corner defaults |
+
+A2 retains 10% layer-relative start height, ten steps, smart application at 155°,
+inner-wall scarf and partial-loop mode. Wipe is off. Base Arachne and the infill-only
+solid foot are retained; the other objects use Classic.
 
 The saved process uses two global walls, 15% grid infill, 265/280 °C nozzle temperatures, 80 °C bed temperature and 0–70% part cooling, with an 80% short-layer maximum and no part cooling for the first three layers. Tree (auto), saved Default style and Bambu's automatic support sections are retained: 0.45 mm top gap, 0.30 mm bottom gap, 0.40 mm XY gap, two top interface layers and 0.50 mm interface spacing. There are no support blockers or manual normal-support overrides.
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The current native estimate is 5 h 49 min, with 160.9 g at the saved profile density, in the [native review](prints/2026-10-11-infill-only-reinforcement-review/native-review.json). All emitted model/support/brim beads retain 45.00 mm of usable-bed clearance. The selected finish has no physical acceptance on the current complete faucet yet.
+The current Mark2 native estimate is 6 h 5 min 55 s, recorded with the source hashes, unchanged layer bands and effective per-part settings in the [native review](prints/2026-10-13-a2-back-mark2/native-review.json). The [seam-path reading](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks the scarfed parts and the plain cover/lever corners. Complete-print finish acceptance remains unassessed.
 
 ## Support cleanup and evidence
 
@@ -56,4 +63,4 @@ After generating and reviewing the source STLs:
 tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prepare_print_project.py
 ```
 
-The tool rebuilds all five current parts with the inherited PET-GF profile, continuous foot reinforcement and [selected SB/E finish](finish-selection.json). The default target is Mark1; `--printer Mark2 --filament-colour '#161616'` applies Mark2's own trim and the specified spool colour. Verify the actual destination spool before use. Its optional `--slice-output` runs Bambu locally without a printer connection. The manually requested [review reader](prints/2026-10-11-scarf10-lift8-mark1/review.py) records retained native meshes, emitted settings, first/second-layer contact, shoulder bands, screw-site contours, support topology and insert stock. The [readiness record](faucet-industrial-petgf.readiness.json) binds the project and review files. No preparation or review tool submits a print.
+The tool rebuilds all five current parts with the inherited PET-GF profile, continuous foot reinforcement and [selected per-part finish](finish-selection.json). The default target is Mark1; `--printer Mark2 --filament-colour '#161616'` applies Mark2's own trim and the specified spool colour. Verify the actual destination spool before use. Its optional `--slice-output` runs Bambu locally without a printer connection. The [current native reading](prints/2026-10-13-a2-back-mark2/native-review.json) binds the launched snapshot, per-part settings, source meshes, shoulder bands and placement. The [readiness record](faucet-industrial-petgf.readiness.json) binds the project and review files. No preparation or review tool submits a print.

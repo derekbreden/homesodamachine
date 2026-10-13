@@ -1,14 +1,14 @@
 {
   "project_title": "Industrial faucet PET-GF",
-  "status": "Current infill-only reinforcement native review passed; physical finish unassessed",
+  "status": "Current per-part recipe prepared; Mark2 snapshot natively reviewed and accepted",
   "preparation_only": true,
   "launch_authorized": false,
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "0e8630fa1b67276311b774ac9c658c9b8fc5d7465b1820220c89a20076d67fc3",
-  "settings_sha256": "ab3d0e40a9f24c941452e43d825fe713717ceb164e5010241a96d3a120356b24",
-  "print_report_sha256": "6eb00dd7d6c1531458e23e48cd932be3456981f469fcdc49272fed13c91f4a85",
+  "project_sha256": "ecc428cc942d77e5dcb3b1c98755514661e5de97febbdddf9b796ec7d879408f",
+  "settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "print_report_sha256": "4c4630441eb543aceb8045c930bf4da8d12fdfb67ce107623585516f9c574368",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
@@ -27,9 +27,10 @@
   },
   "offline_slice": {
     "completed": true,
-    "slicer_return_code": 0,
-    "infill_only_reinforcement_wall_review_pass": true,
-    "full_bead_minimum_bed_margin_mm": 44.99899999999997
+    "review": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/native-review.json",
+    "snapshot_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.3mf",
+    "snapshot_project_sha256": "3653a7feb46d26c3ed97ff5e75282e6c57c3b7049f4daf739b0a4b40bfb4f3e7",
+    "scope": "Mark2 snapshot uses the canonical object settings, geometry and layer bands with Mark2 trim and spool colour."
   },
   "printer_submission": {
     "performed_by_this_tool": false
@@ -50,25 +51,5 @@
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
     "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "b66c9baa212ff5978b68071bc84f819d0698b9f3d5f0a345e2418bc317732632"
   },
-  "accepted": false,
-  "submitted": false,
-  "send_attempted": false,
-  "send_count": 0,
-  "ready_to_launch": false,
-  "automatic_next_print": false,
-  "reinforcement": {
-    "modifier_count": 1,
-    "infill_percent": 100,
-    "pattern": "zig-zag",
-    "wall_setting_overrides": false,
-    "outer_wall_through_material_at_box_faces_mm": 0.0
-  },
-  "native_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-infill-only-reinforcement-review/native-review.json",
-  "native_review_sha256": "c69f3702aed808f0bd2730baf21857174962b3ca3915b7e42e441f289fa6b440",
-  "native": {
-    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-infill-only-reinforcement-review/2026-10-11-industrial-faucet-infill-only-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
-    "archive_sha256": "5386e52414e7500518978da94a658cc17fed556ac548ea9146970d751fa15c0e",
-    "gcode_sha256": "3f1176ee4510e0ffc26e323a781696291615ed87b2a5dd6289afa4cd6faca49b",
-    "estimated_seconds": 20929.171875
-  }
+  "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json"
 }
