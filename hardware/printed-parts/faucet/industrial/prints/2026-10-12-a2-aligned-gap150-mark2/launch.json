@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "status": "Accepted one-off complete-faucet seam trial; physical result unassessed",
+  "authorization_quotes": [
+    "Sigh, alright, fine let's try A2 (aligned!) on the complete faucet",
+    "Mark2 bed is clear and ready for you."
+  ],
+  "authorization_scope": "One complete current five-part Industrial faucet with swatch A2's scarf and aligned seams; the working recipe is unchanged",
+  "printer_task_id": "1334663228",
+  "accepted_observed_at_utc": "2026-10-13T04:38:41.303706+00:00",
+  "archive_name": "faucet-a2-aligned-mark2.gcode.3mf",
+  "archive_sha256": "297d0a12f335d46c111548c9aea946584ab0f2ac633c870317a754421b65f606",
+  "gcode_sha256": "f313c75fac749650d4ed36a10031defe17ff7bc7f46bfbae615fe9d4f5e93fbf",
+  "reviewed_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "reviewed_project_sha256": "0e8630fa1b67276311b774ac9c658c9b8fc5d7465b1820220c89a20076d67fc3",
+  "trial_project_sha256": "67392e5030eb3293586a551fbce58cfeadd1e2c6e3d12e97ae27968a3aaa91ef",
+  "preparation": "prepare_print_project.py --printer Mark2 --filament-colour '#161616' from the reviewed recipe, then the differences below, then a native Bambu Studio slice",
+  "source_geometry_hashes": {
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
+  },
+  "differences_from_reviewed_project": {
+    "object_settings_all_five_parts": {
+      "seam_position": ["back", "aligned"],
+      "seam_slope_min_length": ["10", "60"],
+      "seam_slope_gap": ["10%", "0%"],
+      "seam_gap": ["15%", "150%"]
+    },
+    "project_settings": {
+      "filament_wipe": [["nil", "nil", "nil"], ["0", "nil", "nil"]],
+      "filament_wipe_distance": [["nil", "nil", "nil"], ["0", "nil", "nil"]],
+      "filament_colour": [["#000000"], ["#161616"]],
+      "printer_settings_id": ["Bambu Lab H2C 0.4 Standard +0.18 Z trim", "Bambu Lab H2C 0.4 Standard +0.04 Z trim"],
+      "machine_start_gcode": "Z trim block only: +0.18 to +0.04 mm"
+    }
+  },
+  "swatch_basis": {
+    "A2": "Curved neck swatch: 60 mm external scarf, 0% scarf gap, 10% start height, 88% seam gap, smart scarf off",
+    "seam_gap": "150% from the vertical no-scarf seam-gap row. On scarfed loops the seam gap only trims the overlap tail; on the vertical A2 swatch, 88% and 150% differ by about 0.0001 mm of filament per layer on the exterior loop",
+    "smart_scarf": "Kept on at 155 degrees from the reviewed project; the swatches have no corners, so it changed nothing there"
+  },
+  "identical_to_reviewed_project": [
+    "object set and ids",
+    "geometry model members, byte for byte",
+    "build transforms",
+    "layer_config_ranges",
+    "modifier metadata, including the infill-only foot",
+    "all other object settings"
+  ],
+  "native_checks": {
+    "wipe_blocks": 0,
+    "longest_outer_wall_scarf_ramp_mm": {
+      "industrial-shell-base": 59.9,
+      "faucet-shell-tip": 59.9,
+      "industrial-above-counter-plate": 59.1,
+      "industrial-display-cover": 0,
+      "lever-replica": 0
+    },
+    "unscarfed_parts": "The display cover's and lever's aligned seams fall in corners sharper than 155 degrees, so they print as plain seams with the 150% gap",
+    "aligned_seam_median_move_to_previous_layer_mm": {
+      "industrial-shell-base": 0.18,
+      "faucet-shell-tip": 0.17,
+      "industrial-above-counter-plate": 0.02,
+      "industrial-display-cover": 0.12,
+      "lever-replica": 0.21
+    },
+    "foot_box_face_walls_through_material_mm": 0,
+    "base_coarse_lip_layers_print_z_mm": [15.32, 15.56, 15.8, 16.04, 16.28, 16.52, 16.76, 17.0],
+    "base_first_fine_layer_print_z_mm": 17.12,
+    "bead_envelope_mm": {"x": [50.2, 266.2], "y": [73.7, 274.7]}
+  },
+  "physical_result": null,
+  "working_recipe_changed": false
+}
