@@ -180,6 +180,17 @@
     "actual_spacing_seconds": 2874.801166,
     "earliest_next_mark1_start_or_resume_utc": "2026-10-13T05:11:21.992810+00:00"
   },
-  "physical_result": null,
+  "physical_result": {
+    "reported_local_date": "2026-10-13",
+    "seam_placement": {
+      "reported_result": "The base and tip seam placement did not match the expected continuous line along the back of the assembled faucet.",
+      "reference_print_task_id": "1329852853",
+      "reference_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/launch.json",
+      "reference_base_and_tip_seam_position": "back",
+      "trial_base_and_tip_seam_position": "aligned",
+      "user_quote": "The seam on the faucet base and tip did not come out like I expected. You had a print fairly recently, in fact the print just prior to \"Defects\" first print attempt, that had the alignment like I expect, running along the back of the faucet consistently through both base and tip. What setting does that?"
+    },
+    "scope": "Placement feedback for the base and tip only; no scarf-finish, cover/lever-finish, support-removal or complete-faucet acceptance is established by this report."
+  },
   "working_recipe_changed": false
 }

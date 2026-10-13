@@ -18,3 +18,8 @@ Mark2 accepted task **1334704608** after one Send click. Native estimate:
 **5 h 59 min 39 s**, **161.35 g**. Timelapse and bed leveling are on; flow and nozzle
 calibration are automatic. [launch.json](launch.json) binds the hashes, settings,
 source geometry and startup spacing. The working recipe is unchanged.
+
+Derek reports that the base and tip seams did not follow the expected continuous
+rear line. His reference is complete-faucet task **1329852853**, whose base and
+tip object overrides use **Seam position: Back**; this trial uses **Aligned**.
+This is placement feedback, without a scarf-finish or complete-faucet acceptance.
