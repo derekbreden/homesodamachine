@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "checkedAt": "2026-10-04",
-  "bomSha256": "81a4774aa36c79de10bc513c01627f616e7093f19d5906500c8a8c82f1233f6e",
+  "bomSha256": "60edc264fdb358fd20864bcf6563d464cb70b6efb1f2cd097aa5ff378f41ed70",
   "bomRowCount": 168,
   "scope": "Additional spending from inventory as of October 13 (filament through the prints logged October 13) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
