@@ -1,0 +1,31 @@
+{
+  "observed_date": "2026-10-12",
+  "authority": "Derek\u2019s direct physical observation",
+  "task_id": "1334257829",
+  "geometry_record": "geometry.json",
+  "observations": [
+    "The closure screws can be tightened until the rigid jaws close, and the tube still does not grip.",
+    "The observer reports more compression toward X+ than X\u2212."
+  ],
+  "source_quotes": [
+    "Then back to the t-handle, I've got the screws on there, and I can clamp them down all the way still, and I still don't get grip.",
+    "but one problem I found, is the screws are not centered on the TPU! And it does not clamp balanced in the X axis, is pressing down more in X+ than it is in X-."
+  ],
+  "model_inspection": {
+    "authority": "Codex, measured from the identified CAD source",
+    "source_sha256": "231f31db75a2645e3d89fdddf077c558d5f472a6ce274aa4ca0d7f880f4893c4",
+    "liner_axial_range_mm": [
+      3.5,
+      31.5
+    ],
+    "liner_center_x_mm": 17.5,
+    "closure_screw_x_mm": 26.0,
+    "axial_offset_mm": 8.5
+  },
+  "screenshot": {
+    "file": "grip-load-offset-preview.png",
+    "sha256": "532a3b2b2d591ebbce654be2cdd36ea3bcfbf7286df83952b74370c8b1532c91",
+    "scope": "View of the current CAD; not a photograph measuring the physical pressure distribution."
+  },
+  "scope": "Physical grip failure and reported uneven compression. CAD establishes the axial screw offset; it does not establish the pressure distribution or that centering alone resolves grip."
+}

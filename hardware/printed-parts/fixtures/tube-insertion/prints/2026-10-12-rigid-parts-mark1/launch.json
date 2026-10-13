@@ -81,5 +81,6 @@
   ],
   "printer_2_notified": true,
   "remaining_plate": "Two TPU 85A grip liners",
-  "physical_result": "Unassessed"
+  "physical_result": "Unassessed",
+  "preserved_archive_relative_to_record": "tube-insertion-rigid-parts-h2c.gcode.3mf"
 }

@@ -36,8 +36,9 @@ def main():
                      "volume_mm3": shape.val().Volume()}
                     for name, shape in printed.items()]
     intentional = {
-        frozenset(("lldpe-tube", "lower-liner")): "Designed 0.1375 mm radial TPU grip interference",
-        frozenset(("lldpe-tube", "upper-liner")): "Designed 0.1375 mm radial TPU grip interference",
+        frozenset(("lldpe-tube", "lower-liner")): "Uncompressed TPU grip reference: Ø7.75 groove and 1 mm proud backing; elastic compression unmodelled",
+        frozenset(("lldpe-tube", "upper-liner")): "Uncompressed TPU grip reference: Ø7.75 groove and 1 mm proud backing; elastic compression unmodelled",
+        frozenset(("lower-liner", "upper-liner")): "Two liners project 1 mm each beyond their pockets at the rigid closure limit; uncompressed reference overlap is intentional",
         frozenset(("touch-flo-donor", "tpu-sealing-thimble")): "Expanded TPU overlaps nominal port before elastic compression; no deformation solution",
     }
     failure = []
@@ -113,6 +114,12 @@ def main():
             "grip_bore_mm": jig.GRIP_BORE_D,
             "tube_od_mm": jig.TUBE_OD,
             "liner_grip_length_mm": jig.LINER_LENGTH,
+            "liner_center_x_mm": jig.LINER_X0 + jig.LINER_LENGTH / 2,
+            "closure_screw_x_mm": jig.CLAMP_BOLT_X,
+            "closure_screw_axial_offset_mm": jig.CLAMP_BOLT_X - (jig.LINER_X0 + jig.LINER_LENGTH / 2),
+            "crossbar_center_x_mm": (jig.JAW_HANDLE_START_X + jig.JAW_HANDLE_END_X) / 2,
+            "liner_proud_height_each_mm": jig.LINER_H - jig.LINER_POCKET_H,
+            "paired_rigid_face_closure_reserve_mm": 2 * (jig.LINER_H - jig.LINER_POCKET_H),
             "jaw_pocket_front_end_wall_mm": jig.LINER_X0 - jig.JAW_LINER_AXIAL_CLEARANCE / 2,
             "jaw_pocket_rear_end_wall_mm": jig.JAW_LENGTH - jig.LINER_X0 - jig.LINER_LENGTH - jig.JAW_LINER_AXIAL_CLEARANCE / 2,
             "jaw_pocket_backing_mm": jig.JAW_BACK_H,

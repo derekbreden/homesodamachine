@@ -97,24 +97,27 @@ CLOCKING_PAD_X0, CLOCKING_PAD_X1 = 20.0, 26.0
 CLOCKING_PAD_HALF_WIDTH = 8.0
 CLOCKING_PAD_Z1 = TUBE_Z - _donor["rect_short"] / 2
 
-JAW_LENGTH = 38.5
+JAW_LENGTH = 44.0
 LINER_LENGTH = 28.0
-LINER_X0 = 3.5
+LINER_X0 = (JAW_LENGTH - LINER_LENGTH) / 2
 LINER_START_X = LINER_X0
 LINER_WIDTH = 20.0
-LINER_H = 8.0
+LINER_POCKET_H = 8.0
+LINER_BACK_ADDITION = 1.0
+LINER_H = LINER_POCKET_H + LINER_BACK_ADDITION
 GRIP_BORE_D = 7.75
 JAW_HALF_H = 15.0
 JAW_CORE_WIDTH = 32.0
 JAW_HANDLE_WIDTH = 100.0
-JAW_HANDLE_START_X = 8.0
-JAW_BACK_H = JAW_HALF_H - LINER_H
+JAW_HANDLE_START_X = 4.0
+JAW_HANDLE_END_X = JAW_LENGTH - JAW_HANDLE_START_X
+JAW_BACK_H = JAW_HALF_H - LINER_POCKET_H
 JAW_LINER_AXIAL_CLEARANCE = 0.3
 JAW_LINER_SIDE_CLEARANCE = 0.25
 JAW_TUBE_CLEARANCE_D = 10.8
 CLAMP_FINAL_X = 58.0
-CLAMP_BACK_X = CLAMP_FINAL_X + JAW_LENGTH
-CLAMP_BOLT_X = 26.0
+CLAMP_BACK_X = CLAMP_FINAL_X + JAW_HANDLE_END_X
+CLAMP_BOLT_X = LINER_X0 + LINER_LENGTH / 2
 CLAMP_BOLT_Y = 26.0
 M5_CLEARANCE_D = 5.5
 M5_HEAD_D = 9.0
@@ -135,7 +138,9 @@ COUPLING_KEY_W = 6.0
 COUPLING_KEY_H = 3.0
 COUPLING_KEY_CLEARANCE = 0.1
 
-CARRIER_FINAL_X = CLAMP_BACK_X
+CARRIER_FINAL_X = 96.5
+CARRIER_SHELF_LENGTH = 38.5
+CARRIER_HEAD_RELIEF_X = 26.0
 CARRIER_LENGTH = 124.0
 CARRIER_HALF_WIDTH = JAW_HANDLE_WIDTH / 2
 CARRIER_FOOT_H = 6.0
@@ -248,7 +253,7 @@ def build_carrier():
     """B: long low guide carrier, with a full jaw shelf and two locating keys."""
     carrier = block(0, CARRIER_LENGTH, -CARRIER_HALF_WIDTH, CARRIER_HALF_WIDTH,
                     0, CARRIER_FOOT_H)
-    carrier = carrier.union(block(CARRIER_JAW_LOCAL_X, CARRIER_JAW_LOCAL_X + JAW_LENGTH,
+    carrier = carrier.union(block(CARRIER_JAW_LOCAL_X, CARRIER_JAW_LOCAL_X + CARRIER_SHELF_LENGTH,
                                    -JAW_CORE_WIDTH / 2, JAW_CORE_WIDTH / 2,
                                    0, CARRIER_SHELF_H))
     for side in (-1, 1):
@@ -270,16 +275,16 @@ def build_carrier():
                                       CARRIER_SHELF_H, CARRIER_SHELF_H + COUPLING_KEY_H))
     # Jaw-closure bolt heads remain installed when fitting the carrier.
     for y in (-CLAMP_BOLT_Y, CLAMP_BOLT_Y):
-        carrier = carrier.cut(vertical_hole(CARRIER_JAW_LOCAL_X + CLAMP_BOLT_X, y,
+        carrier = carrier.cut(vertical_hole(CARRIER_JAW_LOCAL_X + CARRIER_HEAD_RELIEF_X, y,
                                             -1, CARRIER_SHELF_H + 1, M5_HEAD_D + 1.4))
     return carrier
 
 
 def build_lower_jaw(with_coupling=True):
-    """D: lower T-handle jaw. Hard mating faces limit squeeze to GRIP_BORE_D."""
+    """D: centred plus-handle jaw with proud TPU and carrier coupling."""
     jaw = block(0, JAW_LENGTH, -JAW_CORE_WIDTH / 2, JAW_CORE_WIDTH / 2,
                 -JAW_HALF_H, 0)
-    jaw = jaw.union(block(JAW_HANDLE_START_X, JAW_LENGTH,
+    jaw = jaw.union(block(JAW_HANDLE_START_X, JAW_HANDLE_END_X,
                           -JAW_HANDLE_WIDTH / 2, JAW_HANDLE_WIDTH / 2,
                           -JAW_HALF_H, 0))
     liner_x0 = LINER_X0 - JAW_LINER_AXIAL_CLEARANCE / 2
@@ -287,7 +292,7 @@ def build_lower_jaw(with_coupling=True):
     liner_pocket = block(liner_x0, liner_x1,
                          -LINER_WIDTH / 2 - JAW_LINER_SIDE_CLEARANCE,
                          LINER_WIDTH / 2 + JAW_LINER_SIDE_CLEARANCE,
-                         -LINER_H, 1)
+                         -LINER_POCKET_H, 1)
     jaw = jaw.cut(liner_pocket)
     jaw = jaw.cut(cylinder_x(-1, JAW_LENGTH + 1, 0, 0, JAW_TUBE_CLEARANCE_D / 2))
     for y in (-CLAMP_BOLT_Y, CLAMP_BOLT_Y):
@@ -312,7 +317,7 @@ def build_lower_jaw(with_coupling=True):
     # one contiguous flat plane across their seam within each disk.
     for side in (-1, 1):
         y = side * (SCREW_OFFSET_Y + FACTORY_PAD_ENVELOPE_D / 2 + 1.5)
-        jaw = jaw.cut(block(JAW_LENGTH - 0.3, JAW_LENGTH + 1,
+        jaw = jaw.cut(block(JAW_HANDLE_END_X - 0.3, JAW_HANDLE_END_X + 1,
                              y - 0.4, y + 0.4, -3, 0.1))
     return jaw
 
@@ -461,8 +466,8 @@ def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True,
     assy.add(parts["lower-jaw"].translate(jaw_place), name="lower-jaw", color=COLOR_RIGID)
     assy.add(parts["upper-jaw"].translate(jaw_place), name="upper-jaw", color=COLOR_RIGID)
     liner_x = CLAMP_FINAL_X + stroke + LINER_X0
-    lower = parts["liner"].translate((liner_x, TUBE_Y, TUBE_Z - LINER_H))
-    upper = parts["liner"].mirror("XY").translate((liner_x, TUBE_Y, TUBE_Z + LINER_H))
+    lower = parts["liner"].translate((liner_x, TUBE_Y, TUBE_Z - LINER_POCKET_H))
+    upper = parts["liner"].mirror("XY").translate((liner_x, TUBE_Y, TUBE_Z + LINER_POCKET_H))
     assy.add(lower, name="lower-liner", color=COLOR_TPU)
     assy.add(upper, name="upper-liner", color=COLOR_TPU)
     if include_workpiece:

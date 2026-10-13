@@ -1,0 +1,35 @@
+{
+  "customer_outcome": "Grip the LLDPE tube with centred axial closure loading before the rigid jaw faces bottom out.",
+  "source_sha256": "03447f050a8aa1d32a5cbe97172e84f74c6139702b85d11215a91b14d7df427f",
+  "liner_axial_range_mm": [
+    8.0,
+    36.0
+  ],
+  "liner_center_x_mm": 22.0,
+  "closure_screw_x_mm": 22.0,
+  "crossbar_axial_range_mm": [
+    4.0,
+    40.0
+  ],
+  "crossbar_center_x_mm": 22.0,
+  "screw_offset_from_liner_center_mm": 0.0,
+  "liner_flat_back_addition_each_mm": 1.0,
+  "added_tpu_per_liner_mm3": 560.0,
+  "removed_existing_tpu_mm3": 0.0,
+  "groove_diameter_each_mm": 7.75,
+  "liner_proud_of_8mm_pocket_mm": 1.0,
+  "paired_added_closure_reserve_mm": 2.0,
+  "nominal_closed_seated_groove_center_z_mm": [
+    -1.0,
+    1.0
+  ],
+  "nominal_closed_vertical_channel_span_mm": 5.75,
+  "compression_scope": "Seated uncompressed liner references overlap at rigid-face closure. Their mirrored groove centres lie 1 mm each side of the tube axis. The loaded TPU shape and retained grip are unmeasured.",
+  "reused_parts": [
+    "base",
+    "carrier",
+    "cap-support-puck"
+  ],
+  "physical_failure_record": "prints/2026-10-12-liners-d775-mark1/grip-failure.json",
+  "status": "Prepared geometry candidate; no grip acceptance or load rating."
+}
