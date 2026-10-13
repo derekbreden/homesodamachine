@@ -1,0 +1,84 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-liners-d775-restart-minus005-z000-mark1.3mf",
+  "project_sha256": "3dfad2a7351d6972c0ba947822e0c681db0c7454eb7dd5f4bd7a5ff68bcb38ca",
+  "archive": "tube-insertion-liners-d775-restart-minus005-z000-mark1.gcode.3mf",
+  "archive_sha256": "599ce718e40ed6f5059ca3373635e294058071c67266b046336a9c4cdd3ef600",
+  "gcode_sha256": "fb16c87d75e014e7ef2e7a7efacdc6d1b9419d532da36bfa823d8cfb0f023496",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "d551348d61b156f650d0fb9b6e2ac604be126ee0834ebe3063a66e080bc4b515"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "plate_trim_commands_mm": [
+    0.0,
+    -0.02
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        168.2915129921361,
+        149.791541
+      ],
+      [
+        186.708459,
+        170.208459
+      ]
+    ],
+    "maximum_line_width_mm": 0.836918,
+    "bounds_padding_mm": 0.518459
+  },
+  "bead_margin_mm": [
+    143.2915129921361,
+    149.791541,
+    143.291541,
+    149.791541
+  ],
+  "layers": 155,
+  "estimated_seconds": 4157.18310546875,
+  "estimated_filament_g": 9.405569076538086,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.18000000715255737,
+    "wall_loops": 2,
+    "sparse_infill_density": 100.0
+  },
+  "diagnostic_change": {
+    "setting": "filament_retract_restart_extra",
+    "from": [
+      "nil",
+      "nil"
+    ],
+    "to": [
+      "-0.05",
+      "-0.05"
+    ],
+    "requested_retraction_mm": 1.0,
+    "requested_unretraction_mm": 0.95
+  },
+  "confirmed_object_starts": 310,
+  "confirmed_arrival_unretraction": "G1 E.95 F600",
+  "plain_gcode": "tube-insertion-liners-d775-restart-minus005-z000-mark1.gcode",
+  "settings_otherwise_preserved": true,
+  "executable_command_comparison": {
+    "ignored_command": "M73 percent, layer and remaining-time reports",
+    "same_remaining_command_count": 43797,
+    "changed_commands": 838,
+    "only_change": [
+      "G1 E1 F600",
+      "G1 E.95 F600"
+    ]
+  }
+}
