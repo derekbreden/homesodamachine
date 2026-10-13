@@ -47,11 +47,13 @@ const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd:
 // prefixes says.
 function wantFromHash(raw) {
   if (raw.startsWith("material:")) {
-    const id = decodeHash(raw.slice("material:".length));
+    const [identity, query = ""] = raw.slice("material:".length).split("?");
+    const id = decodeHash(identity);
+    const tab = new URLSearchParams(query).get("tab") === "bom" ? "bom" : null;
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
     const path = file && Array.isArray(remembered) && remembered.at(-1) === file ? remembered : [file];
-    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id };
+    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab };
   }
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
     if (!raw.startsWith(prefix)) continue;
@@ -75,6 +77,7 @@ window.addEventListener("popstate", () => {
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
     if (want.material) state.materialPanel?.setRoot(want.material);
+    if (want.tab === "bom") state.materialPanel?.showBom();
     return;
   }
   // STEP to STEP with the modal already up — the drill-down's own move, and the
@@ -83,11 +86,14 @@ window.addEventListener("popstate", () => {
   // navigated, and ContentViewer.close defers its teardown past the reopen.
   if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
       && ContentViewer.isOpen()) {
-    routeToStep(want.path).then(() => { if (want.material) state.materialPanel?.setRoot(want.material); });
+    routeToStep(want.path).then(() => {
+      if (want.material) state.materialPanel?.setRoot(want.material);
+      if (want.tab === "bom") state.materialPanel?.showBom();
+    });
     return;
   }
   if (want.material && (want.type === "material" || state.currentDetail?.type === "material")) {
-    openMaterial(want.material, false);
+    openMaterial(want.material, false, { tab: want.tab });
     return;
   }
   // Close whatever is currently open (cad / mmd / pcb close paths differ
@@ -98,7 +104,7 @@ window.addEventListener("popstate", () => {
     else if (state.currentDetail.type === "material") { state.currentDetail = null; ContentViewer.close(); }
     else closeCadDetail(false);
   }
-  if (want.material) openMaterial(want.material, false);
+  if (want.material) openMaterial(want.material, false, { tab: want.tab });
   else if (want.type === "step") openDetail(want.file, false, want.path);
   else if (want.type) OPENERS[want.type](want.file, false);
 });
@@ -128,7 +134,7 @@ export function applyInitialRoute(occtPromise) {
   if (!location.hash) return;
   const raw = location.hash.slice(1);
   const want = wantFromHash(raw);
-  if (want.material) { occtPromise.then(() => openMaterial(want.material, false)); }
+  if (want.material) { occtPromise.then(() => openMaterial(want.material, false, { tab: want.tab })); }
   else if (want.type) open(want.type, want.file, false, want.path);
   else open("step", decodeHash(raw), false);
 }

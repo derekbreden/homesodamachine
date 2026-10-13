@@ -58,6 +58,7 @@ export function paintStepThumb(card, { bust = false } = {}) {
 }
 
 window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, () => {
+  state.gridEl?.querySelector(".material-search")?.refresh();
   for (const card of state.gridEl?.querySelectorAll(".card[data-faucet]") || []) {
     const before = `${card.dataset.file}:${card.dataset.finish}`;
     syncFaucetCard(card);
