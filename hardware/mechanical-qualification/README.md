@@ -141,6 +141,17 @@ The shared seat keeps its exterior envelope and tie passages. The
 records the intended tighter grip; retention force and endurance remain
 unmeasured.
 
+## Tube insertion grip
+
+The [identified liner trial](../printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+reports rigid jaw closure without tube grip and uneven axial compression.
+The associated CAD has an 8.5 mm screw-to-liner axial offset. The
+[centred grip candidate](../printed-parts/fixtures/tube-insertion/centered-grip-review.json)
+places the screws, liners and crossbar on one axial centre and adds 1 mm of
+flat TPU backing per half, proud of the retained pockets. Geometric
+centering and closing reserve are established; physical grip, insertion
+force and endurance remain unqualified.
+
 ## Pump cartridge magnetic contacts
 
 The [mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md) covers the current

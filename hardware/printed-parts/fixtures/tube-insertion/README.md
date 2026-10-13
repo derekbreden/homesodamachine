@@ -1,7 +1,8 @@
 # Tube insertion tooling
 
-A split T handle grips the 3/8-inch LLDPE tube with two thick, preformed 85A
-TPU liners. A cap-support puck assists fitting the sealing thimble to the
+A split plus-shaped handle holds two thick, preformed 85A TPU liners for
+gripping the 3/8-inch LLDPE tube. The closure screws, liners and crossbar
+share the same axial centre. A cap-support puck assists fitting the sealing thimble to the
 tube. The assembled T handle and guided carrier are used together for
 sleeve fitting. For donor insertion, two complete factory screw clamps
 supply the axial force and reaction.
@@ -30,9 +31,9 @@ manufacturer references and limits of the analysis.
 | A | Base, donor reaction block and guides | 1 | PET-GF15 | 272.5×234×54 |
 | B | Guided carrier and narrow jaw shelf | 1 | PET-GF15 | 162.5×100×10 |
 | C1 / C2 | BESSEY GSCC2.506 factory screw clamps | 2 | Factory metal tool | Purchased tool |
-| D | Lower T-handle jaw | 1 | PET-GF15 | 38.5×100×15 |
-| E | Upper T-handle jaw | 1 | PET-GF15 | 38.5×100×15 |
-| F | Preformed half-round grip liner | 2 | TPU 85A | 8×20×28 |
+| D | Lower T-handle jaw | 1 | PET-GF15 | 44×100×15 |
+| E | Upper T-handle jaw | 1 | PET-GF15 | 44×100×15 |
+| F | Preformed half-round grip liner | 2 | TPU 85A | 9×20×28 |
 | G | Sealing-thimble cap-support puck | 1 | PET-GF15 | 54×54×8 |
 
 The two [GSCC2.506 clamps](https://www.amazon.com/dp/B000FA0BL8) provide
@@ -43,20 +44,26 @@ a 3 mm hex key; the socket-head screws use a 4 mm hex key. Two owned 4-inch
 steel C-clamps hold the base at a bench edge while the factory screw handles
 are operated. No printed thread or insert carries the axial press load.
 
-Each rigid half has a 7 mm backing under its liner pocket. Rigid mating
-faces bound jaw closure. The unloaded liner channels form a Ø7.75 mm
-bore around the Ø9.525 tube. The 28 mm liners are preformed blocks; print them upright
-with the tube axis vertical. Their solid 8×20 mm end footprint and 4.125 mm
-minimum backing support that orientation without bending or wrapping a
-strip. The axial retention walls are 3.35 mm at the front and 6.85 mm at the
-rear.
+Each rigid half has a 7 mm backing under its 8 mm deep liner pocket.
+The 28 mm liners occupy X8–36, centred at X22. Both closure screws and the
+36 mm crossbar share X22. The 44 mm central body extends 4 mm beyond each
+end of the crossbar, giving the handle a symmetric plus shape.
+
+Each liner retains its Ø7.75 mm half-round groove and adds 1 mm to its flat
+backing. The liner is 9 mm thick, so it stands 1 mm proud of its pocket.
+Together the liners provide 2 mm of additional closing travel before the
+rigid mating faces meet. The seated uncompressed liner references overlap
+at that closure limit; the loaded TPU shape is not a deformation solution.
+Print the liners upright with the tube axis vertical, using the solid
+9×20 mm end footprint and 5.125 mm minimum TPU backing. Both axial pocket
+walls are 7.85 mm thick.
 
 ## Fixture setup and motion
 
 The insertion axis is X; the workpiece moves toward −X. Tube axis is Y8.75,
 Z30. Factory screw stations are 32 mm either side of the tube at the same
-height. Their feet bear against the two contiguous 30 mm high rear collar
-faces; the fixed jaws back the 26 mm thick donor reaction block immediately
+height. Their feet bear against the 30 mm high rear crossbar
+faces at X98; the fixed jaws back the 26 mm thick donor reaction block immediately
 behind its matching flat stations. Only the donor's metal base annulus
 carries intended axial reaction. Its threaded shank passes through an open
 slot, and a tangent saddle floor plus a flat lower-column pad locate the
@@ -128,9 +135,15 @@ valid single analytic solids. The 41 sampled poses have no unintended
 B-rep intersections; designed TPU interference is recorded separately.
 All four nominal Ø30 contact disks have uninterrupted solid backing.
 
-The [liner geometry record](prints/2026-10-12-liners-d775-mark1/geometry.json)
-establishes the Ø7.75 mm channel, 0.75 mm radial material addition and retained
-8×20×28 mm manufacturing envelope. Its physical grip result is pending.
+The [centred grip review](centered-grip-review.json) establishes zero axial
+screw offset, 1 mm of added flat backing per liner, 1 mm projection beyond
+each pocket and reuse of the existing base and carrier. Its reference
+comparison adds 560 mm³ per liner without removing the existing grip shape.
+
+The [physical grip failure](prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+records rigid closure without grip and reported uneven axial compression
+for the identified earlier parts. Physical grip acceptance for this
+centred candidate is pending.
 
 Physical grip, printed sliding fit, complete insertion, strength and
 lifetime remain unqualified. Factory clamp force does not rate the

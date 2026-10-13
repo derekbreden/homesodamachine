@@ -32,9 +32,10 @@ bench so both hands can operate the insertion screws.
 
 The lower jaw bolts to B before the joined assembly enters A's guides. It lifts
 out for sleeve fitting with the T handle still attached. The two F liners are
-thick finished half-channel blocks with 28 mm contact length and 4.125 mm minimum
-backing. Their manufacturing pose puts the tube axis vertically on an 8 x 20 mm
-footprint. Rotate each finished block into its rigid jaw pocket for use.
+thick finished half-channel blocks with 28 mm contact length and 5.125 mm minimum
+backing. Their manufacturing pose puts the tube axis vertically on an 9 x 20 mm
+footprint. Rotate each finished block into its 8 mm deep rigid jaw pocket for use. Each
+liner stands 1 mm proud. Both closure screws share the liner's axial centre.
 
 Page 3 exposes both outboard screw-pad contacts and both complete metal force
 loops in a top view. Each fixed clamp pad bears on the rear of the donor reaction
@@ -91,7 +92,7 @@ solution for elastic deformation. The nominal jig views omit the accepted
 installed faucet-lever pose because no measured rigid transform is recorded;
 local captions preserve its attached, unpressed state.
 
-The printed fixture is an unprinted prototype. The
+The centred grip is a candidate with physical grip acceptance pending. The
 [load basis](../printed-parts/fixtures/tube-insertion/load-basis.md) and
 [geometry review](../printed-parts/fixtures/tube-insertion/geometry-review.json)
 describe the design and evidence scope. CAD and offline slices do not establish
