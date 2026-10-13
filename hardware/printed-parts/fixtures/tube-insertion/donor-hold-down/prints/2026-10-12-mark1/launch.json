@@ -1,0 +1,45 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T02:20:08.306561+00:00",
+  "archive": {
+    "name": "donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
+    "sha256": "2ba9e491e2fdf403bf1e70743a141f9c3b06bb92fb422ec65b77d880ca06828a",
+    "gcode_sha256": "0610c2b932243eb1b7662d434c8f591c68c2441516bb0b9669642b09bf104f4b",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "TPU donor hand pad"
+    ]
+  },
+  "printer_task_id": "1334447551",
+  "gcode_state": "RUNNING",
+  "subtask_name": "donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 138,
+  "mc_remaining_time": 96,
+  "display_printer": "Mark1",
+  "source_archive": "../../ready/donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "requested_user_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "bed_clear_authorization": "Oh, plate is clear, please start the print for the hold down",
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_task": "1334417902",
+    "other_acceptance_observed_at_utc": "2026-10-13T02:04:08.849498+00:00",
+    "this_acceptance_observed_at_utc": "2026-10-13T02:20:08.306561+00:00",
+    "observed_separation_seconds": 959.457063,
+    "required_minimum_seconds": 180
+  }
+}

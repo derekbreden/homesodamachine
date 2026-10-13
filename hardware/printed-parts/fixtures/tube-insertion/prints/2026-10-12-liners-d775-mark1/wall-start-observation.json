@@ -34,5 +34,21 @@
     "first_wall": "Inner wall",
     "next_wall": "Outer wall, without another unretraction"
   },
-  "scope": "Observed timing and intermittency of strand formation. Excess restart pressure, early ooze and initial bead attachment remain hypotheses. No causal connection to the earlier preview marker discrepancy, measured nozzle flow error or physical grip acceptance is established."
+  "scope": "Directly observed timing and intermittency of strand formation, plus photographed edge loops. Excess material delivery at restart is the leading process hypothesis, not an established cause. No outward pulling motion has been identified for the reported arrival event. No physical grip acceptance is established.",
+  "physical_photos": [
+    {
+      "file": "wall-start-physical-1.jpg",
+      "sha256": "40697a4a1de58a975e824eaad5c02a319e224123248cb95f890e7a458c916295"
+    },
+    {
+      "file": "wall-start-physical-2.jpg",
+      "sha256": "1e091cca8ae4a599396819a73a0aba778f84cd3878792cff911bc0b8ec3563ee"
+    }
+  ],
+  "photo_observation": "One of the two liners has a row of projecting loops along one channel edge. The other liner is comparatively clean; neighboring wall surfaces are comparatively smooth. Photos do not identify which liner occupied each bed position.",
+  "process_assessment": {
+    "authority": "Codex, based on the reported event, supplied photos and inspected native G-code",
+    "working_hypothesis": "Excess material delivered at extrusion restart; unconfirmed",
+    "candidate": "../2026-10-12-restart-minus005-mark1/README.md"
+  }
 }
