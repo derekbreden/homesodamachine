@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-13T23:18:41.678972+00:00",
+  "printers": {
+    "H2C": {
+      "job_id": "1336815709",
+      "subtask_name": "2026-10-13-tpu-o-ring-85a-right06-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 86,
+      "total_layer_num": 87,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0
+    },
+    "Mark2": {
+      "job_id": "1335906696",
+      "subtask_name": "2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 1244,
+      "total_layer_num": 1244,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0
+    }
+  },
+  "other_printer_accepted_at": "2026-10-13T20:49:06.777783+00:00",
+  "minimum_start_interval_seconds": 180,
+  "start_interval_seconds_at_preflight": 8974.901175,
+  "material_mapping_verified": true
+}

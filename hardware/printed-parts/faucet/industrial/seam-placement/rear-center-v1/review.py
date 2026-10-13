@@ -12,6 +12,10 @@ WORD=re.compile(r'([XYZEFIJP])([-+]?(?:\d*\.\d+|\d+\.?\d*))')
 def read_runs(archive):
     with ZipFile(archive) as z:
         gcode = z.read('Metadata/plate_1.gcode')
+        # A one-object slice uses OBJECT_ID markers instead of named start blocks.
+        import xml.etree.ElementTree as ET
+        objects = ET.fromstring(z.read('Metadata/slice_info.config')).findall('.//object')
+        single_label = int(objects[0].get('identify_id')) if len(objects) == 1 else None
     current = None
     feature = ''
     layer = None
@@ -41,6 +45,8 @@ def read_runs(archive):
         start = re.match(r'; start printing object, unique label id: (\d+)', line)
         if start:
             finish(); current = int(start.group(1))
+        elif single_label is not None and line.startswith('; OBJECT_ID:'):
+            finish(); current = single_label if int(line.split(':', 1)[1]) >= 0 else None
         elif line.startswith('; stop printing object'):
             finish(); current = None
         elif line.startswith('; Z_HEIGHT:'):

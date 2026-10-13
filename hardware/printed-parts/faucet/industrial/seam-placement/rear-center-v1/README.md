@@ -31,7 +31,8 @@ The October 13 printed seam starts reach CAD X12.278, Y17.079, Z165.364
 at print Z163.16, then approach the rear center again near the joint.
 The [identified printed article](../../prints/2026-10-13-a2-back-mark2/physical-result.json)
 has Derek's overall acceptance and tag `faucet-industrial-approved-2026-10-13`.
-The corrected placement awaits a physical print.
+The [one-time base-only evaluation](../../prints/2026-10-13-rear-seam-base-only-mark2/README.md)
+is printing on Mark2 as task 1337160395. Physical seam evaluation is pending.
 
 ![Actual rear seam starts](seam-comparison.png)
 

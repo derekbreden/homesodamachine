@@ -1,5 +1,14 @@
 # Industrial faucet print log
 
+## One-time base-only seam evaluation — launched 2026-10-13, Mark2
+
+Derek explicitly limited [this evaluation](prints/2026-10-13-rear-seam-base-only-mark2/README.md)
+to the base. Mark2 accepted task `1337160395` at 6:20 pm CDT with no reported
+fault. The copied base retains the rear seam paint and saved recipe; the native
+neck starts remain within 0.45 mm of center. Estimate: 3 h 54 min and 101.67 g.
+The normal project remains the complete five-part faucet. Physical seam
+evaluation is pending.
+
 ## Rear-center placement correction — prepared 2026-10-13
 
 The [complete corrected slice](seam-placement/rear-center-v1/README.md) retains
