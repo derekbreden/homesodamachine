@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-13T20:48:27.370337+00:00",
+  "printers": {
+    "H2C": {
+      "job_id": "1336534713",
+      "subtask_name": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 155,
+      "total_layer_num": 155,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0
+    },
+    "Mark2": {
+      "job_id": "1335906696",
+      "subtask_name": "2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 976,
+      "total_layer_num": 1244,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0
+    }
+  },
+  "other_printer_accepted_at": "2026-10-13T15:19:24.551315+00:00",
+  "minimum_start_interval_seconds": 180,
+  "interval_seconds_at_preflight": 19742.819002,
+  "external_spool_verified": true
+}

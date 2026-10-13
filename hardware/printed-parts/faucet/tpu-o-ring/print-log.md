@@ -113,6 +113,17 @@ L-side part. **The nozzle these runs used is not established.**
 - Process: `layer_height` 0.18 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `wall_loops` 1, `wall_generator` classic, `detect_thin_wall` 0, `sparse_infill_density` 0 %, `raft_layers` 0, `brim_type` auto_brim, `enable_support` 0.
 - Object: one, `tpu-o-ring.step`, printed cap-down (per README). The 3mf is saved + printed-from; `slice_info.config` header-only.
 
+## 2026-10-13 — saved 85A thimble on Mark1
+
+Derek requested: “Give me a print of TPU o ring on mark 1”.
+Mark1 accepted [one saved thimble](prints/2026-10-13-tpu85a-right06-mark1/README.md)
+as task 1336815709 at 3:49 pm CDT. The mesh and saved 0.30/0.18 mm,
+Classic single-wall TPU process are retained. This job maps black TPU 85A
+to the right fixed 0.6 mm nozzle, uses Mark1's standard +0.18 mm trim,
+and centers the cap-down sleeve on textured PEI. The native estimate is
+11 minutes and 0.4 g. Fresh startup is RUNNING at 0/87, with no printer
+error or HMS fault. Physical fit and seal results are pending.
+
 ## Queued for the next session (forward-looking advice)
 
 In recommended order — try one change at a time, simplest first:
