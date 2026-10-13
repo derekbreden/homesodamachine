@@ -19,6 +19,8 @@ import { onTubeModelLoaded } from "./tube-overlay-host.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { stepLocation } from "/contracts/step-locations.js";
+import { matchesBody } from "/contracts/materials.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -309,6 +311,7 @@ export function setFaucetFinish(finishId) {
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
 async function fetchMeshes(file, headers, { mounted = false } = {}) {
+  file = stepLocation(file).file;
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
     // that has not moved is a model that has not moved, and a repeat open never leaves the
@@ -364,6 +367,7 @@ function nameSurface(file, surface) {
 }
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
+  const location = stepLocation(file);
   const seq = ++state.stepLoadSeq;
   const wrapper = state.currentCadWrapper;
   const current = () => seq === state.stepLoadSeq && (!wrapper || wrapper === state.currentCadWrapper);
@@ -410,17 +414,17 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
-      if (meshed.url) rememberMember(`${file}.mesh`, meshed.url);
+      if (meshed.url) rememberMember(`${location.file}.mesh`, meshed.url);
       result = meshed.result;
       surface = "mesh";
     } else {
-      const url = memberUrl(file);
+      const url = memberUrl(location.file);
       let text = null;
       if (url) {
-        if (mounted && memberLoaded(file, url)) { landed = true; onTubeModelLoaded(file); return; }
+        if (mounted && memberLoaded(location.file, url)) { landed = true; onTubeModelLoaded(file); return; }
         try {
           text = await fetchMember(url);
-          rememberMember(file, url);
+          rememberMember(location.file, url);
         } catch { /* the site's route has the same member */ }
       }
       if (!text) {
@@ -436,6 +440,11 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     if (!current()) return;
 
+    if (location.component) {
+      result = { ...result, meshes: result.meshes.filter(mesh => matchesBody(mesh.name, location.component)) };
+      if (!result.meshes.length) { failed(`Component ${location.component} is not in this model`); return; }
+    }
+
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
@@ -450,12 +459,12 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = {
-      type: "step", file, surface,
+      type: "step", file, sourceFile: location.file, surface,
       src: (result && result.src) || null,
       cut: (result && result.cut) || null,
       payloadSha256: meshed?.payloadSha256 || null,
     };
-    nameSurface(file, surface);
+    nameSurface(location.file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
@@ -464,6 +473,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     const style = faucetStyleFor(file);
     if (style) state.faucetStyle = style.id;
     window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED, { detail: { file } }));
+    if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, { detail: { file, name: location.component } }));
     if (style) window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
     landed = true;
   } catch (err) {

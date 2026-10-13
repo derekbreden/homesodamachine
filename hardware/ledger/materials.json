@@ -36,7 +36,7 @@
         }
       ],
       "bom": {
-        "scope": "Partial machine composition, including the cold core, removable pump cartridge, recorded fitting assemblies and major purchased units. Additional model components, remaining cut tubing, fixed wiring, consumables and unmodeled fasteners are detailed in the build and cost records.",
+        "scope": "Modeled machine contents, including fitted tubing, grip covers, inlet fittings and selected service hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -329,7 +329,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "data-ring"
+              "data-ring",
+              "data-ring-word"
             ]
           },
           {
@@ -527,6 +528,386 @@
               "water-split"
             ],
             "note": "Tap-water split upstream of V-K, separate from the six flavor-manifold tees."
+          },
+          {
+            "material": "HSM-000270",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "keystone-jack"
+            ]
+          },
+          {
+            "material": "HSM-000014",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "co2-adapter-regulator-in",
+              "co2-adapter-check-in"
+            ]
+          },
+          {
+            "material": "HSM-000271",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "co2-adapter-regulator-out",
+              "co2-adapter-check-out"
+            ]
+          },
+          {
+            "material": "HSM-000272",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-water",
+              "tube-collar-water-word"
+            ]
+          },
+          {
+            "material": "HSM-000273",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-collar-co2",
+              "tube-collar-co2-word"
+            ]
+          },
+          {
+            "material": "HSM-000274",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "grip-cover-west",
+              "grip-cover-east"
+            ]
+          },
+          {
+            "material": "HSM-000275",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "tee-carrier-spring-west-lower",
+              "tee-carrier-spring-west-upper",
+              "tee-carrier-spring-east-lower",
+              "tee-carrier-spring-east-upper"
+            ]
+          },
+          {
+            "material": "HSM-000276",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-drain-stub"
+            ]
+          },
+          {
+            "material": "HSM-000277",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-10"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000278",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-13"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000279",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-20"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000280",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-23"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000281",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-9"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000282",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-17"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000283",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-19"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000284",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-27"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000285",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "turn-fluid-3",
+              "step-fluid-3"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000286",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "turn-fluid-5",
+              "step-fluid-5"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000287",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-drain-umbilical"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000288",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-3"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000289",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-1"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000290",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-refrig-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000291",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-7"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000292",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-6"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000293",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-5"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000294",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000295",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-1"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000296",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-3"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000297",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-co2-0"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000298",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-co2-1"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000299",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-co2-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000300",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000301",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-carb-1"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000302",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-carb-2"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000303",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-28"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000304",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-18"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000305",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-24"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000306",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-26"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000307",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-14"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000308",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-16"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000309",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-4"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000310",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-drain-vent"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           }
         ]
       },
@@ -538,6 +919,24 @@
         {
           "kind": "used-with",
           "material": "HSM-000007"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000311",
+          "bodies": [
+            "tube-customer-water"
+          ],
+          "quantity": 1,
+          "unit": "ea"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000312",
+          "bodies": [
+            "tube-customer-co2"
+          ],
+          "quantity": 1,
+          "unit": "ea"
         }
       ]
     },
@@ -563,7 +962,7 @@
       ],
       "bom": {
         "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
-        "source": "ledger/bom.md",
+        "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
             "material": "HSM-000089",
@@ -759,6 +1158,30 @@
             "bodies": [
               "umbilical_sleeve"
             ]
+          },
+          {
+            "material": "HSM-000268",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lever"
+            ]
+          },
+          {
+            "material": "HSM-000269",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "under_counter_plate"
+            ]
+          }
+        ],
+        "context": [
+          {
+            "bodies": [
+              "countertop"
+            ],
+            "description": "Installation context: the kitchen countertop is outside the faucet’s supplied parts."
           }
         ]
       },
@@ -770,6 +1193,13 @@
         {
           "kind": "used-with",
           "material": "HSM-000001"
+        },
+        {
+          "kind": "installation-context",
+          "material": "HSM-000322",
+          "bodies": [
+            "countertop"
+          ]
         }
       ]
     },
@@ -986,6 +1416,70 @@
             "bodies": [
               "vent-membrane-a",
               "vent-membrane-b"
+            ]
+          },
+          {
+            "material": "HSM-000313",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-carb-water-out"
+            ]
+          },
+          {
+            "material": "HSM-000314",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-co2-in"
+            ]
+          },
+          {
+            "material": "HSM-000315",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-prv-vent"
+            ]
+          },
+          {
+            "material": "HSM-000316",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-a"
+            ]
+          },
+          {
+            "material": "HSM-000317",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-a-fill"
+            ]
+          },
+          {
+            "material": "HSM-000318",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-b"
+            ]
+          },
+          {
+            "material": "HSM-000319",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-reservoir-b-fill"
+            ]
+          },
+          {
+            "material": "HSM-000320",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "line-water-in"
             ]
           }
         ]
@@ -1341,7 +1835,10 @@
         },
         {
           "kind": "tool-for",
-          "material": "HSM-000008"
+          "material": "HSM-000008",
+          "bodies": [
+            "5in-316l-tube"
+          ]
         },
         {
           "kind": "used-with",
@@ -1504,6 +2001,20 @@
           "bodies": [
             "touch-flo-donor"
           ]
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000090",
+          "bodies": [
+            "tpu-sealing-thimble"
+          ]
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000106",
+          "bodies": [
+            "lldpe-tube"
+          ]
         }
       ]
     },
@@ -1528,7 +2039,7 @@
       ],
       "bom": {
         "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
-        "source": "ledger/bom.md",
+        "source": "assembly/faucet-and-umbilical.md",
         "items": [
           {
             "material": "HSM-000089",
@@ -1724,6 +2235,30 @@
             "bodies": [
               "umbilical_sleeve"
             ]
+          },
+          {
+            "material": "HSM-000268",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lever"
+            ]
+          },
+          {
+            "material": "HSM-000269",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "under_counter_plate"
+            ]
+          }
+        ],
+        "context": [
+          {
+            "bodies": [
+              "countertop"
+            ],
+            "description": "Installation context: the kitchen countertop is outside the faucet’s supplied parts."
           }
         ]
       },
@@ -1735,6 +2270,13 @@
         {
           "kind": "used-with",
           "material": "HSM-000001"
+        },
+        {
+          "kind": "installation-context",
+          "material": "HSM-000322",
+          "bodies": [
+            "countertop"
+          ]
         }
       ]
     },
@@ -1770,6 +2312,11 @@
       "kind": "purchased",
       "aliases": [
         "carbonator elbows"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
       ]
     },
     {
@@ -1778,6 +2325,11 @@
       "kind": "manufactured",
       "aliases": [
         "water inlet jet"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
       ]
     },
     {
@@ -1786,6 +2338,11 @@
       "kind": "purchased",
       "aliases": [
         "PRV"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000004"
+        }
       ]
     },
     {
@@ -1809,7 +2366,12 @@
       "aliases": [
         "gas PTC collet"
       ],
-      "manufacturer_number": "PI010822S"
+      "manufacturer_number": "PI010822S",
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
     },
     {
       "id": "HSM-000015",
@@ -1817,6 +2379,11 @@
       "kind": "manufactured",
       "aliases": [
         "evaporator coil"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -1825,6 +2392,11 @@
       "kind": "purchased",
       "aliases": [
         "carbonator probe"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -1833,6 +2405,11 @@
       "kind": "purchased",
       "aliases": [
         "coil probe"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -2048,6 +2625,11 @@
       "kind": "purchased",
       "aliases": [
         "floor bulkheads"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -2056,6 +2638,11 @@
       "kind": "purchased",
       "aliases": [
         "bulkhead seals"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -2136,6 +2723,11 @@
       "kind": "purchased",
       "aliases": [
         "float rods"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -2144,6 +2736,11 @@
       "kind": "purchased",
       "aliases": [
         "reeds"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -2152,6 +2749,11 @@
       "kind": "purchased",
       "aliases": [
         "vent membranes"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
       ]
     },
     {
@@ -3053,14 +3655,12 @@
             ]
           },
           {
-            "material": "HSM-000174",
+            "material": "HSM-000321",
             "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000175",
-            "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "flare38-14ptc"
+            ]
           }
         ]
       }
@@ -3186,6 +3786,11 @@
       "aliases": [
         "B0FCF1MGT3",
         "172×320"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
       ]
     },
     {
@@ -3271,42 +3876,82 @@
     {
       "id": "HSM-000103",
       "description": "Faucet base screw · M3",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000104",
       "description": "Faucet base heat-set insert · M3",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000105",
       "description": "Faucet display signal ribbon",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000106",
       "description": "Faucet carbonated-water tubing",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000107",
       "description": "Faucet flavor tubing",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000108",
       "description": "Faucet drain tubing",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000109",
       "description": "Faucet cold-line insulation",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000110",
       "description": "Faucet umbilical braided sleeve",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
     },
     {
       "id": "HSM-000111",
@@ -3481,24 +4126,44 @@
     {
       "id": "HSM-000128",
       "description": "10 mm polypropylene bearing ball",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000005"
+        }
+      ]
     },
     {
       "id": "HSM-000129",
       "description": "Stepper motor · 23HS30-2804S NEMA 23",
       "kind": "purchased",
-      "manufacturer_number": "23HS30-2804S"
+      "manufacturer_number": "23HS30-2804S",
+      "contexts": [
+        {
+          "material": "HSM-000005"
+        }
+      ]
     },
     {
       "id": "HSM-000130",
       "description": "20T HTD 5M pulley",
-      "kind": "purchased"
+      "kind": "purchased",
+      "contexts": [
+        {
+          "material": "HSM-000005"
+        }
+      ]
     },
     {
       "id": "HSM-000131",
       "description": "550-5M-15 timing belt",
       "kind": "purchased",
-      "manufacturer_number": "550-5M-15"
+      "manufacturer_number": "550-5M-15",
+      "contexts": [
+        {
+          "material": "HSM-000005"
+        }
+      ]
     },
     {
       "id": "HSM-000132",
@@ -3976,6 +4641,11 @@
           "title": "Cartridge connection joints",
           "path": "service/pump-replacement.md"
         }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000161"
+        }
       ]
     },
     {
@@ -4283,6 +4953,1454 @@
         {
           "title": "Read and assemble this reference",
           "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000268",
+      "description": "Faucet lever · PET-GF",
+      "kind": "manufactured",
+      "aliases": [
+        "lever",
+        "lever replica",
+        "printed lever",
+        "faucet handle"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/faucet/lever-replica/lever-replica.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Lever build, installation and physical acceptance",
+          "path": "printed-parts/faucet/lever-replica/README.md"
+        },
+        {
+          "title": "Physical fit and function record",
+          "path": "printed-parts/faucet/lever-replica/physical-acceptance.json"
+        },
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000269",
+      "description": "Under-counter mounting plate · 316 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "under counter plate"
+      ],
+      "models": [
+        {
+          "file": "cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+          "type": "dxf"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Plate drawing and mounting",
+          "path": "cut-parts/faucet/under-counter-plate/README.md"
+        },
+        {
+          "title": "Faucet installation",
+          "path": "assembly/faucet-and-umbilical.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000002"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000270",
+      "description": "RiteAV RJ11 6P4C keystone jack",
+      "kind": "purchased",
+      "aliases": [
+        "keystone",
+        "data jack",
+        "RJ11"
+      ],
+      "models": [
+        {
+          "file": "reference/riteav-keystone/riteav-keystone.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Keystone geometry and receptacle",
+          "path": "reference/riteav-keystone/riteav_keystone.py"
+        },
+        {
+          "title": "SIG-6 wiring",
+          "path": "assembly/wiring.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000271",
+      "description": "John Guest PI450822S · CO₂ female adapter",
+      "kind": "purchased",
+      "aliases": [
+        "PI450822S",
+        "CO2 outlet adapter"
+      ],
+      "documents": [
+        {
+          "title": "Gas-chain assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Adapter geometry and placement",
+          "path": "manifold-layout/_gas_chain.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000272",
+      "description": "Inlet tube collar · water",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-water.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Tube identification collars",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000273",
+      "description": "Inlet tube collar · CO₂",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-co2.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Tube identification collars",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000274",
+      "description": "Enclosure lifting-grip cover",
+      "kind": "manufactured",
+      "aliases": [
+        "grip liner",
+        "handle cover"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/enclosure/grip-cover/grip-cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Grip cover, printing and physical acceptance",
+          "path": "printed-parts/enclosure/grip-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000275",
+      "description": "Tee-carrier return spring · 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "uxcell compression spring",
+        "6 mm OD 27 mm free"
+      ],
+      "documents": [
+        {
+          "title": "Spring dimensions and carrier installation",
+          "path": "printed-parts/enclosure/tee-carrier/README.md"
+        },
+        {
+          "title": "Enclosure assembly",
+          "path": "assembly/enclosure-mechanical.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000276",
+      "description": "Funnel drain stub · 1/4 inch LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "funnel drain tube"
+      ],
+      "documents": [
+        {
+          "title": "Stub length and joint",
+          "path": "reference/funnel-drain-stub/funnel_drain_stub.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000277",
+      "description": "fluid 10 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-10",
+        "tube-fluid-10"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000278",
+      "description": "fluid 13 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-13",
+        "tube-fluid-13"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000279",
+      "description": "fluid 20 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-20",
+        "tube-fluid-20"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000280",
+      "description": "fluid 23 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-23",
+        "tube-fluid-23"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000281",
+      "description": "fluid 9 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-9",
+        "tube-fluid-9"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000282",
+      "description": "fluid 17 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-17",
+        "tube-fluid-17"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000283",
+      "description": "fluid 19 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-19",
+        "tube-fluid-19"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000284",
+      "description": "fluid 27 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-27",
+        "tube-fluid-27"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000285",
+      "description": "fluid 3 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-3",
+        "turn-fluid-3",
+        "step-fluid-3"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000286",
+      "description": "fluid 5 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-5",
+        "turn-fluid-5",
+        "step-fluid-5"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000287",
+      "description": "drain umbilical tube · 4 mm white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "drain-umbilical",
+        "tube-drain-umbilical"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000288",
+      "description": "refrig 3 tube · ACR copper",
+      "kind": "manufactured",
+      "aliases": [
+        "refrig-3",
+        "tube-refrig-3"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000289",
+      "description": "refrig 1 tube · ACR copper",
+      "kind": "manufactured",
+      "aliases": [
+        "refrig-1",
+        "tube-refrig-1"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000290",
+      "description": "refrig 2 tube · ACR copper",
+      "kind": "manufactured",
+      "aliases": [
+        "refrig-2",
+        "tube-refrig-2"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000291",
+      "description": "water 7 tube · reinforced PVC",
+      "kind": "manufactured",
+      "aliases": [
+        "water-7",
+        "tube-water-7"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000292",
+      "description": "water 6 tube · reinforced PVC",
+      "kind": "manufactured",
+      "aliases": [
+        "water-6",
+        "tube-water-6"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000293",
+      "description": "water 5 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-5",
+        "tube-water-5"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000294",
+      "description": "water 2 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-2",
+        "tube-water-2"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000295",
+      "description": "fluid 1 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-1",
+        "tube-fluid-1"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000296",
+      "description": "water 3 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-3",
+        "tube-water-3"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000297",
+      "description": "co2 0 tube · 1/4 inch red LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "co2-0",
+        "tube-co2-0"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000298",
+      "description": "co2 1 tube · 1/4 inch red LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "co2-1",
+        "tube-co2-1"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000299",
+      "description": "co2 2 tube · 1/4 inch red LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "co2-2",
+        "tube-co2-2"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000300",
+      "description": "fluid 2 tube · 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-2",
+        "tube-fluid-2"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000301",
+      "description": "carb 1 tube · 1/4 inch blue LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "carb-1",
+        "tube-carb-1"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000302",
+      "description": "carb 2 tube · 1/4 inch blue LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "carb-2",
+        "tube-carb-2"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000303",
+      "description": "fluid 28 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-28",
+        "tube-fluid-28"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000304",
+      "description": "fluid 18 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-18",
+        "tube-fluid-18"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000305",
+      "description": "fluid 24 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-24",
+        "tube-fluid-24"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000306",
+      "description": "fluid 26 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-26",
+        "tube-fluid-26"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000307",
+      "description": "fluid 14 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-14",
+        "tube-fluid-14"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000308",
+      "description": "fluid 16 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-16",
+        "tube-fluid-16"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000309",
+      "description": "fluid 4 tube · 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "fluid-4",
+        "tube-fluid-4"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000310",
+      "description": "drain vent tube · 4 mm white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "drain-vent",
+        "tube-drain-vent"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000311",
+      "description": "Install-kit water connection tube",
+      "kind": "manufactured",
+      "aliases": [
+        "tube-customer-water"
+      ],
+      "documents": [
+        {
+          "title": "Installation connections",
+          "path": "install-guide/install-guide.pdf"
+        },
+        {
+          "title": "Tube stock and supply scope",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000312",
+      "description": "Cylinder CO₂ tether tube",
+      "kind": "manufactured",
+      "aliases": [
+        "tube-customer-co2"
+      ],
+      "documents": [
+        {
+          "title": "Installation connections",
+          "path": "install-guide/install-guide.pdf"
+        },
+        {
+          "title": "Tube stock and supply scope",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000313",
+      "description": "Cold-core carb water out tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-carb-water-out"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000314",
+      "description": "Cold-core co2 in tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-co2-in"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000315",
+      "description": "Cold-core prv vent tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-prv-vent"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000316",
+      "description": "Cold-core reservoir a tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-reservoir-a"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000317",
+      "description": "Cold-core reservoir a fill tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-reservoir-a-fill"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000318",
+      "description": "Cold-core reservoir b tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-reservoir-b"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000319",
+      "description": "Cold-core reservoir b fill tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-reservoir-b-fill"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000320",
+      "description": "Cold-core water in tube",
+      "kind": "manufactured",
+      "aliases": [
+        "line-water-in"
+      ],
+      "documents": [
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000321",
+      "description": "ASSE outlet fitting assembly",
+      "kind": "assembly",
+      "documents": [
+        {
+          "title": "Outlet fittings and connections",
+          "path": "reference/asse1022-assembly/README.md"
+        },
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "bom": {
+        "scope": "One PI4512F6S flare swivel with one PP061208W stem reducer; represented by their combined fitted envelope.",
+        "source": "assembly/internal-plumbing.md",
+        "items": [
+          {
+            "material": "HSM-000174",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000175",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      },
+      "contexts": [
+        {
+          "material": "HSM-000087"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000322",
+      "description": "Countertop · installation reference",
+      "kind": "reference",
+      "aliases": [
+        "countertop",
+        "kitchen slab"
+      ],
+      "models": [
+        {
+          "file": "faucet-layout/faucet-assembly.step?component=countertop",
+          "context": true
+        }
+      ],
+      "documents": [
+        {
+          "title": "Countertop routing and faucet installation",
+          "path": "assembly/faucet-and-umbilical.md"
         }
       ]
     }

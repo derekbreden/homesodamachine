@@ -85,6 +85,7 @@ COLD_CORE_DIRS = (
     _ROOT / "hardware/printed-parts/cold-core/foam-cap",
 )
 FAUCET_DIRS = (
+    _ROOT / "hardware/printed-parts/faucet/lever-replica",
     _ROOT / "hardware/printed-parts/faucet/faucet-shell",
     _ROOT / "hardware/printed-parts/faucet/faucet-display-cover",
     _ROOT / "hardware/printed-parts/faucet/above-counter-plate",

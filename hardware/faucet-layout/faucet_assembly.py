@@ -25,7 +25,7 @@ The column, top to bottom:
     shell                 three printed pieces, as printed — joint voids and all
     tubes                 3/8" soda faucet tube up the middle, two 1/4" flavor behind it
     vent                  4 mm drain tube to the separate fault outlet
-    lever                 retained donor lever in its rest position
+    lever                 canonical printed PET-GF lever in its nominal rest pose
     Westbrass             the harvested R2031-NL
     o-ring                printed TPU thimble in the Westbrass's top water port
     above-counter plate   printed oval with hidden base screws
@@ -982,86 +982,20 @@ lever_press_angle_deg = 18.0
 
 
 def build_lever_at(angle_deg=0.0):
-    """Dimensioned donor-lever stand-in at a nominal clearance pose.
+    """Canonical printed lever, rigidly placed at the nominal assembly datum.
 
-    Geometry:
-      - The lever's body is a 13 (X) × 15 (Y) × 12 (Z) box,
-        centered laterally on X = 0, spanning depth Y = [-6, +9]
-        (back end at +Y abutting the Westbrass, front face at Y = -6 where
-        the user presses), at height Z = [plateau_z+1, plateau_z+13].
-      - From the front face it tapers forward as a 13 × shrinking-Z
-        tongue out to Y = -42 — the handle toward the user.
-      - The pivot axis is parallel to world X (lateral), through
-        (X = 0, Y = +1.5, Z = plateau_z + 7), so the lever rotates in
-        the Y-Z plane (no lateral motion).
+    The part's top and aft extent sit at Z=52 and Y=9 mm in the rest pose.
+    Installed contact motion is not measured.
     """
-    # Soda-faucet-tube clearance through the lever. That tube sits at
-    # world Y = +port_center_depth; this cut is 0.125 mm further +Y for
-    # margin, vertical along +Z, 50 mm tall to span both lever positions.
-    cut_cylinder = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=plateau_z + 1)
-        .moveTo((0, +(port_center_depth + 0.125)))
-        .circle(soda_faucet_tube_r + 1)
-        .extrude(50)
-        .unwrap()
-    )
-
-    # Tapered tongue extending forward (toward -Y, the user) from the
-    # lever's front face, narrowing in Z. First rect at the front face
-    # (Y = -6): 13 (X) × 8.5 (Z), bottom-anchored so its top edge sits at
-    # plateau_z+13. Second rect 36 mm further forward (Y = -42): 13 × 3,
-    # bottom-anchored so its top edge stays at plateau_z+13 and its
-    # bottom edge rises from plateau_z+4.5 to plateau_z+10.
-    #
-    # Plane: xDir=(1,0,0), normal=(0,-1,0) (perpendicular to world -Y,
-    # offset advances toward -Y). localY = +Z world. Sketch local (x, y)
-    # maps to world (x, -offset, y).
-    _taper_plane = cq.Plane(
-        origin=(0, 0, 0),
-        xDir=(1, 0, 0),
-        normal=(0, -1, 0),
-    )
-    add_taper = (
-        cq.Workplane(_taper_plane)
-        .workplane(offset=6)
-        .moveTo(0, plateau_z + 4.5)
-        .rect(13, 8.5, centered=(True, False))
-        .workplane(offset=36)
-        .moveTo(0, plateau_z + 10)
-        .rect(13, 3, centered=(True, False))
-        .loft(combine=True)
-    )
-
-    # Bare lever in the rest position — 13 (X) × 15 (Y) footprint,
-    # 12 (Z) tall, no clearance cuts.
-    base_lever = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=plateau_z + 1)
-        .moveTo((0, +1.5))
-        .rect(13, 15)
-        .extrude(12)
-        .unwrap()
-        .union(add_taper)
-    )
-
-    # Pivot axis along +X through (0, lever_pivot_y, lever_pivot_z):
-    # rotating +lever_press_angle_deg drops the front tongue toward -Z.
-    pivot_a = (0, lever_pivot_y, lever_pivot_z)
-    pivot_b = (1, lever_pivot_y, lever_pivot_z)
-
-    lever_rest = base_lever.cut(cut_cylinder)
-
-    # The soda-faucet-tube cut is vertical in world +Z, so it clears the
-    # upright tube in the pressed (tilted) position too.
-    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, +lever_press_angle_deg).cut(cut_cylinder)
-    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, -lever_press_angle_deg)
-
-    return lever_rest_final.rotate(pivot_a, pivot_b, angle_deg)
+    lever = import_step(_faucet_printed_dir / "lever-replica" / "lever-replica.step")
+    bounds = lever.val().BoundingBox()
+    placed = lever.translate((0, 9.0 - bounds.ymax, lever_top_z - bounds.zmax))
+    return placed.rotate((0, lever_pivot_y, lever_pivot_z),
+                         (1, lever_pivot_y, lever_pivot_z), angle_deg)
 
 
 def build_lever():
-    """The retained donor lever in its rest position."""
+    """The printed lever in its nominal rest position."""
     return build_lever_at(0.0)
 
 

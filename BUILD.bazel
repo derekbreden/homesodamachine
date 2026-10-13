@@ -1873,6 +1873,8 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
@@ -1965,6 +1967,7 @@ genrule(
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
         ":out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
         "pysrc/hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
@@ -6284,9 +6287,6 @@ genrule(
     ],
     outs = [
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step.mesh",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.stl",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
@@ -6295,13 +6295,10 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json)
-O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step)
-O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step.mesh)
-O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-donor-reference.stl)
-O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
-O5=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
-O6=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
-O7=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
+O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
+O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
+O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
+O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6319,13 +6316,10 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
 cp hardware/printed-parts/faucet/lever-replica/geometry-check.json $$O0
-cp hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step $$O1
-cp hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step.mesh $$O2
-cp hardware/printed-parts/faucet/lever-replica/lever-donor-reference.stl $$O3
-cp hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl $$O4
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O5
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh $$O6
-cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O7
+cp hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl $$O1
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O2
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh $$O3
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O4
 """,
 )
 
