@@ -40,6 +40,12 @@ The [drain clearance record](../manifold-layout/drain-clearance-check.json)
 supplies nominal placement evidence for the expanded sleeve and two R25 bends.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
+The [diaphragm pump sleeve](../printed-parts/diaphragm-pump-sleeve/README.md)
+is an unprinted TPU 95A fit candidate joining either scanned pump barb to
+1/4 in LLDPE under two hose clamps. Its 9.00 mm socket is sized against the
+scanned crests; the assembly still carries the pump hoses and fitting chains.
+Socket fit, clamp retention, pressure holding and lifetime are unmeasured.
+
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
 The cover wings include 0.50 mm additional reach; the shared tip has a round
