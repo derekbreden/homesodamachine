@@ -5924,7 +5924,7 @@
     "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
     "The 5-, 10- and 20-machine alternatives use the same opening inventory; do not add the columns. Each includes the current integrated unit under development.",
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
-    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, all ten pogo pairs, the M1.4 inserts and screws, the Taprite 3741, the FWS drain-line order, and the October PET-GF15 Black, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
+    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, all ten pogo pairs, the M1.4 inserts and screws, the Taprite 3741, the FWS drain-line order, and the October PET-GF15 Black, Clear PETG, ASA Aero, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
     "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 0.96 kg from the first 2 kg acquired, with two more spools in transit.",
     "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
@@ -5936,17 +5936,7 @@
     {
       "name": "PI450822S order already delivered",
       "costCents": 9454,
-      "note": "FWS WEBFWS100708594, delivered October 5. Merchant payment confirmation is absent from reviewed evidence; the full recorded amount is a conservative possible-balance reserve."
-    },
-    {
-      "name": "Ten Clear PETG refills already delivered",
-      "costCents": 12005,
-      "note": "Bambu order us783865986561351681, October 5: ten 1 kg PETG Translucent Clear 32101 refills at the 10-roll tier ($111.93) + $8.12 tax, free shipping; delivered October 8. Payment confirmation absent from reviewed evidence."
-    },
-    {
-      "name": "Two ASA Aero White spools already ordered",
-      "costCents": 10723,
-      "note": "Bambu order us784775952755326977, October 8: two 1 kg White 46100 spools ($99.98) + $7.25 tax, free shipping; in transit. Payment confirmation absent from reviewed evidence."
+      "note": "FWS WEBFWS100708594, delivered October 5. Its account order page link has expired and Gmail holds no payment record, so merchant payment confirmation is absent; the full recorded amount is a conservative possible-balance reserve."
     }
   ]
 }

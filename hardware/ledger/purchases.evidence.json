@@ -7900,7 +7900,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8",
-        "src-c973b756b58544d39e305b70f10fc72f"
+        "src-c973b756b58544d39e305b70f10fc72f",
+        "src-8f254298770d47ef917186489f593f32"
       ],
       "delivery_dates": [
         {
@@ -8057,7 +8058,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
-        "src-2f1601429d6545338d5a5eaaada1ba89"
+        "src-2f1601429d6545338d5a5eaaada1ba89",
+        "src-3bee25f04ac04511b9b79200683fab02"
       ]
     },
     "pur-5c066280c9c7489f8f90b851374b4995": {
@@ -13737,7 +13739,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8",
-        "src-c973b756b58544d39e305b70f10fc72f"
+        "src-c973b756b58544d39e305b70f10fc72f",
+        "src-8f254298770d47ef917186489f593f32"
       ]
     },
     "fws:WEBFWS100711469": {
@@ -13852,7 +13855,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
-        "src-2f1601429d6545338d5a5eaaada1ba89"
+        "src-2f1601429d6545338d5a5eaaada1ba89",
+        "src-3bee25f04ac04511b9b79200683fab02"
       ]
     },
     "innoaddi:2941": {
@@ -16567,15 +16571,19 @@
       "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
       "vendor": "Bambu Lab",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
       "amount_minor": 12005,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
+        "src-5b11f53981d74149bcc6a2119c6eddc8",
+        "src-8f254298770d47ef917186489f593f32"
       ],
-      "verified_at": "2026-10-05",
+      "verified_at": "2026-10-13",
       "order_ids": [
         "bambu:us783865986561351681"
       ]
@@ -16751,13 +16759,17 @@
       "event_id": "evt-d3b134e34785419c80b032d8ae15d6d1",
       "vendor": "Bambu Lab",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      },
       "amount_minor": 10723,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
+        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
+        "src-3bee25f04ac04511b9b79200683fab02"
       ],
       "verified_at": "2026-10-13",
       "order_ids": [
@@ -27706,6 +27718,45 @@
       ],
       "verified_at": "2026-10-13",
       "note": "Account order page opened from the order email: fulfillment status Delivered Sep 28 at 1:02pm; Gmail out-for-delivery and delivered notices of 2026-09-28 agree. The link had expired, so payment details were hidden; no charge is established."
+    },
+    "src-8f254298770d47ef917186489f593f32": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us783865986561351681",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "delivery"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order page: Net Payment USD 120.05; progress Order Confirmed Oct 5 2026 23:55, Processing Oct 6 01:55, Shipped Oct 6 18:46, Delivered Oct 8 15:47. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      }
+    },
+    "src-3bee25f04ac04511b9b79200683fab02": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us784775952755326977",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order page: Net Payment USD 107.23; progress Order Confirmed Oct 8 2026 12:11, Processing Oct 8 14:11, Shipped Oct 9 18:52, not yet delivered. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-10-08"
+      }
     }
   },
   "coverage": [
@@ -29057,6 +29108,28 @@
         "cnckitchen:CNC3278"
       ],
       "note": "Account order page for the named order: payment line; still in transit. No claim of complete account coverage."
+    },
+    {
+      "coverage_id": "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
+      "vendor": "Bambu Lab",
+      "stream": "merchant account order pages",
+      "evidence_type": "merchant_payments",
+      "checked_at": "2026-10-13",
+      "examined_period": {
+        "start": "2026-10-05",
+        "end": "2026-10-13"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-8f254298770d47ef917186489f593f32",
+        "src-3bee25f04ac04511b9b79200683fab02"
+      ],
+      "order_ids": [
+        "bambu:us783865986561351681",
+        "bambu:us784775952755326977"
+      ],
+      "note": "Signed-in Bambu US store: order details for the two named October orders and an empty Unpaid tab. Earlier Bambu orders were listed but not reviewed for payment; no claim of complete account coverage."
     }
   ],
   "gaps": [
@@ -29307,45 +29380,6 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 75.42 charge remains expected.",
       "sources_checked": [
         "Lulu order confirmation USD-C4516450"
-      ]
-    },
-    {
-      "gap_id": "gap-b1f53214b3d74f37ac28c35ac094f60e",
-      "purchase_ids": [
-        "pur-27bb6c07598243e390e2ca407e908695"
-      ],
-      "order_ids": [
-        "bambu:us783865986561351681"
-      ],
-      "event_ids": [
-        "evt-d1da698db2c940a09ec686643f142b0d"
-      ],
-      "source_ids": [
-        "src-5b11f53981d74149bcc6a2119c6eddc8"
-      ],
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 120.05 charge remains expected.",
-      "sources_checked": [
-        "Bambu Lab order confirmation us783865986561351681"
-      ]
-    },
-    {
-      "gap_id": "gap-3a79a763497f4ccca670aa04fa98a501",
-      "purchase_ids": [
-        "pur-25f35741f88e40729bec555987f79640"
-      ],
-      "order_ids": [
-        "bambu:us784775952755326977"
-      ],
-      "event_ids": [
-        "evt-d3b134e34785419c80b032d8ae15d6d1"
-      ],
-      "source_ids": [
-        "src-69cd4bc147fd4e9eb7b6db4f753f08e1",
-        "src-2f1601429d6545338d5a5eaaada1ba89"
-      ],
-      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation or shipment notice; the USD 107.23 charge remains expected.",
-      "sources_checked": [
-        "Bambu Lab order confirmation and shipment notice us784775952755326977"
       ]
     },
     {

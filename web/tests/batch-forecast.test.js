@@ -141,7 +141,7 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(row(twenty, "B0DFYKBQ2S").quantity, 50);
   assert.equal(ten.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 0);
   assert.equal(twenty.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 4000);
-  assert.equal(ten.pendingCents, 32182);
+  assert.equal(ten.pendingCents, 9454);
   assert.equal(twenty.pendingCents, ten.pendingCents, "same opening orders, not doubled for twenty");
   const elbows = ten.rows.find(row => row.bomLines.includes(182));
   assert.equal(elbows.onHand, 40, "both FWS elbow orders are credited");
@@ -176,18 +176,18 @@ test("five machines use opening stock and whole packs, with small-order reserves
   assert.equal(five.inboundCents, 5000);
   assert.equal(five.taxCents, 21868);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 444566);
+  assert.equal(five.cashCents, 421838);
   assert.equal(five.laborHours, 51.25);
   assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 957066);
+  assert.equal(five.totalCents, 934338);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1113330);
-  assert.equal(twenty.cashCents, 2742104);
+  assert.equal(ten.cashCents, 1090602);
+  assert.equal(twenty.cashCents, 2719376);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
   assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$4,445.66/);
+  assert.match(html, /\$4,218.38/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {
