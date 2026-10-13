@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "status": "Accepted complete Industrial faucet A2 trial with default corner seams; physical result unassessed",
+  "printer_task_id": "1334704608",
+  "accepted_observed_at_utc": "2026-10-13T05:08:21.992810+00:00",
+  "archive_name": "faucet-a2-corner-defaults-mark2.gcode.3mf",
+  "archive_sha256": "3e40d0bcfee134841c9f86ff7f2b16667b478f5c534dd2591ceb9edfc18a2224",
+  "gcode_sha256": "ebeb6d5f8b43c43bc6fc20524d1aee605fc01b1b8656696238851ed747055700",
+  "trial_project_sha256": "0897f8c1f3e473a6039f9bbc787f385c94f38ff13c9c175c6fd12ae1589b5795",
+  "reviewed_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "reviewed_project_sha256": "0e8630fa1b67276311b774ac9c658c9b8fc5d7465b1820220c89a20076d67fc3",
+  "source_geometry_hashes": {
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
+  },
+  "parent_trial": {
+    "record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
+    "printer_task_id": "1334663228",
+    "project_sha256": "67392e5030eb3293586a551fbce58cfeadd1e2c6e3d12e97ae27968a3aaa91ef",
+    "stopped_before_printing": true,
+    "observed_stopped_layer": 0,
+    "observed_cancel_error": 50348044
+  },
+  "authorized_scope": {
+    "faucet": "complete Industrial; all five rigid pieces",
+    "corner_parts": "cover and lever inherit petgf.3mf Aligned / 15% / scarf off",
+    "curved_parts": "base, tip and above-counter plate retain A2 / Aligned / 150% / 60 mm scarf / 0% scarf gap",
+    "wipe": "off"
+  },
+  "authorization_quotes": [
+    "I went ahead and stopped the job just in case, because I saw the \"Defects\" agent said they set aligned on *all* parts ... not sure if they did, but I hope you can understand what we actually want here, and start the print when you are sure that's what we're doing.",
+    "The 150% was specific to the seams not on corners."
+  ],
+  "differences_from_parent_trial": {
+    "industrial-display-cover": {
+      "removed_object_overrides": {
+        "seam_position": "aligned",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "60",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "150%",
+        "seam_slope_gap": "0%"
+      },
+      "inherited_seam_settings": {
+        "seam_position": "aligned",
+        "seam_gap": "15%",
+        "seam_slope_type": "none",
+        "override_filament_scarf_seam_setting": "0"
+      }
+    },
+    "lever-replica": {
+      "removed_object_overrides": {
+        "seam_position": "aligned",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "60",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "150%",
+        "seam_slope_gap": "0%"
+      },
+      "inherited_seam_settings": {
+        "seam_position": "aligned",
+        "seam_gap": "15%",
+        "seam_slope_type": "none",
+        "override_filament_scarf_seam_setting": "0"
+      }
+    }
+  },
+  "identical_to_parent_trial": [
+    "Every editable archive member except model_settings.config",
+    "All model_settings object metadata except the removed cover/lever seam and scarf overrides",
+    "Global process and filament settings, including wipe off",
+    "Source meshes and build transforms",
+    "Layer configuration ranges and the infill-only foot modifier"
+  ],
+  "native_checks": {
+    "zip_crc_valid": true,
+    "gcode_md5_valid": true,
+    "effective_seam_settings": [
+      {
+        "name": "industrial-shell-base",
+        "effective_seam_settings": {
+          "seam_position": "aligned",
+          "seam_gap": "150%",
+          "seam_slope_type": "external",
+          "override_filament_scarf_seam_setting": "1",
+          "seam_slope_min_length": "60",
+          "seam_slope_gap": "0%"
+        }
+      },
+      {
+        "name": "faucet-shell-tip",
+        "effective_seam_settings": {
+          "seam_position": "aligned",
+          "seam_gap": "150%",
+          "seam_slope_type": "external",
+          "override_filament_scarf_seam_setting": "1",
+          "seam_slope_min_length": "60",
+          "seam_slope_gap": "0%"
+        }
+      },
+      {
+        "name": "industrial-display-cover",
+        "effective_seam_settings": {
+          "seam_position": "aligned",
+          "seam_gap": "15%",
+          "seam_slope_type": "none",
+          "override_filament_scarf_seam_setting": "0",
+          "seam_slope_min_length": "10",
+          "seam_slope_gap": "0"
+        }
+      },
+      {
+        "name": "industrial-above-counter-plate",
+        "effective_seam_settings": {
+          "seam_position": "aligned",
+          "seam_gap": "150%",
+          "seam_slope_type": "external",
+          "override_filament_scarf_seam_setting": "1",
+          "seam_slope_min_length": "60",
+          "seam_slope_gap": "0%"
+        }
+      },
+      {
+        "name": "lever-replica",
+        "effective_seam_settings": {
+          "seam_position": "aligned",
+          "seam_gap": "15%",
+          "seam_slope_type": "none",
+          "override_filament_scarf_seam_setting": "0",
+          "seam_slope_min_length": "10",
+          "seam_slope_gap": "0"
+        }
+      }
+    ],
+    "corner_seam_trace": "corner-seam-review.json",
+    "normal_corner_gap_mm": 0.06,
+    "estimated_total_seconds": 21579,
+    "estimated_filament_g": 161.35
+  },
+  "submission": {
+    "method": "Bambu Connect via cua_repl",
+    "send_clicks": 1,
+    "standing_options": {
+      "timelapse": "On",
+      "bed_leveling": "On",
+      "flow_dynamic_calibration": "Auto",
+      "nozzle_offset_calibration": "Auto"
+    },
+    "spool_mapping": "left external PET-GF, 0.4 mm",
+    "requested_mark2_z_trim_mm": 0.04,
+    "textured_pei_emitted_trim_mm": 0.02,
+    "observed_state": "RUNNING",
+    "observed_layer": 0,
+    "total_layers": 1244,
+    "print_error": 0,
+    "hms": [],
+    "cancellation_error_present_before_send": 50348044,
+    "cancellation_error_after_acceptance": 0
+  },
+  "shared_circuit_spacing": {
+    "mark1_task_id": "1334637551",
+    "mark1_accepted_observed_at_utc": "2026-10-13T04:20:27.191644+00:00",
+    "minimum_spacing_seconds": 180,
+    "actual_spacing_seconds": 2874.801166,
+    "earliest_next_mark1_start_or_resume_utc": "2026-10-13T05:11:21.992810+00:00"
+  },
+  "physical_result": null,
+  "working_recipe_changed": false
+}
