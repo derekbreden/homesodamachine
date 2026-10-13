@@ -21,6 +21,8 @@ import probe
 import _routing as R
 import _gas_chain
 import gasher_check_valve as gasher
+import _boxes
+import _overlap
 
 
 def world():
@@ -40,26 +42,69 @@ def run(name, points, kind="water"):
 
 
 def hits(w, shape, skip=()):
-    return [{"name": h.name, "volume_mm3": h.volume} for h in w.hits(shape, skip=skip)]
+    # Control-hull boxes are conservative and avoid meshing distant bodies.
+    b = _boxes.loose(shape)
+    out = []
+    for name, other in w.solids.items():
+        if name in skip:
+            continue
+        o = _boxes.loose(other)
+        if any(getattr(b, a+"max") < getattr(o, a+"min") or
+               getattr(o, a+"max") < getattr(b, a+"min") for a in "xyz"):
+            continue
+        volume = _overlap.volume(shape, other)
+        if volume > 1e-6:
+            out.append({"name": name, "volume_mm3": volume})
+    return out
 
 
-def main():
-    w, data = world()
-    retired = {"suction-chain", "discharge-chain", "tube-water-6", "tube-water-7",
-               "tube-water-5", "tube-water-3", "vk-solenoid"}
-    short = Elbow(tube_depth=12)
-    long = Elbow(tube_depth=15)
+def current_elbows(data):
+    elbow = Elbow(tube_depth=15)
     shapes = {}
     ports = {}
     for name, design, toward in (
-        ("suction", short, (0, -1, 0)),
-        ("discharge", long, (0, -math.cos(math.radians(25)), -math.sin(math.radians(25)))),
+        ("suction", elbow, (0, -1, 0)),
+        ("discharge", elbow, (0, -math.cos(math.radians(25)), -math.sin(math.radians(25)))),
     ):
         tip, axis = port(data, "g-ganen-pump", name)
         shapes[f"elbow-{name}"] = design.placed(tip, axis, toward)
         ports[name] = design.tube_port(tip, axis, toward)
         for key, band in design.bands(tip, axis, toward).items():
             shapes[f"band-{name}-{key}"] = band
+    return shapes, ports
+
+
+def refresh_elbows():
+    """Re-evaluate the changed elbows against the saved, unchanged layout."""
+    w, data = world()
+    path = ROOT / ".cache/pump-elbow-exploration/layout-initial.json"
+    record = json.loads(path.read_text())
+    shapes, ports = current_elbows(data)
+    vk_out, _ = port(data, "vk-solenoid", "outlet")
+    p, normal = ports["suction"]
+    points = [p, tuple(p[i]+normal[i]*15 for i in range(3)),
+              (vk_out[0], vk_out[1]+22, vk_out[2]), vk_out]
+    shapes["suction-link"], route = run("suction-link", points)
+    record["ports"] = ports
+    record["routes"]["suction-link"] = {"points_mm": route.pts,
+        "exposed_length_mm": route.length, "minimum_radius_mm": route.tightest,
+        "radii_mm": route.radii}
+    retired = {"suction-chain", "discharge-chain", "tube-water-6", "tube-water-7",
+               "tube-water-5", "tube-water-3", "vk-solenoid"}
+    out = path.with_suffix("")
+    for name, shape in shapes.items():
+        record["hits"][name] = hits(w, shape, retired | ({"g-ganen-pump"}
+            if name.startswith("elbow-") else set()))
+        shape.exportBrep(str(out/f"{name}.brep"))
+        print(f"Read {name}: {len(record['hits'][name])} overlap(s)", flush=True)
+    path.write_text(json.dumps(record, indent=2)+"\n")
+
+
+def main():
+    w, data = world()
+    retired = {"suction-chain", "discharge-chain", "tube-water-6", "tube-water-7",
+               "tube-water-5", "tube-water-3", "vk-solenoid"}
+    shapes, ports = current_elbows(data)
 
     vk_in, _ = port(data, "vk-solenoid", "inlet")
     vk_out, _ = port(data, "vk-solenoid", "outlet")
@@ -119,4 +164,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    refresh_elbows() if "--elbows-only" in sys.argv else main()

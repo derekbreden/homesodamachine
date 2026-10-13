@@ -1,5 +1,5 @@
 {
-  "status": "Unprinted prototype",
+  "status": "First article launched; physical result pending",
   "scope": "Nominal native occupancy, routed ends and R14 bends; closed clamp bands",
   "baseline_world_sha256": "7e7643619b564085d27df5928fcc0d354262efecf6135af67050394cd7b8b9ec",
   "baseline_source_sha256": {
@@ -578,9 +578,9 @@
     "ports": {
       "suction": [
         [
-          42.24919915226643,
-          324.4700578081154,
-          280.13530733457463
+          42.263153207145834,
+          321.47009026105684,
+          280.13533812069437
         ],
         [
           0.004651351626468471,
@@ -605,14 +605,14 @@
       "suction-link": {
         "points_mm": [
           [
-            42.24919915226643,
-            324.4700578081154,
-            280.13530733457463
+            42.263153207145834,
+            321.47009026105684,
+            280.13533812069437
           ],
           [
-            42.31896942666346,
-            309.47022007282254,
-            280.1354612651734
+            42.33292348154286,
+            306.47025252576395,
+            280.1354920512931
           ],
           [
             65.05000000697481,
@@ -625,7 +625,7 @@
             268.1000001
           ]
         ],
-        "exposed_length_mm": 72.55567419247097,
+        "exposed_length_mm": 70.16309629629295,
         "minimum_radius_mm": 14.0,
         "radii_mm": {
           "1": 14.0,
@@ -1043,5 +1043,6 @@
     "relaxation and lifetime",
     "complete insertion/service motion",
     "wetted grade suitability"
-  ]
+  ],
+  "print_record": "prints/2026-10-13-continuous-body-tpu85a-mark1/launch.json"
 }
