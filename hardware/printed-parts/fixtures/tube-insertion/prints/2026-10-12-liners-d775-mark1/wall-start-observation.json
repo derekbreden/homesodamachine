@@ -1,0 +1,38 @@
+{
+  "observed_date": "2026-10-12",
+  "authority": "Derek’s direct observation while the liner job printed",
+  "task_id": "1334257829",
+  "gcode": "2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode",
+  "gcode_sha256": "f3d5c731ba6007901426d842a3dcc5ab205f05740d9083a78db68ee9a590a9ab",
+  "observations": [
+    "Vertical-edge strands are present on the printed liner.",
+    "A strand appeared when the nozzle arrived from the other object and began a wall, with no strand visible immediately beforehand.",
+    "The observer saw no departure move causing that particular strand.",
+    "The event appears intermittent rather than occurring on every layer."
+  ],
+  "source_quotes": [
+    "I've observed the defect happening. It happens on what appears to be the layer start. I was watching close and there was no strand, and then it started this outer wall on this object, and as it did that start, it apparently started oozing early or was more primed than it thought or something.",
+    "It happened on layer start, and I saw the nozzle move from the other object to this object, so there was no move away or anything, just from object to object and starting a wall and as it started the wall, boom, defect strand sticking out that wall.",
+    "What is interesting is I don't think it is happening every layer (and the layer in my screenshot may not be one of them), but like some layers, enough that the whole edge looks defected, but it only appears to happening sometimes."
+  ],
+  "screenshot": {
+    "file": "wall-start-preview.png",
+    "sha256": "0894d2fd8060a3603d3ccbb21109ae2f9934e017659c5393b06b228687cdb836",
+    "role": "Preview of the exact launched G-code at layer 108, 19.56 mm. Not a photograph of the physical defect; not identified as an affected layer."
+  },
+  "representative_gcode": {
+    "layer": 108,
+    "object_id": 1902,
+    "arrival_xy_mm": [
+      179.391,
+      164.677
+    ],
+    "print_z_mm": 19.56,
+    "preceding_retraction_mm": 1.0,
+    "arrival_unretraction": "G1 E1 F600",
+    "extra_restart_mm": 0.0,
+    "first_wall": "Inner wall",
+    "next_wall": "Outer wall, without another unretraction"
+  },
+  "scope": "Observed timing and intermittency of strand formation. Excess restart pressure, early ooze and initial bead attachment remain hypotheses. No causal connection to the earlier preview marker discrepancy, measured nozzle flow error or physical grip acceptance is established."
+}
