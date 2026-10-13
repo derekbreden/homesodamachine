@@ -9,8 +9,8 @@ unit. Both pumps ride in `enclosure-pump-cartridge`, the large lower cradle whos
 face fills the bay in the front wall. Pull that cradle against a braced box and both pumps and
 their small top clamp come out together. No enclosure quadrant comes off.
 
-[4](JOINT_COUNT) joints part, all four on the flavor path, and the technician opens none of
-them — the collet plate opens all four as the cartridge is pulled. No joint on the water, CO2
+[4](JOINT_COUNT) joints part, all four on the flavor path, and none of them is opened by
+hand — the collet plate opens all four as the cartridge is pulled. No joint on the water, CO2
 or carbonated-water path is opened either: every body on those three paths stands aft of the
 bay or on the cold core's own lid, so the carbonator stays full, stays under pressure, and
 stays connected.
@@ -204,7 +204,7 @@ flex links for seepage, rubbing or a link pulled taut.
 1. **Dry-run wear on a KPHM600's BPT tube is not characterised.** Every one of the four states
    turns a rotor on air.
 2. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
-   The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
+   The carbonator's only liquid outlet climbs to the faucet, and the pre-shipment transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
 3. **Bowed-stub stock lengths.** The four tee-to-valve links' exposed paths and sleeve-face gaps are
    in [`fluid-topology.md`](/hardware/topology/fluid-topology.md). Their stock blanks also include both fittings' insertion depths;

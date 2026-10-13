@@ -35,7 +35,7 @@ Use the rotator guide or the Letter bench-sheet style for additional operations.
 Give each operation enough space for its picture and bench-readable actions.
 Show motion as a sequence. Keep dimensions beside their datum, distinguish a
 schematic from a full-size template, and place the pass/hold check at the step
-where it changes what the operator does.
+where it changes what Derek does.
 
 `tools/assembly-guides/common.py` supplies the vector Letter page furniture.
 `hardware/guide-assets/fonts/` supplies shared webfonts for HTML guides. These

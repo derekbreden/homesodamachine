@@ -36,8 +36,8 @@ unqualified for this centered set.
 
 Finish both faces of every cut edge and remove any laser tabs before kit
 assembly, including the closed rear cap and channel-mouth rounds. The supplier
-quote does not offer deburring at this part size; edge cleanup belongs to the
-factory bench. Keep the rear channel open for the complete bundle.
+quote does not offer deburring at this part size; edge cleanup is done at
+Derek's bench. Keep the rear channel open for the complete bundle.
 The [purchased-stock record](stock-profile.json) and
 [S4177511-purchased.dxf](S4177511-purchased.dxf) identify the received plates.
 Use the production ordering file above for this centered faucet set.

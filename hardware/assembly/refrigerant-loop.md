@@ -1,8 +1,8 @@
 # Refrigerant Loop
 
-The production procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator, to final mass-metered recharge. The loop is open to a flammable hydrocarbon for several steps; the argon purge during brazing is load-bearing.
+The procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator, to final mass-metered recharge. The loop is open to a flammable hydrocarbon for several steps; the argon purge during brazing is load-bearing.
 
-Design intent and component rationale live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together. The illustrated sequence is [`refrigeration-guide.pdf`](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+Design intent and component rationale live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the procedure that ties them together. The illustrated sequence is [`refrigeration-guide.pdf`](/hardware/refrigeration-guide/refrigeration-guide.pdf).
 
 ## Scope
 
@@ -21,7 +21,7 @@ end-use-specific. The residential household design basis and its scope are recor
 [`/business/regulatory.md`](/business/regulatory.md); the classification is the project's
 reasoned basis rather than an individual EPA determination. The donor's exemption does not
 automatically transfer to the completed soda machine. Three hazards apply to this
-procedure — two to the technician, one to the part:
+procedure — two to Derek, one to the part:
 
 **Hazard A — Vent the factory charge before applying any flame.** The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
 
@@ -43,7 +43,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 |---|---|---|
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
 | Finished cold core | Output of [`cold-core.md`](/hardware/assembly/cold-core.md) | Wound coil bonded to carbonator, foam-poured, coil stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) inlet, [175 mm](PROT_OUTLET) outlet |
-| Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
+| Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in this procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | [~40 g](SYSTEM_CHARGE) per system, mass-metered; one 3-can pack covers ~12 recharges |
 | Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 7) + recharge (step 8). Clamped permanently. |
 | BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus self-fluxing filler. Every loop joint is copper-to-copper, so all are brazed **dry — no flux**; the phosphorus is the fluxing agent. ~10 g per build, ~3 builds per rod |
@@ -121,7 +121,7 @@ Position the cold core's coil-outlet stub (top of the wound coil — refrigerant
 
 Position the cold core's coil-inlet stub (bottom of the wound coil) next to the capillary-tube end coming from the factory drier (cut to length at the evap-inlet end in step 3). The size mismatch — a 1/4" OD coil stub against a cap tube of ~0.031" bore ([`reference/ice-maker/`](/hardware/reference/ice-maker/README.md)) — is handled by **pinch-swaging the coil-inlet stub down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
 
-If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech recalculates cap length for the new load.
+If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), the cap length is recalculated for the new load.
 
 ### 7. Pull vacuum
 

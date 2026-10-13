@@ -1,6 +1,6 @@
 # Cold Core Assembly
 
-The production procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator, its wound evaporator coil, two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PET-GF shell stack.
+The procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator, its wound evaporator coil, two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PET-GF shell stack.
 
 Foam-pour geometry, shell architecture, copper-slot cover cross-sections, and TPU-gasket seam analysis: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 

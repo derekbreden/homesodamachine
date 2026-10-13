@@ -237,7 +237,7 @@ The machine has one voice: U8, an MLT-5020 magnetic transducer, low-side switche
 IO13. Neither display carries a sounder, so every sound the machine makes — including the
 click under a finger on the enclosure display's glass — is made here. The drive, the vocabulary and the
 settings are [`/firmware/lib/sound`](/firmware/lib/sound/sound.h), shared with
-`src_pcba_bench` so the factory hears exactly what a customer hears.
+`src_pcba_bench` so Derek hears exactly what a customer hears.
 
 `soundService()` runs from `loop()` and never blocks. That matters: LEDC keeps oscillating
 in hardware once set, so a sequencer that stops being serviced leaves ~100 mA in the coil
@@ -323,7 +323,7 @@ leak in an empty kitchen is heard from another room.
 
 They are in `main.cpp`'s header, in
 [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 where
-the factory confirms them per unit, and in [`/firmware/README.md`](/firmware/README.md) with
+Derek confirms them per unit, and in [`/firmware/README.md`](/firmware/README.md) with
 the part that pays for each. At most 3 solenoid valves energized at once; relay #2 off while
 a dispense is open; `GPPU` written on both MCP23017s.
 

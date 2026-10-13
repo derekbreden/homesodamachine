@@ -74,7 +74,7 @@ Exact Prime replenishment sources remain unconfirmed for several plumbing/refrig
 
 The exact PP1208E bulkhead union is sourced from Fresh Water Systems, and the exact 1.47-inch display from Waveshare. These are same-part supplier substitutions. Mouser pricing and batch stock remain estimates. Additional JLCPCB assembly, OnlineMetals cuts and SendCutSend parts require current quantity-specific quotes; historical delivered lots supply the allowances. No unquoted volume saving is assumed.
 
-Some electrical terminations remain open. Positive allowances cover them without asserting a selected production procedure or physical acceptance.
+Some electrical terminations remain open. Positive allowances cover them without asserting a selected procedure or physical acceptance.
 
 ## Expense basis
 
@@ -82,7 +82,7 @@ New parts/materials, new inbound freight/import reserves and tax form the delive
 
 The headline additional-cash budget adds the possible pending-payment reserve, $40 per machine for cartons/protective packing/customer guides, $80 per machine for customer delivery and $125 / $200 / $350 per five / ten / twenty-machine batch for shop gases, auxiliary solder/cleaning supplies and production electricity. Packing and delivery are unquoted estimates. Shop allowances use a provisional $50 per batch plus $15 per machine and cover additional usage beyond the explicitly credited BOM supplies; remaining gas and electricity usage are unmeasured.
 
-Build labor uses the existing practiced-operator estimate and rate, shown separately. Paying an operator adds that amount to cash required; owner labor is not automatically a cash payment. Prior development time is excluded. Early-build labor and attended work already completed on unit 1 are not fully quantified, so the labor line is a forward planning allowance rather than an actual unpaid-hours balance. Extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside this forecast.
+Build labor uses the labor ledger's deliberately ideal estimate of Derek's time and its rate, shown separately; it is not a cash payment. Prior development time is excluded. Early-build labor and attended work already completed on unit 1 are not fully quantified, so the labor line is a forward planning allowance rather than an actual unpaid-hours balance. Extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside this forecast.
 
 New excess-stock value uses average new purchase cost before freight/tax. Existing inventory is not assigned a second purchase cost. The per-row stock left after a batch includes both existing and newly acquired remainder; colour, size and offcut constraints can prevent it from supplying another whole machine.
 

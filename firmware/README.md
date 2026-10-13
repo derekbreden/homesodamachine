@@ -165,7 +165,7 @@ images relay <slot>    carry one to the machine display over the radio
 
 ## What the machine firmware must hold
 
-Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
+Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where Derek confirms them per unit.
 
 - **At most 3 solenoid valves energized at once.** Eight coils on MANIFOLD A draw 2.4–3.7 A through J1's `COM` contact, rated ~3 A, and dissipate it in one SOIC-18 (U4). The canonical valve states open at most three ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the ceiling is [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
 - **Relay #1 (`IO19`) and the condenser fan follow the cold loop.** `lib/machine_policy/cold_policy.h` is the whole decision — the setpoint band on the carbonator wall, the freeze cutout on the suction line, the compressor's minimum off-time and the parking of both on a reading that is missing or stale. The condenser fan shares its write with every valve, so `machine.cpp` routes them all through one `applyOutputs()` and a valve change during a run does not stop the fan.

@@ -447,7 +447,7 @@ a date: this tree does not hold one.
 2. **The coworker.** The one who mentioned robot mowers. Do they drink soda? Do they know this
    exists? What did they say?
 3. **What to film next.** The channel is not running and that is the problem to solve, not a
-   thing to wait out. What gets made next is a standing question for whoever picks up
+   thing to wait out. What gets made next is a standing question in
    [`/marketing/video/concepts.md`](/marketing/video/concepts.md).
 
 ## Sources

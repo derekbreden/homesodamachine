@@ -1,8 +1,8 @@
 # Firmware and Commissioning
 
-The production procedure for first-time firmware flash and DC-side commissioning of a fully wired chassis. Takes the never-powered output of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks already passed — through three MCU flashes, a controlled first power-on under PSU, a sensor-health walkthrough, a valve self-test, and a brief firmware-driven compressor cycle confirming relay #1 switches the AC leg. Stops short of any test that requires water or CO2 — those live in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
+The procedure for first-time firmware flash and DC-side commissioning of a fully wired chassis. Takes the never-powered output of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks already passed — through three MCU flashes, a controlled first power-on under PSU, a sensor-health walkthrough, a valve self-test, and a brief firmware-driven compressor cycle confirming relay #1 switches the AC leg. Stops short of any test that requires water or CO2 — those live in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
 
-Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in the next station.
+Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
 
 Design intent and runtime behavior live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration" + "Carbonation". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The PlatformIO environment names live at the repo root in [`/platformio.ini`](/platformio.ini).
 
@@ -35,7 +35,7 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Serial monitor | `pio device monitor -e appliance` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
 | Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
 
-Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, and a USB hub on the bench host.
+Tooling (per-unit-amortized): one bench setup with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, and a USB hub on the bench host.
 
 ## Procedure
 
@@ -43,7 +43,7 @@ Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outl
 
 Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor bolted down and grounded; donor moulded cover intact, unmodified, and securely retained over the terminal/PTC assembly; factory lead exit undamaged; electronics bay populated and fastened; ground bus continuous from C14 earth pin to every exposed-metal bond point; all JST XH looms seated on their labeled wafers (J4 vs J7 by loom label per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)); the J10 polarity verified (`V12` east / `GND` west).
 
-This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `wiring.md` are not repeated here. If anything in the electronics bay has moved since `wiring.md` signed off, return the unit there before continuing.
+This is a *re-look*, not a re-test — the AC and DC continuity checks from `wiring.md` are not repeated here. If anything in the electronics bay has moved since those checks passed, return the unit there before continuing.
 
 ### 2. First DC power-on under PSU control
 
@@ -158,7 +158,7 @@ is standing in them. Expected:
 - Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the main board's console)
 
 Every figure above is read out of [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h)
-when this page is generated, so the number the factory confirms and the number
+when this page is generated, so the number Derek confirms and the number
 the compressor obeys are one number. They are baked into the firmware on `main`
 as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
 
