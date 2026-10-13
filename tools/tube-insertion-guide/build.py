@@ -176,7 +176,7 @@ def write_delivery(count: int) -> None:
         "print_layout": {"canvas_px": [CANVAS_W, CANVAS_H], "dpi": 300,
                          "print_scaling": "100% / none", "sides": "single sided"},
         "artwork": "Real fixture CAD, accepted faucet lever and thimble; the complete factory screw clamps use nominal catalogue-form proxies and fasteners use size proxies. The installed faucet lever is omitted from nominal jig views because its accepted pose has no measured CAD transform.",
-        "physical_scope": "Observations establish the faucet assembly sequence. The Ø7.75 mm liner grip result is pending; nominal geometry and offline slices do not establish insertion force, grip, seating, equal load sharing, fixture strength or endurance. Supplier clamp specifications do not rate the complete assembly.",
+        "physical_scope": "Observations establish the faucet assembly sequence. The identified Ø7.75 mm liner trial failed to grip at rigid closure. The centred grip with proud liners has no physical grip acceptance; nominal geometry and offline slices do not establish insertion force, grip, seating, equal load sharing, fixture strength or endurance. Supplier clamp specifications do not rate the complete assembly.",
         "external_references": {
             "checked_date": "2026-10-10",
             "clamp_family_sheet": "https://besseytools.com/getmedia/24e6be04-58db-4ea7-b4d7-28083eac8980/BESSEY_Clutch-Style-bar-clamps_EN",

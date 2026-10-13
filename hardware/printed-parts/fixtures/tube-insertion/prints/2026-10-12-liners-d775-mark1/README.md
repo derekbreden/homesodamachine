@@ -22,7 +22,9 @@ geometry and presets; a subsequent slice is a separate toolpath.
 
 The [launch receipt](launch.json) records task 1334257829 accepted on
 2026-10-12 at 7:45:25 pm CDT, with Timelapse and Bed Leveling On and both
-calibration options Auto. Printed fit and holding force remain unassessed.
+calibration options Auto. The [physical grip record](grip-failure.json) reports closure to the rigid stop
+without grip and uneven axial compression. CAD confirms an 8.5 mm offset
+between the liner centre and closure-screw line.
 
 The [wall-start observation](wall-start-observation.json) records an
 intermittent strand forming as the nozzle arrives from the other object

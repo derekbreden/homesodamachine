@@ -1,0 +1,251 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -115.5,
+      -160.0,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -115.5,
+      -160.0,
+      -0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "1626843c1cfb4ad82fcd380e3d386b001efb4d89007847b8c946c758948c0d05",
+    "model": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl",
+    "model_sha256": "e4d69315c0cc75d2637d39279662165f74e88c8ba1293d7503aea00ee47d7d0c",
+    "profile": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
+    "profile_sha256": "a36c195f200dac5e1ff83459e426974950fd8b188a91cdce657acb4f2b79aa18"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        26.5,
+        -14.4,
+        2.12,
+        33.3,
+        -9.6,
+        2.6
+      ],
+      "bbox_xy_mm": [
+        142.0,
+        145.6,
+        148.8,
+        150.4
+      ],
+      "build_up_mm": 1.92,
+      "first_z_mm": 2.12,
+      "id": "interface-1",
+      "last_z_mm": 2.6,
+      "tree": "tree-2"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        26.5,
+        9.6,
+        2.12,
+        33.3,
+        14.4,
+        2.6
+      ],
+      "bbox_xy_mm": [
+        142.0,
+        169.6,
+        148.8,
+        174.4
+      ],
+      "build_up_mm": 1.92,
+      "first_z_mm": 2.12,
+      "id": "interface-2",
+      "last_z_mm": 2.6,
+      "tree": "tree-3"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        27.3,
+        -50.0,
+        12.44,
+        34.5,
+        -36.4,
+        12.68
+      ],
+      "bbox_xy_mm": [
+        142.8,
+        110.0,
+        150.0,
+        123.6
+      ],
+      "build_up_mm": 12.24,
+      "first_z_mm": 12.44,
+      "id": "interface-3",
+      "last_z_mm": 12.68,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        27.3,
+        36.8,
+        12.44,
+        34.5,
+        50.0,
+        12.68
+      ],
+      "bbox_xy_mm": [
+        142.8,
+        196.8,
+        150.0,
+        210.0
+      ],
+      "build_up_mm": 12.24,
+      "first_z_mm": 12.44,
+      "id": "interface-4",
+      "last_z_mm": 12.68,
+      "tree": "tree-4"
+    }
+  ],
+  "piece": "centered-grip",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 4,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "interface_islands": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 1.92,
+    "shortest_labelled_build_up_mm": 1.92,
+    "support_bodies": 4
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        24.9,
+        -59.2,
+        0.2,
+        35.7,
+        -36.4,
+        12.68
+      ],
+      "bbox_xy_mm": [
+        140.4,
+        100.8,
+        151.2,
+        123.6
+      ],
+      "first_interface_z_mm": 12.44,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-3"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 12.24,
+      "top_z_mm": 12.68
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        26.5,
+        -14.8,
+        0.2,
+        33.7,
+        -9.2,
+        2.6
+      ],
+      "bbox_xy_mm": [
+        142.0,
+        145.2,
+        149.2,
+        150.8
+      ],
+      "first_interface_z_mm": 2.12,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 2.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        26.5,
+        9.2,
+        0.2,
+        33.7,
+        14.8,
+        2.6
+      ],
+      "bbox_xy_mm": [
+        142.0,
+        169.2,
+        149.2,
+        174.8
+      ],
+      "first_interface_z_mm": 2.12,
+      "id": "tree-3",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 2.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        26.5,
+        36.8,
+        0.2,
+        36.9,
+        59.2,
+        12.68
+      ],
+      "bbox_xy_mm": [
+        142.0,
+        196.8,
+        152.4,
+        219.2
+      ],
+      "first_interface_z_mm": 12.44,
+      "id": "tree-4",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-4"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 12.24,
+      "top_z_mm": 12.68
+    }
+  ]
+}

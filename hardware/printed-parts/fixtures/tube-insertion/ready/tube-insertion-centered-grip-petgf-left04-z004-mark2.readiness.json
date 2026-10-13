@@ -1,0 +1,86 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "a36c195f200dac5e1ff83459e426974950fd8b188a91cdce657acb4f2b79aa18",
+  "archive": "tube-insertion-centered-grip-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "540ba25b8e395e1620e775645d17cf1fd777e35ceeb62f7528f24741eb0ad5d3",
+  "gcode_sha256": "1626843c1cfb4ad82fcd380e3d386b001efb4d89007847b8c946c758948c0d05",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "e4d69315c0cc75d2637d39279662165f74e88c8ba1293d7503aea00ee47d7d0c",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "6bc0ec2ac30efd79f77d5b1abe48db011aa8d4f8e83dfd6459e95dbc9885cd10"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Support",
+    "Support interface",
+    "Top surface"
+  ],
+  "support_generated": true,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        115.29744799999999,
+        100.252448
+      ],
+      [
+        209.702552,
+        219.747552
+      ]
+    ],
+    "maximum_line_width_mm": 0.625104,
+    "bounds_padding_mm": 0.41255200000000003
+  },
+  "bead_margin_mm": [
+    115.29744799999999,
+    100.252448,
+    115.297448,
+    100.25244799999999
+  ],
+  "layers": 63,
+  "estimated_seconds": 9204.9599609375,
+  "estimated_filament_g": 126.70439910888672,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  },
+  "native_material_process": {
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_settings_id": [
+      "Polymaker PET-GF @BBL H2C"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_colour": [
+      "#161616"
+    ],
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "6",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default"
+  }
+}

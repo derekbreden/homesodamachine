@@ -213,7 +213,7 @@ def s_plate_base():
 def s_plate_rigid():
     a = _scene("plate-rigid")
     layout = json.loads((FIXTURE / "print-layout.json").read_text())
-    plate = next(row for row in layout["plates"] if row["id"] == "rigid-parts-h2c")
+    plate = next(row for row in layout["plates"] if row["id"] == "centered-grip-mark2")
     for row in plate["parts"]:
         name = row["source"].removeprefix("tube-insertion-").removesuffix("-print.stl")
         shape = _parts(True)[name]
@@ -229,7 +229,7 @@ def s_plate_liners():
     a = _scene("plate-liners")
     shape = _parts(True)["liner"]
     bb = shape.val().BoundingBox()
-    for n, x in enumerate((-5, 5)):
+    for n, x in enumerate((-5.5, 5.5)):
         shift = (x - (bb.xmin + bb.xmax) / 2,
                  -(bb.ymin + bb.ymax) / 2, -bb.zmin)
         _add(a, shape.translate(shift), f"F-liner-{n+1}", M_ACCENT)
@@ -282,7 +282,7 @@ def s_liners():
     _add(a, _parts(True)["upper-jaw"].translate((0, 62, 0)), "E-upper-jaw")
     x = jig.LINER_START_X
     for n, y in enumerate((-62, 62)):
-        _add(a, jig.build_liner().translate((x, y, jig.JAW_HALF_H - jig.LINER_H + 18)),
+        _add(a, jig.build_liner().translate((x, y, jig.JAW_HALF_H - jig.LINER_POCKET_H + 18)),
              f"F-liner-{n+1}", M_ACCENT)
     return a
 

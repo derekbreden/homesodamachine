@@ -36,7 +36,13 @@ def prepare(spec: dict) -> tuple[Path, dict]:
         members = {name: archive.read(name) for name in archive.namelist()}
     settings = json.loads(members[writer.SETTINGS_MEMBER])
     changes = {}
+    nozzle = float(settings["nozzle_diameter"][0])
+    settings["print_compatible_printers"] = [
+        f"Bambu Lab H2C {nozzle:g} Standard +{spec['z_trim_mm']:.2f} Z trim"]
+    if spec.get("filament_colour"):
+        settings["filament_colour"] = [spec["filament_colour"]]
     if spec["material"] == "PET-GF":
+        settings["print_compatible_printers"].append(f"Bambu Lab H2C {nozzle:g} nozzle")
         requested = {
             "wall_loops": "6",
             "sparse_infill_density": "100%",
@@ -47,7 +53,7 @@ def prepare(spec: dict) -> tuple[Path, dict]:
             "support_type": "tree(auto)",
             "support_style": "default",
             "enable_prime_tower": "0",
-            "print_settings_id": "0.24mm PET-GF tube insertion solid",
+            "print_settings_id": f"0.24mm PET-GF tube insertion solid - {spec['id']}",
         }
         for key, value in requested.items():
             if settings.get(key) != value:

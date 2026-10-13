@@ -1,0 +1,80 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf",
+  "project_sha256": "9f0eeb989dacf8879b091bd208ff48e80cddf9fff584e8010bf912ead42b97f8",
+  "archive": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+  "archive_sha256": "ffe10e87b662474e0eaffa9318b1a66b43de85f1f2ccd1827e0e8945bdb30524",
+  "gcode_sha256": "713bf1faef7098e5655da8bf4b3871818079c6d49d7d17e10a9e549675228c22",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "1825f948b9ae9c9a1a2de113e69f48050af9b58f524899bc1da8aa5702415647"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Right fixed 0.6 mm; TPU 85A external spool 255",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        167.21726721709445,
+        149.717286
+      ],
+      [
+        187.782714,
+        170.282714
+      ]
+    ],
+    "maximum_line_width_mm": 0.985428,
+    "bounds_padding_mm": 0.592714
+  },
+  "bead_margin_mm": [
+    142.21726721709445,
+    149.717286,
+    142.217286,
+    149.717286
+  ],
+  "layers": 155,
+  "estimated_seconds": 4651.603515625,
+  "estimated_filament_g": 10.7122220993042,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.18000000715255737,
+    "wall_loops": 2,
+    "sparse_infill_density": 100.0
+  },
+  "native_material_process": {
+    "filament_type": [
+      "TPU"
+    ],
+    "filament_settings_id": [
+      "Bambu TPU 85A @BBL H2C"
+    ],
+    "filament_nozzle_map": [
+      "1"
+    ],
+    "filament_colour": [
+      "#161616"
+    ],
+    "layer_height": "0.18",
+    "initial_layer_print_height": "0.3",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "enable_support": "0",
+    "support_type": "tree(auto)",
+    "support_style": "default"
+  }
+}

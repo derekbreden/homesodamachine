@@ -49,13 +49,15 @@ Its press fit retains the cover's position and has no assigned hold-down
 capacity. Hand-pressure performance and installed lever clearance remain
 physically unqualified.
 
-Each rigid collar half is 15 mm high. Its transverse wings have 30.5 mm
-axial depth from X8 to X38.5, with screw stations 16 mm beyond the 32 mm
-wide core edge. Analysis below assigns an entire station's force to a
+Each rigid collar half is 15 mm high. Its 36 mm transverse crossbar spans
+X4–40 about the X22 closure-screw line. The 28 mm TPU liners span X8–36,
+also centred at X22. Analysis below assigns an entire station's force to a
 single half, rather than assuming that a factory foot shares it equally
-between upper and lower halves. The 28 mm preformed TPU liners retain the
-Ø7.75 unloaded bore, 3.35 mm front wall and 6.85 mm rear wall. Rigid backing
-beneath the pockets is 7 mm; the TPU's minimum backing is 4.125 mm.
+between upper and lower halves. Each Ø7.75 mm half-channel liner stands
+1 mm proud of its 8 mm pocket; both axial walls are 7.85 mm thick. The
+nominal rigid pocket backing is 7 mm and the TPU's minimum backing is
+5.125 mm. Seated uncompressed liner references intentionally overlap at
+rigid closure. Loaded deformation and grip force remain unmeasured.
 
 The carrier has a 124 mm guide bearing span and a 6 mm thick, 100 mm wide
 foot. Its full-width foot starts at X96.5, behind the donor. The forward
@@ -77,10 +79,10 @@ that case.
 
 | Scenario | C1 / C2 input, N | Donor web nominal bending, MPa | One collar half nominal bending, MPa | Guide reaction at each end, N | Tube average axial wall stress, MPa |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 1 kN balanced | 500 / 500 | 5.9 | 3.4 | 0 | 25.3 |
-| 2 kN balanced | 1000 / 1000 | 11.8 | 6.9 | 0 | 50.5 |
-| 1 kN at one station | 1000 / 0 | 11.8 | 6.9 | 258 | 25.3 |
-| 2 kN at one station | 2000 / 0 | 23.7 | 13.8 | 516 | 50.5 |
+| 1 kN balanced | 500 / 500 | 5.9 | 2.5 | 0 | 25.3 |
+| 2 kN balanced | 1000 / 1000 | 11.8 | 4.9 | 0 | 50.5 |
+| 1 kN at one station | 1000 / 0 | 11.8 | 4.9 | 258 | 25.3 |
+| 2 kN at one station | 2000 / 0 | 23.7 | 9.9 | 516 | 50.5 |
 
 For the donor web, use a conservative 24 mm net height and 26 mm axial
 thickness: section modulus W=24×26²/6=2704 mm³. Balanced input on a
@@ -88,12 +90,12 @@ thickness: section modulus W=24×26²/6=2704 mm³. Balanced input on a
 32 mm cantilever-arm scenario, M=32F. This simplified beam model excludes
 slot-notch concentration and detailed annular contact redistribution.
 
-For a single collar half, W=15×30.5²/6=2326 mm³ and the station arm is
+For a single collar half, W=15×36²/6=3240 mm³ and the station arm is
 16 mm. Nominal bending is F_station×16/W. The calculation excludes
 pocket/head-hole stress concentration and uneven local contact. The
-collar's TPU end-bearing area is approximately 126.4 mm² per pad; if an
+collar's TPU end-bearing area is approximately 156.4 mm² per pad; if an
 entire 1 kN or 2 kN went through one pad, its average end bearing would be
-7.9 or 15.8 MPa. This area calculation does not assess wall bending, TPU
+6.4 or 12.8 MPa. This area calculation does not assess wall bending, TPU
 shear, slipping or retained squeeze.
 
 Unequal input creates yaw Mz=32×|F_C1−F_C2| N·mm. The 124 mm guide span

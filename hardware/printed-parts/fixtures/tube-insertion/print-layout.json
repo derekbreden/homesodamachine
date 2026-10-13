@@ -23,64 +23,49 @@
       ]
     },
     {
-      "id": "rigid-parts-h2c",
-      "project": "tube-insertion-rigid-parts-h2c.3mf",
-      "title": "Tube insertion guided carrier and grip - black PET-GF - Mark1",
-      "printer": "Mark1 (H2C)",
+      "id": "centered-grip-mark2",
+      "project": "tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
+      "title": "Centered plus grip - PET-GF - Mark2",
+      "printer": "Mark2",
       "material": "PET-GF",
       "settings_source": "hardware/printed-parts/petgf.3mf",
-      "z_trim_mm": 0.18,
-      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool",
+      "z_trim_mm": 0.04,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
       "parts": [
         {
-          "name": "B guided carrier",
-          "source": "tube-insertion-carrier-print.stl",
-          "offset_mm": [
-            0,
-            58
-          ]
-        },
-        {
-          "name": "D lower jaw",
+          "name": "D centered lower jaw",
           "source": "tube-insertion-lower-jaw-print.stl",
           "offset_mm": [
-            -60,
-            -54
+            -25,
+            0
           ]
         },
         {
-          "name": "E upper jaw",
+          "name": "E centered upper jaw",
           "source": "tube-insertion-upper-jaw-print.stl",
           "offset_mm": [
-            0,
-            -54
-          ]
-        },
-        {
-          "name": "G sleeve support puck",
-          "source": "tube-insertion-cap-support-puck-print.stl",
-          "offset_mm": [
-            65,
-            -40
+            25,
+            0
           ]
         }
-      ]
+      ],
+      "filament_colour": "#161616"
     },
     {
-      "id": "tpu-85a-mark1",
-      "project": "tube-insertion-tpu-85a-mark1.3mf",
-      "title": "Tube insertion grip liners - TPU 85A - Mark1",
+      "id": "centered-liners-mark1",
+      "project": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf",
+      "title": "Centered grip liners - 1 mm proud backing - TPU 85A - Mark1",
       "printer": "Mark1 (H2C)",
       "material": "TPU 85A",
       "settings_source": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf",
-      "z_trim_mm": 0.0,
+      "z_trim_mm": 0.18,
       "nozzle_mapping": "Right fixed 0.6 mm; TPU 85A external spool 255",
       "parts": [
         {
           "name": "F lower TPU liner",
           "source": "tube-insertion-liner-print.stl",
           "offset_mm": [
-            -5,
+            -5.5,
             0
           ]
         },
@@ -88,7 +73,7 @@
           "name": "F upper TPU liner",
           "source": "tube-insertion-liner-print.stl",
           "offset_mm": [
-            5,
+            5.5,
             0
           ]
         }

@@ -74,12 +74,12 @@
           0.0
         ],
         "max_mm": [
-          38.5,
+          44.0,
           50.0,
           15.0
         ],
         "size_mm": [
-          38.5,
+          44.0,
           100.0,
           15.0
         ]
@@ -102,12 +102,12 @@
           -6.917397473272781e-15
         ],
         "max_mm": [
-          38.5,
+          44.0,
           50.0,
           15.000000000000007
         ],
         "size_mm": [
-          38.5,
+          44.0,
           100.0,
           15.000000000000014
         ]
@@ -130,12 +130,12 @@
           0.0
         ],
         "max_mm": [
-          8.000000000000004,
+          9.000000000000004,
           10.0,
           28.0
         ],
         "size_mm": [
-          8.000000000000004,
+          9.000000000000004,
           20.0,
           28.0
         ]
@@ -223,7 +223,7 @@
           30.0
         ],
         "moving_center_mm": [
-          116.5,
+          118.0,
           -23.25,
           30.0
         ]
@@ -237,19 +237,19 @@
           30.0
         ],
         "moving_center_mm": [
-          116.5,
+          118.0,
           40.75,
           30.0
         ]
       }
     ],
     "pad_envelope_diameter_mm": 30.0,
-    "initial_opening_mm": 142.5,
-    "final_opening_mm": 122.5,
+    "initial_opening_mm": 144.0,
+    "final_opening_mm": 124.0,
     "rated_capacity_mm": 152.4,
     "scope": "Opening dimension and adaptable flat bearing stations; schematic tool solids are not measured manufacturer CAD"
   },
-  "source_sha256": "231f31db75a2645e3d89fdddf077c558d5f472a6ce274aa4ca0d7f880f4893c4",
+  "source_sha256": "03447f050a8aa1d32a5cbe97172e84f74c6139702b85d11215a91b14d7df427f",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
