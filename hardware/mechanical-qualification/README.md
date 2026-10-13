@@ -28,8 +28,9 @@ The lower faucet passages, organizer, TPU gasket, rigid above-counter plate
 and steel under-counter plate share X=0 for soda, drain and ribbon, with
 symmetric flavor positions. The [centered mounting review](../cut-parts/faucet/under-counter-plate/centered-layout-check.json)
 records the full sideways slide through the 19–38 mm routing envelope.
-This centered set is unprinted and its matching steel plate is unqualified;
-identified earlier faucet prints retain only their recorded acceptance scope.
+The [identified complete centered faucet](../printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json)
+has reported overall acceptance. Numerical forces and the complete matching
+steel-plate installation are not independently measured.
 
 The [direct ASSE drain sleeve](../printed-parts/asse-drain-adapter/README.md)
 is an unprinted TPU 85A fit candidate with separate barb/tube sockets and two
@@ -57,7 +58,9 @@ The [current centered Industrial print](../printed-parts/faucet/industrial/print
 uses Back with A2 on the base, tip and mounting plate, default corner seams on
 the cover and lever, and E eight coarse lip layers before 0.12 mm. Its native
 record binds the five rigid meshes, poses, layer bands and selected settings.
-Full-faucet finish and centered-mounting fit remain unassessed.
+Derek accepts the identified print as the best faucet so far, with everything
+checking out well apart from the base rear seam wobble. Its record and tag
+`faucet-industrial-approved-2026-10-13` preserve that scope.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

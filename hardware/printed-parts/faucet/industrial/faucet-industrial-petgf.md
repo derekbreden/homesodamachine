@@ -2,7 +2,7 @@
 
 [`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains all five current rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The saved project targets Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI. The [current Mark2 print](prints/2026-10-13-a2-back-mark2/README.md) uses the same geometry and process with Mark2's own trim and spool colour.
 
-The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip and mounting plate, ordinary corner seams on the cover and lever, and E's eight coarse lip layers. The exact [launch record](prints/2026-10-13-a2-back-mark2/launch.json) binds the current print. Selecting the settings does not establish physical seam-flatness or underside continuity. Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
+The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip and mounting plate, ordinary corner seams on the cover and lever, and E's eight coarse lip layers. The exact [launch record](prints/2026-10-13-a2-back-mark2/launch.json) binds the current print. The [physical inspection](prints/2026-10-13-a2-back-mark2/physical-result.json) accepts the identified print as the best faucet so far, with a known rear seam wobble. Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
 
 | Position | Part | CAD X rotation |
 | --- | --- | ---: |
@@ -14,7 +14,7 @@ The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip 
 
 ## Geometry and assembly
 
-The lower passages, rigid plate and gasket use the centered mounting layout and measured 4.6 × 1.18 mm ribbon. Install the matching [18.15 × 7.25 mm steel rear opening](../../../cut-parts/faucet/under-counter-plate/README.md). The [mounting review](../../../cut-parts/faucet/under-counter-plate/centered-layout-check.json) binds nominal clearances and slide access. The centered mounting set has no physical fit acceptance.
+The lower passages, rigid plate and gasket use the centered mounting layout and measured 4.6 × 1.18 mm ribbon. Install the matching [18.15 × 7.25 mm steel rear opening](../../../cut-parts/faucet/under-counter-plate/README.md). The [mounting review](../../../cut-parts/faucet/under-counter-plate/centered-layout-check.json) binds nominal clearances and slide access. The identified complete print has reported overall acceptance; numerical assembly forces are unmeasured.
 
 The curved joint is at 70°, with a female base and male tip and 20/18 mm overlap. Smooth tangent walls surround the tube and flat ribbon passages. The flavor pair shares a capsule without a central divider or outlet cusp. The drain ends square with 3 mm of local mouth clearance and an unsealed Ø4 mm underside fault-drip hole. The tip's hole cutter reaches 0.60 mm inward of the soda-clearance wall. No intermediate guide discs, drain bung or insertion tool are fitted.
 
@@ -39,7 +39,7 @@ The saved process uses two global walls, 15% grid infill, 265/280 °C nozzle tem
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The current Mark2 native estimate is 6 h 5 min 55 s, recorded with the source hashes, unchanged layer bands and effective per-part settings in the [native review](prints/2026-10-13-a2-back-mark2/native-review.json). The [seam-path reading](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks the scarfed parts and the plain cover/lever corners. Complete-print finish acceptance remains unassessed.
+The current Mark2 native estimate is 6 h 5 min 55 s, recorded with the source hashes, unchanged layer bands and effective per-part settings in the [native review](prints/2026-10-13-a2-back-mark2/native-review.json). The [seam-path reading](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks the scarfed parts and the plain cover/lever corners. The complete printed article has [overall acceptance](prints/2026-10-13-a2-back-mark2/physical-result.json), with the rear seam wobble recorded.
 
 ## Support cleanup and evidence
 
@@ -53,7 +53,7 @@ The [support review](prints/2026-10-11-centered-mounting-review-mark2/support-re
 | Plate | Open screw-head recesses; preserve their seats. |
 | Lever | Side-down pose with open external cleanup access. |
 
-The [shipping acceptance](physical-acceptance.json) and tag `faucet-industrial-shipping-2026-10-10` identify the complete physical reference. That article retains reported separation of the first model layer above supports and a visible seam. Its acceptance does not establish physical fit of the centered mounting set. Native paths and CAD clearances do not establish adhesion, cleanup force, fault discharge, strength or lifetime. Physical results belong in the [print log](print-log.md).
+The [shipping acceptance](physical-acceptance.json) and tag `faucet-industrial-shipping-2026-10-10` identify the complete physical reference. That article retains reported separation of the first model layer above supports and a visible seam. The centered complete print has its own [acceptance record](prints/2026-10-13-a2-back-mark2/physical-result.json) and tag `faucet-industrial-approved-2026-10-13`. Native paths and CAD clearances do not establish adhesion, cleanup force, fault discharge, strength or lifetime. Physical results belong in the [print log](print-log.md).
 
 ## Offline preparation
 

@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "status": "Current complete Industrial printing recipe selected and launched on Mark2",
+  "status": "Identified complete Industrial print approved with known base seam placement wobble",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "finish_selection_sha256": "0bc3f0ec7935e6255376e7fd8036251db47fa0a3a136a0e76bdc0b374bbdd783",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
@@ -64,7 +64,8 @@
       ]
     ]
   },
-  "physical_result": null,
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
   "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "Current printing recipe and actual launch; no new physical finish or centered-mounting fit acceptance."
+  "scope": "Current selected printing recipe and identified physical article; overall user acceptance with reported rear seam wobble.",
+  "approved_tag": "faucet-industrial-approved-2026-10-13"
 }

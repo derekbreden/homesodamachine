@@ -93,7 +93,7 @@
   "native_estimated_seconds": 21955.515625,
   "native_estimated_grams_saved_profile_density": 161.0550994873047,
   "forecast_finish_central": "2026-10-13T16:25:20.066940-05:00",
-  "physical_result": null,
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
   "working_recipe_changed": true,
   "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
   "scope": "Current printing settings and exact accepted launch. Physical finish and centered-mounting fit are unassessed; the earlier shipping acceptance retains its identified article."
