@@ -1,0 +1,72 @@
+{
+  "source_project": "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring-85A-6mm.3mf",
+  "source_project_sha256": "b1e51287c3c28af3c6fc955a19ce149b034c2a2aefca94418c98c76e3aa57f32",
+  "project": "2026-10-13-tpu-o-ring-85a-right06-z018-mark1.3mf",
+  "project_sha256": "c79052117b5eb3b5b1b73315ecfa333cac65f32924fbe65b2dd7ffb101bfffe7",
+  "mesh_members_sha256": {
+    "3D/Objects/object_17.model": "ca4061a588bcd4b5b57d1f55ef26b4986aee3632d853548f9a3a7cbf796baa70"
+  },
+  "mesh_unchanged": true,
+  "settings_changes": {
+    "filament_colour": {
+      "from": [
+        "#000000",
+        "#000000"
+      ],
+      "to": [
+        "#161616",
+        "#161616"
+      ]
+    },
+    "filament_map": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "2",
+        "2"
+      ]
+    },
+    "filament_nozzle_map": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "machine_start_gcode": {
+      "from_sha256": "5499421b3710406f697894fb6f68e9f7c8f9f38beb638a368d1bb09624ca98d7",
+      "to_sha256": "9f1a4bce361763d577afafcdf8448af3ae314b591531e5ffb37778929a582344",
+      "requested_z_trim_mm": 0.18
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.6 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 nozzle",
+      "to": "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+    }
+  },
+  "count": 1,
+  "pose": "Saved cap-down orientation; centered at X177.5 Y160",
+  "printer": "Mark1 (H2C)",
+  "material": "TPU 85A",
+  "nozzle_mapping": "Right fixed 0.6 mm; external spool 255"
+}

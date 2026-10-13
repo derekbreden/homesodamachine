@@ -48,7 +48,7 @@ the faucet's wet path:
 
 Cap-down on the bed. First layer is the annular cap (Ø [10.44 mm](ORING_OUTER_D)
 solid disk with a Ø [6.5 mm](CAP_HOLE_D) hole); the [0.62 mm](ORING_WALL_T)
-cylindrical wall extrudes upward via Arachne thin-wall.
+cylindrical wall extrudes upward using the saved single-wall recipe.
 
 ## Material
 
@@ -57,6 +57,10 @@ cylindrical wall extrudes upward via Arachne thin-wall.
 The [2026-05-30 physical fit record](print-log.md#v3--85a-seats-successfully-2026-05-30-settings-per-tpu-o-ring-85a-6mm3mf)
 establishes successful tube-plus-sleeve seating in the metal donor. It supplies
 no quantified sealing-pressure, insertion-force or lifetime result.
+
+The [Mark1 print project and launch record](prints/2026-10-13-tpu85a-right06-mark1/README.md)
+retain that project's mesh and process, with the filament mapped to the right
+0.6 mm nozzle, Mark1's +0.18 mm trim, and one cap-down sleeve centered on the bed.
 
 ## Assembly
 
