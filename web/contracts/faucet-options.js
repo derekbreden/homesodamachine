@@ -1,8 +1,10 @@
 // Printable faucet styles, in the same assembly coordinate frame. Paths are
 // relative to hardware/, as in /api/steps and component-sources.js.
 import { PETGF_BLACK } from "./material-finishes.js";
+import { stepLocation } from "./step-locations.js";
 
 const SHARED_TIP = "printed-parts/faucet/faucet-shell/faucet-shell-tip.step";
+const SHARED_LEVER = "printed-parts/faucet/lever-replica/lever-replica.step";
 
 export const FAUCET_STYLES = [
   {
@@ -10,6 +12,7 @@ export const FAUCET_STYLES = [
     description: "Smooth curves and softly blended transitions",
     assembly: "faucet-layout/faucet-assembly.step",
     parts: {
+      lever: SHARED_LEVER,
       shell_base: "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
       shell_tip: SHARED_TIP,
       "faucet-display-cover-seated": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
@@ -22,6 +25,7 @@ export const FAUCET_STYLES = [
     description: "Simple cylinders and crisp pronounced shoulders",
     assembly: "faucet-layout/faucet-industrial-assembly.step",
     parts: {
+      lever: SHARED_LEVER,
       shell_base: "printed-parts/faucet/industrial/industrial-shell-base.step",
       shell_tip: SHARED_TIP,
       "faucet-display-cover-seated": "printed-parts/faucet/industrial/industrial-display-cover.step",
@@ -57,20 +61,26 @@ export function faucetStyleFor(file) {
 }
 
 export function faucetSourceFile(name, owner) {
+  owner = stepLocation(owner).file;
   return faucetStyleFor(owner)?.parts[name] || null;
 }
 
 export function hasFaucetFinish(file) {
+  const location = stepLocation(file);
+  file = location.file;
+  if (location.component && faucetStyleFor(file)) return FINISH_BODIES.has(location.component);
   return !!faucetStyleFor(file) || FAUCET_STYLES.some((style) =>
     Object.entries(style.parts).some(([name, path]) => FINISH_BODIES.has(name) && path === file));
 }
 
 export function isFaucetFinishBody(file, name) {
+  file = stepLocation(file).file;
   if (faucetStyleFor(file)) return FINISH_BODIES.has(name);
   return hasFaucetFinish(file);
 }
 
 export function showsInFaucetFinish(file, name, finishId) {
+  file = stepLocation(file).file;
   const only = faucetStyleFor(file) ? FINISH_ONLY.get(name) : null;
   return !only || only === finishId;
 }

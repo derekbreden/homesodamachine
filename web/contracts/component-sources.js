@@ -20,16 +20,17 @@
 // is still the name the port table, the scorecard rows and the plumbing runs speak,
 // but it is the envelope the machine measures against and not a body it exports.
 //
-// A name in neither is a body the assembly builds itself and keeps: the routed
-// `tube-*`, `turn-*` and `step-*` runs, the cold core's `vessel-*` primitives and
-// its `line-*` runs, the condenser block. Those resolve to null, which is what
-// leaves the drill-down offer off a solid there is nowhere to go from.
+// Catalog identities resolve their canonical standalone representations first.
+// A body built only in its assembly has no separate source file here; the viewer
+// opens that named geometry through a component view of the owner.
 //
 // Paths are root-relative to `hardware/`, the same form `/api/steps` returns.
 // web/tests/component-sources.test.js holds every path to a file that exists.
 
 import { leafOf } from "./body-path.js";
 import { faucetSourceFile } from "./faucet-options.js";
+import { materialForFile, occurrenceForBody, materialIndex, matchesBody } from "./materials.js";
+import { stepLocation } from "./step-locations.js";
 
 export const ALIASES = {
   "bulkhead-carb": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -157,8 +158,15 @@ function stem(path) {
 // A BODY INSIDE A SUB-ASSEMBLY IS STILL THE BODY IT IS. The appliance stands the cold core's
 // bodies under `cold-core/<name>`, which says what holds them and changes nothing about what
 // each one was modelled in — so the name is asked for whole first, and then by its leaf.
-export function sourceFileFor(name, stepPaths, owner = null) {
+export function sourceFileFor(name, stepPaths, owner = null, catalog = null, options = {}) {
   if (!name || !Array.isArray(stepPaths)) return null;
+  owner = stepLocation(owner).file;
+  const parent = materialForFile(catalog, owner);
+  const row = parent && occurrenceForBody(catalog, parent.id, name, options);
+  const related = parent?.relations?.find(r => r.bodies?.some(body => matchesBody(name, body)));
+  const material = row?.material || materialIndex(catalog).get(related?.material);
+  const representation = material?.models?.find(model => !model.context && (!model.type || model.type === "step") && stepPaths.includes(model.file));
+  if (representation) return representation.file;
   for (const key of [name, leafOf(name)]) {
     const scoped = faucetSourceFile(key, owner);
     if (scoped) return stepPaths.includes(scoped) ? scoped : null;

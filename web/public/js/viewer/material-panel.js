@@ -4,6 +4,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { highlightParts, clearHighlight, scenePartNames } from "./part-highlight.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
+import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -23,6 +24,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   workspace.append(panel);
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = "bom";
+  let selectedBody = null;
   const expanded = new Set();
   let lastFile = file;
   const scroll = el("div", "material-panel-scroll");
@@ -37,6 +39,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const bindingsFor = (path, names) => occurrenceBodies(state.materialCatalog, [...contextPath(), ...path], names, options());
 
   function setRoot(id) {
+    selectedBody = null;
     root = id; selected = id; selectedPath = []; expanded.clear();
     render();
     const path = contextPath();
@@ -46,6 +49,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
 
   function select(id, path = []) {
+    selectedBody = null;
     selected = id; selectedPath = path;
     render();
   }
@@ -65,18 +69,32 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     scroll.replaceChildren();
     const index = materialIndex(state.materialCatalog), current = index.get(selected), rootMaterial = index.get(root);
     const head = el("div", "material-panel-head");
-    if (rootMaterial && selected !== root) {
+    const actions = el("div", "material-actions");
+    if (rootMaterial && (selected !== root || selectedBody)) {
       const back = el("button", "material-context", "← " + rootMaterial.description);
       back.type = "button"; back.addEventListener("click", () => { clearHighlight(); select(root); }); head.append(back);
     }
-    head.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : "CAD model"));
-    head.append(el("h2", "", current?.description || lastFile?.split("/").at(-1).replace(/\.step$/, "").replace(/[-_]/g, " ") || "Material explorer"));
+    head.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
+    head.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
+    if (selectedBody) {
+      const context = rootMaterial?.bom?.context?.find(item => item.bodies?.some(body => matchesBody(selectedBody, body)));
+      head.append(el("p", "material-meta", context?.description || "No material record linked to this component."));
+      const open = el("button", "", "Open component"); open.type = "button";
+      open.addEventListener("click", async () => {
+        const { drillToComponent } = await import("./step-nav.js");
+        if (matchMedia("(max-width: 700px)").matches) {
+          workspace.classList.remove("materials-open");
+          workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "false");
+        }
+        drillToComponent(componentLocation(lastFile, selectedBody), selectedBody);
+      });
+      actions.append(open);
+    }
     if (current?.manufacturer_number) head.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
     if (selectedPath.length) {
       const row = explodeBom(state.materialCatalog, root, options()).find((r) => pathKey(r.path) === pathKey(selectedPath));
       if (row) head.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}`));
     }
-    const actions = el("div", "material-actions");
     if (current) {
       const permanent = materialLink(current, "Permanent link");
       // A regular anchor supports copying, opening in another tab and bookmarks.
@@ -108,7 +126,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     scroll.append(content);
     if (tab === "bom") renderBom(content, rootMaterial, index);
     if (tab === "used") renderUsed(content, current, index);
-    if (tab === "docs") renderDocs(content, current, index);
+    if (tab === "docs") renderDocs(content, current || rootMaterial, index);
     scroll.scrollTop = top;
   }
 
@@ -204,7 +222,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     for (const relation of relations) {
       const m = index.get(relation.material); if (!m) continue;
       const row = el("div", "material-related");
-      const label = { "tool-for": "Used to build", "used-with": "Used with", variant: "Alternative style" }[relation.kind] || relation.kind;
+      const label = { "tool-for": "Used to build", "used-with": "Used with", "installation-context": "Installation context", variant: "Alternative style" }[relation.kind] || relation.kind;
       row.append(el("span", "material-meta", label + (relation.quantity ? " · " + quantity(relation.quantity, relation.unit) : "")), materialLink(m)); content.append(row);
     }
   }
@@ -213,6 +231,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (disposed) return;
     const mountedFile = state.mountedDetail?.file || file;
     if (file && mountedFile !== lastFile) {
+      selectedBody = null;
       lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear();
     }
     render();
@@ -223,8 +242,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
   }
   function picked(event) {
-    if (event.detail.file !== state.mountedDetail?.file || !root) return;
+    if (event.detail.file !== state.mountedDetail?.file) return;
     clearHighlight();
+    const rootMaterial = materialIndex(state.materialCatalog).get(root);
+    const names = [...scenePartNames()];
+    if (rootMaterial && names.length && names.every(name => matchesBody(name, event.detail.name)) &&
+        (!stepLocation(lastFile).component || !explodeBom(state.materialCatalog, root, options()).some(row => row.item.bodies?.length || row.item.prefix) || rootMaterial.models?.some(model => model.file === lastFile))) {
+      select(root); return;
+    }
     const row = explodeBom(state.materialCatalog, root, options()).filter((r) =>
       bindingsFor(r.path, [event.detail.name]).length).sort((a, b) => b.depth - a.depth)[0];
     if (row) { row.path.forEach((_, i) => expanded.add(pathKey(row.path.slice(0, i + 1)))); select(row.material.id, row.path); }
@@ -239,6 +264,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
           setRoot(parent.id);
           outside.path.forEach((_, i) => expanded.add(pathKey(outside.path.slice(0, i + 1))));
           select(outside.material.id, outside.path);
+        } else {
+          selected = null; selectedPath = []; selectedBody = event.detail.name;
+          render();
         }
       }
     }

@@ -1,4 +1,4 @@
-"""Compare the donor reference with observed points; preview the accepted lever.
+"""Read the canonical printed lever against observed points and render its preview.
 
 Distances measure reconstruction agreement, not scanner accuracy or valve fit.
 The cylinder reading is a robust fit to part of the observed transverse bar;
@@ -138,7 +138,7 @@ def render(mesh, look, crop=None, width=700, height=700):
 
 
 def main():
-    reference = HERE / "lever-donor-reference.stl"
+    reference = HERE / "lever-replica.stl"
     mesh = trimesh.load(reference, force="mesh")
     printable = trimesh.load(HERE / "lever-replica.stl", force="mesh")
     scan = np.load(EVIDENCE / "lever-points.npz")
@@ -148,7 +148,7 @@ def main():
     agreement = np.sum(mesh.face_normals[faces] * selected["normals"], axis=1)
     indices = np.linspace(0, len(p) - 1, 24000, dtype=int)
     all_distances, _ = closest(mesh, p[indices])
-    report = {"subject": "donor scan reconstruction", "stl": reference.name,
+    report = {"subject": "canonical printed faucet lever", "stl": reference.name,
               "stl_sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
               "selected_patch_to_CAD_mm": reading(distances),
               "selected_normal_agreement_fraction_dot_above_0_7": float(np.mean(agreement > .7)),
@@ -156,7 +156,7 @@ def main():
               "watertight": bool(mesh.is_watertight),
               "winding_consistent": bool(mesh.is_winding_consistent),
               "mesh_volume_mm3": float(mesh.volume), "mesh_bounds_mm": mesh.bounds.tolist(),
-              "validation_scope": "donor scan/model agreement only",
+              "validation_scope": "printed model and observed scan points; intentional fit geometry differs from the donor",
               "printed_model_physical_acceptance": for_printed_model(),
               "meaning": "one-sided distance from observed points to CAD; does not validate inferred or unobserved surfaces"}
     (HERE / "scan-fit.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -178,7 +178,7 @@ def main():
     for ax in axes.flat:
         ax.set_aspect("equal")
         ax.grid(alpha=.15)
-    fig.suptitle("Donor reference: observed points (blue), CAD sections (orange)")
+    fig.suptitle("Printed lever: observed donor points (blue), current CAD sections (orange)")
     fig.tight_layout()
     fig.savefig(HERE / "scan-comparison.png", dpi=140)
     plt.close(fig)

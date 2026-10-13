@@ -70,12 +70,26 @@ envelope, as do the constituents of each pump fitting chain. Their BOM quantitie
 and document links remain available without claiming independently selectable
 geometry.
 
-The machine's composition is partial. Remaining material identities include the
-keystone jack, gas-path adapters, grip covers, tee-carrier springs, inlet tube
-collars and funnel drain stub. Their models and build records remain available
-through the explorer's CAD search and assembly documents. The harvested condenser
-and fan are recorded as one donor unit; their individual service contents are
-outside the recorded scope.
+Every named body in the cataloged machine, faucet, cold-core and build-tool
+assembly views maps to a material. Routed tube sections share their fitted run's
+identity; distinct cut runs have distinct numbers. Cabinet stock and cut lengths
+are established by the routing and build records. Commercial consumables and
+unmodeled hardware remain in the cost and assembly documents.
+
+Installation context and tool workpieces carry numbered records and explicit
+relationships outside the supplied product BOM. The kitchen countertop is an
+installation reference; the rotator's tube and insertion tool's tubing and seal
+are workpieces. They can be inspected without being counted as parts of the tool.
+
+A component with no standalone STEP opens the existing geometry in its owning
+assembly through a `?component=` view. That view allocates no second identity or
+CAD file. Its material record, containing assemblies and documents remain the
+same. Direct component-source lookup uses the catalog's canonical model first.
+
+The faucet lever is HSM-000268: one physically accepted printed shape, shared by
+both faucet styles and the standalone model. Its installation representation uses
+the authored nominal rest placement; physical fit/function evidence retains its
+recorded scope.
 
 ## Recorded assembly boundaries
 

@@ -14,6 +14,7 @@ import * as THREE from "three";
 import { state } from "./state.js";
 import { standsIn } from "/contracts/body-path.js";
 import { surfaceText } from "./pick-format.js";
+import { stepLocation, stepLabel } from "/contracts/step-locations.js";
 import { camera, controls, saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -33,7 +34,7 @@ let trail = [];
 let legs = [];
 
 function label(file) {
-  return file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+  return stepLabel(file);
 }
 
 // Centre of a body or of the whole mounted model. Only the drawn body meshes
@@ -73,7 +74,7 @@ export function parseStepHash(raw) {
   // A hand-typed path that never went through `stepHash` carries bare `/` and
   // splits into pieces that are not models — it is one file, and it says so by
   // having a piece that does not end in `.step`.
-  return parts.length > 1 && parts.every((p) => /\.step$/i.test(p)) ? parts : [decode(body)];
+  return parts.length > 1 && parts.every((p) => /\.step$/i.test(stepLocation(p).file)) ? parts : [decode(body)];
 }
 
 // HOW MANY HISTORY ENTRIES STAND BETWEEN THE PAGE AND THIS MODEL. Dismissing the

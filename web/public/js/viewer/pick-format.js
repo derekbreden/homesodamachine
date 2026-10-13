@@ -73,6 +73,7 @@ function numAfter(text, re) {
 // carries no extra line: the name of the file, in `fileLine`.
 
 export function surfaceText(file, surface) {
+  file = String(file).split("?")[0];
   const name = file.split("/").pop();
   return surface === "mesh"
     ? `${name}.mesh — drawn from this, not the STEP above; it can carry surface the solid does not`
@@ -106,6 +107,7 @@ export function pickFileToViewerPath(file, root = CONTENT_ROOT) {
 // scale is one THIS SURFACE CANNOT SETTLE — which is a reason to go to the solid and the
 // print, and never a reason to decide the person clicking saw nothing.
 export function fileLine(file, detail, root = CONTENT_ROOT) {
+  file = String(file).split("?")[0];
   const d = detail || {};
   const path = root + "/" + String(file);
   if (d.surface !== "mesh") return path;

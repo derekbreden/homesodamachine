@@ -200,7 +200,7 @@ def s_load_path():
 
 def s_faucet_lever():
     a = _scene("faucet-lever")
-    _add(a, lever_replica.build(printed=True), "accepted-faucet-lever", M_ACCENT)
+    _add(a, lever_replica.build(), "accepted-faucet-lever", M_ACCENT)
     return a
 
 

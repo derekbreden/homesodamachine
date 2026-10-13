@@ -1,7 +1,7 @@
 """Derek's physical observation, bound to the exact printed lever mesh.
 
 Generators read this record; they never rewrite it or carry its acceptance onto
-a changed mesh. The donor scan reconstruction is a separate comparison artifact.
+a changed mesh. The printed geometry and its acceptance scope are preserved independently of assembly placement.
 """
 import hashlib
 import json

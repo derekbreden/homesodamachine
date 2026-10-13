@@ -45,6 +45,7 @@ import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./
 import { mountFaucetOptions } from "./faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { mountMaterialPanel } from "./material-panel.js";
+import { stepLocation } from "/contracts/step-locations.js";
 import { dismissViewerHistory } from "./viewer-history.js";
 
 // Reset-view button: re-frames the current part with the format's default
@@ -116,6 +117,8 @@ function makeResetViewButton() {
 }
 
 function shortName(file, ext = ".step") {
+  const location = stepLocation(file);
+  if (location.component) return { name: location.component.split("/").at(-1), dir: location.file };
   const parts = file.split("/");
   const name = parts.pop().replace(ext, "");
   const dir = parts.join("/");
