@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "status": "Base-only native slice reviewed; physical seam evaluation pending",
+  "one_time_exception": true,
+  "submitted": false,
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "263df4452ec980d69151bed71f46d694f58482d00479d9cc64f7178fef79a822",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "6d95d66c5a2cbdba0a4f984477b9f954b01bfd657ab662f78873a022c0f9902c",
+  "gcode_sha256": "3c0d0631b06ee3381ac81d733b5a6536ba56ed3508662f5919a07b7c5139f31f",
+  "retained_geometry_and_seam_paint_byte_identical": true,
+  "saved_global_settings_byte_identical": true,
+  "object_count": 1,
+  "objects": [
+    "industrial-shell-base"
+  ],
+  "active_spools": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "161616"
+    }
+  },
+  "base_build_rotation_x_deg": -15,
+  "centering_translation_mm": [
+    80,
+    0,
+    0
+  ],
+  "measured_neck_contours": 695,
+  "cad_z_scope_mm": [
+    80,
+    237
+  ],
+  "maximum_neck_seam_start_offset_mm": 0.44999999999998863,
+  "peak_offset_witness": {
+    "print_z_mm": 191.24,
+    "gcode_line": 1054843,
+    "start_cad_mm": [
+      0.44999999999998863,
+      16.255752473917045,
+      194.2138116576839
+    ],
+    "start_plate_mm": [
+      162.95,
+      206.093,
+      191.024
+    ],
+    "scarf_z_range_mm": 0.21600000000000819
+  },
+  "z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "full_bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        129.696616,
+        111.311616
+      ],
+      [
+        195.378384,
+        208.624384
+      ]
+    ],
+    "maximum_line_width_mm": 0.730768,
+    "bounds_padding_mm": 0.465384
+  },
+  "minimum_full_bead_margin_mm": 111.311616,
+  "estimated_seconds": 14053.6220703125,
+  "estimated_grams_saved_density": 101.66633605957031,
+  "slicer_warning": "",
+  "total_layers": 1244,
+  "wipe_blocks": 0,
+  "periodic_G39_blocks": 0,
+  "normal_complete_recipe_changed": false
+}
