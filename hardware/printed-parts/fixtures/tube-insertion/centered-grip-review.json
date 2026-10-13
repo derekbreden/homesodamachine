@@ -24,14 +24,15 @@
     1.0
   ],
   "nominal_closed_vertical_channel_span_mm": 5.75,
-  "compression_scope": "Seated uncompressed liner references overlap at rigid-face closure. Their mirrored groove centres lie 1 mm each side of the tube axis. The loaded TPU shape and retained grip are unmeasured.",
+  "compression_scope": "Seated uncompressed liner references overlap at rigid-face closure. Their mirrored groove centres lie 1 mm each side of the tube axis. Loaded TPU deformation and grip force are unmeasured; functional operation is recorded in physical-acceptance.json.",
   "reused_parts": [
     "base",
     "carrier",
     "cap-support-puck"
   ],
   "physical_failure_record": "prints/2026-10-12-liners-d775-mark1/grip-failure.json",
-  "status": "Prepared geometry candidate; no grip acceptance or load rating.",
+  "status": "Reviewed geometry with separate physical acceptance for successful functional insertion; no load rating.",
   "carrier_nut_pocket_roof_mm": 3.2,
-  "carrier_nut_pocket_floor_mm": 7.6
+  "carrier_nut_pocket_floor_mm": 7.6,
+  "physical_acceptance_record": "physical-acceptance.json"
 }

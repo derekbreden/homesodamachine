@@ -3,8 +3,11 @@
 Mark1 accepted both F inserts on October 13 at 1:59 pm CDT. Derek
 authorized the launch with “Bed is clear and TPU is loaded on mark1 for
 your new TPU inserts for that plus handle”. Fresh status reports RUNNING,
-layer 0 of 155, without a printer error or HMS fault. Physical fit and grip
-results are pending.
+layer 0 of 155, without a printer error or HMS fault. The
+[physical acceptance](../../physical-acceptance.json) records successful
+insertion with these inserts and the centred plus handle. Derek reports
+that the handle starts insertion well and the full tool makes the final
+press very easy.
 
 Each insert retains its Ø7.75 mm half-round channel and has 1 mm added to
 its flat backing. Its 9 mm thickness stands 1 mm proud of the 8 mm jaw
@@ -37,5 +40,5 @@ The receipt records both UTC observations and the required 180-second
 minimum startup separation.
 
 The matching [PET-GF jaw job](../2026-10-13-centered-grip-mark1/README.md)
-has a software completion report at 63/63 layers. That observation does
-not establish printed fit or tube grip.
+has a software completion report at 63/63 layers. The separate physical
+acceptance supplies the functional grip and insertion result for both jobs.

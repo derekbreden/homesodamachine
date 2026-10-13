@@ -92,11 +92,15 @@ solution for elastic deformation. The nominal jig views omit the accepted
 installed faucet-lever pose because no measured rigid transform is recorded;
 local captions preserve its attached, unpressed state.
 
-The centred grip is a candidate with physical grip acceptance pending. The
+The [physical acceptance](../printed-parts/fixtures/tube-insertion/physical-acceptance.json)
+documents successful insertion on October 13, 2026 with the centred plus
+handle and proud TPU inserts. Derek reports that the handle alone works
+well for starting insertion, and the full tool makes the final press very
+easy; the operation is far easier than before. The
 [load basis](../printed-parts/fixtures/tube-insertion/load-basis.md) and
 [geometry review](../printed-parts/fixtures/tube-insertion/geometry-review.json)
-describe the design and evidence scope. CAD and offline slices do not establish
-insertion force, grip, seating, equal load sharing, fixture strength or endurance.
+describe the design and evidence scope. Numerical insertion and grip forces,
+equal load sharing, fixture strength and endurance remain unmeasured.
 A supplier clamp specification does not rate this complete assembly.
 
 ## Manual regeneration

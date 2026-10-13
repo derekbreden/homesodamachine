@@ -9,6 +9,11 @@ supply the axial force and reaction.
 The donor is supported on its metal base with its faucet lever attached,
 down and unpressed.
 
+The [physical acceptance record](physical-acceptance.json) documents Derek's
+successful insertion on October 13, 2026. The handle alone works well for
+starting insertion, and the full tool makes the final press very easy.
+Derek reports the operation is far easier than before.
+
 The separate [TPU hand hold-down cover](donor-hold-down/README.md) is an
 inverse of the donor's upper half below the attached lever. It wraps around
 the cylindrical portion, rounded transition and flat-sided column. Its
@@ -140,10 +145,12 @@ screw offset, 1 mm of added flat backing per liner, 1 mm projection beyond
 each pocket and reuse of the existing base and carrier. Its reference
 comparison adds 560 mm³ per liner without removing the existing grip shape.
 
-The [physical grip failure](prints/2026-10-12-liners-d775-mark1/grip-failure.json)
-records rigid closure without grip and reported uneven axial compression
-for the identified earlier parts. Physical grip acceptance for this
-centred candidate is pending.
+The [physical acceptance record](physical-acceptance.json) accepts functional
+grip and successful insertion with the identified centred plus handle and
+proud TPU inserts. It addresses the
+[earlier grip failure](prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+for this configuration. The individual effects of centering and added
+backing, and the physical pressure distribution, are not measured separately.
 
 The [Mark1 PET-GF jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
 preserves the exact two-jaw slice for task 1335878319, accepted on October
@@ -151,10 +158,12 @@ preserves the exact two-jaw slice for task 1335878319, accepted on October
 reports 63/63 layers without errors. The
 [matching TPU insert launch](prints/2026-10-13-centered-liners-mark1/README.md)
 records task 1336534713, accepted at 1:59 pm CDT with startup free of
-reported errors. Printed fit and grip results are pending.
+reported errors. The physical acceptance record binds both jobs' exact
+archives and meshes to the reported successful operation.
 
-Physical grip, printed sliding fit, complete insertion, strength and
-lifetime remain unqualified. Factory clamp force does not rate the
+Successful insertion and functional grip are accepted for the reported use.
+Numerical insertion and grip forces, printed strength and lifetime remain
+unmeasured. Factory clamp force does not rate the
 printed tool or workpiece. The accepted sealing thimble's
 [seating record](../../faucet/tpu-o-ring/print-log.md) and accepted faucet
 lever's [physical record](../../faucet/lever-replica/physical-acceptance.json)

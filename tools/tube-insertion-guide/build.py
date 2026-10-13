@@ -147,6 +147,7 @@ def write_delivery(count: int) -> None:
         FIXTURE / "load-basis.md",
         FIXTURE / "parts.json",
         FIXTURE / "geometry-review.json",
+        FIXTURE / "physical-acceptance.json",
         FIXTURE / "print-layout.json",
         FIXTURE / "prepare_print.py",
         ROOT / "hardware/printed-parts/faucet/lever-replica/lever_replica.py",
@@ -176,7 +177,7 @@ def write_delivery(count: int) -> None:
         "print_layout": {"canvas_px": [CANVAS_W, CANVAS_H], "dpi": 300,
                          "print_scaling": "100% / none", "sides": "single sided"},
         "artwork": "Real fixture CAD, accepted faucet lever and thimble; the complete factory screw clamps use nominal catalogue-form proxies and fasteners use size proxies. The installed faucet lever is omitted from nominal jig views because its accepted pose has no measured CAD transform.",
-        "physical_scope": "Observations establish the faucet assembly sequence. The identified Ø7.75 mm liner trial failed to grip at rigid closure. The centred grip with proud liners has no physical grip acceptance; nominal geometry and offline slices do not establish insertion force, grip, seating, equal load sharing, fixture strength or endurance. Supplier clamp specifications do not rate the complete assembly.",
+        "physical_scope": "The linked physical-acceptance record identifies successful insertion with the centred plus handle and proud TPU inserts on 2026-10-13. Derek reports that the handle alone works well for starting insertion, the full tool makes the final press very easy, and the operation is far easier than before. Numerical forces, equal load sharing, structural capacity, pressure sealing and endurance are unmeasured. Supplier clamp specifications do not rate the complete assembly.",
         "external_references": {
             "checked_date": "2026-10-10",
             "clamp_family_sheet": "https://besseytools.com/getmedia/24e6be04-58db-4ea7-b4d7-28083eac8980/BESSEY_Clutch-Style-bar-clamps_EN",

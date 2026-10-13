@@ -106,6 +106,7 @@ linked here are the authority for each observation, including their print bindin
 | [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The broad PET-GF walls provide accepted give, spring, fit and retention. | Retention force and cycle life are unmeasured. A differently proportioned flexure needs its own result. |
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. [Assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json) establish lever attachment before tube/shell insertion, sleeve fitting on the tube first, and the shell-guided lever motion. | Operating force, assembled contact pose and endurance are unmeasured. Sliding-friction comparison is qualitative. |
+| [Centred tube insertion tool](../printed-parts/fixtures/tube-insertion/physical-acceptance.json) | Successful insertion reported 2026-10-13 with the identified Mark1 plus-handle jaws and proud TPU inserts. The handle alone works well for starting insertion; the full tool makes the final press very easy. Derek reports it is far easier than before. | Effort comparison is qualitative. Numerical insertion and grip forces, structural load capacity, pressure sealing and endurance are unmeasured. |
 | [Complete Industrial faucet](../printed-parts/faucet/industrial/physical-acceptance.json) | Identified complete Mark2 print accepted for shipping and overall appearance. The recipe uses 0.24 mm normally, 0.12 mm in the two base shoulder bands, a continuous reinforced foot, the 70° joint, smooth passages and 0.50 mm longer cover wings. The [0.08 mm reference](../printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json) retains its beautiful shoulder finish and thin-support removal acceptance. | Lifting on supported base surfaces and a visible seam are recorded. The [all-fine trial](../printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json) has tip and wing disruption; initiating contact, shifting and lifting remain hypotheses. Separate coupons investigate the finish. Fault discharge, load capacity and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. | These results belong to the identified articles and recipes. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 
@@ -155,14 +156,23 @@ unmeasured.
 
 ## Tube insertion grip
 
+The [physical acceptance](../printed-parts/fixtures/tube-insertion/physical-acceptance.json)
+records successful insertion with the identified centred plus handle and
+proud TPU inserts, reported by Derek on 2026-10-13. The handle alone works
+well for starting insertion, and the full tool makes the final press very
+easy. Derek reports the operation is far easier than before. The record
+binds the Mark1 jaw and insert jobs and the reused base and carrier.
+
 The [identified liner trial](../printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 reports rigid jaw closure without tube grip and uneven axial compression.
-The associated CAD has an 8.5 mm screw-to-liner axial offset. The
-[centred grip candidate](../printed-parts/fixtures/tube-insertion/centered-grip-review.json)
+That functional grip failure is addressed by the accepted centred
+configuration. The associated trial CAD has an 8.5 mm screw-to-liner axial
+offset. The [centred grip review](../printed-parts/fixtures/tube-insertion/centered-grip-review.json)
 places the screws, liners and crossbar on one axial centre and adds 1 mm of
-flat TPU backing per half, proud of the retained pockets. Geometric
-centering and closing reserve are established; physical grip, insertion
-force and endurance remain unqualified.
+flat TPU backing per half, proud of the retained pockets. Functional grip
+and successful insertion are accepted for the reported use. The individual
+effects of centering and added backing, physical pressure distribution,
+numerical forces and endurance are not measured separately.
 
 ## Pump cartridge magnetic contacts
 

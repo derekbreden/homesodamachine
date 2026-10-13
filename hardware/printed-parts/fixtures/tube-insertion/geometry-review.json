@@ -294,11 +294,12 @@
     "lever_check": "Attached faucet lever stays down at unpressed rest, untouched through the full ordinary unloaded movement; no measured rigid pose is inferred"
   },
   "evidence_limits": [
-    "Insertion force, as-printed strength, grip, sliding fit and lifetime are unmeasured",
+    "Insertion force, as-printed strength, grip force, quantitative sliding clearance and lifetime are unmeasured; functional operation evidence is recorded separately in physical-acceptance.json.",
     "PET-GF15 manufacturer mechanical coupons were annealed120C16h; no published number is an as-printed allowable",
     "Manufacturer600lb clamp force does not rate the printed fixture, donor, tube or grip",
     "No assembled faucet lever pose is invented; a low narrow forward shelf and rearward full-width guides preserve front access",
     "Factory pads, rail, spindle and handles use schematic envelopes, requiring ordinary actual-tool setup",
     "The sleeve is fitted to tube first, with tube end on cap; the sleeved tube enters the bare donor"
-  ]
+  ],
+  "physical_acceptance_record": "physical-acceptance.json"
 }
