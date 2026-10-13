@@ -1,0 +1,13 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T04:17:52.668096+00:00",
+  "gcode_state": "FINISH",
+  "subtask_name": "donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
+  "layer_num": 138,
+  "total_layer_num": 138,
+  "mc_percent": 100,
+  "print_error": 0,
+  "hms": [],
+  "printer_task_id": "1334447551",
+  "scope": "Software-reported finish of the cylindrical-base pad job; no physical fit or surface result."
+}

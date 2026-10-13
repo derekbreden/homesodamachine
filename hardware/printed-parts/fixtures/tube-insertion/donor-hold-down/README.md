@@ -58,8 +58,10 @@ compensation is `G29.1 Z0.16` after the reset to zero.
 
 The native slice has 144 layers, no generated supports, at least 119.9 mm
 full-bead bed-edge clearance and no slicer warning. Estimated use is
-36.9 g and about 4 hours. These files are prepared offline; the half-body
-cover has no printer submission or physical result. The separate
+36.9 g and about 4 hours. The [Mark1 launch record](prints/2026-10-12-half-body-mark1/launch.json)
+identifies task 1334637551 accepted on October 12 at 11:20 pm CDT with this
+exact archive. The printer reported startup without errors. Physical fit
+and hand-pressure results are pending. The separate
 [cylindrical-base pad job](prints/2026-10-12-mark1/README.md) identifies
 Mark1 task 1334447551 accepted on October 12 at 9:20 pm CDT and retains
 its exact printed geometry and archive.
@@ -83,7 +85,7 @@ its exact printed geometry and archive.
 5. Unload the axial clamps and lift out the pad before lifting the donor
    and tube from the cradle.
 
-The cover is an unprinted fit candidate. The 1 mm excess tongue width is
+The cover is a fit candidate. The 1 mm excess tongue width is
 an interference dimension; it does not establish insertion force,
 retention force or automatic donor clamping. Physical fit and manual
 hold-down performance remain unmeasured. The existing base and its

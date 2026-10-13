@@ -1,0 +1,75 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf",
+  "project_sha256": "361ed7d9d7819540824e5946829b687ae1e54f629d7a941da04ffa5420114464",
+  "archive": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
+  "archive_sha256": "524d907ca815cdcf0e19173caad81f6c64bd0734cc00f383a4ec563a3486a8ec",
+  "gcode_sha256": "08bd29a553c0ad1dbebc862daa826bf7274d2db58b049372dcac37ccb6ef89cd",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": "7e4205226fc944d9e93a5dd98fdfb1dff67d382bb2bb1b0cc891d327c096ebcb"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        144.972426,
+        140.722426
+      ],
+      [
+        210.027574,
+        179.277574
+      ]
+    ],
+    "maximum_line_width_mm": 0.975148,
+    "bounds_padding_mm": 0.587574
+  },
+  "bead_margin_mm": [
+    119.97242600000001,
+    140.722426,
+    119.97242600000001,
+    140.722426
+  ],
+  "layers": 144,
+  "estimated_seconds": 14353.4140625,
+  "estimated_filament_g": 36.9102897644043,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.18000000715255737,
+    "wall_loops": 2,
+    "sparse_infill_density": 100.0
+  },
+  "native_material_process": {
+    "filament_type": [
+      "TPU"
+    ],
+    "filament_settings_id": [
+      "Bambu TPU 85A @BBL H2C"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "layer_height": "0.18",
+    "initial_layer_print_height": "0.3",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "enable_support": "0",
+    "filament_nozzle_map": [
+      "1"
+    ]
+  }
+}
