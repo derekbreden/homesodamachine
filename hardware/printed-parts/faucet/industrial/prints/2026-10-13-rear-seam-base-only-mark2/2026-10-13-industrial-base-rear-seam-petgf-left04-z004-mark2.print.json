@@ -1,0 +1,106 @@
+{
+  "evaluation_only": true,
+  "one_time_exception": true,
+  "authorization_quote": "Alright, mark2 is open, let's try your fix for the seam. I think for this evaluation, and this evaluation only, this is a one time exception I am making, print just the faucet base, thanks.",
+  "normal_complete_recipe_changed": false,
+  "source_complete_project": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.3mf",
+  "source_complete_project_sha256": "a3a073a3f6eb0167bfb88400be818a68a8bd04974e197a25d4f7f9e0b1e25650",
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "263df4452ec980d69151bed71f46d694f58482d00479d9cc64f7178fef79a822",
+  "settings_payload_unchanged": true,
+  "settings_sha256": "5fe8c3ff6960be49d536a2f3ca2951310e73f18018da157aede6fae30224592d",
+  "retained_mesh_members_sha256": {
+    "3D/Objects/object_1.model": "d6127f1f1d20d22e592ead4b9020c0ecaf284fbaba49111c21007947af3e3678",
+    "3D/Objects/solid-region-11.model": "b718b9dba42f8ef3f488597ff2e46cc118881ada5004bf987d14ce041dfaa7c8"
+  },
+  "rear_seam_enforcement": {
+    "part": "industrial-shell-base",
+    "half_width_mm": 0.25,
+    "minimum_cad_z_mm": 80.0,
+    "target": "Outer rear silhouette at CAD X=0; facets crossing the center strip",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json",
+    "physical_result": "Pending a print of the constrained seam placement",
+    "enforced_triangles": 459,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.358574867,
+        -32.37545013455762,
+        67.69999694792578
+      ],
+      [
+        0.420744121,
+        26.402513504442382,
+        237.3277740479258
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "triangles": 143108,
+      "rotation_x_degrees": -14.999999999999998,
+      "source_center_mm": [
+        0.0,
+        -5.903867721557617,
+        118.66388702392578
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        162.5,
+        165.13469120115752,
+        123.78370836088766
+      ],
+      "plate_translation_mm": [
+        162.5,
+        165.13469120115752,
+        123.78370836088766
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          133.0,
+          111.63010370519103,
+          0.0
+        ],
+        [
+          192.0,
+          208.36989629480894,
+          245.25502221969379
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "placement_change_mm": [
+    80.0,
+    0,
+    0
+  ],
+  "printer": "Mark2",
+  "material": "PET-GF",
+  "nozzle_mapping": "Left fixed 0.4 mm; external spool 254",
+  "requested_z_trim_mm": 0.04,
+  "submitted": false
+}

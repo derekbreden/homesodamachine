@@ -1,0 +1,44 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-13T23:20:08.482702+00:00",
+  "archive": {
+    "name": "2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+    "sha256": "6d95d66c5a2cbdba0a4f984477b9f954b01bfd657ab662f78873a022c0f9902c",
+    "gcode_sha256": "3c0d0631b06ee3381ac81d733b5a6536ba56ed3508662f5919a07b7c5139f31f",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "industrial-shell-base"
+    ]
+  },
+  "printer_task_id": "1337160395",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 1244,
+  "mc_remaining_time": 234,
+  "one_time_exception": true,
+  "evaluation_only": true,
+  "authorization_quote": "Alright, mark2 is open, let's try your fix for the seam. I think for this evaluation, and this evaluation only, this is a one time exception I am making, print just the faucet base, thanks.",
+  "normal_complete_recipe_changed": false,
+  "print_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "shared_circuit": {
+    "other_printer": "Mark1",
+    "other_job_id": "1336815709",
+    "other_accepted_at": "2026-10-13T20:49:06.777783+00:00",
+    "accepted_start_interval_seconds": 9061.704919,
+    "minimum_interval_seconds": 180
+  },
+  "physical_result": null
+}
