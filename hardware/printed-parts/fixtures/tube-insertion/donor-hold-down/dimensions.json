@@ -1,0 +1,35 @@
+{
+  "material": "TPU 85A",
+  "quantity": 1,
+  "print_bounds_mm": [
+    37.5,
+    38.0,
+    25.000000000000007
+  ],
+  "print_face": "Broad flat hand face at print Z=0; concave donor channel upward",
+  "flat_face_above_petgf_mm": 2.0,
+  "donor_contact_diameter_mm": 31.5,
+  "donor_contact_axial_range_mm": [
+    0.0,
+    12.0
+  ],
+  "donor_column_starts_mm": 13.0,
+  "face_minimum_backing_mm": 10.25,
+  "body_side_minimum_backing_mm": 3.25,
+  "existing_canyon_width_mm": 11.8,
+  "retention_tongue_width_mm": 12.8,
+  "nominal_interference_per_side_mm": 0.5,
+  "thread_clearance_mm": 1.0,
+  "lower_cradle_clearance_mm": 1.0,
+  "rear_face_clearance_mm": 0.5,
+  "tongue_entry_width_mm": 11.3,
+  "tongue_entry_lead_height_mm": 0.75,
+  "flat_bed_contact_area_mm2": 782.4000000000001,
+  "volume_mm3": 13452.334162166659,
+  "status": "Unprinted fit candidate; retention and hand-pressure performance unmeasured",
+  "load_path": "Hand pressure through the body saddle to the donor metal; tongue interference retains the pad in the existing canyon",
+  "lever_scope": "Pad contact ends within the cylindrical base, before the donor column. The lever stays attached and down at unpressed rest; its installed transform is not measured.",
+  "print_support_basis": "With the hand face down, successive body sections shrink as the channel opens; the tongue lead-in also narrows toward its tip.",
+  "source_sha256": "e49e9272b4b1102c0e1afaa10be55214ed17418908d0c2901055095ccedaeee9",
+  "fixture_source_sha256": "231f31db75a2645e3d89fdddf077c558d5f472a6ce274aa4ca0d7f880f4893c4"
+}
