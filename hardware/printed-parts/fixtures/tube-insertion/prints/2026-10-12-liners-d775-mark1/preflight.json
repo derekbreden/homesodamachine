@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-10-13T00:45:02.087331+00:00",
+  "printer_status": {
+    "H2C": {
+      "job_id": "1334228335",
+      "task_id": "1334228335",
+      "subtask_name": "2026-10-12-tube-insertion-grip-r2-thick-liners-tpu85a-right06-z000-lengthwise-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 47,
+      "print_error": 50348044,
+      "hms": [],
+      "bed_target_temper": 0.0,
+      "nozzle_target_temper": 0.0
+    },
+    "Mark2": {
+      "job_id": "1333551449",
+      "task_id": "1333551449",
+      "subtask_name": "faucet-best-mark2-r2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 747,
+      "total_layer_num": 1244,
+      "print_error": 0,
+      "hms": [],
+      "bed_target_temper": 80.0,
+      "nozzle_target_temper": 280.0
+    }
+  },
+  "latest_mark2_launch": ".cache/printer-control/Mark2-1333551449-launch.json",
+  "mark2_start_elapsed_seconds": 18152.721878,
+  "requested_printer": "Mark1 (H2C)",
+  "bed_clear_authorization": "Derek requested this print on Mark1.",
+  "material": "Black TPU 85A, right 0.6 mm, external spool 255",
+  "requested_z_trim_mm": 0.0,
+  "archive": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf"
+}

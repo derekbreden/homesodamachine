@@ -36,9 +36,9 @@ steel C-clamps hold the base at a bench edge so both hands can operate the
 factory screw handles. No printed thread or insert carries the press load.
 
 Each rigid half has a 7 mm backing under its liner pocket. Rigid mating
-faces set the Ø9.25 mm closed grip bore, limiting squeeze against the
-Ø9.525 tube. The 28 mm liners are preformed blocks; print them upright
-with the tube axis vertical. Their solid 8×20 mm end footprint and 3.375 mm
+faces bound jaw closure. The unloaded liner channels form a Ø7.75 mm
+bore around the Ø9.525 tube. The 28 mm liners are preformed blocks; print them upright
+with the tube axis vertical. Their solid 8×20 mm end footprint and 4.125 mm
 minimum backing support that orientation without bending or wrapping a
 strip. The axial retention walls are 3.35 mm at the front and 6.85 mm at the
 rear.
@@ -109,13 +109,17 @@ independently establish full seating, leak tightness or a force rating.
 
 ## Evidence and regeneration
 
-The [manual geometry review](geometry-review.json) covers all six printed
-variants, the donor reference, 330 mm tube, liners, sealing thimble, four
+The [manual fixture geometry review](geometry-review.json) covers the rigid
+variants, the donor reference, 330 mm tube, sealing thimble, four
 screws, four nuts, two washers and the schematic factory clamp envelopes.
 It samples 0–20 mm travel at 0.5 mm increments. All six print variants are
 valid single analytic solids. The 41 sampled poses have no unintended
 B-rep intersections; designed TPU interference is recorded separately.
 All four nominal Ø30 contact disks have uninterrupted solid backing.
+
+The [liner geometry record](prints/2026-10-12-liners-d775-mark1/geometry.json)
+establishes the Ø7.75 mm channel, 0.75 mm radial material addition and retained
+8×20×28 mm manufacturing envelope. Its physical grip result is pending.
 
 Physical grip, printed sliding fit, complete insertion, strength and
 lifetime remain unqualified. Factory clamp force does not rate the

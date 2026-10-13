@@ -32,7 +32,7 @@ bench so both hands can operate the insertion screws.
 
 The lower jaw bolts to B before the joined assembly enters A's guides. It lifts
 out for sleeve fitting with the T handle still attached. The two F liners are
-thick finished half-channel blocks with 28 mm contact length and 3.375 mm minimum
+thick finished half-channel blocks with 28 mm contact length and 4.125 mm minimum
 backing. Their manufacturing pose puts the tube axis vertically on an 8 x 20 mm
 footprint. Rotate each finished block into its rigid jaw pocket for use.
 

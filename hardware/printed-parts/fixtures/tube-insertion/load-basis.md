@@ -39,8 +39,8 @@ axial depth from X8 to X38.5, with screw stations 16 mm beyond the 32 mm
 wide core edge. Analysis below assigns an entire station's force to a
 single half, rather than assuming that a factory foot shares it equally
 between upper and lower halves. The 28 mm preformed TPU liners retain the
-Ø9.25 closed bore, 3.35 mm front wall and 6.85 mm rear wall. Rigid backing
-beneath the pockets is 7 mm; the TPU's minimum backing is 3.375 mm.
+Ø7.75 unloaded bore, 3.35 mm front wall and 6.85 mm rear wall. Rigid backing
+beneath the pockets is 7 mm; the TPU's minimum backing is 4.125 mm.
 
 The carrier has a 124 mm guide bearing span and a 6 mm thick, 100 mm wide
 foot. Its full-width foot starts at X96.5, behind the donor. The forward

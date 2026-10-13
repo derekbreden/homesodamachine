@@ -9,8 +9,9 @@ identifies each piece and shows the sleeve-first faucet sequence.
 The liners are solid blocks with their half-round gripping channels already
 formed. Each seats directly in a rigid jaw pocket. Print the tube axis
 **vertically**, giving the circular contact profile the same XY perimeter on
-every layer. The print is 28 mm tall, with an 8 × 20 mm end footprint and
-3.375 mm minimum backing. Assembly requires no bending or wrapping of TPU.
+every layer. The print is 28 mm tall, with an 8 × 20 mm end footprint,
+4.125 mm minimum backing and a Ø7.75 mm contact channel. Assembly requires
+no bending or wrapping of TPU.
 
 ## Native projects
 
@@ -18,14 +19,15 @@ every layer. The print is 28 mm tall, with an 8 × 20 mm end footprint and
 | --- | --- | --- | --- |
 | Mark1 / H2C, rigid base | A base | [Base project](ready/tube-insertion-rigid-base-h2c.3mf) | [Base G-code archive](ready/tube-insertion-rigid-base-h2c.gcode.3mf) |
 | Mark1 / H2C, rigid parts | B guided carrier, D lower jaw, E upper jaw, G cap-support puck | [Rigid parts project](ready/tube-insertion-rigid-parts-h2c.3mf) | [Rigid parts G-code archive](ready/tube-insertion-rigid-parts-h2c.gcode.3mf) |
-| Mark2, soft grip | F liner × 2 | [TPU project](ready/tube-insertion-tpu-85a-mark2.3mf) | [TPU G-code archive](ready/tube-insertion-tpu-85a-mark2.gcode.3mf) |
+| Mark1 / H2C, soft grip | F liner × 2 | [TPU project](ready/tube-insertion-tpu-85a-mark1.3mf) | [TPU G-code archive](ready/tube-insertion-tpu-85a-mark1.gcode.3mf) |
 
 Projects retain the part poses and bed positions in [print-layout.json](print-layout.json).
 The base has its own plate; the smaller rigid pieces share a centered plate.
-The two TPU pieces sit near the center of their plate. The matching
+The two TPU pieces sit near the center of their plate, with a 2 mm model gap. The matching
 `.print.json` files bind each project to its source meshes and settings;
 `.readiness.json` files record the actual slice, bead envelope, supports and
-emitted Z trim. The archives are prepared offline; no print has been submitted.
+emitted Z trim. The [Mark1 liner launch](prints/2026-10-12-liners-d775-mark1/launch.json)
+records accepted task 1334257829; its physical grip result is pending.
 
 ## Slice review
 
@@ -33,7 +35,7 @@ emitted Z trim. The archives are prepared offline; no print has been submitted.
 | --- | ---: | ---: | ---: | ---: |
 | Rigid base | 11 h 55 min | 829.2 g | 225 | 26.02 mm |
 | Rigid parts | 4 h 19 min | 241.6 g | 63 | 46.21 mm |
-| TPU liners | 1 h 06 min | 8.8 g | 155 | 128.39 mm |
+| TPU liners | 1 h 09 min | 9.4 g | 155 | 143.29 mm |
 
 These are Bambu Studio 02.08.02.61 estimates using the saved material densities.
 The margins include emitted model, support and brim beads. All three archives
@@ -64,13 +66,13 @@ temperature, flow, speed and machine settings. This tool uses six walls,
 Automatic Tree support with Bambu's default style remains enabled. Requested
 user Z trim is +0.18 mm; textured PEI emits `G29.1 Z0.16` after its reset.
 
-The liners use **TPU 85A on Mark2's right fixed 0.6 mm nozzle**, external
-spool 255. The [current solid-gasket project](../../prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf)
+The liners use **TPU 85A on Mark1's right fixed 0.6 mm nozzle**, external
+spool 255. The [compact Mark1 profile](prints/2026-10-12-tpu-liners-close-z000-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf)
 supplies the complete TPU recipe: 225 °C nozzle, 35 °C bed, 2.2 mm³/s
 maximum flow, two Arachne walls, 100% zigzag infill, three top/bottom layers,
 0.30 mm first layer and 0.18 mm normal layers. Supports are disabled for
 the constant upright profile; automatic brim remains enabled. Requested
-user Z trim is +0.04 mm; textured PEI emits `G29.1 Z0.02` after its reset.
+user Z trim is 0.00 mm; textured PEI emits `G29.1 Z-0.02` after its reset.
 
 The thin wet-path thimble is a separate, unchanged faucet part. Use its
 [current print project](../../prototype-gaskets-2026-10-08/projects/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.3mf)

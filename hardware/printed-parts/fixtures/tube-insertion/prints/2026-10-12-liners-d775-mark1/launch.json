@@ -1,0 +1,27 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T00:45:25.113746+00:00",
+  "archive": {
+    "name": "2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf",
+    "sha256": "c217da305228e10f1321d2bf8e0b734b781c170ff396b54ec0c33d0dbb655565",
+    "gcode_sha256": "f3d5c731ba6007901426d842a3dcc5ab205f05740d9083a78db68ee9a590a9ab",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "F lower TPU liner",
+      "F upper TPU liner"
+    ]
+  },
+  "printer_task_id": "1334257829",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 155,
+  "mc_remaining_time": 69
+}

@@ -229,7 +229,7 @@ def s_plate_liners():
     a = _scene("plate-liners")
     shape = _parts(True)["liner"]
     bb = shape.val().BoundingBox()
-    for n, x in enumerate((-20, 20)):
+    for n, x in enumerate((-5, 5)):
         shift = (x - (bb.xmin + bb.xmax) / 2,
                  -(bb.ymin + bb.ymax) / 2, -bb.zmin)
         _add(a, shape.translate(shift), f"F-liner-{n+1}", M_ACCENT)
