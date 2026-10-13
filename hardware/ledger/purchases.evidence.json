@@ -6555,326 +6555,351 @@
     "pur-fd5344356f7b483485428f444470b0ab": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-78da6641c19145ed970808c4ef7cc9c5": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-c3b3b0a2274849c591fa9619695bc636": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-e9c7ca7d2a2f4f5f93923f84cf0c6ab2": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-ff500602845047da9fb571b2a8ac03a4": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-2457df51398f4e368395d5ee52488c9b": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712460111015776257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "pur-03b4e8f12b7c4966b1faf3cbd7ba7617": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us712597240994926592"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us712597240994926592"
+        "saved-bambu:us712597240994926592",
+        "src-120855e572a74576a74308512f9e475d"
       ]
     },
     "pur-9fdd5aadd3a5416cb941df9d49ef528b": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us715792490246602753"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us715792490246602753"
+        "saved-bambu:us715792490246602753",
+        "src-3153c49a671e462c85f1909704064e8e"
       ]
     },
     "pur-9313936126aa425a919035693153c568": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us715792490246602753"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us715792490246602753"
+        "saved-bambu:us715792490246602753",
+        "src-3153c49a671e462c85f1909704064e8e"
       ]
     },
     "pur-50fafd3f6e804a70b45819e1944fd8d5": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us715792490246602753"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us715792490246602753"
+        "saved-bambu:us715792490246602753",
+        "src-3153c49a671e462c85f1909704064e8e"
       ]
     },
     "pur-1bc0635e08404ffa812786a90e5d91eb": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us716485517830578177"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us716485517830578177"
+        "saved-bambu:us716485517830578177",
+        "src-342104ac9a1743cfb9435b1a500c0717"
       ]
     },
     "pur-626af505114c46f1a9741afc396fff51": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us717877837343809537"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us717877837343809537"
+        "saved-bambu:us717877837343809537",
+        "src-ac073ebf75194d97a3dbc82d992ee783"
       ]
     },
     "pur-0a64f61ee39b41e5b5b458239a589a2e": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us717877837343809537"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us717877837343809537"
+        "saved-bambu:us717877837343809537",
+        "src-ac073ebf75194d97a3dbc82d992ee783"
       ]
     },
     "pur-c4d9562f652f48cb95f26346fb1f57ec": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us717877837343809537"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us717877837343809537"
+        "saved-bambu:us717877837343809537",
+        "src-ac073ebf75194d97a3dbc82d992ee783"
       ]
     },
     "pur-9795fe78ee6d4da5b43b92ef9cf3bf97": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us718417332286169089"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "pur-03f85a9f82274996905b0e588601ade1": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us718417332286169089"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "pur-57c874cf19f84922b67c2bc3acce9c60": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us718417332286169089"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "pur-26a055757240455891e7ea95c995df3e": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us718417332286169089"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "pur-df73d68d78794bbabd31f36a20ddfcaf": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us718417332286169089"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "pur-9c16202031204275b3442cf21ec316be": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us720254914668109825"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us720254914668109825"
+        "saved-bambu:us720254914668109825",
+        "src-beaaffd2491542e5b65ab9397395438f"
       ]
     },
     "pur-ab4666fecc0947408ccb9177de425c95": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us722538751263612929"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us722538751263612929"
+        "saved-bambu:us722538751263612929",
+        "src-f175d220a1a04dbb8ae63733cb838a56"
       ]
     },
     "pur-aa9e46928fa84f3bb1ce075c3d298d72": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us722988823976337409"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us722988823976337409"
+        "saved-bambu:us722988823976337409",
+        "src-288ebe4a40ad482283ade8c3ceee06c1"
       ]
     },
     "pur-9910099ea22c4c47900afde42039954e": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us725322381210451969"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us725322381210451969"
+        "saved-bambu:us725322381210451969",
+        "src-2898c086c7ca4ee098127fe35d2c391b"
       ]
     },
     "pur-52d05ead62654858abc16140f2883f3b": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us725539918437957633"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us725539918437957633"
+        "saved-bambu:us725539918437957633",
+        "src-6a39e7bd616a44638b0dde62ef2ae976"
       ]
     },
     "pur-c33baf4aa1214ee082b5fd066c357035": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us726560430730719233"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us726560430730719233"
+        "saved-bambu:us726560430730719233",
+        "src-7479793e98d548eea55a5402879cdde1"
       ],
       "delivery_dates": [
         {
@@ -6886,40 +6911,43 @@
     "pur-f343ca60f649486eba45fe1cf7c796f8": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us728013517860630529"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us728013517860630529"
+        "saved-bambu:us728013517860630529",
+        "src-0c3d33af804f4b0ca8dcf3e2baa0da43"
       ]
     },
     "pur-09249f83dc0f451fb2359589a0172e9c": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us728027710789775361"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us728027710789775361"
+        "saved-bambu:us728027710789775361",
+        "src-2288da80bdad495098ac60c78b8d6ef6"
       ]
     },
     "pur-c34dd2c039254724b3263154e565e9d2": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us735568811268960257"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us735568811268960257"
+        "saved-bambu:us735568811268960257",
+        "src-9e9bbcff1ca4492dbcc244965bad68bb"
       ],
       "delivery_dates": [
         {
@@ -6931,14 +6959,15 @@
     "pur-65976621839343e7886b04de812da888": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us741350370718978049"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us741350370718978049"
+        "saved-bambu:us741350370718978049",
+        "src-92c261378ae34f8ab9ce6026cba4dc97"
       ],
       "delivery_dates": [
         {
@@ -6950,14 +6979,15 @@
     "pur-ec6021b8ab214b5f98193cebe113eac9": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us743915395468910593"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us743915395468910593"
+        "saved-bambu:us743915395468910593",
+        "src-da1fbbca98a04d71bd2a731513fd9bea"
       ],
       "delivery_dates": [
         {
@@ -6969,14 +6999,15 @@
     "pur-21f65cde274b4a3292d28f3ae0db1e33": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us763714278409691137"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us763714278409691137"
+        "saved-bambu:us763714278409691137",
+        "src-62162bca68754933bf3ef18f0ea9df9b"
       ],
       "delivery_dates": [
         {
@@ -6988,27 +7019,29 @@
     "pur-a65c9eb5bab34a92879abe95032c7fad": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us766639627317551105"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us766639627317551105"
+        "saved-bambu:us766639627317551105",
+        "src-bd0e89cf1e6440e4922035582819d99d"
       ]
     },
     "pur-303d99720ca54c51b534f259b0556573": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us770658156626939905"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-bambu:us770658156626939905"
+        "saved-bambu:us770658156626939905",
+        "src-aedb47fecda3404d9c3dd5d00a05af35"
       ],
       "delivery_dates": [
         {
@@ -7020,7 +7053,7 @@
     "pur-0d0b0e9007bf4a16ae24e69262e40c0c": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us776951289157341185"
       ],
@@ -7028,13 +7061,14 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-bambu:us776951289157341185",
-        "src-eccadcc17d4d4492a8fe85a408959e13"
+        "src-eccadcc17d4d4492a8fe85a408959e13",
+        "src-c4a5c5ecdb19418394085a2132028136"
       ]
     },
     "pur-8dda604c8c6b4c4581077a554a7667a6": {
       "vendor": "Bambu Lab",
       "purpose": "consumables_materials",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us776951289157341185"
       ],
@@ -7042,13 +7076,14 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-bambu:us776951289157341185",
-        "src-eccadcc17d4d4492a8fe85a408959e13"
+        "src-eccadcc17d4d4492a8fe85a408959e13",
+        "src-c4a5c5ecdb19418394085a2132028136"
       ]
     },
     "pur-870e9ad9da324c92bdac254c7fb54fa7": {
       "vendor": "Bambu Lab",
       "purpose": "unclassified",
-      "amount_evidence": "legacy_unverified",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us776951289157341185"
       ],
@@ -7056,7 +7091,8 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-bambu:us776951289157341185",
-        "src-eccadcc17d4d4492a8fe85a408959e13"
+        "src-eccadcc17d4d4492a8fe85a408959e13",
+        "src-c4a5c5ecdb19418394085a2132028136"
       ]
     },
     "pur-c3762dd3108646668a81c4ce2e3943cc": {
@@ -12204,7 +12240,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us712460111015776257"
+        "saved-bambu:us712460111015776257",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
       ]
     },
     "bambu:us712597240994926592": {
@@ -12216,7 +12253,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us712597240994926592"
+        "saved-bambu:us712597240994926592",
+        "src-120855e572a74576a74308512f9e475d"
       ]
     },
     "bambu:us715792490246602753": {
@@ -12228,7 +12266,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us715792490246602753"
+        "saved-bambu:us715792490246602753",
+        "src-3153c49a671e462c85f1909704064e8e"
       ]
     },
     "bambu:us716485517830578177": {
@@ -12240,7 +12279,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us716485517830578177"
+        "saved-bambu:us716485517830578177",
+        "src-342104ac9a1743cfb9435b1a500c0717"
       ]
     },
     "bambu:us717877837343809537": {
@@ -12252,7 +12292,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us717877837343809537"
+        "saved-bambu:us717877837343809537",
+        "src-ac073ebf75194d97a3dbc82d992ee783"
       ]
     },
     "bambu:us718417332286169089": {
@@ -12264,7 +12305,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us718417332286169089"
+        "saved-bambu:us718417332286169089",
+        "src-42c5da93267e4840adbf76a4e31a03a6"
       ]
     },
     "bambu:us720254914668109825": {
@@ -12276,7 +12318,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us720254914668109825"
+        "saved-bambu:us720254914668109825",
+        "src-beaaffd2491542e5b65ab9397395438f"
       ]
     },
     "bambu:us722538751263612929": {
@@ -12288,7 +12331,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us722538751263612929"
+        "saved-bambu:us722538751263612929",
+        "src-f175d220a1a04dbb8ae63733cb838a56"
       ]
     },
     "bambu:us722988823976337409": {
@@ -12300,7 +12344,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us722988823976337409"
+        "saved-bambu:us722988823976337409",
+        "src-288ebe4a40ad482283ade8c3ceee06c1"
       ]
     },
     "bambu:us725322381210451969": {
@@ -12312,7 +12357,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us725322381210451969"
+        "saved-bambu:us725322381210451969",
+        "src-2898c086c7ca4ee098127fe35d2c391b"
       ]
     },
     "bambu:us725539918437957633": {
@@ -12324,7 +12370,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us725539918437957633"
+        "saved-bambu:us725539918437957633",
+        "src-6a39e7bd616a44638b0dde62ef2ae976"
       ]
     },
     "bambu:us726560430730719233": {
@@ -12336,7 +12383,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us726560430730719233"
+        "saved-bambu:us726560430730719233",
+        "src-7479793e98d548eea55a5402879cdde1"
       ]
     },
     "bambu:us728013517860630529": {
@@ -12348,7 +12396,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us728013517860630529"
+        "saved-bambu:us728013517860630529",
+        "src-0c3d33af804f4b0ca8dcf3e2baa0da43"
       ]
     },
     "bambu:us728027710789775361": {
@@ -12360,7 +12409,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us728027710789775361"
+        "saved-bambu:us728027710789775361",
+        "src-2288da80bdad495098ac60c78b8d6ef6"
       ]
     },
     "bambu:us735568811268960257": {
@@ -12372,7 +12422,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us735568811268960257"
+        "saved-bambu:us735568811268960257",
+        "src-9e9bbcff1ca4492dbcc244965bad68bb"
       ]
     },
     "bambu:us741350370718978049": {
@@ -12384,7 +12435,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us741350370718978049"
+        "saved-bambu:us741350370718978049",
+        "src-92c261378ae34f8ab9ce6026cba4dc97"
       ]
     },
     "bambu:us743915395468910593": {
@@ -12396,7 +12448,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us743915395468910593"
+        "saved-bambu:us743915395468910593",
+        "src-da1fbbca98a04d71bd2a731513fd9bea"
       ]
     },
     "bambu:us763714278409691137": {
@@ -12408,7 +12461,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us763714278409691137"
+        "saved-bambu:us763714278409691137",
+        "src-62162bca68754933bf3ef18f0ea9df9b"
       ]
     },
     "bambu:us766639627317551105": {
@@ -12420,7 +12474,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us766639627317551105"
+        "saved-bambu:us766639627317551105",
+        "src-bd0e89cf1e6440e4922035582819d99d"
       ]
     },
     "bambu:us770658156626939905": {
@@ -12432,7 +12487,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "saved-bambu:us770658156626939905"
+        "saved-bambu:us770658156626939905",
+        "src-aedb47fecda3404d9c3dd5d00a05af35"
       ]
     },
     "bambu:us776951289157341185": {
@@ -12445,7 +12501,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-bambu:us776951289157341185",
-        "src-eccadcc17d4d4492a8fe85a408959e13"
+        "src-eccadcc17d4d4492a8fe85a408959e13",
+        "src-c4a5c5ecdb19418394085a2132028136"
       ]
     },
     "xlaserlab:XLaserlab3271": {
@@ -16958,6 +17015,426 @@
       "order_ids": [
         "fws:WEBFWS100708929"
       ]
+    },
+    {
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-03-22"
+      },
+      "amount_minor": 330391,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-591ba5fb8bca4e50a2e94c7abe83de45"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us712460111015776257"
+      ]
+    },
+    {
+      "event_id": "evt-5f06516b85d644518b773fcec6619e0c",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-03-23"
+      },
+      "amount_minor": 2571,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-120855e572a74576a74308512f9e475d"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us712597240994926592"
+      ]
+    },
+    {
+      "event_id": "evt-dd13591ae1b245d5bde74f9f06d64679",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-01"
+      },
+      "amount_minor": 21700,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-3153c49a671e462c85f1909704064e8e"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us715792490246602753"
+      ]
+    },
+    {
+      "event_id": "evt-df95c15f0de14005bed84f24cb580282",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-03"
+      },
+      "amount_minor": 12006,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-342104ac9a1743cfb9435b1a500c0717"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us716485517830578177"
+      ]
+    },
+    {
+      "event_id": "evt-1ab8efb2ddff42d885223e7cadcc6487",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-06"
+      },
+      "amount_minor": 31422,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ac073ebf75194d97a3dbc82d992ee783"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us717877837343809537"
+      ]
+    },
+    {
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-08"
+      },
+      "amount_minor": 47186,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-42c5da93267e4840adbf76a4e31a03a6"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us718417332286169089"
+      ]
+    },
+    {
+      "event_id": "evt-471bf2463cc34f3bb40bc64359ef2c9f",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-13"
+      },
+      "amount_minor": 8254,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-beaaffd2491542e5b65ab9397395438f"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us720254914668109825"
+      ]
+    },
+    {
+      "event_id": "evt-ad6cd10a10944ea7998d0164f4c7181d",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      },
+      "amount_minor": 18657,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f175d220a1a04dbb8ae63733cb838a56"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us722538751263612929"
+      ]
+    },
+    {
+      "event_id": "evt-29efe53e9b5643a78fa3d87c41ded58c",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-21"
+      },
+      "amount_minor": 8146,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-288ebe4a40ad482283ade8c3ceee06c1"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us722988823976337409"
+      ]
+    },
+    {
+      "event_id": "evt-97a9e18393554517876b8296b5796cd0",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-27"
+      },
+      "amount_minor": 13936,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-2898c086c7ca4ee098127fe35d2c391b"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us725322381210451969"
+      ]
+    },
+    {
+      "event_id": "evt-f2a3972b8240483a91e0fb23151f5498",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-28"
+      },
+      "amount_minor": 18230,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-6a39e7bd616a44638b0dde62ef2ae976"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us725539918437957633"
+      ]
+    },
+    {
+      "event_id": "evt-2a5a348427c34d45a411db84cb142116",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-04-30"
+      },
+      "amount_minor": 21178,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-7479793e98d548eea55a5402879cdde1"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us726560430730719233"
+      ]
+    },
+    {
+      "event_id": "evt-daf2d3c511674bea8dbf4ab2a61160a9",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-05-04"
+      },
+      "amount_minor": 19305,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-0c3d33af804f4b0ca8dcf3e2baa0da43"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us728013517860630529"
+      ]
+    },
+    {
+      "event_id": "evt-602febd40b1f410a98d91c9294a33474",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-05-04"
+      },
+      "amount_minor": 257293,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-2288da80bdad495098ac60c78b8d6ef6"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us728027710789775361"
+      ]
+    },
+    {
+      "event_id": "evt-d505ef1d24c94ab29ec4411c5074bf00",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-05-25"
+      },
+      "amount_minor": 27872,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9e9bbcff1ca4492dbcc244965bad68bb"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us735568811268960257"
+      ]
+    },
+    {
+      "event_id": "evt-94abdb0830b24d46a90d94c2c432da12",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-06-10"
+      },
+      "amount_minor": 7183,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-92c261378ae34f8ab9ce6026cba4dc97"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us741350370718978049"
+      ]
+    },
+    {
+      "event_id": "evt-141fcf8c703c4cfe969c9564ccc897ca",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-06-17"
+      },
+      "amount_minor": 22404,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-da1fbbca98a04d71bd2a731513fd9bea"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us743915395468910593"
+      ]
+    },
+    {
+      "event_id": "evt-a982af5e75d0459ebf49d736307e714e",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-08-11"
+      },
+      "amount_minor": 13167,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-62162bca68754933bf3ef18f0ea9df9b"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us763714278409691137"
+      ]
+    },
+    {
+      "event_id": "evt-b123cb1ad5b74153b0129b52044709ba",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-08-19"
+      },
+      "amount_minor": 18229,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-bd0e89cf1e6440e4922035582819d99d"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us766639627317551105"
+      ]
+    },
+    {
+      "event_id": "evt-5bffd893753e45b3a90810f6709d957c",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-08-30"
+      },
+      "amount_minor": 13937,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-aedb47fecda3404d9c3dd5d00a05af35"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us770658156626939905"
+      ]
+    },
+    {
+      "event_id": "evt-84a7ec8e1cfe4b92aeeba83f72ad1a79",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-09-16"
+      },
+      "amount_minor": 9864,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-c4a5c5ecdb19418394085a2132028136"
+      ],
+      "verified_at": "2026-10-13",
+      "order_ids": [
+        "bambu:us776951289157341185"
+      ]
     }
   ],
   "allocations": [
@@ -17983,6 +18460,294 @@
       "purchase_id": "pur-dd66c6108002403fb32b17b27c67cb50",
       "order_id": "fws:WEBFWS100708929",
       "amount_minor": 8404,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-d005bff1d35b4ee6ab27fd2be76be306",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-fd5344356f7b483485428f444470b0ab",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 239900,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-4f5463bfe1d44e35bf0691931651a898",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-78da6641c19145ed970808c4ef7cc9c5",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 7875,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-4cc34cf8018b486098ac5a7954f0d5bd",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-c3b3b0a2274849c591fa9619695bc636",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 4949,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-1e64f02ba23342a4a733c635fb6617a9",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-e9c7ca7d2a2f4f5f93923f84cf0c6ab2",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 20364,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-840372a5015340b1b64f3e8ad0123fc8",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-ff500602845047da9fb571b2a8ac03a4",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 34970,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-377a9e67716244059b5f5d549d8d5aa2",
+      "event_id": "evt-62588441fd5642cdb529536a8652c08a",
+      "purchase_id": "pur-2457df51398f4e368395d5ee52488c9b",
+      "order_id": "bambu:us712460111015776257",
+      "amount_minor": 22333,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-099278714813405593c866a574310ed9",
+      "event_id": "evt-5f06516b85d644518b773fcec6619e0c",
+      "purchase_id": "pur-03b4e8f12b7c4966b1faf3cbd7ba7617",
+      "order_id": "bambu:us712597240994926592",
+      "amount_minor": 2571,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-d4e7e67f23ce46449071c98a7ce6539d",
+      "event_id": "evt-dd13591ae1b245d5bde74f9f06d64679",
+      "purchase_id": "pur-9fdd5aadd3a5416cb941df9d49ef528b",
+      "order_id": "bambu:us715792490246602753",
+      "amount_minor": 7998,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-141ce5c93aca48baa65d2c1c32b79efd",
+      "event_id": "evt-dd13591ae1b245d5bde74f9f06d64679",
+      "purchase_id": "pur-9313936126aa425a919035693153c568",
+      "order_id": "bambu:us715792490246602753",
+      "amount_minor": 12235,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-b88c469f190b42ca8c3048ad045360e7",
+      "event_id": "evt-dd13591ae1b245d5bde74f9f06d64679",
+      "purchase_id": "pur-50fafd3f6e804a70b45819e1944fd8d5",
+      "order_id": "bambu:us715792490246602753",
+      "amount_minor": 1467,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-bbb61c90a5d84d1ba3da948490496bd6",
+      "event_id": "evt-df95c15f0de14005bed84f24cb580282",
+      "purchase_id": "pur-1bc0635e08404ffa812786a90e5d91eb",
+      "order_id": "bambu:us716485517830578177",
+      "amount_minor": 12006,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-c8cb7014351a45549fd738ba53edfe50",
+      "event_id": "evt-1ab8efb2ddff42d885223e7cadcc6487",
+      "purchase_id": "pur-626af505114c46f1a9741afc396fff51",
+      "order_id": "bambu:us717877837343809537",
+      "amount_minor": 27800,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-1c6bc4daf17a4cea8b402250b4755f74",
+      "event_id": "evt-1ab8efb2ddff42d885223e7cadcc6487",
+      "purchase_id": "pur-0a64f61ee39b41e5b5b458239a589a2e",
+      "order_id": "bambu:us717877837343809537",
+      "amount_minor": 799,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ea3bf887f0c04dcd83893a361facb3c1",
+      "event_id": "evt-1ab8efb2ddff42d885223e7cadcc6487",
+      "purchase_id": "pur-c4d9562f652f48cb95f26346fb1f57ec",
+      "order_id": "bambu:us717877837343809537",
+      "amount_minor": 2823,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-701a7d599a1a4241b80845c445a2e838",
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "purchase_id": "pur-9795fe78ee6d4da5b43b92ef9cf3bf97",
+      "order_id": "bambu:us718417332286169089",
+      "amount_minor": 29900,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-488822da37b24b1696b8caac953374a0",
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "purchase_id": "pur-03f85a9f82274996905b0e588601ade1",
+      "order_id": "bambu:us718417332286169089",
+      "amount_minor": 3299,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-182f03c9c551477c9ca2cea66b082904",
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "purchase_id": "pur-57c874cf19f84922b67c2bc3acce9c60",
+      "order_id": "bambu:us718417332286169089",
+      "amount_minor": 799,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-135a87b4135946fea6556b5f1b9a6919",
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "purchase_id": "pur-26a055757240455891e7ea95c995df3e",
+      "order_id": "bambu:us718417332286169089",
+      "amount_minor": 9998,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ab6f94f2388a4784875ee3a4528d6fe9",
+      "event_id": "evt-87f2b83135eb40d7b2ead30ed42d4123",
+      "purchase_id": "pur-df73d68d78794bbabd31f36a20ddfcaf",
+      "order_id": "bambu:us718417332286169089",
+      "amount_minor": 3190,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-988ef9f02ed6408a86e228b1b2bf2fb3",
+      "event_id": "evt-471bf2463cc34f3bb40bc64359ef2c9f",
+      "purchase_id": "pur-9c16202031204275b3442cf21ec316be",
+      "order_id": "bambu:us720254914668109825",
+      "amount_minor": 8254,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-bb48de78d1ae4d6c85e46241a14f7cb7",
+      "event_id": "evt-ad6cd10a10944ea7998d0164f4c7181d",
+      "purchase_id": "pur-ab4666fecc0947408ccb9177de425c95",
+      "order_id": "bambu:us722538751263612929",
+      "amount_minor": 18657,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-2019f1df27624fcb967cde67b233c5b2",
+      "event_id": "evt-29efe53e9b5643a78fa3d87c41ded58c",
+      "purchase_id": "pur-aa9e46928fa84f3bb1ce075c3d298d72",
+      "order_id": "bambu:us722988823976337409",
+      "amount_minor": 8146,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-b3ba84bcc7b547698a6543ef00d8257c",
+      "event_id": "evt-97a9e18393554517876b8296b5796cd0",
+      "purchase_id": "pur-9910099ea22c4c47900afde42039954e",
+      "order_id": "bambu:us725322381210451969",
+      "amount_minor": 13936,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-9d062c82c1a049ca81113881639dd002",
+      "event_id": "evt-f2a3972b8240483a91e0fb23151f5498",
+      "purchase_id": "pur-52d05ead62654858abc16140f2883f3b",
+      "order_id": "bambu:us725539918437957633",
+      "amount_minor": 18230,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-e6ed94054c69428ba6f193ddec97c1cb",
+      "event_id": "evt-2a5a348427c34d45a411db84cb142116",
+      "purchase_id": "pur-c33baf4aa1214ee082b5fd066c357035",
+      "order_id": "bambu:us726560430730719233",
+      "amount_minor": 21178,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3d2e40faf1a04b52a5ebf797c8979340",
+      "event_id": "evt-daf2d3c511674bea8dbf4ab2a61160a9",
+      "purchase_id": "pur-f343ca60f649486eba45fe1cf7c796f8",
+      "order_id": "bambu:us728013517860630529",
+      "amount_minor": 19305,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-108e68082a7c46cd9e5524cb83f24853",
+      "event_id": "evt-602febd40b1f410a98d91c9294a33474",
+      "purchase_id": "pur-09249f83dc0f451fb2359589a0172e9c",
+      "order_id": "bambu:us728027710789775361",
+      "amount_minor": 257293,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-07fac5c512f74098948e6f61424ffcdc",
+      "event_id": "evt-d505ef1d24c94ab29ec4411c5074bf00",
+      "purchase_id": "pur-c34dd2c039254724b3263154e565e9d2",
+      "order_id": "bambu:us735568811268960257",
+      "amount_minor": 27872,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-29fa9ff8cdf74deb9d13d32386a2ff50",
+      "event_id": "evt-94abdb0830b24d46a90d94c2c432da12",
+      "purchase_id": "pur-65976621839343e7886b04de812da888",
+      "order_id": "bambu:us741350370718978049",
+      "amount_minor": 7183,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-f4e8aa94bff446bcbed3d483afffa003",
+      "event_id": "evt-141fcf8c703c4cfe969c9564ccc897ca",
+      "purchase_id": "pur-ec6021b8ab214b5f98193cebe113eac9",
+      "order_id": "bambu:us743915395468910593",
+      "amount_minor": 22404,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-f6171fd30d8747798364ff4b3ab29a95",
+      "event_id": "evt-a982af5e75d0459ebf49d736307e714e",
+      "purchase_id": "pur-21f65cde274b4a3292d28f3ae0db1e33",
+      "order_id": "bambu:us763714278409691137",
+      "amount_minor": 13167,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3eead92a93d44483b5dc7aca8df97730",
+      "event_id": "evt-b123cb1ad5b74153b0129b52044709ba",
+      "purchase_id": "pur-a65c9eb5bab34a92879abe95032c7fad",
+      "order_id": "bambu:us766639627317551105",
+      "amount_minor": 18229,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-e58aa49bc69b443e999c759a45ca2a2e",
+      "event_id": "evt-5bffd893753e45b3a90810f6709d957c",
+      "purchase_id": "pur-303d99720ca54c51b534f259b0556573",
+      "order_id": "bambu:us770658156626939905",
+      "amount_minor": 13937,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-59f37717d8e244da8ca6f99b07930784",
+      "event_id": "evt-84a7ec8e1cfe4b92aeeba83f72ad1a79",
+      "purchase_id": "pur-0d0b0e9007bf4a16ae24e69262e40c0c",
+      "order_id": "bambu:us776951289157341185",
+      "amount_minor": 4999,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-96f5fffbb0a647d9a984708d745109bc",
+      "event_id": "evt-84a7ec8e1cfe4b92aeeba83f72ad1a79",
+      "purchase_id": "pur-8dda604c8c6b4c4581077a554a7667a6",
+      "order_id": "bambu:us776951289157341185",
+      "amount_minor": 4199,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3fe86f9c59464c7f89f07034c396823e",
+      "event_id": "evt-84a7ec8e1cfe4b92aeeba83f72ad1a79",
+      "purchase_id": "pur-870e9ad9da324c92bdac254c7fb54fa7",
+      "order_id": "bambu:us776951289157341185",
+      "amount_minor": 666,
       "currency": "USD"
     }
   ],
@@ -27757,6 +28522,447 @@
         "precision": "day",
         "value": "2026-10-08"
       }
+    },
+    "src-591ba5fb8bca4e50a2e94c7abe83de45": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us712460111015776257",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-03-22 22:54; Grand Total and Net Payment USD 3,303.91, its item and tax lines match each ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-03-22"
+      }
+    },
+    "src-120855e572a74576a74308512f9e475d": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us712597240994926592",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-03-23 07:59; Grand Total and Net Payment USD 25.71, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-03-23"
+      }
+    },
+    "src-3153c49a671e462c85f1909704064e8e": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us715792490246602753",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-01 03:35; Grand Total and Net Payment USD 217.00, its item and tax lines match each ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-01"
+      }
+    },
+    "src-342104ac9a1743cfb9435b1a500c0717": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us716485517830578177",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-03 01:29; Grand Total and Net Payment USD 120.06, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-03"
+      }
+    },
+    "src-ac073ebf75194d97a3dbc82d992ee783": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us717877837343809537",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-06 21:42; Grand Total and Net Payment USD 314.22, its item and tax lines match each ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-06"
+      }
+    },
+    "src-42c5da93267e4840adbf76a4e31a03a6": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us718417332286169089",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-08 09:25; Grand Total and Net Payment USD 471.86, its item and tax lines match each ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-08"
+      }
+    },
+    "src-beaaffd2491542e5b65ab9397395438f": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us720254914668109825",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-13 11:07; Grand Total and Net Payment USD 82.54, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-13"
+      }
+    },
+    "src-f175d220a1a04dbb8ae63733cb838a56": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us722538751263612929",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-19 18:22; Grand Total and Net Payment USD 186.57, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-19"
+      }
+    },
+    "src-288ebe4a40ad482283ade8c3ceee06c1": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us722988823976337409",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-21 00:11; Grand Total and Net Payment USD 81.46, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-21"
+      }
+    },
+    "src-2898c086c7ca4ee098127fe35d2c391b": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us725322381210451969",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-27 10:44; Grand Total and Net Payment USD 139.36, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-27"
+      }
+    },
+    "src-6a39e7bd616a44638b0dde62ef2ae976": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us725539918437957633",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-28 01:08; Grand Total and Net Payment USD 182.30, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-28"
+      }
+    },
+    "src-7479793e98d548eea55a5402879cdde1": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us726560430730719233",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-04-30 20:43; Grand Total and Net Payment USD 211.78, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-04-30"
+      }
+    },
+    "src-0c3d33af804f4b0ca8dcf3e2baa0da43": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us728013517860630529",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-05-04 20:57; Grand Total and Net Payment USD 193.05, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-05-04"
+      }
+    },
+    "src-2288da80bdad495098ac60c78b8d6ef6": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us728027710789775361",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-05-04 21:54; Grand Total and Net Payment USD 2,572.93, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-05-04"
+      }
+    },
+    "src-9e9bbcff1ca4492dbcc244965bad68bb": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us735568811268960257",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-05-25 17:19; Grand Total and Net Payment USD 278.72, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-05-25"
+      }
+    },
+    "src-92c261378ae34f8ab9ce6026cba4dc97": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us741350370718978049",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-06-10 16:13; Grand Total and Net Payment USD 71.83, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-06-10"
+      }
+    },
+    "src-da1fbbca98a04d71bd2a731513fd9bea": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us743915395468910593",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-06-17 18:06; Grand Total and Net Payment USD 224.04, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-06-17"
+      }
+    },
+    "src-62162bca68754933bf3ef18f0ea9df9b": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us763714278409691137",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-08-11 09:19; Grand Total and Net Payment USD 131.67, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-08-11"
+      }
+    },
+    "src-bd0e89cf1e6440e4922035582819d99d": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us766639627317551105",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-08-19 11:04; Grand Total and Net Payment USD 182.29, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-08-19"
+      }
+    },
+    "src-aedb47fecda3404d9c3dd5d00a05af35": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us770658156626939905",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-08-30 13:12; Grand Total and Net Payment USD 139.37, equal to the ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-08-30"
+      }
+    },
+    "src-c4a5c5ecdb19418394085a2132028136": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_order_page",
+      "reference": "us776951289157341185",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "price",
+        "order_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Signed-in Bambu US store order record: Order Confirmed 2026-09-16 21:59; Grand Total and Net Payment USD 98.64, its item and tax lines match each ledger row. The account's Unpaid tab lists no orders, so the order is paid; the charge date is the order-confirmed date. No bank posting or funding ownership is established.",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-09-16"
+      }
     }
   },
   "coverage": [
@@ -29116,20 +30322,62 @@
       "evidence_type": "merchant_payments",
       "checked_at": "2026-10-13",
       "examined_period": {
-        "start": "2026-10-05",
+        "start": "2026-03-22",
         "end": "2026-10-13"
       },
       "complete_period": null,
       "coverage": "partial",
       "source_ids": [
         "src-8f254298770d47ef917186489f593f32",
-        "src-3bee25f04ac04511b9b79200683fab02"
+        "src-3bee25f04ac04511b9b79200683fab02",
+        "src-591ba5fb8bca4e50a2e94c7abe83de45",
+        "src-120855e572a74576a74308512f9e475d",
+        "src-3153c49a671e462c85f1909704064e8e",
+        "src-342104ac9a1743cfb9435b1a500c0717",
+        "src-ac073ebf75194d97a3dbc82d992ee783",
+        "src-42c5da93267e4840adbf76a4e31a03a6",
+        "src-beaaffd2491542e5b65ab9397395438f",
+        "src-f175d220a1a04dbb8ae63733cb838a56",
+        "src-288ebe4a40ad482283ade8c3ceee06c1",
+        "src-2898c086c7ca4ee098127fe35d2c391b",
+        "src-6a39e7bd616a44638b0dde62ef2ae976",
+        "src-7479793e98d548eea55a5402879cdde1",
+        "src-0c3d33af804f4b0ca8dcf3e2baa0da43",
+        "src-2288da80bdad495098ac60c78b8d6ef6",
+        "src-9e9bbcff1ca4492dbcc244965bad68bb",
+        "src-92c261378ae34f8ab9ce6026cba4dc97",
+        "src-da1fbbca98a04d71bd2a731513fd9bea",
+        "src-62162bca68754933bf3ef18f0ea9df9b",
+        "src-bd0e89cf1e6440e4922035582819d99d",
+        "src-aedb47fecda3404d9c3dd5d00a05af35",
+        "src-c4a5c5ecdb19418394085a2132028136"
       ],
       "order_ids": [
+        "bambu:us712460111015776257",
+        "bambu:us712597240994926592",
+        "bambu:us715792490246602753",
+        "bambu:us716485517830578177",
+        "bambu:us717877837343809537",
+        "bambu:us718417332286169089",
+        "bambu:us720254914668109825",
+        "bambu:us722538751263612929",
+        "bambu:us722988823976337409",
+        "bambu:us725322381210451969",
+        "bambu:us725539918437957633",
+        "bambu:us726560430730719233",
+        "bambu:us728013517860630529",
+        "bambu:us728027710789775361",
+        "bambu:us735568811268960257",
+        "bambu:us741350370718978049",
+        "bambu:us743915395468910593",
+        "bambu:us763714278409691137",
+        "bambu:us766639627317551105",
+        "bambu:us770658156626939905",
+        "bambu:us776951289157341185",
         "bambu:us783865986561351681",
         "bambu:us784775952755326977"
       ],
-      "note": "Signed-in Bambu US store: order details for the two named October orders and an empty Unpaid tab. Earlier Bambu orders were listed but not reviewed for payment; no claim of complete account coverage."
+      "note": "Signed-in Bambu US store: order records for all 23 ledger Bambu orders, 2026-03-22 to 2026-10-08, and an empty Unpaid tab. Two orders (us712460111015776257, us726560430730719233) open by order number but are not in the account's list view, so the list is not a complete account record."
     }
   ],
   "gaps": [
