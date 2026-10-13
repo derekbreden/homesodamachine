@@ -23,3 +23,10 @@ geometry and presets; a subsequent slice is a separate toolpath.
 The [launch receipt](launch.json) records task 1334257829 accepted on
 2026-10-12 at 7:45:25 pm CDT, with Timelapse and Bed Leveling On and both
 calibration options Auto. Printed fit and holding force remain unassessed.
+
+The [wall-start observation](wall-start-observation.json) records an
+intermittent strand forming as the nozzle arrives from the other object
+and starts a wall. Its [preview screenshot](wall-start-preview.png) shows
+layer 108 of the launched slice; that layer is not identified as affected.
+The pictured restart restores the preceding 1.00 mm retraction before an
+inner wall, with no extra restart amount. The physical cause remains open.
