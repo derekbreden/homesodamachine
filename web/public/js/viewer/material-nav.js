@@ -3,9 +3,9 @@ import { materialIndex, modelForMaterial } from "/contracts/materials.js";
 import { parseStepHash, walkDepth } from "./step-nav.js";
 import { dismissViewerHistory } from "./viewer-history.js";
 
-export const materialHash = (id) => "material:" + encodeURIComponent(id);
+export const materialHash = (id, { tab = null } = {}) => "material:" + encodeURIComponent(id) + (tab === "bom" ? "?tab=bom" : "");
 
-export async function openMaterial(id, pushHistory = true) {
+export async function openMaterial(id, pushHistory = true, { tab = null } = {}) {
   const material = materialIndex(state.materialCatalog).get(id);
   if (!material) {
     const notice = document.createElement("p"); notice.className = "material-catalog-status";
@@ -26,8 +26,9 @@ export async function openMaterial(id, pushHistory = true) {
     }
     const raw = location.hash.slice(1);
     const materialPath = raw.startsWith("step:") ? parseStepHash(raw) : history.state?.materialPath || [file];
-    history.replaceState({ materialPath }, "", "#" + materialHash(id));
+    history.replaceState({ materialPath }, "", "#" + materialHash(id, { tab }));
     state.materialPanel?.setRoot(id);
+    if (tab === "bom") state.materialPanel?.showBom();
   } else {
     const depth = state.currentCadWrapper ? walkDepth() : 0;
     const { mountMaterialPanel } = await import("./material-panel.js");
@@ -43,6 +44,7 @@ export async function openMaterial(id, pushHistory = true) {
       }
     } });
     state.currentDetail = { type: "material", file: id };
-    if (pushHistory) history.pushState(null, "", "#" + materialHash(id));
+    if (tab === "bom") panel.showBom();
+    if (pushHistory) history.pushState(null, "", "#" + materialHash(id, { tab }));
   }
 }
