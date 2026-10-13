@@ -44,7 +44,7 @@
     "insertion_pause_notice_sent": false,
     "actual_pause_time_utc": null,
     "actual_resume_time_utc": null,
-    "scope": "The operator’s overprinting report establishes the reported insertion outcome. The scheduled readings did not observe the intervening programmed pause or resume."
+    "scope": "Derek’s overprinting report establishes the reported insertion outcome. The scheduled readings did not observe the intervening programmed pause or resume."
   },
   "telemetry_after_report": {
     "observed_at": "2026-10-05T14:42:50.755669+00:00",

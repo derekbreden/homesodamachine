@@ -1,7 +1,7 @@
 # Magnetic-float ASA Aero combined plate at +0.04 mm trim
 
 One frozen core and one insert share Mark2's Textured PEI plate, printing by
-layer on its right standard-flow hardened 0.4 mm nozzle. The operator requested:
+layer on its right standard-flow hardened 0.4 mm nozzle. Derek requested:
 **"Stopped again. Bed clear. Try same plate again back to 0.04 all else the same."**
 
 The combined job is accepted as **Mark2 task 1304010811**,
@@ -14,7 +14,7 @@ density and physical fit remain unreported. The native estimate is **1 h
 At 2026-10-03 04:38 UTC, the same task reported `FAILED`, layer 0, with
 error **0300400C** (50348044). Bambu Connect and the installed Bambu Studio
 English error catalog identify it as **"The task was canceled."** No first-layer
-progress was observed through printer telemetry for this trial. The operator's
+progress was observed through printer telemetry for this trial. Derek's
 [physical startup report](physical-observations.json) describes the corner load
 line and initial part lines lifting, with adhesion beginning after about two
 loops. The report does not name a specific attempt. No completed-print or
@@ -73,6 +73,6 @@ establish physical adhesion, density or fit.
 - [One-Send guard and printer acceptance](pair-mark2-launch.json)
 - [Queue](queue.json)
 - [Preparation and exact command comparison](prepare.py)
-- [Operator stop report for the preceding combined trial](../v2/pair-mark2-launch.json)
+- [Derek's stop report for the preceding combined trial](../v2/pair-mark2-launch.json)
 
 ![Combined plate native preview](pair-preview.png)

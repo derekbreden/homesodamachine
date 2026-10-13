@@ -71,7 +71,7 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Operator canceled this attempt after an unrelated problem; the same frozen archive is allocated to physical trial v5 under a new start request.",
+  "scope": "Derek canceled this attempt after an unrelated problem; the same frozen archive is allocated to physical trial v5 under a new start request.",
   "accepted_task_id": "1304058102",
   "launch_record": "pair-mark2-launch.json",
   "accepted_utc": "2026-10-03T05:06:30.947572+00:00",

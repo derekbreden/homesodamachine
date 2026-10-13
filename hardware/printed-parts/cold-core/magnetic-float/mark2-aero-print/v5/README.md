@@ -3,7 +3,7 @@
 The combined core and insert retry on Mark2 is **stopped at layer 0**, task
 **1304085052**, `magnetic-float-pair-mark2-aero-v5.gcode.3mf`. MQTT reports `FAILED`,
 with zero print-error code and no HMS alert. Bambu Connect shows the matching
-archive as `Failed`, with no error message observed. The operator reports Textured PEI is a no go and has loaded a glued Engineering
+archive as `Failed`, with no error message observed. Derek reports Textured PEI is a no go and has loaded a glued Engineering
 plate. The specific stop mechanism, quantitative adhesion and physical fit
 remain unreported. The [physical plate report](physical-observations.json)
 supplies the plate choice for [trial v6](../v6/queue.json). One Send
@@ -14,7 +14,7 @@ Full observations are in the [launch record](pair-mark2-launch.json).
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
 lifting before adhesion begins after about two loops. Residual material in the
-nozzle is the operator's hypothesis; the root cause is unconfirmed. The target
+nozzle is Derek's hypothesis; the root cause is unconfirmed. The target
 outcome is adhering extrusion from the first part loop, with the initial loose
 material left on the corner strip.
 
@@ -68,6 +68,6 @@ The parts and plate retain the 35 °C cooling threshold before release.
 - [Preflight and priming-strip coordinate review](pair-preflight.json)
 - [Preparation and exact part-program comparison](../v4/prepare.py)
 - [Queue](queue.json)
-- [Operator's physical startup report](../v3/physical-observations.json)
+- [Derek's physical startup report](../v3/physical-observations.json)
 
 ![Frozen part preview](../v4/pair-preview.png)

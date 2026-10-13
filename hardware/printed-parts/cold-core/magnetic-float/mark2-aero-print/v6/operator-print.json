@@ -14,7 +14,7 @@
   "archive_identity_verified": false,
   "archive_sha256": null,
   "source_stl_sha256": null,
-  "scope": "Current operator-observed float print has a local identity. Frozen v6 archive, geometry, trim and path identity are not established for this local task. It must not be attributed to cloud task 1304125241.",
+  "scope": "Current float print observed by Derek has a local identity. Frozen v6 archive, geometry, trim and path identity are not established for this local task. It must not be attributed to cloud task 1304125241.",
   "material_source": {
     "physical_source": "Polymaker drybox",
     "basis": "User report",

@@ -8,7 +8,7 @@ The native estimate is **25 h 5 min**, with 825.9 g at the saved profile density
 
 ## Sliding-groove support exception
 
-Three named disposable project-only ribbons support the fore-left, fore-right and aft sliding-catch roofs within their own grooves. The operator reports easy release of small local groove support on the other enclosure quadrants. These particular ribbons have no physical removal result. Each is 4.45 mm wide and 5.52 mm tall, inset 0.40 mm from the foot edges, with two normal walls; the overlapping solid-root regions fill its interior.
+Three named disposable project-only ribbons support the fore-left, fore-right and aft sliding-catch roofs within their own grooves. Derek reports easy release of small local groove support on the other enclosure quadrants. These particular ribbons have no physical removal result. Each is 4.45 mm wide and 5.52 mm tall, inset 0.40 mm from the foot edges, with two normal walls; the overlapping solid-root regions fill its interior.
 
 Only the six downward triangles of these three catch roofs suppress automatic support in favor of the ribbons. All ribbon faces suppress their own automatic support. Their native layers run from Z180.44 to Z185.72, with **0.24 mm below and 0.48 mm above**. The [ribbon reading](groove-ribbon-review.json) finds no automatic support inside them. The [large-contact reading](large-overhang-support-review.json) finds ribbon contact in the six original catch slabs and retains automatic interface contact in the other two large slabs.
 

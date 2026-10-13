@@ -73,8 +73,8 @@ wipes, not just moves across open air.
 
 The intended physical outcome is usable foam pieces with fewer carried bits
 from travel. Completion, surface debris, adhesion, fit, density and buoyancy
-remain unreported for these trial pieces. The user's current flaking and
-travel-ooze observations are in the operator record; they do not establish the
+remain unreported for these trial pieces. The current flaking and
+travel-ooze observations are in Derek's record; they do not establish the
 cause of flaking. Bambu identifies ASA Aero as
 [heat-sensitive self-foaming material](https://bambulab-us.myshopify.com/products/asa-aero),
 with expansion and density varying with temperature, flow ratio and speed.

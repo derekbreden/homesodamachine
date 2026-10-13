@@ -1,7 +1,7 @@
 # Cap-weld tube rotator
 
 PET-GF fixture that stands a 5-inch 316L carbonator tube vertically and turns
-it under the operator-held laser-weld head. The stationary structure is a
+it under the hand-held laser-weld head. The stationary structure is a
 [300](WR_BASE_X) × [250](WR_BASE_Y) × [12](WR_BASE_Z) mm base, four
 [24](WR_BASE_CLEARANCE) mm riser feet, and a separate motor tower. The feet
 leave the already-welded lower plate's two ports reachable from below. The

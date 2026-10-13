@@ -186,7 +186,7 @@
       "event": "operator_stop_report",
       "recorded_at": "2026-10-03T04:26:06.995135+00:00",
       "report": "Stopped again. Bed clear. Try same plate again back to 0.04 all else the same.",
-      "interpretation": "The operator reported stopping this job and requested a new combined print at +0.04 mm user trim. A specific print defect is not reported."
+      "interpretation": "Derek reported stopping this job and requested a new combined print at +0.04 mm user trim. A specific print defect is not reported."
     }
   ],
   "printer_reports": [

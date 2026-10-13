@@ -71,7 +71,7 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Operator rejected Textured PEI and reported a glued Engineering plate loaded; the authorized combined plate is allocated to physical trial v6.",
+  "scope": "Derek rejected Textured PEI and reported a glued Engineering plate loaded; the authorized combined plate is allocated to physical trial v6.",
   "launch_record": "pair-mark2-launch.json",
   "retry_of": "../v4/pair-mark2-launch.json",
   "accepted_task_id": "1304085052",

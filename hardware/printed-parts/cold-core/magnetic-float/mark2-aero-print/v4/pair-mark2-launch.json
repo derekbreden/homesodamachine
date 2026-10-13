@@ -260,7 +260,7 @@
       "event": "operator_canceled",
       "recorded_utc": "2026-10-03T05:26:11.528563+00:00",
       "operator_report": "Hit an entirely unrelated problem this time. I stopped it. Bed is clear. Try again same settings.",
-      "scope": "Operator reported an unrelated problem and cancellation; startup adhesion outcome remains unreported."
+      "scope": "Derek reported an unrelated problem and cancellation; startup adhesion outcome remains unreported."
     }
   ],
   "printer_reports": [

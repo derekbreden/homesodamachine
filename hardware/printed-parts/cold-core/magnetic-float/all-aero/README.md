@@ -87,13 +87,13 @@ a 3.40 mm pocket, insertion after layer 79 at Z15.8 and covering from layer 80
 at Z16.0. Its estimate is 88 minutes excluding the manual pause. The frozen
 source and native project belong to that geometry.
 
-The operator reports successful paused insertion and overprinting: the first
+Derek reports successful paused insertion and overprinting: the first
 covering layer was a bit too tight and the second deposited beautifully.
 The [physical record](physical-observations.json) and photo cover insertion and
 the initial covering layers. Final roof integrity, cooled completion, retained
 magnetic signal, buoyancy and service exposure are unreported.
 
-![Operator photo during magnet overprinting](mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg)
+![Derek's photo during magnet overprinting](mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg)
 
 ## Qualification
 

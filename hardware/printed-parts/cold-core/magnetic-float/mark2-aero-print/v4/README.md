@@ -1,8 +1,8 @@
 # Magnetic-float ASA Aero corner priming strip
 
 The combined core and insert trial on Mark2, task **1304058102**,
-`magnetic-float-pair-mark2-aero-v5.gcode.3mf`, is **canceled by the operator**.
-The operator reported: “Hit an entirely unrelated problem this time. I stopped
+`magnetic-float-pair-mark2-aero-v5.gcode.3mf`, is **canceled by Derek**.
+Derek reported: “Hit an entirely unrelated problem this time. I stopped
 it. Bed is clear. Try again same settings.” Startup adhesion and physical fit
 remain unreported. MQTT showed `FAILED` at layer 0 with no print-error code or
 HMS alert. A separately observed AMS feed alert has an unconfirmed relationship
@@ -13,7 +13,7 @@ archive in [physical trial v5](../v5/queue.json).
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
 lifting before adhesion begins after about two loops. Residual material in the
-nozzle is the operator's hypothesis; the root cause is unconfirmed. The target
+nozzle is Derek's hypothesis; the root cause is unconfirmed. The target
 outcome is adhering extrusion from the first part loop, with the initial loose
 material left on the corner strip.
 
@@ -67,6 +67,6 @@ The parts and plate retain the 35 °C cooling threshold before release.
 - [Preflight and priming-strip coordinate review](pair-preflight.json)
 - [Preparation and exact part-program comparison](prepare.py)
 - [Queue](queue.json)
-- [Operator's physical startup report](../v3/physical-observations.json)
+- [Derek's physical startup report](../v3/physical-observations.json)
 
 ![Frozen part preview](pair-preview.png)
