@@ -3,9 +3,9 @@
   "observed_date": "2026-10-09",
   "part": "industrial-display-cover",
   "authority": "Derek's direct test-fit observation",
-  "article_identity": "Operator-held Industrial display cover; exact printed job not specified",
+  "article_identity": "Industrial display cover held by Derek; exact printed job not specified",
   "observation": "The problem is it is just not quite fully seating. To explain what I mean, you see the arch of the dispense face? that is \"holding up\" our arch on the bottom of the display cover, and it is holding it up too high.",
-  "reported_possible_cause": "The operator is unsure whether drain geometry changes affected seating.",
+  "reported_possible_cause": "Derek is unsure whether drain geometry changes affected seating.",
   "current_trial": {
     "wing_extension_mm": 0.5,
     "arch_clearance_local_n_mm": 0.5,

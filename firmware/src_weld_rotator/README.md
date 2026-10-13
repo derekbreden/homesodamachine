@@ -62,7 +62,7 @@ motor heating while the welder is being set.
 
 **The pedal is the whole of the control.** Held, the table turns at the stored
 speed; released, it stops. Nothing counts a revolution and nothing stops the
-table out from under the operator — the length of a lap is judged at the index
+table out from under Derek — the length of a lap is judged at the index
 mark while watching the puddle, not enforced by the controller.
 
 The driver holds the motor while the table turns and for ten seconds after a
@@ -76,7 +76,7 @@ pedal held down through a reset cannot move the table. After that, every press
 turns and every release stops, with no rearming in between.
 
 The console reports how far the table has come in degrees, and says so again on
-release. That number is a readout for the operator and is never a limit.
+release. That number is a readout for Derek and is never a limit.
 
 The default 8 mm/s bead travel is 1.235 rpm at the tube, or 48.6 s per
 revolution. The accepted range is 5–15 mm/s. Settings are changed over the

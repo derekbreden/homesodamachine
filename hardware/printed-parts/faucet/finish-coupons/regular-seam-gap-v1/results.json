@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Completed plate; preliminary operator comparison recorded, no selection",
+  "status": "Completed plate; Derek's preliminary comparison recorded, no selection",
   "control_id": "E",
   "factor": "ordinary seam_gap",
   "source_profile": "hardware/printed-parts/petgf.3mf",

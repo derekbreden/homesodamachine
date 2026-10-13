@@ -2,7 +2,7 @@
   "schema": 1,
   "reported_date": "2026-10-11",
   "recorded_at_utc": "2026-10-11T05:36:59.117042+00:00",
-  "status": "Operator-reported first model-layer separation and seam groove/ridge comparison",
+  "status": "First model-layer separation and seam groove/ridge comparison reported by Derek",
   "authority": "Direct user report and two supplied photographs",
   "printer": "Mark2",
   "printer_task_id": "1327799013",
@@ -19,7 +19,7 @@
     "physical_result": "The first model layer falls away and is reported to have no connection to the model layers above.",
     "classification": "First model-layer separation",
     "removal_interpretation": "The easy removal sheds model material. Clean release alone does not establish an intact supported underside.",
-    "evidence_scope": "Direct operator observation of these faucet base prints; no per-specimen bond-strength measurement or initiating sequence supplied."
+    "evidence_scope": "Derek's direct observation of these faucet base prints; no per-specimen bond-strength measurement or initiating sequence supplied."
   },
   "photo_observations": [
     {
@@ -91,11 +91,11 @@
     "E_F_visually_indistinguishable_to_operator": true,
     "operator_quote": "Fascinating. \"E\" and \"F\" are identical as far as I can tell.\n\nBut, \"D\" is clearly a groove while \"E/F\" is clearly a ridge. And this is true for both the 0.08 layers and 0.24 layers.",
     "recorded_at_utc": "2026-10-11T06:31:26.833367+00:00",
-    "scope": "Direct operator appearance comparison; no measured groove/ridge dimensions or strength result",
+    "scope": "Derek's direct appearance comparison; no measured groove/ridge dimensions or strength result",
     "next_screen": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/study-plan.json"
   },
   "inference": "The founder reports replication on A, B and C under the three model-cooling treatments and identifies the affected material as the first model layer separating from the layers above. No cooling winner or severity ranking is recorded.",
-  "measurement_limits": "A support clearance is programmed. The operator establishes first model-layer separation in the affected region. The photographs do not quantify excess separation; initiating movement, physical strand position during deposition, cause of the missing connection and any nozzle contact remain unresolved.",
+  "measurement_limits": "A support clearance is programmed. Derek establishes first model-layer separation in the affected region. The photographs do not quantify excess separation; initiating movement, physical strand position during deposition, cause of the missing connection and any nozzle contact remain unresolved.",
   "photos": [
     {
       "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-1.jpg",
@@ -112,11 +112,11 @@
       "gps_metadata_present": false
     }
   ],
-  "disposition": "Plate completed and bed cleared by operator; coarse-start and seam-gap comparisons authorized on one subsequent plate",
-  "scope": "First model-layer separation on A/B/C and operator-reported regular seam groove versus scarf ridge on D/E/F at both layer heights; no quantitative bond-strength, seam profile or causal result",
+  "disposition": "Plate completed and bed cleared by Derek; coarse-start and seam-gap comparisons authorized on one subsequent plate",
+  "scope": "First model-layer separation on A/B/C and the regular seam groove versus scarf ridge Derek reported on D/E/F at both layer heights; no quantitative bond-strength, seam profile or causal result",
   "coarse_recovery_hypothesis": {
     "quote": "0.24 separates every time I think, it just recovers better as more heavy layers are added. Which is precisely why I expect our \"1 layer\" variable choice to fail. That is my hypothesis at least, which we shall test.",
-    "scope": "Operator hypothesis; separation frequency and the required coarse-layer count are not measured",
+    "scope": "Derek's hypothesis; separation frequency and the required coarse-layer count are not measured",
     "next_screen": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/study-plan.json"
   }
 }

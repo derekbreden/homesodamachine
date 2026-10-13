@@ -53,7 +53,7 @@ temperature is **33 °C**, with both heater targets at zero and no reported
 print error or HMS alert. It is ready for removal under the conservative
 35 °C handling threshold. Its archive identity is unverified, and its telemetry
 is recorded separately in
-[operator observations](operator-print.json).
+[Derek's observations](operator-print.json).
 The user reports that feeding from the Polymaker drybox works better, with
 flaking and material carried during travel moves still present. These
 observations establish neither the local archive settings nor the terminal

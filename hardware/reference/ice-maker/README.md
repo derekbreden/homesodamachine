@@ -1,6 +1,6 @@
 # Ice Maker Teardowns
 
-Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/README.md` for how the harvested parts fit into the cold core assembly, and [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the production procedure that uses the components identified below.
+Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/README.md` for how the harvested parts fit into the cold core assembly, and [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the procedure that uses the components identified below.
 
 ## Cold core architecture
 

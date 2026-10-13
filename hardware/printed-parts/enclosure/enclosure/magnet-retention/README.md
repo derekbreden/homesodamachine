@@ -128,7 +128,7 @@ about **6 h 35 min after starting** (native layer 344, 43% progress).
 Its emitted countdown starts at 394 minutes to the pause; the native total
 minus 516 minutes remaining at the pause gives 6 h 34 min 47 sec.
 These minute-rounded slicer estimates include startup and exclude the
-operator's pause duration. Only the lower cradle receives an RC62 on this plate.
+insertion pause duration. Only the lower cradle receives an RC62 on this plate.
 
 The emitted first closing beads leave at least 0.316 mm and 0.401 mm respectively
 above the conservative maximum-size ring. These are native path clearances;

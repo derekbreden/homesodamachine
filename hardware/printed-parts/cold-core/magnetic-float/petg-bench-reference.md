@@ -130,7 +130,7 @@ continuous bore/outer walls, open core insertion, magnet clearance, pause and
 all 17 roof layers. Object extrusion predicts **54.62 g assembled mass and
 5.43 g spare lift**, excluding brims and startup purge. Studio estimates **1 h
 37 min** for the core, **37 min** for the insert and **2 h 2 min** for the shell,
-excluding the operator's pause. The shell's insertion pause has about **15 min**
+excluding the insertion pause. The shell's insertion pause has about **15 min**
 of printing left. [print-profile.json](print-profile.json) records
 the source presets, overrides, hashes and exact estimates.
 

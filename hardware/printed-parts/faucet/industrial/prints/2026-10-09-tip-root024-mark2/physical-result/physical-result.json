@@ -9,7 +9,7 @@
   "native_archive_sha256": "3dfb53e7a76e024790d88a4fbcfee1696c2c9e5a76e51989a1040cfeeb798c01",
   "gcode_sha256": "36ad69605334d181ac6de74675fe66ac4f7a409634177304286a7f2e30ca1563",
   "accepted_at_utc": "2026-10-09T20:57:34.534460+00:00",
-  "status": "Operator-reported failed complete faucet; matching printer job is FAILED",
+  "status": "Failed complete faucet reported by Derek; matching printer job is FAILED",
   "authority": "Direct user report and five supplied photographs",
   "operator_failure_quote": "Print failed. Note what you can in the log. The commonality I see between the two failed pieces here, the tip and the wing, is they don\u2019t take up much XY relative to the Z they take, and these failures happened after they took more Z. It looks like they fell over or shifted, so could be the print head dragging. Dragging could be exasperated by layer lifting.",
   "process": {
@@ -51,7 +51,7 @@
   "operator_hypotheses": [
     {
       "hypothesis": "The tip and wing have little XY footprint relative to their height and failed after growing farther in Z.",
-      "status": "Operator interpretation; initiating failure height unmeasured."
+      "status": "Derek's interpretation; initiating failure height unmeasured."
     },
     {
       "hypothesis": "Pieces shifted or tipped due to print-head dragging.",
@@ -102,5 +102,5 @@
     }
   ],
   "disposition": "Further whole-faucet 0.08 mm iteration and research deferred; selected complete variable-layer recipe is hardware/printed-parts/faucet/industrial/selected-print.json.",
-  "scope": "Operator-reported print failure and visible surface disruption only. No confirmed collision, tip-over, adhesion mechanism, structural strength or service-life result."
+  "scope": "Print failure reported by Derek and visible surface disruption only. No confirmed collision, tip-over, adhesion mechanism, structural strength or service-life result."
 }
