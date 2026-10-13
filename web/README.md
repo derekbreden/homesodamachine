@@ -10,6 +10,10 @@ The [website style guide](https://homesodamachine.com/style-guide) is a small wo
 
 [`lib/style-guide.js`](/web/lib/style-guide.js) uses the shared shell, the exported cost and landing-button CSS, and [`public/css/materials.css`](/web/public/css/materials.css) directly. [`public/css/style-guide.css`](/web/public/css/style-guide.css) supplies documentation layout; [`public/style-guide.js`](/web/public/style-guide.js) supplies local demonstrations and reads displayed font sizes and colors from the browser. Match an existing pattern by its role and importance. Add examples when another reusable pattern needs a reference; correct existing pages where a specific problem is identified.
 
+## Home page audience
+
+The home page is for someone who knows little more than "soda machine" and has no earlier context. The [home page audience brief](/marketing/lincoln/working-materials.md#home-page-audience-brief) sets what [`lib/landing.js`](/web/lib/landing.js) has to explain, in what order, and the first-impression test it is judged by.
+
 ## Running it
 
 ```bash
