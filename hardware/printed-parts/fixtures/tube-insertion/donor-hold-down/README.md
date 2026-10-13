@@ -25,7 +25,9 @@ available, so its actual clearance remains an ordinary unloaded fit check.
 | Retention tongue width | 12.8 mm |
 | Compression allowance | 0.5 mm per side |
 | Tongue entry width | 11.3 mm |
-| Thread clearance below tongue | 1 mm |
+| Thread clearance below tongue | 10.25 mm |
+| Tongue engagement below wall top | 8.25 mm |
+| Full-width compression engagement | 7.5 mm |
 | Clearance above lower cradle | 1 mm |
 | Minimum crown backing | 10.25 mm |
 | Minimum side backing | 3.25 mm |
@@ -51,7 +53,7 @@ compensation is `G29.1 Z0.16` after the reset to zero.
 
 The native slice has 138 layers, no generated supports, at least 133.4 mm
 full-bead bed-edge clearance and no slicer warning. Estimated use is
-16.5 g and 1 hour 57 minutes. These files are prepared offline; no pad
+12.8 g and 1 hour 36 minutes. These files are prepared offline; no pad
 print has been submitted.
 
 ## Fit and use

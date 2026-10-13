@@ -28,7 +28,9 @@ FACE_Z = jig.THRUST_WALL_Z1 + 2.0
 TONGUE_X0 = jig.THRUST_WALL_X0 + 0.5
 TONGUE_X1 = jig.THRUST_WALL_X1
 TONGUE_WIDTH = jig.SHANK_SLOT_D + 1.0
-TONGUE_BOTTOM_Z = jig.DONOR_AXIS_Z + jig.DONOR_SHANK_OD / 2 + 1.0
+# Join the tongue only to the solid crown, above the circular cutout. A
+# deeper tongue leaves acute remnants where its sides meet that cutout.
+TONGUE_BOTTOM_Z = jig.DONOR_AXIS_Z + BODY_RADIUS
 LEAD_HEIGHT = 0.75
 LEAD_IN_PER_SIDE = 0.75
 PAD_COLOR = cq.Color(0.11, 0.12, 0.13)
@@ -86,6 +88,8 @@ def dimensions():
         "retention_tongue_width_mm": TONGUE_WIDTH,
         "nominal_interference_per_side_mm": (TONGUE_WIDTH - jig.SHANK_SLOT_D) / 2,
         "thread_clearance_mm": TONGUE_BOTTOM_Z - jig.DONOR_AXIS_Z - jig.DONOR_SHANK_OD / 2,
+        "tongue_canyon_engagement_mm": jig.THRUST_WALL_Z1 - TONGUE_BOTTOM_Z,
+        "full_width_canyon_engagement_mm": jig.THRUST_WALL_Z1 - TONGUE_BOTTOM_Z - LEAD_HEIGHT,
         "lower_cradle_clearance_mm": BODY_BOTTOM_Z - jig.DONOR_AXIS_Z,
         "rear_face_clearance_mm": TONGUE_X0 - jig.THRUST_WALL_X0,
         "tongue_entry_width_mm": TONGUE_WIDTH - 2 * LEAD_IN_PER_SIDE,
