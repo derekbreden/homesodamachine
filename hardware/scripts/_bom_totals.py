@@ -7,7 +7,7 @@ QUANTITY markers); this owns the COST rollups.
   * Each section's subtotal = sum of the last ($) cell of its data rows.
     Header rows, separators, and inline subtotal/total rows are skipped.
     §12's subsection tables all roll into §12. A "—" line cost counts as $0.
-  * Markers: BOM_SEC1..BOM_SEC14 (the Totals table; §7 also in its inline
+  * Markers: BOM_SEC1..BOM_SEC15 (the Totals table; §7 also in its inline
     total row), BOM_GRAND (grand total per unit).
   * --audit reads each row's arithmetic back. THE UNIT COLUMN IS A DISPLAY:
     it holds two decimals, and a row whose true per-unit price has more of
