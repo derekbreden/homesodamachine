@@ -9,10 +9,11 @@ The donor is supported on its metal base with its faucet lever attached,
 down and unpressed.
 
 The separate [TPU hand hold-down pad](donor-hold-down/README.md) fits the
-existing donor cradle and open shank canyon. Its flat face stands 2 mm above
-the reaction walls. Hand pressure supplies downward restraint; the pad's
-compression tongue retains its position. The pad is an unprinted fit
-candidate.
+donor's rounded transition and flat metal face below the attached lever.
+Its flat hand face stands 2 mm above the reaction walls, with a bridge to
+the compression tongue in the open shank canyon. Hand pressure supplies
+downward restraint; the tongue retains the pad's position. The pad is an
+unprinted fit candidate.
 
 Use the [illustrated assembly guide](../../../tube-insertion-guide/README.md)
 for the assembly sequence and the [print instructions](PRINTING.md) for

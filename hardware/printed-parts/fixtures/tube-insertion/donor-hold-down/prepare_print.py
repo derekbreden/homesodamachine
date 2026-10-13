@@ -24,7 +24,7 @@ writer = fixture_print.writer
 
 SETTINGS_SOURCE = (FIXTURE / "prints/2026-10-12-tpu-liners-close-z000-mark1"
                    / "2026-10-12-tube-insertion-liners-tpu85a-right06-z000-close-mark1.3mf")
-PROJECT = READY / "donor-hold-down-tpu85a-right06-z018-mark1.3mf"
+PROJECT = READY / "donor-hold-down-transition-tpu85a-right06-z018-mark1.3mf"
 SPEC = {
     "printer": "Mark1 (H2C)",
     "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
@@ -48,14 +48,14 @@ def main():
     writer.archive_write(profile, members)
     report = writer.refresh(
         profile, PROJECT,
-        parts=(("TPU donor hand pad", HERE / "donor-hold-down-print.stl", 0.0),),
-        offsets=((0.0, 0.0),), title="Touch-Flo TPU hand hold-down pad",
+        parts=(("TPU transition and flat-face hand pad", HERE / "donor-hold-down-print.stl", 0.0),),
+        offsets=((0.0, 0.0),), title="Touch-Flo TPU transition and flat-face hold-down pad",
         z_trim=SPEC["z_trim_mm"], plate_border=20.0)
     report.update(
         status="offline project preparation; no printer submission",
         printer_submission=False, intended_printer=SPEC["printer"],
         material="Black TPU 85A", nozzle_mapping=SPEC["nozzle_mapping"],
-        print_pose="Broad flat hand face down; concave donor channel upward",
+        print_pose="Broad flat hand face down; conforming transition and flat contact upward",
         z_trim_basis="Mark1 standard +0.18 mm; the liner job's +0.00 mm exception is local to that job",
         original_settings_source=str(SETTINGS_SOURCE.relative_to(ROOT)),
         original_settings_source_sha256=fixture_print.sha(SETTINGS_SOURCE),

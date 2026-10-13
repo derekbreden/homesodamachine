@@ -1,0 +1,75 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "donor-hold-down-tpu85a-right06-z018-mark1.3mf",
+  "project_sha256": "1ef1e9ff5cc3b89ccef8f840cca22de5081d089da3e0251d5a9b6422174ac40c",
+  "archive": "donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
+  "archive_sha256": "2ba9e491e2fdf403bf1e70743a141f9c3b06bb92fb422ec65b77d880ca06828a",
+  "gcode_sha256": "0610c2b932243eb1b7662d434c8f591c68c2441516bb0b9669642b09bf104f4b",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": "068172e31934ae209e1cf03f32005023d9b10a1a9c908e88a13afd8301c66b53"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        158.468891,
+        140.718891
+      ],
+      [
+        196.531109,
+        179.281109
+      ]
+    ],
+    "maximum_line_width_mm": 0.982218,
+    "bounds_padding_mm": 0.591109
+  },
+  "bead_margin_mm": [
+    133.468891,
+    140.718891,
+    133.468891,
+    140.718891
+  ],
+  "layers": 138,
+  "estimated_seconds": 5778.31005859375,
+  "estimated_filament_g": 12.784757614135742,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.18000000715255737,
+    "wall_loops": 2,
+    "sparse_infill_density": 100.0
+  },
+  "native_material_process": {
+    "filament_type": [
+      "TPU"
+    ],
+    "filament_settings_id": [
+      "Bambu TPU 85A @BBL H2C"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "layer_height": "0.18",
+    "initial_layer_print_height": "0.3",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "enable_support": "0",
+    "filament_nozzle_map": [
+      "1"
+    ]
+  }
+}
