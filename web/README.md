@@ -133,6 +133,8 @@ State sharing pattern is **one shared object** (`state.js`'s exported `state`). 
 
 Model views start with the material companion collapsed. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel restores the model; material records without geometry open directly as a full panel.
 
+Every selected component offers **Open component** or its canonical part model. Source lookup uses the material catalog before name aliases. Components without a standalone STEP use a `?component=` view of the owning model's named body or branch, preserving the STEP breadcrumb and browser Back/Forward behavior. The loader reads the owning file and filters its geometry; the view creates no second CAD file or material identity. Picks continue to name the owning geometry file. Cataloged assemblies include numbered records for their fitted tube runs, context geometry and tooling workpieces.
+
 The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](/tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
 
 ## Unit pages

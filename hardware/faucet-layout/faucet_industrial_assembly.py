@@ -40,8 +40,9 @@ def main():
     assembly = build_assembly()
     output = HERE / "faucet-industrial-assembly.step"
     export_assembly(assembly, str(output))
-    surfaces = flute_payload.surfaces((INDUSTRIAL, FAUCET / "faucet-shell", FAUCET / "umbilical-organizer"))
+    surfaces = flute_payload.surfaces((INDUSTRIAL, FAUCET / "faucet-shell", FAUCET / "umbilical-organizer", FAUCET / "lever-replica"))
     aliases = {
+        "lever": surfaces["lever"],
         "shell-base": surfaces["industrial-shell-base"],
         "shell-tip": surfaces["faucet-shell-tip"],
         "above-counter-plate": surfaces["industrial-above-counter-plate"],

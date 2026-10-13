@@ -1,10 +1,12 @@
 // Engineering identities and relationships. Files are representations of materials;
 // neither file names nor CAD solid counts allocate identities or quantities.
+import { stepLocation } from "./step-locations.js";
 export function materialIndex(catalog) {
   return new Map((catalog?.materials || []).map((material) => [material.id, material]));
 }
 
 export function materialForFile(catalog, file) {
+  file = stepLocation(file).file;
   return catalog?.materials?.find((m) => m.models?.some((model) => model.file === file && !model.context)) || null;
 }
 

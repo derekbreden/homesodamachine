@@ -1291,6 +1291,8 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/printed-parts/faucet/faucet_paths.py",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
@@ -1361,6 +1363,7 @@
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
       "hardware/printed-parts/faucet/industrial/industrial_display_cover.py",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
@@ -4988,8 +4991,6 @@
   },
   "hardware/printed-parts/faucet/lever-replica/lever_replica.py": {
     "reads": [
-      "hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step",
-      "hardware/printed-parts/faucet/lever-replica/lever-donor-reference.stl",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -5004,8 +5005,6 @@
     "rewritten": [],
     "writes": [
       "hardware/printed-parts/faucet/lever-replica/geometry-check.json",
-      "hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step",
-      "hardware/printed-parts/faucet/lever-replica/lever-donor-reference.step.mesh",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.stl"

@@ -1,9 +1,11 @@
-# Accepted faucet lever replica
+# Faucet lever · HSM-000268
 
 A scan-derived, editable lever with **flat lateral faces and a 9.00 mm cylinder
 channel**. Derek confirmed the completed white PET-GF Mark2 print on 2026-09-20:
 "The lever you printed turned out great, fits and works functionally."
 The primary STEP, STL, viewer payload and preview represent this accepted shape.
+[HSM-000268 in the material explorer](https://homesodamachine.com/3d#material:HSM-000268)
+links the part to both faucet BOMs, its model and installation documents.
 The [physical acceptance record](physical-acceptance.json) binds the observation
 to the exact printed mesh and uniquely named job. Quantitative strength and
 endurance have not been measured.
@@ -11,7 +13,7 @@ endurance have not been measured.
 The printed lever replaces the donor Westbrass's own lever in the build and is printed in
 the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits it.
 
-![Comparison lever](lever-replica-preview.png)
+![Faucet lever](lever-replica-preview.png)
 
 ## Files
 
@@ -21,8 +23,6 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 | [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
-| [lever-donor-reference.step](lever-donor-reference.step) | Drafted donor reconstruction for scan comparison |
-| [lever-donor-reference.stl](lever-donor-reference.stl) | Donor comparison mesh in the local part frame |
 | [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
 | [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
 | [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
@@ -55,30 +55,9 @@ before `PRINTED_STOP_PROFILE` forms the cylinder pocket. It is one closed solid.
 Its side-down print mesh is SHA-256
 `7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb`.
 
-The separate donor reconstruction records the observed drafted shape:
-
-| Feature | Observation | Donor-reference construction |
-|---|---|---|
-| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.94 × 14.66 mm mesh bounds |
-| Paddle floor thickness | Approximately 2.75–2.95 mm | Measured outer profile over the inner Z=0 plane |
-| Outside width | Drafted: 12.77 mm at Z=0, 12.64 mm at the cylinder's seat, 12.55 mm at the ledge | `OUTER_HALF_AT_Z0` and `OUTER_DRAFT`, 1.11° per side |
-| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side |
-| Side wall | 1.95 mm at Z=0, 1.99 mm at the ledge | A consequence of the two drafts, not an imposed figure |
-| Channel convergence | Straight to Y≈40, then in to 8.06 mm by Y=44.75; reaches the cylinder's 8.5 mm span at Y=42.3 | Measured `CHANNEL_CONVERGENCE` offsets |
-| Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_TAIL` |
-| Lower central slot | Narrower than the upper pocket; widens with Z | 2.9–4.4 mm across the loft stations |
-| Ledge's forward lip | Observed curved surface near Y=37–40.5 mm | Three-point arc |
-| Ledge's rear upper face | Occluded behind the forward lip | Inferred `LEDGE_TOP = -5.55` mm |
-| Transverse metal cylinder | Partial coated surface, robust fit Ø≈4.59 mm | Evidence datum only; no fixed hinge introduced |
-
-Bilateral symmetry, sharp side-perimeter edges and the transitions between
-measured relief sections are deliberate simplifications. Both drafts are read
-from the scan's pooled left and right surfaces over the straight run and are
-applied symmetrically; the left and right draft angles differ by about half a
-degree in the scan, which is not reproduced. The channel's convergence is read
-at the cylinder's seat height and applied at every height, though the scan shows
-it is stronger low in the channel than high. `LEDGE_TOP`, the stop tail and the
-relief stations remain exposed for fit adjustments.
+The source retains the measured show profile, ledge lip and relief sections.
+Bilateral symmetry and unobserved ledge surfaces remain construction assumptions.
+The exposed fit parameters describe the canonical printed body.
 
 The cylinder fit accepts 6,099 of 7,151 candidate points after residual trimming;
 its accepted radial residual is about 0.14 mm at the 95th percentile. It does not
@@ -87,20 +66,15 @@ at an inspection-plane station, **not a measured lateral midpoint**. The central
 protrusion is not represented by that cylinder primitive; retain the complete
 Touch-Flo cloud when checking clearance.
 
-## Donor-reference agreement with the scans
+## Observed points and current model
 
-The selected critical patches have a median point-to-CAD distance of 0.076 mm,
-95th percentile 0.211 mm and maximum 0.787 mm. 97.6% of their nearest CAD normals
-agree within the dot-product threshold 0.7. A deterministic 24,000-point sample
-of the complete observed lever has a median distance of 0.070 mm and 95th
-percentile 0.357 mm. These are one-sided surface distances: they cannot validate
-the inferred ledge surface or other geometry absent from the scan.
+[scan-fit.json](scan-fit.json) reports one-sided distances from the retained
+observed points to the canonical printed mesh. Flat lateral faces and the 9 mm
+channel are intentional print and fit geometry. Scan distances do not qualify
+unobserved surfaces, operating forces or endurance; the identified print's fit
+and operation are established by [physical-acceptance.json](physical-acceptance.json).
 
-These readings concern `lever-donor-reference.stl`. Physical acceptance concerns
-the separately identified printed lever, whose flat faces and wider channel are
-intentional fit geometry.
-
-![Observed points and donor-reference sections](scan-comparison.png)
+![Observed donor points and current printed-lever sections](scan-comparison.png)
 
 The selected patches were independently captured twice: their aligned nearest
 point distances have 95th percentiles 0.097 and 0.094 mm. This is repeat consistency,
@@ -136,14 +110,11 @@ reported sleeve order, sliding behavior and shell-guided lever motion. The
 [tube insertion tools](../../fixtures/tube-insertion/README.md) follow this
 sequence.
 
-The physical print fits and operates. The two separately scanned parts do **not** establish an assembled rigid pose,
-the tube-contact location, plunger stroke or force. `assembled_lever_transform`
-is explicitly null. The production model's nominal pivot and 18° animation are
-not measurement datums for this replica. Inserting the production nominal pose
-would conceal this uncertainty. The full faucet assembly still uses its
-dimensioned lever stand-in; it does not yet place this accepted local solid.
-A measured installed rest/pressed pose is needed to integrate that assembly
-without inventing a pivot or cylinder height.
+The Sculpted and Industrial assembly views place this same solid at the existing
+nominal rest datum, with its aft edge at Y=9 mm and its top at Z=52 mm. This is
+an authored display placement. The assembled rigid pose, tube-contact location,
+plunger stroke and force have not been measured. The physical acceptance record
+applies to the printed lever's fit and operation, independently of that placement.
 
 ## PET-GF comparison print
 
@@ -171,8 +142,7 @@ hashes and slice are recorded in [the print report](lever-replica-petgf.print.js
 [support audit](lever-replica-petgf.support-audit.json) and
 [print job record](print-jobs.json).
 
-A caliper across the donor reference reads a different width at every height.
-The printable comparison has parallel sides: 12.40 mm outside, a 9.00 mm
+The printed lever has parallel sides: 12.40 mm outside, a 9.00 mm
 channel and 1.70 mm walls along the straight portion.
 
 ## Accepted model and print
@@ -187,8 +157,7 @@ follows `PRINTED_STOP_PROFILE` into the cylinder pocket. This complete geometry
 has Derek's physical confirmation: the cylinder seats fully, the rod passes
 through the bottom slot, and the arms lift the cylinder during operation.
 The primary STEP, STL, viewer payload and preview carry the same accepted body
-in the local part frame. `lever-donor-reference` retains the drafted scan
-reconstruction. Generators read `physical-acceptance.json`; they preserve its
+in the local part frame. Both faucet assemblies use this same part. Generators read `physical-acceptance.json`; they preserve its
 observation and report acceptance only when the printed mesh hash matches it.
 
 The uniquely named white archive and its project preserve the accepted

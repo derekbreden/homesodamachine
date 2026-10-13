@@ -24,6 +24,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
+import { componentLocation } from "/contracts/step-locations.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
@@ -288,14 +289,15 @@ function buildPanel() {
   const actions = document.createElement("div");
   actions.className = "component-actions";
 
-  // Where this component was modelled, when it was modelled anywhere but here.
+  // Open its canonical part model, or the selected geometry in its owning assembly.
   const openBtn = document.createElement("button");
   openBtn.type = "button";
   openBtn.className = "edge-panel-all component-open";
   openBtn.textContent = "Open part";
   openBtn.addEventListener("click", () => {
-    const file = selection && sourceFileFor(selection, state.allFiles, mountedFile());
-    if (file && file !== mountedFile()) drillToComponent(file, selection);
+    if (!selection) return;
+    const file = sourceFileFor(selection, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish });
+    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), selection), selection);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
@@ -390,20 +392,16 @@ function showPanel() {
   panel._hideBtn.textContent = already ? "Already hidden"
     : inside.length ? `Hide ${leafOf(selection)} (${inside.length})` : "Hide component";
 
-  // The assembly builds its own tubing and valve bodies, so they have no source
-  // STEP to open. The offer is only on screen when the selected component has a
-  // different source model (contracts/component-sources.js). The file already
-  // on screen is nowhere too: an assembly's own root name resolves to itself.
-  const source = selection ? sourceFileFor(selection, state.allFiles, mountedFile()) : null;
+  const source = selection ? sourceFileFor(selection, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
   const goes = source && source !== mountedFile() ? source : null;
-  panel._openBtn.style.display = goes ? "block" : "none";
+  panel._openBtn.style.display = selection ? "block" : "none";
   // THE BUTTON NAMES ITS DESTINATION WHEN THAT IS NEWS. `foam-assembly` opens
   // the cold core and `pump-a-motor` opens the Kamoer, and a drill worth taking
   // is one you can see the end of first; a part that opens its own file is
   // already named in the row above.
   panel._openBtn.textContent = goes && stemOf(goes) !== selection
-    ? `Open ${stemOf(goes)}` : "Open part";
-  panel._openBtn.title = goes ? `Open ${goes}` : "";
+    ? `Open ${stemOf(goes)}` : "Open component";
+  panel._openBtn.title = goes ? `Open ${goes}` : "Open this component from the assembly";
 
   // The destination is named beside the selected component.
   const related = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
