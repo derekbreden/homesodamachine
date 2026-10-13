@@ -1,14 +1,14 @@
 {
   "project_title": "Industrial faucet PET-GF",
-  "status": "Current per-part recipe prepared; Mark2 snapshot natively reviewed and accepted",
+  "status": "complete current project prepared with selected finish; native review pending",
   "preparation_only": true,
   "launch_authorized": false,
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "ecc428cc942d77e5dcb3b1c98755514661e5de97febbdddf9b796ec7d879408f",
+  "project_sha256": "0f60dc915fb659d2252446fb4b5ec0361ca1aac8a96a791865f291272973d11f",
   "settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
-  "print_report_sha256": "4c4630441eb543aceb8045c930bf4da8d12fdfb67ce107623585516f9c574368",
+  "print_report_sha256": "24a59d8334869cbb605708e32023109298a65b16da5997300cfc079158af7da0",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
@@ -26,11 +26,7 @@
     "minimum_required_model_bed_margin_mm": 40.0
   },
   "offline_slice": {
-    "completed": true,
-    "review": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/native-review.json",
-    "snapshot_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.3mf",
-    "snapshot_project_sha256": "3653a7feb46d26c3ed97ff5e75282e6c57c3b7049f4daf739b0a4b40bfb4f3e7",
-    "scope": "Mark2 snapshot uses the canonical object settings, geometry and layer bands with Mark2 trim and spool colour."
+    "completed": false
   },
   "printer_submission": {
     "performed_by_this_tool": false
@@ -50,6 +46,5 @@
     "hardware/printed-parts/faucet/faucet-petgf.print.json": "29264f9bdf646135e563daef0555974bae027c1eb7bb1983723e67049a54ae96",
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
     "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "b66c9baa212ff5978b68071bc84f819d0698b9f3d5f0a345e2418bc317732632"
-  },
-  "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json"
+  }
 }

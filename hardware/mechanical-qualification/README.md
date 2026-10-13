@@ -56,7 +56,9 @@ Fine-layer lifting on supported base surfaces and the visible seam remain
 recorded finish observations. Cover seating force and physical fault discharge are unmeasured.
 The [current centered Industrial print](../printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/README.md)
 uses Back with A2 on the base, tip and mounting plate, default corner seams on
-the cover and lever, and E eight coarse lip layers before 0.12 mm. Its native
+the cover and lever, and E eight coarse lip layers before 0.12 mm. The saved
+[rear-center placement correction](../printed-parts/faucet/industrial/seam-placement/rear-center-v1/README.md)
+has native evidence and awaits physical confirmation. Its native
 record binds the five rigid meshes, poses, layer bands and selected settings.
 Derek accepts the identified print as the best faucet so far, with everything
 checking out well apart from the base rear seam wobble. Its record and tag

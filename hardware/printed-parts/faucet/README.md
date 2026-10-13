@@ -65,10 +65,11 @@ The organizer is a separate PET-GF print, fitted during
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
 identifies the tested physical article. The current complete Industrial
 project uses the [selected printing recipe](industrial/finish-selection.json):
-Back with A2 on the base, tip and mounting plate, default Aligned/15%/scarf-off
+Back with A2 on the base, tip and mounting plate, a rear-center seam enforcer
+on the base neck, default Aligned/15%/scarf-off
 seams on the cover and lever, and E eight coarse lip layers before the 0.12 mm band.
 The [current complete print](industrial/prints/2026-10-13-a2-back-mark2/README.md)
-binds the native settings and launch. Complete-print finish and centered-mounting fit remain unassessed. The
+binds the native settings and launch. The [identified complete print](industrial/prints/2026-10-13-a2-back-mark2/physical-result.json) has reported overall acceptance with a rear seam wobble; the corrected placement awaits a physical print. The
 [retained sealed-cavity reviews](vent-print-readiness/README.md) apply to
 their exact archived geometry.
 

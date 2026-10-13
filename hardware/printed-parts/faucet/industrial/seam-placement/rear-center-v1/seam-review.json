@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "method": "Largest projected-area emitted outer-wall run at each layer, converted with the unchanged base build transform to assembly CAD coordinates. Start locations identify the start of the scarf ramp. End locations are retained in the CSV; they are not the same point for a long scarf.",
+  "cad_z_scope_mm": [
+    80,
+    237
+  ],
+  "samples": {
+    "older": {
+      "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
+      "archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
+      "gcode_sha256": "317f3ceeedf45fa70ca04de8e8c7fadb3ed8de6982ab4ab7b9bf9820f5d84239",
+      "measured_contours": 695,
+      "maximum_lateral_start_offset_mm": 2.894999999999996,
+      "maximum_offset_witness": {
+        "print_z_mm": 161.72,
+        "gcode_line": 1827275,
+        "start_plate_mm": [
+          85.395,
+          207.217,
+          161.504
+        ],
+        "start_cad_mm": [
+          2.894999999999996,
+          24.98179131409239,
+          165.9905938723258
+        ],
+        "end_cad_mm": [
+          -6.590000000000003,
+          23.536885062146553,
+          165.82705206394684
+        ],
+        "scarf_z_range_mm": 0.21600000000000819
+      }
+    },
+    "printed": {
+      "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "cafbe85ec25f30ddec486fd4995ffbe78191f7345b23f019d8a47ffd3ab8a78f",
+      "gcode_sha256": "6abf0a083cacd5b6eaeed8cbad76cce8bca25c21cd23ff70a5294d4011be8194",
+      "measured_contours": 695,
+      "maximum_lateral_start_offset_mm": 12.278000000000006,
+      "maximum_offset_witness": {
+        "print_z_mm": 163.16,
+        "gcode_line": 1723874,
+        "start_plate_mm": [
+          94.778,
+          199.421,
+          162.944
+        ],
+        "start_cad_mm": [
+          12.278000000000006,
+          17.07873414739517,
+          165.36377378656283
+        ],
+        "end_cad_mm": [
+          1.7780000000000058,
+          -0.7183304177982865,
+          160.81868436364329
+        ],
+        "scarf_z_range_mm": 0.21600000000000819
+      }
+    },
+    "corrected": {
+      "archive": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "9bd8c5376778294b64191b40d833a6415cc7ead1dbce49d9f916b2f71a758df5",
+      "gcode_sha256": "868589fbd10713a9962ab9ef5ec7e99d2ae48c028a9f2ebe2a49040bf23b6087",
+      "measured_contours": 695,
+      "maximum_lateral_start_offset_mm": 0.45000000000000284,
+      "maximum_offset_witness": {
+        "print_z_mm": 191.24,
+        "gcode_line": 1805278,
+        "start_plate_mm": [
+          82.95,
+          206.093,
+          191.024
+        ],
+        "start_cad_mm": [
+          0.45000000000000284,
+          16.255752473917045,
+          194.2138116576839
+        ],
+        "end_cad_mm": [
+          12.480999999999995,
+          -1.5374483879712635,
+          189.66975751094475
+        ],
+        "scarf_z_range_mm": 0.21600000000000819
+      }
+    }
+  },
+  "reference_task_id": "1329852853",
+  "printed_task_id": "1335906696",
+  "candidate_submitted": false
+}

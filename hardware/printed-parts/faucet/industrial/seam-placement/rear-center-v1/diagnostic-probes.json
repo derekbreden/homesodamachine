@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "scope": "Diagnostic native slices, never submitted. Neither probe changes the working recipe.",
+  "probes": {
+    "short_scarf": {
+      "baseline_task": "1335906696",
+      "settings_delta": {
+        "base.seam_slope_min_length": "10"
+      },
+      "project_sha256": "19ddc216be8a964846c89bb7c86e00b4a4f2221c2625bcea31b1609f7b0ed422",
+      "archive_sha256": "a9a1a0113dbd96e9ea69c3bc7699688b12ee047366fa1858a9149b750e6bd8a5",
+      "gcode_sha256": "df2a2ebac8559558b8e4512171f2b89a9d58b3c0b77fbd421c528a02653f776d",
+      "maximum_lateral_start_offset_mm_print_z90_to240": 12.278000000000006,
+      "maximum_offset_witness": {
+        "layer": 163.16,
+        "start": [
+          94.778,
+          199.421,
+          162.944
+        ],
+        "end": [
+          88.575,
+          206.218,
+          163.16
+        ],
+        "line": 1620729,
+        "ramp": 0.21600000000000819
+      },
+      "submitted": false
+    },
+    "old_foot_walls": {
+      "baseline_task": "1335906696",
+      "settings_delta": {
+        "base.foot_modifier.wall_loops": "6"
+      },
+      "project_sha256": "d0a9e1962a0204d727ae33069fd667c0a19a32210060091e67e840b890b683eb",
+      "archive_sha256": "78f1b9197c75fedfc83508c59eb871fdb7bb3447b954457963ca5bc02e312823",
+      "gcode_sha256": "26f95c51c666aa292174433175d4a883d71c8fc9ff63fecaba0ee8b3e934b547",
+      "maximum_lateral_start_offset_mm_print_z90_to240": 2.972999999999999,
+      "maximum_offset_witness": {
+        "layer": 161.72,
+        "start": [
+          85.473,
+          207.199,
+          161.504
+        ],
+        "line": 1901640
+      },
+      "submitted": false
+    }
+  },
+  "finding": "Scarf length 10 reproduces the identical 12.278 mm start-position swerve. Restoring only six wall loops on the foot modifier reduces it to 2.973 mm. The infill-only foot is retained in production; a rear seam enforcer corrects placement.",
+  "bambu_source": {
+    "version": "v02.08.02.61",
+    "alignment": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode/SeamPlacer.cpp#L1185-L1283",
+    "scarf_construction": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode.cpp#L6189-L6295"
+  },
+  "mechanism_scope": "The controlled foot-wall override establishes which preparation change alters the native seam path. Bambu selects and curve-fits seams across layers; the precise internal anchor sequence was not instrumented."
+}
