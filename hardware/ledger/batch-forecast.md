@@ -38,11 +38,11 @@ Already-ordered quantities are separate from on hand and are deducted to prevent
 |---|---:|---:|---|
 | Kamoer KPHM600-SW3B17 pump | 2 | 5 | Ordered October 11 (Amazon 114-5708094-2581869); $212.45 charged October 12; arriving October 13. |
 | Beduan 12 V solenoid valve | 14 | 10 | Ordered October 11 (Amazon 114-5870152-3334654); $96.40 charged October 12; arriving October 13. |
-| ASA Aero White 46100 | 0.96 kg | 2 kg | Ordered October 8 (Bambu us784775952755326977); in transit. Its $107.23 is reserved until a charge is confirmed. |
+| ASA Aero White 46100 | 0.96 kg | 2 kg | Ordered and paid October 8 (Bambu us784775952755326977, $107.23); shipped October 9, in transit. |
 
 Delivered orders are counted on hand: three WR1105 regulators (October 7), thirty PI450822S adapters (October 5), the Taprite 3741 (October 7), ten Clear PETG refills (October 8), the six delayed pogo pairs (October 9), the M1.4 inserts (October 6) and screws (October 7), and the FWS drain-line parts (October 9).
 
-All three alternatives include a **$321.82 possible-payment reserve** for the ten Clear PETG refills ($120.05), the two ASA Aero spools ($107.23) and the PI450822S order ($94.54). Merchant payment confirmation is absent for these orders: the Bambu account requires a sign-in, and the PI450822S order page's link has expired. Confirmed charges for the WR1105, Taprite 3741, pogo, M1.4, PET-GF15 Black, Kamoer, Beduan and FWS drain-line orders are excluded. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
+All three alternatives include a **$94.54 possible-payment reserve** for the PI450822S order: its account order page link has expired and Gmail holds no payment record. Confirmed charges for the WR1105, Taprite 3741, pogo, M1.4, PET-GF15 Black, Clear PETG, ASA Aero, Kamoer, Beduan and FWS drain-line orders are excluded. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
 
 Delivery is required before assembly. A delayed order is not physically available stock, and an acquired status alone does not prove payment.
 

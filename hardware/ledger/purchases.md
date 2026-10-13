@@ -816,9 +816,9 @@ Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$8,200.34](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$8,427.62](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$8,200.34](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$8,427.62](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
