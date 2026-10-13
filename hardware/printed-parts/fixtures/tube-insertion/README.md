@@ -8,12 +8,12 @@ supply the axial force and reaction.
 The donor is supported on its metal base with its faucet lever attached,
 down and unpressed.
 
-The separate [TPU hand hold-down pad](donor-hold-down/README.md) fits the
-donor's rounded transition and flat metal face below the attached lever.
-Its flat hand face stands 2 mm above the reaction walls, with a bridge to
-the compression tongue in the open shank canyon. Hand pressure supplies
-downward restraint; the tongue retains the pad's position. The pad is an
-unprinted fit candidate.
+The separate [TPU hand hold-down cover](donor-hold-down/README.md) is an
+inverse of the donor's upper half below the attached lever. It wraps around
+the cylindrical portion, rounded transition and flat-sided column. Its
+flat hand face stands 2 mm above the reaction walls. Hand pressure supplies
+downward restraint; the compression tongue in the open shank canyon
+retains the cover's position. The cover is an unprinted fit candidate.
 
 Use the [illustrated assembly guide](../../../tube-insertion-guide/README.md)
 for the assembly sequence and the [print instructions](PRINTING.md) for
