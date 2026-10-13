@@ -27,7 +27,10 @@ The [Mark1 jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
 records task 1335878319 with software completion at 63/63 layers. The
 [Mark1 insert launch](prints/2026-10-13-centered-liners-mark1/README.md)
 records accepted task 1336534713 and preserves its exact slice. The Mark2
-jaw plate has no printer submission. Printed fit and grip remain pending.
+jaw plate has no printer submission. The
+[physical acceptance record](physical-acceptance.json) identifies successful
+insertion with the Mark1 jaws and inserts: the handle starts insertion well,
+and the full fixture makes the final press very easy.
 
 | Plate | Estimated time | Estimated filament | Layers | Minimum full-bead margin |
 | --- | ---: | ---: | ---: | ---: |
@@ -64,9 +67,11 @@ recipe; the separately prepared restart experiment has no grip qualification.
 
 The [physical failure record](prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 identifies grip failure at rigid closure and the 8.5 mm CAD screw offset
-for that trial. The [centred candidate review](centered-grip-review.json)
-establishes alignment and the added 2 mm total closure reserve. Physical
-grip acceptance for these replacement parts is pending.
+for that trial. The [centred grip review](centered-grip-review.json)
+establishes alignment and the added 2 mm total closure reserve. The
+[physical acceptance](physical-acceptance.json) records functional grip and
+successful insertion with these identified replacement parts. Numerical
+forces and endurance are unmeasured.
 
 ## Manual preparation
 

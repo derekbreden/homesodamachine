@@ -87,6 +87,7 @@ def main():
     report = {
         "schema": 2,
         "scope": "Manual dimensional and B-rep fit review of twin screw-clamp fixture; schematic factory envelopes are not measured manufacturer CAD",
+        "physical_acceptance_record": "physical-acceptance.json",
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "reference_source_sha256": {str(p.relative_to(jig.REPO)): hashlib.sha256(p.read_bytes()).hexdigest()
                                     for p in (jig.DONOR_SOURCE, jig.SLEEVE_SOURCE)},
@@ -146,7 +147,7 @@ def main():
             "lever_check": "Attached faucet lever stays down at unpressed rest, untouched through the full ordinary unloaded movement; no measured rigid pose is inferred",
         },
         "evidence_limits": [
-            "Insertion force, as-printed strength, grip, sliding fit and lifetime are unmeasured",
+            "Insertion force, as-printed strength, grip force, quantitative sliding clearance and lifetime are unmeasured; functional operation evidence is recorded separately in physical-acceptance.json.",
             "PET-GF15 manufacturer mechanical coupons were annealed120C16h; no published number is an as-printed allowable",
             "Manufacturer600lb clamp force does not rate the printed fixture, donor, tube or grip",
             "No assembled faucet lever pose is invented; a low narrow forward shelf and rearward full-width guides preserve front access",
