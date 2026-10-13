@@ -838,8 +838,7 @@
 }
 .component-held-step:hover { border-color: var(--accent); color: var(--accent); }
 .component-held-sep { flex: 0 0 auto; opacity: 0.45; padding: 0 1px; }
-.component-held-here { flex: 0 1 auto; min-width: 0; overflow: hidden;
-                       white-space: nowrap; text-overflow: ellipsis; }
+.component-held-here { flex: 0 1 auto; min-width: 0; white-space: normal; }
 /* How many bodies stand inside the selected one. Nothing else in the row is a
    count, so it reads as one without a word for it. */
 .component-held-count {
@@ -857,6 +856,27 @@
   align-items: center;
   gap: 2px;
   overflow: hidden;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+.component-identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+}
+.component-identity:empty { display: none; }
+.component-material-number {
+  color: var(--text-2);
+  font: 0.72rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.component-body-name {
+  display: block;
+  color: var(--text-2);
+  font-size: 0.75rem;
+  font-weight: normal;
+  overflow-wrap: anywhere;
 }
 
 /* WHAT THE SELECTED NODE HOLDS. A sub-assembly is a thing you open, and this is
@@ -886,15 +906,16 @@
   flex: 0 0 auto;
   max-width: 100%;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: normal;
   padding: 2px 7px;
   background: rgba(23, 73, 209, 0.45);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  text-align: left;
   cursor: pointer;
 }
 .component-holds-row:hover { border-color: var(--accent); color: var(--accent); }
@@ -926,10 +947,10 @@
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
+  white-space: normal;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.25;
 }
 .component-show,
 .component-show-all {

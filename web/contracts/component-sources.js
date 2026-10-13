@@ -29,7 +29,7 @@
 
 import { leafOf } from "./body-path.js";
 import { faucetSourceFile } from "./faucet-options.js";
-import { materialForFile, occurrenceForBody, materialIndex, matchesBody } from "./materials.js";
+import { materialForComponent } from "./materials.js";
 import { stepLocation } from "./step-locations.js";
 
 export const ALIASES = {
@@ -161,10 +161,7 @@ function stem(path) {
 export function sourceFileFor(name, stepPaths, owner = null, catalog = null, options = {}) {
   if (!name || !Array.isArray(stepPaths)) return null;
   owner = stepLocation(owner).file;
-  const parent = materialForFile(catalog, owner);
-  const row = parent && occurrenceForBody(catalog, parent.id, name, options);
-  const related = parent?.relations?.find(r => r.bodies?.some(body => matchesBody(name, body)));
-  const material = row?.material || materialIndex(catalog).get(related?.material);
+  const material = materialForComponent(catalog, owner, name, options);
   const representation = material?.models?.find(model => !model.context && (!model.type || model.type === "step") && stepPaths.includes(model.file));
   if (representation) return representation.file;
   for (const key of [name, leafOf(name)]) {

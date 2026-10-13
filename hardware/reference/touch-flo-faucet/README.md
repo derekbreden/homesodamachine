@@ -1,4 +1,4 @@
-# Touch-Flo Faucet Teardown + Fabrication Plan
+# Faucet valve harvest and tube routing
 
 The dispense point of this appliance is a custom three-tube gooseneck (1× carbonated water + 2× flavor) with a factory-grade self-closing spring-piston lever valve harvested from a Touch-Flo–class cold water dispenser faucet. Mixing occurs in the user's glass, not before — see [`/hardware/README.md`](/hardware/README.md). This directory captures the harvest donor, the class of mechanism being harvested, and the fabrication plan for the gooseneck.
 
@@ -17,11 +17,11 @@ The Touch-Flo faucet's self-closing spring-return poppet valve gives consumer-ap
 ## What gets kept, what gets discarded
 
 **Kept (harvested):**
-- Lever
-- The Westbrass itself (see the westbrass-reference folder)
+- The Westbrass valve assembly (see the westbrass-reference folder)
 - Donor countertop-mount washer and nut
 
 **Discarded:**
+- Factory lever — the [printed faucet lever](../../printed-parts/faucet/lever-replica/README.md), HSM-000268, operates the valve
 - Donor deck plate — the printed above-counter plate takes its place
 
 ## Three-tube gooseneck

@@ -25,6 +25,7 @@ import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { componentLocation } from "/contracts/step-locations.js";
+import { materialForComponent, materialForView } from "/contracts/materials.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
@@ -47,6 +48,10 @@ let hoverName = null;   // hovered component name, or null
 const mountedFile = () =>
   (state.mountedDetail && state.mountedDetail.type === "step" ? state.mountedDetail.file : null);
 const stemOf = (file) => file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+const namingOptions = () => ({ finish: state.faucetFinish });
+const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), name, namingOptions());
+const componentName = (name) => materialOf(name)?.description || leafOf(name);
+const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stemOf(file);
 
 // --- hidden-set persistence (per open file, view-only) ---
 function hiddenKey(file) { return `step-hidden:${file}`; }
@@ -286,6 +291,11 @@ function buildPanel() {
   panel._nameEl = nameEl;
   panel._close = close;
 
+  const identity = document.createElement("div");
+  identity.className = "component-identity";
+  panel.appendChild(identity);
+  panel._identity = identity;
+
   const actions = document.createElement("div");
   actions.className = "component-actions";
 
@@ -353,10 +363,7 @@ function showPanel() {
   if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
     state.currentCadWrapper.appendChild(panel);
   }
-  // THE NAME IS A PATH AND THE ROW IS THAT PATH, WALKABLE. `cold-core / evap-coil` reads as
-  // the coil inside the core; the `cold-core` step takes the whole sub-assembly, which lights
-  // up together and hides together. A body at the top of the machine has one step and reads
-  // exactly as it always did.
+  // Material descriptions name the walkable path; CAD keys identify the selected geometry.
   panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
   const inside = membersOf(selection || "");
@@ -365,7 +372,7 @@ function showPanel() {
       const step = document.createElement("button");
       step.type = "button";
       step.className = "component-held-step";
-      step.textContent = leafOf(held);
+      step.textContent = componentName(held);
       step.title = `Take the whole of ${held}`;
       step.addEventListener("click", () => selectComponent(held));
       panel._nameEl.appendChild(step);
@@ -376,7 +383,7 @@ function showPanel() {
     });
     const here = document.createElement("span");
     here.className = "component-held-here";
-    here.textContent = leafOf(selection);
+    here.textContent = componentName(selection);
     panel._nameEl.appendChild(here);
     if (inside.length) {
       const count = document.createElement("span");
@@ -385,28 +392,40 @@ function showPanel() {
       panel._nameEl.appendChild(count);
     }
   }
+  panel._identity.replaceChildren();
+  if (selection) {
+    const material = materialOf(selection);
+    if (material) {
+      const number = document.createElement("span");
+      number.className = "component-material-number";
+      number.textContent = material.id;
+      panel._identity.appendChild(number);
+    }
+    const body = document.createElement("span");
+    body.className = "component-body-name";
+    body.textContent = `CAD body: ${selection}`;
+    panel._identity.appendChild(body);
+  }
   panel._close.style.display = selection ? "" : "none";
   const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection ? "block" : "none";
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Already hidden"
-    : inside.length ? `Hide ${leafOf(selection)} (${inside.length})` : "Hide component";
+    : inside.length ? `Hide ${componentName(selection)} (${inside.length})` : "Hide component";
 
   const source = selection ? sourceFileFor(selection, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish }) : null;
   const goes = source && source !== mountedFile() ? source : null;
   panel._openBtn.style.display = selection ? "block" : "none";
-  // THE BUTTON NAMES ITS DESTINATION WHEN THAT IS NEWS. `foam-assembly` opens
-  // the cold core and `pump-a-motor` opens the Kamoer, and a drill worth taking
-  // is one you can see the end of first; a part that opens its own file is
-  // already named in the row above.
-  panel._openBtn.textContent = goes && stemOf(goes) !== selection
-    ? `Open ${stemOf(goes)}` : "Open component";
+  const destination = goes && materialForView(state.materialCatalog, goes, namingOptions());
+  const selectedMaterial = selection && materialOf(selection);
+  panel._openBtn.textContent = goes && destination?.id !== selectedMaterial?.id
+    ? `Open ${modelName(goes)}` : "Open component";
   panel._openBtn.title = goes ? `Open ${goes}` : "Open this component from the assembly";
 
   // The destination is named beside the selected component.
   const related = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
   panel._relatedBtn.style.display = related ? "block" : "none";
-  panel._relatedBtn.textContent = related ? `Open ${stemOf(related.file)}` : "";
+  panel._relatedBtn.textContent = related ? `Open ${modelName(related.file)}` : "";
   panel._relatedBtn.title = related ? `Open ${related.file}` : "";
 
   // WHAT STANDS INSIDE IT. Picking the core in the appliance is picking one thing; this is
@@ -417,13 +436,17 @@ function showPanel() {
   if (inside.length) {
     const head = document.createElement("div");
     head.className = "component-holds-head";
-    head.textContent = `${leafOf(selection)} holds ${inside.length}`;
+    head.textContent = `${componentName(selection)} holds ${inside.length}`;
     holds.appendChild(head);
     for (const name of inside) {
       const row = document.createElement("button");
       row.type = "button";
       row.className = "component-holds-row";
-      row.textContent = leafOf(name);
+      row.textContent = componentName(name);
+      const body = document.createElement("span");
+      body.className = "component-body-name";
+      body.textContent = leafOf(name);
+      row.appendChild(body);
       row.title = name;
       row.addEventListener("click", () => selectComponent(name));
       holds.appendChild(row);
@@ -457,7 +480,11 @@ function showPanel() {
       row.className = "component-hidden-row";
       const n = document.createElement("span");
       n.className = "component-hidden-name";
-      n.textContent = name;
+      n.textContent = componentName(name);
+      const body = document.createElement("span");
+      body.className = "component-body-name";
+      body.textContent = name;
+      n.appendChild(body);
       n.title = name;
       const show = document.createElement("button");
       show.type = "button";

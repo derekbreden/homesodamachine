@@ -1,4 +1,4 @@
-# Foam shell
+# Cold-core insulation shell
 
 3D-printed PET-GF enclosure for the soda machine's "cold core" — the
 back-of-enclosure subsystem that holds the carbonator, the

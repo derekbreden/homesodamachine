@@ -135,3 +135,26 @@ export function occurrenceForBody(catalog, root, name, options = {}) {
   return explodeBom(catalog, root, options).filter((row) =>
     occurrenceBodies(catalog, row.path, [name], options).length).sort((a, b) => b.depth - a.depth)[0] || null;
 }
+
+// A CAD body is an occurrence of a material. Its key still identifies the
+// geometry; its description comes from the same record as search and the BOM.
+export function materialForComponent(catalog, file, name, options = {}) {
+  const parent = materialForFile(catalog, file);
+  if (!parent || !name) return null;
+  const rows = explodeBom(catalog, parent.id, options);
+  const occurrence = occurrenceForBody(catalog, parent.id, name, options);
+  if (occurrence) return occurrence.material;
+  const branch = rows.find((row) => row.item.prefix &&
+    row.path.map((item) => item.prefix || "").join("").replace(/\/$/, "") === name);
+  if (branch) return branch.material;
+  const relation = parent.relations?.find((item) =>
+    item.bodies?.some((body) => matchesBody(name, body)));
+  if (relation) return materialIndex(catalog).get(relation.material) || null;
+  return rows.length ? null : parent;
+}
+
+export function materialForView(catalog, file, options = {}) {
+  const location = stepLocation(file);
+  return location.component ? materialForComponent(catalog, location.file, location.component, options)
+    : materialForFile(catalog, location.file);
+}

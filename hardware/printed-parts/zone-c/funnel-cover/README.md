@@ -1,4 +1,4 @@
-# Funnel cover
+# Flavor-fill funnel cover
 
 The black PETG cover closes the silicone funnel between fills. Its solid plate
 sits on the brim, adding [3 mm](PLATE) above the roof. A [6 mm](SKIRT) locating

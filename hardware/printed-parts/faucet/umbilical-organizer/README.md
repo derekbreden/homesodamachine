@@ -1,4 +1,4 @@
-# Umbilical organizer
+# Faucet umbilical organizer
 
 One floating PET-GF puck keeps the three quarter-inch tubes and 4 mm drain in
 formation below the faucet's plate, washer and nut working area. Each tube can

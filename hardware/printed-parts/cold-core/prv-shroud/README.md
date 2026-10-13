@@ -1,4 +1,4 @@
-# PRV shroud
+# Carbonator pressure-relief valve shroud
 
 3D-printed PETG cup that surrounds the Control Devices SV-125
 pressure-relief valve on Port 4 of the carbonator

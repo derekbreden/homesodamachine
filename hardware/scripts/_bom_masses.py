@@ -121,7 +121,7 @@ PROFILES = {
 GAP = 0.5
 
 # Row label in §7 -> the STEP solids that ship as that row. A row covering
-# several pieces (an enclosure half, the plug stack) lists them all; the mass is
+# several pieces (an enclosure half, the slot covers) lists them all; the mass is
 # their sum, which is what the Qty cell already says the row is.
 PARTS = {
     "Cold-core inner shell (foam-shell)": ["cold-core/foam-shell/foam-shell.step"],
@@ -129,7 +129,7 @@ PARTS = {
     "Cold-core foam cap lid — top": ["cold-core/foam-cap/foam-cap-lid-top.step"],
     "Cold-core foam cap — bottom": ["cold-core/foam-cap/foam-cap-bottom.step"],
     "Cold-core foam cap lid — bottom": ["cold-core/foam-cap/foam-cap-lid-bottom.step"],
-    "Copper-plug stack (3 plugs)": [
+    "Cold-core copper-slot covers": [
         "cold-core/copper-plugs/copper-plug-west.step",
         "cold-core/copper-plugs/copper-plug-port.step",
     ],
@@ -235,7 +235,7 @@ GROUP_OF = [
     ("Above-counter plate",         "petgf"),
     ("Faucet lever",                "petgf"),
     ("Umbilical organizer",         "small"),
-    ("Copper-plug stack",           "small"),
+    ("Cold-core copper-slot covers", "small"),
     ("PRV shroud",                  "small"),
     ("Carbonator reed bridge",      "small"),
     ("Fuse clamp",                  "small"),

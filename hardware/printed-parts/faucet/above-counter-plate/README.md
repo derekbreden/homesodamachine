@@ -1,4 +1,4 @@
-# Above-counter plate
+# Sculpted faucet mounting plate · above counter
 
 Printed PET-GF15 plate supporting the Westbrass above the countertop.
 Three recessed M3 screws clamp it to the faucet shell. The three pedestals

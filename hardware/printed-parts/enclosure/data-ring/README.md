@@ -1,4 +1,4 @@
-# DATA plate
+# Enclosure data-port identification plate
 
 The black PET-GF plate uses the nameplate's continuous face and two broad
 horizontal wings. The face is 32 × 29.789 mm,

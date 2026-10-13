@@ -6,7 +6,7 @@ Foam-pour geometry, shell architecture, copper-slot cover cross-sections, and TP
 
 ## Scope
 
-In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2 — all PET-GF; copper-plug × 2 and reservoir × 2 — PETG); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 20 and ruthex M3 inserts × 20 for the cap clamps, plus four deck-mount inserts.
+In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2 — all PET-GF; copper-slot cover × 2 and reservoir × 2 — PETG); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 20 and ruthex M3 inserts × 20 for the cap clamps, plus four deck-mount inserts.
 
 Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the plug face.
 
@@ -29,7 +29,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Foam-shell (printed PET-GF) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm tungsten carbide nozzle on the left hotend — slice the `.stl`, not the `.step` |
 | Foam cap × 2 + foam cap lid × 2 (printed PET-GF) | Same | Print, same plate figures as the shell; the two caps carry the show skin, so slice their `.stl` |
 | TPU 90A gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) | Print |
-| Copper plug × 2 (printed PETG) | [`/hardware/printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/) | Print — one each for west and port, identical geometry |
+| Copper-slot cover × 2 (printed PETG) | [`/hardware/printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/) | Print — one each for west and port, identical geometry |
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 20 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
