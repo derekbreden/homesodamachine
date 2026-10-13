@@ -1,0 +1,56 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at": "2026-10-13T18:59:23.949298+00:00",
+    "job_id": "1335878319",
+    "gcode_state": "FINISH",
+    "subtask_name": "tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 63,
+    "total_layer_num": 63,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 38.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 33.0,
+    "bed_target_temper": 0.0,
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    }
+  },
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-10-13T18:59:23.922676+00:00",
+    "job_id": "1335906696",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
+    "mc_percent": 59,
+    "layer_num": 351,
+    "total_layer_num": 1244,
+    "mc_remaining_time": 146,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 281.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "161616FF"
+      },
+      "255": {
+        "type": "ASA-AERO",
+        "colour": "FFFFFFFF"
+      }
+    }
+  }
+]
