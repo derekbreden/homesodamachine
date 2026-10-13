@@ -2,12 +2,12 @@
   "status": "offline slice reviewed; no physical print or force qualification",
   "printer_submission": false,
   "project": "donor-hold-down-tpu85a-right06-z018-mark1.3mf",
-  "project_sha256": "57c0bd4f42a85ab3f8ea88596bddad5830e34065ff70daee6477380617ffcb49",
+  "project_sha256": "1ef1e9ff5cc3b89ccef8f840cca22de5081d089da3e0251d5a9b6422174ac40c",
   "archive": "donor-hold-down-tpu85a-right06-z018-mark1.gcode.3mf",
-  "archive_sha256": "bced7f318c575d08a5881f5536459cdebe3d2adfc393ac9a1434b0ca58af8a18",
-  "gcode_sha256": "ac8f6c28435206b5a3182ae95f58d0a8613cda4a90af2d3785f957b20c168d1d",
+  "archive_sha256": "2ba9e491e2fdf403bf1e70743a141f9c3b06bb92fb422ec65b77d880ca06828a",
+  "gcode_sha256": "0610c2b932243eb1b7662d434c8f591c68c2441516bb0b9669642b09bf104f4b",
   "source_stls": {
-    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": "79eef218e153fc8d8e4260928613aa8e5849cdf138f7ae39060fc6683b670a1e"
+    "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": "068172e31934ae209e1cf03f32005023d9b10a1a9c908e88a13afd8301c66b53"
   },
   "printer": "Mark1 (H2C)",
   "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
@@ -29,26 +29,26 @@
   "bead_envelope": {
     "extrusion_bounds_xy_mm": [
       [
-        158.468916,
-        140.718916
+        158.468891,
+        140.718891
       ],
       [
-        196.53108583012855,
-        179.281084
+        196.531109,
+        179.281109
       ]
     ],
-    "maximum_line_width_mm": 0.982168,
-    "bounds_padding_mm": 0.591084
+    "maximum_line_width_mm": 0.982218,
+    "bounds_padding_mm": 0.591109
   },
   "bead_margin_mm": [
-    133.468916,
-    140.718916,
-    133.46891416987145,
-    140.718916
+    133.468891,
+    140.718891,
+    133.468891,
+    140.718891
   ],
   "layers": 138,
-  "estimated_seconds": 7028.2265625,
-  "estimated_filament_g": 16.53369903564453,
+  "estimated_seconds": 5778.31005859375,
+  "estimated_filament_g": 12.784757614135742,
   "slicer_warning": "",
   "native_process": {
     "layer_height": 0.18000000715255737,

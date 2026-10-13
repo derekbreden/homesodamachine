@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl",
-      "stl_sha256": "79eef218e153fc8d8e4260928613aa8e5849cdf138f7ae39060fc6683b670a1e",
-      "triangles": 346,
+      "stl_sha256": "068172e31934ae209e1cf03f32005023d9b10a1a9c908e88a13afd8301c66b53",
+      "triangles": 344,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         -6.75,
@@ -110,10 +110,10 @@
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.980316159475251e-10
+      "embedded_vertex_error_mm": 4.931663966090127e-10
     }
   ],
-  "project_sha256": "57c0bd4f42a85ab3f8ea88596bddad5830e34065ff70daee6477380617ffcb49",
+  "project_sha256": "1ef1e9ff5cc3b89ccef8f840cca22de5081d089da3e0251d5a9b6422174ac40c",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,

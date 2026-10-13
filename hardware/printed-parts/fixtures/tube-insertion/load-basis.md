@@ -41,8 +41,10 @@ below do not assess this motion or the required downward counterforce.
 The separate [TPU hand pad](donor-hold-down/README.md) bears on the
 cylindrical metal body and supplies a flat surface for manual downward
 pressure. Its tongue retains the pad in the shank canyon; its press fit
-has no assigned hold-down capacity. The pad has 1 mm nominal clearance
-above both the threaded shank and lower cradle. Hand-pressure performance
+has no assigned hold-down capacity. The tongue joins the solid crown
+above the saddle and has 10.25 mm nominal clearance above the threaded
+shank, with 8.25 mm of canyon engagement. The pad clears the lower cradle
+by 1 mm. Hand-pressure performance
 and installed lever clearance remain physically unqualified.
 
 Each rigid collar half is 15 mm high. Its transverse wings have 30.5 mm
