@@ -20,6 +20,7 @@ CACHE = ROOT / ".cache/pump-elbow-exploration"
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
 from _cadq_export import export_assembly
 import _overlap
+import _boxes
 
 
 def main():
@@ -32,14 +33,14 @@ def main():
     cross = []
     for na, sa in packs["layout-initial"].items():
         for nb, sb in packs["funnel-layout"].items():
-            ba, bb = sa.BoundingBox(), sb.BoundingBox()
+            ba, bb = _boxes.loose(sa), _boxes.loose(sb)
             if any(getattr(ba,a+"max") < getattr(bb,a+"min") or
                    getattr(bb,a+"max") < getattr(ba,a+"min") for a in "xyz"):
                 continue
             v = _overlap.volume(sa,sb)
             if v > 1e-5:
                 cross.append({"a":na,"b":nb,"volume_mm3":v})
-    record = {"status": "Unprinted prototype",
+    record = {"status": "First article launched; physical result pending",
               "scope": "Nominal native occupancy, routed ends and R14 bends; closed clamp bands",
               "baseline_world_sha256": hashlib.sha256((CACHE/"world/world.json").read_bytes()).hexdigest(),
               "baseline_source_sha256":base["source_sha256"],
@@ -50,16 +51,27 @@ def main():
     (HERE/"placement.json").write_text(json.dumps(record,indent=2)+"\n")
     print("Combined candidate overlaps:",cross,flush=True)
     geometry = {}
-    for name, depth in (("suction-elbow", 12), ("discharge-elbow", 15)):
+    for name, depth in (("suction-elbow", 15), ("discharge-elbow", 15)):
         shape = Elbow(tube_depth=depth).print_shape()
         path = HERE/f"{name}.stl"
         cq.exporters.export(shape, str(path), tolerance=.01, angularTolerance=.05)
         cq.exporters.export(shape, str(HERE/f"{name}.step"))
         mesh = trimesh.load(path, force="mesh")
+        degenerate = ~mesh.nondegenerate_faces()
+        removed = int(degenerate.sum())
+        if removed:
+            mesh.update_faces(~degenerate)
+            mesh.remove_unreferenced_vertices()
+            mesh.export(path)
         mask = (mesh.face_normals[:,2] < -1e-5) & (mesh.triangles_center[:,2] > .02)
         angles = np.degrees(np.arccos(np.clip(-mesh.face_normals[mask,2], -1, 1)))
         geometry[name] = {"closed_stl":bool(mesh.is_watertight),
                           "consistent_winding":bool(mesh.is_winding_consistent),
+                          "removed_zero_area_triangles":removed,
+                          "valid_brep":shape.isValid(),
+                          "solid_count":len(shape.Solids()),
+                          "foot_area_mm2":sum(f.Area() for f in shape.Faces()
+                              if f.geomType()=="PLANE" and abs(f.Center().z)<1e-5),
                           "minimum_downward_surface_angle_deg":float(angles.min()),
                           "volume_mm3":float(mesh.volume), "bounds_mm":mesh.bounds.tolist(),
                           "tube_insertion_mm":depth, "barb_insertion_mm":11,
@@ -116,7 +128,7 @@ def draw(packs,w):
         b.plot(pts[:,0],pts[:,1],color="#b77416",lw=2)
     b.text(0,170,"715 mL bowl",ha="center",fontsize=11,color="#266d60")
     b.text(0,423,"Pump",ha="center",fontsize=11,color="#30343a")
-    b.annotate("12 mm cuff",xy=(42,326),xytext=(78,318),fontsize=9,
+    b.annotate("15 mm cuff",xy=(42,323),xytext=(78,318),fontsize=9,
                arrowprops={'arrowstyle':'-','color':'#268d9b'})
     b.annotate("15 mm cuff\nclocked 25° down",xy=(-42,324),xytext=(-105,339),fontsize=9,
                arrowprops={'arrowstyle':'-','color':'#268d9b'})

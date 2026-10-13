@@ -1,6 +1,6 @@
 # TPU pump elbow and installed layout study
 
-**Status: unprinted prototype.** This study supplies two printable elbows,
+**Status: first-article prototype; physical result pending.** This study supplies two elbows,
 their complete water connections, and a 715 mL funnel proposal in the existing
 enclosure envelope. Nominal occupancy and native slicing are established.
 Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
@@ -17,10 +17,9 @@ neighboring hardware are considered together.
 - [Suction elbow](suction-elbow.stl) and [discharge elbow](discharge-elbow.stl)
   are exported in their V print poses. Their matching STEP files carry the
   analytic geometry.
-- [Elbow print project](elbow-plate-tpu95a-right06.3mf) contains both parts on
-  one compact plate, using the saved H2C right 0.6 mm mapping and Mark2 Z trim.
-  It is an offline project; the actual printer, nozzle and material must match
-  its recipe when a print is requested.
+- [Mark1 print record](prints/2026-10-13-continuous-body-tpu85a-mark1/README.md)
+  identifies two identical 15 mm elbows, the editable project, native sliced
+  archive, loaded TPU 85A, right fixed 0.6 mm nozzle and +0.18 mm user Z trim.
 - [Installed proposal](installed-proposal.step) shows the pump, elbows, bands,
   water check and cradle, tubes, source valves, expanded bowl and frame, and
   relocated upper hardware. The [revised back-top](back-top-funnel-opening.step)
@@ -67,13 +66,22 @@ both inserted ends clear of the corner passage.
 | --- | --- |
 | Pump socket | Ø9.00 mm, 11 mm insertion. The independently scanned ports reach Ø10.26 mm inside this span; nominal crest stretch is 14%. This is a fit hypothesis. |
 | Tube socket | Ø6.10 mm for nominal Ø6.35 mm LLDPE; 0.25 mm diametral interference. |
-| Suction tube insertion / mouth from barb axis | 12 / 15.5 mm |
+| Suction tube insertion / mouth from barb axis | 15 / 18.5 mm |
 | Discharge tube insertion / mouth from barb axis | 15 / 18.5 mm |
 | Tube axis beyond barb tip | 4.916 mm; includes 1 mm nominal air between the closed 9 mm barb band and the perpendicular tube leg. |
 | Nominal radial wall / lead-in wall | 2.8 / 2.4 mm |
 | Corner passage | Ø4.40 mm, formed by overlapping cylinders; both sockets remain round. |
 | Estimated installed cuff ODs | 15.407 mm on the barb and 11.832 mm on the tube, using conserved annular area. |
 | Clamp band | 9 mm width; closed-band geometry only. Wing, screw and opening envelopes are unmeasured. |
+
+The exterior follows the large cuff into a spherical heel and a smooth,
+6.5 mm long reduction into the smaller tube leg. The reduction has zero slope
+and curvature at its circular ends. The heel has one integral flat foot,
+approximately 88.9 mm². Each clamp retains a complete circular 9 mm seat;
+the tube band starts 9.5 mm above the barb axis, beyond the installed barb's
+7.703 mm radial envelope. The exact minimum wall is 2.40 mm at the entries.
+The conservative installed envelope expands the cuffs and extends the smooth
+neck to 7.5 mm; it supplies occupancy geometry, not a strain prediction.
 
 The scanned pump and tube observations retain their scope in the
 [pump reference](../../hardware/reference/g-ganen-pump/README.md),
@@ -104,21 +112,31 @@ limits grip; it is not validation of this custom cuff.
 ## Printing and geometry options
 
 The V pose puts both mouths upward and distributes the 90° angle equally.
-The downward surface survey reads approximately 45° throughout, excluding the
-bed foot. Both STLs are closed, consistently oriented solids. These results
-describe the mesh and overhang geometry.
+The broad foot lies exactly at Z0. The analytic cylindrical roofs and lower
+skins are at least 45°; the spherical heel reaches approximately 46.8° at the
+foot boundary. Both STLs are closed, consistently oriented solids. Two
+zero-area tessellation facets at tangent seams are removed without changing
+the printed surface.
 
-The native project uses TPU 95A HF, 0.6 mm nozzle, 0.20 mm first layer,
+The native project uses the loaded TPU 85A, 0.6 mm nozzle, 0.20 mm first layer,
 0.12 mm subsequent layers, six requested wall loops, 100% zig-zag infill,
-0% seam gap and 25 mm/s wall speeds. Cooling follows the saved filament
-settings. The native slice emits no support features. Its estimate is about
-**1 hour 24 minutes and 7.9 g for both elbows**.
+0% seam gap and 25 mm/s wall speeds, limited by the filament's 2.2 mm³/s
+maximum flow. Its native settings are 225°C nozzle and 35°C textured PEI.
+Spiral mode is off. The native slice emits no support features. Its estimate
+is about **89 minutes and 8.57 g for both elbows**.
+
+The manual [layer-support review](layer-support-review.json) binds the current
+meshes and native G-code. It checks each layer's material against the preceding
+layer, including disconnected starts and the local passage transition. An
+angle survey or a support-disabled slice alone does not establish support.
 
 At a nominal 45° wall, a 0.12 mm layer advances approximately 0.12 mm laterally;
 with 0.62 mm beads, nominal overlap is about 81%. This gives a geometric print
 margin. Extrusion continuity and cooling still determine the printed result.
-Bambu specifies drying TPU 95A HF at 70°C for 8 hours and printing from a dry
-container. [Bambu material guidance](https://uk.store.bambulab.com/collections/all/products/tpu-95a-hf).
+Drying history, physical adhesion and extrusion continuity remain unmeasured
+for the identified article. The printed material, socket fit and pressure
+holding result belong to TPU 85A; the cited TPU 95A research establishes no
+rating for this grade or interface.
 
 | Geometry or process option | Application and decision |
 | --- | --- |
@@ -143,7 +161,7 @@ outlet facing forward. Its actual cap rib is carried to that station.
 
 | Connection | Exposed developed tube length | Minimum bend radius |
 | --- | ---: | ---: |
-| Suction elbow to V-K outlet | 72.556 mm | 14 mm |
+| Suction elbow to V-K outlet | 70.163 mm | 14 mm |
 | Discharge elbow to PP010822E / water check | 40.302 mm | 14 mm |
 | Water-check outlet to core water inlet | 38.143 mm | 14 mm |
 
@@ -190,7 +208,7 @@ parts before a run; keep the carbonator out of this fixture.
 
 1. Bind the article to its STL, native slice, filament, printer/nozzle, drying
    state and clamp. Seat the pump socket to its stop. Mark and seat the tube
-   to 12 or 15 mm. Record insertion, the clamp position and any tube ovalization.
+   to 15 mm. Record insertion, the clamp position and any tube ovalization.
 2. Fill and bleed the fixture completely. Hydrostatic screening uses water.
    Verify every component's applicable pressure limit before selecting a
    pressure; 80 psi on suction and the advertised 110 psi on discharge are
@@ -202,7 +220,7 @@ parts before a run; keep the carbonator out of this fixture.
 4. Record each leak location and the tube mark against the mouth. Acceptance
    for this screening is no visible wetting, no resolvable pressure loss after
    settling, and no visible mark movement at 0.5 mm observation resolution.
-   The 12 mm cuff leaves 3 mm beyond its 9 mm band; 0.5 mm is a screening
+   The 15 mm cuff leaves 6 mm beyond its 9 mm band; 0.5 mm is a screening
    detection limit, not permissible service slip.
 5. Leave the fitted article clamped and water-filled for 24 hours, then repeat
    the applicable pressure hold without retightening. This checks early

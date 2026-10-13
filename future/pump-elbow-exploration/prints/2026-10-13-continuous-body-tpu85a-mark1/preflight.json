@@ -1,0 +1,60 @@
+{
+  "printers": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-13T23:36:09.624404+00:00",
+      "job_id": "1337160395",
+      "subtask_name": "2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 7,
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-13T23:36:10.333929+00:00",
+      "job_id": "1336815709",
+      "subtask_name": "2026-10-13-tpu-o-ring-85a-right06-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 86,
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_color": "161616FF"
+        }
+      ]
+    }
+  ],
+  "other_printer_acceptance_utc": "2026-10-13T23:20:08.482702+00:00",
+  "archive_sha256": "03fd23934c1c0a146879afb2a0fbf77d44d0ce9b12ddb28f348136daf9d4e0f9",
+  "gcode_sha256": "4c968d3b2a78a343f6764370b9c23996ea6412723a0bec526bc9a2cbfe01ad9c",
+  "native_checksum_valid": true,
+  "trim_commands_mm": [
+    0.0,
+    0.16
+  ]
+}

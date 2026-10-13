@@ -1,0 +1,67 @@
+{
+  "scope": "Manual geometric and native layer-support review for the identified first article; no physical print or pressure qualification",
+  "print_source_snapshot": "prints/2026-10-13-continuous-body-tpu85a-mark1/elbow-source.txt",
+  "print_source_sha256": "47495f79e3676bc784697432c8d59d49029fd7474ba92de6f1c92f48e65a939a",
+  "geometry": {
+    "valid_brep": true,
+    "solid_count": 1,
+    "closed_stl": true,
+    "consistent_winding": true,
+    "removed_zero_area_triangles": 2,
+    "foot_area_mm2": 88.89354474219212,
+    "exact_minimum_wall_mm": 2.4,
+    "canonical_print_mesh_record": "geometry.json"
+  },
+  "layer_sections": {
+    "record": "prints/2026-10-13-continuous-body-tpu85a-mark1/layer-sections.json",
+    "method": "Exact piecewise linear STL sections at nominal layer centers, 0.025 mm boundary samples; compare to previous section. Z starts at 0.2 mm, then 0.12 mm. No printability claim from geometry alone.",
+    "specimen_stl_sha256": "8657791c111de8251b6c225da85e56aa730dd45b2ad537c41c69c18e03aa79b8",
+    "layers_above_first": 183,
+    "born_disconnected_islands": 0,
+    "maximum_boundary_setback_mm": 0.39955179210050895
+  },
+  "native": {
+    "record": "prints/2026-10-13-continuous-body-tpu85a-mark1/native-layer-support.json",
+    "gcode_sha256": "4c968d3b2a78a343f6764370b9c23996ea6412723a0bec526bc9a2cbfe01ad9c",
+    "layers": 184,
+    "method": "Native positive extrusion paths, emitted width, round bead footprint buffers (4 segments per quadrant), prior deposition layer only, 0.05 mm samples on unsupported centerlines. All non-Custom/non-Brim deposition features retained; 0.002 mm XY centerline tolerance. Descriptive overlap diagnostic, no material sag or cooling model.",
+    "floating_vertical_shell_paths": 0,
+    "throat_closure": {
+      "z_mm": 8.24,
+      "total_unsupported_centerline_mm_two_elbows": 0.459,
+      "approximate_free_stroke_mm_each": 0.23,
+      "bead_width_mm": 0.536,
+      "disposition": "Shorter than one bead width; inspect the printed throat closure and passage during first-article review"
+    }
+  },
+  "remaining_physical_observations": [
+    "bed adhesion and lower-cuff surfaces",
+    "internal throat closure and lumen",
+    "socket fit and clamp handling",
+    "pressure sealing and wet retention",
+    "relaxation and lifetime"
+  ],
+  "installed_envelope": {
+    "source_sha256": "5bc2773653561c988fabeb5dcd9a63791df4e81de56f59df30788b06f40bb72f",
+    "scope": "Conservative expanded cuff and smooth-neck occupancy hypothesis; no deformation prediction",
+    "valid_brep": true,
+    "solid_count": 1,
+    "volume_mm3": 3570.942493562715,
+    "neck_length_mm": 7.5,
+    "band_width_mm": 9,
+    "barb_band_intersection_mm3": 0,
+    "tube_band_intersection_mm3": 0,
+    "tube_band_y_start_mm": 9.5,
+    "installed_barb_radius_mm": 7.703373460539643,
+    "barb_band_end_x_mm": -2,
+    "barb_band_to_neck_axis_distance_mm": 6.916132605004726,
+    "neck_radius_at_half_length_mm": 6.809753032772184,
+    "neck_radial_bound_inside_barb_band_mm": 5.057,
+    "nominal_360_degree_radial_wrap_access": true,
+    "excluded": [
+      "clamp screws and wings",
+      "hand/tool access",
+      "loaded deformation"
+    ]
+  }
+}

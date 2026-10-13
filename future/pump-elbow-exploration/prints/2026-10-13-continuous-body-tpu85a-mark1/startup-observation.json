@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-10-13T23:44:39.532569+00:00",
+  "printer": "Mark1 (H2C)",
+  "job_id": "1337197268",
+  "subtask_name": "2026-10-13-continuous-body-elbows-tpu85a-right06-z018-mark1.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_percent": 5,
+  "mc_remaining_time": 84,
+  "nozzle_temper": 225.0,
+  "bed_temper": 35.0,
+  "physical_result": "No physical observations reported"
+}

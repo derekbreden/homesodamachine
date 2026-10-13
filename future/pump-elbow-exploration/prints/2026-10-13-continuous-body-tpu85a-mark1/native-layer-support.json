@@ -1,0 +1,2800 @@
+{
+  "geometry": [],
+  "native": {
+    "gcode": ".cache/pump-elbow-exploration/fdm-review/replacement-final.gcode",
+    "sha256": "4c968d3b2a78a343f6764370b9c23996ea6412723a0bec526bc9a2cbfe01ad9c",
+    "method": "Native positive extrusion paths, emitted width, round bead footprint buffers (4 segments per quadrant), prior deposition layer only, 0.05 mm samples on unsupported centerlines. All non-Custom/non-Brim deposition features retained; 0.002 mm XY centerline tolerance. Descriptive overlap diagnostic, no material sag or cooling model.",
+    "feature_counts": {
+      "Custom": 2,
+      "Brim": 1,
+      "Inner wall": 753,
+      "Outer wall": 753,
+      "Bottom surface": 2,
+      "Internal solid infill": 16,
+      "Sparse infill": 38,
+      "Overhang wall": 2
+    },
+    "layers": 184,
+    "rows": [
+      {
+        "z_mm": 0.32,
+        "deposition_area_mm2": 193.12959406034116,
+        "deposition_supported_area_fraction": 0.9491460708041062,
+        "total_centerline_length_mm": 321.3219271933742,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 0.44,
+        "deposition_area_mm2": 200.67253616591546,
+        "deposition_supported_area_fraction": 0.9624111027447096,
+        "total_centerline_length_mm": 334.55395529616845,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 0.56,
+        "deposition_area_mm2": 206.77498861913142,
+        "deposition_supported_area_fraction": 0.9656504993592068,
+        "total_centerline_length_mm": 349.5695661422657,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 0.68,
+        "deposition_area_mm2": 212.8329946888328,
+        "deposition_supported_area_fraction": 0.9620832309719515,
+        "total_centerline_length_mm": 359.59309116164076,
+        "unsupported_centerline_length_mm": 1.1090096513808865,
+        "maximum_centerline_gap_mm": 0.03795952954791786,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 4745,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          158.105,
+          161.668
+        ],
+        "worst_bead_supported_area_fraction": 0.9610534581517218,
+        "worst_cad_xyz_mm": [
+          -19.39500000000001,
+          1.6680000000000064,
+          0.68
+        ]
+      },
+      {
+        "z_mm": 0.8,
+        "deposition_area_mm2": 221.5581010791101,
+        "deposition_supported_area_fraction": 0.9592719347985351,
+        "total_centerline_length_mm": 375.64931112245796,
+        "unsupported_centerline_length_mm": 3.513119872406667,
+        "maximum_centerline_gap_mm": 0.06443691917912336,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 5160,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          158.7260887874222,
+          157.97455501806593
+        ],
+        "worst_bead_supported_area_fraction": 0.9521608231171945,
+        "worst_cad_xyz_mm": [
+          -18.773911212577787,
+          -2.025444981934072,
+          0.8
+        ]
+      },
+      {
+        "z_mm": 0.92,
+        "deposition_area_mm2": 227.68902762259938,
+        "deposition_supported_area_fraction": 0.9695358703065898,
+        "total_centerline_length_mm": 385.34525734927945,
+        "unsupported_centerline_length_mm": 0.7643109504249088,
+        "maximum_centerline_gap_mm": 0.06336068747410464,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 5582,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          159.63191870105567,
+          157.82964148978664
+        ],
+        "worst_bead_supported_area_fraction": 0.9636845111450979,
+        "worst_cad_xyz_mm": [
+          -17.868081298944333,
+          -2.1703585102133616,
+          0.92
+        ]
+      },
+      {
+        "z_mm": 1.04,
+        "deposition_area_mm2": 233.35694058476525,
+        "deposition_supported_area_fraction": 0.9677666853589636,
+        "total_centerline_length_mm": 394.7382887579644,
+        "unsupported_centerline_length_mm": 1.4012545200465785,
+        "maximum_centerline_gap_mm": 0.06824074550741169,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 5802,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          194.56047382624973,
+          157.73725065710408
+        ],
+        "worst_bead_supported_area_fraction": 0.9500222005150835,
+        "worst_cad_xyz_mm": [
+          17.060473826249734,
+          -2.2627493428959156,
+          1.04
+        ]
+      },
+      {
+        "z_mm": 1.16,
+        "deposition_area_mm2": 241.51853217974622,
+        "deposition_supported_area_fraction": 0.9650140911556007,
+        "total_centerline_length_mm": 411.10585305146446,
+        "unsupported_centerline_length_mm": 3.5307696233093497,
+        "maximum_centerline_gap_mm": 0.0888508647121919,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 6204,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          195.30943975284367,
+          157.6594663402069
+        ],
+        "worst_bead_supported_area_fraction": 0.9253558821017691,
+        "worst_cad_xyz_mm": [
+          17.809439752843673,
+          -2.3405336597930955,
+          1.16
+        ]
+      },
+      {
+        "z_mm": 1.28,
+        "deposition_area_mm2": 247.9055145612943,
+        "deposition_supported_area_fraction": 0.9725884664207275,
+        "total_centerline_length_mm": 420.1410340538357,
+        "unsupported_centerline_length_mm": 0.9710273860881984,
+        "maximum_centerline_gap_mm": 0.05412087925106634,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 6799,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          159.47228787878788,
+          162.40971212121212
+        ],
+        "worst_bead_supported_area_fraction": 0.9816644253331857,
+        "worst_cad_xyz_mm": [
+          -18.02771212121212,
+          2.4097121212121237,
+          1.28
+        ]
+      },
+      {
+        "z_mm": 1.4,
+        "deposition_area_mm2": 253.44323788152937,
+        "deposition_supported_area_fraction": 0.9732224716580927,
+        "total_centerline_length_mm": 428.97714089415547,
+        "unsupported_centerline_length_mm": 0.7506900123344895,
+        "maximum_centerline_gap_mm": 0.038533994783227526,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 7231,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          160.23987163958097,
+          157.6622345096577
+        ],
+        "worst_bead_supported_area_fraction": 0.9789615265512441,
+        "worst_cad_xyz_mm": [
+          -17.26012836041903,
+          -2.337765490342292,
+          1.4
+        ]
+      },
+      {
+        "z_mm": 1.52,
+        "deposition_area_mm2": 258.8084954095815,
+        "deposition_supported_area_fraction": 0.9704706502932029,
+        "total_centerline_length_mm": 437.4239381995012,
+        "unsupported_centerline_length_mm": 2.2480581973312295,
+        "maximum_centerline_gap_mm": 0.06955353511300222,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 7675,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          159.04486075949367,
+          157.45113924050634
+        ],
+        "worst_bead_supported_area_fraction": 0.9597724551338453,
+        "worst_cad_xyz_mm": [
+          -18.455139240506327,
+          -2.548860759493664,
+          1.52
+        ]
+      },
+      {
+        "z_mm": 1.64,
+        "deposition_area_mm2": 266.88153172431566,
+        "deposition_supported_area_fraction": 0.9683946759450907,
+        "total_centerline_length_mm": 453.8698929585747,
+        "unsupported_centerline_length_mm": 4.042584121885753,
+        "maximum_centerline_gap_mm": 0.07925546428472971,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 7892,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          197.585,
+          159.73
+        ],
+        "worst_bead_supported_area_fraction": 0.9432643795385773,
+        "worst_cad_xyz_mm": [
+          20.085000000000008,
+          -0.27000000000001023,
+          1.64
+        ]
+      },
+      {
+        "z_mm": 1.76,
+        "deposition_area_mm2": 272.940692602656,
+        "deposition_supported_area_fraction": 0.9763470142042499,
+        "total_centerline_length_mm": 462.18605502899055,
+        "unsupported_centerline_length_mm": 0.23106398654109506,
+        "maximum_centerline_gap_mm": 0.009856825325012215,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 8321,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          197.4984586231386,
+          160.89009546654358
+        ],
+        "worst_bead_supported_area_fraction": 0.9824904258835895,
+        "worst_cad_xyz_mm": [
+          19.99845862313859,
+          0.8900954665435847,
+          1.76
+        ]
+      },
+      {
+        "z_mm": 1.88,
+        "deposition_area_mm2": 278.10765675048697,
+        "deposition_supported_area_fraction": 0.9772010376099026,
+        "total_centerline_length_mm": 470.02165569880464,
+        "unsupported_centerline_length_mm": 0.7986802635739613,
+        "maximum_centerline_gap_mm": 0.07444550068112607,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 8731,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          197.7040750394902,
+          159.8861674243896
+        ],
+        "worst_bead_supported_area_fraction": 0.9287671759569365,
+        "worst_cad_xyz_mm": [
+          20.204075039490192,
+          -0.11383257561038818,
+          1.88
+        ]
+      },
+      {
+        "z_mm": 2.0,
+        "deposition_area_mm2": 282.73722327729445,
+        "deposition_supported_area_fraction": 0.9755990699004758,
+        "total_centerline_length_mm": 478.03630045155444,
+        "unsupported_centerline_length_mm": 1.1805503989316783,
+        "maximum_centerline_gap_mm": 0.03868698979831306,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 9346,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          161.9692605817705,
+          160.9281427117747
+        ],
+        "worst_bead_supported_area_fraction": 0.9738551789719821,
+        "worst_cad_xyz_mm": [
+          -15.530739418229501,
+          0.9281427117747114,
+          2.0
+        ]
+      },
+      {
+        "z_mm": 2.12,
+        "deposition_area_mm2": 290.53830314740406,
+        "deposition_supported_area_fraction": 0.971709797465355,
+        "total_centerline_length_mm": 494.6553023684928,
+        "unsupported_centerline_length_mm": 4.276513939970492,
+        "maximum_centerline_gap_mm": 0.07513981600740377,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 9748,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          162.17251223371727,
+          159.84315771749027
+        ],
+        "worst_bead_supported_area_fraction": 0.908524985752936,
+        "worst_cad_xyz_mm": [
+          -15.32748776628273,
+          -0.15684228250972865,
+          2.12
+        ]
+      },
+      {
+        "z_mm": 2.24,
+        "deposition_area_mm2": 296.3299520335389,
+        "deposition_supported_area_fraction": 0.9786022302413284,
+        "total_centerline_length_mm": 501.77933244672295,
+        "unsupported_centerline_length_mm": 1.4128622030705753,
+        "maximum_centerline_gap_mm": 0.09146710113737214,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 10173,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          158.9844194011777,
+          162.91717962045277
+        ],
+        "worst_bead_supported_area_fraction": 0.9110025573754841,
+        "worst_cad_xyz_mm": [
+          -18.51558059882231,
+          2.917179620452771,
+          2.24
+        ]
+      },
+      {
+        "z_mm": 2.36,
+        "deposition_area_mm2": 301.19322393204084,
+        "deposition_supported_area_fraction": 0.980482410345622,
+        "total_centerline_length_mm": 509.6266861893031,
+        "unsupported_centerline_length_mm": 1.0046169654610435,
+        "maximum_centerline_gap_mm": 0.06385366304180103,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 10622,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          162.27922202329154,
+          159.996486897325
+        ],
+        "worst_bead_supported_area_fraction": 0.9235397346611638,
+        "worst_cad_xyz_mm": [
+          -15.220777976708462,
+          -0.0035131026749866123,
+          2.36
+        ]
+      },
+      {
+        "z_mm": 2.48,
+        "deposition_area_mm2": 305.9400928269259,
+        "deposition_supported_area_fraction": 0.9780111866072142,
+        "total_centerline_length_mm": 516.4612888799347,
+        "unsupported_centerline_length_mm": 2.0636907784857224,
+        "maximum_centerline_gap_mm": 0.10815877272298155,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 10872,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          194.52802744768613,
+          163.00339325529626
+        ],
+        "worst_bead_supported_area_fraction": 0.877707065531816,
+        "worst_cad_xyz_mm": [
+          17.028027447686128,
+          3.0033932552962597,
+          2.48
+        ]
+      },
+      {
+        "z_mm": 2.6,
+        "deposition_area_mm2": 310.0262378352061,
+        "deposition_supported_area_fraction": 0.9764499533215918,
+        "total_centerline_length_mm": 523.921415637003,
+        "unsupported_centerline_length_mm": 2.9350123805009747,
+        "maximum_centerline_gap_mm": 0.08231713936956937,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 11289,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          198.01390990913274,
+          159.9838026194909
+        ],
+        "worst_bead_supported_area_fraction": 0.9104585640761311,
+        "worst_cad_xyz_mm": [
+          20.513909909132735,
+          -0.016197380509112236,
+          2.6
+        ]
+      },
+      {
+        "z_mm": 2.72,
+        "deposition_area_mm2": 318.05945703117743,
+        "deposition_supported_area_fraction": 0.9726264413039232,
+        "total_centerline_length_mm": 540.7062875407495,
+        "unsupported_centerline_length_mm": 5.388363817660009,
+        "maximum_centerline_gap_mm": 0.08226392514714927,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 11729,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          194.89789578269372,
+          156.89315081972092
+        ],
+        "worst_bead_supported_area_fraction": 0.8926327698168005,
+        "worst_cad_xyz_mm": [
+          17.397895782693723,
+          -3.1068491802790845,
+          2.72
+        ]
+      },
+      {
+        "z_mm": 2.84,
+        "deposition_area_mm2": 323.6103828626311,
+        "deposition_supported_area_fraction": 0.9813415111484751,
+        "total_centerline_length_mm": 547.3801535628439,
+        "unsupported_centerline_length_mm": 1.6671836637573423,
+        "maximum_centerline_gap_mm": 0.11865782982330514,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 12170,
+        "worst_width_mm": 0.639472,
+        "worst_plate_xy_mm": [
+          194.1573429481893,
+          156.9244433352572
+        ],
+        "worst_bead_supported_area_fraction": 0.837369305841695,
+        "worst_cad_xyz_mm": [
+          16.657342948189296,
+          -3.0755566647428054,
+          2.84
+        ]
+      },
+      {
+        "z_mm": 2.96,
+        "deposition_area_mm2": 328.83617304151335,
+        "deposition_supported_area_fraction": 0.982281953078986,
+        "total_centerline_length_mm": 554.4282952142039,
+        "unsupported_centerline_length_mm": 1.066678484153503,
+        "maximum_centerline_gap_mm": 0.07289102733011017,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 12814,
+        "worst_width_mm": 0.649212,
+        "worst_plate_xy_mm": [
+          159.4092808791834,
+          156.81202948324676
+        ],
+        "worst_bead_supported_area_fraction": 0.92712762884401,
+        "worst_cad_xyz_mm": [
+          -18.0907191208166,
+          -3.1879705167532393,
+          2.96
+        ]
+      },
+      {
+        "z_mm": 3.08,
+        "deposition_area_mm2": 334.08053288564776,
+        "deposition_supported_area_fraction": 0.9828476972428966,
+        "total_centerline_length_mm": 560.8834202877629,
+        "unsupported_centerline_length_mm": 1.7834967563178274,
+        "maximum_centerline_gap_mm": 0.13050122716953866,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 13047,
+        "worst_width_mm": 0.658672,
+        "worst_plate_xy_mm": [
+          193.96041885536414,
+          156.91196233163868
+        ],
+        "worst_bead_supported_area_fraction": 0.8375392423330668,
+        "worst_cad_xyz_mm": [
+          16.46041885536414,
+          -3.0880376683613235,
+          3.08
+        ]
+      },
+      {
+        "z_mm": 3.2,
+        "deposition_area_mm2": 339.15289553347276,
+        "deposition_supported_area_fraction": 0.9832937713816347,
+        "total_centerline_length_mm": 567.6605467199976,
+        "unsupported_centerline_length_mm": 0.9882794948014068,
+        "maximum_centerline_gap_mm": 0.06262477090741393,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 13497,
+        "worst_width_mm": 0.668782,
+        "worst_plate_xy_mm": [
+          194.98873683471615,
+          156.73642059658064
+        ],
+        "worst_bead_supported_area_fraction": 0.9334505026605245,
+        "worst_cad_xyz_mm": [
+          17.48873683471615,
+          -3.2635794034193566,
+          3.2
+        ]
+      },
+      {
+        "z_mm": 3.32,
+        "deposition_area_mm2": 344.0971413024647,
+        "deposition_supported_area_fraction": 0.9836562463061502,
+        "total_centerline_length_mm": 584.7576666050215,
+        "unsupported_centerline_length_mm": 1.3091942828008432,
+        "maximum_centerline_gap_mm": 0.07997357377532298,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 14155,
+        "worst_width_mm": 0.628282,
+        "worst_plate_xy_mm": [
+          158.272,
+          156.858
+        ],
+        "worst_bead_supported_area_fraction": 0.8285856560880716,
+        "worst_cad_xyz_mm": [
+          -19.22800000000001,
+          -3.141999999999996,
+          3.32
+        ]
+      },
+      {
+        "z_mm": 3.44,
+        "deposition_area_mm2": 349.1579132408174,
+        "deposition_supported_area_fraction": 0.9839325230341921,
+        "total_centerline_length_mm": 591.4617794778256,
+        "unsupported_centerline_length_mm": 1.4999327250891712,
+        "maximum_centerline_gap_mm": 0.12702689333161948,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 14612,
+        "worst_width_mm": 0.636612,
+        "worst_plate_xy_mm": [
+          157.9045259394991,
+          163.07943155753227
+        ],
+        "worst_bead_supported_area_fraction": 0.8113680308505086,
+        "worst_cad_xyz_mm": [
+          -19.59547406050089,
+          3.079431557532274,
+          3.44
+        ]
+      },
+      {
+        "z_mm": 3.56,
+        "deposition_area_mm2": 353.1578712510785,
+        "deposition_supported_area_fraction": 0.9840464620770406,
+        "total_centerline_length_mm": 589.649347736058,
+        "unsupported_centerline_length_mm": 0.911057641386084,
+        "maximum_centerline_gap_mm": 0.05050421395509398,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 14688,
+        "worst_width_mm": 0.645192,
+        "worst_plate_xy_mm": [
+          194.61325,
+          156.699
+        ],
+        "worst_bead_supported_area_fraction": 0.9011513603275658,
+        "worst_cad_xyz_mm": [
+          17.113249999999994,
+          -3.3009999999999877,
+          3.56
+        ]
+      },
+      {
+        "z_mm": 3.68,
+        "deposition_area_mm2": 355.0204607497476,
+        "deposition_supported_area_fraction": 0.9812281461987715,
+        "total_centerline_length_mm": 592.0065546229151,
+        "unsupported_centerline_length_mm": 2.558254533009346,
+        "maximum_centerline_gap_mm": 0.11337830144095708,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 16279,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          196.925,
+          163.52300000000002
+        ],
+        "worst_bead_supported_area_fraction": 0.6433045430345231,
+        "worst_cad_xyz_mm": [
+          19.42500000000001,
+          3.5230000000000246,
+          3.68
+        ]
+      },
+      {
+        "z_mm": 3.8,
+        "deposition_area_mm2": 359.5526140552456,
+        "deposition_supported_area_fraction": 0.97933232204198,
+        "total_centerline_length_mm": 601.3272057567873,
+        "unsupported_centerline_length_mm": 5.6015826749566635,
+        "maximum_centerline_gap_mm": 0.17468999688186504,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 17678,
+        "worst_width_mm": 0.797912,
+        "worst_plate_xy_mm": [
+          194.3546,
+          163.9462
+        ],
+        "worst_bead_supported_area_fraction": 0.6598516912927878,
+        "worst_cad_xyz_mm": [
+          16.854600000000005,
+          3.9462000000000046,
+          3.8
+        ]
+      },
+      {
+        "z_mm": 3.92,
+        "deposition_area_mm2": 361.92491221685026,
+        "deposition_supported_area_fraction": 0.9843387473510291,
+        "total_centerline_length_mm": 614.3297599831561,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.04,
+        "deposition_area_mm2": 364.05009598631256,
+        "deposition_supported_area_fraction": 0.9846713396980744,
+        "total_centerline_length_mm": 611.0557238253534,
+        "unsupported_centerline_length_mm": 0.23211208590708166,
+        "maximum_centerline_gap_mm": 0.013020081183558825,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 21127,
+        "worst_width_mm": 0.859212,
+        "worst_plate_xy_mm": [
+          159.282,
+          161.774
+        ],
+        "worst_bead_supported_area_fraction": 0.9393428675782046,
+        "worst_cad_xyz_mm": [
+          -18.21799999999999,
+          1.774000000000001,
+          4.04
+        ]
+      },
+      {
+        "z_mm": 4.16,
+        "deposition_area_mm2": 365.4868265245694,
+        "deposition_supported_area_fraction": 0.9854385483343443,
+        "total_centerline_length_mm": 599.6690020867993,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.28,
+        "deposition_area_mm2": 366.961371393685,
+        "deposition_supported_area_fraction": 0.9847699415735828,
+        "total_centerline_length_mm": 587.0135734279721,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.4,
+        "deposition_area_mm2": 368.01116422583635,
+        "deposition_supported_area_fraction": 0.985289858011836,
+        "total_centerline_length_mm": 591.820318888311,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.52,
+        "deposition_area_mm2": 369.33255652239257,
+        "deposition_supported_area_fraction": 0.9844352448282314,
+        "total_centerline_length_mm": 601.0373350086352,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.64,
+        "deposition_area_mm2": 370.3966769873732,
+        "deposition_supported_area_fraction": 0.9848076167356058,
+        "total_centerline_length_mm": 600.8216542988998,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.76,
+        "deposition_area_mm2": 371.44400166121574,
+        "deposition_supported_area_fraction": 0.9850107307332235,
+        "total_centerline_length_mm": 608.9141869481203,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 4.88,
+        "deposition_area_mm2": 373.77024889214795,
+        "deposition_supported_area_fraction": 0.9849173121660146,
+        "total_centerline_length_mm": 614.6487250340936,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 5.0,
+        "deposition_area_mm2": 372.09645660710635,
+        "deposition_supported_area_fraction": 0.9848086274941943,
+        "total_centerline_length_mm": 612.2684176581389,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 5.12,
+        "deposition_area_mm2": 375.1379708012128,
+        "deposition_supported_area_fraction": 0.9847079630735376,
+        "total_centerline_length_mm": 617.9726268372394,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 5.24,
+        "deposition_area_mm2": 378.30705276722716,
+        "deposition_supported_area_fraction": 0.9844496352827776,
+        "total_centerline_length_mm": 625.0046450312022,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 5.36,
+        "deposition_area_mm2": 381.49372563697005,
+        "deposition_supported_area_fraction": 0.9846279564792102,
+        "total_centerline_length_mm": 631.9574629403627,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 5.48,
+        "deposition_area_mm2": 382.36363511685545,
+        "deposition_supported_area_fraction": 0.9824948158319671,
+        "total_centerline_length_mm": 625.4634807464266,
+        "unsupported_centerline_length_mm": 2.4314245413093687,
+        "maximum_centerline_gap_mm": 0.14698729595595802,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 36631,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          153.34227272727273,
+          162.38754545454546
+        ],
+        "worst_bead_supported_area_fraction": 0.6999742877054135,
+        "worst_cad_xyz_mm": [
+          -24.15772727272727,
+          2.38754545454546,
+          5.48
+        ]
+      },
+      {
+        "z_mm": 5.6,
+        "deposition_area_mm2": 382.83096316580225,
+        "deposition_supported_area_fraction": 0.9790766395431049,
+        "total_centerline_length_mm": 616.4862442043251,
+        "unsupported_centerline_length_mm": 4.938734074806263,
+        "maximum_centerline_gap_mm": 0.1534356093689412,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 38676,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          164.355,
+          157.38
+        ],
+        "worst_bead_supported_area_fraction": 0.5934020402591409,
+        "worst_cad_xyz_mm": [
+          -13.14500000000001,
+          -2.6200000000000045,
+          5.6
+        ]
+      },
+      {
+        "z_mm": 5.72,
+        "deposition_area_mm2": 382.8275648225126,
+        "deposition_supported_area_fraction": 0.9783466946789543,
+        "total_centerline_length_mm": 622.7252036432611,
+        "unsupported_centerline_length_mm": 6.666302057501226,
+        "maximum_centerline_gap_mm": 0.11519585295005004,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 40327,
+        "worst_width_mm": 0.619932,
+        "worst_plate_xy_mm": [
+          163.76745454545454,
+          163.14981818181818
+        ],
+        "worst_bead_supported_area_fraction": 0.7132067034801254,
+        "worst_cad_xyz_mm": [
+          -13.732545454545459,
+          3.1498181818181763,
+          5.72
+        ]
+      },
+      {
+        "z_mm": 5.84,
+        "deposition_area_mm2": 382.6932166936502,
+        "deposition_supported_area_fraction": 0.9782619634728473,
+        "total_centerline_length_mm": 622.6115517381178,
+        "unsupported_centerline_length_mm": 3.4315798388289513,
+        "maximum_centerline_gap_mm": 0.12315550686332365,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 41479,
+        "worst_width_mm": 0.808072,
+        "worst_plate_xy_mm": [
+          188.60175,
+          163.91975000000002
+        ],
+        "worst_bead_supported_area_fraction": 0.7794452925356551,
+        "worst_cad_xyz_mm": [
+          11.10175000000001,
+          3.919750000000022,
+          5.84
+        ]
+      },
+      {
+        "z_mm": 5.96,
+        "deposition_area_mm2": 381.2612923136818,
+        "deposition_supported_area_fraction": 0.9794680142054925,
+        "total_centerline_length_mm": 620.9027865640156,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.08,
+        "deposition_area_mm2": 381.33636177493196,
+        "deposition_supported_area_fraction": 0.9796679621846286,
+        "total_centerline_length_mm": 618.8996551290944,
+        "unsupported_centerline_length_mm": 1.2370326984877589,
+        "maximum_centerline_gap_mm": 0.07880743483251415,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 46661,
+        "worst_width_mm": 0.897132,
+        "worst_plate_xy_mm": [
+          155.04958333333332,
+          155.67616666666666
+        ],
+        "worst_bead_supported_area_fraction": 0.9523797688562977,
+        "worst_cad_xyz_mm": [
+          -22.450416666666683,
+          -4.32383333333334,
+          6.08
+        ]
+      },
+      {
+        "z_mm": 6.2,
+        "deposition_area_mm2": 380.96577540216447,
+        "deposition_supported_area_fraction": 0.9805811175066763,
+        "total_centerline_length_mm": 614.5324798158964,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.32,
+        "deposition_area_mm2": 380.01318463248,
+        "deposition_supported_area_fraction": 0.9811248833170662,
+        "total_centerline_length_mm": 613.1629481091145,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.44,
+        "deposition_area_mm2": 379.45700055388977,
+        "deposition_supported_area_fraction": 0.9801649313467062,
+        "total_centerline_length_mm": 615.2997708195312,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.56,
+        "deposition_area_mm2": 379.43725710285014,
+        "deposition_supported_area_fraction": 0.979399292630542,
+        "total_centerline_length_mm": 615.8264995918084,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.68,
+        "deposition_area_mm2": 378.56048620786817,
+        "deposition_supported_area_fraction": 0.9805614684804911,
+        "total_centerline_length_mm": 617.8469405310424,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.8,
+        "deposition_area_mm2": 377.8861770572525,
+        "deposition_supported_area_fraction": 0.9803548427718821,
+        "total_centerline_length_mm": 615.7376100844427,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 6.92,
+        "deposition_area_mm2": 376.19369789384507,
+        "deposition_supported_area_fraction": 0.9804285703534256,
+        "total_centerline_length_mm": 612.387063959753,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.04,
+        "deposition_area_mm2": 376.20564067224586,
+        "deposition_supported_area_fraction": 0.9805051106936643,
+        "total_centerline_length_mm": 615.3635327451022,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.16,
+        "deposition_area_mm2": 376.42109470434224,
+        "deposition_supported_area_fraction": 0.9803027316484502,
+        "total_centerline_length_mm": 616.3193394564593,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.28,
+        "deposition_area_mm2": 377.1648944529752,
+        "deposition_supported_area_fraction": 0.9797228908001114,
+        "total_centerline_length_mm": 614.8164619088068,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.4,
+        "deposition_area_mm2": 377.88499804230236,
+        "deposition_supported_area_fraction": 0.9800528081136378,
+        "total_centerline_length_mm": 612.9449033031458,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.52,
+        "deposition_area_mm2": 378.93157585826725,
+        "deposition_supported_area_fraction": 0.9793448246201254,
+        "total_centerline_length_mm": 615.6367988267086,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.64,
+        "deposition_area_mm2": 379.92661780878,
+        "deposition_supported_area_fraction": 0.9798219953318228,
+        "total_centerline_length_mm": 616.5138123686097,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.76,
+        "deposition_area_mm2": 381.34900637571684,
+        "deposition_supported_area_fraction": 0.9792552338658365,
+        "total_centerline_length_mm": 619.0368222766623,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 7.88,
+        "deposition_area_mm2": 382.58528967344955,
+        "deposition_supported_area_fraction": 0.9792478850965358,
+        "total_centerline_length_mm": 620.8036395135282,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.0,
+        "deposition_area_mm2": 384.26784865718275,
+        "deposition_supported_area_fraction": 0.978751192796073,
+        "total_centerline_length_mm": 622.5075519976422,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.12,
+        "deposition_area_mm2": 385.8594307504103,
+        "deposition_supported_area_fraction": 0.9790158746749149,
+        "total_centerline_length_mm": 626.7547594135509,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.24,
+        "deposition_area_mm2": 388.62904933822006,
+        "deposition_supported_area_fraction": 0.9758368282217271,
+        "total_centerline_length_mm": 631.8936989268004,
+        "unsupported_centerline_length_mm": 0.4590678691645634,
+        "maximum_centerline_gap_mm": 0.7324934737546955,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Overhang wall",
+        "worst_line": 83676,
+        "worst_width_mm": 0.535752,
+        "worst_plate_xy_mm": [
+          159.282,
+          160.095
+        ],
+        "worst_bead_supported_area_fraction": 0.0,
+        "worst_cad_xyz_mm": [
+          -18.21799999999999,
+          0.09499999999999886,
+          8.24
+        ]
+      },
+      {
+        "z_mm": 8.36,
+        "deposition_area_mm2": 391.14645014368807,
+        "deposition_supported_area_fraction": 0.9768783411356925,
+        "total_centerline_length_mm": 639.1949991333221,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.48,
+        "deposition_area_mm2": 393.54600206695295,
+        "deposition_supported_area_fraction": 0.9767505501581221,
+        "total_centerline_length_mm": 646.5718340105091,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.6,
+        "deposition_area_mm2": 395.2875289576534,
+        "deposition_supported_area_fraction": 0.9770103417142394,
+        "total_centerline_length_mm": 649.8551385081329,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.72,
+        "deposition_area_mm2": 397.3994836542283,
+        "deposition_supported_area_fraction": 0.9760434850592321,
+        "total_centerline_length_mm": 646.1052924836653,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.84,
+        "deposition_area_mm2": 399.790379710464,
+        "deposition_supported_area_fraction": 0.9767135146617734,
+        "total_centerline_length_mm": 651.098439199957,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 8.96,
+        "deposition_area_mm2": 402.1041620804184,
+        "deposition_supported_area_fraction": 0.9770738552424688,
+        "total_centerline_length_mm": 656.0645796854404,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.08,
+        "deposition_area_mm2": 403.7767881344146,
+        "deposition_supported_area_fraction": 0.9786684406659897,
+        "total_centerline_length_mm": 663.5190812532475,
+        "unsupported_centerline_length_mm": 1.438884127059846,
+        "maximum_centerline_gap_mm": 0.06292779150884646,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 99770,
+        "worst_width_mm": 0.663292,
+        "worst_plate_xy_mm": [
+          159.28872727272727,
+          159.65081818181818
+        ],
+        "worst_bead_supported_area_fraction": 0.9465943569847413,
+        "worst_cad_xyz_mm": [
+          -18.21127272727273,
+          -0.3491818181818189,
+          9.08
+        ]
+      },
+      {
+        "z_mm": 9.2,
+        "deposition_area_mm2": 405.02397321084027,
+        "deposition_supported_area_fraction": 0.9790642650553756,
+        "total_centerline_length_mm": 664.2518018271481,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.32,
+        "deposition_area_mm2": 406.30057577999435,
+        "deposition_supported_area_fraction": 0.9789035177721919,
+        "total_centerline_length_mm": 666.2789221731035,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.44,
+        "deposition_area_mm2": 407.9116310089712,
+        "deposition_supported_area_fraction": 0.9788750192977321,
+        "total_centerline_length_mm": 667.9061273375978,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.56,
+        "deposition_area_mm2": 409.56452873373365,
+        "deposition_supported_area_fraction": 0.9786577262156239,
+        "total_centerline_length_mm": 661.6520737797345,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.68,
+        "deposition_area_mm2": 411.85455162424023,
+        "deposition_supported_area_fraction": 0.9779856999632217,
+        "total_centerline_length_mm": 673.3677930029654,
+        "unsupported_centerline_length_mm": 0.7096403343715967,
+        "maximum_centerline_gap_mm": 0.06834177362959722,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 109470,
+        "worst_width_mm": 0.576072,
+        "worst_plate_xy_mm": [
+          197.964,
+          155.663
+        ],
+        "worst_bead_supported_area_fraction": 0.9106574830503981,
+        "worst_cad_xyz_mm": [
+          20.464,
+          -4.336999999999989,
+          9.68
+        ]
+      },
+      {
+        "z_mm": 9.8,
+        "deposition_area_mm2": 414.37719700735545,
+        "deposition_supported_area_fraction": 0.9778602346486859,
+        "total_centerline_length_mm": 672.2896977770191,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 9.92,
+        "deposition_area_mm2": 416.6563716778169,
+        "deposition_supported_area_fraction": 0.9776119135953211,
+        "total_centerline_length_mm": 705.716254155552,
+        "unsupported_centerline_length_mm": 0.7265002480685396,
+        "maximum_centerline_gap_mm": 0.053143611330185685,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 114989,
+        "worst_width_mm": 0.566872,
+        "worst_plate_xy_mm": [
+          197.9195,
+          164.26749999999998
+        ],
+        "worst_bead_supported_area_fraction": 0.899542366410866,
+        "worst_cad_xyz_mm": [
+          20.4195,
+          4.267499999999984,
+          9.92
+        ]
+      },
+      {
+        "z_mm": 10.04,
+        "deposition_area_mm2": 417.9824806934198,
+        "deposition_supported_area_fraction": 0.9787114266847616,
+        "total_centerline_length_mm": 693.6005136484861,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 10.16,
+        "deposition_area_mm2": 419.8041765908375,
+        "deposition_supported_area_fraction": 0.9783289069895437,
+        "total_centerline_length_mm": 702.685583417347,
+        "unsupported_centerline_length_mm": 0.39437474416076046,
+        "maximum_centerline_gap_mm": 0.03308665873984359,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 120150,
+        "worst_width_mm": 0.533472,
+        "worst_plate_xy_mm": [
+          166.59275,
+          155.84975
+        ],
+        "worst_bead_supported_area_fraction": 0.9346385904643449,
+        "worst_cad_xyz_mm": [
+          -10.907250000000005,
+          -4.15025,
+          10.16
+        ]
+      },
+      {
+        "z_mm": 10.28,
+        "deposition_area_mm2": 421.34883597851746,
+        "deposition_supported_area_fraction": 0.9786404880331367,
+        "total_centerline_length_mm": 711.8426782888995,
+        "unsupported_centerline_length_mm": 0.23336796382391525,
+        "maximum_centerline_gap_mm": 0.021294275828550892,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 121162,
+        "worst_width_mm": 0.566992,
+        "worst_plate_xy_mm": [
+          197.89266666666666,
+          155.83533333333332
+        ],
+        "worst_bead_supported_area_fraction": 0.9505153216238034,
+        "worst_cad_xyz_mm": [
+          20.392666666666656,
+          -4.164666666666676,
+          10.28
+        ]
+      },
+      {
+        "z_mm": 10.4,
+        "deposition_area_mm2": 423.11802564309636,
+        "deposition_supported_area_fraction": 0.9784428455794155,
+        "total_centerline_length_mm": 714.0491518077898,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 10.52,
+        "deposition_area_mm2": 424.6009135385975,
+        "deposition_supported_area_fraction": 0.9791468478525321,
+        "total_centerline_length_mm": 716.8112763705491,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 10.64,
+        "deposition_area_mm2": 426.4631957003341,
+        "deposition_supported_area_fraction": 0.9787620633442313,
+        "total_centerline_length_mm": 720.0003966634479,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 10.76,
+        "deposition_area_mm2": 428.3316751408282,
+        "deposition_supported_area_fraction": 0.9789539736143984,
+        "total_centerline_length_mm": 723.1295010839885,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 10.88,
+        "deposition_area_mm2": 429.1900581712637,
+        "deposition_supported_area_fraction": 0.9790771805978559,
+        "total_centerline_length_mm": 715.0180768915926,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 11.0,
+        "deposition_area_mm2": 431.33092715190867,
+        "deposition_supported_area_fraction": 0.9780388662854625,
+        "total_centerline_length_mm": 718.8897568157453,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 11.12,
+        "deposition_area_mm2": 433.58680181017206,
+        "deposition_supported_area_fraction": 0.9783947822633714,
+        "total_centerline_length_mm": 723.4848692228991,
+        "unsupported_centerline_length_mm": 0.24770940135537362,
+        "maximum_centerline_gap_mm": 0.056089696337736354,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 135544,
+        "worst_width_mm": 0.713149,
+        "worst_plate_xy_mm": [
+          161.8044,
+          156.3278
+        ],
+        "worst_bead_supported_area_fraction": 0.7348521951770004,
+        "worst_cad_xyz_mm": [
+          -15.695600000000013,
+          -3.6722000000000037,
+          11.12
+        ]
+      },
+      {
+        "z_mm": 11.24,
+        "deposition_area_mm2": 435.52758997526144,
+        "deposition_supported_area_fraction": 0.9794307949022129,
+        "total_centerline_length_mm": 729.2174841246549,
+        "unsupported_centerline_length_mm": 0.0011110640062692734,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 11.36,
+        "deposition_area_mm2": 436.6471843709394,
+        "deposition_supported_area_fraction": 0.9802574798772564,
+        "total_centerline_length_mm": 733.2018957048463,
+        "unsupported_centerline_length_mm": 0.18831634892135699,
+        "maximum_centerline_gap_mm": 0.09511700151577764,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 139939,
+        "worst_width_mm": 0.709292,
+        "worst_plate_xy_mm": [
+          197.64442857142856,
+          156.35785714285714
+        ],
+        "worst_bead_supported_area_fraction": 0.708964226362008,
+        "worst_cad_xyz_mm": [
+          20.144428571428563,
+          -3.642142857142858,
+          11.36
+        ]
+      },
+      {
+        "z_mm": 11.48,
+        "deposition_area_mm2": 437.05233718194336,
+        "deposition_supported_area_fraction": 0.9812342299550021,
+        "total_centerline_length_mm": 735.4602004477847,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 11.6,
+        "deposition_area_mm2": 437.6501709512175,
+        "deposition_supported_area_fraction": 0.9808099180922661,
+        "total_centerline_length_mm": 738.1798456285292,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 11.72,
+        "deposition_area_mm2": 438.3611524079535,
+        "deposition_supported_area_fraction": 0.9800437096633605,
+        "total_centerline_length_mm": 737.8771234757506,
+        "unsupported_centerline_length_mm": 1.982748471456152,
+        "maximum_centerline_gap_mm": 0.1788199959585779,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 145940,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          195.9454,
+          158.7973
+        ],
+        "worst_bead_supported_area_fraction": 0.6648882459070584,
+        "worst_cad_xyz_mm": [
+          18.445400000000006,
+          -1.202699999999993,
+          11.72
+        ]
+      },
+      {
+        "z_mm": 11.84,
+        "deposition_area_mm2": 438.62945309040435,
+        "deposition_supported_area_fraction": 0.9802355290953736,
+        "total_centerline_length_mm": 743.6862939348428,
+        "unsupported_centerline_length_mm": 3.901053154471877,
+        "maximum_centerline_gap_mm": 0.10162653526027512,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 149461,
+        "worst_width_mm": 0.615832,
+        "worst_plate_xy_mm": [
+          160.34933333333333,
+          160.75166666666667
+        ],
+        "worst_bead_supported_area_fraction": 0.751901101792125,
+        "worst_cad_xyz_mm": [
+          -17.150666666666666,
+          0.7516666666666652,
+          11.84
+        ]
+      },
+      {
+        "z_mm": 11.96,
+        "deposition_area_mm2": 439.06526156436377,
+        "deposition_supported_area_fraction": 0.9792686593319625,
+        "total_centerline_length_mm": 743.6226524043703,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.08,
+        "deposition_area_mm2": 437.8442518858942,
+        "deposition_supported_area_fraction": 0.9795000946139661,
+        "total_centerline_length_mm": 728.8401033655615,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.2,
+        "deposition_area_mm2": 437.8947587742127,
+        "deposition_supported_area_fraction": 0.9776774848434538,
+        "total_centerline_length_mm": 732.2472683877146,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.32,
+        "deposition_area_mm2": 437.37312055465884,
+        "deposition_supported_area_fraction": 0.9786335852446978,
+        "total_centerline_length_mm": 724.8044602736829,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.44,
+        "deposition_area_mm2": 437.5650271749071,
+        "deposition_supported_area_fraction": 0.9768062073376006,
+        "total_centerline_length_mm": 739.0395334080883,
+        "unsupported_centerline_length_mm": 6.684045281173714,
+        "maximum_centerline_gap_mm": 0.13450927294826767,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 160913,
+        "worst_width_mm": 0.553802,
+        "worst_plate_xy_mm": [
+          160.19617647058823,
+          161.08129411764705
+        ],
+        "worst_bead_supported_area_fraction": 0.6197951129281776,
+        "worst_cad_xyz_mm": [
+          -17.303823529411773,
+          1.0812941176470474,
+          12.44
+        ]
+      },
+      {
+        "z_mm": 12.56,
+        "deposition_area_mm2": 436.47168529607404,
+        "deposition_supported_area_fraction": 0.9793840252395706,
+        "total_centerline_length_mm": 735.7004117620031,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.68,
+        "deposition_area_mm2": 435.45230394282396,
+        "deposition_supported_area_fraction": 0.9788673148707555,
+        "total_centerline_length_mm": 733.7273525200981,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.8,
+        "deposition_area_mm2": 431.9301554711303,
+        "deposition_supported_area_fraction": 0.9794697175625328,
+        "total_centerline_length_mm": 725.1743413881898,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 12.92,
+        "deposition_area_mm2": 428.55448672907033,
+        "deposition_supported_area_fraction": 0.9797178313749673,
+        "total_centerline_length_mm": 718.5503447319235,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.04,
+        "deposition_area_mm2": 427.00756255370965,
+        "deposition_supported_area_fraction": 0.9794605293986219,
+        "total_centerline_length_mm": 719.1071118663873,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.16,
+        "deposition_area_mm2": 425.5278091314751,
+        "deposition_supported_area_fraction": 0.9799502510227801,
+        "total_centerline_length_mm": 714.5777218745003,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.28,
+        "deposition_area_mm2": 424.6320593087425,
+        "deposition_supported_area_fraction": 0.9798090749013807,
+        "total_centerline_length_mm": 718.5385617649994,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.4,
+        "deposition_area_mm2": 423.0696816574308,
+        "deposition_supported_area_fraction": 0.980588700667046,
+        "total_centerline_length_mm": 711.2884092792607,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.52,
+        "deposition_area_mm2": 422.30591482633986,
+        "deposition_supported_area_fraction": 0.9796823876310521,
+        "total_centerline_length_mm": 709.3023705506898,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.64,
+        "deposition_area_mm2": 421.04165041195984,
+        "deposition_supported_area_fraction": 0.980349088193241,
+        "total_centerline_length_mm": 705.5285615347154,
+        "unsupported_centerline_length_mm": 0.043968148988263525,
+        "maximum_centerline_gap_mm": 0.003891487151571292,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 181713,
+        "worst_width_mm": 0.838442,
+        "worst_plate_xy_mm": [
+          159.783,
+          159.61
+        ],
+        "worst_bead_supported_area_fraction": 0.9564983521728079,
+        "worst_cad_xyz_mm": [
+          -17.717000000000013,
+          -0.38999999999998636,
+          13.64
+        ]
+      },
+      {
+        "z_mm": 13.76,
+        "deposition_area_mm2": 420.00889878395157,
+        "deposition_supported_area_fraction": 0.9806072096701461,
+        "total_centerline_length_mm": 707.8778159904215,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 13.88,
+        "deposition_area_mm2": 418.83304889346414,
+        "deposition_supported_area_fraction": 0.9809374696953554,
+        "total_centerline_length_mm": 708.2558913455644,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.0,
+        "deposition_area_mm2": 416.94839344755223,
+        "deposition_supported_area_fraction": 0.9806351162853454,
+        "total_centerline_length_mm": 695.8386285378234,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.12,
+        "deposition_area_mm2": 415.4732310673479,
+        "deposition_supported_area_fraction": 0.9811324720346096,
+        "total_centerline_length_mm": 682.0708500676377,
+        "unsupported_centerline_length_mm": 0.970171776278675,
+        "maximum_centerline_gap_mm": 0.031173463706822748,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 188974,
+        "worst_width_mm": 0.662532,
+        "worst_plate_xy_mm": [
+          195.63969230769231,
+          160.00515384615386
+        ],
+        "worst_bead_supported_area_fraction": 0.8768582125702431,
+        "worst_cad_xyz_mm": [
+          18.139692307692314,
+          0.005153846153859831,
+          14.12
+        ]
+      },
+      {
+        "z_mm": 14.24,
+        "deposition_area_mm2": 411.8241991355969,
+        "deposition_supported_area_fraction": 0.9834942163203212,
+        "total_centerline_length_mm": 665.5034709496322,
+        "unsupported_centerline_length_mm": 0.14517765896358018,
+        "maximum_centerline_gap_mm": 0.00872970315518485,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 191264,
+        "worst_width_mm": 0.663507,
+        "worst_plate_xy_mm": [
+          194.94542857142858,
+          159.92971428571428
+        ],
+        "worst_bead_supported_area_fraction": 0.9811286293629389,
+        "worst_cad_xyz_mm": [
+          17.44542857142858,
+          -0.07028571428571695,
+          14.24
+        ]
+      },
+      {
+        "z_mm": 14.36,
+        "deposition_area_mm2": 408.23854379920135,
+        "deposition_supported_area_fraction": 0.9834257729844825,
+        "total_centerline_length_mm": 658.7523937000622,
+        "unsupported_centerline_length_mm": 0.3767130778776891,
+        "maximum_centerline_gap_mm": 0.06200862372934526,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 195542,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          160.893,
+          159.999
+        ],
+        "worst_bead_supported_area_fraction": 0.8606494902148946,
+        "worst_cad_xyz_mm": [
+          -16.607,
+          -0.0010000000000047748,
+          14.36
+        ]
+      },
+      {
+        "z_mm": 14.48,
+        "deposition_area_mm2": 402.7024634936862,
+        "deposition_supported_area_fraction": 0.985968530963063,
+        "total_centerline_length_mm": 653.0499292987486,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.6,
+        "deposition_area_mm2": 396.94288055434083,
+        "deposition_supported_area_fraction": 0.9861309836570984,
+        "total_centerline_length_mm": 640.5786376692585,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.72,
+        "deposition_area_mm2": 390.2973858399585,
+        "deposition_supported_area_fraction": 0.9863572414570406,
+        "total_centerline_length_mm": 628.731326046668,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.84,
+        "deposition_area_mm2": 383.3102379571876,
+        "deposition_supported_area_fraction": 0.9853927388107191,
+        "total_centerline_length_mm": 614.547836444118,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 14.96,
+        "deposition_area_mm2": 377.44929039279407,
+        "deposition_supported_area_fraction": 0.9842112376960656,
+        "total_centerline_length_mm": 606.3385016224877,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.08,
+        "deposition_area_mm2": 371.1646203236082,
+        "deposition_supported_area_fraction": 0.9851242691155014,
+        "total_centerline_length_mm": 599.4169583732971,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.2,
+        "deposition_area_mm2": 364.9063168594984,
+        "deposition_supported_area_fraction": 0.9850220299977073,
+        "total_centerline_length_mm": 587.0027685585706,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.32,
+        "deposition_area_mm2": 357.2664982658146,
+        "deposition_supported_area_fraction": 0.9859636371711548,
+        "total_centerline_length_mm": 577.3028296326555,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.44,
+        "deposition_area_mm2": 350.61039537558486,
+        "deposition_supported_area_fraction": 0.9843210971859501,
+        "total_centerline_length_mm": 566.75313545493,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.56,
+        "deposition_area_mm2": 343.4191437358319,
+        "deposition_supported_area_fraction": 0.9844724748042555,
+        "total_centerline_length_mm": 558.0297783069967,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.68,
+        "deposition_area_mm2": 334.07456172800653,
+        "deposition_supported_area_fraction": 0.9850101791506657,
+        "total_centerline_length_mm": 542.5145915713769,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.8,
+        "deposition_area_mm2": 326.65917284677124,
+        "deposition_supported_area_fraction": 0.9849881145757134,
+        "total_centerline_length_mm": 530.7485998452465,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 15.92,
+        "deposition_area_mm2": 319.5650627207012,
+        "deposition_supported_area_fraction": 0.9857881324557494,
+        "total_centerline_length_mm": 519.3485477990292,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.04,
+        "deposition_area_mm2": 313.1337395863351,
+        "deposition_supported_area_fraction": 0.9851338979238407,
+        "total_centerline_length_mm": 509.61497414591,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.16,
+        "deposition_area_mm2": 306.50414395217814,
+        "deposition_supported_area_fraction": 0.985757370265827,
+        "total_centerline_length_mm": 475.8926186992833,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.28,
+        "deposition_area_mm2": 300.5380308915222,
+        "deposition_supported_area_fraction": 0.9848507117165953,
+        "total_centerline_length_mm": 467.37841458080516,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.4,
+        "deposition_area_mm2": 294.58109593924456,
+        "deposition_supported_area_fraction": 0.9852951831328903,
+        "total_centerline_length_mm": 458.15724408261497,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.52,
+        "deposition_area_mm2": 288.7177019144975,
+        "deposition_supported_area_fraction": 0.985020291693454,
+        "total_centerline_length_mm": 449.86464921728697,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.64,
+        "deposition_area_mm2": 282.98474288963007,
+        "deposition_supported_area_fraction": 0.9850831082638547,
+        "total_centerline_length_mm": 443.3498394917385,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.76,
+        "deposition_area_mm2": 277.11453816539165,
+        "deposition_supported_area_fraction": 0.9851009362978205,
+        "total_centerline_length_mm": 434.7835410137814,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 16.88,
+        "deposition_area_mm2": 271.43535699969385,
+        "deposition_supported_area_fraction": 0.9851473705673057,
+        "total_centerline_length_mm": 426.577448497596,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.0,
+        "deposition_area_mm2": 265.78750721500984,
+        "deposition_supported_area_fraction": 0.9851432359400801,
+        "total_centerline_length_mm": 421.3632557008997,
+        "unsupported_centerline_length_mm": 0.40759673421363474,
+        "maximum_centerline_gap_mm": 0.035830406229821414,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 236365,
+        "worst_width_mm": 0.553272,
+        "worst_plate_xy_mm": [
+          150.51736363636365,
+          154.56027272727272
+        ],
+        "worst_bead_supported_area_fraction": 0.9630245327403321,
+        "worst_cad_xyz_mm": [
+          -26.982636363636345,
+          -5.439727272727282,
+          17.0
+        ]
+      },
+      {
+        "z_mm": 17.12,
+        "deposition_area_mm2": 260.0291143649836,
+        "deposition_supported_area_fraction": 0.9845727997416326,
+        "total_centerline_length_mm": 413.0573216436259,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.24,
+        "deposition_area_mm2": 254.33711689676792,
+        "deposition_supported_area_fraction": 0.9848998803057483,
+        "total_centerline_length_mm": 404.71888649486533,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.36,
+        "deposition_area_mm2": 248.78031362811205,
+        "deposition_supported_area_fraction": 0.9844175364439509,
+        "total_centerline_length_mm": 395.0042909875793,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.48,
+        "deposition_area_mm2": 243.06451399636043,
+        "deposition_supported_area_fraction": 0.984064582781714,
+        "total_centerline_length_mm": 385.48071991525865,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.6,
+        "deposition_area_mm2": 237.39833923710918,
+        "deposition_supported_area_fraction": 0.9840500263763851,
+        "total_centerline_length_mm": 375.93614243452663,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.72,
+        "deposition_area_mm2": 231.677774297202,
+        "deposition_supported_area_fraction": 0.9838468701587283,
+        "total_centerline_length_mm": 368.7920709397746,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.84,
+        "deposition_area_mm2": 225.8941870377155,
+        "deposition_supported_area_fraction": 0.9836046013249911,
+        "total_centerline_length_mm": 357.85766113930396,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 17.96,
+        "deposition_area_mm2": 219.71785460478483,
+        "deposition_supported_area_fraction": 0.9831811295975708,
+        "total_centerline_length_mm": 349.0211218880283,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.08,
+        "deposition_area_mm2": 214.00440101925875,
+        "deposition_supported_area_fraction": 0.9829420468918616,
+        "total_centerline_length_mm": 341.1643507656813,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.2,
+        "deposition_area_mm2": 207.52878624543422,
+        "deposition_supported_area_fraction": 0.982876560993165,
+        "total_centerline_length_mm": 331.04733269699494,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.32,
+        "deposition_area_mm2": 201.97449389499334,
+        "deposition_supported_area_fraction": 0.979519704639521,
+        "total_centerline_length_mm": 324.4816803600642,
+        "unsupported_centerline_length_mm": 1.1080693324079398,
+        "maximum_centerline_gap_mm": 0.2878697692090094,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 250168,
+        "worst_width_mm": 0.501912,
+        "worst_plate_xy_mm": [
+          151.64852372625916,
+          164.50829691806516
+        ],
+        "worst_bead_supported_area_fraction": 0.5460597637645914,
+        "worst_cad_xyz_mm": [
+          -25.851476273740843,
+          4.508296918065156,
+          18.32
+        ]
+      },
+      {
+        "z_mm": 18.44,
+        "deposition_area_mm2": 197.7951488408486,
+        "deposition_supported_area_fraction": 0.9753543688766007,
+        "total_centerline_length_mm": 325.76779856366915,
+        "unsupported_centerline_length_mm": 3.8152362848461547,
+        "maximum_centerline_gap_mm": 0.32080840314935427,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 251439,
+        "worst_width_mm": 0.539422,
+        "worst_plate_xy_mm": [
+          187.46925,
+          164.2935
+        ],
+        "worst_bead_supported_area_fraction": 0.3806587756141864,
+        "worst_cad_xyz_mm": [
+          9.969249999999988,
+          4.2934999999999945,
+          18.44
+        ]
+      },
+      {
+        "z_mm": 18.56,
+        "deposition_area_mm2": 191.56669696782393,
+        "deposition_supported_area_fraction": 0.9838762436018837,
+        "total_centerline_length_mm": 313.49931711673497,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.68,
+        "deposition_area_mm2": 184.85265298882476,
+        "deposition_supported_area_fraction": 0.9837252649677053,
+        "total_centerline_length_mm": 300.4872296924319,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.8,
+        "deposition_area_mm2": 178.24812486900436,
+        "deposition_supported_area_fraction": 0.9828816743699285,
+        "total_centerline_length_mm": 290.08677006774275,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 18.92,
+        "deposition_area_mm2": 171.4543673886338,
+        "deposition_supported_area_fraction": 0.9831938326969503,
+        "total_centerline_length_mm": 278.7521764830783,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.04,
+        "deposition_area_mm2": 164.90272690134722,
+        "deposition_supported_area_fraction": 0.9833050113988709,
+        "total_centerline_length_mm": 269.68914284678317,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.16,
+        "deposition_area_mm2": 157.03556625977785,
+        "deposition_supported_area_fraction": 0.9859896330543084,
+        "total_centerline_length_mm": 257.44184075795647,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.28,
+        "deposition_area_mm2": 151.27984739119415,
+        "deposition_supported_area_fraction": 0.9779458633233196,
+        "total_centerline_length_mm": 254.0403123972534,
+        "unsupported_centerline_length_mm": 1.8792546578247296,
+        "maximum_centerline_gap_mm": 0.27510634959179137,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 256762,
+        "worst_width_mm": 0.576972,
+        "worst_plate_xy_mm": [
+          169.605,
+          156.447
+        ],
+        "worst_bead_supported_area_fraction": 0.6228847556782585,
+        "worst_cad_xyz_mm": [
+          -7.89500000000001,
+          -3.5529999999999973,
+          19.28
+        ]
+      },
+      {
+        "z_mm": 19.4,
+        "deposition_area_mm2": 143.94788739314845,
+        "deposition_supported_area_fraction": 0.985487901537816,
+        "total_centerline_length_mm": 242.0574762549631,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.52,
+        "deposition_area_mm2": 136.01605676185733,
+        "deposition_supported_area_fraction": 0.9854618596067742,
+        "total_centerline_length_mm": 228.43454215718182,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.64,
+        "deposition_area_mm2": 128.4363353232056,
+        "deposition_supported_area_fraction": 0.9830871474285052,
+        "total_centerline_length_mm": 216.52015312043218,
+        "unsupported_centerline_length_mm": 0.23572116207706154,
+        "maximum_centerline_gap_mm": 0.11631000125184797,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 258297,
+        "worst_width_mm": 0.518812,
+        "worst_plate_xy_mm": [
+          188.435,
+          162.349
+        ],
+        "worst_bead_supported_area_fraction": 0.6919821768438386,
+        "worst_cad_xyz_mm": [
+          10.935000000000002,
+          2.3489999999999895,
+          19.64
+        ]
+      },
+      {
+        "z_mm": 19.76,
+        "deposition_area_mm2": 120.02735473289475,
+        "deposition_supported_area_fraction": 0.9858507520143504,
+        "total_centerline_length_mm": 202.7695713373045,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 19.88,
+        "deposition_area_mm2": 110.24332727740871,
+        "deposition_supported_area_fraction": 0.9854304838151171,
+        "total_centerline_length_mm": 181.0358716380045,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.0,
+        "deposition_area_mm2": 102.29439907672338,
+        "deposition_supported_area_fraction": 0.9781022997970024,
+        "total_centerline_length_mm": 171.39068992585794,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.12,
+        "deposition_area_mm2": 94.63611461357374,
+        "deposition_supported_area_fraction": 0.9772362556080246,
+        "total_centerline_length_mm": 157.46721497990848,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.24,
+        "deposition_area_mm2": 86.28961329513459,
+        "deposition_supported_area_fraction": 0.9866954887228703,
+        "total_centerline_length_mm": 148.02640472961937,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.36,
+        "deposition_area_mm2": 75.5875200232885,
+        "deposition_supported_area_fraction": 0.9856588799991799,
+        "total_centerline_length_mm": 124.52531348934257,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.48,
+        "deposition_area_mm2": 66.99327315698093,
+        "deposition_supported_area_fraction": 0.9696908017784526,
+        "total_centerline_length_mm": 109.17639435538443,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.6,
+        "deposition_area_mm2": 58.8750541318399,
+        "deposition_supported_area_fraction": 0.9463521541660449,
+        "total_centerline_length_mm": 88.83903300339144,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.72,
+        "deposition_area_mm2": 52.08393663474684,
+        "deposition_supported_area_fraction": 0.9660102714825808,
+        "total_centerline_length_mm": 83.60126644914817,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.84,
+        "deposition_area_mm2": 45.34234218740767,
+        "deposition_supported_area_fraction": 0.9647825892009203,
+        "total_centerline_length_mm": 72.81946638838849,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 20.96,
+        "deposition_area_mm2": 35.441232216582634,
+        "deposition_supported_area_fraction": 0.9851578269894063,
+        "total_centerline_length_mm": 53.32103355275841,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.08,
+        "deposition_area_mm2": 30.114245805274955,
+        "deposition_supported_area_fraction": 0.9841126516316461,
+        "total_centerline_length_mm": 50.034322856453244,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.2,
+        "deposition_area_mm2": 22.318022527446303,
+        "deposition_supported_area_fraction": 0.9817567523327451,
+        "total_centerline_length_mm": 33.72498732583985,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.32,
+        "deposition_area_mm2": 19.862930800091156,
+        "deposition_supported_area_fraction": 0.9190801465070151,
+        "total_centerline_length_mm": 31.58151409009634,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.44,
+        "deposition_area_mm2": 14.900028800589606,
+        "deposition_supported_area_fraction": 0.8746158753560873,
+        "total_centerline_length_mm": 20.090386238751382,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.56,
+        "deposition_area_mm2": 11.868430554754772,
+        "deposition_supported_area_fraction": 1.0000000000000002,
+        "total_centerline_length_mm": 18.78514896129488,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.68,
+        "deposition_area_mm2": 9.138373003392736,
+        "deposition_supported_area_fraction": 0.9999999999999996,
+        "total_centerline_length_mm": 17.675983997277157,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.8,
+        "deposition_area_mm2": 3.366593912306192,
+        "deposition_supported_area_fraction": 1.0000000000000002,
+        "total_centerline_length_mm": 2.0637345405443694,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 21.92,
+        "deposition_area_mm2": 2.994182635689767,
+        "deposition_supported_area_fraction": 0.8699641980667786,
+        "total_centerline_length_mm": 3.363650501510765,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 22.04,
+        "deposition_area_mm2": 1.6211348856435381,
+        "deposition_supported_area_fraction": 1.0000000000000002,
+        "total_centerline_length_mm": 2.20581181697048,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      },
+      {
+        "z_mm": 22.16,
+        "deposition_area_mm2": 1.6234032267575587,
+        "deposition_supported_area_fraction": 0.9121368076785304,
+        "total_centerline_length_mm": 2.2100859777709965,
+        "unsupported_centerline_length_mm": 0.0,
+        "maximum_centerline_gap_mm": 0.0,
+        "floating_vertical_shell_paths": []
+      }
+    ],
+    "worst_rows": [
+      {
+        "z_mm": 8.24,
+        "deposition_area_mm2": 388.62904933822006,
+        "deposition_supported_area_fraction": 0.9758368282217271,
+        "total_centerline_length_mm": 631.8936989268004,
+        "unsupported_centerline_length_mm": 0.4590678691645634,
+        "maximum_centerline_gap_mm": 0.7324934737546955,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Overhang wall",
+        "worst_line": 83676,
+        "worst_width_mm": 0.535752,
+        "worst_plate_xy_mm": [
+          159.282,
+          160.095
+        ],
+        "worst_bead_supported_area_fraction": 0.0,
+        "worst_cad_xyz_mm": [
+          -18.21799999999999,
+          0.09499999999999886,
+          8.24
+        ]
+      },
+      {
+        "z_mm": 18.44,
+        "deposition_area_mm2": 197.7951488408486,
+        "deposition_supported_area_fraction": 0.9753543688766007,
+        "total_centerline_length_mm": 325.76779856366915,
+        "unsupported_centerline_length_mm": 3.8152362848461547,
+        "maximum_centerline_gap_mm": 0.32080840314935427,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 251439,
+        "worst_width_mm": 0.539422,
+        "worst_plate_xy_mm": [
+          187.46925,
+          164.2935
+        ],
+        "worst_bead_supported_area_fraction": 0.3806587756141864,
+        "worst_cad_xyz_mm": [
+          9.969249999999988,
+          4.2934999999999945,
+          18.44
+        ]
+      },
+      {
+        "z_mm": 18.32,
+        "deposition_area_mm2": 201.97449389499334,
+        "deposition_supported_area_fraction": 0.979519704639521,
+        "total_centerline_length_mm": 324.4816803600642,
+        "unsupported_centerline_length_mm": 1.1080693324079398,
+        "maximum_centerline_gap_mm": 0.2878697692090094,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 250168,
+        "worst_width_mm": 0.501912,
+        "worst_plate_xy_mm": [
+          151.64852372625916,
+          164.50829691806516
+        ],
+        "worst_bead_supported_area_fraction": 0.5460597637645914,
+        "worst_cad_xyz_mm": [
+          -25.851476273740843,
+          4.508296918065156,
+          18.32
+        ]
+      },
+      {
+        "z_mm": 19.28,
+        "deposition_area_mm2": 151.27984739119415,
+        "deposition_supported_area_fraction": 0.9779458633233196,
+        "total_centerline_length_mm": 254.0403123972534,
+        "unsupported_centerline_length_mm": 1.8792546578247296,
+        "maximum_centerline_gap_mm": 0.27510634959179137,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 256762,
+        "worst_width_mm": 0.576972,
+        "worst_plate_xy_mm": [
+          169.605,
+          156.447
+        ],
+        "worst_bead_supported_area_fraction": 0.6228847556782585,
+        "worst_cad_xyz_mm": [
+          -7.89500000000001,
+          -3.5529999999999973,
+          19.28
+        ]
+      },
+      {
+        "z_mm": 11.72,
+        "deposition_area_mm2": 438.3611524079535,
+        "deposition_supported_area_fraction": 0.9800437096633605,
+        "total_centerline_length_mm": 737.8771234757506,
+        "unsupported_centerline_length_mm": 1.982748471456152,
+        "maximum_centerline_gap_mm": 0.1788199959585779,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 145940,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          195.9454,
+          158.7973
+        ],
+        "worst_bead_supported_area_fraction": 0.6648882459070584,
+        "worst_cad_xyz_mm": [
+          18.445400000000006,
+          -1.202699999999993,
+          11.72
+        ]
+      },
+      {
+        "z_mm": 3.8,
+        "deposition_area_mm2": 359.5526140552456,
+        "deposition_supported_area_fraction": 0.97933232204198,
+        "total_centerline_length_mm": 601.3272057567873,
+        "unsupported_centerline_length_mm": 5.6015826749566635,
+        "maximum_centerline_gap_mm": 0.17468999688186504,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 17678,
+        "worst_width_mm": 0.797912,
+        "worst_plate_xy_mm": [
+          194.3546,
+          163.9462
+        ],
+        "worst_bead_supported_area_fraction": 0.6598516912927878,
+        "worst_cad_xyz_mm": [
+          16.854600000000005,
+          3.9462000000000046,
+          3.8
+        ]
+      },
+      {
+        "z_mm": 5.6,
+        "deposition_area_mm2": 382.83096316580225,
+        "deposition_supported_area_fraction": 0.9790766395431049,
+        "total_centerline_length_mm": 616.4862442043251,
+        "unsupported_centerline_length_mm": 4.938734074806263,
+        "maximum_centerline_gap_mm": 0.1534356093689412,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 38676,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          164.355,
+          157.38
+        ],
+        "worst_bead_supported_area_fraction": 0.5934020402591409,
+        "worst_cad_xyz_mm": [
+          -13.14500000000001,
+          -2.6200000000000045,
+          5.6
+        ]
+      },
+      {
+        "z_mm": 5.48,
+        "deposition_area_mm2": 382.36363511685545,
+        "deposition_supported_area_fraction": 0.9824948158319671,
+        "total_centerline_length_mm": 625.4634807464266,
+        "unsupported_centerline_length_mm": 2.4314245413093687,
+        "maximum_centerline_gap_mm": 0.14698729595595802,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 36631,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          153.34227272727273,
+          162.38754545454546
+        ],
+        "worst_bead_supported_area_fraction": 0.6999742877054135,
+        "worst_cad_xyz_mm": [
+          -24.15772727272727,
+          2.38754545454546,
+          5.48
+        ]
+      },
+      {
+        "z_mm": 12.44,
+        "deposition_area_mm2": 437.5650271749071,
+        "deposition_supported_area_fraction": 0.9768062073376006,
+        "total_centerline_length_mm": 739.0395334080883,
+        "unsupported_centerline_length_mm": 6.684045281173714,
+        "maximum_centerline_gap_mm": 0.13450927294826767,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 160913,
+        "worst_width_mm": 0.553802,
+        "worst_plate_xy_mm": [
+          160.19617647058823,
+          161.08129411764705
+        ],
+        "worst_bead_supported_area_fraction": 0.6197951129281776,
+        "worst_cad_xyz_mm": [
+          -17.303823529411773,
+          1.0812941176470474,
+          12.44
+        ]
+      },
+      {
+        "z_mm": 3.08,
+        "deposition_area_mm2": 334.08053288564776,
+        "deposition_supported_area_fraction": 0.9828476972428966,
+        "total_centerline_length_mm": 560.8834202877629,
+        "unsupported_centerline_length_mm": 1.7834967563178274,
+        "maximum_centerline_gap_mm": 0.13050122716953866,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 13047,
+        "worst_width_mm": 0.658672,
+        "worst_plate_xy_mm": [
+          193.96041885536414,
+          156.91196233163868
+        ],
+        "worst_bead_supported_area_fraction": 0.8375392423330668,
+        "worst_cad_xyz_mm": [
+          16.46041885536414,
+          -3.0880376683613235,
+          3.08
+        ]
+      },
+      {
+        "z_mm": 3.44,
+        "deposition_area_mm2": 349.1579132408174,
+        "deposition_supported_area_fraction": 0.9839325230341921,
+        "total_centerline_length_mm": 591.4617794778256,
+        "unsupported_centerline_length_mm": 1.4999327250891712,
+        "maximum_centerline_gap_mm": 0.12702689333161948,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 14612,
+        "worst_width_mm": 0.636612,
+        "worst_plate_xy_mm": [
+          157.9045259394991,
+          163.07943155753227
+        ],
+        "worst_bead_supported_area_fraction": 0.8113680308505086,
+        "worst_cad_xyz_mm": [
+          -19.59547406050089,
+          3.079431557532274,
+          3.44
+        ]
+      },
+      {
+        "z_mm": 5.84,
+        "deposition_area_mm2": 382.6932166936502,
+        "deposition_supported_area_fraction": 0.9782619634728473,
+        "total_centerline_length_mm": 622.6115517381178,
+        "unsupported_centerline_length_mm": 3.4315798388289513,
+        "maximum_centerline_gap_mm": 0.12315550686332365,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 41479,
+        "worst_width_mm": 0.808072,
+        "worst_plate_xy_mm": [
+          188.60175,
+          163.91975000000002
+        ],
+        "worst_bead_supported_area_fraction": 0.7794452925356551,
+        "worst_cad_xyz_mm": [
+          11.10175000000001,
+          3.919750000000022,
+          5.84
+        ]
+      },
+      {
+        "z_mm": 2.84,
+        "deposition_area_mm2": 323.6103828626311,
+        "deposition_supported_area_fraction": 0.9813415111484751,
+        "total_centerline_length_mm": 547.3801535628439,
+        "unsupported_centerline_length_mm": 1.6671836637573423,
+        "maximum_centerline_gap_mm": 0.11865782982330514,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Internal solid infill",
+        "worst_line": 12170,
+        "worst_width_mm": 0.639472,
+        "worst_plate_xy_mm": [
+          194.1573429481893,
+          156.9244433352572
+        ],
+        "worst_bead_supported_area_fraction": 0.837369305841695,
+        "worst_cad_xyz_mm": [
+          16.657342948189296,
+          -3.0755566647428054,
+          2.84
+        ]
+      },
+      {
+        "z_mm": 19.64,
+        "deposition_area_mm2": 128.4363353232056,
+        "deposition_supported_area_fraction": 0.9830871474285052,
+        "total_centerline_length_mm": 216.52015312043218,
+        "unsupported_centerline_length_mm": 0.23572116207706154,
+        "maximum_centerline_gap_mm": 0.11631000125184797,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 258297,
+        "worst_width_mm": 0.518812,
+        "worst_plate_xy_mm": [
+          188.435,
+          162.349
+        ],
+        "worst_bead_supported_area_fraction": 0.6919821768438386,
+        "worst_cad_xyz_mm": [
+          10.935000000000002,
+          2.3489999999999895,
+          19.64
+        ]
+      },
+      {
+        "z_mm": 5.72,
+        "deposition_area_mm2": 382.8275648225126,
+        "deposition_supported_area_fraction": 0.9783466946789543,
+        "total_centerline_length_mm": 622.7252036432611,
+        "unsupported_centerline_length_mm": 6.666302057501226,
+        "maximum_centerline_gap_mm": 0.11519585295005004,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 40327,
+        "worst_width_mm": 0.619932,
+        "worst_plate_xy_mm": [
+          163.76745454545454,
+          163.14981818181818
+        ],
+        "worst_bead_supported_area_fraction": 0.7132067034801254,
+        "worst_cad_xyz_mm": [
+          -13.732545454545459,
+          3.1498181818181763,
+          5.72
+        ]
+      },
+      {
+        "z_mm": 3.68,
+        "deposition_area_mm2": 355.0204607497476,
+        "deposition_supported_area_fraction": 0.9812281461987715,
+        "total_centerline_length_mm": 592.0065546229151,
+        "unsupported_centerline_length_mm": 2.558254533009346,
+        "maximum_centerline_gap_mm": 0.11337830144095708,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 16279,
+        "worst_width_mm": 0.619992,
+        "worst_plate_xy_mm": [
+          196.925,
+          163.52300000000002
+        ],
+        "worst_bead_supported_area_fraction": 0.6433045430345231,
+        "worst_cad_xyz_mm": [
+          19.42500000000001,
+          3.5230000000000246,
+          3.68
+        ]
+      },
+      {
+        "z_mm": 2.48,
+        "deposition_area_mm2": 305.9400928269259,
+        "deposition_supported_area_fraction": 0.9780111866072142,
+        "total_centerline_length_mm": 516.4612888799347,
+        "unsupported_centerline_length_mm": 2.0636907784857224,
+        "maximum_centerline_gap_mm": 0.10815877272298155,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 10872,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          194.52802744768613,
+          163.00339325529626
+        ],
+        "worst_bead_supported_area_fraction": 0.877707065531816,
+        "worst_cad_xyz_mm": [
+          17.028027447686128,
+          3.0033932552962597,
+          2.48
+        ]
+      },
+      {
+        "z_mm": 11.84,
+        "deposition_area_mm2": 438.62945309040435,
+        "deposition_supported_area_fraction": 0.9802355290953736,
+        "total_centerline_length_mm": 743.6862939348428,
+        "unsupported_centerline_length_mm": 3.901053154471877,
+        "maximum_centerline_gap_mm": 0.10162653526027512,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 149461,
+        "worst_width_mm": 0.615832,
+        "worst_plate_xy_mm": [
+          160.34933333333333,
+          160.75166666666667
+        ],
+        "worst_bead_supported_area_fraction": 0.751901101792125,
+        "worst_cad_xyz_mm": [
+          -17.150666666666666,
+          0.7516666666666652,
+          11.84
+        ]
+      },
+      {
+        "z_mm": 11.36,
+        "deposition_area_mm2": 436.6471843709394,
+        "deposition_supported_area_fraction": 0.9802574798772564,
+        "total_centerline_length_mm": 733.2018957048463,
+        "unsupported_centerline_length_mm": 0.18831634892135699,
+        "maximum_centerline_gap_mm": 0.09511700151577764,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Inner wall",
+        "worst_line": 139939,
+        "worst_width_mm": 0.709292,
+        "worst_plate_xy_mm": [
+          197.64442857142856,
+          156.35785714285714
+        ],
+        "worst_bead_supported_area_fraction": 0.708964226362008,
+        "worst_cad_xyz_mm": [
+          20.144428571428563,
+          -3.642142857142858,
+          11.36
+        ]
+      },
+      {
+        "z_mm": 2.24,
+        "deposition_area_mm2": 296.3299520335389,
+        "deposition_supported_area_fraction": 0.9786022302413284,
+        "total_centerline_length_mm": 501.77933244672295,
+        "unsupported_centerline_length_mm": 1.4128622030705753,
+        "maximum_centerline_gap_mm": 0.09146710113737214,
+        "floating_vertical_shell_paths": [],
+        "worst_feature": "Sparse infill",
+        "worst_line": 10173,
+        "worst_width_mm": 0.62,
+        "worst_plate_xy_mm": [
+          158.9844194011777,
+          162.91717962045277
+        ],
+        "worst_bead_supported_area_fraction": 0.9110025573754841,
+        "worst_cad_xyz_mm": [
+          -18.51558059882231,
+          2.917179620452771,
+          2.24
+        ]
+      }
+    ],
+    "floating_vertical_shell_layers": []
+  }
+}
