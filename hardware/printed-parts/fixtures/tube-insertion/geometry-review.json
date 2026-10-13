@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "scope": "Manual dimensional and B-rep fit review of twin screw-clamp fixture; schematic factory envelopes are not measured manufacturer CAD",
-  "source_sha256": "03447f050a8aa1d32a5cbe97172e84f74c6139702b85d11215a91b14d7df427f",
+  "source_sha256": "cd12a7c2b8081ac2ee228b6790c07973c69b4995995a9a8c1e36dab51b77a5e9",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
@@ -74,7 +74,7 @@
           15.0
         ]
       },
-      "volume_mm3": 49950.55659879029
+      "volume_mm3": 49951.996598790276
     },
     {
       "part": "upper-jaw",
@@ -97,7 +97,7 @@
           15.000000000000014
         ]
       },
-      "volume_mm3": 51765.48175875419
+      "volume_mm3": 51766.92175875419
     },
     {
       "part": "liner",
@@ -271,13 +271,13 @@
     "liner_minimum_backing_mm": 5.125,
     "liner_end_contact_area_mm2": 156.4135114054704,
     "carrier_countersink_retained_shelf_mm": 4.65,
-    "carrier_nut_floor_mm": 9.0,
+    "carrier_nut_floor_mm": 7.6,
     "carrier_screw_tip_z_mm": 28.2,
     "carrier_screw_tip_relief_mm": 1.8000000000000007,
     "carrier_countersink_radial_stock_mm": 4.9,
     "carrier_nut_z_range_mm": [
-      24.0,
-      28.0
+      22.6,
+      26.6
     ],
     "liner_print_pose": "Tube axis vertical; thick preformed half-round block; no bending or wrapping",
     "clamp_front_final_x_mm": 58.0,
