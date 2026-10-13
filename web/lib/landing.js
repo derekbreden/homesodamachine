@@ -304,7 +304,7 @@ const BODY = `<main>
       </li>
       <li>
         <a href="https://www.lulu.com/"><img src="/suppliers/lulu.svg" width="106" height="37" alt="Lulu"></a>
-        <p>Prints and binds the 32-page install guide, the first thing an owner sees when they open the kit.</p>
+        <p>Prints and binds the 32-page, full-color install guide that comes with every machine.</p>
       </li>
     </ul>
     <p class="suppliers-all">The <a href="/cost">cost page</a> lists every part of the machine and where it comes from.</p>
