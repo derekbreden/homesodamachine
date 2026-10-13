@@ -15,6 +15,7 @@ import { state } from "./state.js";
 import { standsIn } from "/contracts/body-path.js";
 import { surfaceText } from "./pick-format.js";
 import { stepLocation, stepLabel } from "/contracts/step-locations.js";
+import { materialForView } from "/contracts/materials.js";
 import { camera, controls, saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -34,7 +35,7 @@ let trail = [];
 let legs = [];
 
 function label(file) {
-  return stepLabel(file);
+  return materialForView(state.materialCatalog, file, { finish: state.faucetFinish })?.description || stepLabel(file);
 }
 
 // Centre of a body or of the whole mounted model. Only the drawn body meshes

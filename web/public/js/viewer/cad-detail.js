@@ -46,6 +46,7 @@ import { mountFaucetOptions } from "./faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { mountMaterialPanel } from "./material-panel.js";
 import { stepLocation } from "/contracts/step-locations.js";
+import { materialForView } from "/contracts/materials.js";
 import { dismissViewerHistory } from "./viewer-history.js";
 
 // Reset-view button: re-frames the current part with the format's default
@@ -118,6 +119,8 @@ function makeResetViewButton() {
 
 function shortName(file, ext = ".step") {
   const location = stepLocation(file);
+  const material = ext === ".step" && materialForView(state.materialCatalog, file, { finish: state.faucetFinish });
+  if (material) return { name: material.description, dir: location.file };
   if (location.component) return { name: location.component.split("/").at(-1), dir: location.file };
   const parts = file.split("/");
   const name = parts.pop().replace(ext, "");

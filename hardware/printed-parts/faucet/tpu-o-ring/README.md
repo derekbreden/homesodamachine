@@ -1,6 +1,6 @@
-# TPU o-ring
+# Faucet tube sealing thimble · HSM-000090
 
-Printed-TPU **thimble** (closed bottom with a centered hole, open top,
+Printed TPU 85A **sealing thimble** (closed bottom with a centered hole, open top,
 cylindrical wall) that seals the 3/8" OD LLDPE soda faucet tube into the
 harvested Westbrass R2031-NL's top water port. Sits *in*
 that port. Sealing happens on **two interfaces in series**:
@@ -29,7 +29,7 @@ the faucet's wet path:
 - **Dispense (the Westbrass's top water port):** 3/8" OD LLDPE descends from
   the printed [`faucet-shell`](/hardware/printed-parts/faucet/faucet-shell/) gooseneck water
   channel and enters the Ø [10 mm](WESTBRASS_PORT_D) top port. Water
-  flows up out of the valve into the LLDPE; this TPU bushing seals
+  flows up out of the valve into the LLDPE; this thimble seals
   around the outside of the tube where it enters the port.
 
 ## Geometry

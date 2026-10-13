@@ -1,4 +1,4 @@
-# Funnel and sliding frame
+# Flavor-fill funnel and sliding frame
 
 The removable silicone funnel holds nominally [455 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top; closing front-top onto back-top captures the rear

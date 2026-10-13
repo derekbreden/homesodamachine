@@ -126,7 +126,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Cold-core foam cap lid — top | 1 | PET-GF | 0.295 | $7.37 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.186 | $4.65 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.135 | $3.38 <!--@printed--> |
-| Copper-plug stack (3 plugs) | 3 | PETG | 0.012 | $0.13 <!--@printed--> |
+| Cold-core copper-slot covers | 2 | PETG | 0.012 | $0.13 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Flavor reservoir body — left | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
