@@ -80,7 +80,8 @@ def prepare(spec: dict) -> tuple[Path, dict]:
     return project, report
 
 
-def slice_project(project: Path, report: dict, spec: dict, directory: Path) -> dict:
+def slice_project(project: Path, report: dict, spec: dict, directory: Path,
+                  *, ready_directory: Path | None = None) -> dict:
     if directory.exists() and any(directory.iterdir()):
         raise ValueError(f"Use an empty slice directory: {directory}")
     directory.mkdir(parents=True, exist_ok=True)
@@ -117,7 +118,7 @@ def slice_project(project: Path, report: dict, spec: dict, directory: Path) -> d
                usable_high[0] - high[0], usable_high[1] - high[1]]
     if min(margins) < 20.0:
         raise ValueError(f"Emitted bead margin {min(margins):.2f} mm is below 20 mm")
-    target = READY / archive_name
+    target = (READY if ready_directory is None else ready_directory) / archive_name
     target.write_bytes(sliced.read_bytes())
     plate, = result["sliced_plates"]
     record = {

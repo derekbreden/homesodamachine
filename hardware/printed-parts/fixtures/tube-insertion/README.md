@@ -8,6 +8,12 @@ supply the axial force and reaction.
 The donor is supported on its metal base with its faucet lever attached,
 down and unpressed.
 
+The separate [TPU hand hold-down pad](donor-hold-down/README.md) fits the
+existing donor cradle and open shank canyon. Its flat face stands 2 mm above
+the reaction walls. Hand pressure supplies downward restraint; the pad's
+compression tongue retains its position. The pad is an unprinted fit
+candidate.
+
 Use the [illustrated assembly guide](../../../tube-insertion-guide/README.md)
 for the assembly sequence and the [print instructions](PRINTING.md) for
 prepared native projects. [parts.json](parts.json) gives all quantities,
@@ -32,8 +38,8 @@ independent screw inputs. The owned hardware is two M5×50 socket-head
 closure screws, two M5×20 DIN7991 countersunk carrier screws, four 8×4 mm
 M5 square nuts and two Ø25 mm fender washers. The countersunk screws use
 a 3 mm hex key; the socket-head screws use a 4 mm hex key. Two owned 4-inch
-steel C-clamps hold the base at a bench edge so both hands can operate the
-factory screw handles. No printed thread or insert carries the press load.
+steel C-clamps hold the base at a bench edge while the factory screw handles
+are operated. No printed thread or insert carries the axial press load.
 
 Each rigid half has a 7 mm backing under its liner pocket. Rigid mating
 faces bound jaw closure. The unloaded liner channels form a Ø7.75 mm
@@ -69,13 +75,16 @@ lower jaw at Z15. Locating keys and two metal carrier screws couple the
 lower jaw to the carrier without a free yaw joint. The carrier's complete
 print length is 162.5 mm; the bearing span is 124 mm. To release the
 workpiece, unload and remove both factory clamps, release the two closure
-screws, and remove upper jaw E and its liner. Lift the donor and tube out
+screws, and remove upper jaw E and its liner. Lift out the donor hand pad,
+then lift the donor and tube out
 of the lower liner and open donor nest while carrier B and lower jaw D
 remain bolted together.
 
-With both hands, advance one screw by one very small step, then immediately
-take up the opposite pad gap before another advance. The common guided
-collar supports limited alternation; the forces need not be equal. The
+With the TPU donor pad fitted, hold its broad face down with one hand and
+alternate the screw handles with the other. Advance one screw by one very
+small step, then immediately take up the opposite pad gap before another
+advance. The common guided collar supports limited alternation; the forces
+need not be equal. The
 [one-station analysis](load-basis.md) accounts for complete unequal input.
 Stop at the first of the seating witness or geometric travel limit.
 Unload and recheck the setup if they disagree, the grip slips or the
