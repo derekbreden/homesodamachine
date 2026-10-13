@@ -1,0 +1,61 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-13T18:59:53.449823+00:00",
+  "archive": {
+    "name": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+    "sha256": "ffe10e87b662474e0eaffa9318b1a66b43de85f1f2ccd1827e0e8945bdb30524",
+    "gcode_sha256": "713bf1faef7098e5655da8bf4b3871818079c6d49d7d17e10a9e549675228c22",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "F lower TPU liner",
+      "F upper TPU liner"
+    ]
+  },
+  "printer_task_id": "1336534713",
+  "gcode_state": "RUNNING",
+  "subtask_name": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 155,
+  "mc_remaining_time": 77,
+  "display_printer": "Mark1",
+  "design_commit": "b67ed572f",
+  "requested_user_z_trim_mm": 0.18,
+  "emitted_textured_pei_trim_mm": 0.16,
+  "bed_clear_authorization": "Bed is clear and TPU is loaded on mark1 for your new TPU inserts for that plus handle",
+  "external_spool_id": 255,
+  "nozzle_mapping": "Right fixed 0.6 mm; black TPU 85A external spool 255",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_task": "1335906696",
+    "other_acceptance_observed_at_utc": "2026-10-13T15:19:24.551315+00:00",
+    "required_minimum_seconds": 180,
+    "this_acceptance_observed_at_utc": "2026-10-13T18:59:53.449823+00:00",
+    "observed_separation_seconds": 13228.898508
+  },
+  "project": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf",
+  "readiness": "tube-insertion-centered-liners-tpu85a-right06-z018-mark1.readiness.json",
+  "liner_geometry": {
+    "half_groove_diameter_mm": 7.75,
+    "flat_backing_addition_per_liner_mm": 1.0,
+    "print_bounds_mm": [
+      9,
+      20,
+      28
+    ],
+    "projection_beyond_rigid_pocket_mm": 1.0
+  },
+  "printed_stl_sha256": "1825f948b9ae9c9a1a2de113e69f48050af9b58f524899bc1da8aa5702415647"
+}
