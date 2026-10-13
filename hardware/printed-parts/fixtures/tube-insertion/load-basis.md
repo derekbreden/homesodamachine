@@ -34,6 +34,17 @@ at Z30. The open shank slot has an 11.8 mm diameter; the minimum continuous
 bottom-web height is 24.1 mm. The threaded shank, plunger, arches and
 attached faucet lever carry no intended axial reaction.
 
+The cradle and clocking pad support the donor from below and are open
+above. They provide no positive upward restraint. Off-axis contact during
+insertion can therefore lift the donor; the axial and yaw calculations
+below do not assess this motion or the required downward counterforce.
+The separate [TPU hand pad](donor-hold-down/README.md) bears on the
+cylindrical metal body and supplies a flat surface for manual downward
+pressure. Its tongue retains the pad in the shank canyon; its press fit
+has no assigned hold-down capacity. The pad has 1 mm nominal clearance
+above both the threaded shank and lower cradle. Hand-pressure performance
+and installed lever clearance remain physically unqualified.
+
 Each rigid collar half is 15 mm high. Its transverse wings have 30.5 mm
 axial depth from X8 to X38.5, with screw stations 16 mm beyond the 32 mm
 wide core edge. Analysis below assigns an entire station's force to a
@@ -106,9 +117,11 @@ position and 0.225 mm at the initial position. The bare tube's reference
 radial port clearance is 0.2375 mm. That comparison is not a measured
 working alignment allowance for an interfering TPU sleeve.
 
-Use both hands: advance one screw by one very small step, then immediately
-take up the opposite pad gap before another advance. The common collar
-stays guided during limited alternation; continuous two-pad contact and
+With the donor hand pad fitted, one hand applies downward pressure and the
+other alternates the screw handles. Advance one screw by one very small
+step, then immediately take up the opposite pad gap before another
+advance. The common collar stays guided during limited alternation;
+continuous two-pad contact and
 equal force are not assumed. There is no intentional yaw joint. Spindle
 pitch is not documented here, so a turn count is not presented as a
 measured advance. A pad gap that cannot be taken up, slipping collar or
