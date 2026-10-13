@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "printer": "Mark2",
-  "status": "Accepted one-off complete-faucet seam trial; physical result unassessed",
+  "status": "Stopped by Derek before layer 1; nothing printed",
   "authorization_quotes": [
     "Sigh, alright, fine let's try A2 (aligned!) on the complete faucet",
     "Mark2 bed is clear and ready for you."
@@ -9,6 +9,9 @@
   "authorization_scope": "One complete current five-part Industrial faucet with swatch A2's scarf and aligned seams; the working recipe is unchanged",
   "printer_task_id": "1334663228",
   "accepted_observed_at_utc": "2026-10-13T04:38:41.303706+00:00",
+  "stop_observed_at_utc": "2026-10-13T04:49:45.641554+00:00",
+  "stop_observation": "gcode_state FAILED, print_error 50348044 (0300400C, task cancelled), layer 0 of 1244",
+  "stop_reason": "Derek stopped it while Printer 2 checked the display cover and lever seams",
   "archive_name": "faucet-a2-aligned-mark2.gcode.3mf",
   "archive_sha256": "297d0a12f335d46c111548c9aea946584ab0f2ac633c870317a754421b65f606",
   "gcode_sha256": "f313c75fac749650d4ed36a10031defe17ff7bc7f46bfbae615fe9d4f5e93fbf",
@@ -60,7 +63,7 @@
       "industrial-display-cover": 0,
       "lever-replica": 0
     },
-    "unscarfed_parts": "The display cover's and lever's aligned seams fall in corners sharper than 155 degrees, so they print as plain seams with the 150% gap",
+    "unscarfed_parts": "Smart scarf at 155 degrees left the display cover's and lever's seams unscarfed; in this slice they are plain seams with the 150% gap",
     "aligned_seam_median_move_to_previous_layer_mm": {
       "industrial-shell-base": 0.18,
       "faucet-shell-tip": 0.17,
@@ -73,6 +76,6 @@
     "base_first_fine_layer_print_z_mm": 17.12,
     "bead_envelope_mm": {"x": [50.2, 266.2], "y": [73.7, 274.7]}
   },
-  "physical_result": null,
+  "physical_result": "None; nothing was printed",
   "working_recipe_changed": false
 }
