@@ -23,5 +23,5 @@ first layer and 100% zig-zag infill. Standard +0.18 mm user Z trim emits
 `G29.1 Z0.16`. The slice has 138 layers, no supports, and estimates
 12.8 g and 1 hour 36 minutes.
 
-The [transition and flat-face pad](../../README.md) has its own geometry,
+The [half-body cover](../../README.md) has its own geometry,
 project and slice.

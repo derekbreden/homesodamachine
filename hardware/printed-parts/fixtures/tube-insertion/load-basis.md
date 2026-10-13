@@ -38,14 +38,14 @@ The cradle and clocking pad support the donor from below and are open
 above. They provide no positive upward restraint. Off-axis contact during
 insertion can therefore lift the donor; the axial and yaw calculations
 below do not assess this motion or the required downward counterforce.
-The separate [TPU hand pad](donor-hold-down/README.md) bears on the
-rounded cylinder-to-column transition and the upper flat metal face,
-covering axial coordinates 13.5–36 mm. Its bearing surface ends 3 mm
-before the lever attachment plateau and its flat hand face stands 2 mm
-above the reaction walls. A narrow bridge clears the cylindrical base
-by 1 mm and reaches the tongue in the shank canyon. That tongue has
+The separate [TPU hand cover](donor-hold-down/README.md) is a continuous
+inverse of the upper half of the cylindrical body, rounded transition
+and flat-sided column, covering axial coordinates 0–39 mm below the lever
+attachment. Both flanks reach the donor centreline; over the cylindrical
+portion their lower edges meet the cradle top plane. The flat hand face
+stands 2 mm above the reaction walls. Its tongue in the shank canyon has
 10.25 mm nominal thread clearance and 8.25 mm of canyon engagement.
-Its press fit retains the pad's position and has no assigned hold-down
+Its press fit retains the cover's position and has no assigned hold-down
 capacity. Hand-pressure performance and installed lever clearance remain
 physically unqualified.
 
