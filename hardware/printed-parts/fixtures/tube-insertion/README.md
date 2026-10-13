@@ -145,6 +145,11 @@ records rigid closure without grip and reported uneven axial compression
 for the identified earlier parts. Physical grip acceptance for this
 centred candidate is pending.
 
+The [Mark1 PET-GF jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
+preserves the exact two-jaw slice for task 1335878319, accepted on October
+13 at 10:08 am CDT. Its fresh startup status reports layer 0 of 63 without
+errors. Printed fit and grip results are pending.
+
 Physical grip, printed sliding fit, complete insertion, strength and
 lifetime remain unqualified. Factory clamp force does not rate the
 printed tool or workpiece. The accepted sealing thimble's
