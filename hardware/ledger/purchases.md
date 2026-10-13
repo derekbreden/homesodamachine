@@ -624,7 +624,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 
 All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the non-Bambu filaments (SpoolHaus PEBA, Siraya Tech Flex TPU, the Polymaker Fiberon grades) — kept separate because the vendor and receipt trail are distinct.
 
-Receipts grouped by order; itemized orders separate equipment, filament and tax. Hotend sizes, sides and flow variants are from the Gmail order confirmations, reconciled 2026-09-15.
+Receipts grouped by order; itemized orders separate equipment, filament and tax. Hotend sizes, sides and flow variants are from the Gmail order confirmations, reconciled 2026-09-15. Every order's amount and payment match its record in the signed-in Bambu account, checked 2026-10-13.
 A confirmation carries no order date. The number after `us` is a snowflake ID: `(n >> 22)` milliseconds after
 2020-11-03 03:32:25 UTC is when the order was placed, and its America/Chicago date is the order date below.
 
@@ -808,17 +808,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$11,259.74](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$20,489.05](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,182.24](LEDGER_ESTIMATES) |
-| Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
+| Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$8,427.62](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$17,656.93](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$8,427.62](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$17,656.93](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
