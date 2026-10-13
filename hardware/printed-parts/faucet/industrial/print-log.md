@@ -7,7 +7,10 @@ Back applies to base, tip and mounting plate; A2 and 150% gap apply to those thr
 Cover and lever use Aligned, 15% gap and scarf off. Wipe is off, and the eight
 coarse lip layers and infill-only foot are retained. The source geometry matches
 task `1334704608`, whose reported seam placement did not match the expected rear
-line. The recipe is the current selection; physical finish is unassessed.
+line. Derek's [physical inspection](prints/2026-10-13-a2-back-mark2/physical-result.json)
+accepts this as the best faucet print so far, with everything checking out well
+apart from a seam swerve on the base gooseneck. The identified article and recipe
+are tagged `faucet-industrial-approved-2026-10-13`.
 
 ## Selected SB/E complete faucet — launched 2026-10-11, Mark1
 

@@ -22,4 +22,8 @@ coarse layers and **45.10 mm** minimum full-bead bed clearance. The
 [seam-path reading](seam-path-review.json) finds scarf ramps on the selected three
 parts and none on the cover or lever. Cover starts are at 90° corners; lever starts
 are at channel/ledge transitions, including one rounded transition. Physical
-finish and cleanup remain unassessed. The shipping reference retains its own scope.
+inspection is recorded in [physical-result.json](physical-result.json): Derek
+calls this the best faucet print so far and reports everything checking out well,
+apart from the base gooseneck's rear seam wobble. Tag
+`faucet-industrial-approved-2026-10-13` identifies this physical reference.
+The shipping reference retains its own scope.
