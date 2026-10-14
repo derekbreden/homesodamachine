@@ -102,6 +102,11 @@ settings, with complete-base and curved-tip rear seam paint.
 The other three rigid parts retain the accepted complete-print reference
 and tag `faucet-industrial-approved-2026-10-13`.
 
+The [PET-GF fin screening plate](../print-tests/petgf-fins/README.md) compares
+4–32 mm bridges between removable fin contacts, 30–60° unsupported slopes,
+side clearances and horizontal tine widths on Mark2. Physical surface and
+release results are pending; the plate selects candidates for a real joint trial.
+
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
 those outcomes and durable operation. Material price and printer occupancy describe the
