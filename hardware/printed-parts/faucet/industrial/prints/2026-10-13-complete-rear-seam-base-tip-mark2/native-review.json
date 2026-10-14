@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "status": "Reviewed base-and-tip seam evaluation accepted on Mark2; physical assessment pending",
+  "status": "Native rear seam review recorded; current planned production faucet physically approved by Derek",
   "submitted": true,
   "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf",
   "project_sha256": "43089ba0c6786b33ff1d39e94ac477e4cb60b42236283171c00edac280a3ec87",
@@ -63,7 +63,7 @@
     "industrial-shell-base",
     "faucet-shell-tip"
   ],
-  "scope": "Actual native paths, source geometry, saved settings and placement; physical seam assessment pending.",
+  "scope": "Actual native paths, source geometry, saved settings and placement. Direct user production approval is recorded separately in physical_result.",
   "retained_meshes_and_paint_byte_identical_to_complete_candidate": true,
   "per_object_full_bead_footprints": {
     "industrial-shell-base": {
@@ -492,5 +492,6 @@
   ],
   "first_fine_model_layer_print_z_mm": 17.12,
   "printer_task_id": "1337767162",
-  "launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json"
+  "launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
 }
