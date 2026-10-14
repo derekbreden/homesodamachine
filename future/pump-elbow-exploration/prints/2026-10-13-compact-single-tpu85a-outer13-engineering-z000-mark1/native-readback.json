@@ -1,0 +1,40 @@
+{
+  "status": "Offline candidate; not submitted",
+  "printer": "Mark1 (H2C)",
+  "prepared_at": "2026-10-14T03:45:17.809408+00:00",
+  "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
+  "baseline_archive_sha256": "ffda278ed72f4e07c6f0e9d2ee1a9d01575999b81e57124f116fbab1e96a9ee2",
+  "project": "2026-10-13-compact-single-elbow-tpu85a-outer13-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "8f3a63c33be1253284ab77cea9931a895f23ccd50f0fc67c072b11f47e5dc66c",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer13-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "79263854cfa9681a8b4282ab4bd057b218a4b69cb90d503ef988c973a11c1b81",
+  "gcode_sha256": "eb058fb4b05ede901cf433eafb97bb696f8e58b0bd26426ea0c4d20a46649457",
+  "native_settings_differences": {
+    "print_settings_id": {
+      "from": "One compact TPU85A elbow Engineering Plate zero Z trim Mark1",
+      "to": "One compact TPU85A elbow outer13 Engineering Plate zero Z trim Mark1"
+    },
+    "outer_wall_speed": {
+      "from": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "to": [
+        "13",
+        "13",
+        "13",
+        "13"
+      ]
+    }
+  },
+  "native_mesh_and_pose_match_baseline": true,
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "cache_run": ".cache/pump-elbow-exploration/outer13/native-88db4849",
+  "estimated_seconds": 3839.947021484375,
+  "estimated_filament_g": 4.301682472229004,
+  "slicer_warning": ""
+}

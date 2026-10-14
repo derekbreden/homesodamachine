@@ -1,0 +1,230 @@
+{
+  "scope": "Bounded emitted-path comparison at layers 26\u201333. Nominal timing excludes acceleration, firmware and timelapse waits.",
+  "original_gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "outer10_gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
+  "outer13_gcode_sha256": "eb058fb4b05ede901cf433eafb97bb696f8e58b0bd26426ea0c4d20a46649457",
+  "original": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "left_lip_speeds_mm_s": [
+        14.6
+      ],
+      "layer_nominal_motion_s": 19.838324073486604,
+      "left_lip_nominal_return_time_s": 19.814566690923186
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "left_lip_speeds_mm_s": [
+        15.03333
+      ],
+      "layer_nominal_motion_s": 19.84129166565458,
+      "left_lip_nominal_return_time_s": 19.623739158790386
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "left_lip_speeds_mm_s": [
+        15.21667
+      ],
+      "layer_nominal_motion_s": 19.829143533090132,
+      "left_lip_nominal_return_time_s": 19.811902739474704
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "left_lip_speeds_mm_s": [
+        16.48333
+      ],
+      "layer_nominal_motion_s": 19.397351892652523,
+      "left_lip_nominal_return_time_s": 20.188478032873377
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "left_lip_speeds_mm_s": [
+        16.45
+      ],
+      "layer_nominal_motion_s": 19.401644507320725,
+      "left_lip_nominal_return_time_s": 23.534166508495332
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "left_lip_speeds_mm_s": [
+        17.31667
+      ],
+      "layer_nominal_motion_s": 19.31458568045241,
+      "left_lip_nominal_return_time_s": 18.642202513459893
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "left_lip_speeds_mm_s": [
+        17.6
+      ],
+      "layer_nominal_motion_s": 19.33191300183057,
+      "left_lip_nominal_return_time_s": 19.343818061449497
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "left_lip_speeds_mm_s": [
+        16.63333
+      ],
+      "layer_nominal_motion_s": 19.52892066107256,
+      "left_lip_nominal_return_time_s": 19.06009339000616
+    }
+  ],
+  "outer10": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.82076685399136,
+      "left_lip_nominal_return_time_s": 19.814284208796153
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.830303412996273,
+      "left_lip_nominal_return_time_s": 19.357851057076346
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.81853955966585,
+      "left_lip_nominal_return_time_s": 19.827645098642392
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.42892646573182,
+      "left_lip_nominal_return_time_s": 19.77359626122302
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.45951172242701,
+      "left_lip_nominal_return_time_s": 23.42836331934484
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.389840411136674,
+      "left_lip_nominal_return_time_s": 18.544718890708168
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.41648467190919,
+      "left_lip_nominal_return_time_s": 19.19294673764057
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "layer_nominal_motion_s": 19.530226073686208,
+      "left_lip_nominal_return_time_s": 18.979212941001038
+    }
+  ],
+  "outer13": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.831976466175092,
+      "left_lip_nominal_return_time_s": 19.81687382945188
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.838555566761897,
+      "left_lip_nominal_return_time_s": 19.415124939731413
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.82785803624904,
+      "left_lip_nominal_return_time_s": 19.8285234646047
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.410535581779982,
+      "left_lip_nominal_return_time_s": 20.001743673485407
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.42237728721659,
+      "left_lip_nominal_return_time_s": 23.44403340415863
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.34870200528337,
+      "left_lip_nominal_return_time_s": 18.535123709832305
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.371044149306613,
+      "left_lip_nominal_return_time_s": 19.200442351956895
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "left_lip_speeds_mm_s": [
+        13.0
+      ],
+      "layer_nominal_motion_s": 19.535646998151037,
+      "left_lip_nominal_return_time_s": 18.958551745136106
+    }
+  ],
+  "finding": "The candidate emits 13 mm/s at the left lip across layers26\u201333. Around original curl onset, it lies between 10 and the original emitted15\u201317 mm/s. This is an approximate midpoint for the onset region; the original speed varies elsewhere in the part. Whole-layer commanded time stays near20 seconds.",
+  "physical_interpretation": "An intermediate speed is a candidate process setting, not an established interpolation between sagging and upward curling."
+}

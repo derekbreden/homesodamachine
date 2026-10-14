@@ -51,8 +51,12 @@ pressure holding and lifetime are unmeasured.
 The separate [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
 records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
 The identified one-object Mark1 trial uses a 10 mm/s outer wall, full part
-cooling, Engineering Plate and zero user Z trim. Its print and fitting results
-remain pending; the observations establish no sealing or lifetime result.
+cooling, Engineering Plate and zero user Z trim. Its
+[physical record and three photos](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+report sagging along the 45° undersides; the raised right rim leaves curl
+unresolved. An intermediate 13 mm/s candidate is prepared offline. Completed
+print and fitting acceptance remain pending; the observations establish no
+sealing or lifetime result.
 
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
