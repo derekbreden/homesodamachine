@@ -1,0 +1,1129 @@
+{
+  "archive_sha256": "4644d646ee71738c2a81cb0990d557719b5ee7dff187178864034fddb366c067",
+  "gcode_sha256": "3490af61cf5f995453bde3b8dc6588311c2ddca21a3773bed55680f7fc5b28f8",
+  "method": "Read positive-E model and brim deposition with modal widths; linear endpoints and exact cardinal arc extrema, buffered by half current line width. Axis-aligned envelopes include all layers. Shared tools/gcode reader locates actual exterior extremes. Manual review, no build integration.",
+  "reader_sha256": {
+    "toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+    "speeds.py": "e395bc116ae35cd1a72da11ebf9f8a91a94c4464506119c3255cc814812035b8"
+  },
+  "full_bead_envelope_xy_mm": [
+    [
+      160.72234344542193,
+      138.35399999999998
+    ],
+    [
+      194.30499600000002,
+      181.64600000000002
+    ]
+  ],
+  "per_object_full_bead_envelope_xy_mm": {
+    "1901": [
+      [
+        160.72234344542193,
+        138.35399999999998
+      ],
+      [
+        194.30499600000002,
+        158.64600000000002
+      ]
+    ],
+    "1902": [
+      [
+        160.72234344542193,
+        161.35399999999998
+      ],
+      [
+        194.30499600000002,
+        181.64600000000002
+      ]
+    ]
+  },
+  "minimum_y_envelope_gap_mm": 2.70799999999997,
+  "minimum_full_bead_bed_inset_mm": 135.69500399999998,
+  "bed_boundary_xy_mm": [
+    [
+      0,
+      0
+    ],
+    [
+      330,
+      320
+    ]
+  ],
+  "maximum_emitted_width_mm": 1.08077,
+  "normal_outer_wall_speeds": {
+    "1901": {
+      "moves": 13337,
+      "min_mm_s": 10.0,
+      "max_mm_s": 10.0
+    },
+    "1902": {
+      "moves": 13327,
+      "min_mm_s": 10.0,
+      "max_mm_s": 10.0
+    }
+  },
+  "separately_labelled_overhang_wall_moves": {
+    "1901": [
+      {
+        "layer": 68,
+        "line": 85783,
+        "speed_mm_s": 25.0,
+        "extrusion_mm": 4e-05
+      }
+    ],
+    "1902": [
+      {
+        "layer": 68,
+        "line": 84603,
+        "speed_mm_s": 25.0,
+        "extrusion_mm": 4e-05
+      }
+    ]
+  },
+  "lip_probes_layers17_33": {
+    "1901": {
+      "leftmost": [
+        {
+          "layer": 17,
+          "print_z": 2.12,
+          "point_plate": [
+            170.044,
+            148.534,
+            2.12
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9520,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 18,
+          "print_z": 2.24,
+          "point_plate": [
+            169.923,
+            148.499,
+            2.24
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9933,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 19,
+          "print_z": 2.36,
+          "point_plate": [
+            169.803,
+            148.486,
+            2.36
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10357,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 20,
+          "print_z": 2.48,
+          "point_plate": [
+            169.684,
+            148.487,
+            2.48
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10777,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 21,
+          "print_z": 2.6,
+          "point_plate": [
+            169.565,
+            148.39,
+            2.6
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11222,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 22,
+          "print_z": 2.72,
+          "point_plate": [
+            169.443,
+            148.42,
+            2.72
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11648,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 23,
+          "print_z": 2.84,
+          "point_plate": [
+            169.321,
+            148.476,
+            2.84
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12086,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 24,
+          "print_z": 2.96,
+          "point_plate": [
+            169.196,
+            148.539,
+            2.96
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12501,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 25,
+          "print_z": 3.08,
+          "point_plate": [
+            169.067,
+            148.513,
+            3.08
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12932,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 26,
+          "print_z": 3.2,
+          "point_plate": [
+            168.947,
+            148.511,
+            3.2
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13362,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 27,
+          "print_z": 3.32,
+          "point_plate": [
+            168.837,
+            148.167,
+            3.32
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13802,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 28,
+          "print_z": 3.44,
+          "point_plate": [
+            168.708,
+            148.651,
+            3.44
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14235,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 29,
+          "print_z": 3.56,
+          "point_plate": [
+            168.588,
+            148.652,
+            3.56
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 15433,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 30,
+          "print_z": 3.68,
+          "point_plate": [
+            168.468,
+            148.652,
+            3.68
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 16740,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 31,
+          "print_z": 3.8,
+          "point_plate": [
+            168.348,
+            148.652,
+            3.8
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 18012,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 32,
+          "print_z": 3.92,
+          "point_plate": [
+            168.228,
+            148.653,
+            3.92
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 19245,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 33,
+          "print_z": 4.04,
+          "point_plate": [
+            168.116,
+            148.704,
+            4.04
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 20377,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        }
+      ],
+      "rightmost": [
+        {
+          "layer": 17,
+          "print_z": 2.12,
+          "point_plate": [
+            183.48,
+            148.482,
+            2.12
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9530,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 18,
+          "print_z": 2.24,
+          "point_plate": [
+            183.533,
+            148.487,
+            2.24
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9947,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 19,
+          "print_z": 2.36,
+          "point_plate": [
+            183.584,
+            148.486,
+            2.36
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10373,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 20,
+          "print_z": 2.48,
+          "point_plate": [
+            183.632,
+            148.557,
+            2.48
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10789,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 21,
+          "print_z": 2.6,
+          "point_plate": [
+            183.683,
+            148.487,
+            2.6
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11236,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 22,
+          "print_z": 2.72,
+          "point_plate": [
+            183.732,
+            148.57,
+            2.72
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11665,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 23,
+          "print_z": 2.84,
+          "point_plate": [
+            183.782,
+            148.488,
+            2.84
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12105,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 24,
+          "print_z": 2.96,
+          "point_plate": [
+            183.832,
+            148.488,
+            2.96
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12514,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 25,
+          "print_z": 3.08,
+          "point_plate": [
+            183.882,
+            148.488,
+            3.08
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12948,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 26,
+          "print_z": 3.2,
+          "point_plate": [
+            183.935,
+            148.54,
+            3.2
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13378,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 27,
+          "print_z": 3.32,
+          "point_plate": [
+            183.982,
+            148.562,
+            3.32
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13818,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 28,
+          "print_z": 3.44,
+          "point_plate": [
+            184.036,
+            148.542,
+            3.44
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14250,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 29,
+          "print_z": 3.56,
+          "point_plate": [
+            184.094,
+            148.56,
+            3.56
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 15449,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 30,
+          "print_z": 3.68,
+          "point_plate": [
+            184.153,
+            148.73,
+            3.68
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 16721,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 31,
+          "print_z": 3.8,
+          "point_plate": [
+            184.212,
+            148.728,
+            3.8
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 17996,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 32,
+          "print_z": 3.92,
+          "point_plate": [
+            184.276,
+            148.562,
+            3.92
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 19231,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 33,
+          "print_z": 4.04,
+          "point_plate": [
+            184.344,
+            148.561,
+            4.04
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 20365,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        }
+      ]
+    },
+    "1902": {
+      "leftmost": [
+        {
+          "layer": 17,
+          "print_z": 2.12,
+          "point_plate": [
+            170.044,
+            171.534,
+            2.12
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9345,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 18,
+          "print_z": 2.24,
+          "point_plate": [
+            169.923,
+            171.499,
+            2.24
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9746,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 19,
+          "print_z": 2.36,
+          "point_plate": [
+            169.803,
+            171.486,
+            2.36
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10177,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 20,
+          "print_z": 2.48,
+          "point_plate": [
+            169.684,
+            171.487,
+            2.48
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10595,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 21,
+          "print_z": 2.6,
+          "point_plate": [
+            169.565,
+            171.39,
+            2.6
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11022,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 22,
+          "print_z": 2.72,
+          "point_plate": [
+            169.443,
+            171.42,
+            2.72
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11466,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 23,
+          "print_z": 2.84,
+          "point_plate": [
+            169.321,
+            171.476,
+            2.84
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11903,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 24,
+          "print_z": 2.96,
+          "point_plate": [
+            169.196,
+            171.539,
+            2.96
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12328,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 25,
+          "print_z": 3.08,
+          "point_plate": [
+            169.067,
+            171.513,
+            3.08
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12741,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 26,
+          "print_z": 3.2,
+          "point_plate": [
+            168.947,
+            171.511,
+            3.2
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13174,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 27,
+          "print_z": 3.32,
+          "point_plate": [
+            168.837,
+            171.167,
+            3.32
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13610,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 28,
+          "print_z": 3.44,
+          "point_plate": [
+            168.708,
+            171.651,
+            3.44
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14044,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 29,
+          "print_z": 3.56,
+          "point_plate": [
+            168.588,
+            171.652,
+            3.56
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14760,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 30,
+          "print_z": 3.68,
+          "point_plate": [
+            168.468,
+            171.652,
+            3.68
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 16194,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 31,
+          "print_z": 3.8,
+          "point_plate": [
+            168.348,
+            171.652,
+            3.8
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 17374,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 32,
+          "print_z": 3.92,
+          "point_plate": [
+            168.228,
+            171.653,
+            3.92
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 18650,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 33,
+          "print_z": 4.04,
+          "point_plate": [
+            168.116,
+            171.704,
+            4.04
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 19799,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        }
+      ],
+      "rightmost": [
+        {
+          "layer": 17,
+          "print_z": 2.12,
+          "point_plate": [
+            183.48,
+            171.482,
+            2.12
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9336,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 18,
+          "print_z": 2.24,
+          "point_plate": [
+            183.533,
+            171.487,
+            2.24
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 9739,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 19,
+          "print_z": 2.36,
+          "point_plate": [
+            183.584,
+            171.486,
+            2.36
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10162,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 20,
+          "print_z": 2.48,
+          "point_plate": [
+            183.632,
+            171.557,
+            2.48
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 10586,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 21,
+          "print_z": 2.6,
+          "point_plate": [
+            183.683,
+            171.487,
+            2.6
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11009,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 22,
+          "print_z": 2.72,
+          "point_plate": [
+            183.732,
+            171.57,
+            2.72
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11451,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 23,
+          "print_z": 2.84,
+          "point_plate": [
+            183.782,
+            171.488,
+            2.84
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 11890,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 24,
+          "print_z": 2.96,
+          "point_plate": [
+            183.832,
+            171.488,
+            2.96
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12319,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 25,
+          "print_z": 3.08,
+          "point_plate": [
+            183.882,
+            171.488,
+            3.08
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 12730,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 26,
+          "print_z": 3.2,
+          "point_plate": [
+            183.935,
+            171.54,
+            3.2
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13159,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 27,
+          "print_z": 3.32,
+          "point_plate": [
+            183.982,
+            171.562,
+            3.32
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 13597,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 28,
+          "print_z": 3.44,
+          "point_plate": [
+            184.036,
+            171.542,
+            3.44
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14028,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 29,
+          "print_z": 3.56,
+          "point_plate": [
+            184.094,
+            171.56,
+            3.56
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 14776,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 30,
+          "print_z": 3.68,
+          "point_plate": [
+            184.153,
+            171.73,
+            3.68
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 16176,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 31,
+          "print_z": 3.8,
+          "point_plate": [
+            184.212,
+            171.728,
+            3.8
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 17358,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 32,
+          "print_z": 3.92,
+          "point_plate": [
+            184.276,
+            171.562,
+            3.92
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 18636,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        },
+        {
+          "layer": 33,
+          "print_z": 4.04,
+          "point_plate": [
+            184.344,
+            171.561,
+            4.04
+          ],
+          "arriving_mm_s": 10.0,
+          "leaving_mm_s": 10.0,
+          "arriving_line": 19787,
+          "labelled_overhang": false,
+          "loop_min_mm_s": 10.0,
+          "loop_max_mm_s": 10.0
+        }
+      ]
+    }
+  },
+  "right_nozzle_usable_area_xy_mm": [
+    [
+      25,
+      0
+    ],
+    [
+      330,
+      320
+    ]
+  ],
+  "minimum_full_bead_right_nozzle_inset_mm": 135.69500399999998
+}
