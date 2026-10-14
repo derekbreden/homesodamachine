@@ -1,0 +1,387 @@
+{
+  "archive": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "9cfa3a0127df7ae9e8123286ec1cc0ad12a010f4a261575ae73b2fadf3acdb76",
+  "gcode_sha256": "12c244c8122496fd58e986d5c19e1366e09a82efb0cac11c2e8c0c9ec1f2b73f",
+  "scope": "Shared geometric exterior-loop reader plus independent modal-feed scan of every Outer wall deposition after layer1. Archived commands are not measured printer speeds.",
+  "reader": "tools/gcode/speeds.py --at leftmost",
+  "reader_sources_sha256": {
+    "tools/gcode/speeds.py": "e395bc116ae35cd1a72da11ebf9f8a91a94c4464506119c3255cc814812035b8",
+    "tools/gcode/toolpaths.py": "13e4bdbb1c6942120b74fdfd743627535140e4ddf8f35bd6312cebb73f226a8f"
+  },
+  "total_model_layers": 184,
+  "closed_exterior_loops_returned": 180,
+  "normal_layer_outer_wall_segments": 13728,
+  "normal_layer_outer_wall_range_mm_s": [
+    10.0,
+    10.0
+  ],
+  "separately_labelled_overhang_moves": [
+    {
+      "layer": 68,
+      "line": 38354,
+      "command": "G1 X177.099 Y160.096 E.00004",
+      "feed_mm_s": 25.0,
+      "extruded_filament_mm": 4e-05
+    }
+  ],
+  "onset_region": [
+    {
+      "layer": 17,
+      "print_z": 2.12,
+      "point_plate": [
+        170.044,
+        160.034,
+        2.12
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 5480,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 18,
+      "print_z": 2.24,
+      "point_plate": [
+        169.923,
+        159.999,
+        2.24
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 5691,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 19,
+      "print_z": 2.36,
+      "point_plate": [
+        169.803,
+        159.986,
+        2.36
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 5919,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 20,
+      "print_z": 2.48,
+      "point_plate": [
+        169.684,
+        159.987,
+        2.48
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 6133,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 21,
+      "print_z": 2.6,
+      "point_plate": [
+        169.565,
+        159.89,
+        2.6
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 6364,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 22,
+      "print_z": 2.72,
+      "point_plate": [
+        169.443,
+        159.92,
+        2.72
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 6582,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 23,
+      "print_z": 2.84,
+      "point_plate": [
+        169.321,
+        159.976,
+        2.84
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 6807,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 24,
+      "print_z": 2.96,
+      "point_plate": [
+        169.196,
+        160.039,
+        2.96
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 7022,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 25,
+      "print_z": 3.08,
+      "point_plate": [
+        169.067,
+        160.013,
+        3.08
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 7248,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 26,
+      "print_z": 3.2,
+      "point_plate": [
+        168.947,
+        160.011,
+        3.2
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 7478,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 27,
+      "print_z": 3.32,
+      "point_plate": [
+        168.837,
+        159.667,
+        3.32
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 7709,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 28,
+      "print_z": 3.44,
+      "point_plate": [
+        168.708,
+        160.151,
+        3.44
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 7942,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 29,
+      "print_z": 3.56,
+      "point_plate": [
+        168.588,
+        160.152,
+        3.56
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 8408,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 30,
+      "print_z": 3.68,
+      "point_plate": [
+        168.468,
+        160.152,
+        3.68
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 9142,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 31,
+      "print_z": 3.8,
+      "point_plate": [
+        168.348,
+        160.152,
+        3.8
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 9724,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 32,
+      "print_z": 3.92,
+      "point_plate": [
+        168.228,
+        160.153,
+        3.92
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 10318,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    },
+    {
+      "layer": 33,
+      "print_z": 4.04,
+      "point_plate": [
+        168.116,
+        160.204,
+        4.04
+      ],
+      "arriving_mm_s": 10.0,
+      "leaving_mm_s": 10.0,
+      "arriving_line": 10839,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 10.0,
+      "loop_max_mm_s": 10.0
+    }
+  ],
+  "model_temperature_commands_layers_1_2": [
+    {
+      "layer": 2,
+      "line": 1988,
+      "command": "M104 S215"
+    }
+  ],
+  "fan_commands_layers_1_2": [
+    {
+      "layer": 1,
+      "line": 1146,
+      "command": "M106 S0"
+    },
+    {
+      "layer": 1,
+      "line": 1147,
+      "command": "M106 P2 S0"
+    },
+    {
+      "layer": 2,
+      "line": 1985,
+      "command": "M106 S255"
+    }
+  ],
+  "plate_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first"
+  ],
+  "active_objects": [
+    {
+      "identify_id": "1901",
+      "name": "Single compact 15 mm tube-socket elbow",
+      "skipped": "false"
+    }
+  ],
+  "active_filaments": [
+    {
+      "id": "1",
+      "tray_info_idx": "",
+      "type": "TPU",
+      "color": "#FFFFFF",
+      "used_m": "1.41",
+      "used_g": "3.93",
+      "group_id": "1",
+      "nozzle_diameter": "0.60",
+      "volume_type": "Standard",
+      "used_for_object": "true",
+      "used_for_support": "false",
+      "total_load_time": "15.00",
+      "total_unload_time": "0.00"
+    }
+  ],
+  "settings": {
+    "filament_settings_id": [
+      "Siraya Tech Flex TPU 85A Clear @H2C right 0.6"
+    ],
+    "filament_flow_ratio": [
+      "0.96",
+      "0.96",
+      "0.96"
+    ],
+    "filament_map": [
+      "2"
+    ],
+    "filament_nozzle_map": [
+      "1"
+    ],
+    "curr_bed_type": "Engineering Plate",
+    "nozzle_temperature": [
+      "215",
+      "215",
+      "215"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "225",
+      "225",
+      "225"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "slow_down_layer_time": [
+      "20"
+    ],
+    "layer_height": "0.12",
+    "outer_wall_speed": [
+      "10",
+      "10",
+      "10",
+      "10"
+    ],
+    "overhang_2_4_speed": [
+      "10",
+      "10",
+      "10",
+      "10"
+    ],
+    "overhang_3_4_speed": [
+      "10",
+      "10",
+      "10",
+      "10"
+    ]
+  }
+}
