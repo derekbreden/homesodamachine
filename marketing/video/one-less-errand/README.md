@@ -1,5 +1,14 @@
 # One Less Errand
 
+## Studio film
+
+The [64-second studio film](studio/README.md) uses the current CAD and firmware
+artwork in animated Blender scenes, an original score, edited narration and
+English caption sidecars. Its source, render commands and review player live
+in [`studio/`](studio/).
+
+## Published film
+
 A 100-second animated Home Soda Machine film, 1920 × 1080 at 30 fps.
 One can becomes a case, a trip home, and a refrigerator shelf that empties
 again. A quiet kitchen pour leads into Sculpted and Industrial faucets in

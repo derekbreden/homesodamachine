@@ -31,6 +31,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser()
 parser.add_argument("--preview", action="store_true")
+parser.add_argument("--scene-only", action="store_true", help="Build the shared CAD scene without rendering stills")
 parser.add_argument("--out", default="/tmp/hsm-kitchen-art")
 parser.add_argument("--shots", nargs="+", default=["kitchen", "faucet", "cabinet"])
 args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
@@ -545,7 +546,7 @@ shots = {
     "faucet": ((0.78, -1.30, 1.37), (0.197, -0.047, 0.96), 0.53, (1800, 1350)),
     "cabinet": ((0.89, -1.70, 0.95), (-0.045, 0.01, 0.325), 0.99, (1800, 1350)),
 }
-for shot in args.shots:
+for shot in ([] if args.scene_only else args.shots):
     detail_counter.hide_render = shot != "faucet"
     for obj in scene.objects:
         if obj.name.startswith("Standard ") or obj.name in {"Pale stone worktop", "Undermount stainless sink", "Sink drain"}:
