@@ -1,0 +1,66 @@
+{
+  "status": "Offline candidate; not submitted",
+  "printer": "Mark1 (H2C)",
+  "prepared_at": "2026-10-14T04:31:45.594489+00:00",
+  "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
+  "baseline_archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
+  "project": "2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "3a4a1a291bdefdd8eea80fc6fb55e23214978706964ad852e65cca95b7770fba",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "4dba5c20f27a2461372ebb134e10a124f1ff8d8e7f9af82d50c7ea2e0e799a9e",
+  "gcode_sha256": "609e36ac399cc26c07b2d97922da378a796148548c76e7fe4289516ed395794e",
+  "native_settings_differences": {
+    "overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "print_settings_id": {
+      "from": "One compact TPU85A elbow outer10 Engineering Plate zero Z trim Mark1",
+      "to": "One compact TPU85A elbow overhang10 Engineering Plate zero Z trim Mark1"
+    }
+  },
+  "native_mesh_and_pose_match_baseline": true,
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "cache_run": ".cache/pump-elbow-exploration/overhang10/native-t7e56qtj",
+  "estimated_seconds": 4105.8779296875,
+  "estimated_filament_g": 4.301682472229004,
+  "slicer_warning": "",
+  "offline_slice_verified": true,
+  "ready_to_send": false,
+  "submission_state": "Not submitted",
+  "emitted_lip_review": "curl-toolpath-review.json",
+  "all_normal_layer_outer_wall_feed_scan": {
+    "method": "Independent linear scan of modal F, feature and positive relative E for all XY outer-wall moves from layer 2 through the end. The native file commands M83; feed-only commands update modal F. No perimeter grouping is used.",
+    "layers_with_outer_deposition": 183,
+    "deposited_outer_segments": 13728,
+    "minimum_mm_s": 10.0,
+    "maximum_mm_s": 10.0,
+    "relative_extrusion_command_present": true
+  }
+}

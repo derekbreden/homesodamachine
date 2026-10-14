@@ -40,10 +40,14 @@
   "toolpath_review": "curl-toolpath-review.json",
   "interpretation": [
     "The runtime fan reduction worsened the observed curl on this print. The archived 100% fan baseline had already shown left-edge curl.",
-    "The observed left lip is not at the seam or an extrusion restart. Around the reported onset it has about 82% nominal previous-layer bead overlap.",
+    "The observed left lip is not at the seam or an extrusion restart. On the reviewed layers it has about 82% nominal previous-layer bead overlap.",
     "Geometric bead overlap does not establish resistance to thermal or mechanical deformation.",
-    "At the reported onset, the left underside is about 45 degrees from the bed and the right about 66 degrees. Nominal local bead overlap is approximately 82% left and 92% right. This asymmetry is consistent with left-first curling but does not establish its cause."
+    "On the reviewed layers, the left underside is about 45 degrees from the bed and the right about 66 degrees. Nominal local bead overlap is approximately 82% left and 92% right. This asymmetry is consistent with left-first curling but does not establish its cause."
   ],
   "scope": "Print-process observations only; socket fit, sealing, retention and lifetime remain unmeasured.",
-  "underside_geometry_review": "underside-side-comparison.json"
+  "underside_geometry_review": "underside-side-comparison.json",
+  "onset_clarification": {
+    "user_followup": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json",
+    "interpretation": "The user clarifies that layer28 was when curl was noticed, not an established sudden onset. Faint curl is reported by layer21 on the later 215 C article; the first curled layer of this original article is unspecified."
+  }
 }

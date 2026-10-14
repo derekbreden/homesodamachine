@@ -1,5 +1,5 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337710290; physical result pending",
+  "status": "Mark1 task1337710290: curl reported by layer21 and similar by layer27; completed-part result pending",
   "ready_to_send": false,
   "colour_is_placeholder": false,
   "observed_at": "2026-10-14T04:05:30.937221+00:00",
@@ -252,5 +252,6 @@
     }
   },
   "native_mesh_and_pose_match_baseline": true,
-  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json"
+  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
+  "physical_result": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json"
 }

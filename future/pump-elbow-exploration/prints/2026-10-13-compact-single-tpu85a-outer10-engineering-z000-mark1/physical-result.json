@@ -52,9 +52,10 @@
   "interpretation": [
     "The user reassesses the apparent sagging and reports that the observed difference between speeds may be nonexistent. A speed midpoint is not selected.",
     "The 100% part-fan setting is retained because the user-reported 100-to-50% fan reduction on the prior print worsened curl.",
-    "A 215 C normal-layer candidate holds the 10 mm/s speed and all other process settings fixed, including the 225 C first layer. This tests nozzle temperature as a hypothesis; heat is not established as the cause."
+    "A 215 C normal-layer candidate holds the 10 mm/s speed and all other process settings fixed, including the 225 C first layer. This tests nozzle temperature as a hypothesis; heat is not established as the cause.",
+    "The complete-perimeter review finds actual left-lip speeds of 15.83\u201321.80 mm/s on layers26\u201333 despite outer_wall_speed=10. The faster overhang entries replace that setting, so this article does not establish a 10 mm/s lip trial."
   ],
-  "next_candidate": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md",
+  "next_candidate": "../2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md",
   "scope": "Print-process observations and reported qualitative manual-fit acceptance for the identified rough-edged 225 C TPU 85A article. Surface quality, sealing, retention and lifetime remain unqualified; the 215 C trial requires its own fit result.",
   "earlier_user_report": "Well, maybe this is good news, but it appears the 45-degree edges are sagging this time. So I guess whatever you did, we just try halfway between the previous one and this one, and maybe we get somewhere between sagging and curling up? Question mark.",
   "followup_closeups": [
@@ -128,5 +129,7 @@
     },
     "scope": "Qualitative fit and hand-insertion assessment of the identified rough-edged TPU 85A article. Individual socket interfaces are not enumerated in the report; no numerical insertion or pullout force, sealing, pressure or lifetime result is supplied.",
     "surface_followup": "The user intends to assess fit again after correcting the 45-degree surfaces. The 215 C article has no fit result in this report."
-  }
+  },
+  "emitted_speed_review": "outer-speed-comparison.json",
+  "temperature_trial_result": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json"
 }

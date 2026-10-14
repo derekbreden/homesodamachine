@@ -14,12 +14,11 @@ contains the user's reports, three wider views and six close-ups. Raised,
 distorted rim material and ragged underside strands are visible. A dependable
 improvement from the speed change is unestablished.
 
-The [native comparison](outer-speed-comparison.json) confirms **13 mm/s** at
-the left lip on layers 26–33, between 10 mm/s and the original emitted
-15–17 mm/s around curl onset. The original requested setting is 25 mm/s;
-its cooling slowdown makes the emitted speed lower in that region. The
-13 mm/s choice is an approximate midpoint there, not across every layer.
-Nominal whole-layer motion remains near 20 seconds.
+The [complete-perimeter comparison](outer-speed-comparison.json) shows
+**14.95–19.40 mm/s at the actual left lip on layers 26–33**, despite the
+13 mm/s ordinary outer-wall setting. Separate overhang speeds replace that
+value. This archive establishes neither a 13 mm/s lip nor an actual speed
+midpoint. Nominal whole-layer motion remains near 20 seconds.
 
 The [native readback](native-readback.json) confirms that the outer-wall
 setting and recipe label are the only differences from the original

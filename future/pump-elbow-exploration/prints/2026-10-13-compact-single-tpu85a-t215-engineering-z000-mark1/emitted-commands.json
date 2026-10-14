@@ -44,55 +44,147 @@
   ],
   "curl_region_outer_speeds_mm_s": [
     {
+      "layer": 17,
+      "speeds": [
+        13.43333
+      ],
+      "gcode_line": 5707,
+      "feed_command": "G1 F806"
+    },
+    {
+      "layer": 18,
+      "speeds": [
+        13.66667
+      ],
+      "gcode_line": 5932,
+      "feed_command": "G1 F820"
+    },
+    {
+      "layer": 19,
+      "speeds": [
+        13.93333
+      ],
+      "gcode_line": 6173,
+      "feed_command": "G1 F836"
+    },
+    {
+      "layer": 20,
+      "speeds": [
+        14.15
+      ],
+      "gcode_line": 6403,
+      "feed_command": "G1 F849"
+    },
+    {
+      "layer": 21,
+      "speeds": [
+        14.36667
+      ],
+      "gcode_line": 6646,
+      "feed_command": "G1 F862"
+    },
+    {
+      "layer": 22,
+      "speeds": [
+        14.96667
+      ],
+      "gcode_line": 6878,
+      "feed_command": "G1 F898"
+    },
+    {
+      "layer": 23,
+      "speeds": [
+        15.2
+      ],
+      "gcode_line": 7120,
+      "feed_command": "G1 F912"
+    },
+    {
+      "layer": 24,
+      "speeds": [
+        15.4
+      ],
+      "gcode_line": 7348,
+      "feed_command": "G1 F924"
+    },
+    {
+      "layer": 25,
+      "speeds": [
+        15.61667
+      ],
+      "gcode_line": 7589,
+      "feed_command": "G1 F937"
+    },
+    {
       "layer": 26,
       "speeds": [
-        10.0
-      ]
+        15.83333
+      ],
+      "gcode_line": 7833,
+      "feed_command": "G1 F950"
     },
     {
       "layer": 27,
       "speeds": [
-        10.0
-      ]
+        16.4
+      ],
+      "gcode_line": 8077,
+      "feed_command": "G1 F984"
     },
     {
       "layer": 28,
       "speeds": [
-        10.0
-      ]
+        16.63333
+      ],
+      "gcode_line": 8325,
+      "feed_command": "G1 F998"
     },
     {
       "layer": 29,
       "speeds": [
-        10.0
-      ]
+        19.11667
+      ],
+      "gcode_line": 8832,
+      "feed_command": "G1 F1147"
     },
     {
       "layer": 30,
       "speeds": [
-        10.0
-      ]
+        19.41667
+      ],
+      "gcode_line": 9654,
+      "feed_command": "G1 F1165"
     },
     {
       "layer": 31,
       "speeds": [
-        10.0
-      ]
+        20.0,
+        21.18333
+      ],
+      "gcode_line": 10315,
+      "feed_command": "G1 F1271"
     },
     {
       "layer": 32,
       "speeds": [
-        10.0
-      ]
+        20.0,
+        21.8
+      ],
+      "gcode_line": 10997,
+      "feed_command": "G1 F1308"
     },
     {
       "layer": 33,
       "speeds": [
-        10.0
-      ]
+        20.0
+      ],
+      "gcode_line": 11574,
+      "feed_command": "G1 F1200"
     }
   ],
   "first_layer_commanded_temperature_c": 225,
   "normal_layer_commanded_temperature_c": 215,
-  "limits": "These are archived commands, not measured nozzle temperature or a physical print result. No printer action."
+  "limits": "These are archived commands, not measured nozzle temperature or a physical print result. No printer action.",
+  "method_correction": "Continuous perimeters retain feed-only G1 commands. Splitting at those commands selects a partial perimeter and falsely identifies its endpoint as the left lip. The reviewed lip is the minimum-X point on the complete closed exterior.",
+  "full_lip_review": "curl-toolpath-review.json"
 }

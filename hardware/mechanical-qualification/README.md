@@ -50,7 +50,7 @@ pressure holding and lifetime are unmeasured.
 
 The separate [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
 records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
-The identified one-object Mark1 trial uses a 10 mm/s outer wall, full part
+The identified one-object Mark1 trial requests a 10 mm/s outer wall, with full part
 cooling, Engineering Plate and zero user Z trim. Its
 [physical record and nine photos](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 show raised, distorted rims and ragged underside strands. Derek reports that
@@ -60,8 +60,14 @@ are the fit baseline. A dependable speed benefit is unestablished and the
 13 mm/s midpoint is not selected. The
 [215°C normal-layer trial](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
 is accepted as Mark1 task 1337710290, retaining 10 mm/s and the 225°C first
-layer. Surface finish and fit of the revised process remain pending;
-the observations establish no sealing or lifetime result.
+layer. Its [in-progress physical record](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
+reports faint curl by layer 21 and a similar defect by layer 27. Separate
+overhang settings make the actual lip faster than the ordinary 10 mm/s
+outer-wall setting in both archives. The [offline corrected candidate](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
+retains the accepted-fit article's 225°C recipe and geometry and has verified
+10 mm/s lip commands; it is not submitted. Finished quality and fit of the
+revised process remain pending; the observations establish no sealing or
+lifetime result.
 
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
