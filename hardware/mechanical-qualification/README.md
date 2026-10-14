@@ -136,7 +136,11 @@ with residual sag; two ramps look good, tentatively the 40° pair. Fin removal
 and the better cooling level are unreported. The
 [normal-flow/cooling follow-up](../print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
 is Mark1 task 1340156908: normal bridges at 100%/115%/125% extrusion, each at
-70% and 100% cooling, with a single 12 mm first roof layer.
+70% and 100% cooling, with a single 12 mm first roof layer. Its
+[physical result](../print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
+ranks A125 (125%, 70% fan) first and B125 (125%, 100% fan) second for fewest
+gaps when held to light, both at 25 mm/s. Sag, retained underside finish and
+adjacent-line strength remain unreported for this plate.
 The [40-specimen Mark2 follow-up](../print-tests/petgf-fins/finish-matrix-v6/README.md)
 is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
 volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing

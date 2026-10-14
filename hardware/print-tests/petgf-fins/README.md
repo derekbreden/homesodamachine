@@ -34,7 +34,10 @@ tooth beads, with bridge fill before walls. Its
 [Mark1 physical result](bonding-and-fins-v4/mark1/physical-result.json) finds normal
 N100/N125 visually preferred without a clear winner. The
 [normal-flow/cooling follow-up](normal-flow-cooling-v5/README.md) compares
-100%/115%/125% extrusion at 70%/100% fan on six normal bridge swatches.
+100%/115%/125% extrusion at 70%/100% fan on six normal bridge swatches. Its
+[physical result](normal-flow-cooling-v5/mark1/physical-result.json) ranks
+A125 (125%, 70% fan) first and B125 (125%, 100% fan) second for fewest gaps
+when held to light. Sag and adjacent-line strength are unreported for that ranking.
 The [Mark2 result](bonding-and-fins-v4/mark2/physical-result.json) establishes
 formation of both fin roofs and the solid control, with unacceptable sag/finish.
 Four ramps improve with residual sag and two look good; the 40° identification

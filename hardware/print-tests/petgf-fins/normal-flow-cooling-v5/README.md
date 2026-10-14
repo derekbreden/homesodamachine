@@ -8,7 +8,12 @@ with a useful retained surface, without adding unnecessary material or bowing.
 
 Mark1 accepted **task 1340156908** on 2026-10-14. The native estimate is
 **14 min 53 s**, approximately **3.50 g** including the local extra extrusion.
-[Launch record](mark1/launch.json). Physical results for this plate are pending.
+[Launch record](mark1/launch.json). The [physical result](mark1/physical-result.json)
+ranks bottom-right **A125 first** and top-right **B125 second** for fewest gaps
+when held up to light; the other four are worse, without a reported order.
+Both preferred pieces use 125% extrusion at 25 mm/s. A125 uses 70% fan and
+B125 uses 100%. This selects A125 for optical gap closure; sag, retained finish
+and adjacent-line strength remain unreported for this plate.
 
 | Front row, 70% fan | Back row, 100% fan | First bridge fill extrusion |
 | --- | --- | --- |
@@ -39,9 +44,12 @@ joined surface; compare each A/B pair to decide whether 100% cooling improves
 that result. Equal quality favors the lower extrusion. This requires no new
 fixtures or purchases. Do not infer measured bond strength from appearance.
 
-The [blank sheet](observations.csv) leaves physical results pending. These roofs
-span permanent model posts; the separate fin plate measures fin attachment and
-release. This plate does not establish the first-model-layer finish above a
+The [observation sheet](observations.csv) records the reported gap ranking and
+leaves other criteria blank. These roofs span permanent model posts. The
+[Mark2 finish comparison](../finish-matrix-v6/README.md) contains the A125
+first-roof settings in C04/F04/Y04 and the same extrusion/cooling at 15 mm/s in
+C03/F03/Y03. Its five-course roofs assess retained shape and fin release.
+This plate does not establish the first-model-layer finish above a
 slicer-generated support interface or a production sliding fit.
 
 ## Settings and provenance
