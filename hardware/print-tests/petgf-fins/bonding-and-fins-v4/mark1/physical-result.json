@@ -1,0 +1,84 @@
+{
+  "status": "completed; N100 and N125 are visually preferred with no clear winner",
+  "printer": "Mark1",
+  "printer_task_id": "1340084547",
+  "report_date": "2026-10-14",
+  "launch_record": "launch.json",
+  "machine_completion": {
+    "observed_at": "2026-10-14T22:16:48.422409+00:00",
+    "job_id": "1340084547",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v4-bonding-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 24,
+    "total_layer_num": 24,
+    "print_error": 0,
+    "hms": []
+  },
+  "user_observations": [
+    {
+      "verbatim": "Bottom left and bottom middle looks best on supports.",
+      "photo_positions": [
+        "bottom left",
+        "bottom middle"
+      ]
+    },
+    {
+      "verbatim": "Bottom middle in particular looks better than our bridges normally do, as far as fused lines goes."
+    },
+    {
+      "verbatim": "Maybe bottom left is better, hard to say, both of those similar."
+    }
+  ],
+  "position_mapping": {
+    "basis": "Photo arrangement agrees with original plate layout: normal row nearest camera, thick row behind; all feet face forward. Labels are not legible in these photographs.",
+    "bottom_left": "N100",
+    "bottom_middle": "N125",
+    "bottom_right": "N150",
+    "top_left": "T100",
+    "top_middle": "T125",
+    "top_right": "T150"
+  },
+  "selected_scope": {
+    "preferred_ids": [
+      "N100",
+      "N125"
+    ],
+    "relative_rank": "unresolved; N100 may be better",
+    "bridge_mode": "normal",
+    "extrusion_multipliers": [
+      1.0,
+      1.25
+    ],
+    "part_fan_percent": 70,
+    "clear_span_mm": 12,
+    "roof_layers": 1,
+    "claim": "Visual first-roof continuity and appearance on permanent model posts; no quantified inter-strand strength, fin release or supported-interface qualification."
+  },
+  "photo_assessment": {
+    "source": "assistant visual interpretation, separate from user ranking",
+    "observations": [
+      "The normal front row appears substantially more continuous than the thick back row.",
+      "T125 and T150 show pronounced bowed individual strands.",
+      "N150 has more visible edge/midspan bow than the preferred front pair."
+    ],
+    "limits": "Lighting obscures fine gaps; adjacent-line mechanical bonding and the size of any sag are unmeasured."
+  },
+  "photos": [
+    {
+      "path": "photos/01-result.jpg",
+      "source_name": "Photo 1.jpg",
+      "source_sha256": "dd85ccb8a4b8730879d3987f077c9a1c8ab022b8b1d087c893be0a15de609f34",
+      "sha256": "8d0c6dc6856dd5da0d35086a6942921c9afd7738cea4164ceff42d55d6be3507",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/02-result.jpg",
+      "source_name": "Photo 2.jpg",
+      "source_sha256": "73bc9dfebd9e6a09ed594fcb6eedec05c2e116a633f822bca017fad5ec557673",
+      "sha256": "156957e6fc86ea323012b06d5e0ec4571e2f239d6782cbc19ecc7d8aef6b7f84",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    }
+  ],
+  "follow_up": "../../normal-flow-cooling-v5/README.md"
+}
