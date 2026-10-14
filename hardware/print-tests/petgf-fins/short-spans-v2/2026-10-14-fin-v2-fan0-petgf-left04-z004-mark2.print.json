@@ -1,0 +1,996 @@
+{
+  "project": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "d8324ff79d5b70168d19e07af94ab30572453dc716ec930b080ca3f825648fdf",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "printer": "Mark2",
+  "material": "Polymaker Fiberon PET-GF15",
+  "nozzle": "Left fixed hardened Standard 0.4 mm; external spool 254",
+  "plate": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "expected_emitted_z_trim_mm": 0.02,
+  "first_layer_mm": 0.2,
+  "normal_layer_mm": 0.24,
+  "part_fan_percent": 0,
+  "settings_edits": {
+    "enable_support": {
+      "profile": "1",
+      "plate": "0"
+    },
+    "brim_type": {
+      "profile": "auto_brim",
+      "plate": "no_brim"
+    },
+    "filament_colour": {
+      "profile": [
+        "#000000"
+      ],
+      "plate": [
+        "#161616"
+      ]
+    },
+    "filament_multi_colour": {
+      "profile": [
+        "#000000"
+      ],
+      "plate": [
+        "#161616"
+      ]
+    },
+    "filament_density": {
+      "profile": [
+        "1.29"
+      ],
+      "plate": [
+        "1.43"
+      ]
+    },
+    "filament_map_mode": {
+      "profile": "Auto For Flush",
+      "plate": "Manual"
+    },
+    "filament_map_2": {
+      "profile": null,
+      "plate": [
+        "1"
+      ]
+    },
+    "extruder_ams_count": {
+      "profile": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "plate": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "fan_max_speed": {
+      "profile": [
+        "70"
+      ],
+      "plate": [
+        "0"
+      ]
+    },
+    "full_fan_speed_layer": {
+      "profile": [
+        "0"
+      ],
+      "plate": [
+        "4"
+      ]
+    },
+    "printer_settings_id": {
+      "profile": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "plate": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_settings_id": {
+      "profile": "0.24mm PET-GF faucet",
+      "plate": "PET-GF short bridges; fixed part fan 0%"
+    }
+  },
+  "cad_plate_bounds_mm": [
+    [
+      101.0,
+      108.5,
+      0.0
+    ],
+    [
+      224.0,
+      201.0,
+      27.559999465942383
+    ]
+  ],
+  "parts": [
+    {
+      "id": "C2",
+      "row": 1,
+      "object_id": 2,
+      "identify_id": 5101,
+      "mesh": "parts/C2.stl",
+      "mesh_sha256": "61f2c8da0b3b81aab5630c8fcc3a04dee1a5c0097aa439a220b1e8ce81f29d8d",
+      "plate_translation_mm": [
+        125.0,
+        114.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          125.0,
+          108.5,
+          0.0
+        ],
+        [
+          133.0,
+          127.5,
+          20.1200008392334
+        ]
+      ],
+      "triangles": 2396,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "solid_anchor_bridge",
+      "fin_count": 0,
+      "clear_span_mm": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 18.2,
+      "first_roof_nozzle_z_mm": 18.439999999999998,
+      "roof_top_z_mm": 20.119999999999997,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        5.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          18.2
+        ],
+        [
+          8.0,
+          12.0,
+          20.119999999999997
+        ]
+      ]
+    },
+    {
+      "id": "C4",
+      "row": 1,
+      "object_id": 4,
+      "identify_id": 5102,
+      "mesh": "parts/C4.stl",
+      "mesh_sha256": "cd374ea356fd76d3ec8939a0c89e6be3e683657e869af89a6c2e84076776608a",
+      "plate_translation_mm": [
+        136.0,
+        114.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          136.0,
+          108.5,
+          0.0
+        ],
+        [
+          146.0,
+          127.5,
+          22.520000457763672
+        ]
+      ],
+      "triangles": 1420,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "solid_anchor_bridge",
+      "fin_count": 0,
+      "clear_span_mm": 4,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 20.599999999999998,
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "roof_top_z_mm": 22.519999999999996,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        7.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          20.599999999999998
+        ],
+        [
+          10.0,
+          12.0,
+          22.519999999999996
+        ]
+      ]
+    },
+    {
+      "id": "C6",
+      "row": 1,
+      "object_id": 6,
+      "identify_id": 5103,
+      "mesh": "parts/C6.stl",
+      "mesh_sha256": "1d2e13aebe91646a11dca0f6a959b6c6325ffec29d4f42085362600ea8f45fb0",
+      "plate_translation_mm": [
+        149.0,
+        114.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.0,
+          108.5,
+          0.0
+        ],
+        [
+          161.0,
+          127.5,
+          24.920000076293945
+        ]
+      ],
+      "triangles": 3622,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "solid_anchor_bridge",
+      "fin_count": 0,
+      "clear_span_mm": 6,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 23.0,
+      "first_roof_nozzle_z_mm": 23.24,
+      "roof_top_z_mm": 24.92,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        9.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          23.0
+        ],
+        [
+          12.0,
+          12.0,
+          24.92
+        ]
+      ]
+    },
+    {
+      "id": "C8",
+      "row": 1,
+      "object_id": 8,
+      "identify_id": 5104,
+      "mesh": "parts/C8.stl",
+      "mesh_sha256": "27a0f658b7aa8cbe8ac5f04ab2b6c67321930d785e7e2f83104666442571bcc6",
+      "plate_translation_mm": [
+        164.0,
+        114.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          164.0,
+          108.5,
+          0.0
+        ],
+        [
+          178.0,
+          127.5,
+          27.31999969482422
+        ]
+      ],
+      "triangles": 4212,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "solid_anchor_bridge",
+      "fin_count": 0,
+      "clear_span_mm": 8,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 25.4,
+      "first_roof_nozzle_z_mm": 25.639999999999997,
+      "roof_top_z_mm": 27.32,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        11.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          25.4
+        ],
+        [
+          14.0,
+          12.0,
+          27.32
+        ]
+      ]
+    },
+    {
+      "id": "C4Y",
+      "row": 1,
+      "object_id": 10,
+      "identify_id": 5105,
+      "mesh": "parts/C4Y.stl",
+      "mesh_sha256": "f4362fe019162f4068ecc9bf18cbeb62292df1a4df9c946a566099dd66e65bfd",
+      "plate_translation_mm": [
+        194.0,
+        113.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          181.0,
+          113.0,
+          0.0
+        ],
+        [
+          200.0,
+          123.0,
+          22.520000457763672
+        ]
+      ],
+      "triangles": 1462,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "solid_anchor_bridge",
+      "fin_count": 0,
+      "clear_span_mm": 4,
+      "bridge_axis": "Y",
+      "bridge_angle_override": "90",
+      "roof_bottom_z_mm": 20.599999999999998,
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "roof_top_z_mm": 22.519999999999996,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        7.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          -12.0,
+          0,
+          20.599999999999998
+        ],
+        [
+          0,
+          10.0,
+          22.519999999999996
+        ]
+      ],
+      "rotation_degrees": 90
+    },
+    {
+      "id": "F2",
+      "row": 2,
+      "object_id": 12,
+      "identify_id": 5106,
+      "mesh": "parts/F2.stl",
+      "mesh_sha256": "abcb1793e307c0a10852861b94965de1039edf40bf89b7612ac66aba864e196d",
+      "plate_translation_mm": [
+        121.71999931335449,
+        140.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          121.71999931335449,
+          134.5,
+          0.0
+        ],
+        [
+          131.35999965667725,
+          153.5,
+          20.360000610351562
+        ]
+      ],
+      "triangles": 1636,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_landing_bridge",
+      "fin_count": 1,
+      "horizontal_body_gap_mm": 0.24,
+      "lower_tooth_underlap_mm": 1.2,
+      "lower_teeth": 7,
+      "upper_tines": 6,
+      "tine_width_mm": 0.5,
+      "lower_corner_tine_width_mm": 0.8,
+      "tine_height_mm": 0.24,
+      "tooth_nozzle_z_mm": 18.2,
+      "clear_span_mm": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 18.2,
+      "first_roof_nozzle_z_mm": 18.439999999999998,
+      "roof_top_z_mm": 20.119999999999997,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        5.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          18.2
+        ],
+        [
+          6.2,
+          12.0,
+          20.119999999999997
+        ]
+      ]
+    },
+    {
+      "id": "F4",
+      "row": 2,
+      "object_id": 14,
+      "identify_id": 5107,
+      "mesh": "parts/F4.stl",
+      "mesh_sha256": "2f2f5d5e163ccabb32a3e426bfe662f5a0c33833b62c8bb3b0328ab7dcb8a68a",
+      "plate_translation_mm": [
+        134.35999965667725,
+        140.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          134.35999965667725,
+          134.5,
+          0.0
+        ],
+        [
+          146.0,
+          153.5,
+          22.760000228881836
+        ]
+      ],
+      "triangles": 660,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_landing_bridge",
+      "fin_count": 1,
+      "horizontal_body_gap_mm": 0.24,
+      "lower_tooth_underlap_mm": 1.2,
+      "lower_teeth": 7,
+      "upper_tines": 6,
+      "tine_width_mm": 0.5,
+      "lower_corner_tine_width_mm": 0.8,
+      "tine_height_mm": 0.24,
+      "tooth_nozzle_z_mm": 20.599999999999998,
+      "clear_span_mm": 4,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 20.599999999999998,
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "roof_top_z_mm": 22.519999999999996,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        7.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          20.599999999999998
+        ],
+        [
+          8.2,
+          12.0,
+          22.519999999999996
+        ]
+      ]
+    },
+    {
+      "id": "F6",
+      "row": 2,
+      "object_id": 16,
+      "identify_id": 5108,
+      "mesh": "parts/F6.stl",
+      "mesh_sha256": "dab03eb321dfe68831af54c26668a12e66e86c84b10cb4ecd6e385569a59472c",
+      "plate_translation_mm": [
+        149.0,
+        140.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.0,
+          134.5,
+          0.0
+        ],
+        [
+          162.64000034332275,
+          153.5,
+          25.15999984741211
+        ]
+      ],
+      "triangles": 2858,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_landing_bridge",
+      "fin_count": 1,
+      "horizontal_body_gap_mm": 0.24,
+      "lower_tooth_underlap_mm": 1.2,
+      "lower_teeth": 7,
+      "upper_tines": 6,
+      "tine_width_mm": 0.5,
+      "lower_corner_tine_width_mm": 0.8,
+      "tine_height_mm": 0.24,
+      "tooth_nozzle_z_mm": 23.0,
+      "clear_span_mm": 6,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 23.0,
+      "first_roof_nozzle_z_mm": 23.24,
+      "roof_top_z_mm": 24.92,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        9.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          23.0
+        ],
+        [
+          10.2,
+          12.0,
+          24.92
+        ]
+      ]
+    },
+    {
+      "id": "F8",
+      "row": 2,
+      "object_id": 18,
+      "identify_id": 5109,
+      "mesh": "parts/F8.stl",
+      "mesh_sha256": "c4f85a0e8834c1cf4e10c1e6448aeea3303b168ee49700a78571867369772247",
+      "plate_translation_mm": [
+        165.64000034332275,
+        140.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          165.64000034332275,
+          134.5,
+          0.0
+        ],
+        [
+          181.2800006866455,
+          153.5,
+          27.559999465942383
+        ]
+      ],
+      "triangles": 3448,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_landing_bridge",
+      "fin_count": 1,
+      "horizontal_body_gap_mm": 0.24,
+      "lower_tooth_underlap_mm": 1.2,
+      "lower_teeth": 7,
+      "upper_tines": 6,
+      "tine_width_mm": 0.5,
+      "lower_corner_tine_width_mm": 0.8,
+      "tine_height_mm": 0.24,
+      "tooth_nozzle_z_mm": 25.4,
+      "clear_span_mm": 8,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "roof_bottom_z_mm": 25.4,
+      "first_roof_nozzle_z_mm": 25.639999999999997,
+      "roof_top_z_mm": 27.32,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        11.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          0,
+          0,
+          25.4
+        ],
+        [
+          12.2,
+          12.0,
+          27.32
+        ]
+      ]
+    },
+    {
+      "id": "F4Y",
+      "row": 2,
+      "object_id": 20,
+      "identify_id": 5110,
+      "mesh": "parts/F4Y.stl",
+      "mesh_sha256": "1dbe5fbe50668d8e3f8b7206ea36809c4bf34d9edc9b37e0fd7241bd9ac0a5a1",
+      "plate_translation_mm": [
+        197.2800006866455,
+        138.17999982833862,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          184.2800006866455,
+          138.17999982833862,
+          0.0
+        ],
+        [
+          203.2800006866455,
+          149.82000017166138,
+          22.760000228881836
+        ]
+      ],
+      "triangles": 696,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_landing_bridge",
+      "fin_count": 1,
+      "horizontal_body_gap_mm": 0.24,
+      "lower_tooth_underlap_mm": 1.2,
+      "lower_teeth": 7,
+      "upper_tines": 6,
+      "tine_width_mm": 0.5,
+      "lower_corner_tine_width_mm": 0.8,
+      "tine_height_mm": 0.24,
+      "tooth_nozzle_z_mm": 20.599999999999998,
+      "clear_span_mm": 4,
+      "bridge_axis": "Y",
+      "bridge_angle_override": "90",
+      "roof_bottom_z_mm": 20.599999999999998,
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "roof_top_z_mm": 22.519999999999996,
+      "roof_depth_mm": 12.0,
+      "roof_thickness_mm": 1.92,
+      "clear_span_bounds_local_mm": [
+        3.0,
+        7.0
+      ],
+      "roof_bounds_local_mm": [
+        [
+          -12.0,
+          0,
+          20.599999999999998
+        ],
+        [
+          0,
+          8.2,
+          22.519999999999996
+        ]
+      ],
+      "rotation_degrees": 90
+    },
+    {
+      "id": "S30",
+      "row": 3,
+      "object_id": 22,
+      "identify_id": 5111,
+      "mesh": "parts/S30.stl",
+      "mesh_sha256": "959b6b9b76f8230294c8238d111be10178f5ba7e72a9143617c5413acaffa46b",
+      "plate_translation_mm": [
+        101.0,
+        170.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          101.0,
+          164.5,
+          0.0
+        ],
+        [
+          119.0,
+          183.5,
+          13.56290340423584
+        ]
+      ],
+      "triangles": 5652,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 30,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 0,
+      "orientation": "original"
+    },
+    {
+      "id": "S35",
+      "row": 3,
+      "object_id": 24,
+      "identify_id": 5112,
+      "mesh": "parts/S35.stl",
+      "mesh_sha256": "68b6eca3e2e49e4847b3af88b19d208d4b817609104f908a778c08ad917caf8c",
+      "plate_translation_mm": [
+        122.0,
+        170.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          122.0,
+          164.5,
+          0.0
+        ],
+        [
+          140.0,
+          183.5,
+          15.282905578613281
+        ]
+      ],
+      "triangles": 5540,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 35,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 0,
+      "orientation": "original"
+    },
+    {
+      "id": "S40",
+      "row": 3,
+      "object_id": 26,
+      "identify_id": 5113,
+      "mesh": "parts/S40.stl",
+      "mesh_sha256": "7238ce60eb0062259dc4b88bf07df93f6ba798368b8f586c2695f246eb48a021",
+      "plate_translation_mm": [
+        143.0,
+        170.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          143.0,
+          164.5,
+          0.0
+        ],
+        [
+          161.0,
+          183.5,
+          17.227394104003906
+        ]
+      ],
+      "triangles": 3560,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 40,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 0,
+      "orientation": "original"
+    },
+    {
+      "id": "R30",
+      "row": 3,
+      "object_id": 28,
+      "identify_id": 5114,
+      "mesh": "parts/R30.stl",
+      "mesh_sha256": "6b37cfc333f64e6220c2f68bf5b38a45e8d1f639bf974b9cec53371796c7d705",
+      "plate_translation_mm": [
+        182.0,
+        177.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          164.0,
+          164.5,
+          0.0
+        ],
+        [
+          182.0,
+          183.5,
+          13.56290340423584
+        ]
+      ],
+      "triangles": 4498,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 30,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 180,
+      "orientation": "reversed"
+    },
+    {
+      "id": "R35",
+      "row": 3,
+      "object_id": 30,
+      "identify_id": 5115,
+      "mesh": "parts/R35.stl",
+      "mesh_sha256": "741ac920dcac9ae9a3ff8329b82f8455f5339f1f03ce8b43b57146e095e30e3d",
+      "plate_translation_mm": [
+        203.0,
+        177.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          185.0,
+          164.5,
+          0.0
+        ],
+        [
+          203.0,
+          183.5,
+          15.282905578613281
+        ]
+      ],
+      "triangles": 4376,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 35,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 180,
+      "orientation": "reversed"
+    },
+    {
+      "id": "R40",
+      "row": 3,
+      "object_id": 32,
+      "identify_id": 5116,
+      "mesh": "parts/R40.stl",
+      "mesh_sha256": "b6592ecd77b9ef33d1cbab45cb5176246f5e9c786f3dd592426cd5c2822a4aa6",
+      "plate_translation_mm": [
+        224.0,
+        177.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          206.0,
+          164.5,
+          0.0
+        ],
+        [
+          224.0,
+          183.5,
+          17.227394104003906
+        ]
+      ],
+      "triangles": 2414,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 40,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rotation_degrees": 180,
+      "orientation": "reversed"
+    },
+    {
+      "id": "FAN0",
+      "row": 4,
+      "object_id": 34,
+      "identify_id": 5117,
+      "mesh": "parts/FAN0.stl",
+      "mesh_sha256": "5a2604d3407eaae1704d3203cbf546e938746faf8e30c4299a5fcc953310e699",
+      "plate_translation_mm": [
+        153.5,
+        193.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          153.5,
+          193.0,
+          0.0
+        ],
+        [
+          171.5,
+          201.0,
+          1.159999966621399
+        ]
+      ],
+      "triangles": 1596,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "plate_identifier",
+      "part_fan_percent": 0
+    }
+  ],
+  "physical_result": "pending",
+  "submitted": true,
+  "native_archive": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86",
+  "gcode_sha256": "e004df5f516977de31ed20795f42c043cbfa608a2dec2b2fab2e06d7e0683b72",
+  "native_review": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.native-review.json",
+  "print_only_archive": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "8df48ef359b7cd4d9515b85123ee7f1ec9a80a6e15150928a61fc948a77cb3bf",
+  "printer_task_id": "1339729875",
+  "launch_record": "launch-fan0.json"
+}

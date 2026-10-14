@@ -4,7 +4,24 @@ This screening plate measures the surface freedom available from removable fins:
 how far a shelf can bridge between fin contacts, which unsupported slopes print
 cleanly, and which horizontal tines release without tearing the retained part.
 The customer outcomes are smooth sliding faces, clean visible surfaces and
-practical support removal. Physical results are pending.
+practical support removal. The first run has an
+[interrupted physical result](physical-result.json): A16, B16 and Y12 failed
+as their roofs began, AI detection interrupted printing, and the user did not
+continue. No usable bridge-span limit is established.
+
+The saved G-code places those first three roof attempts on layer 44, Z10.52.
+The ramps' last completed layer is 43, Z10.28. Their commanded reaches beyond
+the post are about 12.28 mm for S30, 10.11 mm for S35 and 8.44 mm for S40,
+each short of its planned 14 mm. Derek reports progressive edge sag and a
+sagging/incomplete partial tip corner on S30, a lesser version on S35, and no
+such edge defect on S40 at its printed extent. These are partial-ramp
+observations, not completed angle qualifications. The
+[stop-layer reconstruction](stop-layer-review.json) binds that scope to native
+order; [photos](photos/01-plate.jpg) preserve the final physical state.
+
+The [short-span follow-up](short-spans-v2/README.md) compares solid model
+anchors with fin landings at 2–8 mm and fixed part-fan cooling. Its full-length
+ramps finish before the bridge attempts begin.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact
@@ -81,14 +98,15 @@ motivate scoring retained surface quality independently from release.
 
 Mark2 accepted job **1339273130** at **11:42 CDT on 2026-10-14** through Bambu
 Studio's saved-slice send. Timelapse and Bed Leveling are On; Flow Dynamics and
-Nozzle Offset Calibration are Auto. Physical surface and release results are pending.
+Nozzle Offset Calibration are Auto. The interrupted surface observations are
+recorded above; fin-release behavior remains unreported.
 
 The editable project, native archive and source/mesh hashes are bound in
 `2026-10-14-fin-bridges-petgf-left04-z004-mark2.print.json` and `native-review.json`.
 The `-print-only.gcode.3mf` archive preserves every reviewed G-code byte and
 opens directly in Studio's Preview. [Launch record](launch.json) binds that
-submitted archive to printer acceptance. `observations.csv` contains blank
-physical readings until supplied.
+submitted archive to printer acceptance. `observations.csv` contains the
+reported failures and partial-ramp observations; unmeasured readings stay blank.
 
 ## Assess the cooled plate
 

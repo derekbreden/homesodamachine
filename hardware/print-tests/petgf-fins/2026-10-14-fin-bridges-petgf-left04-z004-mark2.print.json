@@ -1422,11 +1422,12 @@
       "angle_from_bed_degrees": 90
     }
   ],
-  "physical_result": "pending",
+  "physical_result": "interrupted; bridge limit unqualified; qualitative ramp observations recorded",
   "submitted": true,
   "launch_record": "launch.json",
   "printer_task_id": "1339273130",
   "submitted_archive": "2026-10-14-fin-bridges-petgf-left04-z004-mark2-print-only.gcode.3mf",
   "submitted_archive_sha256": "36a474e2907db1586f86704bc1a4979452443d90f2b2a311abba975946255024",
-  "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60"
+  "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60",
+  "physical_result_record": "physical-result.json"
 }

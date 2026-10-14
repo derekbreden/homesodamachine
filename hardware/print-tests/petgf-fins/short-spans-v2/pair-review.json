@@ -1,0 +1,23 @@
+{
+  "native_pair_review": [
+    {
+      "fan_percent": 0,
+      "estimated_seconds": 3401.8359375,
+      "estimated_grams": 21.18103790283203,
+      "fan_pwm": [
+        0.0
+      ],
+      "native_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86"
+    },
+    {
+      "fan_percent": 30,
+      "estimated_seconds": 3401.908935546875,
+      "estimated_grams": 21.18103790283203,
+      "fan_pwm": [
+        76.5
+      ],
+      "native_sha256": "f21ea0ff01b210a59de395dad4c55385695d9106c4208f4b6ec335db6b73d906"
+    }
+  ],
+  "sixteen_test_meshes_and_placements_identical": true
+}

@@ -1,0 +1,159 @@
+{
+  "reconstructed_bridge_stop_layer": 44,
+  "first_bridge_nozzle_z_mm": 10.52,
+  "layer_44_order": [
+    {
+      "id": "V",
+      "first_line": 93760
+    },
+    {
+      "id": "Y12",
+      "first_line": 93844
+    },
+    {
+      "id": "T80",
+      "first_line": 94283
+    },
+    {
+      "id": "T60",
+      "first_line": 94370
+    },
+    {
+      "id": "T50",
+      "first_line": 94457
+    },
+    {
+      "id": "T45",
+      "first_line": 94544
+    },
+    {
+      "id": "B16",
+      "first_line": 94631
+    },
+    {
+      "id": "A16",
+      "first_line": 95080
+    },
+    {
+      "id": "A24",
+      "first_line": 95523
+    },
+    {
+      "id": "B24",
+      "first_line": 95966
+    },
+    {
+      "id": "A32",
+      "first_line": 96408
+    },
+    {
+      "id": "B32",
+      "first_line": 96853
+    },
+    {
+      "id": "S60",
+      "first_line": 97297
+    },
+    {
+      "id": "S55",
+      "first_line": 97350
+    },
+    {
+      "id": "S50",
+      "first_line": 97416
+    },
+    {
+      "id": "S45",
+      "first_line": 97488
+    },
+    {
+      "id": "S40",
+      "first_line": 97571
+    },
+    {
+      "id": "S35",
+      "first_line": 97662
+    },
+    {
+      "id": "S30",
+      "first_line": 97761
+    },
+    {
+      "id": "B4",
+      "first_line": 97867
+    },
+    {
+      "id": "B8",
+      "first_line": 98316
+    },
+    {
+      "id": "B12",
+      "first_line": 98754
+    },
+    {
+      "id": "A12",
+      "first_line": 99203
+    },
+    {
+      "id": "A8",
+      "first_line": 99647
+    },
+    {
+      "id": "A4",
+      "first_line": 100091
+    }
+  ],
+  "basis": "User identifies A16/B16/Y12 as the first failed bridges and confirms stopping at the photographed state. Those are the first three roof attempts in the saved slice, all on layer 44.",
+  "ramp_extent_before_end_of_third_bridge_attempt": [
+    {
+      "id": "S30",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 12.278,
+      "cad_underside_reach_at_last_layer_plane_mm": 12.4708,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S35",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 10.111,
+      "cad_underside_reach_at_last_layer_plane_mm": 10.2827,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S40",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 8.438,
+      "cad_underside_reach_at_last_layer_plane_mm": 8.5806,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S45",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 7.08,
+      "cad_underside_reach_at_last_layer_plane_mm": 7.2,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S50",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 5.941,
+      "cad_underside_reach_at_last_layer_plane_mm": 6.0415,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S55",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 4.957,
+      "cad_underside_reach_at_last_layer_plane_mm": 5.0415,
+      "full_reach_mm": 14
+    },
+    {
+      "id": "S60",
+      "last_extruded_z_mm_before_bridge_failure": 10.28,
+      "commanded_x_reach_past_post_mm": 4.088,
+      "cad_underside_reach_at_last_layer_plane_mm": 4.1569,
+      "full_reach_mm": 14
+    }
+  ],
+  "limits": "Reconstructs programmed order and bead envelope, not physical sag or a recovered printer event timestamp."
+}

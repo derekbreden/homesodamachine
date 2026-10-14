@@ -1031,7 +1031,7 @@
       "bed_foot_separation_mm": null
     }
   ],
-  "limits": "Commanded bead envelopes include width and arcs, not physical squish or sag. Physical results pending.",
+  "limits": "Commanded bead envelopes include width and arcs, not physical squish or sag. The interrupted physical result is in physical-result.json; dimensions and release behavior remain unmeasured.",
   "native_slicer_result": {
     "return_code": 0,
     "warning": "",

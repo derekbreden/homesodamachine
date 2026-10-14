@@ -78,7 +78,7 @@
     },
     "basis": "Both prior job IDs were unchanged and FINISH with idle heaters since the post-restart 16:25 UTC readings."
   },
-  "physical_result": "pending",
+  "physical_result": "interrupted",
   "startup_status": {
     "observed_at": "2026-10-14T16:46:59.273134+00:00",
     "job_id": "1339273130",
@@ -95,5 +95,6 @@
     "nozzle_temper": 37.0,
     "nozzle_target_temper": 0.0,
     "stg_cur": 4
-  }
+  },
+  "physical_result_record": "physical-result.json"
 }
