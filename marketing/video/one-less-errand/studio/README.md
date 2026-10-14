@@ -31,7 +31,8 @@ time. `cad.py` reads the faucet triangles and firmware display; `lighting.py`
 provides the studio. The pour uses two distinct gravity-curved jets entering
 the glass, an animated impact surface, a small change in liquid level and fine
 rising bubbles. `errands.py` draws the graphic passage at delivery cadence and
-exposes its contact events to sound. `finish.py` adds the timed type and assembles
+exposes its contact events to sound. `carbonation.py` gives the beverage
+photographs fine moving bubbles. `finish.py` adds the timed type and assembles
 the picture with the sound master.
 
 ## Sound
