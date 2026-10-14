@@ -22,6 +22,10 @@ neighboring hardware are considered together.
   identify one 15 mm elbow, the editable project, native sliced
   archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
   zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
+- [Current trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+  bind the reported sagging and three photos to the 10 mm/s job. A
+  [13 mm/s candidate](prints/2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md)
+  is prepared offline, with a 64-minute / 4.30 g native estimate; it is not submitted.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.

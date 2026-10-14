@@ -1,0 +1,58 @@
+{
+  "status": "User-reported sagging during the 10 mm/s trial; completed-part acceptance pending",
+  "reported_date": "2026-10-13",
+  "reporter": "Derek",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337583437",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
+  "gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
+  "material": "User-reported TPU 85A",
+  "nozzle": "Right fixed 0.6 mm",
+  "plate": "User-reported glued Engineering Plate",
+  "user_z_trim_mm": 0.0,
+  "photos": [
+    {
+      "file": "underside-sag-photo-1.jpg",
+      "sha256": "a0e460e01945ff0cffeb17daaedc2d63856e0ee7840decf3abc9168eac55ac1e"
+    },
+    {
+      "file": "underside-sag-photo-2.jpg",
+      "sha256": "ecbdc174bc972cf64c3e94a95393ff209042d8fa851d9d3692ffd991a08f8547"
+    },
+    {
+      "file": "underside-sag-photo-3.jpg",
+      "sha256": "908ac98544ea00fd4cb3f13997924d47c3a4181125ec5679c2e734eb1472fdf3"
+    }
+  ],
+  "user_report": "Well, maybe this is good news, but it appears the 45-degree edges are sagging this time. So I guess whatever you did, we just try halfway between the previous one and this one, and maybe we get somewhere between sagging and curling up? Question mark.",
+  "photo_observations": [
+    "Ragged, drooping strands are visible along the growing exterior undersides.",
+    "The right rim also appears raised or built up; the photos do not establish that upward curl is absent.",
+    "The foot remains visibly seated in these views."
+  ],
+  "telemetry_during_report": {
+    "gcode_state": "RUNNING",
+    "task_id": "1337583437",
+    "layer_num": 135,
+    "total_layer_num": 184,
+    "mc_percent": 84,
+    "mc_remaining_time": 10,
+    "nozzle_temper": 225.0,
+    "nozzle_target_temper": 225.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "cooling_fan_speed": "15",
+    "big_fan1_speed": "14",
+    "big_fan2_speed": "4",
+    "print_error": 0,
+    "hms": [],
+    "scope": "Raw fan telemetry, not measured airflow. Exact photo layer is unspecified."
+  },
+  "interpretation": [
+    "The observations motivate an intermediate outer-wall speed trial. They do not demonstrate a monotonic relationship between speed and edge deflection.",
+    "The 100% part-fan setting is retained because the user-reported 100-to-50% fan reduction on the prior print worsened curl."
+  ],
+  "next_candidate": "../2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md",
+  "scope": "Print-process observations only; no socket fit, sealing, retention or lifetime acceptance."
+}
