@@ -1,0 +1,8 @@
+{
+  "first_printer": "Mark1",
+  "first_accepted_at": "2026-10-14T21:48:07.608126+00:00",
+  "second_printer": "Mark2",
+  "second_accepted_at": "2026-10-14T21:51:48.892468+00:00",
+  "seconds_between_acceptances": 221.284342,
+  "required_minimum_seconds": 180
+}

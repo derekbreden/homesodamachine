@@ -1,0 +1,24 @@
+{
+  "source_archive": "hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark1/2026-10-14-v4-bonding-petgf-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "fb1cf8d7a33617940443d2c890e6dde670ee5e6d955840f0894443882dc2b497",
+  "print_only_archive": "hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark1/2026-10-14-v4-bonding-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "c4d5f1f697f2f4ed87f6d8d7e5d01428a0fbad2598fdd73cc69e7f6ca69e9f5e",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "92cf0b2085270d66d409fc12533b665e94f334e5f2bf31c2f6352f3167f68337"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
