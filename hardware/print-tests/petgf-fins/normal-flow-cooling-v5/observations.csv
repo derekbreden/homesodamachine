@@ -1,7 +1,7 @@
 id,fan_percent,bridge_extrusion_percent,visible_gaps,independent_strings,bowing,retained_surface,preferred,notes
-A100,70,100,,,,,,
-A115,70,115,,,,,,
-A125,70,125,,,,,,
-B100,100,100,,,,,,
-B115,100,115,,,,,,
-B125,100,125,,,,,,
+A100,70,100,more than A125/B125,,,,,User backlit inspection; order among other four unreported
+A115,70,115,more than A125/B125,,,,,User backlit inspection; order among other four unreported
+A125,70,125,fewest,,,,first for visible gaps,User identifies bottom right as best when held to light
+B100,100,100,more than A125/B125,,,,,User backlit inspection; order among other four unreported
+B115,100,115,more than A125/B125,,,,,User backlit inspection; order among other four unreported
+B125,100,125,second fewest,,,,second for visible gaps,User identifies top right as second; other four worse
