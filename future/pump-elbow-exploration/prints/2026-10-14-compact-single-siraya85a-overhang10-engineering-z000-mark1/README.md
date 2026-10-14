@@ -3,7 +3,11 @@
 Mark1 accepted task **1337804197** on **2026-10-14 at 00:11:26 CDT**.
 The [launch receipt](launch.json) reports RUNNING, one object and no printer
 errors. Native estimate: **65 minutes / 3.93 g**, using 1.16 g/cm³ for the
-mass estimate. Printed surface quality and fit remain pending.
+mass estimate. The [in-progress physical record](physical-result.json) reports
+that it looks good past layer 28, beyond the earlier reported curling region.
+The [wide printer-camera view](past-layer28.png) accompanies that report.
+A subsequent read-only snapshot reports layer 49 at 215°C actual and target,
+with no printer errors. Finished surface quality and Siraya fit remain pending.
 
 The [loading record](material-loading.json) and [package photo](filament-label.jpg)
 identify Siraya Tech Flex TPU 85A Clear, SKU ST3008. The user reports Mark1
