@@ -1,6 +1,6 @@
 {
   "observed_date": "2026-10-12",
-  "authority": "Derek’s direct observation while the liner job printed",
+  "authority": "Derek\u2019s direct observation while the liner job printed",
   "task_id": "1334257829",
   "gcode": "2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode",
   "gcode_sha256": "f3d5c731ba6007901426d842a3dcc5ab205f05740d9083a78db68ee9a590a9ab",
@@ -50,5 +50,12 @@
     "authority": "Codex, based on the reported event, supplied photos and inspected native G-code",
     "working_hypothesis": "Excess material delivered at extrusion restart; unconfirmed",
     "candidate": "../2026-10-12-restart-minus005-mark1/README.md"
+  },
+  "followup_clarification": {
+    "reported_date": "2026-10-14",
+    "reporter": "Derek",
+    "user_report": "There should be a record of a problem we had with multiple item TPU printing and stringing on the travel path that led to each layer start, the seam of the 1st object, starting from the end of the 2nd object on the previous layer.",
+    "scope": "The user identifies the second-object end on layer N to first-object start on layer N+1 as the transition of concern. This supplements the recorded arrival timing; the representative layer108 is not established as an affected layer.",
+    "related_two_elbow_trial": "../../../../../../future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md"
   }
 }

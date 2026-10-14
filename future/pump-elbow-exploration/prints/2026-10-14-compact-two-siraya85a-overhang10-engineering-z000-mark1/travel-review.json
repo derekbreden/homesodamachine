@@ -1,0 +1,360 @@
+{
+  "scope": "Manual review of all184 layers and367 inter-object transfers using tools/gcode/toolpaths.py. Binds the selected launched native slice; no general string-burial qualification.",
+  "baseline": {
+    "archive": ".cache/pump-elbow-exploration/siraya85a-two/native-1q4x9jro/2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+    "archive_sha256": "92a4955f3454f3d467e6966ce39dd1383786610e9197401eb6e1ab2cc198d4bd",
+    "gcode_sha256": "f095fbec3a0571be4e90fed2aaf73d160112738f5ca795144700153e1e40fcab",
+    "settings": {
+      "seam_position": "aligned",
+      "reduce_crossing_wall": "0",
+      "max_travel_detour_distance": "0",
+      "wall_sequence": "inner wall/outer wall"
+    }
+  },
+  "candidate": {
+    "archive": "2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+    "archive_sha256": "4644d646ee71738c2a81cb0990d557719b5ee7dff187178864034fddb366c067",
+    "gcode_sha256": "3490af61cf5f995453bde3b8dc6588311c2ddca21a3773bed55680f7fc5b28f8",
+    "settings": {
+      "seam_position": "nearest",
+      "reduce_crossing_wall": "1",
+      "max_travel_detour_distance": "0",
+      "wall_sequence": "inner wall/outer wall"
+    }
+  },
+  "minimal_candidate": "Set seam_position nearest and reduce_crossing_wall1; retain both poses/centres, accepted Siraya85A215 C process, inner then outer wall order, current unlimited detour and standing timelapseOn.",
+  "findings": [
+    "Same-layer 1902 to1901 exits infill at low Z and inner walls through much of the height. Exterior seam painting alone does not control these exits or current first inner-wall starts.",
+    "Candidate moves front1901 entry onto its gap-facing side at layers21/28. At28 its visible same-layer path shortens30.18 to23.09 mm; terminal approach remains over3.61 mm planned solid stock.",
+    "Across layers the intended timelapseOn macro moves to a safe position before the visible return. At 28 candidate visible return from262,162 is96.54 mm, versus85.04 mm baseline. Firmware departure path is not expanded into ordinary moves.",
+    "Baseline already has10.45/10.95 mm terminal projected stock coverage at same-layer21/28, and5.37/5.74 mm on the cross-layer returns. This is not a case where the proposed change first puts the approach over solid material.",
+    "Whole-height final 1 mm planned-stock coverage improves modestly; neither candidate achieves it on every transfer. Thin upper rims can have less than1 mm approach stock.",
+    "The 0.4 mm hop keeps the nozzle above stock until its final drop; contour extrusion generally turns rather than retracing approach. Planned XY coverage cannot establish string contact or burial.",
+    "The prior physical record describes an intermittent arrival/restart strand with no demonstrated outward-pulling departure mechanism. This is a path-placement candidate, not a diagnosed cure."
+  ],
+  "whole_height_counts": {
+    "same_layer": {
+      "n": 184,
+      "baseline_final1mm_over_stock": 151,
+      "candidate_final1mm_over_stock": 157
+    },
+    "next_layer": {
+      "n": 183,
+      "baseline_final1mm_over_stock": 150,
+      "candidate_final1mm_over_stock": 153
+    }
+  },
+  "representatives": [
+    {
+      "transition": "same_layer",
+      "to_layer": 21,
+      "baseline": {
+        "z_mm": 2.6,
+        "from_feature": "Sparse infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          177.41,
+          144.937,
+          2.6
+        ],
+        "visible_arrival_length_mm": 27.47916165626104,
+        "terminal_solid_approach_mm": 10.454334109323035,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 2.6,
+        "from_feature": "Sparse infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          178.953,
+          151.569,
+          2.6
+        ],
+        "visible_arrival_length_mm": 21.356871781800628,
+        "terminal_solid_approach_mm": 3.951901529636743,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "same_layer",
+      "to_layer": 28,
+      "baseline": {
+        "z_mm": 3.44,
+        "from_feature": "Internal solid infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          177.149,
+          144.681,
+          3.44
+        ],
+        "visible_arrival_length_mm": 30.183405045973394,
+        "terminal_solid_approach_mm": 10.947685211565112,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 3.44,
+        "from_feature": "Internal solid infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          179.176,
+          151.759,
+          3.44
+        ],
+        "visible_arrival_length_mm": 23.086463647061947,
+        "terminal_solid_approach_mm": 3.6079917360277918,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "next_layer",
+      "to_layer": 21,
+      "baseline": {
+        "z_mm": 2.6,
+        "from_feature": "Sparse infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          177.41,
+          167.937,
+          2.6
+        ],
+        "visible_arrival_length_mm": 84.7980900079713,
+        "terminal_solid_approach_mm": 5.369998329180575,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 2.6,
+        "from_feature": "Sparse infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          179.666,
+          168.952,
+          2.6
+        ],
+        "visible_arrival_length_mm": 100.21476726570977,
+        "terminal_solid_approach_mm": 4.185596620254799,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "next_layer",
+      "to_layer": 28,
+      "baseline": {
+        "z_mm": 3.44,
+        "from_feature": "Internal solid infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          177.149,
+          167.681,
+          3.44
+        ],
+        "visible_arrival_length_mm": 85.04096637503598,
+        "terminal_solid_approach_mm": 5.7430441660640525,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 3.44,
+        "from_feature": "Internal solid infill",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          179.039,
+          168.161,
+          3.44
+        ],
+        "visible_arrival_length_mm": 96.5386075248112,
+        "terminal_solid_approach_mm": 3.4682869416063937,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "same_layer",
+      "to_layer": 100,
+      "baseline": {
+        "z_mm": 12.08,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          178.132,
+          148.18,
+          12.08
+        ],
+        "visible_arrival_length_mm": 27.176757523173805,
+        "terminal_solid_approach_mm": 8.887386733064972,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 12.08,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          179.554,
+          145.476,
+          12.08
+        ],
+        "visible_arrival_length_mm": 33.2042848070376,
+        "terminal_solid_approach_mm": 1.4605341537694194,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "next_layer",
+      "to_layer": 100,
+      "baseline": {
+        "z_mm": 12.08,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          178.132,
+          171.18,
+          12.08
+        ],
+        "visible_arrival_length_mm": 84.36891503391519,
+        "terminal_solid_approach_mm": 1.7789066764294716,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 12.08,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          179.554,
+          168.476,
+          12.08
+        ],
+        "visible_arrival_length_mm": 106.57113698959353,
+        "terminal_solid_approach_mm": 1.8091117959844212,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "same_layer",
+      "to_layer": 170,
+      "baseline": {
+        "z_mm": 20.48,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          186.004,
+          150.774,
+          20.48
+        ],
+        "visible_arrival_length_mm": 25.112870724683106,
+        "terminal_solid_approach_mm": 0.9558464986636714,
+        "last_1mm_solid_fraction": 0.9558464986636833
+      },
+      "candidate": {
+        "z_mm": 20.48,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          186.938,
+          151.706,
+          20.48
+        ],
+        "visible_arrival_length_mm": 25.046810150612163,
+        "terminal_solid_approach_mm": 0.9433068613991757,
+        "last_1mm_solid_fraction": 0.9433068613991642
+      }
+    },
+    {
+      "transition": "next_layer",
+      "to_layer": 170,
+      "baseline": {
+        "z_mm": 20.48,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          186.004,
+          173.774,
+          20.48
+        ],
+        "visible_arrival_length_mm": 76.90265984996879,
+        "terminal_solid_approach_mm": 0.38297151680745856,
+        "last_1mm_solid_fraction": 0.7768211817797078
+      },
+      "candidate": {
+        "z_mm": 20.48,
+        "from_feature": "Inner wall",
+        "to_feature": "Inner wall",
+        "entry_xyz": [
+          186.938,
+          168.294,
+          20.48
+        ],
+        "visible_arrival_length_mm": 117.96839345822086,
+        "terminal_solid_approach_mm": 0.948841505255615,
+        "last_1mm_solid_fraction": 0.9488415052556154
+      }
+    },
+    {
+      "transition": "same_layer",
+      "to_layer": 184,
+      "baseline": {
+        "z_mm": 22.16,
+        "from_feature": "Outer wall",
+        "to_feature": "Outer wall",
+        "entry_xyz": [
+          186.074,
+          147.821,
+          22.16
+        ],
+        "visible_arrival_length_mm": 24.10400748840685,
+        "terminal_solid_approach_mm": 1.394495058718114,
+        "last_1mm_solid_fraction": 1.0
+      },
+      "candidate": {
+        "z_mm": 22.16,
+        "from_feature": "Outer wall",
+        "to_feature": "Outer wall",
+        "entry_xyz": [
+          186.074,
+          147.821,
+          22.16
+        ],
+        "visible_arrival_length_mm": 24.291892580393935,
+        "terminal_solid_approach_mm": 1.4684452637434582,
+        "last_1mm_solid_fraction": 1.0
+      }
+    },
+    {
+      "transition": "next_layer",
+      "to_layer": 184,
+      "baseline": {
+        "z_mm": 22.16,
+        "from_feature": "Outer wall",
+        "to_feature": "Outer wall",
+        "entry_xyz": [
+          186.074,
+          170.821,
+          22.16
+        ],
+        "visible_arrival_length_mm": 76.43668959995584,
+        "terminal_solid_approach_mm": 0.28781520243168757,
+        "last_1mm_solid_fraction": 0.2878152024316979
+      },
+      "candidate": {
+        "z_mm": 22.16,
+        "from_feature": "Outer wall",
+        "to_feature": "Outer wall",
+        "entry_xyz": [
+          186.074,
+          170.821,
+          22.16
+        ],
+        "visible_arrival_length_mm": 98.76093661846235,
+        "terminal_solid_approach_mm": 0.33871483662559854,
+        "last_1mm_solid_fraction": 0.3387148366256139
+      }
+    }
+  ],
+  "metric_limits": "Planned current-layer bead footprints buffered 0.025 mm. Small infill gaps may interrupt this metric without being a designed lumen. No all-height string burial or no-lumen-contamination claim follows. Layer1 includes brim approach.",
+  "timelapse": {
+    "example": "M9711 M0 E0 U262 V162 Z3.72 S11 C10 O0 T3000",
+    "interpretation": "For the intended active branch use U/V as safe-position origin of visible arrival; opaque firmware departure remains unmeasured. Offline plate execution is not observed.",
+    "source": "https://github.com/bambulab/BambuStudio/blob/926a7192574bcb9b3a732e1ec59a46d79cb45466/src/libslic3r/GCode.cpp#L4477-L4509"
+  },
+  "orientation_recommendation": "Do not add180-degree rotation solely for this first candidate: it swaps socket exposure to fan flow. Painted facing outer seams alone do not govern infill exits or first inner-wall starts.",
+  "physical_record": "../../../../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json",
+  "source_reader": "../../../../tools/gcode/toolpaths.py",
+  "user_arrangement_request": "You can arrange their seams to control the travel path between them, which often strings, so that stringing might occur along a wall, so that string gets left inside the print instead of outside of it.",
+  "layer_boundary_clarification": "There should be a record of a problem we had with multiple item TPU printing and stringing on the travel path that led to each layer start, the seam of the 1st object, starting from the end of the 2nd object on the previous layer."
+}

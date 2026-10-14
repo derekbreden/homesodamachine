@@ -1,5 +1,5 @@
 {
-  "status": "User reports looking good past layer 28; in-progress improvement, completed-part result pending",
+  "status": "Finished single Siraya elbow: accepted exterior quality; internal stringing reported",
   "reported_date": "2026-10-14",
   "recorded_at": "2026-10-14T05:52:50.150297+00:00",
   "reporter": "Derek",
@@ -56,5 +56,47 @@
   },
   "process_decision": "Retain the current settings for the remainder of this identified print; no runtime settings changed during this report.",
   "accepted_fit_baseline": "../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
-  "scope": "Positive in-progress visual report. Completion, finished 45-degree surface quality and Siraya material fit remain unassessed. The earlier Bambu article retains its separate qualitative fit acceptance."
+  "scope": "Completed single Siraya article with accepted exterior print quality and reported internal stringing. Earlier in-progress evidence is retained. The earlier Bambu article retains its separate qualitative fit acceptance; Siraya fit and sealing are not established here.",
+  "finished_result": {
+    "reported_date": "2026-10-14",
+    "reporter": "Derek",
+    "user_report": "Turned out perfect.\n\nTry printing 2 now.",
+    "acceptance_scope": "The user reports the completed single print as perfect, including the previously problematic growing underside surfaces, then separately reports internal stringing. Exterior acceptance is preserved; freedom from internal strands is not established. New-material fit, sealing, retained grip and lifetime are not reported.",
+    "photos": [
+      {
+        "file": "finished-elbow-1.jpg",
+        "sha256": "3b08d7c0c0464a86c91b498dc289b2ea63e8d199179a90686936b45e042a63c9"
+      },
+      {
+        "file": "finished-elbow-2.jpg",
+        "sha256": "b276b2b5ba45f7711a87cb06766c2cc9c86ac8168de7254d874e0475e540ab6e"
+      },
+      {
+        "file": "finished-elbow-3.jpg",
+        "sha256": "6fede3c19270316bcc460b07ef87ed6ecb7ccf856124b3b55fc6e4fa3dc77fa0"
+      }
+    ],
+    "photo_observations": [
+      "Three views show a complete clear V-shaped elbow with continuous sloping exterior surfaces and both socket mouths formed.",
+      "The conspicuous raised-edge/glob damage in the earlier failed black articles is not apparent in these views. Small wisps are visible at the mouth tips."
+    ],
+    "completion_telemetry": {
+      "observed_at": "2026-10-14T06:38:51.975386+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "One compact TPU elbow - Mark1",
+      "mc_percent": 100,
+      "layer_num": 184,
+      "total_layer_num": 184,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": []
+    },
+    "next_trial": "../2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md"
+  },
+  "internal_stringing": {
+    "reported_date": "2026-10-14",
+    "reporter": "Derek",
+    "user_report": "Because I do see some stringing inside as well. I can probably post process somehow to remove that. But it would be nice if the printer could avoid it in the first place.",
+    "interpretation": "Interior strands remain a quality issue. The print plan distinguishes material buried within a wall from strings left across an open passage. No strand size, exact layer or direction is established by this report."
+  }
 }

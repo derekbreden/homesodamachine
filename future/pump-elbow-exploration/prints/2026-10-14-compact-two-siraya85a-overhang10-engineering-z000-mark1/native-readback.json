@@ -1,0 +1,80 @@
+{
+  "status": "Accepted by Mark1; physical result pending",
+  "printer": "Mark1 (H2C)",
+  "prepared_at": "2026-10-14T06:51:23.235952+00:00",
+  "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "baseline_archive_sha256": "9cfa3a0127df7ae9e8123286ec1cc0ad12a010f4a261575ae73b2fadf3acdb76",
+  "project": "2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "359c05250b6e7e9d2db630074a4f9dc0c0d3047c820ef27597faee968c8b25aa",
+  "archive": "2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "4644d646ee71738c2a81cb0990d557719b5ee7dff187178864034fddb366c067",
+  "gcode_sha256": "3490af61cf5f995453bde3b8dc6588311c2ddca21a3773bed55680f7fc5b28f8",
+  "native_settings_differences": {
+    "seam_position": {
+      "from": "aligned",
+      "to": "nearest"
+    },
+    "print_settings_id": {
+      "from": "One compact Siraya85A Clear elbow overhang10 Engineering Plate zero Z trim Mark1",
+      "to": "Two accepted Siraya85A elbows 215C overhang10 Engineering Plate zero Z trim Mark1"
+    },
+    "reduce_crossing_wall": {
+      "from": "0",
+      "to": "1"
+    }
+  },
+  "native_mesh_bytes_match_accepted_single": true,
+  "native_referenced_mesh_sha256": {
+    "3D/Objects/object_1.model": "51b554cb9290c2e2355d9713b745af85d52ade0acb1ae16b92d8bbb06fe78b52"
+  },
+  "native_objects": [
+    {
+      "identify_id": "1901",
+      "name": "Accepted Siraya elbow 1",
+      "skipped": "false"
+    },
+    {
+      "identify_id": "1902",
+      "name": "Accepted Siraya elbow 2",
+      "skipped": "false"
+    }
+  ],
+  "placements": [
+    {
+      "name": "Accepted Siraya elbow 1",
+      "object_id": 2,
+      "identify_id": 1901,
+      "transform": "1 0 0 0 1 0 0 0 1 177.500000000 148.500000000 0",
+      "plate_translation_mm": [
+        177.5,
+        148.5,
+        0.0
+      ]
+    },
+    {
+      "name": "Accepted Siraya elbow 2",
+      "object_id": 3,
+      "identify_id": 1902,
+      "transform": "1 0 0 0 1 0 0 0 1 177.500000000 171.500000000 0",
+      "plate_translation_mm": [
+        177.5,
+        171.5,
+        0.0
+      ]
+    }
+  ],
+  "centre_separation_y_mm": 23.0,
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "estimated_seconds": 6843.2255859375,
+  "estimated_filament_g": 7.827365875244141,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/siraya85a-two/native-vdpllq1w",
+  "submission": {
+    "printer_task_id": "1337964351",
+    "observed_at": "2026-10-14T06:59:43.600099+00:00",
+    "launch_receipt": "launch.json",
+    "gcode_state": "PREPARE"
+  }
+}

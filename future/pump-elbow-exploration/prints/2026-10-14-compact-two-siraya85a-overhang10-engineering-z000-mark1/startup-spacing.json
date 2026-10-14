@@ -1,0 +1,32 @@
+{
+  "observed_at": "2026-10-14T06:58:36.701293+00:00",
+  "target": "Mark1 (H2C)",
+  "target_state": "FINISH",
+  "target_previous_name": "One compact TPU elbow - Mark1",
+  "target_nozzle_target_C": 0,
+  "target_bed_target_C": 0,
+  "target_print_error": 0,
+  "target_hms": [],
+  "right_external_spool": {
+    "type": "TPU",
+    "colour": "FFFFFFFF",
+    "physical_identification": "Siraya Tech Flex TPU85A Clear, from user loading report"
+  },
+  "other_printer": {
+    "name": "Mark2",
+    "observed_at": "2026-10-14T06:58:36.121995+00:00",
+    "state": "RUNNING",
+    "name_reported": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+    "layer": 153,
+    "total_layers": 1244,
+    "print_error": 0,
+    "hms": [],
+    "accepted_task_id": "1337767162",
+    "accepted_at": "2026-10-14T04:45:29.184170+00:00",
+    "launch_receipt": ".cache/printer-control/Mark2-1337767162-launch.json"
+  },
+  "target_accepted_at": "2026-10-14T06:59:43.600099+00:00",
+  "minimum_start_separation_seconds": 180,
+  "actual_separation_seconds": 8054.415929,
+  "bed_clear_authority": "Try printing 2 now."
+}
