@@ -2,8 +2,9 @@
 
 Mark1 accepted task **1337197268** at **2026-10-13 18:37:14 CDT**. The
 [launch receipt](launch.json) identifies the native archive and G-code hashes.
-Printed surfaces, socket fit, clamp handling and pressure sealing have no
-physical result yet.
+**Outcome: failed print, reported by Derek.** The
+[physical result](physical-result.json) records that report. Failure mechanism,
+socket fit, clamp handling and pressure sealing are unmeasured.
 
 The plate carries two identical elbows. Each has an 11 mm deep Ø9 mm barb
 socket and a 15 mm deep Ø6.1 mm tube socket. The large cuff meets a rounded

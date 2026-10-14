@@ -1,8 +1,9 @@
 # TPU pump elbow and installed layout study
 
-**Status: first-article prototype; physical result pending.** This study supplies two elbows,
-their complete water connections, and a 715 mL funnel proposal in the existing
-enclosure envelope. Nominal occupancy and native slicing are established.
+**Status: single full-base print trial; physical result pending.**
+The current TPU 85A trial prints one elbow with solid stock down to the bed.
+The compact layout study includes the water connections and a 715 mL funnel
+proposal. Its occupancy result applies to the compact fitting envelopes.
 Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
 
 The customer outcome is a larger filling bowl in a compact appliance, with
@@ -10,16 +11,17 @@ durable joints that require no customer retightening. Elbow lengths, clocking,
 the water check, its cap cradle, tube bends, funnel frame, roof opening and
 neighboring hardware are considered together.
 
-![Elbow section and installed plan](proposal.png)
+![Compact fitting section and installed plan](proposal.png)
 
 ## Files
 
-- [Suction elbow](suction-elbow.stl) and [discharge elbow](discharge-elbow.stl)
-  are exported in their V print poses. Their matching STEP files carry the
-  analytic geometry.
-- [Mark1 print record](prints/2026-10-13-continuous-body-tpu85a-mark1/README.md)
-  identifies two identical 15 mm elbows, the editable project, native sliced
+- [Full-base elbow and Mark1 print record](prints/2026-10-13-full-base-single-tpu85a-mark1/README.md)
+  identify one 15 mm elbow, the editable project, native sliced
   archive, loaded TPU 85A, right fixed 0.6 mm nozzle and +0.18 mm user Z trim.
+- [Suction elbow](suction-elbow.stl) and [discharge elbow](discharge-elbow.stl)
+  are the compact fitting envelopes used by the installed layout study. The
+  full-base print trial adds stock outside those envelopes; that stock is
+  not included in the installed proposal's clearance result.
 - [Installed proposal](installed-proposal.step) shows the pump, elbows, bands,
   water check and cradle, tubes, source valves, expanded bowl and frame, and
   relocated upper hardware. The [revised back-top](back-top-funnel-opening.step)
@@ -74,7 +76,7 @@ both inserted ends clear of the corner passage.
 | Estimated installed cuff ODs | 15.407 mm on the barb and 11.832 mm on the tube, using conserved annular area. |
 | Clamp band | 9 mm width; closed-band geometry only. Wing, screw and opening envelopes are unmeasured. |
 
-The exterior follows the large cuff into a spherical heel and a smooth,
+The compact fitting envelope follows the large cuff into a spherical heel and a smooth,
 6.5 mm long reduction into the smaller tube leg. The reduction has zero slope
 and curvature at its circular ends. The heel has one integral flat foot,
 approximately 88.9 mm². Each clamp retains a complete circular 9 mm seat;
@@ -111,24 +113,30 @@ limits grip; it is not validation of this custom cuff.
 
 ## Printing and geometry options
 
-The V pose puts both mouths upward and distributes the 90° angle equally.
-The broad foot lies exactly at Z0. The analytic cylindrical roofs and lower
-skins are at least 45°; the spherical heel reaches approximately 46.8° at the
-foot boundary. Both STLs are closed, consistently oriented solids. Two
-zero-area tessellation facets at tangent seams are removed without changing
-the printed surface.
+The full-base trial puts both mouths upward at 45°. Its 447.716 mm² bed
+contact covers the entire XY projection. Solid stock extends down from the
+elbow to Z0, with extra web between the legs. Mouth-open, 1.2 mm radial
+channels preserve both complete 9 mm clamp-band seats. The exact socket and
+flow bores are retained. The native print mesh is one closed, consistently
+oriented body.
 
 The native project uses the loaded TPU 85A, 0.6 mm nozzle, 0.20 mm first layer,
 0.12 mm subsequent layers, six requested wall loops, 100% zig-zag infill,
 0% seam gap and 25 mm/s wall speeds, limited by the filament's 2.2 mm³/s
 maximum flow. Its native settings are 225°C nozzle and 35°C textured PEI.
 Spiral mode is off. The native slice emits no support features. Its estimate
-is about **89 minutes and 8.57 g for both elbows**.
+is about **81 minutes and 7.80 g for one elbow**. The native archive has
+exactly one mesh body, one normal volume, one object and one build instance.
 
 The manual [layer-support review](layer-support-review.json) binds the current
-meshes and native G-code. It checks each layer's material against the preceding
-layer, including disconnected starts and the local passage transition. An
-angle survey or a support-disabled slice alone does not establish support.
+mesh and native G-code. It checks the bed footprint, first layers, and local
+socket, passage and clamp-channel transitions. The throat has a 0.232 mm
+closing stroke with a 0.536 mm bead. Geometric support does not establish
+adhesion, extrusion continuity or a successful physical print.
+
+The identified [two-elbow print failed](prints/2026-10-13-continuous-body-tpu85a-mark1/physical-result.json)
+according to Derek's report. Its failure mechanism is unmeasured. Print trials
+use one specimen at a time.
 
 At a nominal 45° wall, a 0.12 mm layer advances approximately 0.12 mm laterally;
 with 0.62 mm beads, nominal overlap is about 81%. This gives a geometric print

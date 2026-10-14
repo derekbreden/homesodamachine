@@ -1,0 +1,14 @@
+{
+  "status": "Failed print",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337197268",
+  "reported_at": "2026-10-14T00:43:38.793469+00:00",
+  "evidence": "User report",
+  "observation": "Your print failed.",
+  "requested_retry_changes": [
+    "Print one elbow at a time",
+    "Fill exterior stock down to the bed across the part footprint"
+  ],
+  "failure_mechanism": "Not established by the report",
+  "scope": "This identified two-elbow print; no fit or seal acceptance"
+}
