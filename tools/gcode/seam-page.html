@@ -1,0 +1,260 @@
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap">
+<style>
+/* One stage: the part's outer walls as the slicer emitted them, seam starts as dots on top. */
+:root {
+  --ground: #f3f5fa;
+  --paper: #ffffff;
+  --ink: #111a33;
+  --muted: #56607a;
+  --rule: #d6dbe8;
+  --accent: #10319c;
+  --stage: #10319c;
+  --stage-ink: #dfe6ff;
+  --on: #2fbf71;
+  --near: #ffb020;
+  --off: #ff5a5a;
+  --paint: #ffa733;
+  --face: Montserrat, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --data: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0a0f1f; --paper: #121a31; --ink: #e6eaf5; --muted: #9aa3bd; --rule: #252e4a;
+    --accent: #8aa4ff; --stage: #0c2477; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0a0f1f; --paper: #121a31; --ink: #e6eaf5; --muted: #9aa3bd; --rule: #252e4a;
+  --accent: #8aa4ff; --stage: #0c2477; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding-inline: 16px; padding-block: 20px 28px; background: var(--ground); color: var(--ink); font: 15px/1.5 var(--text); }
+.wrap { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+h1 { margin: 0; font: 600 22px/1.25 var(--face); letter-spacing: -0.01em; text-wrap: balance; }
+.lede { margin: 2px 0 0; color: var(--muted); max-width: 78ch; }
+.bar { display: flex; flex-wrap: wrap; gap: 6px; }
+.bar button, .bar label { font: 500 13px/1 var(--text); color: var(--ink); background: var(--paper); border: 1px solid var(--rule);
+  border-radius: 999px; padding: 8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; user-select: none; }
+.bar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.bar input { margin: 0; }
+.stage { position: relative; width: 100%; height: min(78vh, 860px); min-height: 440px; background: var(--stage);
+  border-radius: 10px; overflow: hidden; touch-action: none; }
+.stage canvas { display: block; width: 100%; height: 100%; }
+.key { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; color: var(--muted); font: 13px/1.35 var(--text); }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.swatch { width: 14px; height: 8px; border-radius: 2px; display: inline-block; }
+.tag { font: 600 12px/1.3 var(--text); color: #fff; background: rgba(150,20,20,0.88); padding: 4px 7px;
+  border-radius: 6px; white-space: nowrap; pointer-events: none; transform: translate(14px, -50%); }
+.tag small { display: block; font-weight: 500; opacity: 0.88; }
+.note { position: absolute; inset: 0; display: grid; place-items: center; color: var(--stage-ink); padding: 24px; text-align: center; }
+.foot { color: var(--muted); font: 12px/1.5 var(--data); overflow-wrap: anywhere; }
+@media (max-width: 560px) { .stage { height: 72vh; min-height: 420px; } .tag { font-size: 11px; } }
+</style>
+
+<div class="wrap">
+  <div>
+    <h1>{{TITLE}}</h1>
+    <p class="lede">{{LEDE}}</p>
+  </div>
+  <div class="bar" id="bar">
+    <button type="button" data-view="rear" aria-pressed="true" id="b-rear">Rear</button>
+    <button type="button" data-view="full" id="b-full">Rear, full height</button>
+    <button type="button" data-view="side">Side</button>
+    <button type="button" data-view="iso">Iso</button>
+  </div>
+  <div class="stage" id="stage"><div class="note" id="note">Loading toolpaths…</div></div>
+  <div class="key" id="key">
+    <span><i class="dot" style="background:var(--on)"></i>within 0.5 mm of the centerline</span>
+    <span><i class="dot" style="background:var(--near)"></i>0.5–1.0 mm off</span>
+    <span><i class="dot" style="background:var(--off)"></i>over 1.0 mm off</span>
+    <span id="k-paint" hidden><i class="swatch" style="background:var(--paint)"></i>seam enforcer paint</span>
+    <span><i class="swatch" style="background:#ffffff;border:1px solid var(--rule)"></i>centerline target</span>
+  </div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script type="application/json" id="seam-data">/*DATA*/</script>
+<script>
+  setTimeout(function () {
+    if (window.__vizBoot) return;
+    document.getElementById("note").textContent = "The 3D view could not start here: scripts or cdn.jsdelivr.net are blocked in this viewer.";
+    window.__vizReady = true;
+  }, 15000);
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
+
+window.__vizBoot = true;
+const data = JSON.parse(document.getElementById("seam-data").textContent);
+const bytes = (b64) => { const s = atob(b64), o = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) o[i] = s.charCodeAt(i); return o.buffer; };
+
+// Outer walls as ribbons: each emitted point becomes a top and bottom vertex one layer apart.
+const W = data.walls;
+const paths = new Int16Array(bytes(W.paths)), offsets = new Uint32Array(bytes(W.offsets)), heights = new Uint8Array(bytes(W.heights));
+const nPts = paths.length / 3;
+const pos = new Float32Array(nPts * 6), nor = new Float32Array(nPts * 6), col = new Float32Array(nPts * 6), index = [];
+for (let r = 0; r + 1 < offsets.length; r++) {
+  const a = offsets[r], b = offsets[r + 1], h = heights[r] / 100, shade = 0.56 + 0.06 * (r % 2);
+  for (let i = a; i < b; i++) {
+    const x = paths[3 * i] / 100, y = paths[3 * i + 1] / 100, z = paths[3 * i + 2] / 100;
+    const p = Math.max(a, i - 1), q = Math.min(b - 1, i + 1);
+    let tx = (paths[3 * q] - paths[3 * p]) / 100, ty = (paths[3 * q + 1] - paths[3 * p + 1]) / 100;
+    const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl;
+    pos.set([x, y, z, x, y, z - h * 0.92], 6 * i);
+    nor.set([ty, -tx, 0, ty, -tx, 0], 6 * i);
+    col.set([shade, shade, shade * 1.02, shade, shade, shade * 1.02], 6 * i);
+    if (i + 1 < b) { const v = 2 * i; index.push(v, v + 1, v + 2, v + 1, v + 3, v + 2); }
+  }
+}
+const wallGeom = new THREE.BufferGeometry();
+wallGeom.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+wallGeom.setAttribute("normal", new THREE.BufferAttribute(nor, 3));
+wallGeom.setAttribute("color", new THREE.BufferAttribute(col, 3));
+wallGeom.setIndex(new THREE.BufferAttribute(new Uint32Array(index), 1));
+wallGeom.computeBoundingBox();
+
+const stage = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setClearColor(0x000000, 0);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+stage.prepend(renderer.domElement);
+const labels = new CSS2DRenderer();
+Object.assign(labels.domElement.style, { position: "absolute", inset: "0", pointerEvents: "none" });
+stage.appendChild(labels.domElement);
+
+const scene = new THREE.Scene();
+scene.add(new THREE.HemisphereLight(0xffffff, 0x2a3350, 1.1));
+const key = new THREE.DirectionalLight(0xffffff, 1.2);
+scene.add(key);
+scene.add(new THREE.Mesh(wallGeom, new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })));
+
+if (data.enforcers) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(bytes(data.enforcers)), 3));
+  scene.add(new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0xffa733, transparent: true, opacity: 0.6,
+    side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })));
+  document.getElementById("k-paint").hidden = false;
+}
+const rear = new Float32Array(bytes(data.rear));
+scene.add(new THREE.Line(new THREE.BufferGeometry().setAttribute("position", new THREE.BufferAttribute(rear, 3)),
+  new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 })));
+
+const disc = (() => {
+  const c = document.createElement("canvas"); c.width = c.height = 64;
+  const g = c.getContext("2d"); g.beginPath(); g.arc(32, 32, 28, 0, 2 * Math.PI);
+  g.fillStyle = "#fff"; g.fill(); g.lineWidth = 5; g.strokeStyle = "rgba(0,0,0,0.55)"; g.stroke();
+  return new THREE.CanvasTexture(c);
+})();
+const DOT_PX = Math.round(6 * Math.min(window.devicePixelRatio || 1, 2));
+function dotCloud(p, colors, px) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+  g.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  return new THREE.Points(g, new THREE.PointsMaterial({ size: px, sizeAttenuation: false, vertexColors: true, map: disc, alphaTest: 0.5 }));
+}
+const ON = new THREE.Color("#2fbf71"), NEAR = new THREE.Color("#ffb020"), OFF = new THREE.Color("#ff5a5a");
+const dots = new Float32Array(bytes(data.seams.dots)), lat = new Float32Array(bytes(data.seams.lateral));
+const dc = new Float32Array(dots.length);
+for (let i = 0; i < lat.length; i++) {
+  const d = Math.abs(lat[i]), c = d <= 0.5 ? ON : d <= 1.0 ? NEAR : OFF;
+  dc.set([c.r, c.g, c.b], 3 * i);
+}
+scene.add(dotCloud(dots, dc, DOT_PX));
+
+const bar = document.getElementById("bar"), keyRow = document.getElementById("key");
+data.compare.forEach((o, k) => {
+  const p = new Float32Array(bytes(o.dots)), c = new THREE.Color(o.color), oc = new Float32Array(p.length);
+  for (let i = 0; i < p.length; i += 3) oc.set([c.r, c.g, c.b], i);
+  const cloud = dotCloud(p, oc, Math.round(DOT_PX * 0.8));
+  cloud.visible = false;
+  scene.add(cloud);
+  const label = document.createElement("label");
+  label.innerHTML = `<input type="checkbox" id="cmp-${k}">${o.label} seams`;
+  bar.appendChild(label);
+  const entry = document.createElement("span");
+  entry.hidden = true;
+  entry.innerHTML = `<i class="dot" style="background:${o.color}"></i>${o.label} seam starts (largest offset ${o.max_abs_lateral} mm)`;
+  keyRow.appendChild(entry);
+  label.querySelector("input").addEventListener("change", (e) => { cloud.visible = e.target.checked; entry.hidden = !e.target.checked; draw(); });
+});
+
+for (const pk of data.peaks) {
+  const el = document.createElement("div");
+  el.className = "tag";
+  el.innerHTML = `${Math.abs(pk.lateral).toFixed(1)} mm off center<small>print Z ${pk.from_z.toFixed(1)}–${pk.to_z.toFixed(1)} · worst at ${pk.z.toFixed(2)}</small>`;
+  const obj = new CSS2DObject(el);
+  obj.position.set(...pk.at);
+  scene.add(obj);
+}
+
+const box = wallGeom.boundingBox, center = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+const camera = new THREE.PerspectiveCamera(30, 1, 1, 5000);
+camera.up.set(0, 0, 1);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.addEventListener("change", draw);
+
+const band = data.frame_z;
+if (band) document.getElementById("b-rear").textContent = `Rear, print Z ${band[0]}–${band[1]}`;
+else document.getElementById("b-full").hidden = true;
+const AZ = data.view_azimuth;
+const VIEWS = { rear: [AZ, 6, band], full: [AZ, 6, null], side: [AZ - 90, 6, null], iso: [AZ - 50, 24, null] };
+function setView(name) {
+  const [az, el, zb] = VIEWS[name];
+  const lo = zb ? zb[0] : box.min.z, hi = zb ? zb[1] : box.max.z;
+  const tgt = new THREE.Vector3(center.x, center.y, (lo + hi) / 2);
+  if (zb) {
+    let ys = 0, n = 0;
+    for (let i = 2; i < pos.length; i += 6) if (pos[i] >= lo && pos[i] <= hi) { ys += pos[i - 1]; n++; }
+    if (n) tgt.y = ys / n;
+  }
+  const span = zb ? hi - lo : Math.max(size.x, size.y, size.z);
+  const r = span / (2 * Math.tan(THREE.MathUtils.degToRad(15))) * 1.12 / Math.min(1, (stage.clientWidth / stage.clientHeight) * 1.6);
+  const a = THREE.MathUtils.degToRad(az), e = THREE.MathUtils.degToRad(el);
+  camera.position.set(tgt.x + r * Math.cos(e) * Math.cos(a), tgt.y + r * Math.cos(e) * Math.sin(a), tgt.z + r * Math.sin(e));
+  controls.target.copy(tgt);
+  controls.update();
+  document.querySelectorAll("[data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
+  draw();
+}
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
+
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  labels.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  draw();
+}
+let pending = false;
+function draw() {
+  if (pending) return;
+  pending = true;
+  requestAnimationFrame(() => {
+    pending = false;
+    key.position.copy(camera.position).add(new THREE.Vector3(40, 0, 80));
+    renderer.render(scene, camera);
+    labels.render(scene, camera);
+  });
+}
+new ResizeObserver(resize).observe(stage);
+document.getElementById("note").remove();
+document.getElementById("foot").textContent = `${W.runs} outer-wall runs · ${W.points.toLocaleString()} emitted points · ${data.layers} layers with an outer loop` +
+  (data.enforcers ? ` · ${data.enforcer_triangles} painted triangles` : "") + ` · ${data.source} · plate coordinates, mm`;
+resize();
+setView("rear");
+requestAnimationFrame(() => requestAnimationFrame(() => { window.__vizReady = true; }));
+</script>

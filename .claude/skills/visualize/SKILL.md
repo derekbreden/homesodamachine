@@ -25,6 +25,7 @@ a screen layout.
 | A published part or assembly to turn around | The site viewer: `https://homesodamachine.com/3d#step:` and the path under `hardware/`, percent-encoded (`faucet-layout%2Ffaucet-assembly.step`). It draws what main published, not an edit on this disk. |
 | Options or states of real geometry, an unpublished candidate, a part among its neighbours | A page from `tools/viz/build.py`, one lettered panel per option, published and opened as an Artifact |
 | A render the pipeline already made (`tools/look.sh`, `tools/render/render-step-posed.js`) | The PNG with SendUserFile `display: "render"`, or several side by side as `image` panels of a built page |
+| What a slice commands: seams, speeds, the outer walls as emitted | A page from `tools/gcode/view.py` (`seams` or `speed`), published and opened as an Artifact; [its README](../../../tools/gcode/README.md) has the commands |
 | Timing, flow, wiring, a what-if with a slider, a screen mockup | `show_widget`, inline; promoted to a built page and an Artifact when it should stay open, turn, or be kept |
 
 ## Built pages
