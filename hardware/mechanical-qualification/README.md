@@ -48,6 +48,12 @@ barb to 1/4 in LLDPE under two hose clamps, printed as a V with its bores at
 carries the pump hoses and fitting chains. Socket fit, clamp retention,
 pressure holding and lifetime are unmeasured.
 
+The separate [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
+records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
+The identified one-object Mark1 trial uses a 10 mm/s outer wall, full part
+cooling, Engineering Plate and zero user Z trim. Its print and fitting results
+remain pending; the observations establish no sealing or lifetime result.
+
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
 The cover wings include 0.50 mm additional reach; the shared tip has a round

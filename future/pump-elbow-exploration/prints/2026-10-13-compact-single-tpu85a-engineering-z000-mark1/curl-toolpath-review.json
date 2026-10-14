@@ -1,0 +1,906 @@
+{
+  "gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "scope": "Only layers 26\u201333. Timing sums commanded G0/G1/G2/G3 lengths/feed plus pure-E moves; excludes acceleration and firmware/timelapse waits, so approximate. Fan values are last encoded commands, not measured airflow. Left lip is the exterior loop minimum-X point; overlap uses a 1 mm outline window and native bead widths against the prior layer.",
+  "fan_commands": [
+    {
+      "layer": 0,
+      "line": 593,
+      "command": "M106 S0"
+    },
+    {
+      "layer": 0,
+      "line": 594,
+      "command": "M106 P2 S0"
+    },
+    {
+      "layer": 0,
+      "line": 667,
+      "command": "M106 P2 S178"
+    },
+    {
+      "layer": 0,
+      "line": 668,
+      "command": "M106 P3 S127"
+    },
+    {
+      "layer": 0,
+      "line": 672,
+      "command": "M106 P2 S0"
+    },
+    {
+      "layer": 0,
+      "line": 804,
+      "command": "M106 P1 S0"
+    },
+    {
+      "layer": 0,
+      "line": 878,
+      "command": "M106 P1 S255"
+    },
+    {
+      "layer": 0,
+      "line": 880,
+      "command": "M106 P1 S0"
+    },
+    {
+      "layer": 0,
+      "line": 895,
+      "command": "M106 P1 S255"
+    },
+    {
+      "layer": 0,
+      "line": 897,
+      "command": "M106 P1 S0"
+    },
+    {
+      "layer": 0,
+      "line": 924,
+      "command": "M106 S255"
+    },
+    {
+      "layer": 0,
+      "line": 952,
+      "command": "M106 S0"
+    },
+    {
+      "layer": 0,
+      "line": 1040,
+      "command": "M106 S0"
+    },
+    {
+      "layer": 0,
+      "line": 1041,
+      "command": "M106 P2 S0"
+    },
+    {
+      "layer": 0,
+      "line": 1044,
+      "command": "M106 P9 S255"
+    },
+    {
+      "layer": 1,
+      "line": 1145,
+      "command": "M106 S0"
+    },
+    {
+      "layer": 1,
+      "line": 1146,
+      "command": "M106 P2 S0"
+    },
+    {
+      "layer": 2,
+      "line": 2003,
+      "command": "M106 S255"
+    },
+    {
+      "layer": 2,
+      "line": 2004,
+      "command": "M106 P2 S255"
+    }
+  ],
+  "layers": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "layer_nominal_motion_s": 19.838324073486604,
+      "order": [
+        [
+          "Inner wall",
+          182
+        ],
+        [
+          "Inner wall",
+          183
+        ],
+        [
+          "Inner wall",
+          184
+        ],
+        [
+          "Inner wall",
+          185
+        ],
+        [
+          "Inner wall",
+          186
+        ],
+        [
+          "Outer wall",
+          187
+        ],
+        [
+          "Internal solid infill",
+          188
+        ]
+      ],
+      "outer_loops": 1,
+      "outer_start_xy_mm": [
+        177.313,
+        153.262
+      ],
+      "outer_end_xy_mm": [
+        177.313,
+        153.262
+      ],
+      "outer_loop_length_mm": 44.41836700082652,
+      "outer_motion_s": 3.0423539041661343,
+      "outer_speed_range_mm_s": [
+        14.6,
+        14.6
+      ],
+      "left_lip_plate_xy_mm": [
+        168.94660650053459,
+        160.00816404742775
+      ],
+      "left_lip_model_xy_mm": [
+        -8.553393499465415,
+        0.008164047427754895
+      ],
+      "left_lip_speeds_mm_s": [
+        14.6
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8175900054207357,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 10.74743083451593,
+      "left_lip_distance_from_seam_along_outline_mm": 11.789780853347814,
+      "left_lip_delay_after_outer_start_s": 2.1717913224358654,
+      "left_lip_nominal_return_time_s": 19.814566690923186,
+      "left_lip_gcode_line": 7819,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "layer_nominal_motion_s": 19.84129166565458,
+      "order": [
+        [
+          "Inner wall",
+          189
+        ],
+        [
+          "Inner wall",
+          190
+        ],
+        [
+          "Inner wall",
+          191
+        ],
+        [
+          "Inner wall",
+          192
+        ],
+        [
+          "Inner wall",
+          193
+        ],
+        [
+          "Outer wall",
+          194
+        ],
+        [
+          "Internal solid infill",
+          195
+        ]
+      ],
+      "outer_loops": 1,
+      "outer_start_xy_mm": [
+        177.274,
+        153.228
+      ],
+      "outer_end_xy_mm": [
+        177.274,
+        153.228
+      ],
+      "outer_loop_length_mm": 44.77090608896638,
+      "outer_motion_s": 2.9781090524809315,
+      "outer_speed_range_mm_s": [
+        15.033333333333333,
+        15.033333333333333
+      ],
+      "left_lip_plate_xy_mm": [
+        168.837,
+        159.667
+      ],
+      "left_lip_model_xy_mm": [
+        -8.663000000000011,
+        -0.3329999999999984
+      ],
+      "left_lip_speeds_mm_s": [
+        15.03333
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8338878621619291,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 10.613373167848199,
+      "left_lip_distance_from_seam_along_outline_mm": 11.534100831059405,
+      "left_lip_delay_after_outer_start_s": 2.1643768616518173,
+      "left_lip_nominal_return_time_s": 19.623739158790386,
+      "left_lip_gcode_line": 8062,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "layer_nominal_motion_s": 19.829143533090132,
+      "order": [
+        [
+          "Inner wall",
+          196
+        ],
+        [
+          "Inner wall",
+          197
+        ],
+        [
+          "Inner wall",
+          198
+        ],
+        [
+          "Inner wall",
+          199
+        ],
+        [
+          "Inner wall",
+          200
+        ],
+        [
+          "Outer wall",
+          201
+        ],
+        [
+          "Internal solid infill",
+          202
+        ]
+      ],
+      "outer_loops": 1,
+      "outer_start_xy_mm": [
+        177.226,
+        153.21
+      ],
+      "outer_end_xy_mm": [
+        177.226,
+        153.21
+      ],
+      "outer_loop_length_mm": 45.11996522591125,
+      "outer_motion_s": 2.965167484725839,
+      "outer_speed_range_mm_s": [
+        15.216666666666667,
+        15.216666666666667
+      ],
+      "left_lip_plate_xy_mm": [
+        168.708,
+        160.151
+      ],
+      "left_lip_model_xy_mm": [
+        -8.792000000000002,
+        0.15100000000001046
+      ],
+      "left_lip_speeds_mm_s": [
+        15.21667
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8224188756841293,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 10.987893565192559,
+      "left_lip_distance_from_seam_along_outline_mm": 12.09309068634797,
+      "left_lip_delay_after_outer_start_s": 2.151259780447276,
+      "left_lip_nominal_return_time_s": 19.811902739474704,
+      "left_lip_gcode_line": 8309,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "layer_nominal_motion_s": 19.397351892652523,
+      "order": [
+        [
+          "Inner wall",
+          203
+        ],
+        [
+          "Inner wall",
+          204
+        ],
+        [
+          "Inner wall",
+          205
+        ],
+        [
+          "Inner wall",
+          206
+        ],
+        [
+          "Inner wall",
+          207
+        ],
+        [
+          "Inner wall",
+          208
+        ],
+        [
+          "Inner wall",
+          209
+        ],
+        [
+          "Outer wall",
+          210
+        ],
+        [
+          "Inner wall",
+          211
+        ],
+        [
+          "Inner wall",
+          212
+        ],
+        [
+          "Inner wall",
+          213
+        ],
+        [
+          "Outer wall",
+          214
+        ],
+        [
+          "Inner wall",
+          215
+        ],
+        [
+          "Outer wall",
+          216
+        ],
+        [
+          "Inner wall",
+          217
+        ],
+        [
+          "Inner wall",
+          218
+        ]
+      ],
+      "outer_loops": 3,
+      "outer_start_xy_mm": [
+        177.173,
+        153.183
+      ],
+      "outer_end_xy_mm": [
+        177.173,
+        153.183
+      ],
+      "outer_loop_length_mm": 45.477436998590335,
+      "outer_motion_s": 2.7589951667495143,
+      "outer_speed_range_mm_s": [
+        16.483333333333334,
+        16.483333333333334
+      ],
+      "left_lip_plate_xy_mm": [
+        168.588,
+        160.152
+      ],
+      "left_lip_model_xy_mm": [
+        -8.912000000000006,
+        0.1519999999999868
+      ],
+      "left_lip_speeds_mm_s": [
+        16.48333
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8192180251171209,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 11.057539780620283,
+      "left_lip_distance_from_seam_along_outline_mm": 12.162460250097027,
+      "left_lip_delay_after_outer_start_s": 2.003980098410352,
+      "left_lip_nominal_return_time_s": 20.188478032873377,
+      "left_lip_gcode_line": 8811,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "layer_nominal_motion_s": 19.401644507320725,
+      "order": [
+        [
+          "Inner wall",
+          219
+        ],
+        [
+          "Inner wall",
+          220
+        ],
+        [
+          "Inner wall",
+          221
+        ],
+        [
+          "Inner wall",
+          222
+        ],
+        [
+          "Inner wall",
+          223
+        ],
+        [
+          "Inner wall",
+          224
+        ],
+        [
+          "Outer wall",
+          225
+        ],
+        [
+          "Inner wall",
+          226
+        ],
+        [
+          "Inner wall",
+          227
+        ],
+        [
+          "Outer wall",
+          228
+        ],
+        [
+          "Inner wall",
+          229
+        ],
+        [
+          "Inner wall",
+          230
+        ],
+        [
+          "Inner wall",
+          231
+        ],
+        [
+          "Outer wall",
+          232
+        ],
+        [
+          "Inner wall",
+          233
+        ]
+      ],
+      "outer_loops": 3,
+      "outer_start_xy_mm": [
+        177.152,
+        153.144
+      ],
+      "outer_end_xy_mm": [
+        177.152,
+        153.144
+      ],
+      "outer_loop_length_mm": 45.84446944707212,
+      "outer_motion_s": 2.786897838727782,
+      "outer_speed_range_mm_s": [
+        16.45,
+        16.45
+      ],
+      "left_lip_plate_xy_mm": [
+        168.468,
+        160.152
+      ],
+      "left_lip_model_xy_mm": [
+        -9.03200000000001,
+        0.1519999999999868
+      ],
+      "left_lip_speeds_mm_s": [
+        16.45
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8203024258764359,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 11.159028631561068,
+      "left_lip_distance_from_seam_along_outline_mm": 12.266723562790581,
+      "left_lip_delay_after_outer_start_s": 2.024075078396436,
+      "left_lip_nominal_return_time_s": 23.534166508495332,
+      "left_lip_gcode_line": 9634,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "layer_nominal_motion_s": 19.31458568045241,
+      "order": [
+        [
+          "Inner wall",
+          234
+        ],
+        [
+          "Inner wall",
+          235
+        ],
+        [
+          "Inner wall",
+          236
+        ],
+        [
+          "Inner wall",
+          237
+        ],
+        [
+          "Inner wall",
+          238
+        ],
+        [
+          "Inner wall",
+          239
+        ],
+        [
+          "Inner wall",
+          240
+        ],
+        [
+          "Outer wall",
+          241
+        ],
+        [
+          "Inner wall",
+          242
+        ],
+        [
+          "Outer wall",
+          243
+        ],
+        [
+          "Inner wall",
+          244
+        ],
+        [
+          "Inner wall",
+          245
+        ],
+        [
+          "Inner wall",
+          246
+        ],
+        [
+          "Outer wall",
+          247
+        ],
+        [
+          "Inner wall",
+          248
+        ],
+        [
+          "Inner wall",
+          249
+        ],
+        [
+          "Inner wall",
+          250
+        ]
+      ],
+      "outer_loops": 3,
+      "outer_start_xy_mm": [
+        177.077,
+        153.14
+      ],
+      "outer_end_xy_mm": [
+        177.077,
+        153.14
+      ],
+      "outer_loop_length_mm": 46.18706389513097,
+      "outer_motion_s": 2.6672029198341534,
+      "outer_speed_range_mm_s": [
+        17.316666666666666,
+        17.316666666666666
+      ],
+      "left_lip_plate_xy_mm": [
+        168.348,
+        160.152
+      ],
+      "left_lip_model_xy_mm": [
+        -9.151999999999987,
+        0.1519999999999868
+      ],
+      "left_lip_speeds_mm_s": [
+        17.31667
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8205934004863773,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 11.196588096380063,
+      "left_lip_distance_from_seam_along_outline_mm": 12.312293642100471,
+      "left_lip_delay_after_outer_start_s": 1.9399264335919497,
+      "left_lip_nominal_return_time_s": 18.642202513459893,
+      "left_lip_gcode_line": 10281,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "layer_nominal_motion_s": 19.33191300183057,
+      "order": [
+        [
+          "Inner wall",
+          251
+        ],
+        [
+          "Inner wall",
+          252
+        ],
+        [
+          "Inner wall",
+          253
+        ],
+        [
+          "Inner wall",
+          254
+        ],
+        [
+          "Inner wall",
+          255
+        ],
+        [
+          "Inner wall",
+          256
+        ],
+        [
+          "Inner wall",
+          257
+        ],
+        [
+          "Outer wall",
+          258
+        ],
+        [
+          "Inner wall",
+          259
+        ],
+        [
+          "Outer wall",
+          260
+        ],
+        [
+          "Inner wall",
+          261
+        ],
+        [
+          "Inner wall",
+          262
+        ],
+        [
+          "Inner wall",
+          263
+        ],
+        [
+          "Outer wall",
+          264
+        ],
+        [
+          "Inner wall",
+          265
+        ],
+        [
+          "Inner wall",
+          266
+        ],
+        [
+          "Inner wall",
+          267
+        ]
+      ],
+      "outer_loops": 3,
+      "outer_start_xy_mm": [
+        177.065,
+        153.109
+      ],
+      "outer_end_xy_mm": [
+        177.065,
+        153.109
+      ],
+      "outer_loop_length_mm": 46.533678130219265,
+      "outer_motion_s": 2.643958984671599,
+      "outer_speed_range_mm_s": [
+        17.6,
+        17.6
+      ],
+      "left_lip_plate_xy_mm": [
+        168.228,
+        160.153
+      ],
+      "left_lip_model_xy_mm": [
+        -9.271999999999991,
+        0.1529999999999916
+      ],
+      "left_lip_speeds_mm_s": [
+        17.6
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8202859745721226,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 11.300907264463309,
+      "left_lip_distance_from_seam_along_outline_mm": 12.423144695868068,
+      "left_lip_delay_after_outer_start_s": 1.922148664492397,
+      "left_lip_nominal_return_time_s": 19.343818061449497,
+      "left_lip_gcode_line": 10958,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "layer_nominal_motion_s": 19.52892066107256,
+      "order": [
+        [
+          "Inner wall",
+          268
+        ],
+        [
+          "Inner wall",
+          269
+        ],
+        [
+          "Inner wall",
+          270
+        ],
+        [
+          "Inner wall",
+          271
+        ],
+        [
+          "Inner wall",
+          272
+        ],
+        [
+          "Outer wall",
+          273
+        ],
+        [
+          "Outer wall",
+          274
+        ],
+        [
+          "Inner wall",
+          275
+        ],
+        [
+          "Inner wall",
+          276
+        ],
+        [
+          "Inner wall",
+          277
+        ],
+        [
+          "Outer wall",
+          278
+        ],
+        [
+          "Inner wall",
+          279
+        ],
+        [
+          "Inner wall",
+          280
+        ]
+      ],
+      "outer_loops": 3,
+      "outer_start_xy_mm": [
+        177.011,
+        153.097
+      ],
+      "outer_end_xy_mm": [
+        177.011,
+        153.097
+      ],
+      "outer_loop_length_mm": 46.87917358561646,
+      "outer_motion_s": 2.8183871895158745,
+      "outer_speed_range_mm_s": [
+        16.633333333333333,
+        16.633333333333333
+      ],
+      "left_lip_plate_xy_mm": [
+        168.11483758393737,
+        160.07930231423896
+      ],
+      "left_lip_model_xy_mm": [
+        -9.385162416062627,
+        0.07930231423895862
+      ],
+      "left_lip_speeds_mm_s": [
+        16.63333
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8228902298034668,
+      "left_lip_maximum_centerline_gap_to_prior_beads_mm": 0.0,
+      "left_lip_distance_from_seam_xy_mm": 11.309034058680332,
+      "left_lip_distance_from_seam_along_outline_mm": 12.415142132069356,
+      "left_lip_delay_after_outer_start_s": 2.064488520421719,
+      "left_lip_nominal_return_time_s": 19.06009339000616,
+      "left_lip_gcode_line": 11536,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    }
+  ],
+  "key_findings": {
+    "observed_region": "Negative-printer-X outside underside of the larger barb-socket leg, as identified by the user and shown in the supplied photo.",
+    "heights_mm": {
+      "layer26": 3.2,
+      "layer27": 3.32,
+      "layer28": 3.44,
+      "layer29": 3.56,
+      "layer30": 3.68,
+      "layer31": 3.8,
+      "layer32": 3.92,
+      "layer33": 4.04
+    },
+    "geometry": "The outer lip advances approximately 0.12 mm per 0.12 mm layer. Layer 28 uses a 0.619992 mm native bead; the sampled 1 mm tip arc retains 82.24% prior-layer bead-footprint area overlap, with its centerline entirely over prior deposition. This does not establish resistance to observed thermal or mechanical deformation.",
+    "seam": "Layer-28 outer contour starts and ends at plate XY (177.226,153.210) mm. The left tip is at (168.708,160.151) mm, 10.99 mm away in XY, reached about 2.15 seconds into uninterrupted outer-wall extrusion. It is not a seam/restart location.",
+    "speed": "Actual emitted outer-wall speed is 15.217 mm/s at layer 28, 16.45 at layer 30 and 17.317 at layer 31, below the requested 25 mm/s.",
+    "timing": "Commanded motion sums approximately 19.3\u201319.8 seconds per layer in this range. Left-tip return time is mostly about 20 seconds, with one approximately 23.5-second return when internal paths reorder. Firmware waits and acceleration are excluded.",
+    "wall_order": "Inner walls precede the exterior outer-wall contour. The local left tip is extruded continuously, without a local retraction, restart or overhang-feature change.",
+    "baseline_fan_commands": "The file commands part fan M106 S255 and auxiliary fan M106 P2 S255 from layer 2 onward, with no fan-command change at layers 26\u201333. These are baseline G-code commands, separate from runtime user overrides."
+  },
+  "runtime_user_evidence": [
+    {
+      "quote": "Haha, just to test, I dropped part fan from 100 to 50 just now and like instantly we got more curl on that left edge and then the right edge curled too.",
+      "source": "Direct human observation relayed by the root agent during this forensic review.",
+      "part_fan_override_percent": 50,
+      "prior_part_fan_percent": 100,
+      "exact_layer_and_time": "Not specified in the supplied observation.",
+      "observation": "More left-edge curl appeared rapidly; the right edge also curled after the part-fan reduction.",
+      "scope": "This is runtime physical evidence. It is not present in the archived G-code and does not alter the baseline command analysis. The 100% baseline had already shown left-edge curl."
+    }
+  ],
+  "actions_by_this_agent": "Read-only archive, mesh and photo inspection; cache-only reports. No printer commands, setting changes, tracked edits or commits."
+}

@@ -20,6 +20,16 @@ TPU 85A H2C profile uses 2.2 mm³/s maximum flow and 1 mm retraction.
 Spiral mode and supports are off. The native estimate is **62 minutes / 4.30 g**.
 Printed adhesion, socket fit, clamping and sealing remain unqualified.
 
+The [physical record](physical-result.json) binds the reported left-lip curl,
+subsequent nozzle pickup and worsening on both lips after the user's runtime
+part-fan reduction from 100% to 50%. The [photo](curl-left-edge.jpg) shows the
+raised left lip. The [bounded toolpath review](curl-toolpath-review.json)
+covers layers 26–33; geometric bead overlap does not establish resistance to curl.
+The [side comparison](underside-side-comparison.json) finds 45° underside on
+printer-left and about 66° on printer-right at layer 28, with approximately
+82% versus 92% nominal local bead overlap. The right neck steepens as its
+radius decreases; equal leg-axis angles do not give equal underside slopes.
+
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.3mf)
 - [Native archive](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf)
 - [Native readback](2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.readiness.json)

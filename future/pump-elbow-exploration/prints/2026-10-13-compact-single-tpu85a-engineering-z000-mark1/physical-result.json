@@ -1,0 +1,49 @@
+{
+  "status": "Curling and nozzle pickup reported; no completed-part acceptance",
+  "reported_date": "2026-10-13",
+  "reporter": "Derek",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337517926",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "ffda278ed72f4e07c6f0e9d2ee1a9d01575999b81e57124f116fbab1e96a9ee2",
+  "gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "material": "User-reported TPU 85A",
+  "nozzle": "Right fixed 0.6 mm",
+  "plate": "User-reported glued Engineering Plate",
+  "user_z_trim_mm": 0.0,
+  "observations": [
+    {
+      "source": "User report",
+      "observation": "At about layer 28, roughly 1 mm of the outside underside curled upward on the left as viewed from the printer door. The next layers pressed it down and it sprang back; around layer 31 a glob was pulled off and carried elsewhere."
+    },
+    {
+      "source": "User-supplied photo",
+      "file": "curl-left-edge.jpg",
+      "observation": "The left growing lip is visibly raised. The base appears seated in this view; the photo does not establish adhesion over the whole foot."
+    },
+    {
+      "source": "User report",
+      "quote": "Haha, just to test, I dropped part fan from 100 to 50 just now and like instantly we got more curl on that left edge and then the right edge curled too.",
+      "runtime_part_fan_change_percent": [
+        100,
+        50
+      ],
+      "exact_layer": "Not specified"
+    },
+    {
+      "source": "Printer telemetry after user reported bed cleared",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": []
+    }
+  ],
+  "toolpath_review": "curl-toolpath-review.json",
+  "interpretation": [
+    "The runtime fan reduction worsened the observed curl on this print. The archived 100% fan baseline had already shown left-edge curl.",
+    "The observed left lip is not at the seam or an extrusion restart. Around the reported onset it has about 82% nominal previous-layer bead overlap.",
+    "Geometric bead overlap does not establish resistance to thermal or mechanical deformation.",
+    "At the reported onset, the left underside is about 45 degrees from the bed and the right about 66 degrees. Nominal local bead overlap is approximately 82% left and 92% right. This asymmetry is consistent with left-first curling but does not establish its cause."
+  ],
+  "scope": "Print-process observations only; socket fit, sealing, retention and lifetime remain unmeasured.",
+  "underside_geometry_review": "underside-side-comparison.json"
+}

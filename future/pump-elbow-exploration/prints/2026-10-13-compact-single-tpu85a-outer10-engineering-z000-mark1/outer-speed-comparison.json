@@ -1,0 +1,250 @@
+{
+  "baseline_gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "candidate_gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
+  "scope": "Layers 26\u201333, same parser for both archives. Timing sums commanded motion and excludes acceleration, firmware and timelapse waits.",
+  "baseline": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "layer_nominal_motion_s": 19.838324073486604,
+      "left_lip_speeds_mm_s": [
+        14.6
+      ],
+      "left_lip_nominal_return_time_s": 19.814566690923186,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "layer_nominal_motion_s": 19.84129166565458,
+      "left_lip_speeds_mm_s": [
+        15.03333
+      ],
+      "left_lip_nominal_return_time_s": 19.623739158790386,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "layer_nominal_motion_s": 19.829143533090132,
+      "left_lip_speeds_mm_s": [
+        15.21667
+      ],
+      "left_lip_nominal_return_time_s": 19.811902739474704,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "layer_nominal_motion_s": 19.397351892652523,
+      "left_lip_speeds_mm_s": [
+        16.48333
+      ],
+      "left_lip_nominal_return_time_s": 20.188478032873377,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "layer_nominal_motion_s": 19.401644507320725,
+      "left_lip_speeds_mm_s": [
+        16.45
+      ],
+      "left_lip_nominal_return_time_s": 23.534166508495332,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "layer_nominal_motion_s": 19.31458568045241,
+      "left_lip_speeds_mm_s": [
+        17.31667
+      ],
+      "left_lip_nominal_return_time_s": 18.642202513459893,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "layer_nominal_motion_s": 19.33191300183057,
+      "left_lip_speeds_mm_s": [
+        17.6
+      ],
+      "left_lip_nominal_return_time_s": 19.343818061449497,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "layer_nominal_motion_s": 19.52892066107256,
+      "left_lip_speeds_mm_s": [
+        16.63333
+      ],
+      "left_lip_nominal_return_time_s": 19.06009339000616,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    }
+  ],
+  "candidate": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "layer_nominal_motion_s": 19.82076685399136,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 19.814284208796153,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "layer_nominal_motion_s": 19.830303412996273,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 19.357851057076346,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "layer_nominal_motion_s": 19.81853955966585,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 19.827645098642392,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "layer_nominal_motion_s": 19.42892646573182,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 19.77359626122302,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "layer_nominal_motion_s": 19.45951172242701,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 23.42836331934484,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "layer_nominal_motion_s": 19.389840411136674,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 18.544718890708168,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "layer_nominal_motion_s": 19.41648467190919,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 19.19294673764057,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "layer_nominal_motion_s": 19.530226073686208,
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_nominal_return_time_s": 18.979212941001038,
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      }
+    }
+  ],
+  "finding": "Candidate left lip is emitted at 10 mm/s throughout this range, compared with 14.6\u201317.6 mm/s in the baseline. Total layer time remains approximately 20 seconds because cooling slowdown redistributes other path speeds. This is an outer-wall deposition-speed trial, not an established increase in interlayer cooling time."
+}

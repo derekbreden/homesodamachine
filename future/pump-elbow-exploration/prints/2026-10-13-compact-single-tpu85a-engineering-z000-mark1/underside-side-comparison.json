@@ -1,0 +1,393 @@
+{
+  "gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "archive_sha256": "ffda278ed72f4e07c6f0e9d2ee1a9d01575999b81e57124f116fbab1e96a9ee2",
+  "stl_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
+  "archive_object_member": "3D/Objects/object_1.model",
+  "archive_to_stl_max_vertex_difference_mm": 5.174256817818393e-07,
+  "archive_triangles": 17986,
+  "stl_triangles": 17986,
+  "archived_source_matches_current_source": true,
+  "scope": "Only the exact Engineering Plate zero-trim baseline specimen and G-code, layers 26\u201333. Horizontal advance is the change in X extremum, not movement between differently sampled Y points. Angle is measured from the bed. Native overlap uses the 1 mm outline window around each X extremum and emitted bead widths. STL angles use layer-centre sections 0.06 mm below nozzle Z; CAD right-side tangent uses the archived quintic neck. Geometry does not predict thermomechanical curling or printed bond strength.",
+  "layers": [
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "stl_section_z_mm": 3.14,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.94660650053459,
+            160.00816404742775
+          ],
+          "native_outward_advance_x_mm": 0.12061605588689872,
+          "native_effective_angle_from_bed_deg": 44.853304364891166,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.999999999999974,
+          "prior_native_bead_area_overlap_fraction": 0.8175900054207357,
+          "stl_exterior_xy_mm": [
+            -8.86460522120685,
+            0.016426889905202066
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628256,
+          "stl_effective_angle_from_bed_deg": 44.999868230446936,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.00470271281668,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.2999742287151985
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            183.9349244610396,
+            159.99022466258145
+          ],
+          "native_outward_advance_x_mm": 0.05292446103959492,
+          "native_effective_angle_from_bed_deg": 66.20073754289886,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999958,
+          "prior_native_bead_area_overlap_fraction": 0.9256953992235781,
+          "stl_exterior_xy_mm": [
+            6.751245874178933,
+            -0.013732511745238717
+          ],
+          "stl_outward_advance_x_mm": 0.0510874632613767,
+          "stl_effective_angle_from_bed_deg": 66.93914564371923,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 66.9479826572429,
+          "cad_local_underside_angle_from_bed_deg": 66.76732467438462,
+          "cad_profile_local_y_mm": 3.742099974831463
+        }
+      }
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "stl_section_z_mm": 3.26,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.837,
+            159.667
+          ],
+          "native_outward_advance_x_mm": 0.10960650053459631,
+          "native_effective_angle_from_bed_deg": 47.59181430079029,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999983,
+          "prior_native_bead_area_overlap_fraction": 0.8338878621619291,
+          "stl_exterior_xy_mm": [
+            -8.98460577316313,
+            0.016179015592439356
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628079,
+          "stl_effective_angle_from_bed_deg": 44.99986823044736,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299974619007228
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            183.9820525353939,
+            160.08709256523355
+          ],
+          "native_outward_advance_x_mm": 0.04712807435430477,
+          "native_effective_angle_from_bed_deg": 68.55837848957361,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000266,
+          "prior_native_bead_area_overlap_fraction": 0.9335841029212879,
+          "stl_exterior_xy_mm": [
+            6.803871061439067,
+            -0.013629847467727397
+          ],
+          "stl_outward_advance_x_mm": 0.05262518726013443,
+          "stl_effective_angle_from_bed_deg": 66.32047177765114,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 65.92503654756766,
+          "cad_local_underside_angle_from_bed_deg": 66.25250061181481,
+          "cad_profile_local_y_mm": 3.864164415346702
+        }
+      }
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "stl_section_z_mm": 3.38,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.708,
+            160.151
+          ],
+          "native_outward_advance_x_mm": 0.12899999999999068,
+          "native_effective_angle_from_bed_deg": 42.92996934696097,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000002,
+          "prior_native_bead_area_overlap_fraction": 0.8224188756841293,
+          "stl_exterior_xy_mm": [
+            -9.104606325119411,
+            0.015931141279676646
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628079,
+          "stl_effective_angle_from_bed_deg": 44.99986823044736,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299975009299256
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.03643892341475,
+            160.0602406085583
+          ],
+          "native_outward_advance_x_mm": 0.054386388020844834,
+          "native_effective_angle_from_bed_deg": 65.6190204026583,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999976,
+          "prior_native_bead_area_overlap_fraction": 0.9246934224961973,
+          "stl_exterior_xy_mm": [
+            6.8575100833321745,
+            -0.013528727823506939
+          ],
+          "stl_outward_advance_x_mm": 0.05363902189310732,
+          "stl_effective_angle_from_bed_deg": 65.91574593306044,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 65.92503654756766,
+          "cad_local_underside_angle_from_bed_deg": 65.6244777153291,
+          "cad_profile_local_y_mm": 3.986945745205917
+        }
+      }
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "stl_section_z_mm": 3.5,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.588,
+            160.152
+          ],
+          "native_outward_advance_x_mm": 0.12000000000000455,
+          "native_effective_angle_from_bed_deg": 44.99999999999891,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999882,
+          "prior_native_bead_area_overlap_fraction": 0.8192180251171209,
+          "stl_exterior_xy_mm": [
+            -9.224606877075692,
+            0.015683266966913936
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628079,
+          "stl_effective_angle_from_bed_deg": 44.99986823044736,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299975399591286
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.09517428816855,
+            159.95021543831166
+          ],
+          "native_outward_advance_x_mm": 0.05873536475380092,
+          "native_effective_angle_from_bed_deg": 63.92003722896722,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.999999999999998,
+          "prior_native_bead_area_overlap_fraction": 0.9204059007122265,
+          "stl_exterior_xy_mm": [
+            6.912747012877647,
+            -0.013430042989328123
+          ],
+          "stl_outward_advance_x_mm": 0.055236929545472435,
+          "stl_effective_angle_from_bed_deg": 65.28301835360959,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 64.14293518757684,
+          "cad_local_underside_angle_from_bed_deg": 64.88180826045317,
+          "cad_profile_local_y_mm": 4.11085696640183
+        }
+      }
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "stl_section_z_mm": 3.62,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.468,
+            160.152
+          ],
+          "native_outward_advance_x_mm": 0.12000000000000455,
+          "native_effective_angle_from_bed_deg": 44.99999999999891,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000095,
+          "prior_native_bead_area_overlap_fraction": 0.8203024258764359,
+          "stl_exterior_xy_mm": [
+            -9.344607429031974,
+            0.015435392654151225
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628256,
+          "stl_effective_angle_from_bed_deg": 44.999868230446936,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299975789883316
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.1532964137647,
+            160.25404130754552
+          ],
+          "native_outward_advance_x_mm": 0.05812212559615659,
+          "native_effective_angle_from_bed_deg": 64.15672407540929,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999999,
+          "prior_native_bead_area_overlap_fraction": 0.913988178364706,
+          "stl_exterior_xy_mm": [
+            6.970930942601206,
+            -0.013335848643454879
+          ],
+          "stl_outward_advance_x_mm": 0.058183929723559125,
+          "stl_effective_angle_from_bed_deg": 64.13282691745313,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 64.14293518757684,
+          "cad_local_underside_angle_from_bed_deg": 64.01881574830851,
+          "cad_profile_local_y_mm": 4.236852031407826
+        }
+      }
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "stl_section_z_mm": 3.7399999999999998,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.348,
+            160.152
+          ],
+          "native_outward_advance_x_mm": 0.11999999999997613,
+          "native_effective_angle_from_bed_deg": 45.0000000000057,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000095,
+          "prior_native_bead_area_overlap_fraction": 0.8205934004863773,
+          "stl_exterior_xy_mm": [
+            -9.464607980988255,
+            0.015187518341388515
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628434,
+          "stl_effective_angle_from_bed_deg": 44.99986823044651,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299976180175346
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.21224807674085,
+            160.25277864574383
+          ],
+          "native_outward_advance_x_mm": 0.05895166297614196,
+          "native_effective_angle_from_bed_deg": 63.836781691643225,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999845,
+          "prior_native_bead_area_overlap_fraction": 0.9181682111401301,
+          "stl_exterior_xy_mm": [
+            7.029114872324766,
+            -0.013241654297581635
+          ],
+          "stl_outward_advance_x_mm": 0.05818392972356001,
+          "stl_effective_angle_from_bed_deg": 64.13282691745279,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 64.14293518757684,
+          "cad_local_underside_angle_from_bed_deg": 63.052704934668526,
+          "cad_profile_local_y_mm": 4.362847096413822
+        }
+      }
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "stl_section_z_mm": 3.86,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.228,
+            160.153
+          ],
+          "native_outward_advance_x_mm": 0.12000000000000455,
+          "native_effective_angle_from_bed_deg": 44.99999999999891,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000013,
+          "prior_native_bead_area_overlap_fraction": 0.8202859745721226,
+          "stl_exterior_xy_mm": [
+            -9.584608532944534,
+            0.014939644028625807
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195627901,
+          "stl_effective_angle_from_bed_deg": 44.99986823044778,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299976570467374
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.27678825167897,
+            159.9829983469041
+          ],
+          "native_outward_advance_x_mm": 0.06454017493811648,
+          "native_effective_angle_from_bed_deg": 61.72708998432842,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000049,
+          "prior_native_bead_area_overlap_fraction": 0.9168533303068261,
+          "stl_exterior_xy_mm": [
+            7.093243064784809,
+            -0.013156518062830773
+          ],
+          "stl_outward_advance_x_mm": 0.06412819246004275,
+          "stl_effective_angle_from_bed_deg": 61.879881390126535,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 61.77416403014348,
+          "cad_local_underside_angle_from_bed_deg": 61.953584580945744,
+          "cad_profile_local_y_mm": 4.493045389909939
+        }
+      }
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "stl_section_z_mm": 3.98,
+      "sides": {
+        "printer_left_larger_socket": {
+          "plate_xy_mm": [
+            168.11483758393737,
+            160.07930231423896
+          ],
+          "native_outward_advance_x_mm": 0.11316241606263588,
+          "native_effective_angle_from_bed_deg": 46.67974094178687,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 1.0000000000000089,
+          "prior_native_bead_area_overlap_fraction": 0.8228902298034668,
+          "stl_exterior_xy_mm": [
+            -9.704609084900817,
+            0.014691769715863095
+          ],
+          "stl_outward_advance_x_mm": 0.12000055195628256,
+          "stl_effective_angle_from_bed_deg": 44.999868230446936,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 45.000237315083375,
+          "cad_local_underside_angle_from_bed_deg": 45.0,
+          "cad_profile_local_y_mm": -7.299976960759404
+        },
+        "printer_right_smaller_socket": {
+          "plate_xy_mm": [
+            184.3444943968731,
+            160.05820656732516
+          ],
+          "native_outward_advance_x_mm": 0.06770614519413698,
+          "native_effective_angle_from_bed_deg": 60.56753181121433,
+          "native_bead_width_mm": 0.619992,
+          "local_window_length_mm": 0.9999999999999954,
+          "prior_native_bead_area_overlap_fraction": 0.8995133085788047,
+          "stl_exterior_xy_mm": [
+            7.157686524773134,
+            -0.013071862245657507
+          ],
+          "stl_outward_advance_x_mm": 0.06444345998832546,
+          "stl_effective_angle_from_bed_deg": 61.762919287645566,
+          "stl_nearest_downward_facet_angle_from_bed_deg": 61.77416403014348,
+          "cad_local_underside_angle_from_bed_deg": 60.75953217053023,
+          "cad_profile_local_y_mm": 4.623466611213194
+        }
+      }
+    }
+  ],
+  "archive_vertex_correspondence_is_bijective": true,
+  "archive_and_stl_faces_match_after_vertex_correspondence": true,
+  "archive_geometry_verification": "Archive object mesh was placed by its actual build transform, translated back from the plate XY centre, and matched one-to-one to the STL vertices. All triangle vertex triples agree; maximum coordinate difference is below 0.000001 mm from XML serialization.",
+  "archive_to_stl_max_vertex_difference_within_1e_6_mm": true
+}
