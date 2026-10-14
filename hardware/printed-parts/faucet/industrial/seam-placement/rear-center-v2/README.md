@@ -76,7 +76,10 @@ the native evidence for that candidate did not cover the reported lower areas.
 The [base-and-tip evaluation](../../prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md)
 is the specifically authorized partial print of both corrected pieces. The
 normal [canonical project](../../faucet-industrial-petgf.3mf) contains all five
-rigid parts and keeps Mark1's default profile and trim. This Mark2 native
-candidate uses Mark2's normal +0.04 mm trim. Physical seam assessment for the
-complete constraint remains pending. The approved complete physical reference
-and tag `faucet-industrial-approved-2026-10-13` retain their identified scope.
+rigid parts and keeps Mark1's default profile and trim. The Mark2 evaluation
+uses Mark2's normal +0.04 mm trim. Derek's
+[physical approval](../../prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
+selects the complete rear seam fix as the current planned production model,
+tagged `faucet-industrial-production-2026-10-14`. The other three rigid parts
+retain the accepted complete-print reference and its tag
+`faucet-industrial-approved-2026-10-13`.

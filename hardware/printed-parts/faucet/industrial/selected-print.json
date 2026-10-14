@@ -1,18 +1,18 @@
 {
   "schema": 2,
-  "status": "Approved complete physical reference; current preparation has complete-base and curved-tip rear seam enforcement",
+  "status": "Current planned production Industrial faucet approved by Derek with the complete rear seam fix",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "finish_selection_sha256": "760fdffb4962a8f408eba12be69cfca359b419dbe77f8712729f35148a5b987f",
+  "finish_selection_sha256": "a36cd722b5e4ab2e523c09f885c768e16abe24c8d99c5dda9566ca6d805f8da5",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
   "canonical_project_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
   "canonical_default_printer": "Mark1",
-  "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json",
+  "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "printer": "Mark2",
-  "printer_task_id": "1335906696",
-  "accepted_observed_at_utc": "2026-10-13T15:19:24.551315+00:00",
-  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/2026-10-13-industrial-faucet-a2-back-petgf-left04-z004-mark2.gcode.3mf",
-  "archive_sha256": "cafbe85ec25f30ddec486fd4995ffbe78191f7345b23f019d8a47ffd3ab8a78f",
-  "gcode_sha256": "6abf0a083cacd5b6eaeed8cbad76cce8bca25c21cd23ff70a5294d4011be8194",
+  "printer_task_id": "1337767162",
+  "accepted_observed_at_utc": "2026-10-14T04:45:29.184170+00:00",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "dd6e2689517b26cff61ff103be8583615da26080dce38de89aea1a8e356cc680",
+  "gcode_sha256": "258671e8a7d9e1ab2e25ee424dc9aeae089fb5e137c7b5b8b6500adfb4e66822",
   "seam_parts": [
     "industrial-shell-base",
     "faucet-shell-tip",
@@ -64,25 +64,27 @@
       ]
     ]
   },
-  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
   "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "Task 1335906696 remains the approved complete physical reference. Task 1337160395 confirms the middle-neck correction but reports both lower transitions still misplaced. The current base-and-tip seam evaluation is task 1337767162; its physical result is pending.",
-  "approved_tag": "faucet-industrial-approved-2026-10-13",
+  "scope": "Approval of the current planned production faucet. The latest physical print contains the seam-fixed base and tip; the other three rigid parts retain the accepted complete-print reference. The canonical production project contains all five rigid parts.",
+  "approved_tag": "faucet-industrial-production-2026-10-14",
   "rear_seam_enforcement": {
     "part": "industrial-shell-base",
     "half_width_mm": 0.25,
     "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm",
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Middle-neck placement confirmed on task 1337160395; complete-base enforcement awaits the next evaluation"
+    "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
   },
-  "next_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
   "tip_rear_seam_enforcement": {
     "part": "faucet-shell-tip",
     "half_width_mm": 0.0,
     "surface": "curved_outer_arc",
     "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Pending the base-and-tip seam placement evaluation"
+    "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
   },
-  "current_seam_evaluation": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json"
+  "current_seam_evaluation": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
+  "production_tag": "faucet-industrial-production-2026-10-14",
+  "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
+  "native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json"
 }

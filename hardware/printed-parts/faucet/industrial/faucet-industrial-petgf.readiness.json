@@ -1,6 +1,6 @@
 {
   "project_title": "Industrial faucet PET-GF",
-  "status": "Complete current project prepared; whole-base, curved-tip and mounting-rim native seam review recorded",
+  "status": "Current planned production project approved by Derek; complete rear seam fix physically accepted",
   "preparation_only": true,
   "launch_authorized": false,
   "finish_choices_pending": [],
@@ -8,7 +8,7 @@
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
   "project_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
   "settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
-  "print_report_sha256": "f664cfaafa76594c696c770af5d5a39378bccc7ff1954e127a27a330a9f083e4",
+  "print_report_sha256": "b76745631229681d3d3527bc215f5c88d2759ba287052c7054bc11f192c6dfd2",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
@@ -32,8 +32,10 @@
     "performed_by_this_tool": false
   },
   "physical_print": {
-    "evaluated": false,
-    "remaining": "Support removal, contact finish, display fit and retention are physical print readings."
+    "evaluated": true,
+    "authority": "Direct user inspection and production selection",
+    "record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
+    "scope": "Approval of the current planned production faucet. The latest physical print contains the seam-fixed base and tip; the other three rigid parts retain the accepted complete-print reference. The canonical production project contains all five rigid parts."
   },
   "gasket": {
     "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
@@ -47,5 +49,7 @@
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
     "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "b66c9baa212ff5978b68071bc84f819d0698b9f3d5f0a345e2418bc317732632"
   },
-  "offline_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json"
+  "offline_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+  "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
+  "production_tag": "faucet-industrial-production-2026-10-14"
 }

@@ -42,7 +42,7 @@
     "minimum_interval_seconds": 180,
     "accepted_start_interval_seconds": 2398.246949
   },
-  "physical_result": null,
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
   "acceptance_counter_note": "PREPARE arrived with the preceding job layer counters; startup is recorded separately.",
   "native_estimated_seconds": 19273.74609375,
   "estimated_finish_at_utc": "2026-10-14T10:06:42.930264+00:00"

@@ -411,7 +411,7 @@
     "half_width_mm": 0.25,
     "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm",
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Middle-neck placement confirmed on task 1337160395; complete-base enforcement awaits the next evaluation",
+    "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
     "enforced_triangles": 477,
     "painted_facet_bounds_cad_mm": [
       [
@@ -433,7 +433,7 @@
     "surface": "curved_outer_arc",
     "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Pending the base-and-tip seam placement evaluation",
+    "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
     "enforced_triangles": 186,
     "painted_facet_bounds_cad_mm": [
       [
@@ -737,8 +737,8 @@
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "selected_finish": {
     "schema": 1,
-    "selected_date": "2026-10-13",
-    "selection_basis": "Current complete-faucet recipe: A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and its stage shoulders, with matching rear-meridian paint on the tip's exposed curved neck; default corner seams on cover and lever; E coarse lip layers.",
+    "selected_date": "2026-10-14",
+    "selection_basis": "Current planned production faucet approved by Derek with complete-base and exposed curved-tip rear seam enforcement; A2/Back/150% on base, tip and mounting plate; default corner seams on cover and lever; E eight coarse lip layers.",
     "seam_specimen": "A2",
     "seam_parts": [
       "industrial-shell-base",
@@ -787,8 +787,8 @@
     ],
     "fine_layer_height_mm": 0.12,
     "first_bed_layer_height_mm": 0.2,
-    "scope": "Selected printing recipe; full-faucet separation prevention and seam-flatness acceptance are not established by the settings selection.",
-    "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json",
+    "scope": "Current planned production recipe accepted by direct user inspection of the seam-fixed base and tip, with the other three rigid parts retained from the accepted complete faucet.",
+    "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
     "default_printer": "Mark1",
     "default_filament_colour": "#000000",
     "lift_coupon_preparation": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/preparation.json",
@@ -801,7 +801,7 @@
       "half_width_mm": 0.25,
       "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm",
       "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-      "physical_result": "Middle-neck placement confirmed on task 1337160395; complete-base enforcement awaits the next evaluation"
+      "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
     },
     "tip_rear_seam_enforcement": {
       "part": "faucet-shell-tip",
@@ -809,9 +809,11 @@
       "surface": "curved_outer_arc",
       "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
       "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-      "physical_result": "Pending the base-and-tip seam placement evaluation"
+      "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
     },
-    "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json"
+    "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
+    "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
+    "production_tag": "faucet-industrial-production-2026-10-14"
   },
   "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
   "source_sha256": {
@@ -834,6 +836,8 @@
     "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "9f922d4c067ae5254c7edafd78cc6b2b99848685780cb21b463bd28b20b9a8c0",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "760fdffb4962a8f408eba12be69cfca359b419dbe77f8712729f35148a5b987f"
-  }
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "a36cd722b5e4ab2e523c09f885c768e16abe24c8d99c5dda9566ca6d805f8da5"
+  },
+  "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
+  "production_tag": "faucet-industrial-production-2026-10-14"
 }
