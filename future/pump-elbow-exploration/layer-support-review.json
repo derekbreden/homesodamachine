@@ -1,5 +1,5 @@
 {
-  "scope": "Selected single compact TPU85A elbow, 215 C normal / 225 C first layer, outer wall 10 mm/s, Engineering Plate and zero user Z trim; accepted as Mark1 task1337710290. Physical result pending.",
+  "scope": "Selected single compact TPU85A elbow, 215 C normal / 225 C first layer, requested outer-wall10, Engineering Plate and zero user Z trim; Mark1 task1337710290 has reported curl by layer21 and similar by layer27. Actual lip speed exceeds the requested outer-wall value.",
   "geometry_source": "tpu_elbow.py",
   "geometry_source_sha256": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
   "native_specimen_stl": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/compact-single-elbow-print.stl",
@@ -27,5 +27,7 @@
   "underside_comparison": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
   "temperature_trial_baseline_physical_evidence": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
   "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
-  "accepted_fit_baseline": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json"
+  "accepted_fit_baseline": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
+  "physical_result": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json",
+  "emitted_lip_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/curl-toolpath-review.json"
 }

@@ -1,0 +1,58 @@
+{
+  "status": "Faint curl reported by layer 21 and similar to two prints earlier by layer 27; completed-part result pending",
+  "reported_date": "2026-10-13",
+  "recorded_at": "2026-10-14T04:33:41.650805+00:00",
+  "reporter": "Derek",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337710290",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "9d25fdfc387484908db5511c4e789a28a05417873a9222df16ced57de50c73f7",
+  "gcode_sha256": "a469535d2d78854ee6f09017549ef5b19a41b59231347fed5aab83d7701ce3e3",
+  "material": "User-reported TPU 85A",
+  "nozzle": "Right fixed 0.6 mm",
+  "plate": "User-reported glued Engineering Plate",
+  "user_z_trim_mm": 0.0,
+  "user_report": "On the print itself I\u2019m already seeing faint curling at layer 21.\n\nI suspect by layer 28 we\u2019re going to be about where we\u2019ve been on both the last print and the one before it.\n\nYup layer 27 now and it is about the same as 2 prints ago. I was wrong about it being sudden at 28, I just happened to notice it there.",
+  "observations": [
+    {
+      "layer": 21,
+      "nominal_z_mm": 2.6,
+      "observation": "Faint curling already visible."
+    },
+    {
+      "layer": 27,
+      "nominal_z_mm": 3.32,
+      "observation": "Reported about the same as two prints earlier."
+    }
+  ],
+  "onset_interpretation": "Layer 28 was the initial noticing point, not an established sudden onset. The current print has reported faint curl by layer 21. The report does not establish the first curled layer of earlier articles.",
+  "telemetry_during_report": {
+    "observed_at": "2026-10-14T04:23:05.677685+00:00",
+    "gcode_state": "RUNNING",
+    "task_id": "1337710290",
+    "layer_num": 29,
+    "total_layer_num": 184,
+    "mc_percent": 23,
+    "mc_remaining_time": 51,
+    "nozzle_temper": 215.0,
+    "nozzle_target_temper": 215.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "cooling_fan_speed": "14",
+    "big_fan1_speed": "15",
+    "big_fan2_speed": "4",
+    "print_error": 0,
+    "hms": [],
+    "scope": "One read-only snapshot. Fan telemetry uses Bambu 0\u201315 encoding, not measured airflow or RPM."
+  },
+  "toolpath_review": "curl-toolpath-review.json",
+  "findings": [
+    "A 10 C normal-layer temperature reduction has not eliminated the reported curl; no early visual improvement is reported. This is a qualitative in-progress comparison.",
+    "The actual left lip is commanded at 14.36667 mm/s at layer 21 and 16.4 mm/s at layer 27, not the requested outer-wall value of 10 mm/s. The separate process overhang table permits higher speeds.",
+    "Across layers 17\u201328, commanded temperature and fans are steady, nominal whole-layer motion is about 20 seconds, and the left lip remains away from the seam. The interior opening adds paths at layer 29, after the reported curl is visible.",
+    "No actual 10 mm/s lip test is established by the outer-wall-setting-10 or temperature trials."
+  ],
+  "accepted_fit_baseline": "../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
+  "next_offline_candidate": "../2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md",
+  "scope": "In-progress visual surface observations for the identified 215 C article. The accepted firm, stretchy manual fit belongs to the completed rough 225 C article. No completed-part fit or sealing result is supplied here."
+}
