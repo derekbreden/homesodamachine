@@ -1,5 +1,5 @@
 {
-  "status": "Raised and ragged rims; no established speed benefit; printer reports FINISH; physical acceptance pending",
+  "status": "Reported firm, stretchy manual fit accepted for the rough-edged article; 45-degree surface quality unresolved",
   "reported_date": "2026-10-13",
   "reporter": "Derek",
   "printer": "Mark1 (H2C)",
@@ -55,7 +55,7 @@
     "A 215 C normal-layer candidate holds the 10 mm/s speed and all other process settings fixed, including the 225 C first layer. This tests nozzle temperature as a hypothesis; heat is not established as the cause."
   ],
   "next_candidate": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md",
-  "scope": "Print-process observations only; no socket fit, sealing, retention or lifetime acceptance.",
+  "scope": "Print-process observations and reported qualitative manual-fit acceptance for the identified rough-edged 225 C TPU 85A article. Surface quality, sealing, retention and lifetime remain unqualified; the 215 C trial requires its own fit result.",
   "earlier_user_report": "Well, maybe this is good news, but it appears the 45-degree edges are sagging this time. So I guess whatever you did, we just try halfway between the previous one and this one, and maybe we get somewhere between sagging and curling up? Question mark.",
   "followup_closeups": [
     {
@@ -93,6 +93,40 @@
     "total_layer_num": 184,
     "print_error": 0,
     "hms": [],
-    "scope": "Printer job completion only; printed-part acceptance is not established."
+    "scope": "Printer job completion only; reported fit acceptance is recorded separately from the telemetry."
+  },
+  "fit_acceptance": {
+    "status": "User-reported qualitative fit accepted for this printed article",
+    "reported_date": "2026-10-13",
+    "reporter": "Derek",
+    "quote": "Good news on that rough edged 45 degree print, it fits beautifully, nice firm friction stretchy fit, and requires some force to insert, but not so much that I need a jig to push anything in. We'll see if we can fix the 45 degree surfaces and then see if its still good, but it looks promising so far.",
+    "print_binding": {
+      "printer_task_id": "1337583437",
+      "archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
+      "gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
+      "basis": "Conversation chronology: the completed rough-edged 225 C / outer10 article cleared before the 215 C trial."
+    },
+    "observations": [
+      "Beautiful fit reported.",
+      "Firm friction and elastic stretch reported.",
+      "Insertion requires deliberate force but remains manageable without a jig."
+    ],
+    "geometry_baseline": {
+      "source": "tpu_elbow.py",
+      "source_sha256": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
+      "mesh": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/compact-single-elbow-print.stl",
+      "mesh_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
+      "cuff_parameters_mm": {
+        "tube_depth": 15.0,
+        "barb_depth": 11.0,
+        "barb_bore": 9.0,
+        "tube_bore": 6.1,
+        "wall": 2.8,
+        "entry": 0.4
+      },
+      "path_base": "future/pump-elbow-exploration"
+    },
+    "scope": "Qualitative fit and hand-insertion assessment of the identified rough-edged TPU 85A article. Individual socket interfaces are not enumerated in the report; no numerical insertion or pullout force, sealing, pressure or lifetime result is supplied.",
+    "surface_followup": "The user intends to assess fit again after correcting the 45-degree surfaces. The 215 C article has no fit result in this report."
   }
 }

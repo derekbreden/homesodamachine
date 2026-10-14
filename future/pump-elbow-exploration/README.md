@@ -6,9 +6,14 @@ integral flat foot. This job uses the user-reported glued Engineering Plate
 and zero user Z trim, with a 225°C first layer and 10 mm/s outer walls.
 Mark1 accepted task 1337710290 on 2026-10-13 at 23:05:30 CDT. Physical
 printing success and fitting results remain pending.
-The compact layout study includes the water connections and a 715 mL funnel
-proposal. Its occupancy result applies to the compact fitting envelopes.
-Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
+The completed rough-edged 225°C article has a
+[reported firm, stretchy friction fit](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+with manageable manual insertion and no jig. Its cuff dimensions and walls
+are the fit baseline; fit after correcting the surfaces or changing the print
+recipe remains unassessed. The compact layout study includes the water
+connections and a 715 mL funnel proposal. Its occupancy result applies to the
+compact fitting envelopes. Pressure holding, retained grip and lifetime remain
+unmeasured.
 
 The customer outcome is a larger filling bowl in a compact appliance, with
 durable joints that require no customer retightening. Elbow lengths, clocking,
@@ -26,7 +31,8 @@ neighboring hardware are considered together.
 - [10 mm/s trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
   bind the user's reports, three wider views and six close-ups to the 10 mm/s
   job. Raised, distorted rims remain visible; a dependable speed benefit is
-  unestablished. The 13 mm/s midpoint is not selected or submitted.
+  unestablished. The reported manual fit is firm and stretchy, requiring force
+  without a jig. The 13 mm/s midpoint is not selected or submitted.
   The [215°C normal-layer trial](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
   holds the 10 mm/s speed and 225°C first layer fixed.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
@@ -177,8 +183,9 @@ establish a thermal or mechanical cause. Extrusion and cooling still determine
 the printed result.
 Drying history, physical adhesion and extrusion continuity remain unmeasured
 for the identified article. The selected material is TPU 85A; the cited
-TPU 95A research establishes no rating for this grade or interface. Socket fit and pressure holding remain
-unmeasured.
+TPU 95A research establishes no rating for this grade or interface. The rough
+225°C article has reported manual-fit acceptance; fit after surface correction
+and pressure holding remain unassessed.
 
 | Geometry or process option | Application and decision |
 | --- | --- |

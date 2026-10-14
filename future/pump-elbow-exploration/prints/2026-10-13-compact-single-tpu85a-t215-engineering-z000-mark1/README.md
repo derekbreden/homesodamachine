@@ -13,6 +13,12 @@ contains the user's reassessment and six rim close-ups. A dependable quality
 improvement from the speed change is unestablished. The user declines the
 13 mm/s midpoint.
 
+The identified rough-edged 225°C article has
+[reported firm, stretchy friction fit](../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+with manageable manual insertion and no jig. This trial retains its geometry,
+including the cuff bores, insertion depths, walls and entries. Fit of the
+215°C article and fit after surface correction remain unassessed.
+
 This candidate tests **215°C normal layers**, retaining the **225°C first
 layer** and **10 mm/s outer wall**. The [native readback](native-readback.json)
 confirms that normal-layer nozzle temperature and the recipe label are the
@@ -39,4 +45,5 @@ sealing or pressure result.
 - [Manual preparation script](prepare_mark1.py)
 
 The script prepares a slice offline. It does not connect to a printer or submit
-a job. Fit, clamping, sealing, retained grip and lifetime remain unqualified.
+a job. Fit of this recipe, clamping, sealing, retained grip and lifetime remain
+unqualified.
