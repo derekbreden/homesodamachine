@@ -9,7 +9,14 @@ sys.path.insert(0,str(ROOT/'hardware/scripts'))
 from enclosure_support_audit import _arc_points
 PARTS={1901:True}
 WORD=re.compile(r'([XYZEFIJP])([-+]?(?:\d*\.\d+|\d+\.?\d*))')
-def read_runs(archive):
+def read_runs(archive, parts=None):
+    """Follow emitted exterior-wall motions, joining numerical scarf connectors.
+
+    ``parts`` selects identify IDs. This is a manual reader, never a send gate.
+    A zero-extrusion connector of at most 0.02 mm within a wall is retained;
+    Bambu emits these at scarf ramp boundaries without a retraction or travel.
+    """
+    wanted_parts = PARTS if parts is None else set(parts)
     with ZipFile(archive) as z:
         gcode = z.read('Metadata/plate_1.gcode')
         # A one-object slice uses OBJECT_ID markers instead of named start blocks.
@@ -72,16 +79,26 @@ def read_runs(archive):
             nxt = np.array([w.get(k, xyz[i]) if abs_xyz else xyz[i] + w.get(k, 0) for i, k in enumerate('XYZ')])
             de = w.get('E', 0) if rel_e else w.get('E', e) - e
             moving_xy = np.linalg.norm(nxt[:2] - xyz[:2]) > 1e-9
-            wanted = current in PARTS and layer is not None and feature in ('Outer wall', 'Overhang wall')
-            if wanted and de > 1e-9 and moving_xy:
+            wanted = current in wanted_parts and layer is not None and feature in ('Outer wall', 'Overhang wall')
+            connector = (run is not None and wanted and abs(de) <= 1e-9
+                         and 0 < np.linalg.norm(nxt[:2] - xyz[:2]) <= .02)
+            if wanted and moving_xy and (de > 1e-9 or connector):
                 if cmd in ('G2', 'G3'):
                     xy = _arc_points(tuple(xyz[:2]), tuple(nxt[:2]), w, cmd == 'G2')
                 if run is None:
-                    run = {'object': current, 'layer': layer, 'line': line_number, 'points': [xyz.copy()]}
+                    run = {'object': current, 'layer': layer, 'line': line_number,
+                           'points': [xyz.copy()], 'point_lines': [line_number],
+                           'features': [], 'numerical_connectors': 0}
+                run['end_line'] = line_number
+                if feature not in run['features']:
+                    run['features'].append(feature)
+                run['numerical_connectors'] += int(connector)
                 if cmd in ('G2','G3'):
                     run['points'].extend(np.array([x,y,xyz[2]+(nxt[2]-xyz[2])*(i+1)/len(xy)]) for i,(x,y) in enumerate(xy))
+                    run['point_lines'].extend([line_number] * len(xy))
                 else:
                     run['points'].append(nxt.copy())
+                    run['point_lines'].append(line_number)
             elif moving_xy or de < -1e-9:
                 finish()
             xyz = nxt

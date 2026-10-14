@@ -1,0 +1,496 @@
+{
+  "schema": 2,
+  "status": "Reviewed base-and-tip seam evaluation accepted on Mark2; physical assessment pending",
+  "submitted": true,
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "43089ba0c6786b33ff1d39e94ac477e4cb60b42236283171c00edac280a3ec87",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "dd6e2689517b26cff61ff103be8583615da26080dce38de89aea1a8e356cc680",
+  "gcode_sha256": "258671e8a7d9e1ab2e25ee424dc9aeae089fb5e137c7b5b8b6500adfb4e66822",
+  "baseline_task_id": "1335906696",
+  "geometry": [
+    {
+      "member": "3D/Objects/object_1.model",
+      "vertices": 71546,
+      "triangles": 143108,
+      "geometry_identical_to_approved_full_print": true,
+      "enforced_facets": 477
+    },
+    {
+      "member": "3D/Objects/object_2.model",
+      "vertices": 85652,
+      "triangles": 171312,
+      "geometry_identical_to_approved_full_print": true,
+      "enforced_facets": 186
+    },
+    {
+      "member": "3D/Objects/solid-region-11.model",
+      "vertices": 8,
+      "triangles": 12,
+      "geometry_identical_to_approved_full_print": true,
+      "enforced_facets": 0
+    }
+  ],
+  "global_settings_byte_identical_to_approved_full_print": true,
+  "layer_ranges_byte_identical_to_approved_full_print": true,
+  "zip_crc_valid": true,
+  "gcode_md5_valid": true,
+  "z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "wipe_blocks": 0,
+  "periodic_G39_blocks": 0,
+  "full_bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        99.66851700000001,
+        111.283517
+      ],
+      [
+        226.750483,
+        208.652483
+      ]
+    ],
+    "maximum_line_width_mm": 0.786966,
+    "bounds_padding_mm": 0.493483
+  },
+  "minimum_full_bead_margin_mm": 98.249517,
+  "native_estimated_seconds": 19273.74609375,
+  "native_estimated_grams_saved_density": 141.58773803710938,
+  "slicer_warning": "",
+  "objects": [
+    "industrial-shell-base",
+    "faucet-shell-tip"
+  ],
+  "scope": "Actual native paths, source geometry, saved settings and placement; physical seam assessment pending.",
+  "retained_meshes_and_paint_byte_identical_to_complete_candidate": true,
+  "per_object_full_bead_footprints": {
+    "industrial-shell-base": {
+      "extrusion_bounds_xy_mm": [
+        [
+          99.696616,
+          111.311616
+        ],
+        [
+          165.378384,
+          208.624384
+        ]
+      ],
+      "maximum_line_width_mm": 0.730768,
+      "bounds_padding_mm": 0.465384
+    },
+    "faucet-shell-tip": {
+      "extrusion_bounds_xy_mm": [
+        [
+          168.24751700000002,
+          132.733517
+        ],
+        [
+          226.750483,
+          188.587483
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    }
+  },
+  "conservative_separation_between_object_bead_bounds_mm": 2.869133000000005,
+  "seam_trace": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/trace/trace.json",
+  "seam_trace_parts": {
+    "industrial-shell-base": {
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "source_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "all_wall_runs_read": 2530,
+      "native_model_layers_read": 1126,
+      "stl_external_components_read": 1231,
+      "external_runs": 1239,
+      "hole_or_interior_runs": 1291,
+      "unclassified_runs": [],
+      "central_external_runs": 1123,
+      "scarf_external_runs": 1121,
+      "exposed_rear_start_maximum_lateral_offset_mm": 0.5430000000000064,
+      "scarf_maximum_lateral_start_offset_mm": 0.5430000000000064,
+      "scarf_peak_witness": {
+        "part": "industrial-shell-base",
+        "print_z_mm": 191.24,
+        "gcode_start_line": 1651538,
+        "gcode_end_line": 1651786,
+        "start_plate_mm": [
+          133.043,
+          206.092,
+          191.024
+        ],
+        "start_cad_mm": [
+          0.5430000000000064,
+          16.25478654809078,
+          194.2135528386388
+        ],
+        "end_cad_mm": [
+          12.449999999999989,
+          -1.6224498606846964,
+          189.64698143497571
+        ],
+        "reference_rear_cad_mm": [
+          0.0,
+          16.389942839991516,
+          194.47338751287415
+        ],
+        "component_intersects_assembly_centerline": true,
+        "rear_center_surface_available": true,
+        "main_rear_component": true,
+        "run_passes_rear_reference": true,
+        "open_terminal_trace": false,
+        "start_lateral_offset_mm": 0.5430000000000064,
+        "start_distance_from_stl_rear_mm": 0.5779050797279456,
+        "outside_boundary_fraction": 1.0,
+        "scarf": true,
+        "scarf_height_rise_mm": 0.21600000000000819,
+        "ramp_length_mm": 59.995438711069866,
+        "ramp_end_cad_mm": [
+          12.643,
+          -1.0786336204839344,
+          189.79269655736846
+        ],
+        "ramp_end_line": 1651662,
+        "repeat_tail_length_mm": 59.43789409668389,
+        "tail_end_distance_from_ramp_end_mm": 0.5951621627758467,
+        "seam_corner_angle_deg": 72.3140722575254,
+        "length_mm": 144.32940668389176,
+        "area_mm2": 1061.8976890000158,
+        "numerical_connectors_joined": 0,
+        "component_width_mm": 26.999859999999998,
+        "exposed_rear_seam_goal": true
+      },
+      "bands": [
+        {
+          "name": "foot",
+          "cad_z_interval_mm": [
+            0,
+            14
+          ],
+          "runs": 55,
+          "maximum_lateral_start_offset_mm": 0.23099999999999454,
+          "witness": {
+            "part": "industrial-shell-base",
+            "print_z_mm": 4.76,
+            "gcode_start_line": 87396,
+            "gcode_end_line": 87914,
+            "start_plate_mm": [
+              132.269,
+              169.648,
+              4.544
+            ],
+            "start_cad_mm": [
+              -0.23099999999999454,
+              29.317161265530025,
+              4.655303472537057
+            ],
+            "end_cad_mm": [
+              -9.033000000000001,
+              20.20280395284901,
+              2.4367384460440604
+            ],
+            "reference_rear_cad_mm": [
+              0.0,
+              29.49923149761073,
+              4.927708699157407
+            ],
+            "component_intersects_assembly_centerline": true,
+            "rear_center_surface_available": true,
+            "main_rear_component": true,
+            "run_passes_rear_reference": true,
+            "open_terminal_trace": false,
+            "start_lateral_offset_mm": -0.23099999999999454,
+            "start_distance_from_stl_rear_mm": 0.3377264823788681,
+            "outside_boundary_fraction": 1.0,
+            "scarf": true,
+            "scarf_height_rise_mm": 0.2160000000000002,
+            "ramp_length_mm": 60.00021641110534,
+            "ramp_end_cad_mm": [
+              -8.801000000000002,
+              20.735029083134272,
+              2.579347739895553
+            ],
+            "ramp_end_line": 87652,
+            "repeat_tail_length_mm": 59.400010966530004,
+            "tail_end_distance_from_ramp_end_mm": 0.5978503157145492,
+            "seam_corner_angle_deg": 69.63980943247712,
+            "length_mm": 199.02236023104882,
+            "area_mm2": 717.6112869999924,
+            "numerical_connectors_joined": 0,
+            "component_width_mm": 54.65199999999999,
+            "exposed_rear_seam_goal": true
+          }
+        },
+        {
+          "name": "body",
+          "cad_z_interval_mm": [
+            14,
+            55
+          ],
+          "runs": 215,
+          "maximum_lateral_start_offset_mm": 0.08299999999999841,
+          "witness": {
+            "part": "industrial-shell-base",
+            "print_z_mm": 53.0,
+            "gcode_start_line": 843025,
+            "gcode_end_line": 843533,
+            "start_plate_mm": [
+              132.583,
+              182.889,
+              52.784
+            ],
+            "start_cad_mm": [
+              0.08299999999999841,
+              29.62155439567799,
+              54.67858830892418
+            ],
+            "end_cad_mm": [
+              -16.322999999999993,
+              -12.480135810601007,
+              43.62109407313501
+            ],
+            "reference_rear_cad_mm": [
+              0.0,
+              29.799111926206322,
+              54.949784360807904
+            ],
+            "component_intersects_assembly_centerline": true,
+            "rear_center_surface_available": true,
+            "main_rear_component": true,
+            "run_passes_rear_reference": true,
+            "open_terminal_trace": false,
+            "start_lateral_offset_mm": 0.08299999999999841,
+            "start_distance_from_stl_rear_mm": 0.2555522944616827,
+            "outside_boundary_fraction": 0.9901185770750988,
+            "scarf": true,
+            "scarf_height_rise_mm": 0.21600000000000108,
+            "ramp_length_mm": 60.000507316913314,
+            "ramp_end_cad_mm": [
+              -15.884,
+              -12.874233547726961,
+              43.51549590273318
+            ],
+            "ramp_end_line": 843094,
+            "repeat_tail_length_mm": 59.40058987694613,
+            "tail_end_distance_from_ramp_end_mm": 0.5993204485081469,
+            "seam_corner_angle_deg": 45.747050860149585,
+            "length_mm": 303.1556962012219,
+            "area_mm2": 1777.214464499977,
+            "numerical_connectors_joined": 0,
+            "component_width_mm": 48.79946000000001,
+            "exposed_rear_seam_goal": true
+          }
+        },
+        {
+          "name": "lower neck transition",
+          "cad_z_interval_mm": [
+            55,
+            80
+          ],
+          "runs": 158,
+          "maximum_lateral_start_offset_mm": 0.11600000000001387,
+          "witness": {
+            "part": "industrial-shell-base",
+            "print_z_mm": 70.76,
+            "gcode_start_line": 1039511,
+            "gcode_end_line": 1039739,
+            "start_plate_mm": [
+              132.384,
+              184.124,
+              70.544
+            ],
+            "start_cad_mm": [
+              -0.11600000000001387,
+              26.217846550124207,
+              72.15307250451966
+            ],
+            "end_cad_mm": [
+              12.663999999999987,
+              8.85448268093453,
+              67.72419283285113
+            ],
+            "reference_rear_cad_mm": [
+              0.0,
+              26.402515122677627,
+              72.42617395437134
+            ],
+            "component_intersects_assembly_centerline": true,
+            "rear_center_surface_available": true,
+            "main_rear_component": true,
+            "run_passes_rear_reference": true,
+            "open_terminal_trace": false,
+            "start_lateral_offset_mm": -0.11600000000001387,
+            "start_distance_from_stl_rear_mm": 0.27474876451043473,
+            "outside_boundary_fraction": 1.0,
+            "scarf": true,
+            "scarf_height_rise_mm": 0.21600000000000819,
+            "ramp_length_mm": 59.9173390989805,
+            "ramp_end_cad_mm": [
+              12.808999999999997,
+              9.333581890773916,
+              67.85256707922198
+            ],
+            "ramp_end_line": 1039614,
+            "repeat_tail_length_mm": 59.40017616116471,
+            "tail_end_distance_from_ramp_end_mm": 0.5167600990788784,
+            "seam_corner_angle_deg": 73.25041239850168,
+            "length_mm": 144.38201250918192,
+            "area_mm2": 1063.039365000006,
+            "numerical_connectors_joined": 0,
+            "component_width_mm": 27.0,
+            "exposed_rear_seam_goal": true
+          }
+        },
+        {
+          "name": "upper neck",
+          "cad_z_interval_mm": [
+            80,
+            237.4
+          ],
+          "runs": 695,
+          "maximum_lateral_start_offset_mm": 0.5430000000000064,
+          "witness": {
+            "part": "industrial-shell-base",
+            "print_z_mm": 191.24,
+            "gcode_start_line": 1651538,
+            "gcode_end_line": 1651786,
+            "start_plate_mm": [
+              133.043,
+              206.092,
+              191.024
+            ],
+            "start_cad_mm": [
+              0.5430000000000064,
+              16.25478654809078,
+              194.2135528386388
+            ],
+            "end_cad_mm": [
+              12.449999999999989,
+              -1.6224498606846964,
+              189.64698143497571
+            ],
+            "reference_rear_cad_mm": [
+              0.0,
+              16.389942839991516,
+              194.47338751287415
+            ],
+            "component_intersects_assembly_centerline": true,
+            "rear_center_surface_available": true,
+            "main_rear_component": true,
+            "run_passes_rear_reference": true,
+            "open_terminal_trace": false,
+            "start_lateral_offset_mm": 0.5430000000000064,
+            "start_distance_from_stl_rear_mm": 0.5779050797279456,
+            "outside_boundary_fraction": 1.0,
+            "scarf": true,
+            "scarf_height_rise_mm": 0.21600000000000819,
+            "ramp_length_mm": 59.995438711069866,
+            "ramp_end_cad_mm": [
+              12.643,
+              -1.0786336204839344,
+              189.79269655736846
+            ],
+            "ramp_end_line": 1651662,
+            "repeat_tail_length_mm": 59.43789409668389,
+            "tail_end_distance_from_ramp_end_mm": 0.5951621627758467,
+            "seam_corner_angle_deg": 72.3140722575254,
+            "length_mm": 144.32940668389176,
+            "area_mm2": 1061.8976890000158,
+            "numerical_connectors_joined": 0,
+            "component_width_mm": 26.999859999999998,
+            "exposed_rear_seam_goal": true
+          }
+        }
+      ]
+    },
+    "faucet-shell-tip": {
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "source_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "all_wall_runs_read": 949,
+      "native_model_layers_read": 574,
+      "stl_external_components_read": 621,
+      "external_runs": 620,
+      "hole_or_interior_runs": 329,
+      "unclassified_runs": [],
+      "central_external_runs": 332,
+      "scarf_external_runs": 248,
+      "exposed_rear_start_maximum_lateral_offset_mm": 0.18799999999998818,
+      "scarf_maximum_lateral_start_offset_mm": 0.18799999999998818,
+      "scarf_peak_witness": {
+        "part": "faucet-shell-tip",
+        "print_z_mm": 84.92,
+        "gcode_start_line": 1138447,
+        "gcode_end_line": 1138773,
+        "start_plate_mm": [
+          208.688,
+          186.121,
+          84.704
+        ],
+        "start_cad_mm": [
+          0.18799999999998818,
+          -103.39555240528267,
+          232.7601756107821
+        ],
+        "end_cad_mm": [
+          12.579000000000008,
+          -98.92733223875855,
+          215.24999101599647
+        ],
+        "reference_rear_cad_mm": [
+          0.0,
+          -103.65339153816714,
+          232.8878844409727
+        ],
+        "component_intersects_assembly_centerline": true,
+        "rear_center_surface_available": true,
+        "main_rear_component": true,
+        "run_passes_rear_reference": true,
+        "open_terminal_trace": false,
+        "start_lateral_offset_mm": 0.18799999999998818,
+        "start_distance_from_stl_rear_mm": 0.2673547526326415,
+        "outside_boundary_fraction": 1.0,
+        "scarf": true,
+        "scarf_height_rise_mm": 0.21600000000000819,
+        "ramp_length_mm": 60.00077654768418,
+        "ramp_end_cad_mm": [
+          12.754999999999995,
+          -99.0758943706474,
+          215.8044324402864
+        ],
+        "ramp_end_line": 1138652,
+        "repeat_tail_length_mm": 59.39987987408796,
+        "tail_end_distance_from_ramp_end_mm": 0.6003765485093582,
+        "seam_corner_angle_deg": 70.8859308655246,
+        "length_mm": 144.2771414539787,
+        "area_mm2": 1060.8481894999932,
+        "numerical_connectors_joined": 0,
+        "component_width_mm": 26.999860000000012,
+        "arc_angle_deg": 117.0161742856599,
+        "assembled_cover_outward_ray_distance_mm": null,
+        "concealed_joint_plug": false,
+        "reference_on_curved_outer_arc": true,
+        "exposed_rear_seam_goal": true
+      },
+      "bands": []
+    }
+  },
+  "native_model_layers": {
+    "industrial-shell-base": 1126,
+    "faucet-shell-tip": 574
+  },
+  "eight_coarse_lip_layers_print_z_mm": [
+    15.32,
+    15.56,
+    15.8,
+    16.04,
+    16.28,
+    16.52,
+    16.76,
+    17.0
+  ],
+  "first_fine_model_layer_print_z_mm": 17.12,
+  "printer_task_id": "1337767162",
+  "launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json"
+}

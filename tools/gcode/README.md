@@ -7,7 +7,7 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 
 | Question | Tool |
 |---|---|
-| Where does every seam of this part sit, over its whole height? | `seams.py` |
+| Where does the main exterior seam sit, over the part's whole height? | `seams.py` |
 | What speed is commanded at this place on the outer wall, layer by layer? | `speeds.py` |
 | Show it, the way Bambu Studio's slice preview does | `view.py seams` or `view.py speed`, published as an Artifact |
 
@@ -36,6 +36,9 @@ publishing it.
   change, an object change or a feature outside the set ends it.
 - Feed-only lines (`G1 F876`), `M204` and the switch between "Outer wall" and "Overhang wall"
   happen mid-perimeter, so they do not end a run.
+- A zero-E connector no longer than 0.02 mm, with at most 0.002 mm Z movement,
+  continues the wall run. Bambu emits a 0.001 mm connector at some scarf ramp
+  boundaries; splitting there falsely labels the ramp's end as another seam.
 - Feed is modal. A move carries the last F before it, so a wall setting does not fix every wall
   move's speed. Overhang speeds and the cooling slowdown replace it on the moves they cover, and
   those moves can still be labelled "Outer wall".
@@ -45,6 +48,15 @@ publishing it.
 - A place is found by geometry on each layer: a crossing of the part's CAD X = 0 plane, an
   extreme point, or the point nearest a plate X,Y. It is never a guess at which run is which.
 - Layers are numbered from 1, as Bambu Studio's layer slider numbers them.
+- Enforcer paint is read from the selected part's mesh member, using that part's
+  pose. Other painted parts in a project are not mixed into its paint geometry.
+
+The largest-loop profile includes pedestal, plug and terminal contours when they
+are that layer's exterior. An offset on those contours is not a verdict about
+the exposed main-body seam. The faucet's
+[feature-aware reading](../../hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
+retains every exterior run and distinguishes those features from its rear show
+surfaces.
 
 ## Known readings
 
@@ -54,6 +66,7 @@ To check a change to the reader, run it against these slices and compare:
 |---|---|
 | `hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2` | Base seam −1.955 mm at print Z 13.64 (layers 1–64 past 1 mm); +1.556 mm at print Z 61.64 (layers 425–473); 0.45 mm or less above print Z 70 |
 | `hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2` | Base seam 12.278 mm at print Z 163.16 |
+| `hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2` | Base exterior loop at most 0.543 mm over the complete height; the zero-E connector at print Z64.64 remains inside its rear-starting scarf run |
 | `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1` | Leftmost lip, layers 26–33: 14.60–17.60 mm/s |
 | `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1` | Leftmost lip, layers 26–33: 15.83–21.80 mm/s; the rest of each loop 10.0 mm/s |
 | `future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1` | Leftmost lip, layers 26–33: 10.00 mm/s |

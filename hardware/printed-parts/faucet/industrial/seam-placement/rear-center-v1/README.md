@@ -1,18 +1,21 @@
-# Rear-center seam placement
+# Rear-center seam placement — Z80–237 candidate
 
-The selected complete faucet paints a narrow seam-enforcer strip on the base
+This identified candidate paints a narrow seam-enforcer strip on the base
 neck's outer rear surface at CAD X=0. Facets crossing X ±0.25 mm with centers
 above CAD Z80 are selected at the rear silhouette; the mesh vertices and
 triangle indices are unchanged. The selected facets span CAD Z67.70–237.33
 because some facets extend below their centers. Bambu's `paint_seam="4"`
 enforces seam placement.
 
-The [saved selection](../../finish-selection.json),
-[preparer](../../prepare_print_project.py) and
-[canonical project](../../faucet-industrial-petgf.3mf) retain A2/Back/150% on
+The candidate retains A2/Back/150% on
 base, tip and mounting plate, Aligned/15%/scarf off on the cover and lever,
 wipe off, eight coarse lip layers, 0.12 mm shoulder bands, and the infill-only
 reinforced foot. The correction applies only to the base neck's seam paint.
+
+The [current complete preparation](../rear-center-v2/README.md) covers the
+base's entire rear silhouette, including the stage shoulders, and the tip's
+curved rear meridian. This record's comparison remains scoped to the
+height-limited candidate identified here.
 
 ## Exact native comparison
 
@@ -32,7 +35,10 @@ at print Z163.16, then approach the rear center again near the joint.
 The [identified printed article](../../prints/2026-10-13-a2-back-mark2/physical-result.json)
 has Derek's overall acceptance and tag `faucet-industrial-approved-2026-10-13`.
 The [one-time base-only evaluation](../../prints/2026-10-13-rear-seam-base-only-mark2/README.md)
-is printing on Mark2 as task 1337160395. Physical seam evaluation is pending.
+completed on Mark2 as task 1337160395. Its
+[physical result](../../prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+confirms the middle-neck correction and reports misplaced seams in both lower
+transitions, outside the original native review range.
 
 ![Actual rear seam starts](seam-comparison.png)
 

@@ -1,10 +1,10 @@
 {
   "schema": 2,
-  "status": "Approved complete physical reference; next complete project has rear-center seam enforcement",
+  "status": "Approved complete physical reference; current preparation has complete-base and curved-tip rear seam enforcement",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "finish_selection_sha256": "4d85945d58119e56e48836760ffd8a2cd8689a41aa7e151f6f07859021efc9e2",
+  "finish_selection_sha256": "760fdffb4962a8f408eba12be69cfca359b419dbe77f8712729f35148a5b987f",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "canonical_project_sha256": "0f60dc915fb659d2252446fb4b5ec0361ca1aac8a96a791865f291272973d11f",
+  "canonical_project_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
   "canonical_default_printer": "Mark1",
   "current_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/launch.json",
   "printer": "Mark2",
@@ -66,15 +66,23 @@
   },
   "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
   "shipping_acceptance_reference": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "Task 1335906696 is the approved physical reference with a known seam wobble. The saved recipe adds native-verified rear seam enforcement whose physical result is pending.",
+  "scope": "Task 1335906696 remains the approved complete physical reference. Task 1337160395 confirms the middle-neck correction but reports both lower transitions still misplaced. The current base-and-tip seam evaluation is task 1337767162; its physical result is pending.",
   "approved_tag": "faucet-industrial-approved-2026-10-13",
   "rear_seam_enforcement": {
     "part": "industrial-shell-base",
     "half_width_mm": 0.25,
-    "minimum_cad_z_mm": 80.0,
-    "target": "Outer rear silhouette at CAD X=0; facets crossing the center strip",
-    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json",
-    "physical_result": "Pending a print of the constrained seam placement"
+    "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Middle-neck placement confirmed on task 1337160395; complete-base enforcement awaits the next evaluation"
   },
-  "next_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/native-review.json"
+  "next_native_review": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+  "tip_rear_seam_enforcement": {
+    "part": "faucet-shell-tip",
+    "half_width_mm": 0.0,
+    "surface": "curved_outer_arc",
+    "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Pending the base-and-tip seam placement evaluation"
+  },
+  "current_seam_evaluation": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json"
 }

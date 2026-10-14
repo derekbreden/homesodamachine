@@ -1,0 +1,236 @@
+{
+ "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+ "part": "industrial-shell-base",
+ "layers": 1125,
+ "open_loops": 1,
+ "tolerance_mm": 0.6,
+ "max_abs_lateral_mm": 0.543,
+ "zones": [],
+ "profile": [
+  {
+   "print_z_mm": [
+    0.0,
+    10.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": -0.149,
+   "max_abs_lateral_mm": 0.231
+  },
+  {
+   "print_z_mm": [
+    10.0,
+    20.0
+   ],
+   "layers": 54,
+   "mean_lateral_mm": -0.035,
+   "max_abs_lateral_mm": 0.203
+  },
+  {
+   "print_z_mm": [
+    20.0,
+    30.0
+   ],
+   "layers": 80,
+   "mean_lateral_mm": 0.024,
+   "max_abs_lateral_mm": 0.035
+  },
+  {
+   "print_z_mm": [
+    30.0,
+    40.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": 0.045,
+   "max_abs_lateral_mm": 0.055
+  },
+  {
+   "print_z_mm": [
+    40.0,
+    50.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.066,
+   "max_abs_lateral_mm": 0.075
+  },
+  {
+   "print_z_mm": [
+    50.0,
+    60.0
+   ],
+   "layers": 62,
+   "mean_lateral_mm": 0.021,
+   "max_abs_lateral_mm": 0.085
+  },
+  {
+   "print_z_mm": [
+    60.0,
+    70.0
+   ],
+   "layers": 75,
+   "mean_lateral_mm": -0.057,
+   "max_abs_lateral_mm": 0.115
+  },
+  {
+   "print_z_mm": [
+    70.0,
+    80.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.081,
+   "max_abs_lateral_mm": 0.116
+  },
+  {
+   "print_z_mm": [
+    80.0,
+    90.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.072,
+   "max_abs_lateral_mm": 0.105
+  },
+  {
+   "print_z_mm": [
+    90.0,
+    100.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": -0.072,
+   "max_abs_lateral_mm": 0.108
+  },
+  {
+   "print_z_mm": [
+    100.0,
+    110.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.053,
+   "max_abs_lateral_mm": 0.073
+  },
+  {
+   "print_z_mm": [
+    110.0,
+    120.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.008,
+   "max_abs_lateral_mm": 0.061
+  },
+  {
+   "print_z_mm": [
+    120.0,
+    130.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": 0.124,
+   "max_abs_lateral_mm": 0.145
+  },
+  {
+   "print_z_mm": [
+    130.0,
+    140.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.132,
+   "max_abs_lateral_mm": 0.134
+  },
+  {
+   "print_z_mm": [
+    140.0,
+    150.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.127,
+   "max_abs_lateral_mm": 0.167
+  },
+  {
+   "print_z_mm": [
+    150.0,
+    160.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": 0.086,
+   "max_abs_lateral_mm": 0.205
+  },
+  {
+   "print_z_mm": [
+    160.0,
+    170.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.091,
+   "max_abs_lateral_mm": 0.22
+  },
+  {
+   "print_z_mm": [
+    170.0,
+    180.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.114,
+   "max_abs_lateral_mm": 0.237
+  },
+  {
+   "print_z_mm": [
+    180.0,
+    190.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": 0.145,
+   "max_abs_lateral_mm": 0.442
+  },
+  {
+   "print_z_mm": [
+    190.0,
+    200.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": 0.215,
+   "max_abs_lateral_mm": 0.543
+  },
+  {
+   "print_z_mm": [
+    200.0,
+    210.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.029,
+   "max_abs_lateral_mm": 0.093
+  },
+  {
+   "print_z_mm": [
+    210.0,
+    220.0
+   ],
+   "layers": 41,
+   "mean_lateral_mm": -0.077,
+   "max_abs_lateral_mm": 0.121
+  },
+  {
+   "print_z_mm": [
+    220.0,
+    230.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.015,
+   "max_abs_lateral_mm": 0.16
+  },
+  {
+   "print_z_mm": [
+    230.0,
+    240.0
+   ],
+   "layers": 42,
+   "mean_lateral_mm": -0.081,
+   "max_abs_lateral_mm": 0.132
+  },
+  {
+   "print_z_mm": [
+    240.0,
+    250.0
+   ],
+   "layers": 21,
+   "mean_lateral_mm": -0.096,
+   "max_abs_lateral_mm": 0.12
+  }
+ ]
+}

@@ -124,7 +124,13 @@ def read_runs(text: str, object_id: int | None = None, features=WALLS) -> list[d
         moved = math.hypot(nxt[0] - pos[0], nxt[1] - pos[1]) > 1e-9
         wanted = (feature in features and z is not None
                   and (object_id is None or obj == object_id))
-        if wanted and de > 0 and moved:
+        # Bambu may insert a rounded, zero-E 0.001 mm connector at the
+        # transition from the scarf ramp to its full-height continuation.
+        # It is part of this wall path, rather than a second seam start.
+        connector = (run is not None and wanted and abs(de) <= 1e-9
+                     and 0 < math.hypot(nxt[0] - pos[0], nxt[1] - pos[1]) <= .02
+                     and abs(nxt[2] - pos[2]) <= .002)
+        if wanted and moved and (de > 0 or connector):
             if run is None:
                 run = {'layer': layer, 'z': z, 'h': h, 'object': obj, 'line': n,
                        'pts': [tuple(pos)], 'feed': [], 'overhang': [], 'lines': []}
@@ -206,6 +212,8 @@ class Placement:
         row = next(p for p in report['parts'] if part in p['name'])
         self.name = row['name']
         self.identify_id = row.get('identify_id')
+        self.member = row.get('member')
+        self.object_id = row.get('object_id')
         self.m = np.array(row['build_transform'][:9]).reshape(3, 3)
         self.t = np.array(row['plate_translation_mm'])
         self.center = np.array(row['source_center_mm'])
@@ -218,11 +226,25 @@ class Placement:
 
 
 def enforcer_triangles(project: Path, placement: Placement) -> np.ndarray | None:
-    """Seam-enforcer facets (`paint_seam="4"`) of a project's meshes, as plate triangles."""
+    """This part's seam-enforcer facets, in its own plate placement.
+
+    Other objects can also carry paint; their normalized meshes must not be
+    transformed using this part's pose. The preparation report binds the
+    mesh member, with the build object's component paths as a fallback.
+    """
     tris = []
     with zipfile.ZipFile(project) as z:
+        members = {placement.member.lstrip('/')} if placement.member else set()
+        if not members and placement.object_id is not None:
+            model = ET.fromstring(z.read('3D/3dmodel.model'))
+            ns = model.tag.split('}')[0].strip('{')
+            obj = next((o for o in model.iter(f'{{{ns}}}object')
+                        if o.get('id') == str(placement.object_id)), None)
+            if obj is not None:
+                members = {value.lstrip('/') for component in obj.iter(f'{{{ns}}}component')
+                           for key, value in component.attrib.items() if key.endswith('}path')}
         for name in z.namelist():
-            if not (name.startswith('3D/Objects/') and name.endswith('.model')):
+            if name not in members:
                 continue
             root = ET.fromstring(z.read(name))
             ns = root.tag.split('}')[0].strip('{')

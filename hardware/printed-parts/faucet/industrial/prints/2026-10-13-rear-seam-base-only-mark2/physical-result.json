@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-13",
+  "recorded_at_utc": "2026-10-14T04:39:06.967413+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1337160395",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "6d95d66c5a2cbdba0a4f984477b9f954b01bfd657ab662f78873a022c0f9902c",
+  "gcode_sha256": "3c0d0631b06ee3381ac81d733b5a6536ba56ed3508662f5919a07b7c5139f31f",
+  "status": "Middle-neck seam corrected; lower transitions still misplaced",
+  "authority": "Direct user inspection",
+  "observation_quote": "That did fix the seam position in the place I described on the gooseneck middle, but it did not fix the seam position on the gooseneck near the base nor did it fix it near the transition between lower base and upper base.",
+  "predictability_quote": "The places this happen seem predictable, they happen as the xy centerpoint of the circle in question is translating in Y.",
+  "observations": {
+    "middle_gooseneck": "Seam position correction confirmed",
+    "lower_gooseneck": "Seam position not corrected",
+    "lower_to_upper_base_transition": "Seam position not corrected"
+  },
+  "completion_observation": {
+    "observed_at_utc": "2026-10-14T04:24:53.758272+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 1244,
+    "total_layer_num": 1244,
+    "print_error": 0,
+    "hms": []
+  },
+  "full_native_trace": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/printed-base-trace/trace.json",
+  "scope": "Physical placement observations for this identified one-time base-only evaluation. No all-base seam acceptance is supplied."
+}
