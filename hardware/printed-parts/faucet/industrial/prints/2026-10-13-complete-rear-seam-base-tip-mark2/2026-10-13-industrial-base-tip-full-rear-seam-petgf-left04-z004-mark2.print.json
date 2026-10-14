@@ -1,0 +1,179 @@
+{
+  "evaluation_only": true,
+  "one_time_exception": true,
+  "authorization_quote": "Well, Mark 2 bed is clear, and I'd like to get the next print started if that next print is just the same faucet base again. But I'm worried because you said you're checking the whole base, that you didn't actually check the seam across the rest of our faucet. So could you please also check the tip and the mounting plate? And if they're good and they line up with this seam on the base, great, then start another print of base on Mark 2. Otherwise, print me everything that's got a problem that we need to verify is fixed here. Thanks.",
+  "normal_complete_recipe_changed": false,
+  "source_complete_project": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/2026-10-13-industrial-faucet-full-rear-seam-petgf-left04-z004-mark2.3mf",
+  "source_complete_project_sha256": "a94f696e27c5ad39e29ee39e1b5054220cff4650fa462c132d2a915683317d3e",
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "43089ba0c6786b33ff1d39e94ac477e4cb60b42236283171c00edac280a3ec87",
+  "settings_payload_unchanged": true,
+  "settings_sha256": "5fe8c3ff6960be49d536a2f3ca2951310e73f18018da157aede6fae30224592d",
+  "retained_mesh_members_sha256": {
+    "3D/Objects/object_1.model": "54f82f7a592bf0b550b443cb80dc7857d4c8507ce4e381c1719edcfe6570fab9",
+    "3D/Objects/object_2.model": "f5f9ab6d1181df204b1a8f79dc8b7e22f77d7aea0fe7abb1a052fd47a18586ac",
+    "3D/Objects/solid-region-11.model": "b718b9dba42f8ef3f488597ff2e46cc118881ada5004bf987d14ce041dfaa7c8"
+  },
+  "rear_seam_enforcement": {
+    "part": "industrial-shell-base",
+    "half_width_mm": 0.25,
+    "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Middle-neck placement confirmed on task 1337160395; complete-base enforcement awaits the next evaluation",
+    "enforced_triangles": 477,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.735455394,
+        -32.37545013455762,
+        -7.422329417750007e-11
+      ],
+      [
+        0.735455394,
+        29.799999237442385,
+        237.3277740479258
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "tip_rear_seam_enforcement": {
+    "part": "faucet-shell-tip",
+    "half_width_mm": 0.0,
+    "surface": "curved_outer_arc",
+    "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Pending the base-and-tip seam placement evaluation",
+    "enforced_triangles": 186,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.100378074,
+        -114.90322876011231,
+        226.03443908658986
+      ],
+      [
+        0.161997616,
+        -32.373329162112306,
+        242.71292114258983
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "triangles": 143108,
+      "rotation_x_degrees": -14.999999999999998,
+      "source_center_mm": [
+        0.0,
+        -5.903867721557617,
+        118.66388702392578
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        132.5,
+        165.13469120115752,
+        123.78370836088766
+      ],
+      "plate_translation_mm": [
+        132.5,
+        165.13469120115752,
+        123.78370836088766
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          103.0,
+          111.63010370519103,
+          0.0
+        ],
+        [
+          162.0,
+          208.36989629480894,
+          245.25502221969379
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "faucet-shell-tip",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "triangles": 171312,
+      "rotation_x_degrees": -105.0,
+      "source_center_mm": [
+        0.0,
+        -80.5707836151123,
+        208.50643157958984
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        208.5,
+        156.78619739310935,
+        68.9342972168119
+      ],
+      "plate_translation_mm": [
+        208.5,
+        156.78619739310935,
+        68.9342972168119
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          195.0,
+          135.69483637413302,
+          0.0
+        ],
+        [
+          222.0,
+          188.30516362586698,
+          137.87054537063977
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "printer": "Mark2",
+  "material": "PET-GF",
+  "nozzle_mapping": "Left fixed 0.4 mm; external spool 254",
+  "requested_z_trim_mm": 0.04,
+  "submitted": false
+}

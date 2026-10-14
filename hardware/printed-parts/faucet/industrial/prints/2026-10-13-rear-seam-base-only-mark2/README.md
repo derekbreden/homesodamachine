@@ -2,7 +2,10 @@
 
 Mark2 accepted this evaluation at 6:20 pm CDT on October 13 after one Send
 click. The receipt reports RUNNING, layer 0 of 1,244, with no printer error
-or HMS fault. Physical seam evaluation is pending.
+or HMS fault. The completed print reached 1,244/1,244 with no reported fault.
+The [physical result](physical-result.json) confirms the middle-neck seam
+correction and reports continued displacement at the lower gooseneck and
+lower-to-upper base transition.
 
 Derek authorized the exception explicitly:
 
@@ -32,6 +35,13 @@ and bed leveling are On; flow dynamic and nozzle offset calibration are Auto.
 Mark1's preceding acceptance was 2 h 31 min earlier, exceeding the 180-second
 startup interval. The single-object slice uses OBJECT_ID markers; the manual
 trace reader maps those to the retained base identify ID.
+
+The [complete-height re-reading](../../seam-placement/rear-center-v2/printed-base-trace/trace.json)
+measures the omitted lower regions: 1.955 mm lateral displacement on the foot,
+1.307 mm on the body and 1.556 mm near the lower neck. The original native
+review's CAD Z80–237 scope did not include those regions. The
+[current complete preparation](../../seam-placement/rear-center-v2/README.md)
+includes the stage shoulders and a matching tip rear meridian.
 
 - [Exact launched native archive](2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
 - [Editable one-time project](2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.3mf)

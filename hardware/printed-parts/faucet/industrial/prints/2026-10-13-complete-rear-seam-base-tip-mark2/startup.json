@@ -1,0 +1,53 @@
+{
+  "observed_at_utc": "2026-10-14T04:48:46.546424+00:00",
+  "printer": "Mark2",
+  "gcode_state": "RUNNING",
+  "job_id": "1337767162",
+  "subtask_id": "1337767162",
+  "subtask_name": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 1244,
+  "mc_remaining_time": 321,
+  "nozzle_temper": 242.0,
+  "bed_temper": 30.0,
+  "nozzle_target_temper": 265.0,
+  "bed_target_temper": 30.0,
+  "external_spools": [
+    {
+      "id": "254",
+      "tray_type": "PET-CF",
+      "tray_color": "161616FF",
+      "tray_info_idx": "GFT01"
+    },
+    {
+      "id": "255",
+      "tray_type": "ASA-AERO",
+      "tray_color": "FFFFFFFF",
+      "tray_info_idx": "GFB02"
+    }
+  ],
+  "nozzles": [
+    {
+      "id": 0,
+      "type": "HS01",
+      "diameter": 0.4
+    },
+    {
+      "id": 1,
+      "type": "HS01",
+      "diameter": 0.4
+    },
+    {
+      "id": 18,
+      "type": "HS00",
+      "diameter": 0.2
+    },
+    {
+      "id": 20,
+      "type": "HH01",
+      "diameter": 0.8
+    }
+  ]
+}
