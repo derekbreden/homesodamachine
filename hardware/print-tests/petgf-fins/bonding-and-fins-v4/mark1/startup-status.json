@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-10-14T21:54:08.587124+00:00",
+  "printer": "Mark1",
+  "job_id": "1340084547",
+  "subtask_name": "2026-10-14-v4-bonding-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "mc_percent": 1,
+  "layer_num": 0,
+  "total_layer_num": 24,
+  "print_error": 0,
+  "hms": []
+}

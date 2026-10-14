@@ -1,0 +1,27 @@
+{
+  "source_archive": "hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark2/2026-10-14-v4-fins-ramps-petgf-left04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "e19b8d4369c2281a12a7b8d6ec88fd8722650d6ebd4f27b92630b7a1efe12919",
+  "print_only_archive": "hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark2/2026-10-14-v4-fins-ramps-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "c3fcca7440df7df54529eddcce48df00e7b1593f8006b0235ed746e82c0203c5",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "5b16832260e8ba8ac3d912e7b3778afedee2137ec9233ab95bdc1b6cf7cc9d9d"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/Objects/object_7.model",
+    "3D/Objects/object_8.model",
+    "3D/Objects/object_9.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

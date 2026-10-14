@@ -120,6 +120,16 @@ fill. That landing failure does not establish a PET-GF free-span limit.
 The 30% comparison and dense-contact geometry candidate remain unprinted;
 neither supplies surface or release acceptance.
 
+The [12 mm fusion and fin trial](../print-tests/petgf-fins/bonding-and-fins-v4/README.md)
+is accepted by Mark1 as task 1340084547 and Mark2 as task 1340093238. Mark1
+compares single bridge layers with normal/thick extrusion and 100%/125%/150%
+volume at fixed spacing within each group. Mark2 has opposing fins in two
+directions, a solid-post control and full 14 mm ramps at 70%/100% cooling.
+Every main first-roof fin raster starts and ends on preceding tooth beads,
+and fill precedes walls. Actual formation, joining, release and finish remain
+unreported. The earlier failed fin starts and rejected C finish do not settle
+the useful finish of these fin-supported roofs.
+
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
 those outcomes and durable operation. Material price and printer occupancy describe the
