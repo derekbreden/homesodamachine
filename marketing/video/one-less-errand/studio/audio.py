@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose the 18-second film around one uninterrupted voice performance.
+"""Compose the story-led film around one uninterrupted voice performance.
 
 Run with tools/video-venv/bin/python. --out selects a separate sound build;
 the default is studio/out. The picture clock comes from story.json.
@@ -16,10 +16,9 @@ import textwrap
 import numpy as np
 from scipy import signal
 from scipy.io import wavfile
-from errands import normalized_events
 
 ROOT = Path(__file__).resolve().parent
-SR, FPS = 48000, 24
+SR = 48000
 RNG = np.random.default_rng(301814)
 
 
@@ -92,13 +91,41 @@ def rim(duration=.075):
 
 
 def case_contact(index):
-    """One dry graphic weight contact, without imaginary handling Foley."""
+    """A short weighted carton contact, with a little enclosed can resonance."""
+    index %= 3
     t = np.arange(round((.25+index*.025)*SR))/SR
     f = [155, 126, 102][index]
     x = (.58*np.sin(2*np.pi*f*t)*np.exp(-t/(.027+index*.006))
          +.18*np.sin(2*np.pi*f*2.19*t)*np.exp(-t/.018)
          +filt(RNG.normal(size=len(t)), lo=180, hi=2900)*np.exp(-t/.014)*.44)
     x = taper(x, .0007, .05)
+    return x/max(np.max(np.abs(x)), 1e-9)
+
+
+def can_contact(index=0, duration=.35):
+    """A full aluminum can meeting a support, with a brief shell resonance."""
+    t = np.arange(round(duration*SR))/SR
+    variation = [1, .975, 1.022][index % 3]
+    hit = filt(RNG.normal(size=len(t)), lo=90, hi=1900)*np.exp(-t/.012)
+    x = .58*hit+.46*np.sin(2*np.pi*155*variation*t)*np.exp(-t/.036)
+    for frequency, amplitude, decay in [(484, .30, .055), (913, .15, .043), (1741, .055, .025)]:
+        x += amplitude*np.sin(2*np.pi*frequency*variation*t)*np.exp(-t/decay)
+    x = taper(x, .001, .06)
+    return x/max(np.max(np.abs(x)), 1e-9)
+
+
+def carton_move(duration=.28):
+    t = np.arange(round(duration*SR))/SR
+    x = filt(RNG.normal(size=len(t)), lo=220, hi=2700)*np.sin(np.pi*t/duration)**2
+    x = taper(x, .012, .045)
+    return x/max(np.max(np.abs(x)), 1e-9)
+
+
+def load_movement(duration=.65):
+    t = np.arange(round(duration*SR))/SR
+    x = filt(RNG.normal(size=len(t)), lo=100, hi=780)
+    x *= (.72+.28*np.sin(2*np.pi*6.8*t)**2)*np.sin(np.pi*t/duration)**2
+    x = taper(x, .08, .12)
     return x/max(np.max(np.abs(x)), 1e-9)
 
 
@@ -168,8 +195,23 @@ def stamp(seconds, separator='.'):
     return f'{hour:02}:{minute:02}:{second:02}{separator}{ms:03}'
 
 
+def tokens(text):
+    return re.findall(r"[a-z0-9]+(?:['-][a-z0-9]+)*", text.lower().replace('’', "'"))
+
+
+def caption_phrases(config):
+    phrases = config.get('caption_phrases')
+    if phrases is None:
+        phrases = re.findall(r'[^.!?]+[.!?]*', config['text'])
+    phrases = [phrase.strip() for phrase in phrases if phrase.strip()]
+    if tokens(' '.join(phrases)) != tokens(config['text']):
+        raise ValueError('Narration caption_phrases must contain the full script in spoken order.')
+    return phrases
+
+
 def make_voice(out, story, count):
     offset = float(story['narration_offset'])
+    config = json.loads((ROOT/'narration.json').read_text())
     source_path = ROOT/'audio/narration.wav'
     source_sr, source = wavfile.read(source_path)
     source = source.astype(float)/32768
@@ -177,23 +219,24 @@ def make_voice(out, story, count):
         source = source.mean(axis=1)
     common = math.gcd(source_sr, SR)
     source = signal.resample_poly(source, SR//common, source_sr//common)
+    if round(offset*SR)+len(source) > count:
+        raise ValueError('The complete voice performance extends beyond story.duration.')
     voice = np.zeros((count, 2))
     add(voice, offset, source, math.sqrt(2))
     write_wav(out/'voice-edited.wav', voice)
     run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', out/'voice-edited.wav',
          '-af', 'highpass=f=65,loudnorm=I=-18.5:TP=-3.0:LRA=14', '-ar', SR, out/'voice-master.wav'])
     words = json.loads((ROOT/'narration-words.json').read_text())
-    phrases = ["That's Diet Mountain Dew, straight from your faucet.",
-               "The soda you love, made with Pepsi's own concentrate,",
-               'without the cases to carry home.', 'Just open the faucet.',
-               'Cold and fully carbonated, whenever you want it.',
-               'Home Soda Machine.', 'One less errand.']
+    word_tokens = [(token, word) for word in words for token in tokens(word['word'])]
+    if [token for token, _ in word_tokens] != tokens(config['text']):
+        raise ValueError('The saved word alignment does not match the narration script.')
+    phrases = caption_phrases(config)
     captions, cursor = [], 0
     for phrase in phrases:
-        selected = words[cursor:cursor+len(phrase.split())]
+        selected = [word for _, word in word_tokens[cursor:cursor+len(tokens(phrase))]]
         captions.append({'start': round(offset+selected[0]['start'], 3),
                          'spoken_end': round(offset+selected[-1]['end'], 3), 'text': phrase})
-        cursor += len(selected)
+        cursor += len(tokens(phrase))
     for i, cap in enumerate(captions):
         next_start = captions[i+1]['start'] if i+1 < len(captions) else story['duration']-.2
         cap['end'] = round(min(next_start-.08, max(cap['spoken_end']+.24, cap['start']+1.15)), 3)
@@ -206,57 +249,79 @@ def make_voice(out, story, count):
         (out/f'film.{suffix}').write_text(('WEBVTT\n\n' if suffix == 'vtt' else '')+'\n\n'.join(entries)+'\n')
     performance = {'id': 'connected-performance', 'source': 'audio/narration.wav', 'source_start': 0,
                    'source_end': round(len(source)/SR, 5), 'start': offset,
-                   'end': round(offset+len(source)/SR, 5), 'first_word_at': offset,
+                   'end': round(offset+len(source)/SR, 5), 'first_word_at': round(offset+words[0]['start'], 5),
                    'last_word_at': round(offset+words[-1]['end'], 5),
-                   'text': json.loads((ROOT/'narration.json').read_text())['text'],
+                   'text': config['text'],
                    'editing': 'One complete performance; no cuts, time stretching, or rearrangement.',
                    'source_sha256': hashlib.sha256(source_path.read_bytes()).hexdigest()}
     return performance, captions
 
 
-def make_score(story, count, events):
+def make_score(story, count, events, captions):
     score = np.zeros((count, 2))
     scenes = {s['id']: s for s in story['scenes']}
+    reveal_at = scenes['hero']['start']
     water_at = scenes['pour']['start']
     sensory_at = scenes['sensory']['start']
     serve_at = scenes['serve']['start']
-    # 106 2/3 BPM; graphic contacts become the final three pulse accents.
-    beat, origin = .5625, .3958333333333333
-    notes = [66, 69, 64, 66, 71, 69, 66, 64, 66, 69, 71, 73, 69, 64]
-    for i, midi in enumerate(notes):
+    routine_at = scenes['case']['start']
+    # A fixed eight-note cell gives the errands a routine, without speeding up
+    # the narrator. Physical contacts carry their own picture-derived clock.
+    beat, origin = .5625, routine_at+.125
+    notes = [66, 69, 64, 66, 71, 69, 66, 64]
+    for i in range(max(0, math.ceil((reveal_at-origin)/beat))):
+        midi = notes[i % len(notes)]
         at = origin+i*beat
-        add(score, at, pluck(midi, .88, damped=True), .022 if i%2 == 0 else .016, -.16 if i%2 == 0 else .16)
-        if at < 6.25:
-            add(score, at, rim(), .009 if i%2 == 0 else .005, .14)
+        progress = np.clip((at-routine_at)/max(reveal_at-routine_at, .01), 0, 1)
+        gain = (.016 if i%2 == 0 else .012)*(1+.24*progress)
+        add(score, at, pluck(midi, .88, damped=True), gain, -.16 if i%2 == 0 else .16)
+        add(score, at, rim(), (.0045 if i%2 == 0 else .0025)*(1+.20*progress), .14)
         if i%2 == 0:
-            root = 50 if at < 2.125 else 47 if at < 4.375 else 43 if at < 6.25 else 45
-            add(score, at, bass(root), .026, -.025)
-    for at, voicing in [(0, [50, 57, 64, 66]), (2.125, [47, 54, 57, 62]),
-                        (4.375, [43, 54, 57, 62]), (6.25, [45, 52, 55, 62])]:
+            root = [47, 43, 45, 47][(i//len(notes)) % 4]
+            add(score, at, bass(root), .019*(1+.22*progress), -.025)
+    for i, midi in enumerate([50, 57, 64, 66]):
+        add(score, i*.019, pluck(midi, 1.7), .015*(1-i*.08), (i-1.5)*.12)
+    voicings = [[47, 54, 57, 62], [43, 54, 57, 62], [45, 52, 55, 62], [47, 54, 57, 62]]
+    for cell in range(max(0, math.ceil((reveal_at-routine_at)/(8*beat)))):
+        at, voicing = routine_at+cell*8*beat, voicings[cell % len(voicings)]
         for i, midi in enumerate(voicing):
-            add(score, at+i*.019, pluck(midi, 1.7), .018*(1-i*.08), (i-1.5)*.12)
-    edge = round(water_at*SR)
-    score[edge-round(.045*SR):edge] *= np.cos(np.linspace(0, np.pi/2, round(.045*SR)))[:, None]**2
+            add(score, at+i*.019, pluck(midi, 1.7), .015*(1-i*.08), (i-1.5)*.12)
+    # The repeating expectation stops for a short breath before the answer.
+    # This changes the music, never the continuous spoken performance.
+    edge = round(reveal_at*SR)
+    clear = max(0, edge-round(.20*SR))
+    fade = max(0, clear-round(.22*SR))
+    score[fade:clear] *= np.cos(np.linspace(0, np.pi/2, clear-fade))[:, None]**2
+    score[clear:edge] = 0
     score[edge:] = 0
-    for at, voicing, gain, duration in [
-        (water_at, [50, 57, 59, 64, 66], .027, 3.1),
-        (10.583333, [43, 54, 59, 62], .017, 2.5),
-        (serve_at, [47, 57, 62, 66], .021, 2.6),
-        (14.75, [50, 57, 62, 66], .024, 2.85),
-    ]:
+    phrases = [
+        (reveal_at, [50, 57, 59, 64, 66], .027, 3.1),
+        (water_at, [47, 57, 62, 66], .014, 2.5),
+        (sensory_at, [43, 54, 59, 62], .018, 2.5),
+        (serve_at, [50, 57, 62, 66], .021, 2.6),
+    ]
+    if water_at-reveal_at > 3.8:
+        phrases.append((reveal_at+(water_at-reveal_at)*.55, [43, 54, 59, 62], .016, 2.6))
+    tagline = captions[-1]
+    if tagline['start']-serve_at > .65:
+        phrases.append((tagline['start']+.08, [50, 57, 62, 66], .021, 2.65))
+    for at, voicing, gain, duration in phrases:
         for i, midi in enumerate(voicing):
             add(score, at+i*.021, struck(midi, duration), gain*(1-i*.10), (i-(len(voicing)-1)/2)*.12)
-    add(score, 15.375, struck(69, 1.65), .014, .14)
-    add(score, 16.125, struck(62, 1.65), .021, -.08)
+    last_note = min(tagline['spoken_end']+.82, story['duration']-1.55)
+    add(score, max(serve_at, last_note-.65), struck(69, 1.65), .014, .14)
+    add(score, max(serve_at+.10, last_note), struck(62, 1.65), .021, -.08)
     score = filt(room(score), lo=40, hi=7300)
-    last = round((story['duration']-.34)*SR)
+    last = round((story['duration']-.42)*SR)
     score[last:] *= np.cos(np.linspace(0, np.pi/2, count-last))[:, None]**2
     score[-round(.06*SR):] = 0
     events.extend([
-        {'start': 0, 'end': water_at, 'stem': 'score', 'description': 'Original double-course pluck motif, short bass and restrained rim pulse; graphic contacts carry the final accents.'},
-        {'start': water_at, 'end': sensory_at, 'stem': 'score', 'description': 'Pulse clears at established flow; open D-six/nine struck harmony gives water the foreground.'},
-        {'start': sensory_at, 'end': serve_at, 'stem': 'score', 'description': 'Open struck harmony supports the intimate beverage macro, with a rounded answer at 10.583333 seconds.'},
-        {'start': serve_at, 'end': story['duration'], 'stem': 'score', 'description': 'Struck-chord answer and descending A-to-D closing notes, with a completed studio decay.'},
+        {'start': 0, 'end': routine_at, 'stem': 'score', 'description': 'A small double-course plucked figure introduces the wish for a drink.'},
+        {'start': routine_at, 'end': reveal_at, 'stem': 'score', 'description': 'The same eight-note pluck cell repeats with gently accumulating bass and rim pulse; a 220 ms fade leads to a 200 ms tonal breath before the reveal.'},
+        {'start': reveal_at, 'end': water_at, 'stem': 'score', 'description': 'The expected repetition gives way to open D-six/nine struck harmony at the faucet reveal.'},
+        {'start': water_at, 'end': sensory_at, 'stem': 'score', 'description': 'Thin, rounded harmony leaves the close water in the foreground.'},
+        {'start': sensory_at, 'end': serve_at, 'stem': 'score', 'description': 'Spacious struck harmony supports the intimate beverage macro.'},
+        {'start': serve_at, 'end': story['duration'], 'stem': 'score', 'description': 'The completed drink receives a resolved D chord and descending A-to-D answer, followed by a natural closing decay.'},
     ])
     return score
 
@@ -264,25 +329,45 @@ def make_score(story, count, events):
 def make_effects(story, count, events):
     fx = np.zeros((count, 2))
     scenes = {s['id']: s for s in story['scenes']}
-    opening_end = scenes['drink']['end']
+    fps = float(story['fps'])
+    opening_end = scenes['opening']['end']
     add(fx, 0, fizz(opening_end, 1.7), 4, .08)
     events.append({'start': 0, 'end': opening_end, 'stem': 'effects', 'description': 'Immediate fine carbonation for the close beverage photograph; no ice or can-opening effect.'})
-    burden = scenes['burden']
-    for index, (fraction, name) in enumerate(normalized_events()):
-        at = math.ceil((burden['start']+fraction*(burden['end']-burden['start']))*FPS-1e-7)/FPS
-        add(fx, at, case_contact(index), [.036, .048, .064][index], [-.08, .03, .08][index])
-        events.append({'start': at, 'end': round(at+.25+index*.025, 6), 'stem': 'effects', 'id': name,
-                       'picture_frame': round(at*FPS), 'normalized_contact': fraction,
-                       'description': f'Dry graphic case contact {index+1}; increasing mass, no handling or transition swoosh.'})
+    for index, event in enumerate(story.get('sound_events', [])):
+        frame = int(event['frame']) if 'frame' in event else math.ceil(float(event['time'])*fps-1e-7)
+        at, kind = frame/fps, event['kind']
+        if not 0 <= at < story['duration']:
+            raise ValueError(f'Sound event {event["id"]} lies outside the picture clock.')
+        variation = int(event.get('variation', index))
+        if kind == 'can_contact':
+            sound = can_contact(variation, float(event.get('duration', .35)))
+            gain, description = .048, 'Brief weighted can contact with softened aluminum shell resonance.'
+        elif kind == 'case_contact':
+            sound = case_contact(variation)
+            gain, description = .060, 'Dry weighted carton contact with enclosed can resonance.'
+        elif kind == 'carton_move':
+            sound = carton_move(float(event.get('duration', .28)))
+            gain, description = .022, 'Short carton movement matching the visible load.'
+        elif kind == 'load_movement':
+            sound = load_movement(float(event.get('duration', .65)))
+            gain, description = .015, 'Restrained low movement texture beneath visible transport.'
+        else:
+            raise ValueError(f'Unknown sound event kind: {kind}')
+        gain, pan = float(event.get('gain', gain)), float(event.get('pan', 0))
+        add(fx, at, sound, gain, pan)
+        events.append({'start': at, 'end': round(min(at+len(sound)/SR, story['duration']), 6),
+                       'stem': 'effects', 'id': event['id'], 'kind': kind, 'picture_frame': frame,
+                       'gain': gain, 'pan': pan, 'description': description})
     pouring = scenes['pour']
     add(fx, pouring['start'], pour(pouring['end']-pouring['start']), .76, .045)
     events.append({'start': pouring['start'], 'end': pouring['end'], 'stem': 'effects', 'description': 'Established stream begins exactly with the pour cut and stops at the sensory macro cut; no lever stop or click.'})
     sensory, serve = scenes['sensory'], scenes['serve']
-    fizz_end = min(serve['end'], serve['start']+3.05)
+    fizz_end = story['duration']
     carbonation = fizz(fizz_end-sensory['start'])
     time = sensory['start']+np.arange(len(carbonation))/SR
-    perspective = np.interp(time, [sensory['start'], serve['start']-.3, serve['start'], fizz_end],
-                            [6, 6, 3.5, 3.5])
+    perspective = np.interp(time, [sensory['start'], max(sensory['start'], serve['start']-.3),
+                                 serve['start'], max(serve['start'], fizz_end-.65), fizz_end],
+                            [6, 6, 3.5, 3.5, 0])
     add(fx, sensory['start'], carbonation*perspective, 1, .07)
     events.append({'start': sensory['start'], 'end': sensory['end'], 'stem': 'effects', 'description': 'Close fine carbonation across the sensory macro, easing back into the finished-drink perspective at the serve cut.'})
     events.append({'start': serve['start'], 'end': fizz_end, 'stem': 'effects', 'description': 'Continuous residual carbonation on the completed drink; no invented glass set-down or lever click.'})
@@ -298,7 +383,7 @@ def main():
     story = json.loads((ROOT/'story.json').read_text())
     count, events = round(story['duration']*SR), []
     performance, captions = make_voice(out, story, count)
-    score, fx = make_score(story, count, events), make_effects(story, count, events)
+    score, fx = make_score(story, count, events, captions), make_effects(story, count, events)
     time, duck = np.arange(count)/SR, np.ones(count)
     for cap in captions:
         attack = np.clip((time-(cap['start']-.13))/.13, 0, 1)
@@ -322,18 +407,19 @@ def main():
     levels = {name: measure(out/f'{name}.wav') for name in ['voice-master', 'score', 'effects', 'mix-master']}
     levels = {name: {'integrated_lufs': float(value['input_i']), 'true_peak_dbtp': float(value['input_tp']),
                      'loudness_range_lu': float(value['input_lra'])} for name, value in levels.items()}
+    fps = float(story['fps'])
     report = {'output_directory': str(out), 'duration_seconds': story['duration'], 'sample_rate': SR, 'channels': 2, 'bits_per_sample': 16,
-              'frames': count, 'picture_frames': round(story['duration']*FPS), 'picture_fps': FPS,
-              'composition': 'Original short plucked-string motif, compact bass and rim pulse, opening into decaying struck harmony at active flow. No sustained pads.',
+              'frames': count, 'picture_frames': round(story['duration']*fps), 'picture_fps': fps,
+              'composition': 'Original repeating plucked-string motif, compact bass and rim pulse; a brief tonal breath gives way to open struck harmony at the faucet reveal, close water and a resolved closing cadence.',
               'source_voice': 'audio/narration.wav', 'voice_editing': performance['editing'],
               'master_target': {'integrated_lufs': -17, 'true_peak_ceiling_dbtp': -1.5},
               'levels': levels, 'narration_edits': [performance], 'captions': captions,
               'events': sorted(events, key=lambda e: (e['start'], e['stem'])),
               'review_scope': 'Source, waveform, level and event-clock review. No claim of firsthand listening or audiovisual approval.'}
     (out/'audio-report.json').write_text(json.dumps(report, indent=2)+'\n')
-    plan = {'duration': story['duration'], 'fps': FPS, 'audio_master': 'out/mix-master.wav',
+    plan = {'duration': story['duration'], 'fps': fps, 'audio_master': 'out/mix-master.wav',
             'captions_file': 'out/film.vtt', 'tempo_bpm': 60/.5625,
-            'tonal_arc': 'D-add-nine pluck identity; B-minor and G lead to an A-suspended burden. D-six/nine opens on the water cut; a closing struck D chord and A-to-D answer decay through the final readout.',
+            'tonal_arc': 'A small D-add-nine pluck identity becomes a recurring B-minor, G and A-suspended errand cell. The pulse ends before the reveal; open D-six/nine struck harmony answers, leaving space for the pour and fine fizz. A resolved D chord and A-to-D answer decay through the final readout.',
             'narration_edits': [performance], 'captions': captions, 'events': report['events']}
     (ROOT/'audio-plan.json').write_text(json.dumps(plan, indent=2)+'\n')
     print(json.dumps({'master': str(out/'mix-master.wav'), 'levels': levels,

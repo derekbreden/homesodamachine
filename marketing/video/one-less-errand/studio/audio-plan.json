@@ -1,144 +1,266 @@
 {
-  "duration": 18,
-  "fps": 24,
+  "duration": 29.791666666666668,
+  "fps": 24.0,
   "audio_master": "out/mix-master.wav",
   "captions_file": "out/film.vtt",
   "tempo_bpm": 106.66666666666667,
-  "tonal_arc": "D-add-nine pluck identity; B-minor and G lead to an A-suspended burden. D-six/nine opens on the water cut; a closing struck D chord and A-to-D answer decay through the final readout.",
+  "tonal_arc": "A small D-add-nine pluck identity becomes a recurring B-minor, G and A-suspended errand cell. The pulse ends before the reveal; open D-six/nine struck harmony answers, leaving space for the pour and fine fizz. A resolved D chord and A-to-D answer decay through the final readout.",
   "narration_edits": [
     {
       "id": "connected-performance",
       "source": "audio/narration.wav",
       "source_start": 0,
-      "source_end": 14.48,
+      "source_end": 26.72,
       "start": 0.55,
-      "end": 15.03,
+      "end": 27.27,
       "first_word_at": 0.55,
-      "last_word_at": 14.59,
-      "text": "That's Diet Mountain Dew, straight from your faucet. The soda you love, made with Pepsi's own concentrate, without the cases to carry home. Just open the faucet. Cold and fully carbonated, whenever you want it. Home Soda Machine. One less errand.",
+      "last_word_at": 26.91,
+      "text": "You wanted a glass of soda. Somehow, that turned into a trip to the store. A case in the cart. Into the car. Into the kitchen. Onto a shelf. And when the cans are gone? Another trip. And another. And another. What if the next glass was already waiting? Cold. Fully carbonated. Straight from your faucet. The soda you wanted. Whenever you want it. Home Soda Machine. One less errand.",
       "editing": "One complete performance; no cuts, time stretching, or rearrangement.",
-      "source_sha256": "8e62a2557b84414506e6b71e456b882558007681fbbeb2742d79c4b80a3b6d37"
+      "source_sha256": "8c7daa12daf92cc934bed92af823b1c5557c465dd04dbb14ab3cc497a0604cc7"
     }
   ],
   "captions": [
     {
       "start": 0.55,
-      "spoken_end": 3.07,
-      "text": "That's Diet Mountain Dew, straight from your faucet.",
-      "end": 3.31
+      "spoken_end": 1.83,
+      "text": "You wanted a glass of soda.",
+      "end": 2.07
     },
     {
-      "start": 3.61,
-      "spoken_end": 5.87,
-      "text": "The soda you love, made with Pepsi's own concentrate,",
-      "end": 6.11
+      "start": 2.63,
+      "spoken_end": 4.87,
+      "text": "Somehow, that turned into a trip to the store.",
+      "end": 5.11
     },
     {
-      "start": 6.35,
-      "spoken_end": 7.59,
-      "text": "without the cases to carry home.",
+      "start": 5.55,
+      "spoken_end": 6.53,
+      "text": "A case in the cart.",
+      "end": 6.77
+    },
+    {
+      "start": 6.99,
+      "spoken_end": 7.65,
+      "text": "Into the car.",
       "end": 7.83
     },
     {
-      "start": 8.27,
-      "spoken_end": 9.39,
-      "text": "Just open the faucet.",
-      "end": 9.63
+      "start": 7.91,
+      "spoken_end": 8.49,
+      "text": "Into the kitchen.",
+      "end": 8.71
     },
     {
-      "start": 9.97,
-      "spoken_end": 12.17,
-      "text": "Cold and fully carbonated, whenever you want it.",
-      "end": 12.41
+      "start": 8.79,
+      "spoken_end": 9.23,
+      "text": "Onto a shelf.",
+      "end": 9.65
     },
     {
-      "start": 12.89,
-      "spoken_end": 13.33,
+      "start": 9.73,
+      "spoken_end": 10.75,
+      "text": "And when the cans are gone?",
+      "end": 10.99
+    },
+    {
+      "start": 11.55,
+      "spoken_end": 12.03,
+      "text": "Another trip.",
+      "end": 12.55
+    },
+    {
+      "start": 12.63,
+      "spoken_end": 13.17,
+      "text": "And another.",
+      "end": 13.35
+    },
+    {
+      "start": 13.43,
+      "spoken_end": 14.01,
+      "text": "And another.",
+      "end": 14.58
+    },
+    {
+      "start": 14.89,
+      "spoken_end": 16.81,
+      "text": "What if the next glass was already waiting?",
+      "end": 17.05
+    },
+    {
+      "start": 17.77,
+      "spoken_end": 19.25,
+      "text": "Cold. Fully carbonated.",
+      "end": 19.49
+    },
+    {
+      "start": 19.69,
+      "spoken_end": 20.67,
+      "text": "Straight from your faucet.",
+      "end": 20.91
+    },
+    {
+      "start": 21.43,
+      "spoken_end": 22.23,
+      "text": "The soda you wanted.",
+      "end": 22.58
+    },
+    {
+      "start": 22.93,
+      "spoken_end": 23.75,
+      "text": "Whenever you want it.",
+      "end": 24.08
+    },
+    {
+      "start": 24.67,
+      "spoken_end": 25.29,
       "text": "Home Soda Machine.",
-      "end": 13.97
+      "end": 25.82
     },
     {
-      "start": 14.05,
-      "spoken_end": 14.59,
+      "start": 26.27,
+      "spoken_end": 26.91,
       "text": "One less errand.",
-      "end": 15.2
+      "end": 27.42
     }
   ],
   "events": [
     {
       "start": 0,
-      "end": 2.125,
+      "end": 2.5,
       "stem": "effects",
       "description": "Immediate fine carbonation for the close beverage photograph; no ice or can-opening effect."
     },
     {
       "start": 0,
-      "end": 8.333333333333334,
+      "end": 2.5,
       "stem": "score",
-      "description": "Original double-course pluck motif, short bass and restrained rim pulse; graphic contacts carry the final accents."
+      "description": "A small double-course plucked figure introduces the wish for a drink."
     },
     {
-      "start": 6.583333333333333,
-      "end": 6.833333,
+      "start": 2.5,
+      "end": 17.5,
+      "stem": "score",
+      "description": "The same eight-note pluck cell repeats with gently accumulating bass and rim pulse; a 220 ms fade leads to a 200 ms tonal breath before the reveal."
+    },
+    {
+      "start": 6.291666666666667,
+      "end": 6.541667,
       "stem": "effects",
-      "id": "case_contact_1",
-      "picture_frame": 158,
-      "normalized_contact": 0.16,
-      "description": "Dry graphic case contact 1; increasing mass, no handling or transition swoosh."
+      "id": "case_cart",
+      "kind": "case_contact",
+      "picture_frame": 151,
+      "gain": 0.042,
+      "pan": -0.06,
+      "description": "Dry weighted carton contact with enclosed can resonance."
     },
     {
-      "start": 7.166666666666667,
-      "end": 7.441667,
+      "start": 7.458333333333333,
+      "end": 7.733333,
       "stem": "effects",
-      "id": "case_contact_2",
-      "picture_frame": 172,
-      "normalized_contact": 0.43,
-      "description": "Dry graphic case contact 2; increasing mass, no handling or transition swoosh."
+      "id": "case_car",
+      "kind": "case_contact",
+      "picture_frame": 179,
+      "gain": 0.039,
+      "pan": 0.02,
+      "description": "Dry weighted carton contact with enclosed can resonance."
     },
     {
-      "start": 7.708333333333333,
-      "end": 8.008333,
+      "start": 8.291666666666666,
+      "end": 8.591667,
       "stem": "effects",
-      "id": "case_contact_3",
-      "picture_frame": 185,
-      "normalized_contact": 0.7,
-      "description": "Dry graphic case contact 3; increasing mass, no handling or transition swoosh."
+      "id": "case_kitchen",
+      "kind": "case_contact",
+      "picture_frame": 199,
+      "gain": 0.041,
+      "pan": 0.04,
+      "description": "Dry weighted carton contact with enclosed can resonance."
     },
     {
-      "start": 8.333333333333334,
-      "end": 9.958333333333334,
+      "start": 9.166666666666666,
+      "end": 9.416667,
+      "stem": "effects",
+      "id": "case_shelf",
+      "kind": "case_contact",
+      "picture_frame": 220,
+      "gain": 0.035,
+      "pan": 0.0,
+      "description": "Dry weighted carton contact with enclosed can resonance."
+    },
+    {
+      "start": 11.75,
+      "end": 12.025,
+      "stem": "effects",
+      "id": "another_trip",
+      "kind": "case_contact",
+      "picture_frame": 282,
+      "gain": 0.043,
+      "pan": -0.04,
+      "description": "Dry weighted carton contact with enclosed can resonance."
+    },
+    {
+      "start": 12.958333333333334,
+      "end": 13.258333,
+      "stem": "effects",
+      "id": "and_another_1",
+      "kind": "case_contact",
+      "picture_frame": 311,
+      "gain": 0.049,
+      "pan": 0.0,
+      "description": "Dry weighted carton contact with enclosed can resonance."
+    },
+    {
+      "start": 13.833333333333334,
+      "end": 14.083333,
+      "stem": "effects",
+      "id": "and_another_2",
+      "kind": "case_contact",
+      "picture_frame": 332,
+      "gain": 0.056,
+      "pan": 0.04,
+      "description": "Dry weighted carton contact with enclosed can resonance."
+    },
+    {
+      "start": 17.5,
+      "end": 19.583333333333332,
+      "stem": "score",
+      "description": "The expected repetition gives way to open D-six/nine struck harmony at the faucet reveal."
+    },
+    {
+      "start": 19.583333333333332,
+      "end": 21.208333333333332,
       "stem": "effects",
       "description": "Established stream begins exactly with the pour cut and stops at the sensory macro cut; no lever stop or click."
     },
     {
-      "start": 8.333333333333334,
-      "end": 9.958333333333334,
+      "start": 19.583333333333332,
+      "end": 21.208333333333332,
       "stem": "score",
-      "description": "Pulse clears at established flow; open D-six/nine struck harmony gives water the foreground."
+      "description": "Thin, rounded harmony leaves the close water in the foreground."
     },
     {
-      "start": 9.958333333333334,
-      "end": 12.708333333333334,
+      "start": 21.208333333333332,
+      "end": 24.5,
       "stem": "effects",
       "description": "Close fine carbonation across the sensory macro, easing back into the finished-drink perspective at the serve cut."
     },
     {
-      "start": 9.958333333333334,
-      "end": 12.708333333333334,
+      "start": 21.208333333333332,
+      "end": 24.5,
       "stem": "score",
-      "description": "Open struck harmony supports the intimate beverage macro, with a rounded answer at 10.583333 seconds."
+      "description": "Spacious struck harmony supports the intimate beverage macro."
     },
     {
-      "start": 12.708333333333334,
-      "end": 15.758333333333333,
+      "start": 24.5,
+      "end": 29.791666666666668,
       "stem": "effects",
       "description": "Continuous residual carbonation on the completed drink; no invented glass set-down or lever click."
     },
     {
-      "start": 12.708333333333334,
-      "end": 18,
+      "start": 24.5,
+      "end": 29.791666666666668,
       "stem": "score",
-      "description": "Struck-chord answer and descending A-to-D closing notes, with a completed studio decay."
+      "description": "The completed drink receives a resolved D chord and descending A-to-D answer, followed by a natural closing decay."
     }
   ]
 }

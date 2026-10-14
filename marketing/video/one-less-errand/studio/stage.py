@@ -447,7 +447,8 @@ lighting = StudioLighting(scene, material, linear, GLASS_AT, beverage_objects)
 
 def draw(shot, t, duration):
     """Set the complete picture state from one absolute local time."""
-    p = ease(t/max(duration, .001))
+    motion_duration = motion_durations.get(shot,duration)
+    p = ease(t/max(motion_duration, .001))
     pouring = shot == "pour"
     for obj in faucet.values():
         obj.hide_render = shot == "drink"
@@ -469,7 +470,7 @@ def draw(shot, t, duration):
     else:
         pose(blend((.470, -.820, .270), (.461, -.805, .267), p),
              (-.018, -.045, .092), 53, (.145, -.085, .119), 9)
-    lighting.draw(camera, shot, t, duration)
+    lighting.draw(camera, shot, t, motion_duration)
     bpy.context.view_layer.update()
 
 
@@ -477,6 +478,7 @@ defaults = {"drink": 2.125, "hero": 4.125, "pour": 4.375, "serve": 127/24}
 story_path = HERE/"story.json"
 story = json.loads(story_path.read_text()) if story_path.exists() else {"scenes": []}
 timings = {item["id"]: item["end"]-item["start"] for item in story["scenes"] if item["id"] in defaults}
+motion_durations = {item["id"]: item.get("motion_duration",item["end"]-item["start"]) for item in story["scenes"] if item["id"] in defaults}
 requested = args.shots or ["hero", "pour", "serve"]
 unknown = set(requested)-set(defaults)
 if unknown:
