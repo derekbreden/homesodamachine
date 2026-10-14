@@ -1,0 +1,829 @@
+{
+  "archive": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86",
+  "gcode_sha256": "e004df5f516977de31ed20795f42c043cbfa608a2dec2b2fab2e06d7e0683b72",
+  "specimens": [
+    {
+      "id": "C2",
+      "kind": "solid_anchor_bridge",
+      "first_roof_nozzle_z_mm": 18.439999999999998,
+      "first_roof_extrusion": {
+        "gcode_line": 114226,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          2.8870000000000005,
+          11.406999999999996
+        ],
+        "to_local_xy_mm": [
+          2.816999999999993,
+          11.406999999999996
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 18.44
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 114470,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.206000000000003,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          5.627999999999986,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 18.44
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 28,
+      "far_end_bead_envelopes_touching_prior_beads": 28,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.0,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 1.5540000000000251,
+      "inner_landing_wall_centerline_length_mm": 10.813999999999993,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 0.0,
+      "landing_centerline_longest_prior_bead_gap_mm": 0.0,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "C4",
+      "kind": "solid_anchor_bridge",
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "first_roof_extrusion": {
+        "gcode_line": 125755,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          7.2050000000000125,
+          0.5930000000000035
+        ],
+        "to_local_xy_mm": [
+          9.40700000000001,
+          0.5930000000000035
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 20.84
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 125951,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.205999999999989,
+          0.9230000000000018
+        ],
+        "to_local_xy_mm": [
+          7.627999999999986,
+          0.9230000000000018
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 20.84
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 28,
+      "far_end_bead_envelopes_touching_prior_beads": 28,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.0,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 1.5540000000000251,
+      "inner_landing_wall_centerline_length_mm": 10.813999999999993,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 0.0,
+      "landing_centerline_longest_prior_bead_gap_mm": 0.0,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "C6",
+      "kind": "solid_anchor_bridge",
+      "first_roof_nozzle_z_mm": 23.24,
+      "first_roof_extrusion": {
+        "gcode_line": 135598,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          2.794000000000011,
+          11.406999999999996
+        ],
+        "to_local_xy_mm": [
+          0.5929999999999893,
+          11.406999999999996
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 23.24
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 135785,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.205999999999989,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          9.627999999999986,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 23.24
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 28,
+      "far_end_bead_envelopes_touching_prior_beads": 28,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.0,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 1.5540000000000251,
+      "inner_landing_wall_centerline_length_mm": 10.813999999999993,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 0.0,
+      "landing_centerline_longest_prior_bead_gap_mm": 0.0,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "C8",
+      "kind": "solid_anchor_bridge",
+      "first_roof_nozzle_z_mm": 25.639999999999997,
+      "first_roof_extrusion": {
+        "gcode_line": 141178,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          2.7930000000000064,
+          11.406999999999996
+        ],
+        "to_local_xy_mm": [
+          0.5929999999999893,
+          11.406999999999996
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 25.64
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 141365,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.205999999999989,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          11.627999999999986,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 25.64
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 28,
+      "far_end_bead_envelopes_touching_prior_beads": 28,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.0,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 1.5540000000000251,
+      "inner_landing_wall_centerline_length_mm": 10.813999999999993,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 0.0,
+      "landing_centerline_longest_prior_bead_gap_mm": 0.0,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "C4Y",
+      "kind": "solid_anchor_bridge",
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "first_roof_extrusion": {
+        "gcode_line": 125239,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          2.7950000000000017,
+          11.40700000000001
+        ],
+        "to_local_xy_mm": [
+          0.5930000000000035,
+          11.40700000000001
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 20.84
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 125435,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          7.793999999999997,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          2.372,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 20.84
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 28,
+      "far_end_bead_envelopes_touching_prior_beads": 28,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.0,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 1.5539999999999967,
+      "inner_landing_wall_centerline_length_mm": 10.814000000000021,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 0.0,
+      "landing_centerline_longest_prior_bead_gap_mm": 0.0,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "F2",
+      "kind": "fin_landing_bridge",
+      "first_roof_nozzle_z_mm": 18.439999999999998,
+      "first_roof_extrusion": {
+        "gcode_line": 113024,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          5.607000686645506,
+          0.8410000000000082
+        ],
+        "to_local_xy_mm": [
+          5.607000686645506,
+          1.0
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 18.44
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 113341,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.2060006866455097,
+          0.9230000000000018
+        ],
+        "to_local_xy_mm": [
+          4.816000686645509,
+          0.9230000000000018
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 18.44
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 6,
+      "far_end_bead_envelopes_touching_prior_beads": 14,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.675000000000006,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 0.10500000000001286,
+      "inner_landing_wall_centerline_length_mm": 10.754000000000019,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 7.69400000000007,
+      "landing_centerline_longest_prior_bead_gap_mm": 1.4700000000000166,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.29091478646996666,
+        0.4360000000000012,
+        0.059999999999996494,
+        0.0,
+        0.16200000000000037,
+        0.5390000000000099,
+        0.5550000000000009,
+        0.17899999999999625,
+        0.0,
+        0.04300000000000104,
+        0.4190000000000058,
+        0.675000000000006,
+        0.29900000000000126,
+        0.0,
+        0.0,
+        0.29900000000000126,
+        0.675000000000006,
+        0.4190000000000058,
+        0.04300000000000104,
+        0.0,
+        0.17899999999999672,
+        0.5550000000000015,
+        0.5380000000000057,
+        0.16200000000000078,
+        0.0,
+        0.05999999999999694,
+        0.4360000000000018,
+        0.2909147864699671
+      ],
+      "middle_raster_landing": {
+        "raster": {
+          "gcode_line": 113371,
+          "feature": "Bridge",
+          "from_local_xy_mm": [
+            2.3720006866455066,
+            6.187999999999988
+          ],
+          "to_local_xy_mm": [
+            5.281000686645513,
+            6.187999999999988
+          ],
+          "nominal_width_mm": 0.427564,
+          "nozzle_z_mm": 18.44
+        },
+        "inner_wall_center_x_mm": 5.607,
+        "outer_wall_center_x_mm": 5.99,
+        "nominal_inner_wall_overlap_mm": 0.11278268664551239,
+        "nominal_gap_to_outer_overhang_wall_mm": 0.2702173133544876
+      }
+    },
+    {
+      "id": "F4",
+      "kind": "fin_landing_bridge",
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "first_roof_extrusion": {
+        "gcode_line": 124167,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          7.607000343322767,
+          0.7789999999999964
+        ],
+        "to_local_xy_mm": [
+          7.607000343322767,
+          1.0
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 20.84
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 124483,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.2060003433227564,
+          0.9230000000000018
+        ],
+        "to_local_xy_mm": [
+          6.816000343322742,
+          0.9230000000000018
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 20.84
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 6,
+      "far_end_bead_envelopes_touching_prior_beads": 14,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.675000000000006,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 0.10500000000001286,
+      "inner_landing_wall_centerline_length_mm": 10.754000000000019,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 7.720000000000075,
+      "landing_centerline_longest_prior_bead_gap_mm": 1.4700000000000166,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.29091478646996666,
+        0.4360000000000013,
+        0.059999999999996494,
+        0.0,
+        0.16200000000000037,
+        0.5390000000000099,
+        0.5550000000000009,
+        0.17899999999999627,
+        0.0,
+        0.04300000000000104,
+        0.41900000000000576,
+        0.675000000000006,
+        0.29900000000000126,
+        0.0,
+        0.0,
+        0.29900000000000126,
+        0.675000000000006,
+        0.41900000000000576,
+        0.04300000000000104,
+        0.0,
+        0.1789999999999967,
+        0.5550000000000015,
+        0.5380000000000056,
+        0.1620000000000008,
+        0.0,
+        0.05999999999999694,
+        0.4360000000000017,
+        0.2909147864699671
+      ],
+      "middle_raster_landing": {
+        "raster": {
+          "gcode_line": 124513,
+          "feature": "Bridge",
+          "from_local_xy_mm": [
+            2.3720003433227532,
+            6.187999999999988
+          ],
+          "to_local_xy_mm": [
+            7.281000343322745,
+            6.187999999999988
+          ],
+          "nominal_width_mm": 0.427564,
+          "nozzle_z_mm": 20.84
+        },
+        "inner_wall_center_x_mm": 7.606999999999999,
+        "outer_wall_center_x_mm": 7.989999999999999,
+        "nominal_inner_wall_overlap_mm": 0.11278234332274573,
+        "nominal_gap_to_outer_overhang_wall_mm": 0.2702176566772543
+      }
+    },
+    {
+      "id": "F6",
+      "kind": "fin_landing_bridge",
+      "first_roof_nozzle_z_mm": 23.24,
+      "first_roof_extrusion": {
+        "gcode_line": 134922,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          9.607,
+          11.193000000000012
+        ],
+        "to_local_xy_mm": [
+          9.607,
+          11.382000000000005
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 23.24
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 135238,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.205999999999989,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          8.816000000000003,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 23.24
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 6,
+      "far_end_bead_envelopes_touching_prior_beads": 14,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.675000000000006,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 0.10500000000001287,
+      "inner_landing_wall_centerline_length_mm": 10.754000000000019,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 7.668000000000088,
+      "landing_centerline_longest_prior_bead_gap_mm": 1.4700000000000166,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.2909147864699664,
+        0.4360000000000017,
+        0.05999999999999694,
+        0.0,
+        0.1620000000000008,
+        0.5380000000000056,
+        0.5550000000000015,
+        0.1789999999999967,
+        0.0,
+        0.04300000000000104,
+        0.41900000000000576,
+        0.675000000000006,
+        0.29900000000000126,
+        0.0,
+        0.0,
+        0.29900000000000126,
+        0.675000000000006,
+        0.41900000000000576,
+        0.04300000000000104,
+        0.0,
+        0.17899999999999627,
+        0.5550000000000009,
+        0.5390000000000099,
+        0.16200000000000037,
+        0.0,
+        0.059999999999996494,
+        0.4360000000000013,
+        0.29091478646996594
+      ],
+      "middle_raster_landing": {
+        "raster": {
+          "gcode_line": 135268,
+          "feature": "Bridge",
+          "from_local_xy_mm": [
+            2.372000000000014,
+            5.812000000000012
+          ],
+          "to_local_xy_mm": [
+            9.281000000000006,
+            5.812000000000012
+          ],
+          "nominal_width_mm": 0.427564,
+          "nozzle_z_mm": 23.24
+        },
+        "inner_wall_center_x_mm": 9.607,
+        "outer_wall_center_x_mm": 9.989999999999998,
+        "nominal_inner_wall_overlap_mm": 0.1127820000000066,
+        "nominal_gap_to_outer_overhang_wall_mm": 0.2702179999999925
+      }
+    },
+    {
+      "id": "F8",
+      "kind": "fin_landing_bridge",
+      "first_roof_nozzle_z_mm": 25.639999999999997,
+      "first_roof_extrusion": {
+        "gcode_line": 140729,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          11.60699965667726,
+          11.187999999999988
+        ],
+        "to_local_xy_mm": [
+          11.60699965667726,
+          11.382000000000005
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 25.64
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 141027,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          2.2059996566772497,
+          11.076999999999998
+        ],
+        "to_local_xy_mm": [
+          10.815999656677235,
+          11.076999999999998
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 25.64
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 6,
+      "far_end_bead_envelopes_touching_prior_beads": 14,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.675000000000006,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 0.10500000000001287,
+      "inner_landing_wall_centerline_length_mm": 10.754000000000019,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 7.663000000000064,
+      "landing_centerline_longest_prior_bead_gap_mm": 1.4700000000000166,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.2909147864699664,
+        0.4360000000000017,
+        0.05999999999999694,
+        0.0,
+        0.1620000000000008,
+        0.5380000000000056,
+        0.5550000000000015,
+        0.1789999999999967,
+        0.0,
+        0.04300000000000104,
+        0.41900000000000576,
+        0.675000000000006,
+        0.29900000000000126,
+        0.0,
+        0.0,
+        0.29900000000000126,
+        0.675000000000006,
+        0.41900000000000576,
+        0.04300000000000104,
+        0.0,
+        0.17899999999999627,
+        0.5550000000000009,
+        0.5390000000000099,
+        0.16200000000000037,
+        0.0,
+        0.059999999999996494,
+        0.4360000000000013,
+        0.29091478646996594
+      ],
+      "middle_raster_landing": {
+        "raster": {
+          "gcode_line": 141057,
+          "feature": "Bridge",
+          "from_local_xy_mm": [
+            2.3719996566772465,
+            5.812000000000012
+          ],
+          "to_local_xy_mm": [
+            11.280999656677238,
+            5.812000000000012
+          ],
+          "nominal_width_mm": 0.427564,
+          "nozzle_z_mm": 25.64
+        },
+        "inner_wall_center_x_mm": 11.607,
+        "outer_wall_center_x_mm": 11.989999999999998,
+        "nominal_inner_wall_overlap_mm": 0.11278165667723905,
+        "nominal_gap_to_outer_overhang_wall_mm": 0.27021834332276007
+      }
+    },
+    {
+      "id": "F4Y",
+      "kind": "fin_landing_bridge",
+      "first_roof_nozzle_z_mm": 20.839999999999996,
+      "first_roof_extrusion": {
+        "gcode_line": 124844,
+        "feature": "Inner wall",
+        "from_local_xy_mm": [
+          7.607000171661383,
+          0.8610006866454967
+        ],
+        "to_local_xy_mm": [
+          7.607000171661383,
+          1.0000006866455067
+        ],
+        "nominal_width_mm": 0.45,
+        "nozzle_z_mm": 20.84
+      },
+      "first_bridge_extrusion": {
+        "gcode_line": 125146,
+        "feature": "Bridge",
+        "from_local_xy_mm": [
+          7.446000171661382,
+          0.9230006866455085
+        ],
+        "to_local_xy_mm": [
+          2.3720001716613694,
+          0.9230006866455085
+        ],
+        "nominal_width_mm": 0.427564,
+        "nozzle_z_mm": 20.84
+      },
+      "main_bridge_strokes": 28,
+      "far_end_centers_on_prior_beads": 6,
+      "far_end_bead_envelopes_touching_prior_beads": 16,
+      "far_end_center_distance_to_prior_beads_max_mm": 0.675000000000006,
+      "perimeter_precedes_bridge_raster": true,
+      "far_end_center_distance_to_earlier_same_layer_walls_max_mm": 0.10099999999999378,
+      "inner_landing_wall_centerline_length_mm": 10.754000000000019,
+      "inner_landing_wall_centerline_without_prior_bead_mm": 7.674000000000088,
+      "landing_centerline_longest_prior_bead_gap_mm": 1.4700000000000166,
+      "raster_far_end_distance_to_prior_beads_mm": [
+        0.10799999999999842,
+        0.4360000000000013,
+        0.059999999999996494,
+        0.0,
+        0.16200000000000037,
+        0.5380000000000051,
+        0.5550000000000009,
+        0.17899999999999627,
+        0.0,
+        0.04300000000000104,
+        0.41900000000000576,
+        0.675000000000006,
+        0.29900000000000126,
+        0.0,
+        0.0,
+        0.29900000000000126,
+        0.675000000000006,
+        0.41900000000000576,
+        0.04300000000000104,
+        0.0,
+        0.1789999999999967,
+        0.5550000000000015,
+        0.5390000000000102,
+        0.1620000000000008,
+        0.0,
+        0.05999999999999694,
+        0.4360000000000017,
+        0.10799999999999876
+      ],
+      "middle_raster_landing": {
+        "raster": {
+          "gcode_line": 125174,
+          "feature": "Bridge",
+          "from_local_xy_mm": [
+            7.28100017166139,
+            6.188000686645495
+          ],
+          "to_local_xy_mm": [
+            2.3720001716613694,
+            6.188000686645495
+          ],
+          "nominal_width_mm": 0.427564,
+          "nozzle_z_mm": 20.84
+        },
+        "inner_wall_center_x_mm": 7.606999999999999,
+        "outer_wall_center_x_mm": 7.989999999999999,
+        "nominal_inner_wall_overlap_mm": 0.11278217166139037,
+        "nominal_gap_to_outer_overhang_wall_mm": 0.27021782833860963
+      }
+    }
+  ],
+  "coordinate_frame": "Unrotated specimen XY; X crosses the clear span; Y follows the fin.",
+  "scope": "Command order and nominal bead geometry only. Centerline coverage is not whole-bead support. The report does not measure sag, bonding or actual bead width. Physical F-row collapse is user reported."
+}

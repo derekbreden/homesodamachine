@@ -1,0 +1,126 @@
+{
+  "status": "completed print; F-row formation failed; C-row retained underside rejected",
+  "printer": "Mark2",
+  "printer_task_id": "1339729875",
+  "report_date": "2026-10-14",
+  "launch_record": "launch-fan0.json",
+  "native_archive_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86",
+  "machine_completion": {
+    "observed_at": "2026-10-14T20:37:02.833342+00:00",
+    "printer": "Mark2",
+    "gcode_state": "FINISH",
+    "subtask_id": "1339729875",
+    "subtask_name": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2",
+    "mc_percent": 100,
+    "layer_num": 115,
+    "total_layer_num": 115,
+    "print_error": 0,
+    "hms": []
+  },
+  "fin_bridge_observations": {
+    "ids": [
+      "F2",
+      "F4",
+      "F6",
+      "F8",
+      "F4Y"
+    ],
+    "source": "user observation during extrusion",
+    "roof_formed": false,
+    "sequence": "Lower tines print, then a line perpendicular to the bridge raster above the tines. Bridge strands fall away and the roof collapses.",
+    "user_interpretation": "The horizontal bridge lines do not overlap the vertical line or supported material."
+  },
+  "solid_anchor_bridge_observations": {
+    "ids": [
+      "C2",
+      "C4",
+      "C6",
+      "C8",
+      "C4Y"
+    ],
+    "source": "user inspection",
+    "roof_formed": true,
+    "stable": true,
+    "failed_like_fin_row": false,
+    "retained_underside": "Strictly worse than a supported underside; supported undersides are already unsatisfactory.",
+    "surface_accepted": false,
+    "scope": "Formation demonstrated at 2, 4, 6 and 8 mm, plus 4 mm rotated; no clean underside or universal span limit."
+  },
+  "slope_observations": {
+    "printed_full_horizontal_reach_mm": 14,
+    "ramp_ids": [
+      "S30",
+      "S35",
+      "S40",
+      "R30",
+      "R35",
+      "R40"
+    ],
+    "user_reported_edge_sag_count": 4,
+    "total": 6,
+    "inferred_sag_ids": [
+      "S30",
+      "S35",
+      "R30",
+      "R35"
+    ],
+    "inferred_clear_edge_ids": [
+      "S40",
+      "R40"
+    ],
+    "id_assignment_basis": "Inference from the reported four of six, earlier angle-specific inspection, and photos; the latest report does not explicitly name each ID.",
+    "scope": "Full-height run completed. Edge quality only; no sliding, bonding or strength acceptance."
+  },
+  "native_path_evidence": "landing-path-review.json",
+  "path_image": "landing-paths.png",
+  "interpretation": [
+    "F roofs print inner and outer perimeters before the axial bridge raster. Most far-end raster centers are between the preceding teeth.",
+    "F2 has 6 of 28 far-end centers on prior beads; 14 of 28 nominal endpoint bead envelopes touch prior beads. The others rely on the new perimeter.",
+    "The middle raster has about 0.11 mm nominal overlap with the inner roof wall. Literal non-overlap everywhere is not established by G-code.",
+    "C stability with failed F formation supports a fin-landing/perimeter mechanism rather than a 2 mm free-span limit.",
+    "C underside quality does not meet the stated surface objective. Repairing F formation alone would not establish useful fin-supported finish."
+  ],
+  "fin_release_result": "unreported",
+  "photos": [
+    {
+      "path": "photos/01-result.jpg",
+      "source_name": "Photo 1.jpg",
+      "source_sha256": "48b9a0b84264f7e65947e9060135019505888f541ca49880bc32569fcb178fb0",
+      "sha256": "f0d70d66054943e78e5562c1d225d2fe9d1767a42ac554ecbb42ab3bee630b9f",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/02-result.jpg",
+      "source_name": "Photo 2.jpg",
+      "source_sha256": "c5412508a0c2f440b4cf97ee82bbe2645747ece92f201461443aceff1962e31c",
+      "sha256": "b928d6d3ba2960650d5050e46f1f85cc366b18f3ca6146a71906129f24563c03",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/03-result.jpg",
+      "source_name": "Photo 3.jpg",
+      "source_sha256": "bf6ab3d7393210f28c247faf93f8d333e70fa86f1b4203902f6e7d594eded06f",
+      "sha256": "883dcfe79622816641d0c416b87ea1c7c8db4f0cc89509e54a796f06e7d0f58d",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/04-result.jpg",
+      "source_name": "Photo 4.jpg",
+      "source_sha256": "7e3725e08f3e268b824ded7dff3921a2eb31c79315a97c128a5330b9ab8eda1a",
+      "sha256": "5c75c55b153f953c90f4c4cb86a214607d4182797cb47b2ec3c3753d2c4407bf",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/05-result.jpg",
+      "source_name": "Photo 5.jpg",
+      "source_sha256": "0151426979a061f140dab2ff3ac7a789d77b0c752ff3de860be395efc9f5753f",
+      "sha256": "f8d48ac912a2f74bce44fc53e28c3640829dfe862357b1e12d6195f77386fbc3",
+      "treatment": "JPEG scan data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    }
+  ],
+  "followup": {
+    "matched_30_percent_plate": "Prepared and unsubmitted; same meshes, placements and native fan treatment for the cooling comparison. Ramps finish before roofs.",
+    "dense_landing_candidate": "../dense-landing-v3/README.md",
+    "candidate_status": "Native-path experiment only; unprinted. Additional contact area changes release behavior."
+  }
+}

@@ -1,18 +1,18 @@
 id,fan_percent,completed,roof_formed,fin_held,loose_strands,edge_sag,tip_corner_complete,maximum_downward_projection_mm,fin_removal_tool,retained_part_torn,snagging_texture,notes
-C2,0,,,,,,,,,,,
-C4,0,,,,,,,,,,,
-C6,0,,,,,,,,,,,
-C8,0,,,,,,,,,,,
-C4Y,0,,,,,,,,,,,
-F2,0,,,,,,,,,,,
-F4,0,,,,,,,,,,,
-F6,0,,,,,,,,,,,
-F8,0,,,,,,,,,,,
-F4Y,0,,,,,,,,,,,
-S30,0,,,,,,,,,,,
-S35,0,,,,,,,,,,,
-S40,0,,,,,,,,,,,
-R30,0,,,,,,,,,,,
-R35,0,,,,,,,,,,,
-R40,0,,,,,,,,,,,
+C2,0,true,true,,,,,,,,,Stable; no F-style collapse. Retained bridge underside worse than supported underside; surface rejected.
+C4,0,true,true,,,,,,,,,Stable; no F-style collapse. Retained bridge underside worse than supported underside; surface rejected.
+C6,0,true,true,,,,,,,,,Stable; no F-style collapse. Retained bridge underside worse than supported underside; surface rejected.
+C8,0,true,true,,,,,,,,,Stable; no F-style collapse. Retained bridge underside worse than supported underside; surface rejected.
+C4Y,0,true,true,,,,,,,,,Stable; no F-style collapse. Retained bridge underside worse than supported underside; surface rejected.
+F2,0,,false,,,,,,,,,User reports every F-row roof collapsing at formation; transverse perimeter precedes bridge fill. Fin release unreported.
+F4,0,,false,,,,,,,,,User reports every F-row roof collapsing at formation; transverse perimeter precedes bridge fill. Fin release unreported.
+F6,0,,false,,,,,,,,,User reports every F-row roof collapsing at formation; transverse perimeter precedes bridge fill. Fin release unreported.
+F8,0,,false,,,,,,,,,User reports every F-row roof collapsing at formation; transverse perimeter precedes bridge fill. Fin release unreported.
+F4Y,0,,false,,,,,,,,,User reports every F-row roof collapsing at formation; transverse perimeter precedes bridge fill. Fin release unreported.
+S30,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
+S35,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
+S40,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
+R30,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
+R35,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
+R40,0,true,,,,,,,,,,Full 14 mm reach printed. Four of six have edge sag; assignment to 30/35 in both directions is inferred; see physical-result-fan0.json.
 FAN0,0,,,,,,,,,,,

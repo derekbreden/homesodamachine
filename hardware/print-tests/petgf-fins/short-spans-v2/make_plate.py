@@ -39,7 +39,7 @@ def roof_bottom(span):
     return FIRST + (75 + 10 * SPANS.index(span)) * LAYER
 
 
-def anchor(span, fin=False, name=None):
+def anchor(span, fin=False, name=None, lower_teeth=None):
     z = roof_bottom(span)
     left = block(POST_WIDTH, DEPTH, z)
     left = left.union(block(POST_WIDTH, DEPTH + 7, FOOT_HEIGHT, (0, -6, 0)))
@@ -55,10 +55,11 @@ def anchor(span, fin=False, name=None):
         right = block(1, DEPTH, z + ROOF_THICKNESS + LAYER, (right_x, 0, 0))
         right = right.edges("|Y and >Z").fillet(.45)
         right = right.union(block(3.2, DEPTH + 2, FOOT_HEIGHT, (right_x, -1, 0)))
-        # These low teeth carry both perimeter beads and reach the front/back
-        # corners. Upper tines attach sideways across the body clearance.
-        for y, tine_width in ((.4, .8), (2, .5), (4, .5), (6, .5),
-                              (8, .5), (10, .5), (11.6, .8)):
+        # Lower teeth carry the roof locally; the roof perimeter crosses the
+        # spaces between them. Upper tines attach across the side clearance.
+        teeth = lower_teeth if lower_teeth is not None else (
+            (.4, .8), (2, .5), (4, .5), (6, .5), (8, .5), (10, .5), (11.6, .8))
+        for y, tine_width in teeth:
             right = right.union(block(UNDERLAP + GAP + .02, tine_width, LAYER,
                                      (POST_WIDTH + span, y-tine_width/2, z-LAYER)))
         for height in (z + 2 * LAYER, z + 5 * LAYER):
@@ -67,8 +68,9 @@ def anchor(span, fin=False, name=None):
                                          (width - .01, y - .25, height)))
         detail = {"kind": "fin_landing_bridge", "fin_count": 1,
                   "horizontal_body_gap_mm": GAP, "lower_tooth_underlap_mm": UNDERLAP,
-                  "lower_teeth": 7, "upper_tines": 6, "tine_width_mm": .5,
+                  "lower_teeth": len(teeth), "upper_tines": 6, "tine_width_mm": .5,
                   "lower_corner_tine_width_mm": .8,
+                  "lower_teeth_center_and_width_mm": teeth,
                   "tine_height_mm": LAYER, "tooth_nozzle_z_mm": z}
     roof = block(width, DEPTH, ROOF_THICKNESS, (0, 0, z))
     part = left.union(right).union(roof)
@@ -83,8 +85,8 @@ def anchor(span, fin=False, name=None):
     return part.clean(), detail
 
 
-def turned_bridge(fin):
-    part, detail = anchor(4, fin, ("F" if fin else "C") + "4Y")
+def turned_bridge(fin, lower_teeth=None, fin_prefix="F"):
+    part, detail = anchor(4, fin, (fin_prefix if fin else "C") + "4Y", lower_teeth)
     part = part.rotate((0, 0, 0), (0, 0, 1), 90)
     lo, hi = detail["roof_bounds_local_mm"]
     detail["roof_bounds_local_mm"] = [[-hi[1], lo[0], lo[2]], [-lo[1], hi[0], hi[2]]]
@@ -124,11 +126,12 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def make(fan):
+def make(fan, lower_teeth=None, fin_prefix="F"):
     (HERE / "parts").mkdir(parents=True, exist_ok=True)
     groups = [
         (118, [(f"C{s}", *anchor(s)) for s in SPANS] + [("C4Y", *turned_bridge(False))]),
-        (144, [(f"F{s}", *anchor(s, True)) for s in SPANS] + [("F4Y", *turned_bridge(True))]),
+        (144, [(f"{fin_prefix}{s}", *anchor(s, True, f"{fin_prefix}{s}", lower_teeth)) for s in SPANS]
+         + [(f"{fin_prefix}4Y", *turned_bridge(True, lower_teeth, fin_prefix))]),
         (174, [(f"S{a}", *ramp(a)) for a in (30, 35, 40)]
               + [(f"R{a}", *ramp(a, True)) for a in (30, 35, 40)]),
         (197, [(f"FAN{fan}", *tag(fan))]),
@@ -258,14 +261,14 @@ def make(fan):
               "parts": records, "physical_result": "pending", "submitted": False}
     (HERE / f"{stem(fan)}.print.json").write_text(json.dumps(report, indent=2) + "\n")
     if fan == 0:
-        render_layout(records)
+        render_layout(records, fin_prefix)
     print(json.dumps({"project": str(project), "fan_percent": fan, "specimens": len(records),
                       "bounds_mm": bounds.tolist(),
                       "invalid": [r["id"] for r in records if not r["cad_valid"]
                                   or not r["mesh_watertight"] or r["mesh_bodies"] != 1]}))
 
 
-def render_layout(records):
+def render_layout(records, fin_prefix="F"):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -279,7 +282,7 @@ def render_layout(records):
                               facecolor=colors[r["kind"]], edgecolor="#354451"))
         ax.text(*(lo[:2]+hi[:2])/2, r["id"], ha="center", va="center", fontsize=9, fontweight="bold")
     for y, title in ((104, "C: solid anchors · 2 / 4 / 6 / 8 mm; 4 mm rotated at right"),
-                     (130, "F: model anchor + removable fin · same spans"),
+                     (130, f"{fin_prefix}: model anchor + removable fin · same spans"),
                      (157, "S: original ramps / R: reversed ramps · 30 / 35 / 40°")):
         ax.text(162.5, y, title, ha="center", fontsize=9)
     ax.set(xlim=(85, 240), ylim=(99, 210), xlabel="Bed X (mm)", ylabel="Bed Y (mm)")
