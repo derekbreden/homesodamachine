@@ -1,0 +1,12 @@
+{
+  "previous_printer": "Mark2",
+  "previous_task_id": "1340201019",
+  "previous_accepted_at": "2026-10-14T22:39:24.556052+00:00",
+  "printer": "Mark1",
+  "printer_task_id": "1340334508",
+  "accepted_at": "2026-10-14T23:40:28.707234+00:00",
+  "interval_seconds": 3664.151182,
+  "minimum_seconds": 180,
+  "request_window_start_observed_at": "2026-10-14T23:30:49+00:00",
+  "request_window_elapsed_seconds": 579.707234
+}

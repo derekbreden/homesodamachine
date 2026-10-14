@@ -146,6 +146,11 @@ is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
 volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing
 opposing directions. Its fin paths directly land on preceding beads; useful
 retained finish, release and physical results remain pending.
+The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
+is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
+70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course
+roofs expose retained underside shape. All bridge ends directly land on
+preceding beads. Physical gap closure and finish remain pending.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
