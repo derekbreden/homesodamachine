@@ -1,0 +1,23 @@
+{
+  "reported_date": "2026-10-13",
+  "recorded_at": "2026-10-14T04:42:48.836588+00:00",
+  "reporter": "Derek",
+  "user_report": "I'm drying the filament now. We'll try again tomorrow.",
+  "status": "Drying underway; next print deferred to 2026-10-14",
+  "screenshot": "filament-drying.png",
+  "screenshot_sha256": "3169aa8a1a971d397bc88ca92bd3a3e5ab8d39acb94f915fde6e56ec44fe4676",
+  "displayed_state": {
+    "application": "AMS Dryness Control",
+    "mode": "Drying\u2013Dehumidifying",
+    "selected_preset": "Bambu TPU 90A",
+    "set_temperature_c": 75,
+    "set_duration_hours": 18,
+    "displayed_temperature_c": 74,
+    "displayed_humidity_percent": 16,
+    "remaining_time_hours_minutes": "17:48"
+  },
+  "material_scope": "The selected drying preset is Bambu TPU 90A. The elbow filament was last reported as TPU 85A; the screenshot does not establish a change of loaded grade.",
+  "evidence_scope": "User report and a single screenshot of the active dryer. Drying completion and filament moisture content are not measured.",
+  "next_slice": "native-readback.json",
+  "next_print_submission": "Not submitted"
+}

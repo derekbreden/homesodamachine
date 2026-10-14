@@ -54,5 +54,6 @@
   ],
   "accepted_fit_baseline": "../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
   "next_offline_candidate": "../2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md",
-  "scope": "In-progress visual surface observations for the identified 215 C article. The accepted firm, stretchy manual fit belongs to the completed rough 225 C article. No completed-part fit or sealing result is supplied here."
+  "scope": "In-progress visual surface observations for the identified 215 C article. The accepted firm, stretchy manual fit belongs to the completed rough 225 C article. No completed-part fit or sealing result is supplied here.",
+  "filament_drying_followup": "../2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/filament-drying.json"
 }
