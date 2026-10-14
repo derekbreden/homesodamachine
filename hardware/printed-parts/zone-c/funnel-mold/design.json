@@ -22,9 +22,9 @@
     ]
   },
   "volume_ml": {
-    "cavity": 792.2316315355904,
-    "core": 593.8436950139899,
-    "funnel": 219.38004576347902,
+    "cavity": 792.2316315355906,
+    "core": 593.843696269228,
+    "funnel": 219.38004576347896,
     "rod": 0.7068583470577035
   },
   "shell_thickness_mm": 5.0,
@@ -34,11 +34,11 @@
   "minimum_core_backing_mm": 7.3389481436752195,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 686.0958254835871,
+      "retained_volume_ml": 686.095825483587,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.63555919590505,
+      "retained_volume_ml": 242.63555734345476,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -86,7 +86,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "f4e2e4d3f73590d103d67ad688a0f8f5f3a6668b26f55ccc5314533550d7e163",
+  "finished_funnel_step_sha256": "864946dea311bb8cf7ad6bf0ec5adad89115c0596289c8871e9b179b76d2dfdc",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -279,11 +279,11 @@
   "chamber_radial_clearance_mm": 25.921762300843483,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "9630245e7494e50031f3f12a9de84a68b2216fbebece6aed4777de22bfe00b53",
-    "cavity.stl": "68b5dc90e63919f0d78e71ccd9d1fa68c75b19e854fc43ffabef6f74e94dd8a9",
-    "cavity.step.mesh": "167efdece0f1aec8a40beeba604ac5f2cd083385f77345ab22ff0f5af463c520",
-    "core.step": "5b08aed583b81ec2738105a1fb08ab18dcb881c8ab2131e464dda5c19b3d6455",
-    "core.stl": "63a839ef37c38957a6a771719b8bcd57b1fb86ef46f1eead3f5a5352e8b70922",
-    "core.step.mesh": "191a81fbeed1ed52284885cd1f26111ceed42a095193b434ad458bf11a54b43e"
+    "cavity.step": "95c20cceeec2a383b5a55fe285fd2c896a072483d032e42906f3ca50318ff522",
+    "cavity.stl": "849b0a601ef78cffa5021c1f536205aba32782bb24ad7102f20220777daacaad",
+    "cavity.step.mesh": "996b39937c9d583696f6433bcae168502e03572a4f5c6c31bc69b85d46956008",
+    "core.step": "1bf2cdadf1a7c35335196300df6cb6bb62301b1864017ddc26bdfb9825a04044",
+    "core.stl": "06221d9f6cb62aaadc72a5c2bf8dac1408c34799dffcefcfe89c156b6dbb81da",
+    "core.step.mesh": "acfe261f087fe59dffb87743198170fea898bf04696bbfeb1a59dc93563b0a8e"
   }
 }
