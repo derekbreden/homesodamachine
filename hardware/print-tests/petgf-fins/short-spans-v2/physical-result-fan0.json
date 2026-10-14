@@ -119,8 +119,9 @@
     }
   ],
   "followup": {
-    "matched_30_percent_plate": "Prepared and unsubmitted; same meshes, placements and native fan treatment for the cooling comparison. Ramps finish before roofs.",
+    "matched_30_percent_plate": "Prepared and unsubmitted. Fixed 30% is an experimental comparison against forced 0%, not an increase over the working profile with its 70% maximum. No physical result selects it as a production improvement.",
     "dense_landing_candidate": "../dense-landing-v3/README.md",
     "candidate_status": "Native-path experiment only; unprinted. Additional contact area changes release behavior."
-  }
+  },
+  "cooling_baseline_review": "cooling-baseline-review.json"
 }

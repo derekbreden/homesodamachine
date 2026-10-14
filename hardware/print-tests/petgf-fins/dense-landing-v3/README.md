@@ -4,8 +4,9 @@ This native-path candidate addresses the failed F-roof startup in
 [Mark2 task 1339729875](../short-spans-v2/physical-result-fan0.json). It is
 prepared for inspection and **has not been sent**. Stable C bridges in that run
 have rejected underside finish, so landing formation alone does not establish
-a useful surface. The matched 30% cooling comparison remains the relevant
-prepared experiment for ramp edges and retained C-bridge finish.
+a useful surface. The prepared 30% comparison tests a fixed diagnostic level
+against fan off. It does not increase cooling relative to the working recipe's
+70% maximum; see the [cooling audit](../short-spans-v2/cooling-baseline-review.json).
 
 D2/D4/D6/D8/D4Y have nineteen lower teeth: two 0.8 mm corner contacts and
 seventeen 0.5 mm interior contacts at 0.6125 mm pitch. The body clearance is

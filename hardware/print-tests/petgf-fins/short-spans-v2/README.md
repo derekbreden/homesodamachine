@@ -11,8 +11,9 @@ plate as **task 1339729875** on 2026-10-14; [its launch record](launch-fan0.json
 binds the submitted archive to acceptance and completion. The
 [physical result](physical-result-fan0.json) records stable C bridges with
 unacceptable retained underside finish and formation failure on every F bridge.
-The 30% plate is prepared and unsubmitted; its useful comparisons are ramp edge
-quality and retained C-bridge finish. Its F row retains the sparse landing geometry.
+The 30% plate is prepared and unsubmitted. It compares fixed 30% cooling against
+the deliberately fan-off plate; it is not an increase over the working profile's
+maximum. Its F row retains the sparse landing geometry.
 [Plate map](plate-layout.png).
 
 Each native estimate is **about 56 min 42 s and 21.18 g**, across **115 layers**.
@@ -84,6 +85,23 @@ The [first shelf-path review](../shelf-start-review.json) shows perimeter paths
 starting over sparse teeth before the axial bridge raster. A failed roof there
 combines initial perimeter formation, attachment and clear-span bridging.
 The C/F comparison gives those mechanisms distinct witnesses.
+
+The [cooling audit](cooling-baseline-review.json) separates the working recipe
+from this experiment's overrides:
+
+| Recipe or print | Saved part-fan settings and emitted behavior |
+| --- | --- |
+| Shared `hardware/printed-parts/petgf.3mf` and current faucet projects | 0–70% normal part cooling, off for the first three layers. The current native faucet paths reach 70% during model extrusion. |
+| First fin plate, completed layers 1–43 | Working-profile cooling. The emitted ramp paths range from 0–59% before the interruption. |
+| This fan-off plate | Fixed 0% throughout model extrusion, an explicit local override. |
+| Prepared 30% plate | Fixed 30% after the first three layers, including ramp bridge/overhang features. Unprinted. |
+
+Thirty percent is an intermediate diagnostic level, not an established optimum
+or a higher setting than the working recipe. These full-length ramp results
+qualify only the fan-off treatment. The interrupted first plate provides no
+complete working-profile ramp comparison. The paired 0%/30% archives do not
+establish that cooling is increased relative to production, or that 30% improves
+the production surface.
 
 - Polymaker Fiberon PET-GF15, fixed left hardened Standard 0.4 mm nozzle,
   external spool 254, Textured PEI. PET-CF is its printer metadata.

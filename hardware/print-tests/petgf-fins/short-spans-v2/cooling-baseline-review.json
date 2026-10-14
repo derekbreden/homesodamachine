@@ -1,0 +1,455 @@
+{
+  "review_date": "2026-10-14",
+  "profiles": [
+    {
+      "path": "hardware/printed-parts/petgf.3mf",
+      "sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "settings": {
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "70"
+        ],
+        "overhang_fan_speed": [
+          "0"
+        ],
+        "close_fan_the_first_x_layers": [
+          "3"
+        ],
+        "full_fan_speed_layer": [
+          "0"
+        ],
+        "fan_cooling_layer_time": [
+          "80"
+        ],
+        "slow_down_layer_time": [
+          "1"
+        ],
+        "reduce_fan_stop_start_freq": [
+          "1"
+        ]
+      }
+    },
+    {
+      "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+      "sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+      "settings": {
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "70"
+        ],
+        "overhang_fan_speed": [
+          "0"
+        ],
+        "close_fan_the_first_x_layers": [
+          "3"
+        ],
+        "full_fan_speed_layer": [
+          "0"
+        ],
+        "fan_cooling_layer_time": [
+          "80"
+        ],
+        "slow_down_layer_time": [
+          "1"
+        ],
+        "reduce_fan_stop_start_freq": [
+          "1"
+        ]
+      }
+    }
+  ],
+  "native_model_deposition": [
+    {
+      "label": "faucet current native",
+      "archive": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/2026-10-13-industrial-faucet-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "445db53ef6014f3c5f0cdfe2557bcb7de302dc417f308738a18dd68ee3c11b63",
+      "gcode_sha256": "7736c15da6aa9b39917243785ae76c50a672c6de89ae05321633651055f770ed",
+      "z_cap_mm": null,
+      "model_deposition_commands": 1163738,
+      "model_part_fan_percent_range": [
+        0.0,
+        70.0
+      ],
+      "ramp_fan_percent_by_feature": {},
+      "first_70_percent_model_deposition": [
+        2027347,
+        245.24,
+        "Outer wall"
+      ],
+      "last_70_percent_model_deposition": [
+        2027349,
+        245.24,
+        "Outer wall"
+      ],
+      "model_fan_percent_by_feature_min_max": {
+        "Brim": [
+          0.0,
+          0.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          69.0
+        ],
+        "Gap infill": [
+          0.0,
+          67.0
+        ],
+        "Bottom surface": [
+          0.0,
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          68.0
+        ],
+        "Overhang wall": [
+          0.0,
+          64.0
+        ],
+        "Bridge": [
+          0.0,
+          63.0
+        ],
+        "Sparse infill": [
+          0.0,
+          68.0
+        ],
+        "Top surface": [
+          0.0,
+          64.0
+        ],
+        "Floating vertical shell": [
+          0.0,
+          67.0
+        ]
+      }
+    },
+    {
+      "label": "first fin plate / through completed layer 43",
+      "archive": "hardware/print-tests/petgf-fins/2026-10-14-fin-bridges-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "137ed41beed8020458b5e7e5660f37229f5d493be1594d7fdc11b1049b52d9ac",
+      "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60",
+      "z_cap_mm": 10.28,
+      "model_deposition_commands": 26306,
+      "model_part_fan_percent_range": [
+        0.0,
+        59.0
+      ],
+      "ramp_fan_percent_by_feature": {
+        "Inner wall": [
+          0.0,
+          20.0,
+          34.0,
+          50.0,
+          51.0,
+          52.0,
+          54.0,
+          55.0,
+          56.0,
+          57.0,
+          59.0
+        ],
+        "Outer wall": [
+          0.0,
+          20.0,
+          34.0,
+          50.0,
+          51.0,
+          52.0,
+          54.0,
+          55.0,
+          56.0,
+          57.0,
+          59.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          20.0,
+          34.0,
+          50.0,
+          51.0,
+          52.0,
+          54.0,
+          55.0,
+          57.0
+        ],
+        "Top surface": [
+          0.0,
+          50.0
+        ],
+        "Sparse infill": [
+          54.0,
+          56.0,
+          57.0,
+          59.0
+        ],
+        "Floating vertical shell": [
+          54.0,
+          56.0
+        ],
+        "Overhang wall": [
+          20.0,
+          34.0,
+          50.0,
+          51.0,
+          52.0,
+          54.0,
+          55.0
+        ],
+        "Bridge": [
+          34.0
+        ],
+        "Gap infill": [
+          20.0,
+          50.0,
+          54.0,
+          55.0
+        ]
+      },
+      "first_70_percent_model_deposition": null,
+      "last_70_percent_model_deposition": null,
+      "model_fan_percent_by_feature_min_max": {
+        "Inner wall": [
+          0.0,
+          59.0
+        ],
+        "Outer wall": [
+          0.0,
+          59.0
+        ],
+        "Bottom surface": [
+          0.0,
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          57.0
+        ],
+        "Top surface": [
+          0.0,
+          50.0
+        ],
+        "Gap infill": [
+          0.0,
+          59.0
+        ],
+        "Sparse infill": [
+          20.0,
+          59.0
+        ],
+        "Floating vertical shell": [
+          54.0,
+          56.0
+        ],
+        "Overhang wall": [
+          20.0,
+          55.0
+        ],
+        "Bridge": [
+          34.0,
+          34.0
+        ]
+      }
+    },
+    {
+      "label": "latest fin plate",
+      "archive": "hardware/print-tests/petgf-fins/short-spans-v2/2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86",
+      "gcode_sha256": "e004df5f516977de31ed20795f42c043cbfa608a2dec2b2fab2e06d7e0683b72",
+      "z_cap_mm": null,
+      "model_deposition_commands": 42278,
+      "model_part_fan_percent_range": [
+        0.0,
+        0.0
+      ],
+      "ramp_fan_percent_by_feature": {
+        "Inner wall": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Overhang wall": [
+          0.0
+        ],
+        "Bridge": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      },
+      "first_70_percent_model_deposition": null,
+      "last_70_percent_model_deposition": null,
+      "model_fan_percent_by_feature_min_max": {
+        "Inner wall": [
+          0.0,
+          0.0
+        ],
+        "Outer wall": [
+          0.0,
+          0.0
+        ],
+        "Bottom surface": [
+          0.0,
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          0.0
+        ],
+        "Top surface": [
+          0.0,
+          0.0
+        ],
+        "Gap infill": [
+          0.0,
+          0.0
+        ],
+        "Sparse infill": [
+          0.0,
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0,
+          0.0
+        ],
+        "Overhang wall": [
+          0.0,
+          0.0
+        ],
+        "Bridge": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "label": "prepared 30 percent",
+      "archive": "hardware/print-tests/petgf-fins/short-spans-v2/2026-10-14-fin-v2-fan30-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "f21ea0ff01b210a59de395dad4c55385695d9106c4208f4b6ec335db6b73d906",
+      "gcode_sha256": "a67a2d56ac18e37c66dc033e1a54c81b2ed1cb3cea4b50d1995cdbc281338fef",
+      "z_cap_mm": null,
+      "model_deposition_commands": 42278,
+      "model_part_fan_percent_range": [
+        0.0,
+        30.0
+      ],
+      "ramp_fan_percent_by_feature": {
+        "Inner wall": [
+          0.0,
+          30.0
+        ],
+        "Outer wall": [
+          0.0,
+          30.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          30.0
+        ],
+        "Top surface": [
+          0.0,
+          30.0
+        ],
+        "Sparse infill": [
+          30.0
+        ],
+        "Floating vertical shell": [
+          30.0
+        ],
+        "Overhang wall": [
+          30.0
+        ],
+        "Bridge": [
+          30.0
+        ],
+        "Gap infill": [
+          30.0
+        ]
+      },
+      "first_70_percent_model_deposition": null,
+      "last_70_percent_model_deposition": null,
+      "model_fan_percent_by_feature_min_max": {
+        "Inner wall": [
+          0.0,
+          30.0
+        ],
+        "Outer wall": [
+          0.0,
+          30.0
+        ],
+        "Bottom surface": [
+          0.0,
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0,
+          30.0
+        ],
+        "Top surface": [
+          0.0,
+          30.0
+        ],
+        "Gap infill": [
+          0.0,
+          30.0
+        ],
+        "Sparse infill": [
+          30.0,
+          30.0
+        ],
+        "Floating vertical shell": [
+          30.0,
+          30.0
+        ],
+        "Overhang wall": [
+          30.0,
+          30.0
+        ],
+        "Bridge": [
+          30.0,
+          30.0
+        ]
+      }
+    }
+  ],
+  "scope": "Emitted part-fan commands associated with positive-E XY model moves. Excludes startup nozzle-cooling commands, support features and moves outside identified objects. First-plate values stop at its last completed layer 43, Z10.28. This is command evidence, not measured airflow.",
+  "interpretation": [
+    "Shared PET-GF and current faucet projects retain variable 0\u201370% normal part cooling, with the first three layers off. This is not a global fan-off recipe.",
+    "The separate overhang fan value is 0%; the native faucet and first fin plate still contain nonzero fan values on bridge and overhang model paths. That setting alone does not mean those paths print with the fan off.",
+    "The latest completed short-span plate explicitly overrides minimum, maximum and overhang fan values to 0%. All emitted model paths use 0%.",
+    "The unprinted 30% archive explicitly sets those three values to 30% after the first three layers.",
+    "Thirty percent is an agent-selected intermediate diagnostic level. No physical result establishes it as optimal or an improvement over the saved working recipe.",
+    "The completed ramp comparison establishes fan-off results; it does not establish the full-length working-profile angle limit."
+  ]
+}
