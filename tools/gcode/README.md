@@ -36,9 +36,11 @@ publishing it.
   change, an object change or a feature outside the set ends it.
 - Feed-only lines (`G1 F876`), `M204` and the switch between "Outer wall" and "Overhang wall"
   happen mid-perimeter, so they do not end a run.
-- A zero-E connector no longer than 0.02 mm, with at most 0.002 mm Z movement,
-  continues the wall run. Bambu emits a 0.001 mm connector at some scarf ramp
-  boundaries; splitting there falsely labels the ramp's end as another seam.
+- A move with an E word extrudes, even when Bambu rounds that E to `E0`, and continues the run
+  whatever its length. Bambu writes `E0` where a scarf ramp reaches full height, which would
+  otherwise read as a second seam at the ramp's end. It also writes `E0` along tails that taper
+  to no flow, some 0.40 mm long. Travels carry no E word. An E-less move of 0.02 mm or less in
+  the plane, rising no more than 0.002 mm, is a numerical hop and continues the run too.
 - Feed is modal. A move carries the last F before it, so a wall setting does not fix every wall
   move's speed. Overhang speeds and the cooling slowdown replace it on the moves they cover, and
   those moves can still be labelled "Outer wall".
