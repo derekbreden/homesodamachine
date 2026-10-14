@@ -1,10 +1,21 @@
-# Base and tip rear seam evaluation — Mark2 task 1337767162
+# Approved production rear seam — Mark2 task 1337767162
+
+Derek's [physical inspection](physical-result.json) on October 14 approves
+the seam-fixed faucet as the current planned production model, tagged
+`faucet-industrial-production-2026-10-14`.
+
+> Faucet looks good. Please tag it. This latest with the seam fix is our official planned for now production model.
+
+The latest physical print contains the corrected base and tip. The cover,
+mounting plate and lever retain the [accepted complete-print reference](../2026-10-13-a2-back-mark2/physical-result.json).
+The normal [production project](../../faucet-industrial-petgf.3mf) contains
+all five rigid parts.
 
 Mark2 accepted the base-and-tip evaluation at 11:45 pm CDT on October 13,
 after one Send click. The fresh startup observation reports the new task
 RUNNING at layer 0 with no printer error or HMS fault. Native estimate: 5 h 21 min 14 s
-and 141.59 g; estimated finish is 5:07 am CDT on October 14. Physical seam
-assessment is pending.
+and 141.59 g; the launch estimated finish at 5:07 am CDT on October 14.
+The physical result is accepted by direct user inspection.
 
 Derek authorized the limited print after checking the other pieces:
 

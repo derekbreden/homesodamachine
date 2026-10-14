@@ -85,7 +85,7 @@ The cover wings include 0.50 mm additional reach; the shared tip has a round
 Ø4 mm unsealed fault-drip opening and the 70° curved joint.
 Fine-layer lifting on supported base surfaces and the visible seam remain
 recorded finish observations. Cover seating force and physical fault discharge are unmeasured.
-The [current centered Industrial print](../printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/README.md)
+The [current planned production Industrial faucet](../printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
 uses Back with A2 on the base, tip and mounting plate, default corner seams on
 the cover and lever, and E eight coarse lip layers before 0.12 mm. The saved
 [complete rear seam preparation](../printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
@@ -93,13 +93,14 @@ has full-height native evidence for the base, tip and mounting rim. The
 [base-only physical result](../printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
 confirms the middle-neck correction and reports both lower transitions still
 misplaced. The current
-[base-and-tip seam evaluation](../printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md)
-is accepted on Mark2 as task 1337767162; physical seam assessment is pending.
+[base-and-tip seam print](../printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md)
+is Mark2 task 1337767162. Derek's direct physical inspection accepts the
+seam-fixed faucet as the official planned production model, tagged
+`faucet-industrial-production-2026-10-14`.
 The native record binds the five rigid meshes, poses, layer bands and selected
 settings, with complete-base and curved-tip rear seam paint.
-Derek accepts the identified print as the best faucet so far, with everything
-checking out well apart from the base rear seam wobble. Its record and tag
-`faucet-industrial-approved-2026-10-13` preserve that scope.
+The other three rigid parts retain the accepted complete-print reference
+and tag `faucet-industrial-approved-2026-10-13`.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

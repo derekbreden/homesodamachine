@@ -1,21 +1,39 @@
 # Industrial faucet print log
 
+## Planned production approval — 2026-10-14
+
+Derek's [physical inspection](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
+accepts the seam-fixed faucet as the official planned production model,
+tagged `faucet-industrial-production-2026-10-14`. The exact Mark2 task
+`1337767162` contains the corrected base and tip. Their meshes and seam paint
+match the complete [production project](faucet-industrial-petgf.3mf), which
+contains all five rigid parts. The cover, mounting plate and lever retain the
+[accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json).
+
+The saved [recipe](finish-selection.json) applies A2/Back/150% to base, tip
+and mounting plate, complete rear seam enforcement to base and exposed
+curved tip, default Aligned/15%/scarf-off seams to cover and lever, and eight
+coarse lip layers before the 0.12 mm bands. The normal complete-print
+requirement is retained.
+
 ## One-time base-only seam evaluation — launched 2026-10-13, Mark2
 
 Derek explicitly limited [this evaluation](prints/2026-10-13-rear-seam-base-only-mark2/README.md)
 to the base. Mark2 accepted task `1337160395` at 6:20 pm CDT with no reported
 fault. The copied base retains the rear seam paint and saved recipe; the native
 neck starts remain within 0.45 mm of center. Estimate: 3 h 54 min and 101.67 g.
-The normal project remains the complete five-part faucet. Physical seam
-evaluation is pending.
+The normal project remains the complete five-part faucet. The
+[physical result](prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+confirms the middle neck and reports both lower transitions still misplaced.
 
 ## Rear-center placement correction — prepared 2026-10-13
 
 The [complete corrected slice](seam-placement/rear-center-v1/README.md) retains
 all settings and geometry of task `1335906696` and adds rear-center seam paint
-to the base neck. Its maximum measured start offset is 0.45 mm. The saved
-selection and preparer carry the enforcer. The printed article remains the
-approved physical reference; the placement correction has not been printed.
+to the base neck. Its maximum measured start offset is 0.45 mm. The
+identified candidate carries the height-limited enforcer. Its
+[base-only physical result](prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+confirms the middle neck and reports both lower transitions still misplaced.
 
 ## Selected Back/A2 recipe — launched 2026-10-13, Mark2
 

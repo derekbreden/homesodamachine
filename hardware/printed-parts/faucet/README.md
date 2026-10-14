@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Current complete print](industrial/prints/2026-10-13-a2-back-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -65,11 +65,14 @@ The organizer is a separate PET-GF print, fitted during
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
 identifies the tested physical article. The current complete Industrial
 project uses the [selected printing recipe](industrial/finish-selection.json):
-Back with A2 on the base, tip and mounting plate, a rear-center seam enforcer
-on the base neck, default Aligned/15%/scarf-off
+Back with A2 on the base, tip and mounting plate, rear-center seam enforcement
+through the base's full rear silhouette and the tip's exposed curved neck, default Aligned/15%/scarf-off
 seams on the cover and lever, and E eight coarse lip layers before the 0.12 mm band.
-The [current complete print](industrial/prints/2026-10-13-a2-back-mark2/README.md)
-binds the native settings and launch. The [identified complete print](industrial/prints/2026-10-13-a2-back-mark2/physical-result.json) has reported overall acceptance with a rear seam wobble; the corrected placement awaits a physical print. The
+The [production approval](industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
+selects the seam-fixed faucet as the current planned production model, tagged
+`faucet-industrial-production-2026-10-14`. The corrected base and tip have
+physical acceptance; the other three rigid parts retain the
+[accepted complete-print reference](industrial/prints/2026-10-13-a2-back-mark2/physical-result.json). The
 [retained sealed-cavity reviews](vent-print-readiness/README.md) apply to
 their exact archived geometry.
 
