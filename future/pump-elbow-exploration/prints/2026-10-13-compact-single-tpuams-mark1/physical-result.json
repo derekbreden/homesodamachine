@@ -1,0 +1,9 @@
+{
+  "status": "Reported too stiff",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337417293",
+  "material": "Bambu TPU for AMS, Shore 68D",
+  "evidence": "User report",
+  "observation": "That was too stiff.",
+  "scope": "Compliance rejection of the TPU for AMS trial; no sealing, pressure retention or lifetime acceptance."
+}
