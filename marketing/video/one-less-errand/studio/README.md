@@ -1,10 +1,11 @@
 # One Less Errand
 
-An 18-second Home Soda Machine film about keeping the soda you love and losing
-the routine of carrying cases home. Diet Mountain Dew introduces the drink;
-the Sculpted faucet reveals its source. A brief graphic accumulation of cases
-cuts directly to an active pour. The finished drink and “One less errand” close
-the film, with an invitation to explore the machine.
+A 30-second Home Soda Machine film about a small wish that turns into a
+repeating errand. A glass of soda leads to a case in a cart, then the car,
+kitchen and refrigerator shelf. The cans disappear and the trip returns.
+The next glass gets a different ending: cold soda from the Sculpted faucet.
+The completed drink and “One less errand” close the story, with an invitation
+to explore the machine.
 
 The film is a product visualization. The integrated appliance is in development.
 The faucet uses the current Sculpted CAD, and its selected display uses the
@@ -19,21 +20,26 @@ its full prompt and generator are in [`assets/cold-soda-macro.json`](assets/cold
 
 | Time | Picture | Spoken idea |
 | --- | --- | --- |
-| 0–2.125 | Cold soda macro | Diet Mountain Dew |
-| 2.125–6.25 | Sculpted faucet and drink | Familiar soda, Pepsi's own concentrate, on tap |
-| 6.25–8.333 | Three cases accumulate | Without the cases to carry home |
-| 8.333–9.958 | Established active pour | Open the faucet |
-| 9.958–12.708 | Tighter soda macro | Cold and fully carbonated, whenever you want it |
-| 12.708–18 | Completed drink and brand | Home Soda Machine. One less errand. |
+| 0–2.5 | Cold soda macro | You wanted a glass of soda |
+| 2.5–6.917 | One can opens into a twelve-can case and cart | Somehow, a trip to the store |
+| 6.917–9.583 | The same case lands in the car, kitchen and shelf | Carrying it home |
+| 9.583–14.75 | Cans leave; loaded cases replenish the shelf | Another trip. And another. And another. |
+| 14.75–17.5 | The emptied shelf | What if the next glass was already waiting? |
+| 17.5–19.583 | First Sculpted faucet reveal | Cold. Fully carbonated. |
+| 19.583–21.208 | Established active pour | Straight from your faucet |
+| 21.208–24.5 | Tighter soda macro | The soda you wanted, whenever you want it |
+| 24.5–29.792 | Completed drink and brand | Home Soda Machine. One less errand. |
 
 `stage.py` builds the standalone studio and evaluates each pose from local shot
 time. `cad.py` reads the faucet triangles and firmware display; `lighting.py`
 provides the studio. The pour uses two distinct gravity-curved jets entering
 the glass, an animated impact surface, a small change in liquid level and fine
-rising bubbles. `errands.py` draws the graphic passage at delivery cadence and
-exposes its contact events to sound. `carbonation.py` gives the beverage
-photographs fine moving bubbles. `finish.py` adds the timed type and assembles
-the picture with the sound master.
+rising bubbles. `can_stage.py` builds the can, carton and cropped handling
+contexts. `can_motion.py` evaluates the full-size can departures, case transfers
+and restocks from each scene's `can_actions`. The static empty shelf is one
+held frame under the question. `carbonation.py` gives the beverage photographs
+fine moving bubbles. `finish.py` adds the timed type and assembles the picture
+with the sound master.
 
 ## Sound
 
@@ -42,12 +48,13 @@ the picture with the sound master.
 `narration-words.json` contains its word alignment. The edit preserves the spoken
 sentences and natural breaths without time stretching.
 
-`audio.py` supplies the original short score, fine carbonation, the three
-pictured graphic contacts and the close pour. `audio-plan.json` records the
-shared timings. Water follows the established flow, then close fizz takes over
-at the sensory macro. There are no control or handling effects implying unseen
-actions. The final
-master is stereo 48 kHz, with English WebVTT and SRT captions.
+`audio.py` supplies an original repeating routine motif, an open harmony at the
+reveal, pictured case contacts, fine carbonation and the close pour.
+`story.json` records the contact frames; `audio-plan.json` records the resulting
+sound clock. Water follows the established flow, then close fizz takes over at
+the sensory macro. The final master is stereo 48 kHz, with English WebVTT and
+SRT captions. The final spoken line ends at 26.91 seconds; the invitation and
+musical decay complete the 715-frame edit.
 
 ## Render and review
 
@@ -60,8 +67,9 @@ tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py
 node marketing/video/one-less-errand/serve.mjs --studio
 ```
 
-The default render uses 1920 × 1080, 32 Cycles samples and denoising. All CG shots
-render at native 24 fps, preserving the fine carbonation and moving liquid.
+The default render uses 1920 × 1080, 32 Cycles samples and denoising. Moving CG
+shots render at native 24 fps, preserving the can contacts, fine carbonation
+and moving liquid.
 `--fps` and `--pour-fps` can select lower source cadences for draft work; the
 finisher confines any interpolation to its individual shot. Each Blender process
 renders at most 32 source frames of one shot; `--chunk-frames` selects that batch
@@ -72,6 +80,8 @@ select rendering or finishing.
 For art review, pass `--python
 marketing/video/one-less-errand/studio/stage.py -- --stills --shots hero pour
 serve --width 960 --samples 8` to Blender from the repository root.
+The can routine uses `can_stage.py -- --stills --shots case car kitchen shelf
+repeat question --width 960 --samples 8` with the same Blender invocation.
 A timed animatic uses one draft still in each source shot's frame directory:
 
 ```sh

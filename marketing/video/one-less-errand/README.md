@@ -2,10 +2,11 @@
 
 ## Studio film
 
-The [18-second studio film](studio/README.md) introduces Diet Mountain Dew on tap
-with current faucet CAD, a fresh connected narration, an original score,
-synchronized liquid sound and English caption sidecars. Its source, render
-commands and review player live in [`studio/`](studio/).
+The [30-second studio film](studio/README.md) follows a glass of soda into a
+repeating routine of carrying cases home. A faucet pour gives the next glass
+a different ending. It combines physical can animation, current faucet CAD,
+a connected narration, original score, synchronized sound and English caption
+sidecars. Its source, render commands and review player live in [`studio/`](studio/).
 
 ## Published film
 
