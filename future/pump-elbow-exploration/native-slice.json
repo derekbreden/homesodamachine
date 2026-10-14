@@ -1,5 +1,5 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337804197; physical result pending",
+  "status": "Siraya 85A Mark1 trial: user reports looking good past layer 28; completed-part result pending",
   "ready_to_send": false,
   "project": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
   "project_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
@@ -118,5 +118,6 @@
     ]
   },
   "layers": 184,
-  "scope": "Identified Siraya Tech 85A Clear job at 215 C normal / 225 C first layer; physical result pending. Qualitative fit acceptance belongs to the earlier rough Bambu TPU 85A article."
+  "scope": "Identified Siraya Tech 85A Clear job at 215 C normal / 225 C first layer; physical result pending. Qualitative fit acceptance belongs to the earlier rough Bambu TPU 85A article.",
+  "physical_result": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json"
 }

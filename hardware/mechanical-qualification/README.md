@@ -69,6 +69,13 @@ retains the accepted-fit article's 225°C recipe and geometry and has verified
 revised process remain pending; the observations establish no sealing or
 lifetime result.
 
+The [Siraya Tech Flex TPU 85A Clear trial](../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
+has a positive in-progress report past layer 28. It uses 215°C normal layers,
+a 225°C first layer and verified 10 mm/s exterior commands. A subsequent
+read-only snapshot reports layer 49, 215°C actual and target, and no printer
+errors. Finished surface quality and fit of the Siraya article remain pending;
+the earlier Bambu article retains its separate manual-fit acceptance.
+
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
 The cover wings include 0.50 mm additional reach; the shared tip has a round

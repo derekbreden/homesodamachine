@@ -1,12 +1,16 @@
 # TPU pump elbow and installed layout study
 
-**Status: one Siraya Tech Flex TPU 85A Clear elbow started on Mark1; surface quality and fit pending.**
+**Status: the Siraya Tech Flex TPU 85A Clear trial is reported looking good past layer 28; finished quality and fit pending.**
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. This job uses the user-reported glued Engineering Plate
 and zero user Z trim, with a 225°C first layer and a requested 10 mm/s outer wall.
 Mark1 accepted the [Siraya trial](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
 as task 1337804197 on 2026-10-14 at 00:11:26 CDT. It uses 215°C normal layers
-and verified 10 mm/s exterior commands. The earlier Bambu TPU 85A
+and verified 10 mm/s exterior commands. The
+[in-progress physical record](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
+binds the user's positive report past layer 28 and camera view. A subsequent
+snapshot reports layer 49 at 215°C actual and target, with no printer errors.
+The current settings are retained. The earlier Bambu TPU 85A
 [physical record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
 reports faint curl by layer 21 and a similar defect to two prints earlier by
 layer 27. Its actual curling lip exceeds the requested outer-wall speed

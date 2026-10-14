@@ -1,0 +1,60 @@
+{
+  "status": "User reports looking good past layer 28; in-progress improvement, completed-part result pending",
+  "reported_date": "2026-10-14",
+  "recorded_at": "2026-10-14T05:52:50.150297+00:00",
+  "reporter": "Derek",
+  "printer": "Mark1 (H2C)",
+  "accepted_printer_task_id": "1337804197",
+  "archive": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "9cfa3a0127df7ae9e8123286ec1cc0ad12a010f4a261575ae73b2fadf3acdb76",
+  "gcode_sha256": "12c244c8122496fd58e986d5c19e1366e09a82efb0cac11c2e8c0c9ec1f2b73f",
+  "material": "Siraya Tech Flex TPU85A Clear, SKU ST3008",
+  "user_report": "Looks good so far, past layer 28 now.",
+  "reported_progress": "Past layer28; exact screenshot layer is not supplied",
+  "screenshot": {
+    "file": "past-layer28.png",
+    "sha256": "0266c4ca7e495d8211f4a9d4d70cb0cd612169069edc9d8e2a338c8eafd84152",
+    "filename_capture_time_local": "2026-10-14 00:49:37 CDT",
+    "observation": "A small clear elbow is visibly seated beneath the right nozzle. This wide printer-camera view does not resolve faint rim distortion or finished underside quality."
+  },
+  "telemetry_after_report": {
+    "observed_at": "2026-10-14T05:51:34.000972+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "0",
+    "task_id": "2779",
+    "subtask_id": "",
+    "project_id": "0",
+    "profile_id": "",
+    "subtask_name": "One compact TPU elbow - Mark1",
+    "gcode_file": "/data/Metadata/plate_1.gcode",
+    "print_type": "local",
+    "layer_num": 49,
+    "total_layer_num": 184,
+    "mc_percent": 34,
+    "mc_remaining_time": 43,
+    "nozzle_temper": 215.0,
+    "nozzle_target_temper": 215.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "cooling_fan_speed": "15",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "10",
+    "print_error": 0,
+    "hms": []
+  },
+  "telemetry_binding": {
+    "accepted_launch": "launch.json",
+    "native_plater_name": "One compact TPU elbow - Mark1",
+    "native_gcode_member": "Metadata/plate_1.gcode",
+    "basis": "The current local telemetry name matches the archive plater_name and the total is 184 layers. The local task_id 2779 and job_id 0 are preserved as reported and are distinct from the launch receipt task 1337804197. The user report is bound to the ongoing Siraya trial by conversation context.",
+    "scope": "One read-only snapshot after the screenshot; layer49 is not assigned to the screenshot. Raw fan fields use Bambu 0\u201315 encoding, not measured airflow."
+  },
+  "comparison": {
+    "baseline": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json",
+    "observation": "The earlier Bambu215 C article had faint curl reported by layer21 and a familiar defect by layer27. The current combined Siraya recipe is reported looking good beyond that region.",
+    "causal_scope": "Material, flow, retraction, cooling and actual lip speed differ. This observation does not isolate the cause of improvement."
+  },
+  "process_decision": "Retain the current settings for the remainder of this identified print; no runtime settings changed during this report.",
+  "accepted_fit_baseline": "../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
+  "scope": "Positive in-progress visual report. Completion, finished 45-degree surface quality and Siraya material fit remain unassessed. The earlier Bambu article retains its separate qualitative fit acceptance."
+}

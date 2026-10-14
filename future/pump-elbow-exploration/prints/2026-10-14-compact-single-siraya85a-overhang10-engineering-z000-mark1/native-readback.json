@@ -1,5 +1,5 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337804197; physical result pending",
+  "status": "Siraya 85A Mark1 trial: user reports looking good past layer 28; completed-part result pending",
   "printer": "Mark1 (H2C)",
   "prepared_at": "2026-10-14T05:07:42.274341+00:00",
   "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
@@ -460,7 +460,7 @@
     },
     "print_settings_id": {
       "from": "One compact TPU85A elbow overhang10 Engineering Plate zero Z trim Mark1",
-      "to": "One compact Siraya85A Clear elbow overhang10 Engineering Plate zero Z trim Mark1"
+      "to": "One compact Siraya 85A Clear elbow overhang10 Engineering Plate zero Z trim Mark1"
     },
     "filament_flow_ratio": {
       "from": [
@@ -492,5 +492,6 @@
   "material_profile": "material-profile.json",
   "material_profile_sha256": "be65f953def2def43239f84e6be093622e35aa89629268861b29a8211e201924",
   "emitted_command_review": "emitted-command-review.json",
-  "physical_material": "User-identified Siraya Tech Flex TPU 85A Clear, SKU ST3008; user reports Mark1 ready after loading"
+  "physical_material": "User-identified Siraya Tech Flex TPU 85A Clear, SKU ST3008; user reports Mark1 ready after loading",
+  "physical_result": "physical-result.json"
 }
