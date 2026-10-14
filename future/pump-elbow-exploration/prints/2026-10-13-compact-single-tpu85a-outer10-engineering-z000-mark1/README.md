@@ -26,6 +26,12 @@ is retained. Slower deposition may reduce disturbance of the soft edge, but
 longer local exposure to the hot nozzle is a competing effect. Physical print
 quality, socket fit and sealing remain unqualified.
 
+The [physical record](physical-result.json) contains the user-reported sagging
+along 45° undersides and three supplied photos. The right rim also appears
+raised or built up; absence of curl is not established. The
+[13 mm/s candidate](../2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md)
+is prepared offline for an intermediate deposition-speed trial.
+
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.3mf)
 - [Native archive](2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf)
 - [Manual preparation script](prepare_mark1.py)
