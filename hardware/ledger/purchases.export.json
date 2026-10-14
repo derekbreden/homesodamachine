@@ -7460,7 +7460,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:0edb2cdc078fc13638cd32ae3bf77b6574671ee0c6d6c148e64dba9ce846af7d",
+  "input_fingerprint": "sha256:6eaa87343edda714348489403ad0b29aa96752e159211c44a285b7b6deedc99f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15725,6 +15725,23 @@
       "reference": "1599057",
       "source_ids": [
         "saved-kjmagnetics:1599057"
+      ],
+      "vendor": "K&J Magnetics"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "order_id": "kjmagnetics:1604309",
+      "purchase_ids": [
+        "pur-4eaf76e6557740d7b0e85e0be8664f71"
+      ],
+      "reference": "1604309",
+      "source_ids": [
+        "src-12040c324f204be58668b4b80706b3e5"
       ],
       "vendor": "K&J Magnetics"
     },
@@ -24887,6 +24904,50 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 7054,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "K&J Magnetics SB443-IN neodymium stepped-block magnet, 6.35 × 6.35 × 4.76 mm with side grooves — umbilical plug and socket magnet evaluation. $38.50 merchandise + $27.27 UPS Ground + $4.77 tax",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-4eaf76e6557740d7b0e85e0be8664f71",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "order_ids": [
+        "kjmagnetics:1604309"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-4eaf76e6557740d7b0e85e0be8664f71",
+      "purpose": "components",
+      "quantity": 50,
+      "quantity_text": "50",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "row_date_basis": "order_date",
+      "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
+      "service_period": null,
+      "source_ids": [
+        "src-12040c324f204be58668b4b80706b3e5"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "K&J Magnetics"
     },
     {
       "allocation_status": "all_project",
@@ -54692,6 +54753,22 @@
         "precision": "day",
         "value": "2026-10-13"
       },
+      "document_type": "order_confirmation",
+      "note": "Printed or structured vendor placed date. Quoted order amount; final invoice and payment unknown.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "1604309",
+      "source_id": "src-12040c324f204be58668b4b80706b3e5",
+      "vendor": "K&J Magnetics",
+      "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
       "document_type": "merchant_order_page",
       "merchant_event_date": {
         "precision": "day",
@@ -59854,13 +59931,14 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 60053,
+          "amount_minor": 67107,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-3ce173932d6c45f184bcd60237a2c790",
+            "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-a667e3ee975c42218852bc7b225d75a8",
@@ -59885,6 +59963,7 @@
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-25f35741f88e40729bec555987f79640",
         "pur-3ce173932d6c45f184bcd60237a2c790",
+        "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-9835cb05727440fa98029e6134ffd627",
         "pur-a667e3ee975c42218852bc7b225d75a8",
@@ -60892,7 +60971,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 54171,
+          "estimate_minor": 61225,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 93684,
           "legacy_unverified_minor": 30634,
@@ -60907,6 +60986,7 @@
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
+            "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5c066280c9c7489f8f90b851374b4995",
             "pur-633abd30f0524d80a397fcee998a7658",
             "pur-65c979f1bb194148918426361d985f73",
@@ -60929,7 +61009,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 178489,
+          "total_minor": 185543,
           "unknown_amount_ids": []
         },
         {
@@ -60957,7 +61037,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1089463,
+          "amount_minor": 1096517,
           "currency": "USD",
           "purpose": "components"
         },
@@ -60995,10 +61075,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 218224,
+          "estimate_minor": 225278,
           "final_vendor_amount_minor": 2048905,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4666097
+          "total_minor": 4673151
         }
       ],
       "undated_unallocated": [
@@ -61149,11 +61229,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 218224,
+          "estimated_purchase_minor": 225278,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2906965,
+          "purchases_without_merchant_charge_minor": 2914019,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -61171,6 +61251,7 @@
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
+        "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
@@ -61899,6 +61980,7 @@
         "pur-4ce8b4ab83a54bdfa2dc9e264ccd1b0e",
         "pur-4dab8c029f604a8e8c1c585de5567bab",
         "pur-4e67b837e2924692ab29eaaba49ae039",
+        "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-4ece7766dd31470b9b37994248982069",
         "pur-503ab7c363e14bc6a3b241f8f86b3afd",
         "pur-5090fe33ed404b20b5f3401171bf8565",

@@ -457,6 +457,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | <!--purchase:pur-fd783b99321f417788c5e4b8e89eddf4--> P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | 112-0118962-3725825 | 2026-04-17 | 2026-04-18 | ACQUIRED |
 | <!--purchase:pur-15b53ba788894023ba6af4c0e99a5924--> RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC 90° (10 pk) — the SIG-6 umbilical station on the +Y wall of back-top; snap-in keystone, colour-coded wiring diagram on the jack body, ships with its own snap-in dust cover. mpn46181. $13.92 + $12.08 ship = $26.00, so $2.60/ea landed | [riteav.com](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | 1 pk (10) | $26.00 | RiteAV #58999 | 2026-08-27 | — | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-3d23a62e17584a1fb6247b9bbf1c9575--> EZYUMM RJ11 6P4C modular plug, 3-prong, solid or stranded (20 pk) — the umbilical end of SIG-6, crimped onto the BNTECHGO ribbon | [B0DK4V733Q](https://www.amazon.com/dp/B0DK4V733Q) | 1 pk (20) | $5.02 | 112-2674521-7496252 | 2026-08-27 | 2026-08-28 | ACQUIRED |
+| <!--purchase:pur-4eaf76e6557740d7b0e85e0be8664f71--> K&J Magnetics SB443-IN neodymium stepped-block magnet, 6.35 × 6.35 × 4.76 mm with side grooves — umbilical plug and socket magnet evaluation. $38.50 merchandise + $27.27 UPS Ground + $4.77 tax | [SB443-IN](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet) | 50 | $70.54 | K&J 1604309 | 2026-10-13 | — | ON-ORDER |
 | <!--purchase:pur-d22466e29dac4d8ca46fdc5c575dde2c--> YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair — pump cartridge contacts, female in the top clamp and male in the bay bulkhead; 12 V / 2 A per contact, Ø1.5 mm ear holes on a 20.44 mm pitch ([reference](/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py)) | [B0GCBNTBT8](https://www.amazon.com/dp/B0GCBNTBT8) | 1 pr | $7.29 | 112-4379220-8466623 | 2026-10-01 | 2026-10-02 | ACQUIRED |
 | <!--purchase:pur-45f46a866eb640d0be16bab2fd7493b3--> YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair — first shipment of the nine-pair order; $65.61 invoice allocated equally at $7.29/pair | [B0GCBNTBT8](https://www.amazon.com/dp/B0GCBNTBT8) | 3 pr | $21.87 | 114-7873884-6062600 | 2026-10-02 | 2026-10-03 | ACQUIRED |
 | <!--purchase:pur-0d4eaf3ef27646a8b8f77ea46d4f2d44--> YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair — delayed second shipment of the nine-pair order; $65.61 invoice allocated equally at $7.29/pair | [B0GCBNTBT8](https://www.amazon.com/dp/B0GCBNTBT8) | 6 pr | $43.74 | 114-7873884-6062600 | 2026-10-02 | 2026-10-09 | ACQUIRED |
@@ -799,17 +800,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$600.53](LEDGER_ON_ORDER) |
+| ON-ORDER | [$671.07](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,660.97](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,731.51](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$20,489.05](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,182.24](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,252.78](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
