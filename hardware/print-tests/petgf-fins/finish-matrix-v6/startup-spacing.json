@@ -1,0 +1,10 @@
+{
+  "other_printer": "Mark1",
+  "other_task_id": "1340156908",
+  "other_accepted_at": "2026-10-14T22:19:37.315153+00:00",
+  "this_printer": "Mark2",
+  "this_task_id": "1340201019",
+  "this_accepted_at": "2026-10-14T22:39:24.556052+00:00",
+  "seconds_between_acceptances": 1187.240899,
+  "required_minimum_seconds": 180
+}
