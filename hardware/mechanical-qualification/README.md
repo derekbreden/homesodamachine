@@ -110,7 +110,15 @@ S30 and S35 have reported edge sag; S40 lacks that defect over its shorter,
 partially printed extent. No bridge or full-length angle limit is qualified.
 The [short-span follow-up](../print-tests/petgf-fins/short-spans-v2/README.md)
 compares 2–8 mm bridges on solid anchors and fin landings, with fan-off and
-30% part-fan plates. Its ramps finish before its bridge attempts.
+30% part-fan plates. Its ramps finish before its bridge attempts. The
+[fan-off physical result](../print-tests/petgf-fins/short-spans-v2/physical-result-fan0.json)
+records stable C bridges whose underside finish is worse than supported surfaces,
+failed F roof formation, and edge sag on four of six full-length ramps.
+The [native landing trace](../print-tests/petgf-fins/short-spans-v2/landing-path-review.json)
+shows sparse F teeth beneath a transverse roof perimeter printed before bridge
+fill. That landing failure does not establish a PET-GF free-span limit.
+The 30% comparison and dense-contact geometry candidate remain unprinted;
+neither supplies surface or release acceptance.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

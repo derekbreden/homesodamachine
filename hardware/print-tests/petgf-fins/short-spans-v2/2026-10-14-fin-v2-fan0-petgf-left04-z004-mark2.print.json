@@ -983,7 +983,7 @@
       "part_fan_percent": 0
     }
   ],
-  "physical_result": "pending",
+  "physical_result": "physical-result-fan0.json",
   "submitted": true,
   "native_archive": "2026-10-14-fin-v2-fan0-petgf-left04-z004-mark2.gcode.3mf",
   "native_archive_sha256": "3f265978df1762f3df5e6c4b8f9e020c9739b307cc9c481e2d4cc73c1f367c86",

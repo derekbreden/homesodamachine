@@ -1,0 +1,26 @@
+{
+  "native_archive_sha256": "01357a83ad618d40826c7852936860611612e0309b3dd3538d929ee413175206",
+  "gcode_sha256": "ffb8e414346b321e2c90315021d34484338f8ff2e525eaaaa9c5df3b417b36b3",
+  "print_only_archive_sha256": "aefb3d75db2832aac91bdb0a2251d784501f907c8973a62130419422b8481712",
+  "print_only_gcode_byte_identical": true,
+  "unchanged_test_meshes_and_placements": [
+    "C2",
+    "C4",
+    "C6",
+    "C8",
+    "C4Y",
+    "S30",
+    "S35",
+    "S40",
+    "R30",
+    "R35",
+    "R40"
+  ],
+  "all_dense_lower_tooth_probes_complete": true,
+  "all_dense_roof_far_end_bead_envelopes_touch_prior_beads": true,
+  "longest_dense_landing_centerline_prior_bead_gap_mm": 0.08299999999998686,
+  "print_status": "unsubmitted",
+  "physical_result": "unmeasured",
+  "estimate_seconds": 3418,
+  "estimate_grams": 21.2
+}
