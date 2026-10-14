@@ -10,6 +10,7 @@ import shutil
 import subprocess
 from PIL import Image, ImageDraw, ImageFont
 import errands
+import carbonation
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[3]
@@ -101,13 +102,32 @@ def encode_graphic(shot,target,args):
         proc.kill();proc.wait();raise
 
 
+def encode_carbonation(shot, target):
+    command=ffmpeg('-f','rawvideo','-pix_fmt','rgba','-s',f'{W}x{H}',
+                  '-framerate',FPS,'-i','pipe:0','-an','-c:v','qtrle',
+                  '-pix_fmt','argb','-threads','2',target)
+    proc=subprocess.Popen(command,stdin=subprocess.PIPE)
+    try:
+        for i in range(shot['frames']):
+            proc.stdin.write(carbonation.draw(shot['start']+i/FPS,width=W,height=H).tobytes())
+        proc.stdin.close()
+        if proc.wait():raise RuntimeError('Carbonation overlay encode failed')
+    except BaseException:
+        proc.kill();proc.wait();raise
+
+
 def encode_picture(shot,target,args,work,type_assets):
     duration=shot['frames']/FPS
     rate=args.rates.get(shot['id'],args.fps)
     folder=args.frames/shot['id']
     files=sorted(folder.glob('[0-9]*.png'))
+    prefix,source,input_count='','[0:v]',1
     if shot['kind']=='photograph':
-        command=ffmpeg('-loop','1','-framerate',FPS,'-i',HERE/shot['asset'])
+        bubbles=work/f'{shot["id"]}-carbonation.mov'
+        encode_carbonation(shot,bubbles)
+        command=ffmpeg('-loop','1','-framerate',FPS,'-i',HERE/shot['asset'],'-i',bubbles)
+        prefix=f'[0:v]scale={W}:{H}:flags=lanczos[plate];[plate][1:v]overlay=shortest=1:format=auto[animated];'
+        source,input_count='[animated]',2
         base,travel,focus=(1.32,.028,.91) if shot['id']=='sensory' else (1.005,.018,.62)
         cadence=(f'scale=2304:1296:flags=lanczos,zoompan=z={base}+{travel}*on/{shot["frames"]}:'
                  f'x=(iw-iw/zoom)*{focus}:y=(ih-ih/zoom)*0.45:d=1:s={W}x{H}:fps={FPS},'
@@ -127,11 +147,11 @@ def encode_picture(shot,target,args,work,type_assets):
               f'minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:me=epzs:mb_size=16:search_param=24:vsbmc=1,'
               f'trim=start={pre}:duration={duration},setpts=PTS-STARTPTS')
         else: cadence=f'fps={FPS},trim=duration={duration},setpts=PTS-STARTPTS'
-    graph=f'[0:v]{cadence},scale={W}:{H}:flags=lanczos,setsar=1[p0];'
+    graph=prefix+f'{source}{cadence},scale={W}:{H}:flags=lanczos,setsar=1[p0];'
     previous='p0'
     for i,(_,start,fade) in enumerate(type_assets.get(shot['id'],[]),1):
         command+=['-loop','1','-framerate',str(FPS),'-i',str(work/f'{shot["id"]}-type-{i-1}.png')]
-        graph+=f'[{i}:v]format=rgba,fade=t=in:st={start}:d={fade}:alpha=1[t{i}];'
+        graph+=f'[{i+input_count-1}:v]format=rgba,fade=t=in:st={start}:d={fade}:alpha=1[t{i}];'
         graph+=f'[{previous}][t{i}]overlay=shortest=1:format=auto[p{i}];'
         previous=f'p{i}'
     graph+=f'[{previous}]{COLOR}[out]'
@@ -164,7 +184,7 @@ def main():
     if not a.audio.exists():p.error(f'Missing sound master: {a.audio}')
     cache_path=a.out/'.finish-cache.json'
     cache=json.loads(cache_path.read_text()) if cache_path.exists() else {}
-    code_hash=hashlib.sha256(Path(__file__).read_bytes()+(HERE/'errands.py').read_bytes()).hexdigest()
+    code_hash=hashlib.sha256(Path(__file__).read_bytes()+(HERE/'errands.py').read_bytes()+(HERE/'carbonation.py').read_bytes()).hexdigest()
     targets=[]
     for shot in story['scenes']:
         files=list((a.frames/shot['id']).glob('[0-9]*.png'))
