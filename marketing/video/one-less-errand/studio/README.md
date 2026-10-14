@@ -1,66 +1,84 @@
-# One Less Errand — studio film
+# One Less Errand
 
-A 64-second Home Soda Machine design film. A cold glass opens the film; one can
-becomes twelve, a trip home, and an empty shelf. The kitchen reveal resolves the
-chore into choosing a flavor and pouring a glass. Sculpted in Black and
-Industrial in White close the product sequence.
+An 18-second Home Soda Machine film about keeping the soda you love and losing
+the routine of carrying cases home. Diet Mountain Dew introduces the drink;
+the Sculpted faucet reveals its source. A brief graphic accumulation of cases
+cuts directly to an active pour. The finished drink and “One less errand” close
+the film, with an invitation to explore the machine.
 
-The integrated appliance is in development. Cabinetry, glass, ice, carbonation
-and the two separate liquid streams are illustrative animation. The faucet,
-enclosure, regulator and display artwork use the current project geometry and
-firmware assets, shared with the homepage's kitchen renderer.
+The film is a product visualization. The integrated appliance is in development.
+The faucet uses the current Sculpted CAD, and its selected display uses the
+current green factory flavor artwork. The glass, liquid, carbonation,
+condensation and studio are illustrative. The opening beverage photograph is
+built-in imagegen artwork in [`assets/cold-soda-macro.png`](assets/cold-soda-macro.png);
+its full prompt and generator are in [`assets/cold-soda-macro.json`](assets/cold-soda-macro.json).
 
-## Picture
+## Edit
 
-`story.json` is the 64-second edit. `stage.py` builds the scene, loads the current
-hardware meshes, and evaluates every pose from shot-local time. `errands.py`
-supplies the can, twelve-pack and carrying sequence. `lighting.py` supplies the
-product lighting and studio backgrounds. The kitchen scene builder's
-`--scene-only` option loads its CAD scene without rendering homepage stills.
+`story.json` is the shared picture clock, at 1920 × 1080 and 24 fps.
 
-`render.py` renders slow camera moves at 4 source fps, liquid and carrying action
-at 8 source fps, and the cabinet, display and lever at native 24 fps.
-`finish.py` assembles each shot separately, interpolates the lower cadences to 24 fps,
-adds typography, and encodes the 1920 × 1080 H.264 / BT.709 / AAC master.
-Interpolation is confined to each shot; picture cuts remain cuts. Render frames
-and intermediate encodes are under the ignored `out/` directory. A render
-resumes by retaining existing frames. Use `render.py --fresh --shots pour` to
-replace one changed shot and finish the film with the other source sequences.
-Changing source cadence, resolution or samples selects a separate frame set.
+| Time | Picture | Spoken idea |
+| --- | --- | --- |
+| 0–2.125 | Cold soda macro | Diet Mountain Dew |
+| 2.125–6.25 | Sculpted faucet and drink | Familiar soda, Pepsi's own concentrate, on tap |
+| 6.25–8.333 | Three cases accumulate | Without the cases to carry home |
+| 8.333–9.958 | Established active pour | Open the faucet |
+| 9.958–12.708 | Tighter soda macro | Cold and fully carbonated, whenever you want it |
+| 12.708–18 | Completed drink and brand | Home Soda Machine. One less errand. |
+
+`stage.py` builds the standalone studio and evaluates each pose from local shot
+time. `cad.py` reads the faucet triangles and firmware display; `lighting.py`
+provides the studio. The pour uses two distinct gravity-curved jets entering
+the glass, an animated impact surface, a small change in liquid level and fine
+rising bubbles. `errands.py` draws the graphic passage at delivery cadence and
+exposes its contact events to sound. `finish.py` adds the timed type and assembles
+the picture with the sound master.
 
 ## Sound
 
-`audio-plan.json` holds the source narration edits and their picture positions.
-`audio.py` edits the existing Charon recording without changing its pace and
-synthesizes the original score and tactile effects. A repeating chore rhythm
-clears at the kitchen reveal; the pour, ice and fine carbonation have their own
-space. The stereo master is 48 kHz / 16-bit, approximately −17 LUFS, with a
-−1.5 dBTP ceiling. English WebVTT and SRT captions accompany the film.
+`narration.json` contains the script and recording direction.
+`audio/narration.wav` is one connected Charon performance, placed at 0.55 seconds.
+`narration-words.json` contains its word alignment. The edit preserves the spoken
+sentences and natural breaths without time stretching.
+
+`audio.py` supplies the original short score, fine carbonation, the three
+pictured graphic contacts and the close pour. `audio-plan.json` records the
+shared timings. Water follows the established flow, then close fizz takes over
+at the sensory macro. There are no control or handling effects implying unseen
+actions. The final
+master is stereo 48 kHz, with English WebVTT and SRT captions.
 
 ## Render and review
 
-From the repository root, using Blender 5.1, FFmpeg, the existing web/render
-dependencies and `tools/video-venv`. The shared scene requires the current local
-`.step.mesh` payloads for both faucet assemblies, the enclosure and the Taprite
-regulator.
+Use Blender 5.1, FFmpeg, the existing `tools/render` Node dependencies and
+`tools/video-venv`. The current local faucet payload is
+`hardware/faucet-layout/faucet-assembly.step.mesh`.
 
 ```sh
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py
 node marketing/video/one-less-errand/serve.mjs --studio
 ```
 
-`render.py --fps 24 --action-fps 24` renders every shot at native 24 fps. The default
-source render is 1920 × 1080 with 16 Cycles samples and denoising. `--samples`
-and `--width` select other settings; `--mechanism-fps` selects the mechanism cadence.
-`--picture-only` and `--finish-only` select
-one side of the process.
+The default render uses 1920 × 1080, 32 Cycles samples and denoising. All CG shots
+render at native 24 fps, preserving the fine carbonation and moving liquid.
+`--fps` and `--pour-fps` can select lower source cadences for draft work; the
+finisher confines any interpolation to its individual shot. Each Blender process
+renders one shot, and existing frames make the render resumable. `--fresh
+--shots pour` replaces one source sequence. `--picture-only` and `--finish-only`
+select rendering or finishing.
 
-Pass `--stills --shots kitchen pour fizz` to `stage.py` for selected art review frames.
-`--start-frame` and `--end-frame` select a local frame interval. `--out` keeps
-independent render sets. For native 24 fps frames, pass `--fps 24` to both
-`stage.py` and `finish.py`; source rates can also be set per shot with the
-finisher's `--source-fps pour=12` option.
+For art review, pass `--python
+marketing/video/one-less-errand/studio/stage.py -- --stills --shots hero pour
+serve --width 960 --samples 8` to Blender from the repository root.
+A timed animatic uses one draft still in each source shot's frame directory:
 
-The review player provides chapter navigation, captions, and downloads of
-`out/film.mp4`, `out/film.vtt` and `out/film.srt`. `out/poster.jpg` is the player
-poster and `out/contact-sheet.jpg` is the picture overview.
+```sh
+tools/video-venv/bin/python marketing/video/one-less-errand/studio/finish.py \
+  --animatic --frames /absolute/path/to/draft-frames \
+  --audio /absolute/path/to/mix-master.wav --out /absolute/path/to/animatic
+```
+
+Generated frames, stems, intermediate encodes and the player are under ignored
+`out/`. The delivered files are `out/film.mp4`, `out/film.vtt`, `out/film.srt`,
+`out/poster.jpg` and `out/contact-sheet.jpg`. The player offers playback,
+captions and downloads.

@@ -2,10 +2,10 @@
 
 ## Studio film
 
-The [64-second studio film](studio/README.md) uses the current CAD and firmware
-artwork in animated Blender scenes, an original score, edited narration and
-English caption sidecars. Its source, render commands and review player live
-in [`studio/`](studio/).
+The [18-second studio film](studio/README.md) introduces Diet Mountain Dew on tap
+with current faucet CAD, a fresh connected narration, an original score,
+synchronized liquid sound and English caption sidecars. Its source, render
+commands and review player live in [`studio/`](studio/).
 
 ## Published film
 
