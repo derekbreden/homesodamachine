@@ -1,0 +1,211 @@
+{
+  "status": "Offline native slice reviewed; loading/feed mapping unverified; not ready to send",
+  "ready_to_send": false,
+  "colour_is_placeholder": false,
+  "observed_at": "2026-10-14T01:16:50.915468+00:00",
+  "cache_run": ".cache/printer-control/compact-single-elbow-tpuams-mark1-20261013/native-kub56txl",
+  "project": "2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.3mf",
+  "project_sha256": "65d8b82198f3a5f662380e7dc3088c320c755071a8eb87edb064c3bc031abb86",
+  "archive": "2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.gcode.3mf",
+  "archive_sha256": "eabbe9c18bf4aaca9e6df52eb420ea1e07150720d6318bbb72a615141e69dd64",
+  "gcode_sha256": "085a2e11ac9d800d781312be8f54b7ec5de08847deb561fa4ae5755c865f8a31",
+  "source_dependencies_sha256": {
+    "future/pump-elbow-exploration/tpu_elbow.py": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
+    "future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/prepare_mark1.py": "3c756dbfc2aed279dd33f6aebe400755957d70832861eb01782e1bd301d12c78",
+    "future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/prepare_mark1.py": "5ae60081de4151927c0fa4bf60a05585ff9f1e3255fd2cf6ae60df037a0e2aab"
+  },
+  "native_filament_profile_sources_sha256": {
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/Bambu TPU for AMS @BBL H2C.json": "d0fd32c11a5ba8908f15d63199f9e332fcfd689742638777e71490e8ff90e30e",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/Bambu TPU for AMS @base.json": "399c737dffaff4ecdbeff02ef51ebee5d0b791c381cb91d7b9045a17c675ebfc",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_tpu.json": "8fc12ed3883ae4419cad7300c28b7d9492c32c20831a820b4c030670fa1bdb49",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
+  },
+  "specimen": {
+    "mesh": "compact-single-elbow-print.stl",
+    "mesh_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
+    "raw_occ_stl_sha256": "4cc9b2358611f30558ca37507cc4b486f071a2aebfe2b9159f1099f944504c0f",
+    "triangles": 17986,
+    "export_cleanup_removed_faces": 2,
+    "raw_volume_mm3": 3431.776097531991,
+    "cleaned_volume_mm3": 3431.776097531992,
+    "watertight": true,
+    "winding_consistent": true,
+    "body_count": 1,
+    "native_object_count": 1,
+    "native_volume_count": 1,
+    "native_instance_count": 1,
+    "bed_contact_area_mm2": 88.88473465583785,
+    "plate_bounds_mm": [
+      [
+        160.6828327178955,
+        152.69999980926514,
+        0.0
+      ],
+      [
+        194.3171672821045,
+        167.30000019073486,
+        22.218050003051758
+      ]
+    ],
+    "xy_recentering_mm": [
+      -0.0,
+      -0.0
+    ]
+  },
+  "native_single_specimen_counts": {
+    "build_instances": 1,
+    "model_objects": 1,
+    "normal_volumes": 1,
+    "slice_objects": 1
+  },
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "emitted_settings": {
+    "printer_settings_id": "Bambu Lab H2C 0.6 Standard +0.18 Z trim",
+    "filament_settings_id": [
+      "Bambu TPU for AMS @BBL H2C"
+    ],
+    "filament_map": [
+      "2"
+    ],
+    "filament_nozzle_map": [
+      "1"
+    ],
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_type": [
+      "TPU-AMS"
+    ],
+    "nozzle_diameter": [
+      "0.6",
+      "0.6"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "nozzle_temperature": [
+      "230",
+      "230",
+      "230"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "230",
+      "230",
+      "230"
+    ],
+    "textured_plate_temp": [
+      "35"
+    ],
+    "filament_flow_ratio": [
+      "0.97",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "12",
+      "12",
+      "12"
+    ],
+    "filament_retraction_length": [
+      "0.4",
+      "0.4",
+      "0.4"
+    ],
+    "fan_min_speed": [
+      "20"
+    ],
+    "fan_max_speed": [
+      "40"
+    ],
+    "layer_height": "0.12",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "6",
+    "wall_generator": "arachne",
+    "sparse_infill_density": "100%",
+    "spiral_mode": "0",
+    "seam_gap": "0%",
+    "enable_support": "0",
+    "brim_width": "5",
+    "brim_type": "outer_only"
+  },
+  "native_active_filament": {
+    "id": "1",
+    "tray_info_idx": "GFU02",
+    "type": "TPU-AMS",
+    "color": "#161616",
+    "used_m": "1.42",
+    "used_g": "4.31",
+    "group_id": "1",
+    "nozzle_diameter": "0.60",
+    "volume_type": "Standard",
+    "used_for_object": "true",
+    "used_for_support": "false",
+    "total_load_time": "15.00",
+    "total_unload_time": "0.00"
+  },
+  "minimum_full_bead_edge_margin_mm": 135.69500399999998,
+  "layers": 184,
+  "estimated_seconds": 2607.35791015625,
+  "estimated_filament_g": 4.310344219207764,
+  "estimate_density_g_cm3": [
+    "1.26"
+  ],
+  "slicer_warning": "",
+  "native_full_bead_bounds_xy_mm": [
+    [
+      160.72234344542193,
+      149.85399999999998
+    ],
+    [
+      194.30499600000002,
+      170.14600000000002
+    ]
+  ],
+  "native_feature_counts": {
+    "Custom": 2,
+    "Brim": 1,
+    "Inner wall": 377,
+    "Outer wall": 377,
+    "Bottom surface": 1,
+    "Internal solid infill": 8,
+    "Sparse infill": 19,
+    "Overhang wall": 1
+  },
+  "native_deposited_path_counts": {
+    "Brim": 561,
+    "Inner wall": 44704,
+    "Outer wall": 13746,
+    "Bottom surface": 12,
+    "Internal solid infill": 251,
+    "Sparse infill": 343,
+    "Overhang wall": 1
+  },
+  "native_deposited_filament_volume_by_feature_mm3": {
+    "Brim": 43.979929665668344,
+    "Inner wall": 2168.3478043593796,
+    "Outer wall": 1085.1129001710126,
+    "Bottom surface": 2.567253556894437,
+    "Internal solid infill": 35.26092718423885,
+    "Sparse infill": 61.586280306986794,
+    "Overhang wall": 9.621127501618743e-05
+  },
+  "native_first_layer_z_mm": 0.2,
+  "native_first_layer_model_bead_bounds_xy_mm": [
+    [
+      171.67842112956237,
+      154.594005
+    ],
+    [
+      182.506995,
+      165.39873278088427
+    ]
+  ],
+  "native_first_layer_model_deposited_path_counts": {
+    "Inner wall": 126,
+    "Outer wall": 21,
+    "Bottom surface": 12
+  },
+  "scope": "XY bead widths and arc extrema; physical adhesion is unmeasured"
+}

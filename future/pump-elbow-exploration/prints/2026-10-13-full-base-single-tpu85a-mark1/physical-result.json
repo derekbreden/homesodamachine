@@ -1,0 +1,16 @@
+{
+  "status": "Stopped; geometry rejected",
+  "printer": "Mark1 (H2C)",
+  "printer_task_id": "1337352366",
+  "printer_observed_at": "2026-10-14T01:00:12.559200+00:00",
+  "printer_state": "FAILED",
+  "printer_layer": 0,
+  "printer_percent": 0,
+  "printer_error": 0,
+  "printer_hms": [],
+  "nozzle_target_c": 0,
+  "bed_target_c": 0,
+  "geometry_observation": "You added material both above and below, and you left a gap that makes the below useless",
+  "geometry_evidence": "The convex envelope adds stock above the elbow's concave roof; annular clamp channels interrupt the stock beneath the cuffs.",
+  "scope": "No successful physical specimen, fit or sealing result recorded. The printer status does not establish why the job stopped or whether the bed is clear."
+}
