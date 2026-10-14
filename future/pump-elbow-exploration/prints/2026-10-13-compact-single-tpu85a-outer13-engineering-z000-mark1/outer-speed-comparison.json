@@ -226,5 +226,5 @@
     }
   ],
   "finding": "The candidate emits 13 mm/s at the left lip across layers26\u201333. Around original curl onset, it lies between 10 and the original emitted15\u201317 mm/s. This is an approximate midpoint for the onset region; the original speed varies elsewhere in the part. Whole-layer commanded time stays near20 seconds.",
-  "physical_interpretation": "An intermediate speed is a candidate process setting, not an established interpolation between sagging and upward curling."
+  "physical_interpretation": "Not selected for printing. The user reports that the observed difference between speeds may be nonexistent. The recorded emitted-speed values do not establish a quality improvement or a curl-to-sag crossover."
 }

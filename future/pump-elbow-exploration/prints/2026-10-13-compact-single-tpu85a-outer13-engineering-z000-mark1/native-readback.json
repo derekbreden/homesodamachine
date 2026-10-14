@@ -1,5 +1,5 @@
 {
-  "status": "Offline candidate; not submitted",
+  "status": "Not selected for printing; user declined the speed midpoint; not submitted",
   "printer": "Mark1 (H2C)",
   "prepared_at": "2026-10-14T03:45:17.809408+00:00",
   "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
@@ -36,5 +36,10 @@
   "cache_run": ".cache/pump-elbow-exploration/outer13/native-88db4849",
   "estimated_seconds": 3839.947021484375,
   "estimated_filament_g": 4.301682472229004,
-  "slicer_warning": ""
+  "slicer_warning": "",
+  "ready_to_send": false,
+  "withdrawal": {
+    "user_quote": "Oh, maybe it is curling. I guess I\u2019m not interested in a midpoint when the difference in those numbers is 10 13 17 so small and the difference I\u2019m observing is maybe non existent upon reflection.",
+    "reason": "No established change from curling to sagging or meaningful benefit from the speed difference."
+  }
 }

@@ -23,9 +23,11 @@ neighboring hardware are considered together.
   archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
   zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
 - [Current trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
-  bind the reported sagging and three photos to the 10 mm/s job. A
-  [13 mm/s candidate](prints/2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md)
-  is prepared offline, with a 64-minute / 4.30 g native estimate; it is not submitted.
+  bind the user's reports, three wider views and six close-ups to the 10 mm/s
+  job. Raised, distorted rims remain visible; a dependable speed benefit is
+  unestablished. The 13 mm/s midpoint is not selected or submitted.
+  A [215°C normal-layer candidate](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
+  holds the 10 mm/s speed and 225°C first layer fixed; it is prepared offline.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.

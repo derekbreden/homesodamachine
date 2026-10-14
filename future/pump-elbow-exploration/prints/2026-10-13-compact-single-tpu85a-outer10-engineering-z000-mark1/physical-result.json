@@ -1,5 +1,5 @@
 {
-  "status": "User-reported sagging during the 10 mm/s trial; completed-part acceptance pending",
+  "status": "Raised and ragged rims; no established improvement from the speed change; completed-part acceptance pending",
   "reported_date": "2026-10-13",
   "reporter": "Derek",
   "printer": "Mark1 (H2C)",
@@ -25,11 +25,11 @@
       "sha256": "908ac98544ea00fd4cb3f13997924d47c3a4181125ec5679c2e734eb1472fdf3"
     }
   ],
-  "user_report": "Well, maybe this is good news, but it appears the 45-degree edges are sagging this time. So I guess whatever you did, we just try halfway between the previous one and this one, and maybe we get somewhere between sagging and curling up? Question mark.",
+  "user_report": "Oh, maybe it is curling. I guess I\u2019m not interested in a midpoint when the difference in those numbers is 10 13 17 so small and the difference I\u2019m observing is maybe non existent upon reflection.",
   "photo_observations": [
-    "Ragged, drooping strands are visible along the growing exterior undersides.",
-    "The right rim also appears raised or built up; the photos do not establish that upward curl is absent.",
-    "The foot remains visibly seated in these views."
+    "Raised, distorted and built-up rim material is visible in the close-ups, with ragged loops or strands along the exterior underside.",
+    "The static photos do not establish a change from upward curl to an opposite sagging mode or a dependable improvement at 10 mm/s.",
+    "The three wider views show the foot visibly seated. The six later close-ups do not include the foot."
   ],
   "telemetry_during_report": {
     "gcode_state": "RUNNING",
@@ -50,9 +50,38 @@
     "scope": "Raw fan telemetry, not measured airflow. Exact photo layer is unspecified."
   },
   "interpretation": [
-    "The observations motivate an intermediate outer-wall speed trial. They do not demonstrate a monotonic relationship between speed and edge deflection.",
-    "The 100% part-fan setting is retained because the user-reported 100-to-50% fan reduction on the prior print worsened curl."
+    "The user reassesses the apparent sagging and reports that the observed difference between speeds may be nonexistent. A speed midpoint is not selected.",
+    "The 100% part-fan setting is retained because the user-reported 100-to-50% fan reduction on the prior print worsened curl.",
+    "A 215 C normal-layer candidate holds the 10 mm/s speed and all other process settings fixed, including the 225 C first layer. This tests nozzle temperature as a hypothesis; heat is not established as the cause."
   ],
-  "next_candidate": "../2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md",
-  "scope": "Print-process observations only; no socket fit, sealing, retention or lifetime acceptance."
+  "next_candidate": "../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md",
+  "scope": "Print-process observations only; no socket fit, sealing, retention or lifetime acceptance.",
+  "earlier_user_report": "Well, maybe this is good news, but it appears the 45-degree edges are sagging this time. So I guess whatever you did, we just try halfway between the previous one and this one, and maybe we get somewhere between sagging and curling up? Question mark.",
+  "followup_closeups": [
+    {
+      "file": "rim-closeup-1.jpg",
+      "sha256": "ea2046f70a70b387f76b370f5d37c5f41df37139809e092a5dc26ce4d5802a37"
+    },
+    {
+      "file": "rim-closeup-2.jpg",
+      "sha256": "f0084245743ce1ad3b26aa9ee67f00dcb09b85d9bf757c3d8867c9fe5979c2ba"
+    },
+    {
+      "file": "rim-closeup-3.jpg",
+      "sha256": "822dfae0226c6eb9c97214e2a33aa9a487b15a04416a122068166e90efae6b34"
+    },
+    {
+      "file": "rim-closeup-4.jpg",
+      "sha256": "f4abd28d41aefceb7b71b0840bb9264e5a719f6db0dacd1c9ea4bac38b7e869c"
+    },
+    {
+      "file": "rim-closeup-5.jpg",
+      "sha256": "f06c77d0ecfbbf63a7a08ea019309af376fa7e73022141105798250a2f661280"
+    },
+    {
+      "file": "rim-closeup-6.jpg",
+      "sha256": "67922ff81938c1ad37c22817299f9c948001aa708636637114da6218238d8e07"
+    }
+  ],
+  "withdrawn_candidate": "../2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md"
 }
