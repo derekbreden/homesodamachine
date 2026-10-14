@@ -1,16 +1,17 @@
 # TPU pump elbow and installed layout study
 
-**Status: manual fit accepted on the rough 225°C article; underside curl remains unresolved.**
+**Status: one Siraya Tech Flex TPU 85A Clear elbow started on Mark1; surface quality and fit pending.**
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. This job uses the user-reported glued Engineering Plate
 and zero user Z trim, with a 225°C first layer and a requested 10 mm/s outer wall.
-Mark1 accepted the 215°C trial as task 1337710290 on 2026-10-13 at
-23:05:30 CDT. The [in-progress physical record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
+Mark1 accepted the [Siraya trial](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
+as task 1337804197 on 2026-10-14 at 00:11:26 CDT. It uses 215°C normal layers
+and verified 10 mm/s exterior commands. The earlier Bambu TPU 85A
+[physical record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
 reports faint curl by layer 21 and a similar defect to two prints earlier by
-layer 27. Completed-part fit remains pending. The actual curling lip exceeds
-the requested outer-wall speed because of separate overhang settings.
-An [offline 225°C candidate](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
-has verified 10 mm/s lip commands; it is not submitted.
+layer 27. Its actual curling lip exceeds the requested outer-wall speed
+because of separate overhang settings. The Siraya archive retains the
+same geometry and corrected exterior-speed settings, with a new material recipe.
 The completed rough-edged 225°C article has a
 [reported firm, stretchy friction fit](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 with manageable manual insertion and no jig. Its cuff dimensions and walls
@@ -29,10 +30,12 @@ neighboring hardware are considered together.
 
 ## Files
 
-- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
+- [Compact elbow and Mark1 preparation](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
   identify one 15 mm elbow, the editable project, native sliced
-  archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
-  zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
+  archive, Siraya Tech Flex TPU 85A Clear recipe, right fixed 0.6 mm nozzle,
+  Engineering Plate and zero user Z trim. Its native estimate is 65 minutes /
+  3.93 g. The earlier Bambu TPU 85A article retains its manual-fit acceptance;
+  Siraya fit remains pending.
 - [Outer-wall-setting-10 trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
   bind the user's reports, three wider views and six close-ups to the identified
   job. Raised, distorted rims remain visible; a dependable speed benefit is
@@ -42,7 +45,8 @@ neighboring hardware are considered together.
   retains the same speed settings and 225°C first layer. The emitted lip speeds
   exceed 10 mm/s in both archives. The [corrected overhang-speed candidate](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
   caps the relevant overhang entries at 10 mm/s and retains the accepted-fit
-  article's 225°C recipe.
+  article's 225°C recipe. That prepared Bambu-material archive remains unsent;
+  the selected Siraya job retains its corrected speed settings.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.
@@ -143,33 +147,36 @@ limits grip; it is not validation of this custom cuff.
 
 The selected single specimen has both mouths upward at 45°, a rounded heel,
 a smooth neck and one 88.9 mm² integral flat foot. Its 9 mm circular clamp
-seats remain exposed. The selected filament is the user-reported TPU 85A.
+seats remain exposed. The selected filament is user-identified Siraya Tech
+Flex TPU 85A Clear, SKU ST3008.
 The [TPU for AMS trial](prints/2026-10-13-compact-single-tpuams-mark1/physical-result.json)
 is reported too stiff; its record supplies no sealing or pressure acceptance.
 
 The native archive contains one body, one normal volume, one object and one
 build instance, with a 5 mm outer brim. The selected trial uses 225°C for the
-first layer and 215°C for normal layers, with the manufacturer's 35°C
-Engineering Plate, flow ratio 1.0 and 2.2 mm³/s maximum flow. The temperature
-hypothesis and manufacturer guidance are in the
-[trial record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md).
+first layer and 215°C for normal layers, a 35°C Engineering Plate, Siraya's
+0.96 flow ratio and a local 2.2 mm³/s maximum flow. Its
+[material profile and trial record](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
+identify the manufacturer H2C source and local choices.
 Requested process settings are 0.20 mm first /
 0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap, 10 mm/s
 outer walls and 25 mm/s inner walls. Spiral mode and supports are off.
-Part and auxiliary fans are commanded at 100% from layer 2. The
+Part cooling is commanded at 100% from layer 2; auxiliary cooling is off,
+following Siraya's H2C material profile. The earlier Bambu archive's
 [complete-perimeter review](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/curl-toolpath-review.json)
 shows actual left-lip commands of 14.37 mm/s at layer 21 and 16.40 mm/s at
 layer 27, with nominal layer motion near 20 seconds. The separate process
 overhang table contains 50 and 30 mm/s entries that can replace the ordinary
 outer-wall speed. A setting of 10 mm/s alone does not establish a 10 mm/s lip.
-The [offline corrected slice](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
-uses 10 mm/s for those two entries. Its generated commands establish the
-intended speed; no physical result is available.
+The selected Siraya slice retains 10 mm/s for those two entries. Its
+[emitted-command review](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
+verifies the left lip and complete exterior-loop range at 10 mm/s on layers
+17–33; physical surface results remain pending.
 
 This print uses Bambu's unmodified stock H2C machine-start template with
 **zero user Z trim**. Engineering Plate and the 0.6 mm nozzle emit only
 `G29.1 Z0`; the readback contains no other Z-trim value. The native estimate
-is **67 minutes / 4.30 g**. This setting is local to the identified print job.
+is **65 minutes / 3.93 g**. This setting is local to the identified print job.
 
 The [downward-filled candidate](prints/2026-10-13-downward-fill-single-tpu85a-mark1/README.md)
 is prepared but not selected or submitted. It contains only stock beneath the

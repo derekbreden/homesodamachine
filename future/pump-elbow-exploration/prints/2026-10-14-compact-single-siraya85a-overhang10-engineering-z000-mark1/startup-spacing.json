@@ -1,0 +1,12 @@
+{
+  "printer_started": "Mark1 (H2C)",
+  "accepted_at": "2026-10-14T05:11:26.792470+00:00",
+  "other_printer": "Mark2",
+  "other_printer_task_id": "1337767162",
+  "other_printer_accepted_at": "2026-10-14T04:45:29.184170+00:00",
+  "other_launch_receipt": ".cache/printer-control/Mark2-1337767162-launch.json",
+  "minimum_start_spacing_s": 180,
+  "observed_start_spacing_s": 1557.6083,
+  "pre_send_status": "pre-send-status.json",
+  "scope": "Recorded accepted starts and current running task establish more than 180 seconds between these starts."
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at": "2026-10-14T05:10:23.863477+00:00",
+    "gcode_state": "FAILED",
+    "job_id": "1337710290",
+    "subtask_name": "2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.gcode.3mf",
+    "layer_num": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 53.0,
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_color": "FFFFFFFF"
+      }
+    ]
+  },
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-10-14T05:10:24.277358+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "1337767162",
+    "subtask_name": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+    "layer_num": 14,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "bed_target_temper": 80.0,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_color": "FFFFFFFF"
+      }
+    ]
+  }
+]

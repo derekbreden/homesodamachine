@@ -1,0 +1,29 @@
+{
+  "reported_date": "2026-10-14",
+  "material": "Siraya Tech Flex TPU 85A Clear",
+  "sku": "ST3008",
+  "photo": "filament-label.jpg",
+  "photo_sha256": "f90e4064f93dd8cd1873864ba4e798f81ce04824fef3936715d1e1d2dcf604da",
+  "user_reports": [
+    "I\u2019ve decided to crack this open and have you try the latest print on this.",
+    "I have started the load process. It is only waiting on the H2C purge cycle now.",
+    "You sure you don\u2019t want to try 215? That is within their range and we\u2019re already lowering the speed from their profile.",
+    "Mark1 is ready"
+  ],
+  "printer": "Mark1 (H2C)",
+  "hotend": "Right fixed 0.6 mm, retained from the established elbow setup",
+  "physical_colour": "Clear, as labelled",
+  "printer_spool_metadata": {
+    "slot": "255",
+    "type": "TPU",
+    "colour": "FFFFFFFF",
+    "scope": "Reported white colour selects the external spool. Physical grade and colour are identified by the user and bag label, not by the stored Bambu material identifier."
+  },
+  "plate": "Glued Engineering Plate, retained from the established elbow setup",
+  "user_z_trim_mm": 0.0,
+  "temperature_c": {
+    "normal_layers": 215,
+    "first_layer": 225
+  },
+  "scope": "Material identification and user readiness reports. Fresh package opening does not measure filament moisture; the older spool drying record does not apply to this spool. Printed fit and surface quality remain unassessed."
+}
