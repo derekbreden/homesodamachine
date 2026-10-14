@@ -1,0 +1,98 @@
+{
+  "gcode_sha256": "a469535d2d78854ee6f09017549ef5b19a41b59231347fed5aab83d7701ce3e3",
+  "temperature_changes_during_model_layers": [
+    {
+      "layer": 2,
+      "line": 2004,
+      "command": "M104 S215",
+      "target_c": 215.0
+    },
+    {
+      "layer": 184,
+      "line": 133789,
+      "command": "M104 S0 T0",
+      "target_c": 0.0
+    },
+    {
+      "layer": 184,
+      "line": 133790,
+      "command": "M104 S0 T1",
+      "target_c": 0.0
+    }
+  ],
+  "layer_start_targets": [
+    {
+      "layer": 1,
+      "z_mm": 0.2,
+      "last_commanded_nozzle_target_c": 225.0
+    },
+    {
+      "layer": 2,
+      "z_mm": 0.32,
+      "last_commanded_nozzle_target_c": 225.0
+    },
+    {
+      "layer": 3,
+      "z_mm": 0.44,
+      "last_commanded_nozzle_target_c": 215.0
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "last_commanded_nozzle_target_c": 215.0
+    }
+  ],
+  "curl_region_outer_speeds_mm_s": [
+    {
+      "layer": 26,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 27,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 28,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 29,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 30,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 31,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 32,
+      "speeds": [
+        10.0
+      ]
+    },
+    {
+      "layer": 33,
+      "speeds": [
+        10.0
+      ]
+    }
+  ],
+  "first_layer_commanded_temperature_c": 225,
+  "normal_layer_commanded_temperature_c": 215,
+  "limits": "These are archived commands, not measured nozzle temperature or a physical print result. No printer action."
+}
