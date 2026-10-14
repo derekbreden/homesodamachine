@@ -78,7 +78,12 @@ def industrial_parts() -> tuple:
 
 
 def enforce_rear_seam(members: dict[str, bytes], report: dict, target: dict) -> dict:
-    """Paint the outer rear center strip without changing vertices or triangles."""
+    """Paint the complete rear silhouette in the actual build pose.
+
+    Include the tilted stage shoulders as well as the cylindrical/curved faces.
+    Select using each facet's center-strip intersection, rather than its centroid:
+    long stage facets can span several transitions. Geometry is unchanged.
+    """
     row = next(p for p in report["parts"] if p["name"] == target["part"])
     root = ET.fromstring(members[row["member"]])
     mesh = root.find(f".//{writer.qn('mesh')}")
@@ -89,33 +94,62 @@ def enforce_rear_seam(members: dict[str, bytes], report: dict, target: dict) -> 
     indices = np.array([[int(t.get(k)) for k in ("v1", "v2", "v3")]
                         for t in triangles])
     points = vertices[indices]
-    centers = points.mean(axis=1)
-    normals = np.cross(points[:, 1] - points[:, 0], points[:, 2] - points[:, 0])
+    rotation = np.array(row["build_transform"][:9]).reshape(3, 3)
+    build_vertices = vertices @ rotation
+    build_points = build_vertices[indices]
+    normals = np.cross(build_points[:, 1] - build_points[:, 0],
+                       build_points[:, 2] - build_points[:, 0])
     normals /= np.maximum(np.linalg.norm(normals, axis=1), 1e-12)[:, None]
     half_width = target["half_width_mm"]
-    selected = ((centers[:, 2] >= target["minimum_cad_z_mm"])
-                & (normals[:, 1] > .1) & (abs(normals[:, 0]) < .35)
+    selected = ((normals[:, 1] > 1e-5) & (abs(normals[:, 0]) < .35)
                 & (points[:, :, 0].min(axis=1) <= half_width)
                 & (points[:, :, 0].max(axis=1) >= -half_width))
-    # The rear silhouette in the X=0 plane excludes internal passage faces.
-    shape = trimesh.Trimesh(vertices=vertices, faces=indices, process=False)
+    # Read the rear boundary at build Z, following its translation in plate Y.
+    # CAD-horizontal sections omit the tilted shoulder surfaces.
+    shape = trimesh.Trimesh(vertices=build_vertices, faces=indices, process=False)
     segments = trimesh.intersections.mesh_plane(shape, [1, 0, 0], [0, 0, 0])
     low = segments[:, :, 2].min(axis=1)
     high = segments[:, :, 2].max(axis=1)
+    if target.get("surface") == "curved_outer_arc":
+        import faucet_paths
+        arc_center = np.array([faucet_paths.WATER_Y - faucet_paths.WATER_RADIUS,
+                               faucet_paths.ARC_START_Z])
+        arc_radius = (faucet_paths.WATER_RADIUS + faucet_paths.SHELL_CENTER_N
+                      + faucet_paths.SHELL_RADIUS)
     for index in np.flatnonzero(selected):
-        z = centers[index, 2]
+        triangle = build_points[index]
+        xmin, xmax = triangle[:, 0].min(), triangle[:, 0].max()
+        x = min(max(0.0, xmin + 1e-9), xmax - 1e-9)
+        cuts = []
+        for a, b in ((triangle[0], triangle[1]), (triangle[1], triangle[2]),
+                     (triangle[2], triangle[0])):
+            if (a[0] - x) * (b[0] - x) <= 0 and abs(a[0] - b[0]) > 1e-10:
+                cuts.append(a + (b - a) * (x - a[0]) / (b[0] - a[0]))
+        if len(cuts) < 2:
+            selected[index] = False
+            continue
+        midpoint = np.mean(cuts, axis=0)
+        if target.get("surface") == "curved_outer_arc":
+            cad_midpoint = midpoint @ rotation.T
+            if abs(np.linalg.norm(cad_midpoint[1:] - arc_center) - arc_radius) > .15:
+                selected[index] = False
+                continue
+        z = midpoint[2]
         section = segments[(low <= z) & (high >= z)]
         dz = section[:, 1, 2] - section[:, 0, 2]
         section = section[abs(dz) > 1e-8]
         dz = section[:, 1, 2] - section[:, 0, 2]
         y = section[:, 0, 1] + (z - section[:, 0, 2]) / dz * (section[:, 1, 1] - section[:, 0, 1])
-        if not len(y) or abs(centers[index, 1] - y.max()) > .6:
+        if not len(y) or abs(midpoint[1] - y.max()) > .15:
             selected[index] = False
     for index in np.flatnonzero(selected):
         triangles[index].set("paint_seam", "4")
     members[row["member"]] = writer.xml(root)
     model = ET.fromstring(members["3D/3dmodel.model"])
-    ET.SubElement(model, writer.qn("metadata"), name="BambuStudio:SeamPaintingVersion").text = "0"
+    version = model.find(f"{writer.qn('metadata')}[@name='BambuStudio:SeamPaintingVersion']")
+    if version is None:
+        version = ET.SubElement(model, writer.qn("metadata"), name="BambuStudio:SeamPaintingVersion")
+    version.text = "0"
     members["3D/3dmodel.model"] = writer.xml(model)
     chosen = points[selected].reshape(-1, 3)
     return {**target, "enforced_triangles": int(selected.sum()),
@@ -257,6 +291,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges)
     if finish.get("rear_seam_enforcement"):
         report["rear_seam_enforcement"] = enforce_rear_seam(members, report, finish["rear_seam_enforcement"])
+    if finish.get("tip_rear_seam_enforcement"):
+        report["tip_rear_seam_enforcement"] = enforce_rear_seam(members, report, finish["tip_rear_seam_enforcement"])
     writer.archive_write(output, members)
     if report["plate_count"] != 1 or len(report["parts"]) != 5:
         raise ValueError("The complete Industrial project needs five rigid parts on one plate")
@@ -303,7 +339,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; rear center seam enforcement on the base neck; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
     })
     for key in finish["filament_overrides"]:
         if before_settings.get(key) != after_settings.get(key):

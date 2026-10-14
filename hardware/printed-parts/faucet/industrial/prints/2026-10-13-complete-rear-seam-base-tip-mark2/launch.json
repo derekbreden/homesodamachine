@@ -1,0 +1,49 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-14T04:45:29.184170+00:00",
+  "archive": {
+    "name": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+    "sha256": "dd6e2689517b26cff61ff103be8583615da26080dce38de89aea1a8e356cc680",
+    "gcode_sha256": "258671e8a7d9e1ab2e25ee424dc9aeae089fb5e137c7b5b8b6500adfb4e66822",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "industrial-shell-base",
+      "faucet-shell-tip"
+    ]
+  },
+  "printer_task_id": "1337767162",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1244,
+  "total_layer_num": 1244,
+  "mc_remaining_time": 0,
+  "evaluation_only": true,
+  "one_time_exception": true,
+  "authorization_quote": "Well, Mark 2 bed is clear, and I'd like to get the next print started if that next print is just the same faucet base again. But I'm worried because you said you're checking the whole base, that you didn't actually check the seam across the rest of our faucet. So could you please also check the tip and the mounting plate? And if they're good and they line up with this seam on the base, great, then start another print of base on Mark 2. Otherwise, print me everything that's got a problem that we need to verify is fixed here. Thanks.",
+  "normal_complete_recipe_changed": false,
+  "print_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "shared_circuit": {
+    "other_printer": "Mark1",
+    "other_task_id": "1337710290",
+    "other_accepted_at_utc": "2026-10-14T04:05:30.937221+00:00",
+    "seconds_since_other_acceptance": 2321.404556,
+    "minimum_interval_seconds": 180,
+    "accepted_start_interval_seconds": 2398.246949
+  },
+  "physical_result": null,
+  "acceptance_counter_note": "PREPARE arrived with the preceding job layer counters; startup is recorded separately.",
+  "native_estimated_seconds": 19273.74609375,
+  "estimated_finish_at_utc": "2026-10-14T10:06:42.930264+00:00"
+}

@@ -1,0 +1,55 @@
+{
+ "slice": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/2026-10-13-industrial-faucet-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+ "part": "industrial-above-counter-plate",
+ "layers": 26,
+ "open_loops": 1,
+ "tolerance_mm": 0.6,
+ "max_abs_lateral_mm": 22.885,
+ "zones": [
+  {
+   "layers": [
+    19,
+    19
+   ],
+   "print_z_mm": [
+    4.28,
+    4.28
+   ],
+   "cad_z_mm": [
+    0.07,
+    0.07
+   ],
+   "peak_lateral_mm": 22.71,
+   "peak_print_z_mm": 4.28,
+   "peak_gcode_line": 138195
+  },
+  {
+   "layers": [
+    25,
+    25
+   ],
+   "print_z_mm": [
+    5.72,
+    5.72
+   ],
+   "cad_z_mm": [
+    1.51,
+    1.51
+   ],
+   "peak_lateral_mm": 22.885,
+   "peak_print_z_mm": 5.72,
+   "peak_gcode_line": 184229
+  }
+ ],
+ "profile": [
+  {
+   "print_z_mm": [
+    0.0,
+    10.0
+   ],
+   "layers": 26,
+   "mean_lateral_mm": 1.8,
+   "max_abs_lateral_mm": 22.885
+  }
+ ]
+}

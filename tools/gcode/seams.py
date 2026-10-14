@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Where every seam of one part sits, over the part's whole height.
+"""Where the main exterior seam sits, over the part's whole height.
 
 RUN BY HAND. NOT A STEP OF THE BUILD.
 
