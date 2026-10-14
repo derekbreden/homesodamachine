@@ -77,7 +77,9 @@ def main():
             if part['kind'] == 'fin_landing_bridge':
                 row['lower_tooth_height_mm'] = sorted({p['height'] for p in lower})
                 tips = []
-                for y in (.4, 2, 4, 6, 8, 10, 11.6):
+                tooth_centers = [p[0] for p in part.get('lower_teeth_center_and_width_mm',
+                    ((.4, .8), (2, .5), (4, .5), (6, .5), (8, .5), (10, .5), (11.6, .8)))]
+                for y in tooth_centers:
                     a = np.array([3+part['clear_span_mm']+.02, y])
                     b = np.array([roof_hi[0]-trans[0]+.22, y])
                     if axis == 1:

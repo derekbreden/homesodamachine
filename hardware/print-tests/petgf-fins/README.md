@@ -21,7 +21,10 @@ order; [photos](photos/01-plate.jpg) preserve the final physical state.
 
 The [short-span follow-up](short-spans-v2/README.md) compares solid model
 anchors with fin landings at 2–8 mm and fixed part-fan cooling. Its full-length
-ramps finish before the bridge attempts begin.
+ramps finish before the bridge attempts begin. Its fan-off run establishes
+stable C bridges with rejected underside finish, failed F roof formation, and
+edge sag on four of the six full-length ramps; see its
+[physical record](short-spans-v2/physical-result-fan0.json).
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact

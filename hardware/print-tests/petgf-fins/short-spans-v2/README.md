@@ -8,8 +8,11 @@ surfaces and smooth sliding faces after support removal.
 The two plates use the same 16 test meshes and placements. A separate embossed
 FAN 0 or FAN 30 tag identifies the cooling treatment. Mark2 accepted the fan-off
 plate as **task 1339729875** on 2026-10-14; [its launch record](launch-fan0.json)
-binds the submitted archive to acceptance. The 30% plate is prepared for the
-subsequent cleared-bed print.
+binds the submitted archive to acceptance and completion. The
+[physical result](physical-result-fan0.json) records stable C bridges with
+unacceptable retained underside finish and formation failure on every F bridge.
+The 30% plate is prepared and unsubmitted; its useful comparisons are ramp edge
+quality and retained C-bridge finish. Its F row retains the sparse landing geometry.
 [Plate map](plate-layout.png).
 
 Each native estimate is **about 56 min 42 s and 21.18 g**, across **115 layers**.
@@ -34,8 +37,41 @@ leaves the completed shorter roofs and ramps available for assessment.
 
 The fin cases have one permanently anchored model end. They measure landing on
 a fin after establishing a model anchor; they do not qualify a shelf that starts
-entirely on two opposing fins. The fin's lower teeth and permanent post must
-actually hold, which the physical result will determine.
+entirely on two opposing fins. The C anchors hold their bridges in the reported
+run. The F landings do not establish a roof, so those failures cannot select a
+PET-GF free-span limit.
+
+## Fan-off physical result and landing paths
+
+Derek reports all five C specimens stable, with no F-style collapse. Their
+bridged underside is strictly worse than a supported underside, which is itself
+unsatisfactory. This demonstrates formation at the tested 2–8 mm spans and
+4 mm rotated, without accepting their surface for a visible or sliding face.
+[Photos](photos/04-result.jpg) preserve the retained strands and finish.
+
+Every F specimen fails as the roof begins. Derek observes lower tines, then a
+line across the tines, then bridge strands falling away. The
+[native path trace](landing-path-review.json) identifies that line as a roof
+perimeter printed before bridge fill. In F2, only 6 of 28 main raster far-end
+centers lie over preceding tooth beads; 14 of 28 endpoint bead envelopes touch
+those beads. The others depend on the freshly printed transverse perimeter.
+Its centerline crosses gaps as long as 1.47 mm between preceding bead envelopes.
+The middle fill stroke has about 0.11 mm nominal overlap with the inner
+perimeter, so the saved paths do not establish a literal gap everywhere.
+Physical collapse is consistent with an unreliable landing; actual deposited
+width, sag and loss of contact are not measured.
+
+![Roof fill, perimeter and preceding teeth](landing-paths.png)
+
+All six ramps finish their planned 14 mm reach. Derek reports edge sag on four
+of six. Assignment to S30/S35/R30/R35, leaving S40/R40 as the promising pair,
+is an inference from that report, the angle-specific inspection and the
+[ramp photo](photos/01-result.jpg); the latest report does not name each ID.
+There is no sliding-face, bonding or strength acceptance.
+
+The [dense-contact candidate](../dense-landing-v3/README.md) addresses landing
+coverage in native paths. It is unprinted. Extra contact area changes removal
+behavior, and formation alone cannot resolve the rejected C-bridge finish.
 
 ## Basis and print process
 
@@ -64,11 +100,14 @@ The C/F comparison gives those mechanisms distinct witnesses.
   load capacity, lifetime or annealed behavior; the production profile is unchanged.
 
 The emitted fan commands, bridge axes and speeds, contact footprints, first
-roof anchors, completed-ramp order and bead envelope are recorded separately in
+roof endpoint distances, completed-ramp order and bead envelope are recorded separately in
 each `.native-review.json`. The editable projects and native `.gcode.3mf`
 archives carry the treatment in their filenames. Each print-only archive retains
 the reviewed G-code bytes for Studio's saved-slice send. Launch metadata binds
 the submitted archive, reported printer name and task ID when a plate is sent.
+Endpoint distances and contact existence alone do not establish an anchored
+first roof. `landing-path-review.json` includes the perimeter-before-fill order
+and the preceding tooth coverage at each main raster landing.
 
 ## Read the physical result
 
@@ -103,6 +142,7 @@ hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py` from the repositor
 root. Slice each `.3mf` with the installed Bambu Studio using
 `--arrange 0 --orient 0 --slice 0` and an absolute output directory.
 Run `inspect_slice.py <saved-native-archive>` to collect native path evidence.
+Run `trace_landing.py` for the saved fan-off roof/perimeter landing trace.
 These commands are manual experiment tools and do not join a build or commit path.
 
 Use the documented [saved-slice print submission](../../../../tools/bambu-printers.md#bambu-studio-send-from-an-existing-slice)
