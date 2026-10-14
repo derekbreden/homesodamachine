@@ -1,0 +1,24 @@
+{
+  "canonical_non_part_fan_commands": 252273,
+  "model_and_nonmodel_xyz_unchanged": true,
+  "extrusion_changes_only_named_first_roof_bridge_moves": {
+    "F08": 55,
+    "F04": 55,
+    "Y08": 55,
+    "Y04": 55,
+    "C07": 55,
+    "F07": 55,
+    "C04": 55,
+    "C03": 55,
+    "Y07": 55,
+    "F03": 55,
+    "C08": 55,
+    "Y03": 55
+  },
+  "slow_bridge_moves": 660,
+  "all_other_motion_feedrates_restored_to_native": true,
+  "all_other_commands_and_archive_entries_unchanged": true,
+  "gcode_md5_verified": true,
+  "all_model_paths_and_other_model_extrusion_speeds_match_native": true,
+  "scope": "One manual verification of the submitted experiment; no recurring gate or physical acceptance."
+}

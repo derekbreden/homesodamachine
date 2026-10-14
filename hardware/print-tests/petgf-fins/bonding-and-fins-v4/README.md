@@ -17,9 +17,16 @@ apart. The [Mark1 physical result](mark1/physical-result.json) identifies N100
 and N125 as the visually preferred pair, with no clear winner. Derek reports
 better-looking line fusion than usual on the bottom-middle specimen, then notes
 that bottom-left may be better and the two look similar. This is visual first-
-layer evidence on permanent model posts. Mark2's fin/ramp physical result remains
-unreported. The [normal-flow/cooling follow-up](../normal-flow-cooling-v5/README.md)
+layer evidence on permanent model posts. The [Mark2 physical result](mark2/physical-result.json)
+records all three roofs formed, with objectionable sag and finish: one much
+worse than the other two, without per-ID identification. Four ramps improve
+with residual sag and two look good; assignment to the 40° pair is tentative.
+Fin release and the better cooling level are unreported. The
+[normal-flow/cooling follow-up](../normal-flow-cooling-v5/README.md)
 retains both preferred treatments and adds an intermediate flow and 100% fan.
+The [40-specimen follow-up](../finish-matrix-v6/README.md) compares matched
+solid-post/fin roofs at lower extrusion, two bridge speeds and two cooling
+levels, with a finer ramp-angle comparison in opposing directions.
 
 ## Mark1: line-to-line fusion at fixed spacing
 

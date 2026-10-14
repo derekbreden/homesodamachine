@@ -5,12 +5,12 @@ Mark1,1340084547,N150,solid_bridge,,,,,,,,
 Mark1,1340084547,T100,solid_bridge,,,,,,,,
 Mark1,1340084547,T125,solid_bridge,,,,,,,,
 Mark1,1340084547,T150,solid_bridge,,,,,,,,
-Mark2,1340093238,30F70,ramp,,,,,,,,
-Mark2,1340093238,35F70,ramp,,,,,,,,
-Mark2,1340093238,40F70,ramp,,,,,,,,
-Mark2,1340093238,30F100,ramp,,,,,,,,
-Mark2,1340093238,35F100,ramp,,,,,,,,
-Mark2,1340093238,40F100,ramp,,,,,,,,
-Mark2,1340093238,C12,solid_bridge,,,,,,,,
-Mark2,1340093238,F12,fin_bridge,,,,,,,,
-Mark2,1340093238,Y12,fin_bridge,,,,,,,,
+Mark2,1340093238,30F70,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,35F70,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,40F70,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,30F100,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,35F100,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,40F100,ramp,,,,,,,,Pooled report: four improved with residual sag; two pretty good. 40-degree pair tentative. No 70/100 fan winner identified.
+Mark2,1340093238,C12,solid_bridge,yes,,"Rejected: one substantially sagged, two moderately sagged; individual severity unidentified.",,,,,See mark2/physical-result.json. Fin release unreported.
+Mark2,1340093238,F12,fin_bridge,yes,,"Rejected: one substantially sagged, two moderately sagged; individual severity unidentified.",,,,,See mark2/physical-result.json. Fin release unreported.
+Mark2,1340093238,Y12,fin_bridge,yes,,"Rejected: one substantially sagged, two moderately sagged; individual severity unidentified.",,,,,See mark2/physical-result.json. Fin release unreported.

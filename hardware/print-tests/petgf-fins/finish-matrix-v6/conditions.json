@@ -1,0 +1,59 @@
+{
+  "bridge_conditions": [
+    {
+      "condition": 1,
+      "flow_percent": 100,
+      "fan_percent": 70,
+      "first_bridge_speed_mm_s": 15
+    },
+    {
+      "condition": 2,
+      "flow_percent": 100,
+      "fan_percent": 70,
+      "first_bridge_speed_mm_s": 25
+    },
+    {
+      "condition": 3,
+      "flow_percent": 125,
+      "fan_percent": 70,
+      "first_bridge_speed_mm_s": 15
+    },
+    {
+      "condition": 4,
+      "flow_percent": 125,
+      "fan_percent": 70,
+      "first_bridge_speed_mm_s": 25
+    },
+    {
+      "condition": 5,
+      "flow_percent": 100,
+      "fan_percent": 100,
+      "first_bridge_speed_mm_s": 15
+    },
+    {
+      "condition": 6,
+      "flow_percent": 100,
+      "fan_percent": 100,
+      "first_bridge_speed_mm_s": 25
+    },
+    {
+      "condition": 7,
+      "flow_percent": 125,
+      "fan_percent": 100,
+      "first_bridge_speed_mm_s": 15
+    },
+    {
+      "condition": 8,
+      "flow_percent": 125,
+      "fan_percent": 100,
+      "first_bridge_speed_mm_s": 25
+    }
+  ],
+  "C": "permanent posts, X bridge",
+  "F": "opposing removable fins, X bridge",
+  "Y": "opposing removable fins, Y bridge",
+  "R": "full 14 mm ramp; see manifest for angle, fan and direction",
+  "within_row_gap_mm": 3.5,
+  "between_row_gap_mm": 2.5,
+  "placement_seed": 20261014
+}

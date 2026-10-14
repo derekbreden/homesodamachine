@@ -35,7 +35,12 @@ tooth beads, with bridge fill before walls. Its
 N100/N125 visually preferred without a clear winner. The
 [normal-flow/cooling follow-up](normal-flow-cooling-v5/README.md) compares
 100%/115%/125% extrusion at 70%/100% fan on six normal bridge swatches.
-The fin/ramp physical result remains pending.
+The [Mark2 result](bonding-and-fins-v4/mark2/physical-result.json) establishes
+formation of both fin roofs and the solid control, with unacceptable sag/finish.
+Four ramps improve with residual sag and two look good; the 40° identification
+is tentative. The [40-specimen finish comparison](finish-matrix-v6/README.md)
+uses matched solid posts and opposing fins at 100%/125% volume, 15/25 mm/s and
+70%/100% fan, plus 35–42.5° ramps facing both directions.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact
