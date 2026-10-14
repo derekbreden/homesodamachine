@@ -44,6 +44,13 @@ cooling time/tension improves the retained shape. The 25 mm/s level retains the
 existing bridge speed. The same factors on C/F/Y distinguish general bridging
 quality from fin contacts and direction effects within this plate.
 
+The [Mark1 flow/cooling result](../normal-flow-cooling-v5/mark1/physical-result.json)
+ranks 125% extrusion at 70% fan first and 125% at 100% fan second for optical
+gap closure, both at 25 mm/s. C04/F04/Y04 use the preferred first-roof settings;
+C03/F03/Y03 compare the slower speed. This plate's taller anchors, five-course
+roofs and longer return time between objects make retained finish and fin
+release the next questions, rather than an identical isolated-layer repeat.
+
 The first-roof E and speed treatments apply to positive XY Bridge-feature
 extrusion on that course, including the raster connectors. All other extrusion
 volumes and motion speeds retain the native slice. Native strand spacing is

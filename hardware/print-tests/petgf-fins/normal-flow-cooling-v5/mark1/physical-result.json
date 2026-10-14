@@ -1,0 +1,62 @@
+{
+  "status": "completed; A125 has fewest visible gaps, B125 is second",
+  "printer": "Mark1",
+  "printer_task_id": "1340156908",
+  "report_date": "2026-10-14",
+  "launch_record": "launch.json",
+  "machine_completion": {
+    "observed_at": "2026-10-14T23:12:54.351450+00:00",
+    "job_id": "1340156908",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 24,
+    "total_layer_num": 24,
+    "print_error": 0,
+    "hms": []
+  },
+  "user_observations": [
+    {
+      "verbatim": "On the Mark 1 plate that ran just now, it looks like the bottom right one looks the best of those as far as fewest gaps when I hold it up to the light to see through that layer."
+    },
+    {
+      "verbatim": "And the top right one is second, and the others are not as good."
+    }
+  ],
+  "position_mapping": {
+    "basis": "User-reported positions mapped to the saved plate layout, viewed from the front of the printer; no new photographs supplied.",
+    "bottom_left": "A100",
+    "bottom_middle": "A115",
+    "bottom_right": "A125",
+    "top_left": "B100",
+    "top_middle": "B115",
+    "top_right": "B125"
+  },
+  "selected_scope": {
+    "criterion": "fewest gaps when held up to light",
+    "best": { "id": "A125", "bridge_extrusion_percent": 125, "part_fan_percent": 70 },
+    "second": { "id": "B125", "bridge_extrusion_percent": 125, "part_fan_percent": 100 },
+    "remaining_ids": ["A100", "A115", "B100", "B115"],
+    "remaining_relative_rank": "all worse than B125; order among these four unreported",
+    "bridge_mode": "normal",
+    "bridge_speed_mm_s": 25,
+    "clear_span_mm": 12,
+    "roof_layers": 1,
+    "nominal_roof_layer_height_mm": 0.24,
+    "anchor_type": "permanent model posts",
+    "native_strand_pitch_mm": [0.377, 0.378],
+    "claim": "Optical gap closure favors 125% extrusion at fixed strand spacing; 70% fan is preferred to 100% at that extrusion on this plate."
+  },
+  "unreported": [
+    "Sag and retained underside finish for this ranking",
+    "Independent movement of adjacent strands or measured inter-strand strength",
+    "Fin removal and retained fin-contact surface",
+    "Performance above a slicer-generated support interface"
+  ],
+  "follow_up": "../../finish-matrix-v6/README.md",
+  "follow_up_comparisons": {
+    "winning_first_roof_settings": ["C04", "F04", "Y04"],
+    "same_extrusion_and_fan_at_15_mm_s": ["C03", "F03", "Y03"],
+    "scope": "The Mark2 follow-up has taller anchors, five-course roofs and a larger plate; it assesses retained finish and fin release rather than an identical repeat of this isolated first-layer comparison."
+  }
+}
