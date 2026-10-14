@@ -1,10 +1,10 @@
 # TPU pump elbow and installed layout study
 
-**Status: one compact V-shaped TPU 85A elbow started on Mark1.**
+**Status: one compact V-shaped TPU 85A elbow at 10 mm/s outer-wall speed started on Mark1.**
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. This job uses the user-reported glued Engineering Plate
-and zero user Z trim. Mark1 accepted task 1337517926 on 2026-10-13 at
-21:09:41 CDT. Physical printing success and fitting results remain pending.
+and zero user Z trim. Mark1 accepted task 1337583437 on 2026-10-13 at
+21:45:04 CDT. Physical printing success and fitting results remain pending.
 The compact layout study includes the water connections and a 715 mL funnel
 proposal. Its occupancy result applies to the compact fitting envelopes.
 Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
@@ -18,10 +18,13 @@ neighboring hardware are considered together.
 
 ## Files
 
-- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/README.md)
+- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/README.md)
   identify one 15 mm elbow, the editable project, native sliced
   archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
-  zero user Z trim. Its native estimate is 62 minutes / 4.30 g.
+  zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
+- [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
+  bind the left-lip curl and nozzle pickup to the identified print and photo.
+  The reported runtime fan reduction from 100% to 50% worsened curl on both lips.
 - [Suction elbow](suction-elbow.stl) and [discharge elbow](discharge-elbow.stl)
   are the compact fitting envelopes used by the installed layout study. The
   selected print trial uses the same compact geometry. Installed expansion
@@ -127,13 +130,16 @@ The native archive contains one body, one normal volume, one object and one
 build instance, with a 5 mm outer brim. The manufacturer's H2C 0.6 mm TPU 85A
 filament profile uses 225°C nozzle, 35°C Engineering Plate, flow ratio 1.0,
 and 2.2 mm³/s maximum flow. Requested process settings are 0.20 mm first /
-0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap and 25 mm/s
-walls. Spiral mode and supports are off.
+0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap, 10 mm/s
+outer walls and 25 mm/s inner walls. Spiral mode and supports are off.
+Part and auxiliary fans are commanded at 100% from layer 2. In the reported
+curling region, the [native comparison](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json)
+shows 10 mm/s at the outer lip, with nominal layer time still near 20 seconds.
 
 This print uses Bambu's unmodified stock H2C machine-start template with
 **zero user Z trim**. Engineering Plate and the 0.6 mm nozzle emit only
 `G29.1 Z0`; the readback contains no other Z-trim value. The native estimate
-is **62 minutes / 4.30 g**. This setting is local to the identified print job.
+is **67 minutes / 4.30 g**. This setting is local to the identified print job.
 
 The [downward-filled candidate](prints/2026-10-13-downward-fill-single-tpu85a-mark1/README.md)
 is prepared but not selected or submitted. It contains only stock beneath the
@@ -150,9 +156,15 @@ The identified [two-elbow print failed](prints/2026-10-13-continuous-body-tpu85a
 according to Derek's report. Its failure mechanism is unmeasured. Print trials
 use one specimen at a time.
 
-At a nominal 45° wall, a 0.12 mm layer advances approximately 0.12 mm laterally;
-with 0.62 mm beads, nominal overlap is about 81%. This gives a geometric print
-margin. Extrusion continuity and cooling still determine the printed result.
+At the reported curl onset around layer 28, the larger printer-left socket's
+underside is 45° from the bed, while the narrowing neck on the right is about
+66°. The [side comparison](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json)
+measures approximately 0.120 mm versus 0.054 mm outward advance per 0.120 mm
+layer. Native local bead overlap is about 82% left and 92% right. The two leg
+axes are both at 45°; their exterior undersides differ. The left's reduced
+geometric support is consistent with its earlier observed curl, but does not
+establish a thermal or mechanical cause. Extrusion and cooling still determine
+the printed result.
 Drying history, physical adhesion and extrusion continuity remain unmeasured
 for the identified article. The selected material is TPU 85A; the cited
 TPU 95A research establishes no rating for this grade or interface. Socket fit and pressure holding remain
