@@ -1,352 +1,503 @@
-"""Photograph the current appliance in a deterministic, animated Blender scene.
+"""Standalone studio portrait of the Sculpted faucet and a cold citrus soda.
 
-Run with Blender's Python; see README.md. Geometry and firmware artwork are
-shared with the homepage's manual kitchen renderer. Staging, ice and fluids
-are illustrations. Each shot owns its local clock, lens and camera move.
+Run with Blender's Python. ``draw(shot, t, duration)`` evaluates an absolute
+shot-local time, without a simulation cache or dependence on an earlier frame.
+The drink and studio are illustrative. Faucet geometry and selected display
+come directly from the project's CAD payload and firmware artwork.
 """
 from __future__ import annotations
-
 import argparse
-import importlib.util
 import json
 import math
 from pathlib import Path
 import random
-import runpy
 import sys
 import time
-
 import bpy
 from mathutils import Vector
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
-parser = argparse.ArgumentParser()
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+from cad import linear, material, payload, selected_display
+from lighting import StudioLighting
+
+parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--shots", nargs="+")
 parser.add_argument("--stills", action="store_true")
 parser.add_argument("--fps", type=int, default=24)
 parser.add_argument("--width", type=int, default=1920)
-parser.add_argument("--samples", type=int, default=40)
-parser.add_argument("--engine", choices=["CYCLES", "BLENDER_EEVEE"], default="CYCLES")
+parser.add_argument("--samples", type=int, default=24)
 parser.add_argument("--start-frame", type=int, default=0)
 parser.add_argument("--end-frame", type=int)
-parser.add_argument("--out", type=Path, default=HERE / "out")
 parser.add_argument("--frames-root", type=Path)
-args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
+parser.add_argument("--out", type=Path, default=HERE/"out")
+args = parser.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 args.out.mkdir(parents=True, exist_ok=True)
-story = json.loads((HERE / "story.json").read_text())
 
-# The shared art tool builds a complete, accurately scaled assembly without
-# producing any of its homepage stills.
-saved_argv = sys.argv
-sys.argv = [str(ROOT / "tools/render/render-kitchen-scene.py"), "--", "--scene-only", "--out", str(args.out)]
-g = runpy.run_path(sys.argv[0])
-sys.argv = saved_argv
-scene, camera = g["scene"], g["camera"]
-mat, box, tube, lathe = (g[k] for k in ("material", "box", "tube", "lathe"))
-original_objects = list(scene.objects)
-original_solids = [o for o in original_objects if o.type not in {"LIGHT", "CAMERA"}]
-kitchen_lights = [o for o in original_objects if o.type == "LIGHT"]
-scene.render.engine = args.engine
+bpy.ops.object.select_all(action="SELECT")
+bpy.ops.object.delete(use_global=False)
+scene = bpy.context.scene
+scene.render.engine = "CYCLES"
 scene.cycles.samples = args.samples
 scene.cycles.use_denoising = True
-scene.cycles.adaptive_threshold = 0.025
+scene.cycles.adaptive_threshold = .035
 scene.cycles.use_animated_seed = False
-scene.cycles.seed = 42
-scene.cycles.max_bounces = 8
-scene.cycles.transmission_bounces = 6
+scene.cycles.seed = 78
+scene.cycles.max_bounces = 10
+scene.cycles.transmission_bounces = 8
+scene.cycles.transparent_max_bounces = 8
 scene.render.use_persistent_data = True
-scene.render.film_transparent = False
 scene.render.resolution_x = args.width
-scene.render.resolution_y = round(args.width * 9 / 16)
+scene.render.resolution_y = round(args.width*9/16)
 scene.render.resolution_percentage = 100
 scene.render.fps = args.fps
+scene.render.image_settings.file_format = "PNG"
 scene.render.image_settings.color_mode = "RGB"
+scene.render.film_transparent = False
+scene.render.threads_mode = "AUTO"
+scene.view_settings.view_transform = "AgX"
 scene.view_settings.look = "AgX - Medium High Contrast"
-scene.world.node_tree.nodes["Background"].inputs["Strength"].default_value = 0.16
-if args.engine == "BLENDER_EEVEE":
-    scene.eevee.taa_render_samples = max(32, args.samples)
-    scene.eevee.use_raytracing = True
+scene.view_settings.exposure = 0
+prefs = bpy.context.preferences.addons["cycles"].preferences
+try:
+    prefs.compute_device_type = "METAL"
+    prefs.get_devices()
+    for device in prefs.devices:
+        device.use = device.type == "METAL"
+    if any(d.use for d in prefs.devices):
+        scene.cycles.device = "GPU"
+except (TypeError, RuntimeError):
+    pass
 
-camera.data.type = "PERSP"
+camera = bpy.data.objects.new("Studio camera", bpy.data.cameras.new("Studio camera"))
+scene.collection.objects.link(camera)
+scene.camera = camera
 camera.data.sensor_width = 36
-camera.data.clip_start = 0.005
-camera.data.clip_end = 50
+camera.data.clip_start = .003
+camera.data.clip_end = 30
 camera.data.dof.use_dof = True
 camera.data.dof.aperture_blades = 9
 
-def ease(x):
-    p = max(0, min(1, x))
-    return p * p * (3 - 2 * p)
 
-def lerp(a, b, p):
-    return a + (b - a) * p
+def smooth(obj):
+    for polygon in obj.data.polygons:
+        polygon.use_smooth = True
+    return obj
 
-def blend(a, b, p):
-    return tuple(lerp(x, y, p) for x, y in zip(a, b))
 
-def pose(position, target, lens=65, aperture=7.1):
-    camera.location = position
-    camera.rotation_euler = (Vector(target) - camera.location).to_track_quat("-Z", "Y").to_euler()
+def mesh_object(name, vertices, faces, finish, location=(0, 0, 0)):
+    mesh = bpy.data.meshes.new(name)
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    scene.collection.objects.link(obj)
+    obj.location = location
+    mesh.materials.append(finish)
+    return smooth(obj)
+
+
+def lathe(name, profile, finish, at, segments=160):
+    vertices, normals, faces = [], [], []
+    for (r0, z0), (r1, z1) in zip(profile, profile[1:]):
+        length = math.hypot(r1-r0, z1-z0)
+        radial, vertical = (z1-z0)/length, -(r1-r0)/length
+        start = len(vertices)
+        for r, z in ((r0, z0), (r1, z1)):
+            for i in range(segments):
+                angle = math.tau*i/segments
+                vertices.append((r*math.cos(angle), r*math.sin(angle), z))
+                normals.append((radial*math.cos(angle), radial*math.sin(angle), vertical))
+        faces.extend((start+i, start+(i+1) % segments,
+                      start+segments+(i+1) % segments, start+segments+i) for i in range(segments))
+    obj = mesh_object(name, vertices, faces, finish, at)
+    obj.data.normals_split_custom_set_from_vertices(normals)
+    return obj
+
+
+def ease(value):
+    value = min(1., max(0., value))
+    return value*value*(3-2*value)
+
+
+def blend(a, b, amount):
+    return tuple(x+(y-x)*amount for x, y in zip(a, b))
+
+
+def pose(location, target, lens, focus, aperture):
+    camera.location = location
+    camera.rotation_euler = (Vector(target)-camera.location).to_track_quat("-Z", "Y").to_euler()
     camera.data.lens = lens
-    camera.data.dof.focus_distance = (Vector(target) - camera.location).length
+    camera.data.dof.focus_distance = (Vector(focus)-camera.location).length
     camera.data.dof.aperture_fstop = aperture
 
-def show(objects):
-    for obj in objects:
-        if obj.hide_render:
-            obj.hide_render = False
 
-faucet = g["faucet_objects"]
-screen = g["screen"]
-display_node = next(n for n in g["screen_mat"].node_tree.nodes if n.type == "TEX_IMAGE")
-g["screen_mat"].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"].default_value = .65
-flavor_one, flavor_two = g["flavor_texture"](0), g["tex"]
-glass_objects = [o for o in original_solids if o.name.startswith("Tiny carbonation") or o.name in {
-    "Cold soda glass", "Soda in the glass", "Clear soda pour", "Separate flavor pour"}]
-water = bpy.data.objects["Soda in the glass"]
-streams = [bpy.data.objects[n] for n in ("Clear soda pour", "Separate flavor pour")]
-base_glass_at = Vector(g["glass_at"])
-glass_x, glass_y, glass_z = base_glass_at
-lever = next(o for o in faucet if o.name == "lever")
-lever_origin = lever.location.copy()
-pivot = Vector((0, 0, 0.046))
+shell = material("Black PET-GF shell", "#0E1216", .66)
+nodes, links = shell.node_tree.nodes, shell.node_tree.links
+grain = nodes.new("ShaderNodeTexNoise")
+grain.inputs["Scale"].default_value = 1450
+grain.inputs["Detail"].default_value = 2
+bump = nodes.new("ShaderNodeBump")
+bump.inputs["Strength"].default_value = .10
+bump.inputs["Distance"].default_value = .000008
+links.new(grain.outputs["Fac"], bump.inputs["Height"])
+links.new(bump.outputs["Normal"], nodes.get("Principled BSDF").inputs["Normal"])
+materials = {
+    "shell": shell,
+    "rubber": material("Black mounting elastomer", "#15191D", .88),
+    "hardware": material("Retained black faucet hardware", "#202428", .56),
+    "display_glass": material("Dark physical display cover", "#101A20", .17),
+}
+FAUCET_AT = Vector((.145, .045, 0))
+faucet = payload(ROOT/"hardware/faucet-layout/faucet-assembly.step.mesh", scene, materials, FAUCET_AT)
+selected_display(ROOT, faucet["faucet_display_screen"])
+for obj in faucet.values():
+    # Keep the appliance's silhouette out of the drink's optical path. Its
+    # refracted housing would otherwise read as a dark solid in the soda.
+    obj.visible_transmission = False
+    obj.visible_glossy = False
+lever = faucet["lever"]
+lever_pivot = Vector((0, 0, .046))
 for vertex in lever.data.vertices:
-    vertex.co -= pivot
-lever.location += pivot
+    vertex.co -= lever_pivot
+lever.location += lever_pivot
 
-# Clear liquid, small actual air inclusions, and a thin meniscus retain the
-# optical character of soda without making it look like opaque orange juice.
-soda = g["soda"]
-water.data.materials.clear()
-water.data.materials.append(soda)
-for old_bubble in [o for o in glass_objects if o.name.startswith("Tiny carbonation")]:
-    glass_objects.remove(old_bubble)
-    original_solids.remove(old_bubble)
-    bpy.data.objects.remove(old_bubble, do_unlink=True)
+GLASS_AT = Vector((.145, -.151, .0004))
+glass_finish = material("Clear thin-walled tumbler", (1, 1, 1), .040, transmission=1, ior=1.46)
+glass = lathe("Short everyday soda tumbler", [
+    (0, 0), (.0285, 0), (.0334, .0007), (.0342, .0027),
+    (.0350, .0090), (.0382, .0834), (.03835, .0851),
+    (.03815, .0860), (.03765, .08645), (.03710, .08620),
+    (.03685, .0855), (.03675, .0834), (.0335, .0090),
+    (.0326, .0054), (.0285, .0048), (0, .0048),
+], glass_finish, GLASS_AT)
+def clean_liquid_surface(finish, tint, roughness, reflection=.72):
+    """Photographic liquid optics: a clean transmitted image and soft glints.
 
-rng = random.Random(601)
-extras_start = set(scene.objects)
-ice_mat = mat("Clear ice with a cool edge", "#EEF9FF", 0.08, transmission=1, ior=1.31)
-ice_list = []
-for i, (x, y, z) in enumerate([(-.012, -.005, .018), (.010, .005, .034), (-.005, .008, .050)]):
-    ice = box(f"Slow turning ice {i}", (.023, .022, .023), (glass_x + x, glass_y + y, glass_z + z), ice_mat, .0032, 5)
-    ice.rotation_euler = (.18 + i * .48, -.13 + i * .24, i * .72)
-    ice_list.append((ice, ice.location.copy(), ice.rotation_euler.copy()))
+    The glass supplies refraction. The drink's closed volume supplies colour;
+    its surface carries the meniscus and animated disturbance without making
+    another magnifying lens inside the tumbler.
+    """
+    nodes, links = finish.node_tree.nodes, finish.node_tree.links
+    clear = nodes.new("ShaderNodeBsdfTransparent")
+    clear.inputs["Color"].default_value = (*tint, 1)
+    gloss = nodes.new("ShaderNodeBsdfAnisotropic")
+    gloss.inputs["Color"].default_value = (1, 1, 1, 1)
+    gloss.inputs["Roughness"].default_value = roughness
+    fresnel = nodes.new("ShaderNodeFresnel")
+    fresnel.inputs["IOR"].default_value = 1.333
+    amount = nodes.new("ShaderNodeMath")
+    amount.operation = "MULTIPLY"
+    amount.inputs[1].default_value = reflection
+    links.new(fresnel.outputs["Fac"], amount.inputs[0])
+    mix = nodes.new("ShaderNodeMixShader")
+    links.new(amount.outputs[0], mix.inputs[0])
+    links.new(clear.outputs["BSDF"], mix.inputs[1])
+    links.new(gloss.outputs["BSDF"], mix.inputs[2])
+    links.new(mix.outputs["Shader"], nodes.get("Material Output").inputs["Surface"])
+    return gloss
 
-drop_mat = mat("Condensation water", "#FFFFFF", 0.035, transmission=1, ior=1.333)
+
+soda = material("Transparent yellow-green citrus soda", (1, 1, 1))
+clean_liquid_surface(soda, (.98, 1, .70), .050, .85)
+absorption = soda.node_tree.nodes.new("ShaderNodeVolumeAbsorption")
+absorption.inputs["Color"].default_value = (.92, .98, .06, 1)
+absorption.inputs["Density"].default_value = 38
+soda.node_tree.links.new(absorption.outputs["Volume"], soda.node_tree.nodes.get("Material Output").inputs["Volume"])
+stream_water = material("Moving clear carbonated-water jet", (1, 1, 1))
+jet_gloss = clean_liquid_surface(stream_water, (.985, .995, 1), .12, .92)
+jet_nodes, jet_links = stream_water.node_tree.nodes, stream_water.node_tree.links
+position = jet_nodes.new("ShaderNodeNewGeometry")
+jet_noise = jet_nodes.new("ShaderNodeTexNoise")
+jet_noise.noise_dimensions = "4D"
+jet_noise.inputs["Scale"].default_value = 650
+jet_noise.inputs["Detail"].default_value = 2
+jet_links.new(position.outputs["Position"], jet_noise.inputs["Vector"])
+jet_bump = jet_nodes.new("ShaderNodeBump")
+jet_bump.inputs["Strength"].default_value = .28
+jet_bump.inputs["Distance"].default_value = .000075
+jet_links.new(jet_noise.outputs["Fac"], jet_bump.inputs["Height"])
+jet_links.new(jet_bump.outputs["Normal"], jet_gloss.inputs["Normal"])
+jet_output = jet_nodes.get("Material Output").inputs["Surface"]
+jet_surface = jet_output.links[0].from_socket
+jet_aeration = jet_nodes.new("ShaderNodeBsdfDiffuse")
+jet_aeration.inputs["Color"].default_value = (.92, .97, 1, 1)
+jet_aeration.inputs["Roughness"].default_value = .25
+jet_mix = jet_nodes.new("ShaderNodeMixShader")
+jet_mix.inputs[0].default_value = .085
+jet_links.new(jet_surface, jet_mix.inputs[1])
+jet_links.new(jet_aeration.outputs["BSDF"], jet_mix.inputs[2])
+jet_links.new(jet_mix.outputs["Shader"], jet_output)
+stream_flavor = material("Moving fine citrus-concentrate jet", (1, 1, 1))
+clean_liquid_surface(stream_flavor, (.87, .98, .47), .12, .75)
+condensation_finish = material("Clear cold-glass condensation", (1, 1, 1), .035, transmission=1, ior=1.333)
+air = material("Fine bright carbonation rims", (1, 1, 1))
+clean_liquid_surface(air, (1, 1, 1), .045, .9)
+air_nodes, air_links = air.node_tree.nodes, air.node_tree.links
+air_surface = air_nodes.get("Material Output").inputs["Surface"].links[0].from_socket
+air_fresnel = air_nodes.new("ShaderNodeFresnel")
+air_fresnel.inputs["IOR"].default_value = 1.333
+air_strength = air_nodes.new("ShaderNodeMath")
+air_strength.operation = "MULTIPLY"
+air_strength.inputs[1].default_value = .85
+air_links.new(air_fresnel.outputs["Fac"], air_strength.inputs[0])
+air_glint = air_nodes.new("ShaderNodeEmission")
+air_glint.inputs["Color"].default_value = (.80, .94, 1, 1)
+air_links.new(air_strength.outputs[0], air_glint.inputs["Strength"])
+air_add = air_nodes.new("ShaderNodeAddShader")
+air_links.new(air_surface, air_add.inputs[0])
+air_links.new(air_glint.outputs["Emission"], air_add.inputs[1])
+air_links.new(air_add.outputs["Shader"], air_nodes.get("Material Output").inputs["Surface"])
+
+
+def inner_radius(z):
+    return .0335+(.03675-.0335)*min(1., max(0., (z-.009)/(.0834-.009)))
+
+
+# The top is part of one closed dielectric volume, including its meniscus.
+SURFACE_RINGS, SURFACE_SIDES = 40, 112
+water_vertices = [(0, 0, .0049)]
+water_vertices += [(.0327*math.cos(i*math.tau/SURFACE_SIDES),
+                    .0327*math.sin(i*math.tau/SURFACE_SIDES), .0049) for i in range(SURFACE_SIDES)]
+surface_start = len(water_vertices)
+water_vertices.append((0, 0, .0715))
+surface_data = [(0, 0, 0)]
+for ring in range(1, SURFACE_RINGS+1):
+    fraction = ring/SURFACE_RINGS
+    for side in range(SURFACE_SIDES):
+        angle = side*math.tau/SURFACE_SIDES
+        water_vertices.append((fraction*.0362*math.cos(angle), fraction*.0362*math.sin(angle), .0715))
+        surface_data.append((fraction, math.cos(angle), math.sin(angle)))
+water_faces = [(0, 1+(i+1) % SURFACE_SIDES, 1+i) for i in range(SURFACE_SIDES)]
+first_ring = surface_start+1
+water_faces += [(surface_start, first_ring+i, first_ring+(i+1) % SURFACE_SIDES) for i in range(SURFACE_SIDES)]
+for ring in range(SURFACE_RINGS-1):
+    lower, upper = first_ring+ring*SURFACE_SIDES, first_ring+(ring+1)*SURFACE_SIDES
+    water_faces += [(lower+i, upper+i, upper+(i+1) % SURFACE_SIDES, lower+(i+1) % SURFACE_SIDES)
+                    for i in range(SURFACE_SIDES)]
+outer_ring = first_ring+(SURFACE_RINGS-1)*SURFACE_SIDES
+# Separate coincident wall and surface rings keep vertical wall normals out of
+# the meniscus. A smoothed top-to-wall normal would make the drink a false lens.
+side_start = len(water_vertices)
+water_vertices += [(.0327*math.cos(i*math.tau/SURFACE_SIDES),
+                    .0327*math.sin(i*math.tau/SURFACE_SIDES), .0049) for i in range(SURFACE_SIDES)]
+side_top_start = len(water_vertices)
+water_vertices += [water_vertices[outer_ring+i] for i in range(SURFACE_SIDES)]
+water_faces += [(side_start+i, side_start+(i+1) % SURFACE_SIDES,
+                 side_top_start+(i+1) % SURFACE_SIDES, side_top_start+i)
+                for i in range(SURFACE_SIDES)]
+liquid = mesh_object("Soda volume with continuous meniscus", water_vertices, water_faces, soda, GLASS_AT)
+
+rng = random.Random(718)
 bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=1)
-sphere = bpy.context.object
-sphere.name = "Condensation master"
-g["smooth"](sphere)
-droplet_mesh = sphere.data
-bpy.data.objects.remove(sphere, do_unlink=True)
-condensation = []
-for i in range(135):
-    angle, z = rng.uniform(0, math.tau), rng.uniform(.009, .100)
-    radius = .030 + .0045 * z / .120
-    drop = bpy.data.objects.new(f"Cold glass droplet {i}", droplet_mesh)
+master = bpy.context.object
+drop_mesh = master.data
+bpy.data.objects.remove(master, do_unlink=True)
+for polygon in drop_mesh.polygons:
+    polygon.use_smooth = True
+drop_mesh.materials.append(condensation_finish)
+for i in range(300):
+    angle, z = rng.uniform(0, math.tau), rng.uniform(.010, .080)
+    size = rng.uniform(.00015, .00048) if i % 3 else rng.uniform(.00048, .00090)
+    radius = .035+.0032*(z-.009)/.0744
+    drop = bpy.data.objects.new(f"Condensation bead {i:03}", drop_mesh)
     scene.collection.objects.link(drop)
-    drop.location = (glass_x + radius * math.cos(angle), glass_y + radius * math.sin(angle), glass_z + z)
-    size = rng.uniform(.00027, .00085)
-    drop.scale = (size, size, size * rng.uniform(1.05, 1.45))
-    if not drop.data.materials:
-        drop.data.materials.append(drop_mat)
-    condensation.append(drop)
-
-bubbles = []
-bubble_mesh = droplet_mesh.copy()
+    drop.location = GLASS_AT+Vector(((radius+size*.13)*math.cos(angle), (radius+size*.13)*math.sin(angle), z))
+    drop.scale = (size*.44, size, size*rng.uniform(1.1, 1.75))
+    drop.rotation_euler.z = angle
+bubble_mesh = drop_mesh.copy()
 bubble_mesh.materials.clear()
-bubble_mesh.materials.append(g["bubble_mat"])
-for i in range(140):
-    angle = rng.uniform(0, math.tau)
-    radius = rng.uniform(.008, .027)
-    bubble = bpy.data.objects.new(f"Rising carbonation {i}", bubble_mesh)
-    scene.collection.objects.link(bubble)
-    size = rng.uniform(.00016, .00047)
-    bubble.scale = (size, size, size)
-    bubbles.append((bubble, math.cos(angle) * radius, math.sin(angle) * radius, rng.random(), rng.uniform(.008, .019)))
-glass_details = [o for o in scene.objects if o not in extras_start]
+bubble_mesh.materials.append(air)
+bubbles = []
+for lane in range(30):
+    angle = rng.uniform(-2.6, -.2) if lane < 18 else rng.uniform(0, math.tau)
+    radius = rng.uniform(.024, .032) if lane < 18 else rng.uniform(.009, .030)
+    speed = rng.uniform(.012, .023)
+    for bead in range(25):
+        obj = bpy.data.objects.new(f"Fine carbonation lane {lane:02} bead {bead:02}", bubble_mesh)
+        scene.collection.objects.link(obj)
+        bubbles.append((obj, radius*math.cos(angle), radius*math.sin(angle),
+                        (bead/25+rng.uniform(0, .012)) % 1, speed, rng.uniform(.00012, .00030)))
+wall_bubbles = []
+for i in range(220):
+    z, angle = rng.uniform(.009, .068), rng.uniform(0, math.tau)
+    radius = inner_radius(z)-.0002
+    obj = bpy.data.objects.new(f"Tiny wall nucleation bead {i:03}", bubble_mesh)
+    scene.collection.objects.link(obj)
+    obj.location = GLASS_AT+Vector((radius*math.cos(angle), radius*math.sin(angle), z))
+    size = rng.uniform(.00008, .00019)
+    obj.scale = (size, size, size)
+    wall_bubbles.append((obj, z))
+impact_bubbles = []
+for i in range(28):
+    obj = bpy.data.objects.new(f"Small impact air inclusion {i:02}", bubble_mesh)
+    scene.collection.objects.link(obj)
+    impact_bubbles.append((obj, rng.uniform(0, math.tau), rng.uniform(.0013, .0055),
+                           rng.uniform(.0001, .00028), rng.random()))
+impact_drops = []
+for i in range(7):
+    obj = bpy.data.objects.new(f"Tiny moving impact droplet {i:02}", drop_mesh)
+    scene.collection.objects.link(obj)
+    impact_drops.append((obj, rng.uniform(0, math.tau), rng.random(), rng.uniform(.00018, .00038)))
 
-# The home is quiet and architectural: pale stone, warm cabinetry and one
-# soft window. Its secondary sink faucet keeps the dedicated soda tap legible.
-before_room = set(scene.objects)
-wall_mat = mat("Warm mineral plaster", "#E3DFD6", .88)
-oak_mat = g["oak"]
-box("Kitchen plaster wall", (4.8, .06, 2.8), (0, .58, 1.35), wall_mat, 0)
-box("Kitchen counter extension left", (1.5, .72, .032), (-1.235, .015, .814), g["stone"], .005)
-box("Kitchen counter extension right", (1.5, .72, .032), (1.235, .015, .814), g["stone"], .005)
-box("Left oak drawers", (1.48, .62, .76), (-1.235, .03, .426), oak_mat, .004)
-box("Right oak drawers", (1.48, .62, .76), (1.235, .03, .426), oak_mat, .004)
-for x in (-1.235, 1.235):
-    for z in (.255, .505, .758):
-        box("Precise drawer reveal", (1.475, .002, .002), (x, -.282, z), g["black_rubber"], 0)
-box("Quiet oak shelf", (1.8, .20, .025), (.25, .48, 1.46), oak_mat, .003)
-ceramic = mat("Warm ceramic", "#C1B39E", .69)
-lathe("Kitchen ceramic carafe", [(0,0),(.039,0),(.046,.008),(.041,.12),(.026,.16),(.026,.195),(.022,.197),(.022,.16),(.036,.115),(.034,.012),(0,.012)], ceramic, (.85,.43,1.472))
-lathe("Small ceramic cup", [(0,0),(.03,0),(.035,.006),(.035,.075),(.032,.077),(.031,.008),(0,.008)], ceramic, (.69,.42,1.472))
-room_objects = [o for o in scene.objects if o not in before_room]
+# CAD final path station, with its 140-degree exit tangent, in metres.
+WATER_OUTLET = FAUCET_AT+Vector((0, -.1339967220, .1803887434))
+FLAVOR_OUTLET = WATER_OUTLET+Vector((-.003175, -.004641, .003897))
+EXIT_DIRECTION = Vector((0, -math.sin(math.radians(140)), math.cos(math.radians(140))))
+STREAM_RINGS, STREAM_SIDES = 52, 12
 
-door_parents = []
-doors = []
-for side in (-1, 1):
-    hinge = bpy.data.objects.new("Cabinet door hinge", None)
-    scene.collection.objects.link(hinge)
-    hinge.location = (side * .431, -.313, .426)
-    door = box("Cabinet front", (.426, .019, .735), (0,0,0), oak_mat, .0025)
-    door.parent = hinge
-    door.location = (-side * .213, -.006, 0)
-    doors.append(door)
-    door_parents.append(hinge)
 
-# The alternative design uses its own assembly, the same real finish, and
-# the same mapped physical panel. No geometry is invented for the beauty cut.
-white = mat("White faucet catalog finish", (.8713671192, .8713671192, .8559926082), .85)
-industrial = g["payload"]("hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-    lambda name: name in g["visible_faucet"],
-    lambda entry: g["screen_mat"] if entry["name"] == "faucet_display_screen" else
-                  g["glass_dark"] if entry["name"] == "faucet_display" else white,
-    g["faucet_at"], clip_floor=-6)
-industrial_screen = next(o for o in industrial if o.name.startswith("faucet_display_screen"))
-uv = industrial_screen.data.uv_layers.new(name="Physical screen UV")
-for polygon in industrial_screen.data.polygons:
-    for index in polygon.loop_indices:
-        vertex = industrial_screen.data.vertices[industrial_screen.data.loops[index].vertex_index].co
-        uv.data[index].uv = ((vertex.x + .00888) / .01776, (vertex.z - .19962) / (.2251 - .19962))
+def new_stream(name, finish):
+    vertices = [(0, 0, 0)]*(STREAM_RINGS*STREAM_SIDES)
+    faces = [(ring*STREAM_SIDES+side, ring*STREAM_SIDES+(side+1) % STREAM_SIDES,
+              (ring+1)*STREAM_SIDES+(side+1) % STREAM_SIDES, (ring+1)*STREAM_SIDES+side)
+             for ring in range(STREAM_RINGS-1) for side in range(STREAM_SIDES)]
+    faces += [tuple(reversed(range(STREAM_SIDES))), tuple((STREAM_RINGS-1)*STREAM_SIDES+i for i in range(STREAM_SIDES))]
+    return mesh_object(name, vertices, faces, finish)
 
-spec = importlib.util.spec_from_file_location("film_errands", HERE / "errands.py")
-errand_module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(errand_module)
-errands = errand_module.create(g)
-lighting_spec = importlib.util.spec_from_file_location("film_lighting", HERE / "lighting.py")
-lighting_module = importlib.util.module_from_spec(lighting_spec)
-lighting_spec.loader.exec_module(lighting_module)
-lighting = lighting_module.create(g)
 
-# Each shot is rendered in its own Blender lifetime. Keep only its set in
-# memory: hidden cabinet and regulator meshes have no part in can or studio
-# photography, and need not occupy the shared host's render memory.
-requested = set(args.shots or [s["id"] for s in story["scenes"]])
-studio_shots = {"wish", "select", "lever", "pour", "fizz", "sculpted", "industrial"}
-keep = None
-if requested and requested <= {"can", "case", "carry", "shelf"}:
-    keep = set(errands.objects + [camera])
-elif requested and requested <= studio_shots:
-    keep = set(faucet + industrial + glass_objects + glass_details + lighting.objects
-               + door_parents + [camera, g["detail_counter"]]
-               + [o for o in scene.objects if o.type == "LIGHT"])
-if keep is not None:
-    for obj in list(scene.objects):
-        if obj not in keep:
-            bpy.data.objects.remove(obj, do_unlink=True)
-    for mesh in list(bpy.data.meshes):
-        if mesh.users == 0:
-            bpy.data.meshes.remove(mesh)
+streams = [(new_stream("Curving clear water stream", stream_water), WATER_OUTLET, .90, .0018, 0),
+           (new_stream("Separate fine citrus stream", stream_flavor), FLAVOR_OUTLET, .75, .00044, 1.3)]
 
-all_solids = [o for o in scene.objects if o.type not in {"CAMERA", "LIGHT"}]
-all_lights = [o for o in scene.objects if o.type == "LIGHT"]
-last_shot = None
 
-def fluid(t, level, flowing=False):
-    height = .006 + .104 * max(.025, level)
-    water.hide_render = level <= 0
-    water.scale.z = (height - .006) / .081
-    water.location.z = glass_z + .006 * (1 - water.scale.z)
-    for i, (ice, location, rotation) in enumerate(ice_list):
-        ice.location = location
-        ice.location.z += max(0, height - .048) * (.82 + i * .05)
-        ice.rotation_euler = (rotation.x + .025 * math.sin(t*.75+i), rotation.y + .02*math.sin(t*.6+i), rotation.z + .025*math.sin(t*.5+i))
-    for bubble, x, y, phase, speed in bubbles:
-        z = .008 + ((phase*.098 + t*speed) % .098)
-        bubble.location = (glass_x + x + .0005*math.sin(t*1.8+phase*12), glass_y+y, glass_z+z)
-        bubble.hide_render = z > height - .002
-    for i, stream in enumerate(streams):
-        stream.hide_render = not flowing
-        handles = stream.data.splines[0].bezier_points
-        for j, h in enumerate(handles):
-            fraction = j / (len(handles)-1)
-            h.co.z = lerp(g["counter_top"]+.185, glass_z+height+.001, fraction)
-            h.co.x = glass_x - i*.0032 + .00043*math.sin(t*10+fraction*7+i)*fraction
-            h.co.y = lerp(-.100-i*.003, glass_y-i*.001, fraction) + .0006*math.sin(t*7+fraction*6)*fraction
-        stream.data.bevel_depth = (.0016 if i == 0 else .0004) * (1 + .045*math.sin(t*19+i))
-    lever.rotation_euler.x = .23 if flowing else 0
+def trajectory(outlet, speed, level, fraction):
+    velocity = EXIT_DIRECTION*speed
+    drop = outlet.z-(GLASS_AT.z+level)
+    flight = (velocity.z+math.sqrt(velocity.z*velocity.z+2*9.81*drop))/9.81
+    dt = flight*fraction
+    return outlet+velocity*dt+Vector((0, 0, -.5*9.81*dt*dt)), velocity+Vector((0, 0, -9.81*dt))
+
+
+def surface_height(x, y, radius, level, t, flowing, impact):
+    edge = max(0., radius-math.hypot(x, y))
+    height = level+.00055*math.exp(-edge/.0015)
+    if flowing:
+        dx, dy = x-impact.x, y-impact.y
+        distance = math.hypot(dx*1.06, dy*.94)
+        angle = math.atan2(dy, dx)
+        wave_distance = distance+.00075*math.sin(angle*3+t*4.1)
+        depression = -.00060*math.exp(-(distance/.0028)**2)
+        rings = .00028*math.exp(-distance*80)*math.cos(wave_distance*670-t*13)
+        cross = .00010*math.sin(x*320+y*450+t*8)
+        height += min(1., edge/.003)*(depression+rings+cross)
+    else:
+        height += .000022*math.sin(x*170+y*120+t*1.6)
+    return height
+
+
+def beverage(t, level, flowing):
+    jet_noise.inputs["W"].default_value = t*1.7
+    radius = inner_radius(level)+.00006
+    hit, _ = trajectory(WATER_OUTLET, .90, level, 1)
+    local_hit = hit-GLASS_AT
+    for index, (fraction, c, s) in enumerate(surface_data):
+        x, y = fraction*radius*c, fraction*radius*s
+        z = surface_height(x, y, radius, level, t, flowing, local_hit)
+        liquid.data.vertices[surface_start+index].co = (x, y, z)
+    for i in range(SURFACE_SIDES):
+        liquid.data.vertices[side_top_start+i].co = liquid.data.vertices[outer_ring+i].co
+    liquid.data.update()
+    for obj, x, y, phase, speed, size in bubbles:
+        z = .007+(phase*(level-.008)+t*speed) % (level-.008)
+        obj.location = GLASS_AT+Vector((x+.00025*math.sin(t*2+phase*math.tau), y, z))
+        actual_size = size*(.65+.45*z/level)
+        obj.scale = (actual_size, actual_size, actual_size*1.06)
+    for obj, z in wall_bubbles:
+        obj.hide_render = z > level-.001
+    for obj, angle, distance, size, phase in impact_bubbles:
+        obj.hide_render = not flowing
+        obj.location = hit+Vector((math.cos(angle+t*.6)*distance, math.sin(angle+t*.6)*distance,
+                                   -.00025-.0025*((phase+t*.8) % 1)))
+        obj.scale = (size, size, size)
+    for obj, angle, phase, size in impact_drops:
+        obj.hide_render = not flowing
+        age = ((t+phase)*1.8) % .075
+        radius = .0015+age*.035
+        obj.location = hit+Vector((math.cos(angle+t*.7)*radius, math.sin(angle+t*.7)*radius,
+                                   .34*age-.5*9.81*age*age))
+        obj.scale = (size, size, size*1.25)
+    for obj, outlet, initial_speed, initial_radius, phase in streams:
+        obj.hide_render = not flowing
+        if not flowing:
+            continue
+        for ring in range(STREAM_RINGS):
+            fraction = ring/(STREAM_RINGS-1)
+            point, velocity = trajectory(outlet, initial_speed, level, fraction)
+            point.x += .00065*math.sin(t*28-fraction*22+phase)*fraction**1.4
+            point.y += .00045*math.sin(t*21-fraction*29+phase)*fraction
+            point.z -= .00035*fraction**12
+            tangent = velocity.normalized()
+            side_x = Vector((1, 0, 0))
+            side_y = tangent.cross(side_x).normalized()
+            taper = math.sqrt(initial_speed/velocity.length)
+            travelling = .17*math.sin(t*31-fraction*32+phase)+.075*math.sin(t*54-fraction*75)
+            radius_here = initial_radius*taper*(1+travelling*fraction**.7)
+            for side in range(STREAM_SIDES):
+                angle = math.tau*side/STREAM_SIDES
+                organic = 1+.035*math.sin(angle*3+t*18-fraction*15)
+                offset = (side_x*math.cos(angle)+side_y*math.sin(angle))*radius_here*organic
+                obj.data.vertices[ring*STREAM_SIDES+side].co = point+offset
+        obj.data.update()
+
+
+beverage_objects = [obj for obj in scene.objects if obj.type == "MESH" and obj not in faucet.values()]
+lighting = StudioLighting(scene, material, linear, GLASS_AT, beverage_objects)
+
 
 def draw(shot, t, duration):
-    global last_shot
-    p = ease(t / duration)
-    if last_shot != shot:
-        for obj in all_solids + all_lights:
-            obj.hide_render = True
-        scene.world.node_tree.nodes["Background"].inputs["Color"].default_value = (*g["linear"]("#E7EEF8"),1)
-        scene.world.node_tree.nodes["Background"].inputs["Strength"].default_value = .16
-    last_shot = shot
-    if shot in {"can", "case", "carry", "shelf"}:
-        errands.draw(shot, t, duration)
-        return
-    if shot != "select" and display_node.image != flavor_two:
-        display_node.image = flavor_two
-    for hinge in door_parents:
-        hinge.rotation_euler.z = 0
-    if shot in {"wish", "fizz"}:
-        show(glass_objects + glass_details)
-        fluid(t, .95)
-        if shot == "wish":
-            pose(blend((.422,-.540,1.040),(.407,-.521,1.034),p), (.214,-.143,.895), 65, 7.1)
-        else:
-            pose(blend((.325,-.367,.976),(.313,-.353,.974),p), (.214,-.143,.922), 95, 8)
-    elif shot in {"kitchen", "home", "under"}:
-        show(original_solids + glass_details + room_objects + doors)
-        g["detail_counter"].hide_render = True
-        fluid(t, 0 if shot != "home" else .95)
-        if shot == "under":
-            for side, hinge in zip((-1,1),door_parents):
-                hinge.rotation_euler.z = side * math.radians(104) * ease((t-.15)/1.3)
-            pose(blend((1.05,-2.15,1.45),(.83,-1.73,1.08),p), blend((0,.005,.55),(.0,-.01,.37),p), 45, 11)
-        elif shot == "kitchen":
-            pose(blend((.84,-1.22,1.320),(.59,-.87,1.210),p),
-                 blend((.060,.020,.985),(.125,-.015,.985),p), lerp(48,52,p), 8)
-        else:
-            pose(blend((.68,-.97,1.235),(.72,-1.02,1.245),p), (.105,.007,.972), 51, 8)
-    elif shot in {"select", "lever", "pour"}:
-        show(faucet)
-        if shot == "select":
-            selected_image = flavor_one if t < 1.65 else flavor_two
-            if display_node.image != selected_image:
-                display_node.image = selected_image
-            pose(blend((.352,-.456,1.163),(.340,-.438,1.157),p), (.214,-.100,1.040), 90, 7.1)
-            lever.rotation_euler.x = 0
-        elif shot == "lever":
-            pose(blend((.430,-.416,.939),(.409,-.400,.934),p), (.214,-.004,.888), 90, 7.1)
-            lever.rotation_euler.x = .23 * ease((t-.55)/.28)
-        else:
-            show(glass_objects + glass_details)
-            fluid(t, .95*ease((t-.10)/6.5), flowing=t>=.1 and t<6.8)
-            sculpted_lever = .23 * (1-ease((t-6.8)/.2))
-            lever.rotation_euler.x = sculpted_lever
-            pose(blend((.680,-.900,1.208),(.655,-.870,1.198),p), (.213,-.067,.951), 65, 9)
-    elif shot in {"sculpted", "industrial"}:
-        show(faucet if shot == "sculpted" else industrial)
-        lever.rotation_euler.x = 0
-        pose(blend((.790,-.970,1.205),(.745,-.962,1.198),p), (.214,-.035,.969), 65, 8)
-    lighting.draw(shot,t,duration)
+    """Set the complete picture state from one absolute local time."""
+    p = ease(t/max(duration, .001))
+    pouring = shot == "pour"
+    for obj in faucet.values():
+        obj.hide_render = shot == "drink"
+    lever.rotation_euler.x = .23 if pouring else 0
+    full_level = .0715
+    flow_volume = sum(math.pi*radius*radius*speed for _, _, speed, radius, _ in streams)
+    surface_area = math.pi*inner_radius(full_level)**2
+    level = full_level-flow_volume*max(0., duration-t)/surface_area if pouring else full_level
+    beverage(t, level, pouring)
+    if shot == "drink":
+        pose(blend((.225, -.385, .145), (.221, -.377, .142), p),
+             (.145, -.151, .060), 85, (.155, -.181, .060), 32)
+    elif pouring:
+        pose(blend((.520, -.480, .340), (.514, -.474, .337), p),
+             (.143, -.118, .115), 62, (.144, -.139, .119), 13)
+    elif shot == "serve":
+        pose(blend((.435, -.790, .263), (.432, -.784, .261), p),
+             (-.025, -.035, .084), 52, (.145, -.085, .112), 12)
+    else:
+        pose(blend((.470, -.820, .270), (.461, -.805, .267), p),
+             (-.018, -.045, .092), 53, (.145, -.085, .119), 9)
+    lighting.draw(camera, shot, t, duration)
     bpy.context.view_layer.update()
 
-shots = [s for s in story["scenes"] if s["id"] not in {"reset", "closing"} and (not args.shots or s["id"] in args.shots)]
-print(f"FILM_DEVICE {scene.cycles.device}",flush=True)
-for shot in shots:
-    name, duration = shot["id"], shot["end"] - shot["start"]
-    frames = [(round(duration*.54*args.fps), duration*.54)] if args.stills else [(i,i/args.fps) for i in range(args.start_frame,min(round(duration*args.fps), args.end_frame if args.end_frame is not None else 10**9))]
-    directory = args.out / "stills" if args.stills else (args.frames_root or args.out / "frames") / name
-    directory.mkdir(parents=True,exist_ok=True)
+
+defaults = {"drink": 2.125, "hero": 4.125, "pour": 4.375, "serve": 127/24}
+story_path = HERE/"story.json"
+story = json.loads(story_path.read_text()) if story_path.exists() else {"scenes": []}
+timings = {item["id"]: item["end"]-item["start"] for item in story["scenes"] if item["id"] in defaults}
+requested = args.shots or ["hero", "pour", "serve"]
+unknown = set(requested)-set(defaults)
+if unknown:
+    raise SystemExit(f"Unknown studio shot(s): {', '.join(sorted(unknown))}")
+print(f"FILM_DEVICE {scene.cycles.device}", flush=True)
+for shot in requested:
+    duration = timings.get(shot, defaults[shot])
+    frames = [(round(duration*.55*args.fps), duration*.55)] if args.stills else [
+        (number, number/args.fps) for number in range(args.start_frame,
+            min(round(duration*args.fps), args.end_frame if args.end_frame is not None else 10**9))]
+    directory = args.out/"stills" if args.stills else (args.frames_root or args.out/"frames")/shot
+    directory.mkdir(parents=True, exist_ok=True)
     for number, t in frames:
-        target = directory / (f"{name}.png" if args.stills else f"{number:05}.png")
+        target = directory/(f"{shot}.png" if args.stills else f"{number:05}.png")
         if target.exists() and not args.stills:
             continue
         started = time.monotonic()
         scene.frame_set(number)
-        draw(name,t,duration)
+        draw(shot, t, duration)
         scene.render.filepath = str(target)
-        print(f"FILM {name} {number}/{round(duration*args.fps)}",flush=True)
+        print(f"FILM {shot} {number}/{round(duration*args.fps)}", flush=True)
         bpy.ops.render.render(write_still=True)
-        print(f"FILM_FRAME {name} {number} {time.monotonic()-started:.2f}s",flush=True)
-    print(f"FILM_SHOT {name} completed",flush=True)
+        print(f"FILM_FRAME {shot} {number} {time.monotonic()-started:.2f}s", flush=True)
+    print(f"FILM_SHOT {shot} completed", flush=True)
