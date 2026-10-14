@@ -1,0 +1,26 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "e2117457468a5f3cd255811eb9e9f715d4cc8ce36bd7916dca034fe521bc11fc",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "5661143e2e52348358e86d081c5a7ec4c1d09912b167d5e94085cfbabdcc01ad",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "893a0982687c365efc47ff3d77b198d9811373ad3ab015ebd0b3ec3e3486bcc4"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/Objects/object_7.model",
+    "3D/Objects/object_8.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

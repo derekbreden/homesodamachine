@@ -1,0 +1,92 @@
+{
+  "all_non_part_fan_command_count": 25301,
+  "all_xyz_feed_and_non_extrusion_words_unchanged": true,
+  "extrusion_changes_only_named_first_roof_bridge_features": {
+    "R125": 55,
+    "R130": 55,
+    "R135": 55,
+    "R140": 55,
+    "L140": 59,
+    "L135": 59,
+    "L130": 59,
+    "L125": 59
+  },
+  "all_other_archive_entries_unchanged": true,
+  "gcode_md5_verified": true,
+  "every_raster_endpoint_and_terminal_025mm_on_previous_beads": true,
+  "volume_per_length": [
+    {
+      "id": "L125",
+      "cross_section_mm2_from_e": 0.10818862362611723,
+      "raster_strokes": 30,
+      "raster_pitch_mm": [
+        0.377,
+        0.378
+      ]
+    },
+    {
+      "id": "L130",
+      "cross_section_mm2_from_e": 0.11251616857116192,
+      "raster_strokes": 30,
+      "raster_pitch_mm": [
+        0.377,
+        0.378
+      ]
+    },
+    {
+      "id": "L135",
+      "cross_section_mm2_from_e": 0.1168437135162066,
+      "raster_strokes": 30,
+      "raster_pitch_mm": [
+        0.377,
+        0.378
+      ]
+    },
+    {
+      "id": "L140",
+      "cross_section_mm2_from_e": 0.12117125846125128,
+      "raster_strokes": 30,
+      "raster_pitch_mm": [
+        0.377,
+        0.378
+      ]
+    },
+    {
+      "id": "R125",
+      "cross_section_mm2_from_e": 0.10780429143400129,
+      "raster_strokes": 28,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ]
+    },
+    {
+      "id": "R130",
+      "cross_section_mm2_from_e": 0.11211646309136132,
+      "raster_strokes": 28,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ]
+    },
+    {
+      "id": "R135",
+      "cross_section_mm2_from_e": 0.11642863474872138,
+      "raster_strokes": 28,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ]
+    },
+    {
+      "id": "R140",
+      "cross_section_mm2_from_e": 0.12074080640608145,
+      "raster_strokes": 28,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ]
+    }
+  ],
+  "scope": "Manual submitted-path review; physical gap closure, sag and retained surface remain pending."
+}

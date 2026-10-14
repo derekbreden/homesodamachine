@@ -44,6 +44,9 @@ Four ramps improve with residual sag and two look good; the 40° identification
 is tentative. The [40-specimen finish comparison](finish-matrix-v6/README.md)
 uses matched solid posts and opposing fins at 100%/125% volume, 15/25 mm/s and
 70%/100% fan, plus 35–42.5° ramps facing both directions.
+The [Mark1 flow bracket](flow-bracket-v7/README.md), task 1340334508, compares
+125%/130%/135%/140% first-roof extrusion at 70% fan and 25 mm/s on isolated
+first layers and completed five-course roofs. Its physical result is pending.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact
