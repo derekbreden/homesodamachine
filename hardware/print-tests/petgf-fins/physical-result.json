@@ -1,0 +1,107 @@
+{
+  "status": "interrupted",
+  "printer": "Mark2",
+  "printer_task_id": "1339273130",
+  "report_date": "2026-10-14",
+  "native_archive_sha256": "137ed41beed8020458b5e7e5660f37229f5d493be1594d7fdc11b1049b52d9ac",
+  "bridge_observations": {
+    "failed_initial_bridge_ids": [
+      "A16",
+      "B16",
+      "Y12"
+    ],
+    "unscored_other_ids": [
+      "A4",
+      "A8",
+      "A12",
+      "A24",
+      "A32",
+      "B4",
+      "B8",
+      "B12",
+      "B24",
+      "B32"
+    ],
+    "result": "AI detection interrupted the run after initial bridge failures; the user did not continue. No usable bridge-span limit."
+  },
+  "slope_observations": {
+    "S30": {
+      "source": "user inspection",
+      "progressive_edge_sag": true,
+      "tip_corner_sag_or_incomplete": true,
+      "completed": false,
+      "commanded_reach_mm": 12.278,
+      "planned_reach_mm": 14
+    },
+    "S35": {
+      "source": "user inspection",
+      "progressive_edge_sag": true,
+      "severity": "less than S30",
+      "completed": false,
+      "commanded_reach_mm": 10.111,
+      "planned_reach_mm": 14
+    },
+    "S40": {
+      "source": "user inspection",
+      "same_edge_sag_observed": false,
+      "completed": false,
+      "commanded_reach_mm": 8.438,
+      "planned_reach_mm": 14
+    }
+  },
+  "ramp_full_reach_completion": "Incomplete: all seven ramps stopped before the planned 14 mm reach; see stop-layer-review.json.",
+  "tine_release_result": "unreported",
+  "user_hypotheses": [
+    "12 mm may be too far under the working profile",
+    "Extra part cooling may allow a clean S30"
+  ],
+  "analysis_limits": [
+    "A failure on sparse fin tooth anchors does not isolate free-span bridging.",
+    "Photo specimen IDs are not legible enough to assign every detached ramp to a specific image position.",
+    "Photographs do not measure downward projection, sliding feel, removal force or part strength."
+  ],
+  "photos": [
+    {
+      "path": "photos/01-plate.jpg",
+      "source_name": "Photo 1.jpg",
+      "source_sha256": "66bab023764d21c3d53329e4d6678b1c9bf984378666523ecd11b6af94ef27d5",
+      "sha256": "b3ce152f21bac83d4d63587322f13c2ffbab3272c9a17a72eaabbc1fae798fd3",
+      "treatment": "JPEG image data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/02-bridge-failure.jpg",
+      "source_name": "Photo 2.jpg",
+      "source_sha256": "a3d94b76d04600c9cde4a7c63a6b368965e9c75173875da9a34aa7e5578707cd",
+      "sha256": "806e456dd00f5db5e12c2cca49c593ab73d996c5ab3a61e3041ea3d90b8132c3",
+      "treatment": "JPEG image data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/03-incline-undersides-1.jpg",
+      "source_name": "Photo 3.jpg",
+      "source_sha256": "72675c1d9fc5dbc56ba941b8c128fd569cfc352140997f3ac7716797297e40d9",
+      "sha256": "a45ec3d8614079f708716a5a8035325f63f6abe00919d1bc4eb73070e9b5d186",
+      "treatment": "JPEG image data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/04-incline-undersides-2.jpg",
+      "source_name": "Photo 4.jpg",
+      "source_sha256": "e6f565a4a173872d92ff11ec437cd17625a1e588ec911ac34ae21e760acb588c",
+      "sha256": "927069bf698abc3de85f77c72098873f65cc5c32da8be6a0d69e20e54eb901f9",
+      "treatment": "JPEG image data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    },
+    {
+      "path": "photos/05-incline-undersides-3.jpg",
+      "source_name": "Photo 5.jpg",
+      "source_sha256": "bc9b4ba22ff56f0db1e1751f9c090f8407a50802dd2bda95a852b9f9623fd048",
+      "sha256": "802cee0e13715b0332d18bbbbe4ca80c7da1bb3d6c888a6f6f7f4ad3cd3b0b8a",
+      "treatment": "JPEG image data preserved; EXIF/XMP/IPTC/comments omitted from public evidence."
+    }
+  ],
+  "followup": "short-spans-v2/README.md",
+  "reconstructed_stop_layer": 44,
+  "first_bridge_nozzle_z_mm": 10.52,
+  "ramp_last_completed_layer": 43,
+  "ramp_last_completed_nozzle_z_mm": 10.28,
+  "stop_layer_review": "stop-layer-review.json",
+  "user_clarification": "AI interruption, no continuation; the photographs show the final state."
+}

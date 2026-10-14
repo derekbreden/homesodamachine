@@ -1,26 +1,26 @@
 id,completed,fins_held,underside_loose_strands,curl,roof_left_mm,roof_center_mm,roof_right_mm,max_downward_projection_mm,removal_tool,removal_seconds,retained_part_torn,contact_marks,snagging_texture,notes
-A4,,,,,,,,,,,,,,
-A8,,,,,,,,,,,,,,
-A12,,,,,,,,,,,,,,
-A16,,,,,,,,,,,,,,
-A24,,,,,,,,,,,,,,
-A32,,,,,,,,,,,,,,
-B4,,,,,,,,,,,,,,
-B8,,,,,,,,,,,,,,
-B12,,,,,,,,,,,,,,
-B16,,,,,,,,,,,,,,
-B24,,,,,,,,,,,,,,
-B32,,,,,,,,,,,,,,
-S30,,,,,,,,,,,,,,
-S35,,,,,,,,,,,,,,
-S40,,,,,,,,,,,,,,
-S45,,,,,,,,,,,,,,
-S50,,,,,,,,,,,,,,
-S55,,,,,,,,,,,,,,
-S60,,,,,,,,,,,,,,
+A4,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+A8,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+A12,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+A16,0,,,,,,,,,,,,,Initial bridge failed on layer 44 (Z10.52); AI interrupted the run. No continuation.
+A24,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+A32,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+B4,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+B8,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+B12,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+B16,0,,,,,,,,,,,,,Initial bridge failed on layer 44 (Z10.52); AI interrupted the run. No continuation.
+B24,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+B32,,,,,,,,,,,,,,Unscored after the AI interruption; neither pass nor fail established.
+S30,0,,,edge sag,,,,,,,,,,Progressive edge sag; partial tip corner sagging/incomplete. Interrupted before layer 44 ramp paths; commanded reach 12.28 of 14 mm.
+S35,0,,,edge sag,,,,,,,,,,"Same edge sag as S30, less severe. Interrupted before layer 44 ramp paths; commanded reach 10.11 of 14 mm."
+S40,0,,,not observed,,,,,,,,,,User reports the S30/S35 edge defect absent. Interrupted before layer 44 ramp paths; commanded reach 8.44 of 14 mm.
+S45,0,,,,,,,,,,,,,Surface quality unreported. Interrupted before layer 44 ramp paths; commanded reach 7.08 of 14 mm.
+S50,0,,,,,,,,,,,,,Surface quality unreported. Interrupted before layer 44 ramp paths; commanded reach 5.94 of 14 mm.
+S55,0,,,,,,,,,,,,,Surface quality unreported. Interrupted before layer 44 ramp paths; commanded reach 4.96 of 14 mm.
+S60,0,,,,,,,,,,,,,Surface quality unreported. Interrupted before layer 44 ramp paths; commanded reach 4.09 of 14 mm.
 T45,,,,,,,,,,,,,,
 T50,,,,,,,,,,,,,,
 T60,,,,,,,,,,,,,,
 T80,,,,,,,,,,,,,,
-Y12,,,,,,,,,,,,,,
+Y12,0,,,,,,,,,,,,,Initial bridge failed on layer 44 (Z10.52); AI interrupted the run. No continuation.
 V,,,,,,,,,,,,,,

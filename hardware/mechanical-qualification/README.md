@@ -104,8 +104,13 @@ and tag `faucet-industrial-approved-2026-10-13`.
 
 The [PET-GF fin screening plate](../print-tests/petgf-fins/README.md) compares
 4–32 mm bridges between removable fin contacts, 30–60° unsupported slopes,
-side clearances and horizontal tine widths on Mark2. Physical surface and
-release results are pending; the plate selects candidates for a real joint trial.
+side clearances and horizontal tine widths on Mark2. A16, B16 and Y12 failed
+on the first roof layer; AI detection interrupted the run with no continuation.
+S30 and S35 have reported edge sag; S40 lacks that defect over its shorter,
+partially printed extent. No bridge or full-length angle limit is qualified.
+The [short-span follow-up](../print-tests/petgf-fins/short-spans-v2/README.md)
+compares 2–8 mm bridges on solid anchors and fin landings, with fan-off and
+30% part-fan plates. Its ramps finish before its bridge attempts.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

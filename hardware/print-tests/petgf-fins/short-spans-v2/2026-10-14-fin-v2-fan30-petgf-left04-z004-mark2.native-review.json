@@ -1,0 +1,682 @@
+{
+  "native_archive": "2026-10-14-fin-v2-fan30-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "f21ea0ff01b210a59de395dad4c55385695d9106c4208f4b6ec335db6b73d906",
+  "gcode_sha256": "a67a2d56ac18e37c66dc033e1a54c81b2ed1cb3cea4b50d1995cdbc281338fef",
+  "embedded_md5_matches": true,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "    \n        \n            G29.1 Z0.02 ; for Textured PEI Plate"
+  ],
+  "printed_layers": 115,
+  "effective_settings": {
+    "enable_support": "0",
+    "brim_type": "no_brim",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_density": [
+      "1.43"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "30"
+    ],
+    "fan_max_speed": [
+      "30"
+    ],
+    "overhang_fan_speed": [
+      "30"
+    ],
+    "full_fan_speed_layer": [
+      "4"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "filament_bridge_speed": [
+      "25",
+      "25",
+      "25"
+    ],
+    "curr_bed_type": "Textured PEI Plate"
+  },
+  "model_bead_xy_bounds_mm": [
+    [
+      101.0,
+      108.5
+    ],
+    [
+      224.0,
+      201.0
+    ]
+  ],
+  "minimum_model_bead_edge_inset_mm": 101.0,
+  "support_extrusion_segments": 0,
+  "ramps_last_nozzle_z_mm": 17.0,
+  "bridge_onsets_by_span_mm": {
+    "2": 18.439999999999998,
+    "4": 20.839999999999996,
+    "6": 23.24,
+    "8": 25.639999999999997
+  },
+  "specimens": [
+    {
+      "id": "C2",
+      "deposited_segments": 3109,
+      "model_max_nozzle_z_mm": 20.12,
+      "bed_components": 2,
+      "bed_component_separation_mm": 2.300000000000011,
+      "first_roof_z_mm": 18.439999999999998,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        3.256,
+        3.422
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 114227,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.0,
+      "maximum_unsupported_axial_move_mm": 2.0
+    },
+    {
+      "id": "C4",
+      "deposited_segments": 2958,
+      "model_max_nozzle_z_mm": 22.52,
+      "bed_components": 2,
+      "bed_component_separation_mm": 4.3000000000000105,
+      "first_roof_z_mm": 20.839999999999996,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        5.256,
+        5.422
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 125756,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.0,
+      "maximum_unsupported_axial_move_mm": 4.0
+    },
+    {
+      "id": "C6",
+      "deposited_segments": 3301,
+      "model_max_nozzle_z_mm": 24.92,
+      "bed_components": 2,
+      "bed_component_separation_mm": 6.3000000000000105,
+      "first_roof_z_mm": 23.24,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        7.256,
+        7.422
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 135600,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.0,
+      "maximum_unsupported_axial_move_mm": 6.0
+    },
+    {
+      "id": "C8",
+      "deposited_segments": 4455,
+      "model_max_nozzle_z_mm": 27.32,
+      "bed_components": 2,
+      "bed_component_separation_mm": 8.300000000000011,
+      "first_roof_z_mm": 25.639999999999997,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        9.256,
+        9.422
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 141180,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.0,
+      "maximum_unsupported_axial_move_mm": 8.0
+    },
+    {
+      "id": "C4Y",
+      "deposited_segments": 2954,
+      "model_max_nozzle_z_mm": 22.52,
+      "bed_components": 2,
+      "bed_component_separation_mm": 4.300000000000011,
+      "first_roof_z_mm": 20.839999999999996,
+      "bridge_axis": "Y",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        5.256,
+        5.422
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 125240,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.0,
+      "maximum_unsupported_axial_move_mm": 4.0
+    },
+    {
+      "id": "F2",
+      "deposited_segments": 2279,
+      "model_max_nozzle_z_mm": 20.36,
+      "bed_components": 2,
+      "bed_component_separation_mm": 3.740000000000009,
+      "first_roof_z_mm": 18.439999999999998,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 26,
+      "axial_bridge_rasters": 26,
+      "axial_move_lengths_mm": [
+        2.909
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 113025,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.02600000000001046,
+        0.18500000000000225
+      ],
+      "axial_endpoint_distance_max_mm": 0.6750000000000114,
+      "maximum_unsupported_axial_move_mm": 2.281000000000006,
+      "lower_tooth_height_mm": [
+        0.240002
+      ],
+      "lower_tooth_probe_missing_lengths_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "F4",
+      "deposited_segments": 2543,
+      "model_max_nozzle_z_mm": 22.76,
+      "bed_components": 2,
+      "bed_component_separation_mm": 5.739999999999981,
+      "first_roof_z_mm": 20.839999999999996,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 26,
+      "axial_bridge_rasters": 26,
+      "axial_move_lengths_mm": [
+        4.909
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 124168,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.18500000000000227
+      ],
+      "axial_endpoint_distance_max_mm": 0.6750000000000113,
+      "maximum_unsupported_axial_move_mm": 4.2809999999999775,
+      "lower_tooth_height_mm": [
+        0.24
+      ],
+      "lower_tooth_probe_missing_lengths_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "F6",
+      "deposited_segments": 3174,
+      "model_max_nozzle_z_mm": 25.16,
+      "bed_components": 2,
+      "bed_component_separation_mm": 7.740000000000009,
+      "first_roof_z_mm": 23.24,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 26,
+      "axial_bridge_rasters": 26,
+      "axial_move_lengths_mm": [
+        6.909
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 134924,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.6750000000000113,
+      "maximum_unsupported_axial_move_mm": 6.281000000000006,
+      "lower_tooth_height_mm": [
+        0.24
+      ],
+      "lower_tooth_probe_missing_lengths_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "F8",
+      "deposited_segments": 3435,
+      "model_max_nozzle_z_mm": 27.56,
+      "bed_components": 2,
+      "bed_component_separation_mm": 9.73999999999998,
+      "first_roof_z_mm": 25.639999999999997,
+      "bridge_axis": "X",
+      "axial_cross_span_moves": 26,
+      "axial_bridge_rasters": 26,
+      "axial_move_lengths_mm": [
+        8.909
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 140731,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.0,
+        0.0
+      ],
+      "axial_endpoint_distance_max_mm": 0.6750000000000113,
+      "maximum_unsupported_axial_move_mm": 8.280999999999977,
+      "lower_tooth_height_mm": [
+        0.24
+      ],
+      "lower_tooth_probe_missing_lengths_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "F4Y",
+      "deposited_segments": 2532,
+      "model_max_nozzle_z_mm": 22.76,
+      "bed_components": 2,
+      "bed_component_separation_mm": 5.740000000000009,
+      "first_roof_z_mm": 20.839999999999996,
+      "bridge_axis": "Y",
+      "axial_cross_span_moves": 28,
+      "axial_bridge_rasters": 28,
+      "axial_move_lengths_mm": [
+        4.909,
+        5.074
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "roof_fan_pwm": [
+        76.5
+      ],
+      "roof_extrusion_heights_mm": [
+        0.24
+      ],
+      "first_roof_extrusion_line": 124845,
+      "first_roof_endpoint_distances_to_prior_beads_mm": [
+        0.04599999999999226,
+        0.18500000000000227
+      ],
+      "axial_endpoint_distance_max_mm": 0.6750000000000113,
+      "maximum_unsupported_axial_move_mm": 4.445999999999998,
+      "lower_tooth_height_mm": [
+        0.24
+      ],
+      "lower_tooth_probe_missing_lengths_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "S30",
+      "deposited_segments": 1826,
+      "model_max_nozzle_z_mm": 13.4,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 30,
+      "orientation": "original",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Overhang wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "S35",
+      "deposited_segments": 1952,
+      "model_max_nozzle_z_mm": 15.08,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 35,
+      "orientation": "original",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "S40",
+      "deposited_segments": 1886,
+      "model_max_nozzle_z_mm": 17.0,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 40,
+      "orientation": "original",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "R30",
+      "deposited_segments": 1878,
+      "model_max_nozzle_z_mm": 13.4,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 30,
+      "orientation": "reversed",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Overhang wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "R35",
+      "deposited_segments": 1914,
+      "model_max_nozzle_z_mm": 15.08,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 35,
+      "orientation": "reversed",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "R40",
+      "deposited_segments": 1859,
+      "model_max_nozzle_z_mm": 17.0,
+      "bed_components": 1,
+      "bed_component_separation_mm": null,
+      "angle_from_bed_degrees": 40,
+      "orientation": "reversed",
+      "fan_pwm_by_feature": {
+        "Bridge": [
+          76.5
+        ],
+        "Floating vertical shell": [
+          76.5
+        ],
+        "Gap infill": [
+          76.5
+        ],
+        "Inner wall": [
+          76.5
+        ],
+        "Internal solid infill": [
+          76.5
+        ],
+        "Outer wall": [
+          76.5
+        ],
+        "Sparse infill": [
+          76.5
+        ],
+        "Top surface": [
+          76.5
+        ]
+      }
+    },
+    {
+      "id": "FAN30",
+      "deposited_segments": 223,
+      "model_max_nozzle_z_mm": 1.16,
+      "bed_components": 1,
+      "bed_component_separation_mm": null
+    }
+  ],
+  "limits": "Commanded paths and bead envelopes; physical sag, attachment and strength are unmeasured.",
+  "native_slicer_result": {
+    "return_code": 0,
+    "warning": "",
+    "estimated_seconds": 3401.908935546875,
+    "estimated_grams": 21.18103790283203,
+    "slicer": "Bambu Studio 02.08.02.61"
+  }
+}
