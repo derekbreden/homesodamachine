@@ -1,5 +1,5 @@
 {
-  "status": "Offline candidate; not submitted",
+  "status": "Submitted and accepted as Mark1 task1337710290; physical result pending",
   "printer": "Mark1 (H2C)",
   "prepared_at": "2026-10-14T03:53:16.837682+00:00",
   "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
@@ -34,5 +34,11 @@
   "cache_run": ".cache/pump-elbow-exploration/t215/native-6i5ul774",
   "estimated_seconds": 4044.107177734375,
   "estimated_filament_g": 4.301682472229004,
-  "slicer_warning": ""
+  "slicer_warning": "",
+  "ready_to_send": false,
+  "submission": {
+    "launch_receipt": "launch.json",
+    "printer_task_id": "1337710290",
+    "observed_at": "2026-10-14T04:05:30.937221+00:00"
+  }
 }
