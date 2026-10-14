@@ -2,6 +2,10 @@
 
 **Prepared offline; not submitted.** Native estimate: **68 minutes / 4.30 g**.
 
+The user reports [filament drying underway](filament-drying.json) and plans
+the next attempt on 2026-10-14. The screenshot displays a 75°C / 18-hour
+drying run, at 74°C with 17:48 remaining. Drying completion is unreported.
+
 One compact elbow, Mark1 right fixed 0.6 mm nozzle, TPU 85A, glued Engineering
 Plate and zero user Z trim. The native mesh and pose match the
 [rough 225°C article with accepted manual fit](../2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json).
