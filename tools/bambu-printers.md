@@ -69,6 +69,16 @@ records a fallen liner; the
 [compact retry](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/README.md)
 uses a 2 mm model gap. The effect of spacing on failure risk is unmeasured.
 
+The [liner wall-start observation](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json)
+records intermittent projecting strands appearing on arrival from the other
+object as a wall starts. Derek identifies the second object's end on layer N
+to the first object's start on layer N+1 as the transition of concern.
+The record does not establish an outward departure pulling the reported strand.
+The [two-elbow travel review](../future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
+distinguishes that return from transfers within a layer, including the
+firmware timelapse detour. A path above wall material alone does not establish
+that ooze contacts it or becomes buried.
+
 Mark2's [edge-adhesion report](../hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
 records poor first layers near unseasoned edges. The
 [centered fit trial](../hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)

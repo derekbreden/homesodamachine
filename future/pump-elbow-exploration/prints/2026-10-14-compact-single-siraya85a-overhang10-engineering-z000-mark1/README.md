@@ -1,13 +1,18 @@
 # Single elbow — Siraya Tech Flex TPU 85A Clear
 
 Mark1 accepted task **1337804197** on **2026-10-14 at 00:11:26 CDT**.
-The [launch receipt](launch.json) reports RUNNING, one object and no printer
-errors. Native estimate: **65 minutes / 3.93 g**, using 1.16 g/cm³ for the
-mass estimate. The [in-progress physical record](physical-result.json) reports
-that it looks good past layer 28, beyond the earlier reported curling region.
-The [wide printer-camera view](past-layer28.png) accompanies that report.
-A subsequent read-only snapshot reports layer 49 at 215°C actual and target,
-with no printer errors. Finished surface quality and Siraya fit remain pending.
+The [physical record](physical-result.json) preserves Derek's finished result:
+**“Turned out perfect.”** Three finished-part photos show the complete elbow
+and its sloping exterior surfaces. Derek also reports **internal stringing**;
+the exterior acceptance does not establish clean passages. Completion telemetry
+reports FINISH at layer 184/184 with no printer errors. Siraya fit remains
+unassessed. Native estimate: **65 minutes / 3.93 g**, using 1.16 g/cm³ for mass.
+The record retains the earlier [printer-camera view](past-layer28.png) and
+positive report past layer 28.
+
+The [two-object trial](../2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
+uses the same geometry, material and thermal recipe with revised seam/travel
+settings. Its finished result is separate from this single-article acceptance.
 
 The [loading record](material-loading.json) and [package photo](filament-label.jpg)
 identify Siraya Tech Flex TPU 85A Clear, SKU ST3008. The user reports Mark1

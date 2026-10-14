@@ -1,5 +1,5 @@
 {
-  "status": "Siraya 85A Mark1 trial: user reports looking good past layer 28; completed-part result pending",
+  "status": "Single Siraya exterior accepted with reported interior stringing; two-object Mark1 trial accepted, physical result pending",
   "ready_to_send": false,
   "project": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
   "project_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
@@ -118,6 +118,16 @@
     ]
   },
   "layers": 184,
-  "scope": "Identified Siraya Tech 85A Clear job at 215 C normal / 225 C first layer; physical result pending. Qualitative fit acceptance belongs to the earlier rough Bambu TPU 85A article.",
-  "physical_result": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json"
+  "scope": "Top-level hashes, geometry and commands identify the accepted single Siraya baseline. The separately bound current_two_object_trial duplicates that geometry and changes seam position and wall-crossing avoidance; Siraya fit is unassessed.",
+  "physical_result": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+  "current_two_object_trial": {
+    "readback": "prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/native-readback.json",
+    "launch_receipt": "prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/launch.json",
+    "printer_task_id": "1337964351",
+    "archive_sha256": "4644d646ee71738c2a81cb0990d557719b5ee7dff187178864034fddb366c067",
+    "gcode_sha256": "3490af61cf5f995453bde3b8dc6588311c2ddca21a3773bed55680f7fc5b28f8",
+    "objects": 2,
+    "physical_result": "prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+    "travel_review": "prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json"
+  }
 }

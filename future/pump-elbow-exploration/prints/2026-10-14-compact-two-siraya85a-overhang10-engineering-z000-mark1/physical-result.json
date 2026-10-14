@@ -1,0 +1,18 @@
+{
+  "status": "Accepted by Mark1; finished physical result pending",
+  "printer": "Mark1 (H2C)",
+  "reported_date": "2026-10-14",
+  "accepted_printer_task_id": "1337964351",
+  "archive": "2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "4644d646ee71738c2a81cb0990d557719b5ee7dff187178864034fddb366c067",
+  "gcode_sha256": "3490af61cf5f995453bde3b8dc6588311c2ddca21a3773bed55680f7fc5b28f8",
+  "launch_receipt": "launch.json",
+  "baseline_exterior_acceptance": "../2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+  "transition_observation": "../../../../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json",
+  "questions_for_this_article": [
+    "Surface quality with two objects using the accepted material and thermal settings.",
+    "Inter-object arrival strands on both same-layer and second-object-to-first-object next-layer transitions.",
+    "Strands within the open passages."
+  ],
+  "scope": "Printer acceptance establishes submission only. Seam/routing improvements are native path observations; string reduction and burial require the resulting article."
+}
