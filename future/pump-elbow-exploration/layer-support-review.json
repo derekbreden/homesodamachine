@@ -12,7 +12,7 @@
   "geometry_evidence": "prints/2026-10-13-continuous-body-tpu85a-mark1/layer-sections.json",
   "geometry_evidence_scope": "Same compact 15 mm socket body and V pose. Prior native G-code uses a different filament profile and two specimens; it does not qualify this slice.",
   "limits": [
-    "No printed adhesion, socket fit, sealing or retained grip acceptance.",
+    "The identified 225 C / outer10 article has reported firm, stretchy manual fit without a jig. Fit of this 215 C trial, printed surface quality, sealing and retained grip remain unqualified.",
     "TPU85A profile and user loading report identify this trial; existing TPU95A literature supplies no rating for this grade."
   ],
   "submission": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/launch.json",
@@ -26,5 +26,6 @@
   "emitted_outer_speed_comparison": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json",
   "underside_comparison": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
   "temperature_trial_baseline_physical_evidence": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
-  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json"
+  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
+  "accepted_fit_baseline": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json"
 }
