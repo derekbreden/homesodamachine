@@ -24,6 +24,12 @@ outer-wall run over CAD Z80–237. Its start identifies the beginning of the sca
 ramp. With a long scarf, the end is a different surface location; both are
 retained in [seam-starts.csv](seam-starts.csv).
 
+These saved endpoints use the bounded-connector reader and can omit final
+zero-flow moves. The current manual reader retains every non-retracting
+E-word move, including E0, matching the shared G-code reader. The
+[complete evaluation's re-read](../rear-center-v2/README.md#native-motor-paths)
+quantifies the resulting start and endpoint differences.
+
 | Article or slice | Maximum lateral start offset from rear center |
 | --- | ---: |
 | October 11, Mark1 task 1329852853 | 2.895 mm |
