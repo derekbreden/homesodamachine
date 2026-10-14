@@ -31,7 +31,11 @@ after the placement translations. The foot, body and lower neck start offsets
 are at most 0.231, 0.083 and 0.116 mm respectively; the upper neck reaches
 0.543 mm. The exposed curved tip stays within 0.188 mm. Approaching the joint,
 the base and tip differ by 0.035 mm laterally. The [CSV](trace/seams.csv)
-retains the starts and scarf overlap ends.
+retains the starts and the overlap endpoints measured by the bounded-connector
+reader in `a37392aa5`. Those recorded endpoints omit some final zero-flow
+moves. The current reader retains every non-retracting E-word move, including
+E0. Re-reading all 3,479 runs changes starts by at most 0.002 mm and final
+endpoints by at most 0.401 mm; the seam-placement conclusions remain valid.
 
 The [native review](native-review.json) binds the exact archive, mesh and
 settings hashes. The full emitted bead envelope has at least 98.25 mm edge
