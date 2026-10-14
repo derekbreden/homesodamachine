@@ -13,7 +13,13 @@ The launch records bind the submitted print-only archives and G-code hashes to
 printer acceptance: [Mark1](mark1/launch.json), [Mark2](mark2/launch.json).
 Both use Bambu Connect's saved-slice send, Timelapse On, Bed Leveling On, Flow
 Dynamics Auto and Nozzle Offset Calibration Auto. The starts are 221 seconds
-apart. Physical formation, fusion, removal and finish remain unreported.
+apart. The [Mark1 physical result](mark1/physical-result.json) identifies N100
+and N125 as the visually preferred pair, with no clear winner. Derek reports
+better-looking line fusion than usual on the bottom-middle specimen, then notes
+that bottom-left may be better and the two look similar. This is visual first-
+layer evidence on permanent model posts. Mark2's fin/ramp physical result remains
+unreported. The [normal-flow/cooling follow-up](../normal-flow-cooling-v5/README.md)
+retains both preferred treatments and adds an intermediate flow and 100% fan.
 
 ## Mark1: line-to-line fusion at fixed spacing
 
@@ -88,7 +94,8 @@ All ramps finish by Z15.08, before the first fin/control roof attempt.
   Record edge sag, a missing corner, raised curl or snagging texture. The useful
   result is the shallowest clean angle at each fan level over the entire reach.
 
-[Blank observations](observations.csv) leave every physical result unclaimed.
+[Observations](observations.csv) retain unmeasured results as blanks; the Mark1
+physical record above preserves the reported visual preferences.
 No fixtures or purchases are needed. Photographs and ordinary handling answer
 this iteration's questions. Sliding-joint fit and structural durability remain
 outside this coupon result.

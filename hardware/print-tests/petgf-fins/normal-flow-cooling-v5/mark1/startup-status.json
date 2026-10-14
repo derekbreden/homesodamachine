@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-10-14T22:21:39.237112+00:00",
+  "printer": "Mark1",
+  "job_id": "1340156908",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 24,
+  "print_error": 0,
+  "hms": []
+}
