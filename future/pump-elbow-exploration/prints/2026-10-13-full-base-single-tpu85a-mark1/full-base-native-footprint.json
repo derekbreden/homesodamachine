@@ -1,0 +1,60 @@
+{
+  "stl": "future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/full-base-single-elbow-print.stl",
+  "sha256": "25058de7b92889217cbaf5c3b2bf54036b217b44c4f9053c2ba3b9d8e540de2e",
+  "scope": "Current exact specimen only. Orthogonal XY projection and coplanar bed-contact triangles; 0.005 mm comparison allowance. Functional clamp-channel exceptions must be reviewed by location.",
+  "watertight": true,
+  "consistent_winding": true,
+  "vertex_connected_components": 1,
+  "euler_number": 0,
+  "volume_mm3": 6273.305784693804,
+  "bounds_mm": [
+    [
+      -17.068492889404297,
+      -7.4095001220703125,
+      0.0
+    ],
+    [
+      17.068492889404297,
+      7.4095001220703125,
+      22.218050003051758
+    ]
+  ],
+  "bed_contact_z_mm": 0.0,
+  "bed_contact_area_mm2": 447.7160368941153,
+  "bed_contact_components": 1,
+  "full_projection_area_mm2": 447.7160368941153,
+  "projection_outside_bed_contact_area_mm2": 0.0,
+  "projection_outside_bed_contact_bounds_mm": [],
+  "first_layer_sections": [
+    {
+      "section_z_mm": 0.1,
+      "material_area_mm2": 447.6234971538794,
+      "material_components": 1,
+      "material_outside_bed_contact_area_mm2": 0.0
+    },
+    {
+      "section_z_mm": 0.26,
+      "material_area_mm2": 447.47461383547824,
+      "material_components": 1,
+      "material_outside_bed_contact_area_mm2": 0.0
+    },
+    {
+      "section_z_mm": 0.38,
+      "material_area_mm2": 447.362289253809,
+      "material_components": 1,
+      "material_outside_bed_contact_area_mm2": 0.0
+    },
+    {
+      "section_z_mm": 0.5,
+      "material_area_mm2": 447.24939716397,
+      "material_components": 1,
+      "material_outside_bed_contact_area_mm2": 0.0
+    },
+    {
+      "section_z_mm": 0.62,
+      "material_area_mm2": 447.13593756595805,
+      "material_components": 1,
+      "material_outside_bed_contact_area_mm2": 0.0
+    }
+  ]
+}

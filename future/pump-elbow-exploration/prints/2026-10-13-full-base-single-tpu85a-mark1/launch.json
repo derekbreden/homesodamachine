@@ -1,0 +1,32 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-14T00:48:59.416495+00:00",
+  "archive": {
+    "name": "2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf",
+    "sha256": "1b6fb5535d17fbc523470ec19a012a857a134ac8444de83e7ad8f41e727fd0ec",
+    "gcode_sha256": "22400941e695e642a72855b29a60ce6917b699d62f3660b3378ba5eb36d09d35",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Single full-base 15 mm tube-socket elbow"
+    ]
+  },
+  "printer_task_id": "1337352366",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 81,
+  "other_printer_start": {
+    "printer": "Mark2",
+    "printer_task_id": "1337160395",
+    "accepted_at_utc": "2026-10-13T23:20:08.482702+00:00"
+  },
+  "startup_spacing_seconds": 5330.933793
+}
