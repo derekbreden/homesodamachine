@@ -212,17 +212,20 @@ light_strip.node_tree.nodes.get("Principled BSDF").inputs["Emission Strength"].d
 
 
 def label_texture():
-    size = 512
+    size = 2048
     u, v = np.meshgrid((np.arange(size)+.5)/size, (np.arange(size)+.5)/size)
     pixels = np.ones((size, size, 4), dtype=np.float32)
     pixels[:, :, :3] = linear("#F3F0E8")
     du = np.abs((u-.25+.25) % .5-.25)
-    oval = (du/.150)**2+((v-.465)/.145)**2 < 1
-    pixels[oval, :3] = linear("#F58F45")
+    oval_distance = np.sqrt((du/.150)**2+((v-.465)/.145)**2)
+    oval_alpha = np.clip((1-oval_distance)/(2/(size*.145))+.5,0,1)[...,None]
+    pixels[:, :, :3] = (pixels[:, :, :3]*(1-oval_alpha)
+                        +np.asarray(linear("#F58F45"))*oval_alpha)
     for center, height, radius in [(.19,.72,.022),(.31,.775,.033),(.365,.69,.014)]:
         dx = np.abs((u-center+.25) % .5-.25)
-        dots = (dx/radius)**2+((v-height)/radius)**2 < 1
-        pixels[dots, :3] = linear("#DCE6F5")
+        distance = np.sqrt((dx/radius)**2+((v-height)/radius)**2)
+        alpha = np.clip((1-distance)/(2/(size*radius))+.5,0,1)[...,None]
+        pixels[:, :, :3] = pixels[:, :, :3]*(1-alpha)+np.asarray(linear("#DCE6F5"))*alpha
     image = bpy.data.images.new("Original unbranded cream and orange can artwork", width=size, height=size, float_buffer=True)
     image.colorspace_settings.name = "Non-Color"
     image.pixels.foreach_set(pixels.ravel())
