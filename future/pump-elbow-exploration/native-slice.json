@@ -1,18 +1,19 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337583437; physical result pending",
+  "status": "Submitted and accepted as Mark1 task1337710290; physical result pending",
   "ready_to_send": false,
   "colour_is_placeholder": false,
-  "observed_at": "2026-10-14T02:45:04.388252+00:00",
-  "cache_run": ".cache/pump-elbow-exploration/outer10/native-aph43sad",
-  "project": "2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.3mf",
-  "project_sha256": "e8cfe1f7c8e8b2c15580e117eafe41c5b65de9e1d3538f995073019725d153a8",
-  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
-  "archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
-  "gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
+  "observed_at": "2026-10-14T04:05:30.937221+00:00",
+  "cache_run": ".cache/pump-elbow-exploration/t215/native-6i5ul774",
+  "project": "2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "e9439ef61db5936141ec6b67aaab42ced950d919b8f61b0159d25b8fde3e80ab",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer10-t215-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "9d25fdfc387484908db5511c4e789a28a05417873a9222df16ced57de50c73f7",
+  "gcode_sha256": "a469535d2d78854ee6f09017549ef5b19a41b59231347fed5aab83d7701ce3e3",
   "source_dependencies_sha256": {
     "future/pump-elbow-exploration/tpu_elbow.py": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
     "future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/prepare_mark1.py": "3c756dbfc2aed279dd33f6aebe400755957d70832861eb01782e1bd301d12c78",
-    "future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/prepare_mark1.py": "5ae60081de4151927c0fa4bf60a05585ff9f1e3255fd2cf6ae60df037a0e2aab"
+    "future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/prepare_mark1.py": "5ae60081de4151927c0fa4bf60a05585ff9f1e3255fd2cf6ae60df037a0e2aab",
+    "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/prepare_mark1.py": "103f6e5bf230cb1c233a73a7625b51e8296d7b79af8eae3c815ce2987fecc2ec"
   },
   "native_filament_profile_sources_sha256": {
     "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/Bambu TPU 85A @BBL H2C.json": "917831324963e57d378111936a8a0c06d0bdee0e0880f228f4f89602614b6cba",
@@ -89,9 +90,9 @@
     ],
     "curr_bed_type": "Engineering Plate",
     "nozzle_temperature": [
-      "225",
-      "225",
-      "225"
+      "215",
+      "215",
+      "215"
     ],
     "nozzle_temperature_initial_layer": [
       "225",
@@ -227,30 +228,29 @@
   },
   "scope": "XY bead widths and arc extrema; physical adhesion is unmeasured",
   "submission": {
-    "launch_receipt": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/launch.json",
-    "printer_task_id": "1337583437",
-    "observed_at": "2026-10-14T02:45:04.388252+00:00"
+    "launch_receipt": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/launch.json",
+    "printer_task_id": "1337710290",
+    "observed_at": "2026-10-14T04:05:30.937221+00:00"
   },
-  "baseline_native_readback": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.readiness.json",
+  "baseline_native_readback": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/native-readback.json",
   "native_settings_differences": {
-    "outer_wall_speed": {
+    "nozzle_temperature": {
       "from": [
-        "25",
-        "25",
-        "25",
-        "25"
+        "225",
+        "225",
+        "225"
       ],
       "to": [
-        "10",
-        "10",
-        "10",
-        "10"
+        "215",
+        "215",
+        "215"
       ]
     },
     "print_settings_id": {
-      "from": "One compact TPU85A elbow Engineering Plate zero Z trim Mark1",
-      "to": "One compact TPU85A elbow outer10 Engineering Plate zero Z trim Mark1"
+      "from": "One compact TPU85A elbow outer10 Engineering Plate zero Z trim Mark1",
+      "to": "One compact TPU85A elbow outer10 T215 Engineering Plate zero Z trim Mark1"
     }
   },
-  "native_mesh_and_pose_match_baseline": true
+  "native_mesh_and_pose_match_baseline": true,
+  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json"
 }

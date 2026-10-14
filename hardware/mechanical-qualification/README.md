@@ -55,8 +55,10 @@ cooling, Engineering Plate and zero user Z trim. Its
 [physical record and nine photos](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 show raised, distorted rims and ragged underside strands. The user reassesses
 apparent sagging; a dependable speed benefit is unestablished and the 13 mm/s
-midpoint is not selected. A 215°C normal-layer candidate retains 10 mm/s and
-the 225°C first layer. Completed print and fitting acceptance remain pending;
+midpoint is not selected. The
+[215°C normal-layer trial](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
+is accepted as Mark1 task 1337710290, retaining 10 mm/s and the 225°C first
+layer. Completed print and fitting acceptance remain pending;
 the observations establish no sealing or lifetime result.
 
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)

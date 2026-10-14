@@ -1,6 +1,9 @@
 # Single TPU 85A elbow — 215°C normal layers
 
-**Prepared offline; not submitted.** One compact elbow on Mark1's right fixed
+Mark1 accepted task **1337710290** on **2026-10-13 at 23:05:30 CDT**.
+The [launch receipt](launch.json) binds the submitted archive and G-code.
+
+One compact elbow on Mark1's right fixed
 0.6 mm nozzle, TPU 85A, glued Engineering Plate and zero user Z trim. Native
 estimate: **67 minutes / 4.30 g**.
 
