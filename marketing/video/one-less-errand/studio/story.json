@@ -1,0 +1,25 @@
+{
+  "title": "One Less Errand",
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "duration": 64,
+  "scenes": [
+    {"id":"wish","start":0,"end":4.5},
+    {"id":"can","start":4.5,"end":7.5},
+    {"id":"case","start":7.5,"end":10.5},
+    {"id":"carry","start":10.5,"end":14.25},
+    {"id":"shelf","start":14.25,"end":18},
+    {"id":"reset","start":18,"end":19.25},
+    {"id":"kitchen","start":19.25,"end":25.5},
+    {"id":"under","start":25.5,"end":30.75},
+    {"id":"select","start":30.75,"end":34.5},
+    {"id":"lever","start":34.5,"end":36.5},
+    {"id":"pour","start":36.5,"end":43.5},
+    {"id":"fizz","start":43.5,"end":47.5},
+    {"id":"sculpted","start":47.5,"end":50},
+    {"id":"industrial","start":50,"end":52.5},
+    {"id":"home","start":52.5,"end":58.5},
+    {"id":"closing","start":58.5,"end":64}
+  ]
+}
