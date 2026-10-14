@@ -1,6 +1,25 @@
 {
   "model": "gemini-3.8-flash-tts",
   "voice": "Charon",
-  "style": "Read this as one connected, natural American voice performance for a concise product film. A friend has discovered a useful thing and is telling another daily soda drinker about it. Clear, lightly pleased, confident without a sales-announcer register. Conversational momentum, approximately 150 to 165 words per minute, with short natural breaths. No exaggerated emphasis, prolonged ellipses, or large paragraph pauses. The product is a manually operated soda faucet. Diet Mountain Dew and Pepsi are the real drink brands. Deliver the final company name and One less errand as the completion of the same thought. Clean dry voice only, no music, no effects.",
-  "text": "That's Diet Mountain Dew, straight from your faucet. The soda you love, made with Pepsi's own concentrate, without the cases to carry home. Just open the faucet. Cold and fully carbonated, whenever you want it. Home Soda Machine. One less errand."
+  "style": "An intimate, warm American voice telling a short everyday story to a friend. Keep the connected natural delivery and relaxed precision of a good conversation, about 150–160 words per minute within phrases. Give Somehow a little dry bemusement. Let the case-in-the-cart and into-the-car sequence accumulate with a clear easy rhythm. Another trip. And another. And another. is the familiar loop: lightly weary and knowing, never exasperated or theatrical. The question genuinely opens a different possibility. Take a small thoughtful breath, then let Cold. Fully carbonated. Straight from your faucet. feel like quiet relief and appetite. The final wish is satisfied, with a small smile on One less errand. Perform one connected story, with natural phrase breaths and no long paragraph pauses. Do not slow down to fill screen time. Clean dry studio voice only, no music or effects.",
+  "text": "You wanted a glass of soda. Somehow, that turned into a trip to the store. A case in the cart. Into the car. Into the kitchen. Onto a shelf. And when the cans are gone? Another trip. And another. And another. What if the next glass was already waiting? Cold. Fully carbonated. Straight from your faucet. The soda you wanted. Whenever you want it. Home Soda Machine. One less errand.",
+  "caption_phrases": [
+    "You wanted a glass of soda.",
+    "Somehow, that turned into a trip to the store.",
+    "A case in the cart.",
+    "Into the car.",
+    "Into the kitchen.",
+    "Onto a shelf.",
+    "And when the cans are gone?",
+    "Another trip.",
+    "And another.",
+    "And another.",
+    "What if the next glass was already waiting?",
+    "Cold. Fully carbonated.",
+    "Straight from your faucet.",
+    "The soda you wanted.",
+    "Whenever you want it.",
+    "Home Soda Machine.",
+    "One less errand."
+  ]
 }
