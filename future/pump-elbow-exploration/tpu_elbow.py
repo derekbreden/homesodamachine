@@ -57,7 +57,7 @@ class Elbow:
         """Smooth reduction ends before the complete 9 mm tube clamp seat."""
         return self.tube_stop + 3.0
 
-    def local(self, installed=False):
+    def local(self, installed=False, exterior=False):
         rb = (self.installed_barb_od if installed else self.barb_od) / 2
         rt = (self.installed_tube_od if installed else self.tube_od) / 2
         bore_b = (reference.crest() if installed else self.barb_bore) / 2
@@ -88,6 +88,8 @@ class Elbow:
                 .rotate((0, 0, 0), (0, 0, 1), -45)
                 .translate(cq.Vector(foot_offset/math.sqrt(2), -foot_offset/math.sqrt(2), 0)))
         outer = outer.cut(clip)
+        if exterior:
+            return outer if installed else outer.clean()
         lead = self.entry * math.tan(math.radians(60))
         cavity = x(bore_b, -self.barb_depth-.01, 0).fuse(
             cq.Solid.makeCone(bore_b+self.entry, bore_b, lead,
@@ -102,9 +104,9 @@ class Elbow:
         # face boundaries avoids a costly same-domain merge at tangent skins.
         return body if installed else body.clean()
 
-    def print_shape(self):
+    def print_shape(self, exterior=False):
         s = 1 / math.sqrt(2)
-        posed = self.local().moved(cq.Location(cq.Plane(
+        posed = self.local(exterior=exterior).moved(cq.Location(cq.Plane(
             origin=(0, 0, 0), xDir=(s, 0, -s), normal=(0, -1, 0))))
         # The analytic foot plane is exact. Spline bounding boxes include a
         # conservative tolerance and would otherwise leave the foot above Z0.

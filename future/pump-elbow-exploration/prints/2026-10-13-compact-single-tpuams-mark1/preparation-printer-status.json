@@ -1,0 +1,62 @@
+{
+  "user_loading_report": "Filament is loaded on mark1 right hotend 0.6 nozzle. Let me know if a different nozzle size is better",
+  "printers": [
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-14T01:19:12.020353+00:00",
+      "job_id": "1337352366",
+      "subtask_name": "2026-10-13-full-base-single-elbow-tpu85a-right06-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 184,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_info_idx": "GFT01",
+          "tray_type": "PET-CF",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_info_idx": "GFU02",
+          "tray_type": "TPU-AMS",
+          "tray_color": "161616FF"
+        }
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-14T01:19:12.403521+00:00",
+      "job_id": "1337160395",
+      "subtask_name": "2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 205,
+      "total_layer_num": 1244,
+      "mc_remaining_time": 117,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_info_idx": "GFT01",
+          "tray_type": "PET-CF",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_info_idx": "GFB02",
+          "tray_type": "ASA-AERO",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    }
+  ],
+  "startup_spacing_evidence": "Mark2 remains task1337160395, accepted2026-10-13T23:20:08.482702Z; no intervening start observed. More than180seconds have elapsed."
+}

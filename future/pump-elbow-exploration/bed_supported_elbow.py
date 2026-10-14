@@ -1,48 +1,69 @@
-"""Experimental TPU elbow with a full footprint of stock down to the bed.
+"""Experimental elbow with its exterior filled vertically down to the bed.
 
-The support envelope contains the elbow and its XY projection onto Z0. Two
-mouth-open annular channels retain circular clamp access around the cuffs.
-The socket bores, stops, insertion lengths and V orientation are Elbow's.
+Each upward-facing exterior triangle is extended straight down to Z0. Their
+union follows the original roof; no global convex hull bridges the bend.
+The unchanged functional bores are cut once afterward. There are no exterior
+clamp channels. Circular clamp access is not part of this print specimen.
 """
 from dataclasses import dataclass
 import math
 
 import cadquery as cq
+import manifold3d as md
 import numpy as np
-from scipy.spatial import ConvexHull
+import trimesh
 
 from tpu_elbow import Elbow
 
 
-def _convex_solid(points):
-    """Closed native polygonal solid; combine coplanar hull triangles."""
-    points = np.asarray(points, dtype=float)
-    hull = ConvexHull(points)
-    groups = {}
-    for triangle, equation in zip(hull.simplices, hull.equations):
-        key = tuple(np.round(equation, 8))
-        group = groups.setdefault(key, [equation[:3], set()])
-        group[1].update(int(i) for i in triangle)
-    faces = []
-    for normal, indices in groups.values():
-        vertices = points[list(indices)]
-        centre = vertices.mean(axis=0)
-        u = vertices[0] - centre
-        u /= np.linalg.norm(u)
-        v = np.cross(normal, u)
-        order = np.argsort(np.arctan2((vertices-centre) @ v,
-                                     (vertices-centre) @ u))
-        ring = vertices[order]
-        wire = cq.Wire.makePolygon([cq.Vector(*p) for p in ring], close=True)
-        faces.append(cq.Face.makeFromWires(wire))
-    return cq.Solid.makeSolid(cq.Shell.makeShell(faces))
+_PRISM_FACES = np.array([[0, 1, 2], [5, 4, 3], [0, 3, 4], [0, 4, 1],
+                         [1, 4, 5], [1, 5, 2], [2, 5, 3], [2, 3, 0]],
+                        dtype=np.uint64)
+
+
+def shape_mesh(shape):
+    """Tessellate the native surface at 0.01 mm chord tolerance."""
+    vertices, faces = shape.tessellate(.01, .10)
+    mesh = trimesh.Trimesh([v.toTuple() for v in vertices], faces, process=True)
+    mesh.update_faces(mesh.nondegenerate_faces())
+    mesh.remove_unreferenced_vertices()
+    return mesh
+
+
+def manifold(mesh):
+    raw = md.Mesh64(np.asarray(mesh.vertices, dtype=np.float64),
+                    np.asarray(mesh.faces, dtype=np.uint64))
+    raw.merge()
+    result = md.Manifold(raw)
+    if result.status() != md.Error.NoError:
+        raise ValueError(f"Invalid mesh for downward fill: {result.status()}")
+    return result
+
+
+def joined(body):
+    # Reset prism provenance so coincident vertical faces simplify together.
+    # Only numerical debris below 0.001 mm3 may be discarded.
+    pieces = sorted(body.decompose(), key=lambda part: part.volume(), reverse=True)
+    if not pieces or sum(abs(p.volume()) for p in pieces[1:]) > .001:
+        raise ValueError("Downward stock did not join into one body")
+    result = pieces[0].as_original().set_tolerance(.001).simplify(.001)
+    pieces = sorted(result.decompose(), key=lambda part: part.volume(), reverse=True)
+    if sum(abs(p.volume()) for p in pieces[1:]) > .001:
+        raise ValueError("Downward stock has disconnected material")
+    return pieces[0]
+
+
+def print_mesh(body):
+    raw = body.to_mesh64()
+    mesh = trimesh.Trimesh(np.asarray(raw.vert_properties)[:, :3],
+                           np.asarray(raw.tri_verts), process=True)
+    mesh.update_faces(mesh.nondegenerate_faces())
+    mesh.remove_unreferenced_vertices()
+    return mesh
 
 
 @dataclass(frozen=True)
 class BedSupportedElbow(Elbow):
-    channel_width: float = 1.2
-    footprint_scale: float = 1.015
-
     def _pose(self, shape):
         s = 1 / math.sqrt(2)
         posed = shape.moved(cq.Location(cq.Plane(
@@ -71,52 +92,34 @@ class BedSupportedElbow(Elbow):
                              cq.Vector(0, 1, 0)))
         return self._pose(cavity)
 
-    def channels(self):
-        """1.2 mm radial channels, covering the full 9 mm clamp seats.
-
-        The cutting tools extend outward through each mouth. A 0.001 mm
-        inward overlap is removed from the stock only; the original exact
-        cuff is subsequently united back into the part.
-        """
-        out = {}
-        for name, radius, origin, direction, length in (
-            ("barb", self.barb_od/2, (-100, 0, 0), (1, 0, 0),
-             100-self.barb_depth+self.band_width),
-            ("tube", self.tube_od/2, (self.axis, self.mouth-self.band_width, 0),
-             (0, 1, 0), 100-self.mouth+self.band_width),
-        ):
-            outer = cq.Solid.makeCylinder(radius+self.channel_width, length,
-                                           cq.Vector(*origin), cq.Vector(*direction))
-            inner = cq.Solid.makeCylinder(radius-.001, length,
-                                           cq.Vector(*origin), cq.Vector(*direction))
-            out[name] = self._pose(outer.cut(inner))
-        return out
-
     def support_envelope(self):
-        """Convex stock under the complete silhouette, with a broad flat bed.
+        """Downward closure of the original unbored exterior, as a manifold.
 
-        Projected vertices are enlarged 1.5% about the centred XY frame,
-        covering the 0.01 mm tessellation chord allowance. The native cuff
-        surfaces are supplied by the original elbow, not by the hull facets.
+        The roof of each local triangular prism is an original surface facet.
+        Its other end is directly below at Z0. Unioning these individual
+        prisms fills below the roof without adding a convex bridge above it.
         """
-        original = super().print_shape()
-        vertices, _ = original.tessellate(.01, .08)
-        points = np.array([p.toTuple() for p in vertices])
-        floor = points.copy()
-        floor[:, :2] *= self.footprint_scale
-        floor[:, 2] = 0
-        return _convex_solid(np.vstack((points, floor)))
+        exterior = shape_mesh(super().print_shape(exterior=True))
+        roofs = exterior.triangles[exterior.face_normals[:, 2] > 1e-7]
+        prisms = []
+        for triangle in roofs:
+            floor = triangle.copy()
+            floor[:, 2] = 0
+            raw = md.Mesh64(np.asarray(np.vstack((triangle, floor)), dtype=np.float64),
+                            _PRISM_FACES)
+            raw.merge()
+            prism = md.Manifold(raw)
+            if prism.status() != md.Error.NoError:
+                raise ValueError(f"Invalid vertical prism: {prism.status()}")
+            prisms.append(prism)
+        return joined(md.Manifold.batch_boolean(prisms, md.OpType.Add))
 
-    def print_shape(self):
-        original = super().print_shape()
-        stock = self.support_envelope().cut(self.cavity())
-        for channel in self.channels().values():
-            stock = stock.cut(channel)
-        # Merge the coplanar mouth annuli created by the stock union. This
-        # relaxed print body has no expanded installed-envelope tangencies.
-        return stock.fuse(original).clean()
+    def print_mesh(self):
+        envelope = self.support_envelope()
+        lumen = manifold(shape_mesh(self.cavity()))
+        return print_mesh(joined(envelope - lumen))
 
 
 def build():
-    """One grounded, full-base elbow for the experimental print."""
-    return BedSupportedElbow().print_shape()
+    """One downward-filled elbow mesh in its bed-flat print orientation."""
+    return BedSupportedElbow().print_mesh()

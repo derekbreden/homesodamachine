@@ -1,0 +1,46 @@
+{
+  "gcode": ".cache/printer-control/downward-fill-single-elbow-mark1-20261013/native-41r83wdh/plate_1.gcode",
+  "sha256": "fc0c5624a768f7daefd4d0a7c45d7e9a0e93088f02a1a7e70521ca190bca1531",
+  "scope": "Only first three native model layers, widths as emitted; Brim and Custom deposition excluded. Round bead-footprint approximation (4 segments per quadrant). No later-layer or material qualification claim.",
+  "parsed_through_line": 3084,
+  "layers": [
+    {
+      "z_mm": 0.2,
+      "positive_extrusion_paths": 263,
+      "model_bead_area_mm2": 421.7874279848265,
+      "model_bead_bounds_xy_mm": [
+        160.68632443220113,
+        152.69996111169408,
+        194.31284075458015,
+        167.2999949987762
+      ],
+      "model_bead_components": 1
+    },
+    {
+      "z_mm": 0.32,
+      "positive_extrusion_paths": 275,
+      "model_bead_area_mm2": 420.9040972796902,
+      "model_bead_bounds_xy_mm": [
+        160.68800340106168,
+        152.6924251523027,
+        194.31260719823334,
+        167.31140867500025
+      ],
+      "model_bead_components": 1,
+      "prior_layer_bead_area_overlap_fraction": 0.9974187623636827
+    },
+    {
+      "z_mm": 0.44,
+      "positive_extrusion_paths": 276,
+      "model_bead_area_mm2": 420.9365214194903,
+      "model_bead_bounds_xy_mm": [
+        160.68763874758324,
+        152.6923782302017,
+        194.31219739981046,
+        167.31135835618878
+      ],
+      "model_bead_components": 1,
+      "prior_layer_bead_area_overlap_fraction": 0.9955118909951133
+    }
+  ]
+}

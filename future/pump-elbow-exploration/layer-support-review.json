@@ -1,24 +1,19 @@
 {
-  "scope": "Bounded review of the identified one-elbow full-base print trial; no physical success or pressure qualification",
-  "geometry_source": "bed_supported_elbow.py",
-  "geometry_source_sha256": "36fe8bfbbf5ad56f800b3db906957a96c4df88f0daed6328b7f5e46d54278511",
-  "geometry_record": "prints/2026-10-13-full-base-single-tpu85a-mark1/geometry-review.json",
-  "native_specimen_stl": "prints/2026-10-13-full-base-single-tpu85a-mark1/full-base-single-elbow-print.stl",
-  "native_specimen_stl_sha256": "25058de7b92889217cbaf5c3b2bf54036b217b44c4f9053c2ba3b9d8e540de2e",
-  "footprint_record": "prints/2026-10-13-full-base-single-tpu85a-mark1/full-base-native-footprint.json",
-  "native_record": "prints/2026-10-13-full-base-single-tpu85a-mark1/full-base-single-native-audit.json",
-  "gcode_sha256": "22400941e695e642a72855b29a60ce6917b699d62f3660b3378ba5eb36d09d35",
-  "bed_contact_mm2": 447.71603439234707,
-  "bed_contact_covers_full_xy_projection": true,
+  "scope": "Selected compact single-elbow TPU for AMS trial, accepted as Mark1 task1337417293. No physical printing or fitting acceptance.",
+  "geometry_source": "tpu_elbow.py",
+  "geometry_source_sha256": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
+  "native_specimen_stl": "prints/2026-10-13-compact-single-tpuams-mark1/compact-single-elbow-print.stl",
+  "native_specimen_stl_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
+  "gcode_sha256": "085a2e11ac9d800d781312be8f54b7ec5de08847deb561fa4ae5755c865f8a31",
+  "archive_sha256": "eabbe9c18bf4aaca9e6df52eb420ea1e07150720d6318bbb72a615141e69dd64",
   "single_body_volume_object_and_instance": true,
-  "throat_closing_stroke_mm": 0.232,
-  "throat_bead_width_mm": 0.536,
-  "remaining_physical_observations": [
-    "bed adhesion and printed surfaces",
-    "open bores and clamp channels",
-    "socket fit and clamp handling",
-    "pressure holding and retention",
-    "relaxation and lifetime"
+  "bed_contact_mm2": 88.88473465583785,
+  "native_readback": "prints/2026-10-13-compact-single-tpuams-mark1/2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.readiness.json",
+  "geometry_evidence": "prints/2026-10-13-continuous-body-tpu85a-mark1/layer-sections.json",
+  "geometry_evidence_scope": "Same compact 15 mm socket body and V pose. Prior native G-code uses a different filament profile and two specimens; it does not qualify this slice.",
+  "limits": [
+    "No printed adhesion, socket fit, sealing or retained grip acceptance.",
+    "TPU for AMS is Shore68D; existing TPU95A literature supplies no rating for this grade."
   ],
-  "installed_layout_scope": "Full-base extra stock is outside the compact fitting envelope used by the installed proposal"
+  "submission": "prints/2026-10-13-compact-single-tpuams-mark1/launch.json"
 }

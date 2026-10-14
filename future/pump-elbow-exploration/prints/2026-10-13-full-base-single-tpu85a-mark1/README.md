@@ -2,11 +2,12 @@
 
 Mark1 accepted task **1337352366** on **2026-10-13 at 19:48:59 CDT**.
 The [launch receipt](launch.json) binds the submitted archive and G-code.
-The plate contains exactly **one elbow**. Physical printing success, fit and
-sealing remain unmeasured.
+The plate contains exactly **one elbow**. The printer is stopped and this
+geometry is rejected; the [result record](physical-result.json) binds that
+scope. Physical printing success, fit and sealing remain unmeasured.
 
-Solid exterior stock extends to the bed across the complete projected
-footprint. The integral base contacts **447.716 mm²**, measures approximately
+Convex exterior stock surrounds the fitting, with annular air gaps beneath
+the cuffs. The integral base contacts **447.716 mm²**, measures approximately
 34.14 × 14.82 mm, and supports a 22.22 mm tall body. The interior socket and
 flow bores retain the 11 mm barb / 15 mm tube insertion depths. Mouth-open,
 1.2 mm radial channels leave room around both complete 9 mm clamp-band seats.
@@ -30,7 +31,8 @@ Timelapse and bed leveling are On; flow and nozzle offset calibration are Auto.
   [local deposition review](full-base-single-native-audit.json)
 
 The bed contact equals the complete XY projection. The first-layer region is
-continuous. Reviewed clamp-channel strokes retain prior-layer bead overlap;
+continuous, but the clamp channels interrupt vertical support beneath the
+cuffs. Reviewed clamp-channel strokes retain prior-layer bead overlap;
 the internal throat's remaining closing stroke is 0.232 mm long with a
 0.536 mm bead. These are geometric and slice observations, without a model
 of TPU sag, cooling or adhesion.

@@ -1,7 +1,9 @@
 # TPU pump elbow and installed layout study
 
-**Status: single full-base print trial; physical result pending.**
-The current TPU 85A trial prints one elbow with solid stock down to the bed.
+**Status: one compact V-shaped elbow in TPU for AMS started on Mark1.**
+The selected geometry is the rounded heel and smooth-neck fitting with its
+integral flat foot. Mark1 accepted task 1337417293 on 2026-10-13 at
+20:19:42 CDT. Physical printing success and fitting results remain pending.
 The compact layout study includes the water connections and a 715 mL funnel
 proposal. Its occupancy result applies to the compact fitting envelopes.
 Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
@@ -15,13 +17,13 @@ neighboring hardware are considered together.
 
 ## Files
 
-- [Full-base elbow and Mark1 print record](prints/2026-10-13-full-base-single-tpu85a-mark1/README.md)
+- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpuams-mark1/README.md)
   identify one 15 mm elbow, the editable project, native sliced
-  archive, loaded TPU 85A, right fixed 0.6 mm nozzle and +0.18 mm user Z trim.
+  archive, Bambu TPU for AMS recipe, right fixed 0.6 mm nozzle and +0.18 mm user Z trim. Its native estimate is 43.5 minutes / 4.31 g.
 - [Suction elbow](suction-elbow.stl) and [discharge elbow](discharge-elbow.stl)
   are the compact fitting envelopes used by the installed layout study. The
-  full-base print trial adds stock outside those envelopes; that stock is
-  not included in the installed proposal's clearance result.
+  selected print trial uses the same compact geometry. Installed expansion
+  remains an envelope estimate, with no loaded-deformation acceptance.
 - [Installed proposal](installed-proposal.step) shows the pump, elbows, bands,
   water check and cradle, tubes, source valves, expanded bowl and frame, and
   relocated upper hardware. The [revised back-top](back-top-funnel-opening.step)
@@ -58,8 +60,8 @@ filament has a relaxation result for these cuffs.
 
 ## Sealing design
 
-Both interfaces have a continuous circular socket and a broad external clamp
-band. The clamp compresses TPU against the mating plastic. The pump barb's
+The compact layout model has a continuous circular socket and a broad
+external clamp band at both interfaces. The clamp compresses TPU against the mating plastic. The pump barb's
 crests provide geometric retention; the smooth LLDPE end relies on retained
 friction unless an additional retention feature is established. Stops keep
 both inserted ends clear of the corner passage.
@@ -113,26 +115,30 @@ limits grip; it is not validation of this custom cuff.
 
 ## Printing and geometry options
 
-The full-base trial puts both mouths upward at 45°. Its 447.716 mm² bed
-contact covers the entire XY projection. Solid stock extends down from the
-elbow to Z0, with extra web between the legs. Mouth-open, 1.2 mm radial
-channels preserve both complete 9 mm clamp-band seats. The exact socket and
-flow bores are retained. The native print mesh is one closed, consistently
-oriented body.
+The selected single specimen has both mouths upward at 45°, a rounded heel,
+a smooth neck and one 88.9 mm² integral flat foot. Its 9 mm circular clamp
+seats remain exposed. The selected material is Bambu TPU for AMS, rated Shore
+68D. It is a firmer next print trial; its barb insertion force, contact pressure
+and sealing response remain unmeasured. The owned 90A is a softer alternative
+for a subsequent fitting trial. [Bambu TPU for AMS technical data](https://store.bblcdn.eu/s8/default/0b83dc5419534babb4287686cb8c7375/Bambu_TPU_for_AMS_Technical_Data_Sheet.pdf).
 
-The native project uses the loaded TPU 85A, 0.6 mm nozzle, 0.20 mm first layer,
-0.12 mm subsequent layers, six requested wall loops, 100% zig-zag infill,
-0% seam gap and 25 mm/s wall speeds, limited by the filament's 2.2 mm³/s
-maximum flow. Its native settings are 225°C nozzle and 35°C textured PEI.
-Spiral mode is off. The native slice emits no support features. Its estimate
-is about **81 minutes and 7.80 g for one elbow**. The native archive has
-exactly one mesh body, one normal volume, one object and one build instance.
+The native project requests one body, one normal volume, one object and one
+build instance, with a 5 mm outer brim. It uses the manufacturer's H2C 0.6 mm
+TPU for AMS filament profile: 230°C nozzle, 35°C textured PEI, flow ratio 0.97,
+and 12 mm³/s maximum flow. Requested process settings are 0.20 mm first /
+0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap and 25 mm/s
+walls. Spiral mode and supports are off. Mark1 retains its +0.18 mm user trim.
 
-The manual [layer-support review](layer-support-review.json) binds the current
-mesh and native G-code. It checks the bed footprint, first layers, and local
-socket, passage and clamp-channel transitions. The throat has a 0.232 mm
-closing stroke with a 0.536 mm bead. Geometric support does not establish
-adhesion, extrusion continuity or a successful physical print.
+The [downward-filled candidate](prints/2026-10-13-downward-fill-single-tpu85a-mark1/README.md)
+is prepared but not selected or submitted. It contains only stock beneath the
+original roof and no annular air gaps, with a 423.338 mm² flat base. That
+stock occupies the lower circular clamp paths, so its sealing arrangement and
+installed clearance are unqualified.
+
+The [rejected convex-stock trial](prints/2026-10-13-full-base-single-tpu85a-mark1/physical-result.json)
+is stopped. Its broad footprint did not supply uninterrupted stock beneath the
+cuffs: the annular channels cut through that stock. Its native layer checks do
+not resolve this rejected geometry.
 
 The identified [two-elbow print failed](prints/2026-10-13-continuous-body-tpu85a-mark1/physical-result.json)
 according to Derek's report. Its failure mechanism is unmeasured. Print trials
@@ -142,9 +148,9 @@ At a nominal 45° wall, a 0.12 mm layer advances approximately 0.12 mm laterally
 with 0.62 mm beads, nominal overlap is about 81%. This gives a geometric print
 margin. Extrusion continuity and cooling still determine the printed result.
 Drying history, physical adhesion and extrusion continuity remain unmeasured
-for the identified article. The printed material, socket fit and pressure
-holding result belong to TPU 85A; the cited TPU 95A research establishes no
-rating for this grade or interface.
+for the identified article. The selected material is TPU for AMS; the cited
+TPU 95A research establishes no rating for this grade or interface. Socket fit and pressure holding remain
+unmeasured.
 
 | Geometry or process option | Application and decision |
 | --- | --- |
