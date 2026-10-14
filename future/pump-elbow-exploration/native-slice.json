@@ -1,14 +1,14 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337517926; physical result pending",
+  "status": "Submitted and accepted as Mark1 task1337583437; physical result pending",
   "ready_to_send": false,
   "colour_is_placeholder": false,
-  "observed_at": "2026-10-14T02:08:36.313724+00:00",
-  "cache_run": ".cache/printer-control/compact-single-elbow-tpu85a-engineering-z000-mark1-20261013/native-a230jeoy",
-  "project": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.3mf",
-  "project_sha256": "969b965053c4f7b2e6a9eb34dfa4a50cadb4bf71ef49c171fe8e26df3a011334",
-  "archive": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
-  "archive_sha256": "ffda278ed72f4e07c6f0e9d2ee1a9d01575999b81e57124f116fbab1e96a9ee2",
-  "gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+  "observed_at": "2026-10-14T02:45:04.388252+00:00",
+  "cache_run": ".cache/pump-elbow-exploration/outer10/native-aph43sad",
+  "project": "2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "e8cfe1f7c8e8b2c15580e117eafe41c5b65de9e1d3538f995073019725d153a8",
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
+  "gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
   "source_dependencies_sha256": {
     "future/pump-elbow-exploration/tpu_elbow.py": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
     "future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/prepare_mark1.py": "3c756dbfc2aed279dd33f6aebe400755957d70832861eb01782e1bd301d12c78",
@@ -22,7 +22,7 @@
     "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
   },
   "specimen": {
-    "mesh": "compact-single-elbow-print.stl",
+    "mesh": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/compact-single-elbow-print.stl",
     "mesh_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
     "raw_occ_stl_sha256": "4cc9b2358611f30558ca37507cc4b486f071a2aebfe2b9159f1099f944504c0f",
     "triangles": 17986,
@@ -134,7 +134,19 @@
     "seam_gap": "0%",
     "enable_support": "0",
     "brim_width": "5",
-    "brim_type": "outer_only"
+    "brim_type": "outer_only",
+    "outer_wall_speed": [
+      "10",
+      "10",
+      "10",
+      "10"
+    ],
+    "inner_wall_speed": [
+      "25",
+      "25",
+      "25",
+      "25"
+    ]
   },
   "native_active_filament": {
     "id": "1",
@@ -153,7 +165,7 @@
   },
   "minimum_full_bead_edge_margin_mm": 135.69500399999998,
   "layers": 184,
-  "estimated_seconds": 3733.0966796875,
+  "estimated_seconds": 4044.107177734375,
   "estimated_filament_g": 4.301682472229004,
   "estimate_density_g_cm3": [
     "1.22"
@@ -215,8 +227,30 @@
   },
   "scope": "XY bead widths and arc extrema; physical adhesion is unmeasured",
   "submission": {
-    "launch_receipt": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/launch.json",
-    "printer_task_id": "1337517926",
-    "observed_at": "2026-10-14T02:09:41.981356+00:00"
-  }
+    "launch_receipt": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/launch.json",
+    "printer_task_id": "1337583437",
+    "observed_at": "2026-10-14T02:45:04.388252+00:00"
+  },
+  "baseline_native_readback": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.readiness.json",
+  "native_settings_differences": {
+    "outer_wall_speed": {
+      "from": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "print_settings_id": {
+      "from": "One compact TPU85A elbow Engineering Plate zero Z trim Mark1",
+      "to": "One compact TPU85A elbow outer10 Engineering Plate zero Z trim Mark1"
+    }
+  },
+  "native_mesh_and_pose_match_baseline": true
 }
