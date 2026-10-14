@@ -1,21 +1,21 @@
 {
-  "scope": "Selected single compact TPU85A elbow, 215 C normal / 225 C first layer, requested outer-wall10, Engineering Plate and zero user Z trim; Mark1 task1337710290 has reported curl by layer21 and similar by layer27. Actual lip speed exceeds the requested outer-wall value.",
+  "scope": "Selected single compact Siraya Tech Flex TPU85A Clear elbow, 215 C normal / 225 C first layer, 10 mm/s exterior, Engineering Plate and zero user Z trim; accepted as Mark1 task1337804197. Physical result pending.",
   "geometry_source": "tpu_elbow.py",
   "geometry_source_sha256": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
   "native_specimen_stl": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/compact-single-elbow-print.stl",
   "native_specimen_stl_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
-  "gcode_sha256": "a469535d2d78854ee6f09017549ef5b19a41b59231347fed5aab83d7701ce3e3",
-  "archive_sha256": "9d25fdfc387484908db5511c4e789a28a05417873a9222df16ced57de50c73f7",
+  "gcode_sha256": "12c244c8122496fd58e986d5c19e1366e09a82efb0cac11c2e8c0c9ec1f2b73f",
+  "archive_sha256": "9cfa3a0127df7ae9e8123286ec1cc0ad12a010f4a261575ae73b2fadf3acdb76",
   "single_body_volume_object_and_instance": true,
   "bed_contact_mm2": 88.88473465583785,
-  "native_readback": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/native-readback.json",
+  "native_readback": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/native-readback.json",
   "geometry_evidence": "prints/2026-10-13-continuous-body-tpu85a-mark1/layer-sections.json",
   "geometry_evidence_scope": "Same compact 15 mm socket body and V pose. Prior native G-code uses a different filament profile and two specimens; it does not qualify this slice.",
   "limits": [
-    "The identified 225 C / outer10 article has reported firm, stretchy manual fit without a jig. Fit of this 215 C trial, printed surface quality, sealing and retained grip remain unqualified.",
-    "TPU85A profile and user loading report identify this trial; existing TPU95A literature supplies no rating for this grade."
+    "The earlier rough Bambu TPU85A article has accepted firm, stretchy manual fit. Siraya Tech 85A fit and surface quality require their own result; sealing and retained grip remain unqualified.",
+    "The user identifies this new spool as Siraya Tech Flex TPU85A Clear; neither the Bambu85A fit result nor TPU95A literature supplies a rating for this grade or interface."
   ],
-  "submission": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/launch.json",
+  "submission": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/launch.json",
   "bed_type": "Engineering Plate",
   "user_z_trim_mm": 0.0,
   "plate_trim_commands_mm": [
@@ -26,8 +26,9 @@
   "emitted_outer_speed_comparison": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json",
   "underside_comparison": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
   "temperature_trial_baseline_physical_evidence": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
-  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
+  "emitted_temperature_review": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json",
   "accepted_fit_baseline": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
-  "physical_result": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json",
-  "emitted_lip_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/curl-toolpath-review.json"
+  "physical_result": null,
+  "emitted_lip_review": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json",
+  "material_loading": "prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/material-loading.json"
 }

@@ -1,0 +1,496 @@
+{
+  "status": "Submitted and accepted as Mark1 task1337804197; physical result pending",
+  "printer": "Mark1 (H2C)",
+  "prepared_at": "2026-10-14T05:07:42.274341+00:00",
+  "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "baseline_archive_sha256": "4dba5c20f27a2461372ebb134e10a124f1ff8d8e7f9af82d50c7ea2e0e799a9e",
+  "project": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
+  "archive": "2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "9cfa3a0127df7ae9e8123286ec1cc0ad12a010f4a261575ae73b2fadf3acdb76",
+  "gcode_sha256": "12c244c8122496fd58e986d5c19e1366e09a82efb0cac11c2e8c0c9ec1f2b73f",
+  "native_settings_differences": {
+    "temperature_vitrification": {
+      "from": [
+        "40"
+      ],
+      "to": [
+        "30"
+      ]
+    },
+    "filament_preheat_temperature_delta": {
+      "from": [
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_ramming_travel_time_nc": {
+      "from": [
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_retraction_length": {
+      "from": [
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "0.8",
+        "0.8",
+        "0.8"
+      ]
+    },
+    "filament_ramming_travel_time": {
+      "from": [
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_density": {
+      "from": [
+        "1.22"
+      ],
+      "to": [
+        "1.16"
+      ]
+    },
+    "filament_retraction_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_dev_drying_cooling_temperature": {
+      "from": [
+        "40"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_change_length_nc": {
+      "from": [
+        "4"
+      ],
+      "to": [
+        "10"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_deretraction_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_dev_ams_drying_time": {
+      "from": [
+        "12",
+        "18",
+        "12",
+        "18"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_ramming_volumetric_speed_nc": {
+      "from": [
+        "0.55",
+        "0.55",
+        "0.55"
+      ],
+      "to": [
+        "-1",
+        "-1",
+        "-1"
+      ]
+    },
+    "filament_adhesiveness_category": {
+      "from": [
+        "600"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_dev_ams_drying_ams_limitations": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        ""
+      ]
+    },
+    "filament_colour_type": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "1",
+        "1"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#161616"
+      ],
+      "to": [
+        "#FFFFFF"
+      ]
+    },
+    "filament_prime_volume_nc": {
+      "from": [
+        "30"
+      ],
+      "to": [
+        "60"
+      ]
+    },
+    "filament_vendor": {
+      "from": [
+        "Bambu Lab"
+      ],
+      "to": [
+        "Siraya Tech"
+      ]
+    },
+    "additional_cooling_fan_speed": {
+      "from": [
+        "100"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_wipe": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_dev_ams_drying_temperature": {
+      "from": [
+        "65",
+        "75",
+        "45",
+        "45"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_scarf_gap": {
+      "from": [
+        "0%"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_ids": {
+      "from": [
+        "GFU04"
+      ],
+      "to": [
+        ""
+      ]
+    },
+    "nozzle_temperature_range_low": {
+      "from": [
+        "200"
+      ],
+      "to": [
+        "210"
+      ]
+    },
+    "filament_dev_chamber_drying_bed_temperature": {
+      "from": [
+        "90"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_metal_stickiness": {
+      "from": [
+        "High"
+      ],
+      "to": [
+        "None"
+      ]
+    },
+    "nozzle_temperature": {
+      "from": [
+        "225",
+        "225",
+        "225"
+      ],
+      "to": [
+        "215",
+        "215",
+        "215"
+      ]
+    },
+    "filament_extruder_variant": {
+      "from": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow",
+        "Direct Drive E3D High Flow"
+      ],
+      "to": [
+        "Direct Drive Standard",
+        "Direct Drive Standard",
+        "Direct Drive Standard"
+      ]
+    },
+    "filament_printable": {
+      "from": [
+        "2"
+      ],
+      "to": [
+        "3"
+      ]
+    },
+    "filament_pre_cooling_temperature": {
+      "from": [
+        "195",
+        "195",
+        "195"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_change_length": {
+      "from": [
+        "4"
+      ],
+      "to": [
+        "10"
+      ]
+    },
+    "filament_self_index": {
+      "from": [
+        "1",
+        "1",
+        "2",
+        "2"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "filament_overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_wipe_distance": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_settings_id": {
+      "from": [
+        "Bambu TPU 85A @BBL H2C"
+      ],
+      "to": [
+        "Siraya Tech Flex TPU 85A Clear @H2C right 0.6"
+      ]
+    },
+    "filament_end_gcode": {
+      "from": [
+        "; filament end gcode \n"
+      ],
+      "to": [
+        "; filament end gcode \nM106 P3 S0\n"
+      ]
+    },
+    "filament_pre_cooling_temperature_nc": {
+      "from": [
+        "185",
+        "185",
+        "185"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "nozzle_temperature_range_high": {
+      "from": [
+        "250"
+      ],
+      "to": [
+        "240"
+      ]
+    },
+    "filament_dev_chamber_drying_time": {
+      "from": [
+        "16"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_start_gcode": {
+      "from": [
+        "; filament start gcode\n"
+      ],
+      "to": [
+        "; filament start gcode\n{if  (bed_temperature[current_extruder] >35)||(bed_temperature_initial_layer[current_extruder] >35)}M106 P3 S255\n{elsif(bed_temperature[current_extruder] >30)||(bed_temperature_initial_layer[current_extruder] >30)}M106 P3 S180\n{endif}\n\n{if activate_air_filtration[current_extruder] && support_air_filtration}\nM106 P3 S{during_print_exhaust_fan_speed_num[current_extruder]} \n{endif}"
+      ]
+    },
+    "filament_dev_ams_drying_heat_distortion_temperature": {
+      "from": [
+        "45"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_dev_drying_softening_temperature": {
+      "from": [
+        "50"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_ramming_volumetric_speed": {
+      "from": [
+        "0.55",
+        "0.55",
+        "0.55"
+      ],
+      "to": [
+        "-1",
+        "-1",
+        "-1"
+      ]
+    },
+    "print_settings_id": {
+      "from": "One compact TPU85A elbow overhang10 Engineering Plate zero Z trim Mark1",
+      "to": "One compact Siraya85A Clear elbow overhang10 Engineering Plate zero Z trim Mark1"
+    },
+    "filament_flow_ratio": {
+      "from": [
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "0.96",
+        "0.96",
+        "0.96"
+      ]
+    }
+  },
+  "native_mesh_and_pose_match_baseline": true,
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "cache_run": ".cache/pump-elbow-exploration/siraya85a/native-abg9ekek",
+  "estimated_seconds": 3926.3056640625,
+  "estimated_filament_g": 3.9276301860809326,
+  "slicer_warning": "",
+  "ready_to_send": false,
+  "submission": {
+    "launch_receipt": "launch.json",
+    "printer_task_id": "1337804197",
+    "observed_at": "2026-10-14T05:11:26.792470+00:00"
+  },
+  "material_profile": "material-profile.json",
+  "material_profile_sha256": "be65f953def2def43239f84e6be093622e35aa89629268861b29a8211e201924",
+  "emitted_command_review": "emitted-command-review.json",
+  "physical_material": "User-identified Siraya Tech Flex TPU 85A Clear, SKU ST3008; user reports Mark1 ready after loading"
+}
