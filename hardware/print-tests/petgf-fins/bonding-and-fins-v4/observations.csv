@@ -1,6 +1,6 @@
 printer,task_id,id,kind,first_roof_formed,adjacent_strands_joined,underside_finish,fin_removal,roof_damage_after_removal,ramp_edge_sag,ramp_tip_complete,notes
-Mark1,1340084547,N100,solid_bridge,,,,,,,,
-Mark1,1340084547,N125,solid_bridge,,,,,,,,
+Mark1,1340084547,N100,solid_bridge,,,,,,,,User visually prefers bottom-left and bottom-middle similarly; N100 may be better. See mark1/physical-result.json.
+Mark1,1340084547,N125,solid_bridge,,,,,,,,User reports better visible line fusion than usual; preference relative to N100 unresolved. See mark1/physical-result.json.
 Mark1,1340084547,N150,solid_bridge,,,,,,,,
 Mark1,1340084547,T100,solid_bridge,,,,,,,,
 Mark1,1340084547,T125,solid_bridge,,,,,,,,

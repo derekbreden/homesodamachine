@@ -135,10 +135,10 @@ def settings_for(printer):
                           if original.get(k)!=v}
 
 
-def write_plate(printer, groups):
+def write_plate(printer, groups, *, destination=None, stem=None):
     trim='018' if printer=='Mark1' else '004'
-    stem=f'2026-10-14-v4-{"bonding" if printer=="Mark1" else "fins-ramps"}-petgf-left04-z{trim}-{printer.lower()}'
-    folder=HERE/printer.lower();(folder/'parts').mkdir(parents=True,exist_ok=True)
+    stem=stem or f'2026-10-14-v4-{"bonding" if printer=="Mark1" else "fins-ramps"}-petgf-left04-z{trim}-{printer.lower()}'
+    folder=(destination or HERE)/printer.lower();(folder/'parts').mkdir(parents=True,exist_ok=True)
     settings,data,edits=settings_for(printer)
     model=ET.Element(qn('model'),unit='millimeter',requiredextensions='p',
         **{'xmlns:BambuStudio':'http://schemas.bambulab.com/package/2021'})

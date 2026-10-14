@@ -30,7 +30,12 @@ The [12 mm fusion and fin trial](bonding-and-fins-v4/README.md) uses both
 printers: six isolated first bridge layers at fixed spacing with added
 extrusion, two correctly landed fin roofs, and full-length ramps at 70%/100%
 cooling. Both fin directions have all 28 main strokes' ends directly on prior
-tooth beads, with bridge fill before walls. Physical results remain pending.
+tooth beads, with bridge fill before walls. Its
+[Mark1 physical result](bonding-and-fins-v4/mark1/physical-result.json) finds normal
+N100/N125 visually preferred without a clear winner. The
+[normal-flow/cooling follow-up](normal-flow-cooling-v5/README.md) compares
+100%/115%/125% extrusion at 70%/100% fan on six normal bridge swatches.
+The fin/ramp physical result remains pending.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact

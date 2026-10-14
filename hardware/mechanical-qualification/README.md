@@ -126,9 +126,14 @@ compares single bridge layers with normal/thick extrusion and 100%/125%/150%
 volume at fixed spacing within each group. Mark2 has opposing fins in two
 directions, a solid-post control and full 14 mm ramps at 70%/100% cooling.
 Every main first-roof fin raster starts and ends on preceding tooth beads,
-and fill precedes walls. Actual formation, joining, release and finish remain
-unreported. The earlier failed fin starts and rejected C finish do not settle
-the useful finish of these fin-supported roofs.
+and fill precedes walls. The [Mark1 physical result](../print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
+identifies normal-mode N100 and N125 as the visually preferred pair, with no
+clear winner and no measured bond-strength result. Mark2's fin/ramp physical
+observations remain pending. The earlier failed fin starts and rejected C finish
+do not settle the useful finish of these fin-supported roofs. The
+[normal-flow/cooling follow-up](../print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
+is Mark1 task 1340156908: normal bridges at 100%/115%/125% extrusion, each at
+70% and 100% cooling, with a single 12 mm first roof layer.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

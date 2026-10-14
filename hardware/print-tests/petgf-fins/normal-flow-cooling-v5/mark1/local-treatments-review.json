@@ -1,0 +1,46 @@
+{
+  "all_non_part_fan_command_count": 17243,
+  "all_xyz_feed_and_non_extrusion_words_unchanged": true,
+  "extrusion_changes_only_named_first_roof_bridge_features": {
+    "B115": 59,
+    "B125": 59,
+    "A125": 59,
+    "A115": 59
+  },
+  "all_other_archive_entries_unchanged": true,
+  "gcode_md5_verified": true,
+  "volume_per_length": [
+    {
+      "id": "A100",
+      "bridge_cross_section_mm2_from_e": 0.0865508973253173,
+      "raster_strokes": 30
+    },
+    {
+      "id": "A115",
+      "bridge_cross_section_mm2_from_e": 0.09953353192411486,
+      "raster_strokes": 30
+    },
+    {
+      "id": "A125",
+      "bridge_cross_section_mm2_from_e": 0.1081886216566466,
+      "raster_strokes": 30
+    },
+    {
+      "id": "B100",
+      "bridge_cross_section_mm2_from_e": 0.0865508973253173,
+      "raster_strokes": 30
+    },
+    {
+      "id": "B115",
+      "bridge_cross_section_mm2_from_e": 0.09953353192411486,
+      "raster_strokes": 30
+    },
+    {
+      "id": "B125",
+      "bridge_cross_section_mm2_from_e": 0.1081886216566466,
+      "raster_strokes": 30
+    }
+  ],
+  "A100_cross_section_matches_v4_N100_within_mm2": 1e-06,
+  "scope": "Manual review of this submitted experiment; commanded volume and coverage are not physical bond measurements."
+}

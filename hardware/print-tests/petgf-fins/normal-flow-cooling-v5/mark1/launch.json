@@ -1,0 +1,54 @@
+{
+  "printer": "Mark1",
+  "printer_task_id": "1340156908",
+  "accepted_at": "2026-10-14T22:19:37.315153+00:00",
+  "initial": {
+    "job_id": "1340084547",
+    "subtask_id": "1340084547",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v4-bonding-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 24,
+    "total_layer_num": 24,
+    "print_error": 0,
+    "hms": []
+  },
+  "acceptance": {
+    "job_id": "1340156908",
+    "subtask_id": "1340156908",
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 24,
+    "total_layer_num": 24,
+    "print_error": 0,
+    "hms": []
+  },
+  "printer_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "submission_method": "Bambu Connect saved-slice send through native UI",
+  "submitted_archive": "2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "submitted_archive_sha256": "32d2b5cf37d7bb4338f6325d6176526a001e3936bd34c8ed6d2564aa78be2c0b",
+  "gcode_sha256": "83813358271c3a320bd3f1bc3997c9d8e82cfd5f1290cde27bc0fd8fc0829b38",
+  "send_dialog_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "material_mapping": {
+    "left_external_spool": 254,
+    "printer_type": "PET-CF",
+    "physical_material": "Polymaker Fiberon PET-GF15",
+    "colour": "000000",
+    "right_nozzle_used": false
+  },
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_mm": 0.16,
+  "estimated_seconds": 893,
+  "estimated_grams_including_added_extrusion": 3.503872847863533
+}

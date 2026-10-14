@@ -1,0 +1,7 @@
+id,fan_percent,bridge_extrusion_percent,visible_gaps,independent_strings,bowing,retained_surface,preferred,notes
+A100,70,100,,,,,,
+A115,70,115,,,,,,
+A125,70,125,,,,,,
+B100,100,100,,,,,,
+B115,100,115,,,,,,
+B125,100,125,,,,,,

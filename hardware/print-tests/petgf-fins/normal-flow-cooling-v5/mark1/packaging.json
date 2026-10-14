@@ -1,0 +1,24 @@
+{
+  "source_archive": "hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "a520c9ec8193bd2fbfbffa9aee790e1b5ad73e1f8abcc266131819d86d4fea79",
+  "print_only_archive": "hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/2026-10-14-v5-normal-flow-cooling-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "32d2b5cf37d7bb4338f6325d6176526a001e3936bd34c8ed6d2564aa78be2c0b",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "83813358271c3a320bd3f1bc3997c9d8e82cfd5f1290cde27bc0fd8fc0829b38"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
