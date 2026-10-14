@@ -128,12 +128,20 @@ directions, a solid-post control and full 14 mm ramps at 70%/100% cooling.
 Every main first-roof fin raster starts and ends on preceding tooth beads,
 and fill precedes walls. The [Mark1 physical result](../print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
 identifies normal-mode N100 and N125 as the visually preferred pair, with no
-clear winner and no measured bond-strength result. Mark2's fin/ramp physical
-observations remain pending. The earlier failed fin starts and rejected C finish
-do not settle the useful finish of these fin-supported roofs. The
+clear winner and no measured bond-strength result. The
+[Mark2 physical result](../print-tests/petgf-fins/bonding-and-fins-v4/mark2/physical-result.json)
+reports all three roofs formed with objectionable sag/finish, one substantially
+worse than the other two without identified labels. Four ramp edges improve
+with residual sag; two ramps look good, tentatively the 40° pair. Fin removal
+and the better cooling level are unreported. The
 [normal-flow/cooling follow-up](../print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
 is Mark1 task 1340156908: normal bridges at 100%/115%/125% extrusion, each at
 70% and 100% cooling, with a single 12 mm first roof layer.
+The [40-specimen Mark2 follow-up](../print-tests/petgf-fins/finish-matrix-v6/README.md)
+is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
+volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing
+opposing directions. Its fin paths directly land on preceding beads; useful
+retained finish, release and physical results remain pending.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

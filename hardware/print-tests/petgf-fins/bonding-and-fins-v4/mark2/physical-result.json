@@ -1,0 +1,47 @@
+{
+  "status": "completed; all three bridges formed with rejected sag/finish; ramp edges improved but remain partly sagged",
+  "printer": "Mark2",
+  "printer_task_id": "1340093238",
+  "report_date": "2026-10-14",
+  "launch_record": "launch.json",
+  "machine_completion": {
+    "observed_at": "2026-10-14T22:34:50.183496+00:00",
+    "job_id": "1340093238",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v4-fins-ramps-petgf-left04-z004-mark2-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 73,
+    "total_layer_num": 73,
+    "print_error": 0,
+    "hms": []
+  },
+  "user_report": {
+    "ramps": "Four of six look better than before with residual sag; two look pretty good. The user guesses the two are the better-angle controls.",
+    "bridges": "All three are technically successful without total curling/collapse. One is really ugly with substantial sag; two are moderately ugly with some sag.",
+    "worst_bridge_id": null,
+    "physical_fan_comparison": null
+  },
+  "bridge_formation": {
+    "C12": true,
+    "F12": true,
+    "Y12": true,
+    "clear_span_mm": 12,
+    "no_total_curl_or_collapse": true,
+    "ids_for_one_bad_and_two_moderate_sag": "unidentified; no per-ID severity assignment",
+    "surface_accepted": false,
+    "fin_release": "unreported"
+  },
+  "ramps": {
+    "full_horizontal_reach_mm": 14,
+    "improved_with_residual_sag_count": 4,
+    "pretty_good_count": 2,
+    "inferred_good_ids": [
+      "40F70",
+      "40F100"
+    ],
+    "inference_basis": "The user guesses the better-angle controls; 40 degrees is the steeper angle in this plate. Labels were not identified.",
+    "fan_70_vs_100_winner": "unreported"
+  },
+  "scope": "This run establishes fin-roof formation under the submitted 150% first-roof bridge extrusion and direct preceding-bead landing paths. It does not establish acceptable retained finish, fin release, or a cooling winner.",
+  "follow_up": "../../finish-matrix-v6/README.md"
+}

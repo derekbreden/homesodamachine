@@ -135,7 +135,7 @@ def settings_for(printer):
                           if original.get(k)!=v}
 
 
-def write_plate(printer, groups, *, destination=None, stem=None):
+def write_plate(printer, groups, *, destination=None, stem=None, spacing_mm=4.):
     trim='018' if printer=='Mark1' else '004'
     stem=stem or f'2026-10-14-v4-{"bonding" if printer=="Mark1" else "fins-ramps"}-petgf-left04-z{trim}-{printer.lower()}'
     folder=(destination or HERE)/printer.lower();(folder/'parts').mkdir(parents=True,exist_ok=True)
@@ -157,7 +157,7 @@ def write_plate(printer, groups, *, destination=None, stem=None):
             cq.exporters.export(shape,str(path),tolerance=.015,angularTolerance=.12)
             mesh=trimesh.load(path,force='mesh',process=True)
             mesh_items.append((name,shape,detail,path,mesh))
-        cursor=162.5-(sum(m.extents[0] for *_,m in mesh_items)+4*(len(mesh_items)-1))/2
+        cursor=162.5-(sum(m.extents[0] for *_,m in mesh_items)+spacing_mm*(len(mesh_items)-1))/2
         for name,shape,detail,path,mesh in mesh_items:
             center=mesh.bounds.mean(axis=0);cx=cursor+mesh.extents[0]/2
             trans=np.array([cx,cy,center[2]])-center;n=len(records)+1;pid,oid=str(2*n-1),str(2*n)
@@ -186,7 +186,7 @@ def write_plate(printer, groups, *, destination=None, stem=None):
                 'mesh':str(path.relative_to(folder)),'mesh_sha256':sha(path),
                 'cad_valid':shape.val().isValid(),'mesh_watertight':bool(mesh.is_watertight),
                 'mesh_bodies':mesh.body_count,**detail})
-            cursor+=mesh.extents[0]+4
+            cursor+=mesh.extents[0]+spacing_mm
     package=ET.Element(f'{{{REL}}}Relationships')
     ET.SubElement(package,f'{{{REL}}}Relationship',Target='/3D/3dmodel.model',Id='rel-1',Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
     for path,element in (('3D/3dmodel.model',model),('Metadata/model_settings.config',config),
