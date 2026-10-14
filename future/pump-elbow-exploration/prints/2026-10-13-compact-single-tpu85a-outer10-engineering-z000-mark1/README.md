@@ -23,8 +23,15 @@ trial variable; increased time between layers is not established.
 The target is an intact underside without upward curl, nozzle pickup or a
 carried glob. The baseline's reported fan reduction worsened curl; full cooling
 is retained. Slower deposition may reduce disturbance of the soft edge, but
-longer local exposure to the hot nozzle is a competing effect. Physical print
-quality, socket fit and sealing remain unqualified.
+longer local exposure to the hot nozzle is a competing effect. Printed surface
+quality and sealing remain unqualified.
+
+**Reported fit baseline:** Derek reports that this rough-edged article fits
+beautifully, with firm friction and elastic stretch. Insertion takes force
+but is manageable without a jig. The [physical record](physical-result.json)
+binds the exact report to this print and its mesh. The cuff bores, insertion
+depths, wall thickness and entries supply the fit baseline for surface work.
+Fit after improving the 45° surfaces requires its own result.
 
 The [physical record](physical-result.json) contains three wider views and six
 close-ups, including the user's reassessment of apparent sagging. Raised,

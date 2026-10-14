@@ -53,12 +53,14 @@ records [left-lip curl, nozzle pickup and increased curl after a runtime fan red
 The identified one-object Mark1 trial uses a 10 mm/s outer wall, full part
 cooling, Engineering Plate and zero user Z trim. Its
 [physical record and nine photos](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
-show raised, distorted rims and ragged underside strands. The user reassesses
-apparent sagging; a dependable speed benefit is unestablished and the 13 mm/s
-midpoint is not selected. The
+show raised, distorted rims and ragged underside strands. Derek reports that
+this rough-edged article fits beautifully, with firm friction and elastic
+stretch, requiring insertion force but no jig. Its cuff dimensions and walls
+are the fit baseline. A dependable speed benefit is unestablished and the
+13 mm/s midpoint is not selected. The
 [215°C normal-layer trial](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
 is accepted as Mark1 task 1337710290, retaining 10 mm/s and the 225°C first
-layer. Completed print and fitting acceptance remain pending;
+layer. Surface finish and fit of the revised process remain pending;
 the observations establish no sealing or lifetime result.
 
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
@@ -120,6 +122,7 @@ linked here are the authority for each observation, including their print bindin
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. [Assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json) establish lever attachment before tube/shell insertion, sleeve fitting on the tube first, and the shell-guided lever motion. | Operating force, assembled contact pose and endurance are unmeasured. Sliding-friction comparison is qualitative. |
 | [Centred tube insertion tool](../printed-parts/fixtures/tube-insertion/physical-acceptance.json) | Successful insertion reported 2026-10-13 with the identified Mark1 plus-handle jaws and proud TPU inserts. The handle alone works well for starting insertion; the full tool makes the final press very easy. Derek reports it is far easier than before. | Effort comparison is qualitative. Numerical insertion and grip forces, structural load capacity, pressure sealing and endurance are unmeasured. |
+| [Compact TPU 85A elbow](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
 | [Complete Industrial faucet](../printed-parts/faucet/industrial/physical-acceptance.json) | Identified complete Mark2 print accepted for shipping and overall appearance. The recipe uses 0.24 mm normally, 0.12 mm in the two base shoulder bands, a continuous reinforced foot, the 70° joint, smooth passages and 0.50 mm longer cover wings. The [0.08 mm reference](../printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json) retains its beautiful shoulder finish and thin-support removal acceptance. | Lifting on supported base surfaces and a visible seam are recorded. The [all-fine trial](../printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json) has tip and wing disruption; initiating contact, shifting and lifting remain hypotheses. Separate coupons investigate the finish. Fault discharge, load capacity and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. | These results belong to the identified articles and recipes. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 
