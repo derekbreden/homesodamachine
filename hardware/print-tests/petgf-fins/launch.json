@@ -1,0 +1,99 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1339273130",
+  "accepted_at": "2026-10-14T16:42:21.130458+00:00",
+  "accepted_at_local": "2026-10-14T11:42:21.130458-05:00",
+  "submission_method": "Bambu Studio: Open Project on the print-only native archive, then Print plate",
+  "send_attempts": 1,
+  "submitted_archive": "2026-10-14-fin-bridges-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "36a474e2907db1586f86704bc1a4979452443d90f2b2a311abba975946255024",
+  "native_archive": "2026-10-14-fin-bridges-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "137ed41beed8020458b5e7e5660f37229f5d493be1594d7fdc11b1049b52d9ac",
+  "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60",
+  "embedded_md5_matches": true,
+  "printer_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "acceptance": {
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-14-fin-bridges-petgf-left04-z004-mark2",
+    "print_error": 0,
+    "hms": [],
+    "mc_percent": 0,
+    "total_layer_num": 121
+  },
+  "material": "Polymaker Fiberon PET-GF15",
+  "external_spool": 254,
+  "printer_spool_metadata": {
+    "type": "PET-CF",
+    "colour": "161616FF"
+  },
+  "nozzle": "Left fixed hardened Standard 0.4 mm",
+  "plate": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_plate_z_trim_mm": 0.02,
+  "options": {
+    "Timelapse": "On",
+    "Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "shared_circuit_spacing": {
+    "minimum_seconds": 180,
+    "before": {
+      "observed_at": "2026-10-14T16:41:53.031884+00:00",
+      "Mark1": {
+        "job_id": "1337964351",
+        "gcode_state": "FINISH",
+        "subtask_name": "2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+        "print_error": 0,
+        "hms": [],
+        "layer_num": 184,
+        "total_layer_num": 184,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "bed_temper": 25.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 32.0,
+        "nozzle_target_temper": 0.0
+      },
+      "Mark2": {
+        "job_id": "1337767162",
+        "gcode_state": "FINISH",
+        "subtask_name": "2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+        "print_error": 0,
+        "hms": [],
+        "layer_num": 1244,
+        "total_layer_num": 1244,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "bed_temper": 25.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 27.0,
+        "nozzle_target_temper": 0.0
+      }
+    },
+    "basis": "Both prior job IDs were unchanged and FINISH with idle heaters since the post-restart 16:25 UTC readings."
+  },
+  "physical_result": "pending",
+  "startup_status": {
+    "observed_at": "2026-10-14T16:46:59.273134+00:00",
+    "job_id": "1339273130",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-14-fin-bridges-petgf-left04-z004-mark2",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 121,
+    "mc_percent": 0,
+    "mc_remaining_time": 60,
+    "bed_temper": 25.0,
+    "bed_target_temper": 25.0,
+    "nozzle_temper": 37.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": 4
+  }
+}

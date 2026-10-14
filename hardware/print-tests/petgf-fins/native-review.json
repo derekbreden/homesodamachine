@@ -1,0 +1,1045 @@
+{
+  "native_archive": "2026-10-14-fin-bridges-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "137ed41beed8020458b5e7e5660f37229f5d493be1594d7fdc11b1049b52d9ac",
+  "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60",
+  "embedded_md5_matches": true,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "    \n        \n            G29.1 Z0.02 ; for Textured PEI Plate"
+  ],
+  "effective_settings": {
+    "enable_support": "0",
+    "brim_type": "no_brim",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_density": [
+      "1.43"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "70"
+    ],
+    "overhang_fan_speed": [
+      "0"
+    ],
+    "bridge_speed": [
+      "50",
+      "50",
+      "50",
+      "50",
+      "50"
+    ],
+    "filament_bridge_speed": [
+      "25",
+      "25",
+      "25"
+    ]
+  },
+  "support_extrusion_segments": 0,
+  "model_full_bead_xy_bounds_mm": [
+    [
+      81.92,
+      101.0
+    ],
+    [
+      243.08,
+      203.94
+    ]
+  ],
+  "model_bead_min_edge_inset_mm": 81.91999999999999,
+  "extrusion_heights_mm": [
+    0.2,
+    0.24,
+    0.4
+  ],
+  "layer_z_steps_mm": [
+    0.24
+  ],
+  "specimens": [
+    {
+      "id": "A4",
+      "deposited_segments": 1674,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 5.78,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        3.162,
+        3.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A8",
+      "deposited_segments": 2071,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 9.779999999999985,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        7.162,
+        7.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A12",
+      "deposited_segments": 2123,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 13.779999999999987,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        11.162,
+        11.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A16",
+      "deposited_segments": 2270,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 17.78,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        15.162,
+        15.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A24",
+      "deposited_segments": 2432,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 25.779999999999998,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        23.162,
+        23.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A32",
+      "deposited_segments": 2697,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 33.78,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        31.162,
+        31.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "deposited_segments": 1764,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 6.260000000000005,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        3.162,
+        3.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "deposited_segments": 2148,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 10.260000000000007,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        7.162,
+        7.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "deposited_segments": 2186,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 14.259999999999991,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        11.162,
+        11.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "deposited_segments": 2333,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 18.25999999999999,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        15.162,
+        15.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B24",
+      "deposited_segments": 2493,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 26.25999999999999,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        23.162,
+        23.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B32",
+      "deposited_segments": 2766,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 34.25999999999999,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "X",
+      "native_bridge_move_length_mm": [
+        31.162,
+        31.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S30",
+      "deposited_segments": 1961,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S35",
+      "deposited_segments": 2072,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S40",
+      "deposited_segments": 1970,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S45",
+      "deposited_segments": 2269,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S50",
+      "deposited_segments": 2370,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S55",
+      "deposited_segments": 2453,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "S60",
+      "deposited_segments": 2447,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    },
+    {
+      "id": "T45",
+      "deposited_segments": 1597,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 0.539999999999992,
+      "tine_gap_crossings": [
+        {
+          "nozzle_z_mm": 3.3200000000000003,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 6.44,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 9.559999999999999,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T50",
+      "deposited_segments": 1608,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 0.539999999999992,
+      "tine_gap_crossings": [
+        {
+          "nozzle_z_mm": 3.3200000000000003,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 6.44,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 9.559999999999999,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T60",
+      "deposited_segments": 1615,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 0.539999999999992,
+      "tine_gap_crossings": [
+        {
+          "nozzle_z_mm": 3.3200000000000003,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 6.44,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 9.559999999999999,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T80",
+      "deposited_segments": 1606,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 0.539999999999992,
+      "tine_gap_crossings": [
+        {
+          "nozzle_z_mm": 3.3200000000000003,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 6.44,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        },
+        {
+          "nozzle_z_mm": 9.559999999999999,
+          "crossing_moves": 2,
+          "height_mm": [
+            0.24
+          ],
+          "width_mm": [
+            0.42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Y12",
+      "deposited_segments": 2108,
+      "bed_foot_components": 2,
+      "bed_foot_separation_mm": 13.779999999999973,
+      "first_shelf_layer_z_mm": 10.52,
+      "axial_bridge_moves": 28,
+      "bridge_axis": "Y",
+      "native_bridge_move_length_mm": [
+        11.162,
+        11.327
+      ],
+      "native_bridge_speed_mm_s": [
+        25.0
+      ],
+      "native_bridge_width_mm": [
+        0.4276
+      ],
+      "native_bridge_height_mm": [
+        0.24
+      ],
+      "native_bridge_fan_command": [
+        0.0
+      ],
+      "fin_contact_layers": [
+        {
+          "nozzle_z_mm": 10.28,
+          "continuous_contact_footprints_per_side": [
+            7,
+            7
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.0,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        },
+        {
+          "nozzle_z_mm": 11.719999999999999,
+          "continuous_contact_footprints_per_side": [
+            3,
+            3
+          ],
+          "extrusion_height_mm": [
+            0.24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V",
+      "deposited_segments": 846,
+      "bed_foot_components": 1,
+      "bed_foot_separation_mm": null
+    }
+  ],
+  "limits": "Commanded bead envelopes include width and arcs, not physical squish or sag. Physical results pending.",
+  "native_slicer_result": {
+    "return_code": 0,
+    "warning": "",
+    "estimated_seconds": 3607.94873046875,
+    "estimated_grams": 21.735595703125,
+    "slicer": "Bambu Studio 02.08.02.61",
+    "printed_layer_count": 121,
+    "header_total_layer_number": 121,
+    "progress_comment_layer_denominator": 124
+  }
+}

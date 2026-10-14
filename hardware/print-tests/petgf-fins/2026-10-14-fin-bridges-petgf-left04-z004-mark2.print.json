@@ -1,0 +1,1432 @@
+{
+  "project": "2026-10-14-fin-bridges-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "8be0480b6ca0dbe2259f559cc5293d003e1f48ed54df0c8fa11e66272d97f239",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "printer": "Mark2",
+  "material": "Polymaker Fiberon PET-GF15",
+  "nozzle": "Left fixed hardened Standard 0.4 mm; external spool 254",
+  "plate": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "expected_emitted_z_trim_mm": 0.02,
+  "first_layer_mm": 0.2,
+  "normal_layer_mm": 0.24,
+  "settings_edits": {
+    "enable_support": {
+      "profile": "1",
+      "plate": "0"
+    },
+    "brim_type": {
+      "profile": "auto_brim",
+      "plate": "no_brim"
+    },
+    "filament_colour": {
+      "profile": [
+        "#000000"
+      ],
+      "plate": [
+        "#161616"
+      ]
+    },
+    "filament_multi_colour": {
+      "profile": [
+        "#000000"
+      ],
+      "plate": [
+        "#161616"
+      ]
+    },
+    "filament_density": {
+      "profile": [
+        "1.29"
+      ],
+      "plate": [
+        "1.43"
+      ]
+    },
+    "filament_map_mode": {
+      "profile": "Auto For Flush",
+      "plate": "Manual"
+    },
+    "filament_map_2": {
+      "profile": null,
+      "plate": [
+        "1"
+      ]
+    },
+    "extruder_ams_count": {
+      "profile": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "plate": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "printer_settings_id": {
+      "profile": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "plate": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_settings_id": {
+      "profile": "0.24mm PET-GF faucet",
+      "plate": "PET-GF fin screening 0.24 mm"
+    }
+  },
+  "cad_plate_bounds_mm": [
+    [
+      81.92000031471252,
+      101.0,
+      0.0
+    ],
+    [
+      243.07999968528748,
+      203.94000017642975,
+      29.72871208190918
+    ]
+  ],
+  "parts": [
+    {
+      "id": "A4",
+      "row": 1,
+      "object_id": 2,
+      "identify_id": 4101,
+      "mesh": "parts/A4.stl",
+      "mesh_sha256": "bf37c0a788c2059b806c8d23255212ca98e1407d76bc930e1e509a2f30a4dcd5",
+      "plate_translation_mm": [
+        86.55999898910522,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          83.35999894142151,
+          101.0,
+          0.0
+        ],
+        [
+          95.239999294281,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 1176,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 4,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 5.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 5.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          5.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        4.74
+      ]
+    },
+    {
+      "id": "A8",
+      "row": 1,
+      "object_id": 4,
+      "identify_id": 4102,
+      "mesh": "parts/A8.stl",
+      "mesh_sha256": "2bac62dbb88e12f4456b6005ae3abf7286a107fb85cb919722ddb80a0005a159",
+      "plate_translation_mm": [
+        101.43999934196472,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          98.239999294281,
+          101.0,
+          0.0
+        ],
+        [
+          114.1199996471405,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 3816,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 8,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 9.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 9.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          9.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        8.74
+      ]
+    },
+    {
+      "id": "A12",
+      "row": 1,
+      "object_id": 6,
+      "identify_id": 4103,
+      "mesh": "parts/A12.stl",
+      "mesh_sha256": "09c013730aa22320e91331280076c92a746827ad43b10c00c8a5e1d97ab4ef38",
+      "plate_translation_mm": [
+        120.31999969482422,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          117.1199996471405,
+          101.0,
+          0.0
+        ],
+        [
+          137.0,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2240,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 12,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 13.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 13.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          13.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        12.74
+      ]
+    },
+    {
+      "id": "A16",
+      "row": 1,
+      "object_id": 8,
+      "identify_id": 4104,
+      "mesh": "parts/A16.stl",
+      "mesh_sha256": "97a81faca38a9e0c39a2691f39d5ea3b1a53c179d0b7e61256c0477e4342f33c",
+      "plate_translation_mm": [
+        143.20000004768372,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          140.0,
+          101.0,
+          0.0
+        ],
+        [
+          163.8800003528595,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 3372,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 16,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 17.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 17.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          17.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        16.74
+      ]
+    },
+    {
+      "id": "A24",
+      "row": 1,
+      "object_id": 10,
+      "identify_id": 4105,
+      "mesh": "parts/A24.stl",
+      "mesh_sha256": "042af84ae8c594513cd840856e20fb1ada7aa333c02a6bde69dc0780f98f6d65",
+      "plate_translation_mm": [
+        170.0800004005432,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          166.8800003528595,
+          101.0,
+          0.0
+        ],
+        [
+          198.760000705719,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2152,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 24,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 25.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 25.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          25.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        24.74
+      ]
+    },
+    {
+      "id": "A32",
+      "row": 1,
+      "object_id": 12,
+      "identify_id": 4106,
+      "mesh": "parts/A32.stl",
+      "mesh_sha256": "f07cb60b59590c0fe4f1609c24062df9a5a3602867d707467667edd2d6ddd563",
+      "plate_translation_mm": [
+        204.9600007534027,
+        102.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          201.760000705719,
+          101.0,
+          0.0
+        ],
+        [
+          241.6400010585785,
+          115.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 4146,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 32,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 33.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 33.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.24,
+          0,
+          10.28
+        ],
+        [
+          33.24,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        32.74
+      ]
+    },
+    {
+      "id": "B4",
+      "row": 2,
+      "object_id": 14,
+      "identify_id": 4107,
+      "mesh": "parts/B4.stl",
+      "mesh_sha256": "c0fa9f826624885beea76911fe67faa4eec8d846ccc4195fe8e1e34b0a9de9d9",
+      "plate_translation_mm": [
+        85.12000036239624,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          81.92000031471252,
+          125.0,
+          0.0
+        ],
+        [
+          94.28000020980835,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2484,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 4,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 5.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 5.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          5.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        4.98
+      ]
+    },
+    {
+      "id": "B8",
+      "row": 2,
+      "object_id": 16,
+      "identify_id": 4108,
+      "mesh": "parts/B8.stl",
+      "mesh_sha256": "b89dc544b8f2d889dd0c751ce7c74da6266c4c0decb7b494738d521596d608eb",
+      "plate_translation_mm": [
+        100.48000025749207,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          97.28000020980835,
+          125.0,
+          0.0
+        ],
+        [
+          113.64000010490417,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 5122,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 8,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 9.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 9.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          9.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        8.98
+      ]
+    },
+    {
+      "id": "B12",
+      "row": 2,
+      "object_id": 18,
+      "identify_id": 4109,
+      "mesh": "parts/B12.stl",
+      "mesh_sha256": "67765c7c0b8b80511cbac0a4350fca2ce3e10b36dd9fa9430df9c4fe32a1fc5f",
+      "plate_translation_mm": [
+        119.84000015258789,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          116.64000010490417,
+          125.0,
+          0.0
+        ],
+        [
+          137.0,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 3538,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 12,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 13.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 13.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          13.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        12.98
+      ]
+    },
+    {
+      "id": "B16",
+      "row": 2,
+      "object_id": 20,
+      "identify_id": 4110,
+      "mesh": "parts/B16.stl",
+      "mesh_sha256": "08a23111a640ccdfa097eca6976843482c748de75b00f608cc1fabbdfd8468a1",
+      "plate_translation_mm": [
+        143.20000004768372,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          140.0,
+          125.0,
+          0.0
+        ],
+        [
+          164.35999989509583,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 4666,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 16,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 17.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 17.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          17.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        16.98
+      ]
+    },
+    {
+      "id": "B24",
+      "row": 2,
+      "object_id": 22,
+      "identify_id": 4111,
+      "mesh": "parts/B24.stl",
+      "mesh_sha256": "32145953bb299cd79d3d7df2a674f59b50a571690bec8688c14b855c78b1c820",
+      "plate_translation_mm": [
+        170.55999994277954,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          167.35999989509583,
+          125.0,
+          0.0
+        ],
+        [
+          199.71999979019165,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 3454,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 24,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 25.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 25.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          25.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        24.98
+      ]
+    },
+    {
+      "id": "B32",
+      "row": 2,
+      "object_id": 24,
+      "identify_id": 4112,
+      "mesh": "parts/B32.stl",
+      "mesh_sha256": "154086d28a382134566b35733dce6ff917a2a48855b4bb76f16a510c1e279c78",
+      "plate_translation_mm": [
+        205.91999983787537,
+        126.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          202.71999979019165,
+          125.0,
+          0.0
+        ],
+        [
+          243.07999968528748,
+          139.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 5444,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 32,
+      "horizontal_body_gap_mm": 0.48,
+      "shelf_width_mm": 33.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 33.96,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "X",
+      "bridge_angle_override": "180",
+      "shelf_bounds_local_mm": [
+        [
+          0.48,
+          0,
+          10.28
+        ],
+        [
+          33.48,
+          12.0,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.98,
+        32.98
+      ]
+    },
+    {
+      "id": "S30",
+      "row": 3,
+      "object_id": 26,
+      "identify_id": 4113,
+      "mesh": "parts/S30.stl",
+      "mesh_sha256": "16e60932f41d6551e2b971c0341443e4910f487c948cccb746fa5979b5ebf1b4",
+      "plate_translation_mm": [
+        90.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          90.5,
+          151.5,
+          0.0
+        ],
+        [
+          108.5,
+          170.5,
+          13.56290340423584
+        ]
+      ],
+      "triangles": 3522,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 30,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 8.08290376865476
+    },
+    {
+      "id": "S35",
+      "row": 3,
+      "object_id": 28,
+      "identify_id": 4114,
+      "mesh": "parts/S35.stl",
+      "mesh_sha256": "895f7cf7c07402e8e1e11d11292d420a2863d6a2dcba7390989c4df587f9418e",
+      "plate_translation_mm": [
+        111.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          111.5,
+          151.5,
+          0.0
+        ],
+        [
+          129.5,
+          170.5,
+          15.282905578613281
+        ]
+      ],
+      "triangles": 3350,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 35,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 9.802905534935936
+    },
+    {
+      "id": "S40",
+      "row": 3,
+      "object_id": 30,
+      "identify_id": 4115,
+      "mesh": "parts/S40.stl",
+      "mesh_sha256": "c414833caff3106568cd84a59d1a9d282bf05c48c33259954b7bbed2bde5ae28",
+      "plate_translation_mm": [
+        132.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          151.5,
+          0.0
+        ],
+        [
+          150.5,
+          170.5,
+          17.227394104003906
+        ]
+      ],
+      "triangles": 1498,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 40,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 11.747394836481918
+    },
+    {
+      "id": "S45",
+      "row": 3,
+      "object_id": 32,
+      "identify_id": 4116,
+      "mesh": "parts/S45.stl",
+      "mesh_sha256": "8945e2f50bbd502623c316ee715dafd3a70c5c2cfbf4086004ef7716521c3ba9",
+      "plate_translation_mm": [
+        153.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          153.5,
+          151.5,
+          0.0
+        ],
+        [
+          171.5,
+          170.5,
+          19.479999542236328
+        ]
+      ],
+      "triangles": 1326,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 45,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 13.999999999999998
+    },
+    {
+      "id": "S50",
+      "row": 3,
+      "object_id": 34,
+      "identify_id": 4117,
+      "mesh": "parts/S50.stl",
+      "mesh_sha256": "fe8ac0ad04302a9b788685a1b3b47033fc907eb40f8d0689bf84210f79474b36",
+      "plate_translation_mm": [
+        174.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          174.5,
+          151.5,
+          0.0
+        ],
+        [
+          192.5,
+          170.5,
+          22.16455078125
+        ]
+      ],
+      "triangles": 2670,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 50,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 16.684550296318935
+    },
+    {
+      "id": "S55",
+      "row": 3,
+      "object_id": 36,
+      "identify_id": 4118,
+      "mesh": "parts/S55.stl",
+      "mesh_sha256": "73591e46fdac58fa7cf991ff7b3582658ef9eab558d0ec2f1fc94f63a0e4b7a8",
+      "plate_translation_mm": [
+        195.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          195.5,
+          151.5,
+          0.0
+        ],
+        [
+          213.5,
+          170.5,
+          25.474071502685547
+        ]
+      ],
+      "triangles": 2498,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 55,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 19.9940720943896
+    },
+    {
+      "id": "S60",
+      "row": 3,
+      "object_id": 38,
+      "identify_id": 4119,
+      "mesh": "parts/S60.stl",
+      "mesh_sha256": "c7442a6f06f513bf46a259c69cee79f79b4b1831e5a6a592d529b06dd82b21e7",
+      "plate_translation_mm": [
+        216.5,
+        157.5,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          216.5,
+          151.5,
+          0.0
+        ],
+        [
+          234.5,
+          170.5,
+          29.72871208190918
+        ]
+      ],
+      "triangles": 3592,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "slope",
+      "angle_from_bed_degrees": 60,
+      "horizontal_reach_mm": 14.0,
+      "depth_mm": 12.0,
+      "vertical_thickness_mm": 2.4,
+      "underside_start_z_mm": 3.08,
+      "rise_mm": 24.248711305964274
+    },
+    {
+      "id": "T45",
+      "row": 4,
+      "object_id": 40,
+      "identify_id": 4120,
+      "mesh": "parts/T45.stl",
+      "mesh_sha256": "8b7d74c5fc361a21660896528692a384938b567e5b0d5c6a36d8708c93eef318",
+      "plate_translation_mm": [
+        124.02000045776367,
+        188.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          122.02000045776367,
+          188.0,
+          0.0
+        ],
+        [
+          133.26000022888184,
+          200.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2900,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "tine_release",
+      "tine_width_mm": 0.45,
+      "horizontal_body_gap_mm": 0.24,
+      "tine_height_mm": 0.24,
+      "tine_count": 3,
+      "tine_z_intervals_mm": [
+        [
+          3.08,
+          3.3200000000000003
+        ],
+        [
+          6.2,
+          6.44
+        ],
+        [
+          9.319999999999999,
+          9.559999999999999
+        ]
+      ],
+      "fin_count": 1
+    },
+    {
+      "id": "T50",
+      "row": 4,
+      "object_id": 42,
+      "identify_id": 4121,
+      "mesh": "parts/T50.stl",
+      "mesh_sha256": "18aaa3ac28553dcbcc5ed133e8493e6935f0ba3e6214ff19174f0c968a8a9719",
+      "plate_translation_mm": [
+        138.26000022888184,
+        188.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          136.26000022888184,
+          188.0,
+          0.0
+        ],
+        [
+          147.5,
+          200.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2844,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "tine_release",
+      "tine_width_mm": 0.5,
+      "horizontal_body_gap_mm": 0.24,
+      "tine_height_mm": 0.24,
+      "tine_count": 3,
+      "tine_z_intervals_mm": [
+        [
+          3.08,
+          3.3200000000000003
+        ],
+        [
+          6.2,
+          6.44
+        ],
+        [
+          9.319999999999999,
+          9.559999999999999
+        ]
+      ],
+      "fin_count": 1
+    },
+    {
+      "id": "T60",
+      "row": 4,
+      "object_id": 44,
+      "identify_id": 4122,
+      "mesh": "parts/T60.stl",
+      "mesh_sha256": "4375da500a704420ac8a518285c810f1191a28e80e85a82462ddc039810a8ee4",
+      "plate_translation_mm": [
+        152.5,
+        188.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          150.5,
+          188.0,
+          0.0
+        ],
+        [
+          161.73999977111816,
+          200.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 3802,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "tine_release",
+      "tine_width_mm": 0.6,
+      "horizontal_body_gap_mm": 0.24,
+      "tine_height_mm": 0.24,
+      "tine_count": 3,
+      "tine_z_intervals_mm": [
+        [
+          3.08,
+          3.3200000000000003
+        ],
+        [
+          6.2,
+          6.44
+        ],
+        [
+          9.319999999999999,
+          9.559999999999999
+        ]
+      ],
+      "fin_count": 1
+    },
+    {
+      "id": "T80",
+      "row": 4,
+      "object_id": 46,
+      "identify_id": 4123,
+      "mesh": "parts/T80.stl",
+      "mesh_sha256": "6fcea074c073dc64ff94433a87552ada7ccbceb8151324cef7296a6f6852325d",
+      "plate_translation_mm": [
+        166.73999977111816,
+        188.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          164.73999977111816,
+          188.0,
+          0.0
+        ],
+        [
+          175.97999954223633,
+          200.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 4388,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "tine_release",
+      "tine_width_mm": 0.8,
+      "horizontal_body_gap_mm": 0.24,
+      "tine_height_mm": 0.24,
+      "tine_count": 3,
+      "tine_z_intervals_mm": [
+        [
+          3.08,
+          3.3200000000000003
+        ],
+        [
+          6.2,
+          6.44
+        ],
+        [
+          9.319999999999999,
+          9.559999999999999
+        ]
+      ],
+      "fin_count": 1
+    },
+    {
+      "id": "Y12",
+      "row": 4,
+      "object_id": 48,
+      "identify_id": 4124,
+      "mesh": "parts/Y12.stl",
+      "mesh_sha256": "65ea89f730e71dbc833f615a1d12954d6094197d7a3e67f19368a7dd2e271320",
+      "plate_translation_mm": [
+        191.97999954223633,
+        187.25999987125397,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          178.97999954223633,
+          184.05999982357025,
+          0.0
+        ],
+        [
+          192.97999954223633,
+          203.94000017642975,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 2232,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "fin_bridge",
+      "clear_span_mm": 12,
+      "horizontal_body_gap_mm": 0.24,
+      "shelf_width_mm": 13.0,
+      "shelf_depth_mm": 12.0,
+      "shelf_thickness_mm": 1.92,
+      "shelf_bottom_z_mm": 10.28,
+      "first_shelf_nozzle_z_mm": 10.52,
+      "first_tooth_nozzle_z_mm": 10.28,
+      "fin_inner_face_spacing_mm": 13.48,
+      "lower_tooth_underlap_mm": 0.5,
+      "tine_width_mm": 0.5,
+      "tine_height_mm": 0.24,
+      "tines_per_fin": 13,
+      "fin_count": 2,
+      "bridge_axis": "Y",
+      "bridge_angle_override": "90",
+      "shelf_bounds_local_mm": [
+        [
+          -12.0,
+          0.24,
+          10.28
+        ],
+        [
+          0,
+          13.24,
+          12.2
+        ]
+      ],
+      "clear_span_bounds_local_mm": [
+        0.74,
+        12.74
+      ]
+    },
+    {
+      "id": "V",
+      "row": 4,
+      "object_id": 50,
+      "identify_id": 4125,
+      "mesh": "parts/V.stl",
+      "mesh_sha256": "240b3971d506f90e884073ddbbd98e0fae426c246a45840e9d50f8e2ec698525",
+      "plate_translation_mm": [
+        197.97999954223633,
+        188.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          195.97999954223633,
+          188.0,
+          0.0
+        ],
+        [
+          202.97999954223633,
+          200.0,
+          12.920000076293945
+        ]
+      ],
+      "triangles": 56,
+      "cad_valid": true,
+      "cad_solids": 1,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_bodies": 1,
+      "kind": "vertical_surface_reference",
+      "angle_from_bed_degrees": 90
+    }
+  ],
+  "physical_result": "pending",
+  "submitted": true,
+  "launch_record": "launch.json",
+  "printer_task_id": "1339273130",
+  "submitted_archive": "2026-10-14-fin-bridges-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "36a474e2907db1586f86704bc1a4979452443d90f2b2a311abba975946255024",
+  "gcode_sha256": "6f91599fb29f1a49e0a7270c21ebe19c2eebdc36134ad8afb4d167a485b1ab60"
+}
