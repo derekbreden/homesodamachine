@@ -121,16 +121,17 @@ def read_runs(text: str, object_id: int | None = None, features=WALLS) -> list[d
         if 'E' in words:
             de = words['E'] if rel_e else words['E'] - e_abs
             e_abs = e_abs + words['E'] if rel_e else words['E']
-        moved = math.hypot(nxt[0] - pos[0], nxt[1] - pos[1]) > 1e-9
+        step = math.hypot(nxt[0] - pos[0], nxt[1] - pos[1])
+        moved = step > 1e-9
         wanted = (feature in features and z is not None
                   and (object_id is None or obj == object_id))
-        # Bambu may insert a rounded, zero-E 0.001 mm connector at the
-        # transition from the scarf ramp to its full-height continuation.
-        # It is part of this wall path, rather than a second seam start.
-        connector = (run is not None and wanted and abs(de) <= 1e-9
-                     and 0 < math.hypot(nxt[0] - pos[0], nxt[1] - pos[1]) <= .02
-                     and abs(nxt[2] - pos[2]) <= .002)
-        if wanted and moved and (de > 0 or connector):
+        # A move with an E word extrudes, even when Bambu rounds that E to `E0`: where a scarf
+        # ramp reaches full height, and along a tail tapering to no flow, the wall path goes on.
+        # Travels carry no E word. One of 0.02 mm or less in the plane, rising no more than
+        # 0.002 mm, is a numerical hop inside the wall rather than a break.
+        extruding = 'E' in words and de >= 0
+        hop = run is not None and 'E' not in words and step <= .02 and abs(nxt[2] - pos[2]) <= .002
+        if wanted and moved and (extruding or hop):
             if run is None:
                 run = {'layer': layer, 'z': z, 'h': h, 'object': obj, 'line': n,
                        'pts': [tuple(pos)], 'feed': [], 'overhang': [], 'lines': []}
