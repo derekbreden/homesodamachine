@@ -19,20 +19,31 @@ infill-only reinforcement are retained.
 ## Native motor paths
 
 The [manual reader](review.py) follows every emitted exterior-wall run in the
-base, tip and plate, including G2/G3 arcs and the numerical zero-E connectors
-at scarf ramp boundaries. Each run is compared with the source STL's actual
-external footprint in its build pose. Hole walls, disconnected shoulder
+base, tip and plate, including G2/G3 arcs, zero-flow E-word moves and numerical
+E-less hops within 0.02 mm in XY and 0.002 mm in Z. Each run is compared with
+the source STL's actual external footprint in its build pose. Hole walls, disconnected shoulder
 islands, the tip plug and terminal contours remain in the data with their own
 classification; they are not substituted for the exposed rear seam.
 
 The [complete-set trace](complete-trace/trace.json) and
-[CSV](complete-trace/seams.csv) retain starts, full-height ramp ends and overlap
-tails. The [native review](native-review.json) binds the exact meshes, settings
-and archive. The base-and-tip evaluation produces the same rear seam paths
-after its centering translations. The 60 mm scarf's overlap ends approximately
-0.60 mm before its ramp end, consistent with the selected 150% ordinary seam
-gap on a 0.4 mm nozzle. That trailing end is a different location on the loop
-from the rear scarf start.
+[CSV](complete-trace/seams.csv) retain starts, full-height ramp ends and the
+overlap endpoints read with the bounded-connector reader in `a37392aa5`.
+Those endpoints can omit final zero-flow moves; they do not represent the
+complete commanded wall path. The [native review](native-review.json) binds
+the exact meshes, settings and archive. The base-and-tip evaluation produces
+the same rear seam paths
+after its centering translations. The 60 mm scarf's recorded overlap endpoint
+is approximately 0.60 mm before its ramp end, consistent with the selected
+150% ordinary seam gap on a 0.4 mm nozzle. That trailing end is a different location on the loop
+from the rear scarf start. Re-reading with the E-word rule retains the
+remaining zero-flow tail.
+
+The manual re-read of the exact base-and-tip archive for task 1337767162
+retains all 3,479 runs. Against the bounded-connector reading, starts differ
+by at most 0.002 mm and final endpoints by at most 0.401 mm. The current
+faucet reader and shared reader agree exactly on starts and endpoints for
+their 3,455 common runs; the faucet reader also retains 24 single-move
+traces. The rear-seam placement conclusions below remain valid.
 
 | Base region | Printed base task 1337160395: maximum lateral start offset | Current native candidate |
 | --- | ---: | ---: |
