@@ -1,0 +1,1700 @@
+{
+  "scope": "Offline compact-elbow material trial; loading and feed mapping unverified",
+  "ready_to_send": false,
+  "spool_loading_verified": false,
+  "colour_is_placeholder": false,
+  "sliced_colour": "161616",
+  "material_recipe": "Bambu TPU 85A / GFU04 / TPU",
+  "source_geometry": "future/pump-elbow-exploration/tpu_elbow.py",
+  "source_dependencies_sha256": {
+    "future/pump-elbow-exploration/tpu_elbow.py": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
+    "future/pump-elbow-exploration/prints/2026-10-13-full-base-single-tpu85a-mark1/prepare_mark1.py": "3c756dbfc2aed279dd33f6aebe400755957d70832861eb01782e1bd301d12c78",
+    "future/pump-elbow-exploration/prints/2026-10-13-continuous-body-tpu85a-mark1/prepare_mark1.py": "5ae60081de4151927c0fa4bf60a05585ff9f1e3255fd2cf6ae60df037a0e2aab"
+  },
+  "native_filament_profile_sources_sha256": {
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/Bambu TPU 85A @BBL H2C.json": "917831324963e57d378111936a8a0c06d0bdee0e0880f228f4f89602614b6cba",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/Bambu TPU 85A @base.json": "45a7113e27a2a2dabe9f64298c17e4782b041a2d9562b43303f3fbe11b46cb01",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_tpu.json": "8fc12ed3883ae4419cad7300c28b7d9492c32c20831a820b4c030670fa1bdb49",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
+  },
+  "machine_profile_donor": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/2026-10-13-tpu-o-ring-85a-right06-z018-mark1.3mf",
+  "machine_profile_donor_sha256": "c79052117b5eb3b5b1b73315ecfa333cac65f32924fbe65b2dd7ffb101bfffe7",
+  "machine_start_gcode_sha256": "69195dc5b4ba63df63e6355f52a201c0cce28a1e9e62bcfa2a599aae8c476df4",
+  "stock_machine_start_source": "/Applications/BambuStudio.app/Contents/Resources/profiles/BBL/machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json",
+  "stock_machine_start_source_sha256": "b473d17fe7af0f2e431f8003782d0ab1f74b7a1e2ce73e265b3d7716e9ec8ce5",
+  "user_z_trim_mm": 0.0,
+  "bed_type": "Engineering Plate",
+  "project": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.3mf",
+  "project_sha256": "969b965053c4f7b2e6a9eb34dfa4a50cadb4bf71ef49c171fe8e26df3a011334",
+  "specimen": {
+    "mesh": "compact-single-elbow-print.stl",
+    "mesh_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
+    "raw_occ_stl_sha256": "4cc9b2358611f30558ca37507cc4b486f071a2aebfe2b9159f1099f944504c0f",
+    "triangles": 17986,
+    "export_cleanup_removed_faces": 2,
+    "raw_volume_mm3": 3431.776097531991,
+    "cleaned_volume_mm3": 3431.776097531992,
+    "watertight": true,
+    "winding_consistent": true,
+    "body_count": 1,
+    "native_object_count": 1,
+    "native_volume_count": 1,
+    "native_instance_count": 1,
+    "bed_contact_area_mm2": 88.88473465583785,
+    "plate_bounds_mm": [
+      [
+        160.6828327178955,
+        152.69999980926514,
+        0.0
+      ],
+      [
+        194.3171672821045,
+        167.30000019073486,
+        22.218050003051758
+      ]
+    ],
+    "xy_recentering_mm": [
+      -0.0,
+      -0.0
+    ]
+  },
+  "settings_changes": {
+    "activate_air_filtration": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "additional_cooling_fan_speed": {
+      "from": [
+        "100",
+        "100"
+      ],
+      "to": [
+        "100"
+      ]
+    },
+    "additional_fan_full_speed_layer": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "bridge_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "outer_only"
+    },
+    "chamber_temperatures": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "circle_compensation_speed": {
+      "from": [
+        "200",
+        "200"
+      ],
+      "to": [
+        "200"
+      ]
+    },
+    "close_additional_fan_first_x_layers": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "close_fan_the_first_x_layers": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "complete_print_exhaust_fan_speed": {
+      "from": [
+        "70",
+        "70"
+      ],
+      "to": [
+        "70"
+      ]
+    },
+    "cool_plate_temp": {
+      "from": [
+        "30",
+        "30"
+      ],
+      "to": [
+        "30"
+      ]
+    },
+    "cool_plate_temp_initial_layer": {
+      "from": [
+        "30",
+        "30"
+      ],
+      "to": [
+        "30"
+      ]
+    },
+    "cooling_perimeter_transition_distance": {
+      "from": [
+        "10",
+        "10"
+      ],
+      "to": [
+        "10"
+      ]
+    },
+    "cooling_slowdown_logic": {
+      "from": [
+        "uniform_cooling",
+        "uniform_cooling"
+      ],
+      "to": [
+        "uniform_cooling"
+      ]
+    },
+    "counter_coef_1": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "counter_coef_2": {
+      "from": [
+        "0.008",
+        "0.008"
+      ],
+      "to": [
+        "0.008"
+      ]
+    },
+    "counter_coef_3": {
+      "from": [
+        "-0.041",
+        "-0.041"
+      ],
+      "to": [
+        "-0.041"
+      ]
+    },
+    "counter_limit_max": {
+      "from": [
+        "0.033",
+        "0.033"
+      ],
+      "to": [
+        "0.033"
+      ]
+    },
+    "counter_limit_min": {
+      "from": [
+        "-0.035",
+        "-0.035"
+      ],
+      "to": [
+        "-0.035"
+      ]
+    },
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    },
+    "diameter_limit": {
+      "from": [
+        "50",
+        "50"
+      ],
+      "to": [
+        "50"
+      ]
+    },
+    "during_print_exhaust_fan_speed": {
+      "from": [
+        "70",
+        "70"
+      ],
+      "to": [
+        "70"
+      ]
+    },
+    "eng_plate_temp": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "eng_plate_temp_initial_layer": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "fan_cooling_layer_time": {
+      "from": [
+        "100",
+        "100"
+      ],
+      "to": [
+        "100"
+      ]
+    },
+    "fan_max_speed": {
+      "from": [
+        "100",
+        "100"
+      ],
+      "to": [
+        "100"
+      ]
+    },
+    "fan_min_speed": {
+      "from": [
+        "100",
+        "100"
+      ],
+      "to": [
+        "100"
+      ]
+    },
+    "filament_adaptive_volumetric_speed": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_adhesiveness_category": {
+      "from": [
+        "600",
+        "600"
+      ],
+      "to": [
+        "600"
+      ]
+    },
+    "filament_bridge_speed": {
+      "from": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "filament_change_length": {
+      "from": [
+        "4",
+        "4"
+      ],
+      "to": [
+        "4"
+      ]
+    },
+    "filament_change_length_nc": {
+      "from": [
+        "4",
+        "4"
+      ],
+      "to": [
+        "4"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#161616",
+        "#161616"
+      ],
+      "to": [
+        "#161616"
+      ]
+    },
+    "filament_cooling_before_tower": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_cost": {
+      "from": [
+        "41.99",
+        "41.99"
+      ],
+      "to": [
+        "41.99"
+      ]
+    },
+    "filament_density": {
+      "from": [
+        "1.22",
+        "1.22"
+      ],
+      "to": [
+        "1.22"
+      ]
+    },
+    "filament_deretraction_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_dev_ams_drying_ams_limitations": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "filament_dev_ams_drying_heat_distortion_temperature": {
+      "from": [
+        "45",
+        "45"
+      ],
+      "to": [
+        "45"
+      ]
+    },
+    "filament_dev_ams_drying_temperature": {
+      "from": [
+        "65",
+        "75",
+        "45",
+        "45",
+        "65",
+        "75",
+        "45",
+        "45"
+      ],
+      "to": [
+        "65",
+        "75",
+        "45",
+        "45"
+      ]
+    },
+    "filament_dev_ams_drying_time": {
+      "from": [
+        "12",
+        "18",
+        "12",
+        "18",
+        "12",
+        "18",
+        "12",
+        "18"
+      ],
+      "to": [
+        "12",
+        "18",
+        "12",
+        "18"
+      ]
+    },
+    "filament_dev_chamber_drying_bed_temperature": {
+      "from": [
+        "90",
+        "90"
+      ],
+      "to": [
+        "90.0"
+      ]
+    },
+    "filament_dev_chamber_drying_time": {
+      "from": [
+        "16",
+        "16"
+      ],
+      "to": [
+        "16"
+      ]
+    },
+    "filament_dev_drying_cooling_temperature": {
+      "from": [
+        "40",
+        "40"
+      ],
+      "to": [
+        "40"
+      ]
+    },
+    "filament_dev_drying_softening_temperature": {
+      "from": [
+        "50",
+        "50"
+      ],
+      "to": [
+        "50"
+      ]
+    },
+    "filament_diameter": {
+      "from": [
+        "1.75",
+        "1.75"
+      ],
+      "to": [
+        "1.75"
+      ]
+    },
+    "filament_enable_overhang_speed": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "filament_end_gcode": {
+      "from": [
+        "; filament end gcode \n",
+        "; filament end gcode \n"
+      ],
+      "to": [
+        "; filament end gcode \n"
+      ]
+    },
+    "filament_extruder_compatibility": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_extruder_variant": {
+      "from": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow",
+        "Direct Drive Standard",
+        "Direct Drive High Flow"
+      ],
+      "to": [
+        "Direct Drive Standard",
+        "Direct Drive High Flow",
+        "Direct Drive E3D High Flow"
+      ]
+    },
+    "filament_flow_ratio": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "filament_flush_temp": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_flush_volumetric_speed": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_ids": {
+      "from": [
+        "GFU04",
+        "GFU04"
+      ],
+      "to": [
+        "GFU04"
+      ]
+    },
+    "filament_is_support": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_long_retractions_when_cut": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_map": {
+      "from": [
+        "2",
+        "2"
+      ],
+      "to": [
+        "2"
+      ]
+    },
+    "filament_max_volumetric_speed": {
+      "from": [
+        "2.2",
+        "2.2",
+        "2.2",
+        "2.2"
+      ],
+      "to": [
+        "2.2",
+        "2.2",
+        "2.2"
+      ]
+    },
+    "filament_metal_stickiness": {
+      "from": [
+        "High",
+        "High"
+      ],
+      "to": [
+        "High"
+      ]
+    },
+    "filament_minimal_purge_on_wipe_tower": {
+      "from": [
+        "15",
+        "15"
+      ],
+      "to": [
+        "15"
+      ]
+    },
+    "filament_nozzle_map": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "filament_overhang_1_4_speed": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "50",
+        "50",
+        "50"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "to": [
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_overhang_totally_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_pre_cooling_temperature": {
+      "from": [
+        "195",
+        "195",
+        "195",
+        "195"
+      ],
+      "to": [
+        "195",
+        "195",
+        "195"
+      ]
+    },
+    "filament_pre_cooling_temperature_nc": {
+      "from": [
+        "185",
+        "185",
+        "185",
+        "185"
+      ],
+      "to": [
+        "185",
+        "185",
+        "185"
+      ]
+    },
+    "filament_preheat_temperature_delta": {
+      "from": [
+        "20",
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "20",
+        "20",
+        "20"
+      ]
+    },
+    "filament_prime_volume": {
+      "from": [
+        "30",
+        "30"
+      ],
+      "to": [
+        "30"
+      ]
+    },
+    "filament_prime_volume_nc": {
+      "from": [
+        "30",
+        "30"
+      ],
+      "to": [
+        "30"
+      ]
+    },
+    "filament_printable": {
+      "from": [
+        "2",
+        "2"
+      ],
+      "to": [
+        "2"
+      ]
+    },
+    "filament_ramming_travel_time": {
+      "from": [
+        "20",
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "20",
+        "20",
+        "20"
+      ]
+    },
+    "filament_ramming_travel_time_nc": {
+      "from": [
+        "20",
+        "20",
+        "20",
+        "20"
+      ],
+      "to": [
+        "20",
+        "20",
+        "20"
+      ]
+    },
+    "filament_ramming_volumetric_speed": {
+      "from": [
+        "0.55",
+        "0.55",
+        "0.55",
+        "0.55"
+      ],
+      "to": [
+        "0.55",
+        "0.55",
+        "0.55"
+      ]
+    },
+    "filament_ramming_volumetric_speed_nc": {
+      "from": [
+        "0.55",
+        "0.55",
+        "0.55",
+        "0.55"
+      ],
+      "to": [
+        "0.55",
+        "0.55",
+        "0.55"
+      ]
+    },
+    "filament_retract_before_wipe": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_retract_length_nc": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_retract_restart_extra": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_retract_when_changing_layer": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_retraction_distances_when_cut": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_retraction_length": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "filament_retraction_minimum_travel": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_retraction_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_scarf_gap": {
+      "from": [
+        "0%",
+        "0%"
+      ],
+      "to": [
+        "0%"
+      ]
+    },
+    "filament_scarf_height": {
+      "from": [
+        "10%",
+        "10%"
+      ],
+      "to": [
+        "10%"
+      ]
+    },
+    "filament_scarf_length": {
+      "from": [
+        "10",
+        "10"
+      ],
+      "to": [
+        "10"
+      ]
+    },
+    "filament_scarf_seam_type": {
+      "from": [
+        "none",
+        "none"
+      ],
+      "to": [
+        "none"
+      ]
+    },
+    "filament_settings_id": {
+      "from": [
+        "Bambu TPU 85A @BBL H2C",
+        "Bambu TPU 85A @BBL H2C"
+      ],
+      "to": [
+        "Bambu TPU 85A @BBL H2C"
+      ]
+    },
+    "filament_shrink": {
+      "from": [
+        "100%",
+        "100%"
+      ],
+      "to": [
+        "100%"
+      ]
+    },
+    "filament_soluble": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_start_gcode": {
+      "from": [
+        "; filament start gcode\n",
+        "; filament start gcode\n"
+      ],
+      "to": [
+        "; filament start gcode\n"
+      ]
+    },
+    "filament_tower_interface_pre_extrusion_dist": {
+      "from": [
+        "10",
+        "10"
+      ],
+      "to": [
+        "10"
+      ]
+    },
+    "filament_tower_interface_pre_extrusion_length": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "filament_tower_interface_print_temp": {
+      "from": [
+        "-1",
+        "-1"
+      ],
+      "to": [
+        "-1"
+      ]
+    },
+    "filament_tower_interface_purge_volume": {
+      "from": [
+        "20",
+        "20"
+      ],
+      "to": [
+        "20"
+      ]
+    },
+    "filament_tower_ironing_area": {
+      "from": [
+        "4",
+        "4"
+      ],
+      "to": [
+        "4"
+      ]
+    },
+    "filament_type": {
+      "from": [
+        "TPU",
+        "TPU"
+      ],
+      "to": [
+        "TPU"
+      ]
+    },
+    "filament_velocity_adaptation_factor": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "filament_vendor": {
+      "from": [
+        "Bambu Lab",
+        "Bambu Lab"
+      ],
+      "to": [
+        "Bambu Lab"
+      ]
+    },
+    "filament_wipe": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_wipe_distance": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_z_hop": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "filament_z_hop_types": {
+      "from": [
+        "nil",
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "nil",
+        "nil",
+        "nil"
+      ]
+    },
+    "first_x_layer_fan_speed": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "full_fan_speed_layer": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "gap_infill_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "hole_coef_1": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "hole_coef_2": {
+      "from": [
+        "-0.008",
+        "-0.008"
+      ],
+      "to": [
+        "-0.008"
+      ]
+    },
+    "hole_coef_3": {
+      "from": [
+        "0.23415",
+        "0.23415"
+      ],
+      "to": [
+        "0.23415"
+      ]
+    },
+    "hole_limit_max": {
+      "from": [
+        "0.22",
+        "0.22"
+      ],
+      "to": [
+        "0.22"
+      ]
+    },
+    "hole_limit_min": {
+      "from": [
+        "0.088",
+        "0.088"
+      ],
+      "to": [
+        "0.088"
+      ]
+    },
+    "hot_plate_temp": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "hot_plate_temp_initial_layer": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "impact_strength_z": {
+      "from": [
+        "88.7",
+        "88.7"
+      ],
+      "to": [
+        "88.7"
+      ]
+    },
+    "initial_layer_infill_speed": {
+      "from": [
+        "105",
+        "105",
+        "105",
+        "105"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "initial_layer_print_height": {
+      "from": "0.3",
+      "to": "0.20"
+    },
+    "initial_layer_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "inner_wall_speed": {
+      "from": [
+        "300",
+        "300",
+        "300",
+        "300"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "internal_solid_infill_speed": {
+      "from": [
+        "250",
+        "250",
+        "250",
+        "250"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "layer_height": {
+      "from": "0.18",
+      "to": "0.12"
+    },
+    "long_retractions_when_ec": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "machine_start_gcode": {
+      "from": ";===== machine: H2C =========================\n;===== date: 20260422 =====================\n\n;M1002 set_flag extrude_cali_flag=1\n;M1002 set_flag g29_before_print_flag=1\n;M1002 set_flag auto_cali_toolhead_offset_flag=1\n;M1002 set_flag build_plate_detect_flag=1\n\nM993 A0 B0 C0 ; nozzle cam detection not allowed.\n\nM400\n;M73 P99\n\nM960 S10 P1 ; ext fan led\n\n;=====printer start sound ===================\nM17\nM400 S1\nM1006 S1\nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99 \nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99 \nM1006 A61 B9 L99 C61 D9 M99 E61 F9 N99 \nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99 \nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99 \nM1006 A61 B18 L99 C61 D18 M99 E61 F18 N99 \nM1006 W\n;=====printer start sound ===================\n\n;===== reset machine status =================\nM204 S10000\nM630 S0 P0\n\nG90\nM17 D ; reset motor current to default\nM960 S5 P1 ; turn on logo lamp\nG90\nM1002 set_gcode_claim_speed_level 5 ;Reset speed level\nM220 S100 ;Reset Feedrate\nM221 S100 ;Reset Flowrate\nM73.2   R1.0 ;Reset left time magnitude\nG29.1 Z{+0.0} ; clear z-trim value first\nM983.1 M1 \nM901 D4\nM481 S0 ; turn off cutter pos comp\nG28.140 D0; reset pre-extrude z pos\n;===== reset machine status =================\n\nM620 M ;enable remap\nM620 N ;enable hotend remap\nM620 T0 ;print tmpr\nM620 T1 ;sn -> pos\nM620 T2 ;filament_id\n\n;===== start to heat heatbed & hotend==========\n\n    M104 O-80 A\n    M140 D[bed_temperature_initial_layer_single]\n\n;===== start to heat heatbead & hotend==========\n\n;===== avoid end stop =================\nG91\nG380 S2 Z42 F1200\nG380 S2 Z-12 F1200\nG90\n;===== avoid end stop =================\n\n;==== set airduct mode ==== \n\n{if (overall_chamber_temperature >= 40)}\n\n    M145 P1 ; set airduct mode to heating mode for heating\n    M106 P2 S0 ; turn off auxiliary fan\n    M106 P3 S0 ; turn off chamber fan\n\n{else}\n    M145 P0 ; set airduct mode to cooling mode for cooling\n    M106 P2 S178 ; turn on auxiliary fan for cooling\n    M106 P3 S127 ; turn on chamber fan for cooling\n\n    M1002 gcode_claim_action : 29\n    M191 S0 ; wait for chamber temp\n    M106 P2 S0 ; turn off auxiliary fan\n    {if (min_vitrification_temperature <= 50)}\n        {if (nozzle_diameter == 0.2)}\n            M142 P1 R30 S35 T40 U0.3 V0.5 W0.8 O40 ; set PLA/TPU ND0.2 chamber autocooling\n        {else}\n            M142 P1 R30 S40 T45 U0.3 V0.5 W0.8 O45; set PLA/TPU ND0.4 chamber autocooling\n        {endif}\n    {else}\n        {if (!is_all_bbl_filament)}\n            M142 P1 R35 S40 T45 U0.3 V0.5 W0.8 O45 L1 ; set third-party PETG chamber autocooling\n        {else}\n            {if (nozzle_diameter == 0.2)}\n                M142 P1 R35 S45 T50 U0.3 V0.5 W0.8 O50 L1 ; set PETG ND0.2 chamber autocooling\n            {else}\n                M142 P1 R35 S50 T55 U0.3 V0.5 W0.8 O55 L1 ; set PETG ND0.4 chamber autocooling\n            {endif}\n        {endif}\n    {endif}\n{if(cooling_filter_enabled)}\nM145.2 P0 F0\n{else}\nM145.2 P0 F1\n{endif}\n{endif}\n;==== set airduct mode ==== \n\n\n;====== cog noise reduction=================\nM982.2 S1 ; turn on cog noise reduction\n\n;===== first homing start =====\nM1002 gcode_claim_action : 13\n\nM640 S\nM640.1 R\nM641\nG28 X T300\nT1000\n\nG150.3\nM972 S24 P0 T2000 ; live-view camera foolproof\nM972 S46 P0 T5000 ; vortek anti-collision\nM640.1 S\nM640.4\n{if (first_non_support_filaments[0] != -1)}\nM640 S\nM640.8 T A{first_non_support_filaments[0]} H{first_non_support_hotend[0]}\nM640.7 L\nM641\n{endif}\n\n\n{if wipe_tower_center_pos_valid}\n    M620.14 X[wipe_tower_center_pos_x] Y[wipe_tower_center_pos_y]\n{else}\n    M620.14 X95.5 Y336\n{endif}\n\n\nG150.1 F18000 ; wipe mouth to avoid filament stick to heatbed\nG150.3 F18000\nM400 P200\n\nM1002 gcode_claim_action : 74 ; Heatbed surface foreign object detection\nM104 S0\n{if curr_bed_type==\"Textured PEI Plate\"}\nM972 S26 P0 C0\n{else}\nM972 S36 P0 C0 X1\n{endif}\nM972 S35 P0 C0\n\nM972 S41 P0 T5000 ; trash can anti-collision\n\nM1009 Q1 L1\nG91\nG380 S2 Z30 F1200 ; lower heatbed to move toolhead\nG90\nG1 X175 Y160 F30000\nG28 Z P0 T250\nM1009 Q1 L0\n\n\n;===== first homing end =====\n\n;===== detection start =====\n    \nM1002 judge_flag build_plate_detect_flag\nM104 S0\nM622 S1\n    ;M1002 gcode_claim_action : 11 ; Indentifying build plate type\n    M972 S19 P0 C0    ; heatbed presence detection\n    M972 S31 P0 T5000 ; toolhead camera dirty detection\n    ;M1002 gcode_claim_action : 73 ; Build plate alignment detection\n    M972 S34 P0 T5000 ; heatbed plate offset detection\nM623\n\nM1002 gcode_claim_action : 72 ; Hotend Type Detection\nT1001\nM972 S14 P0 T5000 ; nozzle type detection\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_extruder]} T{filament_map[initial_no_support_extruder] % 2} ; rise temp in advance\n\nG151 P{filament_map[initial_no_support_extruder] % 2} M ; plug the heat nozzle\n\n{if max_print_z >= 145}\nM1002 gcode_claim_action : 75 ; Heatbed underside foreign object detection\nG3811 Z{max_print_z}  ; Detect obstacles at the bottom of the heated bed\n{endif}\n\n;===== detection end =====\n\nM400\n;M73 P99\n\n;===== prepare print temperature and material ==========\nM400\nM211 X0 Y0 Z0 ;turn off soft endstop\nM975 S1 ; turn on input shaping\n\nG29.2 S0 ; avoid invalid abl data\n\n{if ((filament_type[initial_no_support_extruder] == \"PLA\") || (filament_type[initial_no_support_extruder] == \"PLA-CF\") || (filament_type[initial_no_support_extruder] == \"PETG\")) && (nozzle_diameter[initial_no_support_extruder] == 0.2)}\nM620.10 A0 F74.8347 H{nozzle_diameter[initial_no_support_extruder]} T{flush_temperatures[initial_no_support_extruder]} P{nozzle_temperature_initial_layer[initial_no_support_extruder]} S1\nM620.10 A1 F74.8347 H{nozzle_diameter[initial_no_support_extruder]} T{flush_temperatures[initial_no_support_extruder]} P{nozzle_temperature_initial_layer[initial_no_support_extruder]} S1\n{else}\nM620.10 A0 F{flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60*0.8} H{nozzle_diameter[initial_no_support_extruder]} T{flush_temperatures[initial_no_support_extruder]} P{nozzle_temperature_initial_layer[initial_no_support_extruder]} S1\nM620.10 A1 F{flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60*0.8} H{nozzle_diameter[initial_no_support_extruder]} T{flush_temperatures[initial_no_support_extruder]} P{nozzle_temperature_initial_layer[initial_no_support_extruder]} S1\n{endif}\n\nM620.11 P1 I[initial_no_support_extruder] B[initial_no_support_hotend] E0\n\n{if long_retraction_when_ec }\nM620.11 K1 I[initial_no_support_extruder] B[initial_no_support_hotend] R{retraction_distance_when_ec} F{max((flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60), 200)}\n{else}\nM620.11 K0 I[initial_no_support_extruder] B[initial_no_support_hotend] R0\n{endif}\n\nM628 S1\n{if filament_type[initial_no_support_extruder] == \"TPU\"}\n    M620.11 S0 L0 I[initial_no_support_extruder] B[initial_no_support_hotend] E-{retraction_distances_when_cut[initial_no_support_extruder]} F{flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60}\n{else}\n{if (filament_type[initial_no_support_extruder] == \"PA\") ||  (filament_type[initial_no_support_extruder] == \"PA-GF\")}\n    M620.11 S1 L0 I[initial_no_support_extruder] B[initial_no_support_hotend] R4 D2 E-{retraction_distances_when_cut[initial_no_support_extruder]} F{flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60}\n{else}\n    M620.11 S1 L0 I[initial_no_support_extruder] B[initial_no_support_hotend] R10 D8 E-{retraction_distances_when_cut[initial_no_support_extruder]} F{flush_volumetric_speeds[initial_no_support_extruder]/2.4053*60}\n{endif}\n{endif}\nM629\n\nM620 S[initial_no_support_extruder]A H[initial_no_support_hotend] ; switch material if AMS exist\nM1002 gcode_claim_action : 4\nM1002 set_filament_type:UNKNOWN\nM400\nT[initial_no_support_extruder] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM1002 set_filament_type:{filament_type[initial_no_support_extruder]}\nM621 S[initial_no_support_extruder]A\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_extruder]}\nM400\nM106 P1 S0\n\nG91\nG1 Y-16 F60000\nG90\n\nG29.2 S1\n;===== prepare print temperature and material ==========\n\n\nM400\n;M73 P99\n\n;===== xy ofst cali start =====\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\n\nM622 J2\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n    \n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383.3 U140 L{initial_no_support_extruder}\nM623\n\nM622 J1\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n\n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383 O2 U140 L{initial_no_support_extruder}\nM623\n\n;===== xy ofst cali end =====\n\n;===== start to heat heatbed & hotend==========\n\n    M1002 set_filament_type:{filament_type[initial_no_support_extruder]}\n    G150.3\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_extruder]}\n    M140 S[bed_temperature_initial_layer_single]\n\n    ;===== set chamber temperature ==========\n    {if (overall_chamber_temperature >= 40)}\n        M145 P1 ; set airduct mode to heating mode\n        M141 S[overall_chamber_temperature] ; Let Chamber begin to heat\n    {endif}\n    ;===== set chamber temperature ==========\n\n;===== start to heat heatbead & hotend==========\n\n\n\nM400\n;M73 P99\n\n;===== auto extrude cali start =========================\nM975 S1\nM1002 judge_flag extrude_cali_flag\n\nM622 J0\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4} A0.4 ; cali dynamic extrusion compensation\nM623\n\nM622 J1\n    M1002 set_filament_type:{filament_type[initial_no_support_extruder]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_extruder]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\nM622 J2\n    M1002 set_filament_type:{filament_type[initial_no_support_extruder]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_extruder]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\n;===== auto extrude cali end =========================\n\n{if filament_type[initial_no_support_extruder] == \"TPU\"}\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n{else}\n    G150.3\n    M106 P1 S0\n    M400 S2\n    M109 S{nozzle_temperature[initial_no_support_extruder]} ; wait tmpr to extrude\n    M83\n    {if(nozzle_diameter == 0.8)}\n        G1 E60 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n    {else}\n        G1 E45 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n    {endif}\n    G1 E-3 F1800\n    M400 P500\n    G150.2\n    G150.1\n{endif}\n\nG91\nG1 Y-16 F12000 ; move away from the trash bin\nG90\n\nM400\n;M73 P99\n\n;===== wipe right nozzle start =====\n\nM1002 gcode_claim_action : 14\n    G150 T{nozzle_temperature_initial_layer[initial_no_support_extruder]}\n    {if (overall_chamber_temperature >= 40)}\n        G150 T{nozzle_temperature_initial_layer[initial_no_support_extruder] - 80}\n    {endif}\nM106 S255 ; turn on fan to cool the nozzle\n\n;===== wipe left nozzle end =====\n\nM400\n;M73 P99\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\nM622 J0\n    G91\n    G1 Z5 F1200\n    G90\n    M1012.7\n    G383.7 U140 J0\nM623\n\n{if (overall_chamber_temperature >= 40)}\n    M1002 gcode_claim_action : 49\n    M191 S[overall_chamber_temperature] ; wait for chamber temp\n{endif}\n\nM400\n;M73 P99\n\n;===== bed leveling ==================================\n\nM1002 judge_flag g29_before_print_flag\n\nM190 S[bed_temperature_initial_layer_single]; ensure bed temp\nM109 S140 A\nM106 S0 ; turn off fan , too noisy\n\nG91\nG1 Z10 F1200\n{if (first_non_support_filaments[0] != -1)}\nM640 S\nM83\nG1 E-3 F1500\nM640.7 U\nM640.7 L\nM640.2 R1\nM641\n{endif}\nG90\nG1 X175 Y160 F30000\n\nM622 J1\n    M1002 gcode_claim_action : 1\n    G29.20 A3\n    G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R \n    M400\nM623\n    \nM622 J2\n    M1002 gcode_claim_action : 1\n    {if has_tpu_in_first_layer}\n        G29.20 A3\n        G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {else}\n        G29.20 A4\n        G29 A2 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {endif}\n    M400\nM623\n\nM622 J0\n    G28 R\nM623\n\n;===== bed leveling end ================================\n\nG39.1 ; cali nozzle wrapped detection pos\n\nG90\nG1 Z5 F1200\nG1 X270 Y-0.5 F60000\nG28.140 S0 ; cali pre-extrude z pos\n\n;============switch again==================\nM211 X0 Y0 Z0 ;turn off soft endstop\nG91\nG1 Z6 F1200\nG90\nM1002 set_filament_type:{filament_type[initial_no_support_extruder]}\nM620 S[initial_no_support_extruder]A H[initial_no_support_hotend]\nM400\nT[initial_no_support_extruder] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM621 S[initial_no_support_extruder]A\n\n;============switch again==================\n\nM400\n;M73 P99\n\nM141 S[overall_chamber_temperature]\n\n;===== mech mode sweep start =====\n    M1002 gcode_claim_action : 3\n\n    G90\n    G1 Z5 F1200\n    G1 X165 Y160 F20000\n    M400 P200\n\n    M970.3 Q1 A5 K0 O1\n    M974 Q1 S2 P0\n\n    M970.3 Q0 A5 K0 O1\n    M974 Q0 S2 P0\n\n    M970.2 Q2 K0 W38 Z0.01\n    M974 Q2 S2 P0\n\n    M975 S1\n;===== mech mode sweep end =====\n\n;===== wait temperature reaching the reference value =======\n\nM140 S[bed_temperature_initial_layer_single] \nM190 S[bed_temperature_initial_layer_single] \n\n    ;========turn off light and fans =============\n    M960 S1 P0 ; turn off laser\n    M960 S2 P0 ; turn off laser\n    M106 S0 ; turn off fan\n    M106 P2 S0 ; turn off big fan\n    ;==== set ext toodhead cooling fan ==== \n    {if (min_vitrification_temperature <= 50)}\n    M106 P9 S255\n    {endif}\n    ;============set motor current==================\n    M400 S1\n\n;===== wait temperature reaching the reference value =======\n\nM400\n;M73 P99\n\n;===== plate compensation plus user-calibrated +0.18 mm Z trim =====\n{if curr_bed_type==\"Textured PEI Plate\"}\n    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n        G29.1 Z{0.18 - 0.01}\n    {else}\n        G29.1 Z{0.18 - 0.02}\n    {endif}\n{else}\n    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n        G29.1 Z{0.18 + 0.01}\n    {else}\n        G29.1 Z{0.18}\n    {endif}\n{endif}\nG150.1\n\nM975 S1 ; turn on mech mode supression\nM983.4 S1 ; turn on deformation compensation \nG29.2 S1 ; turn on pos comp\nG29.7 S1\n\nG90\nG1 Z5 F1200\nG1 Y295 F30000\nG1 Y265 F18000\n\n;===== nozzle load line ===============================\n    G29.2 S1 ; ensure z comp turn on\n    G90\n    M83\n    G1 Z5 F1200\n    G1 X270 Y-0.5 F60000\n    G28.14 R0\n    G29.2 S0\n    G91\n    G1 Z0.8 F1200\n    G90\n    G1 X250 F60000\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_extruder]}\n    \n    ========== record data ==========\n    M1026\n    M1012.8\n    M1012.9\n    G29.9\n    ========== record data ==========\n    \n    M400 P50\n    M500 D1\n    M400 S3\n    M109 S{nozzle_temperature_initial_layer[initial_no_support_extruder]}\n    M83\n{if nozzle_diameter[initial_no_support_extruder] == 0.8}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n{endif}\n{if (filament_type[initial_no_support_extruder] == \"TPU\")}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n{endif}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n    G1 X290 E10 F{filament_max_volumetric_speed[initial_no_support_extruder]/2.4053*60}\n    G91\n    G3 Z0.4 I1.217 J0 P1 F60000\n    G90\n    M83\n    G29.2 S1 ; ensure z comp turn on\n;===== noozle load line end ===========================\n\nM400\n;M73 P99\n\nM993 A1 B1 C1 ; nozzle cam detection allowed.\n\n{if (filament_type[initial_no_support_extruder] == \"TPU\")}\nM1015.3 S1;enable tpu clog detect\n{else}\nM1015.3 S0;disable tpu clog detect\n{endif}\n\n{if (filament_type[initial_no_support_extruder] == \"PLA\") ||  (filament_type[initial_no_support_extruder] == \"PETG\")\n ||  (filament_type[initial_no_support_extruder] == \"PLA-CF\")  ||  (filament_type[initial_no_support_extruder] == \"PETG-CF\")}\nM1015.4 S1 K1 H[nozzle_diameter] ;enable E air printing detect\n{else}\nM1015.4 S0 K0 H[nozzle_diameter] ;disable E air printing detect\n{endif}\n\nM620.6 I[initial_no_support_extruder] H[initial_no_support_hotend] W1 ;enable ams air printing detect\nM620 O1\n\nM211 Z1\nG29.99\nM1002 gcode_claim_action : 0\nM400\n",
+      "to": ";===== machine: H2C =========================\n;===== date: 20260608 =====================\n\n;M1002 set_flag extrude_cali_flag=1\n;M1002 set_flag g29_before_print_flag=1\n;M1002 set_flag auto_cali_toolhead_offset_flag=1\n;M1002 set_flag build_plate_detect_flag=1\n\nM993 A0 B0 C0 ; nozzle cam detection not allowed.\n\nM400\n;M73 P99\n\nM960 S10 P1 ; ext fan led\n\n;=====printer start sound ===================\nM17\nM400 S1\nM1006 S1\nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99\nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99\nM1006 A61 B9 L99 C61 D9 M99 E61 F9 N99\nM1006 A53 B9 L99 C53 D9 M99 E53 F9 N99\nM1006 A56 B9 L99 C56 D9 M99 E56 F9 N99\nM1006 A61 B18 L99 C61 D18 M99 E61 F18 N99\nM1006 W\n;=====printer start sound ===================\n\n;===== reset machine status =================\nM204 S10000\nM630 S0 P0\n\nG90\nM17 D ; reset motor current to default\nM960 S5 P1 ; turn on logo lamp\nG90\nM1002 set_gcode_claim_speed_level 5 ;Reset speed level\nM220 S100 ;Reset Feedrate\nM221 S100 ;Reset Flowrate\nM73.2   R1.0 ;Reset left time magnitude\nG29.1 Z{+0.0} ; clear z-trim value first\nM983.1 M1\nM901 D4\nM481 S0 ; turn off cutter pos comp\nG28.140 D0; reset pre-extrude z pos\n;===== reset machine status =================\n\nM620 M ;enable remap\nM620 N ;enable hotend remap\nM620 T0 ;print tmpr\nM620 T1 ;sn -> pos\nM620 T2 ;filament_id\n\n;===== start to heat heatbed & hotend==========\n\n    M104 O-80 A\n    M140 D[bed_temperature_initial_layer_single]\n\n;===== start to heat heatbead & hotend==========\n\n;===== avoid end stop =================\nG91\nG380 S2 Z42 F1200\nG380 S2 Z-12 F1200\nG90\n;===== avoid end stop =================\n\n;==== set airduct mode ====\n\n{if (overall_chamber_temperature >= 40)}\n\n    M145 P1 ; set airduct mode to heating mode for heating\n    M106 P2 S0 ; turn off auxiliary fan\n    M106 P3 S0 ; turn off chamber fan\n\n{else}\n    M145 P0 ; set airduct mode to cooling mode for cooling\n    M106 P2 S178 ; turn on auxiliary fan for cooling\n    M106 P3 S127 ; turn on chamber fan for cooling\n\n    M1002 gcode_claim_action : 29\n    M191 S0 ; wait for chamber temp\n    M106 P2 S0 ; turn off auxiliary fan\n    {if (min_vitrification_temperature <= 50)}\n        {if (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\n            M142 P1 R30 S35 T40 U0.3 V0.5 W0.8 O40 ; set PLA/TPU ND0.2 chamber autocooling\n        {else}\n            M142 P1 R30 S40 T45 U0.3 V0.5 W0.8 O45; set PLA/TPU ND0.4 chamber autocooling\n        {endif}\n    {else}\n        {if (!is_all_bbl_filament)}\n            M142 P1 R35 S40 T45 U0.3 V0.5 W0.8 O45 L1 ; set third-party PETG chamber autocooling\n        {else}\n            {if (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\n                M142 P1 R35 S45 T50 U0.3 V0.5 W0.8 O50 L1 ; set PETG ND0.2 chamber autocooling\n            {else}\n                M142 P1 R35 S50 T55 U0.3 V0.5 W0.8 O55 L1 ; set PETG ND0.4 chamber autocooling\n            {endif}\n        {endif}\n    {endif}\n{if(cooling_filter_enabled)}\nM145.2 P0 F0\n{else}\nM145.2 P0 F1\n{endif}\n{endif}\n;==== set airduct mode ====\n\n\n;====== cog noise reduction=================\nM982.2 S1 ; turn on cog noise reduction\n\n;===== first homing start =====\nM1002 gcode_claim_action : 13\n\nM640 S\nM640.1 R\nM641\nG28 X T300\nT1000\n\nG150.3\nM972 S24 P0 T2000 ; live-view camera foolproof\nM972 S46 P0 T5000 ; vortek anti-collision\nM640.1 S\nM640.4\n{if (first_non_support_filaments[0] != -1)}\nM640 S\nM640.8 T A{first_non_support_filaments[0]} H{first_non_support_hotend[0]}\nM640.7 L\nM641\n{endif}\n\n\n{if wipe_tower_center_pos_valid}\n    M620.14 X[wipe_tower_center_pos_x] Y[wipe_tower_center_pos_y]\n{else}\n    M620.14 X95.5 Y336\n{endif}\n\n\nG150.1 F18000 ; wipe mouth to avoid filament stick to heatbed\nG150.3 F18000\nM400 P200\n\nM1002 gcode_claim_action : 74 ; Heatbed surface foreign object detection\nM104 S0\n{if curr_bed_type==\"Textured PEI Plate\"}\nM972 S26 P0 C0\n{else}\nM972 S36 P0 C0 X1\n{endif}\nM972 S35 P0 C0\n\nM972 S41 P0 T5000 ; trash can anti-collision\n\nM1009 Q1 L1\nG91\nG380 S2 Z30 F1200 ; lower heatbed to move toolhead\nG90\nG1 X175 Y160 F30000\nG28 Z P0 T250\nM1009 Q1 L0\n\n\n;===== first homing end =====\n\n;===== detection start =====\n\nM1002 judge_flag build_plate_detect_flag\nM104 S0\nM622 S1\n    ;M1002 gcode_claim_action : 11 ; Indentifying build plate type\n    M972 S19 P0 C0    ; heatbed presence detection\n    M972 S31 P0 T5000 ; toolhead camera dirty detection\n    ;M1002 gcode_claim_action : 73 ; Build plate alignment detection\n    M972 S34 P0 T5000 ; heatbed plate offset detection\nM623\n\nM1002 gcode_claim_action : 72 ; Hotend Type Detection\nT1001\nM972 S14 P0 T5000 ; nozzle type detection\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]} T{filament_map[initial_no_support_filament_id] % 2} ; rise temp in advance\n\nG151 P{filament_map[initial_no_support_filament_id] % 2} M ; plug the heat nozzle\n\n{if max_print_z >= 145}\nM1002 gcode_claim_action : 75 ; Heatbed underside foreign object detection\nG3811 Z{max_print_z}  ; Detect obstacles at the bottom of the heated bed\n{endif}\n\n;===== detection end =====\n\nM400\n;M73 P99\n\n;===== prepare print temperature and material ==========\nM400\nM211 X0 Y0 Z0 ;turn off soft endstop\nM975 S1 ; turn on input shaping\n\nG29.2 S0 ; avoid invalid abl data\n\n{if ((filament_type[initial_no_support_filament_id] == \"PLA\") || (filament_type[initial_no_support_filament_id] == \"PLA-CF\") || (filament_type[initial_no_support_filament_id] == \"PETG\")) && (nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2)}\nM620.10 A0 F74.8347 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\nM620.10 A1 F74.8347 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\n{else}\nM620.10 A0 F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60*0.8} H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\nM620.10 A1 F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60*0.8} H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} T{flush_temperatures[initial_no_support_filament_id]} P{nozzle_temperature_initial_layer[initial_no_support_filament_id]} S1\n{endif}\n\nM620.11 P1 I[initial_no_support_filament_id] B[initial_no_support_hotend] E0\n\n{if long_retraction_when_ec }\nM620.11 K1 I[initial_no_support_filament_id] B[initial_no_support_hotend] R{retraction_distance_when_ec} F{max((flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60), 200)}\n{else}\nM620.11 K0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R0\n{endif}\n\nM628 S1\n{if filament_type[initial_no_support_filament_id] == \"TPU\"}\n    M620.11 S0 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{else}\n{if (filament_type[initial_no_support_filament_id] == \"PA\") ||  (filament_type[initial_no_support_filament_id] == \"PA-GF\")}\n    M620.11 S1 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R4 D2 E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{else}\n    M620.11 S1 L0 I[initial_no_support_filament_id] B[initial_no_support_hotend] R10 D8 E-{retraction_distances_when_cut[initial_no_support_filament_id]} F{flush_volumetric_speeds[initial_no_support_filament_id]/2.4053*60}\n{endif}\n{endif}\nM629\n\nM620 S[initial_no_support_filament_id]A H[initial_no_support_hotend] ; switch material if AMS exist\nM1002 gcode_claim_action : 4\nM1002 set_filament_type:UNKNOWN\nM400\nT[initial_no_support_filament_id] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\nM621 S[initial_no_support_filament_id]A\n\nM104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\nM400\nM106 P1 S0\n\nG91\nG1 Y-16 F60000\nG90\n\nG29.2 S1\n;===== prepare print temperature and material ==========\n\n\nM400\n;M73 P99\n\n;===== xy ofst cali start =====\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\n\nM622 J2\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n\n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383.3 U140 L{initial_no_support_filament_id}\nM623\n\nM622 J1\n    M1002 gcode_claim_action : 54\n    M190 D[bed_temperature_initial_layer_single]\n\n    M1002 gcode_claim_action : 39\n    M620 D[initial_no_support_hotend]\n    G383 O2 U140 L{initial_no_support_filament_id}\nM623\n\n;===== xy ofst cali end =====\n\n;===== start to heat heatbed & hotend==========\n\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    G150.3\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    M140 S[bed_temperature_initial_layer_single]\n\n    ;===== set chamber temperature ==========\n    {if (overall_chamber_temperature >= 40)}\n        M145 P1 ; set airduct mode to heating mode\n        M141 S[overall_chamber_temperature] ; Let Chamber begin to heat\n    {endif}\n    ;===== set chamber temperature ==========\n\n;===== start to heat heatbead & hotend==========\n\n\n\nM400\n;M73 P99\n\n;===== auto extrude cali start =========================\nM975 S1\nM1002 judge_flag extrude_cali_flag\n\nM622 J0\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\nM623\n\nM622 J1\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_filament_id]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\nM622 J2\n    M1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\n    M1002 gcode_claim_action : 8\n\n    M109 S{nozzle_temperature[initial_no_support_filament_id]}\n\n    G90\n    M83\n    M983.3 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4} A0.4 ; cali dynamic extrusion compensation\n\n    M400\n    M106 P1 S255\n    M400 S5\n    M106 P1 S0\n    G150.3\nM623\n\n;===== auto extrude cali end =========================\n\n{if filament_type[initial_no_support_filament_id] == \"TPU\"}\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n    G150.2\n    G150.1\n{else}\n    G150.3\n    M106 P1 S0\n    M400 S2\n    M109 S{nozzle_temperature[initial_no_support_filament_id]} ; wait tmpr to extrude\n    M83\n    {if(nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.8)}\n        G1 E60 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    {else}\n        G1 E45 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    {endif}\n    G1 E-3 F1800\n    M400 P500\n    G150.2\n    G150.1\n{endif}\n\nG91\nG1 Y-16 F12000 ; move away from the trash bin\nG90\n\nM400\n;M73 P99\n\n;===== wipe right nozzle start =====\n\nM1002 gcode_claim_action : 14\n    G150 T{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    {if (overall_chamber_temperature >= 40)}\n        G150 T{nozzle_temperature_initial_layer[initial_no_support_filament_id] - 80}\n    {endif}\nM106 S255 ; turn on fan to cool the nozzle\n\n;===== wipe left nozzle end =====\n\nM400\n;M73 P99\n\nM1002 judge_flag auto_cali_toolhead_offset_flag\nM622 J0\n    G91\n    G1 Z5 F1200\n    G90\n    M1012.7\n    G383.7 U140 J0\nM623\n\n{if (overall_chamber_temperature >= 40)}\n    M1002 gcode_claim_action : 49\n    M191 S[overall_chamber_temperature] ; wait for chamber temp\n{endif}\n\nM400\n;M73 P99\n\n;===== bed leveling ==================================\n\nM1002 judge_flag g29_before_print_flag\n\nM190 S[bed_temperature_initial_layer_single]; ensure bed temp\nM109 S140 A\nM106 S0 ; turn off fan , too noisy\n\nG91\nG1 Z10 F1200\n{if (first_non_support_filaments[0] != -1) && filament_type[initial_no_support_filament_id] != \"TPU\"}\nM640 S\nM640.7 U\nM640.7 L\nM640.2 R1\nM641\n{endif}\nG90\nG1 X175 Y160 F30000\n\nM622 J1\n    M1002 gcode_claim_action : 1\n    G29.20 A3\n    G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    M400\nM623\n\nM622 J2\n    M1002 gcode_claim_action : 1\n    {if has_tpu_in_first_layer}\n        G29.20 A3\n        G29 A1 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {else}\n        G29.20 A4\n        G29 A2 O X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]} R\n    {endif}\n    M400\nM623\n\nM622 J0\n    G28 R\nM623\n\n;===== bed leveling end ================================\n\nG39.1 ; cali nozzle wrapped detection pos\n\nG90\nG1 Z5 F1200\nG1 X270 Y-0.5 F60000\nG28.140 S0 ; cali pre-extrude z pos\n\n;============switch again==================\nM211 X0 Y0 Z0 ;turn off soft endstop\nG91\nG1 Z6 F1200\nG90\nM1002 set_filament_type:{filament_type[initial_no_support_filament_id]}\nM620 S[initial_no_support_filament_id]A H[initial_no_support_hotend]\nM400\nT[initial_no_support_filament_id] H[initial_no_support_hotend]\nM400\nM628 S0\nM629\nM400\nM621 S[initial_no_support_filament_id]A\n\n;============switch again==================\n\nM400\n;M73 P99\n\nM141 S[overall_chamber_temperature]\n\n;===== mech mode sweep start =====\n    M1002 gcode_claim_action : 3\n\n    G90\n    G1 Z5 F1200\n    G1 X165 Y160 F20000\n    M400 P200\n\n    M970.3 Q1 A5 K0 O1\n    M974 Q1 S2 P0\n\n    M970.3 Q0 A5 K0 O1\n    M974 Q0 S2 P0\n\n    M970.2 Q2 K0 W38 Z0.01\n    M974 Q2 S2 P0\n\n    M975 S1\n;===== mech mode sweep end =====\n\n;===== wait temperature reaching the reference value =======\n\nM140 S[bed_temperature_initial_layer_single]\nM190 S[bed_temperature_initial_layer_single]\n\n    ;========turn off light and fans =============\n    M960 S1 P0 ; turn off laser\n    M960 S2 P0 ; turn off laser\n    M106 S0 ; turn off fan\n    M106 P2 S0 ; turn off big fan\n    ;==== set ext toodhead cooling fan ====\n    {if (min_vitrification_temperature <= 50)}\n    M106 P9 S255\n    {endif}\n    ;============set motor current==================\n    M400 S1\n\n;===== wait temperature reaching the reference value =======\n\nM400\n;M73 P99\n\n;===== for Textured PEI Plate , lower the nozzle as the nozzle was touching topmost of the texture when homing ==\n    {if curr_bed_type==\"Textured PEI Plate\"}\n        {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n            G29.1 Z{-0.01} ; for Textured PEI Plate\n        {else}\n            G29.1 Z{-0.02} ; for Textured PEI Plate\n        {endif}\n    {else}\n        {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}\n            G29.1 Z{0.01}\n        {endif}\n    {endif}\nG150.1\n\nM975 S1 ; turn on mech mode supression\nM983.4 S1 ; turn on deformation compensation\nG29.2 S1 ; turn on pos comp\nG29.7 S1\n\nG90\nG1 Z5 F1200\nG1 Y295 F30000\nG1 Y265 F18000\n\n;===== nozzle load line ===============================\n    G29.2 S1 ; ensure z comp turn on\n    G90\n    M83\n    G1 Z5 F1200\n    G1 X270 Y-0.5 F60000\n    G28.14 R0\n    G29.2 S0\n    G91\n    G1 Z0.8 F1200\n    G90\n    G1 X250 F60000\n    M104 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n\n    ========== record data ==========\n    M1026\n    M1012.8\n    M1012.9\n    G29.9\n    ========== record data ==========\n\n    M400 P50\n    M500 D1\n    M400 S3\n    M109 S{nozzle_temperature_initial_layer[initial_no_support_filament_id]}\n    M83\n{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.8}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n{endif}\n{if (filament_type[initial_no_support_filament_id] == \"TPU\")}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n{endif}\n    G1 E5 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    G1 X290 E10 F{filament_max_volumetric_speed[initial_no_support_filament_id]/2.4053*60}\n    G91\n    G3 Z0.4 I1.217 J0 P1 F60000\n    G90\n    M83\n    G29.2 S1 ; ensure z comp turn on\n;===== noozle load line end ===========================\n\nM400\n;M73 P99\n\nM993 A1 B1 C1 ; nozzle cam detection allowed.\n\n{if (filament_type[initial_no_support_filament_id] == \"TPU\")}\nM1015.3 S1;enable tpu clog detect\n{else}\nM1015.3 S0;disable tpu clog detect\n{endif}\n\n{if (filament_type[initial_no_support_filament_id] == \"PLA\") ||  (filament_type[initial_no_support_filament_id] == \"PETG\")\n ||  (filament_type[initial_no_support_filament_id] == \"PLA-CF\")  ||  (filament_type[initial_no_support_filament_id] == \"PETG-CF\")}\nM1015.4 S1 K1 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} ;enable E air printing detect\n{else}\nM1015.4 S0 K0 H{nozzle_diameter_at_nozzle_id[initial_nozzle_id]} ;disable E air printing detect\n{endif}\n\nM620.6 I[initial_no_support_filament_id] H[initial_no_support_hotend] W1 ;enable ams air printing detect\nM620 O1\n\nM211 Z1\nG29.99\nM1002 gcode_claim_action : 0\nM400\n"
+    },
+    "no_slow_down_for_cooling_on_outwalls": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "nozzle_temperature": {
+      "from": [
+        "225",
+        "225",
+        "225",
+        "225"
+      ],
+      "to": [
+        "225",
+        "225",
+        "225"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "from": [
+        "225",
+        "225",
+        "225",
+        "225"
+      ],
+      "to": [
+        "225",
+        "225",
+        "225"
+      ]
+    },
+    "nozzle_temperature_range_high": {
+      "from": [
+        "250",
+        "250"
+      ],
+      "to": [
+        "250"
+      ]
+    },
+    "nozzle_temperature_range_low": {
+      "from": [
+        "200",
+        "200"
+      ],
+      "to": [
+        "200"
+      ]
+    },
+    "outer_wall_speed": {
+      "from": [
+        "200",
+        "200",
+        "200",
+        "200"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "overhang_fan_speed": {
+      "from": [
+        "100",
+        "100"
+      ],
+      "to": [
+        "100"
+      ]
+    },
+    "overhang_fan_threshold": {
+      "from": [
+        "95%",
+        "95%"
+      ],
+      "to": [
+        "95%"
+      ]
+    },
+    "override_process_overhang_speed": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "pre_start_fan_time": {
+      "from": [
+        "2",
+        "2"
+      ],
+      "to": [
+        "2"
+      ]
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.6 nozzle"
+      ]
+    },
+    "print_settings_id": {
+      "from": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+      "to": "One compact TPU85A elbow Engineering Plate zero Z trim Mark1"
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.6 nozzle"
+    },
+    "reduce_fan_stop_start_freq": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "required_nozzle_HRC": {
+      "from": [
+        "3",
+        "3"
+      ],
+      "to": [
+        "3"
+      ]
+    },
+    "retraction_distances_when_ec": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "seam_gap": {
+      "from": "15%",
+      "to": "0%"
+    },
+    "skeleton_infill_density": {
+      "from": "0%",
+      "to": "100%"
+    },
+    "skin_infill_density": {
+      "from": "0%",
+      "to": "100%"
+    },
+    "slow_down_for_layer_cooling": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "slow_down_layer_time": {
+      "from": [
+        "20",
+        "20"
+      ],
+      "to": [
+        "20"
+      ]
+    },
+    "slow_down_min_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "sparse_infill_density": {
+      "from": "0%",
+      "to": "100%"
+    },
+    "sparse_infill_pattern": {
+      "from": "grid",
+      "to": "zig-zag"
+    },
+    "sparse_infill_speed": {
+      "from": [
+        "350",
+        "350",
+        "350",
+        "350"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "spiral_mode": {
+      "from": "1",
+      "to": "0"
+    },
+    "spiral_mode_smooth": {
+      "from": "1",
+      "to": "0"
+    },
+    "supertack_plate_temp": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "supertack_plate_temp_initial_layer": {
+      "from": [
+        "0",
+        "0"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "temperature_vitrification": {
+      "from": [
+        "40",
+        "40"
+      ],
+      "to": [
+        "40"
+      ]
+    },
+    "textured_plate_temp": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "textured_plate_temp_initial_layer": {
+      "from": [
+        "35",
+        "35"
+      ],
+      "to": [
+        "35"
+      ]
+    },
+    "top_shell_layers": {
+      "from": "0",
+      "to": "3"
+    },
+    "top_surface_speed": {
+      "from": [
+        "200",
+        "200",
+        "200",
+        "200"
+      ],
+      "to": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ]
+    },
+    "volumetric_speed_coefficients": {
+      "from": [
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0"
+      ],
+      "to": [
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0",
+        "0 0 0 0 0 0"
+      ]
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "arachne"
+    },
+    "wall_loops": {
+      "from": "1",
+      "to": "6"
+    },
+    "filament_flush_temp_fast": {
+      "from": null,
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "filament_long_retractions_when_ec": {
+      "from": null,
+      "to": [
+        "nil"
+      ]
+    },
+    "filament_retraction_distances_when_ec": {
+      "from": null,
+      "to": [
+        "nil"
+      ]
+    },
+    "filament_ingredients_safe": {
+      "from": null,
+      "to": "1"
+    },
+    "filament_emission_safe": {
+      "from": null,
+      "to": "1"
+    },
+    "filament_contact_safe": {
+      "from": null,
+      "to": "1"
+    },
+    "compatible_printers": {
+      "from": null,
+      "to": [
+        "Bambu Lab H2C 0.6 nozzle",
+        "Bambu Lab H2C 0.8 nozzle"
+      ]
+    },
+    "filament_id": {
+      "from": null,
+      "to": "GFU04"
+    },
+    "description": {
+      "from": null,
+      "to": "This filament is too soft and not compatible with the AMS. Printing it is of many requirements, and to get better printing quality, please refer to this wiki: TPU printing guide."
+    }
+  }
+}

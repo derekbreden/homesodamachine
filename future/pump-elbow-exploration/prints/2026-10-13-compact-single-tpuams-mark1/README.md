@@ -2,7 +2,8 @@
 
 Mark1 accepted task **1337417293** on **2026-10-13 at 20:19:42 CDT**.
 The [launch receipt](launch.json) binds the submitted archive and G-code.
-Physical printing success remains unmeasured. The specimen is the rounded-heel,
+**Outcome: reported too stiff.** The [physical result](physical-result.json)
+records the material-compliance rejection. The specimen is the rounded-heel,
 smooth-neck V-shaped elbow with its original integral flat foot. It uses the
 11 mm barb / 15 mm tube insertion depths and exposed circular clamp seats.
 The plate contains one body, one volume, one object and one instance.
@@ -17,8 +18,8 @@ Mark1's +0.18 mm user trim emits `G29.1 Z0.16`.
 Native estimate: **43.5 minutes / 4.31 g**, 184 layers. The mesh is one closed,
 consistently oriented body with 88.885 mm² flat bed contact. Printing success,
 barb insertion force, socket fit, clamp response and sealing are unmeasured.
-The harder material is the selected printing trial; the owned 90A remains a
-softer candidate for a subsequent fitting trial.
+The material is rejected for the reported stiffness. No pressure or retained
+grip result is established.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.3mf)
 - [Native archive](2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.gcode.3mf)

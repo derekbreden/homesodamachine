@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-14T02:09:41.981356+00:00",
+  "archive": {
+    "name": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
+    "sha256": "ffda278ed72f4e07c6f0e9d2ee1a9d01575999b81e57124f116fbab1e96a9ee2",
+    "gcode_sha256": "ece340021c79d0c9fd97e2429cd3024487d6e3a841ceb20c314be740a62e06b0",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Single compact 15 mm tube-socket elbow"
+    ]
+  },
+  "printer_task_id": "1337517926",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-13-compact-single-elbow-tpu85a-engineering-right06-z000-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 62
+}
