@@ -1,401 +1,144 @@
 {
-  "duration": 64.0,
+  "duration": 18,
   "fps": 24,
   "audio_master": "out/mix-master.wav",
   "captions_file": "out/film.vtt",
-  "tempo_bpm": 80,
-  "tonal_arc": "B-minor/add-nine errand pulse opens into D-major/nine. Final D-major cadence answers the opening wish.",
+  "tempo_bpm": 106.66666666666667,
+  "tonal_arc": "D-add-nine pluck identity; B-minor and G lead to an A-suspended burden. D-six/nine opens on the water cut; a closing struck D chord and A-to-D answer decay through the final readout.",
   "narration_edits": [
     {
-      "id": "wish",
+      "id": "connected-performance",
+      "source": "audio/narration.wav",
       "source_start": 0,
-      "source_end": 1.62,
-      "start": 0.8,
-      "end": 2.42,
-      "first_word_at": 0.8,
-      "last_word_at": 2.18,
-      "text": "You wanted a glass of soda."
-    },
-    {
-      "id": "store",
-      "source_start": 1.96,
-      "source_end": 5.02,
-      "start": 4.64,
-      "end": 7.7,
-      "first_word_at": 4.8,
-      "last_word_at": 7.46,
-      "text": "Somehow, that became a trip to the store."
-    },
-    {
-      "id": "cart",
-      "source_start": 5.48,
-      "source_end": 6.8,
-      "start": 8.34,
-      "end": 9.66,
-      "first_word_at": 8.5,
-      "last_word_at": 9.42,
-      "text": "A case in the cart."
-    },
-    {
-      "id": "car",
-      "source_start": 7.04,
-      "source_end": 8.06,
-      "start": 10.74,
-      "end": 11.76,
-      "first_word_at": 10.9,
-      "last_word_at": 11.52,
-      "text": "Into the car."
-    },
-    {
-      "id": "kitchen-carry",
-      "source_start": 8.12,
-      "source_end": 9.28,
-      "start": 11.99,
-      "end": 13.15,
-      "first_word_at": 12.15,
-      "last_word_at": 12.91,
-      "text": "Into the kitchen."
-    },
-    {
-      "id": "shelf-carry",
-      "source_start": 9.58,
-      "source_end": 10.58,
-      "start": 13.19,
-      "end": 14.19,
-      "first_word_at": 13.35,
-      "last_word_at": 13.95,
-      "text": "Onto a shelf."
-    },
-    {
-      "id": "again",
-      "source_start": 11.24,
-      "source_end": 14.08,
-      "start": 14.54,
-      "end": 17.38,
-      "first_word_at": 14.7,
-      "last_word_at": 17.14,
-      "text": "And when the cans are gone, you do it all again."
-    },
-    {
-      "id": "waiting",
-      "source_start": 14.82,
-      "source_end": 17.5,
-      "start": 20.34,
-      "end": 23.02,
-      "first_word_at": 20.5,
-      "last_word_at": 22.78,
-      "text": "What if the next glass was already waiting?"
-    },
-    {
-      "id": "under",
-      "source_start": 21.24,
-      "source_end": 25.54,
-      "start": 25.84,
-      "end": 30.14,
-      "first_word_at": 26.0,
-      "last_word_at": 29.9,
-      "text": "Cold carbonated water. Two flavors, ready under the counter."
-    },
-    {
-      "id": "flavor",
-      "source_start": 26.26,
-      "source_end": 27.3,
-      "start": 31.24,
-      "end": 32.28,
-      "first_word_at": 31.4,
-      "last_word_at": 32.04,
-      "text": "Choose your flavor."
-    },
-    {
-      "id": "faucet",
-      "source_start": 27.94,
-      "source_end": 28.98,
-      "start": 34.64,
-      "end": 35.68,
-      "first_word_at": 34.8,
-      "last_word_at": 35.44,
-      "text": "Open the faucet."
-    },
-    {
-      "id": "glass",
-      "source_start": 29.18,
-      "source_end": 31.76,
-      "start": 37.34,
-      "end": 39.92,
-      "first_word_at": 37.5,
-      "last_word_at": 39.68,
-      "text": "Cold soda, straight into your glass."
-    },
-    {
-      "id": "home",
-      "source_start": 32.4,
-      "source_end": 34.76,
-      "start": 53.04,
-      "end": 55.4,
-      "first_word_at": 53.2,
-      "last_word_at": 55.16,
-      "text": "With a faucet that feels at home in your kitchen."
-    },
-    {
-      "id": "closing",
-      "source_start": 46.74,
-      "source_end": 49.68,
-      "start": 59.04,
-      "end": 61.98,
-      "first_word_at": 59.2,
-      "last_word_at": 61.74,
-      "text": "A glass of soda. One less errand."
+      "source_end": 14.48,
+      "start": 0.55,
+      "end": 15.03,
+      "first_word_at": 0.55,
+      "last_word_at": 14.59,
+      "text": "That's Diet Mountain Dew, straight from your faucet. The soda you love, made with Pepsi's own concentrate, without the cases to carry home. Just open the faucet. Cold and fully carbonated, whenever you want it. Home Soda Machine. One less errand.",
+      "editing": "One complete performance; no cuts, time stretching, or rearrangement.",
+      "source_sha256": "8e62a2557b84414506e6b71e456b882558007681fbbeb2742d79c4b80a3b6d37"
     }
   ],
   "captions": [
     {
-      "start": 0.8,
-      "end": 2.45,
-      "text": "You wanted a glass of soda."
+      "start": 0.55,
+      "spoken_end": 3.07,
+      "text": "That's Diet Mountain Dew, straight from your faucet.",
+      "end": 3.31
     },
     {
-      "start": 4.8,
-      "end": 7.73,
-      "text": "Somehow, that became a trip to the store."
+      "start": 3.61,
+      "spoken_end": 5.87,
+      "text": "The soda you love, made with Pepsi's own concentrate,",
+      "end": 6.11
     },
     {
-      "start": 8.5,
-      "end": 9.69,
-      "text": "A case in the cart."
+      "start": 6.35,
+      "spoken_end": 7.59,
+      "text": "without the cases to carry home.",
+      "end": 7.83
     },
     {
-      "start": 10.9,
-      "end": 11.95,
-      "text": "Into the car."
+      "start": 8.27,
+      "spoken_end": 9.39,
+      "text": "Just open the faucet.",
+      "end": 9.63
     },
     {
-      "start": 12.15,
-      "end": 13.2,
-      "text": "Into the kitchen."
+      "start": 9.97,
+      "spoken_end": 12.17,
+      "text": "Cold and fully carbonated, whenever you want it.",
+      "end": 12.41
     },
     {
-      "start": 13.35,
-      "end": 14.4,
-      "text": "Onto a shelf."
+      "start": 12.89,
+      "spoken_end": 13.33,
+      "text": "Home Soda Machine.",
+      "end": 13.97
     },
     {
-      "start": 14.7,
-      "end": 15.93,
-      "text": "And when the cans are gone,"
-    },
-    {
-      "start": 16.28,
-      "end": 17.41,
-      "text": "you do it all again."
-    },
-    {
-      "start": 20.5,
-      "end": 23.05,
-      "text": "What if the next glass was already waiting?"
-    },
-    {
-      "start": 26.0,
-      "end": 27.43,
-      "text": "Cold carbonated water."
-    },
-    {
-      "start": 27.66,
-      "end": 30.17,
-      "text": "Two flavors, ready under the counter."
-    },
-    {
-      "start": 31.4,
-      "end": 32.45,
-      "text": "Choose your flavor."
-    },
-    {
-      "start": 34.8,
-      "end": 35.85,
-      "text": "Open the faucet."
-    },
-    {
-      "start": 37.5,
-      "end": 39.95,
-      "text": "Cold soda, straight into your glass."
-    },
-    {
-      "start": 53.2,
-      "end": 55.43,
-      "text": "With a faucet that feels at home in your kitchen."
-    },
-    {
-      "start": 59.2,
-      "end": 60.25,
-      "text": "A glass of soda."
-    },
-    {
-      "start": 60.8,
-      "end": 62.01,
-      "text": "One less errand."
+      "start": 14.05,
+      "spoken_end": 14.59,
+      "text": "One less errand.",
+      "end": 15.2
     }
   ],
   "events": [
     {
-      "start": 0.28,
-      "end": 4.5,
+      "start": 0,
+      "end": 2.125,
+      "stem": "effects",
+      "description": "Immediate fine carbonation for the close beverage photograph; no ice or can-opening effect."
+    },
+    {
+      "start": 0,
+      "end": 8.333333333333334,
       "stem": "score",
-      "description": "A bare two-note wish: D and A, answered by the closing cadence"
+      "description": "Original double-course pluck motif, short bass and restrained rim pulse; graphic contacts carry the final accents."
     },
     {
-      "start": 4.5,
-      "end": 18.0,
+      "start": 6.583333333333333,
+      "end": 6.833333,
+      "stem": "effects",
+      "id": "case_contact_1",
+      "picture_frame": 158,
+      "normalized_contact": 0.16,
+      "description": "Dry graphic case contact 1; increasing mass, no handling or transition swoosh."
+    },
+    {
+      "start": 7.166666666666667,
+      "end": 7.441667,
+      "stem": "effects",
+      "id": "case_contact_2",
+      "picture_frame": 172,
+      "normalized_contact": 0.43,
+      "description": "Dry graphic case contact 2; increasing mass, no handling or transition swoosh."
+    },
+    {
+      "start": 7.708333333333333,
+      "end": 8.008333,
+      "stem": "effects",
+      "id": "case_contact_3",
+      "picture_frame": 185,
+      "normalized_contact": 0.7,
+      "description": "Dry graphic case contact 3; increasing mass, no handling or transition swoosh."
+    },
+    {
+      "start": 8.333333333333334,
+      "end": 9.958333333333334,
+      "stem": "effects",
+      "description": "Established stream begins exactly with the pour cut and stops at the sensory macro cut; no lever stop or click."
+    },
+    {
+      "start": 8.333333333333334,
+      "end": 9.958333333333334,
       "stem": "score",
-      "description": "B-minor errand cell: muted strings, soft bass, brushed pulse and tactile wood"
+      "description": "Pulse clears at established flow; open D-six/nine struck harmony gives water the foreground."
     },
     {
-      "start": 4.67,
-      "end": 5.22,
+      "start": 9.958333333333334,
+      "end": 12.708333333333334,
       "stem": "effects",
-      "description": "Close can contact"
+      "description": "Close fine carbonation across the sensory macro, easing back into the finished-drink perspective at the serve cut."
     },
     {
-      "start": 7.57,
-      "end": 7.97,
-      "stem": "effects",
-      "description": "Carton and hand movement at the cut"
-    },
-    {
-      "start": 7.7,
-      "end": 8.25,
-      "stem": "effects",
-      "description": "Close case contact"
-    },
-    {
-      "start": 8,
-      "end": 10.25,
-      "stem": "effects",
-      "description": "Restrained cart-wheel movement"
-    },
-    {
-      "start": 10.49,
-      "end": 10.89,
-      "stem": "effects",
-      "description": "Carton and hand movement at the cut"
-    },
-    {
-      "start": 10.67,
-      "end": 11.22,
-      "stem": "effects",
-      "description": "Close case contact"
-    },
-    {
-      "start": 11.74,
-      "end": 12.14,
-      "stem": "effects",
-      "description": "Carton and hand movement at the cut"
-    },
-    {
-      "start": 11.92,
-      "end": 12.47,
-      "stem": "effects",
-      "description": "Close case contact"
-    },
-    {
-      "start": 13,
-      "end": 13.4,
-      "stem": "effects",
-      "description": "Carton and hand movement at the cut"
-    },
-    {
-      "start": 13.17,
-      "end": 13.72,
-      "stem": "effects",
-      "description": "Close case contact"
-    },
-    {
-      "start": 14.48,
-      "end": 15.03,
-      "stem": "effects",
-      "description": "Close can contact"
-    },
-    {
-      "start": 16.92,
-      "end": 17.47,
-      "stem": "effects",
-      "description": "Close can contact"
-    },
-    {
-      "start": 18,
-      "end": 19.15,
+      "start": 9.958333333333334,
+      "end": 12.708333333333334,
       "stem": "score",
-      "description": "The errand cell empties and its room tail disappears"
+      "description": "Open struck harmony supports the intimate beverage macro, with a rounded answer at 10.583333 seconds."
     },
     {
-      "start": 18.08,
-      "end": 18.63,
+      "start": 12.708333333333334,
+      "end": 15.758333333333333,
       "stem": "effects",
-      "description": "Close can contact"
+      "description": "Continuous residual carbonation on the completed drink; no invented glass set-down or lever click."
     },
     {
-      "start": 19.15,
-      "end": 19.95,
+      "start": 12.708333333333334,
+      "end": 18,
       "stem": "score",
-      "description": "Clean breath before the spacious kitchen harmony"
-    },
-    {
-      "start": 19.48,
-      "end": 20.48,
-      "stem": "effects",
-      "description": "An empty glass settles into the quiet kitchen"
-    },
-    {
-      "start": 19.95,
-      "end": 36.5,
-      "stem": "score",
-      "description": "Open D-major-nine harmony, warm strings and a restrained upper phrase"
-    },
-    {
-      "start": 32.4,
-      "end": 32.53,
-      "stem": "effects",
-      "description": "Damped flavor-selection contact"
-    },
-    {
-      "start": 35.25,
-      "end": 35.44,
-      "stem": "effects",
-      "description": "Faucet lever engages: a small mechanical detent and finger movement"
-    },
-    {
-      "start": 36.5,
-      "end": 43.5,
-      "stem": "score",
-      "description": "D-six/nine holds the pour; percussion gives way to water"
-    },
-    {
-      "start": 36.6,
-      "end": 43.24,
-      "stem": "effects",
-      "description": "Close carbonated-water stream; liquid level changes the resonant glass body"
-    },
-    {
-      "start": 43.24,
-      "end": 47.45,
-      "stem": "effects",
-      "description": "A quiet release, then fine close bubbles with small irregular pops"
-    },
-    {
-      "start": 43.5,
-      "end": 52.5,
-      "stem": "score",
-      "description": "Bubbles in a quiet harmonic pocket, followed by the two design portraits"
-    },
-    {
-      "start": 57.35,
-      "end": 58.35,
-      "stem": "effects",
-      "description": "Soft glass contact returns us to the kitchen"
-    },
-    {
-      "start": 58.5,
-      "end": 64.0,
-      "stem": "score",
-      "description": "D-major cadence; two descending felt notes finish the original opening phrase"
+      "description": "Struck-chord answer and descending A-to-D closing notes, with a completed studio decay."
     }
   ]
 }

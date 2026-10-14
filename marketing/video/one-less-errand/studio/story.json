@@ -3,23 +3,58 @@
   "width": 1920,
   "height": 1080,
   "fps": 24,
-  "duration": 64,
+  "duration": 18,
+  "narration_offset": 0.55,
   "scenes": [
-    {"id":"wish","start":0,"end":4.5},
-    {"id":"can","start":4.5,"end":7.5},
-    {"id":"case","start":7.5,"end":10.5},
-    {"id":"carry","start":10.5,"end":14.25},
-    {"id":"shelf","start":14.25,"end":18},
-    {"id":"reset","start":18,"end":19.25},
-    {"id":"kitchen","start":19.25,"end":25.5},
-    {"id":"under","start":25.5,"end":30.75},
-    {"id":"select","start":30.75,"end":34.5},
-    {"id":"lever","start":34.5,"end":36.5},
-    {"id":"pour","start":36.5,"end":43.5},
-    {"id":"fizz","start":43.5,"end":47.5},
-    {"id":"sculpted","start":47.5,"end":50},
-    {"id":"industrial","start":50,"end":52.5},
-    {"id":"home","start":52.5,"end":58.5},
-    {"id":"closing","start":58.5,"end":64}
+    {
+      "id": "drink",
+      "start": 0,
+      "end": 2.125,
+      "frames": 51,
+      "kind": "photograph",
+      "intent": "Cold Diet Mountain Dew in an intimate carbonation portrait.",
+      "asset": "assets/cold-soda-macro.png"
+    },
+    {
+      "id": "hero",
+      "start": 2.125,
+      "end": 6.25,
+      "frames": 99,
+      "kind": "studio",
+      "intent": "The Sculpted faucet reveals where the familiar soda comes from."
+    },
+    {
+      "id": "burden",
+      "start": 6.25,
+      "end": 8.333333333333334,
+      "frames": 50,
+      "kind": "graphic",
+      "intent": "A short accumulation of cases makes the carrying routine tangible."
+    },
+    {
+      "id": "pour",
+      "start": 8.333333333333334,
+      "end": 9.958333333333334,
+      "frames": 39,
+      "kind": "studio",
+      "intent": "An established active pour immediately answers the burden."
+    },
+    {
+      "id": "sensory",
+      "start": 9.958333333333334,
+      "end": 12.708333333333334,
+      "frames": 66,
+      "kind": "photograph",
+      "asset": "assets/cold-soda-macro.png",
+      "intent": "A tighter citrus-soda macro makes coldness and carbonation the sensory payoff."
+    },
+    {
+      "id": "serve",
+      "start": 12.708333333333334,
+      "end": 18,
+      "frames": 127,
+      "kind": "studio",
+      "intent": "The completed drink, product and one final promise share the frame."
+    }
   ]
 }
