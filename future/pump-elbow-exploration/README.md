@@ -1,10 +1,11 @@
 # TPU pump elbow and installed layout study
 
-**Status: one compact V-shaped TPU 85A elbow at 10 mm/s outer-wall speed started on Mark1.**
+**Status: one compact V-shaped TPU 85A elbow at 215°C normal-layer temperature started on Mark1.**
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. This job uses the user-reported glued Engineering Plate
-and zero user Z trim. Mark1 accepted task 1337583437 on 2026-10-13 at
-21:45:04 CDT. Physical printing success and fitting results remain pending.
+and zero user Z trim, with a 225°C first layer and 10 mm/s outer walls.
+Mark1 accepted task 1337710290 on 2026-10-13 at 23:05:30 CDT. Physical
+printing success and fitting results remain pending.
 The compact layout study includes the water connections and a 715 mL funnel
 proposal. Its occupancy result applies to the compact fitting envelopes.
 Printed fit, pressure holding, retained grip and lifetime remain unmeasured.
@@ -18,16 +19,16 @@ neighboring hardware are considered together.
 
 ## Files
 
-- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/README.md)
+- [Compact elbow and Mark1 preparation](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
   identify one 15 mm elbow, the editable project, native sliced
   archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
   zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
-- [Current trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+- [10 mm/s trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
   bind the user's reports, three wider views and six close-ups to the 10 mm/s
   job. Raised, distorted rims remain visible; a dependable speed benefit is
   unestablished. The 13 mm/s midpoint is not selected or submitted.
-  A [215°C normal-layer candidate](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
-  holds the 10 mm/s speed and 225°C first layer fixed; it is prepared offline.
+  The [215°C normal-layer trial](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
+  holds the 10 mm/s speed and 225°C first layer fixed.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.
@@ -133,13 +134,16 @@ The [TPU for AMS trial](prints/2026-10-13-compact-single-tpuams-mark1/physical-r
 is reported too stiff; its record supplies no sealing or pressure acceptance.
 
 The native archive contains one body, one normal volume, one object and one
-build instance, with a 5 mm outer brim. The manufacturer's H2C 0.6 mm TPU 85A
-filament profile uses 225°C nozzle, 35°C Engineering Plate, flow ratio 1.0,
-and 2.2 mm³/s maximum flow. Requested process settings are 0.20 mm first /
+build instance, with a 5 mm outer brim. The selected trial uses 225°C for the
+first layer and 215°C for normal layers, with the manufacturer's 35°C
+Engineering Plate, flow ratio 1.0 and 2.2 mm³/s maximum flow. The temperature
+hypothesis and manufacturer guidance are in the
+[trial record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md).
+Requested process settings are 0.20 mm first /
 0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap, 10 mm/s
 outer walls and 25 mm/s inner walls. Spiral mode and supports are off.
 Part and auxiliary fans are commanded at 100% from layer 2. In the reported
-curling region, the [native comparison](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json)
+curling region, the [emitted-command review](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json)
 shows 10 mm/s at the outer lip, with nominal layer time still near 20 seconds.
 
 This print uses Bambu's unmodified stock H2C machine-start template with

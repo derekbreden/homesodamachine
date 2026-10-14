@@ -1,21 +1,21 @@
 {
-  "scope": "Selected single compact TPU85A elbow, outer wall 10 mm/s, Engineering Plate and zero user Z trim; accepted as Mark1 task1337583437. Physical result pending.",
+  "scope": "Selected single compact TPU85A elbow, 215 C normal / 225 C first layer, outer wall 10 mm/s, Engineering Plate and zero user Z trim; accepted as Mark1 task1337710290. Physical result pending.",
   "geometry_source": "tpu_elbow.py",
   "geometry_source_sha256": "d398f62d3d7c2bbd48bad0ef525e701455eb185957f57e951062171c23adb274",
   "native_specimen_stl": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/compact-single-elbow-print.stl",
   "native_specimen_stl_sha256": "9dab4d3d4f62aaa7dfc51413d9a79027639a2f27b0035876e0f0c930384139cf",
-  "gcode_sha256": "c13198147743983d30b7bcf0eb74c0390500dae2676121bb52bde86d942ab97d",
-  "archive_sha256": "0fce872c2cf118ba95adbb9d00de58b66df49fe7e204f225a36115a416345cc5",
+  "gcode_sha256": "a469535d2d78854ee6f09017549ef5b19a41b59231347fed5aab83d7701ce3e3",
+  "archive_sha256": "9d25fdfc387484908db5511c4e789a28a05417873a9222df16ced57de50c73f7",
   "single_body_volume_object_and_instance": true,
   "bed_contact_mm2": 88.88473465583785,
-  "native_readback": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/native-readback.json",
+  "native_readback": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/native-readback.json",
   "geometry_evidence": "prints/2026-10-13-continuous-body-tpu85a-mark1/layer-sections.json",
   "geometry_evidence_scope": "Same compact 15 mm socket body and V pose. Prior native G-code uses a different filament profile and two specimens; it does not qualify this slice.",
   "limits": [
     "No printed adhesion, socket fit, sealing or retained grip acceptance.",
     "TPU85A profile and user loading report identify this trial; existing TPU95A literature supplies no rating for this grade."
   ],
-  "submission": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/launch.json",
+  "submission": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/launch.json",
   "bed_type": "Engineering Plate",
   "user_z_trim_mm": 0.0,
   "plate_trim_commands_mm": [
@@ -24,5 +24,7 @@
   "machine_start_gcode_matches_stock": true,
   "baseline_physical_evidence": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json",
   "emitted_outer_speed_comparison": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json",
-  "underside_comparison": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json"
+  "underside_comparison": "prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
+  "temperature_trial_baseline_physical_evidence": "prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
+  "emitted_temperature_review": "prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json"
 }
