@@ -1,0 +1,60 @@
+{
+  "physical_configuration": "User reports TPU85A loaded in right hotend; glued Engineering Plate installed; explicit zero user Z trim for this job.",
+  "printers": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-14T02:09:19.425054+00:00",
+      "job_id": "1337160395",
+      "subtask_name": "2026-10-13-industrial-base-rear-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 590,
+      "mc_remaining_time": 65,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0,
+      "spools": [
+        {
+          "id": "254",
+          "tray_info_idx": "GFT01",
+          "tray_type": "PET-CF",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_info_idx": "GFB02",
+          "tray_type": "ASA-AERO",
+          "tray_color": "FFFFFFFF"
+        }
+      ]
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-14T02:09:19.926984+00:00",
+      "job_id": "1337417293",
+      "subtask_name": "2026-10-13-compact-single-elbow-tpuams-right06-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "spools": [
+        {
+          "id": "254",
+          "tray_info_idx": "GFT01",
+          "tray_type": "PET-CF",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_info_idx": "GFU04",
+          "tray_type": "TPU",
+          "tray_color": "161616FF"
+        }
+      ]
+    }
+  ],
+  "startup_spacing": "Mark2 remains task1337160395 accepted2026-10-13T23:20:08.482702Z, more than180seconds earlier."
+}
