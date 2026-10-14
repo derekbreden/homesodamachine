@@ -8251,6 +8251,18 @@
           "value": "2026-09-28"
         }
       ]
+    },
+    "pur-4eaf76e6557740d7b0e85e0be8664f71": {
+      "vendor": "K&J Magnetics",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "kjmagnetics:1604309"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-12040c324f204be58668b4b80706b3e5"
+      ]
     }
   },
   "orders": {
@@ -13986,6 +13998,18 @@
       "source_ids": [
         "src-64d40ab3942d444899272cb7d8c24701",
         "src-91634a943d524f098b92880a80961fd7"
+      ]
+    },
+    "kjmagnetics:1604309": {
+      "vendor": "K&J Magnetics",
+      "reference": "1604309",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-12040c324f204be58668b4b80706b3e5"
       ]
     }
   },
@@ -28963,6 +28987,21 @@
         "precision": "day",
         "value": "2026-09-16"
       }
+    },
+    "src-12040c324f204be58668b4b80706b3e5": {
+      "vendor": "K&J Magnetics",
+      "document_type": "order_confirmation",
+      "reference": "1604309",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-13",
+      "note": "Printed or structured vendor placed date. Quoted order amount; final invoice and payment unknown."
     }
   },
   "coverage": [
