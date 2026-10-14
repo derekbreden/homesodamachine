@@ -64,7 +64,8 @@ The default render uses 1920 × 1080, 32 Cycles samples and denoising. All CG sh
 render at native 24 fps, preserving the fine carbonation and moving liquid.
 `--fps` and `--pour-fps` can select lower source cadences for draft work; the
 finisher confines any interpolation to its individual shot. Each Blender process
-renders one shot, and existing frames make the render resumable. `--fresh
+renders at most 32 source frames of one shot; `--chunk-frames` selects that batch
+size. Existing frames make the render resumable. `--fresh
 --shots pour` replaces one source sequence. `--picture-only` and `--finish-only`
 select rendering or finishing.
 
