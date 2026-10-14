@@ -71,8 +71,12 @@ is an inference from that report, the angle-specific inspection and the
 There is no sliding-face, bonding or strength acceptance.
 
 The [dense-contact candidate](../dense-landing-v3/README.md) addresses landing
-coverage in native paths. It is unprinted. Extra contact area changes removal
-behavior, and formation alone cannot resolve the rejected C-bridge finish.
+coverage in native paths. It is unprinted. The rejected C finish describes the
+printed solid-post geometry and process; it does not establish the finish of a
+correctly formed fin-supported roof. That roof and its release remain untested
+in this run. The [12 mm follow-up](../bonding-and-fins-v4/README.md) has bridge
+fill before walls and every main raster's two ends directly on previous fin
+beads, alongside a separate first-layer fusion comparison and 70%/100% ramps.
 
 ## Basis and print process
 

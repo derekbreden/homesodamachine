@@ -1,0 +1,611 @@
+{
+  "model_bead_bounds_mm": [
+    [
+      126.56,
+      116.0
+    ],
+    [
+      198.44,
+      196.94
+    ]
+  ],
+  "minimum_model_bead_edge_inset_mm": 116.0,
+  "support_extrusion_segments": 0,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "    \n        \n            G29.1 Z0.02 ; for Textured PEI Plate"
+  ],
+  "specimens": [
+    {
+      "id": "30F70",
+      "maximum_nozzle_z_mm": 11.48,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ]
+    },
+    {
+      "id": "35F70",
+      "maximum_nozzle_z_mm": 13.16,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ]
+    },
+    {
+      "id": "40F70",
+      "maximum_nozzle_z_mm": 15.08,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ]
+    },
+    {
+      "id": "30F100",
+      "maximum_nozzle_z_mm": 11.48,
+      "fan_percent_on_model_after_first_three_layers": [
+        100.0
+      ]
+    },
+    {
+      "id": "35F100",
+      "maximum_nozzle_z_mm": 13.16,
+      "fan_percent_on_model_after_first_three_layers": [
+        100.0
+      ]
+    },
+    {
+      "id": "40F100",
+      "maximum_nozzle_z_mm": 15.08,
+      "fan_percent_on_model_after_first_three_layers": [
+        100.0
+      ]
+    },
+    {
+      "id": "C12",
+      "maximum_nozzle_z_mm": 17.24,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ],
+      "first_roof_nozzle_z_mm": 16.279999999999998,
+      "first_roof_features_in_order": [
+        "Floating vertical shell",
+        "Bridge",
+        "Inner wall",
+        "Overhang wall",
+        "Outer wall"
+      ],
+      "first_roof_extrusion_line": 56303,
+      "first_main_bridge_line": 56322,
+      "first_roof_wall_line": 56411,
+      "bridge_fill_precedes_walls": true,
+      "bridge_raster_count": 28,
+      "raster_y_mm": [
+        0.923,
+        1.299,
+        1.675,
+        2.051,
+        2.427,
+        2.804,
+        3.18,
+        3.556,
+        3.932,
+        4.308,
+        4.684,
+        5.06,
+        5.436,
+        5.812,
+        6.188,
+        6.564,
+        6.94,
+        7.316,
+        7.692,
+        8.068,
+        8.444,
+        8.82,
+        9.197,
+        9.573,
+        9.949,
+        10.325,
+        10.701,
+        11.077
+      ],
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ],
+      "nozzle_extrusion_height_mm": [
+        0.24
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "bridge_end_center_distances_to_previous_beads_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.03800000000000514,
+          0.03800000000000381
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.03800000000000514,
+          0.0380000000000038
+        ],
+        [
+          0.03800000000000514,
+          0.0380000000000038
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "maximum_endpoint_center_distance_mm": 0.03800000000000514,
+      "maximum_missing_terminal_025mm_mm": 0.1978019484660729,
+      "bridge_rasters_with_both_end_centers_on_previous_beads": 8
+    },
+    {
+      "id": "F12",
+      "maximum_nozzle_z_mm": 17.48,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ],
+      "first_roof_nozzle_z_mm": 16.279999999999998,
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Inner wall",
+        "Overhang wall",
+        "Outer wall"
+      ],
+      "first_roof_extrusion_line": 55849,
+      "first_main_bridge_line": 55849,
+      "first_roof_wall_line": 55912,
+      "bridge_fill_precedes_walls": true,
+      "bridge_raster_count": 28,
+      "raster_y_mm": [
+        0.923,
+        1.299,
+        1.675,
+        2.051,
+        2.427,
+        2.804,
+        3.18,
+        3.556,
+        3.932,
+        4.308,
+        4.684,
+        5.06,
+        5.436,
+        5.812,
+        6.188,
+        6.564,
+        6.94,
+        7.316,
+        7.692,
+        8.068,
+        8.444,
+        8.82,
+        9.197,
+        9.573,
+        9.949,
+        10.325,
+        10.701,
+        11.077
+      ],
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ],
+      "nozzle_extrusion_height_mm": [
+        0.24
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "bridge_end_center_distances_to_previous_beads_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "maximum_endpoint_center_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm_mm": 0.0,
+      "bridge_rasters_with_both_end_centers_on_previous_beads": 28
+    },
+    {
+      "id": "Y12",
+      "maximum_nozzle_z_mm": 17.48,
+      "fan_percent_on_model_after_first_three_layers": [
+        70.0
+      ],
+      "first_roof_nozzle_z_mm": 16.279999999999998,
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Inner wall",
+        "Overhang wall",
+        "Outer wall"
+      ],
+      "first_roof_extrusion_line": 55322,
+      "first_main_bridge_line": 55322,
+      "first_roof_wall_line": 55393,
+      "bridge_fill_precedes_walls": true,
+      "bridge_raster_count": 28,
+      "raster_y_mm": [
+        0.923,
+        1.299,
+        1.675,
+        2.051,
+        2.427,
+        2.803,
+        3.18,
+        3.556,
+        3.932,
+        4.308,
+        4.684,
+        5.06,
+        5.436,
+        5.812,
+        6.188,
+        6.564,
+        6.94,
+        7.316,
+        7.692,
+        8.068,
+        8.444,
+        8.82,
+        9.196,
+        9.573,
+        9.949,
+        10.325,
+        10.701,
+        11.077
+      ],
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ],
+      "nozzle_extrusion_height_mm": [
+        0.24
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "bridge_end_center_distances_to_previous_beads_mm": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "maximum_endpoint_center_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm_mm": 0.0,
+      "bridge_rasters_with_both_end_centers_on_previous_beads": 28
+    }
+  ],
+  "limits": "Commanded paths and nominal previous-bead coverage; physical formation, fusion, release and finish remain unmeasured.",
+  "source_native_archive": "native.gcode.3mf",
+  "source_native_sha256": "d24a7ff829911b8be453daa212cebb3500f9ef6af944b890a60bb86d8bcb9ca4",
+  "source_gcode_sha256": "474667db01bc2e7fe0bffba719254f3ba1e7aaa864a3ef191cf98b0ed8df09d7",
+  "archive": "2026-10-14-v4-fins-ramps-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "e19b8d4369c2281a12a7b8d6ec88fd8722650d6ebd4f27b92630b7a1efe12919",
+  "gcode_sha256": "5b16832260e8ba8ac3d912e7b3778afedee2137ec9233ab95bdc1b6cf7cc9d9d",
+  "treatments": {
+    "first_roof_bridge_fill_commands": {
+      "Y12": 55,
+      "F12": 55,
+      "C12": 55
+    },
+    "fan_insertions": 120,
+    "added_filament_mm": 22.00601999999999,
+    "estimated_added_grams": 0.07569087390978396
+  },
+  "estimated_seconds": 1682,
+  "native_estimated_grams": 8.31,
+  "emitted_gcode_md5": "2cec5ea08fe0ed267d33264f1983dc8b"
+}

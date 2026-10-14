@@ -78,7 +78,7 @@
     "F2 has 6 of 28 far-end centers on prior beads; 14 of 28 nominal endpoint bead envelopes touch prior beads. The others rely on the new perimeter.",
     "The middle raster has about 0.11 mm nominal overlap with the inner roof wall. Literal non-overlap everywhere is not established by G-code.",
     "C stability with failed F formation supports a fin-landing/perimeter mechanism rather than a 2 mm free-span limit.",
-    "C underside quality does not meet the stated surface objective. Repairing F formation alone would not establish useful fin-supported finish."
+    "C underside quality does not meet the stated surface objective for the tested solid-post geometry and fan-off process. The failed F starts leave the formation, release and retained finish of a correctly landed fin roof unqualified."
   ],
   "fin_release_result": "unreported",
   "photos": [
@@ -123,5 +123,6 @@
     "dense_landing_candidate": "../dense-landing-v3/README.md",
     "candidate_status": "Native-path experiment only; unprinted. Additional contact area changes release behavior."
   },
-  "cooling_baseline_review": "cooling-baseline-review.json"
+  "cooling_baseline_review": "cooling-baseline-review.json",
+  "corrected_fin_experiment": "../bonding-and-fins-v4/README.md"
 }

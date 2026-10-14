@@ -1,0 +1,13 @@
+{
+  "all_non_part_fan_command_count": 17390,
+  "all_xyz_feed_and_non_extrusion_words_unchanged": true,
+  "extrusion_changes_only_named_first_roof_bridge_features": {
+    "T125": 49,
+    "T150": 49,
+    "N150": 59,
+    "N125": 59
+  },
+  "all_other_archive_entries_unchanged": true,
+  "gcode_md5_verified": true,
+  "scope": "Manual comparison of the submitted experimental archive against its native slice; no recurring gate."
+}

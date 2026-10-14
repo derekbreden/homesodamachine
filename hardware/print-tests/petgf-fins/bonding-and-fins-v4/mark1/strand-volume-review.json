@@ -1,0 +1,38 @@
+[
+  {
+    "id": "N100",
+    "cross_section_mm2": 0.0865508989008938,
+    "equivalent_round_diameter_mm": 0.33196389429122125,
+    "raster_lines": 30
+  },
+  {
+    "id": "N125",
+    "cross_section_mm2": 0.10818862362611718,
+    "equivalent_round_diameter_mm": 0.37114691685536244,
+    "raster_lines": 30
+  },
+  {
+    "id": "N150",
+    "cross_section_mm2": 0.12982634835134074,
+    "equivalent_round_diameter_mm": 0.4065710770203529,
+    "raster_lines": 30
+  },
+  {
+    "id": "T100",
+    "cross_section_mm2": 0.12180707725459014,
+    "equivalent_round_diameter_mm": 0.3938141536171029,
+    "raster_lines": 25
+  },
+  {
+    "id": "T125",
+    "cross_section_mm2": 0.15225884656823774,
+    "equivalent_round_diameter_mm": 0.4402976089946935,
+    "raster_lines": 25
+  },
+  {
+    "id": "T150",
+    "cross_section_mm2": 0.1827106158818853,
+    "equivalent_round_diameter_mm": 0.48232186492396634,
+    "raster_lines": 25
+  }
+]

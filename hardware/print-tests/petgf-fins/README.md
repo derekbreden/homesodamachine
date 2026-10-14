@@ -26,6 +26,12 @@ stable C bridges with rejected underside finish, failed F roof formation, and
 edge sag on four of the six full-length ramps; see its
 [physical record](short-spans-v2/physical-result-fan0.json).
 
+The [12 mm fusion and fin trial](bonding-and-fins-v4/README.md) uses both
+printers: six isolated first bridge layers at fixed spacing with added
+extrusion, two correctly landed fin roofs, and full-length ramps at 70%/100%
+cooling. Both fin directions have all 28 main strokes' ends directly on prior
+tooth beads, with bridge fill before walls. Physical results remain pending.
+
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact
 comparisons at the back. [Plate map](plate-layout.png).
