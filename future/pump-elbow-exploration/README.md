@@ -1,11 +1,16 @@
 # TPU pump elbow and installed layout study
 
-**Status: one compact V-shaped TPU 85A elbow at 215°C normal-layer temperature started on Mark1.**
+**Status: manual fit accepted on the rough 225°C article; underside curl remains unresolved.**
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. This job uses the user-reported glued Engineering Plate
-and zero user Z trim, with a 225°C first layer and 10 mm/s outer walls.
-Mark1 accepted task 1337710290 on 2026-10-13 at 23:05:30 CDT. Physical
-printing success and fitting results remain pending.
+and zero user Z trim, with a 225°C first layer and a requested 10 mm/s outer wall.
+Mark1 accepted the 215°C trial as task 1337710290 on 2026-10-13 at
+23:05:30 CDT. The [in-progress physical record](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
+reports faint curl by layer 21 and a similar defect to two prints earlier by
+layer 27. Completed-part fit remains pending. The actual curling lip exceeds
+the requested outer-wall speed because of separate overhang settings.
+An [offline 225°C candidate](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
+has verified 10 mm/s lip commands; it is not submitted.
 The completed rough-edged 225°C article has a
 [reported firm, stretchy friction fit](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 with manageable manual insertion and no jig. Its cuff dimensions and walls
@@ -28,13 +33,16 @@ neighboring hardware are considered together.
   identify one 15 mm elbow, the editable project, native sliced
   archive, TPU 85A recipe, right fixed 0.6 mm nozzle, Engineering Plate and
   zero user Z trim. Its native estimate is 67 minutes / 4.30 g.
-- [10 mm/s trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
-  bind the user's reports, three wider views and six close-ups to the 10 mm/s
+- [Outer-wall-setting-10 trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+  bind the user's reports, three wider views and six close-ups to the identified
   job. Raised, distorted rims remain visible; a dependable speed benefit is
   unestablished. The reported manual fit is firm and stretchy, requiring force
   without a jig. The 13 mm/s midpoint is not selected or submitted.
   The [215°C normal-layer trial](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
-  holds the 10 mm/s speed and 225°C first layer fixed.
+  retains the same speed settings and 225°C first layer. The emitted lip speeds
+  exceed 10 mm/s in both archives. The [corrected overhang-speed candidate](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
+  caps the relevant overhang entries at 10 mm/s and retains the accepted-fit
+  article's 225°C recipe.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.
@@ -148,9 +156,15 @@ hypothesis and manufacturer guidance are in the
 Requested process settings are 0.20 mm first /
 0.12 mm normal layers, six walls, 100% zig-zag infill, 0% seam gap, 10 mm/s
 outer walls and 25 mm/s inner walls. Spiral mode and supports are off.
-Part and auxiliary fans are commanded at 100% from layer 2. In the reported
-curling region, the [emitted-command review](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json)
-shows 10 mm/s at the outer lip, with nominal layer time still near 20 seconds.
+Part and auxiliary fans are commanded at 100% from layer 2. The
+[complete-perimeter review](prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/curl-toolpath-review.json)
+shows actual left-lip commands of 14.37 mm/s at layer 21 and 16.40 mm/s at
+layer 27, with nominal layer motion near 20 seconds. The separate process
+overhang table contains 50 and 30 mm/s entries that can replace the ordinary
+outer-wall speed. A setting of 10 mm/s alone does not establish a 10 mm/s lip.
+The [offline corrected slice](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
+uses 10 mm/s for those two entries. Its generated commands establish the
+intended speed; no physical result is available.
 
 This print uses Bambu's unmodified stock H2C machine-start template with
 **zero user Z trim**. Engineering Plate and the 0.6 mm nozzle emit only
@@ -172,7 +186,7 @@ The identified [two-elbow print failed](prints/2026-10-13-continuous-body-tpu85a
 according to Derek's report. Its failure mechanism is unmeasured. Print trials
 use one specimen at a time.
 
-At the reported curl onset around layer 28, the larger printer-left socket's
+At layer 28, the larger printer-left socket's
 underside is 45° from the bed, while the narrowing neck on the right is about
 66°. The [side comparison](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json)
 measures approximately 0.120 mm versus 0.054 mm outward advance per 0.120 mm
@@ -180,7 +194,9 @@ layer. Native local bead overlap is about 82% left and 92% right. The two leg
 axes are both at 45°; their exterior undersides differ. The left's reduced
 geometric support is consistent with its earlier observed curl, but does not
 establish a thermal or mechanical cause. Extrusion and cooling still determine
-the printed result.
+the printed result. The user reports faint curl by layer 21 on the 215°C
+article and clarifies that noticing curl at layer 28 did not establish a
+sudden onset there.
 Drying history, physical adhesion and extrusion continuity remain unmeasured
 for the identified article. The selected material is TPU 85A; the cited
 TPU 95A research establishes no rating for this grade or interface. The rough

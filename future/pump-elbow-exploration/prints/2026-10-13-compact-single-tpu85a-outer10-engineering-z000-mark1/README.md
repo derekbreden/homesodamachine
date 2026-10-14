@@ -14,11 +14,13 @@ The complete native mesh and pose match. The recipe retains 225°C nozzle,
 35°C bed, 0.20 mm first / 0.12 mm normal layers, 0.62 mm line widths, inner/outer
 wall order, 100% part and auxiliary fans from layer 2, and `G29.1 Z0`.
 
-The [emitted-speed comparison](outer-speed-comparison.json) confirms 10 mm/s
-at the left lip on layers 26–33, where the baseline emits approximately
-15–18 mm/s. Nominal whole-layer time stays near 20 seconds because the cooling
-slowdown redistributes other path speeds. Slower outer-wall deposition is the
-trial variable; increased time between layers is not established.
+The [complete-perimeter speed comparison](outer-speed-comparison.json)
+shows **15.83–21.80 mm/s at the actual left lip on layers 26–33**, versus
+14.60–17.60 mm/s in the original archive. Separate process overhang speeds
+replace the normal outer-wall value. This archive does not test a 10 mm/s lip.
+Nominal whole-layer motion stays near 20 seconds. The manual review retains
+feed-only speed changes within each continuous perimeter and records the
+actual lip commands and their modal feeds.
 
 The target is an intact underside without upward curl, nozzle pickup or a
 carried glob. The baseline's reported fan reduction worsened curl; full cooling
@@ -41,7 +43,10 @@ The user declines the
 [13 mm/s midpoint](../2026-10-13-compact-single-tpu85a-outer13-engineering-z000-mark1/README.md);
 it is not selected or submitted. The
 [215°C normal-layer candidate](../2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
-retains this trial's geometry, 10 mm/s outer wall and 225°C first layer.
+retains this trial's geometry, requested outer-wall speed and 225°C first layer.
+The [corrected overhang-speed candidate](../2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
+retains this article's 225°C recipe and has verified 10 mm/s lip commands.
+It is prepared offline and not submitted.
 
 - [Editable project](2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.3mf)
 - [Native archive](2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf)

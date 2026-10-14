@@ -1,5 +1,5 @@
 {
-  "status": "Submitted and accepted as Mark1 task1337710290; physical result pending",
+  "status": "Mark1 task1337710290: curl reported by layer21 and similar by layer27; completed-part result pending",
   "printer": "Mark1 (H2C)",
   "prepared_at": "2026-10-14T03:53:16.837682+00:00",
   "baseline_archive": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-outer10-engineering-right06-z000-mark1.gcode.3mf",
@@ -40,5 +40,6 @@
     "launch_receipt": "launch.json",
     "printer_task_id": "1337710290",
     "observed_at": "2026-10-14T04:05:30.937221+00:00"
-  }
+  },
+  "physical_result": "physical-result.json"
 }

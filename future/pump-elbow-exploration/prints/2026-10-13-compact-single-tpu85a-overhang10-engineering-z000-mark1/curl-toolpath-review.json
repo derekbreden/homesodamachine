@@ -1,0 +1,570 @@
+{
+  "archive": "2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "4dba5c20f27a2461372ebb134e10a124f1ff8d8e7f9af82d50c7ea2e0e799a9e",
+  "gcode_sha256": "609e36ac399cc26c07b2d97922da378a796148548c76e7fe4289516ed395794e",
+  "scope": "Layers 17\u201333. Minimum-X point on the longest closed exterior perimeter. Feed-only G1 commands preserve continuous extrusion. Arc sampling interval at most 0.025 mm. Local speeds and overlap cover a 1 mm outline window. Timing sums commanded motion without acceleration, firmware or timelapse waits. Fans and nozzle targets are archived commands, not physical measurements. Bead overlap is geometric, not a printability result.",
+  "layers": [
+    {
+      "layer": 17,
+      "z_mm": 2.12,
+      "layer_nominal_motion_s": 19.797689556499904,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        170.0436787459713,
+        159.99463284575486
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8186396307229485,
+      "left_lip_distance_from_seam_along_outline_mm": 10.93819009057513,
+      "left_lip_nominal_return_time_s": 19.53283319147829,
+      "left_lip_gcode_line": 5685,
+      "left_lip_gcode_command": "G3 X170.721 Y157.448 I4.279 J-2.823 E.16764",
+      "left_lip_feed_line": 5669,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 18,
+      "z_mm": 2.24,
+      "layer_nominal_motion_s": 19.794247726215758,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.92290079329172,
+        159.97426499367302
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8119063373570663,
+      "left_lip_distance_from_seam_along_outline_mm": 11.042581482611794,
+      "left_lip_nominal_return_time_s": 19.786387912593625,
+      "left_lip_gcode_line": 5908,
+      "left_lip_gcode_command": "G3 X169.928 Y159.751 I4.336 J-2.836 E.09566",
+      "left_lip_feed_line": 5893,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 19,
+      "z_mm": 2.36,
+      "layer_nominal_motion_s": 19.778145034110878,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.80295936683166,
+        159.97372871976228
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8208848809870937,
+      "left_lip_distance_from_seam_along_outline_mm": 11.124493393395742,
+      "left_lip_nominal_return_time_s": 19.745620097720746,
+      "left_lip_gcode_line": 6147,
+      "left_lip_gcode_command": "G3 X169.808 Y159.749 I4.317 J-2.924 E.09849",
+      "left_lip_feed_line": 6123,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 20,
+      "z_mm": 2.48,
+      "layer_nominal_motion_s": 19.805443676908112,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.6835092058549,
+        159.94651168170503
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8180747625922626,
+      "left_lip_distance_from_seam_along_outline_mm": 11.196328913661532,
+      "left_lip_nominal_return_time_s": 19.783858272357634,
+      "left_lip_gcode_line": 6375,
+      "left_lip_gcode_command": "G3 X169.688 Y159.747 I4.367 J-2.974 E.09985",
+      "left_lip_feed_line": 6360,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 21,
+      "z_mm": 2.6,
+      "layer_nominal_motion_s": 19.82826930499749,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.56468238512562,
+        159.97109311995138
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8236214194853351,
+      "left_lip_distance_from_seam_along_outline_mm": 11.31554677563446,
+      "left_lip_nominal_return_time_s": 19.800983445550912,
+      "left_lip_gcode_line": 6616,
+      "left_lip_gcode_command": "G3 X169.678 Y158.906 I4.263 J-2.945 E.12503",
+      "left_lip_feed_line": 6595,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 22,
+      "z_mm": 2.72,
+      "layer_nominal_motion_s": 19.76990407522004,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.44252236802748,
+        159.94641358500422
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8115792678785518,
+      "left_lip_distance_from_seam_along_outline_mm": 11.379194425932432,
+      "left_lip_nominal_return_time_s": 19.536497464904357,
+      "left_lip_gcode_line": 6846,
+      "left_lip_gcode_command": "G3 X169.45 Y159.673 I4.364 J-2.989 E.10247",
+      "left_lip_feed_line": 6822,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 23,
+      "z_mm": 2.84,
+      "layer_nominal_motion_s": 19.787659371122174,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.32048794896093,
+        160.018178862414
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.814414979996058,
+      "left_lip_distance_from_seam_along_outline_mm": 11.54328064743542,
+      "left_lip_nominal_return_time_s": 19.816233101645935,
+      "left_lip_gcode_line": 7086,
+      "left_lip_gcode_command": "G3 X169.328 Y159.745 I4.266 J-2.607 E.08914",
+      "left_lip_feed_line": 7061,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 24,
+      "z_mm": 2.96,
+      "layer_nominal_motion_s": 19.791580657652162,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.19564165910842,
+        159.98920337407765
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8150349141924408,
+      "left_lip_distance_from_seam_along_outline_mm": 11.600651672716637,
+      "left_lip_nominal_return_time_s": 19.916655297498153,
+      "left_lip_gcode_line": 7312,
+      "left_lip_gcode_command": "G3 X169.341 Y158.809 I4.749 J-1.268 E.07362",
+      "left_lip_feed_line": 7296,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 25,
+      "z_mm": 3.08,
+      "layer_nominal_motion_s": 19.800331641972264,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        169.06722255642148,
+        160.00979109282943
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8055396488445322,
+      "left_lip_distance_from_seam_along_outline_mm": 11.704022071976617,
+      "left_lip_nominal_return_time_s": 19.830268114333876,
+      "left_lip_gcode_line": 7551,
+      "left_lip_gcode_command": "G3 X169.205 Y158.876 I4.673 J-.91 E.06124",
+      "left_lip_feed_line": 7532,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 26,
+      "z_mm": 3.2,
+      "layer_nominal_motion_s": 19.814571243056548,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.94660650053459,
+        160.00816404742775
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8175900054207357,
+      "left_lip_distance_from_seam_along_outline_mm": 11.789780853347814,
+      "left_lip_nominal_return_time_s": 19.794520115848684,
+      "left_lip_gcode_line": 7793,
+      "left_lip_gcode_command": "G3 X169.085 Y158.875 I4.673 J-.908 E.06123",
+      "left_lip_feed_line": 7769,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 27,
+      "z_mm": 3.32,
+      "layer_nominal_motion_s": 19.816507100626836,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.837,
+        159.667
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8338878621619291,
+      "left_lip_distance_from_seam_along_outline_mm": 11.534100831059405,
+      "left_lip_nominal_return_time_s": 19.646269699210904,
+      "left_lip_gcode_line": 8035,
+      "left_lip_gcode_command": "G1 X168.837 Y159.667 E.02071",
+      "left_lip_feed_line": 8013,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 28,
+      "z_mm": 3.44,
+      "layer_nominal_motion_s": 19.811738084491253,
+      "outer_loops": 1,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.708,
+        160.151
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8224188756841293,
+      "left_lip_distance_from_seam_along_outline_mm": 12.09309068634797,
+      "left_lip_nominal_return_time_s": 19.794212557354854,
+      "left_lip_gcode_line": 8281,
+      "left_lip_gcode_command": "G1 X168.708 Y160.151 E.00864",
+      "left_lip_feed_line": 8258,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 29,
+      "z_mm": 3.56,
+      "layer_nominal_motion_s": 19.428330989863866,
+      "outer_loops": 3,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.588,
+        160.152
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8192180251171209,
+      "left_lip_distance_from_seam_along_outline_mm": 12.162460250097027,
+      "left_lip_nominal_return_time_s": 19.712121292107554,
+      "left_lip_gcode_line": 8790,
+      "left_lip_gcode_command": "G1 X168.588 Y160.152 E.00839",
+      "left_lip_feed_line": 8767,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 30,
+      "z_mm": 3.68,
+      "layer_nominal_motion_s": 19.458659447733453,
+      "outer_loops": 3,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.468,
+        160.152
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8203024258764359,
+      "left_lip_distance_from_seam_along_outline_mm": 12.266723562790581,
+      "left_lip_nominal_return_time_s": 23.56519556864555,
+      "left_lip_gcode_line": 9611,
+      "left_lip_gcode_command": "G1 X168.468 Y160.152 E.00836",
+      "left_lip_feed_line": 9584,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 31,
+      "z_mm": 3.8,
+      "layer_nominal_motion_s": 19.39667519169609,
+      "outer_loops": 3,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.348,
+        160.152
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8205934004863773,
+      "left_lip_distance_from_seam_along_outline_mm": 12.312293642100471,
+      "left_lip_nominal_return_time_s": 18.756085414119184,
+      "left_lip_gcode_line": 10269,
+      "left_lip_gcode_command": "G1 X168.348 Y160.152 E.00835",
+      "left_lip_feed_line": 10243,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 32,
+      "z_mm": 3.92,
+      "layer_nominal_motion_s": 19.423551231587112,
+      "outer_loops": 3,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.228,
+        160.153
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8202859745721226,
+      "left_lip_distance_from_seam_along_outline_mm": 12.423144695868068,
+      "left_lip_nominal_return_time_s": 19.444698573117876,
+      "left_lip_gcode_line": 10948,
+      "left_lip_gcode_command": "G1 X168.228 Y160.153 E.00832",
+      "left_lip_feed_line": 10925,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    },
+    {
+      "layer": 33,
+      "z_mm": 4.04,
+      "layer_nominal_motion_s": 19.54151047586072,
+      "outer_loops": 3,
+      "exterior_closure_gap_mm": 0.0,
+      "exterior_speed_range_mm_s": [
+        10.0,
+        10.0
+      ],
+      "left_lip_plate_xy_mm": [
+        168.11483758393737,
+        160.07930231423896
+      ],
+      "left_lip_speeds_mm_s": [
+        10.0
+      ],
+      "left_lip_width_mm": 0.619992,
+      "left_lip_local_1mm_bead_prior_overlap_fraction": 0.8228902298034668,
+      "left_lip_distance_from_seam_along_outline_mm": 12.415142132069356,
+      "left_lip_nominal_return_time_s": 19.21304223363029,
+      "left_lip_gcode_line": 11521,
+      "left_lip_gcode_command": "G3 X169.408 Y156.572 I5.433 J-.113 E.11683",
+      "left_lip_feed_line": 11499,
+      "left_lip_feed_command": "G1 F600",
+      "fans_at_layer_start_pwm": {
+        "1": 255.0,
+        "2": 255.0,
+        "3": 127.0,
+        "9": 255.0
+      },
+      "nozzle_target_at_layer_start_c": 225.0
+    }
+  ],
+  "review_script": "../../review_curl_toolpath.py"
+}
