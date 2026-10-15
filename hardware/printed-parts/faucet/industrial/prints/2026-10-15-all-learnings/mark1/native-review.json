@@ -1,0 +1,3295 @@
+{
+  "recorded_at_utc": "2026-10-15T18:17:18.775386+00:00",
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+  "project_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.gcode.3mf",
+  "archive_sha256": "b5337d924c5f33d78fcfeeaaa0e5a6efff7334fa610b5fec2771fb19db01d5ac",
+  "gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+  "embedded_md5_matches": true,
+  "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
+  "native_settings_sha256": "9cc3e05b437b0f4555beb04b0a1225d1b9da2f3ceb6e8777827343145a662622",
+  "native_settings_match_accepted_article": true,
+  "material_commands": [
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 436902,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "industrial-display-cover",
+      "extruding_commands": 47737,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "extruding_commands": 33739,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "extruding_commands": 30858,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    }
+  ],
+  "bridge_flow": 1.25,
+  "component_transfer_errors": [
+    {
+      "component_id": 8000,
+      "maximum_cad_coordinate_error_mm": 3.9453240674447443e-10,
+      "maximum_build_z_error_mm": 2.4775204110483173e-10
+    },
+    {
+      "component_id": 8400,
+      "maximum_cad_coordinate_error_mm": 3.9453151856605473e-10,
+      "maximum_build_z_error_mm": 2.4775559381851053e-10
+    }
+  ],
+  "primary_geometry_and_settings_preserved_from_complete_parent": true,
+  "critical_rim_traces": [
+    {
+      "z_mm": 13.4,
+      "first_gcode_line": 206083,
+      "length_mm": 1.0936260806830227,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.5554731145258813,
+        -31.54384838295595,
+        240.10346605992066
+      ],
+      "start_xy_mm": [
+        136.829,
+        214.144
+      ],
+      "end_xy_mm": [
+        136.094,
+        214.389
+      ]
+    },
+    {
+      "z_mm": 13.64,
+      "first_gcode_line": 208828,
+      "length_mm": 1.608008234339231,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.3449897526674306,
+        -31.75393837003429,
+        239.960243772621
+      ],
+      "start_xy_mm": [
+        136.829,
+        214.144
+      ],
+      "end_xy_mm": [
+        135.649,
+        214.131
+      ]
+    },
+    {
+      "z_mm": 13.64,
+      "first_gcode_line": 208844,
+      "length_mm": 1.608008234339231,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.3449897526674306,
+        -31.75393837003429,
+        239.960243772621
+      ],
+      "start_xy_mm": [
+        136.829,
+        214.144
+      ],
+      "end_xy_mm": [
+        135.649,
+        214.131
+      ]
+    },
+    {
+      "z_mm": 13.88,
+      "first_gcode_line": 211645,
+      "length_mm": 2.9573916521726966,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.22830257222494765,
+        -31.9685035249109,
+        239.83372303891687
+      ],
+      "start_xy_mm": [
+        136.361,
+        213.874
+      ],
+      "end_xy_mm": [
+        134.948,
+        213.727
+      ]
+    },
+    {
+      "z_mm": 13.88,
+      "first_gcode_line": 211658,
+      "length_mm": 3.497691568885609,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.46233193473054257,
+        -32.00343092009119,
+        239.96407385230575
+      ],
+      "start_xy_mm": [
+        135.893,
+        213.604
+      ],
+      "end_xy_mm": [
+        134.948,
+        213.727
+      ]
+    },
+    {
+      "z_mm": 14.12,
+      "first_gcode_line": 214416,
+      "length_mm": 4.025465146911074,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.2152849433319659,
+        -32.19829783414227,
+        239.76403828302105
+      ],
+      "start_xy_mm": [
+        135.912,
+        213.614
+      ],
+      "end_xy_mm": [
+        134.472,
+        213.453
+      ]
+    },
+    {
+      "z_mm": 14.12,
+      "first_gcode_line": 214431,
+      "length_mm": 4.556337071201685,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.44512951575615034,
+        -32.232661092193375,
+        239.8922837079814
+      ],
+      "start_xy_mm": [
+        135.452,
+        213.349
+      ],
+      "end_xy_mm": [
+        134.472,
+        213.453
+      ]
+    },
+    {
+      "z_mm": 14.12,
+      "first_gcode_line": 214456,
+      "length_mm": 2.9824436289727307,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.7735000000000127,
+        -31.963935533169135,
+        238.88938626841056
+      ],
+      "start_xy_mm": [
+        136.518,
+        214.299
+      ],
+      "end_xy_mm": [
+        133.935,
+        212.808
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217260,
+      "length_mm": 1.6178025087419758,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.6306920364492896,
+        -32.31886937935269,
+        239.2867286224559
+      ],
+      "start_xy_mm": [
+        135.93,
+        213.625
+      ],
+      "end_xy_mm": [
+        136.539,
+        214.646
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217264,
+      "length_mm": 2.0532941175372255,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.9429999999999836,
+        -32.25709784516782,
+        239.05619411841647
+      ],
+      "start_xy_mm": [
+        135.946,
+        214.304
+      ],
+      "end_xy_mm": [
+        134.168,
+        213.277
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217274,
+      "length_mm": 1.8879524366722362,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.011540279241899043,
+        -32.226409919642435,
+        238.9416652211769
+      ],
+      "start_xy_mm": [
+        135.194,
+        213.2
+      ],
+      "end_xy_mm": [
+        136.829,
+        214.144
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217279,
+      "length_mm": 2.743341217378968,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.2415378170543931,
+        -32.21233156324598,
+        238.88912407981826
+      ],
+      "start_xy_mm": [
+        135.946,
+        214.304
+      ],
+      "end_xy_mm": [
+        133.594,
+        212.894
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217288,
+      "length_mm": 1.0994563149981604,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.0659411138531993,
+        -32.06541597740446,
+        238.34082764903394
+      ],
+      "start_xy_mm": [
+        134.458,
+        212.775
+      ],
+      "end_xy_mm": [
+        135.41,
+        213.325
+      ]
+    },
+    {
+      "z_mm": 14.36,
+      "first_gcode_line": 217312,
+      "length_mm": 2.5366578405453137,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.5805000000000007,
+        -32.22461605500745,
+        238.93497042721722
+      ],
+      "start_xy_mm": [
+        134.321,
+        213.031
+      ],
+      "end_xy_mm": [
+        136.518,
+        214.299
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220080,
+      "length_mm": 1.0174684927177593,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.3884086716202546,
+        -32.51458404187333,
+        239.0898568935316
+      ],
+      "start_xy_mm": [
+        135.948,
+        213.635
+      ],
+      "end_xy_mm": [
+        136.829,
+        214.144
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220085,
+      "length_mm": 2.059819542943936,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.3590990796573692,
+        -32.42676247644491,
+        238.7621023493525
+      ],
+      "start_xy_mm": [
+        135.533,
+        214.065
+      ],
+      "end_xy_mm": [
+        133.781,
+        212.984
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220092,
+      "length_mm": 2.572111994968858,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.724861045526751,
+        -32.34829148862292,
+        238.46924463588073
+      ],
+      "start_xy_mm": [
+        134.137,
+        212.65
+      ],
+      "end_xy_mm": [
+        136.389,
+        213.89
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220101,
+      "length_mm": 2.3758836267375436,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.9771519224070175,
+        -32.322192475885565,
+        238.37184179431753
+      ],
+      "start_xy_mm": [
+        135.03,
+        213.775
+      ],
+      "end_xy_mm": [
+        133.036,
+        212.485
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220107,
+      "length_mm": 1.4623633319657028,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.2059484673571603,
+        -32.27676497178322,
+        238.20230404094653
+      ],
+      "start_xy_mm": [
+        134.137,
+        212.65
+      ],
+      "end_xy_mm": [
+        135.428,
+        213.335
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220116,
+      "length_mm": 1.0706729178909105,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.7839999999999918,
+        -32.27681783601568,
+        238.20250133294797
+      ],
+      "start_xy_mm": [
+        134.68,
+        213.238
+      ],
+      "end_xy_mm": [
+        133.752,
+        212.704
+      ]
+    },
+    {
+      "z_mm": 14.6,
+      "first_gcode_line": 220129,
+      "length_mm": 2.1222546972500713,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.40100000000001046,
+        -32.48322602448494,
+        238.9728271794135
+      ],
+      "start_xy_mm": [
+        134.68,
+        213.238
+      ],
+      "end_xy_mm": [
+        136.518,
+        214.299
+      ]
+    },
+    {
+      "z_mm": 14.84,
+      "first_gcode_line": 222995,
+      "length_mm": 0.49912323127659525,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.18099999999998317,
+        -32.71543645136197,
+        238.91215949732833
+      ],
+      "start_xy_mm": [
+        135.965,
+        213.645
+      ],
+      "end_xy_mm": [
+        136.397,
+        213.895
+      ]
+    },
+    {
+      "z_mm": 14.84,
+      "first_gcode_line": 223002,
+      "length_mm": 2.1775102371376116,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.0463435612863634,
+        -32.53316790626603,
+        238.23192402640865
+      ],
+      "start_xy_mm": [
+        134.856,
+        213.675
+      ],
+      "end_xy_mm": [
+        133.051,
+        212.457
+      ]
+    },
+    {
+      "z_mm": 14.84,
+      "first_gcode_line": 223008,
+      "length_mm": 2.2518194785393866,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.4413180897046232,
+        -32.4871637344155,
+        238.06023411970233
+      ],
+      "start_xy_mm": [
+        133.545,
+        212.398
+      ],
+      "end_xy_mm": [
+        135.556,
+        213.409
+      ]
+    },
+    {
+      "z_mm": 14.84,
+      "first_gcode_line": 223020,
+      "length_mm": 4.429887139570695,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.535844118277197,
+        -32.34987472273398,
+        237.547864552786
+      ],
+      "start_xy_mm": [
+        134.405,
+        213.37
+      ],
+      "end_xy_mm": [
+        135.446,
+        213.345
+      ]
+    },
+    {
+      "z_mm": 14.84,
+      "first_gcode_line": 223034,
+      "length_mm": 1.0231664074491356,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.4335000000000093,
+        -32.561180300480856,
+        238.33646770486
+      ],
+      "start_xy_mm": [
+        135.01,
+        213.429
+      ],
+      "end_xy_mm": [
+        134.123,
+        212.919
+      ]
+    },
+    {
+      "z_mm": 15.08,
+      "first_gcode_line": 225883,
+      "length_mm": 3.5343015220574685,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.5784213570768486,
+        -32.58538616102972,
+        237.49951641303178
+      ],
+      "start_xy_mm": [
+        134.125,
+        213.146
+      ],
+      "end_xy_mm": [
+        135.013,
+        213.14
+      ]
+    },
+    {
+      "z_mm": 15.08,
+      "first_gcode_line": 225899,
+      "length_mm": 3.5343015220574685,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.5784213570768486,
+        -32.58538616102972,
+        237.49951641303178
+      ],
+      "start_xy_mm": [
+        134.125,
+        213.146
+      ],
+      "end_xy_mm": [
+        135.013,
+        213.14
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 228583,
+      "length_mm": 8.581669144416878,
+      "no_lower_bead_overlap_run_mm": 1.945843585071269,
+      "midpoint_cad_mm": [
+        0.011966413147206367,
+        -32.70544199544311,
+        237.02028209357013
+      ],
+      "start_xy_mm": [
+        136.011,
+        212.151
+      ],
+      "end_xy_mm": [
+        136.011,
+        212.151
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 228642,
+      "length_mm": 1.4864386092579644,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.4180280972200023,
+        -32.86414079107704,
+        237.61255406197594
+      ],
+      "start_xy_mm": [
+        133.999,
+        213.018
+      ],
+      "end_xy_mm": [
+        134.229,
+        212.799
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 228659,
+      "length_mm": 0.890913630772613,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.173592220462325,
+        -32.87842108699847,
+        237.66584885190187
+      ],
+      "start_xy_mm": [
+        133.508,
+        212.681
+      ],
+      "end_xy_mm": [
+        134.229,
+        212.799
+      ]
+    },
+    {
+      "z_mm": 15.56,
+      "first_gcode_line": 231541,
+      "length_mm": 15.387999969409744,
+      "no_lower_bead_overlap_run_mm": 1.2490259715429988,
+      "midpoint_cad_mm": [
+        0.0021117809203587967,
+        -32.85392446122947,
+        236.64713740668043
+      ],
+      "start_xy_mm": [
+        135.996,
+        212.288
+      ],
+      "end_xy_mm": [
+        135.996,
+        212.288
+      ]
+    },
+    {
+      "z_mm": 15.56,
+      "first_gcode_line": 231580,
+      "length_mm": 2.8702797829499467,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.8471073530472779,
+        -32.93735115110764,
+        236.95849005201308
+      ],
+      "start_xy_mm": [
+        135.412,
+        211.95
+      ],
+      "end_xy_mm": [
+        138.278,
+        211.834
+      ]
+    },
+    {
+      "z_mm": 15.56,
+      "first_gcode_line": 231603,
+      "length_mm": 1.713343054249829,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.4435623297776772,
+        -32.92885746833652,
+        236.92679119636787
+      ],
+      "start_xy_mm": [
+        135.412,
+        211.95
+      ],
+      "end_xy_mm": [
+        133.703,
+        211.834
+      ]
+    },
+    {
+      "z_mm": 15.8,
+      "first_gcode_line": 234443,
+      "length_mm": 16.730866254271962,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.27625987228043414,
+        -33.20420822343455,
+        237.02712541105868
+      ],
+      "start_xy_mm": [
+        135.976,
+        212.08
+      ],
+      "end_xy_mm": [
+        136.576,
+        212.06
+      ]
+    },
+    {
+      "z_mm": 15.8,
+      "first_gcode_line": 234490,
+      "length_mm": 14.689904271733534,
+      "no_lower_bead_overlap_run_mm": 1.2991071804934418,
+      "midpoint_cad_mm": [
+        0.09591819618538011,
+        -32.99697172706868,
+        236.2537082774387
+      ],
+      "start_xy_mm": [
+        133.108,
+        212.077
+      ],
+      "end_xy_mm": [
+        138.69,
+        212.13
+      ]
+    },
+    {
+      "z_mm": 15.8,
+      "first_gcode_line": 234514,
+      "length_mm": 1.7495714292377234,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.109519906019642,
+        -33.089989639166305,
+        236.600855851401
+      ],
+      "start_xy_mm": [
+        133.758,
+        211.746
+      ],
+      "end_xy_mm": [
+        132.028,
+        211.489
+      ]
+    },
+    {
+      "z_mm": 15.8,
+      "first_gcode_line": 234550,
+      "length_mm": 1.7573014803693363,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.11369809328437,
+        -33.090342921835536,
+        236.602174320272
+      ],
+      "start_xy_mm": [
+        138.242,
+        211.745
+      ],
+      "end_xy_mm": [
+        139.98,
+        211.489
+      ]
+    },
+    {
+      "z_mm": 16.04,
+      "first_gcode_line": 237729,
+      "length_mm": 11.247421751522914,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.7235188715429501,
+        -33.239405506227264,
+        236.23119466549196
+      ],
+      "start_xy_mm": [
+        134.373,
+        212.119
+      ],
+      "end_xy_mm": [
+        139.079,
+        211.789
+      ]
+    },
+    {
+      "z_mm": 16.04,
+      "first_gcode_line": 237752,
+      "length_mm": 9.553351262907254,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.12351637276486827,
+        -33.239405506227264,
+        236.23119466549196
+      ],
+      "start_xy_mm": [
+        132.726,
+        211.728
+      ],
+      "end_xy_mm": [
+        139.079,
+        211.789
+      ]
+    },
+    {
+      "z_mm": 16.04,
+      "first_gcode_line": 237781,
+      "length_mm": 15.91565808595663,
+      "no_lower_bead_overlap_run_mm": 1.1974162823290255,
+      "midpoint_cad_mm": [
+        0.1692352855420154,
+        -33.14001899290789,
+        235.86027914819692
+      ],
+      "start_xy_mm": [
+        131.753,
+        211.781
+      ],
+      "end_xy_mm": [
+        139.923,
+        211.908
+      ]
+    },
+    {
+      "z_mm": 16.04,
+      "first_gcode_line": 237805,
+      "length_mm": 2.5261716709906485,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        1.876377005940185,
+        -33.33653334070384,
+        236.59368067858767
+      ],
+      "start_xy_mm": [
+        136.616,
+        211.771
+      ],
+      "end_xy_mm": [
+        139.13,
+        211.538
+      ]
+    },
+    {
+      "z_mm": 16.04,
+      "first_gcode_line": 237844,
+      "length_mm": 2.3401674106420454,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.967743432065248,
+        -33.33351875149333,
+        236.5824300784901
+      ],
+      "start_xy_mm": [
+        135.199,
+        211.765
+      ],
+      "end_xy_mm": [
+        132.871,
+        211.538
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 239528,
+      "length_mm": 5.9162128294695835,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.36358834926466,
+        -33.38245277206647,
+        235.8377655362502
+      ],
+      "start_xy_mm": [
+        132.005,
+        211.634
+      ],
+      "end_xy_mm": [
+        135.179,
+        210.522
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 239733,
+      "length_mm": 5.7542211597177735,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.149053849968084,
+        -33.38245277206647,
+        235.8377655362502
+      ],
+      "start_xy_mm": [
+        136.809,
+        210.389
+      ],
+      "end_xy_mm": [
+        140.26,
+        211.525
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 239781,
+      "length_mm": 5.291174810112289,
+      "no_lower_bead_overlap_run_mm": 0.04991674349162537,
+      "midpoint_cad_mm": [
+        -2.9175290834832595,
+        -33.38245277206647,
+        235.8377655362502
+      ],
+      "start_xy_mm": [
+        131.31,
+        211.33
+      ],
+      "end_xy_mm": [
+        135.191,
+        210.389
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 239999,
+      "length_mm": 7.346861637953463,
+      "no_lower_bead_overlap_run_mm": 0.09995730119664575,
+      "midpoint_cad_mm": [
+        -4.642601076736128,
+        -33.283325077792206,
+        235.46781594478148
+      ],
+      "start_xy_mm": [
+        130.681,
+        211.442
+      ],
+      "end_xy_mm": [
+        134.809,
+        210.349
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240209,
+      "length_mm": 7.162172799512042,
+      "no_lower_bead_overlap_run_mm": 0.19894924443089007,
+      "midpoint_cad_mm": [
+        4.550256657515405,
+        -33.283325077792206,
+        235.46781594478148
+      ],
+      "start_xy_mm": [
+        137.191,
+        210.349
+      ],
+      "end_xy_mm": [
+        141.481,
+        211.353
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240242,
+      "length_mm": 2.6743973152843434,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.03499999999999659,
+        -33.325641991666465,
+        235.62574481737974
+      ],
+      "start_xy_mm": [
+        136.077,
+        212.086
+      ],
+      "end_xy_mm": [
+        135.853,
+        209.421
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240244,
+      "length_mm": 2.5239193727217053,
+      "no_lower_bead_overlap_run_mm": 0.049488615151405985,
+      "midpoint_cad_mm": [
+        -0.42199999999999704,
+        -33.302089458562136,
+        235.53784556718742
+      ],
+      "start_xy_mm": [
+        135.472,
+        209.405
+      ],
+      "end_xy_mm": [
+        135.684,
+        211.92
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240247,
+      "length_mm": 0.3790000000000191,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.9375,
+        -33.4668277807699,
+        236.15265735562042
+      ],
+      "start_xy_mm": [
+        135.252,
+        211.299
+      ],
+      "end_xy_mm": [
+        134.873,
+        211.299
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240252,
+      "length_mm": 0.3381695421804304,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.5064775893277442,
+        -33.46746446625114,
+        236.15503349818488
+      ],
+      "start_xy_mm": [
+        134.54,
+        211.462
+      ],
+      "end_xy_mm": [
+        134.479,
+        211.133
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240264,
+      "length_mm": 1.3459408114578517,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.7884311365473025,
+        -33.47461718655356,
+        236.1817278137658
+      ],
+      "start_xy_mm": [
+        132.875,
+        211.442
+      ],
+      "end_xy_mm": [
+        131.548,
+        211.217
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240298,
+      "length_mm": 2.507808007005317,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.3380000000000223,
+        -33.304160010922956,
+        235.54557297379773
+      ],
+      "start_xy_mm": [
+        136.233,
+        209.421
+      ],
+      "end_xy_mm": [
+        136.443,
+        211.92
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240302,
+      "length_mm": 0.3789999999999907,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.9594999999999914,
+        -33.4668277807699,
+        236.15265735562042
+      ],
+      "start_xy_mm": [
+        136.77,
+        211.299
+      ],
+      "end_xy_mm": [
+        137.149,
+        211.299
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240315,
+      "length_mm": 0.75,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.326999999999998,
+        -33.48727448533299,
+        236.22896549589723
+      ],
+      "start_xy_mm": [
+        138.702,
+        211.378
+      ],
+      "end_xy_mm": [
+        137.952,
+        211.378
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240333,
+      "length_mm": 0.8220000000000027,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.2949999999999875,
+        -33.48649802819769,
+        236.2260677184184
+      ],
+      "start_xy_mm": [
+        134.116,
+        211.375
+      ],
+      "end_xy_mm": [
+        133.294,
+        211.375
+      ]
+    },
+    {
+      "z_mm": 16.28,
+      "first_gcode_line": 240537,
+      "length_mm": 1.3586940938705752,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.79030203846429,
+        -33.47414021121269,
+        236.17994771755977
+      ],
+      "start_xy_mm": [
+        139.121,
+        211.443
+      ],
+      "end_xy_mm": [
+        140.458,
+        211.202
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243106,
+      "length_mm": 5.474617632770315,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.745449806825178,
+        -33.52550003790568,
+        235.44433640700842
+      ],
+      "start_xy_mm": [
+        131.305,
+        211.493
+      ],
+      "end_xy_mm": [
+        133.312,
+        209.808
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243236,
+      "length_mm": 4.5024381809757745,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.259360080927934,
+        -33.52550003790568,
+        235.44433640700842
+      ],
+      "start_xy_mm": [
+        138.688,
+        209.808
+      ],
+      "end_xy_mm": [
+        141.536,
+        211.047
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243284,
+      "length_mm": 4.707104114974046,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.361693047927048,
+        -33.52550003790568,
+        235.44433640700842
+      ],
+      "start_xy_mm": [
+        130.624,
+        211.139
+      ],
+      "end_xy_mm": [
+        133.312,
+        209.808
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243372,
+      "length_mm": 6.284404384618183,
+      "no_lower_bead_overlap_run_mm": 0.049876225274747485,
+      "midpoint_cad_mm": [
+        -5.877632331929078,
+        -33.42637234363142,
+        235.07438681553973
+      ],
+      "start_xy_mm": [
+        129.984,
+        211.207
+      ],
+      "end_xy_mm": [
+        132.918,
+        209.828
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243581,
+      "length_mm": 5.694531817304844,
+      "no_lower_bead_overlap_run_mm": 0.04995203348513021,
+      "midpoint_cad_mm": [
+        5.582696048272396,
+        -33.42637234363142,
+        235.07438681553973
+      ],
+      "start_xy_mm": [
+        139.082,
+        209.828
+      ],
+      "end_xy_mm": [
+        142.5,
+        210.892
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243620,
+      "length_mm": 1.4481233991647,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.23190251749031177,
+        -33.50392834507987,
+        235.36382975337725
+      ],
+      "start_xy_mm": [
+        136.367,
+        211.258
+      ],
+      "end_xy_mm": [
+        136.298,
+        209.837
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243627,
+      "length_mm": 1.8527841212618272,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.6214999999999975,
+        -33.48978300968153,
+        235.31103864298052
+      ],
+      "start_xy_mm": [
+        136.448,
+        209.582
+      ],
+      "end_xy_mm": [
+        136.795,
+        211.402
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243630,
+      "length_mm": 2.0432175606136527,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        1.0335000000000036,
+        -33.50595920000044,
+        235.3714090071236
+      ],
+      "start_xy_mm": [
+        137.225,
+        211.558
+      ],
+      "end_xy_mm": [
+        136.842,
+        209.551
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243632,
+      "length_mm": 2.110110186696423,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        1.4309999999999832,
+        -33.50233573336901,
+        235.35788604555557
+      ],
+      "start_xy_mm": [
+        137.234,
+        209.504
+      ],
+      "end_xy_mm": [
+        137.628,
+        211.577
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243634,
+      "length_mm": 2.174429810318091,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        1.8255000000000052,
+        -33.49418293344828,
+        235.32745938202746
+      ],
+      "start_xy_mm": [
+        138.029,
+        211.577
+      ],
+      "end_xy_mm": [
+        137.622,
+        209.441
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243636,
+      "length_mm": 2.258957724261341,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.217500000000001,
+        -33.48344194307652,
+        235.28737346023647
+      ],
+      "start_xy_mm": [
+        138.006,
+        209.358
+      ],
+      "end_xy_mm": [
+        138.429,
+        211.577
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243639,
+      "length_mm": 2.3393691457313923,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.605000000000018,
+        -33.46623047657721,
+        235.22313939278826
+      ],
+      "start_xy_mm": [
+        138.824,
+        211.55
+      ],
+      "end_xy_mm": [
+        138.386,
+        209.252
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243841,
+      "length_mm": 2.3401645241307376,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.593500000000006,
+        -33.46739516228017,
+        235.22748605900654
+      ],
+      "start_xy_mm": [
+        133.188,
+        211.555
+      ],
+      "end_xy_mm": [
+        133.625,
+        209.256
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243843,
+      "length_mm": 2.2568059287408673,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.2069999999999936,
+        -33.48370076212162,
+        235.28833938606275
+      ],
+      "start_xy_mm": [
+        134.004,
+        209.36
+      ],
+      "end_xy_mm": [
+        133.582,
+        211.577
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243845,
+      "length_mm": 2.1722780669149944,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.8170000000000073,
+        -33.49444175249337,
+        235.32842530785373
+      ],
+      "start_xy_mm": [
+        133.98,
+        211.577
+      ],
+      "end_xy_mm": [
+        134.386,
+        209.443
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243847,
+      "length_mm": 2.109314817659995,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.4245000000000232,
+        -33.50246514289155,
+        235.35836900846869
+      ],
+      "start_xy_mm": [
+        134.773,
+        209.505
+      ],
+      "end_xy_mm": [
+        134.378,
+        211.577
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243850,
+      "length_mm": 2.041861160804035,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.0285000000000082,
+        -33.50582979047788,
+        235.37092604421042
+      ],
+      "start_xy_mm": [
+        134.781,
+        211.557
+      ],
+      "end_xy_mm": [
+        135.162,
+        209.551
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243852,
+      "length_mm": 1.8516147007409678,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.6189999999999998,
+        -33.48965360015898,
+        235.3105556800674
+      ],
+      "start_xy_mm": [
+        135.554,
+        209.582
+      ],
+      "end_xy_mm": [
+        135.208,
+        211.401
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243856,
+      "length_mm": 1.167257135229665,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.2162675283865383,
+        -33.48365126057526,
+        235.28815464377666
+      ],
+      "start_xy_mm": [
+        135.599,
+        211.017
+      ],
+      "end_xy_mm": [
+        135.893,
+        209.895
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 243880,
+      "length_mm": 0.9682974749528341,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.328000000000003,
+        -33.626180646450564,
+        235.82008155343487
+      ],
+      "start_xy_mm": [
+        132.156,
+        211.031
+      ],
+      "end_xy_mm": [
+        131.188,
+        211.007
+      ]
+    },
+    {
+      "z_mm": 16.52,
+      "first_gcode_line": 244009,
+      "length_mm": 0.8859999999999957,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.367000000000019,
+        -33.623851275044636,
+        235.81138822099825
+      ],
+      "start_xy_mm": [
+        140.81,
+        211.01
+      ],
+      "end_xy_mm": [
+        139.924,
+        211.01
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246431,
+      "length_mm": 4.255397139222221,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.376803115987144,
+        -33.66880612279001,
+        235.05187320359298
+      ],
+      "start_xy_mm": [
+        129.886,
+        210.854
+      ],
+      "end_xy_mm": [
+        132.177,
+        209.552
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246554,
+      "length_mm": 3.956835249936056,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        5.227522171344049,
+        -33.66880612279001,
+        235.05187320359298
+      ],
+      "start_xy_mm": [
+        139.823,
+        209.552
+      ],
+      "end_xy_mm": [
+        142.355,
+        210.684
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246603,
+      "length_mm": 4.255397139222221,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.376803115987144,
+        -33.66880612279001,
+        235.05187320359298
+      ],
+      "start_xy_mm": [
+        129.886,
+        210.854
+      ],
+      "end_xy_mm": [
+        132.177,
+        209.552
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246691,
+      "length_mm": 5.381217036012856,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.596452746908483,
+        -33.569419609470636,
+        234.68095768629794
+      ],
+      "start_xy_mm": [
+        129.091,
+        210.767
+      ],
+      "end_xy_mm": [
+        131.791,
+        209.515
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246895,
+      "length_mm": 5.365663614145296,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.588676035974714,
+        -33.569419609470636,
+        234.68095768629794
+      ],
+      "start_xy_mm": [
+        140.209,
+        209.515
+      ],
+      "end_xy_mm": [
+        142.941,
+        210.743
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246935,
+      "length_mm": 1.5435642719339766,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.1603989376609434,
+        -33.65181868280572,
+        234.98847521448107
+      ],
+      "start_xy_mm": [
+        138.348,
+        210.971
+      ],
+      "end_xy_mm": [
+        138.231,
+        209.466
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246940,
+      "length_mm": 1.6269296235547495,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.562999999999988,
+        -33.65094760867793,
+        234.985224321579
+      ],
+      "start_xy_mm": [
+        138.365,
+        209.43
+      ],
+      "end_xy_mm": [
+        138.761,
+        211.008
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246945,
+      "length_mm": 1.9669641582906212,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.980000000000018,
+        -33.66466501806836,
+        235.03641839037232
+      ],
+      "start_xy_mm": [
+        139.219,
+        211.226
+      ],
+      "end_xy_mm": [
+        138.741,
+        209.318
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246947,
+      "length_mm": 2.113455937558211,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.367999999999995,
+        -33.64835941822691,
+        234.97556506331614
+      ],
+      "start_xy_mm": [
+        139.111,
+        209.184
+      ],
+      "end_xy_mm": [
+        139.625,
+        211.234
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 246950,
+      "length_mm": 2.2209000427754466,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.748500000000007,
+        -33.624806885122574,
+        234.88766581312382
+      ],
+      "start_xy_mm": [
+        140.019,
+        211.195
+      ],
+      "end_xy_mm": [
+        139.478,
+        209.041
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247141,
+      "length_mm": 0.604156436694983,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.294499999999999,
+        -33.78605115022145,
+        235.4894376029019
+      ],
+      "start_xy_mm": [
+        131.779,
+        210.448
+      ],
+      "end_xy_mm": [
+        131.632,
+        211.034
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247144,
+      "length_mm": 2.2250231459470067,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.7379999999999995,
+        -33.62558334225788,
+        234.89056359060265
+      ],
+      "start_xy_mm": [
+        131.991,
+        211.2
+      ],
+      "end_xy_mm": [
+        132.533,
+        209.042
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247146,
+      "length_mm": 2.108362871993356,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.3595000000000255,
+        -33.64900646583966,
+        234.97797987788184
+      ],
+      "start_xy_mm": [
+        132.897,
+        209.189
+      ],
+      "end_xy_mm": [
+        132.384,
+        211.234
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247148,
+      "length_mm": 1.9630843079195472,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.9739999999999895,
+        -33.66492383711347,
+        235.03738431619863
+      ],
+      "start_xy_mm": [
+        132.787,
+        211.225
+      ],
+      "end_xy_mm": [
+        133.265,
+        209.321
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247150,
+      "length_mm": 1.6259597165981716,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.5589999999999975,
+        -33.65107701820049,
+        234.98570728449218
+      ],
+      "start_xy_mm": [
+        133.639,
+        209.431
+      ],
+      "end_xy_mm": [
+        133.243,
+        211.008
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247155,
+      "length_mm": 1.2330761759014939,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.1577051145479516,
+        -33.650970024889595,
+        234.98530798001985
+      ],
+      "start_xy_mm": [
+        133.596,
+        210.778
+      ],
+      "end_xy_mm": [
+        133.992,
+        209.621
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247609,
+      "length_mm": 0.44093996376295275,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.3473090354386841,
+        -33.56572067774454,
+        234.6671530851624
+      ],
+      "start_xy_mm": [
+        136.162,
+        209.927
+      ],
+      "end_xy_mm": [
+        136.329,
+        209.67
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247637,
+      "length_mm": 0.6450000000000102,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        5.393500000000017,
+        -33.764051531387736,
+        235.40733390766735
+      ],
+      "start_xy_mm": [
+        141.716,
+        210.656
+      ],
+      "end_xy_mm": [
+        141.071,
+        210.656
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247672,
+      "length_mm": 0.5297735365229198,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.4370000000000118,
+        -33.6685473037449,
+        235.05090727776667
+      ],
+      "start_xy_mm": [
+        134.602,
+        210.025
+      ],
+      "end_xy_mm": [
+        134.524,
+        210.549
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247685,
+      "length_mm": 4.227194176063513,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.47209150501859654,
+        -33.763550621606285,
+        235.40546448691296
+      ],
+      "start_xy_mm": [
+        137.612,
+        210.876
+      ],
+      "end_xy_mm": [
+        134.661,
+        210.036
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247702,
+      "length_mm": 0.9722415317447789,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -1.7688953682161923,
+        -33.60892427271492,
+        234.82839109666153
+      ],
+      "start_xy_mm": [
+        134.182,
+        209.573
+      ],
+      "end_xy_mm": [
+        134.143,
+        210.533
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247728,
+      "length_mm": 5.353700595911285,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.5091757520086162,
+        -33.66814092882624,
+        235.04939066592328
+      ],
+      "start_xy_mm": [
+        137.867,
+        210.545
+      ],
+      "end_xy_mm": [
+        134.241,
+        209.584
+      ]
+    },
+    {
+      "z_mm": 16.76,
+      "first_gcode_line": 247759,
+      "length_mm": 0.7510000000000048,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.357500000000016,
+        -33.764051531387736,
+        235.40733390766735
+      ],
+      "start_xy_mm": [
+        131.018,
+        210.656
+      ],
+      "end_xy_mm": [
+        130.267,
+        210.656
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 248735,
+      "length_mm": 4.886627952701393,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.6436284033175355,
+        -33.8118533886292,
+        234.6584440743512
+      ],
+      "start_xy_mm": [
+        129.74,
+        210.922
+      ],
+      "end_xy_mm": [
+        131.3,
+        209.276
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 248857,
+      "length_mm": 4.097385388837067,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.249007121385375,
+        -33.8118533886292,
+        234.6584440743512
+      ],
+      "start_xy_mm": [
+        140.7,
+        209.276
+      ],
+      "end_xy_mm": [
+        142.921,
+        210.441
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 248905,
+      "length_mm": 3.8380150593989977,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.11932195666634,
+        -33.8118533886292,
+        234.6584440743512
+      ],
+      "start_xy_mm": [
+        128.898,
+        210.297
+      ],
+      "end_xy_mm": [
+        131.3,
+        209.276
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 248987,
+      "length_mm": 5.208522665476757,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.405448274724137,
+        -33.71246687530984,
+        234.28752855705622
+      ],
+      "start_xy_mm": [
+        128.657,
+        210.596
+      ],
+      "end_xy_mm": [
+        130.924,
+        209.193
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249180,
+      "length_mm": 4.635004183159801,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.121567215153874,
+        -33.71246687530984,
+        234.28752855705622
+      ],
+      "start_xy_mm": [
+        141.076,
+        209.196
+      ],
+      "end_xy_mm": [
+        143.791,
+        210.218
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249220,
+      "length_mm": 3.206790215072198,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.4569054510726573,
+        -33.624667134669316,
+        233.9598554640944
+      ],
+      "start_xy_mm": [
+        132.464,
+        210.683
+      ],
+      "end_xy_mm": [
+        132.043,
+        210.665
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249227,
+      "length_mm": 1.71461511716187,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.1404999999999745,
+        -33.785453846028744,
+        234.55991964006972
+      ],
+      "start_xy_mm": [
+        131.616,
+        210.665
+      ],
+      "end_xy_mm": [
+        132.103,
+        209.021
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249229,
+      "length_mm": 1.9117369065852134,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.538499999999999,
+        -33.760995446266556,
+        234.4686396494854
+      ],
+      "start_xy_mm": [
+        131.733,
+        208.832
+      ],
+      "end_xy_mm": [
+        131.19,
+        210.665
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249233,
+      "length_mm": 0.6132046966552266,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.1580000000000155,
+        -33.929357235105755,
+        235.09697439948644
+      ],
+      "start_xy_mm": [
+        130.755,
+        210.693
+      ],
+      "end_xy_mm": [
+        130.929,
+        210.105
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249254,
+      "length_mm": 0.7772038062144655,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.9376967744205444,
+        -33.77109933238664,
+        234.50634786583942
+      ],
+      "start_xy_mm": [
+        133.047,
+        209.402
+      ],
+      "end_xy_mm": [
+        133.013,
+        210.173
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249261,
+      "length_mm": 2.1355109226916893,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -2.4085079224802826,
+        -33.87251758440424,
+        234.88484593518396
+      ],
+      "start_xy_mm": [
+        133.28,
+        210.408
+      ],
+      "end_xy_mm": [
+        133.102,
+        209.425
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249293,
+      "length_mm": 2.070827365794102,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.4917917808322727,
+        -33.86348758721548,
+        234.85114552688327
+      ],
+      "start_xy_mm": [
+        138.953,
+        209.402
+      ],
+      "end_xy_mm": [
+        138.644,
+        210.326
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249306,
+      "length_mm": 0.7319660823943125,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        2.9391055327167237,
+        -33.78058654320826,
+        234.54175461864781
+      ],
+      "start_xy_mm": [
+        138.994,
+        210.185
+      ],
+      "end_xy_mm": [
+        138.944,
+        209.461
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249318,
+      "length_mm": 1.25851417444658,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.309060576726324,
+        -33.803192956288534,
+        234.6261229008403
+      ],
+      "start_xy_mm": [
+        139.131,
+        209.308
+      ],
+      "end_xy_mm": [
+        139.571,
+        210.476
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249324,
+      "length_mm": 1.535213340223411,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.7439999999999998,
+        -33.80771228390757,
+        234.6429892611306
+      ],
+      "start_xy_mm": [
+        139.962,
+        210.665
+      ],
+      "end_xy_mm": [
+        139.526,
+        209.193
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249326,
+      "length_mm": 1.7231378354617966,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.146999999999991,
+        -33.78441856984834,
+        234.55605593676455
+      ],
+      "start_xy_mm": [
+        139.902,
+        209.013
+      ],
+      "end_xy_mm": [
+        140.392,
+        210.665
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249328,
+      "length_mm": 1.9168150667187458,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.548999999999978,
+        -33.760348398653804,
+        234.46622483491967
+      ],
+      "start_xy_mm": [
+        140.821,
+        210.665
+      ],
+      "end_xy_mm": [
+        140.277,
+        208.827
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249359,
+      "length_mm": 0.5349999999999966,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.216499999999996,
+        -33.905028244866116,
+        235.00617737181528
+      ],
+      "start_xy_mm": [
+        142.484,
+        210.305
+      ],
+      "end_xy_mm": [
+        141.949,
+        210.305
+      ]
+    },
+    {
+      "z_mm": 17.0,
+      "first_gcode_line": 249395,
+      "length_mm": 0.6260000000000048,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.177000000000021,
+        -33.904769425821016,
+        235.00521144598898
+      ],
+      "start_xy_mm": [
+        130.136,
+        210.304
+      ],
+      "end_xy_mm": [
+        129.51,
+        210.304
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 250980,
+      "length_mm": 4.101603492578864,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.039151911199525,
+        -33.95490065446842,
+        234.26501494510944
+      ],
+      "start_xy_mm": [
+        128.692,
+        210.293
+      ],
+      "end_xy_mm": [
+        130.573,
+        208.989
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251107,
+      "length_mm": 3.889807316075495,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.933253822947847,
+        -33.95490065446842,
+        234.26501494510944
+      ],
+      "start_xy_mm": [
+        141.427,
+        208.989
+      ],
+      "end_xy_mm": [
+        143.483,
+        210.137
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251158,
+      "length_mm": 4.101603492578864,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.039151911199525,
+        -33.95490065446842,
+        234.26501494510944
+      ],
+      "start_xy_mm": [
+        128.692,
+        210.293
+      ],
+      "end_xy_mm": [
+        130.573,
+        208.989
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251249,
+      "length_mm": 4.277023641993348,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.682995313446867,
+        -33.85577296019415,
+        233.89506535364075
+      ],
+      "start_xy_mm": [
+        127.633,
+        209.846
+      ],
+      "end_xy_mm": [
+        130.207,
+        208.872
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251446,
+      "length_mm": 4.5127234008331545,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.800845192866774,
+        -33.85577296019415,
+        233.89506535364075
+      ],
+      "start_xy_mm": [
+        141.793,
+        208.872
+      ],
+      "end_xy_mm": [
+        144.199,
+        210.009
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251485,
+      "length_mm": 3.014779421140954,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.297038826543911,
+        -33.79578917759346,
+        233.67120282934482
+      ],
+      "start_xy_mm": [
+        131.572,
+        210.36
+      ],
+      "end_xy_mm": [
+        131.181,
+        210.322
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251491,
+      "length_mm": 1.6482184321260391,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -4.956999999999994,
+        -33.93937151176227,
+        234.2070593955321
+      ],
+      "start_xy_mm": [
+        130.777,
+        210.322
+      ],
+      "end_xy_mm": [
+        131.309,
+        208.762
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251493,
+      "length_mm": 1.8689489024582855,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.325500000000005,
+        -33.91232492154905,
+        234.1061201466849
+      ],
+      "start_xy_mm": [
+        130.976,
+        208.553
+      ],
+      "end_xy_mm": [
+        130.373,
+        210.322
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251497,
+      "length_mm": 0.5758654356705124,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.932999999999993,
+        -34.066839891475254,
+        234.68277786497947
+      ],
+      "start_xy_mm": [
+        129.974,
+        210.307
+      ],
+      "end_xy_mm": [
+        130.16,
+        209.762
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251508,
+      "length_mm": 0.9584365591969656,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -3.804199343442434,
+        -34.00330406414266,
+        234.4456589292733
+      ],
+      "start_xy_mm": [
+        132.254,
+        209.314
+      ],
+      "end_xy_mm": [
+        132.007,
+        210.215
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251537,
+      "length_mm": 0.9569358949313196,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        3.8085917782255194,
+        -34.00383873351099,
+        234.44765434252116
+      ],
+      "start_xy_mm": [
+        139.753,
+        209.317
+      ],
+      "end_xy_mm": [
+        139.995,
+        210.212
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251555,
+      "length_mm": 3.02397492909361,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.29893159776779,
+        -33.795559329359676,
+        233.67034502405826
+      ],
+      "start_xy_mm": [
+        140.43,
+        210.362
+      ],
+      "end_xy_mm": [
+        140.824,
+        210.322
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251561,
+      "length_mm": 1.6523271467841845,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.964499999999987,
+        -33.938853873672066,
+        234.20512754387954
+      ],
+      "start_xy_mm": [
+        141.231,
+        210.322
+      ],
+      "end_xy_mm": [
+        140.698,
+        208.758
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251563,
+      "length_mm": 2.0507864345172604,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        5.363999999999976,
+        -33.93303044515725,
+        234.18339421278802
+      ],
+      "start_xy_mm": [
+        141.033,
+        208.547
+      ],
+      "end_xy_mm": [
+        141.695,
+        210.488
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251584,
+      "length_mm": 0.46001739097561,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.9080000000000155,
+        -34.046263777389605,
+        234.60598676178947
+      ],
+      "start_xy_mm": [
+        143.138,
+        209.953
+      ],
+      "end_xy_mm": [
+        142.678,
+        209.957
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251633,
+      "length_mm": 0.563999999999993,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.870999999999981,
+        -34.046522596434706,
+        234.60695268761577
+      ],
+      "start_xy_mm": [
+        129.411,
+        209.956
+      ],
+      "end_xy_mm": [
+        128.847,
+        209.956
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251833,
+      "length_mm": 7.776053304858459,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.4650000000000034,
+        -33.87686671237,
+        233.9737883084833
+      ],
+      "start_xy_mm": [
+        132.786,
+        206.551
+      ],
+      "end_xy_mm": [
+        138.284,
+        212.05
+      ]
+    },
+    {
+      "z_mm": 17.24,
+      "first_gcode_line": 251842,
+      "length_mm": 7.308655690344164,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.10099999999999909,
+        -33.89330172173402,
+        234.03512459845265
+      ],
+      "start_xy_mm": [
+        133.315,
+        211.948
+      ],
+      "end_xy_mm": [
+        138.483,
+        206.78
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253045,
+      "length_mm": 4.429259899276239,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.287629949638131,
+        -34.09794792030763,
+        233.8715858158677
+      ],
+      "start_xy_mm": [
+        128.088,
+        209.917
+      ],
+      "end_xy_mm": [
+        130.927,
+        209.259
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253142,
+      "length_mm": 3.823744833173757,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.984872416586882,
+        -34.09794792030763,
+        233.8715858158677
+      ],
+      "start_xy_mm": [
+        141.073,
+        209.259
+      ],
+      "end_xy_mm": [
+        144.32,
+        209.514
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253171,
+      "length_mm": 4.429259899276239,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.287629949638131,
+        -34.09794792030763,
+        233.8715858158677
+      ],
+      "start_xy_mm": [
+        128.088,
+        209.917
+      ],
+      "end_xy_mm": [
+        130.927,
+        209.259
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253468,
+      "length_mm": 2.7764071406216915,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.14620357031086,
+        -34.195263881266186,
+        234.23477392655238
+      ],
+      "start_xy_mm": [
+        131.242,
+        209.635
+      ],
+      "end_xy_mm": [
+        128.469,
+        209.686
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253518,
+      "length_mm": 0.7785288850113319,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.004500000000007,
+        -33.970220721549545,
+        233.39490142059404
+      ],
+      "start_xy_mm": [
+        130.691,
+        208.523
+      ],
+      "end_xy_mm": [
+        131.3,
+        209.008
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253562,
+      "length_mm": 2.750312196518283,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.161156098259141,
+        -34.195263881266186,
+        234.23477392655238
+      ],
+      "start_xy_mm": [
+        143.533,
+        209.685
+      ],
+      "end_xy_mm": [
+        140.786,
+        209.635
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 253587,
+      "length_mm": 0.7076280051638592,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        4.9766966297207205,
+        -33.976107305851784,
+        233.41687045229304
+      ],
+      "start_xy_mm": [
+        141.252,
+        208.566
+      ],
+      "end_xy_mm": [
+        140.701,
+        209.01
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 254175,
+      "length_mm": 7.130464781485148,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.28600000000000136,
+        -34.17300544338737,
+        234.1517043054915
+      ],
+      "start_xy_mm": [
+        138.235,
+        207.028
+      ],
+      "end_xy_mm": [
+        133.193,
+        212.07
+      ]
+    },
+    {
+      "z_mm": 17.48,
+      "first_gcode_line": 254184,
+      "length_mm": 7.605640538442505,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -0.27600000000001046,
+        -34.15747630068122,
+        234.0937487559142
+      ],
+      "start_xy_mm": [
+        138.413,
+        212.178
+      ],
+      "end_xy_mm": [
+        133.035,
+        206.8
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 254938,
+      "length_mm": 4.3227147173937235,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.921357358696866,
+        -34.24125400519195,
+        233.47912261245222
+      ],
+      "start_xy_mm": [
+        127.701,
+        209.7
+      ],
+      "end_xy_mm": [
+        130.24,
+        208.917
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255035,
+      "length_mm": 3.715059870184412,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.617529935092193,
+        -34.24125400519195,
+        233.47912261245222
+      ],
+      "start_xy_mm": [
+        141.76,
+        208.917
+      ],
+      "end_xy_mm": [
+        144.691,
+        209.28
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255064,
+      "length_mm": 4.3227147173937235,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.921357358696866,
+        -34.24125400519195,
+        233.47912261245222
+      ],
+      "start_xy_mm": [
+        127.701,
+        209.7
+      ],
+      "end_xy_mm": [
+        130.24,
+        208.917
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255376,
+      "length_mm": 1.4887495799658979,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -5.356330401468085,
+        -34.194005030026595,
+        233.30278703652957
+      ],
+      "start_xy_mm": [
+        130.1,
+        208.226
+      ],
+      "end_xy_mm": [
+        130.725,
+        209.285
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255418,
+      "length_mm": 2.917881481484872,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.613054748404807,
+        -34.338884696847366,
+        233.84348531408833
+      ],
+      "start_xy_mm": [
+        130.513,
+        209.39
+      ],
+      "end_xy_mm": [
+        127.929,
+        209.333
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255446,
+      "length_mm": 1.4657213152032356,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        5.370407946636675,
+        -34.19058381569336,
+        233.29001889081434
+      ],
+      "start_xy_mm": [
+        141.906,
+        208.221
+      ],
+      "end_xy_mm": [
+        141.244,
+        209.282
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255483,
+      "length_mm": 3.057620600311275,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.624189793887922,
+        -34.33972527316216,
+        233.8466223876028
+      ],
+      "start_xy_mm": [
+        144.153,
+        209.298
+      ],
+      "end_xy_mm": [
+        141.486,
+        209.391
+      ]
+    },
+    {
+      "z_mm": 17.72,
+      "first_gcode_line": 255949,
+      "length_mm": 1.7459521935554623,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        5.0032338745080835,
+        -34.12920901736489,
+        233.0609650251482
+      ],
+      "start_xy_mm": [
+        140.558,
+        209.167
+      ],
+      "end_xy_mm": [
+        141.677,
+        207.929
+      ]
+    },
+    {
+      "z_mm": 17.96,
+      "first_gcode_line": 257747,
+      "length_mm": 1.4317065050849593,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.24043429981009,
+        -34.26533146059444,
+        232.64169210609379
+      ],
+      "start_xy_mm": [
+        130.254,
+        208.632
+      ],
+      "end_xy_mm": [
+        129.269,
+        207.593
+      ]
+    },
+    {
+      "z_mm": 17.96,
+      "first_gcode_line": 257764,
+      "length_mm": 4.076407601518516,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -6.567797463000517,
+        -34.481547425052796,
+        233.4486210708599
+      ],
+      "start_xy_mm": [
+        130.945,
+        209.267
+      ],
+      "end_xy_mm": [
+        127.394,
+        208.952
+      ]
+    },
+    {
+      "z_mm": 17.96,
+      "first_gcode_line": 257790,
+      "length_mm": 1.2575554124402049,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.172545696716469,
+        -34.284020453973284,
+        232.71144037892594
+      ],
+      "start_xy_mm": [
+        141.738,
+        208.641
+      ],
+      "end_xy_mm": [
+        142.607,
+        207.732
+      ]
+    },
+    {
+      "z_mm": 17.96,
+      "first_gcode_line": 257813,
+      "length_mm": 4.048783137507009,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        6.574609692990634,
+        -34.481549885971795,
+        233.44863025513462
+      ],
+      "start_xy_mm": [
+        144.599,
+        208.952
+      ],
+      "end_xy_mm": [
+        141.055,
+        209.267
+      ]
+    }
+  ],
+  "priority_region_maximum_no_lower_bead_overlap_run_mm": 1.945843585071269,
+  "first_skin_trace_count": 744,
+  "root_anchor": {
+    "center_printer_xy_mm": [
+      136.00000762939453,
+      195.83036766177418
+    ],
+    "courses": [
+      {
+        "nozzle_z_mm": 0.2,
+        "footprint_area_mm2": 58.21020411141744,
+        "previous_root_course_overlap_area_mm2": null
+      },
+      {
+        "nozzle_z_mm": 0.44,
+        "footprint_area_mm2": 62.66054097728776,
+        "previous_root_course_overlap_area_mm2": 58.19090046074888
+      },
+      {
+        "nozzle_z_mm": 0.68,
+        "footprint_area_mm2": 9.287582204510239,
+        "previous_root_course_overlap_area_mm2": 9.287582204510233
+      },
+      {
+        "nozzle_z_mm": 0.92,
+        "footprint_area_mm2": 10.068650824359404,
+        "previous_root_course_overlap_area_mm2": 7.842028767484115
+      },
+      {
+        "nozzle_z_mm": 1.16,
+        "footprint_area_mm2": 14.575269180502392,
+        "previous_root_course_overlap_area_mm2": 9.659689068064132
+      }
+    ],
+    "starting_root_courses_directly_joined": true,
+    "contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces."
+  },
+  "fit": {
+    "minimum_shared_bed_margin_mm": 88.91779799999998,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          100.216517,
+          90.218517
+        ],
+        [
+          213.183483,
+          231.144483
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 88.85551699999999,
+    "minimum_toolpath_separation_mm": 7.196517,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 22.098314999999985
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 7.196517
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 34.38983044659581
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 22.353756811287028
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 23.020021999999983
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 22.910224
+      }
+    ]
+  },
+  "physical_reference": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
+  "repeat_control": false,
+  "limits": "Manual native command/contact review. First-skin samples at most 0.05 mm apart compare deposited bead footprints within 0.8 mm below. Physical acceptance remains scoped to the identified source articles; this complete faucet requires its own result."
+}

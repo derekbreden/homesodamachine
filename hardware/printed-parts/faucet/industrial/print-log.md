@@ -1,5 +1,23 @@
 # Industrial faucet print log
 
+## Complete faucet with selected edge supports — 2026-10-15
+
+The [complete five-part run](prints/2026-10-15-all-learnings/README.md) is
+Mark2 base task [1342687225](prints/2026-10-15-all-learnings/mark2/launch.json),
+accepted at 13:19:25 CDT, and Mark1 tip, cover, rigid counter plate and lever
+task [1342697013](prints/2026-10-15-all-learnings/mark1/launch.json), accepted
+at 13:22:57 CDT. Starts are 212.222 seconds apart. Each plate contains only
+the requested parts, with no repeat control. Native estimates are 4 h 21 min
+51 s / 102.39 g and 2 h 29 min 42 s / 59.05 g at the saved profile density.
+
+The base carries the physically accepted seven rim arcs and automatic trees.
+The tip carries the accepted eight fins, local lip trees and directly bonded
+hidden-root disc. All five parts retain the selected cooling, bridge flow,
+overhang speeds, seams, layer bands and production geometry. Native root
+starting-course bearing, visible-rim contacts, full-bead bed clearance and
+each printer's own trim and spool mapping are recorded beside the jobs.
+The complete faucet's physical result remains unreported.
+
 ## Rim support candidates — 2026-10-15
 
 The [two single edge-support prints](../finish-coupons/2026-10-15-edge-supports/README.md)
@@ -22,8 +40,10 @@ adds a directly bonded sacrificial root foot, retaining the pose, eight fins,
 lip support paint and material recipe. Native root bearing and lip contacts
 are reviewed. The [corrected tip launch](../finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json)
 is Mark1 task `1342500038`, accepted at 12:13:00 CDT on 2026-10-15 after Derek
-confirmed both beds clear. Physical root-foot removal, finish and fit remain
-unreported.
+confirmed both beds clear. The [physical result](../finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json)
+accepts the print and removable disc, with a removal scuff acceptable on the
+hidden male insertion end. That bonded contact is unsuitable for a visible face.
+Dimensional mating fit and removal force are unmeasured.
 
 The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite

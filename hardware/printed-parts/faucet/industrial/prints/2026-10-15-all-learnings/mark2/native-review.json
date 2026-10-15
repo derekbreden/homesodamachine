@@ -1,0 +1,281 @@
+{
+  "recorded_at_utc": "2026-10-15T18:16:27.929588+00:00",
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
+  "project_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.gcode.3mf",
+  "archive_sha256": "78735c4e82e8e54187f4e0ffc4e4aaa2a8d27af02e6a9fd31a0e76b847f7f67a",
+  "gcode_sha256": "44d452540bc171b8e4a85a01b4856e2984fb9a289ac82cc4b0953daf4ec1c320",
+  "embedded_md5_matches": true,
+  "settings_sha256": "3be9e83c72f407020e2b6da766d1e758d879a02062aa0966a2f5b51f156df81e",
+  "native_settings_sha256": "2014aea7ce08419e1d5bcacc890ec0061a0bdc8052087aac55596973618e1d84",
+  "native_settings_match_accepted_article": true,
+  "material_commands": [
+    {
+      "part": "industrial-shell-base",
+      "extruding_commands": 996442,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Support transition",
+        "Top surface"
+      ]
+    }
+  ],
+  "bridge_flow": 1.25,
+  "component_transfer_errors": [
+    {
+      "component_id": 6000,
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6100,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6001,
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6101,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6002,
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6102,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6003,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6103,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6004,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6104,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6005,
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6105,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6006,
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6106,
+      "maximum_cad_coordinate_error_mm": 4.912124040856725e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    }
+  ],
+  "primary_geometry_and_settings_preserved_from_complete_parent": true,
+  "critical_rim_traces": [
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 273471,
+      "length_mm": 20.966132555245938,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.0009636296035466785,
+        -28.686124846830452,
+        0.269505920477755
+      ],
+      "start_xy_mm": [
+        152.251,
+        114.159
+      ],
+      "end_xy_mm": [
+        172.752,
+        114.159
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 273823,
+      "length_mm": 22.843156433117628,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.0005803361983396371,
+        -29.057040364125456,
+        0.17011940715839557
+      ],
+      "start_xy_mm": [
+        151.374,
+        114.101
+      ],
+      "end_xy_mm": [
+        173.628,
+        114.102
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 274924,
+      "length_mm": 4.566551899195908,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.574886062261044,
+        -27.55275422206406,
+        0.5731916641090748
+      ],
+      "start_xy_mm": [
+        172.245,
+        114.367
+      ],
+      "end_xy_mm": [
+        168.19,
+        114.071
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 274950,
+      "length_mm": 3.6150628779683927,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.802924907711258,
+        -27.12346159687162,
+        0.6882202763460157
+      ],
+      "start_xy_mm": [
+        168.665,
+        114.128
+      ],
+      "end_xy_mm": [
+        168.709,
+        114.087
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 274964,
+      "length_mm": 3.52958344963086,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.779763021407518,
+        -27.133758629475032,
+        0.6854611947754989
+      ],
+      "start_xy_mm": [
+        156.273,
+        114.132
+      ],
+      "end_xy_mm": [
+        156.213,
+        114.132
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 274987,
+      "length_mm": 4.737751978006568,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.492972509926631,
+        -27.575695485275354,
+        0.5670445711582488
+      ],
+      "start_xy_mm": [
+        156.945,
+        114.2
+      ],
+      "end_xy_mm": [
+        152.755,
+        114.368
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 275725,
+      "length_mm": 35.72279251812243,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.8259840919628516,
+        -27.991624177728617,
+        0.45559681390646745
+      ],
+      "start_xy_mm": [
+        157.436,
+        113.977
+      ],
+      "end_xy_mm": [
+        167.425,
+        112.818
+      ]
+    }
+  ],
+  "priority_region_maximum_no_lower_bead_overlap_run_mm": 3.6952730306129355,
+  "first_skin_trace_count": 564,
+  "root_anchor": null,
+  "fit": {
+    "minimum_shared_bed_margin_mm": 97.534616,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          118.903616,
+          97.534616
+        ],
+        [
+          206.091384,
+          208.624384
+        ]
+      ],
+      "maximum_line_width_mm": 0.730768,
+      "bounds_padding_mm": 0.465384
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 97.534616,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  },
+  "physical_reference": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+  "repeat_control": false,
+  "limits": "Manual native command/contact review. First-skin samples at most 0.05 mm apart compare deposited bead footprints within 0.8 mm below. Physical acceptance remains scoped to the identified source articles; this complete faucet requires its own result."
+}

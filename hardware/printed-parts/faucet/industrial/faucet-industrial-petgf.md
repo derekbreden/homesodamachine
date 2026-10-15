@@ -63,21 +63,32 @@ The [arc transfer and native contact reading](rim-support-native-review.json)
 binds the exact accepted support meshes to this full-project placement. The
 base is translated 3 mm inward on the plate to retain the saved 40 mm native
 bead margin; its −15° rotation and support heights are unchanged. The part
-meshes, material settings, seams and layer bands are preserved. The tip's
-experimental fins, added lip contacts and root foot remain separate candidates.
+geometry, material settings, seams and layer bands are preserved. The tip retains
+the exact eight fin walls and hidden-root disc from the
+[accepted Mark1 article](../finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json).
+The seam-side low joint lip receives the accepted local tree enforcers: downward
+joint-plane facets below build Z21 and within CAD X ±8 mm. Other joint-plane
+facets retain their fin-contact blockers. The 10 × 8 mm bed disc bonds directly
+to the terminal male insertion end through its narrow neck. Its removal leaves
+a scuff accepted only on that hidden end; keep bonded contact off visible faces.
 Edge/underside appearance and release are accepted on the identified base
 section; complete-height printing and mating fit with this treatment remain
 unreported.
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The complete Mark1 native estimate is **6 h 47 min 43 s, 161.96 g**, recorded with
+The complete Mark1 native estimate is **6 h 47 min 49 s, 161.40 g**, recorded with
 the source hashes, settings, retained geometry and layer bands in the
 [readiness record](faucet-industrial-petgf.readiness.json). The
 [seam-path reference](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks
 the scarfed parts and plain cover/lever corners on its identified print. The
 [physical production approval](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
 retains its exact seam-fixed print and material scope.
+
+The [complete two-printer run](prints/2026-10-15-all-learnings/README.md) contains
+one of each rigid part: the base with rim arcs on Mark2 and the tip with its
+accepted supports, cover, rigid plate and lever on Mark1. Its individual native
+slices and launch receipts bind each printer's own trim, spool colour and placement.
 
 ## Support cleanup and evidence
 

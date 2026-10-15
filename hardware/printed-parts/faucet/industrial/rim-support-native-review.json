@@ -1,10 +1,11 @@
 {
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
-  "gcode_sha256": "6b9e8af0f6f7a995b86b5d8a4a7372011e19a235efda4a4b2d0ac70c1a7b0091",
+  "project_sha256": "fa614863f41cb80c25ea10e53f224c8b7e75a1f18c21f644ea223142b085f1c8",
+  "gcode_sha256": "026eb3331189a4220d10715cee62aa9fb42e387323865619632aed788353919c",
   "physical_reference": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
   "accepted_source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
-  "primary_part_mesh_members_preserved_byte_for_byte": true,
+  "primary_part_geometry_and_seam_paint_preserved": true,
+  "tip_support_paint_only_change": true,
   "machine_material_settings_and_layer_ranges_preserved_byte_for_byte": true,
   "component_transfer_errors": [
     {
@@ -97,7 +98,7 @@
   "critical_front_traces": [
     {
       "z_mm": 15.32,
-      "first_gcode_line": 492228,
+      "first_gcode_line": 499163,
       "length_mm": 20.96613255524593,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -116,7 +117,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 492553,
+      "first_gcode_line": 499488,
       "length_mm": 22.84315643311765,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -135,7 +136,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 493654,
+      "first_gcode_line": 500589,
       "length_mm": 4.566551899195908,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -154,7 +155,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 493680,
+      "first_gcode_line": 500615,
       "length_mm": 3.6150628779683727,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -173,7 +174,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 493694,
+      "first_gcode_line": 500629,
       "length_mm": 3.5295701831115496,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -192,7 +193,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 493717,
+      "first_gcode_line": 500652,
       "length_mm": 4.737751978006563,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [
@@ -211,7 +212,7 @@
     },
     {
       "z_mm": 15.32,
-      "first_gcode_line": 494456,
+      "first_gcode_line": 501391,
       "length_mm": 35.722792518122446,
       "no_lower_bead_overlap_run_mm": 0,
       "midpoint_cad_mm": [

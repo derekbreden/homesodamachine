@@ -132,8 +132,14 @@ telemetry. Its first plug bead at Z0.44 has no lower-bead bearing. The
 [prepared root-anchor correction](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md)
 adds a directly bonded bed foot, with native root-course overlap and retained
 lip contacts verified. It is [Mark1 task 1342500038](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json),
-accepted at 12:13:00 CDT on 2026-10-15; adhesion, removal and mating fit remain
-unreported. The
+accepted at 12:13:00 CDT on 2026-10-15. Its [physical result](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json)
+accepts the print and removable disc, with a scuff acceptable only on the hidden
+male insertion end. Dimensional mating fit and removal force are unmeasured. The
+[complete five-part faucet run](../printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/README.md)
+is Mark2 base task `1342687225` and Mark1 tip, cover, rigid plate and lever task
+`1342697013`. It retains the accepted arcs, tip supports and hidden-root disc,
+plus the selected finish and material settings, with no repeat controls.
+The complete faucet's physical result remains unreported. The
 [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 

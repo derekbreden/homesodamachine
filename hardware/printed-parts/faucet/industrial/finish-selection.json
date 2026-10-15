@@ -44,7 +44,8 @@
     "physical_evidence": [
       "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json"
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json"
     ],
     "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
   },
@@ -114,5 +115,36 @@
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
     "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
     "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+  },
+  "tip_supports": {
+    "selected_date": "2026-10-15",
+    "part": "faucet-shell-tip",
+    "method": "accepted-eight-fins-lip-trees-hidden-root-disc",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+    "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
+    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
+    "fin_component_id": 2000,
+    "root_anchor_component_id": 2400,
+    "fin_count": 8,
+    "joint_plane": {
+      "point": [
+        0.0,
+        -38.36796889030837,
+        220.8576411168048
+      ],
+      "normal": [
+        0.0,
+        -0.9396926207859083,
+        0.3420201433256688
+      ]
+    },
+    "lip_enforcer_selection": {
+      "maximum_build_z_mm": 21,
+      "maximum_abs_cad_x_mm": 8
+    },
+    "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
+    "tree_support_scope": "Tree(auto)/Default elsewhere. Retain the accepted joint-plane block paint except the seam-side low lip support enforcers.",
+    "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   }
 }

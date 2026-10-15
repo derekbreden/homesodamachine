@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-15T18:03:44.995663+00:00",
+  "printer": "Mark1",
+  "printer_task_id": "1342500038",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json",
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+  "project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
+  "submitted_archive_sha256": "f47302f2f6ad8423efda73fd4c42254c9e0af114ceadb0e59a984448a0d5cc81",
+  "gcode_sha256": "f0e9f922c4f39240caee882249f726dc6499b9e3053f30172cbfc3ce5810adf5",
+  "operator_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here.",
+  "result": {
+    "print": "Accepted: worked.",
+    "root_disc_removal": "Removable.",
+    "contact_mark": "A scuff remains at the disc contact.",
+    "contact_mark_acceptance": "Accepted at this hidden male insertion portion; unsuitable for a visible surface."
+  },
+  "finished_photos": [],
+  "completion_observation": {
+    "observed_at_utc": "2026-10-15T17:59:51.086815+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 167,
+    "total_layer_num": 167,
+    "print_error": 0,
+    "hms": []
+  },
+  "acceptance_scope": "Direct report on this identified short tip print and its hidden root-disc contact. No quantified removal force or dimensional mating measurement is inferred.",
+  "selected_for_complete_faucet": "Retain the exact eight fin walls, added lip support paint and hidden-root disc in the complete faucet at the tuned -105 degree orientation."
+}
