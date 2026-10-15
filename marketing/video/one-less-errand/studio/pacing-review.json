@@ -1,5 +1,5 @@
 {
-  "title": "One Less Errand — processing beats",
+  "title": "One Less Errand — room for the story",
   "beats": [
     {
       "id": "the-small-wish",
@@ -8,17 +8,145 @@
       "source_sample": 44521
     },
     {
+      "id": "car-settled",
+      "after_scene": "car",
+      "frames": 13,
+      "source_sample": 174000
+    },
+    {
+      "id": "kitchen-settled",
+      "after_scene": "kitchen",
+      "frames": 16,
+      "source_sample": 197932
+    },
+    {
+      "id": "shelf-settled",
+      "after_scene": "shelf",
+      "frames": 15,
+      "source_sample": 213177
+    },
+    {
+      "id": "first-restock",
+      "after_scene": "repeat",
+      "after_source_frame": 56,
+      "frames": 8,
+      "source_sample": 284404
+    },
+    {
+      "id": "second-restock",
+      "after_scene": "repeat",
+      "after_source_frame": 83,
+      "frames": 6,
+      "source_sample": 310026
+    },
+    {
+      "id": "the-loop-lands",
+      "after_scene": "repeat",
+      "after_source_frame": 104,
+      "frames": 10,
+      "source_sample": 333241
+    },
+    {
       "id": "before-the-answer",
       "after_scene": "question",
       "frames": 16,
       "source_sample": 400909
+    },
+    {
+      "id": "cold",
+      "after_scene": "hero",
+      "frames": 26,
+      "source_sample": 425863
+    },
+    {
+      "id": "carbonated",
+      "after_scene": "hero",
+      "frames": 23,
+      "source_sample": 453949
+    },
+    {
+      "id": "the-pour",
+      "after_scene": "pour",
+      "frames": 12,
+      "source_sample": 492699
+    },
+    {
+      "id": "the-wish-satisfied",
+      "after_scene": "sensory",
+      "frames": 8,
+      "source_sample": 530763
+    },
+    {
+      "id": "before-the-brand",
+      "after_scene": "sensory",
+      "frames": 10,
+      "source_sample": 572843
     }
   ],
+  "extend_motion": [
+    "hero",
+    "pour"
+  ],
+  "separate_benefit_captions": true,
+  "motion_preroll_frames": {"pour": 12},
   "type_timing": {
     "case_store": 1.65,
-    "hero_cold_frame": 2
+    "hero_cold_frame": 2,
+    "hero_carbonated_frame": 47,
+    "repeat_type_ends": [
+      2.96,
+      3.76,
+      4.45
+    ]
   },
   "score": {
-    "reveal_transition": "decay"
-  }
+    "reveal_transition": "decay",
+    "tempo_bpm": 96
+  },
+  "narration_pickup": {
+    "source": "audio/handling.wav",
+    "replace_source": [
+      6.1,
+      8.247166666666667
+    ],
+    "phrases": [
+      {
+        "text": "Into the car.",
+        "scene": "car",
+        "source_start": 1.76,
+        "source_end": 2.6,
+        "first_word": 1.79,
+        "last_word": 2.425,
+        "at": 0.08
+      },
+      {
+        "text": "Into the kitchen.",
+        "scene": "kitchen",
+        "source_start": 3.16,
+        "source_end": 4.1,
+        "first_word": 3.185,
+        "last_word": 3.945,
+        "at": 0.08
+      }
+    ]
+  },
+  "caption_source_onsets": [
+    {
+      "text": "Cold.",
+      "source_time": 17.02
+    },
+    {
+      "text": "Fully carbonated.",
+      "source_time": 17.83
+    },
+    {
+      "text": "And another.",
+      "occurrence": 2,
+      "source_time": 12.96
+    },
+    {
+      "text": "Onto a shelf.",
+      "source_time": 8.255
+    }
+  ]
 }

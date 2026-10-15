@@ -1,0 +1,20 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "style": "An intimate, warm American voice telling a short everyday story to a friend. Medium-low register, conversational, relaxed and precise, with a little dry knowing warmth. Match the connected natural delivery of the current Home Soda Machine narrator. Read the words naturally and unhurriedly, about 145–160 words per minute within each phrase. The cart, car, kitchen and shelf are a familiar routine: never theatrical, exasperated or a sales announcement. Let each short handling sentence land, with a distinct quiet breath of about half a second to two thirds of a second before the next sentence. Keep the spoken phrases fluid; do not stretch their vowels. No fixed overall length. The last question is a gently knowing recognition of the repeat errand, with the same warmth and tone as the prior sentences. This is one connected contextual pickup. Clean dry studio voice only, no music or effects.",
+  "text": "A case in the cart. Into the car. Into the kitchen. Onto a shelf. And when the cans are gone?",
+  "caption_phrases": [
+    "A case in the cart.",
+    "Into the car.",
+    "Into the kitchen.",
+    "Onto a shelf.",
+    "And when the cans are gone?"
+  ],
+  "generator": "marketing/video/one-less-errand/generate-narration.py",
+  "sample_rate": 24000,
+  "sha256": "abe7800e4e26bfd70cccbb59460923da1d00cf35591b9fb0e45123ce0de8cdcf",
+  "selected_passages": [
+    "Into the car.",
+    "Into the kitchen."
+  ]
+}
