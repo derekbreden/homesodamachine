@@ -14,7 +14,7 @@ edges on projecting horizontal teeth. They do not reproduce PrintFins' published
 wall-under-ledge gap calibration. In v4/v6 the one-layer teeth project 2.24 mm
 from the wall; nominal bridge landings on their tips do not establish physical
 bearing support. The [geometry comparison](geometry-comparison.json) separates
-these local results from the untested wall-under-roof arrangement.
+these local results from the wall-under-roof arrangement assessed by v8.
 
 The saved G-code places those first three roof attempts on layer 44, Z10.52.
 The ramps' last completed layer is 43, Z10.28. Their commanded reaches beyond
@@ -65,6 +65,15 @@ first layers and completed five-course roofs. Its
 roofs look pretty good and prefers R125; L140 adds sag. L125 may look worse
 than A125, with the comparison uncertain and anchor deposition/plate conditions
 different. No joining improvement above 125% is established.
+
+The [wall-under-roof gap comparison](under-roof-walls-v8/README.md), Mark1 task
+1340689201, has six swatches with a permanent reference and one-/two-layer
+vertical wall gaps in X/Y. Each spans 12 mm from a model post to an underlying
+1 mm wall, without projecting teeth. All 30 native bridge strokes per specimen
+cross the emitted wall tops in XY. It uses one wall loop so the native raster
+reaches the bearing, 125% first-bridge extrusion, 25 mm/s and 70% fan. The
+estimate is 15 min 10 s plus startup; physical surface and removal results
+remain unreported.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact

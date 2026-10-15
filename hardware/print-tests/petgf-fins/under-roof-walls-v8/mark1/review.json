@@ -1,0 +1,3306 @@
+{
+  "specimens": [
+    {
+      "id": "C0X",
+      "bridge_axis": "X",
+      "vertical_gap_mm": 0.0,
+      "last_wall_nozzle_z_mm": 5.48,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 17008,
+          "local_endpoints_mm": [
+            [
+              2.200000572204601,
+              11.472000000000008
+            ],
+            [
+              15.477000572204588,
+              11.472000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17010,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              11.094999999999999
+            ],
+            [
+              15.477000572204588,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17012,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              10.71799999999999
+            ],
+            [
+              15.477000572204588,
+              10.71799999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17014,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              10.340000000000003
+            ],
+            [
+              15.477000572204588,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17016,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              9.962999999999994
+            ],
+            [
+              15.477000572204588,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17018,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              9.585000000000008
+            ],
+            [
+              15.477000572204588,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17020,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              9.207999999999998
+            ],
+            [
+              15.477000572204588,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17022,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              8.830999999999989
+            ],
+            [
+              15.477000572204588,
+              8.830999999999989
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17024,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              8.453000000000003
+            ],
+            [
+              15.477000572204588,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17027,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              8.075999999999993
+            ],
+            [
+              15.477000572204588,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17029,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              7.6980000000000075
+            ],
+            [
+              15.477000572204588,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17031,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              7.320999999999998
+            ],
+            [
+              15.477000572204588,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17033,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              6.943999999999988
+            ],
+            [
+              15.477000572204588,
+              6.943999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17035,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              6.5660000000000025
+            ],
+            [
+              15.477000572204588,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17037,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              6.188999999999993
+            ],
+            [
+              15.477000572204588,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17039,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              5.811000000000007
+            ],
+            [
+              15.477000572204588,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17041,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              5.4339999999999975
+            ],
+            [
+              15.477000572204588,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17043,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              5.056999999999988
+            ],
+            [
+              15.477000572204588,
+              5.056999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17045,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              4.679000000000002
+            ],
+            [
+              15.477000572204588,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17047,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              4.3019999999999925
+            ],
+            [
+              15.477000572204588,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17049,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              3.9240000000000066
+            ],
+            [
+              15.477000572204588,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17051,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              3.546999999999997
+            ],
+            [
+              15.477000572204588,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17053,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              3.1699999999999875
+            ],
+            [
+              15.477000572204588,
+              3.1699999999999875
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17055,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              2.7920000000000016
+            ],
+            [
+              15.477000572204588,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17057,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              2.414999999999992
+            ],
+            [
+              15.477000572204588,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17059,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              2.037000000000006
+            ],
+            [
+              15.477000572204588,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17062,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              1.6599999999999966
+            ],
+            [
+              15.477000572204588,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17064,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              1.282999999999987
+            ],
+            [
+              15.477000572204588,
+              1.282999999999987
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17066,
+          "local_endpoints_mm": [
+            [
+              2.366000572204598,
+              0.9050000000000011
+            ],
+            [
+              15.477000572204588,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 17068,
+          "local_endpoints_mm": [
+            [
+              2.200000572204601,
+              0.5279999999999916
+            ],
+            [
+              15.477000572204588,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    },
+    {
+      "id": "G1X",
+      "bridge_axis": "X",
+      "vertical_gap_mm": 0.24,
+      "last_wall_nozzle_z_mm": 5.24,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 16838,
+          "local_endpoints_mm": [
+            [
+              2.200000190734869,
+              11.472000000000008
+            ],
+            [
+              15.477000190734856,
+              11.472000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16841,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.094999999999999
+            ],
+            [
+              15.477000190734856,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16843,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.71799999999999
+            ],
+            [
+              15.477000190734856,
+              10.71799999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16845,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.340000000000003
+            ],
+            [
+              15.477000190734856,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16847,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.962999999999994
+            ],
+            [
+              15.477000190734856,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16849,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.585000000000008
+            ],
+            [
+              15.477000190734856,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16851,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.207999999999998
+            ],
+            [
+              15.477000190734856,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16853,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.830999999999989
+            ],
+            [
+              15.477000190734856,
+              8.830999999999989
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16855,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.453000000000003
+            ],
+            [
+              15.477000190734856,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16857,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.075999999999993
+            ],
+            [
+              15.477000190734856,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16859,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.6980000000000075
+            ],
+            [
+              15.477000190734856,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16861,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.320999999999998
+            ],
+            [
+              15.477000190734856,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16863,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.943999999999988
+            ],
+            [
+              15.477000190734856,
+              6.943999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16866,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.5660000000000025
+            ],
+            [
+              15.477000190734856,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16868,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.188999999999993
+            ],
+            [
+              15.477000190734856,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16870,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.811000000000007
+            ],
+            [
+              15.477000190734856,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16872,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.4339999999999975
+            ],
+            [
+              15.477000190734856,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16874,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.056999999999988
+            ],
+            [
+              15.477000190734856,
+              5.056999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16876,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.679000000000002
+            ],
+            [
+              15.477000190734856,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16878,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.3019999999999925
+            ],
+            [
+              15.477000190734856,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16880,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.9240000000000066
+            ],
+            [
+              15.477000190734856,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16882,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.546999999999997
+            ],
+            [
+              15.477000190734856,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16884,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.1699999999999875
+            ],
+            [
+              15.477000190734856,
+              3.1699999999999875
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16886,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.7920000000000016
+            ],
+            [
+              15.477000190734856,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16888,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.414999999999992
+            ],
+            [
+              15.477000190734856,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16890,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.037000000000006
+            ],
+            [
+              15.477000190734856,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16892,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.6599999999999966
+            ],
+            [
+              15.477000190734856,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16894,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.282999999999987
+            ],
+            [
+              15.477000190734856,
+              1.282999999999987
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16896,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.9050000000000011
+            ],
+            [
+              15.477000190734856,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16898,
+          "local_endpoints_mm": [
+            [
+              2.200000190734869,
+              0.5279999999999916
+            ],
+            [
+              15.477000190734856,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    },
+    {
+      "id": "G2X",
+      "bridge_axis": "X",
+      "vertical_gap_mm": 0.48,
+      "last_wall_nozzle_z_mm": 5.0,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 16669,
+          "local_endpoints_mm": [
+            [
+              2.1999998092651367,
+              11.472000000000008
+            ],
+            [
+              15.476999809265124,
+              11.472000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16671,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              11.094999999999999
+            ],
+            [
+              15.476999809265124,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16673,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              10.71799999999999
+            ],
+            [
+              15.476999809265124,
+              10.71799999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16675,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              10.340000000000003
+            ],
+            [
+              15.476999809265124,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16677,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              9.962999999999994
+            ],
+            [
+              15.476999809265124,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16679,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              9.585000000000008
+            ],
+            [
+              15.476999809265124,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16681,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              9.207999999999998
+            ],
+            [
+              15.476999809265124,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16683,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              8.830999999999989
+            ],
+            [
+              15.476999809265124,
+              8.830999999999989
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16685,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              8.453000000000003
+            ],
+            [
+              15.476999809265124,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16687,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              8.075999999999993
+            ],
+            [
+              15.476999809265124,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16689,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              7.6980000000000075
+            ],
+            [
+              15.476999809265124,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16691,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              7.320999999999998
+            ],
+            [
+              15.476999809265124,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16693,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              6.943999999999988
+            ],
+            [
+              15.476999809265124,
+              6.943999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16695,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              6.5660000000000025
+            ],
+            [
+              15.476999809265124,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16697,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              6.188999999999993
+            ],
+            [
+              15.476999809265124,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16699,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              5.811000000000007
+            ],
+            [
+              15.476999809265124,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16701,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              5.4339999999999975
+            ],
+            [
+              15.476999809265124,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16703,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              5.056999999999988
+            ],
+            [
+              15.476999809265124,
+              5.056999999999988
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16706,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              4.679000000000002
+            ],
+            [
+              15.476999809265124,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16708,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              4.3019999999999925
+            ],
+            [
+              15.476999809265124,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16710,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              3.9240000000000066
+            ],
+            [
+              15.476999809265124,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16712,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              3.546999999999997
+            ],
+            [
+              15.476999809265124,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16714,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              3.1699999999999875
+            ],
+            [
+              15.476999809265124,
+              3.1699999999999875
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16716,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              2.7920000000000016
+            ],
+            [
+              15.476999809265124,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16718,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              2.414999999999992
+            ],
+            [
+              15.476999809265124,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16720,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              2.037000000000006
+            ],
+            [
+              15.476999809265124,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16722,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              1.6599999999999966
+            ],
+            [
+              15.476999809265124,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16724,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              1.282999999999987
+            ],
+            [
+              15.476999809265124,
+              1.282999999999987
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16726,
+          "local_endpoints_mm": [
+            [
+              2.3659998092651335,
+              0.9050000000000011
+            ],
+            [
+              15.476999809265124,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16728,
+          "local_endpoints_mm": [
+            [
+              2.1999998092651367,
+              0.5279999999999916
+            ],
+            [
+              15.476999809265124,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    },
+    {
+      "id": "C0Y",
+      "bridge_axis": "Y",
+      "vertical_gap_mm": 0.0,
+      "last_wall_nozzle_z_mm": 5.48,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Internal solid infill",
+        "Bridge",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 16107,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.5279999999999916
+            ],
+            [
+              15.643000190734853,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16109,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.9050000000000011
+            ],
+            [
+              15.477000190734856,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16111,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.2820000000000107
+            ],
+            [
+              15.477000190734856,
+              1.2820000000000107
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16113,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.6599999999999966
+            ],
+            [
+              15.477000190734856,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16115,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.037000000000006
+            ],
+            [
+              15.477000190734856,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16117,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.414999999999992
+            ],
+            [
+              15.477000190734856,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16119,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.7920000000000016
+            ],
+            [
+              15.477000190734856,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16121,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.169000000000011
+            ],
+            [
+              15.477000190734856,
+              3.169000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16123,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.546999999999997
+            ],
+            [
+              15.477000190734856,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16126,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.9240000000000066
+            ],
+            [
+              15.477000190734856,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16128,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.3019999999999925
+            ],
+            [
+              15.477000190734856,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16130,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.679000000000002
+            ],
+            [
+              15.477000190734856,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16132,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.056000000000012
+            ],
+            [
+              15.477000190734856,
+              5.056000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16134,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.4339999999999975
+            ],
+            [
+              15.477000190734856,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16136,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.811000000000007
+            ],
+            [
+              15.477000190734856,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16138,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.188999999999993
+            ],
+            [
+              15.477000190734856,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16140,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.5660000000000025
+            ],
+            [
+              15.477000190734856,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16142,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.943000000000012
+            ],
+            [
+              15.477000190734856,
+              6.943000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16144,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.320999999999998
+            ],
+            [
+              15.477000190734856,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16146,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.6980000000000075
+            ],
+            [
+              15.477000190734856,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16148,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.075999999999993
+            ],
+            [
+              15.477000190734856,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16150,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.453000000000003
+            ],
+            [
+              15.477000190734856,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16152,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.830000000000013
+            ],
+            [
+              15.477000190734856,
+              8.830000000000013
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16154,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.207999999999998
+            ],
+            [
+              15.477000190734856,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16156,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.585000000000008
+            ],
+            [
+              15.477000190734856,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16158,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.962999999999994
+            ],
+            [
+              15.477000190734856,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16161,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.340000000000003
+            ],
+            [
+              15.477000190734856,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16163,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.716999999999999
+            ],
+            [
+              15.477000190734856,
+              10.716999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16165,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.094999999999999
+            ],
+            [
+              15.477000190734856,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16167,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.471999999999994
+            ],
+            [
+              15.643000190734853,
+              11.471999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    },
+    {
+      "id": "G1Y",
+      "bridge_axis": "Y",
+      "vertical_gap_mm": 0.24,
+      "last_wall_nozzle_z_mm": 5.24,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Bridge",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 16289,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.472000000000008
+            ],
+            [
+              15.643000190734853,
+              11.472000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16291,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.094999999999999
+            ],
+            [
+              15.477000190734856,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16293,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.717000000000013
+            ],
+            [
+              15.477000190734856,
+              10.717000000000013
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16295,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.340000000000003
+            ],
+            [
+              15.477000190734856,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16297,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.962999999999994
+            ],
+            [
+              15.477000190734856,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16300,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.585000000000008
+            ],
+            [
+              15.477000190734856,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16302,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.207999999999998
+            ],
+            [
+              15.477000190734856,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16304,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.830000000000013
+            ],
+            [
+              15.477000190734856,
+              8.830000000000013
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16306,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.453000000000003
+            ],
+            [
+              15.477000190734856,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16308,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.075999999999993
+            ],
+            [
+              15.477000190734856,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16311,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.6980000000000075
+            ],
+            [
+              15.477000190734856,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16313,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.320999999999998
+            ],
+            [
+              15.477000190734856,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16315,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.943000000000012
+            ],
+            [
+              15.477000190734856,
+              6.943000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16317,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.5660000000000025
+            ],
+            [
+              15.477000190734856,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16319,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.188999999999993
+            ],
+            [
+              15.477000190734856,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16321,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.811000000000007
+            ],
+            [
+              15.477000190734856,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16323,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.4339999999999975
+            ],
+            [
+              15.477000190734856,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16325,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.056000000000012
+            ],
+            [
+              15.477000190734856,
+              5.056000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16327,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.679000000000002
+            ],
+            [
+              15.477000190734856,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16329,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.3019999999999925
+            ],
+            [
+              15.477000190734856,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16331,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.9240000000000066
+            ],
+            [
+              15.477000190734856,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16333,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.546999999999997
+            ],
+            [
+              15.477000190734856,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16335,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.169000000000011
+            ],
+            [
+              15.477000190734856,
+              3.169000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16337,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.7920000000000016
+            ],
+            [
+              15.477000190734856,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16339,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.414999999999992
+            ],
+            [
+              15.477000190734856,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16341,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.037000000000006
+            ],
+            [
+              15.477000190734856,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16343,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.6599999999999966
+            ],
+            [
+              15.477000190734856,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16346,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.2820000000000107
+            ],
+            [
+              15.477000190734856,
+              1.2820000000000107
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16348,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.9050000000000011
+            ],
+            [
+              15.477000190734856,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16350,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.5279999999999916
+            ],
+            [
+              15.643000190734853,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    },
+    {
+      "id": "G2Y",
+      "bridge_axis": "Y",
+      "vertical_gap_mm": 0.48,
+      "last_wall_nozzle_z_mm": 5.0,
+      "first_roof_nozzle_z_mm": 5.72,
+      "wall_top_bead_count": 5,
+      "main_bridge_strokes": 30,
+      "main_bridge_speed_mm_s": [
+        25.0
+      ],
+      "main_bridge_fan_percent": [
+        70.0
+      ],
+      "main_bridge_height_mm": [
+        0.24
+      ],
+      "first_roof_features_in_order": [
+        "Internal solid infill",
+        "Bridge",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "bridge_fill_before_walls": true,
+      "main_bridge_endpoint_checks": [
+        {
+          "line": 16495,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.5279999999999916
+            ],
+            [
+              15.643000190734853,
+              0.5279999999999916
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16497,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              0.9050000000000011
+            ],
+            [
+              15.477000190734856,
+              0.9050000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16499,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.2820000000000107
+            ],
+            [
+              15.477000190734856,
+              1.2820000000000107
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16501,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              1.6599999999999966
+            ],
+            [
+              15.477000190734856,
+              1.6599999999999966
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16504,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.037000000000006
+            ],
+            [
+              15.477000190734856,
+              2.037000000000006
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16506,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.414999999999992
+            ],
+            [
+              15.477000190734856,
+              2.414999999999992
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16508,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              2.7920000000000016
+            ],
+            [
+              15.477000190734856,
+              2.7920000000000016
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16510,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.169000000000011
+            ],
+            [
+              15.477000190734856,
+              3.169000000000011
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16512,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.546999999999997
+            ],
+            [
+              15.477000190734856,
+              3.546999999999997
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16514,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              3.9240000000000066
+            ],
+            [
+              15.477000190734856,
+              3.9240000000000066
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16516,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.3019999999999925
+            ],
+            [
+              15.477000190734856,
+              4.3019999999999925
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16518,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              4.679000000000002
+            ],
+            [
+              15.477000190734856,
+              4.679000000000002
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16520,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.056000000000012
+            ],
+            [
+              15.477000190734856,
+              5.056000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16522,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.4339999999999975
+            ],
+            [
+              15.477000190734856,
+              5.4339999999999975
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16524,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              5.811000000000007
+            ],
+            [
+              15.477000190734856,
+              5.811000000000007
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16526,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.188999999999993
+            ],
+            [
+              15.477000190734856,
+              6.188999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16528,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.5660000000000025
+            ],
+            [
+              15.477000190734856,
+              6.5660000000000025
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16530,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              6.943000000000012
+            ],
+            [
+              15.477000190734856,
+              6.943000000000012
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16532,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.320999999999998
+            ],
+            [
+              15.477000190734856,
+              7.320999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16534,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              7.6980000000000075
+            ],
+            [
+              15.477000190734856,
+              7.6980000000000075
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16536,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.075999999999993
+            ],
+            [
+              15.477000190734856,
+              8.075999999999993
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16539,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.453000000000003
+            ],
+            [
+              15.477000190734856,
+              8.453000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16541,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              8.830000000000013
+            ],
+            [
+              15.477000190734856,
+              8.830000000000013
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16543,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.207999999999998
+            ],
+            [
+              15.477000190734856,
+              9.207999999999998
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16545,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.585000000000008
+            ],
+            [
+              15.477000190734856,
+              9.585000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16547,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              9.962999999999994
+            ],
+            [
+              15.477000190734856,
+              9.962999999999994
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16549,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.340000000000003
+            ],
+            [
+              15.477000190734856,
+              10.340000000000003
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16551,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              10.717000000000013
+            ],
+            [
+              15.477000190734856,
+              10.717000000000013
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16553,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.094999999999999
+            ],
+            [
+              15.477000190734856,
+              11.094999999999999
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        },
+        {
+          "line": 16555,
+          "local_endpoints_mm": [
+            [
+              2.366000190734866,
+              11.472000000000008
+            ],
+            [
+              15.643000190734853,
+              11.472000000000008
+            ]
+          ],
+          "left_center_distance_mm": 0.0,
+          "right_center_distance_mm": 0.0,
+          "left_terminal_025mm_missing": 0.0,
+          "right_terminal_025mm_missing": 0.0
+        }
+      ],
+      "maximum_endpoint_xy_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm": 0.0,
+      "long_roof_perimeter_crossings": 0,
+      "fixed_fan_after_first_three_layers_percent": [
+        70.0
+      ],
+      "bearing_scope": "XY projection over emitted vertical-wall top beads; G specimens retain the named vertical gap, not direct preceding-layer contact"
+    }
+  ],
+  "model_bead_bounds_mm": [
+    [
+      125.5,
+      130.0
+    ],
+    [
+      199.5,
+      178.55
+    ]
+  ],
+  "minimum_model_bead_edge_inset_mm": 125.5,
+  "slicer_support_segments": 0,
+  "trim_commands": [
+    "G29.1 Z0",
+    "G29.1 Z0.16"
+  ],
+  "limits": "Native commanded wall crossings and process settings; physical roof formation, wall removal and retained finish are unmeasured.",
+  "native_archive": "native.gcode.3mf",
+  "native_sha256": "82de179b0cb5e5a35aed650ceda70ea7f3382d7ab137ab453806816dcd67ac7b",
+  "native_gcode_sha256": "b6505fb9f8c9207b205adb4dc1e18796cdbe1469a099a7050794c078a695f521",
+  "gcode_sha256": "8655bf5315c5ade46f9f76509077f73d8a7b23387ead9fef8a344bf43c02f559",
+  "native_model_xyz_paths_unchanged": true,
+  "native_estimated_seconds": 910,
+  "native_estimated_grams": 4.32,
+  "treatments": {
+    "first_roof_bridge_fill_commands": {
+      "C0Y": 59,
+      "G1Y": 59,
+      "G2Y": 59,
+      "G2X": 59,
+      "G1X": 59,
+      "C0X": 59
+    },
+    "fan_insertions": 0,
+    "added_filament_mm": 21.836939999999945,
+    "estimated_added_grams": 0.07510931427470821,
+    "feed_edits": 3010
+  }
+}

@@ -160,7 +160,13 @@ does not isolate a printer effect because anchor fill, height and plate size dif
 The [geometry comparison](../print-tests/petgf-fins/geometry-comparison.json)
 identifies the v4/v6 fins as local lateral walls with 2.24 mm cantilever teeth.
 Their failures do not qualify or reject PrintFins' published wall-under-ledge
-arrangement with a vertical release gap, which remains untested here.
+arrangement with a vertical release gap, whose physical outcome remains unqualified here.
+The [wall-under-roof comparison](../print-tests/petgf-fins/under-roof-walls-v8/README.md)
+is Mark1 task 1340689201: permanent, 0.24 mm and 0.48 mm vertical-gap conditions,
+each in X/Y. A permanent model post anchors one end; a 1 mm vertical wall
+underlies the other. All 30 native bridge strokes per specimen cross wall-top
+beads in XY, with one wall loop and no projecting teeth. Physical formation,
+retained underside quality and wall removal remain unreported.
 The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course

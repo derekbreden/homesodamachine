@@ -1,0 +1,24 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/2026-10-14-v8-under-roof-walls-petgf-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "39045f435fedb2774c7eb3efb61a09da0963fa4716f5de5c9d3f93deeb9c7a78",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/2026-10-14-v8-under-roof-walls-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "65c5a50cb63ba56df68c2e74a183e0eab8a6abda1c219cc37b6e0a63f1b9235b",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "8655bf5315c5ade46f9f76509077f73d8a7b23387ead9fef8a344bf43c02f559"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
