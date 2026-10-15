@@ -23,6 +23,8 @@ screw tip. The seam screws carry a ±0.8 mm length allowance.
 
 Each screw head and flat washer sit in an inboard-open U-shaped access recess.
 Both complete washer-bearing annuli retain 3 mm of stock below their floors.
+The lower entry has a 0.5 mm bevel; its head seat and washer floor stay flat.
+The upper mouth continues inward into the funnel opening above the frame.
 The upper recess's roof-edge mouth has the named local thin-section allowance in
 [the enclosure specification](../README.md#seams--corner-stacks): the exterior taper
 leaves a 1.81 mm minimum horizontal outboard rim width over its top 2.38 mm,

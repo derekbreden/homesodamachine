@@ -132,10 +132,10 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.252 | $31.32 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.251 | $31.31 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.472 | $11.81 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.505 | $37.65 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.504 | $37.64 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.012 | $0.30 <!--@printed--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.024 | $0.59 <!--@printed--> |
@@ -147,12 +147,12 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--> |
-| Funnel frame | 1 | PET-GF | 0.235 | $5.89 <!--@printed--> |
+| Funnel frame | 1 | PET-GF | 0.235 | $5.88 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.20** | **[$166.04](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.20** | **[$166.01](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.18 kg / $154.57.
+By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.18 kg / $154.52.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -339,7 +339,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$166.04](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$166.01](BOM_SEC7) |
 | 8. Flavor subsystem | [$229.61](BOM_SEC8) |
 | 9. Dispensing | [$72.01](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -348,7 +348,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$19.27](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,451.93](BOM_GRAND)** |
+| **Total** | **[$1,451.90](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

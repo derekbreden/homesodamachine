@@ -210,6 +210,10 @@ joined to the floor by the opening's end walls and to the corner stack above it.
 The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
 tangentially, including the two corner blends. Its full section and flute
 runout follow the top's side shoulder and both cartridge hand pockets.
+One complete handhold profile spans both Y halves and is mirrored onto the two
+flanks. It cuts the finished shell and seam blocks together. The central lifting
+ceiling remains exactly planar; the exterior transition and both rounded ends
+share the same boundary across the seam.
 
 The printed ceiling is the exposed gripping surface. The end walls are complete;
 there are no grip covers, cover seats or wing slots. Tree(auto)/Default supports
@@ -224,6 +228,8 @@ The floor scarf continues across the middle of the enclosure. The lower seam scr
 through the handhold ceilings. Each head and its single flat washer sit inside
 an inward-open pocket, with the head face recessed 2 mm above the finger surface.
 The openings remain exposed during use.
+Their finger-contact entrances have a 0.5 mm, 45° ease; the washer-bearing floors
+and screw seating planes retain their full sections.
 
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
@@ -1663,10 +1669,11 @@ stock and the scope of the exported geometry.
 ## Funnel opening
 
 The 455 mL silicone funnel sits in a separate solid PET-GF frame centered at
-Y164.55, with its outlet at the same Y centre. The frame slides into front-top's receivers; closing the enclosure
-captures its rear rails in back-top. `funnel_frame.py` uses the production
-Z-seam heads and channels with the same section and fit allowances. The
-receiving bands are part of the corresponding enclosure solids.
+Y164.55, with its outlet at the same Y centre. Its front rail pair slides into
+front-top's receivers. The rear frame is 182.5 mm wide beside back-top's screw
+blocks and has no rear rails. Its actual aft corners retain R6 plan rounds;
+the clearance shoulders at Y199.75 remain square. `funnel_frame.py` uses the
+production Z-seam head/channel section and fit allowances for the front pair.
 
 The frame's brim bearing is Z349, its flat underside is Z299.9, and its two full-width
 end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm

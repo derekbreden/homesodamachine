@@ -55,7 +55,9 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm
 ### 1. Stage the printed pieces
 
 The bottom pieces' printed lifting ceilings are the finger-contact surfaces of the
-handholds. Remove loose support material before closing the two halves. The current
+handholds. Both halves share one R6 opening and exterior transition, mirrored on the
+two flanks, so the lifting edge follows one profile across the Y seam.
+Remove loose support material before closing the two halves. The current
 bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
 results.
 
@@ -209,13 +211,15 @@ The box closes in two slides and four screws, and everything in the service bay 
    and about 60 mm above the roof for the upper screws.
 
    **Place each lower washer first.** Tip the loose washer sideways by about 35° and guide
-   it up through the handhold into the open head pocket. Once it is inside, turn it flat
+   it up through the handhold into the open head pocket, whose entry has a 0.5 mm bevel.
+   Once it is inside, turn it flat
    against the bearing floor and hold it there. Feed the [M5 × 150](LOWER_ROD) screw upward
    through the washer and the printed blocks into back-top's anchor block.
 
    For each upper station, drop a washer flat into its roof pocket and insert the
    [M5 × 60](UPPER_ROD) screw downward through it into front-top's upper block. Each
-   U-shaped head pocket opens toward the enclosure interior. Start every screw in its
+   U-shaped head pocket opens toward the enclosure interior; the upper mouth continues
+   into the funnel opening above the frame. Start every screw in its
    cooled insert by fingers for several turns. Put the long leg of a 4 mm hex key in
    the head and turn its short leg with thumb and forefinger. Stop at the first distinct
    seating resistance, with the washer flat and head free play removed. Leave the other

@@ -176,7 +176,13 @@ def prepare_bottom(part, project, directory, trim):
     piece = part.split("-", 1)[0]
     # Keep automatic supports on the integral ceiling and its inner corners;
     # only the actual exterior R6 band receives the show-surface blocker.
-    show_inner = shell.appliance_width/2-shell.handhold_edge_r
+    # Screw-pocket floors above that envelope retain automatic supports.
+    from overhang_round import transition
+    central = ((np.min(points[:, :, 1], axis=1) >= shell._handhold_y()[0]+shell.handhold_corner_r-.01)
+        & (np.max(points[:, :, 1], axis=1) <= shell._handhold_y()[1]-shell.handhold_corner_r+.01))
+    # Follow the straight transition's tangent foot and the full R6 end returns.
+    show_inner = shell.appliance_width/2-np.where(
+        central, transition(shell.handhold_edge_r)[1], shell.handhold_edge_r)
     flat = ((np.max(np.abs(points[:, :, 2]-roof), axis=1) < .0001) & (nz < -.99)
         & (np.min(np.abs(points[:, :, 0]), axis=1) >= inner_face-shell.handhold_wall-.001)
         & (np.min(points[:, :, 1], axis=1) >= shell._handhold_y()[0]-shell.handhold_wall-.12)
@@ -185,7 +191,7 @@ def prepare_bottom(part, project, directory, trim):
         & (np.min(points[:, :, 1], axis=1) >= shell._handhold_y()[0]-shell.handhold_corner_r-.01)
         & (np.max(points[:, :, 1], axis=1) <= shell._handhold_y()[1]+shell.handhold_corner_r+.01)
         & (np.min(points[:, :, 2], axis=1) >= roof-shell.handhold_edge_r-.01)
-        & (np.max(points[:, :, 2], axis=1) <= roof+shell.handhold_edge_r+3.05)
+        & (np.max(points[:, :, 2], axis=1) <= roof+shell.handhold_edge_r+.01)
         & (nz < -.00001) & ~flat)
     assert flat.sum() > 0 and exterior.sum() > 0
     flat_area = unary_union([Polygon(p[:, :2]) for p in points[flat]])

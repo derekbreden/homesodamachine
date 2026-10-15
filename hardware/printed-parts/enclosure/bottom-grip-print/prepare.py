@@ -54,10 +54,14 @@ def main(printer, revision):
     _flank,cap=shell._band_x(shell.appliance_width/2,-1)
     inner_face=cap+shell.handhold_wall
     # Only the exterior R6 band is excluded. The integral finger-contact
-    # ceiling and its inner corner returns retain automatic supports.
-    show_inner=shell.appliance_width/2-shell.handhold_edge_r
+    # ceiling, inner returns and screw-pocket floors retain automatic supports.
+    from overhang_round import transition
+    central=(np.min(points[:,:,1],axis=1)>=shell._handhold_y()[0]+shell.handhold_corner_r-.01)&(np.max(points[:,:,1],axis=1)<=shell._handhold_y()[1]-shell.handhold_corner_r+.01)
+    # The straight roof transition ends at its tangent foot; the end returns
+    # keep the full R6 depth. Functional pocket faces lie inboard of that foot.
+    show_inner=shell.appliance_width/2-np.where(central,transition(shell.handhold_edge_r)[1],shell.handhold_edge_r)
     flat=(np.max(np.abs(points[:,:,2]-roof),axis=1)<.0001)&(nz<-.99)&(np.min(np.abs(points[:,:,0]),axis=1)>=inner_face-shell.handhold_wall-.001)&(np.min(points[:,:,1],axis=1)>=shell._handhold_y()[0]-shell.handhold_wall-.12)&(np.max(points[:,:,1],axis=1)<=shell._handhold_y()[1]+shell.handhold_wall+.12)
-    exterior=(np.min(np.abs(points[:,:,0]),axis=1)>=show_inner-.001)&(np.min(points[:,:,1],axis=1)>=shell._handhold_y()[0]-shell.handhold_corner_r-.01)&(np.max(points[:,:,1],axis=1)<=shell._handhold_y()[1]+shell.handhold_corner_r+.01)&(np.min(points[:,:,2],axis=1)>=roof-shell.handhold_edge_r-.01)&(np.max(points[:,:,2],axis=1)<=roof+shell.handhold_edge_r+3.05)&(nz<-.00001)&~flat
+    exterior=(np.min(np.abs(points[:,:,0]),axis=1)>=show_inner-.001)&(np.min(points[:,:,1],axis=1)>=shell._handhold_y()[0]-shell.handhold_corner_r-.01)&(np.max(points[:,:,1],axis=1)<=shell._handhold_y()[1]+shell.handhold_corner_r+.01)&(np.min(points[:,:,2],axis=1)>=roof-shell.handhold_edge_r-.01)&(np.max(points[:,:,2],axis=1)<=roof+shell.handhold_edge_r+.01)&(nz<-.00001)&~flat
     assert flat.sum()>0 and exterior.sum()>0
     flat_area=unary_union([Polygon(p[:,:2]) for p in points[flat]])
     permitted=flat_area.buffer(-.8)
