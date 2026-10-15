@@ -166,7 +166,12 @@ is Mark1 task 1340689201: permanent, 0.24 mm and 0.48 mm vertical-gap conditions
 each in X/Y. A permanent model post anchors one end; a 1 mm vertical wall
 underlies the other. All 30 native bridge strokes per specimen cross wall-top
 beads in XY, with one wall loop and no projecting teeth. Physical formation,
-retained underside quality and wall removal remain unreported.
+release and shape are recorded in the
+[confirmed Mark1 result](../print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json):
+G1 at 0.24 mm is the preferred column, bends off easily and provides good bridge
+support. G2 at 0.48 mm is okay and basically falls off, with very slight sag.
+X/Y are not separately ranked and C0 is unreported. This is a narrow-wall gap
+candidate, not a tree-support gap or sliding-joint qualification.
 The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course

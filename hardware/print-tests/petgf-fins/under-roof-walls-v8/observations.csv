@@ -1,7 +1,7 @@
 id,roof_formed,underside_acceptable,wall_release,roof_damage,notes
-C0X,,,,,
-G1X,,,,,
-G2X,,,,,
-C0Y,,,,,
-G1Y,,,,,
-G2Y,,,,,
+C0X,,,,,Unreported reference
+C0Y,,,,,Unreported reference
+G1X,yes at column level,preferred column,easy bending,,X/Y not individually ranked
+G1Y,yes at column level,preferred column,easy bending,,X/Y not individually ranked
+G2X,yes at column level,okay but slight sag,basically falls off,,X/Y not individually ranked
+G2Y,yes at column level,okay but slight sag,basically falls off,,X/Y not individually ranked

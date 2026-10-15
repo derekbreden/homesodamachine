@@ -121,8 +121,11 @@ also uses repeated bridge specimens with per-object flow or speed changes.
 This experiment targets separated neighboring strands. Increasing E at fixed
 pitch is the focused intervention. Bambu's
 [flow implementation](https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/Flow.cpp)
-couples some bridge flow calculations to the extrusion geometry; explicit local
+includes different thin/thick bridge flow calculations; explicit local
 G-code multipliers keep each group's actual path spacing fixed for this test.
+The [native transfer check](../profile-transfer-review.json) establishes that
+normal native bridge flow 1.25 retains the tested main-stroke spacing and
+extrusion, while also increasing the bridge-perimeter extrusion.
 
 Both plates retain PET-GF working-profile temperatures (265°C first layer,
 280°C normal, 80°C bed), fixed left hardened Standard 0.4 mm nozzle and external

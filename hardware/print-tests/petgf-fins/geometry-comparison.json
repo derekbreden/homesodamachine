@@ -46,6 +46,6 @@
     "arrangement": "A published wall-under-ledge reference adapted to the actual fixed layer schedule, with bridge paths crossing the wall tops and whole-layer vertical clearances; small grip contacts evaluated separately on a suitable sloping or side face.",
     "decision": "Whether underlying removable walls provide a useful retained surface and release in PET-GF. Additional flow or cooling variants on the long-tooth geometry do not answer that question.",
     "assessment": "Compare cooled retained undersides for loose strands, bowing and snagging; record clean wall removal versus welded contact or torn roof skin. A geometry preview alone cannot establish either outcome.",
-    "status": "Prepared and launched as under-roof-walls-v8, Mark1 task 1340689201; physical surface and release results remain unreported. See under-roof-walls-v8/README.md."
+    "status": "Completed as under-roof-walls-v8, Mark1 task 1340689201. G1's 0.24 mm gap is preferred for easy bending release and good bridge support; G2 at 0.48 mm basically falls off with very slight sag. See under-roof-walls-v8/mark1/physical-result.json for column-level scope."
   }
 }
