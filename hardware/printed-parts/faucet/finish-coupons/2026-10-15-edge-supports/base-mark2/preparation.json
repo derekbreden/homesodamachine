@@ -551,10 +551,11 @@
   "parent_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/preparation.json",
   "parent_project_sha256": "7f9de2925f2479be754eaddcc0aaea4aebcb7005df9b94ff9705bfa41c555c64",
   "material_treatment": "Native bridge flow1.25,70% fan after3off bedlayers including floating vertical shell/supports;Bridge15mm/s,overhang limits<=15 preserving existing10mm/s. No post-slice edits.",
-  "candidate_status": "Accepted by printer; physical finish and release pending.",
+  "candidate_status": "Physical rim/underside finish and easy arc-fin release accepted by Derek; see physical-result/physical-result.json.",
   "authorization_quote": "Both printers are available and its my bed time. Print as you see fit.",
   "submitted": true,
   "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/launch.json",
   "printer_task_id": "1341188908",
-  "submitted_gcode_sha256": "8946448453c32d1a95fe1bc197e4b6a6255544182fb361ebe220ed370efd5edd"
+  "submitted_gcode_sha256": "8946448453c32d1a95fe1bc197e4b6a6255544182fb361ebe220ed370efd5edd",
+  "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json"
 }

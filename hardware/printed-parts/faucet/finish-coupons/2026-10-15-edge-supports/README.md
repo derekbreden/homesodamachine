@@ -17,8 +17,10 @@ emits +0.16 mm; Mark2's +0.04 mm trim emits +0.02 mm on Textured PEI.
 
 Both printers report `FINISH` on their matching jobs ([Mark2 reading](base-mark2/completion-observation.json)), with all commanded layers
 completed and `print_error0`. The [Mark1 physical result](tip-mark1/physical-result/physical-result.json)
-is a failure of the male-plug starting section. Mark2's physical finish and
-curved-wall release remain unreported. Mark2 also reports HMS
+is a failure of the male-plug starting section. The
+[Mark2 physical result](base-mark2/physical-result/physical-result.json) accepts
+the underside as Derek's best observed faucet underside, excellent edge
+support and very easy arc snap-off. Mark2 also reports HMS
 `0C00-0100-0002-0017`, identified by Bambu Studio's installed message catalog as a
 dirty nozzle-camera lens that may affect AI monitoring; no direct lens inspection
 is recorded.
@@ -52,6 +54,16 @@ Tree(auto)/Default, including its automatic normal sections, remains enabled
 on the rest of the underside and in the gaps. The bottom annulus has no blanket
 support-block paint. These locally generated curved walls are an explicit
 feature-specific choice, not output from the straight-wall Support Fins engine.
+
+Derek's physical inspection accepts this exact combination of curved edge
+walls, automatic trees and the working cooling/speed recipe. He reports that
+the arc fins snapped off very easily and produced the best faucet underside
+he has observed. The [three photographs and full report](base-mark2/physical-result/physical-result.json)
+retain the exact accepted job and print hashes. The
+[complete faucet project](../../industrial/faucet-industrial-petgf.md) selects
+the same seven arc meshes and their narrow blocker strips at the base rim.
+Other rough overhang edges use the same edge-following support principle with
+their own geometry; this physical result belongs to the identified base section.
 
 The [native review](base-mark2/review.json) finds lower deposited-bead overlap
 along the complete sampled outer-rim path at the critical front Z15.32 course.
@@ -98,10 +110,10 @@ start and remains unsent. The earlier Mark2 bottom-rim appearance acceptance
 keeps its scope on that identified article.
 
 Native overlap describes commanded bearing locations, not sag, fusion, contact
-marks or release effort. The failed tip does not establish the added lip
-contacts' finish. The base's curved-wall finish and removal require their own
-finished-part result. The stock
-straight fins' easy snap-off does not establish curved-wall release.
+marks or release effort. The base's curved-wall finish and easy release have
+their own direct physical acceptance above. The failed tip does not establish
+the added lip contacts' finish. Mating fit and a complete-height print with the
+base arcs remain unreported.
 
 Inspect the front edge under the lever and the tip's seam-side rim after
 ordinary support removal. Preserve the adjacent finish and mating faces.

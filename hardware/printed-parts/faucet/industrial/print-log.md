@@ -7,8 +7,12 @@ are Mark1 task `1341173963`, a −105° tip section with the eight plain fins
 retained and local trees added at the rough seam-side lip, and Mark2 task
 `1341188908`, a −15° foot with seven curved rim fins and Tree(auto)/Default
 on the remaining underside. The starts are 594.405 seconds apart. Each plate
-has one candidate and no repeated control. Finished contact quality, curved-wall
-release and mating fit remain pending on the base. The
+has one candidate and no repeated control. The
+[Mark2 physical result](../finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+accepts excellent edge support, very easy arc-fin snap-off and the best faucet
+underside Derek has observed. The complete faucet project selects the exact
+seven curved edge walls and narrow blocker strips, with trees elsewhere.
+Mating fit and complete-height printing with those arcs remain unreported. The
 [Mark1 physical result](../finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 records failure of the male insertion section despite telemetry reporting
 167/167 layers and `FINISH`. Native G-code starts that section at Z0.44 with
@@ -27,7 +31,9 @@ flow, 70% cooling after three fan-off layers, 15 mm/s bridges and overhang limit
 at most 15 mm/s with the existing 10 mm/s limit retained. The
 [whole-project command reading](overhang-native-review.json) covers all five rigid
 parts, including Floating vertical shell. The complete project retains automatic
-supports; the new edge-support choices remain local to their candidates.
+supports on the remaining surfaces. The curved base-rim treatment has direct
+physical finish and release acceptance; the tip's local treatments remain
+scoped to their candidates.
 
 ## Planned production approval — 2026-10-14
 

@@ -48,15 +48,30 @@ rough. The [base result](../finish-coupons/2026-10-14-foot-fins-current-angle/fu
 reports tighter material and better finish with trees than radial fins. Those
 short-section observations do not establish the complete faucet's material finish.
 
-Tree (auto), saved Default style and Bambu's automatic support sections are retained:
+Tree (auto), saved Default style and Bambu's automatic support sections serve the
+remaining surfaces:
 0.45 mm top gap, 0.30 mm bottom gap, 0.40 mm XY gap, two top interface layers and
-0.50 mm interface spacing. The complete project has no support blockers or manual
-normal-support overrides. The [separate edge-support candidates](../finish-coupons/2026-10-15-edge-supports/README.md)
-keep their local curved-wall and tip-contact choices scoped to those prints.
+0.50 mm interface spacing. The base's visible outer edge receives the exact
+seven segmented arc fins and narrow contact-strip blockers from the
+[accepted Mark2 result](../finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json).
+Derek reports excellent support, very easy snap-off and the best faucet underside
+he has observed. Each wall follows the rim: 0.90 mm width, 41° arcs, 4° release
+gaps and a requested 0.24 mm vertical gap. The front arc remains uninterrupted
+under the lever. Trees serve the rest of the underside and the arc gaps.
+
+The [arc transfer and native contact reading](rim-support-native-review.json)
+binds the exact accepted support meshes to this full-project placement. The
+base is translated 3 mm inward on the plate to retain the saved 40 mm native
+bead margin; its −15° rotation and support heights are unchanged. The part
+meshes, material settings, seams and layer bands are preserved. The tip's
+experimental fins, added lip contacts and root foot remain separate candidates.
+Edge/underside appearance and release are accepted on the identified base
+section; complete-height printing and mating fit with this treatment remain
+unreported.
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The complete Mark1 native estimate is **6 h 50 min 10 s, 161.54 g**, recorded with
+The complete Mark1 native estimate is **6 h 47 min 43 s, 161.96 g**, recorded with
 the source hashes, settings, retained geometry and layer bands in the
 [readiness record](faucet-industrial-petgf.readiness.json). The
 [seam-path reference](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks

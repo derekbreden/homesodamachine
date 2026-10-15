@@ -302,12 +302,12 @@
         0.0,
         0.25881904510252074,
         0.9659258262890683,
-        82.5,
+        85.5,
         165.13469120115752,
         123.78370836088766
       ],
       "plate_translation_mm": [
-        82.5,
+        85.5,
         165.13469120115752,
         123.78370836088766
       ],
@@ -318,12 +318,12 @@
       ],
       "plate_bounds_mm": [
         [
-          53.0,
+          56.0,
           111.63010370519103,
           0.0
         ],
         [
-          112.0,
+          115.0,
           208.36989629480894,
           245.25502221969379
         ]
@@ -557,7 +557,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "c0ac0f16abce78139c7886cab12893f2e08af4e625ff3afbbeffaa1f6cd05eb2",
+  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -636,6 +636,162 @@
       ]
     ],
     "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "base_rim_supports": {
+    "part": "industrial-shell-base",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+    "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
+    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+    "source_local_to_target_local_translation_mm": [
+      0.0,
+      6.053867340087891,
+      -109.94816017150879
+    ],
+    "arc_count": 7,
+    "components": [
+      {
+        "kind": "arc",
+        "source_component_id": 2200,
+        "component_id": 6000,
+        "source_member": "3D/Objects/rim-arc-2200.model",
+        "member": "3D/Objects/base-rim-arc-2200.model",
+        "source_member_sha256": "b3766a368cc23836fbae04a6bd040bea61568b07995dd700c0a77e1551609071",
+        "member_sha256": "5090a4b8eb16c343994781ed8176900981d97004a4281fde09908e139bf39796",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2300,
+        "component_id": 6100,
+        "source_member": "3D/Objects/rim-arc-2200-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2300.model",
+        "source_member_sha256": "42e939bfb2a14eb758576c3d5ca8847fdde7cab341baeb1f262a228520eeb39f",
+        "member_sha256": "34b7e75692f3aee0b1749a1e624f62669c199cbb0440cc009aabded8dc17b473",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2201,
+        "component_id": 6001,
+        "source_member": "3D/Objects/rim-arc-2201.model",
+        "member": "3D/Objects/base-rim-arc-2201.model",
+        "source_member_sha256": "00605dd5caba693c0198d032ca3429286f61b0fd26453d7f13fb56f6c97cb5f7",
+        "member_sha256": "c24e99e48cdca2c50877bb07a3f776f07e9183499303f464761c4a3fa63e828c",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2301,
+        "component_id": 6101,
+        "source_member": "3D/Objects/rim-arc-2201-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2301.model",
+        "source_member_sha256": "8a21a0a68ab150d0180854fa2c300e3b579d72418740f7d6a6919a4d627e5c50",
+        "member_sha256": "ebd21eb9bac59b9047ed0b0e26c7020147435d717d16a767429c98fd59c5e645",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2202,
+        "component_id": 6002,
+        "source_member": "3D/Objects/rim-arc-2202.model",
+        "member": "3D/Objects/base-rim-arc-2202.model",
+        "source_member_sha256": "964e3607f10f06bfab378a44a5b7cc463abae64099caad30c00182364c88ba25",
+        "member_sha256": "8221ea11c5da7d696bf2acfb4840ef8956099f677e126ff4a986b2dbd252bdcc",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2302,
+        "component_id": 6102,
+        "source_member": "3D/Objects/rim-arc-2202-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2302.model",
+        "source_member_sha256": "3d923e9ec886061410af711439ff040d5ccafe690f6d3dd36f4d6e490dde7dce",
+        "member_sha256": "d8fcb3d456bed1598708b4332d57e0ab176fa397e9ee1e5e68fde2ebc3c19a77",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2203,
+        "component_id": 6003,
+        "source_member": "3D/Objects/rim-arc-2203.model",
+        "member": "3D/Objects/base-rim-arc-2203.model",
+        "source_member_sha256": "82b5eccaaada0e6ef6dfe4aea768c79cd20db64bbbc209e75167f2d461867814",
+        "member_sha256": "4a4a5af095559c7b193599c5b9148eceae96fcfd84a340fcae44cf8f53d40ff3",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2303,
+        "component_id": 6103,
+        "source_member": "3D/Objects/rim-arc-2203-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2303.model",
+        "source_member_sha256": "1a31d9b34fd3b621715c0b8f9d18a6c3c06a17f734f8e91dd1387efb291aeb1a",
+        "member_sha256": "c5238f76b01e2b2a0bd34d6c020bc247f1ef4850a4b3a44deacde0c4c4c8a1d8",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2204,
+        "component_id": 6004,
+        "source_member": "3D/Objects/rim-arc-2204.model",
+        "member": "3D/Objects/base-rim-arc-2204.model",
+        "source_member_sha256": "b3af8edb10435ba886a32e7f6737ed2da05d984770954583aea012981d93b956",
+        "member_sha256": "4a56c3033a5f62b21db458efdc72b850f12ec3db55f100055058498ae3612f85",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2304,
+        "component_id": 6104,
+        "source_member": "3D/Objects/rim-arc-2204-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2304.model",
+        "source_member_sha256": "0513f98c390d8c0a605481ca7b0c8ea3294c00b3b8279383b9ea858c38aa6964",
+        "member_sha256": "df0a884ada76a2af712413246992e9fb85d0327f0eb64f33ec5c5537026c9046",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2205,
+        "component_id": 6005,
+        "source_member": "3D/Objects/rim-arc-2205.model",
+        "member": "3D/Objects/base-rim-arc-2205.model",
+        "source_member_sha256": "764edc5c88adbaf65b809c943470d1ffce17a58edbfbafbe4da219712cf3570b",
+        "member_sha256": "27c7219294258bac558bd8cbec7e5650c480060d83c1c9560d3e9122948b4746",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2305,
+        "component_id": 6105,
+        "source_member": "3D/Objects/rim-arc-2205-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2305.model",
+        "source_member_sha256": "d5b85cd760fecc52a634cd5e4ef3faeb72c205f4235f03abd270fef4ebd88819",
+        "member_sha256": "e32a9caf6c9b85d82ee41179dbf62b01050bece987a99cc2b96b1103e86606f7",
+        "subtype": "support_blocker"
+      },
+      {
+        "kind": "arc",
+        "source_component_id": 2206,
+        "component_id": 6006,
+        "source_member": "3D/Objects/rim-arc-2206.model",
+        "member": "3D/Objects/base-rim-arc-2206.model",
+        "source_member_sha256": "bc3e64e2efa617144957f33fec51ced883e5f02ade216113b05dc1f7651c1757",
+        "member_sha256": "94fb9815ba21678e37261d2bf823143d96a53c3fd275a6fa04138f2568858523",
+        "subtype": "normal_part"
+      },
+      {
+        "kind": "contact-blocker",
+        "source_component_id": 2306,
+        "component_id": 6106,
+        "source_member": "3D/Objects/rim-arc-2206-contact-blocker.model",
+        "member": "3D/Objects/base-rim-contact-blocker-2306.model",
+        "source_member_sha256": "7ad6fa6312feaf5b0f58038f99033c4646b0a5aa34e4012f882274280ca60044",
+        "member_sha256": "597bd9c23d67f6a1081b04a58745a6d45f3680d7dde6d78298a2efeefd040115",
+        "subtype": "support_blocker"
+      }
+    ],
+    "scope": "Exact accepted curved rim walls and their narrow blocker strips on the base only. Tree(auto)/Default remains elsewhere. The part meshes, poses, seams and layer bands are retained."
   },
   "project_title": "Industrial faucet PET-GF",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
@@ -968,7 +1124,8 @@
       "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
       "physical_evidence": [
         "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
-        "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json"
+        "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
+        "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json"
       ],
       "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
     },
@@ -1016,9 +1173,31 @@
     },
     "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
     "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-    "production_tag": "faucet-industrial-production-2026-10-14"
+    "production_tag": "faucet-industrial-production-2026-10-14",
+    "base_rim_supports": {
+      "selected_date": "2026-10-15",
+      "part": "industrial-shell-base",
+      "method": "accepted-segmented-edge-following-arcs",
+      "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
+      "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+      "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+      "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+      "arc_count": 7,
+      "nominal_wall_width_mm": 0.9,
+      "arc_span_degrees": 41,
+      "release_gap_degrees": 4,
+      "requested_vertical_gap_mm": 0.24,
+      "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
+      "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
+      "scope": "Transfer the exact physically accepted base-rim support meshes at the retained -15 degree pose. Their local finish and release are accepted; the complete-height project with these supports is unprinted."
+    },
+    "edge_support_strategy": {
+      "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
+      "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
+      "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+    }
   },
-  "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts.",
+  "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts; the exact physically accepted segmented base-rim arcs and narrow blocker strips, with Tree(auto)/Default elsewhere.",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
     "hardware/printed-parts/faucet/refresh_print_project.py": "7d5234c8003ea368201a4008dec72022c9107d882455fbbce5df154cee1a962a",
@@ -1036,9 +1215,11 @@
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "416c305d853ee012139f8942c92dc0a78a4ea3bbb228c0a8db9250d427aeac86",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "503f04c95fe3e0ec972a3f1b95e80cfa375026c64007a30174fda6f0570e2cec",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "b7f1d7619d17a8ee67effec4ec5f118a5cac4a493ec9ec1bae1b034e4cd10347"
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "ad13340535d659cf9a78b8e77cd377928a78533b77be22fa2efa8b044b97fea0",
+    "hardware/printed-parts/faucet/industrial/rim_supports.py": "a9698d5f3ea8ebe89fb0881bcdd97a1b9450d69c54329451d2e66ede3d7745ea",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7"
   }
 }

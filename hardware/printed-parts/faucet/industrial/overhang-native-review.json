@@ -1,15 +1,15 @@
 {
-  "recorded_at_utc": "2026-10-15T08:03:34.927107+00:00",
+  "recorded_at_utc": "2026-10-15T16:18:47.046284+00:00",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "c0ac0f16abce78139c7886cab12893f2e08af4e625ff3afbbeffaa1f6cd05eb2",
-  "gcode_source": ".cache/printer-control/faucet-overhang-production-20261015/plate_1.gcode",
-  "gcode_sha256": "bd3ac96f5ee49d8203ef23095ed7c203105ab0f04fc4dcdb83d9651b2b39cdc7",
+  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
+  "gcode_source": ".cache/printer-control/faucet-accepted-arcs-20261015/native-centered/plate_1.gcode",
+  "gcode_sha256": "6b9e8af0f6f7a995b86b5d8a4a7372011e19a235efda4a4b2d0ac70c1a7b0091",
   "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
   "bridge_flow": "1.25",
   "parts": [
     {
       "part": "industrial-shell-base",
-      "extruding_commands": 983438,
+      "extruding_commands": 996400,
       "first_three_fans": [
         0.0
       ],
@@ -36,6 +36,36 @@
         "Support",
         "Support interface",
         "Support transition",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 452307,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
         "Top surface"
       ]
     },
@@ -70,38 +100,8 @@
       ]
     },
     {
-      "part": "faucet-shell-tip",
-      "extruding_commands": 452321,
-      "first_three_fans": [
-        0.0
-      ],
-      "later_fans": [
-        70.0
-      ],
-      "bridge_speeds": [
-        15.0
-      ],
-      "overhang_speeds": [
-        10.0,
-        15.0
-      ],
-      "features": [
-        "Bridge",
-        "Floating vertical shell",
-        "Gap infill",
-        "Inner wall",
-        "Internal solid infill",
-        "Outer wall",
-        "Overhang wall",
-        "Sparse infill",
-        "Support",
-        "Support interface",
-        "Top surface"
-      ]
-    },
-    {
       "part": "industrial-above-counter-plate",
-      "extruding_commands": 33746,
+      "extruding_commands": 33739,
       "first_three_fans": [
         0.0
       ],
@@ -161,5 +161,5 @@
     }
   ],
   "fan_violations": [],
-  "scope": "Offline native command review of all five rigid faucet parts. No full faucet was submitted. Geometry, poses, seams and fine bands retain the selected recipe; new material treatment has short-section physical evidence only."
+  "scope": "Manual native command review on all five rigid parts with the selected base-rim arcs. The exact base support treatment has short-section physical finish and release acceptance; the complete project is unprinted."
 }

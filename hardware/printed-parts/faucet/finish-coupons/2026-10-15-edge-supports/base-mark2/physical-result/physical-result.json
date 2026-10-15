@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-15T16:10:06.815413+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1341188908",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/launch.json",
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+  "project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+  "submitted_archive_sha256": "05e82b31c2b97a85a4a096c73a96fe3b26d46ab15242661497c1b323b2fae39f",
+  "gcode_sha256": "8946448453c32d1a95fe1bc197e4b6a6255544182fb361ebe220ed370efd5edd",
+  "part_source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/foot-section.stl",
+  "part_stl_sha256": "b89c112e4b1000c3e312eed1ccb90c6bb91705c921e393a924c23d98eef9ac8e",
+  "operator_quote": "On the Mark II print, it turned out beautifully. Those arc fins snapped off super easy, and they provided excellent support. This seems to be a great strategy for getting cleaner edges on these overhangs. Like, I'm a huge fan of this. I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs. It maybe doesn't come across great in the photos. I've got some of the previous prints in the background for comparison there, but this is the best faucet underside I have ever seen from any of our prints. That worked really well.",
+  "finished_photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/photo-1.jpg",
+      "source_label": "Photo 1.jpg",
+      "sha256": "aa556af521057508b2a93655cfc098be99723990777732c9fd56d9cf893235dc",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/photo-2.jpg",
+      "source_label": "Photo 2.jpg",
+      "sha256": "1b12b34c5c636f8422b638f46738fc1dca0a53d4f9f8c9803c15219679b7336b",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/photo-3.jpg",
+      "source_label": "Photo 3.jpg",
+      "sha256": "8a66c5a9ab495a02daf48b7e942e9b6376d71025eb9ae058d049d3cfa705d733",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "photograph_identification": "Derek identifies the current Mark2 curved-fin specimen and says previous prints are in the background. Background comparison specimens are not assigned exact jobs from their appearance.",
+  "completion_observation": {
+    "printer": "Mark2",
+    "printer_task_id": "1341188908",
+    "observed_at_utc": "2026-10-15T15:49:40.197839+00:00",
+    "subtask_name": "2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "physical_finish_and_release": "Not reported; completion telemetry does not establish acceptance."
+  },
+  "result": {
+    "visible_rim_finish": "Accepted: beautiful; excellent support.",
+    "underside_finish": "Accepted: best faucet underside Derek has observed across these prints.",
+    "arc_fin_release": "Accepted: snapped off super easy.",
+    "measured_removal_force": "Not measured.",
+    "mating_fit": "Not separately reported."
+  },
+  "accepted_support_treatment": {
+    "curved_fin_count": 7,
+    "nominal_wall_width_mm": 0.9,
+    "arc_span_degrees": 41,
+    "release_gap_degrees": 4,
+    "requested_vertical_gap_mm": 0.24,
+    "front_arc_center_cad_degrees": -90,
+    "tree_support_scope": "Tree(auto)/Default throughout the remaining underside and release gaps; narrow blockers only at arc contact strips.",
+    "angle_x_degrees": -15,
+    "bridge_flow": 1.25,
+    "fan_percent_after_three_off_bed_layers": 70,
+    "bridge_speed_mm_s": 15,
+    "overhang_wall_limits_mm_s": [
+      10,
+      15
+    ]
+  },
+  "acceptance_scope": "Physical edge/underside appearance and easy arc-fin release on this identified short base section in black PET-GF. No quantified removal force, assembled fit or complete-height print result is inferred.",
+  "selection": "Retain the exact accepted base-rim arcs and trees for the complete faucet project. Apply edge-following segmented support to other identified rough overhang edges with geometry-specific contacts and bed anchorage; this report does not establish physical results on those other features."
+}

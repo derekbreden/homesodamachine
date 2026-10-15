@@ -6,9 +6,9 @@
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "c0ac0f16abce78139c7886cab12893f2e08af4e625ff3afbbeffaa1f6cd05eb2",
+  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
   "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
-  "print_report_sha256": "694005fde81d48693dc633b637b8c074f728f322e6520c27fc33b24124d90c7e",
+  "print_report_sha256": "52358cb298bf9583eb8fe622dd6920a75ac50504ed17c084393ff3fc6201284b",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
@@ -27,23 +27,23 @@
   },
   "offline_slice": {
     "completed": true,
-    "directory": ".cache/printer-control/faucet-overhang-production-20261015",
+    "directory": ".cache/printer-control/faucet-accepted-arcs-20261015/native-centered",
     "slicer": "BambuStudio 02.08.02.61",
-    "support_audit_sha256": "4646c7a75e0867de561fd1994623bef8ee7b2cb02a3cc2864c042c1867702483",
+    "support_audit_sha256": "416223788b9b262e07d58a001a976bee88682264e8fd4e5771483942bcb00c33",
     "plates": [
       {
         "plate": 1,
-        "estimated_total_seconds": 24610.017578125,
-        "saved_profile_filament_estimate_g": 161.54049682617188,
+        "estimated_total_seconds": 24462.80078125,
+        "saved_profile_filament_estimate_g": 161.95518493652344,
         "slicer_warning": ""
       }
     ],
     "fit": {
-      "minimum_shared_bed_margin_mm": 44.917798000000005,
+      "minimum_shared_bed_margin_mm": 41.903616,
       "complete_layer_bead_bounds": {
         "extrusion_bounds_xy_mm": [
           [
-            49.668517,
+            41.875517,
             73.200517
           ],
           [
@@ -54,22 +54,22 @@
         "maximum_line_width_mm": 0.786966,
         "bounds_padding_mm": 0.493483
       },
-      "complete_layer_bead_minimum_bed_margin_mm": 44.85551699999996,
-      "minimum_toolpath_separation_mm": 14.231839999999991,
+      "complete_layer_bead_minimum_bed_margin_mm": 41.875517,
+      "minimum_toolpath_separation_mm": 0.5188399999999831,
       "pairwise_toolpath_separations": [
         {
           "parts": [
             "industrial-shell-base",
             "faucet-shell-tip"
           ],
-          "separation_mm": 26.86913300000002
+          "separation_mm": 13.156133000000011
         },
         {
           "parts": [
             "industrial-shell-base",
             "industrial-display-cover"
           ],
-          "separation_mm": 121.45344484938576
+          "separation_mm": 107.79809033753236
         },
         {
           "parts": [
@@ -83,7 +83,7 @@
             "industrial-shell-base",
             "industrial-above-counter-plate"
           ],
-          "separation_mm": 60.421616000000014
+          "separation_mm": 46.708616000000006
         },
         {
           "parts": [
@@ -104,7 +104,7 @@
             "industrial-shell-base",
             "lever-replica"
           ],
-          "separation_mm": 14.231839999999991
+          "separation_mm": 0.5188399999999831
         },
         {
           "parts": [
