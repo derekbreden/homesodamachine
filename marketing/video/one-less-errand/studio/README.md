@@ -58,14 +58,16 @@ musical decay complete the 715-frame edit.
 
 ## Review edit
 
-`pacing-review.json` defines an 886-frame, 36.917-second edit. Each handling
+`pacing-review.json` defines an 860-frame, 35.833-second edit. Each handling
 context has 1.5 seconds for its arrival, contact and settled result. The repeat
 sequence has short rests after replenishment, and its labels remain readable
 until the following phrase. The final repetition lands before the question.
 
-The 4.125-second faucet portrait gives “Cold” and “Carbonated” separate holds
-in the same title position. The established pour has 2.125 seconds of continuous
-liquid motion, including a half-second handle before its camera move. The
+The 3.042-second faucet portrait follows the connected delivery of “Cold.
+Fully carbonated.” The titles switch in the same position with the spoken
+phrases, with “Carbonated” remaining visible for 2.167 seconds. The established
+pour has 2.125 seconds of continuous liquid motion, including a half-second
+handle before its camera move. The
 sensory macro has room between the satisfied wish and
 “Whenever you want it,” then another breath before the brand.
 
@@ -75,8 +77,9 @@ the original can motion and contact poses; extended product shots use native
 contacts follow the resulting picture frames.
 
 The voice uses `audio/narration.wav` with added sentence-gap space and a
-contextual Charon pickup for “Into the car” and “Into the kitchen.” The pickup
-recording and direction are `audio/handling.wav` and `audio/handling.json`;
+contextual Charon pickup for “Into the car” and “Into the kitchen.” The benefit
+pair retains the original recorded cadence. The pickup recording and direction
+are `audio/handling.wav` and `audio/handling.json`;
 selected passages and placements are in the edit manifest. The words retain
 their recorded speed. Captions follow the edited phrases, with separate cues
 for “Cold” and “Fully carbonated.”
@@ -92,11 +95,11 @@ tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
   --profile story-breathing \
   --chunk-frames 8 \
-  --out marketing/video/one-less-errand/studio/out/breathing-review
+  --out marketing/video/one-less-errand/studio/out/connected-benefits-review
 ```
 
-The review player is `out/breathing-review/index.html`; its movie, captions,
-picture clock and sound report live beside it. The published master and its
+The review player is `out/connected-benefits-review/index.html`; its movie,
+captions, picture clock and sound report live beside it. The published master and its
 publication record are listed in [`../README.md`](../README.md).
 
 ## Render and review
