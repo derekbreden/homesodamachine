@@ -8,7 +8,7 @@
     "core": [
       211.0000000000001,
       163.68301584656257,
-      42.35204664400405
+      42.35204664395934
     ],
     "funnel": [
       179.0000002,
@@ -23,8 +23,8 @@
   },
   "volume_ml": {
     "cavity": 792.2316315355906,
-    "core": 593.843696269228,
-    "funnel": 219.38004576347896,
+    "core": 593.8436987386392,
+    "funnel": 219.38004576347902,
     "rod": 0.7068583470577035
   },
   "shell_thickness_mm": 5.0,
@@ -38,7 +38,7 @@
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.63555734345476,
+      "retained_volume_ml": 242.63555578807146,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -86,7 +86,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "864946dea311bb8cf7ad6bf0ec5adad89115c0596289c8871e9b179b76d2dfdc",
+  "finished_funnel_step_sha256": "2b65eea8c68aef231655b746f85e61a05f5b5182169528d4a8956e90f5ff6815",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -279,11 +279,11 @@
   "chamber_radial_clearance_mm": 25.921762300843483,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "95c20cceeec2a383b5a55fe285fd2c896a072483d032e42906f3ca50318ff522",
-    "cavity.stl": "849b0a601ef78cffa5021c1f536205aba32782bb24ad7102f20220777daacaad",
-    "cavity.step.mesh": "996b39937c9d583696f6433bcae168502e03572a4f5c6c31bc69b85d46956008",
-    "core.step": "1bf2cdadf1a7c35335196300df6cb6bb62301b1864017ddc26bdfb9825a04044",
-    "core.stl": "06221d9f6cb62aaadc72a5c2bf8dac1408c34799dffcefcfe89c156b6dbb81da",
-    "core.step.mesh": "acfe261f087fe59dffb87743198170fea898bf04696bbfeb1a59dc93563b0a8e"
+    "cavity.step": "b49da5d0418752f885fa4c4446c10c58e963ae394b3686efc193a66de37962eb",
+    "cavity.stl": "14c7baf9e3b9c26f752be4a89b7de82256a9a3beac48dc3342482ed4e03a55e0",
+    "cavity.step.mesh": "5f165b914d6813f078a2a218cd677604d1d71be6eadc8b3f23943258b11ee5a4",
+    "core.step": "4bf637325f4a941799084eb0e0e01b548398fd4048863caa3c442d9c8cbc315d",
+    "core.stl": "d8e7be40351812f597a71f3c7afa5e0b8f0f6758381003bc88f6d187786b5795",
+    "core.step.mesh": "a0922f823fe08e51922a266d1bbaf540522af01a7a78d45c804ff6fa1a6b6bd0"
   }
 }
