@@ -2,11 +2,10 @@
   "schema": 1,
   "reported_date": "2026-10-15",
   "recorded_at_utc": "2026-10-15T05:28:11.768968+00:00",
-  "status": "In-progress rim strand failure reported by Derek; final cooled/removal assessment pending",
-  "authority": "Direct user report and four supplied photographs",
+  "status": "Completed-part comparison: stock fins worse at the visible front; easy fin removal and generally uniform bottom face with sag",
+  "authority": "Direct user reports, four in-progress photographs and five finished-part photographs",
   "printer": "Mark2",
   "printer_task_id": "1340828943",
-  "operator_quote": "What are we starting next on mark2? Here’s how its current print is failing as anticipated.",
   "gcode_sha256": "6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f",
   "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/launch.json",
   "plate_identification": {
@@ -50,7 +49,7 @@
     "lever_facing_strand_length_mm": 7.867,
     "nominal_print_z_mm": 15.32,
     "lower_bearing": "No lower deposited bead beneath the selected strand in its three preceding nominal courses",
-    "interpretation": "The photographs are consistent with the identified unsupported landing region. They do not establish deposition order, the initiating event, physical deflection or a unique cause."
+    "interpretation": "The recorded native gap agrees with Derek’s front-failure attribution. Finished photographs and his direct report establish sag; the initiating deposition sequence and quantitative deflection remain unmeasured."
   },
   "printer_observation": {
     "observed_at_utc": "2026-10-15T05:22:50.318750+00:00",
@@ -66,12 +65,11 @@
       }
     ]
   },
-  "disposition": "Current print remains in progress; no cancellation or replacement job sent in response to these photographs",
+  "disposition": "Completed specimens removed and compared by Derek. Stock fins do not pass the critical front appearance comparison. Easy fin release and generally uniform sagged underside are retained as separate physical results.",
   "physical_assessment_pending": [
-    "Cooled full-circumference rim shape on both specimens",
-    "Model skin retained through support removal",
-    "Removal effort and contact marks",
-    "Mating edge against the existing mounting plate"
+    "Quantified sag depth and removal force",
+    "Complete model-skin retention through cleanup",
+    "Mating fit against the existing mounting plate"
   ],
   "photos": [
     {
@@ -99,6 +97,106 @@
       "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/in-progress-photo-4.jpg",
       "source_label": "Photo 4.jpg",
       "sha256": "d53ef7eeba1dd171b777327395511d23e211f9bbc1c3d3e0cfaae40db6bdd8c6",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "updated_at_utc": "2026-10-15T06:08:46.282724+00:00",
+  "in_progress_operator_quote": "What are we starting next on mark2? Here’s how its current print is failing as anticipated.",
+  "operator_quote": "Mark2 results. On the surface that matters the fins were strictly worse, simply because of that missing support in the front.\n\nBut other than that, fins worked great, lots of things did print okay, that I was worried about. Fins snapped off easy. Surface overall pretty uniform on bottom face. Sagging clearly. I think speed and cooling will help. I’m less certain how many supports we really need, because of this, perhaps we get by with less.",
+  "completed_part_results": {
+    "A_stock_eight_fins": {
+      "critical_front_surface": "Strictly worse than the tree reference, reported by Derek",
+      "operator_attributed_cause": "Missing front support",
+      "fin_removal": "Snapped off easily, reported by Derek",
+      "bottom_face": "Overall pretty uniform, reported by Derek",
+      "sag": "Clearly present, reported by Derek",
+      "other_regions": "Many regions Derek was worried about printed okay",
+      "scope": "This eight-wall layout, retained -15 degree pose, PET-GF and production material recipe; no quantified removal force or sag measurement"
+    },
+    "B_tree_reference": {
+      "critical_front_surface": "Better than A, based on Derek’s direct comparison",
+      "removal_effort": "Not separately reported",
+      "overall_finish_ranking": "Not separately reported"
+    },
+    "photograph_identification": "Finished photographs carry no visible specimen labels. Plate-left A and plate-right B are launch coordinates and are not applied to the post-removal arrangement."
+  },
+  "finished_photo_observations": [
+    {
+      "photos": [
+        1,
+        2,
+        3
+      ],
+      "observation": "The right article in the paired underside views has loose strands across the front of the large opening and curled perimeter strands. The left article has a more continuous front region.",
+      "identification_limit": "The right article is consistent with A’s reported front failure; this is inferred from the failure pattern, not a visible specimen label."
+    },
+    {
+      "photos": [
+        4,
+        5
+      ],
+      "observation": "The oblique edge views show material hanging below the nominal face, including loops and an uneven lower edge. The views support a sag observation but do not quantify its depth.",
+      "identification_limit": "No specimen label is visible in these views."
+    }
+  ],
+  "interpretation": {
+    "supported": "The critical front result and easy stock-fin release are direct physical observations. The known missing native bearing at the lever-facing strand agrees with the reported location.",
+    "support_density": "This result does not establish a required fin count. A sparser layout with deliberate front contacts remains a candidate; the dense Full-mode layout is a coverage comparison, not a selected minimum.",
+    "recipe": "Derek expects speed and cooling to improve the sag. This production-recipe result does not measure that improvement.",
+    "release_scope": "Easy release applies to the eight stock walls. The 34 Full-mode walls plus three local walls on Mark1 have a separate removal result pending."
+  },
+  "operator_hypotheses": {
+    "speed_and_cooling": "I think speed and cooling will help.",
+    "support_count": "I’m less certain how many supports we really need, because of this, perhaps we get by with less.",
+    "scope": "Direct user hypotheses; no reduced-count bridge-recipe fin layout has a physical result yet."
+  },
+  "completion_observation": {
+    "observed_at_utc": "2026-10-15T06:06:41.332560+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "print_error": 0,
+    "hms_uninterpreted": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ]
+  },
+  "finished_photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/finished-photo-1.jpg",
+      "source_label": "Photo 1.jpg",
+      "sha256": "82968a2e1d0fb7c8e283bcf7c90a6d6b06b2b7060b66aa74e66c4a3a336fcde0",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/finished-photo-2.jpg",
+      "source_label": "Photo 2.jpg",
+      "sha256": "15f5de88a1ffb24011e5125b109b9ff080e81a2b4dede017ab73a5aebc6cc33e",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/finished-photo-3.jpg",
+      "source_label": "Photo 3.jpg",
+      "sha256": "7a77b8b7df1ddf603936d5a641a0ff0fac8fe756f494b8418c73e86d75ae79e1",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/finished-photo-4.jpg",
+      "source_label": "Photo 4.jpg",
+      "sha256": "43d0588ed2738fa9252c33f6a3e0f8b105074cce91db9201bd5a8b9c80dafa06",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/finished-photo-5.jpg",
+      "source_label": "Photo 5.jpg",
+      "sha256": "73e6a4b6296ef01efabba396e37e476e2bbebdc13d11d0cbdcebba042a388d55",
       "source_bytes_preserved": true,
       "gps_metadata_present": false
     }

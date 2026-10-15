@@ -107,6 +107,14 @@ what will be commanded; they do not establish sag, appearance or release effort.
 
 ## Physical comparison
 
+The [stock eight-fin result](../stock-vs-tree/mark2/physical-result/physical-result.json)
+reports easy release and a generally uniform bottom face with sag, but worse
+front appearance than trees where a contact is missing. It leaves the necessary
+support count open. This 34-plus-three-wall layout tests coverage with the
+bridge recipe; it does not establish a minimum or inherit the stock walls'
+release result. A reduced-count comparison should preserve deliberate front
+contacts and hold the material recipe constant.
+
 Keep A and B identified. After cooling, remove supports with fingers first,
 using the existing cleanup tools where needed. Inspect the entire rim without
 sanding, including the midpoint under the lever and the low rear edge. Compare
