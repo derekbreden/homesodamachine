@@ -21,8 +21,8 @@ digest. Geometry exports remain frozen.
 the reviewed RC62 pause, mesh members, solid hosts, support paint, layout and
 printer settings. Its upper transition uses 0.24 mm. Each bottom project uses
 the current published mesh, current complete insert-host modifiers and the
-production support paint for the flat lifting ceilings and accessible grip
-slots. These are preparation and slice commands; they do not control printers.
+production support policy for the integral lifting ceilings and inner corner returns.
+Only the exterior R6 band receives the show-surface support exclusion. These are preparation and slice commands; they do not control printers.
 
 The intended result is an ordinary-layer surface through the additive edges
 without unnecessary fine-layer deposition. Native paths establish layer

@@ -2,12 +2,14 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cartridge precisely and can be handled without its joints opening.
-The [native audit](geometry-check.json) checks 35 insert stations in the current
-six exported pieces. It reads the complete installed insert envelopes, open pilots,
+The [native audit](geometry-check.json) binds 35 insert stations to its six recorded
+piece exports. It reads the complete installed insert envelopes, open pilots,
 blind relief, closed stock, insertion access and the Y seam's knuckles. Source and
 STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
-qualification.
+qualification. The [seam and handhold review](../y-seam-plain-review.json) records the
+current geometry and the scope of the handhold change relative to these bound insert
+and seam records.
 
 ## Supplier constraints and screw stacks
 
@@ -23,8 +25,9 @@ Each screw head and flat washer sit in an inboard-open U-shaped access recess.
 Both complete washer-bearing annuli retain 3 mm of stock below their floors.
 The upper recess's roof-edge mouth has the named local thin-section allowance in
 [the enclosure specification](../README.md#seams--corner-stacks): the exterior taper
-leaves a 1.81 mm minimum rim over its top 2.38 mm, reaching at least 3 mm below
-Z352.6164 with 3.5 mm fore and aft ribs. This scope is specific to the access mouth.
+leaves a 1.81 mm minimum horizontal outboard rim width over its top 2.38 mm,
+reaching at least 3 mm below Z352.6164 with 3.5 mm fore and aft ribs. This scope is
+specific to the access mouth.
 
 | Station | Body | Pilot depth | Host / screw stack |
 | --- | --- | --- | --- |
