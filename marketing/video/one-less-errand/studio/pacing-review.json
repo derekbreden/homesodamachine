@@ -1,0 +1,20 @@
+{
+  "title": "One Less Errand — processing beats",
+  "beats": [
+    {
+      "id": "the-small-wish",
+      "after_scene": "opening",
+      "frames": 8,
+      "source_sample": 44521
+    },
+    {
+      "id": "before-the-answer",
+      "after_scene": "question",
+      "frames": 10,
+      "source_sample": 400909
+    }
+  ],
+  "type_timing": {
+    "case_store": 1.65
+  }
+}

@@ -10,6 +10,7 @@ import shutil
 import subprocess
 from PIL import Image, ImageDraw, ImageFont
 import carbonation
+from timing import load_story
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[3]
@@ -51,7 +52,7 @@ def text_layer(lines,size,weight=500,color=COBALT,leading=1.05):
     return result.crop(result.getbbox())
 
 
-def assets(work):
+def assets(work,story):
     # Each overlay has one semantic entrance; picture stays visible underneath.
     logo=wordmark(work/'wordmark.png')
     def layer(content,xy):
@@ -65,7 +66,7 @@ def assets(work):
       ],
       'case':[
         (layer(text_layer(['Somehow,'],92,550,WHITE),(128,325)),.08,.18),
-        (layer(text_layer(['a trip to the store.'],38,450,ICE),(135,480)),1.05,.18)
+        (layer(text_layer(['a trip to the store.'],38,450,ICE),(135,480)),story.get('type_timing',{}).get('case_store',1.05),.18)
       ],
       'car':[
         (layer(text_layer(['Into the car.'],64,500,WHITE),(128,380)),.02,.12)
@@ -189,6 +190,7 @@ def main():
     p.add_argument('--source-fps',action='append',default=[])
     p.add_argument('--audio',type=Path,default=OUT/'mix-master.wav')
     p.add_argument('--out',type=Path,default=OUT)
+    p.add_argument('--timing',type=Path,help='Optional processing-beat edit, applied to story.json')
     p.add_argument('--draft',action='store_true')
     p.add_argument('--force',action='store_true')
     p.add_argument('--animatic',action='store_true',help='Use a draft still for each CG shot with the complete timed audio and graphics')
@@ -197,8 +199,8 @@ def main():
     a.out.mkdir(parents=True,exist_ok=True)
     work=a.out/'finish-assets';work.mkdir(exist_ok=True)
     segment_dir=a.out/'segments';segment_dir.mkdir(exist_ok=True)
-    typography=assets(work)
-    story=json.loads((HERE/'story.json').read_text())
+    story=load_story(a.timing)
+    typography=assets(work,story)
     if not a.audio.exists():p.error(f'Missing sound master: {a.audio}')
     cache_path=a.out/'.finish-cache.json'
     cache=json.loads(cache_path.read_text()) if cache_path.exists() else {}
@@ -209,6 +211,7 @@ def main():
         if shot['kind']=='photograph':files.append(HERE/shot['asset'])
         signature=hashlib.sha256(json.dumps({'shot':shot,'code':code_hash,'animatic':a.animatic,
           'rate':a.rates.get(shot['id'],a.fps),'draft':a.draft,'source':str(a.frames.resolve()),
+          'type_timing':story.get('type_timing',{}),
           'frames':len(files),'modified':max((f.stat().st_mtime_ns for f in files),default=0)},sort_keys=True).encode()).hexdigest()
         target=segment_dir/f'{shot["id"]}.mp4'
         if a.force or cache.get(shot['id'])!=signature or not target.exists():
@@ -223,8 +226,12 @@ def main():
       '-metadata','title=One less errand. — Home Soda Machine',
       '-metadata','comment=In development · Product visualization',a.out/'film.mp4'))
     previews(a,story)
-    for source,name in [(FONT,'Montserrat.ttf'),(BRAND/'wordmark-reverse.svg','brand.svg'),(HERE/'preview.html','index.html')]:
+    for source,name in [(FONT,'Montserrat.ttf'),(BRAND/'wordmark-reverse.svg','brand.svg')]:
         shutil.copyfile(source,a.out/name)
+    seconds=math.ceil(story['duration'])
+    preview=(HERE/'preview.html').read_text().replace('{{DURATION}}',f'{seconds//60}:{seconds%60:02d}')
+    (a.out/'index.html').write_text(preview)
+    (a.out/'picture-clock.json').write_text(json.dumps(story,indent=2)+'\n')
     for name in ['film.vtt','film.srt']:
         source=a.audio.parent/name
         if source.exists() and source.resolve()!=(a.out/name).resolve():shutil.copyfile(source,a.out/name)
