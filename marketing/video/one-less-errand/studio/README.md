@@ -56,37 +56,46 @@ the sensory macro. The final master is stereo 48 kHz, with English WebVTT and
 SRT captions. The final spoken line ends at 26.91 seconds; the invitation and
 musical decay complete the 715-frame edit.
 
-## Processing-beat review
+## Review edit
 
-`pacing-review.json` defines a 739-frame, 30.792-second review cut. The moving
-opening macro has eight extra frames (333 ms) after the wish for a glass of
-soda. The empty-shelf question has sixteen extra frames (667 ms) before the faucet
-answer. The case, transport, repeat, pour and closing shots retain their local
-motion and duration. The store text enters with “a trip to the store.”
-The faucet reveal displays “Cold” from local frame 2 through the shot while
-the narrator delivers “Cold. Fully carbonated.”
+`pacing-review.json` defines an 886-frame, 36.917-second edit. Each handling
+context has 1.5 seconds for its arrival, contact and settled result. The repeat
+sequence has short rests after replenishment, and its labels remain readable
+until the following phrase. The final repetition lands before the question.
 
-`timing.py` derives the review clock from `story.json`, including the shifted
-contact frames. The narration receives silence at two quiet sample boundaries
-in the existing recording, with 3 ms fades in the noise floor. All spoken
-material and its original speed remain intact. The final routine harmony rings
-with a soft decay through the question pause and overlaps the answer by 350 ms.
-The pulse releases before the answer chord and faucet arrive together.
+The 4.125-second faucet portrait gives “Cold” and “Carbonated” separate holds
+in the same title position. The established pour has 2.125 seconds of continuous
+liquid motion, including a half-second handle before its camera move. The
+sensory macro has room between the satisfied wish and
+“Whenever you want it,” then another breath before the brand.
 
-Build the review from the native source frames:
+`timing.py` derives this clock from `story.json`. Settled-frame holds preserve
+the original can motion and contact poses; extended product shots use native
+24 fps motion. `finish.py` maps repeat type through the same holds. The sound
+contacts follow the resulting picture frames.
+
+The voice uses `audio/narration.wav` with added sentence-gap space and a
+contextual Charon pickup for “Into the car” and “Into the kitchen.” The pickup
+recording and direction are `audio/handling.wav` and `audio/handling.json`;
+selected passages and placements are in the edit manifest. The words retain
+their recorded speed. Captions follow the edited phrases, with separate cues
+for “Cold” and “Fully carbonated.”
+
+The routine score moves at 96 BPM. Its last harmony decays through the question
+pause and into the answer. The benefit holds leave the revealed product in
+view, with the answer chord, water and fine fizz providing continuity.
+
+Build the review:
 
 ```sh
-tools/video-venv/bin/python marketing/video/one-less-errand/studio/audio.py \
+tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
-  --out marketing/video/one-less-errand/studio/out/pacing-review-cold
-tools/video-venv/bin/python marketing/video/one-less-errand/studio/finish.py \
-  --timing marketing/video/one-less-errand/studio/pacing-review.json \
-  --frames marketing/video/one-less-errand/studio/out/frames/story-loop-24-24fps-1920px-32spp \
-  --audio marketing/video/one-less-errand/studio/out/pacing-review-cold/mix-master.wav \
-  --out marketing/video/one-less-errand/studio/out/pacing-review-cold
+  --profile story-breathing \
+  --chunk-frames 8 \
+  --out marketing/video/one-less-errand/studio/out/breathing-review
 ```
 
-The review player is `out/pacing-review-cold/index.html`; its movie, captions,
+The review player is `out/breathing-review/index.html`; its movie, captions,
 picture clock and sound report live beside it. The published master and its
 publication record are listed in [`../README.md`](../README.md).
 

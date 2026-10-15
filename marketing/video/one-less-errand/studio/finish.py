@@ -10,7 +10,7 @@ import shutil
 import subprocess
 from PIL import Image, ImageDraw, ImageFont
 import carbonation
-from timing import load_story
+from timing import load_story, local_time
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[3]
@@ -62,9 +62,13 @@ def assets(work,story):
     cues=story.get('type_timing',{})
     hero_type=[(layer(text_layer(['Already','here.'],112,550,leading=1.03),(128,314)),.08,.22)]
     if 'hero_cold_frame' in cues:
+        switch=cues.get('hero_carbonated_frame')
         hero_type=[
           (layer(text_layer(['Cold'],112,550),(128,391)),cues['hero_cold_frame']/FPS,3/FPS)
         ]
+        if switch is not None:
+            hero_type[0]=(*hero_type[0],switch/FPS)
+            hero_type.append((layer(text_layer(['Carbonated'],112,550),(128,391)),switch/FPS,3/FPS))
     data={
       'opening':[
         (layer(text_layer(['A glass','of soda.'],88,550,leading=1.02),(128,325)),.55,.22),
@@ -84,9 +88,9 @@ def assets(work,story):
         (layer(text_layer(['Onto a shelf.'],64,500,WHITE),(128,380)),.02,.12)
       ],
       'repeat':[
-        (layer(text_layer(['Another trip.'],78,500,WHITE),(128,300)),1.90,.12,2.50),
-        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.00,.12,3.58),
-        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.80,.12,4.45)
+        (layer(text_layer(['Another trip.'],78,500,WHITE),(128,300)),1.90,.12,cues.get('repeat_type_ends',[2.50,3.58,4.45])[0]),
+        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.00,.12,cues.get('repeat_type_ends',[2.50,3.58,4.45])[1]),
+        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.80,.12,cues.get('repeat_type_ends',[2.50,3.58,4.45])[2])
       ],
       'question':[
         (layer(text_layer(['What if the','next glass was','already waiting?'],62,500,WHITE,leading=1.15),(128,300)),.10,.20)
@@ -103,6 +107,9 @@ def assets(work,story):
         (layer(text_layer(['IN DEVELOPMENT  ·  PRODUCT VISUALIZATION'],22,500,COBALT),(135,80)),0,.15)
       ]
     }
+    for shot,layers in data.items():
+        data[shot]=[(entry[0],local_time(story,shot,entry[1]),entry[2],
+                     *([local_time(story,shot,entry[3])] if len(entry)>3 else [])) for entry in layers]
     for shot,layers in data.items():
         for i,entry in enumerate(layers):
             entry[0].save(work/f'{shot}-type-{i}.png')
@@ -150,9 +157,21 @@ def encode_picture(shot,target,args,work,type_assets):
         command=ffmpeg('-loop','1','-framerate',FPS,'-i',files[len(files)//2])
         cadence=f'fps={FPS},trim=duration={duration},setpts=PTS-STARTPTS'
     else:
-        needed=math.ceil(duration*rate)
+        needed=math.ceil(shot.get('source_frames',shot['frames'])/FPS*rate)
         missing=[i for i in range(needed) if not (folder/f'{i:05d}.png').exists()]
         if missing: raise SystemExit(f'{shot["id"]}: missing source frame {missing[0]:05d}.png')
+        if shot.get('frame_holds'):
+            if rate!=FPS:raise SystemExit('Settled-frame holds require native 24 fps source frames.')
+            mapped=work/'frame-maps'/shot['id'];mapped.mkdir(parents=True,exist_ok=True)
+            number=0
+            for source_frame in range(needed):
+                count=1+sum(hold['frames'] for hold in shot['frame_holds'] if hold['source_frame']==source_frame)
+                for _ in range(count):
+                    link=mapped/f'{number:05d}.png'
+                    if link.is_symlink():link.unlink()
+                    link.symlink_to((folder/f'{source_frame:05d}.png').resolve())
+                    number+=1
+            folder=mapped
         command=ffmpeg('-framerate',rate,'-i',folder/'%05d.png')
         if rate<FPS:
             pre,post=2/rate,3/rate

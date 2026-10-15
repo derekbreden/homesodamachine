@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose the story-led film around one connected voice performance.
+"""Compose the story-led film from its saved narration and picture clock.
 
 Run with tools/video-venv/bin/python. --out selects a separate sound build;
 the default is studio/out. The picture clock comes from story.json; --timing
@@ -212,7 +212,7 @@ def caption_phrases(config):
 
 
 def insert_narration_pauses(source, source_sr, pauses, fps, offset):
-    """Extend quiet source gaps while preserving the recorded words and breaths."""
+    """Extend source gaps, including clock placeholders in replaced regions."""
     if not pauses:
         return source, []
     source = source.copy()
@@ -222,8 +222,9 @@ def insert_narration_pauses(source, source_sr, pauses, fps, offset):
         at = int(pause['source_sample'])
         if not 0 < at < len(source) or int(pause['frames']) <= 0:
             raise ValueError(f'Invalid narration pause: {pause["id"]}')
-        # These edges lie in verified quiet samples, away from speech tails
-        # and the next intake. Only the adjacent three milliseconds are faded.
+        # Audible splice edges use verified quiet samples. An insertion inside
+        # a region replaced by a pickup is only a clock placeholder; its source
+        # edges and the surrounding original speech are muted before mixing.
         left, right = min(fade_samples, at), min(fade_samples, len(source)-at)
         source[at-left:at] *= np.cos(np.linspace(0, np.pi/2, left))**2
         source[at:at+right] *= np.sin(np.linspace(0, np.pi/2, right))**2
@@ -241,23 +242,95 @@ def insert_narration_pauses(source, source_sr, pauses, fps, offset):
     return np.concatenate(pieces), edits
 
 
+def read_mono(path):
+    rate, samples = wavfile.read(path)
+    samples = samples.astype(float)/32768
+    if samples.ndim == 2:
+        samples = samples.mean(axis=1)
+    return rate, samples
+
+
+def speech_rms(samples, rate):
+    """Compare spoken energy in active 20 ms blocks, excluding quiet holds."""
+    size = round(.020*rate)
+    active = [samples[start:start+size] for start in range(0, len(samples), size)
+              if np.sqrt(np.mean(samples[start:start+size]**2)) > 10**(-40/20)]
+    if not active:
+        raise ValueError('No active speech in the pickup loudness reference.')
+    return np.sqrt(np.mean(np.concatenate(active)**2))
+
+
+def place_pickup(voice, story, original_source, source_sr, picture_time):
+    pickup = story.get('narration_pickup')
+    if not pickup:
+        return None
+    pickup_path = ROOT/pickup['source']
+    rate, samples = read_mono(pickup_path)
+    scenes = {scene['id']: scene for scene in story['scenes']}
+    clips = [samples[round(phrase['source_start']*rate):round(phrase['source_end']*rate)]
+             for phrase in pickup['phrases']]
+    first, last = pickup['replace_source']
+    reference = original_source[round(first*source_sr):round(last*source_sr)]
+    reference_rms = speech_rms(reference, source_sr)
+    pickup_rms = speech_rms(np.concatenate(clips), rate)
+    gain = reference_rms/pickup_rms
+    mute_start, mute_end = picture_time(first), picture_time(last)
+    a, b, fade = round(mute_start*SR), round(mute_end*SR), round(.003*SR)
+    voice[a:b] = 0
+    voice[max(0, a-fade):a] *= np.cos(np.linspace(0, np.pi/2, min(a, fade)))[:, None]**2
+    voice[b:min(len(voice), b+fade)] *= np.sin(np.linspace(0, np.pi/2, min(len(voice)-b, fade)))[:, None]**2
+    placed = []
+    for phrase, clip in zip(pickup['phrases'], clips):
+        common = math.gcd(rate, SR)
+        clip = signal.resample_poly(clip, SR//common, rate//common)
+        clip = taper(clip, .003, .003)
+        start = scenes[phrase['scene']]['start']+float(phrase.get('at', .08))
+        if start+len(clip)/SR > story['duration']:
+            raise ValueError(f'Pickup phrase extends past picture: {phrase["text"]}')
+        add(voice, start, clip, gain*math.sqrt(2))
+        placed.append({**phrase, 'start': start, 'end': start+len(clip)/SR,
+                       'first_word_at': start+phrase['first_word']-phrase['source_start'],
+                       'last_word_at': start+phrase['last_word']-phrase['source_start']})
+    return {'source': pickup['source'], 'source_sha256': hashlib.sha256(pickup_path.read_bytes()).hexdigest(),
+            'replace_source': [first, last], 'muted_picture_start': mute_start, 'muted_picture_end': mute_end,
+            'gain_db': 20*math.log10(gain), 'reference_speech_rms_dbfs': 20*math.log10(reference_rms),
+            'pickup_speech_rms_dbfs': 20*math.log10(pickup_rms),
+            'gain_method': 'One shared gain matching active 20 ms speech blocks above -40 dBFS to the original handling clauses.',
+            'quiet_edge_fade_seconds': .003, 'phrases': placed}
+
+
 def make_voice(out, story, count):
     offset = float(story['narration_offset'])
     config = json.loads((ROOT/'narration.json').read_text())
     source_path = ROOT/'audio/narration.wav'
-    source_sr, source = wavfile.read(source_path)
-    source = source.astype(float)/32768
-    if source.ndim == 2:
-        source = source.mean(axis=1)
+    source_sr, source = read_mono(source_path)
+    original_source = source
     source_duration = len(source)/source_sr
     source, pause_edits = insert_narration_pauses(
         source, source_sr, story.get('narration_pauses', []), float(story['fps']), offset)
+    pickup = story.get('narration_pickup')
+    if pickup:
+        first, last = [round(time*source_sr) for time in pickup['replace_source']]
+        for edit in pause_edits:
+            if first <= edit['source_sample'] <= last:
+                edit['role'] = 'timeline_placeholder_inside_replaced_handling'
+                edit['source_edge_fade_seconds'] = edit.pop('quiet_edge_fade_seconds')
+                edit['source_edge_fades_audible'] = False
+            else:
+                edit['role'] = 'quiet_gap_extension'
+
+    def picture_time(source_time):
+        added = sum(edit['duration_seconds'] for edit in pause_edits
+                    if round(source_time*source_sr) >= edit['source_sample'])
+        return offset+source_time+added
+
     common = math.gcd(source_sr, SR)
     source = signal.resample_poly(source, SR//common, source_sr//common)
     if round(offset*SR)+len(source) > count:
         raise ValueError('The complete voice performance extends beyond story.duration.')
     voice = np.zeros((count, 2))
     add(voice, offset, source, math.sqrt(2))
+    pickup_edit = place_pickup(voice, story, original_source, source_sr, picture_time)
     write_wav(out/'voice-edited.wav', voice)
     run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', out/'voice-edited.wav',
          '-af', 'highpass=f=65,loudnorm=I=-18.5:TP=-3.0:LRA=14', '-ar', SR, out/'voice-master.wav'])
@@ -266,17 +339,25 @@ def make_voice(out, story, count):
     if [token for token, _ in word_tokens] != tokens(config['text']):
         raise ValueError('The saved word alignment does not match the narration script.')
     phrases = caption_phrases(config)
+    if story.get('separate_benefit_captions'):
+        phrases = [part for phrase in phrases for part in
+                   (['Cold.', 'Fully carbonated.'] if tokens(phrase) == ['cold', 'fully', 'carbonated'] else [phrase])]
 
-    def picture_time(source_time):
-        added = sum(edit['duration_seconds'] for edit in pause_edits
-                    if round(source_time*source_sr) >= edit['source_sample'])
-        return offset+source_time+added
-
-    captions, cursor = [], 0
+    captions, cursor, occurrences = [], 0, {}
     for phrase in phrases:
         selected = [word for _, word in word_tokens[cursor:cursor+len(tokens(phrase))]]
-        captions.append({'start': round(picture_time(selected[0]['start']), 3),
-                         'spoken_end': round(picture_time(selected[-1]['end']), 3), 'text': phrase})
+        key = tuple(tokens(phrase))
+        occurrences[key] = occurrences.get(key, 0)+1
+        source_start = selected[0]['start']
+        for override in story.get('caption_source_onsets', []):
+            if tuple(tokens(override['text'])) == key and int(override.get('occurrence', 1)) == occurrences[key]:
+                source_start = float(override['source_time'])
+        start, end = picture_time(source_start), picture_time(selected[-1]['end'])
+        if pickup_edit:
+            for placed in pickup_edit['phrases']:
+                if tuple(tokens(placed['text'])) == key:
+                    start, end = placed['first_word_at'], placed['last_word_at']
+        captions.append({'start': round(start, 3), 'spoken_end': round(end, 3), 'text': phrase})
         cursor += len(tokens(phrase))
     for i, cap in enumerate(captions):
         next_start = captions[i+1]['start'] if i+1 < len(captions) else story['duration']-.2
@@ -300,12 +381,30 @@ def make_voice(out, story, count):
                                   'No recorded words or breaths are cut, stretched, or rearranged; '
                                   'three-millisecond fades touch only the quiet splice edges.')
         performance['sentence_gap_extensions'] = pause_edits
+    if pickup_edit:
+        performance['editing'] = ('Original performance outside the replaced handling region, with quiet-gap extensions. '
+                                  'Car and kitchen use two clauses from one contextual Charon pickup; insertions inside '
+                                  'the muted original handling region are timeline placeholders. All recorded words '
+                                  'outside the replacement remain in order at their original speed. '
+                                  'Audible quiet clip edges use three-millisecond fades; no time stretching.')
+        performance['timeline_insertions'] = pause_edits
+        performance['sentence_gap_extensions'] = [edit for edit in pause_edits if edit['role'] == 'quiet_gap_extension']
+        performance['handling_pickup'] = pickup_edit
     return performance, captions
 
 
-def make_score(story, count, events, captions):
+def make_score(story, count, events, captions, performance=None):
     score = np.zeros((count, 2))
     scenes = {s['id']: s for s in story['scenes']}
+    base_scenes = {s['id']: s for s in load_story()['scenes']}
+    source_performance = performance or {}
+    pause_edits = source_performance.get('timeline_insertions', source_performance.get('sentence_gap_extensions', []))
+
+    def score_time(source_picture_time):
+        source_time = source_picture_time-float(story['narration_offset'])
+        return source_picture_time+sum(edit['duration_seconds'] for edit in pause_edits
+                                      if source_time >= edit['source_time'])
+
     reveal_at = scenes['hero']['start']
     water_at = scenes['pour']['start']
     sensory_at = scenes['sensory']['start']
@@ -315,14 +414,17 @@ def make_score(story, count, events, captions):
     routine_end = reveal_at-extra_question
     carry_decay = story.get('score', {}).get('reveal_transition') == 'decay'
     tail = np.zeros_like(score) if carry_decay else None
-    # A fixed eight-note cell gives the errands a routine, without speeding up
-    # the narrator. Physical contacts carry their own picture-derived clock.
-    beat, origin = .5625, routine_at+.125
+    # Retain the source narrative's attacks and move them around the inserted
+    # rests. A longer shot does not create more plucks during its quiet hold.
+    beat = 60/float(story.get('score', {}).get('tempo_bpm', 60/.5625))
+    base_routine, base_reveal = base_scenes['case']['start'], base_scenes['hero']['start']
+    origin = base_routine+.125
     notes = [66, 69, 64, 66, 71, 69, 66, 64]
-    for i in range(max(0, math.ceil((routine_end-origin)/beat))):
+    for i in range(max(0, math.ceil((base_reveal-origin)/beat))):
         midi = notes[i % len(notes)]
-        at = origin+i*beat
-        progress = np.clip((at-routine_at)/max(routine_end-routine_at, .01), 0, 1)
+        source_at = origin+i*beat
+        at = score_time(source_at)
+        progress = np.clip((source_at-base_routine)/max(base_reveal-base_routine, .01), 0, 1)
         gain = (.016 if i%2 == 0 else .012)*(1+.24*progress)
         add(score, at, pluck(midi, .88, damped=True), gain, -.16 if i%2 == 0 else .16)
         add(score, at, rim(), (.0045 if i%2 == 0 else .0025)*(1+.20*progress), .14)
@@ -332,9 +434,13 @@ def make_score(story, count, events, captions):
     for i, midi in enumerate([50, 57, 64, 66]):
         add(score, i*.019, pluck(midi, 1.7), .015*(1-i*.08), (i-1.5)*.12)
     voicings = [[47, 54, 57, 62], [43, 54, 57, 62], [45, 52, 55, 62], [47, 54, 57, 62]]
-    cells = max(0, math.ceil((routine_end-routine_at)/(8*beat)))
+    # Harmony follows the original spoken story, independently of the relaxed
+    # pulse; the last B-minor voicing remains attached to the question.
+    harmony_step = 4.5
+    cells = max(0, math.ceil((base_reveal-base_routine)/harmony_step))
     for cell in range(cells):
-        at, voicing = routine_at+cell*8*beat, voicings[cell % len(voicings)]
+        at = score_time(base_routine+cell*harmony_step)
+        voicing = voicings[cell % len(voicings)]
         carry = carry_decay and cell == cells-1
         for i, midi in enumerate(voicing):
             duration = reveal_at+.35-at-i*.019 if carry else 1.7
@@ -355,13 +461,12 @@ def make_score(story, count, events, captions):
     if carry_decay:
         score += tail
     phrases = [
-        (reveal_at, [50, 57, 59, 64, 66], .027, 3.1),
+        (reveal_at, [50, 57, 59, 64, 66], .027, max(3.1, water_at-reveal_at+.35)),
         (water_at, [47, 57, 62, 66], .014, 2.5),
-        (sensory_at, [43, 54, 59, 62], .018, 2.5),
+        (sensory_at, [43, 54, 59, 62], .018,
+         max(2.5, serve_at-sensory_at+.20) if scenes['sensory'].get('extra_frames') else 2.5),
         (serve_at, [50, 57, 62, 66], .021, 2.6),
     ]
-    if water_at-reveal_at > 3.8:
-        phrases.append((reveal_at+(water_at-reveal_at)*.55, [43, 54, 59, 62], .016, 2.6))
     tagline = captions[-1]
     if tagline['start']-serve_at > .65:
         phrases.append((tagline['start']+.08, [50, 57, 62, 66], .021, 2.65))
@@ -447,7 +552,7 @@ def main():
     story = load_story(args.timing)
     count, events = round(story['duration']*SR), []
     performance, captions = make_voice(out, story, count)
-    score, fx = make_score(story, count, events, captions), make_effects(story, count, events)
+    score, fx = make_score(story, count, events, captions, performance), make_effects(story, count, events)
     time, duck = np.arange(count)/SR, np.ones(count)
     for cap in captions:
         attack = np.clip((time-(cap['start']-.13))/.13, 0, 1)
@@ -483,13 +588,15 @@ def main():
     (out/'audio-report.json').write_text(json.dumps(report, indent=2)+'\n')
     plan_prefix = '' if args.timing is not None else 'out/'
     plan = {'duration': story['duration'], 'fps': fps, 'audio_master': plan_prefix+'mix-master.wav',
-            'captions_file': plan_prefix+'film.vtt', 'tempo_bpm': 60/.5625,
+            'captions_file': plan_prefix+'film.vtt',
+            'tempo_bpm': float(story.get('score', {}).get('tempo_bpm', 60/.5625)),
             'tonal_arc': 'A small D-add-nine pluck identity becomes a recurring B-minor, G and A-suspended errand cell. The pulse ends before the reveal; open D-six/nine struck harmony answers, leaving space for the pour and fine fizz. A resolved D chord and A-to-D answer decay through the final readout.',
             'narration_edits': [performance], 'captions': captions, 'events': report['events']}
     plan_path = out/'audio-plan.json' if args.timing is not None else ROOT/'audio-plan.json'
     plan_path.write_text(json.dumps(plan, indent=2)+'\n')
     print(json.dumps({'master': str(out/'mix-master.wav'), 'levels': levels,
-                      'narration_passages': 1, 'last_spoken_word_at': performance['last_word_at'],
+                      'narration_sources': 2 if performance.get('handling_pickup') else 1,
+                      'last_spoken_word_at': performance['last_word_at'],
                       'captions': len(captions), 'effects': len([e for e in events if e['stem'] == 'effects'])}, indent=2))
 
 
