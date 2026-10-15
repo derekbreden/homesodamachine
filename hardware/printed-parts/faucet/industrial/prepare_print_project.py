@@ -32,7 +32,7 @@ PROFILE = RECIPE
 FINISH = HERE / "finish-selection.json"
 GASKET = HERE / "industrial-above-counter-gasket.stl"
 # Separate spaces for each part's brim and automatically generated supports.
-PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 86.0), (43.0, -52.0), (-17.5, -60.0))
+PART_OFFSETS = ((-77.0, 0.0), (20.0, 47.0), (89.0, 86.0), (43.0, -52.0), (-17.5, -60.0))
 PROTECTED_SCULPTED = tuple((FAUCET / "faucet-petgf.3mf").with_suffix(suffix) for suffix in (
     ".3mf", ".print.json", ".support-audit.json", ".readiness.json"))
 
@@ -326,6 +326,9 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         report["rear_seam_enforcement"] = enforce_rear_seam(members, report, finish["rear_seam_enforcement"])
     if finish.get("tip_rear_seam_enforcement"):
         report["tip_rear_seam_enforcement"] = enforce_rear_seam(members, report, finish["tip_rear_seam_enforcement"])
+    if finish.get("base_rim_supports"):
+        from rim_supports import add_selected_base_rim
+        report["base_rim_supports"] = add_selected_base_rim(members, report, finish["base_rim_supports"])
     writer.archive_write(output, members)
     if report["plate_count"] != 1 or len(report["parts"]) != 5:
         raise ValueError("The complete Industrial project needs five rigid parts on one plate")
@@ -373,7 +376,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts.",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts; the exact physically accepted segmented base-rim arcs and narrow blocker strips, with Tree(auto)/Default elsewhere.",
     })
     for key in finish["filament_overrides"]:
         if before_settings.get(key) != after_settings.get(key):
@@ -387,6 +390,9 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
     report["source_sha256"] = source_hashes(parts)
     for path in (Path(__file__), RECIPE, ACCEPTANCE, FINISH):
         report["source_sha256"][relative(path)] = writer.digest(path.read_bytes())
+    if report.get("base_rim_supports"):
+        for path in (HERE / 'rim_supports.py', writer.ROOT / finish['base_rim_supports']['source_project']):
+            report['source_sha256'][relative(path)] = writer.digest(path.read_bytes())
     output.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
     write_readiness(output, report)
     return report

@@ -43,7 +43,8 @@
     "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
     "physical_evidence": [
       "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json"
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json"
     ],
     "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
   },
@@ -91,5 +92,27 @@
   },
   "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
   "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-  "production_tag": "faucet-industrial-production-2026-10-14"
+  "production_tag": "faucet-industrial-production-2026-10-14",
+  "base_rim_supports": {
+    "selected_date": "2026-10-15",
+    "part": "industrial-shell-base",
+    "method": "accepted-segmented-edge-following-arcs",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+    "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+    "arc_count": 7,
+    "nominal_wall_width_mm": 0.9,
+    "arc_span_degrees": 41,
+    "release_gap_degrees": 4,
+    "requested_vertical_gap_mm": 0.24,
+    "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
+    "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
+    "scope": "Transfer the exact physically accepted base-rim support meshes at the retained -15 degree pose. Their local finish and release are accepted; the complete-height project with these supports is unprinted."
+  },
+  "edge_support_strategy": {
+    "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
+    "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
+    "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+  }
 }

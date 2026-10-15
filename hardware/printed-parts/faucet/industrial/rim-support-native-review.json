@@ -1,0 +1,236 @@
+{
+  "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
+  "gcode_sha256": "6b9e8af0f6f7a995b86b5d8a4a7372011e19a235efda4a4b2d0ac70c1a7b0091",
+  "physical_reference": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+  "accepted_source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+  "primary_part_mesh_members_preserved_byte_for_byte": true,
+  "machine_material_settings_and_layer_ranges_preserved_byte_for_byte": true,
+  "component_transfer_errors": [
+    {
+      "component_id": 6000,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6100,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6001,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6101,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6002,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912230622267089e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6102,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6003,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912177331561907e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6103,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6004,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912177331561907e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6104,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6005,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912230622267089e-10,
+      "maximum_build_z_error_mm": 4.517417551141989e-10
+    },
+    {
+      "component_id": 6105,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    },
+    {
+      "component_id": 6006,
+      "kind": "arc",
+      "maximum_cad_coordinate_error_mm": 4.912266149403877e-10,
+      "maximum_build_z_error_mm": 4.517453078278777e-10
+    },
+    {
+      "component_id": 6106,
+      "kind": "contact-blocker",
+      "maximum_cad_coordinate_error_mm": 4.912150686209316e-10,
+      "maximum_build_z_error_mm": 4.517382024005201e-10
+    }
+  ],
+  "arc_count": 7,
+  "native_rim_trace_count": 564,
+  "critical_front_traces": [
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 492228,
+      "length_mm": 20.96613255524593,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.0009636296035608893,
+        -28.686124846830452,
+        0.269505920477755
+      ],
+      "start_xy_mm": [
+        75.251,
+        114.159
+      ],
+      "end_xy_mm": [
+        95.752,
+        114.159
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 492553,
+      "length_mm": 22.84315643311765,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.0005803361983396371,
+        -29.057040364125456,
+        0.17011940715839557
+      ],
+      "start_xy_mm": [
+        74.374,
+        114.101
+      ],
+      "end_xy_mm": [
+        96.628,
+        114.102
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 493654,
+      "length_mm": 4.566551899195908,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.5748860622610295,
+        -27.55275422206406,
+        0.5731916641090748
+      ],
+      "start_xy_mm": [
+        95.245,
+        114.367
+      ],
+      "end_xy_mm": [
+        91.19,
+        114.071
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 493680,
+      "length_mm": 3.6150628779683727,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        7.802924907711244,
+        -27.12346159687162,
+        0.6882202763460157
+      ],
+      "start_xy_mm": [
+        91.665,
+        114.128
+      ],
+      "end_xy_mm": [
+        91.709,
+        114.087
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 493694,
+      "length_mm": 3.5295701831115496,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.779758630348155,
+        -27.133721196554475,
+        0.6854712248963324
+      ],
+      "start_xy_mm": [
+        79.273,
+        114.132
+      ],
+      "end_xy_mm": [
+        79.213,
+        114.132
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 493717,
+      "length_mm": 4.737751978006563,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        -7.492972509926631,
+        -27.575695485275354,
+        0.5670445711582488
+      ],
+      "start_xy_mm": [
+        79.945,
+        114.2
+      ],
+      "end_xy_mm": [
+        75.755,
+        114.368
+      ]
+    },
+    {
+      "z_mm": 15.32,
+      "first_gcode_line": 494456,
+      "length_mm": 35.722792518122446,
+      "no_lower_bead_overlap_run_mm": 0,
+      "midpoint_cad_mm": [
+        0.8259840919628658,
+        -27.991624177728617,
+        0.45559681390646745
+      ],
+      "start_xy_mm": [
+        80.436,
+        113.977
+      ],
+      "end_xy_mm": [
+        90.425,
+        112.818
+      ]
+    }
+  ],
+  "priority_region_maximum_no_lower_bead_overlap_run_mm": 3.6952743053079162,
+  "maximum_above_three_bed_courses_no_lower_overlap_run_mm": 3.6952743053079162,
+  "scope": "Exact accepted seven arc walls and narrow blockers transferred to the full base at unchanged build Z, with the complete placement and support review in faucet-industrial-petgf.support-audit.json.",
+  "limits": "Native first-skin samples are at most0.05mm apart and compare deposited bead footprints within0.8mm below. Geometry and commanded contacts do not establish finish or removal on unprinted features. No new printer job is submitted."
+}

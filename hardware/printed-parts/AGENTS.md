@@ -54,6 +54,15 @@ footprint constraint needs an automatic tree-support placement review before
 choosing an explicit normal override. Do not impose a trees-only rule or add
 blanket blockers to Bambu's automatically generated normal sections.
 
+For visible overhang edges with reported roughness, follow the edge with a
+removable fin wall and retain Tree(auto)/Default on the remaining surfaces.
+Use interrupted arcs on curved edges, with release gaps away from the most
+visible midpoint. The [accepted faucet-base arc result](faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+records the best observed underside and very easy snap-off in PET-GF at the
+retained −15° pose. Contact placement, release breaks and bed anchorage belong
+to the specific edge geometry; this result does not establish other features'
+finish or release. Keep each manual support's reason and scope beside its part.
+
 Prefer simple solid stock and broad flat interior walls with few face breaks.
 Set one wall plane that preserves the required hardware clearance and backing
 thickness. Add a curve, step or local recess only for a named fit, bearing,
