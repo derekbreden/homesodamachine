@@ -63,6 +63,8 @@ opening macro has eight extra frames (333 ms) after the wish for a glass of
 soda. The empty-shelf question has sixteen extra frames (667 ms) before the faucet
 answer. The case, transport, repeat, pour and closing shots retain their local
 motion and duration. The store text enters with “a trip to the store.”
+The faucet reveal builds “Cold” and then “Fully carbonated” beneath it, at
+local frames 2 and 21. Both stay visible through the shot.
 
 `timing.py` derives the review clock from `story.json`, including the shifted
 contact frames. The narration receives silence at two quiet sample boundaries
@@ -76,15 +78,15 @@ Build the review from the native source frames:
 ```sh
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/audio.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
-  --out marketing/video/one-less-errand/studio/out/pacing-review-decay
+  --out marketing/video/one-less-errand/studio/out/pacing-review-benefits
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/finish.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
   --frames marketing/video/one-less-errand/studio/out/frames/story-loop-24-24fps-1920px-32spp \
-  --audio marketing/video/one-less-errand/studio/out/pacing-review-decay/mix-master.wav \
-  --out marketing/video/one-less-errand/studio/out/pacing-review-decay
+  --audio marketing/video/one-less-errand/studio/out/pacing-review-benefits/mix-master.wav \
+  --out marketing/video/one-less-errand/studio/out/pacing-review-benefits
 ```
 
-The review player is `out/pacing-review-decay/index.html`; its movie, captions,
+The review player is `out/pacing-review-benefits/index.html`; its movie, captions,
 picture clock and sound report live beside it. The published master and its
 publication record are listed in [`../README.md`](../README.md).
 
