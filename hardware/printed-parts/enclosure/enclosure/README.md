@@ -102,7 +102,7 @@ overlap and the [14 mm](SIDE_BAND) side band, and the screws' axis stands
 - **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
   **hub** over the lip rim: back-bottom, front-bottom, back-bottom, front-bottom, then the hub
   at Z[175.05..195.05](Y_STACK_HUB). An [M5 × 150](LOWER_ROD) drives up from the handhold
-  ceiling, its head counterbored into back-bottom's knuckle under the grip cover, through every
+  ceiling, its head recessed into back-bottom's knuckle, through every
   knuckle into a ruthex RX-M5x9.5 set in the hub's underside. Tightening it pushes back-bottom
   up into front-bottom and pulls back-top down onto front-bottom's top knuckle, so both bottoms
   and the back column's Z seam are clamped at the corner. The hub stands where back-top's notch
@@ -134,9 +134,10 @@ Seat the washers with a hand-operated 4 mm hex key and stop at the intended bear
 The printed joint has no qualified installation torque or retained clamping force.
 
 **Upper screw-access mouth at the roof edge:** the exterior show-edge taper leaves a
-minimum 1.81 mm rim over the top 2.38 mm of the opening. The rim reaches at least 3 mm
-below Z352.6164, joins 3.5 mm fore and aft ribs, and has continuous support into the
-thicker block. This local thin-section allowance applies only to that access mouth.
+minimum horizontal outboard rim width of 1.81 mm over the top 2.38 mm of the opening.
+That width reaches at least 3 mm below Z352.6164. The rim joins 3.5 mm fore and aft
+ribs and has continuous support into the thicker block. This local thin-section
+allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
 The [native seam and frame review](y-seam-plain-review.json) records the current closed
@@ -148,8 +149,11 @@ physical fit and support removal remain separate observations.
 Remove the two upper screws to free front-top, which draws fore off its rails. Removing
 all four lets the halves part. The upper screws need about 60 mm of clear space above
 the roof for insertion and withdrawal. The lower screws need about 120 mm below the
-enclosure and enter with the handhold covers removed, with the flank supported over
-the bench edge. The handhold's inner wall over the seam is front-bottom's, standing on
+enclosure, with the flank supported over the bench edge. Place each lower washer in
+the pocket separately: tip it through the handhold, turn it flat and hold it against
+the bearing floor before feeding the screw through it. A flat washer already on the
+screw does not clear the inner wall during entry. This placement's practical ease
+remains unqualified. The handhold's inner wall over the seam is front-bottom's, standing on
 its own floor tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
 (`_handhold_frame`). The [heat-set review](heat-set-review/README.md) checks every knuckle's
 whole section and the four M5 insert envelopes.
@@ -199,7 +203,7 @@ Hardware openings follow their mating parts. The rear top edge remains square.
 One handhold in each ±X flank opens through the standing floor. The recesses are
 [80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
 [35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the uncovered lifting ceiling.
-The liner seat clears the [6 mm](HANDHOLD_CORNER_R) corner shoulders beneath the roof.
+The [6 mm](HANDHOLD_CORNER_R) inside corner rounds join the ceiling to the end walls.
 The exterior lifting edges retain their [6 mm](HANDHOLD_EDGE_R) rounds.
 Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
 joined to the floor by the opening's end walls and to the corner stack above it.
@@ -207,22 +211,21 @@ The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
 tangentially, including the two corner blends. Its full section and flute
 runout follow the top's side shoulder and both cartridge hand pockets.
 
-Each [snap cover](../grip-cover/README.md) spans the front/back seam and covers
-the supported lifting ceiling with a smooth finger face. Its flat wings fit
-through-slots in the existing end walls at Y174 and Y254. The production bottom
-solids include those slots and the cover-seat reliefs; both assembly models
-include the two removable covers. The narrow wing slots print as bridges, with
-support excluded there and retained beneath the broad lifting ceilings.
+The printed ceiling is the exposed gripping surface. The end walls are complete;
+there are no grip covers, cover seats or wing slots. Tree(auto)/Default supports
+the flat ceiling during printing. Surface finish and gripping comfort remain
+unqualified on the complete production handholds.
 
 The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
 handhold; its inner wall closes on square, full-thickness ends with one running
 fit between the faces.
 The floor scarf continues across the middle of the enclosure. The lower seam screws drive up
-through the handhold ceilings, their heads under the grip covers.
+through the handhold ceilings. Each head and its single flat washer sit inside
+an inward-open pocket, with the head face recessed 2 mm above the finger surface.
+The openings remain exposed during use.
 
-`handholds` reads the upward entry space, full lifting sections, end posts around
-the wing slots and inner walls
+`handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
 checks; no physical lifting-load test is recorded.
 The [wall-end check](handhold-joint/geometry-check.json) measures the complete

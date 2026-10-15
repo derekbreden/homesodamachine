@@ -24,10 +24,27 @@ click: x=0.000 y=98.307 z=140.225
 click: x=0.000 y=76.243 z=140.225
 click: x=0.000 y=132.656 z=54.724
 
-[ceiling] The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Each roof joins the opening's end walls, blind inner wall and seam jamb. The snap cover bears against this roof. Tree supports beneath the broad ceiling have a straight removal lane toward the open seam end; the narrow 5.30 mm end-wing slot is an unsupported bridge. The matching grip receiver coupons have accepted support removal and assembled fit; see ../grip-cover/physical-acceptance.json. Production slices require the matching slot support exclusions.
+[ceiling] The exposed handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Each roof joins complete end walls, the blind inner wall and seam stock. Tree(auto)/Default supports the broad ceiling through the open handhold and seam end. Support cleanup, finger comfort and loaded lifting remain unqualified for these complete handholds; the recorded receiver/cover trials do not qualify the uncovered gripping surface.
+alternatives: A sloped ceiling changes the finger opening and lifting section; lowering or thickening the ceiling reduces that opening. Keep the full lifting section and accessible automatic support.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-99.000 y=194.350 z=29.250
 click: x=98.458 y=194.350 z=29.250
+click: x=-100.500 y=185.450 z=29.250
+click: x=100.500 y=185.450 z=29.250
 
 [sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
 click: x=105.050 y=179.450 z=29.233
+
+[ceiling] The four lower faces belong to front-bottom's complete Y-seam screw-bearing blocks. The Z65.7 faces are the intended seating datums against back-bottom. The Z138.6 faces retain the 0.5 mm inter-block running/support gap; they are not compression spacers. The blocks root in the front flank and retain their full length around the printed screw passage. Tree(auto)/Default support is accessible from the open interior and seam before joining the pieces; removal effort remains unqualified.
+alternatives: Cutting a slope shortens the screw-bearing length and removes stock at the seating end. Adding a corbel below it occupies the mating back block's insertion envelope. Retain flat block ends and accessible support.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-97.375 y=207.400 z=65.700
+click: x=97.375 y=207.400 z=65.700
+click: x=-97.375 y=207.400 z=138.600
+click: x=97.375 y=207.400 z=138.600
+
+[thin] These two points cross the handhold's nominal 3 mm inner wall. It stands on the front floor tongue and closes against the corresponding back wall beneath the lower screw blocks. The reading is the retained wall section, not a separate thin fin.
+alternatives: Thickening inward occupies the cold-core envelope; thickening toward the handhold narrows its accepted finger opening. Preserve the complete 3 mm section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-93.500 y=199.595 z=28.616
+click: x=-90.500 y=199.595 z=28.616
