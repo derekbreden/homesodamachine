@@ -31,4 +31,5 @@ def load_story(timing_path: Path | None = None):
         event['frame'] += sum(extra for boundary, extra in boundaries if event['frame'] >= boundary)
     story['narration_pauses'] = beats
     story['type_timing'] = edit.get('type_timing', {})
+    story['score'] = edit.get('score', {})
     return story
