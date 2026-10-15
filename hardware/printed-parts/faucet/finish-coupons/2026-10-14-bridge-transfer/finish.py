@@ -20,9 +20,10 @@ import refresh_print_project as writer
 WORD = re.compile(r'([A-Z])([-+]?(?:\d*\.\d+|\d+\.?\d*))')
 MODEL = {'Bridge', 'Outer wall', 'Overhang wall', 'Inner wall', 'Internal solid infill',
          'Sparse infill', 'Top surface', 'Bottom surface', 'Gap infill'}
+FOOT_MODEL = MODEL | {'Floating vertical shell'}
 
 
-def transform(text, candidate):
+def transform(text, candidate, model_features=MODEL):
     obj, feature, z = None, '', None
     native_fan = emitted_fan = native_feed = emitted_feed = 0.0
     relative = True
@@ -48,7 +49,7 @@ def transform(text, candidate):
             if not relative:
                 raise ValueError('This experiment requires the reviewed native relative-E mode')
             extrusion = words.get('E', 0)>0 and ('X' in words or 'Y' in words)
-            treated = obj == candidate and feature in MODEL and z is not None and z>0.68001
+            treated = obj == candidate and feature in model_features and z is not None and z>0.68001
             if extrusion:
                 desired_fan = 178.5 if treated else native_fan
                 if abs(desired_fan-emitted_fan)>0.001:
@@ -83,12 +84,13 @@ def main(printer):
     folder = HERE/printer.lower()
     if (folder/'launch.json').exists(): raise ValueError('Preserve the submitted files')
     spec = json.loads((folder/'preparation.json').read_text())
+    model_features = FOOT_MODEL if spec['kind']=='foot' else MODEL
     native = folder/'native.gcode.3mf'
     with ZipFile(native) as z: data = {n:z.read(n) for n in z.namelist()}
     raw = data['Metadata/plate_1.gcode']
     if hashlib.md5(raw).hexdigest() != data['Metadata/plate_1.gcode.md5'].decode().strip().lower():
         raise ValueError('Native G-code checksum mismatch')
-    text, edits = transform(raw.decode(), spec['specimens'][1]['identify_id'])
+    text, edits = transform(raw.decode(), spec['specimens'][1]['identify_id'], model_features)
     if movement_signature(raw.decode()) != movement_signature(text):
         raise ValueError('The local treatment changed native movement or extrusion')
     final = text.encode()
@@ -100,8 +102,8 @@ def main(printer):
     before = segments(raw.decode())
     rows = []
     for row in spec['specimens']:
-        own = [p for p in paths if p['object']==row['identify_id'] and p['feature'] in MODEL]
-        native_own = [p for p in before if p['object']==row['identify_id'] and p['feature'] in MODEL]
+        own = [p for p in paths if p['object']==row['identify_id'] and p['feature'] in model_features]
+        native_own = [p for p in before if p['object']==row['identify_id'] and p['feature'] in model_features]
         if len(own)!=len(native_own): raise ValueError('Model path count changed')
         after_bed = [p for p in own if p['z']>0.68001]
         if row['treatment'] and any(abs(p['fan']-178.5)>0.001 for p in after_bed):
@@ -135,6 +137,8 @@ def main(printer):
         source_gcode_sha256=writer.digest(raw), submitted_gcode_sha256=writer.digest(final),
         full_bead_envelope_mm=[low.tolist(), high.tolist()], minimum_edge_clearance_mm=inset,
         trim_commands_mm=trims, local_treatments=edits, specimens=rows,
+        treatment_scope=('Every model feature in this foot slice, including Floating vertical shell; support and brim fan/feed remain native.'
+                         if spec['kind']=='foot' else 'Named MODEL features; Floating vertical shell retains native fan/feed.'),
         physical_result='Pending; no finish or removal result is established by this path review.')
     (folder/'review.json').write_text(json.dumps(report, indent=2)+'\n')
     print_only = output.with_name(output.name.removesuffix('.gcode.3mf')+'-print-only.gcode.3mf')

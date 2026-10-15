@@ -1,10 +1,10 @@
 {
   "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2.gcode.3mf",
-  "source_archive_sha256": "3407c2fc5523b5cb8ed9c8af0843c3c69ec447171ddefbf798b6eaa1bfcbdca2",
+  "source_archive_sha256": "bdd7be52fcfc5aa0f023104dfe9c0fe55af1a54c221d79451d13e679410b09f0",
   "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2-print-only.gcode.3mf",
-  "print_only_archive_sha256": "606b7cbb6ec2cdbac4898d99609e5e88d96d9de674278990d8221b1d609dd0db",
+  "print_only_archive_sha256": "2a3aabe062cceff46269921d5502dd565df55f17c34b51a05b5480daa8dd55fc",
   "gcode_sha256": {
-    "Metadata/plate_1.gcode": "6a601c376773fa3c1dc7a730ca926b3226fe408586ef007696e8bb486338491b"
+    "Metadata/plate_1.gcode": "dd4572ee9439b93fe32d7656107a284c8e2701b38c1146e384626d8e7c98ed78"
   },
   "gcode_byte_identical": true,
   "changed_container_entries": [

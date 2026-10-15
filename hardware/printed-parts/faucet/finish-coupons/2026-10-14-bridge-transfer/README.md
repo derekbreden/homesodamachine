@@ -16,9 +16,14 @@ Mark1 accepted the tip pair as **job 1340794235 at 22:32:42 CDT on
 1 h 03 min 07 s, 21.19 g; the local bridge slowdown adds time beyond it.
 The [launch receipt](mark1/launch.json) identifies the submitted archive.
 
-The foot material pair is prepared but **not submitted**. Its native estimate
-is 3 h 54 min 14 s, 95.84 g. Mark2's current-angle support experiment is the
-separate [tines and plain walls comparison](../2026-10-14-foot-fins-current-angle/README.md).
+The [foot material pair](mark2/README.md) is prepared as Mark2's next plate but
+**not submitted**. Its native estimate is 3 h 54 min 14 s, 95.84 g, before the
+local Bridge slowdown. It holds Tree(auto) constant while comparing the material
+recipe and retains the first shoulder for a separate defect 1 assessment.
+Mark1's [Full-annulus comparison](../2026-10-14-foot-fins-current-angle/full-annulus/README.md)
+compares support placement with the bridge recipe on both specimens. Mark2's
+running [stock fin walls comparison](../2026-10-14-foot-fins-current-angle/README.md)
+has an in-progress rim strand failure recorded with four photographs.
 
 ## Basis and treatment
 
@@ -35,10 +40,11 @@ A retains the production object's bridge flow and the native fan/feed commands.
 B uses the native per-object `bridge_flow=1.25`, including the slicer's treatment
 of overhang-wall extrusion. After the first three bed layers, B's named wall,
 bridge, infill, surface and gap-infill features receive 70% part fan, and Bridge
-moves are capped at 15 mm/s. **Floating vertical shell** retains native cooling
-and feed, as do Support and Support interface. The tip slice contains floating
-shell paths, so this is not an all-model fixed-fan comparison. Other model feeds
-retain their native values. Support fan/feed commands retain their native values.
+moves are capped at 15 mm/s. The **Mark2 foot** treatment also includes Floating
+vertical shell, covering every model feature in its slice. The submitted **Mark1
+tip** retains native cooling and feed on Floating vertical shell and therefore
+does not test an all-model fixed-fan recipe. Other model feeds, supports and brim
+retain their native values.
 The local treatment preserves every native XYZ, arc and E word. The editable
 project contains the flow treatment; `finish.py` applies the local fan/feed
 treatment to its native slice and refreshes the checksum.

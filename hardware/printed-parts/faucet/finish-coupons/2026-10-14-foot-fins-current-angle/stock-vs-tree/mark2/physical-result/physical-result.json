@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-15",
+  "recorded_at_utc": "2026-10-15T05:28:11.768968+00:00",
+  "status": "In-progress rim strand failure reported by Derek; final cooled/removal assessment pending",
+  "authority": "Direct user report and four supplied photographs",
+  "printer": "Mark2",
+  "printer_task_id": "1340828943",
+  "operator_quote": "What are we starting next on mark2? Here’s how its current print is failing as anticipated.",
+  "gcode_sha256": "6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/launch.json",
+  "plate_identification": {
+    "A": "Left: eight stock plain fin walls under the bottom annulus",
+    "B": "Right: production Tree(auto), Default"
+  },
+  "common_recipe": "Production material recipe; native bridge flow 1.0, effective Bridge feed 25 mm/s, native layer-time cooling; accepted base Rx -15 degrees",
+  "photo_observations": [
+    {
+      "photos": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "specimen": "A",
+      "observation": "A hanging loop and multiple long loose strands are visible beneath/across the lever-facing straight rim region on the left fin-supported specimen."
+    },
+    {
+      "photos": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "specimen": "A",
+      "observation": "The visible fin walls remain upright and their feet appear on the bed in these views. No fallen wall or obvious broad bed lift is visible."
+    },
+    {
+      "photos": [
+        2,
+        3,
+        4
+      ],
+      "specimen": "B",
+      "observation": "The right tree-supported specimen is visible with distributed support contacts. The views do not expose its complete underside or establish a post-removal rim result."
+    }
+  ],
+  "native_path_evidence": {
+    "record": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/rim-path-review.json",
+    "lever_facing_strand_length_mm": 7.867,
+    "nominal_print_z_mm": 15.32,
+    "lower_bearing": "No lower deposited bead beneath the selected strand in its three preceding nominal courses",
+    "interpretation": "The photographs are consistent with the identified unsupported landing region. They do not establish deposition order, the initiating event, physical deflection or a unique cause."
+  },
+  "printer_observation": {
+    "observed_at_utc": "2026-10-15T05:22:50.318750+00:00",
+    "gcode_state": "RUNNING",
+    "layer_num": 55,
+    "total_layer_num": 70,
+    "remaining_minutes": 26,
+    "print_error": 0,
+    "hms_uninterpreted": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ]
+  },
+  "disposition": "Current print remains in progress; no cancellation or replacement job sent in response to these photographs",
+  "physical_assessment_pending": [
+    "Cooled full-circumference rim shape on both specimens",
+    "Model skin retained through support removal",
+    "Removal effort and contact marks",
+    "Mating edge against the existing mounting plate"
+  ],
+  "photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/in-progress-photo-1.jpg",
+      "source_label": "Photo 1.jpg",
+      "sha256": "f422578629485c561d6cd325b81b02954d4987e01db7cd3863501b5377c6f041",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/in-progress-photo-2.jpg",
+      "source_label": "Photo 2.jpg",
+      "sha256": "27686e3ef3ad73c80d3e07771d08aba62496af817a373b3f5f7f80c0d4bd8307",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/in-progress-photo-3.jpg",
+      "source_label": "Photo 3.jpg",
+      "sha256": "e91a45083e12c383b778c6d80d8aa460bce6eb8c798e507b5d076ad28d7c8edc",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/in-progress-photo-4.jpg",
+      "source_label": "Photo 4.jpg",
+      "sha256": "d53ef7eeba1dd171b777327395511d23e211f9bbc1c3d3e0cfaae40db6bdd8c6",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ]
+}

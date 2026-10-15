@@ -1,11 +1,11 @@
 {
   "source_native_sha256": "6441eb95003bcfb783413120a2470609c671efc7fa3132c0b8d6102e1973ef8a",
   "submitted_archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2.gcode.3mf",
-  "submitted_sha256": "3407c2fc5523b5cb8ed9c8af0843c3c69ec447171ddefbf798b6eaa1bfcbdca2",
+  "submitted_sha256": "bdd7be52fcfc5aa0f023104dfe9c0fe55af1a54c221d79451d13e679410b09f0",
   "native_xyz_arc_and_extrusion_words_preserved": true,
   "native_support_fan_and_feed_preserved": true,
   "source_gcode_sha256": "6779478736f0bc594292e19725c7907945b17fd512f0d11877667b5b79453f54",
-  "submitted_gcode_sha256": "6a601c376773fa3c1dc7a730ca926b3226fe408586ef007696e8bb486338491b",
+  "submitted_gcode_sha256": "dd4572ee9439b93fe32d7656107a284c8e2701b38c1146e384626d8e7c98ed78",
   "full_bead_envelope_mm": [
     [
       90.0351455,
@@ -22,13 +22,14 @@
     0.02
   ],
   "local_treatments": {
-    "fan_commands": 854,
+    "fan_commands": 376,
     "Inner wall": 68207,
     "Overhang wall": 2025,
     "Outer wall": 73411,
     "Internal solid infill": 3438,
     "Bridge": 2126,
     "Sparse infill": 60130,
+    "Floating vertical shell": 11357,
     "Top surface": 411,
     "Gap infill": 315
   },
@@ -166,6 +167,7 @@
       ],
       "model_features": [
         "Bridge",
+        "Floating vertical shell",
         "Gap infill",
         "Inner wall",
         "Internal solid infill",
@@ -264,6 +266,7 @@
       ],
       "model_features": [
         "Bridge",
+        "Floating vertical shell",
         "Gap infill",
         "Inner wall",
         "Internal solid infill",
@@ -274,6 +277,6 @@
       ]
     }
   ],
-  "physical_result": "Pending; no finish or removal result is established by this path review.",
-  "treatment_scope": "70% cooling applies to the named wall/infill/surface/Bridge features in finish.py MODEL; Floating vertical shell keeps native fan/feed. This does not qualify an all-model fixed-fan recipe."
+  "treatment_scope": "Every model feature in this foot slice, including Floating vertical shell; support and brim fan/feed remain native.",
+  "physical_result": "Pending; no finish or removal result is established by this path review."
 }

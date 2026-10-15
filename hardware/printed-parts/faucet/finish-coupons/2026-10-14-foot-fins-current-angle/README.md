@@ -25,7 +25,9 @@ RUNNING without errors. The [launch receipt](stock-vs-tree/mark2/launch.json)
 identifies the stock-fin comparison. The native estimate is
 **1 h 49 min 16 s**, **45.95 g**, **70 layers**.
 The [editable project and native slice](stock-vs-tree/mark2/) retain the exact
-inputs. Physical results remain pending.
+inputs. The [four in-progress photographs](stock-vs-tree/mark2/physical-result/physical-result.json)
+show a hanging loop and loose long strands at A's lever-facing rim, with the
+visible fin walls upright. Finished underside quality and removal remain pending.
 
 ## Supports and evidence
 
@@ -88,7 +90,8 @@ Compare removal effort, retained model skin, contact marks, loose strands and
 rim scalloping. Check the edge against the existing mounting plate. A useful
 candidate improves edge shape, has no loose or catching strands, and removes
 without tearing the rim or impairing mating fit. If B does not reproduce the
-defect, a clean A does not establish a cure. Physical observations are pending.
+defect, a clean A does not establish a cure. The in-progress strand failure is
+recorded above; the cooled comparison and support-removal observations are pending.
 
 This crop isolates defect 3. The localized shoulder buildup at defect 1 and
 the tip lip at defect 2 remain separate observations. The
