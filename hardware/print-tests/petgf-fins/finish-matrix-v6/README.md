@@ -91,6 +91,14 @@ roof prints. Correct commanded landings do not establish the teeth's physical
 position or bearing stiffness; deformation of these teeth is an unresolved
 candidate mechanism. The photographs do not determine its timing.
 
+This is a local lateral-tooth variant: the walls stand outside the roof's
+footprint, so the lower teeth carry its edges as cantilevers. PrintFins' published
+[ledge calibration](https://github.com/gittrahan/support-fins/blob/511d81fc9124075cef142bfb2766bd5e8bfa777d/docs/CALIBRATION.md#gap-gapprintgap-coupon3mf)
+uses walls directly under the ledge with a whole-layer vertical release gap.
+The [source and geometry comparison](../geometry-comparison.json) records that
+distinction. These fin failures do not establish the quality or release of that
+underlying-wall arrangement in PET-GF.
+
 ![Actual submitted first-roof paths on preceding beads](fin-landings.png)
 
 ## Ramp comparison: R01–R16

@@ -327,6 +327,7 @@
     ]
   },
   "fin_failure_diagnosis": {
+    "technique_scope": "Local lateral walls with 2.24 mm cantilever teeth, not the published PrintFins wall-under-ledge gap coupon; see ../../geometry-comparison.json. These failures do not qualify or reject the underlying-wall arrangement.",
     "nominal_paths": "Every main F/Y first-roof stroke has both ends and terminal 0.25 mm over nominal preceding-tooth beads; bridge fill precedes walls.",
     "physical_teeth_condition": "Irregular contact remnants visible; their pre-bridge position and sequence of deformation/separation remain unresolved.",
     "geometry_to_inspect": "One-layer lower teeth project 2.24 mm horizontally from the fin wall before the roof lands.",

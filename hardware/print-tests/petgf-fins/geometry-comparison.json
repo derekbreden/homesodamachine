@@ -1,0 +1,51 @@
+{
+  "scope": "Comparison of locally authored bridge fins with published PrintFins geometry; no new physical qualification or printer launch",
+  "date": "2026-10-14",
+  "upstream": {
+    "repository": "https://github.com/gittrahan/support-fins",
+    "reviewed_commit": "511d81fc9124075cef142bfb2766bd5e8bfa777d",
+    "ledge_calibration": {
+      "source": "https://github.com/gittrahan/support-fins/blob/511d81fc9124075cef142bfb2766bd5e8bfa777d/docs/CALIBRATION.md#gap-gapprintgap-coupon3mf",
+      "generator": "https://github.com/gittrahan/support-fins/blob/511d81fc9124075cef142bfb2766bd5e8bfa777d/prototype/calibration/gap/gen.py",
+      "arrangement": "Walls underneath ledges, separated from their undersides by whole empty layers; the walls do not stand outside the roof with long horizontal bearing fingers.",
+      "source_layer_height_mm": 0.2,
+      "source_empty_layer_counts": [1, 2, 3],
+      "selection": "Fewest empty layers that allow clean removal without tearing the ledge skin; saggy or stringy undersides indicate excessive gap."
+    },
+    "grip": {
+      "source": "https://github.com/gittrahan/support-fins/blob/511d81fc9124075cef142bfb2766bd5e8bfa777d/web/prop/tines.js",
+      "arrangement": "One-layer horizontal nubs grip an adjacent sloping or side face where solid part material is within reach; the emitter skips directions that do not reach solid material, including a flat ceiling too shallow to grip sideways.",
+      "purpose": "Restrain peeling and twisting; grip and vertical wall clearance are separate geometry settings.",
+      "configuration_note": "tinesPerWall = 0 disables the exact-count override, not the comb; spacing rules still emit tines."
+    },
+    "slant3d_guidance_as_documented_by_tool_author": {
+      "source": "https://github.com/gittrahan/support-fins/blob/511d81fc9124075cef142bfb2766bd5e8bfa777d/docs/FIN-SPEC.md",
+      "video": "https://www.youtube.com/watch?v=vnn4XeKQobs",
+      "guidance": "Small horizontal contacts one actual slicer layer tall, with 0.4-0.8 mm tine width and placement on accessible edges or corners. Width is not projection length.",
+      "distinction": "The specification also describes lateral tined fins that carry load beside a near-vertical face, and explicitly distinguishes those from the current web tool's walls. It does not prescribe this experiment's 2 mm roof underlap."
+    }
+  },
+  "local_v4_v6_fin_geometry": {
+    "source": "bonding-and-fins-v4/prepare.py: fin(), reused by finish-matrix-v6/prepare.py",
+    "wall_position": "Beside the roof, outside its footprint; no vertical wall beneath either roof landing",
+    "horizontal_body_gap_mm": 0.24,
+    "lower_tooth_thickness_mm": 0.24,
+    "roof_underlap_mm": 2.0,
+    "projection_beyond_wall_face_mm": 2.24,
+    "load_path": "First roof strokes land near the outer ends of one-layer cantilever teeth; those teeth transfer the roof load back to the sidewalls.",
+    "design_status": "Local experimental variant; not a PrintFins export or reproduction of its wall-under-ledge calibration",
+    "native_review_scope": "Nominal bridge endpoint overlap with preceding tooth beads; does not demonstrate physical tooth formation, stiffness or a wall directly under the roof"
+  },
+  "evidence_scope": {
+    "physical_fin_result": "finish-matrix-v6/mark2/physical-result.json",
+    "claim": "Reported fin failures concern the local lateral cantilever-tooth arrangement. They do not qualify or reject a narrow removable wall directly beneath the roof with a calibrated vertical gap.",
+    "preserved_results": "Mark1 flow-bracket-v7 bridge appearance and finish-matrix-v6 ramp surface acceptance retain their recorded scope."
+  },
+  "candidate_comparison": {
+    "customer_outcome": "Clean retained underside and practical wall removal for visible and sliding surfaces",
+    "arrangement": "A published wall-under-ledge reference adapted to the actual fixed layer schedule, with bridge paths crossing the wall tops and whole-layer vertical clearances; small grip contacts evaluated separately on a suitable sloping or side face.",
+    "decision": "Whether underlying removable walls provide a useful retained surface and release in PET-GF. Additional flow or cooling variants on the long-tooth geometry do not answer that question.",
+    "assessment": "Compare cooled retained undersides for loose strands, bowing and snagging; record clean wall removal versus welded contact or torn roof skin. A geometry preview alone cannot establish either outcome.",
+    "status": "Recommendation only; no geometry prepared or print started by this review"
+  }
+}
