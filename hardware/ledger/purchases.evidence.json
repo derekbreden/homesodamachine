@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-13",
+  "as_of": "2026-10-15",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8263,6 +8263,30 @@
       "source_ids": [
         "src-12040c324f204be58668b4b80706b3e5"
       ]
+    },
+    "pur-9c025ba9576044b38a4745d084361ea5": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ]
+    },
+    "pur-a61e59a7635c4aa0887475454ad04b04": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ]
     }
   },
   "orders": {
@@ -14011,6 +14035,18 @@
       "source_ids": [
         "src-12040c324f204be58668b4b80706b3e5"
       ]
+    },
+    "amazon:114-5530613-2918640": {
+      "vendor": "Amazon",
+      "reference": "114-5530613-2918640",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ]
     }
   },
   "events": [
@@ -17459,6 +17495,23 @@
       "order_ids": [
         "bambu:us776951289157341185"
       ]
+    },
+    {
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 3018,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ],
+      "verified_at": "2026-10-15",
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ]
     }
   ],
   "allocations": [
@@ -18772,6 +18825,22 @@
       "purchase_id": "pur-870e9ad9da324c92bdac254c7fb54fa7",
       "order_id": "bambu:us776951289157341185",
       "amount_minor": 666,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-25dfa00770bd463ab19b4c8d4a75a9c6",
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "purchase_id": "pur-9c025ba9576044b38a4745d084361ea5",
+      "order_id": "amazon:114-5530613-2918640",
+      "amount_minor": 2358,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-32d26c1307e94f87a2169f3dcf4e1dd4",
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04",
+      "order_id": "amazon:114-5530613-2918640",
+      "amount_minor": 660,
       "currency": "USD"
     }
   ],
@@ -29002,6 +29071,21 @@
       ],
       "verified_at": "2026-10-13",
       "note": "Printed or structured vendor placed date. Quoted order amount; final invoice and payment unknown."
+    },
+    "src-37921a0b742a4d97a9b12ed2e09697cb": {
+      "vendor": "Amazon",
+      "document_type": "email_order_confirmation",
+      "reference": "114-5530613-2918640",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-15",
+      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each, arriving 2026-10-16, and one uxcell 24 mm OD \u00d7 16 mm ID \u00d7 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15, arriving 2026-10-19; grand total USD 30.18. The USD 2.05 difference from the USD 28.13 item total is taken as tax and allocated in proportion to item price (USD 1.60 and USD 0.45). Order history and Transactions required a fresh sign-in on 2026-10-15; this source does not establish a completed charge."
     }
   },
   "coverage": [
