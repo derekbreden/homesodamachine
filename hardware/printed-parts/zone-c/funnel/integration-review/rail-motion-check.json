@@ -1,607 +1,1045 @@
 {
+  "review_date": "2026-10-15",
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a448ca8535aebccaedd3564869535215b3e4c27e26d7df3e924705f2a438d1cf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "f8c459943ba2ee4c1bebc19720543db1c8f25e0746931417c0372b2533b092b0",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb58610f23c5aad46f431b4765e990d6e5d49fede835677b1b54047b0bd2700a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
   },
-  "method": "Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.",
-  "flat_floor_z_mm": 299.9,
-  "plug_web_probe_radius_mm": 8.0,
-  "plug_web_samples_mm": [
-    3.0,
-    3.0,
-    3.0,
-    3.0,
-    3.0,
-    3.0,
-    3.0,
-    3.0
-  ],
-  "full_width_corbel_plane_max_excess_mm": [
-    7.629394502828291e-07,
-    4.33592143167516e-06
-  ],
+  "native_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "453be88494113bf643a22ccebf9832eceee0da6e721fb1a8a133bb89699c722c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "c68eb8135b0494c9a5cfca3b4c88ad72742ddc29b522931ba003f4bc33951d6c",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb58610f23c5aad46f431b4765e990d6e5d49fede835677b1b54047b0bd2700a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "f8e52835e199c500d961377c4ac92954567e9150ff44a2200dbf193aab277a0a",
+    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+  },
+  "method": "Source-bound closed STL motion evidence with its recorded pre-head-access hashes, carried to final shell stock by the native subset proof in the Y-seam review. Final six-direction frame capture uses the current_source_sha256 meshes. Native frame dimensions and complete brim bearing are retained; physical fit, support cleanup and load capacity are unmeasured.",
+  "native_review": "../../../enclosure/enclosure/y-seam-plain-review.json",
+  "frame_dimensions": {
+    "valid": true,
+    "solid_count": 1,
+    "bounds_mm": [
+      -103.5,
+      103.50000000000026,
+      95.45849207672,
+      235.69150792328702,
+      299.9,
+      355.0
+    ],
+    "lower_flat_footprint_bounds_mm": [
+      -103.5,
+      103.5,
+      119.10000000000001,
+      210.0,
+      299.9,
+      299.9
+    ],
+    "lower_flat_footprint_width_mm": 207.0,
+    "lower_flat_footprint_y_length_mm": 90.89999999999999,
+    "lower_flat_footprint_area_mm2": 18111.092802745014,
+    "brim_bearing_thickness_mm": 3.0,
+    "brim_bearing_required_volume_mm3": 11134.663620579251,
+    "brim_bearing_missing_volume_mm3": 0.0,
+    "brim_bearing_complete": true,
+    "rail_z_mm": [
+      306.9,
+      321.7
+    ],
+    "socket_floor_z_mm": 302.9,
+    "underside_z_mm": 299.9,
+    "front_rail_pair_count": 1,
+    "front_rail_y_mm": [
+      111.70849207671873,
+      199.75
+    ],
+    "front_rail_run_mm": 88.04150792328127,
+    "front_rail_before_stop_mm": 84.04150792328127,
+    "rear_rail_count": 0,
+    "body_sections": [
+      {
+        "at_yz_mm": [
+          200.5,
+          330
+        ],
+        "x_extent_mm": [
+          -91.2500001,
+          91.2500001
+        ],
+        "width_mm": 182.5000002
+      },
+      {
+        "at_yz_mm": [
+          208.0,
+          330
+        ],
+        "x_extent_mm": [
+          -91.2500001,
+          91.2500001
+        ],
+        "width_mm": 182.5000002
+      },
+      {
+        "at_yz_mm": [
+          199.5,
+          330
+        ],
+        "x_extent_mm": [
+          -98.2500001,
+          98.2500001
+        ],
+        "width_mm": 196.5000002
+      }
+    ]
+  },
   "joints": [
     {
-      "joint": "frame / front-top",
+      "motion": "Slide back-top onto joined bottoms and front-top",
+      "mover": "back-top",
+      "fixed": [
+        "back-bottom",
+        "front-bottom",
+        "front-top"
+      ],
+      "range_y_mm": [
+        0,
+        300.0
+      ],
       "poses": [
         {
-          "travel_mm": 0.0,
-          "overlap_mm3": -2.8421709430404007e-12
+          "offset_y_mm": 0.0,
+          "overlap_mm3": {
+            "back-bottom": -8.376173561176758e-13,
+            "front-bottom": -2.1652644954794908e-13,
+            "front-top": 3.383461046058134e-13
+          }
         },
         {
-          "travel_mm": 0.25,
-          "overlap_mm3": 6.821210263296962e-13
+          "offset_y_mm": 0.25,
+          "overlap_mm3": {
+            "back-bottom": 8.725826152941856e-13,
+            "front-bottom": 3.241486939975502e-13,
+            "front-top": 2.6645352591003757e-13
+          }
         },
         {
-          "travel_mm": 0.5,
-          "overlap_mm3": -2.7284841053187847e-12
+          "offset_y_mm": 0.5,
+          "overlap_mm3": {
+            "back-bottom": -6.015540577599884e-14,
+            "front-bottom": -5.680178549738457e-14,
+            "front-top": 6.890512466162235e-13
+          }
         },
         {
-          "travel_mm": 1.0,
-          "overlap_mm3": -3.183231456205249e-12
+          "offset_y_mm": 1.0,
+          "overlap_mm3": {
+            "back-bottom": 1.3784217636671897e-12,
+            "front-bottom": 2.8486935033100735e-13,
+            "front-top": 7.468931072576734e-13
+          }
         },
         {
-          "travel_mm": 2.0,
-          "overlap_mm3": 2.8421709430404007e-13
+          "offset_y_mm": 2.0,
+          "overlap_mm3": {
+            "back-bottom": -2.62830841888783e-12,
+            "front-bottom": -8.255801370229271e-13,
+            "front-top": 8.406860277365702e-13
+          }
         },
         {
-          "travel_mm": 3.0,
-          "overlap_mm3": -4.320099833421409e-12
+          "offset_y_mm": 3.0,
+          "overlap_mm3": {
+            "back-bottom": 1.0754816091515518e-12,
+            "front-bottom": -1.7956031897903985e-13,
+            "front-top": -2.0262567665407794e-13
+          }
         },
         {
-          "travel_mm": 4.0,
-          "overlap_mm3": -1.5347723092418164e-12
+          "offset_y_mm": 4.0,
+          "overlap_mm3": {
+            "back-bottom": -2.0166106740222844e-12,
+            "front-bottom": -1.1321846238310229e-13,
+            "front-top": 3.927348897481142e-14
+          }
         },
         {
-          "travel_mm": 5.0,
-          "overlap_mm3": 5.684341886080802e-14
+          "offset_y_mm": 5.0,
+          "overlap_mm3": {
+            "back-bottom": -1.2839546591723872e-12,
+            "front-bottom": 9.289910420789971e-14,
+            "front-top": -1.2644702993003243e-13
+          }
         },
         {
-          "travel_mm": 6.0,
-          "overlap_mm3": 4.831690603168681e-12
+          "offset_y_mm": 6.0,
+          "overlap_mm3": {
+            "back-bottom": 1.1704990875975138e-12,
+            "front-bottom": 3.05762359875672e-14,
+            "front-top": -3.976506623981635e-14
+          }
         },
         {
-          "travel_mm": 8.0,
-          "overlap_mm3": 1.6484591469634324e-12
+          "offset_y_mm": 8.0,
+          "overlap_mm3": {
+            "back-bottom": -2.9118153336638378e-12,
+            "front-bottom": 2.1441182163073336e-14,
+            "front-top": -2.0791029488320678e-13
+          }
         },
         {
-          "travel_mm": 10.0,
-          "overlap_mm3": -1.9895196601282805e-12
+          "offset_y_mm": 10.0,
+          "overlap_mm3": {
+            "back-bottom": 2.5401988184344665e-13,
+            "front-bottom": -1.412203687323199e-13,
+            "front-top": -4.796163466380676e-14
+          }
         },
         {
-          "travel_mm": 12.0,
-          "overlap_mm3": 8.526512829121202e-13
+          "offset_y_mm": 12.0,
+          "overlap_mm3": {
+            "back-bottom": 1.3798831868805372e-12,
+            "front-bottom": 1.1685097334179773e-13,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 14.0,
-          "overlap_mm3": -5.684341886080801e-13
+          "offset_y_mm": 16.0,
+          "overlap_mm3": {
+            "back-bottom": 2.5171132717291306e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 16.0,
-          "overlap_mm3": -2.0463630789890885e-12
+          "offset_y_mm": 24.0,
+          "overlap_mm3": {
+            "back-bottom": 9.060667852770914e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 18.0,
-          "overlap_mm3": 7.673861546209082e-13
+          "offset_y_mm": 32.0,
+          "overlap_mm3": {
+            "back-bottom": 3.114586930377805e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 20.0,
-          "overlap_mm3": -9.663381206337363e-13
+          "offset_y_mm": 40.0,
+          "overlap_mm3": {
+            "back-bottom": -6.633206606397276e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 22.0,
-          "overlap_mm3": 1.5347723092418164e-12
+          "offset_y_mm": 48.0,
+          "overlap_mm3": {
+            "back-bottom": 4.057156127441723e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 24.0,
-          "overlap_mm3": 5.684341886080801e-13
+          "offset_y_mm": 56.0,
+          "overlap_mm3": {
+            "back-bottom": 5.474810498885558e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 26.0,
-          "overlap_mm3": 2.2737367544323206e-12
+          "offset_y_mm": 64.0,
+          "overlap_mm3": {
+            "back-bottom": 6.068873864822216e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 28.0,
-          "overlap_mm3": 1.5916157281026244e-12
+          "offset_y_mm": 72.0,
+          "overlap_mm3": {
+            "back-bottom": -4.546418851201356e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 30.0,
-          "overlap_mm3": -2.4442670110147446e-12
+          "offset_y_mm": 80.0,
+          "overlap_mm3": {
+            "back-bottom": 2.5819611070487455e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 32.0,
-          "overlap_mm3": 5.400124791776761e-13
+          "offset_y_mm": 88.0,
+          "overlap_mm3": {
+            "back-bottom": -4.66367890757536e-13,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 34.0,
-          "overlap_mm3": -1.1652900866465643e-12
+          "offset_y_mm": 96.0,
+          "overlap_mm3": {
+            "back-bottom": 1.742084802152169e-13,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 36.0,
-          "overlap_mm3": 3.183231456205249e-12
+          "offset_y_mm": 104.0,
+          "overlap_mm3": {
+            "back-bottom": -5.030553041187116e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 38.0,
-          "overlap_mm3": 1.7053025658242404e-12
+          "offset_y_mm": 112.0,
+          "overlap_mm3": {
+            "back-bottom": 5.048329464153126e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 40.0,
-          "overlap_mm3": -1.0800249583553523e-12
+          "offset_y_mm": 120.0,
+          "overlap_mm3": {
+            "back-bottom": -1.6144154833504579e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 42.0,
-          "overlap_mm3": -1.6768808563938364e-12
+          "offset_y_mm": 128.0,
+          "overlap_mm3": {
+            "back-bottom": -2.1783228161802864e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 44.0,
-          "overlap_mm3": -8.810729923425242e-13
+          "offset_y_mm": 136.0,
+          "overlap_mm3": {
+            "back-bottom": 5.456923704138389e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 46.0,
-          "overlap_mm3": -1.7053025658242404e-13
+          "offset_y_mm": 144.0,
+          "overlap_mm3": {
+            "back-bottom": 1.1066400786464026e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 48.0,
-          "overlap_mm3": -1.1652900866465643e-12
+          "offset_y_mm": 152.0,
+          "overlap_mm3": {
+            "back-bottom": -4.099949858240269e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 50.0,
-          "overlap_mm3": 2.1316282072803006e-13
+          "offset_y_mm": 160.0,
+          "overlap_mm3": {
+            "back-bottom": 2.6818786720474858e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 52.0,
-          "overlap_mm3": 3.055333763768431e-13
+          "offset_y_mm": 168.0,
+          "overlap_mm3": {
+            "back-bottom": 6.254936957381281e-13,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 54.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 176.0,
+          "overlap_mm3": {
+            "back-bottom": 2.422822942163387e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 56.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 184.0,
+          "overlap_mm3": {
+            "back-bottom": -1.9299051695923983e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 58.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 192.0,
+          "overlap_mm3": {
+            "back-bottom": -3.8283479102227576e-12,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 60.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 200.0,
+          "overlap_mm3": {
+            "back-bottom": -7.006141543655642e-15,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 62.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 208.0,
+          "overlap_mm3": {
+            "back-bottom": 9.295922321836403e-13,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 64.0,
-          "overlap_mm3": 4.547473508864641e-13
+          "offset_y_mm": 216.0,
+          "overlap_mm3": {
+            "back-bottom": 2.725742823368949e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 66.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 224.0,
+          "overlap_mm3": {
+            "back-bottom": -7.530955026258113e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 68.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 232.0,
+          "overlap_mm3": {
+            "back-bottom": 7.413538641483364e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 70.0,
-          "overlap_mm3": 4.547473508864641e-13
+          "offset_y_mm": 240.0,
+          "overlap_mm3": {
+            "back-bottom": -2.07707115396083e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 248.0,
+          "overlap_mm3": {
+            "back-bottom": 5.694750226936662e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 256.0,
+          "overlap_mm3": {
+            "back-bottom": -8.526512829121202e-14,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 264.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 272.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 280.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 288.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 296.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 300.0,
+          "overlap_mm3": {
+            "back-bottom": 0.0,
+            "front-bottom": 0.0,
+            "front-top": 0.0
+          }
         }
       ],
-      "max_overlap_mm3": 4.831690603168681e-12
+      "worst_overlap_mm3": 9.060667852770914e-12,
+      "worst_offset_y_mm": 24.0,
+      "worst_fixed_part": "back-bottom",
+      "clear": true
     },
     {
-      "joint": "frame / back-top",
+      "motion": "Insert funnel frame into front-top",
+      "mover": "frame",
+      "fixed": [
+        "front-top"
+      ],
+      "range_y_mm": [
+        0,
+        70.0
+      ],
       "poses": [
         {
-          "travel_mm": 0.0,
-          "overlap_mm3": -7.673861546209082e-13
+          "offset_y_mm": 0.0,
+          "overlap_mm3": {
+            "front-top": -4.547473508864641e-13
+          }
         },
         {
-          "travel_mm": 0.25,
-          "overlap_mm3": -2.5579538487363607e-13
+          "offset_y_mm": 0.25,
+          "overlap_mm3": {
+            "front-top": 4.547473508864641e-13
+          }
         },
         {
-          "travel_mm": 0.5,
-          "overlap_mm3": 2.842170943040401e-14
+          "offset_y_mm": 0.5,
+          "overlap_mm3": {
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 1.0,
-          "overlap_mm3": 2.842170943040401e-14
+          "offset_y_mm": 1.0,
+          "overlap_mm3": {
+            "front-top": 6.821210263296962e-13
+          }
         },
         {
-          "travel_mm": 1.4285714285714286,
-          "overlap_mm3": -4.263256414560601e-13
+          "offset_y_mm": 2.0,
+          "overlap_mm3": {
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 2.0,
-          "overlap_mm3": -1.9895196601282805e-13
+          "offset_y_mm": 3.0,
+          "overlap_mm3": {
+            "front-top": -6.821210263296962e-13
+          }
         },
         {
-          "travel_mm": 2.857142857142857,
-          "overlap_mm3": -8.526512829121202e-14
+          "offset_y_mm": 4.0,
+          "overlap_mm3": {
+            "front-top": 6.821210263296962e-13
+          }
         },
         {
-          "travel_mm": 3.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 5.0,
+          "overlap_mm3": {
+            "front-top": 0.0
+          }
         },
         {
-          "travel_mm": 4.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 6.0,
+          "overlap_mm3": {
+            "front-top": -6.821210263296962e-13
+          }
         },
         {
-          "travel_mm": 4.285714285714286,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 8.0,
+          "overlap_mm3": {
+            "front-top": -4.547473508864641e-13
+          }
         },
         {
-          "travel_mm": 5.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 10.0,
+          "overlap_mm3": {
+            "front-top": 2.2737367544323206e-13
+          }
         },
         {
-          "travel_mm": 5.714285714285714,
-          "overlap_mm3": 1.1368683772161603e-13
+          "offset_y_mm": 12.0,
+          "overlap_mm3": {
+            "front-top": -1.1368683772161603e-12
+          }
         },
         {
-          "travel_mm": 6.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 16.0,
+          "overlap_mm3": {
+            "front-top": 2.0463630789890885e-12
+          }
         },
         {
-          "travel_mm": 7.142857142857143,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 24.0,
+          "overlap_mm3": {
+            "front-top": 2.2737367544323206e-13
+          }
         },
         {
-          "travel_mm": 8.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 32.0,
+          "overlap_mm3": {
+            "front-top": 9.094947017729282e-13
+          }
         },
         {
-          "travel_mm": 8.571428571428571,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 40.0,
+          "overlap_mm3": {
+            "front-top": -7.389644451905042e-13
+          }
         },
         {
-          "travel_mm": 10.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 48.0,
+          "overlap_mm3": {
+            "front-top": 1.3642420526593924e-12
+          }
         },
         {
-          "travel_mm": 11.428571428571429,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 56.0,
+          "overlap_mm3": {
+            "front-top": 6.252776074688882e-13
+          }
         },
         {
-          "travel_mm": 12.857142857142858,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 64.0,
+          "overlap_mm3": {
+            "front-top": -9.094947017729282e-13
+          }
         },
         {
-          "travel_mm": 14.285714285714286,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 15.714285714285715,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 17.142857142857142,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 18.571428571428573,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 20.0,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 21.42857142857143,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 22.857142857142858,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 24.285714285714285,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 25.714285714285715,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 27.142857142857142,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 28.571428571428573,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 30.0,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 31.42857142857143,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 32.85714285714286,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 34.285714285714285,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 35.714285714285715,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 37.142857142857146,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 38.57142857142857,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 40.0,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 41.42857142857143,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 42.85714285714286,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 44.285714285714285,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 45.714285714285715,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 47.142857142857146,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 48.57142857142857,
-          "overlap_mm3": 0.0
-        },
-        {
-          "travel_mm": 50.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 70.0,
+          "overlap_mm3": {
+            "front-top": 0.0
+          }
         }
       ],
-      "max_overlap_mm3": 1.1368683772161603e-13
+      "worst_overlap_mm3": 2.0463630789890885e-12,
+      "worst_offset_y_mm": 16.0,
+      "worst_fixed_part": "front-top",
+      "clear": true
     },
     {
-      "joint": "front-top / back-top",
+      "motion": "Close back-top around seated funnel frame",
+      "mover": "back-top",
+      "fixed": [
+        "frame"
+      ],
+      "range_y_mm": [
+        0,
+        300.0
+      ],
       "poses": [
         {
-          "travel_mm": 0.0,
-          "overlap_mm3": -5.669237016465376e-13
+          "offset_y_mm": 0.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 0.25,
-          "overlap_mm3": -5.055110119032305e-13
+          "offset_y_mm": 0.25,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 0.5,
-          "overlap_mm3": 6.924396766003045e-13
+          "offset_y_mm": 0.5,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 1.0,
-          "overlap_mm3": -1.301804072692116e-13
+          "offset_y_mm": 1.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 1.4285714285714286,
-          "overlap_mm3": 3.781914862449906e-14
+          "offset_y_mm": 2.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 2.0,
-          "overlap_mm3": -3.719342185472824e-14
+          "offset_y_mm": 3.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 2.857142857142857,
-          "overlap_mm3": 8.537270186726606e-13
+          "offset_y_mm": 4.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 3.0,
-          "overlap_mm3": -2.228965013237105e-13
+          "offset_y_mm": 5.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 4.0,
-          "overlap_mm3": -3.019995984041286e-13
+          "offset_y_mm": 6.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 4.285714285714286,
-          "overlap_mm3": -7.643980934335382e-13
+          "offset_y_mm": 8.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 5.0,
-          "overlap_mm3": 3.2614870141634347e-13
+          "offset_y_mm": 10.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 5.714285714285714,
-          "overlap_mm3": 3.690301916044886e-13
+          "offset_y_mm": 12.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 6.0,
-          "overlap_mm3": 1.1829938189391069e-13
+          "offset_y_mm": 16.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 7.142857142857143,
-          "overlap_mm3": -8.74844255308518e-13
+          "offset_y_mm": 24.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 8.0,
-          "overlap_mm3": -1.2831195761659527e-13
+          "offset_y_mm": 32.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 8.571428571428571,
-          "overlap_mm3": -9.279463747458082e-13
+          "offset_y_mm": 40.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 10.0,
-          "overlap_mm3": 9.074811486032425e-14
+          "offset_y_mm": 48.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 11.428571428571429,
-          "overlap_mm3": 2.929090924416028e-13
+          "offset_y_mm": 56.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 12.857142857142858,
-          "overlap_mm3": 3.741202226487106e-13
+          "offset_y_mm": 64.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 14.285714285714286,
-          "overlap_mm3": -2.498760746927342e-15
+          "offset_y_mm": 72.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 15.714285714285715,
-          "overlap_mm3": 5.335876597338529e-14
+          "offset_y_mm": 80.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 17.142857142857142,
-          "overlap_mm3": -2.7259892376058774e-15
+          "offset_y_mm": 88.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 18.571428571428573,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 96.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 20.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 104.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 21.42857142857143,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 112.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 22.857142857142858,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 120.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 24.285714285714285,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 128.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 25.714285714285715,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 136.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 27.142857142857142,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 144.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 28.571428571428573,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 152.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 30.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 160.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 31.42857142857143,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 168.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 32.85714285714286,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 176.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 34.285714285714285,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 184.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 35.714285714285715,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 192.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 37.142857142857146,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 200.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 38.57142857142857,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 208.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 40.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 216.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 41.42857142857143,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 224.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 42.85714285714286,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 232.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 44.285714285714285,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 240.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 45.714285714285715,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 248.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 47.142857142857146,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 256.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 48.57142857142857,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 264.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         },
         {
-          "travel_mm": 50.0,
-          "overlap_mm3": 0.0
+          "offset_y_mm": 272.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 280.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 288.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 296.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
+        },
+        {
+          "offset_y_mm": 300.0,
+          "overlap_mm3": {
+            "frame": 0.0
+          }
         }
       ],
-      "max_overlap_mm3": 8.537270186726606e-13
+      "worst_overlap_mm3": 0.0,
+      "worst_offset_y_mm": 300.0,
+      "worst_fixed_part": "frame",
+      "clear": true
     }
   ],
   "captured_at_2mm": [
     {
       "axis": "X",
       "direction": -1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 10442.429117559546
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 8405.37256821041,
+        "back-top": 1586.3318035038092
+      },
+      "captured": true
     },
     {
       "axis": "X",
       "direction": 1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 10442.454445952364
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 8405.372561420205,
+        "back-top": 1586.331803503811
+      },
+      "captured": true
     },
     {
       "axis": "Y",
       "direction": -1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 5716.416687830822
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 5716.416687830825,
+        "back-top": 0.0
+      },
+      "captured": true
     },
     {
       "axis": "Y",
       "direction": 1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 2489.0406832623817
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 0.0,
+        "back-top": 3644.145387522772
+      },
+      "captured": true
     },
     {
       "axis": "Z",
       "direction": -1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 3268.881768266149
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 2745.188195178138,
+        "back-top": 42.57879390649296
+      },
+      "captured": true
     },
     {
       "axis": "Z",
       "direction": 1,
-      "displacement_mm": 2,
-      "bearing_intersection_mm3": 5556.703328906214
+      "move_mm": 2,
+      "overlap_mm3": {
+        "front-top": 1796.9554185110514,
+        "back-top": 2331.6677864329567
+      },
+      "captured": true
     }
   ],
-  "clear": true
+  "clear": true,
+  "captured": true,
+  "evidence_stage": "The listed straight-motion poses retain their original pre-head-access mesh hashes. The final back shell only removes material, established by the current Y-seam review native subset proof; frame geometry and front shell are retained. Final six-direction capture was measured again on the current meshes.",
+  "current_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "915bb0340089312bd3adbd85934cbd970ff85e32f389783be5b790b7a403ce1d",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+  },
+  "subtractive_head_access_update": {
+    "review": "../../../enclosure/enclosure/y-seam-plain-review.json",
+    "back_bottom_added_volume_mm3": 0.0,
+    "back_top_added_volume_mm3": 0.0,
+    "pass": true
+  }
 }
