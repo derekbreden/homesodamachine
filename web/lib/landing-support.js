@@ -7,7 +7,7 @@ export function renderLandingSupport() {
   return `<section class="home-support-film" aria-labelledby="home-support-film-title">
   <div class="home-support-inner home-support-film-grid">
     <div class="home-support-film-media" data-home-film-player>
-      <a class="home-support-film-poster" href="https://www.youtube.com/watch?v=o3l6Vcl-nLU" data-home-film-open aria-label="Play One Less Errand, a 30-second animated design preview">
+      <a class="home-support-film-poster" href="https://www.youtube.com/watch?v=pqmQbZIAzfQ" data-home-film-open aria-label="Play One Less Errand, a 36-second animated design preview">
         <img src="/landing/film-poster.webp" width="1440" height="810" loading="lazy" alt="">
         <span class="home-support-film-play" aria-hidden="true">${PLAY}<span>Play film</span></span>
       </a>
@@ -16,8 +16,8 @@ export function renderLandingSupport() {
       <p class="home-support-eyebrow">The short film</p>
       <h2 id="home-support-film-title">One Less Errand.</h2>
       <p class="home-support-film-intro">A familiar routine of carrying cans home, and a different ending: cold soda on tap.</p>
-      <p class="home-support-film-meta">Animated design preview <span aria-hidden="true">·</span> 0:30</p>
-      <a class="home-support-text-link" href="https://www.youtube.com/watch?v=o3l6Vcl-nLU">Watch on YouTube ${ARROW}</a>
+      <p class="home-support-film-meta">Animated design preview <span aria-hidden="true">·</span> 0:36</p>
+      <a class="home-support-text-link" href="https://www.youtube.com/watch?v=pqmQbZIAzfQ">Watch on YouTube ${ARROW}</a>
     </div>
   </div>
 </section>
