@@ -210,6 +210,13 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     body = body.fuse(enc._z_rail_heads(
         inner, y_joint, rail, 'front', None, runs=rail_runs(inner, y_joint, 'front', centre)))
     body = body.cut(corbel_cut(centre, floor)).cut(rear_narrowing(inner, y_joint))
+    # End the front foot wings at a full web thickness.
+    # Keep the central body, upper rail stock and shell-clearance envelope whole.
+    wing_front = cy - corbel_foot_half_depth - corbel_slope * (rail - floor - web)
+    for side in (-1, 1):
+        xa, xb = sorted((cx + side * body_width / 2, cx + side * (width / 2 + 1)))
+        body = body.cut(enc._ybox(xa, xb, cy - depth / 2 - 1, wing_front,
+                                 floor - 1, rail))
     # The drain hole and the elbow cradle's two wing slots are all that pierce the 3 mm web.
     clear = forming_clearance().translate((cx, cy, seat))
     clear = clear.intersect(funnel._box(400, 400, plug, seat, cx, cy))
