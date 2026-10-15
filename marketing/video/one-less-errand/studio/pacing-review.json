@@ -16,8 +16,7 @@
   ],
   "type_timing": {
     "case_store": 1.65,
-    "hero_cold_frame": 2,
-    "hero_carbonated_frame": 21
+    "hero_cold_frame": 2
   },
   "score": {
     "reveal_transition": "decay"
