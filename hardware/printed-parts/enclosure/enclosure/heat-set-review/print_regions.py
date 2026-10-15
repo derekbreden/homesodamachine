@@ -26,7 +26,8 @@ def main():
     for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
         for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
             for who, z0, z1, _g0, _g1 in rows:
-                b = e._y_knuckle(xi, sx, box.y_joint, who, z0, z1, depth).BoundingBox()
+                b = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1,
+                                depth).BoundingBox()
                 region(who, f'Y seam knuckle and its root {sx:+g}/{z0:g}',
                        [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax])
     for col, y0, y1 in (('front',box.outer[2],box.y_joint),('back',box.y_joint,box.outer[3])):

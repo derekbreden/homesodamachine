@@ -287,27 +287,6 @@ def front_roof_clearance(inner, centre, seat, y_joint):
                       full_front_opening=True).cut(corbel_cut(centre, floor, enc.slide_slip))
 
 
-def front_seam_relief(outer, y_joint, centre, seat):
-    """Open the front tongue for the frame foot and rear receiver's flat roof.
-
-    The rail section remains complete between these two openings. The lower
-    entry extends through the tongue's outside face so it leaves no thin fin.
-    """
-    import enclosure as enc
-    floor, _plug, rail = datums(seat)
-    cuts = []
-    for side in (-1, 1):
-        x0, x1 = sorted((centre[0] + side * (body_width / 2 + enc.slide_slip),
-                         outer[0] - 1 if side < 0 else outer[1] + 1))
-        cuts.append(cq.Solid.makeBox(x1 - x0, outer[3] - y_joint + 2,
-            receiver_height + enc.slide_slip - enc.z_rise,
-            cq.Vector(x0, y_joint - enc.slide_slip, rail + enc.z_rise)))
-        cuts.append(cq.Solid.makeBox(x1 - x0, outer[3] - y_joint + 2,
-            rail - floor + 2 * enc.slide_slip,
-            cq.Vector(x0, y_joint, floor - enc.slide_slip)))
-    return cq.Compound.makeCompound(cuts)
-
-
 def main():
     from _cadq_export import export_assembly, import_assembly
     from _materials import M_PETGF_BLACK, one_body

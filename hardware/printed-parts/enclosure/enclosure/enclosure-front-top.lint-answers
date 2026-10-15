@@ -41,11 +41,6 @@ click: x=-64.775 y=80.013 z=310.750
 click: x=-64.775 y=79.764 z=284.424
 click: x=64.775 y=79.764 z=284.424
 
-[sliver] The 0.25 mm seam-end strips are the running clearance above the rear receiver's roof. Each is backed by the full front shell from Z330.45 to Z355 and approximately 9 mm in X; no 0.25 mm-thick ligament stands alone. The actual shell-closing sweep is recorded in the funnel integration review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-102.993 y=199.875 z=330.450
-click: x=102.993 y=199.875 z=330.450
-
 [ceiling] These two flat lower faces retain the production funnel rail's full foot section across Y114.770..196.000. Each native face is 426.458 mm2, 5.25 mm wide in X, with 8.70 mm of continuous Z stock at its lint pick. Supports are accessible from the open interior and Y sliding entrance before the frame is installed. The receiver requires its own native slice and physical removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=101.125 y=155.385 z=306.900
@@ -78,3 +73,23 @@ click: x=99.850 y=169.000 z=261.400
 [ceiling] This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/h2c-v20/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=82.302 z=196.179
+
+[ceiling] Front-top's Y-seam corner-stack knuckle under the funnel frame. Its underside prints on the saved tree supports, 112.5 mm over the bed, and nothing bears on it.
+alternatives: A 45° corbel under it would stand in the corner the flavour and tap-water lines pass below it.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-95.000 y=207.400 z=272.500
+click: x=95.000 y=207.400 z=272.500
+
+[ceiling] The roof of the room front-top gives back-top's hub over the Z seam. The hub slides fore under it as the halves telescope, so it stays flat, a running fit and two supported allowances over the hub's top, and prints on the saved tree supports.
+alternatives: A gabled or 45° roof would close on the hub as it slides in.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-101.375 y=208.900 z=195.800
+click: x=101.375 y=208.900 z=195.800
+
+[thin] Where front-top's upper knuckle meets its flank at the seam. Fore of Y200 the frame rail channel's outboard wall stands at X 103.75; aft of it the knuckle's outboard face stands at X 104.25, one running fit inside back-top's skin. The flank is solid fore of that corner and the knuckle aft of and below it, so the 0.5 mm is two faces offset across a corner, not a free fin.
+alternatives: Widening the channel to the knuckle's face would open it 0.5 mm wider than the frame's rail. Stepping the knuckle in to X 103.75 would take it off the running fit and leave a step of its own.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-104.250 y=200.029 z=299.301
+click: x=-103.750 y=200.000 z=299.650
+click: x=104.250 y=200.029 z=299.301
+click: x=103.750 y=200.000 z=299.650
