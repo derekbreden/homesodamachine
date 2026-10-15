@@ -15,10 +15,13 @@ hardened standard-flow 0.4 mm nozzle. Timelapse and bed leveling are On; Flow
 Dynamics and Nozzle Offset Calibration are Auto. Mark1's +0.18 mm requested trim
 emits +0.16 mm; Mark2's +0.04 mm trim emits +0.02 mm on Textured PEI.
 
-Both jobs are confirmed depositing layers with `print_error0`. Mark2 reports
-HMS `0C00-0100-0002-0017`, identified by Bambu Studio's installed message catalog
-as a dirty nozzle-camera lens that may affect AI monitoring. The job continues
-printing; no direct lens inspection is recorded.
+Both printers report `FINISH` on their matching jobs ([Mark2 reading](base-mark2/completion-observation.json)), with all commanded layers
+completed and `print_error0`. The [Mark1 physical result](tip-mark1/physical-result/physical-result.json)
+is a failure of the male-plug starting section. Mark2's physical finish and
+curved-wall release remain unreported. Mark2 also reports HMS
+`0C00-0100-0002-0017`, identified by Bambu Studio's installed message catalog as a
+dirty nozzle-camera lens that may affect AI monitoring; no direct lens inspection
+is recorded.
 
 Both retain native bridge flow 1.25, 70% part fan after three fan-off bed layers,
 15 mm/s bridges, and overhang limits at most 15 mm/s with the existing 10 mm/s
@@ -85,9 +88,19 @@ is 4.19 mm. All beads remain at least 138.31 mm inside the usable bed boundary.
 
 ## Physical assessment
 
+The Mark1 photos show a detached curved section and loose strands in the
+male-plug region. Derek reports that the male insertion section fell over.
+The [root-course review and prepared correction](../2026-10-15-tip-root-anchor/README.md)
+identify no plug deposition on the bed course and no lower bearing beneath the
+first Z0.44 plug strand. The rim review above did not assess that anchorage.
+The corrected single candidate adds a directly bonded bed foot at the plug
+start and remains unsent. The earlier Mark2 bottom-rim appearance acceptance
+keeps its scope on that identified article.
+
 Native overlap describes commanded bearing locations, not sag, fusion, contact
-marks or release effort. The tip's added contacts and the base's curved-wall
-finish and removal each require their own finished-part result. The stock
+marks or release effort. The failed tip does not establish the added lip
+contacts' finish. The base's curved-wall finish and removal require their own
+finished-part result. The stock
 straight fins' easy snap-off does not establish curved-wall release.
 
 Inspect the front edge under the lever and the tip's seam-side rim after
