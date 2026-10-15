@@ -32,11 +32,14 @@ def datum(parts, normal, center, box):
     if parts in (("front-bottom", "back-bottom"), ("front-top", "back-top")):
         if abs(normal[1]) > .999 and abs(y - box.y_joint) < TOL:
             return "Y seam closure end face"
-        if abs(normal[0]) > .999:
-            for xi, sx in ((box.inner[0], 1.), (box.inner[1], -1.)):
-                _seat, tip, _heat, _cap = e._boss_x(xi - sx * e.wall, sx)
-                if abs(x - tip) < TOL:
-                    return "M3 screw-clamped socket/plug face"
+    if abs(normal[2]) > .999:
+        # The faces a corner stack's rod pulls shut.
+        lower, upper = e.y_stack(box.inner)
+        pulled = {("front-bottom", "back-bottom"): lower[0][2],
+                  ("front-bottom", "back-top"): lower[-1][1],
+                  ("front-top", "back-top"): upper[-1][1]}
+        if parts in pulled and abs(z - pulled[parts]) < TOL:
+            return "corner-stack face the rod pulls shut"
     for col, zj in zip(("front", "back"), box.splits):
         if set(parts) != {f"{col}-bottom", f"{col}-top"}:
             continue
@@ -120,10 +123,15 @@ def survey(directory=DIRECTORY):
     _bed, roof, _crown = e._handhold_levels(box.inner)
     for xi, sx in ((box.inner[0], 1.), (box.inner[1], -1.)):
         side = "west" if sx > 0 else "east"
-        _seat, _tip, _heat, cap = e._boss_x(xi - sx*e.wall, sx)
-        measure(f"{side} handhold roof/tab", "front-bottom", "back-bottom",
-                (cap - sx*e.handhold_wall/2, box.y_joint+e.lip_len-1.5, roof),
-                (0.,0.,-1.), e.fits.running+e.fits.supported_surface)
+        _flank, cap = e._band_x(xi - sx*e.wall, sx)
+        gap = e.fits.running + e.fits.supported_surface
+        # Probe the middle of the full fore rib beside the open head access.
+        # The opening has no opposing face, and the front inner wall ends at
+        # its separate backing joint before the aft rib's full width.
+        fore_rib_y = box.y_joint + (e.lip_len - e.y_stack_cbore_dia)/4.0
+        measure(f"{side} handhold inner wall/knuckle fore rib", "front-bottom", "back-bottom",
+                (cap - sx*e.handhold_wall/2, fore_rib_y, roof - gap),
+                (0.,0.,1.), gap)
         measure(f"{side} scarf/backing wall", "front-bottom", "back-bottom",
                 (cap+sx*e.fits.running, e._handhold_backing_end(box.y_joint,"back")+.5, -.5),
                 (-sx,0.,0.), e.fits.running)

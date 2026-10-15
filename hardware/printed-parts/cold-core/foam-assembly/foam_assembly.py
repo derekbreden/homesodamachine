@@ -331,6 +331,17 @@ def _report(placed):
     print("  no solid collisions" if not clash else "  ** CLASHES PRESENT **")
 
 
+def installed_internal_route(name, shape):
+    """The installed line, with the PRV vent cut flush to the shell's +Y flank."""
+    if name != "prv-vent":
+        return shape
+    b = shape.BoundingBox()
+    keep = cq.Solid.makeBox(
+        b.xlen + 2.0, routes.prv_vent_flank_y - b.ymin + 1.0, b.zlen + 2.0,
+        cq.Vector(b.xmin - 1.0, b.ymin - 1.0, b.zmin - 1.0))
+    return shape.intersect(keep)
+
+
 def build_internal_routes(placed):
     """Every fluid line inside the core, drawn at the arc its own corridor leaves.
 
@@ -347,7 +358,8 @@ def build_internal_routes(placed):
     routes.report_routes(fitted, obstacles)
     assy = cq.Assembly(name="internal-routes")
     for name in sorted(fitted):
-        assy.add(fitted[name][1], name=name, color=ROUTE_COLORS[name])
+        assy.add(installed_internal_route(name, fitted[name][1]),
+                 name=name, color=ROUTE_COLORS[name])
     return assy
 
 

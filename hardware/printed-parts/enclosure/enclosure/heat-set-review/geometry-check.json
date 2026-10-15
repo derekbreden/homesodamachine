@@ -1,41 +1,51 @@
 {
-  "generated_utc": "2026-10-15T20:08:32.459980+00:00",
+  "generated_utc": "2026-10-15T20:47:42.115328+00:00",
   "scope": "Full installed insert envelopes in retained native STEP solids; supported-face clearance is included. No printed fit, pullout, torque, transport or drop qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6fef4c74f652eca13686be1b125862bbec43701afcb22d05c45a6730499cce9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "41115290ab65595cce1bfb4537851aaf8abf0331b4ae21917cff0d14fadfb79f"
+    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
   },
   "native_step_sha256": {
-    "back-bottom": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
-    "back-top": "927cf5fb11dad635b56af9e3ac1570ae9299071603077fc285cf2d947de97b10",
-    "front-bottom": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
-    "front-top": "e8ae17e0a70b6ed13c1263d422413964e783ecfa160d2fbf11ee2344a1f8fbb0",
+    "back-bottom": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+    "back-top": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+    "front-bottom": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+    "front-top": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
     "pump-cap": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
     "pump-cartridge": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9"
   },
   "inputs_unchanged": true,
   "stations": [
     {
-      "piece": "front-bottom",
-      "family": "Y seam",
+      "piece": "back-top",
+      "family": "Y-seam stack",
       "seat_mm": [
-        -98.5,
-        209.9,
-        48.9
+        -98.0,
+        208.9,
+        175.05
       ],
       "into": [
-        1.0,
         0,
-        0
+        0,
+        1.0
       ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 9.5,
+      "pocket_depth_mm": 13.699999999999989,
+      "minimum_wall_mm": 2.6,
+      "supported": false,
+      "screw_length_mm": 150.0,
+      "screw_length_tolerance_mm": 0.8,
+      "printed_clearance_diameter_mm": 5.6,
+      "nominal_thread_reach_mm": 11.199999999999989,
+      "minimum_thread_reach_mm": 10.399999999999988,
+      "nominal_thread_engagement_mm": 9.5,
+      "minimum_thread_engagement_mm": 9.5,
+      "nominal_blind_tip_clearance_mm": 2.5,
+      "minimum_blind_tip_clearance_mm": 1.7,
+      "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
+      "blind_relief_mm": 4.199999999999989,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -44,42 +54,7 @@
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
       "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
-      "manufacturer_pilot_pass": true,
-      "blind_relief_pass": true,
-      "pocket_clear_pass": true,
-      "missing_closed_blind_stock_mm3": 0.0,
-      "closed_blind_pass": true
-    },
-    {
-      "piece": "front-bottom",
-      "family": "Y seam",
-      "seat_mm": [
-        -98.5,
-        209.9,
-        152.1
-      ],
-      "into": [
-        1.0,
-        0,
-        0
-      ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
-      "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
-      "missing_required_stock_mm3": 0.0,
-      "minimum_full_depth_wall_mm_interval": [
-        3.49658,
-        3.5
-      ],
-      "stock_rule_pass": true,
-      "stock_rule": "ruthex RX table minimum wall from recommended pilot",
-      "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
+      "manufacturer_pilot_mm": 6.4,
       "manufacturer_pilot_pass": true,
       "blind_relief_pass": true,
       "pocket_clear_pass": true,
@@ -88,33 +63,43 @@
     },
     {
       "piece": "front-top",
-      "family": "Y seam",
+      "family": "Y-seam stack",
       "seat_mm": [
-        -98.5,
-        209.9,
-        282.05
+        -98.0,
+        208.9,
+        299.65
       ],
       "into": [
-        1.0,
         0,
-        0
+        0,
+        -1.0
       ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 9.5,
+      "pocket_depth_mm": 14.149999999999977,
+      "minimum_wall_mm": 2.6,
+      "supported": false,
+      "screw_length_mm": 60.0,
+      "screw_length_tolerance_mm": 0.8,
+      "printed_clearance_diameter_mm": 5.6,
+      "nominal_thread_reach_mm": 11.649999999999977,
+      "minimum_thread_reach_mm": 10.849999999999977,
+      "nominal_thread_engagement_mm": 9.5,
+      "minimum_thread_engagement_mm": 9.5,
+      "nominal_blind_tip_clearance_mm": 2.5,
+      "minimum_blind_tip_clearance_mm": 1.7,
+      "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
+      "blind_relief_mm": 4.649999999999977,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        3.49658,
-        3.5
+        3.04883,
+        3.05225
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
       "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
+      "manufacturer_pilot_mm": 6.4,
       "manufacturer_pilot_pass": true,
       "blind_relief_pass": true,
       "pocket_clear_pass": true,
@@ -122,25 +107,35 @@
       "closed_blind_pass": true
     },
     {
-      "piece": "front-bottom",
-      "family": "Y seam",
+      "piece": "back-top",
+      "family": "Y-seam stack",
       "seat_mm": [
-        98.5,
-        209.9,
-        48.9
+        98.0,
+        208.9,
+        175.05
       ],
       "into": [
-        -1.0,
         0,
-        0
+        0,
+        1.0
       ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 9.5,
+      "pocket_depth_mm": 13.699999999999989,
+      "minimum_wall_mm": 2.6,
+      "supported": false,
+      "screw_length_mm": 150.0,
+      "screw_length_tolerance_mm": 0.8,
+      "printed_clearance_diameter_mm": 5.6,
+      "nominal_thread_reach_mm": 11.199999999999989,
+      "minimum_thread_reach_mm": 10.399999999999988,
+      "nominal_thread_engagement_mm": 9.5,
+      "minimum_thread_engagement_mm": 9.5,
+      "nominal_blind_tip_clearance_mm": 2.5,
+      "minimum_blind_tip_clearance_mm": 1.7,
+      "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
+      "blind_relief_mm": 4.199999999999989,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -149,42 +144,7 @@
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
       "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
-      "manufacturer_pilot_pass": true,
-      "blind_relief_pass": true,
-      "pocket_clear_pass": true,
-      "missing_closed_blind_stock_mm3": 0.0,
-      "closed_blind_pass": true
-    },
-    {
-      "piece": "front-bottom",
-      "family": "Y seam",
-      "seat_mm": [
-        98.5,
-        209.9,
-        152.1
-      ],
-      "into": [
-        -1.0,
-        0,
-        0
-      ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
-      "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
-      "missing_required_stock_mm3": 0.0,
-      "minimum_full_depth_wall_mm_interval": [
-        3.49658,
-        3.5
-      ],
-      "stock_rule_pass": true,
-      "stock_rule": "ruthex RX table minimum wall from recommended pilot",
-      "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
+      "manufacturer_pilot_mm": 6.4,
       "manufacturer_pilot_pass": true,
       "blind_relief_pass": true,
       "pocket_clear_pass": true,
@@ -193,33 +153,43 @@
     },
     {
       "piece": "front-top",
-      "family": "Y seam",
+      "family": "Y-seam stack",
       "seat_mm": [
-        98.5,
-        209.9,
-        291.05
+        98.0,
+        208.9,
+        299.65
       ],
       "into": [
-        -1.0,
         0,
-        0
+        0,
+        -1.0
       ],
-      "pilot_mm": 4.0,
-      "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.0,
-      "minimum_wall_mm": 1.6,
-      "supported": true,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 9.5,
+      "pocket_depth_mm": 14.149999999999977,
+      "minimum_wall_mm": 2.6,
+      "supported": false,
+      "screw_length_mm": 60.0,
+      "screw_length_tolerance_mm": 0.8,
+      "printed_clearance_diameter_mm": 5.6,
+      "nominal_thread_reach_mm": 11.649999999999977,
+      "minimum_thread_reach_mm": 10.849999999999977,
+      "nominal_thread_engagement_mm": 9.5,
+      "minimum_thread_engagement_mm": 9.5,
+      "nominal_blind_tip_clearance_mm": 2.5,
+      "minimum_blind_tip_clearance_mm": 1.7,
+      "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.0,
+      "blind_relief_mm": 4.649999999999977,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        3.49658,
-        3.5
+        3.04883,
+        3.05225
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
       "manufacturer_wall_pass": true,
-      "manufacturer_pilot_mm": 4.0,
+      "manufacturer_pilot_mm": 6.4,
       "manufacturer_pilot_pass": true,
       "blind_relief_pass": true,
       "pocket_clear_pass": true,
@@ -1359,93 +1329,269 @@
   "seam_stations": [
     {
       "side": "west",
-      "xyz_mm": [
-        -107.5,
-        209.9,
-        48.9
+      "piece": "back-bottom",
+      "z_mm": [
+        29.25,
+        65.7
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 36.45,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "west",
-      "xyz_mm": [
-        -107.5,
-        209.9,
-        152.1
+      "piece": "front-bottom",
+      "z_mm": [
+        65.7,
+        101.65
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 35.95,
+      "gaps_mm": [
+        0.0,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "west",
-      "xyz_mm": [
-        -107.5,
-        209.9,
-        282.05
+      "piece": "back-bottom",
+      "z_mm": [
+        102.15,
+        138.10000000000002
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 35.95000000000002,
+      "gaps_mm": [
+        0.5,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "front-bottom",
+      "z_mm": [
+        138.60000000000002,
+        175.05
+      ],
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 36.44999999999999,
+      "gaps_mm": [
+        0.5,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "back-top",
+      "z_mm": [
+        175.05,
+        195.05
+      ],
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 20.0,
+      "gaps_mm": [
+        0.0,
+        0.75
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "front-top",
+      "z_mm": [
+        272.5,
+        299.65
+      ],
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 27.149999999999977,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "back-top",
+      "z_mm": [
+        299.65,
+        355.0
+      ],
+      "rod_axis_mm": [
+        -98.0,
+        208.9
+      ],
+      "bearing_length_mm": 55.35000000000002,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
-      "xyz_mm": [
-        107.5,
-        209.9,
-        48.9
+      "piece": "back-bottom",
+      "z_mm": [
+        29.25,
+        65.7
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 36.45,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
-      "xyz_mm": [
-        107.5,
-        209.9,
-        152.1
+      "piece": "front-bottom",
+      "z_mm": [
+        65.7,
+        101.65
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 35.95,
+      "gaps_mm": [
+        0.0,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
-      "xyz_mm": [
-        107.5,
-        209.9,
-        291.05
+      "piece": "back-bottom",
+      "z_mm": [
+        102.15,
+        138.10000000000002
       ],
-      "fore_edge_ligament_mm": 8.250000000000005,
-      "shank_mm": 5.5,
-      "projected_strip_area_mm2": 45.37500000000003,
-      "missing_strip_stock_mm3": 0.0,
-      "screw_tip_clearance_mm": 0.5,
-      "insert_blind_relief_mm": 1.0,
-      "inboard_cap_mm": 3.0
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 35.95000000000002,
+      "gaps_mm": [
+        0.5,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "front-bottom",
+      "z_mm": [
+        138.60000000000002,
+        175.05
+      ],
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 36.44999999999999,
+      "gaps_mm": [
+        0.5,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "back-top",
+      "z_mm": [
+        175.05,
+        195.05
+      ],
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 20.0,
+      "gaps_mm": [
+        0.0,
+        0.75
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "front-top",
+      "z_mm": [
+        272.5,
+        299.65
+      ],
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 27.149999999999977,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "back-top",
+      "z_mm": [
+        299.65,
+        355.0
+      ],
+      "rod_axis_mm": [
+        98.0,
+        208.9
+      ],
+      "bearing_length_mm": 55.35000000000002,
+      "gaps_mm": [
+        0.0,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     }
   ],
   "sources": {

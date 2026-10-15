@@ -1,0 +1,3436 @@
+{
+  "review_date": "2026-10-15",
+  "scope": "Current plain-M5 Y-seam geometry: closed printed parts, straight assembly motions and funnel-frame bearing/capture. Nominal geometry is not physical fit, support-removal acceptance, retained clamp force, load capacity, drop acceptance or lifetime.",
+  "native_geometry": {
+    "scope": "Source-bound containment-envelope geometry; final quadrants are established by subtractive_head_access_update. The frame and front quadrants retain these dimensions. No physical fit, support-removal acceptance, retained clamp force, load, drop or lifetime result.",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "453be88494113bf643a22ccebf9832eceee0da6e721fb1a8a133bb89699c722c",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "c68eb8135b0494c9a5cfca3b4c88ad72742ddc29b522931ba003f4bc33951d6c",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb58610f23c5aad46f431b4765e990d6e5d49fede835677b1b54047b0bd2700a",
+      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+      "hardware/printed-parts/zone-c/funnel/funnel.py": "f8e52835e199c500d961377c4ac92954567e9150ff44a2200dbf193aab277a0a",
+      "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+    },
+    "quadrant_solids": {
+      "front-bottom": {
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -107.5000001,
+          107.5000001,
+          5.0,
+          217.8,
+          -6.0,
+          175.05
+        ]
+      },
+      "back-bottom": {
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -107.5000001,
+          107.50000000000001,
+          199.9999999,
+          471.9000001,
+          -6.0000001,
+          174.8
+        ]
+      },
+      "front-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -107.50000010000001,
+          107.5000001,
+          4.999999899999999,
+          217.8000001,
+          159.9999999,
+          355.0000001038191
+        ]
+      },
+      "back-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -107.5000001,
+          107.5000001,
+          199.9999999,
+          471.30000010000003,
+          159.9999999,
+          355.00000010002543
+        ]
+      }
+    },
+    "closed_quadrant_pairs": [
+      {
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "parts": [
+          "front-bottom",
+          "front-top"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "parts": [
+          "front-bottom",
+          "back-top"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "parts": [
+          "back-bottom",
+          "front-top"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "parts": [
+          "back-bottom",
+          "back-top"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "parts": [
+          "front-top",
+          "back-top"
+        ],
+        "overlap_mm3": 0.0,
+        "clear": true
+      }
+    ],
+    "closed_frame_shell_pairs": [
+      {
+        "part": "front-bottom",
+        "distance_mm": 124.84999999999997,
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "part": "back-bottom",
+        "distance_mm": 125.50816706493643,
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "part": "front-top",
+        "distance_mm": 0.0,
+        "overlap_mm3": 0.0,
+        "clear": true
+      },
+      {
+        "part": "back-top",
+        "distance_mm": 0.24999999998716402,
+        "overlap_mm3": 0.0,
+        "clear": true
+      }
+    ],
+    "frame": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        -103.5,
+        103.50000000000026,
+        95.45849207672,
+        235.69150792328702,
+        299.9,
+        355.0
+      ],
+      "lower_flat_footprint_bounds_mm": [
+        -103.5,
+        103.5,
+        119.10000000000001,
+        210.0,
+        299.9,
+        299.9
+      ],
+      "lower_flat_footprint_width_mm": 207.0,
+      "lower_flat_footprint_y_length_mm": 90.89999999999999,
+      "lower_flat_footprint_area_mm2": 18111.092802745014,
+      "brim_bearing_thickness_mm": 3.0,
+      "brim_bearing_required_volume_mm3": 11134.663620579251,
+      "brim_bearing_missing_volume_mm3": 0.0,
+      "brim_bearing_complete": true,
+      "rail_z_mm": [
+        306.9,
+        321.7
+      ],
+      "socket_floor_z_mm": 302.9,
+      "underside_z_mm": 299.9,
+      "front_rail_pair_count": 1,
+      "front_rail_y_mm": [
+        111.70849207671873,
+        199.75
+      ],
+      "front_rail_run_mm": 88.04150792328127,
+      "front_rail_before_stop_mm": 84.04150792328127,
+      "rear_rail_count": 0,
+      "body_sections": [
+        {
+          "at_yz_mm": [
+            200.5,
+            330
+          ],
+          "x_extent_mm": [
+            -91.2500001,
+            91.2500001
+          ],
+          "width_mm": 182.5000002
+        },
+        {
+          "at_yz_mm": [
+            208.0,
+            330
+          ],
+          "x_extent_mm": [
+            -91.2500001,
+            91.2500001
+          ],
+          "width_mm": 182.5000002
+        },
+        {
+          "at_yz_mm": [
+            199.5,
+            330
+          ],
+          "x_extent_mm": [
+            -98.2500001,
+            98.2500001
+          ],
+          "width_mm": 196.5000002
+        }
+      ]
+    },
+    "closed_clear": true,
+    "evidence_stage": "Native geometry before the final inboard head-access openings. The stated source hashes identify those measured inputs. The final native subset proof below carries the zero-overlap results forward; the funnel frame and front quadrants are unchanged."
+  },
+  "printed_mesh_motion": {
+    "method": "Manifold3D closed STL solids, dense sampled straight Y translations. This checks assembly motion of printed parts at stated nominal dimensions; actual fit, removal of printed supports, load capacity and lifetime are unmeasured. Installed packed components are reviewed separately.",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a448ca8535aebccaedd3564869535215b3e4c27e26d7df3e924705f2a438d1cf",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "f8c459943ba2ee4c1bebc19720543db1c8f25e0746931417c0372b2533b092b0",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb58610f23c5aad46f431b4765e990d6e5d49fede835677b1b54047b0bd2700a",
+      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+      "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+    },
+    "motions": [
+      {
+        "motion": "Join bottom halves",
+        "mover": "back-bottom",
+        "fixed": [
+          "front-bottom"
+        ],
+        "range_y_mm": [
+          0,
+          40.0
+        ],
+        "poses": [
+          {
+            "offset_y_mm": 0.0,
+            "overlap_mm3": {
+              "front-bottom": -1.905567717508383e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.25,
+            "overlap_mm3": {
+              "front-bottom": 1.5808361564229045e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.5,
+            "overlap_mm3": {
+              "front-bottom": -9.341095605353011e-14
+            }
+          },
+          {
+            "offset_y_mm": 1.0,
+            "overlap_mm3": {
+              "front-bottom": 3.4785585870111824e-13
+            }
+          },
+          {
+            "offset_y_mm": 2.0,
+            "overlap_mm3": {
+              "front-bottom": 1.4021336175451538e-13
+            }
+          },
+          {
+            "offset_y_mm": 3.0,
+            "overlap_mm3": {
+              "front-bottom": 2.093668120817238e-13
+            }
+          },
+          {
+            "offset_y_mm": 4.0,
+            "overlap_mm3": {
+              "front-bottom": 3.861624561785071e-14
+            }
+          },
+          {
+            "offset_y_mm": 5.0,
+            "overlap_mm3": {
+              "front-bottom": 9.364471004191799e-15
+            }
+          },
+          {
+            "offset_y_mm": 6.0,
+            "overlap_mm3": {
+              "front-bottom": -1.590828163644531e-13
+            }
+          },
+          {
+            "offset_y_mm": 8.0,
+            "overlap_mm3": {
+              "front-bottom": 1.759703494030873e-14
+            }
+          },
+          {
+            "offset_y_mm": 10.0,
+            "overlap_mm3": {
+              "front-bottom": 1.1068923555512811e-13
+            }
+          },
+          {
+            "offset_y_mm": 12.0,
+            "overlap_mm3": {
+              "front-bottom": 6.572520305780927e-14
+            }
+          },
+          {
+            "offset_y_mm": 16.0,
+            "overlap_mm3": {
+              "front-bottom": -3.352873534367973e-14
+            }
+          },
+          {
+            "offset_y_mm": 24.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 32.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 40.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0
+            }
+          }
+        ],
+        "worst_overlap_mm3": 3.4785585870111824e-13,
+        "worst_offset_y_mm": 1.0,
+        "worst_fixed_part": "front-bottom",
+        "clear": true
+      },
+      {
+        "motion": "Slide front-top onto joined bottoms",
+        "mover": "front-top",
+        "fixed": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "range_y_mm": [
+          0,
+          -220.0
+        ],
+        "poses": [
+          {
+            "offset_y_mm": -0.0,
+            "overlap_mm3": {
+              "front-bottom": -3.1516539595113913e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -0.25,
+            "overlap_mm3": {
+              "front-bottom": -1.6190379853479596e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -0.5,
+            "overlap_mm3": {
+              "front-bottom": 5.576836003629362e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -1.0,
+            "overlap_mm3": {
+              "front-bottom": -1.9156988278687392e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -2.0,
+            "overlap_mm3": {
+              "front-bottom": -3.186392501849239e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -3.0,
+            "overlap_mm3": {
+              "front-bottom": -7.685462509454677e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -4.0,
+            "overlap_mm3": {
+              "front-bottom": -6.5856827641003896e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -5.0,
+            "overlap_mm3": {
+              "front-bottom": 4.261577961177376e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -6.0,
+            "overlap_mm3": {
+              "front-bottom": 3.896638572789893e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -8.0,
+            "overlap_mm3": {
+              "front-bottom": -3.566494430513878e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -10.0,
+            "overlap_mm3": {
+              "front-bottom": -5.783082346333401e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -12.0,
+            "overlap_mm3": {
+              "front-bottom": 1.5742047693601685e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -16.0,
+            "overlap_mm3": {
+              "front-bottom": 6.680359390665025e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -24.0,
+            "overlap_mm3": {
+              "front-bottom": 1.0729567733423762e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -32.0,
+            "overlap_mm3": {
+              "front-bottom": 2.6740926096710527e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -40.0,
+            "overlap_mm3": {
+              "front-bottom": -9.792260123763137e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -48.0,
+            "overlap_mm3": {
+              "front-bottom": -1.1525326591536877e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -56.0,
+            "overlap_mm3": {
+              "front-bottom": -7.114267942115449e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -64.0,
+            "overlap_mm3": {
+              "front-bottom": 1.370128077833599e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -72.0,
+            "overlap_mm3": {
+              "front-bottom": -5.684454778632012e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -80.0,
+            "overlap_mm3": {
+              "front-bottom": 4.619077743992644e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -88.0,
+            "overlap_mm3": {
+              "front-bottom": -1.4134743722693521e-15,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -96.0,
+            "overlap_mm3": {
+              "front-bottom": -6.120379539547444e-14,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -104.0,
+            "overlap_mm3": {
+              "front-bottom": -1.88774506009598e-15,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -112.0,
+            "overlap_mm3": {
+              "front-bottom": -9.389004466476072e-16,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -120.0,
+            "overlap_mm3": {
+              "front-bottom": 5.560235973901817e-14,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -128.0,
+            "overlap_mm3": {
+              "front-bottom": -8.502122617048968e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -136.0,
+            "overlap_mm3": {
+              "front-bottom": -8.913552792374823e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -144.0,
+            "overlap_mm3": {
+              "front-bottom": 1.701668320142069e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -152.0,
+            "overlap_mm3": {
+              "front-bottom": -7.754647618485322e-15,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -160.0,
+            "overlap_mm3": {
+              "front-bottom": -5.44937250705757e-13,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -168.0,
+            "overlap_mm3": {
+              "front-bottom": 1.9719133010492884e-12,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -176.0,
+            "overlap_mm3": {
+              "front-bottom": 4.2717565595928875e-14,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -184.0,
+            "overlap_mm3": {
+              "front-bottom": -3.552713678800501e-14,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -192.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -200.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -208.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -216.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0,
+              "back-bottom": 0.0
+            }
+          },
+          {
+            "offset_y_mm": -220.0,
+            "overlap_mm3": {
+              "front-bottom": 0.0,
+              "back-bottom": 0.0
+            }
+          }
+        ],
+        "worst_overlap_mm3": 5.576836003629362e-12,
+        "worst_offset_y_mm": -0.5,
+        "worst_fixed_part": "front-bottom",
+        "clear": true
+      },
+      {
+        "motion": "Slide back-top onto joined bottoms and front-top",
+        "mover": "back-top",
+        "fixed": [
+          "back-bottom",
+          "front-bottom",
+          "front-top"
+        ],
+        "range_y_mm": [
+          0,
+          300.0
+        ],
+        "poses": [
+          {
+            "offset_y_mm": 0.0,
+            "overlap_mm3": {
+              "back-bottom": -8.376173561176758e-13,
+              "front-bottom": -2.1652644954794908e-13,
+              "front-top": 3.383461046058134e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.25,
+            "overlap_mm3": {
+              "back-bottom": 8.725826152941856e-13,
+              "front-bottom": 3.241486939975502e-13,
+              "front-top": 2.6645352591003757e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.5,
+            "overlap_mm3": {
+              "back-bottom": -6.015540577599884e-14,
+              "front-bottom": -5.680178549738457e-14,
+              "front-top": 6.890512466162235e-13
+            }
+          },
+          {
+            "offset_y_mm": 1.0,
+            "overlap_mm3": {
+              "back-bottom": 1.3784217636671897e-12,
+              "front-bottom": 2.8486935033100735e-13,
+              "front-top": 7.468931072576734e-13
+            }
+          },
+          {
+            "offset_y_mm": 2.0,
+            "overlap_mm3": {
+              "back-bottom": -2.62830841888783e-12,
+              "front-bottom": -8.255801370229271e-13,
+              "front-top": 8.406860277365702e-13
+            }
+          },
+          {
+            "offset_y_mm": 3.0,
+            "overlap_mm3": {
+              "back-bottom": 1.0754816091515518e-12,
+              "front-bottom": -1.7956031897903985e-13,
+              "front-top": -2.0262567665407794e-13
+            }
+          },
+          {
+            "offset_y_mm": 4.0,
+            "overlap_mm3": {
+              "back-bottom": -2.0166106740222844e-12,
+              "front-bottom": -1.1321846238310229e-13,
+              "front-top": 3.927348897481142e-14
+            }
+          },
+          {
+            "offset_y_mm": 5.0,
+            "overlap_mm3": {
+              "back-bottom": -1.2839546591723872e-12,
+              "front-bottom": 9.289910420789971e-14,
+              "front-top": -1.2644702993003243e-13
+            }
+          },
+          {
+            "offset_y_mm": 6.0,
+            "overlap_mm3": {
+              "back-bottom": 1.1704990875975138e-12,
+              "front-bottom": 3.05762359875672e-14,
+              "front-top": -3.976506623981635e-14
+            }
+          },
+          {
+            "offset_y_mm": 8.0,
+            "overlap_mm3": {
+              "back-bottom": -2.9118153336638378e-12,
+              "front-bottom": 2.1441182163073336e-14,
+              "front-top": -2.0791029488320678e-13
+            }
+          },
+          {
+            "offset_y_mm": 10.0,
+            "overlap_mm3": {
+              "back-bottom": 2.5401988184344665e-13,
+              "front-bottom": -1.412203687323199e-13,
+              "front-top": -4.796163466380676e-14
+            }
+          },
+          {
+            "offset_y_mm": 12.0,
+            "overlap_mm3": {
+              "back-bottom": 1.3798831868805372e-12,
+              "front-bottom": 1.1685097334179773e-13,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 16.0,
+            "overlap_mm3": {
+              "back-bottom": 2.5171132717291306e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 24.0,
+            "overlap_mm3": {
+              "back-bottom": 9.060667852770914e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 32.0,
+            "overlap_mm3": {
+              "back-bottom": 3.114586930377805e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 40.0,
+            "overlap_mm3": {
+              "back-bottom": -6.633206606397276e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 48.0,
+            "overlap_mm3": {
+              "back-bottom": 4.057156127441723e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 56.0,
+            "overlap_mm3": {
+              "back-bottom": 5.474810498885558e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 64.0,
+            "overlap_mm3": {
+              "back-bottom": 6.068873864822216e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 72.0,
+            "overlap_mm3": {
+              "back-bottom": -4.546418851201356e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 80.0,
+            "overlap_mm3": {
+              "back-bottom": 2.5819611070487455e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 88.0,
+            "overlap_mm3": {
+              "back-bottom": -4.66367890757536e-13,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 96.0,
+            "overlap_mm3": {
+              "back-bottom": 1.742084802152169e-13,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 104.0,
+            "overlap_mm3": {
+              "back-bottom": -5.030553041187116e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 112.0,
+            "overlap_mm3": {
+              "back-bottom": 5.048329464153126e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 120.0,
+            "overlap_mm3": {
+              "back-bottom": -1.6144154833504579e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 128.0,
+            "overlap_mm3": {
+              "back-bottom": -2.1783228161802864e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 136.0,
+            "overlap_mm3": {
+              "back-bottom": 5.456923704138389e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 144.0,
+            "overlap_mm3": {
+              "back-bottom": 1.1066400786464026e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 152.0,
+            "overlap_mm3": {
+              "back-bottom": -4.099949858240269e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 160.0,
+            "overlap_mm3": {
+              "back-bottom": 2.6818786720474858e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 168.0,
+            "overlap_mm3": {
+              "back-bottom": 6.254936957381281e-13,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 176.0,
+            "overlap_mm3": {
+              "back-bottom": 2.422822942163387e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 184.0,
+            "overlap_mm3": {
+              "back-bottom": -1.9299051695923983e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 192.0,
+            "overlap_mm3": {
+              "back-bottom": -3.8283479102227576e-12,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 200.0,
+            "overlap_mm3": {
+              "back-bottom": -7.006141543655642e-15,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 208.0,
+            "overlap_mm3": {
+              "back-bottom": 9.295922321836403e-13,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 216.0,
+            "overlap_mm3": {
+              "back-bottom": 2.725742823368949e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 224.0,
+            "overlap_mm3": {
+              "back-bottom": -7.530955026258113e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 232.0,
+            "overlap_mm3": {
+              "back-bottom": 7.413538641483364e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 240.0,
+            "overlap_mm3": {
+              "back-bottom": -2.07707115396083e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 248.0,
+            "overlap_mm3": {
+              "back-bottom": 5.694750226936662e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 256.0,
+            "overlap_mm3": {
+              "back-bottom": -8.526512829121202e-14,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 264.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 272.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 280.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 288.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 296.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 300.0,
+            "overlap_mm3": {
+              "back-bottom": 0.0,
+              "front-bottom": 0.0,
+              "front-top": 0.0
+            }
+          }
+        ],
+        "worst_overlap_mm3": 9.060667852770914e-12,
+        "worst_offset_y_mm": 24.0,
+        "worst_fixed_part": "back-bottom",
+        "clear": true
+      },
+      {
+        "motion": "Insert funnel frame into front-top",
+        "mover": "frame",
+        "fixed": [
+          "front-top"
+        ],
+        "range_y_mm": [
+          0,
+          70.0
+        ],
+        "poses": [
+          {
+            "offset_y_mm": 0.0,
+            "overlap_mm3": {
+              "front-top": -4.547473508864641e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.25,
+            "overlap_mm3": {
+              "front-top": 4.547473508864641e-13
+            }
+          },
+          {
+            "offset_y_mm": 0.5,
+            "overlap_mm3": {
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 1.0,
+            "overlap_mm3": {
+              "front-top": 6.821210263296962e-13
+            }
+          },
+          {
+            "offset_y_mm": 2.0,
+            "overlap_mm3": {
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 3.0,
+            "overlap_mm3": {
+              "front-top": -6.821210263296962e-13
+            }
+          },
+          {
+            "offset_y_mm": 4.0,
+            "overlap_mm3": {
+              "front-top": 6.821210263296962e-13
+            }
+          },
+          {
+            "offset_y_mm": 5.0,
+            "overlap_mm3": {
+              "front-top": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 6.0,
+            "overlap_mm3": {
+              "front-top": -6.821210263296962e-13
+            }
+          },
+          {
+            "offset_y_mm": 8.0,
+            "overlap_mm3": {
+              "front-top": -4.547473508864641e-13
+            }
+          },
+          {
+            "offset_y_mm": 10.0,
+            "overlap_mm3": {
+              "front-top": 2.2737367544323206e-13
+            }
+          },
+          {
+            "offset_y_mm": 12.0,
+            "overlap_mm3": {
+              "front-top": -1.1368683772161603e-12
+            }
+          },
+          {
+            "offset_y_mm": 16.0,
+            "overlap_mm3": {
+              "front-top": 2.0463630789890885e-12
+            }
+          },
+          {
+            "offset_y_mm": 24.0,
+            "overlap_mm3": {
+              "front-top": 2.2737367544323206e-13
+            }
+          },
+          {
+            "offset_y_mm": 32.0,
+            "overlap_mm3": {
+              "front-top": 9.094947017729282e-13
+            }
+          },
+          {
+            "offset_y_mm": 40.0,
+            "overlap_mm3": {
+              "front-top": -7.389644451905042e-13
+            }
+          },
+          {
+            "offset_y_mm": 48.0,
+            "overlap_mm3": {
+              "front-top": 1.3642420526593924e-12
+            }
+          },
+          {
+            "offset_y_mm": 56.0,
+            "overlap_mm3": {
+              "front-top": 6.252776074688882e-13
+            }
+          },
+          {
+            "offset_y_mm": 64.0,
+            "overlap_mm3": {
+              "front-top": -9.094947017729282e-13
+            }
+          },
+          {
+            "offset_y_mm": 70.0,
+            "overlap_mm3": {
+              "front-top": 0.0
+            }
+          }
+        ],
+        "worst_overlap_mm3": 2.0463630789890885e-12,
+        "worst_offset_y_mm": 16.0,
+        "worst_fixed_part": "front-top",
+        "clear": true
+      },
+      {
+        "motion": "Close back-top around seated funnel frame",
+        "mover": "back-top",
+        "fixed": [
+          "frame"
+        ],
+        "range_y_mm": [
+          0,
+          300.0
+        ],
+        "poses": [
+          {
+            "offset_y_mm": 0.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 0.25,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 0.5,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 1.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 2.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 3.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 4.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 5.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 6.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 8.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 10.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 12.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 16.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 24.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 32.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 40.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 48.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 56.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 64.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 72.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 80.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 88.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 96.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 104.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 112.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 120.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 128.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 136.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 144.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 152.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 160.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 168.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 176.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 184.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 192.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 200.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 208.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 216.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 224.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 232.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 240.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 248.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 256.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 264.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 272.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 280.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 288.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 296.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          },
+          {
+            "offset_y_mm": 300.0,
+            "overlap_mm3": {
+              "frame": 0.0
+            }
+          }
+        ],
+        "worst_overlap_mm3": 0.0,
+        "worst_offset_y_mm": 300.0,
+        "worst_fixed_part": "frame",
+        "clear": true
+      }
+    ],
+    "frame_capture_at_2mm": [
+      {
+        "axis": "X",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 8405.37256821041,
+          "back-top": 1619.6261298150778
+        },
+        "captured": true
+      },
+      {
+        "axis": "X",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 8405.372561420205,
+          "back-top": 1619.6261298150764
+        },
+        "captured": true
+      },
+      {
+        "axis": "Y",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 5716.416687830825,
+          "back-top": 0.0
+        },
+        "captured": true
+      },
+      {
+        "axis": "Y",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 0.0,
+          "back-top": 3644.145387522772
+        },
+        "captured": true
+      },
+      {
+        "axis": "Z",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 2745.188195178138,
+          "back-top": 42.57879390649296
+        },
+        "captured": true
+      },
+      {
+        "axis": "Z",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 1796.9554185110514,
+          "back-top": 2331.6677864329567
+        },
+        "captured": true
+      }
+    ],
+    "motions_clear": true,
+    "frame_captured": true,
+    "evidence_stage": "The173 listed poses were measured on these explicitly hashed pre-head-access meshes. Final head access removes stock only, as proved below; these pose readings are retained with their original hashes and are not presented as resampled final meshes."
+  },
+  "assembly_sequence": [
+    "Install the brass inserts while their individual printed parts are accessible.",
+    "Populate front-top with its fixed valve rows and moving tee links, then slide it aft onto front-bottom.",
+    "Seat the funnel frame in front-top before the Y-seam closing motion.",
+    "Populate back-top on the bench, then slide it forward onto an empty back-bottom.",
+    "Move the complete back column forward over the tethered cold core into the front column at the Y telescope; cabinet-spanning plumbing follows the mechanical close.",
+    "With grip covers removed, insert the lower screw pair upward through the handholds; install the upper pair through the roof. Each head uses one flat washer.",
+    "Refit the grip covers after the lower screws are seated."
+  ],
+  "access": {
+    "lower_screw_entry": "upward through handhold ceiling with removable grip cover removed",
+    "lower_clear_space_below_bottom_mm_approx": 120,
+    "upper_screw_entry": "downward through roof"
+  },
+  "frame_support": "The front receiver pair carries the frame; the rear frame body clears the upper screw blocks. Nominal capture against six 2 mm translations does not establish a load rating or resistance to tilting under load.",
+  "pass": true,
+  "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md \u00a76. The additional back-top-only sweeps in this report establish printed-shell geometric compatibility and do not replace the populated-machine assembly sequence.",
+  "subtractive_head_access_update": {
+    "scope": "Final inboard-open head access: native subtraction from the previously reviewed quadrants, complete washer floors and refreshed final-mesh funnel capture. The original173 sampled motions remain explicitly bound to their earlier mesh hashes. The nominal updated shell stock is a subset, so it cannot add a shell or packed-body interference.",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
+      "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "915bb0340089312bd3adbd85934cbd970ff85e32f389783be5b790b7a403ce1d",
+      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579",
+      "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+    },
+    "parts": [
+      {
+        "part": "back-bottom",
+        "prior_step_sha256": "453be88494113bf643a22ccebf9832eceee0da6e721fb1a8a133bb89699c722c",
+        "current_step_sha256": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+        "added_volume_mm3": 0.0,
+        "removed_volume_mm3": 563.1292657700782,
+        "subtractive_only": true,
+        "valid": true,
+        "solid_count": 1,
+        "washer_bearing_stock": [
+          {
+            "side": "west",
+            "required_thickness_mm": 3,
+            "z_mm": [
+              37.25,
+              40.25
+            ],
+            "missing_stock_mm3": 0.0,
+            "complete": true
+          },
+          {
+            "side": "east",
+            "required_thickness_mm": 3,
+            "z_mm": [
+              37.25,
+              40.25
+            ],
+            "missing_stock_mm3": 0.0,
+            "complete": true
+          }
+        ]
+      },
+      {
+        "part": "back-top",
+        "prior_step_sha256": "c68eb8135b0494c9a5cfca3b4c88ad72742ddc29b522931ba003f4bc33951d6c",
+        "current_step_sha256": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+        "added_volume_mm3": 0.0,
+        "removed_volume_mm3": 391.5712657710777,
+        "subtractive_only": true,
+        "valid": true,
+        "solid_count": 1,
+        "washer_bearing_stock": [
+          {
+            "side": "west",
+            "required_thickness_mm": 3,
+            "z_mm": [
+              344.0,
+              347.0
+            ],
+            "missing_stock_mm3": 0.0,
+            "complete": true
+          },
+          {
+            "side": "east",
+            "required_thickness_mm": 3,
+            "z_mm": [
+              344.0,
+              347.0
+            ],
+            "missing_stock_mm3": 0.0,
+            "complete": true
+          }
+        ]
+      }
+    ],
+    "final_frame_capture_at_2mm": [
+      {
+        "axis": "X",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 8405.37256821041,
+          "back-top": 1586.3318035038092
+        },
+        "captured": true
+      },
+      {
+        "axis": "X",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 8405.372561420205,
+          "back-top": 1586.331803503811
+        },
+        "captured": true
+      },
+      {
+        "axis": "Y",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 5716.416687830825,
+          "back-top": 0.0
+        },
+        "captured": true
+      },
+      {
+        "axis": "Y",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 0.0,
+          "back-top": 3644.145387522772
+        },
+        "captured": true
+      },
+      {
+        "axis": "Z",
+        "direction": -1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 2745.188195178138,
+          "back-top": 42.57879390649296
+        },
+        "captured": true
+      },
+      {
+        "axis": "Z",
+        "direction": 1,
+        "move_mm": 2,
+        "overlap_mm3": {
+          "front-top": 1796.9554185110514,
+          "back-top": 2331.6677864329567
+        },
+        "captured": true
+      }
+    ],
+    "pass": true
+  },
+  "head_access_review": {
+    "generated_utc": "2026-10-15T20:51:12.588809+00:00",
+    "scope": "One-time manual native head-seat and upper exterior access-mouth review; no strength, deposited print, load or lifetime qualification. No build-path integration.",
+    "source_and_artifact_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
+      "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8f1be09ec5f4e8f549f8c863fcd6666474a703ee9adf5cb4b13b291885906ad2",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0"
+    },
+    "inputs_unchanged": true,
+    "rows": [
+      {
+        "piece": "back-bottom",
+        "side": "east (same source construction mirrored west)",
+        "head_floor_z_mm": 37.25,
+        "washer_bearing_annulus_radii_mm": [
+          2.8,
+          5.0
+        ],
+        "floor_witness_depth_mm": 3.0,
+        "floor_witness_origin_inward_offset_mm": 0.02,
+        "missing_washer_bearing_floor_stock_mm3": 0.0
+      },
+      {
+        "piece": "back-top",
+        "side": "east (same source construction mirrored west)",
+        "head_floor_z_mm": 347.0,
+        "washer_bearing_annulus_radii_mm": [
+          2.8,
+          5.0
+        ],
+        "floor_witness_depth_mm": 3.0,
+        "floor_witness_origin_inward_offset_mm": 0.02,
+        "missing_washer_bearing_floor_stock_mm3": 0.0,
+        "upper_exterior_mouth_ray_sections": [
+          {
+            "z_mm": 348.0,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              9.5
+            ],
+            "rim_mm": 4.1
+          },
+          {
+            "z_mm": 351.5,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              8.954356
+            ],
+            "rim_mm": 3.554356
+          },
+          {
+            "z_mm": 352.0,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              8.708204
+            ],
+            "rim_mm": 3.308204
+          },
+          {
+            "z_mm": 352.5,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              8.458204
+            ],
+            "rim_mm": 3.058204
+          },
+          {
+            "z_mm": 353.0,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              8.208204
+            ],
+            "rim_mm": 2.808204
+          },
+          {
+            "z_mm": 354.0,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              7.708204
+            ],
+            "rim_mm": 2.308204
+          },
+          {
+            "z_mm": 354.5,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              7.458204
+            ],
+            "rim_mm": 2.058204
+          },
+          {
+            "z_mm": 354.9,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              7.258204
+            ],
+            "rim_mm": 1.858204
+          },
+          {
+            "z_mm": 354.99,
+            "outboard_radial_crossings_mm": [
+              5.4,
+              7.213204
+            ],
+            "rim_mm": 1.813204
+          }
+        ],
+        "minimum_rim_at_roof_plane_mm": 1.808204,
+        "rim_ge_3mm_below_z_mm": 352.616408,
+        "named_scope": "Only upper head-access exterior mouth within existing roof taper; inboard thin cup wall is removed by U opening. Floor and load-bearing root retain their separate complete sections."
+      }
+    ]
+  },
+  "packing_motion_review": {
+    "scope": "Continuous conservative swept bounding-stock proof for only the new Y-seam corner blocks during the established back-column ride over the core. Complete shell/packed-unit motions and tube disconnection/service motions are outside this targeted proof.",
+    "method": "A moving block is conservatively enclosed by its bounding prism extended along the complete positive-Y withdrawal/inverse insertion interval. A separating or tangent bounding plane proves no volumetric interference; overlapping boxes receive native prism/body intersections. Screw passages and head pockets only remove material from this checked stock.",
+    "pack_reference_assembly_sha256": "4da8d957a359641d4cff5e71f51ae2720e7a9a56aa0b28ec8a1cd69411d642a5",
+    "pack_reference": "Retained packed bodies and fixed placements from enclosure-assembly.step; printed enclosure shell stock is constructed from the current generator, not taken from this snapshot.",
+    "assembly_unchanged_during_read": true,
+    "installed_geometry_conditions": [
+      {
+        "part": "cold-core/line-prv-vent",
+        "operation": "Cut tube end flush with foam flank, as already required by cold-core assembly instructions. The exported construction route extends 2 mm outside that plane.",
+        "flank_x_mm": -90.5000001069748,
+        "reference_tail_past_flank_mm": 1.9999998860452024,
+        "references": [
+          "hardware/assembly/cold-core.md:126",
+          "hardware/printed-parts/cold-core/foam-shell/README.md:592",
+          "hardware/printed-parts/cold-core/_internal_routes.py:195\u2013199"
+        ]
+      }
+    ],
+    "fixed_riders": [
+      "coil-v-a",
+      "coil-v-b",
+      "coil-v-c",
+      "coil-v-d",
+      "coil-v-e",
+      "coil-v-f",
+      "coil-v-g",
+      "coil-v-h",
+      "coil-v-i",
+      "coil-v-j",
+      "cold-core/bulkhead-reservoir-a",
+      "cold-core/bulkhead-reservoir-b",
+      "cold-core/bulkhead-seal-a",
+      "cold-core/bulkhead-seal-b",
+      "cold-core/carbonator-elbow-carb-water-out",
+      "cold-core/carbonator-elbow-co2-in",
+      "cold-core/carbonator-elbow-prv",
+      "cold-core/carbonator-elbow-water-in",
+      "cold-core/carbonator-tube",
+      "cold-core/collet-carb-water-out",
+      "cold-core/collet-co2-in",
+      "cold-core/collet-water-in",
+      "cold-core/copper-plug-port",
+      "cold-core/copper-plug-west",
+      "cold-core/endcap-bottom",
+      "cold-core/endcap-top",
+      "cold-core/evap-coil",
+      "cold-core/evap-tail-inlet",
+      "cold-core/evap-tail-outlet",
+      "cold-core/float-a",
+      "cold-core/float-b",
+      "cold-core/float-carb",
+      "cold-core/float-rod-a",
+      "cold-core/float-rod-b",
+      "cold-core/float-rod-carb",
+      "cold-core/foam-cap-bottom",
+      "cold-core/foam-cap-lid-bottom",
+      "cold-core/foam-cap-lid-top",
+      "cold-core/foam-cap-top",
+      "cold-core/foam-shell",
+      "cold-core/line-carb-water-out",
+      "cold-core/line-co2-in",
+      "cold-core/line-prv-vent",
+      "cold-core/line-reservoir-a",
+      "cold-core/line-reservoir-a-fill",
+      "cold-core/line-reservoir-b",
+      "cold-core/line-reservoir-b-fill",
+      "cold-core/line-water-in",
+      "cold-core/probe-carbonator-ds18b20",
+      "cold-core/probe-coil-ds18s20",
+      "cold-core/prv-shroud",
+      "cold-core/prv-sv125",
+      "cold-core/reed-a-1",
+      "cold-core/reed-a-2",
+      "cold-core/reed-a-3",
+      "cold-core/reed-a-4",
+      "cold-core/reed-b-1",
+      "cold-core/reed-b-2",
+      "cold-core/reed-b-3",
+      "cold-core/reed-b-4",
+      "cold-core/reed-bridge",
+      "cold-core/reed-carb-1",
+      "cold-core/reed-carb-2",
+      "cold-core/reservoir-a",
+      "cold-core/reservoir-a-cap",
+      "cold-core/reservoir-b",
+      "cold-core/reservoir-b-cap",
+      "cold-core/vent-membrane-a",
+      "cold-core/vent-membrane-b",
+      "cold-core/water-inlet-jet-cap-nominal",
+      "compressor",
+      "condenser+fan",
+      "discharge-chain",
+      "display",
+      "display-cover",
+      "display-gasket",
+      "elbow-cradle",
+      "funnel-drain-stub",
+      "funnel-drain-union",
+      "funnel-frame",
+      "fuse-clamp",
+      "g-ganen-pump",
+      "mq6-sensor",
+      "suction-chain",
+      "tee-carrier-spring-east-lower",
+      "tee-carrier-spring-east-upper",
+      "tee-carrier-spring-west-lower",
+      "tee-carrier-spring-west-upper",
+      "tee-y-a",
+      "tee-y-b",
+      "tee-y-c",
+      "tee-y-d",
+      "tee-y-f",
+      "tee-y-g",
+      "thermal-fuse",
+      "valve-v-a",
+      "valve-v-b",
+      "valve-v-c",
+      "valve-v-d",
+      "valve-v-e",
+      "valve-v-f",
+      "valve-v-g",
+      "valve-v-h",
+      "valve-v-i",
+      "valve-v-j",
+      "vk-solenoid",
+      "wago-mana",
+      "wago-manb"
+    ],
+    "co_moving_back_top_riders": [
+      "asse-drain-adapter",
+      "asse1022-assembly",
+      "bulkhead-carb",
+      "bulkhead-drain",
+      "bulkhead-flavor-a",
+      "bulkhead-flavor-b",
+      "bulkhead-ring-carb",
+      "bulkhead-ring-carb-word",
+      "bulkhead-ring-co2",
+      "bulkhead-ring-co2-word",
+      "bulkhead-ring-drain",
+      "bulkhead-ring-drain-word",
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-a-word",
+      "bulkhead-ring-flavor-b",
+      "bulkhead-ring-flavor-b-word",
+      "bulkhead-ring-water",
+      "bulkhead-ring-water-word",
+      "bulkhead-water",
+      "c14-inlet",
+      "co2-adapter-check-in",
+      "co2-adapter-check-out",
+      "co2-adapter-regulator-in",
+      "co2-adapter-regulator-out",
+      "co2-inlet",
+      "data-ring",
+      "data-ring-word",
+      "digiten-flow",
+      "flow-regulator",
+      "gasher-co2",
+      "ground-stack",
+      "keystone-jack",
+      "pcba",
+      "psu",
+      "relay-1",
+      "relay-2",
+      "wago-g",
+      "wago-gnd",
+      "wago-h",
+      "wago-n",
+      "wago-reeds-a",
+      "wago-reeds-b",
+      "wago-sensors",
+      "wago-v12",
+      "water-split",
+      "wr1110"
+    ],
+    "unclassified_bodies_not_checked": [],
+    "excluded_install_later": [
+      "all routed tubes and turn/step bodies",
+      "pump cartridge and its pump hardware",
+      "silicone funnel and cover",
+      "nameplate",
+      "grip covers"
+    ],
+    "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md \u00a76 and hardware/assembly/internal-plumbing.md: back-top populates and slides onto empty back-bottom; complete back column then rides over core; cabinet-spanning tubes follow closure. MOUNTS/RIDES resolve fixed/co-moving hardware.",
+    "block_sweeps": [
+      {
+        "side": "west",
+        "stock_owner": "back-bottom",
+        "section": "lower",
+        "z_mm": [
+          29.25,
+          65.7
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          -105.5,
+          -90.5,
+          200.0,
+          488.11000000000007,
+          29.25,
+          65.7
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "west",
+        "stock_owner": "back-bottom",
+        "section": "lower",
+        "z_mm": [
+          102.15,
+          138.10000000000002
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          -105.5,
+          -90.5,
+          200.0,
+          488.11000000000007,
+          102.15,
+          138.10000000000002
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "west",
+        "stock_owner": "back-top",
+        "section": "lower",
+        "z_mm": [
+          175.05,
+          195.05
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          -105.5,
+          -90.5,
+          200.0,
+          488.11000000000007,
+          175.05,
+          195.05
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "west",
+        "stock_owner": "back-top",
+        "section": "upper",
+        "z_mm": [
+          299.65,
+          355.0
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          -105.5,
+          -91.5,
+          200.0,
+          488.11000000000007,
+          299.65,
+          355.0
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [
+          {
+            "name": "funnel-frame",
+            "conservative_swept_overlap_mm3": 0.0,
+            "clear": true
+          }
+        ],
+        "clear": true
+      },
+      {
+        "side": "east",
+        "stock_owner": "back-bottom",
+        "section": "lower",
+        "z_mm": [
+          29.25,
+          65.7
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          90.5,
+          105.5,
+          200.0,
+          488.11000000000007,
+          29.25,
+          65.7
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "east",
+        "stock_owner": "back-bottom",
+        "section": "lower",
+        "z_mm": [
+          102.15,
+          138.10000000000002
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          90.5,
+          105.5,
+          200.0,
+          488.11000000000007,
+          102.15,
+          138.10000000000002
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "east",
+        "stock_owner": "back-top",
+        "section": "lower",
+        "z_mm": [
+          175.05,
+          195.05
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          90.5,
+          105.5,
+          200.0,
+          488.11000000000007,
+          175.05,
+          195.05
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "funnel-frame",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [],
+        "clear": true
+      },
+      {
+        "side": "east",
+        "stock_owner": "back-top",
+        "section": "upper",
+        "z_mm": [
+          299.65,
+          355.0
+        ],
+        "offset_y_mm": [
+          0,
+          268.30000000000007
+        ],
+        "conservative_swept_stock_bounds_mm": [
+          91.5,
+          105.5,
+          200.0,
+          488.11000000000007,
+          299.65,
+          355.0
+        ],
+        "separated_or_tangent_by_bounds": [
+          "compressor",
+          "condenser+fan",
+          "mq6-sensor",
+          "thermal-fuse",
+          "fuse-clamp",
+          "valve-v-a",
+          "coil-v-a",
+          "tee-y-a",
+          "valve-v-c",
+          "coil-v-c",
+          "tee-y-c",
+          "valve-v-e",
+          "coil-v-e",
+          "valve-v-g",
+          "coil-v-g",
+          "tee-y-d",
+          "valve-v-f",
+          "coil-v-f",
+          "valve-v-b",
+          "coil-v-b",
+          "tee-y-b",
+          "valve-v-d",
+          "coil-v-d",
+          "tee-y-f",
+          "valve-v-h",
+          "coil-v-h",
+          "valve-v-j",
+          "coil-v-j",
+          "tee-y-g",
+          "valve-v-i",
+          "coil-v-i",
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-top",
+          "cold-core/foam-cap-lid-top",
+          "cold-core/foam-cap-bottom",
+          "cold-core/foam-cap-lid-bottom",
+          "cold-core/carbonator-tube",
+          "cold-core/endcap-bottom",
+          "cold-core/endcap-top",
+          "cold-core/float-rod-carb",
+          "cold-core/carbonator-elbow-co2-in",
+          "cold-core/carbonator-elbow-carb-water-out",
+          "cold-core/carbonator-elbow-water-in",
+          "cold-core/carbonator-elbow-prv",
+          "cold-core/reservoir-a",
+          "cold-core/reservoir-a-cap",
+          "cold-core/reservoir-b",
+          "cold-core/reservoir-b-cap",
+          "cold-core/copper-plug-west",
+          "cold-core/copper-plug-port",
+          "cold-core/evap-coil",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet",
+          "cold-core/water-inlet-jet-cap-nominal",
+          "cold-core/collet-co2-in",
+          "cold-core/collet-carb-water-out",
+          "cold-core/collet-water-in",
+          "cold-core/bulkhead-reservoir-a",
+          "cold-core/bulkhead-reservoir-b",
+          "cold-core/float-carb",
+          "cold-core/reed-carb-1",
+          "cold-core/reed-carb-2",
+          "cold-core/float-rod-a",
+          "cold-core/float-a",
+          "cold-core/reed-a-1",
+          "cold-core/reed-a-2",
+          "cold-core/reed-a-3",
+          "cold-core/reed-a-4",
+          "cold-core/float-rod-b",
+          "cold-core/float-b",
+          "cold-core/reed-b-1",
+          "cold-core/reed-b-2",
+          "cold-core/reed-b-3",
+          "cold-core/reed-b-4",
+          "cold-core/bulkhead-seal-a",
+          "cold-core/vent-membrane-a",
+          "cold-core/bulkhead-seal-b",
+          "cold-core/vent-membrane-b",
+          "cold-core/probe-carbonator-ds18b20",
+          "cold-core/probe-coil-ds18s20",
+          "cold-core/prv-sv125",
+          "cold-core/prv-shroud",
+          "cold-core/reed-bridge",
+          "cold-core/line-carb-water-out",
+          "cold-core/line-co2-in",
+          "cold-core/line-prv-vent",
+          "cold-core/line-reservoir-a",
+          "cold-core/line-reservoir-a-fill",
+          "cold-core/line-reservoir-b",
+          "cold-core/line-reservoir-b-fill",
+          "cold-core/line-water-in",
+          "g-ganen-pump",
+          "suction-chain",
+          "wago-mana",
+          "wago-manb",
+          "vk-solenoid",
+          "discharge-chain",
+          "elbow-cradle",
+          "funnel-drain-union",
+          "funnel-drain-stub",
+          "display",
+          "display-cover",
+          "display-gasket",
+          "tee-carrier-spring-west-lower",
+          "tee-carrier-spring-west-upper",
+          "tee-carrier-spring-east-lower",
+          "tee-carrier-spring-east-upper"
+        ],
+        "native_candidates": [
+          {
+            "name": "funnel-frame",
+            "conservative_swept_overlap_mm3": 0.0,
+            "clear": true
+          }
+        ],
+        "clear": true
+      }
+    ],
+    "clear": true
+  },
+  "installed_prv_vent_export": {
+    "scope": "Installed PRV tube end in the local internal-route export and retained appliance frame. All seven other route viewer entries were retained exactly during the scoped refresh; native export serialization retains the measured geometric fingerprints.",
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "a36dfef89dd7e8f7e8f186271670a2bbd3690473d53d754a921461a761cda8a2"
+    },
+    "output_sha256": {
+      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
+      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "b6804531d29d5e1a472828e503ec75cde562e9547f01bdc0f8f7b386dd63e209"
+    },
+    "installed_vent_local_bounds_mm": [
+      -3.1750001000000676,
+      3.1750000999999997,
+      74.32499990000001,
+      90.50000010000007,
+      168.70413668482257,
+      187.85
+    ],
+    "local_flank_y_mm": 90.5,
+    "installed_vent_world_bounds_mm": [
+      -90.5000002069701,
+      -74.32893794673001,
+      320.6249999,
+      326.97500010000005,
+      188.70436692294,
+      207.85089306871467
+    ],
+    "world_flank_x_mm": -90.5000001069748,
+    "world_shape_basis": "Trimmed retained appliance instance; its current placement and the other appliance route instances are preserved.",
+    "world_step": ".cache/y-seam-plain/clearance/vent-flush-cut-line.step",
+    "unchanged_viewer_routes": 7,
+    "native_serialization_comparisons": [
+      {
+        "name": "carb-water-out",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 3.055333763768431e-13,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 2.984279490192421e-13,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "co2-in",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 2.2737367544323206e-13,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "prv-vent",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 0.0,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "reservoir-a",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 1.1368683772161603e-13,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 3.637978807091713e-12,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "reservoir-a-fill",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 0.0,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "reservoir-b",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 7.105427357601002e-15,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "reservoir-b-fill",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 0.0,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 0.0,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 0.0,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      },
+      {
+        "name": "water-in",
+        "faces_count_equal": true,
+        "faces_max_measurement_error": 5.684341886080802e-14,
+        "edges_count_equal": true,
+        "edges_max_measurement_error": 5.684341886080802e-14,
+        "bounds_max_error_mm": 0.0,
+        "volume_error_mm3": 9.094947017729282e-13,
+        "vertex_count_equal": true,
+        "vertices_max_error_mm": 0.0,
+        "unchanged": true
+      }
+    ],
+    "verification_method_note": "Coincident swept tube STEP solids can return their full volumes for both directions of a native subtraction. Native face/edge/vertex counts, locations, lengths, areas, bounds and volumes are compared explicitly here, alongside exact retained viewer entries.",
+    "pass": true
+  },
+  "vent_clearance_review": {
+    "flank_plane_x_mm": -90.5000001069748,
+    "raw_tube_outer_x_mm": -92.49999999302,
+    "untrimmed_tail_past_flank_mm": 1.9999998860452024,
+    "raw_peak_overlap_mm3": 63.36577930277488,
+    "flush_cut_peak_overlap_mm3": 0.0,
+    "poses": [
+      {
+        "offset_y_mm": 100.81499989999998,
+        "raw_reference_overlap_mm3": 0.0,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 102.44999991249998,
+        "raw_reference_overlap_mm3": 0.0,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 104.08499992499998,
+        "raw_reference_overlap_mm3": 8.920507566446311,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 105.71999993749999,
+        "raw_reference_overlap_mm3": 28.13040905171516,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 107.35499994999999,
+        "raw_reference_overlap_mm3": 48.360740820618226,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 108.9899999625,
+        "raw_reference_overlap_mm3": 62.83554352613649,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 110.62499997500001,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 112.25999998750001,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 113.89500000000001,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 115.53000001250001,
+        "raw_reference_overlap_mm3": 63.36577930277488,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 117.16500002500001,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 118.80000003750003,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 120.43500005000003,
+        "raw_reference_overlap_mm3": 63.365779302774875,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 122.07000006250003,
+        "raw_reference_overlap_mm3": 52.521142261852546,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 123.70500007500004,
+        "raw_reference_overlap_mm3": 32.88950735039859,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 125.34000008750004,
+        "raw_reference_overlap_mm3": 12.913447505170796,
+        "flush_cut_overlap_mm3": 0.0
+      },
+      {
+        "offset_y_mm": 126.97500010000005,
+        "raw_reference_overlap_mm3": 0.0,
+        "flush_cut_overlap_mm3": 0.0
+      }
+    ],
+    "basis": [
+      "hardware/assembly/cold-core.md:126",
+      "hardware/printed-parts/cold-core/foam-shell/README.md:592",
+      "hardware/printed-parts/cold-core/_internal_routes.py:195\u2013199"
+    ],
+    "interpretation": "The exported route retains the construction tail that finishes its bend. The installed tube is already specified cut flush to the foam flank. Checking that installed shape removes the moving-hub interference without changing the tube route or shell stock.",
+    "clear": true
+  },
+  "current_artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "03ec2d4ff59689046b4459794018c29790f3bd519d2044c74e7fe65e2290af9d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8f1be09ec5f4e8f549f8c863fcd6666474a703ee9adf5cb4b13b291885906ad2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "696929fc44bc6d04b0310861a79c680cedd2ea1fbf136953df3512db0898b3fa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "c135f634530e5f872af9d5c1a1b1e78321d04a8486fca0e36e60c0ab06157d16",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "14eb5f0d00aa75c3df4e3e7a9b272275d1023aca98cd370f962720c00a40f2a1",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "807f9e9184cbe5b52e69b790551863bec76351ed745451f208749c5f14acbdf6",
+    "hardware/manifold-layout/enclosure-assembly.step": "c986ed7c8bda11c7e806a65bf6896e2aee4350c0e80456c6707776c121d32964",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d45f746e2c32d884ec24e807ca7d1db86f85d6a0af6f1455ae62751be50bce32",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "b6804531d29d5e1a472828e503ec75cde562e9547f01bdc0f8f7b386dd63e209",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "a36dfef89dd7e8f7e8f186271670a2bbd3690473d53d754a921461a761cda8a2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff"
+  },
+  "conclusions": {
+    "closed_nominal_geometry_clear": true,
+    "sampled_motion_evidence_carried_by_native_subset_proof": true,
+    "final_frame_capture_all_six_directions": true,
+    "complete_3mm_washer_bearing_floors": true,
+    "continuous_corner_stock_pack_motion_clear": true,
+    "silicone_brim_bearing_complete_3mm": true,
+    "retained_front_exports_current_under_shared_head_access_helper": true
+  },
+  "retained_front_exports_consistency": {
+    "scope": "Additional inboard head-access cutter relative to the prior circular recess intersected against retained front quadrant native exports. Zero intersection establishes that applying the current shared bore helper removes no further front-quadrant stock.",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f"
+    },
+    "rows": [
+      {
+        "side": "west",
+        "opening": "lower",
+        "retained_part": "front-bottom",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "west",
+        "opening": "lower",
+        "retained_part": "front-top",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "west",
+        "opening": "upper",
+        "retained_part": "front-bottom",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "west",
+        "opening": "upper",
+        "retained_part": "front-top",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "east",
+        "opening": "lower",
+        "retained_part": "front-bottom",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "east",
+        "opening": "lower",
+        "retained_part": "front-top",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "east",
+        "opening": "upper",
+        "retained_part": "front-bottom",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      },
+      {
+        "side": "east",
+        "opening": "upper",
+        "retained_part": "front-top",
+        "additional_cut_intersection_mm3": 0.0,
+        "unchanged": true
+      }
+    ],
+    "pass": true
+  }
+}

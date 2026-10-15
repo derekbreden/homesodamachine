@@ -47,7 +47,7 @@ destroyed is a part that comes out by being destroyed.
   fore valves; the tee-side ends of four spine hairpins move with them.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
-  retain the seam, and the final seam screws prevent the reverse motion.
+  retain the seam, and the Y seam's vertical screws prevent the reverse motion.
 - **The faucet display cover flexes around the rigid cylindrical neck.** Its side walls
   are printed inward, spread during seating, and remain spread when the broad lips
   contact the groove roots below rigid retaining shoulders. The groove floors stop
