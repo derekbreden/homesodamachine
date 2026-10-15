@@ -1,0 +1,40 @@
+{
+  "printer": "Mark2",
+  "observed_at_utc": "2026-10-15T18:17:11.062765+00:00",
+  "status": {
+    "job_id": "1341188908",
+    "subtask_name": "2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "nozzle_temper": 27.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0
+  },
+  "external_spool": 254,
+  "spools_verified_against_archive": true,
+  "archive": {
+    "name": "2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004-print-only.gcode.3mf",
+    "sha256": "729541dea6ef86df1de25e86f77a7f848c4f2a9f397823776f10b92572296e5c",
+    "gcode_sha256": "44d452540bc171b8e4a85a01b4856e2984fb9a289ac82cc4b0953daf4ec1c320",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "industrial-shell-base"
+    ]
+  },
+  "authorization_quote": "Please start me a complete faucet with ***EVERYTHING*** we've learned. Both beds are free."
+}

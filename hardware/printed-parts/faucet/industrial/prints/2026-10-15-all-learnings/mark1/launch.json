@@ -1,0 +1,59 @@
+{
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "accepted_at_utc": "2026-10-15T18:22:57.544483+00:00",
+  "printer_task_id": "1342697013",
+  "archive": {
+    "name": "2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018-print-only.gcode.3mf",
+    "sha256": "c05945c6e74b308d522b052efcaa7dda1b4bd856e9df4330e91a6fa127c2a8d7",
+    "gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "faucet-shell-tip",
+      "industrial-display-cover",
+      "industrial-above-counter-plate",
+      "lever-replica"
+    ]
+  },
+  "first_acceptance": {
+    "job_id": "1342697013",
+    "subtask_name": "2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018-print-only.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 167,
+    "total_layer_num": 167,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 40.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 45.0,
+    "bed_target_temper": 0.0
+  },
+  "single_send_click": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool": 254,
+  "requested_z_trim_mm": 0.18,
+  "emitted_trim_mm": 0.16,
+  "rigid_part_count": 4,
+  "repeat_control": false,
+  "authorization_quote": "Please start me a complete faucet with ***EVERYTHING*** we've learned. Both beds are free.",
+  "earliest_other_printer_start_or_resume_utc": "2026-10-15T18:25:57.544483+00:00",
+  "seconds_after_other_printer_acceptance": 212.221717,
+  "method": "Bambu Connect CUA; one Send after native review",
+  "project_file_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  }
+}

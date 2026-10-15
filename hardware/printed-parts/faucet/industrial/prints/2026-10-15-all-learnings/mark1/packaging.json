@@ -1,0 +1,22 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.gcode.3mf",
+  "source_archive_sha256": "b5337d924c5f33d78fcfeeaaa0e5a6efff7334fa610b5fec2771fb19db01d5ac",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018-print-only.gcode.3mf",
+  "print_only_archive_sha256": "c05945c6e74b308d522b052efcaa7dda1b4bd856e9df4330e91a6fa127c2a8d7",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

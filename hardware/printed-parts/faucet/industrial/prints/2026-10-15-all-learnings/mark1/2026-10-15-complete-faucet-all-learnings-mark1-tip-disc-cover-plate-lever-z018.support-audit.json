@@ -1,0 +1,775 @@
+{
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+  "project_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+  "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
+  "slicer": "BambuStudio 02.08.02.61",
+  "layer_height_mm": 0.23999999463558197,
+  "wall_loops": 2,
+  "sparse_infill_density_percent": 15.0,
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 8982.408203125,
+      "saved_profile_filament_estimate_g": 59.04971694946289,
+      "slicer_warning": ""
+    }
+  ],
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "faucet-shell-tip",
+      "inputs": {
+        "gcode": "support-labels-faucet-shell-tip.gcode",
+        "gcode_sha256": "6890c1c723dba61ee8ea0562a939368074110fce18ea90ac6e61babc11c79cce",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        "model_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+        "profile": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+        "profile_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+        "plate_gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+        "object_label": 1902,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.258819045,
+          0.965925827,
+          0.0,
+          -0.965925827,
+          -0.258819045,
+          -136.0,
+          36.946650114,
+          36.267070185
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 3,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 13.92
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 135.56,
+          "bbox_xy_mm": [
+            116.0,
+            157.2,
+            153.6,
+            213.2
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -20.0,
+            -149.174,
+            153.025,
+            17.6,
+            -3.933,
+            242.151
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 14.12,
+          "shortest_build_up_mm": 13.92,
+          "top_z_mm": 17.24,
+          "bbox_xy_mm": [
+            122.0,
+            208.8,
+            135.6,
+            219.2
+          ],
+          "interfaces": [
+            "interface-1"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -14.0,
+            -36.439,
+            233.49,
+            -0.4,
+            -17.288,
+            247.946
+          ]
+        },
+        {
+          "id": "tree-3",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 14.12,
+          "shortest_build_up_mm": 13.92,
+          "top_z_mm": 17.0,
+          "bbox_xy_mm": [
+            136.8,
+            208.8,
+            147.6,
+            219.2
+          ],
+          "interfaces": [
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            0.8,
+            -36.207,
+            233.552,
+            11.6,
+            -17.288,
+            247.946
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 14.12,
+          "last_z_mm": 16.52,
+          "bbox_xy_mm": [
+            125.2,
+            208.8,
+            135.6,
+            212.8
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 13.92,
+          "bbox_cad_xyz_mm": [
+            -10.8,
+            -34.087,
+            233.677,
+            -0.4,
+            -30.734,
+            238.162
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 14.12,
+          "last_z_mm": 16.28,
+          "bbox_xy_mm": [
+            136.8,
+            208.8,
+            146.0,
+            213.6
+          ],
+          "tree": "tree-3",
+          "build_up_mm": 13.92,
+          "bbox_cad_xyz_mm": [
+            0.8,
+            -34.062,
+            233.739,
+            10.0,
+            -30.734,
+            238.934
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": -105.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            110.722517,
+            156.896517
+          ],
+          [
+            160.780483,
+            228.587483
+          ]
+        ],
+        "maximum_line_width_mm": 0.786966,
+        "bounds_padding_mm": 0.493483
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "industrial-display-cover",
+      "inputs": {
+        "gcode": "support-labels-industrial-display-cover.gcode",
+        "gcode_sha256": "6d93bce643c43c1f485632916c1fc89e5535adca5131d81a073c77697ce9eea7",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+        "model_sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+        "profile": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+        "profile_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+        "plate_gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+        "object_label": 1903,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          -0.0,
+          -0.0,
+          0.64278761,
+          0.766044443,
+          0.0,
+          -0.766044443,
+          0.64278761,
+          -198.0,
+          -250.37842103,
+          46.824316972
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 13.44,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 13.44
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 13.64,
+          "shortest_build_up_mm": 13.44,
+          "top_z_mm": 17.24,
+          "bbox_xy_mm": [
+            186.0,
+            175.6,
+            210.4,
+            230.8
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -12.0,
+            -150.712,
+            181.47,
+            12.4,
+            -102.176,
+            234.709
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 13.64,
+          "last_z_mm": 14.36,
+          "bbox_xy_mm": [
+            194.4,
+            176.8,
+            201.6,
+            180.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 13.44,
+          "bbox_cad_xyz_mm": [
+            -3.6,
+            -147.734,
+            191.029,
+            3.6,
+            -145.125,
+            193.943
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 17.0,
+          "last_z_mm": 17.24,
+          "bbox_xy_mm": [
+            186.0,
+            179.6,
+            210.4,
+            224.4
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 16.8,
+          "bbox_cad_xyz_mm": [
+            -12.0,
+            -148.14,
+            195.333,
+            12.4,
+            -119.16,
+            229.806
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": -50.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            182.878798,
+            175.104798
+          ],
+          [
+            213.121202,
+            231.08220200000002
+          ]
+        ],
+        "maximum_line_width_mm": 0.662404,
+        "bounds_padding_mm": 0.431202
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "industrial-above-counter-plate",
+      "inputs": {
+        "gcode": "support-labels-industrial-above-counter-plate.gcode",
+        "gcode_sha256": "b1ef0fd5904c38eb071bd68731d0e5ea24be972171c056b43915f4955529a4a2",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+        "model_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+        "profile": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+        "profile_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+        "plate_gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+        "object_label": 1904,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -130.0,
+          -120.0,
+          -4.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -130.0,
+          -120.0,
+          -4.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 3,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 3,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 2.84,
+          "bbox_xy_mm": [
+            104.8,
+            115.2,
+            110.0,
+            120.8
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -25.2,
+            -4.8,
+            -3.8,
+            -20.0,
+            0.8,
+            -1.16
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 2.84,
+          "bbox_xy_mm": [
+            127.2,
+            95.2,
+            132.8,
+            100.4
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -2.8,
+            -24.8,
+            -3.8,
+            2.8,
+            -19.6,
+            -1.16
+          ]
+        },
+        {
+          "id": "tree-3",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 2.84,
+          "bbox_xy_mm": [
+            150.0,
+            115.2,
+            155.2,
+            120.8
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            20.0,
+            -4.8,
+            -3.8,
+            25.2,
+            0.8,
+            -1.16
+          ]
+        }
+      ],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            100.3,
+            90.302
+          ],
+          [
+            159.7,
+            149.7
+          ]
+        ],
+        "maximum_line_width_mm": 0.62,
+        "bounds_padding_mm": 0.41000000000000003
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "lever-replica",
+      "inputs": {
+        "gcode": "support-labels-lever-replica.gcode",
+        "gcode_sha256": "891f6f83f3fd07dd3372ff7c190fdf442da53497d9ea62b9feaddabe49c8e7b8",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+        "profile": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018.3mf",
+        "profile_sha256": "93291a892138ce5853e3c32d6b6b74f29cebce6b9eb0a56aaca09f403f41f0fb",
+        "plate_gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee",
+        "object_label": 1905,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -200.902466536,
+          -93.660404861,
+          0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -200.902467,
+          -93.660405,
+          0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 4,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 6.48,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 4,
+        "shortest_labelled_build_up_mm": 6.48
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 6.68,
+          "shortest_build_up_mm": 6.48,
+          "top_z_mm": 11.0,
+          "bbox_xy_mm": [
+            183.2,
+            94.4,
+            209.6,
+            151.6
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2",
+            "interface-3",
+            "interface-4"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -17.702,
+            0.74,
+            0.2,
+            8.698,
+            57.94,
+            11.0
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 6.68,
+          "last_z_mm": 7.64,
+          "bbox_xy_mm": [
+            190.4,
+            130.0,
+            199.2,
+            142.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 6.48,
+          "bbox_cad_xyz_mm": [
+            -10.502,
+            36.34,
+            6.68,
+            -1.702,
+            49.14,
+            7.64
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 9.8,
+          "last_z_mm": 10.28,
+          "bbox_xy_mm": [
+            192.8,
+            96.4,
+            200.4,
+            138.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 9.6,
+          "bbox_cad_xyz_mm": [
+            -8.102,
+            2.74,
+            9.8,
+            -0.502,
+            45.14,
+            10.28
+          ]
+        },
+        {
+          "id": "interface-3",
+          "first_z_mm": 9.8,
+          "last_z_mm": 11.0,
+          "bbox_xy_mm": [
+            196.0,
+            142.0,
+            204.0,
+            146.4
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 9.6,
+          "bbox_cad_xyz_mm": [
+            -4.902,
+            48.34,
+            9.8,
+            3.098,
+            52.74,
+            11.0
+          ]
+        },
+        {
+          "id": "interface-4",
+          "first_z_mm": 9.8,
+          "last_z_mm": 10.04,
+          "bbox_xy_mm": [
+            203.6,
+            140.4,
+            204.4,
+            141.2
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 9.6,
+          "bbox_cad_xyz_mm": [
+            2.698,
+            46.74,
+            9.8,
+            3.498,
+            47.54,
+            10.04
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            182.610224,
+            93.270224
+          ],
+          [
+            209.968776,
+            152.084776
+          ]
+        ],
+        "maximum_line_width_mm": 0.647552,
+        "bounds_padding_mm": 0.42377600000000004
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 88.91779799999998,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          100.216517,
+          90.218517
+        ],
+        [
+          213.183483,
+          231.144483
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 88.85551699999999,
+    "minimum_toolpath_separation_mm": 7.196517,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 22.098314999999985
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 7.196517
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 34.38983044659581
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 22.353756811287028
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 23.020021999999983
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 22.910224
+      }
+    ]
+  }
+}
