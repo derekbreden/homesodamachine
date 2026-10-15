@@ -1747,6 +1747,51 @@
   overscroll-behavior: contain;
 }
 .tube-panel[hidden] { display: none; }
+.cad-wrapper > .flavor-path-panel {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  width: min(280px, calc(100% - var(--cube-size, 180px) - 48px));
+  max-height: calc(100% - 190px);
+  overflow-y: auto;
+  z-index: 12;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  touch-action: pan-y;
+}
+.flavor-path-panel[hidden] { display: none; }
+.flavor-path-panel .edge-panel-title { flex: 1; }
+.flavor-path-panel.collapsed > :not(.edge-panel-head) { display: none; }
+.flavor-path-panel ol { margin: 8px 0 12px; padding-left: 24px; }
+.flavor-path-panel li { padding: 2px 0; }
+.flavor-path-panel li::marker { color: #ffa733; }
+.flavor-path-panel button:not(.edge-panel-collapse) {
+  font: inherit;
+  text-align: left;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+}
+.flavor-path-panel button:hover,
+.flavor-path-panel button[aria-pressed="true"] { background: var(--surface-2); }
+.flavor-path-panel button:focus-visible { outline: 2px solid #ffa733; }
+.flavor-path-panel small { display: block; color: var(--text-2); font-size: 11px; margin-top: 2px; }
+.flavor-path-note { color: var(--text-2); font-size: 11px; margin: 10px 0 0; }
+@media (max-width: 600px) {
+  .cad-wrapper > .flavor-path-panel {
+    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 100px) + 22px);
+    left: calc(env(safe-area-inset-left, 0px) + 8px);
+    width: min(250px, calc(100% - 16px));
+    max-height: calc(100% - var(--cube-size, 100px) - 140px);
+  }
+}
 .tube-panel .edge-panel-title { flex: 1; }
 .tube-panel.collapsed > .tube-panel-body { display: none; }
 .tube-panel.collapsed .edge-panel-head { margin-bottom: 0; }

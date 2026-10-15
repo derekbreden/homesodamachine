@@ -66,7 +66,7 @@ export function mountToolDrawer(rail) {
   observer.observe(body, { subtree: true, childList: true, attributes: true, attributeFilter: ["aria-checked"] });
   sync();
   body.addEventListener("click", (e) => {
-    if (e.target.closest(".tool-seg-btn, .pick-find-toggle, .tube-toggle")) {
+    if (e.target.closest(".tool-seg-btn, .pick-find-toggle, .tube-toggle, .flavor-path-toggle")) {
       closeToolDrawer(rail.closest(".cad-wrapper"), !!e.target.closest(".tool-seg-btn"));
     }
   });
@@ -146,14 +146,17 @@ export function makeToolChip({ className, label, icon, title, read, write }) {
 // hold a selection without the panel standing over the model it names. The
 // choice is per-browser, because a panel collapsed for being in the way is in
 // the way again on the next load.
-export function makePanelCollapse(panel, lsKey) {
+export function makePanelCollapse(panel, lsKey, { defaultCollapsed = false } = {}) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "edge-panel-collapse";
   // A chevron, turned by CSS off the aria-expanded this button already carries.
   prependIcon(btn, "chevron");
-  let collapsed = false;
-  try { collapsed = localStorage.getItem(lsKey) === "1"; } catch {}
+  let collapsed = defaultCollapsed;
+  try {
+    const saved = localStorage.getItem(lsKey);
+    if (saved !== null) collapsed = saved === "1";
+  } catch {}
 
   function apply() {
     panel.classList.toggle("collapsed", collapsed);
