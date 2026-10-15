@@ -49,6 +49,11 @@ neighboring hardware are considered together.
   clearance between brims. Its manual travel review covers both inter-object
   transitions, including the next-layer return and timelapse detour. Native
   estimate: 114 minutes / 7.83 g. Physical string reduction remains unassessed.
+- [Stringing candidates](stringing-candidates.md) describe an untried departure
+  lap: a low pass around an elbow wall before each crossing, inserted by a
+  post-processor. [`travel_survey.py`](travel_survey.py) measures the commanded
+  travel over bores, open air and timelapse trips in the printed single and the
+  launched pair.
 - [Outer-wall-setting-10 trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
   bind the user's reports, three wider views and six close-ups to the identified
   job. Raised, distorted rims remain visible; a dependable speed benefit is
