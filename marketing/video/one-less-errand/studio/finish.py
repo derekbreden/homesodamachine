@@ -59,6 +59,13 @@ def assets(work,story):
         canvas=Image.new('RGBA',(W,H))
         canvas.alpha_composite(content,xy)
         return canvas
+    cues=story.get('type_timing',{})
+    hero_type=[(layer(text_layer(['Already','here.'],112,550,leading=1.03),(128,314)),.08,.22)]
+    if 'hero_cold_frame' in cues:
+        hero_type=[
+          (layer(text_layer(['Cold'],112,550),(128,314)),cues['hero_cold_frame']/FPS,3/FPS),
+          (layer(text_layer(['Fully carbonated'],84,550),(128,470)),cues['hero_carbonated_frame']/FPS,3/FPS)
+        ]
     data={
       'opening':[
         (layer(text_layer(['A glass','of soda.'],88,550,leading=1.02),(128,325)),.55,.22),
@@ -86,7 +93,7 @@ def assets(work,story):
         (layer(text_layer(['What if the','next glass was','already waiting?'],62,500,WHITE,leading=1.15),(128,300)),.10,.20)
       ],
       'hero':[
-        (layer(text_layer(['Already','here.'],112,550,leading=1.03),(128,314)),.08,.22),
+        *hero_type,
         (layer(text_layer(['IN DEVELOPMENT  ·  PRODUCT VISUALIZATION'],22,500,COBALT),(135,80)),0,.15)
       ],
       'serve':[
