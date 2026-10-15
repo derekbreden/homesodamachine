@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-14",
+  "scope": "Shared PET-GF profile audit and native bridge-flow translation; no production-profile change or new print",
+  "profile": {
+    "path": "hardware/printed-parts/petgf.3mf",
+    "sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "bridge_flow": 1.0,
+    "effective_filament_bridge_speed_mm_s": 25,
+    "part_fan_min_percent": 0,
+    "part_fan_max_percent": 70,
+    "forced_overhang_bridge_fan_percent": 0,
+    "support_threshold_angle_setting": 35
+  },
+  "evidence": {
+    "bridge_flow": "v5 optical gap preference and v7 completed-roof preference favor 125% extrusion at fixed pitch and 70% fan; v7 R125 uses 25 mm/s.",
+    "bridge_speed": "Mark2 F07 (15 mm/s) is reported less bad than F08 (25 mm/s) at 125% flow and 100% fan. This favors 15 within the local lateral-tooth geometry, without establishing a universal optimum. C03 at 15 is a possible pass; C04 at 25 is a candidate pass. The user specifically identifies 15 mm/s as a candidate for promotion.",
+    "ramps": "All 16 v6 ramps at 35-42.5 degrees from the bed, both directions and 70/100% fan, are acceptable over 14 mm reach and 12 mm width. 100% has a modest reported finish benefit. This does not select 100% for bridges or establish larger-area performance."
+  },
+  "native_check": {
+    "input_project": "flow-bracket-v7/mark1/2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1.3mf",
+    "only_project_change": {
+      "bridge_flow": "1.25"
+    },
+    "reference_archive": "flow-bracket-v7/mark1/2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1.gcode.3mf",
+    "slicer_header": "unreported",
+    "native_archive_sha256": "9898e97c6fd29416b17e5f89316d4dce7929a43007299218a3845d42dbd71ad9",
+    "native_gcode_sha256": "1b72d71aeae7b7fb802ecc8edd227acad0f78dd35a93c5d86b6a926a815e1ac6",
+    "comparison": {
+      "L125": {
+        "same_xyz": true,
+        "reference": {
+          "count": 30,
+          "pitch_mm": [
+            0.377,
+            0.378
+          ],
+          "area_mm2": [
+            0.10818606,
+            0.108188807
+          ],
+          "speed_mm_s": [
+            25.0
+          ],
+          "width_metadata_mm": [
+            0.428904
+          ],
+          "height_metadata_mm": [
+            0.24
+          ]
+        },
+        "native": {
+          "count": 30,
+          "pitch_mm": [
+            0.377,
+            0.378
+          ],
+          "area_mm2": [
+            0.108186473,
+            0.108187553
+          ],
+          "speed_mm_s": [
+            25.0
+          ],
+          "width_metadata_mm": [
+            0.441781
+          ],
+          "height_metadata_mm": [
+            0.3
+          ]
+        }
+      },
+      "R125": {
+        "same_xyz": true,
+        "reference": {
+          "count": 28,
+          "pitch_mm": [
+            0.376,
+            0.377
+          ],
+          "area_mm2": [
+            0.107801975,
+            0.10780447
+          ],
+          "speed_mm_s": [
+            25.0
+          ],
+          "width_metadata_mm": [
+            0.427564
+          ],
+          "height_metadata_mm": [
+            0.24
+          ]
+        },
+        "native": {
+          "count": 28,
+          "pitch_mm": [
+            0.376,
+            0.377
+          ],
+          "area_mm2": [
+            0.107801562,
+            0.107803216
+          ],
+          "speed_mm_s": [
+            25.0
+          ],
+          "width_metadata_mm": [
+            0.440441
+          ],
+          "height_metadata_mm": [
+            0.3
+          ]
+        }
+      }
+    },
+    "R125_all_feature_comparison": {
+      "segment_counts": [
+        1458,
+        1458
+      ],
+      "identical_xyz_feature_segments": 1458,
+      "native_to_test_E_ratio_by_feature": {
+        "Inner wall": {
+          "segments": 240,
+          "min": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "Outer wall": {
+          "segments": 245,
+          "min": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "Bottom surface": {
+          "segments": 118,
+          "min": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "Internal solid infill": {
+          "segments": 698,
+          "min": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "Top surface": {
+          "segments": 98,
+          "min": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        },
+        "Bridge": {
+          "segments": 55,
+          "min": 0.9999883745713123,
+          "max": 1.0,
+          "mean": 0.9999943650318689
+        },
+        "Overhang wall": {
+          "segments": 4,
+          "min": 1.250005672664564,
+          "max": 1.250005672664564,
+          "mean": 1.250005672664564
+        }
+      }
+    },
+    "conclusion": "Normal native bridge flow 1.25 preserves the tested main-stroke XYZ and pitch and matches its commanded extrusion within rounding. It also increases four R125 Overhang-wall segment volumes by 25%, unlike the bridge-fill-only test treatment. Other matched R125 feature extrusion is unchanged. No test postprocessor is needed to store native bridge flow, but the native perimeter treatment still needs a physical surface check."
+  },
+  "promotion_candidate": {
+    "bridge_flow": 1.25,
+    "thick_bridges": false,
+    "effective_bridge_speed_mm_s": 15,
+    "forced_overhang_bridge_fan_percent": 70,
+    "ordinary_layer_time_cooling": "Retain current 0-70% behavior and first-three-layer cooling suppression; verify actual native bridge/ramp fan commands in the candidate slice.",
+    "100_percent_ramp_cooling": "Optional local treatment for ramp-dominated finish, not a shared bridge-fan selection.",
+    "support_threshold": "No proposed global change; the saved setting is already 35."
+  },
+  "remaining_work": [
+    "Prepare a candidate from the shared profile and inspect its emitted E, pitch, speed, fan and bridge/perimeter ordering on a 12 mm bridge and 35/40 degree ramps.",
+    "Print a small check directly from that native candidate: exposed first bridge layer, completed roof, and ramps. Compare gap closure and retained shape with the preferred samples; inspect the native bridge-perimeter treatment. No additional broad flow sweep is required.",
+    "Save the selected process and first PET-GF filament values consistently in petgf.3mf, read them back from a fresh slice, and commit/push the profile and the physical result. Fin-release qualification is separate."
+  ],
+  "status": "Native bridge-flow translation checked; shared production profile unchanged; candidate physical check and profile promotion remain outstanding."
+}

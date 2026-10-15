@@ -11,8 +11,13 @@ gripping tines on sloping or side faces are a separate comparison.
 Mark1 accepted **task 1340689201 at 21:30 CDT on 2026-10-14** and reported
 RUNNING without errors. The native estimate is **15 min 10 s**, **4.40 g**
 including added extrusion, plus printer startup/calibration. There are 28 layers.
-[Launch receipt](mark1/launch.json). Physical formation, wall removal and retained
-underside quality remain unreported.
+[Launch receipt](mark1/launch.json). The printer completed all 28 layers.
+The [physical result and photo](mark1/physical-result.json) prefer the middle
+G1 column: its 0.24 mm gap allows easy bending removal while providing good
+bridge support. G2 at 0.48 mm is okay and basically falls off, with very slight
+sag that makes G1 preferable. The user confirms this is Mark1's C0/G1/G2 plate.
+The preference is at column level; X/Y are not separately ranked. C0's physical
+assessment is unreported.
 
 | Condition | X specimen | Y specimen | Vertical clearance |
 | --- | --- | --- | --- |
@@ -22,6 +27,11 @@ underside quality remain unreported.
 
 Facing the printer, the front row is C0X, G1X, G2X from left to right. The back
 row is C0Y, G1Y, G2Y from left to right.
+
+The selected gap candidate is **0.24 mm for this 1 mm underlying wall**. This
+does not select a tree-support Z gap. The result uses 25 mm/s and bridge-fill-
+only added extrusion; it does not physically qualify native 125% bridge flow
+or the proposed 15 mm/s profile speed.
 
 Every roof has a 12 mm clear span, 12 mm depth and five 0.24 mm courses. One end
 is attached to a 3 mm permanent model post. The opposite end crosses a 1 mm
@@ -89,6 +99,8 @@ selects a wall-clearance candidate for a real surface. A fused one-layer gap
 and a rough two-layer gap remain a material/process limit to address, not a
 successful support result. Structural capacity and sliding-joint feel are not
 established by this coupon. No additional fixture or purchase is requested.
+
+![Reported plate; middle column preferred for support and release](mark1/photos/01-result.jpg)
 
 ## Manual reproduction
 

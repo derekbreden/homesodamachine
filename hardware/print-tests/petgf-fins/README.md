@@ -72,8 +72,40 @@ vertical wall gaps in X/Y. Each spans 12 mm from a model post to an underlying
 1 mm wall, without projecting teeth. All 30 native bridge strokes per specimen
 cross the emitted wall tops in XY. It uses one wall loop so the native raster
 reaches the bearing, 125% first-bridge extrusion, 25 mm/s and 70% fan. The
-estimate is 15 min 10 s plus startup; physical surface and removal results
-remain unreported.
+estimate is 15 min 10 s plus startup. Its
+[physical result](under-roof-walls-v8/mark1/physical-result.json) prefers G1's
+0.24 mm vertical gap: easy bending removal and good bridge support. G2 at
+0.48 mm basically falls off and is okay, with very slight sag. X/Y are not
+separately ranked; C0 is unreported. This selects a narrow-wall gap candidate,
+not a replacement for the tree-support Z gap.
+
+## Transfer to the shared material profile
+
+The [profile audit and native comparison](profile-transfer-review.json) record
+the current `petgf.3mf`: 100% bridge flow, effective filament bridge speed
+25 mm/s, automatic 0–70% part cooling and 0% forced bridge/overhang cooling.
+The successful coupon treatments are committed here but are not saved in that
+shared profile. The saved support-threshold setting is already 35.
+
+A native re-slice at normal bridge flow 1.25 preserves L125/R125 main-stroke
+XYZ and pitch and matches their extra-extrusion treatment within G-code
+rounding. Native 1.25 also adds 25% extrusion to four R125 Overhang-wall moves;
+other matched feature extrusion is unchanged. This native perimeter treatment
+is the concrete remaining surface question for a small profile check.
+
+The promotion candidate is native 125% bridge flow, 15 mm/s and forced 70%
+bridge/overhang cooling, retaining ordinary layer-time cooling. Mark2's F07 at
+15 mm/s is less bad than F08 at 25 at matching flow/fan; Mark1 R125's preferred
+completed roof uses 25 mm/s. The speed evidence favors testing 15 for promotion
+without declaring it universally best. All tested v6 ramps at 70% are acceptable
+over the recorded area; 100% is a local finish option with a modest reported
+benefit, not a shared bridge-cooling choice.
+
+The remaining work is one small native-profile check of an exposed bridge
+course, a completed 12 mm roof and 35°/40° ramps, then saving the selected
+process/filament settings into `petgf.3mf` and verifying a fresh native slice.
+The physical result and profile change belong in the same promotion record.
+Fin-release results do not block this bridge/ramp profile work.
 
 The plate contains 25 separate embossed specimens, centered on Mark2's left
 nozzle bed. Facing the printer, A is the front row, then B, S and the contact
