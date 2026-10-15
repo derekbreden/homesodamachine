@@ -1,6 +1,6 @@
 # One Less Errand
 
-A 30-second Home Soda Machine film about a small wish that turns into a
+A 36-second Home Soda Machine film about a small wish that turns into a
 repeating errand. A glass of soda leads to a case in a cart, then the car,
 kitchen and refrigerator shelf. The cans disappear and the trip returns.
 The next glass gets a different ending: cold soda from the Sculpted faucet.
@@ -16,19 +16,21 @@ its full prompt and generator are in [`assets/cold-soda-macro.json`](assets/cold
 
 ## Edit
 
-`story.json` is the shared picture clock, at 1920 × 1080 and 24 fps.
+`story.json` stores the source shot clock. `pacing-review.json` defines the
+delivered edit, at 1920 × 1080 and 24 fps; `timing.py` derives its picture and
+sound clock.
 
 | Time | Picture | Spoken idea |
 | --- | --- | --- |
-| 0–2.5 | Cold soda macro | You wanted a glass of soda |
-| 2.5–6.917 | One can opens into a twelve-can case and cart | Somehow, a trip to the store |
-| 6.917–9.583 | The same case lands in the car, kitchen and shelf | Carrying it home |
-| 9.583–14.75 | Cans leave; loaded cases replenish the shelf | Another trip. And another. And another. |
-| 14.75–17.5 | The emptied shelf | What if the next glass was already waiting? |
-| 17.5–19.583 | First Sculpted faucet reveal | Cold. Fully carbonated. |
-| 19.583–21.208 | Established active pour | Straight from your faucet |
-| 21.208–24.5 | Tighter soda macro | The soda you wanted, whenever you want it |
-| 24.5–29.792 | Completed drink and brand | Home Soda Machine. One less errand. |
+| 0–2.833 | Cold soda macro | You wanted a glass of soda |
+| 2.833–7.25 | One can opens into a twelve-can case and cart | Somehow, a trip to the store |
+| 7.25–11.75 | The same case lands in the car, kitchen and shelf | Carrying it home |
+| 11.75–17.917 | Cans leave; loaded cases replenish the shelf | Another trip. And another. And another. |
+| 17.917–21.333 | The emptied shelf | What if the next glass was already waiting? |
+| 21.333–24.375 | First Sculpted faucet reveal | Cold. Fully carbonated. |
+| 24.375–26.5 | Established active pour | Straight from your faucet |
+| 26.5–30.542 | Tighter soda macro | The soda you wanted, whenever you want it |
+| 30.542–35.833 | Completed drink and brand | Home Soda Machine. One less errand. |
 
 `stage.py` builds the standalone studio and evaluates each pose from local shot
 time. `cad.py` reads the faucet triangles and firmware display; `lighting.py`
@@ -44,19 +46,19 @@ with the sound master.
 ## Sound
 
 `narration.json` contains the script and recording direction.
-`audio/narration.wav` is one connected Charon performance, placed at 0.55 seconds.
-`narration-words.json` contains its word alignment. The edit preserves the spoken
-sentences and natural breaths without time stretching.
+`audio/narration.wav` is a connected Charon performance, placed at 0.55 seconds.
+`narration-words.json` contains its word alignment. A contextual pickup supplies
+the car and kitchen clauses. The edit preserves recorded word speed.
 
 `audio.py` supplies an original repeating routine motif, an open harmony at the
 reveal, pictured case contacts, fine carbonation and the close pour.
-`story.json` records the contact frames; `audio-plan.json` records the resulting
-sound clock. Water follows the established flow, then close fizz takes over at
+`story.json` records source contact frames; the delivered `audio-plan.json`
+records the resulting sound clock. Water follows the established flow, then close fizz takes over at
 the sensory macro. The final master is stereo 48 kHz, with English WebVTT and
-SRT captions. The final spoken line ends at 26.91 seconds; the invitation and
-musical decay complete the 715-frame edit.
+SRT captions. The final spoken line ends at 32.952 seconds; the invitation and
+musical decay complete the 860-frame edit.
 
-## Review edit
+## Timing and typography
 
 `pacing-review.json` defines an 860-frame, 35.833-second edit. Each handling
 context has 1.5 seconds for its arrival, contact and settled result. The repeat
@@ -67,8 +69,7 @@ The 3.042-second faucet portrait follows the connected delivery of “Cold.
 Fully carbonated.” The titles switch in the same position with the spoken
 phrases, with “Carbonated” remaining visible for 2.167 seconds. The established
 pour has 2.125 seconds of continuous liquid motion, including a half-second
-handle before its camera move. The
-sensory macro has room between the satisfied wish and
+handle before its camera move. The sensory macro has room between the satisfied wish and
 “Whenever you want it,” then another breath before the brand.
 
 `timing.py` derives this clock from `story.json`. Settled-frame holds preserve
@@ -88,7 +89,7 @@ The routine score moves at 96 BPM. Its last harmony decays through the question
 pause and into the answer. The benefit holds leave the revealed product in
 view, with the answer chord, water and fine fizz providing continuity.
 
-Build the review:
+Build the delivered edit:
 
 ```sh
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py \
@@ -98,8 +99,8 @@ tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py \
   --out marketing/video/one-less-errand/studio/out/connected-benefits-review
 ```
 
-The review player is `out/connected-benefits-review/index.html`; its movie,
-captions, picture clock and sound report live beside it. The published master and its
+The player is `out/connected-benefits-review/index.html`; its movie, captions,
+picture clock and sound report live beside it. The published master and its
 publication record are listed in [`../README.md`](../README.md).
 
 ## Render and review
@@ -108,10 +109,8 @@ Use Blender 5.1, FFmpeg, the existing `tools/render` Node dependencies and
 `tools/video-venv`. The current local faucet payload is
 `hardware/faucet-layout/faucet-assembly.step.mesh`.
 
-```sh
-tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py
-node marketing/video/one-less-errand/serve.mjs --studio
-```
+After rendering, `node marketing/video/one-less-errand/serve.mjs --studio`
+serves the output tree; open `/connected-benefits-review/` for the player.
 
 The default render uses 1920 × 1080, 32 Cycles samples and denoising. Moving CG
 shots render at native 24 fps, preserving the can contacts, fine carbonation
@@ -137,6 +136,7 @@ tools/video-venv/bin/python marketing/video/one-less-errand/studio/finish.py \
 ```
 
 Generated frames, stems, intermediate encodes and the player are under ignored
-`out/`. The delivered files are `out/film.mp4`, `out/film.vtt`, `out/film.srt`,
-`out/poster.jpg` and `out/contact-sheet.jpg`. The player offers playback,
-captions and downloads.
+`out/`. The delivered player files are `film.mp4`, `film.vtt`, `film.srt`,
+`poster.jpg` and `contact-sheet.jpg` under `out/connected-benefits-review/`.
+The approved upload and captions are copied to `out/one-less-errand-delivery.*`.
+The player offers playback, captions and downloads.
