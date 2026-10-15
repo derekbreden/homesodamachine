@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-10-15T17:14:07.467956+00:00",
+  "job_id": "1342500038",
+  "subtask_name": "2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 167,
+  "mc_remaining_time": 38,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 201.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 25.0,
+  "bed_target_temper": 25.0
+}

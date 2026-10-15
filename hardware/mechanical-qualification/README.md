@@ -131,8 +131,9 @@ records a detached male-insertion section and loose strands despite completed
 telemetry. Its first plug bead at Z0.44 has no lower-bead bearing. The
 [prepared root-anchor correction](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md)
 adds a directly bonded bed foot, with native root-course overlap and retained
-lip contacts verified. It is unsent; adhesion, removal and mating fit remain
-untested. The
+lip contacts verified. It is [Mark1 task 1342500038](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json),
+accepted at 12:13:00 CDT on 2026-10-15; adhesion, removal and mating fit remain
+unreported. The
 [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 
