@@ -8,7 +8,15 @@ retained and local trees added at the rough seam-side lip, and Mark2 task
 `1341188908`, a −15° foot with seven curved rim fins and Tree(auto)/Default
 on the remaining underside. The starts are 594.405 seconds apart. Each plate
 has one candidate and no repeated control. Finished contact quality, curved-wall
-release and mating fit remain pending.
+release and mating fit remain pending on the base. The
+[Mark1 physical result](../finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+records failure of the male insertion section despite telemetry reporting
+167/167 layers and `FINISH`. Native G-code starts that section at Z0.44 with
+no lower-bead bearing and no model deposition on the bed course. A
+[single corrected tip candidate](../finish-coupons/2026-10-15-tip-root-anchor/README.md)
+adds a directly bonded sacrificial root foot, retaining the pose, eight fins,
+lip support paint and material recipe. Native root bearing and lip contacts
+are reviewed; the candidate is unsent and physical removal and fit are untested.
 
 The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite

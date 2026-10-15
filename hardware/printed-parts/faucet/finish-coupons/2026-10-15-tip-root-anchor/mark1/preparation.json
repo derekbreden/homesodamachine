@@ -1,0 +1,223 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+  "settings_source": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/2026-10-15-faucet-tip-lip-trees-eight-fins-current105-bridge125-fan70-z018-mark1.3mf",
+  "settings_source_sha256": "2840400b8c6a0c70398dc2c08c41d697845c32bd026ddeddc343f0ea5deb9abe",
+  "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
+  "source_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Mark1",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "Tip: bed-anchored plug, retained fins and lip trees",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/tip-section.stl",
+      "stl_sha256": "06f2bfb3150048c7d25099e217e4c11e5b11602191c4bf0e3c088ce8deec8c80",
+      "triangles": 20566,
+      "rotation_x_degrees": -105,
+      "source_center_mm": [
+        7.62939453125e-06,
+        -36.742523193359375,
+        224.6356658935547
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        162.5,
+        158.34188520259897,
+        22.424895530742525
+      ],
+      "plate_translation_mm": [
+        162.5,
+        158.34188520259897,
+        22.424895530742525
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.00000762939453,
+          138.28936024431823,
+          0.0
+        ],
+        [
+          175.99999237060547,
+          181.71063975568177,
+          40.000003543463265
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
+  "settings_preserved_byte_for_byte": true,
+  "retained_fin_count": 8,
+  "joint_plane": {
+    "point": [
+      0.0,
+      -38.36796889030837,
+      220.8576411168048
+    ],
+    "normal": [
+      0.0,
+      -0.9396926207859083,
+      0.3420201433256688
+    ]
+  },
+  "enforced_lip_faces": 85,
+  "enforced_lip_area_mm2": 38.08555344361906,
+  "enforced_facet_bounds_cad_mm": [
+    [
+      -8.978656768798828,
+      -34.10564422607422,
+      232.5682830810547
+    ],
+    [
+      8.993955612182617,
+      -32.373756408691406,
+      237.32659912109375
+    ]
+  ],
+  "retained_fin_source": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/layout-engine.json",
+  "requested_z_trim_mm": 0.18,
+  "recipe_changes": {},
+  "rear_seam_paint": {
+    "part": "Tip: bed-anchored plug, retained fins and lip trees",
+    "half_width_mm": 0,
+    "surface": "curved_outer_arc",
+    "enforced_triangles": 38,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.40398341460546877,
+        -59.76704788235938,
+        237.32629394555468
+      ],
+      [
+        0.22874769539453124,
+        -32.37375640835938,
+        242.65937805155468
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "specimen_count": 1,
+  "repeat_control": false,
+  "support_scope": "One directly bonded sacrificial bed foot under the lowest male-plug start only. Retain the eight fins, seam-side lip tree enforcers and Tree(auto)/Default everywhere else. The foot is a local print aid, not a production geometry change.",
+  "support_reason": "The failed Mark1 native slice has no model bead under the plug on the 0.20 mm bed course. Its first plug bead is at Z0.44, with zero lower-bead overlap. Derek reports that the male insertion section fell over and points to its detached curved section. Direct bed anchorage addresses this start independently of overhang angle.",
+  "parent_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/preparation.json",
+  "parent_project_sha256": "2840400b8c6a0c70398dc2c08c41d697845c32bd026ddeddc343f0ea5deb9abe",
+  "material_treatment": "Native bridge flow1.25,70% fan after3off bedlayers including floating vertical shell/supports;Bridge15mm/s,overhang limits<=15 preserving existing10mm/s. No post-slice edits.",
+  "candidate_status": "Prepared; not submitted. Current photos show the failed article and debris on Mark1.",
+  "submitted": false,
+  "root_anchor": {
+    "component_id": 2400,
+    "member": "3D/Objects/plug-root-breakaway-foot.model",
+    "build_center_xy_mm": [
+      162.5,
+      153.15
+    ],
+    "build_bounds_mm": [
+      [
+        157.5,
+        149.15,
+        0.0
+      ],
+      [
+        167.5,
+        157.15,
+        0.68
+      ]
+    ],
+    "elliptical_pad_diameters_mm": [
+      10,
+      8
+    ],
+    "pad_height_mm": 0.44,
+    "upper_contact_strip_mm": [
+      8,
+      1.2,
+      0.24
+    ],
+    "total_height_mm": 0.68,
+    "requested_air_gap_mm": 0,
+    "nominal_pad_area_mm2": 62.83185307179586,
+    "removal": "Peel or clip the sacrificial foot from the non-show male-plug terminal end. Preserve the plug wall and mating profile; physical removal and fit are not yet established."
+  },
+  "retained_geometry": {
+    "part_member": "3D/Objects/object_1.model",
+    "part_member_sha256": "519079017e66e34d22c24bd45c7592b5048b1b91875b80f56b00b6391be92364",
+    "fin_member": "3D/Objects/retained-tip-eight-fins.model",
+    "fin_member_sha256": "2d38b3a328b3d57a3a496062bd7fd866e692be677377c82c11669ddba6fd3b59",
+    "part_and_eight_fins_preserved_byte_for_byte": true,
+    "pose_preserved": true,
+    "seam_and_support_facet_paint_preserved": true
+  },
+  "authorization_quotes": [
+    "So I'm thinking something needs to be under that, where my finger is pointing here in these photos.",
+    "And I don't want you to keep wasting my time printing the same control over and over again. Please just print what you think will work best, no repeat control."
+  ]
+}
