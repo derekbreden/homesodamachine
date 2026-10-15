@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/mark2/2026-10-14-faucet-foot-fins-current15-petgf-left04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "9566c574a109364de70a9ec9d54417662d206727ffb1af9265a09db4b031322c",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/mark2/2026-10-14-faucet-foot-fins-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "978b27a6efc2ca88eb49dc1b9937ee687cf0662add1e92815f2e8ac830b9e271",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "0cd6ab883913281c215a785bf88e5ec3c4c1e140f9d809c2cb8dd3b172b5c1b2"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

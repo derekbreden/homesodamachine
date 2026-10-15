@@ -1,0 +1,87 @@
+{
+  "error_string": "Success.",
+  "export_time": 2497,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 50,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bridge": 717.4176635742188,
+        "Brim": 76.46174621582031,
+        "Custom": 304.03173828125,
+        "Flush": 15.0,
+        "Gap infill": 13.75192642211914,
+        "Inner wall": 798.087158203125,
+        "Internal solid infill": 639.2249145507812,
+        "Outer wall": 966.337890625,
+        "Overhang wall": 955.0809936523438,
+        "Sparse infill": 4785.5771484375,
+        "Support": 2069.657470703125,
+        "Support interface": 220.78619384765625,
+        "Support transition": 474.6010437011719,
+        "Top surface": 60.809234619140625,
+        "Travel": 1971.2298583984375,
+        "Undefined": 1962.953857421875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 95.84202575683594,
+          "total_used_g": 95.8420181274414
+        }
+      ],
+      "generate_support_material_time": 1010,
+      "id": 1,
+      "infill_time": 659,
+      "layer_filament_change": 0,
+      "main_predication": 13728.7431640625,
+      "make_perimeters_time": 1092,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 66.35688781738281,
+            "height": 49.22561264038086,
+            "width": 59.0,
+            "x": 94.0,
+            "y": 126.82156372070312,
+            "z": -0.07764551043510437
+          },
+          "id": 5,
+          "name": "A foot production reference",
+          "triangle_count": 7548
+        },
+        {
+          "bbox": {
+            "depth": 66.35688781738281,
+            "height": 49.22561264038086,
+            "width": 59.0,
+            "x": 172.0,
+            "y": 126.82156372070312,
+            "z": -0.07764551043510437
+          },
+          "id": 9,
+          "name": "B foot 125 bridge 70 cooling",
+          "triangle_count": 7548
+        }
+      ],
+      "sliced_time": 5402,
+      "sliced_time_with_cache": 2196,
+      "total_predication": 14054.4990234375,
+      "triangle_count": 15096,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

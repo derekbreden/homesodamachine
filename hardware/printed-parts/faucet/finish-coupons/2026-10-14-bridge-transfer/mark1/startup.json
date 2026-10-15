@@ -1,0 +1,13 @@
+{
+  "job_id": "1340794235",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "layer_num": 53,
+  "total_layer_num": 167,
+  "print_error": 0,
+  "hms": [],
+  "mc_remaining_time": 40,
+  "nozzle_temper": 280.0,
+  "bed_temper": 80.0,
+  "observed_at_utc": "2026-10-15T03:58:23.819606+00:00"
+}
