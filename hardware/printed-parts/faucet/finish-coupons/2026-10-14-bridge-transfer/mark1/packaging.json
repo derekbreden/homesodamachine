@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark1/2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "0e42d80a3a5b9f81874a77fb3e8e5cc4b98f48a8604efd765dc7041620474621",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark1/2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "97c80fad43e20b7c0208fefa023934a255468b5f3d85f9989e96f426c218804f",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "57b1a32339dc93c4aea6c3df3b7814a3e109b1d61c2db7c5a5dfe02d0ece2eba"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

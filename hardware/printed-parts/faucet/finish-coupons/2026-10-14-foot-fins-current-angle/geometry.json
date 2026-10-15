@@ -1,0 +1,8 @@
+{
+  "rotation_x_degrees": -15,
+  "lift_mm": 7.635161830524362,
+  "crop_print_z_mm": 16.76,
+  "source_stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+  "source_step_sha256": "75fc3c97806d5e180b986e8a8779cc69cf235e9f51f2940ffba7db3b9c180405",
+  "tessellation_tolerance_mm": 0.012
+}

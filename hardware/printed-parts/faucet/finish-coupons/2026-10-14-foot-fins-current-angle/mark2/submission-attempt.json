@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "send_pressed": true,
+  "automated_sender_stopped": true,
+  "recorded_at_utc": "2026-10-15T03:53:47.586509+00:00",
+  "status": "No new job observed beyond the sender acceptance horizon. The optional grip comparison is not accepted for printing.",
+  "reason": "The relayed user clarification identifies fin walls rather than horizontal grip tines; stock fins versus production automatic supports is the selected comparison.",
+  "acceptance_rechecked_at_utc": "2026-10-15T03:54:21.550610+00:00",
+  "new_job_reached_printer": false,
+  "reported_job_id": "1340201019",
+  "reported_state": "FINISH"
+}

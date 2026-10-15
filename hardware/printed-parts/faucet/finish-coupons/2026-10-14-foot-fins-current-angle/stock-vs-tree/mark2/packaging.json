@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "57e9b94e7d255ad49874ec7184fdb5ac964642f3454dce448355f8b618e927b3",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "257ee0ca82f81f14de58720c5c6450a250f77414b82abe18eaf5437485cc2b66",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

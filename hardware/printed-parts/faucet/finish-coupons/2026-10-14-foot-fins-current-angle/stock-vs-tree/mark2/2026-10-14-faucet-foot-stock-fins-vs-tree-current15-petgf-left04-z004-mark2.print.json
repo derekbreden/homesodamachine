@@ -1,0 +1,239 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "settings_source_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "settings_sha256": "404cf40ce9209fa470b47bb7063b4595615565d4be1d22a3180a5541853ba90b",
+  "source_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A stock fin walls",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/foot-section.stl",
+      "stl_sha256": "b89c112e4b1000c3e312eed1ccb90c6bb91705c921e393a924c23d98eef9ac8e",
+      "triangles": 6442,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        8.715726852416992
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        123.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_translation_mm": [
+        123.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          94.0,
+          129.10479000424442,
+          0.0
+        ],
+        [
+          153.0,
+          190.89520999575558,
+          16.760001025119582
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996336677720592e-10
+    },
+    {
+      "name": "B production auto supports",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/foot-section.stl",
+      "stl_sha256": "b89c112e4b1000c3e312eed1ccb90c6bb91705c921e393a924c23d98eef9ac8e",
+      "triangles": 6442,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        8.715726852416992
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        201.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_translation_mm": [
+        201.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          172.0,
+          129.10479000424442,
+          0.0
+        ],
+        [
+          231.0,
+          190.89520999575558,
+          16.760001025119582
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996336677720592e-10
+    }
+  ],
+  "project_sha256": "7f9de2925f2479be754eaddcc0aaea4aebcb7005df9b94ff9705bfa41c555c64",
+  "settings_preserved_byte_for_byte": false,
+  "specimens": [
+    {
+      "id": "A",
+      "identify_id": 1901,
+      "tines": 0,
+      "walls": 8,
+      "blocked_model_faces": 965,
+      "blocked_model_area_mm2": 1641.2377121432485,
+      "supports_component_id": 2000,
+      "bridge_flow": 1
+    },
+    {
+      "id": "B",
+      "identify_id": 1902,
+      "tines": 0,
+      "walls": 0,
+      "blocked_model_faces": 0,
+      "blocked_model_area_mm2": 0,
+      "supports_component_id": null,
+      "bridge_flow": 1
+    }
+  ],
+  "rear_seam_paint": [
+    {
+      "part": "A stock fin walls",
+      "half_width_mm": 0.25,
+      "enforced_triangles": 8,
+      "painted_facet_bounds_cad_mm": [
+        [
+          -1.029535174,
+          29.482028961530272,
+          4.169926626218512e-10
+        ],
+        [
+          1.029535174,
+          29.799999237530272,
+          17.43145370441699
+        ]
+      ],
+      "mesh_vertices_and_triangle_indices_unchanged": true
+    },
+    {
+      "part": "B production auto supports",
+      "half_width_mm": 0.25,
+      "enforced_triangles": 8,
+      "painted_facet_bounds_cad_mm": [
+        [
+          -1.029535174,
+          29.482028961530272,
+          4.169926626218512e-10
+        ],
+        [
+          1.029535174,
+          29.799999237530272,
+          17.43145370441699
+        ]
+      ],
+      "mesh_vertices_and_triangle_indices_unchanged": true
+    }
+  ],
+  "crop_print_z_mm": 16.76,
+  "support_scope": "A: eight stock fin walls under the bottom annulus, with support-block paint on that plane and added fin surfaces only; Tree(auto)/Default elsewhere. B: production Tree(auto)/Default everywhere.",
+  "support_reason": "Full-circumference rim defect 3; stock fin walls versus the production automatic supports at the retained angle. PET-GF v8 G1 selects a .24 gap candidate; faucet removal is unqualified.",
+  "upper_finish": "Production pose and geometry retained; crop ends before the original fine bands. Full upper finish remains accepted production evidence.",
+  "material_treatment": "Native production bridge flow, fan and speeds in both conditions; no G-code edits."
+}

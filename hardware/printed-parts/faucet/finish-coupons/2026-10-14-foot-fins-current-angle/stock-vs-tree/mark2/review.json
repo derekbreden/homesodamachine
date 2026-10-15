@@ -1,0 +1,79 @@
+{
+  "gcode_sha256": "6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f",
+  "gcode_edits": false,
+  "full_bead_bounds_mm": [
+    [
+      93.980003,
+      128.392
+    ],
+    [
+      235.061,
+      202.773
+    ]
+  ],
+  "minimum_bed_edge_clearance_mm": 89.939,
+  "emitted_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "native_layer_count": 70,
+  "specimens": [
+    {
+      "id": "A",
+      "identify_id": 1901,
+      "tines": 0,
+      "walls": 8,
+      "blocked_model_faces": 965,
+      "blocked_model_area_mm2": 1641.2377121432485,
+      "supports_component_id": 2000,
+      "bridge_flow": 1,
+      "features_sampled_segments": {
+        "Support": 8997,
+        "Inner wall": 26292,
+        "Outer wall": 30617,
+        "Bottom surface": 268,
+        "Internal solid infill": 4014,
+        "Top surface": 555,
+        "Gap infill": 222,
+        "Overhang wall": 1907,
+        "Bridge": 1863,
+        "Sparse infill": 21594,
+        "Floating vertical shell": 730
+      },
+      "model_and_support_z_range_mm": [
+        0.2,
+        16.76
+      ]
+    },
+    {
+      "id": "B",
+      "identify_id": 1902,
+      "tines": 0,
+      "walls": 0,
+      "blocked_model_faces": 0,
+      "blocked_model_area_mm2": 0,
+      "supports_component_id": null,
+      "bridge_flow": 1,
+      "features_sampled_segments": {
+        "Support": 90806,
+        "Brim": 1732,
+        "Outer wall": 26585,
+        "Inner wall": 25925,
+        "Overhang wall": 1890,
+        "Bridge": 1862,
+        "Internal solid infill": 3936,
+        "Sparse infill": 21620,
+        "Floating vertical shell": 729,
+        "Support interface": 493,
+        "Top surface": 372,
+        "Gap infill": 218
+      },
+      "model_and_support_z_range_mm": [
+        0.2,
+        16.76
+      ]
+    }
+  ],
+  "support_gap": "Stock fins request .24 mm; B retains production auto support gap .45. Native beads do not establish physical release or a uniform empty course everywhere.",
+  "physical_result": "Pending: full-circumference rim, mounting-plate fit and support removal remain unqualified."
+}

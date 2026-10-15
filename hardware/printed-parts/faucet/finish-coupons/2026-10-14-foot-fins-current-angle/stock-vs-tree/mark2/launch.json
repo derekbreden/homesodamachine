@@ -1,0 +1,45 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-15T03:55:45.420896+00:00",
+  "archive": {
+    "name": "2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "257ee0ca82f81f14de58720c5c6450a250f77414b82abe18eaf5437485cc2b66",
+    "gcode_sha256": "6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "A stock fin walls",
+      "B production auto supports"
+    ]
+  },
+  "printer_task_id": "1340828943",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 70,
+  "mc_remaining_time": 109,
+  "accepted": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto_bed_leveling": "On",
+    "Flow_dynamic_calibration": "Auto",
+    "Nozzle_Offset_Calibration": "Auto"
+  },
+  "startup_spacing": {
+    "previous_printer": "Mark1",
+    "previous_job_id": "1340794235",
+    "previous_acceptance_observed_utc": "2026-10-15T03:32:42.574043+00:00",
+    "this_acceptance_observed_utc": "2026-10-15T03:55:45.420896+00:00",
+    "seconds": 1382.846853,
+    "minimum_seconds": 180
+  },
+  "mapping": "Mark2 fixed left hardened standard-flow .4 mm, external254 black PET-GF (PET-CF 161616FF).",
+  "comparison": "A left: eight stock fin walls. B right: production Tree(auto)/Default. Both -15 degrees; no horizontal gripping teeth or gate override.",
+  "submission": "One foreground Send accepted with project_file SUCCESS; no error."
+}

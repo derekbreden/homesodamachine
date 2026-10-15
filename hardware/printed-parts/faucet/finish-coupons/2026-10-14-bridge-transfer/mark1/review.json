@@ -1,0 +1,117 @@
+{
+  "source_native_sha256": "c36f21582441b365a2a3a34f71c3a222d3eb1c77a5be9e08a352b3d6ff31d150",
+  "submitted_archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark1/2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1.gcode.3mf",
+  "submitted_sha256": "0e42d80a3a5b9f81874a77fb3e8e5cc4b98f48a8604efd765dc7041620474621",
+  "native_xyz_arc_and_extrusion_words_preserved": true,
+  "native_support_fan_and_feed_preserved": true,
+  "source_gcode_sha256": "e7d55f1f96841ed03f224bf7081fc51d6b3f2cdcb7b96e7cc9bc90be5fae2fc5",
+  "submitted_gcode_sha256": "57b1a32339dc93c4aea6c3df3b7814a3e109b1d61c2db7c5a5dfe02d0ece2eba",
+  "full_bead_envelope_mm": [
+    [
+      102.2897145,
+      135.15471449999998
+    ],
+    [
+      219.7162855,
+      181.9732855
+    ]
+  ],
+  "minimum_edge_clearance_mm": 102.2897145,
+  "trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "local_treatments": {
+    "fan_commands": 760,
+    "Inner wall": 33507,
+    "Outer wall": 31266,
+    "Gap infill": 214,
+    "Internal solid infill": 4142,
+    "Sparse infill": 11170,
+    "Overhang wall": 61,
+    "Bridge": 362,
+    "Top surface": 113
+  },
+  "specimens": [
+    {
+      "id": "A",
+      "native_bridge_flow": 1.0,
+      "model_z_range_mm": [
+        0.2,
+        40.04
+      ],
+      "model_fan_after_three_layers_percent": [
+        22.0,
+        51.0,
+        52.0,
+        53.0,
+        54.0,
+        55.0,
+        56.0,
+        57.0,
+        58.0,
+        59.0,
+        60.0,
+        61.0,
+        62.0,
+        63.0,
+        64.0
+      ],
+      "bridge_speed_mm_s": [
+        25.0
+      ],
+      "bridge_z_mm": [
+        16.28,
+        16.52,
+        16.76,
+        17.0,
+        17.24,
+        39.08
+      ],
+      "model_features": [
+        "Bridge",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Top surface"
+      ]
+    },
+    {
+      "id": "B",
+      "native_bridge_flow": 1.25,
+      "model_z_range_mm": [
+        0.2,
+        40.04
+      ],
+      "model_fan_after_three_layers_percent": [
+        70.0
+      ],
+      "bridge_speed_mm_s": [
+        15.0
+      ],
+      "bridge_z_mm": [
+        16.28,
+        16.52,
+        16.76,
+        17.0,
+        17.24,
+        39.08
+      ],
+      "model_features": [
+        "Bridge",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Top surface"
+      ]
+    }
+  ],
+  "physical_result": "Pending; no finish or removal result is established by this path review.",
+  "treatment_scope": "70% cooling applies to the named wall/infill/surface/Bridge features in finish.py MODEL; Floating vertical shell keeps native fan/feed. This does not qualify an all-model fixed-fan recipe."
+}

@@ -1,0 +1,367 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/2026-10-14-faucet-foot-bridge-transfer-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "settings_source_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "settings_sha256": "404cf40ce9209fa470b47bb7063b4595615565d4be1d22a3180a5541853ba90b",
+  "source_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A foot production reference",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/foot-section.stl",
+      "stl_sha256": "3491a5f0db5978a21551f7e5329eed222cdae012a65b9614d6c1583ec086e851",
+      "triangles": 7548,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        17.536357879638672
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        123.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_translation_mm": [
+        123.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          94.0,
+          126.82156174508836,
+          0.0
+        ],
+        [
+          153.0,
+          193.17843825491167,
+          33.80000199681067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "B foot 125 bridge 70 cooling",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/foot-section.stl",
+      "stl_sha256": "3491a5f0db5978a21551f7e5329eed222cdae012a65b9614d6c1583ec086e851",
+      "triangles": 7548,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        17.536357879638672
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        201.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_translation_mm": [
+        201.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          172.0,
+          126.82156174508836,
+          0.0
+        ],
+        [
+          231.0,
+          193.17843825491167,
+          33.80000199681067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "b83d7dd937ae0b4a11e684a5ccb3f727585e55e0a6c9ff547a3080e6f312f3ff",
+  "settings_preserved_byte_for_byte": false,
+  "kind": "foot",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A foot production reference",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/foot-section.stl",
+      "stl_sha256": "3491a5f0db5978a21551f7e5329eed222cdae012a65b9614d6c1583ec086e851",
+      "triangles": 7548,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        17.536357879638672
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        123.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_translation_mm": [
+        123.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          94.0,
+          126.82156174508836,
+          0.0
+        ],
+        [
+          153.0,
+          193.17843825491167,
+          33.80000199681067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "treatment": false,
+      "native_bridge_flow": 1.0,
+      "model_fan_after_first_three_layers_percent": null,
+      "bridge_speed_mm_s": null
+    },
+    {
+      "id": "B",
+      "name": "B foot 125 bridge 70 cooling",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/foot-section.stl",
+      "stl_sha256": "3491a5f0db5978a21551f7e5329eed222cdae012a65b9614d6c1583ec086e851",
+      "triangles": 7548,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        17.536357879638672
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        201.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_translation_mm": [
+        201.5,
+        160.00000552707192,
+        24.535160047481412
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          172.0,
+          126.82156174508836,
+          0.0
+        ],
+        [
+          231.0,
+          193.17843825491167,
+          33.80000199681067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "treatment": true,
+      "native_bridge_flow": 1.25,
+      "model_fan_after_first_three_layers_percent": 70,
+      "bridge_speed_mm_s": 15
+    }
+  ],
+  "source_geometry": {
+    "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+    "source_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+    "source_step_sha256": "75fc3c97806d5e180b986e8a8779cc69cf235e9f51f2940ffba7db3b9c180405",
+    "original_rotation_x_degrees": -15,
+    "original_lift_mm": 7.635161830524362,
+    "crop_max_original_print_z_mm": 33.8,
+    "full_circumference_retained": true,
+    "tessellation_tolerance_mm": 0.012
+  },
+  "rear_seam_paint": [
+    {
+      "part": "A foot production reference",
+      "half_width_mm": 0.25,
+      "enforced_triangles": 8,
+      "painted_facet_bounds_cad_mm": [
+        [
+          -1.029535174,
+          29.482028961530272,
+          -3.6132874470240495e-10
+        ],
+        [
+          1.029535174,
+          29.799999237530272,
+          35.07271575963867
+        ]
+      ],
+      "mesh_vertices_and_triangle_indices_unchanged": true
+    },
+    {
+      "part": "B foot 125 bridge 70 cooling",
+      "half_width_mm": 0.25,
+      "enforced_triangles": 8,
+      "painted_facet_bounds_cad_mm": [
+        [
+          -1.029535174,
+          29.482028961530272,
+          -3.6132874470240495e-10
+        ],
+        [
+          1.029535174,
+          29.799999237530272,
+          35.07271575963867
+        ]
+      ],
+      "mesh_vertices_and_triangle_indices_unchanged": true
+    }
+  ],
+  "requested_z_trim_mm": 0.04,
+  "production_project_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "candidate_scope": "Native per-object bridge flow; local model cooling and Bridge feed treatment applied by finish.py. XYZ and native E remain unchanged.",
+  "authorization_quote": "Please take a look at what your peer Tine failure learned with me and see if we can apply some of that to these faucet defects.\n\nBoth printers are available.",
+  "model_fan_feature_allowlist": [
+    "Bridge",
+    "Outer wall",
+    "Overhang wall",
+    "Inner wall",
+    "Internal solid infill",
+    "Sparse infill",
+    "Top surface",
+    "Bottom surface",
+    "Gap infill"
+  ],
+  "native_fan_feed_feature_exclusions": [
+    "Floating vertical shell",
+    "Support",
+    "Support interface"
+  ]
+}

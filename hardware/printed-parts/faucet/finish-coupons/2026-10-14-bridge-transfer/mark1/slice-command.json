@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/faucet-bridge-transfer-20261014/mark1",
+    "--export-3mf",
+    "native.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark1/2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1.3mf"
+  ]
+}
