@@ -59,7 +59,7 @@ Inspect every exposed surface against the following pass criteria:
   and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
 
-Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked seam screw, reflow a heat-set insert if a seam screw is reading proud). A unit with a defect that can't be repaired in place goes back to the relevant subsystem's procedure for re-fabrication or a part swap; do not ship a Founder Edition unit with a known cosmetic defect that the customer will see at unboxing.
+Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked corner rod, reset a corner rod whose head stands proud of its counterbore). A unit with a defect that can't be repaired in place goes back to the relevant subsystem's procedure for re-fabrication or a part swap; do not ship a Founder Edition unit with a known cosmetic defect that the customer will see at unboxing.
 
 ### 2. Confirm system fluid-drain dry
 
