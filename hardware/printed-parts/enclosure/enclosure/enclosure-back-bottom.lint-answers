@@ -7,8 +7,8 @@ click: x=-100.875 y=270.675 z=169.450
 [ceiling] The uncovered handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with a full 12 mm roof section. Each flat lifting face joins complete end posts, the blind inner wall and the seam's corner stack. Tree(auto)/Default remains the starting support treatment. The empty recess opens downward and outward, and its seam end is accessible before enclosure assembly; support fragments must leave through those openings before hardware installation. Current slice placement, cleanup effort and the uncovered grip's feel remain separate preparation or physical observations.
 alternatives: A continuous fill beneath the ceiling would obstruct upward finger entry. Sloping the working ceiling would replace the flat lifting bearing with a ramp. Extra roof thickness extending downward would reduce the defined hand space; the retained 12 mm roof and its complete supporting posts already occupy their intended load path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-97.763 y=224.009 z=29.250
-click: x=99.000 y=224.000 z=29.250
+click: x=-97.854 y=224.002 z=29.250
+click: x=97.854 y=224.002 z=29.250
 
 [sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece during assembly. The handhold walls close at their square, full 3 mm ends; this narrow return face bounds the floor clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
@@ -172,10 +172,10 @@ click: x=-62.330 y=471.600 z=49.929
 click: x=50.604 y=471.600 z=30.189
 click: x=-58.158 y=471.900 z=20.810
 
-[sliver] The two rounded handhold-rim picks belong to degenerate STL facets with zero normals and undefined strip dimensions. They do not identify a finite thin wall or a material ledge. The post-publication bounded face-class receipt in y-seam-plain-review.json records these exact picks on the uncovered back-bottom mesh.
-alternatives: A different tessellation can omit degenerate facets without changing the material boundary. Thickening or squaring the native rounded rim would change the gripping surface without addressing a finite thin section at these picks.
-click: x=-105.115 y=248.252 z=29.248
+[sliver] These picks are degenerate STL facets with zero normals and undefined strip dimensions at the curved rear handhold end returns. They identify no finite thin wall or material ledge. The returns lie beyond the intended flat ceiling interval, which ends at Y248. The final scoped lint receipt in y-seam-plain-review.json records these exact picks on the polished print mesh.
+alternatives: A different tessellation can omit degenerate facets without changing the material boundary. Thickening or squaring the rounded return would change the gripping surface without addressing a finite thin section at these picks.
 click: x=-104.988 y=248.546 z=29.232
+click: x=104.988 y=248.546 z=29.232
 
 [ceiling] These are the two lower faces of back-bottom's second Y-seam screw-bearing blocks, at Z102.15. Each block retains its complete 35.95 mm height and roots into the rear flank beyond the interleaving fingers. The 0.5 mm gaps beside the mating front blocks stay open after seating; this face is not a compression spacer. Tree(auto)/Default is the starting support treatment. With the part separate, the seam and interior expose the support beneath the block; cleanup effort remains unqualified.
 alternatives: A corbel below the face would occupy the mating front block's insertion space. A sloped block end would reduce the printed screw-bearing length. Joining the blocks with a continuous post would prevent the two halves from interleaving.

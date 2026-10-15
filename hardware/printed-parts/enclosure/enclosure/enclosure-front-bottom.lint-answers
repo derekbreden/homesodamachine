@@ -27,10 +27,14 @@ click: x=0.000 y=132.656 z=54.724
 [ceiling] The exposed handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Each roof joins complete end walls, the blind inner wall and seam stock. Tree(auto)/Default supports the broad ceiling through the open handhold and seam end. Support cleanup, finger comfort and loaded lifting remain unqualified for these complete handholds; the recorded receiver/cover trials do not qualify the uncovered gripping surface.
 alternatives: A sloped ceiling changes the finger opening and lifting section; lowering or thickening the ceiling reduces that opening. Keep the full lifting section and accessible automatic support.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.500 y=190.000 z=29.250
-click: x=100.500 y=190.000 z=29.250
+click: x=-99.354 y=189.998 z=29.250
+click: x=99.354 y=189.998 z=29.250
 
-[sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
+[sliver] These picks are degenerate STL facets with zero normals and undefined strip dimensions at the curved front handhold end returns. They identify no finite thin wall or material ledge. The end returns lie before the intended flat ceiling interval, which starts at Y180. The final scoped lint receipt records these exact picks on the polished print mesh.
+alternatives: A tessellation can omit degenerate facets without changing the material boundary. Thickening or squaring the rounded return would change the gripping surface without addressing a finite thin section at these picks.
+click: x=-105.207 y=179.023 z=29.196
+click: x=-105.050 y=179.450 z=29.233
+click: x=105.207 y=179.023 z=29.196
 click: x=105.050 y=179.450 z=29.233
 
 [ceiling] The four lower faces belong to front-bottom's complete Y-seam screw-bearing blocks. The Z65.7 faces are the intended seating datums against back-bottom. The Z138.6 faces retain the 0.5 mm inter-block running/support gap; they are not compression spacers. The blocks root in the front flank and retain their full length around the printed screw passage. Tree(auto)/Default support is accessible from the open interior and seam before joining the pieces; removal effort remains unqualified.

@@ -51,7 +51,9 @@ on the far ends of two straight
 the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
-the rail wings. The lower footprint runs from Y119.1 to Y210. The body widens
+the rail wings. Below Z306.9, the two front foot wings outside the 196.5 mm body
+end at Y116.791 with 3 mm high blunt faces. The lower footprint runs from
+Y119.1 to Y210. The body widens
 upward to its flat front at Y95.458 and its rear at Y235.692. The rail datum
 is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.

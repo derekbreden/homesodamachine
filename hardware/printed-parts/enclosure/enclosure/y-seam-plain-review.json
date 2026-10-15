@@ -1581,7 +1581,7 @@
   },
   "frame_support": "The front receiver pair carries the frame; the rear frame body clears the upper screw blocks. Nominal capture against six 2 mm translations does not establish a load rating or resistance to tilting under load.",
   "pass": true,
-  "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md \u00a76. The additional back-top-only sweeps in this report establish printed-shell geometric compatibility and do not replace the populated-machine assembly sequence.",
+  "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md §6. The additional back-top-only sweeps in this report establish printed-shell geometric compatibility and do not replace the populated-machine assembly sequence.",
   "subtractive_head_access_update": {
     "scope": "Head-access update before grip-cover removal: Final inboard-open head access: native subtraction from the previously reviewed quadrants, complete washer floors and refreshed final-mesh funnel capture. The original173 sampled motions remain explicitly bound to their earlier mesh hashes. The nominal updated shell stock is a subset, so it cannot add a shell or packed-body interference. The later bottom-handhold restoration and final bottom hashes are established separately by grip_cover_removal_update.",
     "source_sha256": {
@@ -1856,7 +1856,7 @@
         "references": [
           "hardware/assembly/cold-core.md:126",
           "hardware/printed-parts/cold-core/foam-shell/README.md:592",
-          "hardware/printed-parts/cold-core/_internal_routes.py:195\u2013199"
+          "hardware/printed-parts/cold-core/_internal_routes.py:195–199"
         ]
       }
     ],
@@ -2026,7 +2026,7 @@
       "nameplate",
       "grip covers"
     ],
-    "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md \u00a76 and hardware/assembly/internal-plumbing.md: back-top populates and slides onto empty back-bottom; complete back column then rides over core; cabinet-spanning tubes follow closure. MOUNTS/RIDES resolve fixed/co-moving hardware.",
+    "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md §6 and hardware/assembly/internal-plumbing.md: back-top populates and slides onto empty back-bottom; complete back column then rides over core; cabinet-spanning tubes follow closure. MOUNTS/RIDES resolve fixed/co-moving hardware.",
     "block_sweeps": [
       {
         "side": "west",
@@ -3332,7 +3332,7 @@
     "basis": [
       "hardware/assembly/cold-core.md:126",
       "hardware/printed-parts/cold-core/foam-shell/README.md:592",
-      "hardware/printed-parts/cold-core/_internal_routes.py:195\u2013199"
+      "hardware/printed-parts/cold-core/_internal_routes.py:195–199"
     ],
     "interpretation": "The exported route retains the construction tail that finishes its bend. The installed tube is already specified cut flush to the foam flank. Checking that installed shape removes the moving-hub interference without changing the tube route or shell stock.",
     "clear": true
@@ -3935,8 +3935,8 @@
             "score": null,
             "line": "nan mm strip, nan mm long",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.115 y=248.252 z=29.248",
-              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-105.115 y=248.252 z=29.248",
+              "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
               "click: x=-105.115 y=248.252 z=29.248"
             ]
           },
@@ -3945,8 +3945,8 @@
             "score": null,
             "line": "nan mm strip, nan mm long",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-104.988 y=248.546 z=29.232",
-              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-104.988 y=248.546 z=29.232",
+              "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
               "click: x=-104.988 y=248.546 z=29.232"
             ]
           }
@@ -3955,72 +3955,72 @@
           {
             "class": "ceiling",
             "score": 855.7450332778869,
-            "line": "589 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 17.0 mm \u00b7 open to the bed (35.3 mm up)",
+            "line": "589 mm² flat print-down face at z=29.250 · 48.0 × 17.0 mm · open to the bed (35.3 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=99.000 y=224.000 z=29.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.000 y=224.000 z=29.250",
               "click: x=99.000 y=224.000 z=29.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 764.9223766224611,
-            "line": "471 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 14.5 mm \u00b7 open to the bed (35.3 mm up)",
+            "line": "471 mm² flat print-down face at z=29.250 · 48.0 × 14.5 mm · open to the bed (35.3 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.763 y=224.009 z=29.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-97.763 y=224.009 z=29.250",
               "click: x=-97.763 y=224.009 z=29.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 560.6343789640516,
-            "line": "237 mm\u00b2 flat print-down face at z=102.150 \u00b7 19.8 \u00d7 14.0 mm \u00b7 drop 36.5\u201336.5 mm to material below",
+            "line": "237 mm² flat print-down face at z=102.150 · 19.8 × 14.0 mm · drop 36.5–36.5 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.500 y=209.900 z=102.150",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-97.500 y=209.900 z=102.150",
               "click: x=-97.500 y=209.900 z=102.150"
             ]
           },
           {
             "class": "ceiling",
             "score": 560.6343789640516,
-            "line": "237 mm\u00b2 flat print-down face at z=102.150 \u00b7 19.8 \u00d7 14.0 mm \u00b7 drop 36.5\u201336.5 mm to material below",
+            "line": "237 mm² flat print-down face at z=102.150 · 19.8 × 14.0 mm · drop 36.5–36.5 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.500 y=209.900 z=102.150",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=97.500 y=209.900 z=102.150",
               "click: x=97.500 y=209.900 z=102.150"
             ]
           },
           {
             "class": "ceiling",
             "score": 437.17206961798155,
-            "line": "102 mm\u00b2 flat print-down face at z=37.250 \u00b7 12.9 \u00d7 10.8 mm \u00b7 open to the bed (43.2 mm up)",
+            "line": "102 mm² flat print-down face at z=37.250 · 12.9 × 10.8 mm · open to the bed (43.2 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-96.950 y=208.900 z=37.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-96.950 y=208.900 z=37.250",
               "click: x=-96.950 y=208.900 z=37.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 437.17206961798155,
-            "line": "102 mm\u00b2 flat print-down face at z=37.250 \u00b7 12.9 \u00d7 10.8 mm \u00b7 open to the bed (43.2 mm up)",
+            "line": "102 mm² flat print-down face at z=37.250 · 12.9 × 10.8 mm · open to the bed (43.2 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=96.950 y=208.900 z=37.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=96.950 y=208.900 z=37.250",
               "click: x=96.950 y=208.900 z=37.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 329.7395546593964,
-            "line": "1218 mm\u00b2 flat print-down face at z=169.450 \u00b7 232.7 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+            "line": "1218 mm² flat print-down face at z=169.450 · 232.7 × 5.2 mm · drop 9.4–9.4 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=339.925 z=169.450",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=339.925 z=169.450",
               "click: x=100.875 y=339.925 z=169.450"
             ]
           },
           {
             "class": "ceiling",
             "score": 210.20931850765234,
-            "line": "495 mm\u00b2 flat print-down face at z=169.450 \u00b7 94.2 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+            "line": "495 mm² flat print-down face at z=169.450 · 94.2 × 5.2 mm · drop 9.4–9.4 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=270.675 z=169.450",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=270.675 z=169.450",
               "click: x=-100.875 y=270.675 z=169.450"
             ]
           }
@@ -4074,72 +4074,72 @@
           {
             "class": "ceiling",
             "score": 1120.2708862441195,
-            "line": "244 mm\u00b2 flat print-down face at z=65.700 \u00b7 20.8 \u00d7 13.8 mm \u00b7 open to the bed (71.7 mm up)",
+            "line": "244 mm² flat print-down face at z=65.700 · 20.8 × 13.8 mm · open to the bed (71.7 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.375 y=207.400 z=65.700",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-97.375 y=207.400 z=65.700",
               "click: x=-97.375 y=207.400 z=65.700"
             ]
           },
           {
             "class": "ceiling",
             "score": 1120.2708862441195,
-            "line": "244 mm\u00b2 flat print-down face at z=65.700 \u00b7 20.8 \u00d7 13.8 mm \u00b7 open to the bed (71.7 mm up)",
+            "line": "244 mm² flat print-down face at z=65.700 · 20.8 × 13.8 mm · open to the bed (71.7 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.375 y=207.400 z=65.700",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=97.375 y=207.400 z=65.700",
               "click: x=97.375 y=207.400 z=65.700"
             ]
           },
           {
             "class": "ceiling",
             "score": 589.7346857393585,
-            "line": "280 mm\u00b2 flat print-down face at z=29.250 \u00b7 20.0 \u00d7 14.0 mm \u00b7 open to the bed (35.2 mm up)",
+            "line": "280 mm² flat print-down face at z=29.250 · 20.0 × 14.0 mm · open to the bed (35.2 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.500 y=190.000 z=29.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.500 y=190.000 z=29.250",
               "click: x=-100.500 y=190.000 z=29.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 589.7346857393585,
-            "line": "280 mm\u00b2 flat print-down face at z=29.250 \u00b7 20.0 \u00d7 14.0 mm \u00b7 open to the bed (35.2 mm up)",
+            "line": "280 mm² flat print-down face at z=29.250 · 20.0 × 14.0 mm · open to the bed (35.2 mm up)",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.500 y=190.000 z=29.250",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.500 y=190.000 z=29.250",
               "click: x=100.500 y=190.000 z=29.250"
             ]
           },
           {
             "class": "ceiling",
             "score": 577.322400791653,
-            "line": "244 mm\u00b2 flat print-down face at z=138.600 \u00b7 20.8 \u00d7 13.8 mm \u00b7 drop 37.0\u201337.0 mm to material below",
+            "line": "244 mm² flat print-down face at z=138.600 · 20.8 × 13.8 mm · drop 37.0–37.0 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.375 y=207.400 z=138.600",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-97.375 y=207.400 z=138.600",
               "click: x=-97.375 y=207.400 z=138.600"
             ]
           },
           {
             "class": "ceiling",
             "score": 577.3224007916527,
-            "line": "244 mm\u00b2 flat print-down face at z=138.600 \u00b7 20.8 \u00d7 13.8 mm \u00b7 drop 37.0\u201337.0 mm to material below",
+            "line": "244 mm² flat print-down face at z=138.600 · 20.8 × 13.8 mm · drop 37.0–37.0 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.375 y=207.400 z=138.600",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=97.375 y=207.400 z=138.600",
               "click: x=97.375 y=207.400 z=138.600"
             ]
           },
           {
             "class": "ceiling",
             "score": 166.06847588362186,
-            "line": "326 mm\u00b2 flat print-down face at z=169.200 \u00b7 62.1 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "line": "326 mm² flat print-down face at z=169.200 · 62.1 × 5.2 mm · drop 9.2–9.2 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=160.218 z=169.200",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=160.218 z=169.200",
               "click: x=-100.875 y=160.218 z=169.200"
             ]
           },
           {
             "class": "ceiling",
             "score": 166.06847588362186,
-            "line": "326 mm\u00b2 flat print-down face at z=169.200 \u00b7 62.1 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "line": "326 mm² flat print-down face at z=169.200 · 62.1 × 5.2 mm · drop 9.2–9.2 mm to material below",
             "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=160.218 z=169.200",
+              "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=160.218 z=169.200",
               "click: x=100.875 y=160.218 z=169.200"
             ]
           }
@@ -4808,16 +4808,16 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "6971cbb811deeb457c591cff4769fa37228eef4c7a26a8f6c05732879df54b95",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "cacc2d4b2ea5fa7777fb6d1fe65fa388736e222865c2dab9842cf3540d995998",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "1a8c90f96dfb54d05b17cf95120942a617b6f4a78be81963a10d8f47a039d3af",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "4427f99c819121205e084aede4a1d87e30d625eba9ed109516fa97513d540094",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
-      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158",
+      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "85ba74b516033695d8f620732f6e60e0426cdfd19822cd28b545fd27fc392ca5",
       "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step": "1e7ee9ba1ab167a3e500609e377287556589d78c6299c3540465ea183763406e",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "e6277aebd5e75bedc9b41978e1e19761df6401d0943e1cd038589bd14b68ff2c",
-      "hardware/manifold-layout/enclosure-assembly.step": "791374c89e5549047b850014ed12e1bc814447a6d8ab697d88e04b591be2329a",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "299e83b657401ca99e31ea90b0a19f0a646e9a2fc4f76991cee60d117d3c4598"
+      "hardware/manifold-layout/enclosure-assembly.step": "7f54e206b820b6010477a4df21d0529f1d87acbfa5030e6a6cdce55238c6550b",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "df6a32839240e481ac88e5afa61b533beb7e35c8559394de7c92cda324abfb61"
     },
     "handhold_emitted_geometry_review": {
       "scope": "Focused emitted bottom handhold review: shared exterior profile at the Y seam, changes in the whole handhold crop, and ten local closing poses per side. Earlier complete assembly and pack-motion evidence remains separately scoped; this is not a full-machine recheck.",
@@ -6865,7 +6865,7 @@
         ],
         "frame_rear_radius_mm": 6,
         "shell_clearance_rear_radius_mm": 6.25,
-        "construction": "The final stepped rear outline is rounded before shell_clearance is made. Adding 0.25 mm to the half-width, aft extent and radius retains each rear circle center. Added BT corner stock lies outside the R6.25 clearance circle in its aft/outboard quadrant. The final frame occupies the R6 circle there. Positive-Y motion increases each added point\u2019s distance from that shared center; it cannot enter the frame. Inboard of the quadrant, the added stock has no X overlap.",
+        "construction": "The final stepped rear outline is rounded before shell_clearance is made. Adding 0.25 mm to the half-width, aft extent and radius retains each rear circle center. Added BT corner stock lies outside the R6.25 clearance circle in its aft/outboard quadrant. The final frame occupies the R6 circle there. Positive-Y motion increases each added point’s distance from that shared center; it cannot enter the frame. Inboard of the quadrant, the added stock has no X overlap.",
         "native_position_evidence": "All 16 full local BT/frame intersections at offsets 0..40 mm are0; beyond 40 mm their Y ranges are separated."
       }
     },
@@ -7654,6 +7654,711 @@
         0.0,
         0.0
       ]
+    },
+    "post_publication_review": {
+      "scope": "Polished Y-seam finish follow-through; native and print-mesh properties followed by the requested one-time post-publication lint. No recurring checks or whole-enclosure lint pass.",
+      "source_commit": "a4ae6236a",
+      "initial_polish_published_pointer_commit": "63c218e6f",
+      "post_publication_enclosure_lint": {
+        "scope": "After verified live publication: existing four face classes, once, on complete original facets intersecting each named changed neighborhood. Coordinates and normals preserved; full-piece print bed datum. No artificial caps/cut faces, mesh repair, thin/ledge restart, recurring gate or whole-piece pass.",
+        "source_sha256": {
+          "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+          "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b"
+        },
+        "rows": [
+          {
+            "file": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+            "stl_sha256": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+            "unchanged_during_review": true,
+            "original_facets": 431432,
+            "review_facets": 185481,
+            "selection_bounds_mm": {
+              "y": [
+                168,
+                260
+              ],
+              "z": [
+                -7,
+                44
+              ],
+              "flanks_abs_x_at_least": 84
+            },
+            "original_normals_preserved": true,
+            "finding_count_by_class": {
+              "step": 0,
+              "sliver": 4,
+              "ceiling": 2,
+              "slope": 0
+            },
+            "findings": {
+              "step": [],
+              "sliver": [
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-105.207 y=179.023 z=29.196",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=-105.207 y=179.023 z=29.196"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-105.050 y=179.450 z=29.233",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=-105.050 y=179.450 z=29.233"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=105.207 y=179.023 z=29.196",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=105.207 y=179.023 z=29.196"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=105.050 y=179.450 z=29.233",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=105.050 y=179.450 z=29.233"
+                  ]
+                }
+              ],
+              "ceiling": [
+                {
+                  "class": "ceiling",
+                  "score": 539.4103813451577,
+                  "line": "234 mm² flat print-down face at z=29.250 · 20.0 × 11.7 mm · open to the bed (35.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-99.354 y=189.998 z=29.250",
+                    "click: x=-99.354 y=189.998 z=29.250"
+                  ]
+                },
+                {
+                  "class": "ceiling",
+                  "score": 539.4103813451577,
+                  "line": "234 mm² flat print-down face at z=29.250 · 20.0 × 11.7 mm · open to the bed (35.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.354 y=189.998 z=29.250",
+                    "click: x=99.354 y=189.998 z=29.250"
+                  ]
+                }
+              ],
+              "slope": []
+            }
+          },
+          {
+            "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+            "stl_sha256": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+            "unchanged_during_review": true,
+            "original_facets": 1361326,
+            "review_facets": 315947,
+            "selection_bounds_mm": {
+              "y": [
+                168,
+                260
+              ],
+              "z": [
+                -7,
+                44
+              ],
+              "flanks_abs_x_at_least": 84
+            },
+            "original_normals_preserved": true,
+            "finding_count_by_class": {
+              "step": 0,
+              "sliver": 2,
+              "ceiling": 4,
+              "slope": 0
+            },
+            "findings": {
+              "step": [],
+              "sliver": [
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-104.988 y=248.546 z=29.232",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=-104.988 y=248.546 z=29.232"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=104.988 y=248.546 z=29.232",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=104.988 y=248.546 z=29.232"
+                  ]
+                }
+              ],
+              "ceiling": [
+                {
+                  "class": "ceiling",
+                  "score": 758.6698712830231,
+                  "line": "463 mm² flat print-down face at z=29.250 · 48.0 × 14.7 mm · open to the bed (35.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-97.854 y=224.002 z=29.250",
+                    "click: x=-97.854 y=224.002 z=29.250"
+                  ]
+                },
+                {
+                  "class": "ceiling",
+                  "score": 758.6698712830231,
+                  "line": "463 mm² flat print-down face at z=29.250 · 48.0 × 14.7 mm · open to the bed (35.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=97.854 y=224.002 z=29.250",
+                    "click: x=97.854 y=224.002 z=29.250"
+                  ]
+                },
+                {
+                  "class": "ceiling",
+                  "score": 437.17206961798155,
+                  "line": "102 mm² flat print-down face at z=37.250 · 12.9 × 10.8 mm · open to the bed (43.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-96.950 y=208.900 z=37.250",
+                    "click: x=-96.950 y=208.900 z=37.250"
+                  ]
+                },
+                {
+                  "class": "ceiling",
+                  "score": 437.17206961798155,
+                  "line": "102 mm² flat print-down face at z=37.250 · 12.9 × 10.8 mm · open to the bed (43.2 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=96.950 y=208.900 z=37.250",
+                    "click: x=96.950 y=208.900 z=37.250"
+                  ]
+                }
+              ],
+              "slope": []
+            }
+          },
+          {
+            "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+            "stl_sha256": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226",
+            "unchanged_during_review": true,
+            "original_facets": 605556,
+            "review_facets": 8088,
+            "selection_bounds_mm": {
+              "y": [
+                197,
+                221
+              ],
+              "z": [
+                343,
+                356
+              ],
+              "flanks_abs_x_at_least": 80
+            },
+            "original_normals_preserved": true,
+            "finding_count_by_class": {
+              "step": 0,
+              "sliver": 3,
+              "ceiling": 2,
+              "slope": 0
+            },
+            "findings": {
+              "step": [],
+              "sliver": [
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-106.867 y=331.567 z=351.683",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=-106.867 y=331.567 z=351.683"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=107.455 y=200.004 z=349.730",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=107.455 y=200.004 z=349.730"
+                  ]
+                },
+                {
+                  "class": "sliver",
+                  "score": null,
+                  "line": "nan mm strip, nan mm long",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=0.000 · thru x=106.867 y=331.567 z=351.683",
+                    "edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan",
+                    "click: x=106.867 y=331.567 z=351.683"
+                  ]
+                }
+              ],
+              "ceiling": [
+                {
+                  "class": "ceiling",
+                  "score": 76.47102914408008,
+                  "line": "91 mm² flat print-down face at z=347.000 · 11.9 × 10.8 mm · open to the bed (8.0 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-97.450 y=208.900 z=347.000",
+                    "click: x=-97.450 y=208.900 z=347.000"
+                  ]
+                },
+                {
+                  "class": "ceiling",
+                  "score": 76.47102914408008,
+                  "line": "91 mm² flat print-down face at z=347.000 · 11.9 × 10.8 mm · open to the bed (8.0 mm up)",
+                  "pick": [
+                    "face: plane · n x=0.000 y=0.000 z=1.000 · thru x=97.450 y=208.900 z=347.000",
+                    "click: x=97.450 y=208.900 z=347.000"
+                  ]
+                }
+              ],
+              "slope": []
+            }
+          }
+        ]
+      },
+      "frame_before_toe_correction_lint": {
+        "scope": "Existing geometry_lint.lint, all six classes, once on the complete final small frame STL after verified live publication.",
+        "file": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+        "stl_sha256": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
+        "unchanged_during_review": true,
+        "facets": 40420,
+        "source_sha256": {
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+          "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158",
+          "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b"
+        },
+        "finding_count_by_class": {
+          "step": 0,
+          "sliver": 0,
+          "ceiling": 2,
+          "slope": 0,
+          "thin": 8,
+          "ledge": 0
+        },
+        "findings": {
+          "step": [],
+          "sliver": [],
+          "ceiling": [
+            {
+              "class": "ceiling",
+              "score": 192.56821662322278,
+              "line": "438 mm² flat print-down face at z=16.200 · 84.3 × 5.2 mm · drop 9.2–9.2 mm to material below",
+              "pick": [
+                "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=-10.696 z=16.200",
+                "click: x=100.875 y=-10.696 z=16.200"
+              ]
+            },
+            {
+              "class": "ceiling",
+              "score": 192.56821662322278,
+              "line": "438 mm² flat print-down face at z=16.200 · 84.3 × 5.2 mm · drop 9.2–9.2 mm to material below",
+              "pick": [
+                "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=-10.696 z=16.200",
+                "click: x=-100.875 y=-10.696 z=16.200"
+              ]
+            }
+          ],
+          "slope": [],
+          "thin": [
+            {
+              "class": "thin",
+              "score": -0.1043921145068371,
+              "line": "0.104 mm of material at its thinnest · 5.2 mm² of surface under 0.4 mm · spans 4.1 × 0.3 × 0.2 mm",
+              "pick": [
+                "click: x=-99.373 y=-49.371 z=7.000",
+                "click: x=-99.373 y=-49.461 z=6.948"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -0.10439211450684459,
+              "line": "0.104 mm of material at its thinnest · 5.2 mm² of surface under 0.4 mm · spans 4.1 × 0.3 × 0.2 mm",
+              "pick": [
+                "click: x=99.373 y=-49.371 z=7.000",
+                "click: x=99.373 y=-49.461 z=6.948"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -1.5403410627314573,
+              "line": "1.540 mm of material at its thinnest · 11.7 mm² of surface under 3 mm · spans 1.5 × 4.4 × 4.5 mm · in 2 pieces",
+              "pick": [
+                "click: x=-91.250 y=35.236 z=48.752",
+                "click: x=-89.750 y=35.200 z=49.100"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -1.5403410627314589,
+              "line": "1.540 mm of material at its thinnest · 14.6 mm² of surface under 3 mm · spans 1.5 × 4.8 × 5.0 mm · in 2 pieces",
+              "pick": [
+                "click: x=91.250 y=35.236 z=48.752",
+                "click: x=89.750 y=35.200 z=49.100"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 1071.5 mm² of surface under 3 mm · spans 36.6 × 41.6 × 0.0 mm",
+              "pick": [
+                "click: x=-14.106 y=-11.406 z=0.000",
+                "click: x=-14.106 y=-11.406 z=3.000"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 750.0 mm² of surface under 3 mm · spans 124.8 × 0.0 × 6.0 mm",
+              "pick": [
+                "click: x=62.150 y=-66.092 z=55.092",
+                "click: x=62.150 y=-69.092 z=55.092"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 748.8 mm² of surface under 3 mm · spans 124.8 × 0.0 × 5.7 mm",
+              "pick": [
+                "click: x=62.261 y=-69.092 z=52.166",
+                "click: x=62.261 y=-66.092 z=52.166"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 1069.1 mm² of surface under 3 mm · spans 36.6 × 41.6 × 0.0 mm",
+              "pick": [
+                "click: x=-16.357 y=-20.727 z=3.000",
+                "click: x=-16.357 y=-20.727 z=0.000"
+              ]
+            }
+          ],
+          "ledge": []
+        },
+        "limits": "This is a geometry anomaly review. Findings retain source-scoped explanations; unrelated existing features are not redesigned or physically qualified."
+      },
+      "frame_finite_toe_diagnosis": {
+        "scope": "Exact local front-foot toe interpretation requested after the completed frame lint. No lint rerun. Frame coordinates.",
+        "step_sha256": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+        "corbel_half_foot_mm": 45.45,
+        "corbel_y_per_z": 0.5773502691896256,
+        "foot_top_z_mm": 7.0,
+        "body_half_width_mm": 98.25,
+        "source_derived_3mm_end_y": -47.75940107675851,
+        "rows": [
+          {
+            "x": -99.373,
+            "y": -49.4914518843,
+            "native_solid_z_intervals_mm": [
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": -99.373,
+            "y": -49.371,
+            "native_solid_z_intervals_mm": [
+              [
+                6.7913712165147855,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": -99.373,
+            "y": -49.0,
+            "native_solid_z_intervals_mm": [
+              [
+                6.1487803669070455,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": -99.373,
+            "y": -48.5,
+            "native_solid_z_intervals_mm": [
+              [
+                5.282754963123055,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": -99.373,
+            "y": -47.75940107675851,
+            "native_solid_z_intervals_mm": [
+              [
+                4.0000000000386295,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": -99.373,
+            "y": -47.0,
+            "native_solid_z_intervals_mm": [
+              [
+                2.6846787517710524,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -49.4914518843,
+            "native_solid_z_intervals_mm": [
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -49.371,
+            "native_solid_z_intervals_mm": [
+              [
+                6.7913712165147855,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -49.0,
+            "native_solid_z_intervals_mm": [
+              [
+                6.1487803669070455,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -48.5,
+            "native_solid_z_intervals_mm": [
+              [
+                5.282754963123055,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -47.75940107675851,
+            "native_solid_z_intervals_mm": [
+              [
+                4.0000000000386295,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          },
+          {
+            "x": 99.373,
+            "y": -47.0,
+            "native_solid_z_intervals_mm": [
+              [
+                2.6846787517710524,
+                7.0
+              ],
+              [
+                16.2,
+                21.8
+              ]
+            ]
+          }
+        ],
+        "faces_at_positive_pick": [
+          {
+            "face_index": 28,
+            "type": "PLANE",
+            "area_mm2": 9283.855661130026,
+            "bounds": [
+              -103.5,
+              103.5,
+              -69.09150792328,
+              -45.44999999998628,
+              0.0,
+              40.94829289066727
+            ]
+          },
+          {
+            "face_index": 54,
+            "type": "PLANE",
+            "area_mm2": 364.23653347944,
+            "bounds": [
+              99.0,
+              103.5,
+              -49.49145188432,
+              31.450000000000003,
+              7.0,
+              7.0
+            ]
+          }
+        ]
+      },
+      "enclosure_findings_disposition": "The new handhold ceiling anchors are refreshed. All reported enclosure slivers have zero normals and undefined dimensions; the handhold instances lie in curved end returns outside the exact flat band. Existing BT degenerate-facet picks and bothZ347 washer-floor anchors remain unchanged. No finite new enclosure finishing defect was identified in this bounded review.",
+      "remaining_upper_outboard_mouth": "The removed inboard roof lip is absent through the full rectangular mouths. The separate outboard roof-taper rim remains:1.808204mm horizontal width atZ355 and at least3mm belowZ352.616408. This retained local access-mouth edge is not a claim of3mm full-section stock at every roof-mouth point.",
+      "limits": "No print finish, support-release ease, loaded strength, lifetime or hand-dexterity qualification. Unrelated existing findings retain their scoped status; no blanket anomaly resolution.",
+      "frame_toe_finish": {
+        "scope": "One-time physical-frame foot-wing toe truncation; current native datums. No enclosure rebuild, physical acceptance, new recurring check or slice.",
+        "inputs": {
+          "old_step_sha256": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+          "source_sha256": "85ba74b516033695d8f620732f6e60e0426cdfd19822cd28b545fd27fc392ca5",
+          "box_sha256": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+        },
+        "datums": {
+          "centre_xy_mm": [
+            0.0,
+            164.55
+          ],
+          "floor_z_mm": 299.9,
+          "rail_z_mm": 306.9,
+          "seat_z_mm": 349.0
+        },
+        "trim": {
+          "outside_abs_x_mm": 98.25,
+          "fore_of_y_mm": 116.7905989232415,
+          "at_or_below_z_mm": 306.9,
+          "nominal_end_height_mm": 3.0
+        },
+        "valid": true,
+        "solid_count": 1,
+        "added_volume_mm3": 0.0,
+        "removed_volume_mm3": 27.279800218321213,
+        "retained_regions_changed_volume_mm3": {
+          "at_or_above_rail": 0.0,
+          "central_body": 0.0
+        },
+        "brim_bearing_required_mm3": 11134.663620579251,
+        "brim_bearing_missing_mm3": 0.0,
+        "native_intervals": [
+          {
+            "local_x": -99.373,
+            "local_y": -49.37100000000001,
+            "native_solid_z_intervals_mm": [
+              [
+                16.200000000000045,
+                21.80000000000001
+              ]
+            ]
+          },
+          {
+            "local_x": -99.373,
+            "local_y": -47.75940007675851,
+            "native_solid_z_intervals_mm": [
+              [
+                3.999998268000013,
+                7.0
+              ],
+              [
+                16.200000000000045,
+                21.80000000000001
+              ]
+            ]
+          },
+          {
+            "local_x": 99.373,
+            "local_y": -49.37100000000001,
+            "native_solid_z_intervals_mm": [
+              [
+                16.200000000000045,
+                21.80000000000001
+              ]
+            ]
+          },
+          {
+            "local_x": 99.373,
+            "local_y": -47.75940007675851,
+            "native_solid_z_intervals_mm": [
+              [
+                3.999998268000013,
+                7.0
+              ],
+              [
+                16.200000000000045,
+                21.80000000000001
+              ]
+            ]
+          }
+        ],
+        "clearance_functions_unchanged": {
+          "body_blank": true,
+          "shell_clearance": true,
+          "front_roof_clearance": true,
+          "receivers": true,
+          "rail_runs": true
+        },
+        "stl": {
+          "facets": 40436,
+          "watertight": true,
+          "consistent_winding": true,
+          "body_count": 1,
+          "positive_volume": true
+        },
+        "outputs": {
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "cacc2d4b2ea5fa7777fb6d1fe65fa388736e222865c2dab9842cf3540d995998",
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "1a8c90f96dfb54d05b17cf95120942a617b6f4a78be81963a10d8f47a039d3af",
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "4427f99c819121205e084aede4a1d87e30d625eba9ed109516fa97513d540094"
+        }
+      },
+      "frame_toe_fit_relation": {
+        "scope": "The physical frame is a strict subset of the reviewed rounded frame; all enclosure clearance and receiver functions are unchanged. No enclosure geometry changed during the foot-wing finish.",
+        "assembly_clearance": "Each previously clear rigid approach/closing pose remains clear because the frame only loses stock and every mating/fixed body is unchanged.",
+        "retained_corner_review": "The rear R6 and upper bearing regions lie above rail Z306.9, where the final native toe-finish comparison records zero changed volume. Their source-bound corner and coupling measurements retain that stated scope."
+      }
     }
   }
 }
