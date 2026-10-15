@@ -1,15 +1,15 @@
 {
-  "recorded_at_utc": "2026-10-15T16:18:47.046284+00:00",
+  "recorded_at_utc": "2026-10-15T18:14:56.534212+00:00",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
-  "gcode_source": ".cache/printer-control/faucet-accepted-arcs-20261015/native-centered/plate_1.gcode",
-  "gcode_sha256": "6b9e8af0f6f7a995b86b5d8a4a7372011e19a235efda4a4b2d0ac70c1a7b0091",
+  "project_sha256": "fa614863f41cb80c25ea10e53f224c8b7e75a1f18c21f644ea223142b085f1c8",
+  "gcode_source": ".cache/printer-control/faucet-complete-all-learnings-20261015/full-native/plate_1.gcode",
+  "gcode_sha256": "026eb3331189a4220d10715cee62aa9fb42e387323865619632aed788353919c",
   "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
   "bridge_flow": "1.25",
   "parts": [
     {
       "part": "industrial-shell-base",
-      "extruding_commands": 996400,
+      "extruding_commands": 996383,
       "first_three_fans": [
         0.0
       ],
@@ -41,7 +41,7 @@
     },
     {
       "part": "faucet-shell-tip",
-      "extruding_commands": 452307,
+      "extruding_commands": 436910,
       "first_three_fans": [
         0.0
       ],
@@ -56,7 +56,9 @@
         15.0
       ],
       "features": [
+        "Bottom surface",
         "Bridge",
+        "Brim",
         "Floating vertical shell",
         "Gap infill",
         "Inner wall",
@@ -161,5 +163,5 @@
     }
   ],
   "fan_violations": [],
-  "scope": "Manual native command review on all five rigid parts with the selected base-rim arcs. The exact base support treatment has short-section physical finish and release acceptance; the complete project is unprinted."
+  "scope": "Manual native command review on all five rigid parts with the selected base-rim arcs, tip fins, lip support paint and hidden-root disc. Local physical records retain their identified short-section scope."
 }

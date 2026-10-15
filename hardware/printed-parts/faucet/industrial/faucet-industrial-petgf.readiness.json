@@ -6,9 +6,9 @@
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "78401354a4b3c641c8b59145005c90a1f885b6d6a4dcd906e60bb165dff1afb6",
+  "project_sha256": "fa614863f41cb80c25ea10e53f224c8b7e75a1f18c21f644ea223142b085f1c8",
   "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
-  "print_report_sha256": "52358cb298bf9583eb8fe622dd6920a75ac50504ed17c084393ff3fc6201284b",
+  "print_report_sha256": "89750a62fe86b5c90f6fdc329c0a4e1d543b3cbe620da7cc29dbf84ff51d0619",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
@@ -27,14 +27,14 @@
   },
   "offline_slice": {
     "completed": true,
-    "directory": ".cache/printer-control/faucet-accepted-arcs-20261015/native-centered",
+    "directory": ".cache/printer-control/faucet-complete-all-learnings-20261015/full-native",
     "slicer": "BambuStudio 02.08.02.61",
-    "support_audit_sha256": "416223788b9b262e07d58a001a976bee88682264e8fd4e5771483942bcb00c33",
+    "support_audit_sha256": "dc622bf3fa94546cd9bb147b0f47953afc6e5446b5d897492c27f6a8ec3a921a",
     "plates": [
       {
         "plate": 1,
-        "estimated_total_seconds": 24462.80078125,
-        "saved_profile_filament_estimate_g": 161.95518493652344,
+        "estimated_total_seconds": 24469.228515625,
+        "saved_profile_filament_estimate_g": 161.40359497070312,
         "slicer_warning": ""
       }
     ],
@@ -62,7 +62,7 @@
             "industrial-shell-base",
             "faucet-shell-tip"
           ],
-          "separation_mm": 13.156133000000011
+          "separation_mm": 28.131133000000005
         },
         {
           "parts": [
@@ -76,7 +76,7 @@
             "faucet-shell-tip",
             "industrial-display-cover"
           ],
-          "separation_mm": 35.628314999999986
+          "separation_mm": 29.098314999999985
         },
         {
           "parts": [
@@ -90,7 +90,7 @@
             "faucet-shell-tip",
             "industrial-above-counter-plate"
           ],
-          "separation_mm": 40.03351700000002
+          "separation_mm": 24.196517
         },
         {
           "parts": [
@@ -111,7 +111,7 @@
             "faucet-shell-tip",
             "lever-replica"
           ],
-          "separation_mm": 45.648741
+          "separation_mm": 29.81282083175225
         },
         {
           "parts": [

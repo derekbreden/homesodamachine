@@ -1,0 +1,61 @@
+{
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "accepted_at_utc": "2026-10-15T18:19:25.322766+00:00",
+  "printer_task_id": "1342687225",
+  "archive": {
+    "name": "2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004-print-only.gcode.3mf",
+    "sha256": "729541dea6ef86df1de25e86f77a7f848c4f2a9f397823776f10b92572296e5c",
+    "gcode_sha256": "44d452540bc171b8e4a85a01b4856e2984fb9a289ac82cc4b0953daf4ec1c320",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "industrial-shell-base"
+    ]
+  },
+  "first_acceptance": {
+    "job_id": "1342687225",
+    "subtask_name": "2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004-print-only.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "nozzle_temper": 27.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0
+  },
+  "single_send_click": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool": 254,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_mm": 0.02,
+  "rigid_part_count": 1,
+  "repeat_control": false,
+  "authorization_quote": "Please start me a complete faucet with ***EVERYTHING*** we've learned. Both beds are free.",
+  "earliest_other_printer_start_or_resume_utc": "2026-10-15T18:22:25.322766+00:00",
+  "seconds_after_other_printer_acceptance": null,
+  "method": "Bambu Connect CUA; one Send after native review",
+  "project_file_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  }
+}

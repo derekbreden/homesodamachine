@@ -35,7 +35,7 @@ def vertices(raw):
     return np.array([[float(v.get(k)) for k in 'xyz'] for v in ET.fromstring(raw).findall('.//' + writer.qn('vertex'))])
 
 
-def material_review(gcode, report):
+def material_review(gcode, report, early_max_z=16.8):
     names = {p['identify_id']: p['name'] for p in report['parts']}
     readings = {label:dict(part=name, extruding_commands=0, first_three_fans=set(), later_fans=set(),
         bridge_speeds=set(), overhang_speeds=set(), features=set()) for label,name in names.items()}
@@ -46,7 +46,7 @@ def material_review(gcode, report):
     early = []
     with gcode.open() as stream:
         for number, raw in enumerate(stream, 1):
-            if z <= 16.80001:
+            if z <= early_max_z + .00001:
                 early.append(raw)
             if raw.startswith(';'):
                 comment = raw[1:].strip()
@@ -132,7 +132,16 @@ def main():
     errors = []
     with ZipFile(ROOT/transfer['source_project']) as source, ZipFile(project) as prepared, ZipFile(args.baseline) as prior:
         for part in report['parts']:
-            assert prepared.read(part['member']) == prior.read(part['member']), part['name']
+            current, baseline = prepared.read(part['member']), prior.read(part['member'])
+            if part['name'] == 'faucet-shell-tip' and report.get('tip_supports'):
+                a, b = ET.fromstring(current), ET.fromstring(baseline)
+                assert np.array_equal(vertices(current), vertices(baseline))
+                for tree in (a, b):
+                    for triangle in tree.findall('.//' + writer.qn('triangle')):
+                        triangle.attrib.pop('paint_supports', None)
+                assert writer.xml(a) == writer.xml(b), 'Tip changes are confined to support paint'
+            else:
+                assert current == baseline, part['name']
         for member in ('Metadata/project_settings.config','Metadata/layer_config_ranges.xml'):
             assert prepared.read(member) == prior.read(member), member
         for item in transfer['components']:
@@ -199,10 +208,11 @@ def main():
     save(HERE/'overhang-native-review.json',dict(recorded_at_utc=datetime.now(timezone.utc).isoformat(),
         project=str(project.relative_to(ROOT)), project_sha256=sha, gcode_source=str(gcode), gcode_sha256=gcode_sha,
         settings_sha256=settings_sha, bridge_flow='1.25', parts=material, fan_violations=[],
-        scope='Manual native command review on all five rigid parts with the selected base-rim arcs. The exact base support treatment has short-section physical finish and release acceptance; the complete project is unprinted.'))
+        scope='Manual native command review on all five rigid parts with the selected base-rim arcs, tip fins, lip support paint and hidden-root disc. Local physical records retain their identified short-section scope.'))
     output = dict(project=str(project.relative_to(ROOT)), project_sha256=sha, gcode_sha256=gcode_sha,
         physical_reference=transfer['physical_result'], accepted_source_project=transfer['source_project'],
-        primary_part_mesh_members_preserved_byte_for_byte=True,
+        primary_part_geometry_and_seam_paint_preserved=True,
+        tip_support_paint_only_change=bool(report.get('tip_supports')),
         machine_material_settings_and_layer_ranges_preserved_byte_for_byte=True,
         component_transfer_errors=errors, arc_count=transfer['arc_count'],
         native_rim_trace_count=len(readings), critical_front_traces=critical,

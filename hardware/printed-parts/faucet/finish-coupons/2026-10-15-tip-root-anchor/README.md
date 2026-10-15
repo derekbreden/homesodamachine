@@ -6,7 +6,11 @@ control. Derek's authorization is “Please print that. Both beds are clear.”
 The [startup observation](mark1/startup-observation.json) confirms the matching
 job `RUNNING`, 0/167 layers, 38 minutes remaining and no print error or HMS at
 12:14:07 CDT. Native estimate: 38 min 13 s, 9.57 g at the saved profile density,
-167 layers. Physical results remain pending.
+167 layers. The [physical result](mark1/physical-result/physical-result.json)
+accepts the intact print and removable disc. Derek reports a small removal scuff
+that is acceptable on this hidden male insertion end. A visible contact surface
+does not share that acceptance. Telemetry confirms `FINISH`, 167/167 layers and
+no print error; dimensional joint fit and removal force are unmeasured.
 
 The launch uses external black PET-GF spool 254 and the fixed left hardened
 standard-flow 0.4 mm nozzle. Timelapse and bed leveling are On; Flow Dynamics
@@ -64,8 +68,9 @@ The machine and material settings are unchanged byte for byte: Mark1 requested
 overhang limits of 10/15 mm/s. No post-slice extrusion or motion edits are used.
 The print-only package preserves the reviewed native G-code byte for byte.
 
-Physical bed adhesion, foot removal, rim finish and mating fit remain untested
-for this candidate. Commanded overlap does not establish strength or release.
+The completed article and disc removal have physical acceptance at the hidden
+insertion end. This does not establish removal without a scuff, dimensional
+mating fit, strength or lifetime.
 
 `prepare.py --slice`, `review.py`, and
 `../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`

@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.gcode.3mf",
+  "source_archive_sha256": "78735c4e82e8e54187f4e0ffc4e4aaa2a8d27af02e6a9fd31a0e76b847f7f67a",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004-print-only.gcode.3mf",
+  "print_only_archive_sha256": "729541dea6ef86df1de25e86f77a7f848c4f2a9f397823776f10b92572296e5c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "44d452540bc171b8e4a85a01b4856e2984fb9a289ac82cc4b0953daf4ec1c320"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml",
+    "Metadata/layer_config_ranges.xml"
+  ]
+}
