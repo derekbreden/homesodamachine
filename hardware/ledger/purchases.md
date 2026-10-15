@@ -237,6 +237,8 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | <!--purchase:pur-6152482e46884c63bf793abc9b484b0f--> John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | 112-6407862-0653853 | 2026-05-11 | 2026-05-12 | ACQUIRED |
 | <!--purchase:pur-c92afc569f13438e8748bb62c464bccf--> PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | 112-0924482-7189013 | 2026-05-28 | 2026-05-29 | ACQUIRED |
 | <!--purchase:pur-eaa6c3ff5cf34e739d765a72180fa003--> uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | 112-8819640-4433810 | 2026-06-07 | 2026-06-08 | ACQUIRED |
+| <!--purchase:pur-9c025ba9576044b38a4745d084361ea5--> PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack — reservoir draw bulkheads. $21.98 item price + $1.60 allocated tax | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 2 pk (10) | $23.58 | 114-5530613-2918640 | 2026-10-15 | — | ON-ORDER |
+| <!--purchase:pur-a61e59a7635c4aa0887475454ad04b04--> uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. $6.15 item price + $0.45 allocated tax | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $6.60 | 114-5530613-2918640 | 2026-10-15 | — | ON-ORDER |
 | <!--purchase:pur-46d4655cd2b947dea4824e0b6b040f79--> Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | 112-8801016-4362651 | 2026-05-28 | 2026-05-29 | ACQUIRED |
 | <!--purchase:pur-f70555b4b44a48bfb6a721df7ce9c67a--> Pinnacle Mercantile F-style HDPE bottle set | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $18.22 | 114-5825243-4744249 | 2026-02-12 | — | ACQUIRED |
 | <!--purchase:pur-a5a649c9e5d44becb55d3921d1a625f7--> SodaStream Diet Mountain Dew concentrate | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | 114-7739695-9309821 | 2026-02-01 | — | ACQUIRED |
@@ -800,17 +802,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$671.07](LEDGER_ON_ORDER) |
+| ON-ORDER | [$701.25](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,731.51](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,761.69](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$20,489.05](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,252.78](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,282.96](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

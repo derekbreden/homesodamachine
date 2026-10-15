@@ -233,6 +233,14 @@
       "purchase_id": "pur-29e2aaa320c54e198790b704da9356f5"
     },
     {
+      "allocation_id": "alloc-25dfa00770bd463ab19b4c8d4a75a9c6",
+      "amount_minor": 2358,
+      "currency": "USD",
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "order_id": "amazon:114-5530613-2918640",
+      "purchase_id": "pur-9c025ba9576044b38a4745d084361ea5"
+    },
+    {
       "allocation_id": "alloc-269d773e4af6435c89657286d859d0b2",
       "amount_minor": 5110,
       "currency": "USD",
@@ -287,6 +295,14 @@
       "event_id": "evt-da40e3ca6c2a43c689cbde524d3f092c",
       "order_id": "anthropic:HYODLCRX-0043",
       "purchase_id": "pur-149e488abacc4e3db11fde63d2b5af29"
+    },
+    {
+      "allocation_id": "alloc-32d26c1307e94f87a2169f3dcf4e1dd4",
+      "amount_minor": 660,
+      "currency": "USD",
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "order_id": "amazon:114-5530613-2918640",
+      "purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04"
     },
     {
       "allocation_id": "alloc-3437890f213849e3a7efc26e6ba0615e",
@@ -1313,7 +1329,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-13",
+  "as_of": "2026-10-15",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -5401,6 +5417,32 @@
     },
     {
       "allocation_ids": [
+        "alloc-25dfa00770bd463ab19b4c8d4a75a9c6",
+        "alloc-32d26c1307e94f87a2169f3dcf4e1dd4"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 3018,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ],
+      "purchase_ids": [
+        "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a61e59a7635c4aa0887475454ad04b04"
+      ],
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-15"
+    },
+    {
+      "allocation_ids": [
         "alloc-e94553665bf3492eb0b1b63c0afd9e5b"
       ],
       "allocation_status": "all_project",
@@ -7460,7 +7502,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:6eaa87343edda714348489403ad0b29aa96752e159211c44a285b7b6deedc99f",
+  "input_fingerprint": "sha256:59e0205ee54460390d32460ba98c8d5cb7dfcd0498a6d8f48a9bd02da77e7136",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12712,6 +12754,26 @@
       "source_ids": [
         "src-9e46e329e03f4adeab99ed97e39b5839",
         "src-e43f43d41fa6421fb4530c8eecb627ea"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-9fd2d4a65f7d45a594a7ac3a6837d416"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "order_id": "amazon:114-5530613-2918640",
+      "purchase_ids": [
+        "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a61e59a7635c4aa0887475454ad04b04"
+      ],
+      "reference": "114-5530613-2918640",
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
       ],
       "vendor": "Amazon"
     },
@@ -35997,6 +36059,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 2358,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "PureSec 1/4\" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack — reservoir draw bulkheads. $21.98 item price + $1.60 allocated tax",
+      "event_ids": [
+        "evt-9fd2d4a65f7d45a594a7ac3a6837d416"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-9c025ba9576044b38a4745d084361ea5",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-9c025ba9576044b38a4745d084361ea5",
+      "purpose": "components",
+      "quantity": 2,
+      "quantity_text": "2 pk (10)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "row_date_basis": "order_date",
+      "section": "5. Flavor subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 8254,
       "contributes": true,
@@ -37068,6 +37176,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-7739695-9309821"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 660,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. $6.15 item price + $0.45 allocated tax",
+      "event_ids": [
+        "evt-9fd2d4a65f7d45a594a7ac3a6837d416"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "order_ids": [
+        "amazon:114-5530613-2918640"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (10)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "row_date_basis": "order_date",
+      "section": "5. Flavor subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-37921a0b742a4d97a9b12ed2e09697cb"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -55516,6 +55670,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-15"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90° elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each, arriving 2026-10-16, and one uxcell 24 mm OD × 16 mm ID × 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15, arriving 2026-10-19; grand total USD 30.18. The USD 2.05 difference from the USD 28.13 item total is taken as tax and allocated in proportion to item price (USD 1.60 and USD 0.45). Order history and Transactions required a fresh sign-in on 2026-10-15; this source does not establish a completed charge.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-5530613-2918640",
+      "source_id": "src-37921a0b742a4d97a9b12ed2e09697cb",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-15"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-29"
       },
       "document_type": "merchant_monetary_receipt",
@@ -59931,7 +60101,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 67107,
+          "amount_minor": 70125,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -59941,6 +60111,8 @@
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-9835cb05727440fa98029e6134ffd627",
+            "pur-9c025ba9576044b38a4745d084361ea5",
+            "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
@@ -59966,6 +60138,8 @@
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-9835cb05727440fa98029e6134ffd627",
+        "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e",
@@ -59980,6 +60154,7 @@
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
+        "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
@@ -60311,6 +60486,7 @@
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-69d186cf3c4c436788b6706105b50532",
             "evt-903eedfb26fd4f999dda301c34468ee4",
+            "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
           ],
@@ -60971,7 +61147,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 61225,
+          "estimate_minor": 64243,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 93684,
           "legacy_unverified_minor": 30634,
@@ -60996,6 +61172,8 @@
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
             "pur-9835cb05727440fa98029e6134ffd627",
+            "pur-9c025ba9576044b38a4745d084361ea5",
+            "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
@@ -61009,7 +61187,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 185543,
+          "total_minor": 188561,
           "unknown_amount_ids": []
         },
         {
@@ -61037,7 +61215,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1096517,
+          "amount_minor": 1099535,
           "currency": "USD",
           "purpose": "components"
         },
@@ -61075,10 +61253,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 225278,
+          "estimate_minor": 228296,
           "final_vendor_amount_minor": 2048905,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4673151
+          "total_minor": 4676169
         }
       ],
       "undated_unallocated": [
@@ -61229,11 +61407,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 225278,
+          "estimated_purchase_minor": 228296,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2914019,
+          "purchases_without_merchant_charge_minor": 2917037,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -61259,6 +61437,8 @@
         "pur-88c94356779a413f95d4e1b878b4bb18",
         "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
+        "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
@@ -62159,6 +62339,7 @@
         "pur-99ef85cbd1d5444ca7cc4989a9f2a593",
         "pur-9b0861ed2dcb409799dda9bb58e6a7e1",
         "pur-9b5e0854dbed4bdeac2c81202699d965",
+        "pur-9c025ba9576044b38a4745d084361ea5",
         "pur-9ce37e8a3bec40d39abe1e623bbc4bf2",
         "pur-9d460728372b4fa4ac76a549453697e0",
         "pur-9f0ca1264dc0427cba5c860ff9421148",
@@ -62175,6 +62356,7 @@
         "pur-a52a7f9d818044e8a32955ecd3a28d01",
         "pur-a53ccd97d110495190a9b5e728f00720",
         "pur-a5a649c9e5d44becb55d3921d1a625f7",
+        "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a748e002d30f4feaa479ad9601062796",
         "pur-a905c347f2ff42f5a0870c953cb18946",
         "pur-aa976356e62445be80822f3ba9966bd3",
@@ -62363,6 +62545,7 @@
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-69d186cf3c4c436788b6706105b50532",
         "evt-903eedfb26fd4f999dda301c34468ee4",
+        "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
@@ -62563,6 +62746,7 @@
       "coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
+      "1 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
