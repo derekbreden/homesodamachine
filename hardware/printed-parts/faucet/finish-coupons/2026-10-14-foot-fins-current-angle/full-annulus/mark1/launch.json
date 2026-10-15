@@ -1,0 +1,54 @@
+{
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "accepted": true,
+  "first_acceptance_observed_at_utc": "2026-10-15T04:53:32.234704+00:00",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "archive_sha256": "fabf474ce6503c471daf2061d685dc927efce7983f8c8ba4cbe4464d936583c4",
+  "gcode_sha256": "0374ac8f5865774405c8214267470fb3d16908a106dac86d6083584e85f827c7",
+  "new_printer_job": {
+    "job_id": "1340913124",
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+    "layer_num": 167,
+    "total_layer_num": 167,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 0
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mapping": "Fixed left hardened standard-flow0.4mm, external254 black PET-GF (PET-CF000000FF).",
+  "submission": "One Send using the computer-use tool after verifying the Mark1 dialog, external spool and print options. The foreground sender stopped before Send at the file picker.",
+  "printer_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "earliest_other_printer_start_or_resume_utc": "2026-10-15T04:56:32.234704+00:00",
+  "startup_spacing": {
+    "other_printer": "Mark2",
+    "other_job_id": "1340828943",
+    "other_acceptance_at_utc": "2026-10-15T03:55:45.420896+00:00",
+    "elapsed_seconds": 3466.813808,
+    "minimum_seconds": 180
+  },
+  "confirmed_at_utc": "2026-10-15T04:54:10.916820+00:00",
+  "confirmed_printer_job": {
+    "job_id": "1340913124",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 70,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 127,
+    "nozzle_target_temper": 200.0,
+    "bed_target_temper": 51.0
+  }
+}

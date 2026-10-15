@@ -1,14 +1,18 @@
 # Faucet annulus fins with the bridge recipe
 
-This **prepared, unsent** comparison addresses defect 3: a clean plate-mating rim
+This comparison addresses defect 3: a clean plate-mating rim
 around the complete circumference, particularly the visible midpoint under the
 lever. Both specimens retain the production **−15° X rotation**, original part
 geometry and original bed contact. The crop ends at original print Z16.76, below
 the upper fine-layer bands. Physical finish and removal results are pending.
 
+[Mark1 accepted job 1340913124](mark1/README.md) at **23:53:32 CDT on
+2026-10-14**, with its own +0.18 mm requested trim. It reported RUNNING at
+0/70 layers without errors. The [Mark2 copy](mark2/) remains prepared and unsent.
+
 ![Contact placement and the lever-facing strand](../support-layout-review.png)
 
-| Facing Mark2 | Prepared condition |
+| Facing the printer | Condition |
 | --- | --- |
 | A, left | 34 annulus-scoped Full-mode fin walls plus three local low rear walls; Tree(auto)/Default elsewhere |
 | B, right | Production Tree(auto)/Default, including its automatic normal sections |
@@ -20,10 +24,11 @@ Floating vertical shell and support moves. Ordinary supported-wall and infill
 speed settings retain their production values. No G-code extrusion, fan or feed edits
 are applied after slicing; the recipe is saved in the editable project.
 
-The first bed layer is 0.20 mm, followed by 0.24 mm courses. Mark2 uses external
+The first bed layer is 0.20 mm, followed by 0.24 mm courses. Both copies use external
 PET-GF spool 254, the fixed left hardened standard-flow 0.4 mm nozzle, Textured
-PEI, 265°C first-layer/280°C normal nozzle temperature and an 80°C bed. Its
-requested +0.04 mm trim emits `G29.1 Z0.02`. The native estimate is
+PEI, 265°C first-layer/280°C normal nozzle temperature and an 80°C bed.
+Mark1's start code emits `G29.1 Z0.16`; Mark2's requested +0.04 mm trim emits
+`G29.1 Z0.02`. The native estimate is
 **2 h 7 min 49 s**, **48.26 g**, **70 layers**.
 
 ## Contact placement
@@ -111,8 +116,8 @@ intact, clean edge that mates without catching strands or damage from removal.
 If B does not reproduce the defect, a clean A alone does not establish a cure.
 
 This plate compares two support layouts with the **same bridge recipe**. The
-submitted stock-fin plate has a different fin layout and production material
-recipe, so the two plates do not form a controlled two-by-two experiment.
+submitted stock-fin plate uses a different printer, fin layout and production
+material recipe, so the two plates do not form a controlled two-by-two experiment.
 No production profile, complete faucet model or accepted upper finish is promoted
 by this prepared coupon.
 
@@ -123,3 +128,7 @@ parent scripts in order: `prepare-revised.py`, `rim-path-review.py full-annulus`
 `annulus-review.py full-annulus`, `review-revised.py`, and `render-rim-review.py`.
 The engine checkout is `.cache/support-fins-faucet` at the recorded pin. These
 are manual experiment tools, with no build, commit or printer-control integration.
+
+For the Mark1 copy, run `prepare-mark1.py`, then `rim-path-review.py full-annulus
+mark1`, `annulus-review.py full-annulus mark1`, and `review-revised.py mark1`.
+Preparation refuses to overwrite an accepted launch.

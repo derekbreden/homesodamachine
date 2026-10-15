@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "50c2b8c703124abe7d4006e6aedef9e8f7ec08799a3250e9301e047b3eb17740",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "fabf474ce6503c471daf2061d685dc927efce7983f8c8ba4cbe4464d936583c4",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "0374ac8f5865774405c8214267470fb3d16908a106dac86d6083584e85f827c7"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

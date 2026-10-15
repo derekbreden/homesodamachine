@@ -1,0 +1,697 @@
+{
+  "gcode_sha256": "0374ac8f5865774405c8214267470fb3d16908a106dac86d6083584e85f827c7",
+  "source_archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1.gcode.3mf",
+  "method": "Measured XY footprints of actual deposited beads, using native width and chronological order. Nominal lower courses are kept separate: material two courses below is an intentional-gap bearing, not a preceding-layer weld. Current-course neighbouring strands may themselves be unsupported. Footprints do not predict sag or establish mechanical anchorage.",
+  "cases": [
+    {
+      "case": "1: highlighted wall",
+      "gcode_line": 385024,
+      "command": "G1 X121.831 Y132.264 E.49821",
+      "object": 1901,
+      "nominal_layer_nozzle_z_mm": 14.6,
+      "feature": "Overhang wall",
+      "start_xyz_mm": [
+        110.487,
+        132.264,
+        14.6
+      ],
+      "end_xyz_mm": [
+        121.831,
+        132.264,
+        14.6
+      ],
+      "xy_length_mm": 11.344000000000008,
+      "speed_mm_s": 10.0,
+      "part_fan_percent": 70.0,
+      "slicer_bead_width_mm": 0.432871,
+      "slicer_bead_height_mm": 0.3,
+      "A_previous_courses": {
+        "14.36": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              4.029856670607842,
+              4.29614332939218
+            ],
+            [
+              7.888579852434446,
+              8.127420147565573
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 11.344000000000008,
+          "longest_no_bead_overlap_mm": 4.029856670607842,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Internal solid infill",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "14.12": {
+          "centreline_over_material_mm": [
+            [
+              3.817073474082335,
+              4.441231049399562
+            ],
+            [
+              7.662877532720189,
+              8.28705781890541
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              3.5999304725259123,
+              4.671312562154824
+            ],
+            [
+              7.445947102055953,
+              8.51675526694153
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 3.817073474082335,
+          "longest_no_bead_overlap_mm": 3.5999304725259123,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "13.88": {
+          "centreline_over_material_mm": [
+            [
+              3.799763172047463,
+              4.526188075109687
+            ],
+            [
+              7.648024463001577,
+              8.3683425205881
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              3.5799817631351942,
+              4.7460327810610465
+            ],
+            [
+              7.4315497868352915,
+              8.584810187564571
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 3.799763172047463,
+          "longest_no_bead_overlap_mm": 3.5799817631351942,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Outer wall",
+            "Overhang wall"
+          ]
+        }
+      },
+      "A_current_course_before_move": {
+        "centreline_over_material_mm": [
+          [
+            0.0,
+            0.21539354188219306
+          ]
+        ],
+        "bead_edge_overlap_intervals_mm": [
+          [
+            0.0,
+            10.236398306371484
+          ]
+        ],
+        "longest_no_centreline_bearing_mm": 11.128606458117815,
+        "longest_no_bead_overlap_mm": 1.1076016936285242,
+        "start_centre_over_material": true,
+        "end_centre_over_material": false
+      },
+      "B_same_location_previous_courses": {
+        "14.36": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 11.344000000000023,
+          "longest_no_bead_overlap_mm": 11.344000000000023,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "14.12": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              1.6773965411794336,
+              2.260973522322672
+            ],
+            [
+              5.395041267089765,
+              5.925973522322635
+            ],
+            [
+              9.719116166854235,
+              10.479601247720154
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 11.344000000000023,
+          "longest_no_bead_overlap_mm": 3.7931426445316,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "13.88": {
+          "centreline_over_material_mm": [
+            [
+              0.0,
+              0.3369574424886536
+            ],
+            [
+              1.1739894628605896,
+              1.8079937027208357
+            ],
+            [
+              2.113766815093328,
+              2.8042484380520705
+            ],
+            [
+              4.5876612096516,
+              6.164634463573179
+            ],
+            [
+              6.639533401592614,
+              7.424594351723413
+            ],
+            [
+              8.987154066109213,
+              10.449055263287702
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              0.0,
+              0.5542759086508227
+            ],
+            [
+              0.9568760776732859,
+              3.0528089461341206
+            ],
+            [
+              4.360152648072755,
+              7.680467771983585
+            ],
+            [
+              8.514724932980869,
+              10.76265380788834
+            ],
+            [
+              11.13341576793536,
+              11.344000000000023
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 1.7834127715995294,
+          "longest_no_bead_overlap_mm": 1.3073437019386343,
+          "start_centre_over_material": true,
+          "end_centre_over_material": false
+        }
+      }
+    },
+    {
+      "case": "2: preceding straight wall",
+      "gcode_line": 400729,
+      "command": "G1 X127.434 Y129.961 E.37359",
+      "object": 1901,
+      "nominal_layer_nozzle_z_mm": 15.32,
+      "feature": "Overhang wall",
+      "start_xyz_mm": [
+        119.567,
+        129.961,
+        15.32
+      ],
+      "end_xyz_mm": [
+        127.434,
+        129.961,
+        15.32
+      ],
+      "xy_length_mm": 7.867000000000004,
+      "speed_mm_s": 10.0,
+      "part_fan_percent": 70.0,
+      "slicer_bead_width_mm": 0.462871,
+      "slicer_bead_height_mm": 0.3,
+      "A_previous_courses": {
+        "15.08": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 7.867000000000004,
+          "longest_no_bead_overlap_mm": 7.867000000000004,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Internal solid infill",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "14.84": {
+          "centreline_over_material_mm": [
+            [
+              4.076524422630229,
+              4.707475577369792
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              3.844644641647932,
+              4.939355358352088
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 4.076524422630229,
+          "longest_no_bead_overlap_mm": 3.844644641647932,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "14.6": {
+          "centreline_over_material_mm": [
+            [
+              4.0508246026613515,
+              4.735719052251312
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              3.8192679771722027,
+              4.967265006323658
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 4.0508246026613515,
+          "longest_no_bead_overlap_mm": 3.8192679771722027,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        }
+      },
+      "A_current_course_before_move": {
+        "centreline_over_material_mm": [
+          [
+            0.0,
+            0.2307412557588151
+          ]
+        ],
+        "bead_edge_overlap_intervals_mm": [
+          [
+            0.0,
+            0.4623428174379143
+          ]
+        ],
+        "longest_no_centreline_bearing_mm": 7.636258744241189,
+        "longest_no_bead_overlap_mm": 7.40465718256209,
+        "start_centre_over_material": true,
+        "end_centre_over_material": false
+      },
+      "B_same_location_previous_courses": {
+        "15.08": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 7.86699999999999,
+          "longest_no_bead_overlap_mm": 7.86699999999999,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "14.84": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 7.86699999999999,
+          "longest_no_bead_overlap_mm": 7.86699999999999,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "14.6": {
+          "centreline_over_material_mm": [
+            [
+              0.0,
+              0.3257508893666454
+            ],
+            [
+              3.008435219891936,
+              4.021355007466582
+            ],
+            [
+              4.823787931226831,
+              5.9745055165812175
+            ],
+            [
+              7.601673812524012,
+              7.86699999999999
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              0.0,
+              0.57433977731921
+            ],
+            [
+              2.7769575147981413,
+              4.253138506794983
+            ],
+            [
+              4.591957514798139,
+              6.214556911184189
+            ],
+            [
+              7.350016533094362,
+              7.86699999999999
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 2.6826843305252908,
+          "longest_no_bead_overlap_mm": 2.2026177374789313,
+          "start_centre_over_material": true,
+          "end_centre_over_material": true
+        }
+      }
+    },
+    {
+      "case": "2: highlighted corner",
+      "gcode_line": 400743,
+      "command": "G1 X129.157 Y130.263 E.00479",
+      "object": 1901,
+      "nominal_layer_nozzle_z_mm": 15.32,
+      "feature": "Inner wall",
+      "start_xyz_mm": [
+        129.033,
+        130.238,
+        15.32
+      ],
+      "end_xyz_mm": [
+        129.157,
+        130.263,
+        15.32
+      ],
+      "xy_length_mm": 0.12649505919207338,
+      "speed_mm_s": 15.0,
+      "part_fan_percent": 70.0,
+      "slicer_bead_width_mm": 0.449994,
+      "slicer_bead_height_mm": 0.24,
+      "A_previous_courses": {
+        "15.08": {
+          "centreline_over_material_mm": [
+            [
+              0.09393270105495143,
+              0.12649505919207338
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              0.0,
+              0.12649505919207338
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 0.09393270105495143,
+          "longest_no_bead_overlap_mm": 0,
+          "start_centre_over_material": false,
+          "end_centre_over_material": true,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Internal solid infill",
+            "Outer wall",
+            "Overhang wall",
+            "Sparse infill"
+          ]
+        },
+        "14.84": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 0.12649505919207338,
+          "longest_no_bead_overlap_mm": 0.12649505919207338,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "14.6": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 0.12649505919207338,
+          "longest_no_bead_overlap_mm": 0.12649505919207338,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        }
+      },
+      "A_current_course_before_move": {
+        "centreline_over_material_mm": [
+          [
+            0.0,
+            0.12649505919207338
+          ]
+        ],
+        "bead_edge_overlap_intervals_mm": [
+          [
+            0.0,
+            0.12649505919207338
+          ]
+        ],
+        "longest_no_centreline_bearing_mm": 0,
+        "longest_no_bead_overlap_mm": 0,
+        "start_centre_over_material": true,
+        "end_centre_over_material": true
+      },
+      "B_same_location_previous_courses": {
+        "15.08": {
+          "centreline_over_material_mm": [
+            [
+              0.09393270105495143,
+              0.12649505919207338
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              0.0,
+              0.12649505919207338
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 0.09393270105495143,
+          "longest_no_bead_overlap_mm": 0,
+          "start_centre_over_material": false,
+          "end_centre_over_material": true
+        },
+        "14.84": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 0.12649505919207338,
+          "longest_no_bead_overlap_mm": 0.12649505919207338,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "14.6": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              0.0,
+              0.12649505919207338
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 0.12649505919207338,
+          "longest_no_bead_overlap_mm": 0,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        }
+      }
+    },
+    {
+      "case": "3: highlighted wall",
+      "gcode_line": 266642,
+      "command": "G1 X109.689 Y148.77 E.4503",
+      "object": 1901,
+      "nominal_layer_nozzle_z_mm": 10.28,
+      "feature": "Overhang wall",
+      "start_xyz_mm": [
+        100.207,
+        148.77,
+        10.28
+      ],
+      "end_xyz_mm": [
+        109.689,
+        148.77,
+        10.28
+      ],
+      "xy_length_mm": 9.482,
+      "speed_mm_s": 10.0,
+      "part_fan_percent": 70.0,
+      "slicer_bead_width_mm": 0.462871,
+      "slicer_bead_height_mm": 0.3,
+      "A_previous_courses": {
+        "10.04": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 9.482,
+          "longest_no_bead_overlap_mm": 9.482,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Internal solid infill",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "9.8": {
+          "centreline_over_material_mm": [
+            [
+              2.325175931226852,
+              2.9608240687731495
+            ],
+            [
+              8.225175931226858,
+              8.860824068773153
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              2.093345514729009,
+              3.1926544852710066
+            ],
+            [
+              7.9933455147290005,
+              9.092654485271012
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 5.264351862453708,
+          "longest_no_bead_overlap_mm": 4.800691029457994,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Bridge",
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        },
+        "9.56": {
+          "centreline_over_material_mm": [
+            [
+              2.287178567542852,
+              2.9933518129364955
+            ],
+            [
+              8.187178567542857,
+              8.893351812936487
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              2.055696785070637,
+              3.224824209788053
+            ],
+            [
+              7.955696785070642,
+              9.124824209788043
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 5.193826754606361,
+          "longest_no_bead_overlap_mm": 4.730872575282589,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false,
+          "bead_features": [
+            "Inner wall",
+            "Outer wall",
+            "Overhang wall"
+          ]
+        }
+      },
+      "A_current_course_before_move": {
+        "centreline_over_material_mm": [
+          [
+            0.0,
+            0.23143550000000346
+          ]
+        ],
+        "bead_edge_overlap_intervals_mm": [
+          [
+            0.0,
+            0.4628710000000069
+          ]
+        ],
+        "longest_no_centreline_bearing_mm": 9.250564499999996,
+        "longest_no_bead_overlap_mm": 9.019128999999992,
+        "start_centre_over_material": true,
+        "end_centre_over_material": false
+      },
+      "B_same_location_previous_courses": {
+        "10.04": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 9.482,
+          "longest_no_bead_overlap_mm": 9.482,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "9.8": {
+          "centreline_over_material_mm": [],
+          "bead_edge_overlap_intervals_mm": [],
+          "longest_no_centreline_bearing_mm": 9.482,
+          "longest_no_bead_overlap_mm": 9.482,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        },
+        "9.56": {
+          "centreline_over_material_mm": [
+            [
+              2.702821088811731,
+              4.6509709444212035
+            ],
+            [
+              5.634860192937224,
+              7.17057982596583
+            ],
+            [
+              7.977436513578794,
+              9.004604682617154
+            ]
+          ],
+          "bead_edge_overlap_intervals_mm": [
+            [
+              2.4090928595057046,
+              4.889779186643324
+            ],
+            [
+              5.400994217318696,
+              7.475398380429538
+            ],
+            [
+              7.739903877602642,
+              9.236042485201864
+            ]
+          ],
+          "longest_no_centreline_bearing_mm": 2.702821088811731,
+          "longest_no_bead_overlap_mm": 2.4090928595057046,
+          "start_centre_over_material": false,
+          "end_centre_over_material": false
+        }
+      }
+    }
+  ]
+}

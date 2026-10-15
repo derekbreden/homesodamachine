@@ -27,7 +27,7 @@ def main():
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':10})
     fig=plt.figure(figsize=(15,7),dpi=170,facecolor='#f6f7f8')
     axes=[fig.add_axes([.05,.24,.27,.61]),fig.add_axes([.36,.24,.27,.61])]
-    for ax,data,title in zip(axes,[source,revised],['Submitted: 8 stock walls','Prepared: 34 Full-mode walls + 3 low walls']):
+    for ax,data,title in zip(axes,[source,revised],['Submitted: 8 stock walls','Revised: 34 Full-mode walls + 3 low walls']):
         ax.set_facecolor('#f6f7f8')
         ax.add_patch(Polygon(np.asarray(poly.exterior.coords),facecolor='#d8dce0',edgecolor='#8c9399',lw=1))
         for ring in poly.interiors:ax.add_patch(Polygon(np.asarray(ring.coords),facecolor='#f6f7f8',edgecolor='#aeb4ba',lw=.6))
@@ -46,7 +46,7 @@ def main():
     axes[1].annotate('Low rear walls\nCAD X −6, 0, +6',xy=(0,25),xytext=(16,32),ha='center',fontsize=8,color='#995110',
         arrowprops=dict(arrowstyle='->',color='#995110'))
     ax=fig.add_axes([.69,.35,.285,.44]);ax.set_facecolor('#f6f7f8')
-    for y,d,label in [(1,original,'Submitted'),(0,audit,'Prepared')]:
+    for y,d,label in [(1,original,'Submitted'),(0,audit,'Revised')]:
         row=next(r for r in d['cases'] if r['case']=='2: preceding straight wall')
         ax.plot([0,row['xy_length_mm']],[y,y],color='#ba473d',lw=6,solid_capstyle='butt')
         key=str(round(row['nominal_layer_nozzle_z_mm']-.48,5))
@@ -58,10 +58,10 @@ def main():
     ax.set_title('Your priority: directly under the lever',fontweight='bold',fontsize=11,pad=18)
     ax.spines[['top','right','left']].set_visible(False)
     ax.text(0,-.48,'Green: lower bead at Z14.84\nZ15.08 is empty; strand prints at Z15.32.',fontsize=9,color='#276c50')
-    fig.text(.69,.25,'Same native recipe on both prepared specimens:\n125% bridge flow · 70% fan after 3 off layers\nBridge 15 mm/s · fully overhung wall 10 mm/s',fontsize=10,linespacing=1.65,va='top')
+    fig.text(.69,.25,'Same native recipe on both revised specimens:\n125% bridge flow · 70% fan after 3 off layers\nBridge 15 mm/s · fully overhung wall 10 mm/s',fontsize=10,linespacing=1.65,va='top')
     fig.text(.035,.955,'Faucet underside: contact placement and native deposition',fontsize=18,fontweight='bold',color='#24313d')
     fig.text(.035,.905,'Plan view of the retained bottom annulus. Part geometry, bed contact and −15° pose are preserved.',fontsize=11,color='#55616c')
-    fig.text(.035,.095,'Blue: engine contact lines. Orange: local low rear walls. The prepared plate is unsent.',fontsize=10,color='#394c5b')
+    fig.text(.035,.095,'Blue: engine contact lines. Orange: local low rear walls. Both printer copies retain this geometry.',fontsize=10,color='#394c5b')
     fig.text(.035,.055,'Measured XY bearings do not establish sag, removal effort or finished appearance. Physical comparison is pending.',fontsize=10,color='#59646d')
     fig.savefig(HERE/'support-layout-review.png',facecolor=fig.get_facecolor())
 

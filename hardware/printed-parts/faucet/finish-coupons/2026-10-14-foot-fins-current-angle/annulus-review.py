@@ -18,9 +18,10 @@ spec=importlib.util.spec_from_file_location('rim_review',HERE/'rim-path-review.p
 rim=importlib.util.module_from_spec(spec);spec.loader.exec_module(rim)
 
 def main():
-    folder=HERE/sys.argv[1]/'mark2' if len(sys.argv)>1 else HERE/'stock-vs-tree/mark2'
+    printer=sys.argv[2] if len(sys.argv)>2 else 'mark2'
+    folder=HERE/sys.argv[1]/printer if len(sys.argv)>1 else HERE/'stock-vs-tree/mark2'
     prep=json.loads((folder/'preparation.json').read_text())
-    archive=next(folder.glob('*-mark2.gcode.3mf'))
+    archive=next(folder.glob(f'*-{printer}.gcode.3mf'))
     with ZipFile(archive) as z:raw=z.read('Metadata/plate_1.gcode')
     text=raw.decode();paths=rim.paths_module.segments(text)
     lines=text.splitlines()
