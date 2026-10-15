@@ -5435,7 +5435,8 @@
         "pur-a61e59a7635c4aa0887475454ad04b04"
       ],
       "source_ids": [
-        "src-37921a0b742a4d97a9b12ed2e09697cb"
+        "src-37921a0b742a4d97a9b12ed2e09697cb",
+        "src-f3504a07b3da4440a42381a5c35446a4"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
@@ -7502,7 +7503,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:59e0205ee54460390d32460ba98c8d5cb7dfcd0498a6d8f48a9bd02da77e7136",
+  "input_fingerprint": "sha256:68c10741b57b6caa49c8e2d5e4d6d1923e58460b5ee1c96ba2b9e07fe17585c3",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12764,7 +12765,7 @@
       ],
       "order_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "order_id": "amazon:114-5530613-2918640",
       "purchase_ids": [
@@ -12773,7 +12774,8 @@
       ],
       "reference": "114-5530613-2918640",
       "source_ids": [
-        "src-37921a0b742a4d97a9b12ed2e09697cb"
+        "src-37921a0b742a4d97a9b12ed2e09697cb",
+        "src-f3504a07b3da4440a42381a5c35446a4"
       ],
       "vendor": "Amazon"
     },
@@ -36075,7 +36077,7 @@
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "order_ids": [
         "amazon:114-5530613-2918640"
@@ -36090,13 +36092,14 @@
       "record_role": "purchase",
       "row_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "row_date_basis": "order_date",
       "section": "5. Flavor subsystem",
       "service_period": null,
       "source_ids": [
-        "src-37921a0b742a4d97a9b12ed2e09697cb"
+        "src-37921a0b742a4d97a9b12ed2e09697cb",
+        "src-f3504a07b3da4440a42381a5c35446a4"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -37200,7 +37203,7 @@
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "order_ids": [
         "amazon:114-5530613-2918640"
@@ -37215,13 +37218,14 @@
       "record_role": "purchase",
       "row_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "row_date_basis": "order_date",
       "section": "5. Flavor subsystem",
       "service_period": null,
       "source_ids": [
-        "src-37921a0b742a4d97a9b12ed2e09697cb"
+        "src-37921a0b742a4d97a9b12ed2e09697cb",
+        "src-f3504a07b3da4440a42381a5c35446a4"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -55673,9 +55677,8 @@
         "value": "2026-10-15"
       },
       "document_type": "email_order_confirmation",
-      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90° elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each, arriving 2026-10-16, and one uxcell 24 mm OD × 16 mm ID × 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15, arriving 2026-10-19; grand total USD 30.18. The USD 2.05 difference from the USD 28.13 item total is taken as tax and allocated in proportion to item price (USD 1.60 and USD 0.45). Order history and Transactions required a fresh sign-in on 2026-10-15; this source does not establish a completed charge.",
+      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90° elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each and one uxcell 24 mm OD × 16 mm ID × 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15; grand total USD 30.18. It does not establish a completed charge.",
       "proves": [
-        "order_date",
         "price"
       ],
       "reference": "114-5530613-2918640",
@@ -59090,6 +59093,22 @@
       "source_id": "src-f175d220a1a04dbb8ae63733cb838a56",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details and invoice: ordered 2026-10-14; two PureSec bulkhead 5-packs sold by JEAMSWORLD at USD 10.99 each, arriving 2026-10-16, and one uxcell silicone washer 10-pack sold by uxcell at USD 6.15, arriving 2026-10-19; USD 28.13 item subtotal, USD 0.00 shipping, USD 2.05 estimated tax and USD 30.18 grand total. The tax is not itemized; it is allocated in proportion to item price (USD 1.60 and USD 0.45). Order-scoped Transactions listed no transactions on 2026-10-15; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-5530613-2918640",
+      "source_id": "src-f3504a07b3da4440a42381a5c35446a4",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-15"
     },
     {
       "document_date": {
