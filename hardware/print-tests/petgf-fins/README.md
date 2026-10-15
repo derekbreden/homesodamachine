@@ -9,6 +9,13 @@ practical support removal. The first run has an
 as their roofs began, AI detection interrupted printing, and the user did not
 continue. No usable bridge-span limit is established.
 
+The locally authored bridge fins put their walls beside the roof and carry its
+edges on projecting horizontal teeth. They do not reproduce PrintFins' published
+wall-under-ledge gap calibration. In v4/v6 the one-layer teeth project 2.24 mm
+from the wall; nominal bridge landings on their tips do not establish physical
+bearing support. The [geometry comparison](geometry-comparison.json) separates
+these local results from the untested wall-under-roof arrangement.
+
 The saved G-code places those first three roof attempts on layer 44, Z10.52.
 The ramps' last completed layer is 43, Z10.28. Their commanded reaches beyond
 the post are about 12.28 mm for S30, 10.11 mm for S35 and 8.44 mm for S40,

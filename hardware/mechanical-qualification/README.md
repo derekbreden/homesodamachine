@@ -157,6 +157,10 @@ bridges. Roof bowing, loose loops and irregular contact remnants are visible;
 the sequence of tooth deformation/attachment loss or handling separation is
 unresolved. The [Mark1 comparison](../print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
 does not isolate a printer effect because anchor fill, height and plate size differ.
+The [geometry comparison](../print-tests/petgf-fins/geometry-comparison.json)
+identifies the v4/v6 fins as local lateral walls with 2.24 mm cantilever teeth.
+Their failures do not qualify or reject PrintFins' published wall-under-ledge
+arrangement with a vertical release gap, which remains untested here.
 The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course
