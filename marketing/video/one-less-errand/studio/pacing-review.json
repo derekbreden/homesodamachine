@@ -53,12 +53,6 @@
       "source_sample": 400909
     },
     {
-      "id": "cold",
-      "after_scene": "hero",
-      "frames": 26,
-      "source_sample": 425863
-    },
-    {
       "id": "carbonated",
       "after_scene": "hero",
       "frames": 23,
@@ -92,7 +86,7 @@
   "type_timing": {
     "case_store": 1.65,
     "hero_cold_frame": 2,
-    "hero_carbonated_frame": 47,
+    "hero_carbonated_frame": 21,
     "repeat_type_ends": [
       2.96,
       3.76,
