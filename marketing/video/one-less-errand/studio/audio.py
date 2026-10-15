@@ -57,11 +57,11 @@ def hz(midi):
     return 440*2**((midi-69)/12)
 
 
-def pluck(midi, duration=1.6, damped=False):
+def pluck(midi, duration=1.6, damped=False, decay=None):
     """A short double-course string with a small wooden attack."""
     t = np.arange(round(duration*SR))/SR
     f, x = hz(midi), np.zeros_like(t)
-    life = .30 if damped else .78
+    life = decay if decay is not None else (.30 if damped else .78)
     for partial in range(1, 9):
         amp = (-1 if partial % 3 == 0 else 1)*.78**(partial-1)/partial
         envelope = np.exp(-t/(life/(1+.31*(partial-1))))
@@ -313,6 +313,8 @@ def make_score(story, count, events, captions):
     routine_at = scenes['case']['start']
     extra_question = scenes['question'].get('extra_frames', 0)/float(story['fps'])
     routine_end = reveal_at-extra_question
+    carry_decay = story.get('score', {}).get('reveal_transition') == 'decay'
+    tail = np.zeros_like(score) if carry_decay else None
     # A fixed eight-note cell gives the errands a routine, without speeding up
     # the narrator. Physical contacts carry their own picture-derived clock.
     beat, origin = .5625, routine_at+.125
@@ -330,10 +332,18 @@ def make_score(story, count, events, captions):
     for i, midi in enumerate([50, 57, 64, 66]):
         add(score, i*.019, pluck(midi, 1.7), .015*(1-i*.08), (i-1.5)*.12)
     voicings = [[47, 54, 57, 62], [43, 54, 57, 62], [45, 52, 55, 62], [47, 54, 57, 62]]
-    for cell in range(max(0, math.ceil((routine_end-routine_at)/(8*beat)))):
+    cells = max(0, math.ceil((routine_end-routine_at)/(8*beat)))
+    for cell in range(cells):
         at, voicing = routine_at+cell*8*beat, voicings[cell % len(voicings)]
+        carry = carry_decay and cell == cells-1
         for i, midi in enumerate(voicing):
-            add(score, at+i*.019, pluck(midi, 1.7), .015*(1-i*.08), (i-1.5)*.12)
+            duration = reveal_at+.35-at-i*.019 if carry else 1.7
+            add(tail if carry else score, at+i*.019,
+                pluck(midi, duration, decay=1.25 if carry else None),
+                .015*(1-i*.08), (i-1.5)*.12)
+        if carry:
+            events.append({'start': at, 'end': reveal_at+.35, 'stem': 'score', 'id': 'question_decay',
+                           'description': 'The final routine harmony rings with a soft 1.25-second decay through the question pause and overlaps the answer by 350 ms; no new pulse or attack is added in the pause.'})
     # The repeating expectation stops for a short breath before the answer.
     # Let the extended question beat carry the decay before the answer chord.
     edge = round(reveal_at*SR)
@@ -342,6 +352,8 @@ def make_score(story, count, events, captions):
     score[fade:clear] *= np.cos(np.linspace(0, np.pi/2, clear-fade))[:, None]**2
     score[clear:edge] = 0
     score[edge:] = 0
+    if carry_decay:
+        score += tail
     phrases = [
         (reveal_at, [50, 57, 59, 64, 66], .027, 3.1),
         (water_at, [47, 57, 62, 66], .014, 2.5),
@@ -363,10 +375,12 @@ def make_score(story, count, events, captions):
     last = round((story['duration']-.42)*SR)
     score[last:] *= np.cos(np.linspace(0, np.pi/2, count-last))[:, None]**2
     score[-round(.06*SR):] = 0
+    transition = ('a 220 ms pulse release leaves the last routine harmony decaying through the pause and into the answer'
+                  if carry_decay else f'a 220 ms fade leads to a {round((.20+extra_question)*1000)} ms tonal breath before the reveal')
     events.extend([
         {'start': 0, 'end': routine_at, 'stem': 'score', 'description': 'A small double-course plucked figure introduces the wish for a drink.'},
         {'start': routine_at, 'end': reveal_at, 'stem': 'score',
-         'description': f'The same eight-note pluck cell repeats with gently accumulating bass and rim pulse; a 220 ms fade leads to a {round((.20+extra_question)*1000)} ms tonal breath before the reveal.'},
+         'description': f'The same eight-note pluck cell repeats with gently accumulating bass and rim pulse; {transition}.'},
         {'start': reveal_at, 'end': water_at, 'stem': 'score', 'description': 'The expected repetition gives way to open D-six/nine struck harmony at the faucet reveal.'},
         {'start': water_at, 'end': sensory_at, 'stem': 'score', 'description': 'Thin, rounded harmony leaves the close water in the foreground.'},
         {'start': sensory_at, 'end': serve_at, 'stem': 'score', 'description': 'Spacious struck harmony supports the intimate beverage macro.'},

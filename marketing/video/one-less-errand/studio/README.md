@@ -58,32 +58,33 @@ musical decay complete the 715-frame edit.
 
 ## Processing-beat review
 
-`pacing-review.json` defines a 733-frame, 30.542-second review cut. The moving
+`pacing-review.json` defines a 739-frame, 30.792-second review cut. The moving
 opening macro has eight extra frames (333 ms) after the wish for a glass of
-soda. The empty-shelf question has ten extra frames (417 ms) before the faucet
+soda. The empty-shelf question has sixteen extra frames (667 ms) before the faucet
 answer. The case, transport, repeat, pour and closing shots retain their local
 motion and duration. The store text enters with “a trip to the store.”
 
 `timing.py` derives the review clock from `story.json`, including the shifted
 contact frames. The narration receives silence at two quiet sample boundaries
 in the existing recording, with 3 ms fades in the noise floor. All spoken
-material and its original speed remain intact. The extra question beat extends
-the musical hush; the answer chord and faucet arrive together.
+material and its original speed remain intact. The final routine harmony rings
+with a soft decay through the question pause and overlaps the answer by 350 ms.
+The pulse releases before the answer chord and faucet arrive together.
 
 Build the review from the native source frames:
 
 ```sh
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/audio.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
-  --out marketing/video/one-less-errand/studio/out/pacing-review
+  --out marketing/video/one-less-errand/studio/out/pacing-review-decay
 tools/video-venv/bin/python marketing/video/one-less-errand/studio/finish.py \
   --timing marketing/video/one-less-errand/studio/pacing-review.json \
   --frames marketing/video/one-less-errand/studio/out/frames/story-loop-24-24fps-1920px-32spp \
-  --audio marketing/video/one-less-errand/studio/out/pacing-review/mix-master.wav \
-  --out marketing/video/one-less-errand/studio/out/pacing-review
+  --audio marketing/video/one-less-errand/studio/out/pacing-review-decay/mix-master.wav \
+  --out marketing/video/one-less-errand/studio/out/pacing-review-decay
 ```
 
-The review player is `out/pacing-review/index.html`; its movie, captions,
+The review player is `out/pacing-review-decay/index.html`; its movie, captions,
 picture clock and sound report live beside it. The published master and its
 publication record are listed in [`../README.md`](../README.md).
 
