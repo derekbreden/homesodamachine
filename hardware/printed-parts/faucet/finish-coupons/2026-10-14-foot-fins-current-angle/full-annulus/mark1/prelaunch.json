@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-10-15T04:50:23.169266+00:00",
+  "bed_clear_authorization": "Mark1 bed is clear",
+  "printer_readings": {
+    "H2C": {
+      "job_id": "1340794235",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1-print-only.gcode.3mf",
+      "layer_num": 167,
+      "total_layer_num": 167,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0
+    },
+    "Mark2": {
+      "job_id": "1340828943",
+      "gcode_state": "RUNNING",
+      "subtask_name": "2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+      "layer_num": 35,
+      "total_layer_num": 70,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0
+    }
+  },
+  "other_printer_acceptance_at_utc": "2026-10-15T03:55:45.420896+00:00",
+  "elapsed_since_other_printer_acceptance_seconds": 3277.74837
+}

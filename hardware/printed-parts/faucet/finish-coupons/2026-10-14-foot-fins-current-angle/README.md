@@ -5,10 +5,11 @@ the [confirmed faucet defect visualization](../../industrial/defects/2026-10-14.
 The customer outcome is a clean, intact rim after support removal, with the
 accepted upper finish recipe retained.
 
-The [prepared Full-mode comparison](full-annulus/README.md) applies the bridge
+The [Full-mode comparison](full-annulus/README.md) applies the bridge
 recipe to both support conditions and adds annulus-specific contact placement.
 Its [layout and measured front strand](support-layout-review.png) retain the
-accepted angle. It has not been submitted to a printer.
+accepted angle. [Mark1 accepted job 1340913124](full-annulus/mark1/README.md)
+at 23:53:32 CDT on 2026-10-14 with its own +0.18 mm trim.
 
 Both sections preserve the production **−15° X rotation**, original underside
 and original bed contact. They end at original print Z16.76, below the first
