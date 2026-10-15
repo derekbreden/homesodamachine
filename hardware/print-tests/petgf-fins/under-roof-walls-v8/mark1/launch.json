@@ -1,0 +1,31 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-15T02:30:55.134740+00:00",
+  "archive": {
+    "name": "2026-10-14-v8-under-roof-walls-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "sha256": "65c5a50cb63ba56df68c2e74a183e0eab8a6abda1c219cc37b6e0a63f1b9235b",
+    "gcode_sha256": "8655bf5315c5ade46f9f76509077f73d8a7b23387ead9fef8a344bf43c02f559",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "C0X",
+      "G1X",
+      "G2X",
+      "C0Y",
+      "G1Y",
+      "G2Y"
+    ]
+  },
+  "printer_task_id": "1340689201",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-14-v8-under-roof-walls-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 28,
+  "mc_remaining_time": 0
+}

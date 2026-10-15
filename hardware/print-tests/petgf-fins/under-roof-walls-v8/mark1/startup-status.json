@@ -1,0 +1,79 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-15T02:33:35.378733+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-14-v8-under-roof-walls-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 28,
+  "mc_remaining_time": 15,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 170.0,
+  "nozzle_target_temper": 265.0,
+  "bed_temper": 27.0,
+  "bed_target_temper": 27.0,
+  "lights_report": [
+    {
+      "mode": "on",
+      "node": "chamber_light"
+    },
+    {
+      "mode": "flashing",
+      "node": "work_light"
+    },
+    {
+      "mode": "on",
+      "node": "chamber_light2"
+    }
+  ],
+  "external_spools": {
+    "254": {
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "255": {
+      "type": "TPU",
+      "colour": "FFFFFFFF"
+    }
+  },
+  "nozzle_type": "HS01-0.4",
+  "nozzles": [
+    {
+      "id": 18,
+      "type": "HS01",
+      "diameter": 0.4,
+      "sn": "20D06A611000397"
+    },
+    {
+      "id": 1,
+      "type": "HS01",
+      "diameter": 0.4,
+      "sn": "N/A"
+    },
+    {
+      "id": 17,
+      "type": "HS00",
+      "diameter": 0.2,
+      "sn": "20D06A5C1907799"
+    },
+    {
+      "id": 20,
+      "type": "HS00",
+      "diameter": 0.2,
+      "sn": "20D06A5C1907737"
+    },
+    {
+      "id": 0,
+      "type": "HS01",
+      "diameter": 0.6,
+      "sn": "20D06A5C1014313"
+    },
+    {
+      "id": 19,
+      "type": "HS01",
+      "diameter": 0.8,
+      "sn": "20D06A610807096"
+    }
+  ]
+}
