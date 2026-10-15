@@ -20,7 +20,10 @@ no lower-bead bearing and no model deposition on the bed course. A
 [single corrected tip candidate](../finish-coupons/2026-10-15-tip-root-anchor/README.md)
 adds a directly bonded sacrificial root foot, retaining the pose, eight fins,
 lip support paint and material recipe. Native root bearing and lip contacts
-are reviewed; the candidate is unsent and physical removal and fit are untested.
+are reviewed. The [corrected tip launch](../finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json)
+is Mark1 task `1342500038`, accepted at 12:13:00 CDT on 2026-10-15 after Derek
+confirmed both beds clear. Physical root-foot removal, finish and fit remain
+unreported.
 
 The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite

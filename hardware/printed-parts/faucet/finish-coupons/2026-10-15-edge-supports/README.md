@@ -106,7 +106,9 @@ The [root-course review and prepared correction](../2026-10-15-tip-root-anchor/R
 identify no plug deposition on the bed course and no lower bearing beneath the
 first Z0.44 plug strand. The rim review above did not assess that anchorage.
 The corrected single candidate adds a directly bonded bed foot at the plug
-start and remains unsent. The earlier Mark2 bottom-rim appearance acceptance
+start and is [Mark1 task 1342500038](../2026-10-15-tip-root-anchor/mark1/launch.json),
+accepted at 12:13:00 CDT on 2026-10-15. Its physical result remains pending.
+The earlier Mark2 bottom-rim appearance acceptance
 keeps its scope on that identified article.
 
 Native overlap describes commanded bearing locations, not sag, fusion, contact
