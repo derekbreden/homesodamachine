@@ -1,5 +1,26 @@
 # Industrial faucet print log
 
+## Rim support candidates — 2026-10-15
+
+The [two single edge-support prints](../finish-coupons/2026-10-15-edge-supports/README.md)
+are Mark1 task `1341173963`, a −105° tip section with the eight plain fins
+retained and local trees added at the rough seam-side lip, and Mark2 task
+`1341188908`, a −15° foot with seven curved rim fins and Tree(auto)/Default
+on the remaining underside. The starts are 594.405 seconds apart. Each plate
+has one candidate and no repeated control. Finished contact quality, curved-wall
+release and mating fit remain pending.
+
+The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
+records the best observed bottom-side rim appearance and a still-rough opposite
+side. The [Full-annulus base result](../finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
+reports tighter material but better underside and front-face finish with trees.
+The [selected complete-faucet recipe](finish-selection.json) retains 125% bridge
+flow, 70% cooling after three fan-off layers, 15 mm/s bridges and overhang limits
+at most 15 mm/s with the existing 10 mm/s limit retained. The
+[whole-project command reading](overhang-native-review.json) covers all five rigid
+parts, including Floating vertical shell. The complete project retains automatic
+supports; the new edge-support choices remain local to their candidates.
+
 ## Planned production approval — 2026-10-14
 
 Derek's [physical inspection](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)

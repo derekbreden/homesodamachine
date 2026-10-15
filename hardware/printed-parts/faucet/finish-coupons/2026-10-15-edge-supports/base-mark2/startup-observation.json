@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-10-15T08:10:36.472140+00:00",
+  "job_id": "1341188908",
+  "subtask_name": "2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ],
+  "layer_num": 4,
+  "total_layer_num": 70,
+  "mc_remaining_time": 61,
+  "nozzle_temper": 280.0,
+  "nozzle_target_temper": 280.0,
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "hms_interpretation": {
+    "code": "0C00-0100-0002-0017",
+    "printer_report": "Nozzle camera lens is dirty; AI monitoring may be affected.",
+    "source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+    "scope": "Printer-reported warning; no direct lens inspection. The job continues RUNNING with print_error0."
+  }
+}

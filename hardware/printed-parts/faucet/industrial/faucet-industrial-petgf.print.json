@@ -2,7 +2,7 @@
   "project": "faucet-industrial-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "settings_source_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
-  "settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
   "source_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
   "settings_changes": {
     "machine_start_gcode": {
@@ -36,6 +36,194 @@
         "0",
         "nil",
         "nil"
+      ]
+    },
+    "fan_min_speed": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "70"
+      ]
+    },
+    "overhang_fan_speed": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "70"
+      ]
+    },
+    "bridge_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_bridge_speed": {
+      "from": [
+        "25",
+        "25",
+        "25"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "bridge_flow": {
+      "from": "1",
+      "to": "1.25"
+    },
+    "overhang_1_4_speed": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "overhang_totally_speed": {
+      "from": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_1_4_speed": {
+      "from": [
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_2_4_speed": {
+      "from": [
+        "35",
+        "50",
+        "50"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "from": [
+        "35",
+        "30",
+        "30"
+      ],
+      "to": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_totally_speed": {
+      "from": [
+        "10",
+        "10",
+        "10"
+      ],
+      "to": [
+        "10.0",
+        "10.0",
+        "10.0"
       ]
     },
     "filament_colour": {
@@ -369,7 +557,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "project_sha256": "c0ac0f16abce78139c7886cab12893f2e08af4e625ff3afbbeffaa1f6cd05eb2",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -451,11 +639,11 @@
   },
   "project_title": "Industrial faucet PET-GF",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
-  "native_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "native_settings_sha256": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d",
   "all_profile_members_preserved_byte_for_byte": false,
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
-    "Metadata/project_settings.config": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d"
+    "Metadata/project_settings.config": "6cd8044aa27f037d2f49fc9b4d21178469183585d0e877c74341243b05ccca4d"
   },
   "sculpted_artifacts_unchanged": {
     "hardware/printed-parts/faucet/faucet-petgf.3mf": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
@@ -769,6 +957,21 @@
       "filament_wipe": "0",
       "filament_wipe_distance": "0"
     },
+    "overhang_recipe": {
+      "selected_date": "2026-10-15",
+      "bridge_flow": "1.25",
+      "fan_percent": 70,
+      "fan_off_bed_layers": 3,
+      "bridge_speed_mm_s": 15,
+      "maximum_overhang_speed_mm_s": 15,
+      "preserve_slower_overhang_limits": true,
+      "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
+      "physical_evidence": [
+        "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
+        "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json"
+      ],
+      "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
+    },
     "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
     "lift_specimen": "E",
     "additional_coarse_model_layers": 8,
@@ -815,7 +1018,7 @@
     "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
     "production_tag": "faucet-industrial-production-2026-10-14"
   },
-  "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
+  "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts.",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
     "hardware/printed-parts/faucet/refresh_print_project.py": "7d5234c8003ea368201a4008dec72022c9107d882455fbbce5df154cee1a962a",
@@ -833,11 +1036,9 @@
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "9f922d4c067ae5254c7edafd78cc6b2b99848685780cb21b463bd28b20b9a8c0",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "416c305d853ee012139f8942c92dc0a78a4ea3bbb228c0a8db9250d427aeac86",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "a36cd722b5e4ab2e523c09f885c768e16abe24c8d99c5dda9566ca6d805f8da5"
-  },
-  "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-  "production_tag": "faucet-industrial-production-2026-10-14"
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "b7f1d7619d17a8ee67effec4ec5f118a5cac4a493ec9ec1bae1b034e4cd10347"
+  }
 }

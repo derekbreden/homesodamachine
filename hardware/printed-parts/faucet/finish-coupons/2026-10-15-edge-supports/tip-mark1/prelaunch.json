@@ -1,0 +1,11 @@
+{
+  "job_id": "1340913124",
+  "gcode_state": "FINISH",
+  "subtask_name": "2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 70,
+  "total_layer_num": 70,
+  "mc_remaining_time": 0,
+  "observed_at_utc": "2026-10-15T07:46:55.156700+00:00"
+}
