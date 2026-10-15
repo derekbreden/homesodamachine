@@ -1,0 +1,85 @@
+{
+  "error_string": "Success.",
+  "export_time": 1827,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 69,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bridge": 60.167301177978516,
+        "Custom": 303.7317810058594,
+        "Flush": 15.0,
+        "Gap infill": 6.284254550933838,
+        "Inner wall": 434.8547058105469,
+        "Internal solid infill": 364.9855041503906,
+        "Outer wall": 589.83984375,
+        "Overhang wall": 2.285910129547119,
+        "Sparse infill": 400.7354736328125,
+        "Support": 760.2390747070312,
+        "Support interface": 1.954074501991272,
+        "Top surface": 16.995141983032227,
+        "Travel": 837.3363037109375,
+        "Undefined": 829.372314453125
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 21.19342613220215,
+          "total_used_g": 21.19342613220215
+        }
+      ],
+      "generate_support_material_time": 635,
+      "id": 1,
+      "infill_time": 420,
+      "layer_filament_change": 0,
+      "main_predication": 3460.881591796875,
+      "make_perimeters_time": 192,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 46.737510681152344,
+            "height": 53.80972671508789,
+            "width": 26.999984741210938,
+            "x": 110.00000762939453,
+            "y": 134.97312927246094,
+            "z": -4.4799675941467285
+          },
+          "id": 5,
+          "name": "A tip production reference",
+          "triangle_count": 20566
+        },
+        {
+          "bbox": {
+            "depth": 46.737510681152344,
+            "height": 53.80972671508789,
+            "width": 26.99999237060547,
+            "x": 188.0,
+            "y": 134.97312927246094,
+            "z": -4.4799675941467285
+          },
+          "id": 9,
+          "name": "B tip 125 bridge 70 cooling",
+          "triangle_count": 20566
+        }
+      ],
+      "sliced_time": 2157,
+      "sliced_time_with_cache": 792,
+      "total_predication": 3786.6494140625,
+      "triangle_count": 41132,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

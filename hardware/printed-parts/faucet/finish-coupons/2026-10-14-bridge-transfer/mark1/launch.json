@@ -1,0 +1,29 @@
+{
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "accepted": true,
+  "first_acceptance_observed_at_utc": "2026-10-15T03:32:42.574043+00:00",
+  "recorded_at_utc": "2026-10-15T03:34:45.964923+00:00",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark1/2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1-print-only.gcode.3mf",
+  "archive_sha256": "97c80fad43e20b7c0208fefa023934a255468b5f3d85f9989e96f426c218804f",
+  "gcode_sha256": "57b1a32339dc93c4aea6c3df3b7814a3e109b1d61c2db7c5a5dfe02d0ece2eba",
+  "new_printer_job": {
+    "job_id": "1340794235",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-14-faucet-tip-bridge-transfer-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 167,
+    "print_error": 0,
+    "hms": [],
+    "mc_remaining_time": 63
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mapping": "Left fixed hardened standard-flow 0.4 mm, black PET-GF external spool 254",
+  "submission": "Bambu Connect accessibility sender; runtime display alias Mark1 resolves the H2C connection key. One successful Send. Two earlier attempts stopped before Send.",
+  "startup_spacing": "Mark2 was idle. Earliest subsequent other-printer start is 2026-10-15T03:35:42.574043+00:00, 180 s after first observed acceptance."
+}

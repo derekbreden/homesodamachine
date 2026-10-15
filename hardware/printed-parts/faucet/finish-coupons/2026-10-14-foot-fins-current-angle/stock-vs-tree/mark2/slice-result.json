@@ -1,0 +1,87 @@
+{
+  "error_string": "Success.",
+  "export_time": 1648,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 40,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 14.747065544128418,
+        "Bridge": 571.9537963867188,
+        "Brim": 37.62823486328125,
+        "Custom": 304.864013671875,
+        "Flush": 15.0,
+        "Gap infill": 9.85134220123291,
+        "Inner wall": 283.65020751953125,
+        "Internal solid infill": 328.7306213378906,
+        "Outer wall": 376.5419616699219,
+        "Overhang wall": 932.3176879882812,
+        "Sparse infill": 1800.27880859375,
+        "Support": 962.0692138671875,
+        "Support interface": 12.588438034057617,
+        "Top surface": 77.05672454833984,
+        "Travel": 838.3445434570312,
+        "Undefined": 829.2166137695312
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 45.94611358642578,
+          "total_used_g": 45.94611358642578
+        }
+      ],
+      "generate_support_material_time": 860,
+      "id": 1,
+      "infill_time": 242,
+      "layer_filament_change": 0,
+      "main_predication": 6230.3701171875,
+      "make_perimeters_time": 327,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 65.40764617919922,
+            "height": 45.68300247192383,
+            "width": 59.0,
+            "x": 94.0,
+            "y": 125.4881362915039,
+            "z": -13.575188636779785
+          },
+          "id": 5,
+          "name": "A stock fin walls",
+          "triangle_count": 8698
+        },
+        {
+          "bbox": {
+            "depth": 61.790985107421875,
+            "height": 32.18545913696289,
+            "width": 59.0,
+            "x": 172.0,
+            "y": 129.10479736328125,
+            "z": -0.07764551043510437
+          },
+          "id": 9,
+          "name": "B production auto supports",
+          "triangle_count": 6442
+        }
+      ],
+      "sliced_time": 2243,
+      "sliced_time_with_cache": 738,
+      "total_predication": 6556.10595703125,
+      "triangle_count": 15140,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
