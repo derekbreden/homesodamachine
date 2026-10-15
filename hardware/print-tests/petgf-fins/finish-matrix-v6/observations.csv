@@ -1,41 +1,41 @@
 id,kind,condition,flow_percent,first_bridge_speed_mm_s,fan_percent,angle_from_bed_degrees,reversed,roof_formed,surface_finish,sag,fin_release,roof_damage,preferred,notes
 C01,solid_bridge,1,100,15,70,,,,,,,,,
-C02,solid_bridge,2,100,25,70,,,,,,,,,
-C03,solid_bridge,3,125,15,70,,,,,,,,,
-C04,solid_bridge,4,125,25,70,,,,,,,,,
+C02,solid_bridge,2,100,25,70,,,,candidate pass,,,,,Candidate for passing; no firm acceptance
+C03,solid_bridge,3,125,15,70,,,,maybe pass,,,,,Tentative possible pass
+C04,solid_bridge,4,125,25,70,,,,candidate pass,,,,,Candidate for passing; no firm acceptance
 C05,solid_bridge,5,100,15,100,,,,,,,,,
-C06,solid_bridge,6,100,25,100,,,,,,,,,
-C07,solid_bridge,7,125,15,100,,,,,,,,,
+C06,solid_bridge,6,100,25,100,,,,maybe pass,,,,,Tentative possible pass
+C07,solid_bridge,7,125,15,100,,,,borderline; maybe pass,one low-hanging thread,,,,Initially barely failed with one low-hanging thread; subsequently included among possible passes
 C08,solid_bridge,8,125,25,100,,,,,,,,,
-F01,fin_bridge,1,100,15,70,,,,,,,,,
+F01,fin_bridge,1,100,15,70,,,,failed,,,,,About as bad as F08
 F02,fin_bridge,2,100,25,70,,,,,,,,,
 F03,fin_bridge,3,125,15,70,,,,,,,,,
 F04,fin_bridge,4,125,25,70,,,,,,,,,
 F05,fin_bridge,5,100,15,100,,,,,,,,,
 F06,fin_bridge,6,100,25,100,,,,,,,,,
-F07,fin_bridge,7,125,15,100,,,,,,,,,
-F08,fin_bridge,8,125,25,100,,,,,,,,,
-R01,ramp,,,,70,35,False,,,,,,,
-R02,ramp,,,,70,35,True,,,,,,,
-R03,ramp,,,,100,35,False,,,,,,,
-R04,ramp,,,,100,35,True,,,,,,,
-R05,ramp,,,,70,37.5,False,,,,,,,
-R06,ramp,,,,70,37.5,True,,,,,,,
-R07,ramp,,,,100,37.5,False,,,,,,,
-R08,ramp,,,,100,37.5,True,,,,,,,
-R09,ramp,,,,70,40,False,,,,,,,
-R10,ramp,,,,70,40,True,,,,,,,
-R11,ramp,,,,100,40,False,,,,,,,
-R12,ramp,,,,100,40,True,,,,,,,
-R13,ramp,,,,70,42.5,False,,,,,,,
-R14,ramp,,,,70,42.5,True,,,,,,,
-R15,ramp,,,,100,42.5,False,,,,,,,
-R16,ramp,,,,100,42.5,True,,,,,,,
+F07,fin_bridge,7,125,15,100,,,,failed,,,,,Worse than C07; much less severe than F08/Y04
+F08,fin_bridge,8,125,25,100,,,,failed,,,,,Severe reference failure relative to F07
+R01,ramp,,,,70,35,False,,acceptable at tested area,,,,,35 degrees; 70% fan; possibly among worst-looking; R03 better
+R02,ramp,,,,70,35,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R03,ramp,,,,100,35,False,,acceptable at tested area,,,,,35 degrees; 100% fan; better than R01
+R04,ramp,,,,100,35,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R05,ramp,,,,70,37.5,False,,acceptable at tested area,,,,,37.5 degrees; 70% fan; among worst-looking; possible tie with R01/others
+R06,ramp,,,,70,37.5,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R07,ramp,,,,100,37.5,False,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R08,ramp,,,,100,37.5,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R09,ramp,,,,70,40,False,,acceptable at tested area,,,,one of best-looking,40 degrees; 70% fan; among best-looking
+R10,ramp,,,,70,40,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R11,ramp,,,,100,40,False,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R12,ramp,,,,100,40,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R13,ramp,,,,70,42.5,False,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R14,ramp,,,,70,42.5,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R15,ramp,,,,100,42.5,False,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
+R16,ramp,,,,100,42.5,True,,acceptable at tested area,,,,,All 16 ramps accepted for this coupon area; general steeper-angle preference
 Y01,fin_bridge,1,100,15,70,,,,,,,,,
 Y02,fin_bridge,2,100,25,70,,,,,,,,,
 Y03,fin_bridge,3,125,15,70,,,,,,,,,
-Y04,fin_bridge,4,125,25,70,,,,,,,,,
-Y05,fin_bridge,5,100,15,100,,,,,,,,,
+Y04,fin_bridge,4,125,25,70,,,,failed,,,,,Severe failure; F07 is much less severe
+Y05,fin_bridge,5,100,15,100,,,,failed,,,,,About as bad as F08
 Y06,fin_bridge,6,100,25,100,,,,,,,,,
 Y07,fin_bridge,7,125,15,100,,,,,,,,,
 Y08,fin_bridge,8,125,25,100,,,,,,,,,

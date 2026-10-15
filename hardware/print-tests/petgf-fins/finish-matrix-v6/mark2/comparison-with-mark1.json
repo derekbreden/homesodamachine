@@ -1,0 +1,88 @@
+{
+  "scope": "Manual comparison of saved submitted paths; printer, anchor deposition, height and plate conditions differ.",
+  "specimens": [
+    {
+      "test": "finish-matrix-v6",
+      "printer": "Mark2",
+      "id": "C04",
+      "archive": "2026-10-14-v6-finish-matrix-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_sha256": "a025ec55018a915bce5eeddcd4a9d3ce0b40e0e65f4c1f8f878bd589ae245baf",
+      "first_roof_extrusion_percent": 125.0,
+      "first_roof_bridge_speed_mm_s": [
+        25.0
+      ],
+      "fan_percent": 70,
+      "clear_span_mm": 12.0,
+      "roof_thickness_mm": 1.2,
+      "roof_bottom_z_mm": 18.919999999999998,
+      "first_roof_nozzle_z_mm": 19.159999999999997,
+      "main_strokes": 28,
+      "cross_section_mm2_from_e": 0.10780429143400129,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ],
+      "native_anchor_settings": {
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "bottom_shell_layers": "3"
+      },
+      "model_count": 40,
+      "strokes_with_both_end_centers_on_previous_beads": 8,
+      "maximum_endpoint_center_distance_mm": 0.03800000000000514,
+      "maximum_missing_terminal_025mm_mm": 0.1978019484660587
+    },
+    {
+      "test": "flow-bracket-v7",
+      "printer": "Mark1",
+      "id": "R125",
+      "archive": "2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_sha256": "893a0982687c365efc47ff3d77b198d9811373ad3ab015ebd0b3ec3e3486bcc4",
+      "first_roof_extrusion_percent": 125.0,
+      "first_roof_bridge_speed_mm_s": [
+        25.0
+      ],
+      "fan_percent": 70,
+      "clear_span_mm": 12.0,
+      "roof_thickness_mm": 1.2,
+      "roof_bottom_z_mm": 5.4799999999999995,
+      "first_roof_nozzle_z_mm": 5.72,
+      "main_strokes": 28,
+      "cross_section_mm2_from_e": 0.10780429143400129,
+      "raster_pitch_mm": [
+        0.376,
+        0.377
+      ],
+      "native_anchor_settings": {
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "bottom_shell_layers": "23"
+      },
+      "model_count": 8,
+      "strokes_with_both_end_centers_on_previous_beads": 28,
+      "maximum_endpoint_center_distance_mm": 0.0,
+      "maximum_missing_terminal_025mm_mm": 0.0
+    }
+  ],
+  "conclusion": "C04 and R125 share the bridge recipe and effectively equal main-stroke volume per length. Their physical quality difference does not isolate printer performance.",
+  "fin_landing_scope": "The C-post endpoint gaps do not describe the fin paths; all main F/Y strokes have direct nominal preceding-tooth coverage in review.json.",
+  "candidate_fin_failure_mechanism": {
+    "geometry": "one-layer horizontal lower teeth",
+    "tooth_thickness_mm": 0.24,
+    "projection_beyond_fin_wall_mm": 2.24,
+    "tooth_underlap_beneath_roof_mm": 2.0,
+    "body_gap_mm": 0.24,
+    "claim": "The teeth must form before the roof lands. Their nominal G-code footprint does not establish their printed position or stiffness.",
+    "physical_condition": "Photos show irregular contact remnants and bowed/loose roof strands; pre-bridge tooth position and failure sequence remain unresolved.",
+    "source": "../../bonding-and-fins-v4/prepare.py: fin() and this experiment manifest",
+    "submitted_path_probe": {
+      "specimen": "F08",
+      "layer_before_lower_teeth_nozzle_z_mm": 18.68,
+      "minimum_right_wall_path_x_mm_before_teeth": 17.450000238418582,
+      "lower_teeth_nozzle_z_mm": 18.92,
+      "minimum_right_tooth_path_x_mm": 15.210000238418573,
+      "lower_tooth_overhang_wall_speed_mm_s": 10.0,
+      "claim": "The teeth are emitted as horizontal overhangs before the roof layer; slow native tooth-wall motion alone does not establish physical tooth formation."
+    }
+  }
+}

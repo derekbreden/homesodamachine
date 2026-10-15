@@ -11,7 +11,21 @@ Mark2 accepted **task 1340201019** on 2026-10-14. The native estimate is
 **2 h 05 min 04 s**, plus approximately **2 min 11 s** of nominal travel time
 for the slower bridge treatment, and **44.35 g** including added extrusion.
 Use **about 2 h 10 min** as the plate estimate; calibration/startup may add time.
-[Launch record](mark2/launch.json). Physical results are pending.
+[Launch record](mark2/launch.json). The printer completed all 85 layers.
+The [physical result and eight photos](mark2/physical-result.json) accept the
+surface appearance of **all 16 ramps** at this tested area. No bridge looks as
+good as the latest Mark1 set. C02/C04 are candidates for passing; C03/C06/C07
+are possible passes, with C07 also reported as a borderline failure with one
+low-hanging thread. F01/F08/Y04/Y05 have severe reported failures and F07 is
+worse than C07 but substantially less severe than F08/Y04. Other bridges have
+no individual assessment; no fin specimen is identified as accepted.
+
+The photos show bowed roof regions, loose looped strands and irregular contact
+remnants, while the broad fin panels appear largely straight. Specimen labels
+are not legible enough for photo-to-ID assignments. These post-print views do
+not establish whether teeth deformed before bridging or what separated during
+handling/removal. The [comparison with Mark1](mark2/comparison-with-mark1.json)
+records matched bridge deposition and differing anchor/plate conditions.
 
 ![Plate map, front at bottom](mark2/plate-map.png)
 
@@ -51,6 +65,15 @@ C03/F03/Y03 compare the slower speed. This plate's taller anchors, five-course
 roofs and longer return time between objects make retained finish and fin
 release the next questions, rather than an identical isolated-layer repeat.
 
+Mark1 R125 and Mark2 C04 have the same 28 main strokes, pitch and commanded
+volume per length at 125%, 25 mm/s and 70% fan. Mark1 has fully filled anchor
+layers at roof underside Z5.48 on an eight-object plate; Mark2 retains 15%
+grid infill in taller posts at Z18.92 on a 40-object plate. C04 has 8/28 main
+strokes with both endpoint centers on nominal preceding beads, versus 28/28
+for R125; its largest endpoint gap is 0.038 mm. This small nominal gap is a
+comparison limitation, not a demonstrated cause of the physical difference.
+The two plates do not isolate printer performance.
+
 The first-roof E and speed treatments apply to positive XY Bridge-feature
 extrusion on that course, including the raster connectors. All other extrusion
 volumes and motion speeds retain the native slice. Native strand spacing is
@@ -61,6 +84,12 @@ at both ends**: **448 strokes** across the 16 fin specimens. Each stroke's first
 and last 0.25 mm are within those nominal preceding-bead footprints. Fill prints
 before roof walls. The [submitted path review](mark2/review.json) records every
 specimen's coverage, actual speed, pitch and fan commands.
+
+The lower teeth are one 0.24 mm course, projecting 2.24 mm horizontally beyond
+the fin wall with 2 mm underlap beneath the roof. They must form before the
+roof prints. Correct commanded landings do not establish the teeth's physical
+position or bearing stiffness; deformation of these teeth is an unresolved
+candidate mechanism. The photographs do not determine its timing.
 
 ![Actual submitted first-roof paths on preceding beads](fin-landings.png)
 
@@ -82,6 +111,14 @@ direction comparison, not two independent printers or independent print runs.
 | 42.5° | 70% | R13 | R14 |
 | 42.5° | 100% | R15 | R16 |
 
+All rows and both orientations have reported acceptable surface appearance
+over the full 14 mm horizontal reach and 12 mm width. R09 (40°, 70% fan) is
+among the best-looking. R05 (37.5°, 70%) is among the worst, possibly tied with
+R01 (35°, 70%) and others. R03 (35°, 100%) looks better than R01, supporting
+the reported modest general benefit from 100% cooling for these ramps. The
+lowest accepted tested angle is 35° from the bed; 30° and larger reach/area
+remain unqualified. This ramp cooling preference does not select bridge cooling.
+
 Ramp speeds and extrusion retain the working recipe. They receive the labeled
 fixed cooling on all model features after the first three bed layers. Their
 last nozzle Z is at most 16.52, before the first bridge attempt at Z19.16.
@@ -99,8 +136,12 @@ face. Formation, release and surface quality are separate observations.
 For ramps, inspect both edges and the final corner over the full reach. The
 useful angle is the shallowest one with a complete tip and acceptable edges in
 both orientations. Compare the 70%/100% pairs before selecting cooling.
-The [observation sheet](observations.csv) leaves results unclaimed; no new
-fixtures, purchases or quantified force measurements are requested.
+The [observation sheet](observations.csv) records the ramp acceptance and the
+specific tentative/failed bridge assessments. Unreported bridge outcomes and
+fin release remain blank. No new fixtures, purchases or quantified force
+measurements are requested.
+
+![Post-print pieces with bowed and looped roof strands; specimen IDs unassigned](mark2/photos/07-result.jpg)
 
 The 40-object return time, fin height and five-course roof are part of this
 result. A better surface here does not establish equal performance on a smaller

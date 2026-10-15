@@ -145,7 +145,18 @@ The [40-specimen Mark2 follow-up](../print-tests/petgf-fins/finish-matrix-v6/REA
 is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
 volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing
 opposing directions. Its fin paths directly land on preceding beads; useful
-retained finish, release and physical results remain pending.
+retained fin finish and release remain unqualified. The
+[physical result and eight photos](../print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
+accept all 16 ramp surfaces at 35–42.5° from the bed, both orientations and
+70%/100% fan, over the tested 14 mm reach and 12 mm width. R09 is among the
+best-looking; R03 improves on R01, supporting a modest 100% ramp-cooling
+preference. C02/C04 are pass candidates and C03/C06/C07 possible passes,
+including C07's one low-hanging thread. F01/F08/Y04/Y05 fail severely; F07 is
+worse than C07 but less severe. No individual outcome is assigned to unreported
+bridges. Roof bowing, loose loops and irregular contact remnants are visible;
+the sequence of tooth deformation/attachment loss or handling separation is
+unresolved. The [Mark1 comparison](../print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
+does not isolate a printer effect because anchor fill, height and plate size differ.
 The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course

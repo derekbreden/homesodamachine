@@ -43,7 +43,14 @@ formation of both fin roofs and the solid control, with unacceptable sag/finish.
 Four ramps improve with residual sag and two look good; the 40° identification
 is tentative. The [40-specimen finish comparison](finish-matrix-v6/README.md)
 uses matched solid posts and opposing fins at 100%/125% volume, 15/25 mm/s and
-70%/100% fan, plus 35–42.5° ramps facing both directions.
+70%/100% fan, plus 35–42.5° ramps facing both directions. Its
+[physical result and photos](finish-matrix-v6/mark2/physical-result.json) accept
+all 16 ramp surfaces over the tested 14 mm reach and 12 mm width, with a
+modest reported benefit from 100% ramp cooling. Five C controls are tentative
+pass candidates; five identified fin specimens fail and no fin acceptance is
+reported. Photos show bowed/loose roof strands and irregular contact remnants,
+without establishing the failure sequence. Mark1/Mark2 bridge quality cannot
+isolate the printer because anchor construction, height and plate size differ.
 The [Mark1 flow bracket](flow-bracket-v7/README.md), task 1340334508, compares
 125%/130%/135%/140% first-roof extrusion at 70% fan and 25 mm/s on isolated
 first layers and completed five-course roofs. Its
