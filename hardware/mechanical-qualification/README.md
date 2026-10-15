@@ -103,10 +103,13 @@ The other three rigid parts retain the accepted complete-print reference
 and tag `faucet-industrial-approved-2026-10-13`.
 
 The [current-angle faucet foot comparison](../printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/physical-result.json)
-records Derek's in-progress rim failure report and four photographs for Mark2
-task 1340828943. The stock eight-fin specimen has a hanging loop and loose front
-rim strands while the visible walls remain upright. The views do not establish
-the tree reference's finished underside or either specimen's support-removal result.
+records Derek's completed comparison and nine photographs for Mark2 task
+1340828943. He reports stock fins strictly worse on the important front surface
+because of the missing front support, easy fin snap-off, a generally uniform
+bottom face and clear sag. Many other regions he worried about printed okay.
+The necessary support count remains open; easy stock-wall release does not
+establish release for the denser Full-mode layout. Mating fit and quantified
+sag remain unmeasured.
 The [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 is prepared for Mark2 with Tree(auto) on both specimens, comparing production
 settings with the bridge/cooling recipe. It has no accepted printer job.

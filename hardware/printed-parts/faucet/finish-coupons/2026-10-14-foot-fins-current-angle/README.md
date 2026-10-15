@@ -25,9 +25,12 @@ RUNNING without errors. The [launch receipt](stock-vs-tree/mark2/launch.json)
 identifies the stock-fin comparison. The native estimate is
 **1 h 49 min 16 s**, **45.95 g**, **70 layers**.
 The [editable project and native slice](stock-vs-tree/mark2/) retain the exact
-inputs. The [four in-progress photographs](stock-vs-tree/mark2/physical-result/physical-result.json)
-show a hanging loop and loose long strands at A's lever-facing rim, with the
-visible fin walls upright. Finished underside quality and removal remain pending.
+inputs. The [physical result](stock-vs-tree/mark2/physical-result/physical-result.json)
+binds four in-progress and five finished-part photographs to this job. Derek
+reports the fin specimen strictly worse at the important front surface because
+of the missing front support. The fins snapped off easily, and the bottom face
+is generally uniform with clear sag. Many other regions he expected to be risky
+printed okay. Mark2 reports FINISH at 70/70 layers.
 
 ## Supports and evidence
 
@@ -42,8 +45,9 @@ A uses 1.0 mm walls, 0.6 mm contact tips, a 0.24 mm requested vertical gap,
 12 mm maximum requested span and 0.6 mm free-edge inset. Bed pad and sway
 braces are off. The [PET-GF v8 G1 result](../../../../print-tests/petgf-fins/under-roof-walls-v8/README.md)
 selects that gap as a candidate for an underlying 1 mm wall: it supported well
-and bent off easily on its coupon. The sloped faucet face and native production
-cooling differ; faucet finish and removal remain physical questions.
+and bent off easily on its coupon. This faucet result establishes easy release
+for the eight stock walls at the retained angle and production recipe; the
+critical front surface fails the comparison with trees.
 
 The explicit local support choice serves A's **bottom annulus only**, addressing
 the observed circumferential scalloping and lifted strands. Support-block paint
@@ -80,18 +84,21 @@ Timelapse and bed leveling are On; Flow Dynamics and Nozzle Offset Calibration
 are Auto. Mark1's independent [tip material comparison](../2026-10-14-bridge-transfer/README.md)
 started more than three minutes before this Mark2 submission.
 
-## Physical assessment
+## Physical result and scope
 
-Keep A and B identified before support removal. After cooling, use fingers
-first and the existing cleanup tools if needed. Inspect the whole rim,
-including the photographed worst area, without sanding it first.
+The critical front surface favors the tree reference. Easy stock-fin removal,
+generally uniform underside texture and visible sag are separate observations;
+they do not establish an acceptable front edge. The finished photographs are
+unlabeled, so their left/right arrangement does not inherit the launch positions.
+Quantified sag, complete model-skin retention and mating fit remain unmeasured.
 
-Compare removal effort, retained model skin, contact marks, loose strands and
-rim scalloping. Check the edge against the existing mounting plate. A useful
-candidate improves edge shape, has no loose or catching strands, and removes
-without tearing the rim or impairing mating fit. If B does not reproduce the
-defect, a clean A does not establish a cure. The in-progress strand failure is
-recorded above; the cooled comparison and support-removal observations are pending.
+Derek expects speed and cooling to improve sag and considers fewer supports
+plausible. This plate does not determine the needed fin count. The running
+Full-mode comparison tests denser contact placement with the bridge recipe;
+its 37-wall total is a coverage candidate, with its own release result pending.
+A reduced-count candidate should retain deliberate bearing for the front
+starting strands and compare under the same recipe. Sparse coverage elsewhere
+remains worth testing because many of those regions printed okay here.
 
 This crop isolates defect 3. The localized shoulder buildup at defect 1 and
 the tip lip at defect 2 remain separate observations. The
