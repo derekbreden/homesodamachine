@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import json
 import re
+import sys
 import xml.etree.ElementTree as ET
 from zipfile import ZipFile
 
@@ -13,7 +14,8 @@ HERE=Path(__file__).resolve().parent
 ROOT=next(p for p in HERE.parents if (p/'tools/bambu_print.py').exists())
 spec=importlib.util.spec_from_file_location('rim',HERE/'rim-path-review.py')
 rim=importlib.util.module_from_spec(spec);spec.loader.exec_module(rim)
-FOLDER=HERE/'full-annulus/mark2'
+PRINTER=sys.argv[1] if len(sys.argv)>1 else 'mark2'
+FOLDER=HERE/'full-annulus'/PRINTER
 
 def digest(raw):return hashlib.sha256(raw).hexdigest()
 def save(path,data):path.write_text(json.dumps(data,indent=2)+'\n')
@@ -21,11 +23,11 @@ def save(path,data):path.write_text(json.dumps(data,indent=2)+'\n')
 def main():
     prep=json.loads((FOLDER/'preparation.json').read_text())
     project=ROOT/prep['project'];parent=ROOT/prep['parent_project']
-    archive=next(FOLDER.glob('*-mark2.gcode.3mf'))
+    archive=next(FOLDER.glob(f'*-{PRINTER}.gcode.3mf'))
     core='{http://schemas.microsoft.com/3dmanufacturing/core/2015/02}'
     with ZipFile(project) as z,ZipFile(parent) as p:
         unchanged={name:digest(z.read(name)) for name in p.namelist()
-            if name.startswith('3D/Objects/') and name!='3D/Objects/custom-foot-fins-0.model'}
+            if name.startswith('3D/Objects/') and (PRINTER=='mark1' or name!='3D/Objects/custom-foot-fins-0.model')}
         assert all(z.read(name)==p.read(name) for name in unchanged)
         a=ET.fromstring(z.read('3D/3dmodel.model'));b=ET.fromstring(p.read('3D/3dmodel.model'))
         assert ET.tostring(a.find(core+'build'))==ET.tostring(b.find(core+'build'))
@@ -47,7 +49,8 @@ def main():
         speeds=part['after_three_layer_speed_range_mm_s_by_feature']
         assert speeds['Bridge']==[15,15] and speeds['Overhang wall']==[10,15]
     trim=re.findall(r'^\s*G29\.1[^\n]*',raw.decode(),re.M)
-    assert [float(re.search(r'\bZ([-+.0-9]+)',line).group(1)) for line in trim]==[0,.02]
+    expected_trim=.16 if PRINTER=='mark1' else .02
+    assert [float(re.search(r'\bZ([-+.0-9]+)',line).group(1)) for line in trim]==[0,expected_trim]
     zs=sorted({p['z'] for p in paths})
     assert len(zs)==70 and abs(zs[0]-.2)<1e-6 and abs(zs[-1]-16.76)<1e-6
     keys=['layer_height','initial_layer_print_height','nozzle_diameter','nozzle_volume_type',

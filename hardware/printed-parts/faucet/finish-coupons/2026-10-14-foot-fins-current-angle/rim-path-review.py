@@ -52,8 +52,9 @@ def footprint(pp):
 
 def main():
     candidate=len(sys.argv)>1
-    folder=HERE/sys.argv[1]/'mark2' if candidate else FOLDER
-    archive=next(folder.glob('*-print-only.gcode.3mf')) if not candidate else next(folder.glob('*-mark2.gcode.3mf'))
+    printer=sys.argv[2] if len(sys.argv)>2 else 'mark2'
+    folder=HERE/sys.argv[1]/printer if candidate else FOLDER
+    archive=next(folder.glob('*-print-only.gcode.3mf')) if not candidate else next(folder.glob(f'*-{printer}.gcode.3mf'))
     with ZipFile(archive) as z:raw=z.read('Metadata/plate_1.gcode')
     if not candidate:assert hashlib.sha256(raw).hexdigest()=='6c0d4136375b68de1bb5bbe34b572585edd9682707294bcf05fdabe3c4acf63f'
     text=raw.decode();source_lines=text.splitlines()

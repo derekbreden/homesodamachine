@@ -1,0 +1,103 @@
+{
+  "project_sha256": "fb8ca34d3e1e50e4fcf4955ca231915dc030bb6409de83b00e00d3cfd10501c2",
+  "native_archive_sha256": "50c2b8c703124abe7d4006e6aedef9e8f7ec08799a3250e9301e047b3eb17740",
+  "gcode_sha256": "0374ac8f5865774405c8214267470fb3d16908a106dac86d6083584e85f827c7",
+  "embedded_md5_matches": true,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "\n    \n        G29.1 Z0.16"
+  ],
+  "unchanged_parent_model_and_modifier_members": {
+    "3D/Objects/foot-region-1000.model": "fcd72b18a3d6c2803f69a4f365a5bef0dd93913944322e1464e6ef9eece1f451",
+    "3D/Objects/foot-region-1001.model": "c1fcf1ca0ff79a532e05ee7e304db6d85a9ed7361cd612d25884b03c311ee0fa",
+    "3D/Objects/object_1.model": "abfedffd12f7ea55bd410af6e0137499571b225bcfb48d2c608725698ff450a0",
+    "3D/Objects/object_2.model": "62caad970d5490d8310a0af383c99bfc5e38404830bd363815101eeed4ec4ada",
+    "3D/Objects/rear-low-wall--6.model": "3d43c6e2b26306021989b43777f3821f694080dde282a53c03373f8655f2611a",
+    "3D/Objects/rear-low-wall-0.model": "81510562d4dd2a2957f6b84bb956e366abc6fa6d972c4dbfef63dd4995f2cf69",
+    "3D/Objects/rear-low-wall-6.model": "b73781a49e3941f752822b192d08a7ca874bc5756e74ea3d464057f3f6544d89",
+    "3D/Objects/custom-foot-fins-0.model": "fa5bdc7dda09da83898ffbb1b855fd6fa1d8935f1107bfabae528ff4fed09919"
+  },
+  "build_transforms_unchanged": true,
+  "effective_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "bed_temperature": null,
+    "bridge_flow": "1.25",
+    "bridge_speed": [
+      "15",
+      "15",
+      "15",
+      "15",
+      "15"
+    ],
+    "filament_bridge_speed": [
+      "15",
+      "15",
+      "15"
+    ],
+    "fan_min_speed": [
+      "70"
+    ],
+    "fan_max_speed": [
+      "70"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_top_z_distance": "0.45"
+  },
+  "full_bead_xy_bounds_mm": [
+    [
+      94.00000299999999,
+      128.412
+    ],
+    [
+      235.041,
+      202.753
+    ]
+  ],
+  "minimum_full_bead_bed_edge_inset_mm": 89.959,
+  "layer_count": 70,
+  "first_and_last_nozzle_z_mm": [
+    0.2,
+    16.76
+  ],
+  "all_after_first_layer_steps_mm": [
+    0.24
+  ],
+  "gcode_postprocessing": "None. Native G-code is packaged byte-identically.",
+  "scope": "Settings, retained model geometry/pose, emitted cooling/feed, bead envelopes and saved path measurements. No prediction of sag, support-removal effort or physical finish acceptance."
+}
