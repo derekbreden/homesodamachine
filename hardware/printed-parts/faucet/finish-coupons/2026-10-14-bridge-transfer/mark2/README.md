@@ -1,7 +1,9 @@
 # Mark2 foot and first-shoulder material comparison
 
-This is the prepared next Mark2 plate for the complete foot and first shoulder,
-cropped at original print Z33.8 mm. It has **no accepted printer job**.
+This unsent material comparison covers the complete foot and first shoulder,
+cropped at original print Z33.8 mm. It has **no accepted printer job** and is
+not selected for submission. The active Mark2 fin iteration is the
+[single tip candidate](../../2026-10-15-tip-fins/README.md), with no repeat control.
 
 | Facing Mark2 | Condition |
 | --- | --- |

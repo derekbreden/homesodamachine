@@ -16,14 +16,17 @@ Mark1 accepted the tip pair as **job 1340794235 at 22:32:42 CDT on
 1 h 03 min 07 s, 21.19 g; the local bridge slowdown adds time beyond it.
 The [launch receipt](mark1/launch.json) identifies the submitted archive.
 
-The [foot material pair](mark2/README.md) is prepared as Mark2's next plate but
-**not submitted**. Its native estimate is 3 h 54 min 14 s, 95.84 g, before the
+The [foot material pair](mark2/README.md) is prepared but **not selected for
+submission**. The active Mark2 fin iteration is the
+[single tip candidate](../2026-10-15-tip-fins/README.md), with no repeat control.
+The foot pair's native estimate is 3 h 54 min 14 s, 95.84 g, before the
 local Bridge slowdown. It holds Tree(auto) constant while comparing the material
 recipe and retains the first shoulder for a separate defect 1 assessment.
 Mark1's [Full-annulus comparison](../2026-10-14-foot-fins-current-angle/full-annulus/README.md)
 compares support placement with the bridge recipe on both specimens. Mark2's
-running [stock fin walls comparison](../2026-10-14-foot-fins-current-angle/README.md)
-has an in-progress rim strand failure recorded with four photographs.
+completed [stock fin walls comparison](../2026-10-14-foot-fins-current-angle/README.md)
+records easy fin removal, generally uniform underside texture with sag and a
+worse front edge than trees at the missing contact.
 
 ## Basis and treatment
 

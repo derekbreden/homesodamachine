@@ -1,0 +1,78 @@
+{
+  "printer": "Mark2",
+  "accepted_at_utc": "2026-10-15T06:25:19.948778+00:00",
+  "archive": {
+    "name": "2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+    "sha256": "ad85d377f667a64232f6f5ae18592634d37b5bf602c9ad9579cbe009765b9871",
+    "gcode_sha256": "4f09c3174196b49eee803f3c486cc2a0dac6387480a2d99a7768b4e769bea5f9",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Tip joint with eight plain fin walls"
+    ]
+  },
+  "printer_task_id": "1341048254",
+  "first_acceptance": {
+    "job_id": "1341048254",
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "mc_remaining_time": 0
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool": 254,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_mm": 0.02,
+  "specimen_count": 1,
+  "repeat_control": false,
+  "single_send_click": true,
+  "import_attempts": [
+    {
+      "method": "foreground sender",
+      "stage": "Open file",
+      "send_clicked": false,
+      "result": "App lost focus before Open; no input sent"
+    },
+    {
+      "method": "CUA",
+      "send_clicked": true
+    }
+  ],
+  "opposite_printer_accepted_at_utc": "2026-10-15T04:53:32.234704+00:00",
+  "startup_spacing_seconds": 5507.714074,
+  "earliest_other_printer_start_or_resume_utc": "2026-10-15T06:28:19.948778+00:00",
+  "confirmed_printer_job": {
+    "observed_at_utc": "2026-10-15T06:25:23.474861+00:00",
+    "job_id": "1341048254",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 167,
+    "mc_remaining_time": 36
+  },
+  "project_file_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  }
+}

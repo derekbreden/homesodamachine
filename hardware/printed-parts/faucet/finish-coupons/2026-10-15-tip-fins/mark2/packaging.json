@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "37a77eec2b61a2b32ea5ec18b6378992a6e1a76403501d9755eadb6d278b1ea6",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "ad85d377f667a64232f6f5ae18592634d37b5bf602c9ad9579cbe009765b9871",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "4f09c3174196b49eee803f3c486cc2a0dac6387480a2d99a7768b4e769bea5f9"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

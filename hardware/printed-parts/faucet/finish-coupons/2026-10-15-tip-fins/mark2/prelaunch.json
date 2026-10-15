@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-10-15T06:20:57.829957+00:00",
+  "authorization_quotes": [
+    "I'd rather you start iterating on the faucet tip, which also needs fins.",
+    "As far as the next print on mark2",
+    "which is open and ready for your next print",
+    "And I don't want you to keep wasting my time printing the same control over and over again. Please just print what you think will work best, no repeat control."
+  ],
+  "printers": [
+    {
+      "printer": "Mark2",
+      "job_id": "1340828943",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-14-faucet-foot-stock-fins-vs-tree-current15-petgf-left04-z004-mark2-print-only.gcode.3mf",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 70,
+      "total_layer_num": 70
+    },
+    {
+      "printer": "Mark1",
+      "job_id": "1340913124",
+      "gcode_state": "RUNNING",
+      "subtask_name": "2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 47,
+      "total_layer_num": 70
+    }
+  ],
+  "opposite_printer_accepted_at_utc": "2026-10-15T04:53:32.234704+00:00",
+  "minimum_opposite_start_spacing_seconds": 180,
+  "specimen_count": 1,
+  "repeat_control": false,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  }
+}

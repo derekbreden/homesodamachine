@@ -1,0 +1,72 @@
+{
+  "error_string": "Success.",
+  "export_time": 1573,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 51,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 10.332133293151855,
+        "Bridge": 47.135318756103516,
+        "Custom": 303.74420166015625,
+        "Flush": 15.0,
+        "Gap infill": 70.51782989501953,
+        "Inner wall": 224.36953735351562,
+        "Internal solid infill": 187.13926696777344,
+        "Outer wall": 767.0856323242188,
+        "Overhang wall": 1.2405999898910522,
+        "Sparse infill": 199.09324645996094,
+        "Support": 14.86125659942627,
+        "Top surface": 18.586898803710938,
+        "Travel": 354.6950378417969,
+        "Undefined": 346.7310485839844
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 9.19564151763916,
+          "total_used_g": 9.19564151763916
+        }
+      ],
+      "generate_support_material_time": 166,
+      "id": 1,
+      "infill_time": 201,
+      "layer_filament_change": 0,
+      "main_predication": 1880.040771484375,
+      "make_perimeters_time": 135,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 49.263427734375,
+            "height": 54.5567626953125,
+            "width": 31.05989646911621,
+            "x": 146.7189178466797,
+            "y": 134.95286560058594,
+            "z": -5.227005481719971
+          },
+          "id": 5,
+          "name": "Tip joint with eight plain fin walls",
+          "triangle_count": 21994
+        }
+      ],
+      "sliced_time": 948,
+      "sliced_time_with_cache": 380,
+      "total_predication": 2205.821044921875,
+      "triangle_count": 21994,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

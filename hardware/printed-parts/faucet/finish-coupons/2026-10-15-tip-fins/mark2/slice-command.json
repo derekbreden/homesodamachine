@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/faucet-tip-fins-20261015/native",
+    "--export-3mf",
+    "native.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2.3mf"
+  ]
+}
