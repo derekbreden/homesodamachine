@@ -40,9 +40,13 @@ def removal_offsets(time, interval):
     result = []
     for index in range(12):
         p = progress(time, start+index*spacing, start+index*spacing+travel)
+        # Lift clear of the carton fold before advancing. Each column keeps
+        # its own lane; the front row always leads the row behind it.
+        lift = progress(p,0.0,.18)
+        advance = progress(p,.18,1.0)
         # Once beyond the camera frustum, the can can be culled. No dissolve
         # or scale animation participates in its departure.
-        result.append((p > .995, (.018*math.sin(math.pi*p), -.62*p, .045*math.sin(math.pi*p))))
+        result.append((p > .995, (0.0,-.80*advance,.030*lift)))
     return result
 
 
@@ -106,8 +110,13 @@ def state(shot: str, time: float, duration: float, actions=None):
         if leaving >= .999:
             continue
         x = .64*(1-entering)-.64*leaving
+        # Use the open front of the refrigerator, clearing its side returns
+        # before crossing them laterally. The low arch also clears the trim.
+        y = -.36*((1-entering)+leaving)
         z = .016*math.sin(math.pi*entering) if entering < 1 else 0.0
-        result["packs"].append({"index": index, "offset": (x, 0.0, z),
+        if leaving > 0:
+            z += .016*math.sin(math.pi*leaving)
+        result["packs"].append({"index": index, "offset": (x, y, z),
                                  "cans": removal_offsets(time, removal)})
     return result
 

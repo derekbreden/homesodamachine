@@ -77,9 +77,9 @@ def assets(work):
         (layer(text_layer(['Onto a shelf.'],64,500,WHITE),(128,380)),.02,.12)
       ],
       'repeat':[
-        (layer(text_layer(['Another trip.'],78,500,WHITE),(128,300)),1.90,.12,2.98),
-        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.00,.12,3.78),
-        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.80,.12)
+        (layer(text_layer(['Another trip.'],78,500,WHITE),(128,300)),1.90,.12,2.50),
+        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.00,.12,3.58),
+        (layer(text_layer(['And another.'],78,500,WHITE),(128,300)),3.80,.12,4.45)
       ],
       'question':[
         (layer(text_layer(['What if the','next glass was','already waiting?'],62,500,WHITE,leading=1.15),(128,300)),.10,.20)
