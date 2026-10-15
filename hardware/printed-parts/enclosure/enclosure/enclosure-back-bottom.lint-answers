@@ -174,3 +174,25 @@ click: x=-58.158 y=471.900 z=20.810
 [sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
 click: x=105.115 y=248.252 z=29.248
 click: x=104.988 y=248.546 z=29.232
+
+[ceiling] Back-bottom's upper Y-seam corner-stack knuckle. Its underside stands one running fit plus the supported allowance over front-bottom's lower knuckle and prints on the saved tree supports.
+alternatives: A corbel or chamfer under it would stand in the room front-bottom's knuckle takes. A bridge needs a far wall the knuckle does not have.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-97.500 y=209.900 z=102.150
+click: x=97.500 y=209.900 z=102.150
+
+[ceiling] The lower rod's head counterbore. Its floor is the flat seat the floor washer and the disc-spring column bear on, a 10.3 mm round bridged over the handhold with the 4.7 mm pilot through it.
+alternatives: A teardropped or conical roof would set the washer on an edge. A shallower counterbore would leave the head proud of the handhold ceiling under the grip cover.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-98.000 y=208.900 z=41.250
+click: x=98.000 y=208.900 z=41.250
+
+[thin] The lower rod's 10.3 mm head counterbore stands 6.5 mm in from the interior face, in a knuckle the side band's full 14 mm deep. That leaves 2.35 mm of wall inboard of it over its 12 mm depth, and at the handhold ceiling its outboard rim stands about 2.1 mm from the exterior's show round over the bottom 1.7 mm. Neither wall carries the clamp; the head, washers and springs bear on the counterbore floor.
+alternatives: A knuckle deeper than the side band would stand in the cold core's lane. Moving the rod inboard would thin the inboard wall further; moving it outboard would thin the outboard one. A smaller counterbore would not pass the 10 mm washers and disc springs.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-90.500 y=208.893 z=34.021
+click: x=-92.850 y=208.900 z=34.021
+click: x=90.500 y=208.893 z=34.021
+click: x=92.850 y=208.900 z=34.021
+click: x=-105.228 y=208.887 z=29.257
+click: x=-103.150 y=208.877 z=29.257
