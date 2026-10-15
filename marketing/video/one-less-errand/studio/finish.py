@@ -63,8 +63,7 @@ def assets(work,story):
     hero_type=[(layer(text_layer(['Already','here.'],112,550,leading=1.03),(128,314)),.08,.22)]
     if 'hero_cold_frame' in cues:
         hero_type=[
-          (layer(text_layer(['Cold'],112,550),(128,314)),cues['hero_cold_frame']/FPS,3/FPS),
-          (layer(text_layer(['Fully carbonated'],84,550),(128,470)),cues['hero_carbonated_frame']/FPS,3/FPS)
+          (layer(text_layer(['Cold'],112,550),(128,391)),cues['hero_cold_frame']/FPS,3/FPS)
         ]
     data={
       'opening':[
