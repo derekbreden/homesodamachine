@@ -13,6 +13,13 @@ approximately **6.50 g** including added extrusion; allow about 30 minutes
 with startup/calibration. The plate has 28 layers.
 [Launch record](mark1/launch.json); [startup spacing and request window](startup-spacing.json).
 
+The [physical result](mark1/physical-result.json) reports all four completed R
+roofs look pretty good, with **R125 preferred**. L140 has a bit of sag that the
+other L specimens do not. L125 may look worse than the earlier A125, but the
+user is uncertain. Gap rankings among L specimens and the inspected face on
+the R specimens are unspecified. The completed-roof preference favors 125%
+at 70% fan and 25 mm/s; no joining improvement above 125% is established.
+
 | Front, one exposed roof course | Back, five roof courses | First bridge extrusion |
 | --- | --- | --- |
 | L125 | R125 | 125% |
@@ -28,6 +35,14 @@ sag and edge shape after subsequent deposition. Each row has its own 125%
 control. Compare extrusion levels within a row: native strand pitch can differ
 between the single-course and five-course roofs. Later roof courses retain
 native extrusion and speed.
+
+L125 repeats A125's bridge settings: 30 strokes at the same 0.377–0.378 mm
+pitch, 25 mm/s, 70% fan and effectively equal commanded volume per millimetre.
+It is a settings control. The anchor deposition differs: v5 uses 15% grid
+infill and three bottom shell layers; this plate uses solid fill as described
+below. Plate position, object count and deposition order also differ. A
+possible appearance difference between those two pieces does not isolate its
+cause or establish variation under identical print conditions.
 
 All specimens use normal bridge mode, a 12 mm clear span, 12 mm depth and
 permanent 3 mm model posts. The posts receive 100% infill and 23 bottom shell
@@ -53,8 +68,9 @@ the same light to compare remaining gaps, and inspect their sag and corners.
 Then inspect the matching R undersides for retained ridges, bowing and excess
 material. Prefer the least extrusion that gives comparable joining and useful
 shape. No new fixtures or purchases are needed. Appearance alone does not
-measure adjacent-line strength. Physical results remain pending in the
-[observation sheet](observations.csv).
+measure adjacent-line strength. The [observation sheet](observations.csv)
+records the reported sag and completed-roof preference; other fields remain
+unmeasured.
 
 The [Mark2 finish matrix](../finish-matrix-v6/README.md) supplies the matched fin,
 speed, direction and ramp comparisons. This plate assesses permanent-post

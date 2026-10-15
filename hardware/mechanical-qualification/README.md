@@ -150,7 +150,11 @@ The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course
 roofs expose retained underside shape. All bridge ends directly land on
-preceding beads. Physical gap closure and finish remain pending.
+preceding beads. Its [physical result](../print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
+reports all R roofs look pretty good, with R125 preferred, and L140 adds sag.
+The possible appearance decrease from A125 to L125 is uncertain; the bridge
+recipe matches but anchor deposition, position and plate conditions differ.
+First-layer gap closure, the inspected R face and fin release remain unreported.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

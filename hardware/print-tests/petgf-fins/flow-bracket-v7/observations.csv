@@ -1,9 +1,9 @@
 id,roof_courses,bridge_extrusion_percent,fan_percent,visible_gaps,sag,edge_curl,retained_underside,preferred,notes
-L125,1,125,70,,,,,,
-L130,1,130,70,,,,,,
-L135,1,135,70,,,,,,
-L140,1,140,70,,,,,,
-R125,5,125,70,,,,,,
-R130,5,130,70,,,,,,
-R135,5,135,70,,,,,,
-R140,5,140,70,,,,,,
+L125,1,125,70,,no comparable sag reported,,,,Possible quality decrease from A125; user is uncertain
+L130,1,130,70,,no comparable sag reported,,,,Visible-gap ranking unreported
+L135,1,135,70,,no comparable sag reported,,,,Visible-gap ranking unreported
+L140,1,140,70,,a bit of sag,,,,Visible-gap ranking unreported
+R125,5,125,70,,,,,best completed roof,Looks pretty good; inspected face not specified
+R130,5,130,70,,,,,,Looks pretty good; inspected face not specified
+R135,5,135,70,,,,,,Looks pretty good; inspected face not specified
+R140,5,140,70,,,,,,Looks pretty good; inspected face not specified
