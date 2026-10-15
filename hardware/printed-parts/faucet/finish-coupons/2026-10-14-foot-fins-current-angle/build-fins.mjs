@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
-const [engineDir, input, outputDir] = process.argv.slice(2);
+const [engineDir, input, outputDir,coverageArg,downhillArg,modeArg,scopeArg] = process.argv.slice(2);
 const load = file => import(pathToFileURL(path.resolve(engineDir, file)).href);
 const {readSTL, writeBinarySTL} = await load('web/stl.js');
 const {buildTopology, analyze} = await load('web/overhangs.js');
@@ -15,9 +15,25 @@ const topo = buildTopology({getAttribute:k=>k==='position'?{array:pos}:null});
 const a = -15 * Math.PI/180, c=Math.cos(a), s=Math.sin(a);
 const rot = [1,0,0,0,c,s,0,-s,c];
 const result = analyze(topo,45,rot);
-const options = {mode:'auto',bedPad:false,layerHeight:0.24,coverage:0.5,
+// Select the owned contact face before placement; the complete topology remains
+// available to the unmodified engine for seating and collision checks.
+if(scopeArg==='annulus') {
+  const selected=new Set();
+  for(let f=0;f<topo.nFaces;f++) {
+    if(topo.nrm[f*3+2]<-0.999 && [2,5,8].every(k=>Math.abs(topo.pos[f*9+k])<0.015))selected.add(f);
+    else {result.over[f]=0;result.kept[f]=0;}
+  }
+  result.regions=result.regions.map(g=>{
+    const faces=g.faces.filter(f=>selected.has(f));
+    return {faces,area:faces.reduce((a,f)=>a+topo.area[f],0)};
+  }).filter(g=>g.faces.length);
+  result.overArea=result.regions.reduce((a,g)=>a+g.area,0);
+  result.overFaceCount=result.regions.reduce((a,g)=>a+g.faces.length,0);
+}
+const options = {mode:modeArg??'auto',bedPad:false,layerHeight:0.24,coverage:Number(coverageArg??0.5),
   tineDensity:0,plateOnly:true,tunables:{propGap:0.24,cutout:'none',iface:false,
     nozzle:0.4,wallLines:2,tinesPerWall:0}};
+if(downhillArg!==undefined)options.downhill=downhillArg==='true';
 fs.mkdirSync(outputDir,{recursive:true});
 const records=[];
 for (const tines of [true,false]) {
@@ -30,6 +46,7 @@ for (const tines of [true,false]) {
   const blob=writeBinarySTL(points,name);
   fs.writeFileSync(path.join(outputDir,`${name}-seated.stl`),Buffer.from(await blob.arrayBuffer()));
   const rec={name,tines_enabled:tines,options:{...options,tines},offset:result.offset,
+    contact_scope:scopeArg??'all analyzed overhangs',
     overhang_area_mm2:result.overArea,bed_area_mm2:result.bedArea,
     tines:built.tines,fin_count:built.fins.length,skipped:built.skipped,
     floating:built.floating,seating:built.seating,

@@ -5,6 +5,11 @@ the [confirmed faucet defect visualization](../../industrial/defects/2026-10-14.
 The customer outcome is a clean, intact rim after support removal, with the
 accepted upper finish recipe retained.
 
+The [prepared Full-mode comparison](full-annulus/README.md) applies the bridge
+recipe to both support conditions and adds annulus-specific contact placement.
+Its [layout and measured front strand](support-layout-review.png) retain the
+accepted angle. It has not been submitted to a printer.
+
 Both sections preserve the production **−15° X rotation**, original underside
 and original bed contact. They end at original print Z16.76, below the first
 0.12 mm fine band. No production angle, model, project or shared profile is changed.
@@ -51,6 +56,12 @@ deposition in both conditions, the intended model-face paint scope and at least
 including arc paths. A nominal gap does not ensure a uniform empty deposited
 course or establish physical release. The [print-only packaging record](stock-vs-tree/mark2/packaging.json)
 binds the native G-code to the submitted archive without G-code edits.
+
+The [three selected-path review](stock-vs-tree/mark2/rim-path-review.json) and
+[whole-annulus review](stock-vs-tree/mark2/annulus-review.json) measure deposited
+bearings and chronological neighbouring beads. At the lever-facing midpoint,
+the 7.867 mm strand has no lower bearing in its preceding three courses. The
+saved engine span target alone does not establish support for the native paths.
 
 ## Preserved print recipe
 
