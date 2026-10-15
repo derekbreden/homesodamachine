@@ -1,10 +1,9 @@
 # Flavor-fill funnel and sliding frame
 
 The removable silicone funnel holds nominally [455 mL](FUNNEL_CAP). Its PET-GF
-frame slides into front-top from the Y seam on one pair of rails. Closing the
-halves holds it: back-top's roof stands over the frame's rear and one running fit
-aft of its roof surround. The frame uses the enclosure's production rail section
-and its running clearances. Both flavors share this filling interface.
+frame slides into front-top; closing front-top onto back-top captures the rear
+rails. The frame uses the enclosure's production rail section and its running
+clearances. Both flavors share this filling interface.
 
 The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
 Remove it before pouring or lifting the silicone out, and reseat it after filling.
@@ -37,8 +36,7 @@ complete block and cylindrical outlet.
 
 ## PET-GF frame
 
-The frame's rails run [Y111.7 to Y199.75](FRAME_RAILS), 207 mm over both, ending one running fit
-short of the Y seam. Its entire underside is flat at
+The frame's lower rail footprint is 207 mm wide and 142.283 mm long. Its entire underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
 silicone block's lower face between the hook tops. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
@@ -51,9 +49,7 @@ the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y119.1 to Y210. The body widens
-upward to its flat front at Y95.458 and its rear at Y235.692. Aft of the rails
-it narrows to [182.5 mm](FRAME_REAR_WIDTH) over its whole height, one running fit
-inboard of back-top's two roof knuckles, which it passes as the halves telescope. The rail datum
+upward to its flat front at Y95.458 and its rear at Y235.692. The rail datum
 is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
 The removable frame carries the complete brim bearing at Z349, with 3 mm of

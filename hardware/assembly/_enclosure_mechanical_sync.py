@@ -148,8 +148,8 @@ def main():
         "CEILING_LANE": f"{_enc.appliance_height - _enc.floor_t - _enc.wall:.4g}",
         "LIP_UNDERWALL": f"{2.0 * _enc.wall:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
-        # The corner stacks the halves pin and clamp at, as the enclosure strikes them.
-        **_enc.y_stack_figures(_box["inner"]),
+        "SEAM_LOWER_Z": f"{min(row[3] for row in _box["y_bosses"]):.4g} mm",
+        "SEAM_MIDDLE_Z": f"{sorted({row[3] for row in _box["y_bosses"]})[1]:.4g} mm",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
         # HOW FAR PROUD EACH TOP STANDS before it is drawn home — that column's own rail
@@ -170,12 +170,15 @@ def main():
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
         # The compressor bay's own width, across the pair as it stands, beside the core's
-        # for comparison — `box-width` asks its side band of a body ON THE FLOOR where the
-        # seam's corner stacks stand. Both spans are carried so the doc can say which is
+        # for comparison — `box-width` asks its boss chain of a body ON THE FLOOR at the depths
+        # the seam's bosses stand there. Both spans are carried so the doc can say which is
         # wider by quoting them, rather than this comment naming a winner that goes stale.
         "COMP_BAY_X": f"{_span(_F, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_F, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_band_inset:.4g} mm",
+        # What one boss takes of that band, across and up: a body clears it either way, so the
+        # doc quotes the collar's own section rather than the wall's height.
+        "SOCKET_OD": f"{2.0 * _enc.socket_r:.4g} mm",
         # The PSU's own body, off the reference module the pack places it from. The
         # brick is laid on its side so its SHORTEST axis is the one reaching into the
         # lane, and the doc says which axis does what — so both are read off the same

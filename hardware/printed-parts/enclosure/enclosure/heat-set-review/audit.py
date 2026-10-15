@@ -27,26 +27,11 @@ def add(piece, family, seat, into, pilot, length, depth, minimum, supported=Fals
         pilot_mm=pilot, insert_length_mm=length, pocket_depth_mm=depth,
         minimum_wall_mm=minimum, supported=supported))
 
-for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-    ax, ay = e.y_stack_axis(xi, sx, box.y_joint)
-    for rod, _seat, tip, length, piece, z0, z1 in e.y_stack_rods(box.inner):
-        # The rod runs on into its insert as its springs go flat; the tip that reaches is the
-        # one the blind end has to clear.
-        if rod == 'lower':
-            mouth, into, flat = z0, 1.0, tip + e.y_stack_spring_travel
-            depth = max(z1, flat) + e.mount_bore_relief - z0
-        else:
-            mouth, into, flat = z1, -1.0, tip - e.y_stack_spring_travel
-            depth = z1 - (min(z0, flat) - e.mount_bore_relief)
-        add(piece, 'Y-seam stack', (ax, ay, mouth), (0, 0, into), e.floor_heatset_dia,
-            e.floor_heatset_depth, depth, 2.6)
-        reach = into * (tip - mouth)
-        station_rows[-1].update(screw_length_mm=length, nominal_thread_reach_mm=reach,
-                                spring_travel_mm=e.y_stack_spring_travel,
-                                nominal_blind_tip_clearance_mm=depth - into * (flat - mouth))
-        station_rows[-1]['screw_reach_pass'] = (
-            reach >= e.floor_heatset_depth
-            and station_rows[-1]['nominal_blind_tip_clearance_mm'] >= 0.5)
+for xi, xe, sx, z in box.y_bosses:
+    _, tip, end, _ = e._boss_x(xe,sx)
+    add('front-top' if z>e.z_seam else 'front-bottom','Y seam',
+        (tip,e._y_boss(box.y_joint),z),(sx,0,0),e.heatset_dia,e.heatset_len,
+        abs(end-tip),1.6,True)
 for station in box.pack.east_bosses:
     sy,sz,tip=station[:3]
     piece=('front' if sy<=box.y_joint else 'back')+('-top' if sz>e.z_seam else '-bottom')
@@ -119,7 +104,7 @@ for row in station_rows:
     row['stock_rule']='SPIROL general FDM boss ≥1.5× knurl OD; ZWMSSLL publishes no host-wall minimum' if row['family']=='pogo' else 'ruthex RX table minimum wall from recommended pilot'
     row['manufacturer_wall_pass']=row['stock_rule_pass'] if row['family']!='pogo' else None
     # This is an independent supplier constraint, not an equality between two CAD constants.
-    expected_pilot = None if row['family'] == 'pogo' else (6.4 if row['family'] in ('compressor', 'Y-seam stack') else 4.0)
+    expected_pilot = None if row['family'] == 'pogo' else (6.4 if row['family'] == 'compressor' else 4.0)
     row['manufacturer_pilot_mm'] = expected_pilot
     row['manufacturer_pilot_pass'] = None if expected_pilot is None else abs(row['pilot_mm'] - expected_pilot) < 1e-6
     row['blind_relief_pass']=row['blind_relief_mm']>=1-1e-6
@@ -147,22 +132,22 @@ for row in station_rows:
         row['insertion_access_pass']=row['blocked_whole_knurl_entry_mm3']<=tol
         row['screw_reach_pass']=row['nominal_thread_reach_mm']>=row['insert_length_mm'] and row['nominal_blind_tip_clearance_mm']>=0.5
 
-# Every knuckle of both corner stacks, whole in the piece that carries it, bores aside.
 seam=[]
-lower, upper = e.y_stack(box.inner)
-for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-    ax, ay = e.y_stack_axis(xi, sx, box.y_joint)
-    bores = e._y_stack_bores(xi, sx, box.y_joint, box.inner)
-    for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
-        for who, z0, z1, gap_below, gap_above in rows:
-            knuckle = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1, depth)
-            for cutter in bores:
-                knuckle = knuckle.cut(cutter)
-            seam.append(dict(side='west' if sx>0 else 'east', piece=who, z_mm=[z0, z1],
-                             rod_axis_mm=[ax, ay], bearing_length_mm=z1-z0,
-                             gaps_mm=[gap_below, gap_above],
-                             ligament_fore_and_aft_mm=e.lip_len/2.0-e.y_stack_drill_dia/2.0,
-                             missing_knuckle_stock_mm3=knuckle.cut(shapes[who]).Volume()))
+for xi,xe,sx,z in box.y_bosses:
+    seat,tip,blind,cap=e._boss_x(xe,sx)
+    y=e._y_boss(box.y_joint)
+    back=shapes['back-top' if z>e.z_seam else 'back-bottom']
+    xa,xb=sorted((seat,tip))
+    strip=e._ybox(xa,xb,box.y_joint,y-e.screw_clear_dia/2.0,
+                  z-e.screw_clear_dia/2.0,z+e.screw_clear_dia/2.0)
+    seam.append(dict(side='west' if sx>0 else 'east',xyz_mm=[xe,y,z],
+                     fore_edge_ligament_mm=y-box.y_joint-e.screw_clear_dia/2.0,
+                     shank_mm=abs(tip-seat),
+                     projected_strip_area_mm2=(y-box.y_joint-e.screw_clear_dia/2.0)*abs(tip-seat),
+                     missing_strip_stock_mm3=strip.cut(back).Volume(),
+                     screw_tip_clearance_mm=abs(blind-seat)-e.screw_len,
+                     insert_blind_relief_mm=abs(blind-tip)-e.heatset_len,
+                     inboard_cap_mm=abs(cap-blind)))
 
 final_hashes = {str(p.relative_to(ROOT)): sha(p) for p in input_paths}
 inputs_unchanged = final_hashes == input_hashes
@@ -173,7 +158,7 @@ report={'generated_utc':datetime.now(timezone.utc).isoformat(),'scope':'Full ins
     'stations':station_rows,'seam_stations':seam,
     'sources':{'ruthex':'https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf',
     'spirol':'https://www.spirol.com/resources/white-papers/how-to-select-a-threaded-insert-for-your-3d-printed-assembly/'},
-    'status':'pass' if inputs_unchanged and all(r['stock_rule_pass'] and r['blind_relief_pass'] and r['pocket_clear_pass'] and r['closed_blind_pass'] and r.get('insertion_access_pass',True) and r.get('screw_reach_pass',True) and r['manufacturer_pilot_pass'] is not False for r in station_rows) and all(r['missing_knuckle_stock_mm3']<=tol for r in seam) else 'fail'}
+    'status':'pass' if inputs_unchanged and all(r['stock_rule_pass'] and r['blind_relief_pass'] and r['pocket_clear_pass'] and r['closed_blind_pass'] and r.get('insertion_access_pass',True) and r.get('screw_reach_pass',True) and r['manufacturer_pilot_pass'] is not False for r in station_rows) and all(r['missing_strip_stock_mm3']<=tol and r['screw_tip_clearance_mm']>=0.5-1e-6 for r in seam) else 'fail'}
 (Path(__file__).parent/'geometry-check.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({'stations':len(station_rows),'failed_known_wall':sum(r['stock_rule_pass'] is False for r in station_rows),
     'failed_depth':sum(not r['blind_relief_pass'] for r in station_rows),'blocked':sum(not r['pocket_clear_pass'] for r in station_rows)}),flush=True)

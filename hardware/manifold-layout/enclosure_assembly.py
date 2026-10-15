@@ -2072,13 +2072,15 @@ def west_exterior_face():
 
 
 def west_seam_crown():
-    """What actually fences the west lane at the +Y wall of back-top: the side band the seam's own
-    furniture keeps, one `enclosure.side_band_inset` inboard of that face.
+    """What actually fences the west lane at the +Y wall of back-top: the crown of the seam's own boss
+    chain, one `enclosure.boss_in` inboard of that face.
 
-    THE WALL IS NOT THE FENCE THERE. `enclosure.side_band_inset` is how far the seam's furniture
-    reaches inboard on this flank, and a body on the west lane meets that first. A lane
-    measured to the bare face reports fourteen millimetres that are not there."""
-    return west_interior_face() + _enc.side_band_inset
+    THE WALL IS NOT THE FENCE THERE. `enclosure.boss_in` is how far the rear seam's own socket
+    collar reaches inboard on this flank, and at the +Y wall of back-top — which is exactly where the
+    unions cross it, at the height that collar stands — the collar is what a body on the west
+    lane meets first. A lane measured to the bare face reports fourteen millimetres that are
+    not there."""
+    return west_interior_face() + _enc.boss_in
 
 
 # THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the
@@ -2946,10 +2948,10 @@ _ROUTED: set = set()
 # Back-top's added flank stock surrounds those stems and stops short of the body plane; the bore
 # still carries one full M3 heat-set and its blind-end relief, with the wall section capping it.
 #
-# The seam's own furniture reaches a whole `enclosure.side_band_inset` further inboard: a corner
-# stack of knuckles at the Y seam, under the roof and over the lower storey. A body seated here
-# meets one where its own height crosses one of theirs, which is a question about two placed
-# solids and is `pack-closes`'s to answer.
+# The seam's own furniture reaches a whole `enclosure.boss_in` further inboard, and each piece
+# of it is a block round its own screw, one `enclosure.socket_r` about the level it pins. A body
+# seated here meets one where its own height crosses one of theirs, which is a question about
+# two placed solids and is `pack-closes`'s to answer.
 #
 # What fences this flank at EVERY height is the standing corner's relief, and
 # `enclosure.wall_boss_aft_limit` is the station where it takes the wall out from under a
@@ -4817,7 +4819,11 @@ WELL_COLUMNS = (
     (-1, 270.0),         # the reeds/sensors cluster on the −X wall
 )
 
-KEPT_WEDGES = ()
+KEPT_WEDGES = (
+    ("the Y-seam screws' head counterbores", (-108.0, 200.0, 329.0, 108.0, 210.0, 333.0),
+     "a screw head passes and bears in the counterbore; its roof is the bore's own teardrop "
+     "(`enclosure._teardrop_x`)"),
+)
 
 
 def _touching(probe, bodies, skip=()):
@@ -5494,6 +5500,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         a.add(male, name="pump-contact-male", color=C_DOCK)
         a.add(female, name="pump-contact-female", color=C_DOCK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
+    _enc._upper_y_seam_bound(pieces, box)
+    _enc._lower_y_seam_bound(pieces, box)
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
