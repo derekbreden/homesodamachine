@@ -3908,6 +3908,262 @@
       "disposition_scope": "Current joint-block ends, handhold ceiling and nominal inner wall, upper anchor clearance, front frame receivers and channel-to-block corner transitions. Individual reasons and alternatives are recorded beside current pick anchors. Other flute, scarf, faucet, magnet and unrelated ranks were outside this review.",
       "raw_analysis": ".cache/y-seam-plain/front-lint.txt",
       "whole_piece_pass_claimed": false
+    },
+    "coverless_back_bottom_face_classes": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "stl_sha256": "c46090b41613c5f1fa8e62c14947cce05cfdc32a6da41afd4b2f04992983ea60",
+      "stl_unchanged_during_review": true,
+      "scope": "Original complete STL facets whose Y bounds intersect160..265mm. No caps/cut faces, coordinates/normals preserved. Full-piece standing bed datum. Four face classes only; no whole-piece or thin/ledge success claimed.",
+      "original_facets": 1220460,
+      "review_facets": 206971,
+      "original_normals_preserved": true,
+      "classes": [
+        "step",
+        "sliver",
+        "ceiling",
+        "slope"
+      ],
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": null,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.115 y=248.252 z=29.248",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=-105.115 y=248.252 z=29.248"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": null,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-104.988 y=248.546 z=29.232",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=-104.988 y=248.546 z=29.232"
+            ]
+          }
+        ],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 855.7450332778869,
+            "line": "589 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 17.0 mm \u00b7 open to the bed (35.3 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=99.000 y=224.000 z=29.250",
+              "click: x=99.000 y=224.000 z=29.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 764.9223766224611,
+            "line": "471 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 14.5 mm \u00b7 open to the bed (35.3 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.763 y=224.009 z=29.250",
+              "click: x=-97.763 y=224.009 z=29.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 560.6343789640516,
+            "line": "237 mm\u00b2 flat print-down face at z=102.150 \u00b7 19.8 \u00d7 14.0 mm \u00b7 drop 36.5\u201336.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.500 y=209.900 z=102.150",
+              "click: x=-97.500 y=209.900 z=102.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 560.6343789640516,
+            "line": "237 mm\u00b2 flat print-down face at z=102.150 \u00b7 19.8 \u00d7 14.0 mm \u00b7 drop 36.5\u201336.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.500 y=209.900 z=102.150",
+              "click: x=97.500 y=209.900 z=102.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 437.17206961798155,
+            "line": "102 mm\u00b2 flat print-down face at z=37.250 \u00b7 12.9 \u00d7 10.8 mm \u00b7 open to the bed (43.2 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-96.950 y=208.900 z=37.250",
+              "click: x=-96.950 y=208.900 z=37.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 437.17206961798155,
+            "line": "102 mm\u00b2 flat print-down face at z=37.250 \u00b7 12.9 \u00d7 10.8 mm \u00b7 open to the bed (43.2 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=96.950 y=208.900 z=37.250",
+              "click: x=96.950 y=208.900 z=37.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 329.7395546593964,
+            "line": "1218 mm\u00b2 flat print-down face at z=169.450 \u00b7 232.7 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=339.925 z=169.450",
+              "click: x=100.875 y=339.925 z=169.450"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 210.20931850765234,
+            "line": "495 mm\u00b2 flat print-down face at z=169.450 \u00b7 94.2 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=270.675 z=169.450",
+              "click: x=-100.875 y=270.675 z=169.450"
+            ]
+          }
+        ],
+        "slope": []
+      },
+      "phase": "After the coverless bottom meshes and both aggregate exports were verified live against the current pointer and local SHA256 values.",
+      "source_commit": "340052d12",
+      "published_pointer_commit": "117efaab4",
+      "source_and_artifact_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+        "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
+        "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "c46090b41613c5f1fa8e62c14947cce05cfdc32a6da41afd4b2f04992983ea60",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27"
+      },
+      "completed_once": true,
+      "finding_count_by_class": {
+        "step": 0,
+        "sliver": 2,
+        "ceiling": 8,
+        "slope": 0
+      },
+      "answered_changed_families": [
+        "Uncovered handhold ceiling anchors refreshed at Z29.25",
+        "Second rear Y-seam block undersides at Z102.15",
+        "Lower inward-open head-pocket washer floors at Z37.25",
+        "Two degenerate rounded-rim facet picks with zero normals and undefined strip dimensions"
+      ],
+      "disposition": "Existing rear Z-slide ceiling answers retain their source-scoped meaning. No new end-shoulder anomaly was identified by these four face classes. The native washer-floor stock proof and grip_cover_removal_update establish the floor relation; support cleanup, grip comfort, washer handling and loaded lifting remain unqualified.",
+      "limits": "Bounded face-class review only. Original complete facets intersecting Y160..265mm can extend beyond those planes; they are not trimmed or capped. No thin/ledge run, whole-piece pass, unrelated anomaly resolution or physical qualification is claimed."
+    },
+    "coverless_front_bottom_face_classes": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "stl_sha256": "98803ca5eba48afd50fb47c73cae23c0d6cc3cca6ec9e4e6bb853c02a31061df",
+      "stl_unchanged_during_review": true,
+      "scope": "Original complete STL facets whose Y bounds intersect160..265mm. No caps/cut faces, coordinates/normals preserved. Full-piece standing bed datum. Four face classes only; no whole-piece or thin/ledge success claimed.",
+      "original_facets": 244546,
+      "review_facets": 29339,
+      "original_normals_preserved": true,
+      "classes": [
+        "step",
+        "sliver",
+        "ceiling",
+        "slope"
+      ],
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 1120.2708862441195,
+            "line": "244 mm\u00b2 flat print-down face at z=65.700 \u00b7 20.8 \u00d7 13.8 mm \u00b7 open to the bed (71.7 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.375 y=207.400 z=65.700",
+              "click: x=-97.375 y=207.400 z=65.700"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 1120.2708862441195,
+            "line": "244 mm\u00b2 flat print-down face at z=65.700 \u00b7 20.8 \u00d7 13.8 mm \u00b7 open to the bed (71.7 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.375 y=207.400 z=65.700",
+              "click: x=97.375 y=207.400 z=65.700"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 589.7346857393585,
+            "line": "280 mm\u00b2 flat print-down face at z=29.250 \u00b7 20.0 \u00d7 14.0 mm \u00b7 open to the bed (35.2 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.500 y=190.000 z=29.250",
+              "click: x=-100.500 y=190.000 z=29.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 589.7346857393585,
+            "line": "280 mm\u00b2 flat print-down face at z=29.250 \u00b7 20.0 \u00d7 14.0 mm \u00b7 open to the bed (35.2 mm up)",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.500 y=190.000 z=29.250",
+              "click: x=100.500 y=190.000 z=29.250"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 577.322400791653,
+            "line": "244 mm\u00b2 flat print-down face at z=138.600 \u00b7 20.8 \u00d7 13.8 mm \u00b7 drop 37.0\u201337.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.375 y=207.400 z=138.600",
+              "click: x=-97.375 y=207.400 z=138.600"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 577.3224007916527,
+            "line": "244 mm\u00b2 flat print-down face at z=138.600 \u00b7 20.8 \u00d7 13.8 mm \u00b7 drop 37.0\u201337.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.375 y=207.400 z=138.600",
+              "click: x=97.375 y=207.400 z=138.600"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 166.06847588362186,
+            "line": "326 mm\u00b2 flat print-down face at z=169.200 \u00b7 62.1 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=160.218 z=169.200",
+              "click: x=-100.875 y=160.218 z=169.200"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 166.06847588362186,
+            "line": "326 mm\u00b2 flat print-down face at z=169.200 \u00b7 62.1 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=160.218 z=169.200",
+              "click: x=100.875 y=160.218 z=169.200"
+            ]
+          }
+        ],
+        "slope": []
+      },
+      "phase": "After the coverless bottom meshes and both aggregate exports were verified live against the current pointer and local SHA256 values.",
+      "source_commit": "340052d12",
+      "published_pointer_commit": "117efaab4",
+      "source_and_artifact_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+        "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
+        "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "98803ca5eba48afd50fb47c73cae23c0d6cc3cca6ec9e4e6bb853c02a31061df",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221"
+      },
+      "completed_once": true,
+      "finding_count_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 8,
+        "slope": 0
+      },
+      "answered_changed_families": [
+        "Uncovered handhold ceiling anchors refreshed at Z29.25"
+      ],
+      "disposition": "The four Y-seam block underside anchors at Z65.7 and Z138.6 and the existing Z-slide catch anchors are unchanged. No new end-shoulder anomaly was identified by these four face classes. The earlier full six-class reference review and additive native cover-removal relation retain their explicit input scope.",
+      "limits": "Bounded face-class review only. Original complete facets intersecting Y160..265mm can extend beyond those planes; they are not trimmed or capped. No thin/ledge run, whole-piece pass, unrelated anomaly resolution or physical qualification is claimed."
     }
   },
   "grip_cover_removal_update": {
