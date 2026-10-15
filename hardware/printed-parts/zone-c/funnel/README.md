@@ -68,8 +68,10 @@ there are no rear rails. The rear portion of the frame is supported from the
 front receivers. Geometric capture does not establish its loaded stiffness.
 The upper front surround has square plan corners, including its rear edge at
 the flat back-top seam, and keeps 0.25 mm air to the shell. Its flat front
-clears the solid display wall at Y95.208 by 0.25 mm. The lower body's rear
-curves remain beneath Z349. The display-side roof landing is 3 mm wide.
+clears the solid display wall at Y95.208 by 0.25 mm. The lower body's aft
+corners have R6 plan rounds within the narrowed 182.5 mm envelope, trimmed by
+the same 30° corbel planes. Its shoulders at Y199.75 remain square.
+The display-side roof landing is 3 mm wide.
 Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.

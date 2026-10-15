@@ -471,6 +471,7 @@ y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the 
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = 5.6    # as-printed clearance for the fully threaded M5 screw
 y_stack_cbore_dia = 10.8       # M5 SHCS head Ø8.5 and one DIN 125 washer Ø10
+y_stack_mouth_ease = 0.5      # 45° ease at the exposed lower pocket's finger-contact edge
 y_stack_head_recess = 2.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
 y_stack_washer_h = 1.0         # one DIN 125 M5 flat washer per screw
@@ -3543,9 +3544,8 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
     """One knuckle's solid before its bores. A front knuckle roots `y_stack_front_root` fore of
     the seam in its own flank and runs aft one running fit inside the back piece's skin; a back
     knuckle grows out of that skin and, outboard of the flank's face, on into the thickened
-    flank. A knuckle stays inside the print silhouette (`_rounded_outer`), and one over a
-    handhold stays out of the square its lifting edge is rounded in, so the show surfaces it
-    meets keep the shape they were cut to."""
+    flank. A knuckle stays inside the print silhouette (`_rounded_outer`). The finished
+    handhold envelope cuts the complete bottom piece after the knuckles join it."""
     def xs(d0, d1):
         return sorted((x_in + sx * d0, x_in + sx * d1))
 
@@ -3567,12 +3567,6 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
         body = body.fuse(_ybox(xa, xb, y_joint + lip_len - 0.01,
                                back_flank_start(y_joint) + 0.01, z0, z1))
     body = body.intersect(_rounded_outer(outer))
-    if piece.endswith("bottom"):
-        _bed, roof, _crown = _handhold_levels(inner)
-        y0, y1 = _handhold_y()
-        x_ext = x_in - sx * wall
-        xa, xb = sorted((x_ext + sx * handhold_edge_r, x_ext - sx))
-        body = body.cut(_ybox(xa, xb, y0, y1, roof - 1.0, roof + handhold_edge_r))
     return body
 
 
@@ -3598,19 +3592,33 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
         y_stack_rods(inner)
     rc, rp, ri = y_stack_cbore_dia / 2.0, y_stack_clearance_dia / 2.0, floor_heatset_dia / 2.0
 
-    def head_access(z0, z1, depth):
+    def head_access(z0, z1, depth, ease=0.0):
         # Open toward the cavity instead of leaving a thin cup around the head.
         # The rectangular opening has the counterbore's full width and depth;
         # its floor remains a complete washer-bearing annulus.
         xa, xb = sorted((ax, x_in + sx * (depth + 0.01)))
-        return _zcyl(rc, ax, ay, z0, z1).fuse(_ybox(xa, xb, ay - rc, ay + rc, z0, z1))
+        cut = _zcyl(rc, ax, ay, z0, z1).fuse(
+            _ybox(xa, xb, ay - rc, ay + rc, z0, z1))
+        if ease:
+            # Ease only the entry, leaving the head seat and washer floor exact.
+            flare = cq.Solid.makeCone(rc + ease, rc, ease, cq.Vector(ax, ay, ceiling))
+            flare = flare.fuse(_yz_prism(xa, xb,
+                [(ay - rc - ease, ceiling), (ay + rc + ease, ceiling),
+                 (ay + rc, ceiling + ease), (ay - rc, ceiling + ease)]))
+            cut = cut.fuse(flare)
+        return cut
+
+    # Above the frame the mouth joins the funnel opening. Stopping at the
+    # narrower block would leave a thin strip of the roof across that opening.
+    upper_mouth_depth = abs(x_in) - _funnel.collar_w / 2.0
 
     return (
-        head_access(ceiling - 0.01, ceiling + y_stack_cbore_depth, side_band_inset),
+        head_access(ceiling - 0.01, ceiling + y_stack_cbore_depth, side_band_inset,
+                    y_stack_mouth_ease),
         _zcyl(rp, ax, ay, ceiling + y_stack_cbore_depth - 0.01, l_in0 + 0.01),
         _zcyl(ri, ax, ay, l_in0, max(l_in1 + mount_bore_relief,
                                     l_tip + y_stack_tip_clearance)),
-        head_access(roof - y_stack_cbore_depth, roof + 1.0, y_stack_high_depth),
+        head_access(roof - y_stack_cbore_depth, roof + 1.0, upper_mouth_depth),
         _zcyl(rp, ax, ay, u_in1 - 0.01, roof - y_stack_cbore_depth + 0.01),
         _zcyl(ri, ax, ay, min(u_in0 - mount_bore_relief,
                                     u_tip - y_stack_tip_clearance), u_in1),
@@ -3619,7 +3627,8 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
 
 def _y_stacks(piece, inner, outer, y_joint, name):
     """One finished piece with both corner stacks grown into it and the other half's knuckles
-    cut out of it. Last of a piece's work, so nothing fused afterwards fills a fit or a bore."""
+    cut out of it. No later fuse fills a fit or bore; the shared handhold finish trims the
+    bottom pieces' exterior afterwards."""
     lower, upper = y_stack(inner)
     rows = ([(row, side_band_inset) for row in lower]
             + [(row, y_stack_high_depth) for row in upper])
@@ -3822,9 +3831,7 @@ def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
 
 
 def _handholds(solid, inner, y_joint, y_side):
-    """Both bottom openings, including the seam's own jamb and floor tongue in their cuts."""
-    bed, roof, _crown = _handhold_levels(inner)
-    y0, y1 = _handhold_y()
+    """Both bottom openings and their full-section backing joints, before the shared finish."""
     for x_in, sx in ((inner[0], 1.0), (inner[1], -1.0)):
         x_ext = x_in - sx * wall
         solid = solid.fuse(_handhold_frame(inner, y_joint, x_ext, sx, y_side))
@@ -3832,23 +3839,48 @@ def _handholds(solid, inner, y_joint, y_side):
         if y_side == "front":
             solid = solid.cut(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
             solid = solid.cut(_handhold_floor_side_relief(inner, y_joint, x_ext, sx))
-        solid = solid.clean()
-        rim = []
-        for edge in solid.Edges():
-            b = edge.BoundingBox()
-            if (abs(b.xmin - x_ext) < 1e-6 and abs(b.xmax - x_ext) < 1e-6
-                    and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
-                    and b.zmin >= bed - 1e-6 and b.zmax <= roof + 1e-6
-                    and b.zmax > bed + 1e-6):
-                rim.append(edge)
-        if not rim:
-            raise ValueError(f"{y_side} handhold at X{x_ext:g} has no exterior lifting edge")
-        from overhang_round import roof_rim
-        before = solid
-        solid = solid.fillet(handhold_edge_r, rim)
-        solid = roof_rim(before, solid, x_ext, sx, y0, y1, roof,
-                         handhold_corner_r, handhold_edge_r)
-    return solid
+    return solid.clean()
+
+
+@functools.cache
+def _handhold_finish_air(inner):
+    """One complete handhold's rounded air, in local coordinates with +X pointing inward.
+
+    The reference spans both Y halves. Its R6 edge and additive print-down transition
+    are built once, independent of a half's seam edges, then mirrored onto the flanks.
+    """
+    bed, roof, crown = _handhold_levels(inner)
+    y0, y1 = _handhold_y()
+    depth = wall + side_band_inset
+    end_stock = handhold_corner_r + handhold_edge_r + handhold_wall
+    blank = _ybox(0.0, depth, y0 - end_stock, y1 + end_stock, bed, crown)
+    before = blank.cut(_handhold_cutter(inner, 0.0, 1.0)).clean()
+    rim = []
+    for edge in before.Edges():
+        b = edge.BoundingBox()
+        if (abs(b.xmin) < 1e-6 and abs(b.xmax) < 1e-6
+                and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
+                and b.zmin >= bed - 1e-6 and b.zmax <= roof + 1e-6
+                and b.zmax > bed + 1e-6):
+            rim.append(edge)
+    from overhang_round import roof_rim, transition
+    rounded = before.fillet(handhold_edge_r, rim)
+    finished = roof_rim(before, rounded, 0.0, 1.0, y0, y1, roof,
+                        handhold_corner_r, handhold_edge_r)
+    # The interpolated corner loft must not ripple the intended flat ceiling.
+    _rise, foot = transition(handhold_edge_r)
+    finished = finished.fuse(_ybox(foot, depth,
+        y0 + handhold_corner_r, y1 - handhold_corner_r, roof, crown)).clean()
+    return blank.cut(finished).clean()
+
+
+def _finish_handholds(solid, inner):
+    """Apply the same complete finger opening and exterior finish after all seam stock."""
+    air = _handhold_finish_air(tuple(inner))
+    for x_in, sx in ((inner[0], 1.0), (inner[1], -1.0)):
+        placed = air if sx > 0 else air.mirror("YZ")
+        solid = solid.cut(placed.translate((x_in - sx * wall, 0.0, 0.0)))
+    return solid.clean()
 
 
 # --- bottom↔top joint: the HOOKED SLIDE --------------------------------------
@@ -8633,9 +8665,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         cap_pocket = _core_cap_pocket(box)
         if cap_pocket is not None:
             piece = piece.cut(cap_pocket)
-    # And the Y seam's two corner stacks, last of everything, so no later fuse fills one of
-    # their fits or bores and no later cut takes a knuckle's section.
+    # Final structural joinery: no later fuse fills a stack fit or bore. The bottom
+    # handhold finish then cuts the same exterior profile through shell and knuckles.
     piece = _y_stacks(piece, inner, outer, y_joint, f"{y_side}-{z_side}")
+    if z_side == "bottom":
+        piece = _finish_handholds(piece, inner)
     return _unified(piece)
 
 
