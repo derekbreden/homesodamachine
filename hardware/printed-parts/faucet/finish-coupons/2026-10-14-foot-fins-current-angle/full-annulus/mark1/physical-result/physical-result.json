@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-15T07:58:35.091107+00:00",
+  "printer": "Mark1",
+  "printer_task_id": "1340913124",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/launch.json",
+  "operator_quote": "So on the bottom side of that rim on the faucet tip, things turned out beautifully, better than I've ever seen them before. So cooling and speed worked really well there, if that's in fact what we did there. On the top side of that same rim, I don't know, it's hard to say if we have any improvement at all. But it looks like it was unsupported on that side, and I think that we need to get it supported on that top side, perhaps, if possible. On the faucet base, again the surface is a lot tighter. It's more like a solid material, less like strands of string, but still, you know, quite obviously strands of string. And the one with the tree supports just looks a lot better on the underside and on the front face. So I think this is pretty much a total failure for fins in this situation, and tree supports are totally fine. But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere. And tell me if it's easy for you to add a support on the faucet tip where I was speaking of there.",
+  "finished_photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-4.jpg",
+      "source_label": "Photo 4.jpg",
+      "sha256": "86aebcb533842f26dfe788334d131d19489971f876db89d1aa75fbcc7e1e3573",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-5.jpg",
+      "source_label": "Photo 5.jpg",
+      "sha256": "2b055d067097b528e20230a2ee7436e07bf0b3a2e72195e7b0aaee206d92e98a",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-6.jpg",
+      "source_label": "Photo 6.jpg",
+      "sha256": "2181f61ffb0e894f0ebeeb01b8735c85cf89995e3fdd889a2f4aae58d3624655",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-7.jpg",
+      "source_label": "Photo 7.jpg",
+      "sha256": "266e17dd385f88bb8e80e619edf31be0e0dfd57b0f97c7d88e43fa730c1634b7",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-8.jpg",
+      "source_label": "Photo 8.jpg",
+      "sha256": "1e7fb8a33f18ca7cdd83092ec7198d54721010dce6c8c4620b0903d115d1ee1e",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/photo-9.jpg",
+      "source_label": "Photo 9.jpg",
+      "sha256": "607189ad3bf0b69c0c256dad34a160a0cfb89f2e1fde1684e066034d46487b90",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "photograph_identification": "No visible specimen labels; post-removal left/right arrangement is not assigned from plate coordinates.",
+  "scope": "Direct visual report on short PET-GF faucet base coupons; no measured sag depth or removal force.",
+  "completion_observation": {
+    "observed_at_utc": "2026-10-15T07:34:31.872649+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 70,
+    "total_layer_num": 70,
+    "print_error": 0,
+    "hms": []
+  },
+  "result": {
+    "surface_consolidation": "Tighter and more solid-looking, but individual strands remain obvious.",
+    "relative_finish": "Derek reports the tree-supported article looks substantially better on both underside and front face.",
+    "radial_fin_selection": "This radial/straight fin layout is not selected for the faucet base.",
+    "release": "No separate removal observation for this denser layout."
+  },
+  "next_geometry_hypothesis": {
+    "operator_quote": "To be clear, I'm speaking of round fins and tree supports covering everything else. So the round fins are just about making the edge clean, which is the part that we actually care about here because it's the part the user sees.",
+    "candidate": "Segmented curved fins beneath the visible outer rim, with Tree(auto)/Default supporting the rest.",
+    "scope": "Edge-specific candidate with physical result pending; this result does not establish curved-contact finish or release."
+  },
+  "gcode_sha256": "0374ac8f5865774405c8214267470fb3d16908a106dac86d6083584e85f827c7"
+}

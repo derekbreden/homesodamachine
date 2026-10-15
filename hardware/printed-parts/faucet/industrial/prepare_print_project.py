@@ -227,6 +227,38 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
     return result
 
 
+def apply_overhang_recipe(settings: dict, selected: dict) -> dict:
+    """Apply the selected faucet treatment natively to every model feature."""
+    changes = {}
+
+    def put(key, value):
+        old = settings[key]
+        new = [str(value)] * len(old) if isinstance(old, list) else str(value)
+        if old != new:
+            changes[key] = {"from": old, "to": new}
+            settings[key] = new
+
+    for key in ("fan_min_speed", "fan_max_speed", "overhang_fan_speed"):
+        put(key, selected["fan_percent"])
+    for key in ("close_fan_the_first_x_layers", "close_additional_fan_first_x_layers"):
+        put(key, selected["fan_off_bed_layers"])
+    for key in ("first_x_layer_fan_speed", "first_x_layer_part_fan_speed"):
+        put(key, 0)
+    for key in ("bridge_speed", "filament_bridge_speed"):
+        put(key, selected["bridge_speed_mm_s"])
+    put("bridge_flow", selected["bridge_flow"])
+    maximum = selected["maximum_overhang_speed_mm_s"]
+    for prefix in ("", "filament_"):
+        for kind in ("1_4", "2_4", "3_4", "4_4", "totally"):
+            key = f"{prefix}overhang_{kind}_speed"
+            old = settings[key]
+            new = [str(min(float(v), maximum)) if float(v) > 0 else str(maximum) for v in old]
+            if old != new:
+                changes[key] = {"from": old, "to": new}
+                settings[key] = new
+    return changes
+
+
 def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
             printer: str | None = None, filament_colour: str | None = None) -> dict:
     settings_from, output = settings_from.resolve(), output.resolve()
@@ -271,6 +303,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         settings["filament_colour"] = [filament_colour]
         for key, value in finish["filament_overrides"].items():
             settings[key][0] = value
+        overhang_changes = apply_overhang_recipe(settings, finish["overhang_recipe"])
         members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
         for obj in config.findall("object"):
             name = obj.find("metadata[@key='name']").get("value")
@@ -301,7 +334,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
     after_settings = json.loads(actual_profile[writer.SETTINGS_MEMBER])
     changed_settings = {k for k in set(before_settings) | set(after_settings)
                         if before_settings.get(k) != after_settings.get(k)}
-    if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour", *finish["filament_overrides"]}:
+    if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour",
+                           *finish["filament_overrides"], *overhang_changes}:
         raise ValueError("Unexpected change to the complete PET-GF profile")
     if any(actual_profile.get(n) != data for n, data in preserved.items()
            if n != writer.SETTINGS_MEMBER):
@@ -339,11 +373,12 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm.",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow,70% cooling after3off bedlayers,Bridge15mm/s and overhang limits<=15 preserving existing10mm/s on all five rigid parts.",
     })
     for key in finish["filament_overrides"]:
         if before_settings.get(key) != after_settings.get(key):
             report["settings_changes"][key] = {"from": before_settings.get(key), "to": after_settings.get(key)}
+    report["settings_changes"].update(overhang_changes)
     if original_colour != [filament_colour]:
         report["settings_changes"]["filament_colour"] = {"from": original_colour, "to": [filament_colour]}
     for face, band in zip(report["selected_faces"], finish["base_fine_bands_print_z_mm"], strict=True):

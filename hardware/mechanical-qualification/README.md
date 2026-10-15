@@ -112,9 +112,16 @@ establish release for the denser Full-mode layout. Mating fit and quantified
 sag remain unmeasured.
 The [single tip fin iteration](../printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
 is Mark2 task 1341048254: one tip joint section at −105°, eight Full-mode plain
-fin walls and the 125% bridge-flow/70% cooling/15 mm/s Bridge recipe. It includes
-no repeat control. Native first-skin bead bearings are reviewed; physical lip
-finish, release and joint fit remain pending. The
+fin walls and the 125% bridge-flow/70% cooling/15 mm/s Bridge recipe. Its
+[finished result](../printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
+records the best observed bottom-side rim appearance and a still-rough opposite
+side. The [Full-annulus Mark1 result](../printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
+reports tighter material but better underside and front-face finish with trees.
+The [two single edge-support candidates](../printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
+are Mark1 tip task 1341173963, with added seam-side lip trees, and Mark2 base
+task 1341188908, with segmented curved rim walls and trees elsewhere. They
+retain the working material recipe and include no repeat controls. New contact
+finish, curved-wall release and joint fit remain physical results pending. The
 [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 

@@ -1,0 +1,560 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "settings_source_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "settings_sha256": "3be9e83c72f407020e2b6da766d1e758d879a02062aa0966a2f5b51f156df81e",
+  "source_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "Base: segmented rim arcs and automatic trees",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/foot-section.stl",
+      "stl_sha256": "b89c112e4b1000c3e312eed1ccb90c6bb91705c921e393a924c23d98eef9ac8e",
+      "triangles": 6442,
+      "rotation_x_degrees": -15,
+      "source_center_mm": [
+        0.0,
+        0.14999961853027344,
+        8.715726852416992
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        162.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0002864865608,
+        16.015084734121317
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          133.0,
+          129.10479000424442,
+          0.0
+        ],
+        [
+          192.0,
+          190.89520999575558,
+          16.760001025119582
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996336677720592e-10
+    }
+  ],
+  "project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+  "settings_preserved_byte_for_byte": false,
+  "rim_arcs": [
+    {
+      "component_id": 2200,
+      "blocker_component_id": 2300,
+      "cad_angle_interval_degrees": [
+        -110.5,
+        -69.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          152.15137188378273,
+          129.05649371292998,
+          0.0
+        ],
+        [
+          172.84862811621727,
+          131.67834653770785,
+          15.043264613303847
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2201,
+      "blocker_component_id": 2301,
+      "cad_angle_interval_degrees": [
+        -65.5,
+        -24.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          174.38096140210126,
+          131.6264788975058,
+          0.0
+        ],
+        [
+          189.38935555440185,
+          146.12347442033877,
+          14.35463915853681
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2202,
+      "blocker_component_id": 2302,
+      "cad_angle_interval_degrees": [
+        -20.5,
+        20.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          189.33565822196658,
+          147.6035947156565,
+          0.0
+        ],
+        [
+          192.05,
+          167.59560904388738,
+          10.07358387768481
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2203,
+      "blocker_component_id": 2303,
+      "cad_angle_interval_degrees": [
+        24.5,
+        65.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          174.38096140210126,
+          169.0757293392051,
+          0.0
+        ],
+        [
+          189.38935555440185,
+          183.57272486203811,
+          4.320142745532609
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2204,
+      "blocker_component_id": 2304,
+      "cad_angle_interval_degrees": [
+        114.5,
+        155.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          135.61064444559815,
+          169.07572933920514,
+          0.0
+        ],
+        [
+          150.61903859789876,
+          183.57272486203811,
+          4.320142745532609
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2205,
+      "blocker_component_id": 2305,
+      "cad_angle_interval_degrees": [
+        159.5,
+        200.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          132.95,
+          147.6035947156565,
+          0.0
+        ],
+        [
+          135.66434177803342,
+          167.5956090438874,
+          10.07358387768481
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    },
+    {
+      "component_id": 2206,
+      "blocker_component_id": 2306,
+      "cad_angle_interval_degrees": [
+        204.5,
+        245.5
+      ],
+      "cad_radius_interval_mm": [
+        28.65,
+        29.55
+      ],
+      "nominal_wall_width_mm": 0.9,
+      "requested_vertical_gap_mm": 0.24,
+      "world_bounds_mm": [
+        [
+          135.61064444559815,
+          131.6264788975058,
+          0.0
+        ],
+        [
+          150.61903859789874,
+          146.12347442033877,
+          14.35463915853681
+        ]
+      ],
+      "blocker_radius_interval_mm": [
+        28.45,
+        29.95
+      ]
+    }
+  ],
+  "requested_z_trim_mm": 0.04,
+  "recipe_changes": {
+    "fan_min_speed": {
+      "source": [
+        "0"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "fan_max_speed": {
+      "source": [
+        "70"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "overhang_fan_speed": {
+      "source": [
+        "0"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "bridge_speed": {
+      "source": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_bridge_speed": {
+      "source": [
+        "25",
+        "25",
+        "25"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_1_4_speed": {
+      "source": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "source": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "source": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "source": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "overhang_totally_speed": {
+      "source": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_1_4_speed": {
+      "source": [
+        "0",
+        "0",
+        "0"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_2_4_speed": {
+      "source": [
+        "35",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "source": [
+        "35",
+        "30",
+        "30"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "source": [
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_totally_speed": {
+      "source": [
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "bridge_flow": {
+      "source": "1",
+      "candidate": "1.25"
+    }
+  },
+  "rear_seam_paint": {
+    "part": "Base: segmented rim arcs and automatic trees",
+    "half_width_mm": 0.25,
+    "enforced_triangles": 8,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -1.029535174,
+        29.482028961530272,
+        4.169926626218512e-10
+      ],
+      [
+        1.029535174,
+        29.799999237530272,
+        17.43145370441699
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "specimen_count": 1,
+  "repeat_control": false,
+  "support_scope": "Segmented curved walls under the visible outer rim only. Narrow support-blocker volumes follow their contact strips; Tree(auto)/Default serves the rest of the annulus and all other geometry. No blanket bottom-face blocker.",
+  "support_reason": "Derek identifies the visible edge as the fin task and requests interrupted circumferential arcs with trees elsewhere. The front arc is continuous beneath the lever-facing midpoint; release gaps lie to its sides. Straight/radial fins have an inferior physical rim result to trees.",
+  "parent_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/preparation.json",
+  "parent_project_sha256": "7f9de2925f2479be754eaddcc0aaea4aebcb7005df9b94ff9705bfa41c555c64",
+  "material_treatment": "Native bridge flow1.25,70% fan after3off bedlayers including floating vertical shell/supports;Bridge15mm/s,overhang limits<=15 preserving existing10mm/s. No post-slice edits.",
+  "candidate_status": "Accepted by printer; physical finish and release pending.",
+  "authorization_quote": "Both printers are available and its my bed time. Print as you see fit.",
+  "submitted": true,
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/launch.json",
+  "printer_task_id": "1341188908",
+  "submitted_gcode_sha256": "8946448453c32d1a95fe1bc197e4b6a6255544182fb361ebe220ed370efd5edd"
+}

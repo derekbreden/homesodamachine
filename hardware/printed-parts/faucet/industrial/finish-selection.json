@@ -32,6 +32,21 @@
     "filament_wipe": "0",
     "filament_wipe_distance": "0"
   },
+  "overhang_recipe": {
+    "selected_date": "2026-10-15",
+    "bridge_flow": "1.25",
+    "fan_percent": 70,
+    "fan_off_bed_layers": 3,
+    "bridge_speed_mm_s": 15,
+    "maximum_overhang_speed_mm_s": 15,
+    "preserve_slower_overhang_limits": true,
+    "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
+    "physical_evidence": [
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json"
+    ],
+    "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
+  },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "lift_specimen": "E",
   "additional_coarse_model_layers": 8,

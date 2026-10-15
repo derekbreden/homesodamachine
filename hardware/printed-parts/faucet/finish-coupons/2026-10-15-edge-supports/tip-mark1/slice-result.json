@@ -1,0 +1,73 @@
+{
+  "error_string": "Success.",
+  "export_time": 1485,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 52,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 10.332127571105957,
+        "Bridge": 47.135318756103516,
+        "Custom": 303.74420166015625,
+        "Flush": 15.0,
+        "Gap infill": 70.50939178466797,
+        "Inner wall": 224.36953735351562,
+        "Internal solid infill": 187.1378936767578,
+        "Outer wall": 767.0856323242188,
+        "Overhang wall": 1.2405999898910522,
+        "Sparse infill": 199.09158325195312,
+        "Support": 74.34346008300781,
+        "Support interface": 7.500959873199463,
+        "Top surface": 13.586895942687988,
+        "Travel": 393.71563720703125,
+        "Undefined": 385.75164794921875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 9.60824203491211,
+          "total_used_g": 9.60824203491211
+        }
+      ],
+      "generate_support_material_time": 210,
+      "id": 1,
+      "infill_time": 206,
+      "layer_filament_change": 0,
+      "main_predication": 1981.05517578125,
+      "make_perimeters_time": 123,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 49.263427734375,
+            "height": 54.5567626953125,
+            "width": 31.05989646911621,
+            "x": 146.7189178466797,
+            "y": 134.95286560058594,
+            "z": -5.227005481719971
+          },
+          "id": 5,
+          "name": "Tip: retained fins and seam-side lip trees",
+          "triangle_count": 21994
+        }
+      ],
+      "sliced_time": 934,
+      "sliced_time_with_cache": 353,
+      "total_predication": 2306.83544921875,
+      "triangle_count": 21994,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

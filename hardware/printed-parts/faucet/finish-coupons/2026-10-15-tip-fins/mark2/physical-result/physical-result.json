@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-15T07:50:14.691432+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1341048254",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/launch.json",
+  "gcode_sha256": "4f09c3174196b49eee803f3c486cc2a0dac6387480a2d99a7768b4e769bea5f9",
+  "operator_quote": "So on the bottom side of that rim on the faucet tip, things turned out beautifully, better than I've ever seen them before. So cooling and speed worked really well there, if that's in fact what we did there. On the top side of that same rim, I don't know, it's hard to say if we have any improvement at all. But it looks like it was unsupported on that side, and I think that we need to get it supported on that top side, perhaps, if possible. On the faucet base, again the surface is a lot tighter. It's more like a solid material, less like strands of string, but still, you know, quite obviously strands of string. And the one with the tree supports just looks a lot better on the underside and on the front face. So I think this is pretty much a total failure for fins in this situation, and tree supports are totally fine. But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere. And tell me if it's easy for you to add a support on the faucet tip where I was speaking of there.",
+  "finished_photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/photo-1.jpg",
+      "source_label": "Photo 1.jpg",
+      "sha256": "a3e854317befc9653f3a1cb31ea9fcd86a97ad07030649a9387d86a1e28928c9",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/photo-2.jpg",
+      "source_label": "Photo 2.jpg",
+      "sha256": "ac827ca0554e1bd683c1aa66045ba7b384fb207af8bc0acd9255eb2e871fb088",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/photo-3.jpg",
+      "source_label": "Photo 3.jpg",
+      "sha256": "ca7daa428a72959076de4e84315dc161ad2a28bb4651fd04fc43ff2ba207a528",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "photograph_identification": "No visible specimen labels; post-removal left/right arrangement is not assigned from plate coordinates.",
+  "scope": "Direct visual report on these identified short PET-GF faucet coupons; no measured sag depth or removal force.",
+  "completion_observation": {
+    "observed_at_utc": "2026-10-15T07:34:31.942228+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 167,
+    "total_layer_num": 167,
+    "print_error": 0,
+    "hms": []
+  },
+  "result": {
+    "bottom_side_of_joint_rim": "Beautiful; best observed by Derek.",
+    "opposite_top_side": "No clear improvement; remains rough.",
+    "operator_support_hypothesis": "The rough side appears unsupported and needs additional contact.",
+    "release_and_joint_fit": "Not separately reported."
+  },
+  "commanded_recipe": {
+    "bridge_flow": 1.25,
+    "fan_after_first_three_layers_percent": 70,
+    "bridge_speed_mm_s": 15,
+    "overhang_wall_speed_mm_s": [
+      10,
+      15
+    ],
+    "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/review.json"
+  },
+  "interpretation": "The combined recipe and support arrangement delivers an accepted visual result on one side. This observation does not isolate cooling, speed, flow or fin contributions. The opposite side requires a separate contact correction."
+}

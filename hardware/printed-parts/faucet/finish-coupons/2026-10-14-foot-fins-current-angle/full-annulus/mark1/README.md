@@ -3,8 +3,11 @@
 Mark1 accepted **job 1340913124 at 23:53:32 CDT on 2026-10-14** and reported
 **RUNNING, 0/70 layers, no errors**. Bambu Connect displayed the correct file
 and homing sequence. The [launch receipt](launch.json) preserves acceptance,
-the subsequent 70-layer reading, print options and file hashes. Physical finish
-and support-removal results are pending.
+the subsequent 70-layer reading, print options and file hashes. The
+[finished result and six photographs](physical-result/physical-result.json)
+report tighter material but substantially better underside and front-face
+finish with trees. Completion is FINISH at 70/70 without errors. Removal of
+this denser fin layout is not separately reported.
 
 | Facing Mark1 | Condition |
 | --- | --- |
