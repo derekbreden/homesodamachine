@@ -1,0 +1,49 @@
+{
+  "checked_at_utc": "2026-10-15T17:07:40+00:00",
+  "authorization_quote": "Please print that. Both beds are clear.",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "selected_candidate": "Prepared tip root-anchor candidate identified by the response annotation; one specimen, no repeat control.",
+  "prelaunch_status": {
+    "observed_at_utc": "2026-10-15T17:07:09.245846+00:00",
+    "gcode_state": "FINISH",
+    "last_task_id": "1341173963",
+    "print_error": 0,
+    "hms": [],
+    "nozzle_target_temper": 0,
+    "bed_target_temper": 0,
+    "left_external_spool": {
+      "slot": 254,
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "nozzle_type": "HS01-0.4"
+  },
+  "other_printer_status": {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-10-15T17:07:07.645636+00:00",
+    "gcode_state": "FINISH",
+    "last_task_id": "1341188908",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ]
+  },
+  "other_printer_last_accepted_at_utc": "2026-10-15T07:57:08.017164+00:00",
+  "startup_spacing_requirement_seconds": 180,
+  "archive_sha256": "f47302f2f6ad8423efda73fd4c42254c9e0af114ceadb0e59a984448a0d5cc81",
+  "gcode_sha256": "f0e9f922c4f39240caee882249f726dc6499b9e3053f30172cbfc3ce5810adf5",
+  "native_checksum_verified": true,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_mm": 0.16,
+  "bed_clearance_authorization": "Both beds are clear.",
+  "standing_options": {
+    "Timelapse": "On",
+    "Auto_bed_leveling": "On",
+    "Flow_dynamic_calibration": "Auto",
+    "Nozzle_Offset_Calibration": "Auto"
+  }
+}

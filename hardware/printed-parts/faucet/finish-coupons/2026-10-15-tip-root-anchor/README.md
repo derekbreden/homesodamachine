@@ -1,9 +1,18 @@
 # Tip plug bed anchor
 
-One corrected Mark1 tip candidate is prepared and natively sliced, with no repeat
-control. It is **not submitted**. The supplied photographs show the failed
-article and debris on Mark1's bed. Native estimate: 38 min 13 s, 9.57 g at the
-saved profile density, 167 layers.
+One corrected tip candidate is accepted by Mark1 as
+[task 1342500038](mark1/launch.json) at 12:13:00 CDT on 2026-10-15, with no repeat
+control. Derek's authorization is “Please print that. Both beds are clear.”
+The [startup observation](mark1/startup-observation.json) confirms the matching
+job `RUNNING`, 0/167 layers, 38 minutes remaining and no print error or HMS at
+12:14:07 CDT. Native estimate: 38 min 13 s, 9.57 g at the saved profile density,
+167 layers. Physical results remain pending.
+
+The launch uses external black PET-GF spool 254 and the fixed left hardened
+standard-flow 0.4 mm nozzle. Timelapse and bed leveling are On; Flow Dynamics
+and Nozzle Offset Calibration are Auto. The reviewed archive and G-code hashes
+are preserved. The foreground sender stopped at file selection before any
+Send; one CUA Send received the printer's successful command reply and new job ID.
 
 The customer outcome is an intact male insertion section and clean joint rim,
 with the existing mating profile retained after print-aid removal.

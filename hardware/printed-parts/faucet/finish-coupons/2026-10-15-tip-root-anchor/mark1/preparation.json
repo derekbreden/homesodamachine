@@ -171,8 +171,8 @@
   "parent_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/preparation.json",
   "parent_project_sha256": "2840400b8c6a0c70398dc2c08c41d697845c32bd026ddeddc343f0ea5deb9abe",
   "material_treatment": "Native bridge flow1.25,70% fan after3off bedlayers including floating vertical shell/supports;Bridge15mm/s,overhang limits<=15 preserving existing10mm/s. No post-slice edits.",
-  "candidate_status": "Prepared; not submitted. Current photos show the failed article and debris on Mark1.",
-  "submitted": false,
+  "candidate_status": "Accepted by Mark1 as task 1342500038; physical finish, root-foot removal and mating fit pending.",
+  "submitted": true,
   "root_anchor": {
     "component_id": 2400,
     "member": "3D/Objects/plug-root-breakaway-foot.model",
@@ -219,5 +219,9 @@
   "authorization_quotes": [
     "So I'm thinking something needs to be under that, where my finger is pointing here in these photos.",
     "And I don't want you to keep wasting my time printing the same control over and over again. Please just print what you think will work best, no repeat control."
-  ]
+  ],
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/launch.json",
+  "printer_task_id": "1342500038",
+  "submitted_gcode_sha256": "f0e9f922c4f39240caee882249f726dc6499b9e3053f30172cbfc3ce5810adf5",
+  "authorization_quote": "Please print that. Both beds are clear."
 }
