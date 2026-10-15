@@ -10,7 +10,7 @@
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     const frame = document.createElement("iframe");
-    frame.src = "https://www.youtube-nocookie.com/embed/WHO-V2DPTcs?rel=0&autoplay=1";
+    frame.src = "https://www.youtube-nocookie.com/embed/o3l6Vcl-nLU?rel=0&autoplay=1";
     frame.title = "One Less Errand — Cold Soda on Tap at Home";
     frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     frame.referrerPolicy = "strict-origin-when-cross-origin";
