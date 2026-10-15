@@ -3338,28 +3338,32 @@
     "clear": true
   },
   "current_artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "98803ca5eba48afd50fb47c73cae23c0d6cc3cca6ec9e4e6bb853c02a31061df",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8cf22525e5149fbfc4b158d98dfe6ddd6dfc14bb584d8d2a937556d0738b2c4d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "c46090b41613c5f1fa8e62c14947cce05cfdc32a6da41afd4b2f04992983ea60",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "46cd84b68122c54e4b6fb422fa4e9b4b7357fde2aeb706b387fcf3f2f6297594",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "a6dd270a6bdd07820a205fb6c11d6e5bc739ea37f5da746c5b2d88e3a7733f2a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "ba1c3adbaa1bc66bdc346130bdbde9ef10c901de04852c50b42f42893731ca3d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "c135f634530e5f872af9d5c1a1b1e78321d04a8486fca0e36e60c0ab06157d16",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "14eb5f0d00aa75c3df4e3e7a9b272275d1023aca98cd370f962720c00a40f2a1",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "807f9e9184cbe5b52e69b790551863bec76351ed745451f208749c5f14acbdf6",
-    "hardware/manifold-layout/enclosure-assembly.step": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "6971cbb811deeb457c591cff4769fa37228eef4c7a26a8f6c05732879df54b95",
+    "hardware/manifold-layout/enclosure-assembly.step": "791374c89e5549047b850014ed12e1bc814447a6d8ab697d88e04b591be2329a",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "299e83b657401ca99e31ea90b0a19f0a646e9a2fc4f76991cee60d117d3c4598",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "b6804531d29d5e1a472828e503ec75cde562e9547f01bdc0f8f7b386dd63e209",
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "a36dfef89dd7e8f7e8f186271670a2bbd3690473d53d754a921461a761cda8a2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
-    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a"
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "1e7ee9ba1ab167a3e500609e377287556589d78c6299c3540465ea183763406e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "e6277aebd5e75bedc9b41978e1e19761df6401d0943e1cd038589bd14b68ff2c"
   },
   "conclusions": {
     "closed_nominal_geometry_clear": true,
@@ -4777,6 +4781,2879 @@
       "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
       "hardware/manifold-layout/enclosure-assembly.step": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011"
+    }
+  },
+  "surface_polish_update": {
+    "scope": "Current surface-finish correction and its coupled fit: one whole-handhold R6/print-down boundary on both halves and sides, a flat lifting ceiling, eased lower head entrances, and upper head mouths joined to the existing funnel opening. The rounded frame rear corners and corresponding changed BT stock are reviewed together. Earlier receipts retain their own reference artifacts and scopes. This is one targeted review, without a new build or publish gate.",
+    "reference_photo_pick": {
+      "aggregate_payload_src": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
+      "aggregate_payload_sha256": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011",
+      "solid": "enclosure-front-bottom",
+      "plane_y_mm": 200,
+      "click_world_xyz_mm": [
+        -106.738,
+        199.997,
+        30.067
+      ],
+      "measured_reference_west_edge_step_mm": 3.0596373,
+      "mirrored_sibling": "Both east edges and the west front edge were square near the seam; the west rear edge retained the intended profile."
+    },
+    "current_artifact_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "a6dd270a6bdd07820a205fb6c11d6e5bc739ea37f5da746c5b2d88e3a7733f2a",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "ba1c3adbaa1bc66bdc346130bdbde9ef10c901de04852c50b42f42893731ca3d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "6971cbb811deeb457c591cff4769fa37228eef4c7a26a8f6c05732879df54b95",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+      "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158",
+      "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step": "1e7ee9ba1ab167a3e500609e377287556589d78c6299c3540465ea183763406e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "e6277aebd5e75bedc9b41978e1e19761df6401d0943e1cd038589bd14b68ff2c",
+      "hardware/manifold-layout/enclosure-assembly.step": "791374c89e5549047b850014ed12e1bc814447a6d8ab697d88e04b591be2329a",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "299e83b657401ca99e31ea90b0a19f0a646e9a2fc4f76991cee60d117d3c4598"
+    },
+    "handhold_emitted_geometry_review": {
+      "scope": "Focused emitted bottom handhold review: shared exterior profile at the Y seam, changes in the whole handhold crop, and ten local closing poses per side. Earlier complete assembly and pack-motion evidence remains separately scoped; this is not a full-machine recheck.",
+      "source_sha256": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+      "artifact_sha256": {
+        "front-bottom": {
+          ".step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
+          ".stl": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+          ".step.mesh": "a6dd270a6bdd07820a205fb6c11d6e5bc739ea37f5da746c5b2d88e3a7733f2a"
+        },
+        "back-bottom": {
+          ".step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
+          ".stl": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+          ".step.mesh": "ba1c3adbaa1bc66bdc346130bdbde9ef10c901de04852c50b42f42893731ca3d"
+        }
+      },
+      "native_relations": [
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "added_mm3": 0.0,
+          "removed_mm3": 183.9733903999841,
+          "added_bounds_mm": null,
+          "removed_bounds_mm": [
+            -107.50000010000002,
+            -101.4999999,
+            167.99999990000003,
+            200.0000001,
+            23.249999899848312,
+            35.25000010000002
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "added_mm3": 0.0,
+          "removed_mm3": 183.9733903903072,
+          "added_bounds_mm": null,
+          "removed_bounds_mm": [
+            101.49999989999996,
+            107.50000010000004,
+            167.99999990000003,
+            200.0000001,
+            23.249999899848312,
+            35.25000010000002
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "added_mm3": 0.007012315215047263,
+          "removed_mm3": 4.0610242446980305,
+          "added_bounds_mm": [
+            -105.19396895192786,
+            -104.6795142853,
+            199.99999989999,
+            248.0000001,
+            29.249999899999995,
+            29.25130603472967
+          ],
+          "removed_bounds_mm": [
+            -103.9000001,
+            -90.5,
+            203.0,
+            214.8,
+            29.249999895328756,
+            29.7500001
+          ],
+          "previously_cleared_closed_stock_prism_mm": [
+            -105.5,
+            -90.5,
+            200.0,
+            219.81000000000006,
+            29.25,
+            65.7
+          ],
+          "added_outside_previous_stock_prism_mm3": 0.00411828255203844
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "added_mm3": 0.0,
+          "removed_mm3": 339.3186612722473,
+          "added_bounds_mm": null,
+          "removed_bounds_mm": [
+            90.5,
+            107.50000010000002,
+            199.99999989999,
+            260.0000001,
+            23.2499999,
+            35.2500001
+          ],
+          "previously_cleared_closed_stock_prism_mm": [
+            90.5,
+            105.5,
+            200.0,
+            219.81000000000006,
+            29.25,
+            65.7
+          ],
+          "added_outside_previous_stock_prism_mm3": 0.0
+        }
+      ],
+      "seam_profiles": [
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -107.499,
+          "y": 199.99,
+          "native_z": [
+            35.1404618,
+            48.0
+          ],
+          "printed_z": [],
+          "payload_z": []
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -107.3,
+          "y": 199.99,
+          "native_z": [
+            33.7137711,
+            48.0
+          ],
+          "printed_z": [
+            33.714708
+          ],
+          "payload_z": [
+            33.730509
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -107,
+          "y": 199.99,
+          "native_z": [
+            32.8521008,
+            48.0
+          ],
+          "printed_z": [
+            32.85308
+          ],
+          "payload_z": [
+            32.853206
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -106.738,
+          "y": 199.99,
+          "native_z": [
+            32.3096373,
+            48.0
+          ],
+          "printed_z": [
+            32.309234
+          ],
+          "payload_z": [
+            32.312703
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -106.5,
+          "y": 199.99,
+          "native_z": [
+            31.8335944,
+            48.0
+          ],
+          "printed_z": [
+            31.83263
+          ],
+          "payload_z": [
+            31.839642
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -106,
+          "y": 199.99,
+          "native_z": [
+            30.8336785,
+            48.0
+          ],
+          "printed_z": [
+            30.831362
+          ],
+          "payload_z": [
+            30.845816
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -105.5,
+          "y": 199.99,
+          "native_z": [
+            29.8367943,
+            48.0
+          ],
+          "printed_z": [
+            29.837031
+          ],
+          "payload_z": [
+            29.85199
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -105,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -104.5,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -104,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -103,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -102,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -101.5,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -101,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -100,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "west",
+          "x": -98,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            41.25
+          ],
+          "printed_z": [
+            29.25,
+            41.25
+          ],
+          "payload_z": [
+            29.25,
+            41.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 107.499,
+          "y": 199.99,
+          "native_z": [
+            35.1404618,
+            48.0
+          ],
+          "printed_z": [],
+          "payload_z": []
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 107.3,
+          "y": 199.99,
+          "native_z": [
+            33.7137711,
+            48.0
+          ],
+          "printed_z": [
+            33.714708
+          ],
+          "payload_z": [
+            33.738439
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 107,
+          "y": 199.99,
+          "native_z": [
+            32.8521008,
+            48.0
+          ],
+          "printed_z": [
+            32.85308
+          ],
+          "payload_z": [
+            32.85295
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 106.738,
+          "y": 199.99,
+          "native_z": [
+            32.3096373,
+            48.0
+          ],
+          "printed_z": [
+            32.309234
+          ],
+          "payload_z": [
+            32.312414
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 106.5,
+          "y": 199.99,
+          "native_z": [
+            31.8335944,
+            48.0
+          ],
+          "printed_z": [
+            31.83263
+          ],
+          "payload_z": [
+            31.839396
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 106,
+          "y": 199.99,
+          "native_z": [
+            30.8336785,
+            48.0
+          ],
+          "printed_z": [
+            30.831362
+          ],
+          "payload_z": [
+            30.84566
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 105.5,
+          "y": 199.99,
+          "native_z": [
+            29.8367943,
+            48.0
+          ],
+          "printed_z": [
+            29.837031
+          ],
+          "payload_z": [
+            29.851924
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 105,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 104.5,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 104,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 103,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 102,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 101.5,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 101,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 100,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.25
+          ]
+        },
+        {
+          "host": "front-bottom",
+          "side": "east",
+          "x": 98,
+          "y": 199.99,
+          "native_z": [
+            29.25,
+            41.25
+          ],
+          "printed_z": [
+            29.25,
+            41.25
+          ],
+          "payload_z": [
+            29.25,
+            41.25
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -107.499,
+          "y": 200.01,
+          "native_z": [
+            35.1404618,
+            48.0
+          ],
+          "printed_z": [],
+          "payload_z": []
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -107.3,
+          "y": 200.01,
+          "native_z": [
+            33.7137711,
+            48.0
+          ],
+          "printed_z": [
+            33.714191
+          ],
+          "payload_z": [
+            33.719069,
+            33.851124,
+            33.878457
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -107,
+          "y": 200.01,
+          "native_z": [
+            32.8521008,
+            48.0
+          ],
+          "printed_z": [
+            32.853076
+          ],
+          "payload_z": [
+            32.855064
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -106.738,
+          "y": 200.01,
+          "native_z": [
+            32.3096373,
+            48.0
+          ],
+          "printed_z": [
+            32.309238
+          ],
+          "payload_z": [
+            32.308575
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -106.5,
+          "y": 200.01,
+          "native_z": [
+            31.8335944,
+            48.0
+          ],
+          "printed_z": [
+            31.832634
+          ],
+          "payload_z": [
+            31.832114
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -106,
+          "y": 200.01,
+          "native_z": [
+            30.8336785,
+            48.0
+          ],
+          "printed_z": [
+            30.831365
+          ],
+          "payload_z": [
+            30.831147
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -105.5,
+          "y": 200.01,
+          "native_z": [
+            29.8367943,
+            48.0
+          ],
+          "printed_z": [
+            29.836687
+          ],
+          "payload_z": [
+            29.836587
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -105,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -104.5,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -104,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -103,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -102,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -101.5,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -101,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -100,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "west",
+          "x": -98,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 107.499,
+          "y": 200.01,
+          "native_z": [
+            35.1404618,
+            48.0
+          ],
+          "printed_z": [],
+          "payload_z": []
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 107.3,
+          "y": 200.01,
+          "native_z": [
+            33.7137711,
+            48.0
+          ],
+          "printed_z": [
+            33.714191
+          ],
+          "payload_z": [
+            33.719104,
+            33.825612,
+            33.86681
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 107,
+          "y": 200.01,
+          "native_z": [
+            32.8521008,
+            48.0
+          ],
+          "printed_z": [
+            32.853076
+          ],
+          "payload_z": [
+            32.856062
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 106.738,
+          "y": 200.01,
+          "native_z": [
+            32.3096373,
+            48.0
+          ],
+          "printed_z": [
+            32.309238
+          ],
+          "payload_z": [
+            32.308743
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 106.5,
+          "y": 200.01,
+          "native_z": [
+            31.8335944,
+            48.0
+          ],
+          "printed_z": [
+            31.832634
+          ],
+          "payload_z": [
+            31.832272
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 106,
+          "y": 200.01,
+          "native_z": [
+            30.8336785,
+            48.0
+          ],
+          "printed_z": [
+            30.831365
+          ],
+          "payload_z": [
+            30.831281
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 105.5,
+          "y": 200.01,
+          "native_z": [
+            29.8367943,
+            48.0
+          ],
+          "printed_z": [
+            29.836687
+          ],
+          "payload_z": [
+            29.836471
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 105,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 104.5,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 104,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 103,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 102,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 101.5,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 101,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 100,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        },
+        {
+          "host": "back-bottom",
+          "side": "east",
+          "x": 98,
+          "y": 200.01,
+          "native_z": [
+            29.25,
+            48.0
+          ],
+          "printed_z": [
+            29.25
+          ],
+          "payload_z": [
+            29.250001
+          ]
+        }
+      ],
+      "seam_edge_differences": [
+        {
+          "side": "west",
+          "absolute_x_mm": 107.499,
+          "native_edge_difference_mm": 0.0
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 107.3,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0005170000000020991,
+          "payload_edge_difference_mm": 0.011440000000000339
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 107,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.999999997006398e-06,
+          "payload_edge_difference_mm": 0.001857999999998583
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 106.738,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 4.0000000041118255e-06,
+          "payload_edge_difference_mm": 0.004128000000001464
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 106.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.999999997006398e-06,
+          "payload_edge_difference_mm": 0.007528000000000645
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 106,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.000000003083869e-06,
+          "payload_edge_difference_mm": 0.014668999999997823
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 105.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.00034399999999834563,
+          "payload_edge_difference_mm": 0.015402999999999167
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 105,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 104.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 104,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 103,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 102,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 101.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 101,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 100,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "west",
+          "absolute_x_mm": 98,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 107.499,
+          "native_edge_difference_mm": 0.0
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 107.3,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0005170000000020991,
+          "payload_edge_difference_mm": 0.019334999999998104
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 107,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.999999997006398e-06,
+          "payload_edge_difference_mm": 0.003112000000001558
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 106.738,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 4.0000000041118255e-06,
+          "payload_edge_difference_mm": 0.0036709999999970933
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 106.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.999999997006398e-06,
+          "payload_edge_difference_mm": 0.007124000000001018
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 106,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 3.000000003083869e-06,
+          "payload_edge_difference_mm": 0.014378999999998143
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 105.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.00034399999999834563,
+          "payload_edge_difference_mm": 0.015453000000000827
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 105,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 104.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 104,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 103,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 102,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 101.5,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 101,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 100,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        },
+        {
+          "side": "east",
+          "absolute_x_mm": 98,
+          "native_edge_difference_mm": 0.0,
+          "printed_edge_difference_mm": 0.0,
+          "payload_edge_difference_mm": 1.0000000010279564e-06
+        }
+      ],
+      "lower_washer_floors": [
+        {
+          "side": "west",
+          "required_bearing_thickness_mm": 3,
+          "bearing_floor_z_mm": 37.25,
+          "head_bottom_z_mm": 31.25,
+          "handhold_ceiling_z_mm": 29.25,
+          "head_recess_mm": 2,
+          "missing_bearing_stock_mm3": 0.0,
+          "complete": true
+        },
+        {
+          "side": "east",
+          "required_bearing_thickness_mm": 3,
+          "bearing_floor_z_mm": 37.25,
+          "head_bottom_z_mm": 31.25,
+          "handhold_ceiling_z_mm": 29.25,
+          "head_recess_mm": 2,
+          "missing_bearing_stock_mm3": 0.0,
+          "complete": true
+        }
+      ],
+      "local_closing_motion": [
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 0,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 0.25,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 0.5,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 1,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 2,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 4,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 8,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 17.8,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 24,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "west",
+          "back_bottom_offset_y_mm": 40,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 0,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 0.25,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 0.5,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 1,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 2,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 4,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 8,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 17.8,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 24,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "side": "east",
+          "back_bottom_offset_y_mm": 40,
+          "local_native_overlap_mm3": 0.0,
+          "clear": true
+        }
+      ],
+      "prior_packing_motion_carry": "Any added back-bottom stock contained by the earlier full block bounding prism remains covered by the established continuous +268.3 mm ride proof. Existing packed riders and tube placements are unchanged.",
+      "native_profile_max_edge_difference_mm": 0.0,
+      "printed_profile_max_edge_difference_mm": 0.0005170000000020991,
+      "payload_profile_max_edge_difference_mm": 0.019334999999998104,
+      "physical_qualification": "Geometric continuity does not qualify printed underside finish, hand feel, load capacity or handling dexterity."
+    },
+    "back_top_frame_coupling_review": {
+      "scope": "Final changed BT/frame region and exact added-stock pack envelopes. Sixteen native back-column approach poses are local to the stationary final rounded frame; changed-stock continuous packed motion is separately enclosed by conservative native prisms. This does not rescan the complete machine.",
+      "source_sha256": {
+        "enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+        "funnel_frame.py": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158"
+      },
+      "new_artifact_sha256": {
+        "enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+        "enclosure-back-top.stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226",
+        "enclosure-back-top.step.mesh": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
+        "funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+        "funnel-frame.stl": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
+        "funnel-frame.step.mesh": "6971cbb811deeb457c591cff4769fa37228eef4c7a26a8f6c05732879df54b95"
+      },
+      "frame_world_translation_mm": [
+        0,
+        164.55,
+        299.9
+      ],
+      "back_top_native_delta": {
+        "scope": "Changed upper mouth and the whole frame-clearance region, including the lower frame seat and aft corners. The retained native aggregate supplies the old BT; its raw standalone file is not rehashed as if read.",
+        "old_native_assembly_sha256": "c986ed7c8bda11c7e806a65bf6896e2aee4350c0e80456c6707776c121d32964",
+        "new_back_top_step_sha256": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+        "added_mm3": 100.05512799722572,
+        "removed_mm3": 309.7396602913018,
+        "added_bounds_mm": [
+          -91.5,
+          91.5,
+          229.69150792328,
+          235.94150792328526,
+          342.99999999999244,
+          349.25
+        ],
+        "removed_bounds_mm": [
+          -91.49,
+          91.49,
+          203.5,
+          214.3000000000016,
+          349.25,
+          355.0
+        ]
+      },
+      "changed_stock_continuous_pack_envelopes": [
+        {
+          "stock": "back-top added west",
+          "closed_bounds_mm": [
+            -91.5,
+            -85.25,
+            229.69150792328,
+            235.94150792328526,
+            342.99999999999335,
+            349.25
+          ],
+          "offset_y_mm": [
+            0,
+            268.3
+          ],
+          "continuous_swept_bounds_mm": [
+            -91.5,
+            -85.25,
+            229.69150792328,
+            504.24150792328527,
+            342.99999999999335,
+            349.25
+          ],
+          "fixed_riders_separated_by_bounds": [
+            "coil-v-a",
+            "coil-v-b",
+            "coil-v-c",
+            "coil-v-d",
+            "coil-v-e",
+            "coil-v-f",
+            "coil-v-g",
+            "coil-v-h",
+            "coil-v-i",
+            "coil-v-j",
+            "cold-core/bulkhead-reservoir-a",
+            "cold-core/bulkhead-reservoir-b",
+            "cold-core/bulkhead-seal-a",
+            "cold-core/bulkhead-seal-b",
+            "cold-core/carbonator-elbow-carb-water-out",
+            "cold-core/carbonator-elbow-co2-in",
+            "cold-core/carbonator-elbow-prv",
+            "cold-core/carbonator-elbow-water-in",
+            "cold-core/carbonator-tube",
+            "cold-core/collet-carb-water-out",
+            "cold-core/collet-co2-in",
+            "cold-core/collet-water-in",
+            "cold-core/copper-plug-port",
+            "cold-core/copper-plug-west",
+            "cold-core/endcap-bottom",
+            "cold-core/endcap-top",
+            "cold-core/evap-coil",
+            "cold-core/evap-tail-inlet",
+            "cold-core/evap-tail-outlet",
+            "cold-core/float-a",
+            "cold-core/float-b",
+            "cold-core/float-carb",
+            "cold-core/float-rod-a",
+            "cold-core/float-rod-b",
+            "cold-core/float-rod-carb",
+            "cold-core/foam-cap-bottom",
+            "cold-core/foam-cap-lid-bottom",
+            "cold-core/foam-cap-lid-top",
+            "cold-core/foam-cap-top",
+            "cold-core/foam-shell",
+            "cold-core/line-carb-water-out",
+            "cold-core/line-co2-in",
+            "cold-core/line-prv-vent",
+            "cold-core/line-reservoir-a",
+            "cold-core/line-reservoir-a-fill",
+            "cold-core/line-reservoir-b",
+            "cold-core/line-reservoir-b-fill",
+            "cold-core/line-water-in",
+            "cold-core/probe-carbonator-ds18b20",
+            "cold-core/probe-coil-ds18s20",
+            "cold-core/prv-shroud",
+            "cold-core/prv-sv125",
+            "cold-core/reed-a-1",
+            "cold-core/reed-a-2",
+            "cold-core/reed-a-3",
+            "cold-core/reed-a-4",
+            "cold-core/reed-b-1",
+            "cold-core/reed-b-2",
+            "cold-core/reed-b-3",
+            "cold-core/reed-b-4",
+            "cold-core/reed-bridge",
+            "cold-core/reed-carb-1",
+            "cold-core/reed-carb-2",
+            "cold-core/reservoir-a",
+            "cold-core/reservoir-a-cap",
+            "cold-core/reservoir-b",
+            "cold-core/reservoir-b-cap",
+            "cold-core/vent-membrane-a",
+            "cold-core/vent-membrane-b",
+            "cold-core/water-inlet-jet-cap-nominal",
+            "compressor",
+            "condenser+fan",
+            "discharge-chain",
+            "display",
+            "display-cover",
+            "display-gasket",
+            "elbow-cradle",
+            "funnel-drain-stub",
+            "funnel-drain-union",
+            "fuse-clamp",
+            "g-ganen-pump",
+            "mq6-sensor",
+            "suction-chain",
+            "tee-carrier-spring-east-lower",
+            "tee-carrier-spring-east-upper",
+            "tee-carrier-spring-west-lower",
+            "tee-carrier-spring-west-upper",
+            "tee-y-a",
+            "tee-y-b",
+            "tee-y-c",
+            "tee-y-d",
+            "tee-y-f",
+            "tee-y-g",
+            "thermal-fuse",
+            "valve-v-a",
+            "valve-v-b",
+            "valve-v-c",
+            "valve-v-d",
+            "valve-v-e",
+            "valve-v-f",
+            "valve-v-g",
+            "valve-v-h",
+            "valve-v-i",
+            "valve-v-j",
+            "vk-solenoid",
+            "wago-mana",
+            "wago-manb"
+          ],
+          "native_candidates": [],
+          "separately_reviewed_curved_frame_pair": {
+            "reason": "The rectangular swept envelope fills the empty outside corner and overlaps the retained square-frame reference. It is not the added native stock. Final rounded-frame clearance is established by native_frame_approach and the source_geometry_motion_argument below.",
+            "diagnostic_prism_overlap_with_reference_frame_mm3": 212.61004274254407
+          },
+          "clear_of_other_fixed_riders": true
+        },
+        {
+          "stock": "back-top added east",
+          "closed_bounds_mm": [
+            85.25,
+            91.5,
+            229.69150792328,
+            235.94150792328526,
+            342.99999999999244,
+            349.25
+          ],
+          "offset_y_mm": [
+            0,
+            268.3
+          ],
+          "continuous_swept_bounds_mm": [
+            85.25,
+            91.5,
+            229.69150792328,
+            504.24150792328527,
+            342.99999999999244,
+            349.25
+          ],
+          "fixed_riders_separated_by_bounds": [
+            "coil-v-a",
+            "coil-v-b",
+            "coil-v-c",
+            "coil-v-d",
+            "coil-v-e",
+            "coil-v-f",
+            "coil-v-g",
+            "coil-v-h",
+            "coil-v-i",
+            "coil-v-j",
+            "cold-core/bulkhead-reservoir-a",
+            "cold-core/bulkhead-reservoir-b",
+            "cold-core/bulkhead-seal-a",
+            "cold-core/bulkhead-seal-b",
+            "cold-core/carbonator-elbow-carb-water-out",
+            "cold-core/carbonator-elbow-co2-in",
+            "cold-core/carbonator-elbow-prv",
+            "cold-core/carbonator-elbow-water-in",
+            "cold-core/carbonator-tube",
+            "cold-core/collet-carb-water-out",
+            "cold-core/collet-co2-in",
+            "cold-core/collet-water-in",
+            "cold-core/copper-plug-port",
+            "cold-core/copper-plug-west",
+            "cold-core/endcap-bottom",
+            "cold-core/endcap-top",
+            "cold-core/evap-coil",
+            "cold-core/evap-tail-inlet",
+            "cold-core/evap-tail-outlet",
+            "cold-core/float-a",
+            "cold-core/float-b",
+            "cold-core/float-carb",
+            "cold-core/float-rod-a",
+            "cold-core/float-rod-b",
+            "cold-core/float-rod-carb",
+            "cold-core/foam-cap-bottom",
+            "cold-core/foam-cap-lid-bottom",
+            "cold-core/foam-cap-lid-top",
+            "cold-core/foam-cap-top",
+            "cold-core/foam-shell",
+            "cold-core/line-carb-water-out",
+            "cold-core/line-co2-in",
+            "cold-core/line-prv-vent",
+            "cold-core/line-reservoir-a",
+            "cold-core/line-reservoir-a-fill",
+            "cold-core/line-reservoir-b",
+            "cold-core/line-reservoir-b-fill",
+            "cold-core/line-water-in",
+            "cold-core/probe-carbonator-ds18b20",
+            "cold-core/probe-coil-ds18s20",
+            "cold-core/prv-shroud",
+            "cold-core/prv-sv125",
+            "cold-core/reed-a-1",
+            "cold-core/reed-a-2",
+            "cold-core/reed-a-3",
+            "cold-core/reed-a-4",
+            "cold-core/reed-b-1",
+            "cold-core/reed-b-2",
+            "cold-core/reed-b-3",
+            "cold-core/reed-b-4",
+            "cold-core/reed-bridge",
+            "cold-core/reed-carb-1",
+            "cold-core/reed-carb-2",
+            "cold-core/reservoir-a",
+            "cold-core/reservoir-a-cap",
+            "cold-core/reservoir-b",
+            "cold-core/reservoir-b-cap",
+            "cold-core/vent-membrane-a",
+            "cold-core/vent-membrane-b",
+            "cold-core/water-inlet-jet-cap-nominal",
+            "compressor",
+            "condenser+fan",
+            "discharge-chain",
+            "display",
+            "display-cover",
+            "display-gasket",
+            "elbow-cradle",
+            "funnel-drain-stub",
+            "funnel-drain-union",
+            "fuse-clamp",
+            "g-ganen-pump",
+            "mq6-sensor",
+            "suction-chain",
+            "tee-carrier-spring-east-lower",
+            "tee-carrier-spring-east-upper",
+            "tee-carrier-spring-west-lower",
+            "tee-carrier-spring-west-upper",
+            "tee-y-a",
+            "tee-y-b",
+            "tee-y-c",
+            "tee-y-d",
+            "tee-y-f",
+            "tee-y-g",
+            "thermal-fuse",
+            "valve-v-a",
+            "valve-v-b",
+            "valve-v-c",
+            "valve-v-d",
+            "valve-v-e",
+            "valve-v-f",
+            "valve-v-g",
+            "valve-v-h",
+            "valve-v-i",
+            "valve-v-j",
+            "vk-solenoid",
+            "wago-mana",
+            "wago-manb"
+          ],
+          "native_candidates": [],
+          "separately_reviewed_curved_frame_pair": {
+            "reason": "The rectangular swept envelope fills the empty outside corner and overlaps the retained square-frame reference. It is not the added native stock. Final rounded-frame clearance is established by native_frame_approach and the source_geometry_motion_argument below.",
+            "diagnostic_prism_overlap_with_reference_frame_mm3": 212.61004274265338
+          },
+          "clear_of_other_fixed_riders": true
+        },
+        {
+          "stock": "back-bottom west flat-ceiling restoration",
+          "closed_bounds_mm": [
+            -105.19396895192786,
+            -104.6795142853,
+            199.99999989999,
+            248.0000001,
+            29.249999899999995,
+            29.25130603472967
+          ],
+          "offset_y_mm": [
+            0,
+            268.3
+          ],
+          "continuous_swept_bounds_mm": [
+            -105.19396895192786,
+            -104.6795142853,
+            199.99999989999,
+            516.3000001,
+            29.249999899999995,
+            29.25130603472967
+          ],
+          "fixed_riders_separated_by_bounds": [
+            "coil-v-a",
+            "coil-v-b",
+            "coil-v-c",
+            "coil-v-d",
+            "coil-v-e",
+            "coil-v-f",
+            "coil-v-g",
+            "coil-v-h",
+            "coil-v-i",
+            "coil-v-j",
+            "cold-core/bulkhead-reservoir-a",
+            "cold-core/bulkhead-reservoir-b",
+            "cold-core/bulkhead-seal-a",
+            "cold-core/bulkhead-seal-b",
+            "cold-core/carbonator-elbow-carb-water-out",
+            "cold-core/carbonator-elbow-co2-in",
+            "cold-core/carbonator-elbow-prv",
+            "cold-core/carbonator-elbow-water-in",
+            "cold-core/carbonator-tube",
+            "cold-core/collet-carb-water-out",
+            "cold-core/collet-co2-in",
+            "cold-core/collet-water-in",
+            "cold-core/copper-plug-port",
+            "cold-core/copper-plug-west",
+            "cold-core/endcap-bottom",
+            "cold-core/endcap-top",
+            "cold-core/evap-coil",
+            "cold-core/evap-tail-inlet",
+            "cold-core/evap-tail-outlet",
+            "cold-core/float-a",
+            "cold-core/float-b",
+            "cold-core/float-carb",
+            "cold-core/float-rod-a",
+            "cold-core/float-rod-b",
+            "cold-core/float-rod-carb",
+            "cold-core/foam-cap-bottom",
+            "cold-core/foam-cap-lid-bottom",
+            "cold-core/foam-cap-lid-top",
+            "cold-core/foam-cap-top",
+            "cold-core/foam-shell",
+            "cold-core/line-carb-water-out",
+            "cold-core/line-co2-in",
+            "cold-core/line-prv-vent",
+            "cold-core/line-reservoir-a",
+            "cold-core/line-reservoir-a-fill",
+            "cold-core/line-reservoir-b",
+            "cold-core/line-reservoir-b-fill",
+            "cold-core/line-water-in",
+            "cold-core/probe-carbonator-ds18b20",
+            "cold-core/probe-coil-ds18s20",
+            "cold-core/prv-shroud",
+            "cold-core/prv-sv125",
+            "cold-core/reed-a-1",
+            "cold-core/reed-a-2",
+            "cold-core/reed-a-3",
+            "cold-core/reed-a-4",
+            "cold-core/reed-b-1",
+            "cold-core/reed-b-2",
+            "cold-core/reed-b-3",
+            "cold-core/reed-b-4",
+            "cold-core/reed-bridge",
+            "cold-core/reed-carb-1",
+            "cold-core/reed-carb-2",
+            "cold-core/reservoir-a",
+            "cold-core/reservoir-a-cap",
+            "cold-core/reservoir-b",
+            "cold-core/reservoir-b-cap",
+            "cold-core/vent-membrane-a",
+            "cold-core/vent-membrane-b",
+            "cold-core/water-inlet-jet-cap-nominal",
+            "compressor",
+            "condenser+fan",
+            "discharge-chain",
+            "display",
+            "display-cover",
+            "display-gasket",
+            "elbow-cradle",
+            "funnel-drain-stub",
+            "funnel-drain-union",
+            "funnel-frame",
+            "fuse-clamp",
+            "g-ganen-pump",
+            "mq6-sensor",
+            "suction-chain",
+            "tee-carrier-spring-east-lower",
+            "tee-carrier-spring-east-upper",
+            "tee-carrier-spring-west-lower",
+            "tee-carrier-spring-west-upper",
+            "tee-y-a",
+            "tee-y-b",
+            "tee-y-c",
+            "tee-y-d",
+            "tee-y-f",
+            "tee-y-g",
+            "thermal-fuse",
+            "valve-v-a",
+            "valve-v-b",
+            "valve-v-c",
+            "valve-v-d",
+            "valve-v-e",
+            "valve-v-f",
+            "valve-v-g",
+            "valve-v-h",
+            "valve-v-i",
+            "valve-v-j",
+            "vk-solenoid",
+            "wago-mana",
+            "wago-manb"
+          ],
+          "native_candidates": [],
+          "clear_of_other_fixed_riders": true
+        }
+      ],
+      "fixed_riders_count": 108,
+      "co_moving_back_top_riders_count": 46,
+      "native_frame_approach": [
+        {
+          "back_top_offset_y_mm": 0,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 0.1,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 0.25,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 0.5,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 1,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 2,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 3,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 4,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 6,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 8,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 12,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 17.8,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 24,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 32,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 36,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        },
+        {
+          "back_top_offset_y_mm": 40,
+          "native_frame_overlap_mm3": 0.0,
+          "clear": true
+        }
+      ],
+      "pass": true,
+      "source_geometry_motion_argument": {
+        "scope": "Continuous positive-Y withdrawal/inverse insertion of only the new aft corner stock relative to the final rounded frame. Whole-pair native positions are recorded separately.",
+        "rear_circle_centers_world_xy_mm": [
+          [
+            -85.25,
+            229.69150792328
+          ],
+          [
+            85.25,
+            229.69150792328
+          ]
+        ],
+        "frame_rear_radius_mm": 6,
+        "shell_clearance_rear_radius_mm": 6.25,
+        "construction": "The final stepped rear outline is rounded before shell_clearance is made. Adding 0.25 mm to the half-width, aft extent and radius retains each rear circle center. Added BT corner stock lies outside the R6.25 clearance circle in its aft/outboard quadrant. The final frame occupies the R6 circle there. Positive-Y motion increases each added point\u2019s distance from that shared center; it cannot enter the frame. Inboard of the quadrant, the added stock has no X overlap.",
+        "native_position_evidence": "All 16 full local BT/frame intersections at offsets 0..40 mm are0; beyond 40 mm their Y ranges are separated."
+      }
+    },
+    "retained_front_top_source_consistency": {
+      "method": "Root intersected the unchanged native front-top with each full final upper head-mouth cutter.",
+      "native_intersection_mm3_by_side": {
+        "west": 0,
+        "east": 0
+      },
+      "frame_clearance_separation": "The rear corner changes start at Y229.6915, beyond the unchanged front-top Y217.8 envelope. Other functional changes are confined to the bottoms."
+    },
+    "native_and_mesh_results": {
+      "native_shared_seam_profile_max_difference_mm": 0.0,
+      "printed_stl_shared_seam_profile_max_difference_mm": 0.0005170000000020991,
+      "viewer_payload_shared_seam_profile_max_difference_mm": 0.019334999999998104,
+      "bottom_local_closing_poses_clear": true,
+      "back_top_frame_local_approach_poses_clear": true,
+      "both_complete_lower_3mm_washer_floors": true,
+      "lower_head_recess_mm": 2,
+      "new_upper_corner_stock_continuous_pack_envelopes_clear": true
+    },
+    "physical_qualification": "Native and emitted-mesh continuity establish geometric fit only. Printed underside finish, hand feel, load capacity, lifetime and two-handed washer handling remain physically unqualified.",
+    "pass": true,
+    "lower_finish_stock_and_flat": {
+      "scope": "One-time native/print-mesh finish review of final polished exports. Not a build-path check or a physical qualification.",
+      "input_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+        "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090"
+      },
+      "inputs_unchanged_during_review": true,
+      "phase": "lower",
+      "datums": {
+        "handhold_radius_mm": 6.0,
+        "flat_interval_start_depth_mm": 2.2917960675006306,
+        "lifting_ceiling_z_mm": 29.25,
+        "lower_washer_floor_z_mm": 37.25,
+        "upper_washer_floor_z_mm": 347.0
+      },
+      "rows": {
+        "upper_open_mouth": [],
+        "lower_entry_ease": [
+          {
+            "side": "west",
+            "specified_ease_mm": 0.5,
+            "native_conical_faces": [
+              {
+                "area_mm2": 12.551144300298466,
+                "bounds_mm": [
+                  -103.9,
+                  -98.0,
+                  203.0,
+                  214.8,
+                  29.25,
+                  29.75
+                ]
+              }
+            ]
+          },
+          {
+            "side": "east",
+            "specified_ease_mm": 0.5,
+            "native_conical_faces": [
+              {
+                "area_mm2": 12.551144300280772,
+                "bounds_mm": [
+                  98.0,
+                  103.9,
+                  203.0,
+                  214.8,
+                  29.25,
+                  29.75
+                ]
+              }
+            ]
+          }
+        ],
+        "washer_floors": [
+          {
+            "part": "back-bottom",
+            "side": "west",
+            "z_mm": [
+              37.25,
+              40.25
+            ],
+            "missing_stock_mm3": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "side": "east",
+            "z_mm": [
+              37.25,
+              40.25
+            ],
+            "missing_stock_mm3": 0.0
+          }
+        ],
+        "anchor_stock": [],
+        "flat_ceiling_native": [
+          {
+            "part": "front-bottom",
+            "side": "west",
+            "x_mm": [
+              -105.20820393249937,
+              -104.0
+            ],
+            "y_mm": [
+              180,
+              199.999
+            ],
+            "plane_z_mm": 29.25,
+            "witness_depth_mm": 0.01,
+            "missing_stock_above_mm3": 0.0,
+            "extra_stock_below_mm3": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "side": "west",
+            "x_mm": [
+              -105.20820393249937,
+              -104.0
+            ],
+            "y_mm": [
+              200.001,
+              248
+            ],
+            "plane_z_mm": 29.25,
+            "witness_depth_mm": 0.01,
+            "missing_stock_above_mm3": 0.0,
+            "extra_stock_below_mm3": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "side": "east",
+            "x_mm": [
+              104.0,
+              105.20820393249937
+            ],
+            "y_mm": [
+              180,
+              199.999
+            ],
+            "plane_z_mm": 29.25,
+            "witness_depth_mm": 0.01,
+            "missing_stock_above_mm3": 0.0,
+            "extra_stock_below_mm3": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "side": "east",
+            "x_mm": [
+              104.0,
+              105.20820393249937
+            ],
+            "y_mm": [
+              200.001,
+              248
+            ],
+            "plane_z_mm": 29.25,
+            "witness_depth_mm": 0.01,
+            "missing_stock_above_mm3": 0.0,
+            "extra_stock_below_mm3": 0.0
+          }
+        ],
+        "flat_ceiling_print_mesh": [
+          {
+            "part": "front-bottom",
+            "x": -104.1,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": -104.1,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": -104.5,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": -104.5,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": -105.0,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": -105.0,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 104.1,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 104.1,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 104.5,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 104.5,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 105.0,
+            "y": 190,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "front-bottom",
+            "x": 105.0,
+            "y": 199.99,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.1,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.1,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.1,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.5,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.5,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -104.5,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -105.0,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -105.0,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": -105.0,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.1,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.1,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.1,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.5,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.5,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 104.5,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 105.0,
+            "y": 200.01,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 105.0,
+            "y": 220,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          },
+          {
+            "part": "back-bottom",
+            "x": 105.0,
+            "y": 240,
+            "near_ceiling_crossings_z_mm": [
+              29.25
+            ],
+            "max_abs_departure_mm": 0.0
+          }
+        ],
+        "upper_lip_print_mesh": []
+      },
+      "limits": "Native witnesses cover only the named regions. STL crossings are sampled original-facet measurements. No strength, lifetime, print finish, support-release or hand-dexterity claim."
+    },
+    "lower_entrance_print_mesh": {
+      "scope": "Original binary-STL facet inspection of both final0.5mm lower conical entrance faces, including all axial tessellation subdivisions; no trimming, repair or whole-mesh lint. Native cones measured separately.",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "sha256": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+      "rows": [
+        {
+          "side": -1,
+          "original_facets": 500,
+          "surface_area_mm2": 12.550059582975885,
+          "bounds_mm": [
+            [
+              -103.9000015258789,
+              203.0,
+              29.25
+            ],
+            [
+              -98.0,
+              214.8000030517578,
+              29.75
+            ]
+          ],
+          "max_vertex_radius_departure_mm": 8.846250188376814e-06
+        },
+        {
+          "side": 1,
+          "original_facets": 500,
+          "surface_area_mm2": 12.550059582976003,
+          "bounds_mm": [
+            [
+              98.0,
+              203.0,
+              29.25
+            ],
+            [
+              103.9000015258789,
+              214.8000030517578,
+              29.75
+            ]
+          ],
+          "max_vertex_radius_departure_mm": 8.846250188376814e-06
+        }
+      ]
+    },
+    "upper_mouth_and_insert_stock": {
+      "scope": "One-time native/print-mesh finish review of final polished exports. Not a build-path check or a physical qualification.",
+      "input_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+        "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226"
+      },
+      "inputs_unchanged_during_review": true,
+      "phase": "upper",
+      "datums": {
+        "handhold_radius_mm": 6.0,
+        "flat_interval_start_depth_mm": 2.2917960675006306,
+        "lifting_ceiling_z_mm": 29.25,
+        "lower_washer_floor_z_mm": 37.25,
+        "upper_washer_floor_z_mm": 347.0
+      },
+      "rows": {
+        "upper_open_mouth": [
+          {
+            "side": "west",
+            "bounds_mm": [
+              -98.0,
+              -82.5,
+              203.5,
+              214.3,
+              347.001,
+              355.001
+            ],
+            "occupied_volume_mm3": 0.0
+          },
+          {
+            "side": "east",
+            "bounds_mm": [
+              82.5,
+              98.0,
+              203.5,
+              214.3,
+              347.001,
+              355.001
+            ],
+            "occupied_volume_mm3": 0.0
+          }
+        ],
+        "lower_entry_ease": [],
+        "washer_floors": [
+          {
+            "part": "back-top",
+            "side": "west",
+            "z_mm": [
+              344.0,
+              347.0
+            ],
+            "missing_stock_mm3": 0.0
+          },
+          {
+            "part": "back-top",
+            "side": "east",
+            "z_mm": [
+              344.0,
+              347.0
+            ],
+            "missing_stock_mm3": 0.0
+          }
+        ],
+        "anchor_stock": [
+          {
+            "part": "back-top",
+            "side": "west",
+            "blind_bore_z_mm": [
+              175.05,
+              188.75
+            ],
+            "cap_z_mm": [
+              188.75,
+              191.75
+            ],
+            "occupied_pilot_volume_mm3": 0.0,
+            "missing_diameter_11_6_stock_mm3": 0.0,
+            "missing_3mm_cap_mm3": 0.0
+          },
+          {
+            "part": "front-top",
+            "side": "west",
+            "blind_bore_z_mm": [
+              285.5,
+              299.65
+            ],
+            "cap_z_mm": [
+              282.5,
+              285.5
+            ],
+            "occupied_pilot_volume_mm3": 0.0,
+            "missing_diameter_11_6_stock_mm3": 0.0,
+            "missing_3mm_cap_mm3": 0.0
+          },
+          {
+            "part": "back-top",
+            "side": "east",
+            "blind_bore_z_mm": [
+              175.05,
+              188.75
+            ],
+            "cap_z_mm": [
+              188.75,
+              191.75
+            ],
+            "occupied_pilot_volume_mm3": 0.0,
+            "missing_diameter_11_6_stock_mm3": 0.0,
+            "missing_3mm_cap_mm3": 0.0
+          },
+          {
+            "part": "front-top",
+            "side": "east",
+            "blind_bore_z_mm": [
+              285.5,
+              299.65
+            ],
+            "cap_z_mm": [
+              282.5,
+              285.5
+            ],
+            "occupied_pilot_volume_mm3": 0.0,
+            "missing_diameter_11_6_stock_mm3": 0.0,
+            "missing_3mm_cap_mm3": 0.0
+          }
+        ],
+        "flat_ceiling_native": [],
+        "flat_ceiling_print_mesh": [],
+        "upper_lip_print_mesh": [
+          {
+            "side": -1,
+            "former_wall_plane_x_mm": -91.49,
+            "remaining_facets": 0,
+            "remaining_area_mm2": 0.0
+          },
+          {
+            "side": 1,
+            "former_wall_plane_x_mm": 91.49,
+            "remaining_facets": 0,
+            "remaining_area_mm2": 0.0
+          }
+        ]
+      },
+      "limits": "Native witnesses cover only the named regions. STL crossings are sampled original-facet measurements. No strength, lifetime, print finish, support-release or hand-dexterity claim."
+    },
+    "frame_corners": {
+      "scope": "One-time frame rear-corner correction at current declared enclosure datums. Native geometry only; no printed fit, load or surface qualification.",
+      "inputs": {
+        "old_frame_step_sha256": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+        "frame_source_sha256": "d33ea16903c2dc367557dbb0007acfb4e4daafa564664781248dee8fc15f5158",
+        "box_sha256": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+      },
+      "datums": {
+        "centre_xy_mm": [
+          0.0,
+          164.55
+        ],
+        "floor_z_mm": 299.9,
+        "seat_z_mm": 349.0,
+        "rail_z_mm": 306.9,
+        "front_rail_runs": [
+          [
+            -104.5,
+            1.0,
+            111.70849207671873,
+            199.75,
+            214.55
+          ],
+          [
+            104.5,
+            -1.0,
+            111.70849207671873,
+            199.75,
+            214.55
+          ]
+        ]
+      },
+      "valid": true,
+      "solid_count": 1,
+      "old_volume_mm3": 603852.9446779576,
+      "new_volume_mm3": 603733.7416476039,
+      "added_volume_mm3": 0.0,
+      "removed_volume_mm3": 106.9589220140548,
+      "Y199_75_shoulder_changed_volume_mm3": 0.0,
+      "brim_bearing_required_mm3": 11134.663620579251,
+      "brim_bearing_missing_mm3": 0.0,
+      "closed_shells": [
+        {
+          "part": "front-top",
+          "step_sha256": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+          "overlap_mm3": 0.0,
+          "distance_mm": 0.0
+        },
+        {
+          "part": "back-top",
+          "step_sha256": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+          "overlap_mm3": 0.0,
+          "distance_mm": 0.24999999998639894
+        }
+      ],
+      "rear_corner_cylinders": [
+        {
+          "radius_mm": 6.0,
+          "bounds_mm": [
+            -91.25,
+            -85.25,
+            229.69150792328128,
+            235.69150792328128,
+            334.00669220076827,
+            349.0
+          ]
+        },
+        {
+          "radius_mm": 6.0,
+          "bounds_mm": [
+            85.25,
+            91.25,
+            229.69150792328128,
+            235.69150792328128,
+            334.00669220076827,
+            349.0
+          ]
+        }
+      ],
+      "outputs": {
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "7db9c575fa26438d524f5702ac9e5f4866c913bdaeb851a9b93f02fdde908ae8",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "62d3745fb1053050dca950dcaa127d4e80ab10bb51cbc4bf191f7fa19e21198a",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "6971cbb811deeb457c591cff4769fa37228eef4c7a26a8f6c05732879df54b95"
+      },
+      "accurate_native_volume_mm3": {
+        "old": 603852.8016399204,
+        "new": 603745.8434326092
+      },
+      "accurate_volume_reduction_mm3": 106.95820731122512,
+      "volume_measurement_note": "Use the adaptive tol=1e-9 native volume difference and the direct Boolean removal for the delta. They agree within 0.000715 mm3. Default coarse whole-body volume quadrature changes with the face partition and is retained above only as an intermediate reading."
+    },
+    "existing_support_mask_selection": {
+      "scope": "One-time execution of the active prep helpers mask selections on final production STL facets. No project preparation, slicing, support-path or physical qualification.",
+      "results": [
+        {
+          "part": "front-bottom",
+          "stl_sha256": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68",
+          "facets": 431432,
+          "mask_results": [
+            {
+              "helper": "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py",
+              "helper_sha256": "82cabde68f497dcb5fa01f7b2434e0ebd74033d979e8d9ac75abb57d4272632f",
+              "flat_ceiling_facets": 356,
+              "exterior_facets": 174289,
+              "blocked_screw_floor_facets": 0,
+              "blocked_mouth_bevel_facets": 0
+            },
+            {
+              "helper": "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py",
+              "helper_sha256": "b350d8624c8daed9eee63e4afb7573d7e35a495977f0999f85d3573fd61c7b64",
+              "flat_ceiling_facets": 356,
+              "exterior_facets": 174289,
+              "blocked_screw_floor_facets": 0,
+              "blocked_mouth_bevel_facets": 0
+            }
+          ]
+        },
+        {
+          "part": "back-bottom",
+          "stl_sha256": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090",
+          "facets": 1361326,
+          "mask_results": [
+            {
+              "helper": "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py",
+              "helper_sha256": "82cabde68f497dcb5fa01f7b2434e0ebd74033d979e8d9ac75abb57d4272632f",
+              "flat_ceiling_facets": 596,
+              "exterior_facets": 297151,
+              "blocked_screw_floor_facets": 0,
+              "blocked_mouth_bevel_facets": 0
+            },
+            {
+              "helper": "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py",
+              "helper_sha256": "b350d8624c8daed9eee63e4afb7573d7e35a495977f0999f85d3573fd61c7b64",
+              "flat_ceiling_facets": 596,
+              "exterior_facets": 297151,
+              "blocked_screw_floor_facets": 0,
+              "blocked_mouth_bevel_facets": 0
+            }
+          ]
+        }
+      ]
+    },
+    "dense_region_binding": {
+      "file": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+      "sha256": "878e1d19fecc2ac9814bdfbdda0ab5d0ee6bc0850c9e0defee087f0db362b7f3",
+      "region_bounds_unchanged": true,
+      "region_count": 51
+    },
+    "unchanged_front_top_source_relation": {
+      "scope": "Upper pocket extension is the only modified cutter reaching front-top; both full new mouth intersections with its retained native solid are zero. Rounded frame-corner changes begin atY229.6915, beyond front-topY217.8.",
+      "new_mouth_intersection_mm3": [
+        0.0,
+        0.0
+      ]
     }
   }
 }

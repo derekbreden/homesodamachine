@@ -118,10 +118,11 @@ def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
                 side_reach=reach)
 
 
-def _front_square_blank(width, front, back, z0, z1, cx, radius):
-    """One flat front and two retained rear corner rounds."""
+def _front_square_blank(width, front, back, z0, z1, cx, radius, rear_cut):
+    """The final stepped plan: square front and shoulders, rounded aft corners."""
     blank = cq.Solid.makeBox(width, back - front, z1 - z0,
                             cq.Vector(cx - width / 2, front, z0))
+    blank = blank.cut(rear_cut).clean()
     rear_edges = [edge for edge in blank.Edges()
                   if abs(edge.BoundingBox().ymin - back) < 1e-7
                   and abs(edge.BoundingBox().ymax - back) < 1e-7
@@ -177,13 +178,13 @@ def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
     floor, _plug, rail = datums(seat)
     front = roof_datums(inner, centre, seat, y_joint)['front']
     back = cy + depth / 2
+    rear_cut = rear_narrowing(inner, y_joint, air)
     body = _front_square_blank(body_width + 2 * air, front - air, back + air,
-                               floor - air, seat + air, cx, corner_radius + air)
+                               floor - air, seat + air, cx, corner_radius + air, rear_cut)
     foot = _front_square_blank(width + 2 * air, front - air, back + air,
-                               floor - air, rail, cx, corner_radius + air)
+                               floor - air, rail, cx, corner_radius + air, rear_cut)
     roof = roof_blank(inner, centre, seat, air, y_joint)
-    return (body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air))
-            .cut(rear_narrowing(inner, y_joint, air)).clean())
+    return body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air)).clean()
 
 
 @functools.cache
