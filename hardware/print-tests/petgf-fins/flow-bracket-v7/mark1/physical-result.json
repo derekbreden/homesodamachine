@@ -1,0 +1,135 @@
+{
+  "status": "completed; all R roofs look pretty good, R125 preferred; L140 adds sag",
+  "printer": "Mark1",
+  "printer_task_id": "1340334508",
+  "report_date": "2026-10-14",
+  "launch_record": "launch.json",
+  "machine_completion": {
+    "observed_at": "2026-10-15T00:13:55.501690+00:00",
+    "job_id": "1340334508",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v7-flow-bracket-petgf-left04-z018-mark1-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 28,
+    "total_layer_num": 28,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": []
+  },
+  "user_observations": [
+    {
+      "verbatim": "Not sure if L125 even came out as good as previous one. That was a control from our previous set, yeah?"
+    },
+    {
+      "verbatim": "L140 does have a bit of sag the others do not."
+    },
+    {
+      "verbatim": "All of the Rs look pretty good. R125 looks best."
+    }
+  ],
+  "isolated_first_roof_result": {
+    "L125_vs_v5_A125": "possibly worse; user is uncertain",
+    "L140": "a bit of sag relative to the other L specimens",
+    "L125_L130_L135": "no comparable sag reported",
+    "visible_gap_rank": "unreported; no joining improvement above 125% established"
+  },
+  "completed_roof_result": {
+    "ids": [
+      "R125",
+      "R130",
+      "R135",
+      "R140"
+    ],
+    "appearance": "all look pretty good",
+    "preferred_id": "R125",
+    "other_three_relative_rank": "unreported",
+    "inspected_face": "not explicitly specified in this report",
+    "roof_courses": 5,
+    "clear_span_mm": 12,
+    "anchor_type": "permanent model posts",
+    "first_roof_extrusion_percent": 125,
+    "part_fan_percent": 70,
+    "bridge_speed_mm_s": 25
+  },
+  "control_comparison": {
+    "earlier_id": "A125",
+    "earlier_result": "../../normal-flow-cooling-v5/mark1/physical-result.json",
+    "current_id": "L125",
+    "scope": "repeat of bridge settings; anchor deposition and plate conditions differ",
+    "matching": {
+      "bridge_mode": "normal",
+      "clear_span_mm": 12,
+      "roof_courses": 1,
+      "first_roof_nozzle_z_mm": 5.72,
+      "nominal_roof_height_mm": 0.24,
+      "bridge_extrusion_percent": 125,
+      "part_fan_percent": 70,
+      "bridge_speed_mm_s": 25,
+      "main_bridge_strokes": 30,
+      "raster_pitch_mm": [
+        0.377,
+        0.378
+      ],
+      "normal_nozzle_temperature_c": 280,
+      "first_layer_nozzle_temperature_c": 265,
+      "bed_temperature_c": 80
+    },
+    "commanded_cross_section_mm2_from_e": {
+      "A125": 0.1081886216566466,
+      "L125": 0.10818862362611723
+    },
+    "differences": {
+      "post_infill_percent": {
+        "v5": 15,
+        "v7": 100
+      },
+      "post_infill_pattern": {
+        "v5": "grid",
+        "v7": "zig-zag"
+      },
+      "bottom_shell_layers": {
+        "v5": 3,
+        "v7": 23
+      },
+      "specimens_on_plate": {
+        "v5": 6,
+        "v7": 8
+      },
+      "plate_translation_mm": {
+        "A125": [
+          175.5,
+          138.0,
+          0.0
+        ],
+        "L125": [
+          120.5,
+          138.0,
+          0.0
+        ]
+      },
+      "first_roof_object_order": {
+        "A125": "fourth of six",
+        "L125": "eighth of eight"
+      }
+    },
+    "interpretation": "The reported possible appearance difference cannot isolate a cause or establish repeatability of an otherwise identical print."
+  },
+  "selected_scope": {
+    "preferred_completed_roof_recipe": "normal bridge, 125% first-roof extrusion, 70% fan, 25 mm/s",
+    "claim": "125% is preferred among the completed 125\u2013140% roofs on this plate; isolated L140 has additional sag.",
+    "limits": "This report does not establish complete first-layer gap closure, measured line bonding, a fin-contact retained surface or fin release."
+  },
+  "follow_up": "../../finish-matrix-v6/README.md",
+  "follow_up_comparisons": {
+    "matched_preferred_recipe": [
+      "C04",
+      "F04",
+      "Y04"
+    ],
+    "same_extrusion_and_cooling_at_15_mm_s": [
+      "C03",
+      "F03",
+      "Y03"
+    ]
+  }
+}
