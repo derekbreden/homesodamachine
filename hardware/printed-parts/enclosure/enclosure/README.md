@@ -12,8 +12,8 @@ flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [9 mm](BACK_TOP_FLANK) and it
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
-column's top SLIDES onto its bottom on hooked rails; the two halves telescope and six screws
-close the whole box.
+column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
+rods, two at each Y-seam corner, close the whole box.
 It measures [215 × 466.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
@@ -23,9 +23,9 @@ clash in `pack-closes` at the body that overran.
 - **Width** is `appliance_width`, struck symmetric about x = 0. What the pack owes
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_band_inset` in from the wall **where it meets one of the
-  seam's bosses in depth and in height**, leaving each mouth, plug and collar its full
-  section. The lower socket jambs run from the handhold roofs to the Z seam; above them the
-  upper collars occupy their own local band. Outside those footprints the band is air. The cold
+  seam's corner stacks in depth and in height** (`seam_bosses`), leaving every knuckle its
+  full section. The lower stacks stand from the slab to back-top's hub over the Z seam; the
+  upper ones from their floor to the ceiling. Outside those footprints the band is air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
@@ -52,7 +52,7 @@ column solid; the cold core stands from the floor slab and the whole service bay
 stands on its lid in the back. So the seam runs **through** both columns, on the lane
 each lip needs — the cavity's own one-`wall` skin (`_lip_band`, the same shape `_z_lip`
 fuses onto a piece), held open at every height by the standoffs the pack is packed to,
-one wall off the front and +Y walls and one boss chain off the sides. Being the skin
+one wall off the front and +Y walls and one `side_band_inset` off the sides. Being the skin
 and not a box, it **wraps every column standing in a vertical**, and that wrap stands a
 whole `column_round` inboard of any wall segment — so a body clear of all four walls
 can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
@@ -77,11 +77,10 @@ flat front carries no lip there at any height.
 `enclosure.step` — all of them as separate solids in assembled position, seams
 intact (mirrors `faucet/faucet-shell`).
 
-## Seams + bosses
+## Seams + corner stacks
 
-Three seams. Front↔back: the front pieces' rear lip telescopes
-into the back pieces, cross-pinned with M3 screws driven from the ±X exterior — the box's
-six seam screws. That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
+Three seams. Front↔back: the front pieces' rear lip telescopes into the back pieces. That
+**proud** lip is **3-sided** — both side walls and the ceiling. A proud
 tongue is the wall continued one `wall` *into* the cavity, and on those faces the
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
 tongue would drive straight into the core. The floor laps anyway, but as a
@@ -90,72 +89,63 @@ the front floor runs one overlap aft on the print bed and tapers through the sla
 at its nose; the back keeps the matching bed-side wedge. The assembled top stays
 flat under the core, while both printed bearing faces remain support-free. The handholds remove the slab at both flanks; the scarf continues across the middle
 under the cold core. Each handhold's inner wall ends square at its full 3 mm
-section, with one running fit between the front and back faces. The floor overlap
-and socket jambs register the joined enclosure.
+section, with one running fit between the front and back faces.
 
-That seam is pinned at **[3](Y_LEVELS) levels** per side wall — above the handhold,
-just below the Z seam and under the ceiling. The lower and middle pairs pin the two
-bottom pieces; the ceiling pair pins the two tops. `_bosses` drops a level
-landing within two socket collars of one already placed, so the ladder carries one level per
-height it is owed.
+Each ±X corner of that seam is a **stack of knuckles**: blocks of one piece standing in the
+other's overlap, alternating up the corner, with two vertical M5 rods through them
+(`_y_stacks`). A front knuckle roots [3 mm](Y_STACK_FRONT_ROOT) fore of the seam in its own
+flank and runs aft one running fit inside the back piece's skin; a back knuckle grows out of
+that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
+overlap and the [14 mm](SIDE_BAND) side band, and the rods' axis stands
+[9.5 mm](Y_STACK_AXIS_OUT) in from the exterior, mid-overlap.
 
-The upper screw axes keep at least **[17.95 mm](SEAM_SCREW_END_INSET)** below the interior ceiling
-plane. Their highest complete stations that clear the native funnel receiver and packed bodies
-are Z282.05 mm on the west and Z291.05 mm on the east, respectively 69.95 and 60.95 mm
-below that plane. The lower axes stand at **Z[48.9 mm](SEAM_SCREW_LOWER_Z)**, their complete collars above
-the handhold roofs. Back-top's two upper pins are rectangular corner blocks, from their flat lower ends
-through the ceiling slab and from the seam mouth into the full-thickness flanks. Front-top's
-matching straight passages open through its ceiling tongue; the insert seats remain on the
-blocks' inboard faces. The top pieces' Z-seam shoulders and hooked rails register their height,
-and the upper screws close the Y seam. `y-seam-upper` reads the finished columns, their flat
-ends, the screw pilots and the whole volume swept through the front passages during entry.
+- **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
+  **hub** over the lip rim: back-bottom, front-bottom, back-bottom, front-bottom, then the hub
+  at Z[175.05..195.05](Y_STACK_HUB). An [M5 × 150](LOWER_ROD) drives up from the handhold
+  ceiling, its head counterbored into back-bottom's knuckle under the grip cover, through every
+  knuckle into a ruthex RX-M5x9.5 set in the hub's underside. Tightening it pushes back-bottom
+  up into front-bottom and pulls back-top down onto front-bottom's top knuckle, so both bottoms
+  and the back column's Z seam are clamped at the corner. The hub stands where back-top's notch
+  roof already stands over the back rail's heads, so it slides fore over them as back-top
+  goes on.
+- **The upper stack** stands under the roof, over the tap-water line on the −X flank:
+  front-top's knuckle from Z[272.5](Y_STACK_UPPER_FLOOR) up to the funnel frame's floor, and
+  back-top's from there to the roof. The frame slides into front-top from the seam end, so
+  front-top keeps nothing in the corner above Z[299.65](Y_STACK_DATUM). An
+  [M5 × 60](UPPER_ROD) drives down from back-top's roof into an insert in front-top's knuckle,
+  so tightening it holds front-top up against back-top; that also locks front-top's slide.
+  Front-top's knuckle gives its inboard-aft edge a 45° chamfer for the flavour line that turns
+  past the −X corner under the frame (`y_stack_upper_chamfer`).
 
-The middle axes stand at **[152.1 mm](SEAM_SCREW_MIDDLE_Z)**, one socket radius below the
-Z seam. The complete inserts and their collars belong to front-bottom, with their crowns
-on the split plane. Lower and middle back pins share a straight jamb over each handhold;
-front-bottom carries the matching socket jamb and a straight passage open through both the
-handhold ceiling and the Z-seam rim. The floor scarf and the upper pins' lower seats register the two
-columns vertically, leaving the middle passages open at their crowns.
-`y-seam-lower` reads both complete jambs, all four screw pilots, the entry passages and the
-remaining floor lap. The existing rails connect the top pieces to this fastening; the ceiling pair
-alone still frees front-top.
+The faces a rod pulls shut — front-bottom's lowest knuckle on back-bottom's, the hub on
+front-bottom's top knuckle, back-top's roof knuckle on front-top's — are datums and take no
+clearance (`fits`). Every other face between knuckles keeps a running fit, with the supported
+allowance for each face that prints facing down: [0.5 mm](Y_STACK_GAP) between the bottom
+pieces' knuckles. The bores print as [Ø4.7](Y_STACK_PILOT) pilots. At first build each lower
+stack is drilled [Ø5](Y_STACK_DRILL) down through its four knuckles at once, with the bottoms
+joined, so every knuckle is coaxial on its rod and the halves return to the same place after
+service; back-top's roof knuckle is drilled on its own. The M5 insert and its ruthex minimum
+wall, [Ø11.6](Y_STACK_INSERT_BOSS) about the rod axis, sit inside the side band.
 
-Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
-the ±X exterior: a Ø6.15 mm head counterbore 3.5 mm deep, then [5.5 mm](SEAM_PIN_SHANK) of pin body
-ending exactly on the [9 mm](BACK_SEAM_FLANK_T) back flank's physical interior face, then a
-[5 mm](SEAM_HEATSET_DEPTH) heat-set pilot, then a one-wall cap. The pilot holds the complete
-4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) past its body. The M3×10 engages the complete
-insert and finishes 0.5 mm before the blind end; the pin meets the flank flush. The counterbore
-retains that complete circular pass and bearing envelope, while its unsupported crown continues
-on two tangent [36°](TEARDROP_ROOF) roof planes. The six head pockets therefore close without
-isolated support towers.
+Under each head, in a [Ø10.3 × 12 mm](Y_STACK_CBORE) counterbore, stand a DIN 125 washer, six
+DIN 2093 A 10 × 5.2 × 0.5 disc springs alternating in series, and a second washer on the floor
+that spreads the last disc's edge over the printed face. Run flat and backed out half a turn,
+the springs keep [1.1 mm](Y_STACK_SPRING_SET) of their [1.5 mm](Y_STACK_SPRING_TRAVEL) travel:
+a [0.32 kN](Y_STACK_PRELOAD) clamp by DIN 2093's disc formula, never more than the
+[0.42 kN](Y_STACK_FLAT_LOAD) they carry flat. As the PET-GF in the clamp creeps, the springs
+follow it and the clamp eases off gradually. Each insert's pocket runs a relief past the tip
+the rod reaches with its springs flat.
 
-- **Receiving piece = pin** (the back pieces): a rectangular block from the exterior to the
-  full-thickness flank face and from the seam mouth aft into that flank. A
-  [9.3 mm](PLUG_DIA) square section surrounds each shank with one wall; the lower and
-  middle sections continue to the handhold roof and the upper section into the ceiling.
-- **Lip piece = socket** (the front pieces): a collar with a straight slot for the pin,
-  open through the handhold ceiling and Z-seam rim on front-bottom and through the ceiling on front-top,
-  with the ruthex M3
-  heat-set (Ø4.0 × 4.0 body in its [5 mm](SEAM_HEATSET_DEPTH) pilot) capped at its deep
-  inboard end.
+The two upper rods out free front-top, which draws fore off its rails; the lower rods out as
+well let the halves part. The handhold's inner wall over the seam is front-bottom's, standing on
+its own floor tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
+(`_handhold_frame`). The [heat-set review](heat-set-review/README.md) checks every knuckle's
+whole section and the four M5 insert envelopes.
 
-**Each boss stands on the joint it pins.** A plug is the wall it drives through and
-the reach it needs past it: the first `wall` of its length *is* that wall's own
-material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket is a rectangular jamb rooted one wall ahead of the seam, extending aft to
-the insert's complete [15.8 mm](SOCKET_OD) collar and capped by `socket_cap` inboard.
-All six screw axes are at Y209.9 mm. The lower and middle back pins retain 8.25 mm
-of native material between the Y200 free edge and the Ø3.3 clearance hole across
-the full 5.5 mm shank. The tongue overlap is 17.8 mm; the lower and middle levels
-share one jamb per side. The [heat-set review](heat-set-review/README.md) checks
-these whole native load-path sections and the manufacturer insert envelopes.
-
-An edge-first drop that opens the lower Y seam puts the lower screw pair in tension.
-The floor scarf registers the floor and supplies no tensile interlock. Joining the
-tops and blocking their common slide does not establish a top compression flange
-under enclosure bending. Drop resistance requires assembled physical qualification;
-native solid volume and the saved 15% general infill do not establish that capacity.
+An edge-first drop that opens the lower Y seam loads the lower rods and the knuckles they pass
+in bearing. The floor scarf registers the floor and supplies no tensile interlock. Drop
+resistance requires assembled physical qualification; native solid volume and the saved 15%
+general infill do not establish that capacity.
 
 ## Exterior disposal warning
 
@@ -200,7 +190,7 @@ One handhold in each ±X flank opens through the standing floor. The recesses ar
 The liner seat clears the [6 mm](HANDHOLD_CORNER_R) corner shoulders beneath the roof.
 The exterior lifting edges retain their [6 mm](HANDHOLD_EDGE_R) rounds.
 Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
-joined to the floor by the opening's end walls and to the seam jamb above it.
+joined to the floor by the opening's end walls and to the corner stack above it.
 The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
 tangentially, including the two corner blends. Its full section and flute
 runout follow the top's side shoulder and both cartridge hand pockets.
@@ -216,8 +206,8 @@ The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each
 is closed toward the interior and open outward and downward. Both bottom pieces form each
 handhold; its inner wall closes on square, full-thickness ends with one running
 fit between the faces.
-The floor scarf continues across the middle of the enclosure. Six M3×10 screws pin the seam;
-the lower pair stands above the handholds.
+The floor scarf continues across the middle of the enclosure. The lower seam rods drive up
+through the handhold ceilings, their heads under the grip covers.
 
 `handholds` reads the upward entry space, full lifting sections, end posts around
 the wing slots and inner walls
@@ -243,13 +233,13 @@ valve plate (`z-seam-under-deck`), which is the whole height the box has to spen
 It buys the groove first: [9.2 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
 with [5.6 mm](HOOK_HEAD) of head over the front catch. The rear groove is
 [9.45 mm](BACK_HOOK_NECK) tall with [5.35 mm](BACK_HOOK_HEAD) of head over it. That height is the Z seam's own — `lip_len` is the Y
-seam's overlap, struck off its boss, and the two are independent figures. The two columns
+seam's overlap, which its corner stacks stand in, and the two are independent figures. The two columns
 enter from opposite ends: **front-top enters fore of home and slides AFT**, over the front
 wall's own plane in open air ahead of the box; **back-top enters aft of home and slides FORE**,
 over the open Y-seam mouth before the halves telescope. Each mouth rides its shoulder.
 At the nominal assembled position, each foot's end face has **0.25 mm of running
 clearance** to its stop block, matching the end-wall and corner allowances. The blocks
-retain 3.75 mm of length and bound overtravel; the upper Y-seam screws join the two
+retain 3.75 mm of length and bound overtravel; the upper seam rods join the two
 tops. Reaching the assembled position does not require compressing the rail ends.
 
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
@@ -285,9 +275,9 @@ the flank on either side of the seam rather than half of it standing in the othe
 **Each top escapes toward the end of the box it stands at** — front-top fore into the room,
 back-top aft toward the wall — so neither has to be lifted over the other. Front-top's
 escape is open air, and what holds it there is the Y
-seam's **upper pair of screws** — so two screws out and front-top draws straight off the
+seam's **two upper rods** — so with those two out front-top draws straight off the
 front of the box, the back column and whatever the box is built under never touched.
-Six M3×10 close the box; the same six open it.
+Four M5 rods close the box; the same four open it.
 
 **Every catch is square.** The head's broad underside and the foot's broad top face bear
 flat against lift along both complete runs. Each bottom piece prints the head with support
@@ -323,7 +313,7 @@ intersects or either seated catch misses its mate.
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
-Y-seam collars, or the rail band over the seam's own storey. Each column's full-section foot,
+Y seam's corner stacks, or the rail band over the seam's own storey. Each column's full-section foot,
 groove, arm and head reach [10.8 mm](RAIL_REACH) inward from `interior_x`, inside that same
 band.
 The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
@@ -335,7 +325,7 @@ on the standing verticals and the Y-seam's floor joint stays inside the slab, so
 seat is square and there is nothing standing there to clear.
 
 So the pack seats flush against the **seams**, not against the walls, and both
-walls carry all [3](Y_LEVELS) levels at full section.
+walls carry their corner stacks at full section.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -358,13 +348,6 @@ assembly is off.
 `rear_seam_clear` is the single source for the +Y wall: `enclosure_assembly` seats the
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
-
-The crowding mechanism stays in place even though nothing is crowded now: each Y-seam level
-is offered only where the socket's whole body — slot, heat-set and cap, one collar
-radius either side of the axis — stands clear of what `_measure_wall_block` found in
-that corner, measured against the contents themselves rather than their bounding
-boxes. It reads zero on both walls today, and the build prints each wall's levels so
-a wall that ever loses one is visible rather than silent.
 
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
@@ -452,11 +435,12 @@ the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold
 feet (each fore arris eased 45° for exactly this), past the chain and the bulkhead unions,
 into the pockets their stems land in; the lid's tenants — the water pump and the rest —
 go on through the same mouth after it. **Then the halves telescope**: the front assembly
-slides aft into the back, its corner blocks closing on the core's front face, and the six
-Y-seam screws drive from the ±X exteriors. Service is the same door swinging the other
-way, and the first of it needs no bench: **the upper two screws alone free front-top**,
+slides aft into the back, its corner blocks closing on the core's front face, and the four
+seam rods go in: the lower two up through the handhold ceilings, the upper two down
+through back-top's roof. Service is the same door swinging the other
+way, and the first of it needs no bench: **the two upper rods alone free front-top**,
 which draws fore off its rails into open air with the box still standing where it is —
-the flavour pack, the trays and the tee wall coming with it. All six screws out takes
+the flavour pack, the trays and the tee wall coming with it. All four rods out takes
 the front assembly fore and off, opens the bay through the mouth, brings the core out
 fore, and back-top slides fore off its rails if the tub itself is the work.
 
@@ -785,8 +769,8 @@ The face a feature works through keeps the shape its work requires, and support 
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
 pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
-complete rails; a cross-pin keeps its square pass
-envelope; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
+complete rails; a corner stack's knuckles keep their square bearing
+faces; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
 
@@ -1425,7 +1409,7 @@ rigid front-rim envelope keeps [0.329 mm](PUMP_HEAD_FLOOR_AIR) above it. The ful
 print bed and runs into the full thickness of the bulkhead.
 
 Front-bottom's lip drops around the front and both flanks as far as the tee-wall datum.
-The floor crosses that run wall to wall, opening only around the front socket collars.
+The floor crosses that run wall to wall.
 The remaining side lips and rails telescope along their complete working runs.
 
 Two feet on front-bottom's flanks bear beneath the bulkhead ends. Each offers a
@@ -1727,7 +1711,7 @@ on the bench, ceiling down, and every one of those seats is a cradle a body drop
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py`
 → the four `enclosure-*.step` pieces + `enclosure.step`. Wall, seam, boss, and
 facet constants are at the top of `enclosure.py`. Prints the facet size, the
-cross-pin levels each side wall ended up with, each piece's envelope vs. the H2C
+Y seam's corner stacks and rods, each piece's envelope vs. the H2C
 bed, every piece-pair's slip fit, and the cold-core clearance.
 
 ## Sources

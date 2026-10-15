@@ -20,6 +20,8 @@
   },
   "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
     "FRAME_HOLE": "11.25 mm",
+    "FRAME_RAILS": "Y111.7 to Y199.75",
+    "FRAME_REAR_WIDTH": "182.5 mm",
     "FRAME_SLOTS": "5.49 \u00d7 32.3 mm",
     "FRAME_SOCKET": "36.6 \u00d7 41.6 mm"
   }

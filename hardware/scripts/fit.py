@@ -36,7 +36,7 @@ fit" asks. Nothing in the world holds one candidate off another.
 
 The world is `probe.world()`, which holds the four printed enclosure pieces alongside the
 interior pack — so a pose this reports CLEAR is a pose the enclosure's pack-closes gate
-also calls clear, walls, seam lips, cross-pin pods and boss chains included. `skip=`
+also calls clear, walls, seam lips and corner stacks included. `skip=`
 takes them out one query at a time (`skip=probe.world().pieces`) and both scans say when
 they were held out.
 
@@ -1103,7 +1103,7 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
 
     A printed enclosure piece is always exact and can never be boxed: its box is the whole
     machine, so counting one by box would black out the field and report a full cavity. Its
-    material — the walls, and the seam lips, cross-pin pods, boss chains and ribs standing
+    material — the walls, and the seam lips, corner stacks, bosses and ribs standing
     inboard of them — is measured cell by cell like any other exact body.
 
     `size=(w, d)` keeps only rectangles that hold that footprint in either orientation.

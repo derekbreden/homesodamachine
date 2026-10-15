@@ -15,7 +15,7 @@ class GripInterface:
         self.BODY_AIR = self.shell.fits.slip
         self.LENGTH = self.shell.handhold_length - 2 * self.BODY_AIR
         self.X_EXT = self.shell.appliance_width / 2
-        _seat, _tip, _heat, _cap = self.shell._boss_x(self.X_EXT, -1)
+        _flank, _cap = self.shell._band_x(self.X_EXT, -1)
         self.INNER_FACE = _cap + self.shell.handhold_wall
         self.OUTER_FLAT = self.X_EXT - transition(self.shell.handhold_edge_r)[1]
         self.WIDTH = self.OUTER_FLAT - self.INNER_FACE - self.BODY_AIR
@@ -106,7 +106,7 @@ class GripInterface:
         """Apply to either connected bottom half, retaining the existing Y joint.
 
         Each slot belongs to the end wall in its own half. The reliefs and slots are
-        remote from the seam, cross-pins, socket jamb and inner-wall scarf.
+        remote from the seam, its corner stack and the handhold's inner wall.
         """
         if piece not in ('front', 'back'):
             raise ValueError(piece)
