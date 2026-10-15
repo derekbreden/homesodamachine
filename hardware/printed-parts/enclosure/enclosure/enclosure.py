@@ -3558,31 +3558,41 @@ def y_stack_rods(inner):
     return tuple(rows)
 
 
-def _y_knuckle(x_in, sx, y_joint, piece, z0, z1, depth):
+def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
     """One knuckle's solid before its bores. A front knuckle roots `y_stack_front_root` fore of
     the seam in its own flank and runs aft one running fit inside the back piece's skin; a back
     knuckle grows out of that skin and, outboard of the flank's face, on into the thickened
-    flank."""
+    flank. A knuckle stays inside the print silhouette (`_rounded_outer`), and one over a
+    handhold stays out of the square its lifting edge is rounded in, so the show surfaces it
+    meets keep the shape they were cut to."""
     def xs(d0, d1):
         return sorted((x_in + sx * d0, x_in + sx * d1))
 
     if piece.startswith("front"):
         xa, xb = xs(fits.running, depth)
         body = _ybox(xa, xb, y_joint - y_stack_front_root, y_joint + lip_len, z0, z1)
-        if piece != "front-top":
-            return body
-        # A 45° chamfer down the inboard-aft edge, the same at both corners.
-        ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
-        corner = (cq.Workplane("XY").workplane(offset=z0 - 1.0)
-                  .polyline([(ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
-                             (ex + sx, ey - c - 1.0)]).close()
-                  .extrude(z1 - z0 + 2.0).val())
-        return body.cut(corner)
-    xa, xb = xs(-1.0, depth)
-    body = _ybox(xa, xb, y_joint, y_joint + lip_len, z0, z1)
-    xa, xb = xs(-1.0, back_bottom_flank_t - wall)
-    return body.fuse(_ybox(xa, xb, y_joint + lip_len - 0.01,
-                           back_flank_start(y_joint) + 0.01, z0, z1))
+        if piece == "front-top":
+            # A 45° chamfer down the inboard-aft edge, the same at both corners.
+            ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
+            corner = (cq.Workplane("XY").workplane(offset=z0 - 1.0)
+                      .polyline([(ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
+                                 (ex + sx, ey - c - 1.0)]).close()
+                      .extrude(z1 - z0 + 2.0).val())
+            body = body.cut(corner)
+    else:
+        xa, xb = xs(-1.0, depth)
+        body = _ybox(xa, xb, y_joint, y_joint + lip_len, z0, z1)
+        xa, xb = xs(-1.0, back_bottom_flank_t - wall)
+        body = body.fuse(_ybox(xa, xb, y_joint + lip_len - 0.01,
+                               back_flank_start(y_joint) + 0.01, z0, z1))
+    body = body.intersect(_rounded_outer(outer))
+    if piece.endswith("bottom"):
+        _bed, roof, _crown = _handhold_levels(inner)
+        y0, y1 = _handhold_y()
+        x_ext = x_in - sx * wall
+        xa, xb = sorted((x_ext + sx * handhold_edge_r, x_ext - sx))
+        body = body.cut(_ybox(xa, xb, y0, y1, roof - 1.0, roof + handhold_edge_r))
+    return body
 
 
 def _y_knuckle_air(x_in, sx, y_joint, piece, z0, z1, gap_below, gap_above, depth):
@@ -3615,7 +3625,7 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
     )
 
 
-def _y_stacks(piece, inner, y_joint, name):
+def _y_stacks(piece, inner, outer, y_joint, name):
     """One finished piece with both corner stacks grown into it and the other half's knuckles
     cut out of it. Last of a piece's work, so nothing fused afterwards fills a fit or a bore."""
     lower, upper = y_stack(inner)
@@ -3628,7 +3638,8 @@ def _y_stacks(piece, inner, y_joint, name):
                 piece = piece.cut(_y_knuckle_air(x_in, sx, y_joint, who, z0, z1, g0, g1, depth))
         for (who, z0, z1, _g0, _g1), depth in rows:
             if who == name:
-                piece = piece.fuse(_y_knuckle(x_in, sx, y_joint, who, z0, z1, depth))
+                piece = piece.fuse(_y_knuckle(inner, outer, x_in, sx, y_joint, who, z0, z1,
+                                              depth))
         for cutter in _y_stack_bores(x_in, sx, y_joint, inner):
             piece = piece.cut(cutter)
     return piece
@@ -8614,8 +8625,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                                                runs=frame_runs))
         if y_side == 'front':
             piece = piece.cut(_y_lip_channel(inner, y_joint))
-            piece = piece.cut(_funnel_frame_part.front_seam_relief(
-                outer, y_joint, box.pack.funnel, funnel_seat_z(outer)))
         if y_side == 'front':
             piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
             for cavity in display_storey_cavities(box):
@@ -8642,7 +8651,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(cap_pocket)
     # And the Y seam's two corner stacks, last of everything, so no later fuse fills one of
     # their fits or bores and no later cut takes a knuckle's section.
-    piece = _y_stacks(piece, inner, y_joint, f"{y_side}-{z_side}")
+    piece = _y_stacks(piece, inner, outer, y_joint, f"{y_side}-{z_side}")
     return _unified(piece)
 
 

@@ -1,16 +1,16 @@
 {
-  "generated_utc": "2026-10-15T10:31:55.596886+00:00",
+  "generated_utc": "2026-10-15T11:14:08.363940+00:00",
   "scope": "Full installed insert envelopes in retained native STEP solids; supported-face clearance is included. No printed fit, pullout, torque, transport or drop qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "11752d03b3adb57ad22486c9d7e9b0f0ae964d90d9c1784d6a1528e90e627602",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "5224d00467cf70bc354fa6f22510accb37764e36909f77b20f3e9b75d307fbdb",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
   },
   "native_step_sha256": {
-    "back-bottom": "bc7062ce8bdf0faeb00ce3da9d83d34394d431276c720081acde275e02d6ac33",
-    "back-top": "d9a47c253b0aeb5839705673e05067a5520ede6eb1197eecb2e51fc9e3466b6e",
+    "back-bottom": "5ed5174e6eab8f36a1ee1b0d5f4c987aba1fc32584c85bb632ef911edc8adf4f",
+    "back-top": "9015d432b5fd5fc7a546546951647399eff541bfe03b36a0b3a8a26507aaa687",
     "front-bottom": "9c9630547013ece109db2f17ed472d90474a96b9d0050caa7799ead986aca052",
-    "front-top": "b3d4c5515b291a3a3562d23c5675872cc7cde8dcd1b8d1eff53147c2547afd00",
+    "front-top": "cb80534c566290a97308912f9d477b65936ee710777661e6a5882cd543e916a0",
     "pump-cap": "6fb2795682a9b20397f3bc69ed9d313305c47b986b4b544e3d560fb1755430bd",
     "pump-cartridge": "ef786ae6bb32e35ed915494fc459ae20420ce28a02073a2bd5b1ad8a9b177aa2"
   },

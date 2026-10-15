@@ -155,7 +155,7 @@ for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
     bores = e._y_stack_bores(xi, sx, box.y_joint, box.inner)
     for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
         for who, z0, z1, gap_below, gap_above in rows:
-            knuckle = e._y_knuckle(xi, sx, box.y_joint, who, z0, z1, depth)
+            knuckle = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1, depth)
             for cutter in bores:
                 knuckle = knuckle.cut(cutter)
             seam.append(dict(side='west' if sx>0 else 'east', piece=who, z_mm=[z0, z1],
