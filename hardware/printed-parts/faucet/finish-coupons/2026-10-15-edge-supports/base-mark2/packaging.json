@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "bce9cd46fff41d2e0d8d0eff17736f10a4af6911a06b30b8e40df7bfe2fcad95",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "05e82b31c2b97a85a4a096c73a96fe3b26d46ab15242661497c1b323b2fae39f",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "8946448453c32d1a95fe1bc197e4b6a6255544182fb361ebe220ed370efd5edd"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

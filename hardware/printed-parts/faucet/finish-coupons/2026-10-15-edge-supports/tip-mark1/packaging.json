@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/2026-10-15-faucet-tip-lip-trees-eight-fins-current105-bridge125-fan70-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "c0f856223f7119568dd0fb0ce131692b578e26fcc1a3edd1f05ed987c2bf1036",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/2026-10-15-faucet-tip-lip-trees-eight-fins-current105-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "d12b0207a658d15997e84e957f16a6b8b9c751b5e60d84aa63507b2aa7287bee",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "993e259c5ba551a749d14ee85602dd5cfdabdb82f11e30c886b0784cc6f13d7d"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

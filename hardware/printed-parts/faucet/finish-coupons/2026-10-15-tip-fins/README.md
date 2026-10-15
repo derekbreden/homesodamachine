@@ -7,8 +7,11 @@ the accepted tip angle and adjacent surface retained. There is **one specimen
 and no repeat control**. The current fin work alternates base and tip geometry
 between the two printers.
 
-**Mark2 accepted job 1341048254 at 01:25:19 CDT on 2026-10-15.** It reports
-RUNNING at 0/167 layers without a print error. The [launch receipt](mark2/launch.json)
+**Mark2 completed job 1341048254, accepted at 01:25:19 CDT on 2026-10-15.** The
+[physical result and three photographs](mark2/physical-result/physical-result.json)
+record Derek's best observed bottom-side rim finish, with no clear improvement
+on the opposite side. Completion reports FINISH at 167/167 without errors.
+The [launch receipt](mark2/launch.json)
 binds the reviewed archive, resolved external spool and print options to that
 job. The opposite printer's preceding launch was more than three minutes earlier.
 
@@ -72,11 +75,12 @@ G-code, SHA-256
 Open it without reslicing. The launch receipt preserves the printer's successful
 file acknowledgment and the separate confirmation of the 167-layer job.
 
-Inspect the complete mating lip, particularly the low starting midpoint,
-for sag, curled/loose strands and model skin lost during removal. Use the
-existing cleanup tools and matching base to assess contact marks, release and
-joint fit. The useful result is an intact edge that closes cleanly without
-damaging the adjacent finish. Physical appearance and release remain pending.
+The opposite rim side remains rough and appears unsupported to Derek. The
+combined material recipe and support arrangement establishes the reported
+bottom-side appearance; the result does not isolate cooling, speed, flow or
+fin contributions. Release effort and joint fit are not separately reported.
+The [next single tip candidate](../2026-10-15-edge-supports/README.md) retains
+the fins and adds tree contacts at the seam-side low starting lip.
 
 `prepare.py`, `build-fins.mjs` and `review.py` are manual experiment tools.
 They add no build or commit checks. Run the Python tools with the repository's

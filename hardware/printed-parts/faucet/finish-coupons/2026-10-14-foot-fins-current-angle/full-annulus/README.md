@@ -4,7 +4,9 @@ This comparison addresses defect 3: a clean plate-mating rim
 around the complete circumference, particularly the visible midpoint under the
 lever. Both specimens retain the production **−15° X rotation**, original part
 geometry and original bed contact. The crop ends at original print Z16.76, below
-the upper fine-layer bands. Physical finish and removal results are pending.
+the upper fine-layer bands. The [Mark1 physical result](mark1/physical-result/physical-result.json)
+reports tighter material but substantially better underside and front-face
+finish with trees. Release of the denser fin layout is not separately reported.
 
 [Mark1 accepted job 1340913124](mark1/README.md) at **23:53:32 CDT on
 2026-10-14**, with its own +0.18 mm requested trim. It reported RUNNING at
@@ -112,16 +114,15 @@ reports easy release and a generally uniform bottom face with sag, but worse
 front appearance than trees where a contact is missing. It leaves the necessary
 support count open. This 34-plus-three-wall layout tests coverage with the
 bridge recipe; it does not establish a minimum or inherit the stock walls'
-release result. A reduced-count comparison should preserve deliberate front
-contacts and hold the material recipe constant.
+release result. The [finished Mark1 comparison](mark1/physical-result/physical-result.json)
+does not select this radial fin layout for the base. Derek's
+[curved-edge candidate](../../2026-10-15-edge-supports/README.md) uses segmented
+rim arcs with trees on the remaining underside and no repeat control.
 
-Keep A and B identified. After cooling, remove supports with fingers first,
-using the existing cleanup tools where needed. Inspect the entire rim without
-sanding, including the midpoint under the lever and the low rear edge. Compare
-loose strands, scalloping, contact marks, retained skin and removal effort.
-Check the rim against the existing mounting plate. The customer outcome is an
-intact, clean edge that mates without catching strands or damage from removal.
-If B does not reproduce the defect, a clean A alone does not establish a cure.
+The finished photographs carry no specimen labels. The physical record keeps
+Derek's direct tree-versus-fin comparison without assigning plate coordinates
+to the post-removal arrangement. The customer outcome remains an intact, clean
+edge that mates without catching strands or damage from removal.
 
 This plate compares two support layouts with the **same bridge recipe**. The
 submitted stock-fin plate uses a different printer, fin layout and production
