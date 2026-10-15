@@ -1,0 +1,73 @@
+{
+  "error_string": "Success.",
+  "export_time": 1170,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 54,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 13.40328598022461,
+        "Bridge": 47.135318756103516,
+        "Custom": 303.7631530761719,
+        "Flush": 15.0,
+        "Gap infill": 75.69258117675781,
+        "Inner wall": 224.90272521972656,
+        "Internal solid infill": 187.3178253173828,
+        "Outer wall": 766.3246459960938,
+        "Overhang wall": 1.2405999898910522,
+        "Sparse infill": 198.96279907226562,
+        "Support": 59.29146194458008,
+        "Support interface": 7.500494956970215,
+        "Top surface": 15.001248359680176,
+        "Travel": 385.217529296875,
+        "Undefined": 377.2535400390625
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 9.572234153747559,
+          "total_used_g": 9.572234153747559
+        }
+      ],
+      "generate_support_material_time": 200,
+      "id": 1,
+      "infill_time": 213,
+      "layer_filament_change": 0,
+      "main_predication": 1966.9959716796875,
+      "make_perimeters_time": 153,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 49.50593566894531,
+            "height": 55.461814880371094,
+            "width": 31.05989646911621,
+            "x": 146.7189178466797,
+            "y": 134.71035766601562,
+            "z": -6.132055759429932
+          },
+          "id": 5,
+          "name": "Tip: bed-anchored plug, retained fins and lip trees",
+          "triangle_count": 22390
+        }
+      ],
+      "sliced_time": 943,
+      "sliced_time_with_cache": 338,
+      "total_predication": 2292.795166015625,
+      "triangle_count": 22390,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

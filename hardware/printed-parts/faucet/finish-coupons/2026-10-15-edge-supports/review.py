@@ -35,9 +35,10 @@ def longest(mask, pitch):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('kind', choices=('base', 'tip'))
+    ap.add_argument('--folder', type=Path, help='Review another local candidate without changing an accepted report')
     args = ap.parse_args()
     base = args.kind == 'base'
-    folder = HERE / ('base-mark2' if base else 'tip-mark1')
+    folder = args.folder.resolve() if args.folder else HERE / ('base-mark2' if base else 'tip-mark1')
     spec = json.loads((folder / 'preparation.json').read_text())
     row = spec['parts'][0]
     archive = ROOT / str(spec['project']).replace('.3mf', '.gcode.3mf')

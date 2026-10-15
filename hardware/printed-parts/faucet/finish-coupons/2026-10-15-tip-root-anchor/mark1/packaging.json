@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "bf02098bc073cc065e998a5745198c12a4c5253449de613429ed389facdf27fc",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "f47302f2f6ad8423efda73fd4c42254c9e0af114ceadb0e59a984448a0d5cc81",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "f0e9f922c4f39240caee882249f726dc6499b9e3053f30172cbfc3ce5810adf5"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

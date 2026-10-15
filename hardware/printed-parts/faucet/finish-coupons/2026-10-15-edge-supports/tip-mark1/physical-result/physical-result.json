@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-15T16:02:23.086504+00:00",
+  "printer": "Mark1",
+  "printer_task_id": "1341173963",
+  "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/launch.json",
+  "gcode_sha256": "993e259c5ba551a749d14ee85602dd5cfdabdb82f11e30c886b0784cc6f13d7d",
+  "operator_quote": "Mark 1 print failed in an interesting way. It looks like the lower part of the tip, the nail insertion aspect of it, kind of just fell over. So it looks like you didn't print any supports under that maybe, because you thought the angle was okay, I guess, but it just fell over. There's nothing to anchor it there. The angle might be fine, but there's no base to anchor to. So it's just going to fall over without supports there. So I'm thinking something needs to be under that, where my finger is pointing here in these photos.",
+  "finished_photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-1.jpg",
+      "source_label": "Photo 1.jpg",
+      "sha256": "756cf866036c70ea86b12972b66bb23f26353f7d85635eb2a585646f1efa8a50",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-2.jpg",
+      "source_label": "Photo 2.jpg",
+      "sha256": "81e8c56add3be50795c05e3fa94749f745d1aa1faf8b5b677be71f1874a9858a",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-3.jpg",
+      "source_label": "Photo 3.jpg",
+      "sha256": "14972b11f19302e0bc801a19d6aab4c96223c6913f5c8905ab6163af65c8fa90",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-4.jpg",
+      "source_label": "Photo 4.jpg",
+      "sha256": "edab126493c1679565a8e4cab79b657b866252ba0cace08b28d906fc64c992d2",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-5.jpg",
+      "source_label": "Photo 5.jpg",
+      "sha256": "91a87d1cf467008d23fbf3962c577fbb35c46e4d8d458bd665035b6c9312eb19",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/photo-6.jpg",
+      "source_label": "Photo 6.jpg",
+      "sha256": "a9815ba046172179e18a43a0b648414081e8fa11129f3560227b7ea82369e0ad",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "result": "Failed: male insertion portion detached or displaced during printing; intended plug contains loose strands.",
+  "operator_observation": "Derek reports the lower male insertion section fell over and points to its detached curved section in photo 6.",
+  "visible_observations": [
+    "A separate C-shaped curved section lies beside the main tip.",
+    "Loose loops and incomplete material occupy the male-plug region.",
+    "The retained fin structure remains visible under the body."
+  ],
+  "completion_observation": {
+    "observed_at_utc": "2026-10-15T15:49:40.147645+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 167,
+    "total_layer_num": 167,
+    "print_error": 0,
+    "hms": []
+  },
+  "native_starting_course": {
+    "nozzle_z_mm": 0.44,
+    "first_gcode_line": 2430,
+    "native_segments": 8,
+    "footprint_area_mm2": 2.1230064698170574,
+    "footprint_bounds_xy_mm": [
+      160.417272,
+      152.798272,
+      164.582728,
+      153.43346099645913
+    ],
+    "model_root_segments_at_bed_course": 0,
+    "lower_bead_overlap_area_mm2": 0,
+    "nearest_lower_bead_footprint_distance_mm": 0.6321461787459556
+  },
+  "native_evidence": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/anchor-review.json",
+  "interpretation": "The commanded plug start has no model deposition on the bed course and zero lower-bead overlap at its first Z0.44 course. The missing root bearing supports a local bed-anchor correction. Static photos do not establish the initiating motion or failure time.",
+  "candidate_correction": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md",
+  "acceptance_scope": "This exact Mark1 article failed. The earlier Mark2 bottom-rim appearance remains accepted only for its identified article. Corrected anchorage, release and mating fit are not yet physically established."
+}

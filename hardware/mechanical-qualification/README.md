@@ -121,7 +121,14 @@ The [two single edge-support candidates](../printed-parts/faucet/finish-coupons/
 are Mark1 tip task 1341173963, with added seam-side lip trees, and Mark2 base
 task 1341188908, with segmented curved rim walls and trees elsewhere. They
 retain the working material recipe and include no repeat controls. New contact
-finish, curved-wall release and joint fit remain physical results pending. The
+finish, curved-wall release and joint fit remain physical results pending for
+the base. The [Mark1 tip physical failure](../printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+records a detached male-insertion section and loose strands despite completed
+telemetry. Its first plug bead at Z0.44 has no lower-bead bearing. The
+[prepared root-anchor correction](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md)
+adds a directly bonded bed foot, with native root-course overlap and retained
+lip contacts verified. It is unsent; adhesion, removal and mating fit remain
+untested. The
 [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 

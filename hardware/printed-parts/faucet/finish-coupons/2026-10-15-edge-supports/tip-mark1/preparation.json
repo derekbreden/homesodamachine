@@ -368,10 +368,11 @@
   "parent_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/preparation.json",
   "parent_project_sha256": "d4534a7932b4812437aac355bb3edbb5166aa4052fe54e299200878ddf604800",
   "material_treatment": "Native bridge flow1.25,70% fan after3off bedlayers including floating vertical shell/supports;Bridge15mm/s,overhang limits<=15 preserving existing10mm/s. No post-slice edits.",
-  "candidate_status": "Accepted by printer; physical finish and release pending.",
+  "candidate_status": "Printed; physical failure of male-plug starting section reported. See physical-result/physical-result.json.",
   "authorization_quote": "Both printers are available and its my bed time. Print as you see fit.",
   "submitted": true,
   "launch_record": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/launch.json",
   "printer_task_id": "1341173963",
-  "submitted_gcode_sha256": "993e259c5ba551a749d14ee85602dd5cfdabdb82f11e30c886b0784cc6f13d7d"
+  "submitted_gcode_sha256": "993e259c5ba551a749d14ee85602dd5cfdabdb82f11e30c886b0784cc6f13d7d",
+  "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json"
 }

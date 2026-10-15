@@ -1,0 +1,146 @@
+{
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.gcode.3mf",
+  "archive_sha256": "bf02098bc073cc065e998a5745198c12a4c5253449de613429ed389facdf27fc",
+  "gcode_sha256": "f0e9f922c4f39240caee882249f726dc6499b9e3053f30172cbfc3ce5810adf5",
+  "embedded_md5_matches": true,
+  "reference_failed_job": "1341173963",
+  "reference_gcode_sha256": "993e259c5ba551a749d14ee85602dd5cfdabdb82f11e30c886b0784cc6f13d7d",
+  "reference_first_plug_course": {
+    "nozzle_z_mm": 0.44,
+    "first_gcode_line": 2430,
+    "native_segments": 8,
+    "footprint_area_mm2": 2.1230064698170574,
+    "footprint_bounds_xy_mm": [
+      160.417272,
+      152.798272,
+      164.582728,
+      153.43346099645913
+    ],
+    "model_root_segments_at_bed_course": 0,
+    "lower_bead_overlap_area_mm2": 0,
+    "nearest_lower_bead_footprint_distance_mm": 0.6321461787459556
+  },
+  "corrected_root_bed_course_nozzle_z_mm": 0.2,
+  "corrected_root_bed_bead_area_mm2": 58.21610982293149,
+  "corrected_bed_course_overlap_fraction_of_reference_first_root_footprint": 1,
+  "corrected_root_courses": [
+    {
+      "nozzle_z_mm": 0.2,
+      "native_segments": 159,
+      "footprint_area_mm2": 58.21610982293149,
+      "footprint_bounds_xy_mm": [
+        157.66,
+        149.30700041472883,
+        167.34818463445245,
+        156.99963970228444
+      ],
+      "previous_root_course_overlap_area_mm2": null,
+      "features": [
+        "Bottom surface",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "nozzle_z_mm": 0.44,
+      "native_segments": 154,
+      "footprint_area_mm2": 62.6527210879101,
+      "footprint_bounds_xy_mm": [
+        157.50018826992724,
+        149.15319330287969,
+        167.49981173007276,
+        157.14993010774862
+      ],
+      "previous_root_course_overlap_area_mm2": 58.187434024828846,
+      "features": [
+        "Gap infill",
+        "Outer wall",
+        "Top surface"
+      ]
+    },
+    {
+      "nozzle_z_mm": 0.68,
+      "native_segments": 45,
+      "footprint_area_mm2": 9.393304861139857,
+      "footprint_bounds_xy_mm": [
+        158.5,
+        152.54999999999998,
+        166.5,
+        153.75
+      ],
+      "previous_root_course_overlap_area_mm2": 9.393304861139859,
+      "features": [
+        "Gap infill",
+        "Outer wall",
+        "Top surface"
+      ]
+    },
+    {
+      "nozzle_z_mm": 0.92,
+      "native_segments": 62,
+      "footprint_area_mm2": 9.97713029114388,
+      "footprint_bounds_xy_mm": [
+        158.231,
+        152.386,
+        166.768,
+        153.9757732180764
+      ],
+      "previous_root_course_overlap_area_mm2": 7.807265366782026,
+      "features": [
+        "Gap infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "nozzle_z_mm": 1.16,
+      "native_segments": 77,
+      "footprint_area_mm2": 14.444219191555435,
+      "footprint_bounds_xy_mm": [
+        157.506,
+        152.17999999999998,
+        167.485,
+        154.24670293377952
+      ],
+      "previous_root_course_overlap_area_mm2": 9.55659213960968,
+      "features": [
+        "Gap infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    }
+  ],
+  "starting_root_courses_directly_joined": true,
+  "retained_settings_byte_for_byte": true,
+  "retained_part_and_fin_members_byte_for_byte": true,
+  "angle_x_degrees": -105,
+  "requested_trim_mm": 0.18,
+  "emitted_trim_mm": 0.16,
+  "bridge_flow": 1.25,
+  "fan_first_three_bed_courses_percent": 0,
+  "fan_later_percent": 70,
+  "bridge_speed_mm_s": [
+    15.0
+  ],
+  "overhang_wall_speed_mm_s": [
+    10.0,
+    15.0
+  ],
+  "native_support_segments": 6171,
+  "full_native_bead_bounds_xy_mm": [
+    [
+      146.75,
+      138.38
+    ],
+    [
+      177.76000000000002,
+      181.686
+    ]
+  ],
+  "minimum_edge_clearance_mm": 138.314,
+  "layer_count": 167,
+  "specimen_count": 1,
+  "repeat_control": false,
+  "submitted": false,
+  "limits": "Native bead envelopes locate commanded contact. The direct root foot removes the observed missing starting-course bearing; it does not establish physical adhesion, force capacity, removal quality or joint fit. Photos do not establish the initiating motion or its time."
+}
