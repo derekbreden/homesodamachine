@@ -8273,6 +8273,7 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
+        "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ]
     },
@@ -8285,6 +8286,7 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
+        "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ]
     }
@@ -14041,10 +14043,11 @@
       "reference": "114-5530613-2918640",
       "order_date": {
         "precision": "day",
-        "value": "2026-10-15"
+        "value": "2026-10-14"
       },
       "allocation_status": "all_project",
       "source_ids": [
+        "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ]
     }
@@ -17506,6 +17509,7 @@
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
+        "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ],
       "verified_at": "2026-10-15",
@@ -29081,11 +29085,25 @@
         "value": "2026-10-15"
       },
       "proves": [
+        "price"
+      ],
+      "verified_at": "2026-10-15",
+      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each and one uxcell 24 mm OD \u00d7 16 mm ID \u00d7 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15; grand total USD 30.18. It does not establish a completed charge."
+    },
+    "src-f3504a07b3da4440a42381a5c35446a4": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5530613-2918640",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
+      "proves": [
         "order_date",
         "price"
       ],
       "verified_at": "2026-10-15",
-      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each, arriving 2026-10-16, and one uxcell 24 mm OD \u00d7 16 mm ID \u00d7 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15, arriving 2026-10-19; grand total USD 30.18. The USD 2.05 difference from the USD 28.13 item total is taken as tax and allocated in proportion to item price (USD 1.60 and USD 0.45). Order history and Transactions required a fresh sign-in on 2026-10-15; this source does not establish a completed charge."
+      "note": "Signed-in Amazon order details and invoice: ordered 2026-10-14; two PureSec bulkhead 5-packs sold by JEAMSWORLD at USD 10.99 each, arriving 2026-10-16, and one uxcell silicone washer 10-pack sold by uxcell at USD 6.15, arriving 2026-10-19; USD 28.13 item subtotal, USD 0.00 shipping, USD 2.05 estimated tax and USD 30.18 grand total. The tax is not itemized; it is allocated in proportion to item price (USD 1.60 and USD 0.45). Order-scoped Transactions listed no transactions on 2026-10-15; the order summary does not establish a completed merchant charge or its date."
     }
   },
   "coverage": [
