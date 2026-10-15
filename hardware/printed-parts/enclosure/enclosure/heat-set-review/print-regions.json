@@ -1,27 +1,27 @@
 {
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "47bfbdcd3fb501b394616338e8f0c3c82b457e6e6b0e2fad72f288765b8a3f9c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6fef4c74f652eca13686be1b125862bbec43701afcb22d05c45a6730499cce9",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "85b4d52b696809c5ff295e5bab690d5159e90b523192d55f2b4c4cb54057b471",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "41115290ab65595cce1bfb4537851aaf8abf0331b4ae21917cff0d14fadfb79f"
+    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
-      ".stl": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64"
+      ".step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+      ".stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8"
     },
     "front-top": {
-      ".step": "e8ae17e0a70b6ed13c1263d422413964e783ecfa160d2fbf11ee2344a1f8fbb0",
-      ".stl": "f6a6f55f2f4d6dde0813a531d0242d80f03ac88f2d376e1cf88cf478a7e1bbcd"
+      ".step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+      ".stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0"
     },
     "back-bottom": {
-      ".step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
-      ".stl": "67a03fadfafb7a6c654f20524add78cecb8e2f6740d215d5fe79d56555495e88"
+      ".step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+      ".stl": "8f1be09ec5f4e8f549f8c863fcd6666474a703ee9adf5cb4b13b291885906ad2"
     },
     "back-top": {
-      ".step": "927cf5fb11dad635b56af9e3ac1570ae9299071603077fc285cf2d947de97b10",
-      ".stl": "5a73ebdea1bf3ae66e031e747f2319b742e500916e8cecbc52b11e17a682a7b0"
+      ".step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+      ".stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0"
     },
     "pump-cartridge": {
       ".step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
@@ -35,53 +35,53 @@
   "pieces": {
     "front-bottom": [
       {
-        "name": "Y seam socket and complete root +1/48.9",
+        "name": "Y seam knuckle and its wall root +1/65.7",
         "machine_bounds_mm": [
           -107.5,
           -90.5,
           197.0,
           217.8,
-          29.25,
-          160.0
+          65.7,
+          101.65
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam socket and complete root +1/152.1",
+        "name": "Y seam knuckle and its wall root +1/138.6",
         "machine_bounds_mm": [
           -107.5,
           -90.5,
           197.0,
           217.8,
-          29.25,
-          160.0
+          138.60000000000002,
+          175.05
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam socket and complete root -1/48.9",
+        "name": "Y seam knuckle and its wall root -1/65.7",
         "machine_bounds_mm": [
           90.5,
           107.5,
           197.0,
           217.8,
-          29.25,
-          160.0
+          65.7,
+          101.65
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam socket and complete root -1/152.1",
+        "name": "Y seam knuckle and its wall root -1/138.6",
         "machine_bounds_mm": [
           90.5,
           107.5,
           197.0,
           217.8,
-          29.25,
-          160.0
+          138.60000000000002,
+          175.05
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
@@ -193,27 +193,27 @@
     ],
     "front-top": [
       {
-        "name": "Y seam socket and complete root +1/282.05",
+        "name": "Y seam knuckle and its wall root +1/272.5",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -91.5,
           197.0,
           217.8,
-          274.15000000000003,
-          355.0
+          272.5,
+          299.65
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam socket and complete root -1/291.05",
+        "name": "Y seam knuckle and its wall root -1/272.5",
         "machine_bounds_mm": [
-          90.5,
+          91.5,
           107.5,
           197.0,
           217.8,
-          283.15000000000003,
-          355.0
+          272.5,
+          299.65
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
@@ -260,53 +260,53 @@
     ],
     "back-bottom": [
       {
-        "name": "Y seam shank and fore ligament +1/48.9",
+        "name": "Y seam knuckle and its wall root +1/29.25",
         "machine_bounds_mm": [
           -107.5,
-          -98.5,
+          -90.5,
           200.0,
-          219.8,
+          219.81,
           29.25,
-          160.0
+          65.7
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam shank and fore ligament +1/152.1",
+        "name": "Y seam knuckle and its wall root +1/102.15",
         "machine_bounds_mm": [
           -107.5,
-          -98.5,
+          -90.5,
           200.0,
-          219.8,
-          29.25,
-          160.0
+          219.81,
+          102.15,
+          138.10000000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam shank and fore ligament -1/48.9",
+        "name": "Y seam knuckle and its wall root -1/29.25",
         "machine_bounds_mm": [
-          98.5,
+          90.5,
           107.5,
           200.0,
-          219.8,
+          219.81,
           29.25,
-          160.0
+          65.7
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam shank and fore ligament -1/152.1",
+        "name": "Y seam knuckle and its wall root -1/102.15",
         "machine_bounds_mm": [
-          98.5,
+          90.5,
           107.5,
           200.0,
-          219.8,
-          29.25,
-          160.0
+          219.81,
+          102.15,
+          138.10000000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
@@ -340,26 +340,52 @@
     ],
     "back-top": [
       {
-        "name": "Y seam shank and fore ligament +1/282.05",
+        "name": "Y seam knuckle and its wall root +1/175.05",
         "machine_bounds_mm": [
           -107.5,
-          -98.5,
+          -90.5,
           200.0,
-          219.8,
-          274.15000000000003,
+          219.81,
+          175.05,
+          195.05
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam knuckle and its wall root +1/299.65",
+        "machine_bounds_mm": [
+          -107.5,
+          -91.5,
+          200.0,
+          219.81,
+          299.65,
           355.0
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam shank and fore ligament -1/291.05",
+        "name": "Y seam knuckle and its wall root -1/175.05",
         "machine_bounds_mm": [
-          98.5,
+          90.5,
           107.5,
           200.0,
-          219.8,
-          283.15000000000003,
+          219.81,
+          175.05,
+          195.05
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam knuckle and its wall root -1/299.65",
+        "machine_bounds_mm": [
+          91.5,
+          107.5,
+          200.0,
+          219.81,
+          299.65,
           355.0
         ],
         "sparse_infill_density": "100%",

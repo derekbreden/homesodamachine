@@ -47,16 +47,34 @@ def datums(seat=349.0):
 
 
 def rail_runs(inner, y_joint, col, centre):
+    """The frame's rails: one pair, in front-top's receivers, closed one running fit short of the
+    seam. The frame slides into front-top from the seam end; back-top's corner stack stands
+    where a rear pair would run, so back-top carries none."""
+    import enclosure as enc
+    if col != 'front':
+        return []
     cx, cy = centre
-    start, stop = cy - funnel.collar_d / 2 + 6, cy + funnel.collar_d / 2 + 3.3
+    start = cy - funnel.collar_d / 2 + 6
     # The full-width end planes bound the rail and its receiver. Material beyond
     # their reach cannot engage the frame and would occupy the component bays.
     reach = (corbel_foot_half_depth + corbel_slope *
              (funnel.drop + web - rail_below_seat + receiver_height))
-    start, stop = max(start, cy - reach), min(stop, cy + reach)
-    y0, lane = (start, y_joint + 14.55) if col == 'front' else (stop, y_joint - 1)
-    return [(inner[0], 1.0, y0, y_joint, lane),
-            (inner[1], -1.0, y0, y_joint, lane)]
+    start = max(start, cy - reach)
+    end, lane = y_joint - enc.slide_slip, y_joint + 14.55
+    return [(inner[0], 1.0, start, end, lane),
+            (inner[1], -1.0, start, end, lane)]
+
+
+def rear_narrowing(inner, y_joint, air=0.0):
+    """What the frame gives up aft of the seam: everything outboard of back-top's roof knuckle,
+    one running fit off it, over the frame's whole height. Back-top carries that knuckle in each
+    corner, and the frame's rear passes beside it as the halves telescope."""
+    import enclosure as enc
+    limit = inner[1] - enc.y_stack_high_depth - enc.slide_slip + air
+    y0 = y_joint - enc.slide_slip + air
+    return cq.Compound.makeCompound([
+        cq.Solid.makeBox(60.0, 200.0, 200.0, cq.Vector(limit, y0, 250.0)),
+        cq.Solid.makeBox(60.0, 200.0, 200.0, cq.Vector(-limit - 60.0, y0, 250.0))])
 
 
 def corbel_cut(centre, floor, air=0.0):
@@ -164,7 +182,8 @@ def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
     foot = _front_square_blank(width + 2 * air, front - air, back + air,
                                floor - air, rail, cx, corner_radius + air)
     roof = roof_blank(inner, centre, seat, air, y_joint)
-    return body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air)).clean()
+    return (body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air))
+            .cut(rear_narrowing(inner, y_joint, air)).clean())
 
 
 @functools.cache
@@ -187,10 +206,9 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     assert abs(web + funnel.plug_lift -
                (elbow_cradle.stations()['hook_top'] - elbow_cradle.CATCH_GAP)) < 1e-6
     body = body_blank(centre, seat, inner=inner, y_joint=y_joint)
-    for col in ('front', 'back'):
-        body = body.fuse(enc._z_rail_heads(
-            inner, y_joint, rail, col, None, runs=rail_runs(inner, y_joint, col, centre)))
-    body = body.cut(corbel_cut(centre, floor))
+    body = body.fuse(enc._z_rail_heads(
+        inner, y_joint, rail, 'front', None, runs=rail_runs(inner, y_joint, 'front', centre)))
+    body = body.cut(corbel_cut(centre, floor)).cut(rear_narrowing(inner, y_joint))
     # The drain hole and the elbow cradle's two wing slots are all that pierce the 3 mm web.
     clear = forming_clearance().translate((cx, cy, seat))
     clear = clear.intersect(funnel._box(400, 400, plug, seat, cx, cy))
@@ -231,10 +249,13 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
 
 
 def receivers(inner, outer, y_joint, centre, seat, col):
-    """Shell-rooted bands, cut by the production rail's complete mating profile."""
+    """Shell-rooted bands, cut by the production rail's complete mating profile. Only front-top
+    receives the frame's rails."""
     import enclosure as enc
     _floor, _plug, rail = datums(seat)
     runs = rail_runs(inner, y_joint, col, centre)
+    if not runs:
+        return None
     y0 = runs[0][2]
     ya, yb = (y0 - 3, y_joint) if col == 'front' else (y_joint, y0 + 3)
     bands = []
@@ -266,27 +287,6 @@ def front_roof_clearance(inner, centre, seat, y_joint):
                       full_front_opening=True).cut(corbel_cut(centre, floor, enc.slide_slip))
 
 
-def front_seam_relief(outer, y_joint, centre, seat):
-    """Open the front tongue for the frame foot and rear receiver's flat roof.
-
-    The rail section remains complete between these two openings. The lower
-    entry extends through the tongue's outside face so it leaves no thin fin.
-    """
-    import enclosure as enc
-    floor, _plug, rail = datums(seat)
-    cuts = []
-    for side in (-1, 1):
-        x0, x1 = sorted((centre[0] + side * (body_width / 2 + enc.slide_slip),
-                         outer[0] - 1 if side < 0 else outer[1] + 1))
-        cuts.append(cq.Solid.makeBox(x1 - x0, outer[3] - y_joint + 2,
-            receiver_height + enc.slide_slip - enc.z_rise,
-            cq.Vector(x0, y_joint - enc.slide_slip, rail + enc.z_rise)))
-        cuts.append(cq.Solid.makeBox(x1 - x0, outer[3] - y_joint + 2,
-            rail - floor + 2 * enc.slide_slip,
-            cq.Vector(x0, y_joint, floor - enc.slide_slip)))
-    return cq.Compound.makeCompound(cuts)
-
-
 def main():
     from _cadq_export import export_assembly, import_assembly
     from _materials import M_PETGF_BLACK, one_body
@@ -304,9 +304,14 @@ def main():
     sys.path.insert(0, str(next(p for p in here.parents if (p / 'tools' / 'docgen').is_dir())
                            / 'tools'))
     from docgen import substitute_md
+    import enclosure as enc
     s = elbow_cradle.stations()
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
+    _x, _sx, rail_start, rail_end, _lane = rail_runs(DEFAULT_INNER, 200.0, 'front', (0.0, center_y))[0]
+    rear = DEFAULT_INNER[1] - enc.y_stack_high_depth - enc.slide_slip
     substitute_md(here / 'README.md', variables={
+        'FRAME_RAILS': f'Y{rail_start:.1f} to Y{rail_end:g}',
+        'FRAME_REAR_WIDTH': f'{2 * rear:g} mm',
         'FRAME_HOLE': f'{tube_hole_diameter:g} mm',
         'FRAME_SOCKET': f'{socket_width:g} × '
                         f'{2 * (elbow_cradle.plug_half_length(half) + gap):.1f} mm',

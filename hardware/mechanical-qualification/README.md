@@ -414,16 +414,18 @@ ruthex table is not a manufacturer specification for these inserts. Keep that di
 when interpreting the enclosure's native audit.
 
 The [native enclosure audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
-checks 37 additional stations in the six exported enclosure pieces, including the four
+checks 35 additional stations in the six exported enclosure pieces, including the four
 M1.4 anchors under their separately stated application rule. It checks complete insert
 stock, fixed supplier pilot dimensions, full-depth open pilots, blind relief and caps,
-whole-knurl installation access, seam shear strips and screw-tip clearance. The
+whole-knurl installation access, the whole section of every Y-seam knuckle and screw-tip
+clearance. The
 [enclosure review](../printed-parts/enclosure/enclosure/heat-set-review/README.md)
 records the supplier constraints and each installed screw stack.
 
 **Selection basis:** use the mating component's fastening requirements where they constrain
 the diameter. The compressor's four M5 stations are derived from its donor mounting plate
-and grommets. For designed closures and mounts, select the screw, insert, surrounding material
+and grommets. The Y seam's four vertical M5 screws pass through alternating printed
+blocks, with one flat washer under each head. The screw diameter sets each block's bearing interface. For designed closures and mounts, select the screw, insert, surrounding material
 and root together from the clamping, handling and operating loads. M3 does not earn that
 selection simply by being the existing choice. A larger steel screw alone does not establish
 a stronger printed joint. Insert pullout,
@@ -432,21 +434,11 @@ M5 requires a larger anchoring feature and head seat; its suitability depends on
 those features and on the load path. The current metal grades have no demonstrated
 relationship to the limiting load of these printed assemblies.
 
-The [placed seam comparison](../printed-parts/enclosure/enclosure/heat-set-review/placement-comparison.json)
-checks the actual packed core against supported M5 short-insert stacks, including
-socket-head and button-head candidates. On the fixed 9 mm flank, changing to a
-3 mm button-head recess leaves a 6 mm shank; the recess plus shank remains 9 mm.
-The Ø6.4 mm pilot, 1 mm blind relief and 3 mm closed cap require a 15.8 mm inward
-band, whose required cap intersects the packed core on both sides. M5×12 gives
-full engagement in that button-head stack. A narrower interface requires changes
-to the pin, socket, bearing and roots together. The current correction retains
-M3 with complete manufacturer-sized anchorage and a larger fore-edge ligament;
-the compressor retains its four donor-pattern M5 stations.
-
 **M5 starting specification:** use ruthex's 6.4 mm recommended nominal bore. No recorded
 print compensation or retention result supports a departure from that dimension. A pullout
 experiment is not a prerequisite for using the supplier's starting geometry. The 9.5 mm
-insert has a 10.5 mm blind pocket, including 1.0 mm relief.
+insert needs at least 10.5 mm of blind pocket including 1.0 mm relief; screw reach
+and length tolerance can require additional depth.
 
 [Controlled printed-hole experiments](https://www.cnckitchen.com/blog/are-our-heat-set-insert-datasheets-wrong)
 demonstrate that nominal and actual hole diameters can differ materially. They explain why
@@ -469,7 +461,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 
 | Joint | Current arrangement and load path | Design basis and evidence limit |
 | --- | --- | --- |
-| Enclosure Y seam | Six M3 cross-pin screws, three levels on each flank. The lower pair carries opening tension in sagging. The telescoping lap and floor scarf locate the halves without a Y-tension interlock; hooked rails retain the vertical seams. | The pin's fore-edge ligament and root carry the seam-opening load; the screws cannot be assigned equal tension. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
+| Enclosure Y seam | A corner stack at each flank: knuckles alternating between the front and back pieces, pinned by two vertical M5 screws. The lower screw clamps both bottoms and back-top's hub over the Z seam; the upper holds front-top up against back-top. The telescoping lap and floor scarf locate the halves; hooked rails retain the vertical seams. [Corner-stack geometry](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks). | Opening can load the fully threaded screw in bearing against alternating blocks. Block ligaments, wall roots and screw bending carry that load; equal sharing between blocks is unestablished. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
 | Cold-core cap stacks | Ten M3 stations per face with 5.7 mm inserts. The four mid stations avoid conduits; the largest straight long-wall center spacing is 91.5 mm. [Station geometry](../printed-parts/cold-core/_cold_core_interface.py). | Select locations from gasket clamping demand, cap stiffness, corner support and routing. The 91.5 mm span is a geometric fact, not an acceptable-deflection limit. These caps enclose the foam core; they are not carbonator pressure-vessel endcaps. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](../printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
@@ -490,28 +482,29 @@ retain the attached masses and the front/rear joints must stay pinned during the
 the frame cannot depend on equal loading of every screw. Floor, grip, rail, insert-seat
 and supporting-wall roots are all in this load path.
 
-The two top pieces release in opposite Y directions. Their upper seam screws couple
+The two top pieces release in opposite Y directions. Their upper corner screws couple
 them; the closed rail ends constrain common translation when the bottom halves remain
 fixed. The hooked bearing runs retain Z lift. That translation check does not establish
 a compression path across the tops when the bottom halves bend toward each other.
 In that sagging mode, each top can withdraw relative to its moving bottom half. The
-lower front/rear pins carry opening tension against compression through the bottom
-flanks; the middle and upper screws cannot be credited with equal tension sharing.
-The lower pin's free-edge ligament, bearing section and connection to the floor therefore
-need their own native checks.
+lower stacks retain the opening: each fully threaded lower screw passes alternately through
+back and front blocks from the handhold ceiling to back-top's anchor block. Opening can
+load the screw in bearing against those blocks. The Ø5.6 mm printed holes have clearance
+around the nominal Ø5 mm screw, so print variation and deflection determine which blocks
+bear first. Equal load sharing is unestablished. Block ligaments, wall roots and screw
+bending carry the load.
 
-The M3 cross-pins are centred 9.9 mm behind the Y-seam mouth. Their Ø3.3 mm clearance
-leaves an 8.25 mm net fore-edge ligament, and the 3.5 mm head recess leaves a 5.5 mm
-shank-bearing section in the 9.0 mm flank. The front insert pocket is 5.0 mm deep with
-a 3.0 mm blind cap; an M3×10 screw clears the blind end by 0.5 mm. Both pin shear strips
-and the socket/jamb roots have
-[local 100% infill regions](../printed-parts/enclosure/enclosure/heat-set-review/print-regions.json)
-along their complete load path. Each projected shear strip is 45.375 mm² per plane.
-This is a geometric area, not a measured shear capacity.
+Each screw axis stands mid-overlap, and the printed Ø5.6 mm clearance bore leaves each knuckle a ligament fore
+and aft of it, recorded per knuckle in the
+[native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json).
+Every knuckle has a
+[local 100% infill region](../printed-parts/enclosure/enclosure/heat-set-review/print-regions.json)
+through its whole section and root. A knuckle's projected bearing on its screw is a
+geometric area, not a measured bearing capacity.
 
-Every upper screw needs a complete insert seat, cap and connection to the wall after
-the funnel and all other functional cavities are cut. An open screw passage is
-insufficient evidence of anchorage. The rail arms use 4.5 mm nominal stock within the
+Each upper insert sits in front-top's knuckle under the funnel frame, with its cap and
+root in that knuckle; the [native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
+checks the seat after the funnel and all other functional cavities are cut. The rail arms use 4.5 mm nominal stock within the
 existing side band; finished clearance, stops and roots are separate native checks.
 
 Those heights are 0.1016–0.1524 m: gravitational energy is 1.00–1.49 J per kilogram of
@@ -592,7 +585,7 @@ remaining interior, and preserve the identified accepted flexures and surface tr
 
 | Choice | Current evidence or assumption | Customer outcome and design question |
 | --- | --- | --- |
-| Retained clamping force | Printed bearing surfaces and elastomer gaskets remain in several clamping stacks. Full-length inserts improve anchorage; plastic and gasket relaxation remain separate mechanisms. | Reliable sealing and retention without customer retightening. Design retained preload around its bearing path; metal compression limiters must contact the insert where used, and gasket squeeze needs its own control. [SPIROL's insert design guide](https://my.spirol.com/assets/files/ins-threaded-inserts-design-guide-uk.pdf) describes that metal load path. |
+| Retained clamping force | Printed bearing surfaces and elastomer gaskets remain in several clamping stacks. Full-length inserts improve anchorage; plastic and gasket relaxation remain separate mechanisms. The Y seam's screws seat flat washers directly on the printed blocks; no retained-preload measurement exists. | Reliable sealing and retention without customer retightening. Design retained preload around its bearing path; metal compression limiters must contact the insert where used, and gasket squeeze needs its own control. [SPIROL's insert design guide](https://my.spirol.com/assets/files/ins-threaded-inserts-design-guide-uk.pdf) describes that metal load path. |
 | Compressor isolation | `FLOOR_GROMMET_SQUEEZE` is 0.4 mm; the flange thickness needed to express that as strain is unmeasured in the [mount source](../manifold-layout/enclosure_assembly.py). The design uses the post crown as the washer stop; contact with the installed insert face is not physically established. | Quiet operation with secure mounting. Base squeeze and preload on the rubber and actual bearing path. The existing 0.4 mm does not establish appropriate rubber strain or isolation. |
 | Screw material and finish | The [BOM](../ledger/bom.md) specifies black-oxide 12.9 steel for many dry-zone joints and credits its strength over 304 stainless. Joint capacity and environmental exposure are not quantified. | Durable, corrosion-resistant joints. Select sufficient fastener strength for the complete joint and appropriate protection for its moisture exposure; steel tensile strength alone does not select the best material. |
 | PET-GF print process | The shared profile is labelled PET-GF but retains PET-CF type metadata and 1.29 g/cm3 density. The [PET-GF15 data sheet](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf) gives 1.43 g/cm3 and identifies annealed specimens for its mechanical data. | Accurate mass estimates and consistent printed material. Use the correct density for estimates, the intended drying and flow process, and the actual production material state in engineering analysis. Published annealed properties are not production allowables. |

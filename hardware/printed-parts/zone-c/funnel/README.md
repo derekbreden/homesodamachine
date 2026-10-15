@@ -1,9 +1,10 @@
 # Flavor-fill funnel and sliding frame
 
 The removable silicone funnel holds nominally [455 mL](FUNNEL_CAP). Its PET-GF
-frame slides into front-top; closing front-top onto back-top captures the rear
-rails. The frame uses the enclosure's production rail section and its running
-clearances. Both flavors share this filling interface.
+frame slides into front-top on one pair of front rails. Closing the enclosure
+captures the frame against withdrawal. Its rear passes between the upper Y-seam
+screw blocks. The frame uses the enclosure's production rail section and its
+running clearances. Both flavors share this filling interface.
 
 The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
 Remove it before pouring or lifting the silicone out, and reseat it after filling.
@@ -36,7 +37,9 @@ complete block and cylindrical outlet.
 
 ## PET-GF frame
 
-The frame's lower rail footprint is 207 mm wide and 142.283 mm long. Its entire underside is flat at
+The frame's complete plan envelope is 207 mm wide and 140.233 mm long.
+Its lower footprint runs from Y119.1 to Y210, 90.9 mm long and at most 207 mm wide;
+aft of Y199.75 it narrows to [182.5 mm](FRAME_REAR_WIDTH). Its underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
 silicone block's lower face between the hook tops. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
@@ -56,8 +59,13 @@ The removable frame carries the complete brim bearing at Z349, with 3 mm of
 material beneath the slipped collar footprint. The front roof surround finishes
 flush with the enclosure at Z355 and ends at Y199.75, one running clearance
 before the Y200 seam. The rear frame envelope remains at Z349 beneath the
-existing back-top roof. The front surround and body are both 196.5 mm wide,
-fitting front-top's complete 9 mm flanks with 0.25 mm air on each side.
+existing back-top roof. The front surround and body are 196.5 mm wide,
+fitting front-top's complete 9 mm flanks with 0.25 mm air on each side. Aft of
+Y199.75 the body is [182.5 mm](FRAME_REAR_WIDTH) wide, with 0.25 mm air to each
+upper screw block. The 179 mm silicone brim retains its complete bearing.
+The rail pair engages front-top from [Y111.7 to Y199.75](FRAME_RAILS);
+there are no rear rails. The rear portion of the frame is supported from the
+front receivers. Geometric capture does not establish its loaded stiffness.
 The upper front surround has square plan corners, including its rear edge at
 the flat back-top seam, and keeps 0.25 mm air to the shell. Its flat front
 clears the solid display wall at Y95.208 by 0.25 mm. The lower body's rear
@@ -66,7 +74,9 @@ Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
-and their integration checks.
+and their integration checks. The current front-rail engagement, brim bearing,
+capture and assembly motion are recorded in
+[`integration-review/rail-motion-check.json`](integration-review/rail-motion-check.json).
 
 The frame prints on its underside. The exported individual STEP and STL place
 that face at Z0 and the funnel's plan center at X0, Y0. Functional rail catches
