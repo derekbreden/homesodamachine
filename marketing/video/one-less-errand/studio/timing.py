@@ -27,11 +27,11 @@ def load_story(timing_path: Path | None = None):
             scene['extra_frames'] = extra
             if scene['id'] in edit.get('extend_motion', []):
                 scene['source_frames'] = scene['frames']
-                scene['motion_duration'] = scene['frames']/fps
+                scene['motion_duration'] = scene.get('motion_duration', scene['frames']/fps)
                 preroll = edit.get('motion_preroll_frames', {}).get(scene['id'], 0)
                 if preroll:
                     scene['motion_offset'] = -preroll/fps
-                    scene['motion_duration'] -= preroll/fps
+                    scene['motion_duration'] = (scene['frames']-preroll)/fps
             elif scene['kind'] in ('can', 'studio') and not scene.get('hold'):
                 scene['source_frames'] = original_frames
                 scene['frame_holds'] = [
