@@ -93,18 +93,16 @@ what this build does differently.
 
 Press them per [enclosure mechanical §1](enclosure-mechanical.md#1-stage-the-printed-pieces),
 in every piece before anything goes in the box:
-- **Short M3:** the C14 tunnel's two; and the electronics-bay bosses for
+- **Short M3:** the six Y-seam sockets; the C14 tunnel's two; and the electronics-bay bosses for
   the main board (four, recessed by §1's own depth procedure), the PSU (four) and the ground
   stack (one). The eight relay bosses can stay empty.
 - **Full-length M3:** the lower pump cradle's two, under the clamp's M3×60s; and six in each
   reservoir's wall-top bosses.
-- **M5:** the Y seam's four corner-stack stations, in back-top's two hubs and front-top's two
-  knuckles under the funnel frame.
 - **M1.4:** two in front-top's bay bulkhead and two in the pump clamp, for the pogo halves.
 - **The faucet:** the three short M3 in the shell base
   ([faucet assembly](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md#base-joint)).
 
-The condenser's two M3 and the compressor's four M5 are not pressed.
+The condenser's two and the compressor's four M5 are not pressed.
 
 ## 2. Front-top on the bench
 
@@ -228,9 +226,7 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
    out. The modeled `fluid-14`, `16`, `24` and `26` end at the cap's conduits, so cut these at
    the bench.
 4. **The back column:** back-top slides fore onto a bare back-bottom, then rides forward over the
-   shell. The four corner rods close the box
-   ([enclosure mechanical §6](enclosure-mechanical.md#6-close-the-box)), through stacks drilled at
-   the dry fit in its §1.
+   shell. Six M3×10 close the box.
 5. **The FLAVOR risers:** V-G and V-J to the two FLAVOR bulkheads, `fluid-18` and `fluid-28`, at
    their developed lengths in the assembly facts
    ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).

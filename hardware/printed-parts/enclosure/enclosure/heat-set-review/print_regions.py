@@ -22,14 +22,18 @@ def main():
     def region(piece, name, bounds):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag'))
-    lower, upper = e.y_stack(box.inner)
-    for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-        for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
-            for who, z0, z1, _g0, _g1 in rows:
-                b = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1,
-                                depth).BoundingBox()
-                region(who, f'Y seam knuckle and its root {sx:+g}/{z0:g}',
-                       [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax])
+    yb = e._y_boss(box.y_joint)
+    for xi, xe, sx, z in box.y_bosses:
+        _seat, tip, blind, cap = e._boss_x(xe, sx)
+        col = 'top' if z > e.z_seam else 'bottom'
+        low = z-e.socket_r if col=='top' else e._handhold_levels(box.inner)[1]
+        high = box.outer[5] if col=='top' else e.z_seam
+        xa, xb = sorted((xe, cap))
+        region(f'front-{col}',f'Y seam socket and complete root {sx:+g}/{z:g}',
+               [xa,xb,box.y_joint-e.wall,yb+e.socket_r,low,high])
+        xa, xb = sorted((xe,tip))
+        region(f'back-{col}',f'Y seam shank and fore ligament {sx:+g}/{z:g}',
+               [xa,xb,box.y_joint,box.y_joint+e.lip_len+2.0,low,high])
     for col, y0, y1 in (('front',box.outer[2],box.y_joint),('back',box.y_joint,box.outer[3])):
         for sx in (-1,1):
             xa,xb=sorted((sx*90.0,sx*107.5))

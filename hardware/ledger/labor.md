@@ -2,7 +2,7 @@
 
 Attended human minutes to build one finished appliance, one row per hand operation, grouped into the ten kinds of work the build asks for. Companion to [bom.md](/hardware/ledger/bom.md): that file is what a unit costs in parts, this one is what it costs in time.
 
-**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [178.9](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
+**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [178.7](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
 **Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and per-batch setup shared across [10](BATCH_SIZE) units, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
 
@@ -118,14 +118,13 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. The print model allocates [7.246](LAB_PRINT_KG) kg of filament and [178.9](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [70](TOTAL_INSERTS) M3/M5 heat-set inserts and [70](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 8 screws mounting the pogo halves.
+Everything that is putting parts together with fasteners and hands. The print model allocates [7.239](LAB_PRINT_KG) kg of filament and [178.7](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [72](TOTAL_INSERTS) M3/M5 heat-set inserts and [72](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 8 screws mounting the pogo halves.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup and float-magnet insertion | — | [7.246](LAB_PRINT_KG) kg over [178.9](LAB_PRINT_H) estimated printer-hours; includes three RC62 insertion/resume passes. Provisional attended allowance; the v2 float slice and elapsed manual pauses are unmeasured | 25 |
-| Press the [70](TOTAL_INSERTS) M3/M5 heat-set inserts and four M1.4 pogo inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, [4](SEAM_INSERTS) enclosure Y-seam corner-stack stations and floor posts. FX-888D + T18 tips for [62](TOTAL_M3_INSERTS) M3 and [8](TOTAL_M5_INSERTS) M5; use an on-hand VECO-T T18 I/LB fine tip with the recessed-seat cold reach/depth check for the four M1.4 × 4 × Ø2.3 pogo inserts ([enclosure assembly](/hardware/assembly/enclosure-mechanical.md)) | 10 |
-| Drive the [70](TOTAL_SCREWS) M3/M5 build screws and four M1.4 × 8 pogo screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) enclosure Y-seam corner rods, [2](SEAM_LONG_RODS) M5 × 150 up from the handhold ceilings and [2](SEAM_SHORT_RODS) M5 × 60 down from the roof, each under two washers and six disc springs, run flat and backed out half a turn, [4](FLOOR_SCREWS) floor; two M1.4 × 8 screws per pogo half, seated with a hand-operated 1.3 mm hex driver | 10 |
-| Drill the enclosure's Y-seam corner stacks Ø5 at the dry fit | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Each lower stack through its four knuckles in one pass with the bottoms joined, then back-top's two roof knuckles on the bench | 5 |
+| Tend the printers — plate changes, spool swaps, part removal, support cleanup and float-magnet insertion | — | [7.239](LAB_PRINT_KG) kg over [178.7](LAB_PRINT_H) estimated printer-hours; includes three RC62 insertion/resume passes. Provisional attended allowance; the v2 float slice and elapsed manual pauses are unmeasured | 25 |
+| Press the [72](TOTAL_INSERTS) M3/M5 heat-set inserts and four M1.4 pogo inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, [6](SEAM_INSERTS) enclosure Y-seam stations and floor posts. FX-888D + T18 tips for [68](TOTAL_M3_INSERTS) M3 and four M5; use an on-hand VECO-T T18 I/LB fine tip with the recessed-seat cold reach/depth check for the four M1.4 × 4 × Ø2.3 pogo inserts ([enclosure assembly](/hardware/assembly/enclosure-mechanical.md)) | 10 |
+| Drive the [72](TOTAL_SCREWS) M3/M5 build screws and four M1.4 × 8 pogo screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [6](SEAM_SCREWS) M3 × 10 enclosure Y-seam screws driven from the ±X exterior faces, [4](FLOOR_SCREWS) floor; two M1.4 × 8 screws per pogo half, seated with a hand-operated 1.3 mm hex driver | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | [cold-core](/hardware/assembly/cold-core.md) | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Two reservoirs, gaskets, caps, vent filters | 15 |
@@ -135,7 +134,7 @@ Everything that is putting parts together with fasteners and hands. The print mo
 | Seat the cold core; condenser, electronics bay, close the box, ASSE drip pan | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | [faucet-and-umbilical](/hardware/assembly/faucet-and-umbilical.md) | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece shell, display cover, plate, gasket and o-ring | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 |
-| **Assembly** | | | **[130](LAB_SEC8)** |
+| **Assembly** | | | **[120](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
@@ -177,14 +176,14 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [1 h 35 m](LAB_HM6) | [$158.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [2 h 10 m](LAB_HM8) | [$216.67](LAB_USD8) |
+| 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[10 h 25 m](LAB_HM)** | **[$1,041.67](LAB_USD)** |
+| **Per-unit total** | **[10 h 15 m](LAB_HM)** | **[$1,025.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. The current estimate is [10 h 25 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
+The target is 10 hours attended per unit. The current estimate is [10 h 15 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
-- **Assembly** ([2 h 10 m](LAB_HM8), the largest category) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and magnet insertion still require attended work.
+- **Assembly** ([2 h](LAB_HM8), the largest category) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and magnet insertion still require attended work.
 - **Wiring** ([1 h 35 m](LAB_HM6)) — includes 45 minutes for the twelve harnesses and pogo tails. A crimp jig, batch cut list and repeatable pogo soldering setup affect that allowance.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
 

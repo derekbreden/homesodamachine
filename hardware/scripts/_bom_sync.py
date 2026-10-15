@@ -289,18 +289,17 @@ assert not _display_stack, (
     f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
     f"snap-retained cover and its gasket")
 
-# The enclosure's Y seam: a corner stack at each ±X corner, pinned and clamped by two M5 rods,
-# one up from the handhold ceiling and one down from the roof (`enclosure.y_stack_rods`). Each
-# threads into a ruthex M5 in the knuckle it clamps toward, and under its head stand a washer,
-# a column of disc springs and a second washer on the counterbore floor. The Z seams take no fastener: each column's top slides home on its hooked
-# rails, and the rods hold the tops to each other and to the bottoms at the corners.
-_seam_rods = _enc.y_stack_rods(_f.box["inner"])
-enclosure_seam_rods_per_build = 2 * len(_seam_rods)
-enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "lower")
-enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "upper")
-enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
-enclosure_seam_washers_per_build = 2 * enclosure_seam_rods_per_build
-enclosure_seam_discs_per_build = _enc.y_stack_discs * enclosure_seam_rods_per_build
+# The enclosure's own SEAM SCREWS — the Y seam's cross-pins, the box's ONLY screws, and
+# the heat-sets they land in. Every one drives from a ±X EXTERIOR face, so the bench
+# closes the box from outside and nothing reaches in for them. Counted off the box's own
+# stations rather than named here: the Y seam's `y_bosses`, the floor and middle pairs
+# pinning the bottoms and the ceiling pair the tops. The Z seams take no screw at all: each column's top SLIDES home on its
+# hooked rails and the other column, screwed on at these six, is what blocks the way
+# back out (`enclosure._z_rail_heads`). The heat-set is in the RECEIVING piece every
+# time — the front pieces, on the Y seam.
+enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
+# One insert per screw, pressed into the piece that screw lands in.
+enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
 # Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair,
 # the faucet base and the C14 inlet. The inlet's two suit it for the same reason the
@@ -310,8 +309,8 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
                   + touchflo_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one.
-m3x10_per_build = shelf_long_screws_per_build
+# And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
+m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
 
 # One screw and insert per ear, on each of the magnetic pair's two halves.
 pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
@@ -332,6 +331,7 @@ m3x12_per_build = 0
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
+#   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -344,12 +344,13 @@ m3_short_inserts_per_build = (
     touchflo_inserts_per_build
     + shelf_inserts_per_build
     + faucet_display_cover_inserts_per_build
+    + enclosure_seam_inserts_per_build
     + c14_inserts_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = m3_long_inserts_per_build + m3_short_inserts_per_build
-total_m5_inserts_per_build = floor_inserts_per_build + enclosure_seam_inserts_per_build
+total_m5_inserts_per_build = floor_inserts_per_build
 
 # And the screws that go into them. `labor.md` §8 prices both passes off these two figures.
 total_m3_screws_per_build = (
@@ -363,9 +364,10 @@ total_m3_screws_per_build = (
     + display_cover_screws_per_build
     + faucet_display_cover_screws_per_build
     + pump_cap_screws_per_build
+    + enclosure_seam_screws_per_build
     + c14_screws_per_build
 )
-total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
+total_m5_screws_per_build = floor_screws_per_build
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
@@ -507,11 +509,7 @@ def main(*, only_bom=False):
         "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
-        "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
-        "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
-        "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-        "SEAM_WASHERS": f"{enclosure_seam_washers_per_build:.4g}",
-        "SEAM_DISCS": f"{enclosure_seam_discs_per_build:.4g}",
+        "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
@@ -539,7 +537,6 @@ def main(*, only_bom=False):
         "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
-        "M5_INSERTS_COST": pack_line_cost(total_m5_inserts_per_build, "10.71", 50),
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
         # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
@@ -587,13 +584,8 @@ def main(*, only_bom=False):
             "TOTAL_SCREWS":
                 f"{total_m3_screws_per_build + total_m5_screws_per_build:.4g}",
             "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
-            "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
             "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
-            "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
-            "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
-            "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-            "SEAM_WASHERS": f"{enclosure_seam_washers_per_build:.4g}",
-            "SEAM_DISCS": f"{enclosure_seam_discs_per_build:.4g}",
+            "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
             "FOAM_FACE_SCREWS": f"{inserts_per_foam_cap_face:.4g}",
