@@ -1,0 +1,404 @@
+{
+  "status": "completed; all 16 ramp surfaces acceptable; five C bridge candidates; five identified fin failures; no accepted fin identified",
+  "printer": "Mark2",
+  "printer_task_id": "1340201019",
+  "report_date": "2026-10-14",
+  "launch_record": "launch.json",
+  "machine_completion": {
+    "observed_at": "2026-10-15T01:31:02.635897+00:00",
+    "job_id": "1340201019",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-14-v6-finish-matrix-petgf-left04-z004-mark2-print-only.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 85,
+    "total_layer_num": 85,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": []
+  },
+  "user_observations": [
+    {
+      "verbatim": "Looking at the Mark II plate now, starting with the ramps here, I would say that my first observation is that all of them are acceptable at the surface area that we're covering here, at least."
+    },
+    {
+      "verbatim": "As far as which are better or worse, it goes about as you'd expect. Smaller angles look just a little bit worse. Larger angles look just a little bit better."
+    },
+    {
+      "verbatim": "For example, one of the best-looking ones is R09. One of the worst-looking ones is R05, for some reason."
+    },
+    {
+      "verbatim": "I mean, it's probably tied with some others, like R01 maybe. I think R03 looks better than R01. So it does seem like generally the fan being on 100 does help a bit."
+    },
+    {
+      "verbatim": "And then regarding the overhangs, I can't see anything on here that looks as good as what we had a moment ago on Mark One."
+    },
+    {
+      "verbatim": "F08 and Y04 both failed. C07 failed just barely, just one thread hanging a bit low. F07 failed a bit worse than C07 but not like F08 and Y04, not nearly that bad."
+    },
+    {
+      "verbatim": "Y05 (and F01) is about as bad as F08. C04 and C02 are candidates for passing. C06 and C03 maybe pass. C07 maybe passes too."
+    }
+  ],
+  "ramps": {
+    "accepted_scope": "Surface appearance of all 16 specimens on this completed plate",
+    "horizontal_reach_mm": 14,
+    "width_mm": 12,
+    "vertical_section_mm": 2.4,
+    "angles_from_bed_degrees": [
+      35,
+      37.5,
+      40,
+      42.5
+    ],
+    "fan_levels_percent": [
+      70,
+      100
+    ],
+    "orientations": "both tested opposing directions",
+    "lowest_accepted_tested_angle_from_bed_degrees": 35,
+    "general_quality_trend": "Shallower angles slightly worse; steeper angles slightly better, with individual variation",
+    "cooling_result": "User reports a modest general benefit from 100% fan; R03 is better than R01 at the same 35-degree angle and orientation",
+    "specimens": [
+      {
+        "id": "R01",
+        "angle_from_bed_degrees": 35,
+        "fan_percent": 70,
+        "reversed": false,
+        "surface_acceptable": true,
+        "relative_quality": "possibly tied among the worst-looking; worse than R03"
+      },
+      {
+        "id": "R02",
+        "angle_from_bed_degrees": 35,
+        "fan_percent": 70,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R03",
+        "angle_from_bed_degrees": 35,
+        "fan_percent": 100,
+        "reversed": false,
+        "surface_acceptable": true,
+        "relative_quality": "looks better than R01"
+      },
+      {
+        "id": "R04",
+        "angle_from_bed_degrees": 35,
+        "fan_percent": 100,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R05",
+        "angle_from_bed_degrees": 37.5,
+        "fan_percent": 70,
+        "reversed": false,
+        "surface_acceptable": true,
+        "relative_quality": "one of the worst-looking; possibly tied with R01 and others"
+      },
+      {
+        "id": "R06",
+        "angle_from_bed_degrees": 37.5,
+        "fan_percent": 70,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R07",
+        "angle_from_bed_degrees": 37.5,
+        "fan_percent": 100,
+        "reversed": false,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R08",
+        "angle_from_bed_degrees": 37.5,
+        "fan_percent": 100,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R09",
+        "angle_from_bed_degrees": 40,
+        "fan_percent": 70,
+        "reversed": false,
+        "surface_acceptable": true,
+        "relative_quality": "one of the best-looking"
+      },
+      {
+        "id": "R10",
+        "angle_from_bed_degrees": 40,
+        "fan_percent": 70,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R11",
+        "angle_from_bed_degrees": 40,
+        "fan_percent": 100,
+        "reversed": false,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R12",
+        "angle_from_bed_degrees": 40,
+        "fan_percent": 100,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R13",
+        "angle_from_bed_degrees": 42.5,
+        "fan_percent": 70,
+        "reversed": false,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R14",
+        "angle_from_bed_degrees": 42.5,
+        "fan_percent": 70,
+        "reversed": true,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R15",
+        "angle_from_bed_degrees": 42.5,
+        "fan_percent": 100,
+        "reversed": false,
+        "surface_acceptable": true
+      },
+      {
+        "id": "R16",
+        "angle_from_bed_degrees": 42.5,
+        "fan_percent": 100,
+        "reversed": true,
+        "surface_acceptable": true
+      }
+    ],
+    "limits": "Acceptance belongs to this 14 mm by 12 mm coupon area and plate process; 30 degrees, larger reaches/areas and other layer heights are unqualified."
+  },
+  "bridges": {
+    "clear_span_mm": 12,
+    "width_mm": 12,
+    "roof_courses": 5,
+    "roof_thickness_mm": 1.2,
+    "first_roof_nozzle_z_mm": 19.16,
+    "overall_user_comparison": "None looks as good as the latest Mark1 plate",
+    "mark1_comparison_record": "../../flow-bracket-v7/mark1/physical-result.json",
+    "specific_assessments": [
+      {
+        "id": "C02",
+        "anchor_type": "solid_bridge",
+        "bridge_axis": "X",
+        "condition": 2,
+        "first_roof_extrusion_percent": 100.0,
+        "first_roof_bridge_speed_mm_s": 25,
+        "fan_percent": 70,
+        "assessment": "candidate pass",
+        "reported_detail": "Candidate for passing; no firm acceptance"
+      },
+      {
+        "id": "C03",
+        "anchor_type": "solid_bridge",
+        "bridge_axis": "X",
+        "condition": 3,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 15,
+        "fan_percent": 70,
+        "assessment": "maybe pass",
+        "reported_detail": "Tentative possible pass"
+      },
+      {
+        "id": "C04",
+        "anchor_type": "solid_bridge",
+        "bridge_axis": "X",
+        "condition": 4,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 25,
+        "fan_percent": 70,
+        "assessment": "candidate pass",
+        "reported_detail": "Candidate for passing; no firm acceptance"
+      },
+      {
+        "id": "C06",
+        "anchor_type": "solid_bridge",
+        "bridge_axis": "X",
+        "condition": 6,
+        "first_roof_extrusion_percent": 100.0,
+        "first_roof_bridge_speed_mm_s": 25,
+        "fan_percent": 100,
+        "assessment": "maybe pass",
+        "reported_detail": "Tentative possible pass"
+      },
+      {
+        "id": "C07",
+        "anchor_type": "solid_bridge",
+        "bridge_axis": "X",
+        "condition": 7,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 15,
+        "fan_percent": 100,
+        "assessment": "borderline; maybe pass",
+        "reported_detail": "Initially barely failed with one low-hanging thread; subsequently included among possible passes"
+      },
+      {
+        "id": "F01",
+        "anchor_type": "fin_bridge",
+        "bridge_axis": "X",
+        "condition": 1,
+        "first_roof_extrusion_percent": 100.0,
+        "first_roof_bridge_speed_mm_s": 15,
+        "fan_percent": 70,
+        "assessment": "failed",
+        "reported_detail": "About as bad as F08"
+      },
+      {
+        "id": "F07",
+        "anchor_type": "fin_bridge",
+        "bridge_axis": "X",
+        "condition": 7,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 15,
+        "fan_percent": 100,
+        "assessment": "failed",
+        "reported_detail": "Worse than C07; much less severe than F08/Y04"
+      },
+      {
+        "id": "F08",
+        "anchor_type": "fin_bridge",
+        "bridge_axis": "X",
+        "condition": 8,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 25,
+        "fan_percent": 100,
+        "assessment": "failed",
+        "reported_detail": "Severe reference failure relative to F07"
+      },
+      {
+        "id": "Y04",
+        "anchor_type": "fin_bridge",
+        "bridge_axis": "Y",
+        "condition": 4,
+        "first_roof_extrusion_percent": 125.0,
+        "first_roof_bridge_speed_mm_s": 25,
+        "fan_percent": 70,
+        "assessment": "failed",
+        "reported_detail": "Severe failure; F07 is much less severe"
+      },
+      {
+        "id": "Y05",
+        "anchor_type": "fin_bridge",
+        "bridge_axis": "Y",
+        "condition": 5,
+        "first_roof_extrusion_percent": 100.0,
+        "first_roof_bridge_speed_mm_s": 15,
+        "fan_percent": 100,
+        "assessment": "failed",
+        "reported_detail": "About as bad as F08"
+      }
+    ],
+    "unreported_individual_ids": [
+      "C01",
+      "C05",
+      "C08",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "Y01",
+      "Y02",
+      "Y03",
+      "Y06",
+      "Y07",
+      "Y08"
+    ],
+    "identified_accepted_fin_ids": [],
+    "formation_vs_finish": "The reported failures are physical quality assessments; exact formation/attachment failure modes are not yet identified.",
+    "fin_removal_and_retained_contact_face": "unreported"
+  },
+  "comparison_limits": {
+    "record": "comparison-with-mark1.json",
+    "claim": "Mark2 C04 and Mark1 R125 share the bridge recipe, but anchor fill, height, printer and plate conditions differ. Their quality difference cannot isolate a printer effect.",
+    "within_plate_comparisons": [
+      "C07 and F07 share 125%, 15 mm/s, 100% fan and X bridging; F07 is reported worse.",
+      "C04 is a possible pass while Y04 fails at 125%, 25 mm/s, 70% fan; anchor type and bridge direction differ."
+    ]
+  },
+  "fin_failure_diagnosis": {
+    "nominal_paths": "Every main F/Y first-roof stroke has both ends and terminal 0.25 mm over nominal preceding-tooth beads; bridge fill precedes walls.",
+    "physical_teeth_condition": "Irregular contact remnants visible; their pre-bridge position and sequence of deformation/separation remain unresolved.",
+    "geometry_to_inspect": "One-layer lower teeth project 2.24 mm horizontally from the fin wall before the roof lands.",
+    "causal_claim": "Photographs confirm bowed/loose roof strands and irregular contact remnants; they do not isolate a cause or failure sequence."
+  },
+  "photos": [
+    {
+      "path": "photos/01-result.jpg",
+      "source_name": "Photo 1.jpg",
+      "source_sha256": "0ade1c97befedb21c39cf0ad848529be14754d32e3e260f1d3b4e7c11316092d",
+      "sha256": "6f4a6ab56327061ca841dc83d3007f5cbcf852d5257012dd27b7d79a92b14adb",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/02-result.jpg",
+      "source_name": "Photo 2.jpg",
+      "source_sha256": "d6499d1a80cad2364ce2d2ffb481c81533feb77f6290555cec1dd0dd0a84857f",
+      "sha256": "c08141fdd0ff37ea3a0413cbc6bd1c41f2f165fb84afd0e4824766c98cad227f",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/03-result.jpg",
+      "source_name": "Photo 3.jpg",
+      "source_sha256": "3a7e6eea5ddbe1c16d8a89e40afa92b4628f8cfb1c8d3f7cfa92ba5dbc3e573c",
+      "sha256": "9451f14ec87b6103bb43279b45920ade2f3de4826c6c0b2436b33ed53d748da8",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/04-result.jpg",
+      "source_name": "Photo 4.jpg",
+      "source_sha256": "245e5a1e60414ae56e259c9b9bac582b8753755ecb5309d905851e2a3bcdfa7e",
+      "sha256": "307a500117f16bb86cbf14ad32f05616d356420bd91d17da06bc8712ed6e78bb",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/05-result.jpg",
+      "source_name": "Photo 5.jpg",
+      "source_sha256": "53f5054f98a9e005cccb878e2f6cf7fac69c5a99fbf72ed89a111bf11718b3f4",
+      "sha256": "c3e55eb544d6606b1930fc03879c71a8a3f985583cb9a5f52ee8eb2d0f560a2b",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/06-result.jpg",
+      "source_name": "Photo 6.jpg",
+      "source_sha256": "6f5dc49b238fb1f320246f316d34434443b7dc79edb96d8c6e5a1060ff5bbda7",
+      "sha256": "4642c21b37b8aff11cdb7617b5b25856ec28fb9a0ff75ce62d1e50a40807a0cc",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/07-result.jpg",
+      "source_name": "Photo 7.jpg",
+      "source_sha256": "46d7ee6b35aa1421d5a11674675f25b004be832fc6074f9e258a6a70d45d09a3",
+      "sha256": "2e73e8ed86f827d6a3c30e72ef84584016f6e0a5b5db00291e3efcbf070dbac6",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    },
+    {
+      "path": "photos/08-result.jpg",
+      "source_name": "Photo 8.jpg",
+      "source_sha256": "646df466e8cc91896548d6a3ae3b0d2ff45ada63aea5c94f5eb06e52e5cae2de",
+      "sha256": "538b7b47861892468bdba033b4d09d008a571aaf47eb62e6a48655b13817410c",
+      "treatment": "JPEG scan data and decoded pixels preserved; private application metadata and comments omitted from public evidence."
+    }
+  ],
+  "photo_assessment": {
+    "source": "assistant visual interpretation of eight supplied photographs, separate from user per-ID assessments",
+    "specimen_id_mapping": "unassigned; labels are not legible enough to identify the photographed pieces",
+    "observations": [
+      "Two fin/wall assemblies show pronounced bowing in their roof regions, with long loose looped strands and locally bunched filament.",
+      "The broad fin panels appear substantially straight rather than globally buckled.",
+      "Small contact-edge remnants are irregular; a detached flat piece has a row of curled or broken-looking remnants visible in photo 3.",
+      "Detached flat pieces are visible, but the photographs do not establish how or when they separated."
+    ],
+    "limits": "Post-print stills do not establish whether lower teeth deformed before bridging, whether strands lost anchorage during deposition, or what damage arose during handling/removal. No photo-based fin-release acceptance or per-ID reassignment is made."
+  }
+}
