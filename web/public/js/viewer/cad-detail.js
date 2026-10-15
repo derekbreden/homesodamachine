@@ -43,6 +43,7 @@ import { mountRelated, closeRelated } from "./related-nav.js";
 import { clearHighlight } from "./part-highlight.js";
 import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 import { mountFaucetOptions } from "./faucet-options.js";
+import { mountFlavorPath } from "./flavor-path.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { mountMaterialPanel } from "./material-panel.js";
 import { stepLocation } from "/contracts/step-locations.js";
@@ -187,11 +188,13 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // a DXF reaches the rail carrying rulers alone.
   const rail = makeToolRail();
   const chips = makeChipRow();
+  let clearFlavorPath = () => {};
   if (type === "step") {
     rail.appendChild(makePickFindToggle());
     rail.appendChild(makeToolGroup("Select", makePickModeControl(file))).classList.add("tool-group-select");
     chips.appendChild(makeXrayToggle());
     mountTubeTool(wrapper, chips);
+    clearFlavorPath = mountFlavorPath(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
   rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
@@ -278,6 +281,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       document.removeEventListener("keydown", onEscape, true);
       clearToolDrawer();
       clearFaucetOptions();
+      clearFlavorPath();
       materialPanel?.dispose();
       clearSurfaceTouches();
       stopAnimate();
