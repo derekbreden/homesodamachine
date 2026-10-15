@@ -1572,15 +1572,18 @@
     "Refit the grip covers after the lower screws are seated."
   ],
   "access": {
-    "lower_screw_entry": "upward through handhold ceiling with removable grip cover removed",
+    "lower_screw_entry": "Place the loose washer first: lift it tilted through the exposed handhold, flatten it above the ceiling, move it onto the screw axis and hold it against the pocket floor. Insert the separate screw upward. A flat washer already on the screw does not clear the inner wall.",
     "lower_clear_space_below_bottom_mm_approx": 120,
-    "upper_screw_entry": "downward through roof"
+    "upper_screw_entry": "downward through roof",
+    "lower_washer_first_native_path": "grip_cover_removal_update.washer_first_entry",
+    "lower_head_recess_mm": 2,
+    "handling_qualification": "Nominal geometry is clear; two-handed washer holding and the exposed printed handhold finish are not physically qualified."
   },
   "frame_support": "The front receiver pair carries the frame; the rear frame body clears the upper screw blocks. Nominal capture against six 2 mm translations does not establish a load rating or resistance to tilting under load.",
   "pass": true,
   "assembly_sequence_basis": "hardware/assembly/enclosure-mechanical.md \u00a76. The additional back-top-only sweeps in this report establish printed-shell geometric compatibility and do not replace the populated-machine assembly sequence.",
   "subtractive_head_access_update": {
-    "scope": "Final inboard-open head access: native subtraction from the previously reviewed quadrants, complete washer floors and refreshed final-mesh funnel capture. The original173 sampled motions remain explicitly bound to their earlier mesh hashes. The nominal updated shell stock is a subset, so it cannot add a shell or packed-body interference.",
+    "scope": "Head-access update before grip-cover removal: Final inboard-open head access: native subtraction from the previously reviewed quadrants, complete washer floors and refreshed final-mesh funnel capture. The original173 sampled motions remain explicitly bound to their earlier mesh hashes. The nominal updated shell stock is a subset, so it cannot add a shell or packed-body interference. The later bottom-handhold restoration and final bottom hashes are established separately by grip_cover_removal_update.",
     "source_sha256": {
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
@@ -3335,12 +3338,12 @@
     "clear": true
   },
   "current_artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "03ec2d4ff59689046b4459794018c29790f3bd519d2044c74e7fe65e2290af9d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8f1be09ec5f4e8f549f8c863fcd6666474a703ee9adf5cb4b13b291885906ad2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "696929fc44bc6d04b0310861a79c680cedd2ea1fbf136953df3512db0898b3fa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "98803ca5eba48afd50fb47c73cae23c0d6cc3cca6ec9e4e6bb853c02a31061df",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8cf22525e5149fbfc4b158d98dfe6ddd6dfc14bb584d8d2a937556d0738b2c4d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "c46090b41613c5f1fa8e62c14947cce05cfdc32a6da41afd4b2f04992983ea60",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "46cd84b68122c54e4b6fb422fa4e9b4b7357fde2aeb706b387fcf3f2f6297594",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "c135f634530e5f872af9d5c1a1b1e78321d04a8486fca0e36e60c0ab06157d16",
@@ -3350,21 +3353,24 @@
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "807f9e9184cbe5b52e69b790551863bec76351ed745451f208749c5f14acbdf6",
-    "hardware/manifold-layout/enclosure-assembly.step": "c986ed7c8bda11c7e806a65bf6896e2aee4350c0e80456c6707776c121d32964",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d45f746e2c32d884ec24e807ca7d1db86f85d6a0af6f1455ae62751be50bce32",
+    "hardware/manifold-layout/enclosure-assembly.step": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "b6804531d29d5e1a472828e503ec75cde562e9547f01bdc0f8f7b386dd63e209",
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "a36dfef89dd7e8f7e8f186271670a2bbd3690473d53d754a921461a761cda8a2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff"
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a"
   },
   "conclusions": {
     "closed_nominal_geometry_clear": true,
-    "sampled_motion_evidence_carried_by_native_subset_proof": true,
     "final_frame_capture_all_six_directions": true,
     "complete_3mm_washer_bearing_floors": true,
     "continuous_corner_stock_pack_motion_clear": true,
     "silicone_brim_bearing_complete_3mm": true,
-    "retained_front_exports_current_under_shared_head_access_helper": true
+    "retained_front_exports_current_under_shared_head_access_helper": true,
+    "sampled_motion_evidence_carried_by_native_subset_and_bounded_receiver_restoration": true,
+    "continuous_loose_washer_first_lower_entry_clear": true,
+    "receiver_restoration_pack_envelopes_clear": true
   },
   "retained_front_exports_consistency": {
     "scope": "Additional inboard head-access cutter relative to the prior circular recess intersected against retained front quadrant native exports. Zero intersection establishes that applying the current shared bore helper removes no further front-quadrant stock.",
@@ -3432,5 +3438,1089 @@
       }
     ],
     "pass": true
+  },
+  "post_publication_lint": {
+    "review_date": "2026-10-15",
+    "phase": "After verified publication of the plain-M5 four-quadrant/frame update; head-access reviews precede the grip-cover removal update.",
+    "method": "Use existing geometry_lint functions. Whole frame: all six classes. Rear pieces: retain entire original STL triangles whose Y bounds intersect190..242mm, preserve machine coordinates and source normals, add no artificial faces/caps, and retain the full-piece print bed datum. This is one-time scoped analysis, not a build-path filter, new gate or whole-piece pass.",
+    "initial_published_stl_and_step_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "8f1be09ec5f4e8f549f8c863fcd6666474a703ee9adf5cb4b13b291885906ad2",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+      "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b"
+    },
+    "interrupted_full_rear_invocation": {
+      "status": "Incomplete",
+      "command": "geometry_lint.py enclosure-back-bottom.stl enclosure-back-top.stl funnel-frame.stl --all",
+      "result": "Stopped before the first complete piece report because native process footprint reached17.5GB and paging dominated. SIGINT was caught by the repository build handler; final process exit137. No full back-bottom/back-top thin or ledge success is claimed.",
+      "native_sample": "NumPy boolean-index copying; exact Python stage was not emitted by the build handler."
+    },
+    "back_bottom_before_cover_removal": {
+      "scope": "Original STL facets intersecting Y190..242mm; no caps or cut triangles.",
+      "status": "Partial before cover removal; no whole-mesh pass",
+      "completed_class_counts": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 8,
+        "slope": 0
+      },
+      "interrupted_class": "thin",
+      "interrupted_python_stage": "geometry_lint.thin_places, line840, sparse adjacency graph construction after densely sampled pair masks",
+      "unstarted_class": "ledge",
+      "next_scope": "Uncovered handhold/end-post changes use the final publication and local native or bounded face-class review; no whole-back-bottom thin restart."
+    },
+    "back_top_face_classes": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "ec7e535767b54730cb80101f8a34d2ee809016344f68a990f97590bbd4c841d0",
+      "stl_unchanged": true,
+      "scope": "Original complete STL facets whose Y bounds intersect190..242mm; no caps/cut faces, coordinates/normals preserved. Bed datum remains full-piece datum. Four face classes only. No whole-piece or thin/ledge success claimed.",
+      "original_facets": 605086,
+      "review_facets": 79232,
+      "classes": [
+        "step",
+        "sliver",
+        "ceiling",
+        "slope"
+      ],
+      "finding_count_by_class": {
+        "step": 0,
+        "sliver": 7,
+        "ceiling": 6,
+        "slope": 0
+      },
+      "answered_changed_families": [
+        "Two Y219.8 backed Z-channel front returns",
+        "Two lower anchor-block first printed faces at Z195.05",
+        "Two upper U-pocket bearing floors at Z347"
+      ],
+      "native_stock_witnesses": {
+        "scope": "Targeted finite native stock witnesses for scoped back-top lint families; unchanged native part, no strength or support-release acceptance",
+        "step_sha256": "4ea2629b3792a7ce2fc6243fb25d2477cd97be4aa8447b418e327e98daf5b244",
+        "rows": [
+          {
+            "family": "Z-channel front return",
+            "side": -1,
+            "exposed_face_x_mm": [
+              -104.5,
+              -103.75
+            ],
+            "face_y_mm": 219.8,
+            "face_z_mm": [
+              168.7,
+              175.05
+            ],
+            "witness_x_mm": [
+              -107.5,
+              -103.75
+            ],
+            "witness_y_mm": [
+              219.82,
+              220.82
+            ],
+            "witness_z_mm": [
+              168.72,
+              175.03
+            ],
+            "missing_continuous_wall_witness_mm3": 0.0
+          },
+          {
+            "family": "Z-channel front return",
+            "side": 1,
+            "exposed_face_x_mm": [
+              103.75,
+              104.5
+            ],
+            "face_y_mm": 219.8,
+            "face_z_mm": [
+              168.7,
+              175.05
+            ],
+            "witness_x_mm": [
+              103.75,
+              107.5
+            ],
+            "witness_y_mm": [
+              219.82,
+              220.82
+            ],
+            "witness_z_mm": [
+              168.72,
+              175.03
+            ],
+            "missing_continuous_wall_witness_mm3": 0.0
+          },
+          {
+            "family": "upper U head-pocket complete bearing floor",
+            "native_face_area_mm2": 91.37433448519543,
+            "native_face_bounds_mm": [
+              -103.4,
+              -91.5,
+              203.5,
+              214.3,
+              347.0,
+              347.0
+            ],
+            "witness_depth_mm": 3,
+            "missing_complete_face_witness_mm3": 0.0
+          },
+          {
+            "family": "upper U head-pocket complete bearing floor",
+            "native_face_area_mm2": 91.37433448519542,
+            "native_face_bounds_mm": [
+              91.5,
+              103.4,
+              203.5,
+              214.3,
+              347.0,
+              347.0
+            ],
+            "witness_depth_mm": 3,
+            "missing_complete_face_witness_mm3": 0.0
+          }
+        ]
+      },
+      "unrun_classes": [
+        "thin",
+        "ledge"
+      ],
+      "whole_piece_lint_status": "Not established: four face classes reviewed only on original source facets selected by intersecting Y190..242."
+    },
+    "frame_whole_classes": {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "stl_sha256": "dc066ade278c5fdac488640e1402de70ee99a4243ef8c6f60e886cc68ac39242",
+      "stl_unchanged": true,
+      "scope": "Entire original STL",
+      "original_facets": 40062,
+      "review_facets": 40062,
+      "classes": [
+        "step",
+        "sliver",
+        "ceiling",
+        "slope",
+        "thin",
+        "ledge"
+      ],
+      "seconds_by_class": {
+        "step": 1.454,
+        "sliver": 2.204,
+        "ceiling": 0.197,
+        "slope": 1.592,
+        "thin": 35.337,
+        "ledge": 2.761
+      },
+      "finding_count_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 2,
+        "slope": 0,
+        "thin": 8,
+        "ledge": 0
+      },
+      "answered_changed_families": [
+        "Two front rail bearings at frame-local Z16.2/Y-10.696",
+        "Two diagonal rear-body/front-surround corner thickness readings"
+      ],
+      "native_corner_review": {
+        "scope": "Targeted native review of frame thin_places pair; unchanged current frame, no geometry edits",
+        "source_sha256": {
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "a498bdf7d8ee6f40081a65fe730e1b5cb3fa1bb663d349c834830aaf66854145",
+          "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "436c737525918cba797a1243632f221cf9124fdd8929e906483b6329ff28a579"
+        },
+        "translation": [
+          0,
+          164.55,
+          299.9
+        ],
+        "lint_pair_world": [
+          [
+            91.25,
+            200.098,
+            348.978
+          ],
+          [
+            89.75,
+            199.75,
+            349.0
+          ]
+        ],
+        "native_horizontal_sections": [
+          {
+            "world_yz": [
+              199.749,
+              348.978
+            ],
+            "positive_x_crossings": [
+              82.8,
+              98.25
+            ]
+          },
+          {
+            "world_yz": [
+              199.751,
+              348.978
+            ],
+            "positive_x_crossings": [
+              82.8,
+              91.25
+            ]
+          },
+          {
+            "world_yz": [
+              200.098,
+              348.978
+            ],
+            "positive_x_crossings": [
+              82.8,
+              91.25
+            ]
+          },
+          {
+            "world_yz": [
+              200.098,
+              348.0
+            ],
+            "positive_x_crossings": [
+              82.8,
+              91.25
+            ]
+          },
+          {
+            "world_yz": [
+              200.098,
+              346.0
+            ],
+            "positive_x_crossings": [
+              82.8,
+              91.25
+            ]
+          },
+          {
+            "world_yz": [
+              200.098,
+              349.001
+            ],
+            "positive_x_crossings": []
+          },
+          {
+            "world_yz": [
+              199.749,
+              349.001
+            ],
+            "positive_x_crossings": [
+              89.75,
+              98.25
+            ]
+          },
+          {
+            "world_yz": [
+              199.751,
+              349.001
+            ],
+            "positive_x_crossings": []
+          },
+          {
+            "world_yz": [
+              200.098,
+              350.0
+            ],
+            "positive_x_crossings": []
+          }
+        ],
+        "native_segment_classification": [
+          {
+            "t": 0.001,
+            "world_xyz": [
+              91.2485,
+              200.097652,
+              348.978022
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.1,
+            "world_xyz": [
+              91.1,
+              200.06320000000002,
+              348.9802
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.25,
+            "world_xyz": [
+              90.875,
+              200.01100000000002,
+              348.9835
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.5,
+            "world_xyz": [
+              90.5,
+              199.924,
+              348.98900000000003
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.75,
+            "world_xyz": [
+              90.125,
+              199.837,
+              348.9945
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.9,
+            "world_xyz": [
+              89.9,
+              199.7848,
+              348.9978
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          },
+          {
+            "t": 0.999,
+            "world_xyz": [
+              89.7515,
+              199.750348,
+              348.999978
+            ],
+            "state": "TopAbs_State.TopAbs_IN"
+          }
+        ],
+        "native_faces_at_opposite_point": [
+          {
+            "type": "PLANE",
+            "normal": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "bounds": [
+              89.75,
+              89.75,
+              125.70849207672,
+              199.75,
+              349.0,
+              355.0
+            ]
+          },
+          {
+            "type": "PLANE",
+            "normal": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "bounds": [
+              89.75,
+              91.25,
+              199.75,
+              199.75,
+              349.0,
+              355.0
+            ]
+          },
+          {
+            "type": "PLANE",
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds": [
+              -91.25,
+              91.25,
+              199.75,
+              235.691507923281,
+              349.0,
+              349.0
+            ]
+          },
+          {
+            "type": "PLANE",
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds": [
+              -89.75,
+              89.75,
+              98.45849207672,
+              199.75,
+              349.0,
+              349.0
+            ]
+          },
+          {
+            "type": "PLANE",
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "bounds": [
+              -89.75,
+              89.75,
+              199.75,
+              230.641507923281,
+              349.0,
+              349.0
+            ]
+          }
+        ]
+      },
+      "remaining_findings_scope": "Other frame thin ranks retain their own geometry and are not represented as resolved by the corner explanation."
+    },
+    "limits": "Explanations bind individual feature anchors. Unrelated preexisting flute, lettering, zero-area-facet and other ranks are not resolved by these explanations. CAD and mesh geometry do not establish support release, printed fit, load capacity or lifetime.",
+    "front_pieces_before_cover_removal": {
+      "scope": "Full front-bottom and front-top STL, all six existing lint classes, after initial verified live publication. Front-bottom is the reference input before removal of grip-cover cuts; grip_cover_removal_update binds the final shape.",
+      "classes_completed": [
+        "ceiling",
+        "ledge",
+        "step",
+        "slope",
+        "thin",
+        "sliver"
+      ],
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "0baed0b87e02302cc26ee2bfcea48a2ff28a4b6a0fa8c2580670b4ea7a96d7d8",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0",
+        "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b"
+      },
+      "ranked_findings_before_answers": {
+        "front-bottom": 233,
+        "front-top": 149
+      },
+      "previously_answered_findings": {
+        "front-bottom": 4,
+        "front-top": 18
+      },
+      "disposition_scope": "Current joint-block ends, handhold ceiling and nominal inner wall, upper anchor clearance, front frame receivers and channel-to-block corner transitions. Individual reasons and alternatives are recorded beside current pick anchors. Other flute, scarf, faucet, magnet and unrelated ranks were outside this review.",
+      "raw_analysis": ".cache/y-seam-plain/front-lint.txt",
+      "whole_piece_pass_claimed": false
+    }
+  },
+  "grip_cover_removal_update": {
+    "scope": "Current uncovered bottom handholds: native local no-removal comparison and addition bounds, exact production-function change, retained bearing floors, packed receiver-restoration envelopes and continuous loose-washer entry. Printed strength, underside finish and hand feel are unqualified.",
+    "source_sha256": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+    "restored_stock": [
+      {
+        "host": "front-bottom",
+        "side": "west",
+        "old_step_sha256": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+        "current_step_sha256": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+        "added_mm3": 148.01915191526936,
+        "removed_mm3": 0.0,
+        "added_bounds_mm": [
+          -107.5,
+          -93.5,
+          170.9,
+          180.0,
+          23.25,
+          29.250000000000004
+        ],
+        "pass": true,
+        "old_receiver_cut_envelope_mm": [
+          -108.50000000000001,
+          -93.50000000000001,
+          170.89999999999998,
+          180.0,
+          23.240000000000002,
+          29.250000000000004
+        ],
+        "inside_receiver_envelope": true
+      },
+      {
+        "host": "front-bottom",
+        "side": "east",
+        "old_step_sha256": "96108da5d9a32d9490273e08cb2244601a391ded359c70c79f3dadf74fee100e",
+        "current_step_sha256": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+        "added_mm3": 148.01915191564837,
+        "removed_mm3": 0.0,
+        "added_bounds_mm": [
+          93.5,
+          107.5,
+          170.9,
+          180.0,
+          23.25,
+          29.250000000000004
+        ],
+        "pass": true,
+        "old_receiver_cut_envelope_mm": [
+          93.50000000000001,
+          108.50000000000001,
+          170.89999999999998,
+          180.0,
+          23.240000000000002,
+          29.250000000000004
+        ],
+        "inside_receiver_envelope": true
+      },
+      {
+        "host": "back-bottom",
+        "side": "west",
+        "old_step_sha256": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+        "current_step_sha256": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
+        "added_mm3": 127.63542252872499,
+        "removed_mm3": 0.0,
+        "added_bounds_mm": [
+          -106.415048567,
+          -93.4999999,
+          247.9999999,
+          257.10000010000005,
+          23.2499999,
+          29.250000100000282
+        ],
+        "pass": true,
+        "old_receiver_cut_envelope_mm": [
+          -108.5,
+          -93.5,
+          248.0,
+          257.1,
+          23.239999999999995,
+          29.249999999999996
+        ],
+        "inside_receiver_envelope": true
+      },
+      {
+        "host": "back-bottom",
+        "side": "east",
+        "old_step_sha256": "31380dff7aa6e8cb8e5454ee35217d28fd16dd6693bebb4b366b526152453050",
+        "current_step_sha256": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
+        "added_mm3": 148.0191519156489,
+        "removed_mm3": 0.0,
+        "added_bounds_mm": [
+          93.5,
+          107.50000000000001,
+          248.0,
+          257.1,
+          23.25,
+          29.25
+        ],
+        "pass": true,
+        "old_receiver_cut_envelope_mm": [
+          93.5,
+          108.5,
+          248.0,
+          257.1,
+          23.239999999999995,
+          29.249999999999996
+        ],
+        "inside_receiver_envelope": true
+      }
+    ],
+    "lower_head_and_floor": [
+      {
+        "side": "east",
+        "washer_bearing_floor_missing_mm3": 0.0,
+        "floor_z_mm": 37.25,
+        "head_bottom_z_mm": 31.25,
+        "recess_mm": 2.0,
+        "pass": true
+      },
+      {
+        "side": "west",
+        "washer_bearing_floor_missing_mm3": 0.0,
+        "floor_z_mm": 37.25,
+        "head_bottom_z_mm": 31.25,
+        "recess_mm": 2.0,
+        "pass": true
+      }
+    ],
+    "nominal_axial_entry": [
+      {
+        "side": "east",
+        "host": "front-bottom",
+        "nominal_washer_axial_sweep_overlap_mm3": 51.01813159991789,
+        "nominal_head_axial_sweep_overlap_mm3": 0.0,
+        "washer_overlap_bounds_mm": [
+          93.0,
+          93.50000000000048,
+          206.72055052822844,
+          211.07944947177157,
+          -6.0,
+          28.75
+        ]
+      },
+      {
+        "side": "east",
+        "host": "back-bottom",
+        "nominal_washer_axial_sweep_overlap_mm3": 0.0,
+        "nominal_head_axial_sweep_overlap_mm3": 0.0,
+        "washer_overlap_bounds_mm": null
+      },
+      {
+        "side": "west",
+        "host": "front-bottom",
+        "nominal_washer_axial_sweep_overlap_mm3": 51.018131599921375,
+        "nominal_head_axial_sweep_overlap_mm3": 0.0,
+        "washer_overlap_bounds_mm": [
+          -93.50000000000048,
+          -93.0,
+          206.72055052822844,
+          211.07944947177157,
+          -6.0,
+          28.75
+        ]
+      },
+      {
+        "side": "west",
+        "host": "back-bottom",
+        "nominal_washer_axial_sweep_overlap_mm3": 0.0,
+        "nominal_head_axial_sweep_overlap_mm3": 0.0,
+        "washer_overlap_bounds_mm": null
+      }
+    ],
+    "receiver_restoration_pass": true,
+    "floor_pass": true,
+    "source_relation": {
+      "prior_commit": "4db2ba620468abdf99a93518a763703676809336",
+      "prior_source_sha256": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
+      "current_source_sha256": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+      "prior_handholds_final_statement": "return grip_interface(inner).apply_receiver(solid, y_side)",
+      "current_handholds_final_statement": "return solid",
+      "handholds_identical_after_only_final_statement_replacement": true,
+      "scope": "The production handhold function changes only by omitting the receiver-relief and receiver-slot subtraction. Native new-minus-old material is bounded at those old receiver stations; old-minus-new is zero in all four local handholds. Direct subtraction by the overlapping cutter compound is not used as evidence."
+    },
+    "receiver_pack_envelopes": {
+      "scope": "Conservative old receiver-cut envelopes against retained packed components, closed and over the complete back-column ride. Actual restored material must be a subset of these envelopes, established separately on the new bottom exports. Other enclosure pieces are handled by bounded closing checks.",
+      "reference_assembly_sha256": "c986ed7c8bda11c7e806a65bf6896e2aee4350c0e80456c6707776c121d32964",
+      "receiver_source_sha256": "915bb0340089312bd3adbd85934cbd970ff85e32f389783be5b790b7a403ce1d",
+      "excluded_removed_bodies": [
+        "grip-cover-east",
+        "grip-cover-west"
+      ],
+      "rows": [
+        {
+          "restored_host": "front-bottom",
+          "side": "west",
+          "motion": "closed",
+          "offset_y_mm": [
+            0,
+            0
+          ],
+          "conservative_stock_bounds_mm": [
+            -108.50000000000001,
+            -93.50000000000001,
+            170.89999999999998,
+            180.0,
+            23.240000000000002,
+            29.250000000000004
+          ],
+          "nearby_components": [
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 8.724140517990147,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 9.306354161412374,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        },
+        {
+          "restored_host": "front-bottom",
+          "side": "east",
+          "motion": "closed",
+          "offset_y_mm": [
+            0,
+            0
+          ],
+          "conservative_stock_bounds_mm": [
+            93.50000000000001,
+            108.50000000000001,
+            170.89999999999998,
+            180.0,
+            23.240000000000002,
+            29.250000000000004
+          ],
+          "nearby_components": [
+            {
+              "name": "condenser+fan",
+              "conservative_prism_distance_mm": 14.140565759544414,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 8.724140507889592,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 9.306354151943736,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        },
+        {
+          "restored_host": "back-bottom",
+          "side": "west",
+          "motion": "closed",
+          "offset_y_mm": [
+            0,
+            0
+          ],
+          "conservative_stock_bounds_mm": [
+            -108.5,
+            -93.5,
+            248.0,
+            257.1,
+            23.239999999999995,
+            29.249999999999996
+          ],
+          "nearby_components": [
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 3.000000006979974,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 4.41560868305603,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        },
+        {
+          "restored_host": "back-bottom",
+          "side": "west",
+          "motion": "back-column ride",
+          "offset_y_mm": [
+            0,
+            268.3
+          ],
+          "conservative_stock_bounds_mm": [
+            -108.5,
+            -93.5,
+            248.0,
+            525.4000000000001,
+            23.239999999999995,
+            29.249999999999996
+          ],
+          "nearby_components": [
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 3.000000006979974,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 4.41560868305603,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        },
+        {
+          "restored_host": "back-bottom",
+          "side": "east",
+          "motion": "closed",
+          "offset_y_mm": [
+            0,
+            0
+          ],
+          "conservative_stock_bounds_mm": [
+            93.5,
+            108.5,
+            248.0,
+            257.1,
+            23.239999999999995,
+            29.249999999999996
+          ],
+          "nearby_components": [
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 2.9999999930249857,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 4.415608673574928,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        },
+        {
+          "restored_host": "back-bottom",
+          "side": "east",
+          "motion": "back-column ride",
+          "offset_y_mm": [
+            0,
+            268.3
+          ],
+          "conservative_stock_bounds_mm": [
+            93.5,
+            108.5,
+            248.0,
+            525.4000000000001,
+            23.239999999999995,
+            29.249999999999996
+          ],
+          "nearby_components": [
+            {
+              "name": "cold-core/foam-shell",
+              "conservative_prism_distance_mm": 2.999999993025,
+              "overlap_mm3": 0.0,
+              "clear": true
+            },
+            {
+              "name": "cold-core/foam-cap-bottom",
+              "conservative_prism_distance_mm": 4.4156086735749085,
+              "overlap_mm3": 0.0,
+              "clear": true
+            }
+          ],
+          "clear": true
+        }
+      ],
+      "pass": true
+    },
+    "washer_first_entry": {
+      "scope": "Actual native lower handhold geometry tested with conservative continuous swept envelopes. The loose washer enters first; a washer already on the screw does not have the same entry path. Printed strength, underside finish and hand dexterity are not qualified.",
+      "current_step_sha256": {
+        "front-bottom": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+        "back-bottom": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27"
+      },
+      "nominal_washer": {
+        "outer_diameter_mm": 10,
+        "inner_diameter_mm": 5.3,
+        "thickness_mm": 1,
+        "initial_tilt_deg": 35,
+        "outward_center_shift_mm": 0.2,
+        "flatten_center_z_mm": 33.25,
+        "tilted_x_half_span_mm": 4.382548439620482,
+        "tilted_z_half_span_mm": 3.277458203899726,
+        "flatten_sweep_cylinder_radius_mm": 5.224937810560445,
+        "tilted_washer_lowest_z_mm": 29.972541796100273,
+        "tilted_washer_highest_z_mm": 36.52745820389973,
+        "minimum_approach_inner_wall_clearance_mm": 0.31745156037952427
+      },
+      "path": [
+        "Hold a loose washer at 35 degrees about Y, centered 0.2 mm outboard of the screw axis. Lift it from below the handhold.",
+        "At center Z33.25, the entire washer is above the Z29.25 handhold ceiling. Flatten it in the head opening, then move it onto the screw axis.",
+        "Raise the washer to Z36.25..37.25 and hold it against the bearing floor. Insert the separate M5 screw upward through the washer and printed passages."
+      ],
+      "native_envelope_rows": [
+        {
+          "side": "west",
+          "stage": "tilted approach below ceiling",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "tilted approach below ceiling",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "tilted approach inside head opening",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "tilted approach inside head opening",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "flatten 35 to 0 degrees above ceiling",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "flatten 35 to 0 degrees above ceiling",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "recenter horizontal washer by 0.2 mm",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "recenter horizontal washer by 0.2 mm",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "raise horizontal washer to bearing floor",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "raise horizontal washer to bearing floor",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "insert separate screw head",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "west",
+          "stage": "insert separate screw head",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "tilted approach below ceiling",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "tilted approach below ceiling",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "tilted approach inside head opening",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "tilted approach inside head opening",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "flatten 35 to 0 degrees above ceiling",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "flatten 35 to 0 degrees above ceiling",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "recenter horizontal washer by 0.2 mm",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "recenter horizontal washer by 0.2 mm",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "raise horizontal washer to bearing floor",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "raise horizontal washer to bearing floor",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "insert separate screw head",
+          "host": "front-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "side": "east",
+          "stage": "insert separate screw head",
+          "host": "back-bottom",
+          "native_containment_envelope_overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "closing_relation": {
+      "front_restored_y_max_mm": 180.0,
+      "rear_restored_y_min_mm": 247.9999999,
+      "restored_z_max_mm": 29.250000100000282,
+      "scope": "Restoration is confined to the handhold end shoulders, remote from the Y-seam telescope. The rear restoration moves farther +Y during the established back-column ride; the full continuous component envelopes are recorded above. The added stock is below Z29.251, far below either top piece and its Z rails. The previously checked corner stacks and all printed seam mating faces retain their geometry."
+    },
+    "current_step_sha256": {
+      "front-bottom": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+      "back-bottom": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27"
+    },
+    "pass": true,
+    "current_artifact_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "98803ca5eba48afd50fb47c73cae23c0d6cc3cca6ec9e4e6bb853c02a31061df",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "8cf22525e5149fbfc4b158d98dfe6ddd6dfc14bb584d8d2a937556d0738b2c4d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "c46090b41613c5f1fa8e62c14947cce05cfdc32a6da41afd4b2f04992983ea60",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "46cd84b68122c54e4b6fb422fa4e9b4b7357fde2aeb706b387fcf3f2f6297594",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+      "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
+      "hardware/manifold-layout/enclosure-assembly.step": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011"
+    }
   }
 }

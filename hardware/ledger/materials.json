@@ -36,7 +36,7 @@
         }
       ],
       "bom": {
-        "scope": "Modeled machine contents, including fitted tubing, grip covers, inlet fittings and selected service hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
+        "scope": "Modeled machine contents, including fitted tubing, inlet fittings and selected service hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -571,15 +571,6 @@
             "bodies": [
               "tube-collar-co2",
               "tube-collar-co2-word"
-            ]
-          },
-          {
-            "material": "HSM-000274",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "grip-cover-west",
-              "grip-cover-east"
             ]
           },
           {
@@ -5259,8 +5250,8 @@
     },
     {
       "id": "HSM-000274",
-      "description": "Enclosure lifting-grip cover",
-      "kind": "manufactured",
+      "description": "Grip receiver and cover coupons \u00b7 recorded test articles",
+      "kind": "reference",
       "aliases": [
         "grip liner",
         "handle cover"
@@ -5272,7 +5263,7 @@
       ],
       "documents": [
         {
-          "title": "Grip cover, printing and physical acceptance",
+          "title": "Bound grip-coupon geometry and physical acceptance",
           "path": "printed-parts/enclosure/grip-cover/README.md"
         }
       ]

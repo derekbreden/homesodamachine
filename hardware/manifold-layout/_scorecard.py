@@ -249,10 +249,6 @@ MOUNTS = (
     ("funnel", None, "wall-capture"),
     ("funnel-cover", "funnel", "silicone-grip"),
     ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
-    # Each interchangeable grip strip crosses the connected bottom seam. Its two flat wings
-    # snap into the existing through-slots, one end in each bottom half (`_grip_interface`).
-    ("grip-cover-east", ("enclosure-front-bottom", "enclosure-back-bottom"), "snap-capture"),
-    ("grip-cover-west", ("enclosure-front-bottom", "enclosure-back-bottom"), "snap-capture"),
     # THE FUNNEL'S DRAIN JOINT HANGS UNDER THE FRAME. The cradle's two wings rise through slots
     # in the frame's bottom web and hook over it (`zone-c/funnel/elbow_cradle.py`); the elbow
     # stands in the cradle's pocket with its nose on the web; the stub stands in the elbow's
@@ -681,9 +677,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
     ("data-ring", "data-ring-word"),
-    # The grip covers' wings and backs retain their running clearances within the bottom halves.
-    *((cover, wall) for cover in ("grip-cover-east", "grip-cover-west")
-                   for wall in ("enclosure-front-bottom", "enclosure-back-bottom")),
     # The frame surrounds the silicone bowl and its plug; the brim bears on the roof ledge.
     ("funnel", "funnel-frame"),
     # THE DRAIN JOINT'S SEATS. The elbow's nose bears on the frame's underside round the hole and

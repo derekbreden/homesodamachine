@@ -260,7 +260,7 @@ linked here are the authority for each observation, including their print bindin
 | --- | --- | --- |
 | [Pogo contact test piece](../reference/yyfkgcp-pogo-4p/physical-observations.json) | Connector fit and mating/compression accepted by the founder, reported 2026-10-04. | The accepted result belongs to the printed test piece. Numerical full-enclosure gap, insert retention, electrical continuity, operating resistance and lifetime are unmeasured. |
 | [Kamoer cartridge and cap](../reference/kamoer-kphm400/physical-fit.json) | Both pumps held firmly with screws tightened; no vertical play reported. | The report does not independently identify the bearing surfaces or establish operating vibration, handling capacity or the complete four-tube mechanism's performance. |
-| [Enclosure grips](../printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2. | Loaded lifting, grip retention force and repeated flexing are unmeasured. |
+| [Grip receiver and cover coupons](../printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2 for the identified coupon articles. | This result does not qualify the production enclosure's bare gripping surfaces. Current handhold finish, cleanup, comfort and loaded lifting remain unmeasured. |
 | [Current back top on Mark1](../printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/physical-result.json) | Rejected on 2026-10-09: Derek reports impracticable removal of every normal support and intends to discard the article. | Finished fit and surface qualification are unassessed; native removal access does not establish usable cleanup. |
 | [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The broad PET-GF walls provide accepted give, spring, fit and retention. | Retention force and cycle life are unmeasured. A differently proportioned flexure needs its own result. |
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
@@ -414,7 +414,7 @@ ruthex table is not a manufacturer specification for these inserts. Keep that di
 when interpreting the enclosure's native audit.
 
 The [native enclosure audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
-checks 35 additional stations in the six exported enclosure pieces, including the four
+checks 35 additional stations in its six bound enclosure exports, including the four
 M1.4 anchors under their separately stated application rule. It checks complete insert
 stock, fixed supplier pilot dimensions, full-depth open pilots, blind relief and caps,
 whole-knurl installation access, the whole section of every Y-seam knuckle and screw-tip

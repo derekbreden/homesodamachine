@@ -162,11 +162,10 @@ def main(part):
     path=job/'ready/plate_1.gcode';path.write_bytes(gc)
     part,=prep['parts'];assert part['rotation_x_degrees']==0 and part['watertight'] and part['body_count']==1
     shift=np.array(part['plate_translation_mm'])-part['source_center_mm']
-    slots=[box(*s) for s in prep['slot_bounds_cad_xy_mm']]
-    roof=prep['slot_roof_cad_z_mm'];floor=prep['slot_floor_cad_z_mm']
+    roof=prep['handhold_roof_cad_z_mm']
     bounds=np.array([[np.inf,np.inf],[-np.inf,-np.inf]])
-    first=[];second=[];roofroads=[];near_support=defaultdict(list);near_model=defaultdict(list);features=defaultdict(int);crossings=defaultdict(list)
-    intrusion=[0.,0.];support_count=0
+    first=[];second=[];near_support=defaultdict(list);near_model=defaultdict(list);features=defaultdict(int);crossings=defaultdict(list)
+    support_count=0
     station_y=(185. if piece=='front' else 235.)+shift[1]
     def bead(r,cad=False,pad=0.):
         delta=shift[:2] if cad else 0.
@@ -181,15 +180,12 @@ def main(part):
         if r['feature'].startswith('Support'):
             support_count+=1
             if roof-7<=z<=roof+9.1: near_support[z].append(r)
-            if floor+.001<z<roof:
-                for i,slot in enumerate(slots):intrusion[i]+=bead(r,True).intersection(slot).area
         elif r['object']==1901:
             if roof-8<=z<=roof+10.5:near_model[z].append(r)
             model_bounds=np.array(part['plate_bounds_mm'])[:,:2]
             assert np.all(p>=model_bounds[0]-.2) and np.all(p<=model_bounds[1]+.2),('extrusion outside source bounds',r)
             if abs(r['layer']-.2)<.001:first.append(r)
             if abs(r['layer']-.44)<.001:second.append(r)
-            if roof<z<roof+.30:roofroads.append(r)
             if r['feature'] in ('Inner wall','Outer wall','Overhang wall'):
                 x1,y1=r['a'];x2,y2=r['b']
                 if min(y1,y2)<=station_y<max(y1,y2):
@@ -197,15 +193,6 @@ def main(part):
                     if x<-93.5:crossings[r['layer']].append(float(x))
     assert support_count>0
     margin=float(min(*bounds[0],325-bounds[1,0],320-bounds[1,1]));assert margin>0,(margin,bounds)
-    roofcheck=[]
-    for slot in slots:
-        bridge=[r for r in roofroads if r['feature']=='Bridge' and bead(r,True).intersects(slot)]
-        assert len(bridge)>=6,len(bridge)
-        layer=min(r['layer'] for r in bridge)
-        cover=unary_union([bead(r,True) for r in roofroads if abs(r['layer']-layer)<.001])
-        fraction=cover.intersection(slot).area/slot.area
-        assert fraction>.95,fraction
-        roofcheck.append({'bridge_roads':len(bridge),'roof_layer_mm':layer,'coverage_fraction':fraction})
     assert first and second
     firstshape=unary_union([bead(r) for r in first])
     wall_support=[(r,bead(r).intersection(firstshape).area/bead(r).area)
@@ -278,8 +265,7 @@ def main(part):
         rows=[(z,len(v)) for z,v in crossings.items() if lo<z<hi]
         assert rows and all(n==count for z,n in rows),(lo,hi,rows)
         samples.append({'print_z_band_mm':[lo,hi],'wall_count':count,'layers_checked':len(rows)})
-    print(json.dumps({'printer':printer,'slot_support_intrusion_mm2':intrusion,'slot_roofs':roofcheck,'wall_counts':samples}),flush=True)
-    assert max(intrusion)<.001,intrusion
+    print(json.dumps({'printer':printer,'wall_counts':samples}),flush=True)
     tri=np.load(job/'support-review-geometry.npz')['exterior_triangles'];low=tri[:,:,2].min(axis=1);high=tri[:,:,2].max(axis=1)
     near_hits=[]
     for z,rr in near_support.items():
@@ -342,8 +328,7 @@ def main(part):
         'production_support_review_source_sha256':sha(ROOT/'hardware/printed-parts/enclosure/bottom-grip-print/verify.py'),
         'physical_surface_fit_or_strength_qualification':False,
         'launch_state':'queued_awaiting_printer_availability_and_fresh_preflight',
-        'requested_z_trim_mm':trim,'emitted_g29_1_z_mm':trims,'slot_support_intrusion_mm2':intrusion,
-        'slot_roof_checks':roofcheck,'first_two_layer_heights_mm':layers[:2],
+        'requested_z_trim_mm':trim,'emitted_g29_1_z_mm':trims,'first_two_layer_heights_mm':layers[:2],
         'second_layer_minimum_wall_support_fraction':overlap,'layer_spans':spans,'wall_scope_checks':samples,
         'established_floor_scarf_reference':reference_foot,
         'support_roads_near_exterior_count':sum(len(v) for v in near_support.values()),
@@ -353,7 +338,7 @@ def main(part):
         'estimate_seconds':plate['total_predication'],'layers':len(layers),'filaments':plate['filaments'],
         'launch_options':{'timelapse':'On','bed_leveling':'On','flow_calibration':'Auto','nozzle_offset_calibration':'Auto'},'submitted':False}
     (out/'native-check.json').write_text(json.dumps(report,indent=2)+'\n')
-    print(json.dumps({k:report[k] for k in ['status','printer','estimate_seconds','layers','slot_support_intrusion_mm2','slot_roof_checks','wall_scope_checks','minimum_plate_margin_mm']}),flush=True)
+    print(json.dumps({k:report[k] for k in ['status','printer','estimate_seconds','layers','wall_scope_checks','minimum_plate_margin_mm']}),flush=True)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('part',choices=('front-bottom','back-bottom'))

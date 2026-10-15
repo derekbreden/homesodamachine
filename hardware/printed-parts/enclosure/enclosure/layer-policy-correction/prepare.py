@@ -1,7 +1,7 @@
 """Prepare immutable enclosure layer-policy revisions; no printer control.
 
 Run one part at a time. Preparation retains the current frozen exports and the
-production grip support lanes. Native slicing is a separate explicit step.
+production handhold support lanes. Native slicing is a separate explicit step.
 """
 from __future__ import annotations
 
@@ -129,12 +129,12 @@ def prepare_pump(project):
 
 def prepare_bottom(part, project, directory, trim):
     # These imports construct no geometry exports. They provide the same current
-    # grip datums, native mesh writer and declared solid-host boxes as production.
+    # handhold datums, native mesh writer and declared solid-host boxes as production.
     sys.path[:0] = [str(ENC), str(ROOT / "hardware/printed-parts/faucet")]
     import enclosure as shell
     import refresh_print_project as writer
     import numpy as np
-    from shapely.geometry import Polygon, box
+    from shapely.geometry import Polygon
     from shapely.ops import unary_union
 
     shared_path = ENC / "support-bottom-gap/prepare_prints.py"
@@ -170,21 +170,18 @@ def prepare_bottom(part, project, directory, trim):
                                for t in triangles])]
     normals = np.cross(points[:, 1]-points[:, 0], points[:, 2]-points[:, 0])
     nz = normals[:, 2]/np.maximum(np.linalg.norm(normals, axis=1), 1e-30)
-    grip = shell.grip_interface()
-    roof = grip.ROOF
+    roof = -shell.floor_t+shell.handhold_height+shell.fits.supported_surface
+    _flank, cap = shell._band_x(shell.appliance_width/2, -1)
+    inner_face = cap+shell.handhold_wall
     piece = part.split("-", 1)[0]
-    mouth = shell._handhold_y()[0 if piece == "front" else 1]
-    ymin, ymax = ((mouth-shell.handhold_wall-.01, mouth+.01) if piece == "front"
-                  else (mouth-.01, mouth+shell.handhold_wall+.01))
-    half = grip.WING_SPAN/2+grip.WING_END_AIR
-    slots = [box(side*grip.X_CENTER-half-.001, ymin,
-                 side*grip.X_CENTER+half+.001, ymax) for side in (-1, 1)]
-    blocked = unary_union(slots)
+    # Keep automatic supports on the integral ceiling and its inner corners;
+    # only the actual exterior R6 band receives the show-surface blocker.
+    show_inner = shell.appliance_width/2-shell.handhold_edge_r
     flat = ((np.max(np.abs(points[:, :, 2]-roof), axis=1) < .0001) & (nz < -.99)
-        & (np.min(np.abs(points[:, :, 0]), axis=1) >= grip.INNER_FACE-shell.handhold_wall-.001)
+        & (np.min(np.abs(points[:, :, 0]), axis=1) >= inner_face-shell.handhold_wall-.001)
         & (np.min(points[:, :, 1], axis=1) >= shell._handhold_y()[0]-shell.handhold_wall-.12)
         & (np.max(points[:, :, 1], axis=1) <= shell._handhold_y()[1]+shell.handhold_wall+.12))
-    exterior = ((np.min(np.abs(points[:, :, 0]), axis=1) >= grip.INNER_FACE-.001)
+    exterior = ((np.min(np.abs(points[:, :, 0]), axis=1) >= show_inner-.001)
         & (np.min(points[:, :, 1], axis=1) >= shell._handhold_y()[0]-shell.handhold_corner_r-.01)
         & (np.max(points[:, :, 1], axis=1) <= shell._handhold_y()[1]+shell.handhold_corner_r+.01)
         & (np.min(points[:, :, 2], axis=1) >= roof-shell.handhold_edge_r-.01)
@@ -192,18 +189,16 @@ def prepare_bottom(part, project, directory, trim):
         & (nz < -.00001) & ~flat)
     assert flat.sum() > 0 and exterior.sum() > 0
     flat_area = unary_union([Polygon(p[:, :2]) for p in points[flat]])
-    halo = 1.0
-    permitted = flat_area.buffer(-.8).difference(blocked.buffer(halo, join_style=2))
-    blocked_area = slot_area = 0.
+    permitted = flat_area.buffer(-.8)
+    blocked_area = 0.
 
     def encode(p, depth=0):
-        nonlocal blocked_area, slot_area
+        nonlocal blocked_area
         polygon = Polygon(p[:, :2])
         if permitted.covers(polygon):
             return "0"
         if not permitted.intersects(polygon) or depth == 10:
             blocked_area += polygon.area
-            slot_area += polygon.intersection(blocked).area
             return "8"
         a, b, c = p
         ab, bc, ca = (a+b)/2, (b+c)/2, (c+a)/2
@@ -215,7 +210,6 @@ def prepare_bottom(part, project, directory, trim):
             triangle.set("paint_supports", "8")
         elif isflat:
             triangle.set("paint_supports", encode(pts))
-    assert 30 < slot_area < 35, (slot_area, blocked_area)
     members[item["member"]] = writer.xml(document)
     np.savez_compressed(directory / "support-review-geometry.npz", exterior_triangles=points[exterior])
     model = ET.fromstring(members["3D/3dmodel.model"])
@@ -228,18 +222,17 @@ def prepare_bottom(part, project, directory, trim):
     write_archive(project, members)
     report.update(
         piece=piece, settings_sha256=hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest(),
-        slot_bounds_cad_xy_mm=[list(s.bounds) for s in slots], slot_roof_cad_z_mm=roof,
-        slot_floor_cad_z_mm=grip.BACK-grip.WING_THICK-grip.BEARING_AIR,
+        handhold_roof_cad_z_mm=roof,
         support_review_geometry_sha256=sha(directory / "support-review-geometry.npz"),
-        blocked_slot_area_mm2=slot_area, blocked_ceiling_edge_area_mm2=blocked_area-slot_area,
+        blocked_ceiling_edge_area_mm2=blocked_area,
         painted_exterior_triangles=int(exterior.sum()), painted_flat_triangles=int(flat.sum()),
         six_wall_print_z_mm=[35., 41.5], fine_flute_runout_print_z_mm=None,
         layer_ranges_mm=[dict(object_index=1, min_z=35., max_z=41.5, layer_height=.24,
                               wall_loops=6, reason="Additive expanding upper handhold transition.")],
-        flat_ceiling_support_inset_mm=.8, slot_support_halo_mm=halo,
+        flat_ceiling_support_inset_mm=.8,
         solid_host_regions=hosts, solid_host_region_record_sha256=host_digest,
         source_sha256={relative(p): sha(p) for p in (PROFILE, source,
-            ENC / f"{name}.step", ENC / "_grip_interface.py", ENC / "enclosure.py",
+            ENC / f"{name}.step", ENC / "enclosure.py",
             ENC / "_enclosure_interface.py", ROOT / "hardware/printed-parts/cadlib/overhang_round.py",
             ROOT / "hardware/printed-parts/cadlib/flute_skin.py", HOST_RECORD, shared_path,
             ROOT / "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py")},

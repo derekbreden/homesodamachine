@@ -3448,7 +3448,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
 #
 #   * THE LOWER STACK runs from the handhold ceiling to the lip rim: back-bottom, front-bottom,
 #     back-bottom, front-bottom, and over the rim back-top's HUB, the knuckle the lower rod's
-#     insert is set in. The rod drives up from the handhold ceiling, under the grip cover, so
+#     insert is set in. The rod drives up from the exposed handhold ceiling, so
 #     tightening it pushes back-bottom up into front-bottom and pulls back-top down onto it: both
 #     bottoms and the back column's Z seam are clamped at the corner.
 #   * THE UPPER STACK stands under the roof, over the tap-water line on the −X flank: front-top's
@@ -3740,17 +3740,9 @@ def _handhold_y():
 
 
 def grip_interface(inner=None):
-    """The accepted insert and receiver, referenced to this enclosure's floor."""
+    """Reference geometry for the recorded grip-cover trials."""
     return _grip_interface.GripInterface(
         sys.modules[__name__], floor_z=inner[4] if inner is not None else 0.0)
-
-
-def grip_covers(box):
-    """Both removable grip inserts, seated across the connected bottom seam."""
-    grip = grip_interface(box.inner)
-    cover = grip.cover()
-    return {f"grip-cover-{name}": grip.placed(cover, side)
-            for name, side in (("west", -1), ("east", 1))}
 
 
 def _handhold_cutter(inner, x_ext, sx):
@@ -3856,7 +3848,7 @@ def _handholds(solid, inner, y_joint, y_side):
         solid = solid.fillet(handhold_edge_r, rim)
         solid = roof_rim(before, solid, x_ext, sx, y0, y1, roof,
                          handhold_corner_r, handhold_edge_r)
-    return grip_interface(inner).apply_receiver(solid, y_side)
+    return solid
 
 
 # --- bottom↔top joint: the HOOKED SLIDE --------------------------------------
@@ -9106,9 +9098,6 @@ def _handhold_bound(pieces, box):
         xa, xb = sorted((cap, tangent))
         posts = _ybox(xa, xb, y0 - handhold_wall, y0, bed, crown).fuse(
             _ybox(xa, xb, y1, y1 + handhold_wall, bed, crown))
-        grip = grip_interface(inner)
-        for slot in grip.receiver_slots():
-            posts = posts.cut(grip.placed(slot, -1 if sx > 0 else 1))
         post_missing = missing(posts).Volume()
         readings.append(("west" if sx > 0 else "east", blocked, wall_missing,
                          roof_missing, post_missing))
@@ -9118,7 +9107,7 @@ def _handhold_bound(pieces, box):
         "Both handholds open through the floor and keep their lifting sections and inner walls",
         ok,
         f"two {handhold_length:g} × {handhold_height:g} mm bottom openings at Y {handhold_y:g}",
-        f"clear upward entry, {handhold_wall:g} mm inner walls, {handhold_roof:g} mm roofs and end posts around the grip-wing slots",
+        f"clear upward entry, {handhold_wall:g} mm inner walls, {handhold_roof:g} mm roofs and complete end posts",
         [f"{side}: blocked entry {blocked:.4f} mm³; missing inner wall {wall_missing:.4f} mm³; "
          f"missing roof {roof_missing:.4f} mm³; missing end posts {post_missing:.4f} mm³"
          for side, blocked, wall_missing, roof_missing, post_missing in readings]))
@@ -9228,8 +9217,6 @@ def build_pieces(box):
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
-    for name, cover in grip_covers(box).items():
-        assy.add(cover, name=name, color=PIECE_COLORS["front-bottom"])
     return pieces, assy
 
 

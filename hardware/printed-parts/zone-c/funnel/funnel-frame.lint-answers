@@ -1,6 +1,13 @@
-[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified.
+[ceiling] These two front rail bearings retain the frame against vertical lift in front-top's sliding receivers. Each square bearing continues the production hooked profile and opens toward the outer flank and rear Y entrance for support removal before assembly. Tree(auto)/Default supports remain the starting treatment for these functional flats; current slice placement, release effort and finished fit require their own scoped review. The native front-rail insertion and installed clearances are recorded in integration-review/rail-motion-check.json.
+alternatives: A sloping bearing would cam the frame upward under lift instead of retaining it on a square face. Thickening the rail into its mating channel would consume the defined running clearance. A rear rail pair would occupy back-top's upper screw blocks; the frame uses its front pair and retains the full rear web beside those blocks.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=100.875 y=-10.571 z=16.200
-click: x=-100.875 y=-10.571 z=16.200
-click: x=100.875 y=47.074 z=16.450
-click: x=-100.875 y=47.074 z=16.450
+click: x=100.875 y=-10.696 z=16.200
+click: x=-100.875 y=-10.696 z=16.200
+
+[thin] These 1.540 mm nearest-surface readings run diagonally from the narrowed rear body's upper outer corner to the front roof surround's inner end corner. In machine coordinates the east pair is (91.25, 200.098, 348.978) to (89.75, 199.75, 349.0); frame coordinates subtract Y164.55 and Z299.9. Native horizontal sections through the rear pick retain X82.8..91.25, or 8.45 mm of stock, through Z346..348.978. Immediately above Z349 that rear region is empty; ahead of Y199.75 the upper surround retains X89.75..98.25, or 8.50 mm. The short diagonal is real material at the meeting of those two broad sections; it does not identify a finite 1.5 mm rear wall. The complete 3 mm brim-bearing plane remains beneath the silicone. The source-bound native corner sections are recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
+alternatives: Widening the rear body enters back-top's corner-block passage, which retains 0.25 mm running clearance. Removing the bearing below Z349 would reduce the agreed full silicone-brim support. A cut confined to the rear above Z349 removes no material there. The two broad sections retain their square functional ends rather than adding a local blend around the diagnostic's diagonal.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=-91.250 y=35.548 z=49.078
+click: x=-89.750 y=35.200 z=49.100
+click: x=91.250 y=35.548 z=49.078
+click: x=89.750 y=35.200 z=49.100

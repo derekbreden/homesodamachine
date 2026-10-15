@@ -1,7 +1,7 @@
-"""Accepted curved grip receiver and flat-wing insert geometry.
+"""Reference curved grip receiver and flat-wing cover geometry.
 
-The enclosure passes its dimensions to this interface. Production walls and
-receiver coupons use the same reliefs, slots, cover and assembly placement.
+The recorded coupon and cover trials use these reliefs, slots and placement.
+The production enclosure has integral exposed handholds.
 """
 import cadquery as cq
 from overhang_round import transition

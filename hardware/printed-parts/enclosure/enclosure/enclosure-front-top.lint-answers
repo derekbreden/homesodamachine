@@ -68,3 +68,29 @@ click: x=99.850 y=169.000 z=261.400
 [ceiling] This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/h2c-v20/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=82.302 z=196.179
+
+[ceiling] These are front-top's upper Y-seam block undersides, above the tap-water and flavor-line corridor. The full block section surrounds the insert above this face. Tree(auto)/Default support is accessible from the open interior before assembly; physical cleanup remains unqualified.
+alternatives: A corbel below the block enters the existing tube corridor. Raising the block shortens the insert host and its closed cap. Retain the flat underside and its open support access.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-95.000 y=207.400 z=272.500
+click: x=95.000 y=207.400 z=272.500
+
+[ceiling] These faces are the roof of the clearance for back-top's lower anchor hub. The hub's top is Z195.05 and this roof is Z195.8, retaining the 0.75 mm running allowance for both supported faces while the back column telescopes into place. Support leaves through the open corner before assembly; this is not a statement of easy physical removal.
+alternatives: An added ramp below the roof reduces the hub's travel clearance. Cutting a slope above it removes the stock that joins this corner to the rail storey. Keep the full flat clearance roof.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-101.375 y=208.900 z=195.800
+click: x=101.375 y=208.900 z=195.800
+
+[ceiling] The two flat faces at Z306.9 are the remaining front funnel receivers' hooked-rail feet. Their full mating profile retains the frame against lifting. Support is accessible from the inboard opening and the Y insertion mouth before installing the frame. Use Tree(auto)/Default; current-part support cleanup remains unqualified.
+alternatives: Sloping these bearing faces changes the hooked rail profile; extending them downward reduces the frame's entry clearance. A rear receiver pair occupies the upper screw blocks' space. Retain the front pair's full profile.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-101.125 y=155.260 z=306.900
+click: x=101.125 y=155.260 z=306.900
+
+[thin] These picks cross the corner where the funnel rail channel's outboard wall ends at |X|103.75, Y200, and the upper screw block's outboard face begins at |X|104.25. The 0.5 mm offset joins the complete flank fore of the seam and the complete block aft and below; it is not a freestanding 0.5 mm wall. The insert host and its full root are checked separately in heat-set-review/geometry-check.json.
+alternatives: Moving the channel out to the block face widens the production rail fit by 0.5 mm. Moving the block face inward changes its running fit against back-top and creates another step at that interface. Preserve the two functional boundaries and their joined stock.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-104.250 y=200.029 z=299.301
+click: x=-103.750 y=200.000 z=299.650
+click: x=104.250 y=200.029 z=299.301
+click: x=103.750 y=200.000 z=299.650

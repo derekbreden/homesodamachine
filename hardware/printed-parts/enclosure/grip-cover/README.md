@@ -1,133 +1,31 @@
-# Bottom grip snap covers
+# Grip receiver and cover coupon records
 
-Two identical black PET-GF strips cover the flat, supported lifting ceilings of
-the enclosure's bottom handholds. Each strip crosses the connected front/back
-seam. Its two flat end wings fit through-slots in the bottom halves' existing
-end walls. The strip has a smooth finger face, R0.6 touch edges, and a flat back.
+The [physical acceptance](physical-acceptance.json) records easy support removal and
+assembled receiver/cover fit for the identified H2C and Mark2 coupon articles. The
+record binds their source meshes and print archives. It supplies no numerical
+lifting-load, retention-force or repeated-flexing result.
 
-The coupon assembly has **accepted support removal and fit**. The production
-bottom halves include the matching receiver slots and corner reliefs. Their
-full-size front and back coupons are cropped from those production solids.
-The enclosure and complete machine assemblies include both seated covers.
+The production enclosure uses its integral printed handhold ceilings as finger-contact
+surfaces ([handhold specification](../enclosure/README.md#handholds)). Current bare-surface
+finish, support cleanup, gripping comfort and loaded lifting are unqualified. Acceptance
+of a faucet underside or another printed surface does not establish those properties.
 
-The receiver's curved printed surface, support removal and assembled fit are
-[accepted](physical-acceptance.json). The [bridge trial](bridge-trial-v6/README.md)
-leaves the narrow end-wing slots unsupported and includes the enclosure's
-corrected seam clearance.
+The stored cover article is a 79.7 × 11.558 × 3.36 mm PET-GF strip with 2.4 mm end wings.
+Its recorded receiver slots and corner reliefs belong to the bound test geometry.
+The physical result establishes assembled fit; it does not establish bending the strip
+into a closed production enclosure.
 
-![Grip fully inserted in the connected receiver](seated.png)
+![Identified receiver and cover article](seated.png)
 
-[Inserted 3D view](https://homesodamachine.com/3d?file=printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step#step:printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step)
-· [Full enclosure assembly](https://homesodamachine.com/3d?file=manifold-layout%2Fenclosure-assembly.step#step:manifold-layout%2Fenclosure-assembly.step)
-· [Section through the catches](section.png)
+The records retain each test's scope:
 
-## Geometry
+- [Physical acceptance](physical-acceptance.json): H2C and Mark2 receiver/cover observations.
+- [Bridge trial](bridge-trial-v6/README.md): identified receiver slices and support placement.
+- [Mark2 plate](mark2-trial-v4/README.md): the three-piece coupon archive and launch record.
+- [Second H2C cover article](h2c-second-insert/README.md): its bound preparation and launch.
+- [Geometry check](geometry-check.json): the stored cover and receiver geometry.
+- [Production-surface comparison](production-integration.json), [assembly snapshot](assembly-integration.json)
+  and [publication snapshot](publication-check.json): the source and artifact hashes each report identifies.
 
-| Feature | Dimension |
-|---|---:|
-| Cover body | 79.7 × 11.558 × 3.36 mm |
-| Overall length including wings | 84.5 mm |
-| East cover's X extent | 93.650–105.208 mm |
-| Slot mouth planes | Y174.000 and Y254.000 mm |
-| Each end wing | 2.40 mm reach × 5.00 mm span × 1.68 mm thick |
-| Body end clearance | 0.15 mm each |
-| Wing side clearance | 0.15 mm each |
-| Wing tip exit | Open through the 3 mm end wall |
-| Wing retaining-face clearance | 0.45 mm |
-| Nominal back clearance at the supported ceiling | 0.25 mm |
-| Structural roof above the liner | 12.00 mm |
-| Finger height at the lower retention stop | 31.19 mm |
-| Finger height with the cover against the roof | 31.89 mm |
-
-The flat-wing section and entry bevel follow the accepted nameplate pattern.
-Assembled fit is accepted; repeated-flexing recovery and retention force are unmeasured.
-The insert reaches the flat ceiling's outer edge at the foot of the additive
-exterior transition. Its inner edge and both ends have 0.15 mm clearance; the
-outer edge is free. Local reliefs clear the inside R6 shoulders beneath the roof
-at the two ends and continue through the exterior. The cover's R0.6 touch
-rounds finish the finger face.
-
-The receiver samples end at the inboard face of the complete 3 mm handhold wall.
-The wall's square front/back ends retain that thickness. The back's seam tab
-has 0.50 mm below the front's supported roof: 0.25 mm running clearance plus
-0.25 mm rough-surface allowance. The adjoining floor scarf has 0.25 mm lateral
-clearance from the back wall. These gaps come from the shared enclosure source.
-
-Upward finger force seats the broad cover back against the existing roof. The
-end wings retain the cover against falling out. Their slots begin on the existing
-end-wall planes, without ledges projecting into the finger opening. The slots
-pass through the end walls for access from either side. The complete 12 mm roof,
-inner wall, square wall joint and screw region remain intact.
-
-## Assembly and removal
-
-Join and fasten the enclosure halves first. Tuck one wing into its slot, bow the
-strip downward enough to engage the other wing, and release it into the seat.
-The accessible outer long edge provides a place to pull the centre downward for
-removal. Remove both covers before separating the bottom enclosure halves.
-Remove the receiver supports while the halves are separate. The ceiling mat
-withdraws toward the open seam end of each handhold. The narrow wing slots use
-unsupported bridges; support removal and assembled fit are physically accepted.
-
-## Print and checks
-
-The cover prints with its back and both wings on the bed and its finger face
-upward. The two receiver coupons print floor-down, in the bottom halves'
-production orientation. They use the shared PET-GF tree supports. The first
-layer is 0.20 mm; ordinary layers are 0.24 mm. The cover's top R0.6 uses 0.08 mm
-layers. The receivers' expanding R6 transition uses six walls locally at 0.24 mm,
-with the saved speeds, wall order and 15% infill/wall overlap.
-Elephant-foot compensation is zero, preserving the full first-layer footprint
-under the flat wings and second-layer perimeter.
-
-[Geometry checks](geometry-check.json) read the exported solids and meshes:
-each part is valid and connected, all printable meshes are closed, the complete
-roof and joint are retained, no receiver material is added, the cover reaches
-X105.195, all four slot mouths lie on Y174/254, the halves do not overlap, and
-both wings remain captured at the limits of the designed clearance. The seated
-cover clears both receivers throughout its play. All four outer corner reliefs
-are empty beneath the roof, through the exterior edge.
-
-The [production integration check](production-integration.json) compares both
-handholds on each production bottom with the accepted receiver geometry and
-records the production STL hashes. The [assembly check](assembly-integration.json)
-records both covers, the current bottom surfaces, and the unchanged surfaces of
-the other machine components. The [publication check](publication-check.json)
-records the matching live payloads and the production and coupon mesh lint.
-
-The [native print check](print-check.json) records the exact archive, sources,
-cover layers, bed contact and first-to-second-layer bead overlap. The
-[support audit](support-audit.json) includes the coupons' short support bodies
-and maps their contacts to the CAD frame. The [Mark2 trial](mark2-trial-v4/README.md)
-records the printed three-piece plate and accepted curved receiver surface. The
-current coupon slices and their support exclusion checks are recorded in
-[bridge-trial-v6](bridge-trial-v6/README.md). Support removal and assembled fit
-are physically accepted. Quantitative retention force, repeated-flexing recovery
-and lifting-load results are unreported.
-
-The [single-insert H2C print](h2c-second-insert/README.md) records the second
-production cover, its accepted layer schedule, +0.18 mm Z trim, and submitted job.
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/prepare_print.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/verify_print.py
-```
-
-[`check_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/check_geometry.py) is in Git at `9884d0e7f4`.
-
-After materializing the production bottoms, refresh the full machine's named
-bottom solids and covers with:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/scripts/materialize_grip_assembly.py
-tools/cad-venv/bin/python tools/publish_now.py
-```
-
-`grip-cover.stl` is the interchangeable strip. `grip-receiver-front.stl` and
-`grip-receiver-back.stl` are the full-size receiver samples. The STEP views show
-the seated grip, exploded grip, section and connected production bottom halves.
-The `grip-candidate-*-bottom` view names hold copies of the corresponding
-production solids. `_grip_interface.py` supplies the shared receiver cuts,
-cover shape and placement. The assembly names are `grip-cover-east` and
-`grip-cover-west`, so each insert can be selected or hidden independently.
+The trial generators and frozen archives remain beside these records. Their receiver
+geometry, support exclusions and cover placement are specific to those articles.

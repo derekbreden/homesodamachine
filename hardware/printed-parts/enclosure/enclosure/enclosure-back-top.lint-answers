@@ -123,13 +123,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.970 y=466.140 z=270.953
 click: x=29.970 y=466.140 z=270.953
 
-[ceiling] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-101.125 y=215.346 z=315.600
-click: x=101.125 y=215.346 z=315.600
-click: x=-101.125 y=205.072 z=299.650
-click: x=101.125 y=205.072 z=299.650
-
 [step] The rounded foam-cap pocket ends at Y465.55, 0.25 mm behind the surrounding Y465.3 interior field. That offset is the cap's XY running clearance, bounded to Z248..253.4. The native pocket floor has 3.75 mm of continuous backing across its flat face, and at least 3.5 mm across its entire rectangular bounds; forward-expansion-check.json records both stock witnesses. This is an exposed clearance step, not a 0.25 mm wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=0.000 y=465.550 z=250.700
@@ -170,3 +163,21 @@ click: x=-40.710 y=464.340 z=319.734
 [ceiling] The DATA mouth's 28 x 3.36 mm locating floor retains 1.5 mm of native stock across its complete 94.08 square mm face, with zero missing witness volume in data-ring/fit-check.json. The roof-down print receives support through the empty rear-facing aperture. The current native archive's nearest interface road midplane is 0.5527 mm below the exact floor; its 0.24 mm layer places the nominal top 0.4327 mm away. Drain-readiness/reviews/rear-wall-lint-witness.json binds these actual support roads to the complete finite floor. Remove support through the aperture before seating the DATA plate and jack. Finished fit and cleanup effort remain physical observations.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=469.620 z=291.217
+
+[sliver] These 0.75 mm-wide front returns close the difference between the X104.5 nominal interior skin and X103.75 rail-channel wall at Y219.8. Their Z168.70..175.05 height bounds the channel and lower hub transition. The finite return is backed toward the exterior by the complete wall, with at least 3 mm behind its most outboard point; native 3.75 mm-wide wall witnesses immediately aft of each return have no missing material. This is the width of a clearance return, not a separate 0.75 mm wall. The source-bound witnesses are recorded in y-seam-plain-review.json.
+alternatives: Filling the channel to make this exposed strip wider consumes the rail's running clearance. Moving the channel's standing wall changes the mating foot and closed stop together. The existing return keeps both datums and the complete exterior wall behind them.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.125 y=219.800 z=171.875
+click: x=104.125 y=219.800 z=171.875
+
+[ceiling] These Z195.05 flats are the first printed faces of the lower screw-anchor blocks on the ceiling-down part. Each block continues into the flank and retains the lower M5 insert's complete host and 6.30 mm blind cap. Tree(auto)/Default supports can approach through the empty front seam mouth and leave there before assembly. Actual support placement, release effort and printed fit remain unqualified.
+alternatives: Growing a support-free corbel above the block would enter front-top's clearance roof, whose 0.75 mm gap must remain open during the assembly slide. Cutting the flat back to a slope would spend the required stock over the blind pocket. A continuous post to the ceiling would occupy the service and frame region between the two screw stacks.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-97.500 y=209.900 z=195.050
+click: x=97.500 y=209.900 z=195.050
+
+[ceiling] The two Z347 U-pocket floors are the upper screws' flat washer bearings. Each complete 91.37 square mm native floor retains 3 mm of continuous stock beneath it, and the central printed passage remains Ø5.6. The inward-open access removes the unnecessary thin cup wall while the washer bears on the retained flat floor. On the ceiling-down print this floor needs support through the 8 mm-deep roof opening; support also has an inward route before the funnel frame is installed. Current support paths and cleanup effort remain separate slice or physical observations.
+alternatives: A sloped floor would remove the flat washer bearing. Filling the opening blocks the screw head; closing its inward side adds a thin enclosure wall without improving the floor. Moving the floor changes the ordinary M5×60 screw's engagement and blind-tip clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-97.450 y=208.900 z=347.000
+click: x=97.450 y=208.900 z=347.000

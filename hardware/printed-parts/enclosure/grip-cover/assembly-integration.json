@@ -1,24 +1,20 @@
 {
   "status": "pass",
-  "covers": [
-    "grip-cover-east",
-    "grip-cover-west"
-  ],
+  "covers": [],
   "bottom_surfaces": [
     "enclosure-back-bottom",
     "enclosure-front-bottom"
   ],
-  "unchanged_viewer_surfaces": 344,
+  "unchanged_viewer_surfaces": 363,
   "source_sha256": {
-    "hardware/scripts/materialize_grip_assembly.py": "4090098a554ea81a57aee1723350869dcfa3833c8c67662d6faa7bc1814419f7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "937a47992815c742b303cebeec5076dc3508d3d6094550c097877bdb58c4c395",
-    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
-    "hardware/manifold-layout/enclosure_assembly.py": "cdd311e282d2106dddad00037ff3ef7d658be967ab7c5c545ab078ec4cedd025",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "4bf0c6161ef5750b844105a2530154f2a685a79d337703bb447e2a678db950fa",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247"
+    "hardware/scripts/materialize_grip_assembly.py": "80e38690668151332fbf91ef4d1e9fe841583fdf7a38f49f25908c94d73f8a80",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
+    "hardware/manifold-layout/enclosure_assembly.py": "ac90658824cdc132dfd66b611eb8a95657e7aa8eaa1b85ca92a02280cc61ce1c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "522419299976b4e69ead4db71b204984d36208c27ee468bfc9e0f8b6a5699e27",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2857f1f6a5f9f3efcd5d2816640a27d1c7ac4e2ac3ba4f9b245fddb498c72221"
   },
   "artifacts_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "ec4c20a2d4aacf22876b31ec6f83a603acde9e9553ef9ae2570e9e78f17c67f7",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "aa6708ec4c95893294851a5c04c3df77ca9473e160fe936bcced1cc7e40b06cf"
+    "hardware/manifold-layout/enclosure-assembly.step": "5b99d45ca2886f154b8b176d471c6d7d384b5e515c05e059b73c36babf803b72",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7be8264741ffdac434929fb465547e53bab707743c5953e7890e6fe544db3011"
   }
 }

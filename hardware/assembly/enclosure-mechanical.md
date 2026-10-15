@@ -54,6 +54,11 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm
 
 ### 1. Stage the printed pieces
 
+The bottom pieces' printed lifting ceilings are the finger-contact surfaces of the
+handholds. Remove loose support material before closing the two halves. The current
+bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
+results.
+
 Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four circular tube passages in front-top's fixed release plate. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
 Front-top and the lower pump cradle each arrive with one RC62 enclosed during
@@ -199,20 +204,24 @@ The box closes in two slides and four screws, and everything in the service bay 
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's scarfed tongue closes inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The core is seated when the motion stops: its aft face on the rear seam band, its front corners already in front-bottom's pocket blocks, the brackets' feet flat on its cap — 0 by intent. **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
-3. **Four screws, one washer on each.** With the handhold's grip cover off and the
-   flank supported over the bench edge, insert an [M5 × 150](LOWER_ROD) upward through each
-   handhold ceiling and the printed blocks into back-top's anchor block. Insert an
-   [M5 × 60](UPPER_ROD) downward through each roof recess into front-top's upper block.
+3. **Four screws, one washer on each.** Support the flank securely over the bench edge.
    Allow about 120 mm clear below the enclosure for the lower screws to enter or withdraw,
-   and about 60 mm above the roof for the upper screws. Support the flank securely over
-   the bench edge for the lower pair, with both handhold covers removed.
-   Use one M5 flat washer directly under every screw head. The U-shaped head recesses
-   open toward the enclosure interior; each washer seats flat on its complete floor.
-   Push the screw through the printed clearance holes and start it in the cooled insert by fingers for several turns.
-   Put the long leg of a 4 mm hex key in the head and turn its short leg with thumb and
-   forefinger. Stop at the first distinct seating resistance, with the washer flat and head
-   free play removed. Leave the other gaps between blocks open; a screw must not pull a
-   binding slide home.
+   and about 60 mm above the roof for the upper screws.
+
+   **Place each lower washer first.** Tip the loose washer sideways by about 35° and guide
+   it up through the handhold into the open head pocket. Once it is inside, turn it flat
+   against the bearing floor and hold it there. Feed the [M5 × 150](LOWER_ROD) screw upward
+   through the washer and the printed blocks into back-top's anchor block.
+
+   For each upper station, drop a washer flat into its roof pocket and insert the
+   [M5 × 60](UPPER_ROD) screw downward through it into front-top's upper block. Each
+   U-shaped head pocket opens toward the enclosure interior. Start every screw in its
+   cooled insert by fingers for several turns. Put the long leg of a 4 mm hex key in
+   the head and turn its short leg with thumb and forefinger. Stop at the first distinct
+   seating resistance, with the washer flat and head free play removed. Leave the other
+   gaps between blocks open; a screw must not pull a binding slide home. The lower
+   washer placement and holding operation's practical ease remain unqualified.
+
    No installation torque or retained clamping force is established for these printed parts.
    The lower screws connect both bottom pieces to back-top; the upper screws connect the two
    tops and retain front-top on its sliding rails. The hooked rails retain each top vertically.
