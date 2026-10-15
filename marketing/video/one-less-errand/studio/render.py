@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+from timing import load_story
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
@@ -13,6 +14,9 @@ p.add_argument('--fps',type=int,default=24,help='Source cadence for product port
 p.add_argument('--pour-fps',type=int,default=24,help='Native cadence for moving fluid')
 p.add_argument('--width',type=int,default=1920)
 p.add_argument('--samples',type=int,default=32)
+p.add_argument('--timing',type=Path,help='Optional delivered picture edit')
+p.add_argument('--profile',default='story-loop',help='Native source-frame profile')
+p.add_argument('--out',type=Path,default=HERE/'out')
 p.add_argument('--chunk-frames',type=int,default=32,help='Maximum source frames per Blender process;0 renders a whole shot')
 p.add_argument('--shots',nargs='+',choices=['case','car','kitchen','shelf','repeat','question','hero','pour','serve'])
 p.add_argument('--fresh',action='store_true')
@@ -21,13 +25,20 @@ p.add_argument('--picture-only',action='store_true')
 p.add_argument('--finish-only',action='store_true')
 p.add_argument('--draft',action='store_true',help='Use the faster finishing encoder')
 a=p.parse_args()
-story=json.loads((HERE/'story.json').read_text())
-out=HERE/'out';out.mkdir(exist_ok=True)
-shots=[s for s in story['scenes'] if s['kind'] in ('studio','can')]
+story=load_story(a.timing)
+out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
+source_story=json.loads(json.dumps(story))
+for scene in source_story['scenes']:
+    scene['frames']=scene.get('source_frames') or scene['frames']
+    scene['end']=scene['start']+scene['frames']/24
+source_clock=out/'native-source-clock.json'
+source_clock.write_text(json.dumps(source_story,indent=2)+'\n')
+shots=[s for s in source_story['scenes'] if s['kind'] in ('studio','can')]
 rates={s['id']:a.pour_fps if s['id']=='pour' else a.fps for s in shots}
-frames=out/'frames'/f'story-loop-{a.fps}-{a.pour_fps}fps-{a.width}px-{a.samples}spp'
+frames=HERE/'out/frames'/f'{a.profile}-{a.fps}-{a.pour_fps}fps-{a.width}px-{a.samples}spp'
 (out/'render-plan.json').write_text(json.dumps({'width':a.width,'height':round(a.width*9/16),
  'samples':a.samples,'source_fps':rates,'frames':str(frames.relative_to(HERE)),
+ 'profile':a.profile,'source_clock':str(source_clock),
  'delivery_fps':24,'duration':story['duration'],'max_frames_per_process':a.chunk_frames},indent=2)+'\n')
 
 def run(command):
@@ -41,16 +52,19 @@ if not a.finish_only:
         if a.fresh and (frames/shot).exists():shutil.rmtree(frames/shot)
         scene=next(item for item in shots if item['id']==shot)
         stage=HERE/('can_stage.py' if scene['kind']=='can' else 'stage.py')
-        count=1 if scene.get('hold') else round((scene['end']-scene['start'])*rate)
+        count=1 if scene.get('hold') else round(scene['frames']*rate/24)
         chunk=a.chunk_frames if a.chunk_frames>0 else count
         for start in range(0,count,chunk):
             end=min(count,start+chunk)
             if all((frames/shot/f'{i:05d}.png').exists() for i in range(start,end)):continue
             run([a.blender,'--background','--factory-startup','--python-exit-code','1','--python',stage,'--',
                  '--shots',shot,'--fps',rate,'--width',a.width,'--samples',a.samples,'--frames-root',frames,
+                 '--story',source_clock,
                  '--start-frame',start,'--end-frame',end])
 if not a.picture_only:
     runtime=ROOT/'tools/video-venv/bin/python'
-    run([runtime,HERE/'audio.py'])
+    timing_args=['--timing',a.timing.resolve()] if a.timing else []
+    run([runtime,HERE/'audio.py','--out',out,*timing_args])
     run([runtime,HERE/'finish.py','--fps',a.fps,'--source-fps',f'pour={a.pour_fps}','--frames',frames,
+         '--audio',out/'mix-master.wav','--out',out,*timing_args,
          *(['--draft'] if a.draft else [])])

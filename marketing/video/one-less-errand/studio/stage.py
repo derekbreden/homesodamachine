@@ -32,6 +32,7 @@ parser.add_argument("--samples", type=int, default=24)
 parser.add_argument("--start-frame", type=int, default=0)
 parser.add_argument("--end-frame", type=int)
 parser.add_argument("--frames-root", type=Path)
+parser.add_argument("--story", type=Path, default=HERE/"story.json")
 parser.add_argument("--out", type=Path, default=HERE/"out")
 args = parser.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 args.out.mkdir(parents=True, exist_ok=True)
@@ -447,6 +448,8 @@ lighting = StudioLighting(scene, material, linear, GLASS_AT, beverage_objects)
 
 def draw(shot, t, duration):
     """Set the complete picture state from one absolute local time."""
+    offset = motion_offsets.get(shot, 0)
+    t += offset
     motion_duration = motion_durations.get(shot,duration)
     p = ease(t/max(motion_duration, .001))
     pouring = shot == "pour"
@@ -456,7 +459,7 @@ def draw(shot, t, duration):
     full_level = .0715
     flow_volume = sum(math.pi*radius*radius*speed for _, _, speed, radius, _ in streams)
     surface_area = math.pi*inner_radius(full_level)**2
-    level = full_level-flow_volume*max(0., duration-t)/surface_area if pouring else full_level
+    level = full_level-flow_volume*max(0., duration+offset-t)/surface_area if pouring else full_level
     beverage(t, level, pouring)
     if shot == "drink":
         pose(blend((.225, -.385, .145), (.221, -.377, .142), p),
@@ -475,10 +478,11 @@ def draw(shot, t, duration):
 
 
 defaults = {"drink": 2.125, "hero": 4.125, "pour": 4.375, "serve": 127/24}
-story_path = HERE/"story.json"
+story_path = args.story
 story = json.loads(story_path.read_text()) if story_path.exists() else {"scenes": []}
 timings = {item["id"]: item["end"]-item["start"] for item in story["scenes"] if item["id"] in defaults}
 motion_durations = {item["id"]: item.get("motion_duration",item["end"]-item["start"]) for item in story["scenes"] if item["id"] in defaults}
+motion_offsets = {item["id"]: item.get("motion_offset",0) for item in story["scenes"] if item["id"] in defaults}
 requested = args.shots or ["hero", "pour", "serve"]
 unknown = set(requested)-set(defaults)
 if unknown:
