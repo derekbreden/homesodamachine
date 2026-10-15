@@ -1,90 +1,38 @@
 # One Less Errand
 
-## Studio film
+[Watch the film on YouTube](https://youtu.be/o3l6Vcl-nLU).
 
-The [30-second studio film](studio/README.md) follows a glass of soda into a
-repeating routine of carrying cases home. A faucet pour gives the next glass
-a different ending. It combines physical can animation, current faucet CAD,
-a connected narration, original score, synchronized sound and English caption
-sidecars. Its source, render commands and review player live in [`studio/`](studio/).
+A 30-second Home Soda Machine film, 1920 × 1080 at 24 fps, with English captions.
+A glass of soda leads to a case in a cart, then the car, kitchen and refrigerator
+shelf. The cans disappear and another trip follows. Cold soda from the Sculpted
+faucet gives the next glass a different ending.
 
-## Published film
+The film is a product visualization. The integrated appliance is in development.
+The faucet uses current CAD; the drink imagery is illustrative. The script keeps
+one connected narration performance, with an original score and synchronized
+case contacts, pouring and carbonation.
 
-A 100-second animated Home Soda Machine film, 1920 × 1080 at 30 fps.
-One can becomes a case, a trip home, and a refrigerator shelf that empties
-again. A quiet kitchen pour leads into Sculpted and Industrial faucets in
-Black and White.
+## Source and rendering
 
-`story.json` holds the picture clock, narration placements, and caption phrases.
-`composition.js` supplies type, brand artwork, transitions, captions, and the
-poster. `errand-scenes.js` builds the opening objects and motion;
-`product-scenes.js` renders the current faucet and machine assembly meshes.
-Motion is deterministic and can be rendered at any timestamp.
+[`studio/README.md`](studio/README.md) describes the picture clock, sound,
+artwork provenance and resumable render workflow. The source and recording live
+in [`studio/`](studio/).
 
-The film uses the site's cobalt palette, Montserrat, warm neutral product
-scenes, and orange accents. The faucet display and pour are illustrative CG.
-
-## Audio
-
-`narration.json` contains the Gemini recording direction and script.
-`audio/narration.wav` is the Charon recording; `narration-words.json` contains
-its 109 word timestamps. `prepare-audio.py` places its phrases on the picture
-clock and writes `narration-timing.json` and the English captions.
-
-`sound-design.py` synthesizes the original score and effects. Their timing and
-levels are in `sound-manifest.json`. `mix-audio.py` ducks the score beneath the
-narration and masters stereo 48 kHz audio at approximately −17 LUFS with a
-−1.5 dBTP ceiling.
-
-## Render
-
-From the repository root, with the web and `tools/render` dependencies,
-FFmpeg, and `tools/video-venv` installed:
+From the repository root, with Blender, FFmpeg, the existing `tools/render`
+Node dependencies and `tools/video-venv` installed:
 
 ```sh
-tools/video-venv/bin/python marketing/video/one-less-errand/prepare-audio.py
-tools/video-venv/bin/python marketing/video/one-less-errand/sound-design.py
-tools/video-venv/bin/python marketing/video/one-less-errand/mix-audio.py
-node marketing/video/one-less-errand/render.mjs
-node marketing/video/one-less-errand/serve.mjs
+tools/video-venv/bin/python marketing/video/one-less-errand/studio/render.py
+node marketing/video/one-less-errand/serve.mjs --studio
 ```
 
-The output is `out/film.mp4`, H.264 with BT.709 color and AAC audio.
-`out/film.vtt` and `out/film.srt` are the caption sidecars; `out/poster.jpg`
-is the player poster. The preview server prints its local URL and offers the
-film, chapter navigation, and downloads.
+The delivered master is `studio/out/one-less-errand-story.mp4`, with matching
+`.srt` and `.vtt` captions. The player uses `studio/out/film.mp4` and offers
+playback, captions and downloads.
 
-`render.mjs --draft` writes a 720p, 15 fps review copy. `--stills --at 30,52.5,90`
-renders selected frames; `--start 46 --end 63 --output detail.mp4` renders a
-section. `errand-review.mjs` and `product-review.mjs` render the scene modules
-independently.
+## Publication
 
-## YouTube
-
-Published as [One Less Errand — Cold Soda on Tap at Home](https://youtu.be/WHO-V2DPTcs)
-on the Home Soda Machine channel, with English captions and 1080p playback.
-
-`publication.json` holds the upload for the Home Soda Machine channel: title,
-description with five chapter links, English captions, audience settings, and
-the SHA-256 of the film it describes. `thumbnail.jpg` is the 3840 × 2160 custom
-thumbnail, the film's mid-pour faucet on cobalt beside "ONE LESS ERRAND" set in
-Montserrat. `draw(t, shot, { cobalt: true })` in `product-scenes.js` sets any shot
-on the cobalt ground. Regenerate the thumbnail with:
-
-```sh
-node marketing/video/one-less-errand/render-thumbnail.mjs
-```
-
-## Record narration
-
-`generate-narration.py` records the script in `narration.json` to
-`audio/narration.wav`:
-
-```sh
-python3 marketing/video/one-less-errand/generate-narration.py
-```
-
-It reads `GEMINI_API_KEY` or `~/Developer/.gemini_key`. Each recording has its
-own word timestamps. `check-audio.py` submits a WAV or MP3 to Gemini for an
-independent audio assessment and writes the returned review to its second
-argument.
+`publication.json` records the public upload, description, disclosure and audience
+settings, English caption file and SHA-256 of the approved master. `thumbnail.jpg`
+is the film’s closing composition at 1280 × 720. The homepage uses the same
+composition in `web/public/landing/film-poster.webp` and opens the published film.
