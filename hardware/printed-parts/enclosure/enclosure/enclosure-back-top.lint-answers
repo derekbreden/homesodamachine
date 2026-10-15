@@ -170,33 +170,3 @@ click: x=-40.710 y=464.340 z=319.734
 [ceiling] The DATA mouth's 28 x 3.36 mm locating floor retains 1.5 mm of native stock across its complete 94.08 square mm face, with zero missing witness volume in data-ring/fit-check.json. The roof-down print receives support through the empty rear-facing aperture. The current native archive's nearest interface road midplane is 0.5527 mm below the exact floor; its 0.24 mm layer places the nominal top 0.4327 mm away. Drain-readiness/reviews/rear-wall-lint-witness.json binds these actual support roads to the complete finite floor. Remove support through the aperture before seating the DATA plate and jack. Finished fit and cleanup effort remain physical observations.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=469.620 z=291.217
-
-[ceiling] Back-top's Y-seam hub over the Z seam. Back-top prints on its ceiling, so the hub's top face prints facing down, 104.6 mm over the roof knuckle, on the saved tree supports. Nothing bears on it.
-alternatives: A 45° corbel on it would stand in the room front-top's flank keeps over the hub.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.500 y=209.900 z=195.050
-click: x=97.500 y=209.900 z=195.050
-
-[ceiling] The upper rod's head counterbore. Its floor is the flat seat the floor washer and the disc-spring column bear on, a 10.3 mm round bridged 12 mm over the bed in back-top's ceiling-down print, with the 4.7 mm pilot through it.
-alternatives: A teardropped or conical roof would set the washer on an edge. A shallower counterbore would leave the head proud of the roof.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-98.000 y=208.900 z=343.000
-click: x=98.000 y=208.900 z=343.000
-
-[thin] The upper rod's 10.3 mm head counterbore in back-top's roof knuckle. The knuckle stops 13 mm in from the interior face, clear of the funnel lift-off cover, which leaves 1.35 mm of wall inboard of the counterbore over Z343 to Z349; above that the roof slab beside it backs the wall. At the roof the outboard rim stands about 2.1 mm from the top edge's show round over the top 1.7 mm. Neither wall carries the clamp; the head, washers and springs bear on the counterbore floor.
-alternatives: A deeper knuckle would stand in the funnel cover's footprint. Moving the rod outboard would take front-top's insert below ruthex's 2.6 mm minimum wall on its outboard side, which has 3.05 mm. A smaller counterbore would not pass the 10 mm washers and disc springs.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-92.850 y=208.905 z=344.000
-click: x=-91.500 y=208.905 z=344.000
-click: x=91.500 y=208.882 z=344.011
-click: x=92.850 y=208.899 z=344.011
-click: x=-105.209 y=209.437 z=354.999
-click: x=-103.136 y=209.285 z=354.999
-click: x=105.209 y=209.437 z=354.999
-click: x=103.136 y=209.285 z=354.999
-
-[sliver] The fore face of back-top's flank at Y219.8 under the hub, 0.75 mm wide between the slide channel's outboard wall and the skin. Fore of it is the 2 mm of air between front-bottom's upper knuckle and that flank. It is a vertical end face of the flank, not a free strip.
-alternatives: Carrying the flank fore would close the air front-bottom's knuckle runs aft in. Widening it would cut into the slide channel.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-104.125 y=219.800 z=171.875
-click: x=104.125 y=219.800 z=171.875

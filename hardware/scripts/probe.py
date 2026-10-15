@@ -9,7 +9,7 @@ line can travel before it hits something, and where a piece of a routed line can
 The world is one `enclosure_assembly.build_enclosure_assembly()`, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
 dict every query iterates. That is the point. The pieces are the walls, seam lips,
-corner stacks, bosses and ribs, they are what bounds a placement in a
+cross-pin pods, boss chains and ribs, they are what bounds a placement in a
 machine this full, and a query that could not see them would answer CLEAR
 exactly where the clash check answers clash. The two groups keep
 their names so a query can ask for the interior pack alone — `skip=w.pieces` —

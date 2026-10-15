@@ -1,13 +1,6 @@
-[ceiling] These two square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. They run in front-top's receivers and end one running fit short of the Y seam, the end the frame enters from. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json covers these bearings' bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers; its slice predates the frame's narrowed rear, which needs a slice of its own. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified.
-alternatives: A 45° corbel under each bearing would take the flat catch the frame hangs on against lift.
+[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=100.875 y=-10.696 z=16.200
-click: x=-100.875 y=-10.696 z=16.200
-
-[thin] Aft of the rails the frame narrows to pass inside back-top's two roof knuckles, one running fit off each. Beside the funnel collar's rear corner, at the brim level, that leaves 1.54 mm of wall over a patch about 4.5 mm square. The brim bearing above it stays continuous with the full-width front surround, and back-top's roof stands over it.
-alternatives: A deeper roof knuckle would stand in the funnel lift-off cover's footprint. A shallower one would break its head counterbore through its own inboard wall. A thicker wall here would move the collar opening, and the funnel with it, inboard.
-file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=-91.250 y=35.548 z=49.078
-click: x=-89.750 y=35.200 z=49.100
-click: x=91.250 y=35.548 z=49.078
-click: x=89.750 y=35.200 z=49.100
+click: x=100.875 y=-10.571 z=16.200
+click: x=-100.875 y=-10.571 z=16.200
+click: x=100.875 y=47.074 z=16.450
+click: x=-100.875 y=47.074 z=16.450

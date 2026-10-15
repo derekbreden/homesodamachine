@@ -31,19 +31,3 @@ click: x=98.458 y=194.350 z=29.250
 
 [sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
 click: x=105.050 y=179.450 z=29.233
-
-[ceiling] Front-bottom's Y-seam corner-stack knuckles. Their undersides are bearing faces in the alternating stack: at Z65.7 the lower rod pulls this face shut on back-bottom's knuckle below it, a datum; at Z138.6 it stands one running fit plus the supported allowance over back-bottom's upper knuckle. Both print on the saved tree supports, and the supported-face allowance is in the fit.
-alternatives: A corbel or chamfer under a knuckle would stand in the room the back knuckle below it takes, or take the bearing area the rod clamps. A bridge needs a far wall the knuckle does not have.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-97.375 y=207.400 z=65.700
-click: x=97.375 y=207.400 z=65.700
-click: x=-97.375 y=207.400 z=138.600
-click: x=97.375 y=207.400 z=138.600
-
-[thin] The handhold's inner wall is the nominal 3 mm wall section. Front-bottom's stands on its own floor tongue from the handhold mouth to the joint with back-bottom's wall under the corner stack.
-alternatives: A thicker wall would narrow the finger opening or stand in the cold core's side band.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-93.500 y=199.595 z=28.616
-click: x=-90.500 y=199.595 z=28.616
-click: x=93.500 y=191.964 z=18.589
-click: x=90.500 y=191.964 z=18.589
