@@ -1,0 +1,358 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/2026-10-15-faucet-tip-eight-fins-current105-bridge125-fan70-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "settings_source_sha256": "af9ef518255d22ba835e22ab4d98b1c6202ec936181423dc53b16dca747e033e",
+  "settings_sha256": "3be9e83c72f407020e2b6da766d1e758d879a02062aa0966a2f5b51f156df81e",
+  "source_settings_sha256": "27affb7c72807f2df8bb0a2009f49e1363cc38df374af888acab5f0f9abf0a1d",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "Tip joint with eight plain fin walls",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/tip-section.stl",
+      "stl_sha256": "06f2bfb3150048c7d25099e217e4c11e5b11602191c4bf0e3c088ce8deec8c80",
+      "triangles": 20566,
+      "rotation_x_degrees": -105,
+      "source_center_mm": [
+        7.62939453125e-06,
+        -36.742523193359375,
+        224.6356658935547
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        162.5,
+        158.34188520259897,
+        22.424895530742525
+      ],
+      "plate_translation_mm": [
+        162.5,
+        158.34188520259897,
+        22.424895530742525
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.00000762939453,
+          138.28936024431823,
+          0.0
+        ],
+        [
+          175.99999237060547,
+          181.71063975568177,
+          40.000003543463265
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "d4534a7932b4812437aac355bb3edbb5166aa4052fe54e299200878ddf604800",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry": {
+    "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+    "source_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+    "source_step_sha256": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648",
+    "original_rotation_x_degrees": -105,
+    "original_lift_mm": 45.074331997790345,
+    "crop_max_original_print_z_mm": 40.0,
+    "full_circumference_retained": true,
+    "tessellation_tolerance_mm": 0.012
+  },
+  "recipe_changes": {
+    "fan_min_speed": {
+      "source": [
+        "0"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "fan_max_speed": {
+      "source": [
+        "70"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "overhang_fan_speed": {
+      "source": [
+        "0"
+      ],
+      "candidate": [
+        "70"
+      ]
+    },
+    "bridge_speed": {
+      "source": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_bridge_speed": {
+      "source": [
+        "25",
+        "25",
+        "25"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_1_4_speed": {
+      "source": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "source": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "source": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "source": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "overhang_totally_speed": {
+      "source": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_1_4_speed": {
+      "source": [
+        "0",
+        "0",
+        "0"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_2_4_speed": {
+      "source": [
+        "35",
+        "50",
+        "50"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "source": [
+        "35",
+        "30",
+        "30"
+      ],
+      "candidate": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "source": [
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    },
+    "filament_overhang_totally_speed": {
+      "source": [
+        "10",
+        "10",
+        "10"
+      ],
+      "candidate": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ]
+    }
+  },
+  "rear_seam_paint": {
+    "part": "Tip joint with eight plain fin walls",
+    "half_width_mm": 0,
+    "surface": "curved_outer_arc",
+    "enforced_triangles": 38,
+    "painted_facet_bounds_cad_mm": [
+      [
+        -0.40398341460546877,
+        -59.76704788235938,
+        237.32629394555468
+      ],
+      [
+        0.22874769539453124,
+        -32.37375640835938,
+        242.65937805155468
+      ]
+    ],
+    "mesh_vertices_and_triangle_indices_unchanged": true
+  },
+  "fin_count": 8,
+  "tines": 0,
+  "requested_vertical_fin_gap_mm": 0.24,
+  "blocked_contact_faces": 375,
+  "blocked_contact_area_mm2": 167.83004892577003,
+  "support_scope": "Eight plain Full-mode engine walls selected for the downward joint ledge. The full tip topology controls first-hit wall tops, including the plug where it lies below that ledge. Only the joint plane and added fin surfaces receive support-block paint; Tree(auto)/Default remains elsewhere.",
+  "support_reason": "Defect 2 continues around the tip mating lip. The narrow 35-degree joint ledge receives no walls from Auto; Full mode supplies eight walls, including a near-midpoint low-lip contact. Direct base evidence supports plain-wall release; tip contact and release remain a physical transfer question.",
+  "material_treatment": "Native bridge_flow1.25,70% fan after3off bedlayers including floating vertical shell/supports,Bridge15mm/s,overhang limits at most15 with existing10 limit retained. No post-slice G-code edits.",
+  "candidate_status": "Prepared; no printer job accepted.",
+  "specimen_count": 1,
+  "repeat_control": false,
+  "authorization_quotes": [
+    "I'd rather you start iterating on the faucet tip, which also needs fins.",
+    "As far as the next print on mark2",
+    "which is open and ready for your next print",
+    "And I don't want you to keep wasting my time printing the same control over and over again. Please just print what you think will work best, no repeat control."
+  ]
+}

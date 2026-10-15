@@ -110,9 +110,13 @@ bottom face and clear sag. Many other regions he worried about printed okay.
 The necessary support count remains open; easy stock-wall release does not
 establish release for the denser Full-mode layout. Mating fit and quantified
 sag remain unmeasured.
-The [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
-is prepared for Mark2 with Tree(auto) on both specimens, comparing production
-settings with the bridge/cooling recipe. It has no accepted printer job.
+The [single tip fin iteration](../printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
+is Mark2 task 1341048254: one tip joint section at −105°, eight Full-mode plain
+fin walls and the 125% bridge-flow/70% cooling/15 mm/s Bridge recipe. It includes
+no repeat control. Native first-skin bead bearings are reviewed; physical lip
+finish, release and joint fit remain pending. The
+[foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
+remains unsent and is not selected for submission.
 
 The [PET-GF fin screening plate](../print-tests/petgf-fins/README.md) compares
 4–32 mm bridges between removable fin contacts, 30–60° unsupported slopes,
