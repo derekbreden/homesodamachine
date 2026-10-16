@@ -63,7 +63,7 @@
       },
       "intentional_answered": 2,
       "unanswered": 0,
-      "answer_file": "stl/torque-cord-pulley.lint-answers",
+      "answer_file": "../../lint-answers/fixtures/gun-positioner/stl/torque-cord-pulley.lint-answers",
       "answer_sha256": "fefb9ec635635b25e8935ddb928eb44fa976ee0632f2006dcd249e7d095dec74"
     },
     {
@@ -78,7 +78,7 @@
       },
       "intentional_answered": 241,
       "unanswered": 0,
-      "answer_file": "stl/pulley-80t.lint-answers",
+      "answer_file": "../../lint-answers/fixtures/gun-positioner/stl/pulley-80t.lint-answers",
       "answer_sha256": "0b993ab70e18b5d5601e31dd6c1d8cd4534329fb6eae7bc026e0fb8d3ab220f7"
     },
     {
@@ -93,7 +93,7 @@
       },
       "intentional_answered": 76,
       "unanswered": 0,
-      "answer_file": "stl/pulley-sector-coupon.lint-answers",
+      "answer_file": "../../lint-answers/fixtures/gun-positioner/stl/pulley-sector-coupon.lint-answers",
       "answer_sha256": "c076bbc353e5553965e2badf86a0a4c64df03e18f81db059b2024c3e189fbfc4"
     },
     {
@@ -177,7 +177,7 @@
       },
       "intentional_answered": 1,
       "unanswered": 0,
-      "answer_file": "stl/fiber-saddle.lint-answers",
+      "answer_file": "../../lint-answers/fixtures/gun-positioner/stl/fiber-saddle.lint-answers",
       "answer_sha256": "250b6ac46d33d542aeaf489b878c20dba3b3b55e52427964b430b6e78e558b89"
     }
   ],

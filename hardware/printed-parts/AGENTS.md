@@ -15,14 +15,9 @@ piece you changed and fix what it flags while Derek is already looking:
     tools/cad-venv/bin/python hardware/scripts/geometry_lint.py <piece>.stl
 
 Findings print as pick text: paste one into the /3d Find box, or feed it to `pick_read.py`.
-An answer goes in `<piece>.lint-answers` beside the STL — a `[class] reason` line, an
-`alternatives:` line, one `click:` per instance (format, and what an answer does and does not
-do, in `geometry_lint.py`). A defect
-fixed at one station usually has siblings; the lint's job is to find them before Derek does.
-
-A remnant — a step, land, skin, fin or facet left where two features meet — is fixed in the
-source so the two features meet cleanly. A `.lint-answers` entry is for a face that a
-requirement needs, such as a fit, a bearing or a support lane, and names that requirement.
+Answers live in `lint-answers/`, at each piece's own path; its AGENTS.md says when a finding is
+answered instead of fixed. A defect fixed at one station usually has siblings; the lint's job is
+to find them before Derek does.
 
 ## What each file shows
 

@@ -529,7 +529,7 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
         return False
     if path == "hardware/cad-artifacts.json":
         return False
-    # A lint answer is reviewer evidence beside a mesh, not a source of that mesh. Known
+    # A lint answer is reviewer evidence about a mesh, not a source of that mesh. Known
     # answers still take the ordinary `known`/rdeps path above this test; an answer no target
     # names cannot define a new producer merely because another generator reads the same suffix.
     if path.endswith(".lint-answers"):

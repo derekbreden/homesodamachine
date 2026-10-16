@@ -62,7 +62,7 @@ friction, silicone distortion, deposited watertightness or lifetime.
 
 The post-publication geometry lint has one intentional finding, the lifting
 recess's short vertical back wall, recorded in the
-[lint answers](funnel-cover-print.lint-answers). The recess retains a continuous
+[lint answers](../../lint-answers/zone-c/funnel-cover/funnel-cover-print.lint-answers). The recess retains a continuous
 plate above it and stays outside the mouth.
 
 ```sh

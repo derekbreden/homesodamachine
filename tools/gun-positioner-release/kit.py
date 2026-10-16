@@ -22,6 +22,8 @@ SCOPES = (
     "hardware/gun-positioner-guide",
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
+    "hardware/printed-parts/lint-answers/fixtures/gun-positioner",
+    "hardware/printed-parts/lint-answers/fixtures/gun-positioner-observation",
     "firmware/src_gun_positioner",
     "tools/gun-positioner-observation",
     "tools/gun-positioner",
