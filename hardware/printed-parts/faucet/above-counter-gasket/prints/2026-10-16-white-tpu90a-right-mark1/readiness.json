@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "Native reviewed and running; physical result pending",
+  "project": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf",
+  "project_sha256": "adeef5a27cb3a2c6806c60f7016b1ad3c65a2f4fec004633b0a62f375cbc04de",
+  "source": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+  "source_sha256": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+  "submitted_archive": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+  "submitted_archive_sha256": "0db8e6e3feb9b95bc315e8bc079ba96480b0813b2ff79ee58c8b3b386c5fd239",
+  "gcode_sha256": "ce3dae922f9a38882a7e338bf18e3da2b9e7176c6741261e00988a2f95412ec0",
+  "native_review": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/native-review.json",
+  "native_review_sha256": "b38a5e92110a44325f6eaea13f00bd54bce98c8ba5bd488cd6eef194e3fa58a5",
+  "launch": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/launch.json",
+  "printer_task_id": "1345913800",
+  "printer": "Mark1",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "physical_result": null
+}

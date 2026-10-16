@@ -1,0 +1,13 @@
+{
+  "observed_at": "2026-10-16T18:59:59.034208+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_id": "1345913800",
+  "subtask_name": "2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+  "layer_num": 0,
+  "total_layer_num": 10,
+  "mc_remaining_time": 34,
+  "print_error": 0,
+  "hms": [],
+  "bed_temper": 25.0,
+  "bed_target_temper": 25.0
+}

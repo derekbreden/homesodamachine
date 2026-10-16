@@ -1,0 +1,139 @@
+{
+  "project": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf",
+  "settings_source": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+  "settings_source_sha256": "79046db4fa341be522e22eef0e367f0edc41829becb6c7a4cbe2402c284cf5b7",
+  "settings_sha256": "e7bf29284f3f6ea71e486959fa9ece2381c3e1ca6e7dd6af67ba7e78ab35ff86",
+  "source_settings_sha256": "d6d2341b97869acffa4dae10be49c2775dcffbb744697519c6a5f3db4683e247",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "915a8b39a88148a6629caaa0d947cba7b635738f962d2221fad43b449342b56d",
+      "to_sha256": "9f1a4bce361763d577afafcdf8448af3ae314b591531e5ffb37778929a582344",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.6 Standard +0.04 Z trim"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.6 Standard +0.18 Z trim"
+      ]
+    }
+  },
+  "printer": "Mark1",
+  "process": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+  "filament": [
+    "Bambu TPU 90A @BBL H2C"
+  ],
+  "layer_height_mm": 0.18,
+  "nozzle_diameter_mm": [
+    0.6,
+    0.6
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.62,
+    "inner_wall_line_width": 0.62,
+    "sparse_infill_line_width": 0.62,
+    "internal_solid_infill_line_width": 0.62,
+    "top_surface_line_width": 0.62,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "bed_type": "Engineering Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "above-counter-gasket",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "stl_sha256": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+      "triangles": 3104,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -2.956390380859375e-05,
+        1.52587890625e-05,
+        -5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        177.5,
+        160.0,
+        1.0
+      ],
+      "plate_translation_mm": [
+        177.5,
+        160.0,
+        1.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          148.50003719329834,
+          130.50001525878906,
+          0.0
+        ],
+        [
+          206.49996280670166,
+          189.49998474121094,
+          2.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995115432393504e-10
+    }
+  ],
+  "project_sha256": "adeef5a27cb3a2c6806c60f7016b1ad3c65a2f4fec004633b0a62f375cbc04de",
+  "settings_preserved_byte_for_byte": false,
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.18,
+  "rigid_part_count": 1,
+  "authorization_quote": "I need a new display cover printed from the right hot end on the white PETGF filament on Mark 2, please. That is the faucet display cover on the Mark 2 on the right hot end. And then also I need an above-counter mounting gasket for the faucet printed on Mark 1 on the right hot end for the white TPU 90A that is loaded in there right now.",
+  "source_geometry_changed": false,
+  "source_project": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+  "source_project_sha256": "79046db4fa341be522e22eef0e367f0edc41829becb6c7a4cbe2402c284cf5b7",
+  "native_object_settings": {
+    "name": "above-counter-gasket",
+    "extruder": "1"
+  }
+}
