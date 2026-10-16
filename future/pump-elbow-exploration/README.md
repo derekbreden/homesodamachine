@@ -1,8 +1,16 @@
 # TPU pump elbow and installed layout study
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported. Two-object Mark1 trial submitted; Siraya fit pending.**
+**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A departure-lap pair submitted; physical result pending.**
+The [departure-lap trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
+Engineering Plate. Its processed G-code adds 368 retracted wall laps 0.2 mm
+above the layer at 10 mm/s, with 0.4 mm connectors and crossings. All native
+extrusion commands, positions and speeds remain unchanged. The planning
+estimate is about 2 hours 35 minutes / 8.57 g. String reduction and finished
+quality remain unassessed.
+
 The selected geometry is the rounded heel and smooth-neck fitting with its
-integral flat foot. This job uses the user-reported glued Engineering Plate
+integral flat foot. The accepted single Siraya job uses the glued Engineering Plate
 and zero user Z trim, with a 225°C first layer and a requested 10 mm/s outer wall.
 Mark1 accepted the [Siraya trial](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
 as task 1337804197 on 2026-10-14 at 00:11:26 CDT. It uses 215°C normal layers
@@ -49,9 +57,11 @@ neighboring hardware are considered together.
   clearance between brims. Its manual travel review covers both inter-object
   transitions, including the next-layer return and timelapse detour. Native
   estimate: 114 minutes / 7.83 g. Physical string reduction remains unassessed.
-- [Stringing candidates](stringing-candidates.md) describe an untried departure
-  lap: a low pass around an elbow wall before each crossing, inserted by a
-  post-processor. [`travel_survey.py`](travel_survey.py) measures the commanded
+- [Departure-lap trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+  contains the Bambu 85A pair's native and processed archives, reproducible
+  preparation and the per-departure route review. The
+  [stringing candidates](stringing-candidates.md) specify the lap and related
+  routing options. [`travel_survey.py`](travel_survey.py) measures the commanded
   travel over bores, open air and timelapse trips in the printed single and the
   launched pair.
 - [Outer-wall-setting-10 trial's physical observations](prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
@@ -64,7 +74,7 @@ neighboring hardware are considered together.
   exceed 10 mm/s in both archives. The [corrected overhang-speed candidate](prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
   caps the relevant overhang entries at 10 mm/s and retains the accepted-fit
   article's 225°C recipe. That prepared Bambu-material archive remains unsent;
-  the selected Siraya job retains its corrected speed settings.
+  the Siraya single retains its corrected speed settings.
 - [Curling observations](prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json)
   bind the left-lip curl and nozzle pickup to the identified print and photo.
   The reported runtime fan reduction from 100% to 50% worsened curl on both lips.
@@ -163,15 +173,15 @@ limits grip; it is not validation of this custom cuff.
 
 ## Printing and geometry options
 
-The selected single specimen has both mouths upward at 45°, a rounded heel,
+The accepted single Siraya specimen has both mouths upward at 45°, a rounded heel,
 a smooth neck and one 88.9 mm² integral flat foot. Its 9 mm circular clamp
-seats remain exposed. The selected filament is user-identified Siraya Tech
+seats remain exposed. Its filament is user-identified Siraya Tech
 Flex TPU 85A Clear, SKU ST3008.
 The [TPU for AMS trial](prints/2026-10-13-compact-single-tpuams-mark1/physical-result.json)
 is reported too stiff; its record supplies no sealing or pressure acceptance.
 
-The native archive contains one body, one normal volume, one object and one
-build instance, with a 5 mm outer brim. The selected trial uses 225°C for the
+The Siraya single's native archive contains one body, one normal volume, one object and one
+build instance, with a 5 mm outer brim. That trial uses 225°C for the
 first layer and 215°C for normal layers, a 35°C Engineering Plate, Siraya's
 0.96 flow ratio and a local 2.2 mm³/s maximum flow. Its
 [material profile and trial record](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
@@ -186,7 +196,7 @@ shows actual left-lip commands of 14.37 mm/s at layer 21 and 16.40 mm/s at
 layer 27, with nominal layer motion near 20 seconds. The separate process
 overhang table contains 50 and 30 mm/s entries that can replace the ordinary
 outer-wall speed. A setting of 10 mm/s alone does not establish a 10 mm/s lip.
-The selected Siraya slice retains 10 mm/s for those two entries. Its
+The Siraya single's slice retains 10 mm/s for those two entries. Its
 [emitted-command review](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
 verifies the left lip and complete exterior-loop range at 10 mm/s on layers
 17–33. The finished single article has accepted exterior quality and reported
