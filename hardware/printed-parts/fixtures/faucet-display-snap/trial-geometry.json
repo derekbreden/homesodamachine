@@ -30,10 +30,10 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "58b09908afcfcbb0f4191ff76f9addb3e9028f7248cbfb3ed900d29443690176",
+      "sha256": "8824ce61f672b74b1cd1de04166b14029ffc152cb81dc8949cc5368d047c1dbf",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 23656.36973635334,
+      "volume_mm3": 23656.36973635315,
       "triangles": 89530,
       "watertight": true,
       "body_count": 1,
