@@ -9,8 +9,9 @@ fits elsewhere remain subject to the same printed-face allowances and are unreso
 this pass. Compliant gaskets and seals use their specified installed squeeze in the compression
 direction. The core's nominal crown remains Z253.4 and its hold-down foot is Z253.65.
 The [native fit review](/hardware/printed-parts/enclosure/enclosure/y-seam-fit-review.json)
-binds the measured enclosure interfaces, local stock and inboard cradle/frame geometry
-to their production artifacts. It does not establish physical assembly force or lifetime.
+binds the measured enclosure interfaces and local stock to their production artifacts.
+Its cradle finish and protected-joint comparison retain the named hook, web and
+silicone-bearing measurements. It does not establish physical assembly force or lifetime.
 
 ## The box
 
@@ -306,9 +307,9 @@ unpowered cartridge seating and compression check at IP-05.
 
 The 455 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top from the seam end before closure; back-top's
-roof closes over its rear as the enclosure closes. The [current frame motion
+roof closes over its rear as the enclosure closes. The [frame motion
 record](../printed-parts/zone-c/funnel/integration-review/rail-motion-check.json) binds the
-checked insertion and capture geometry. The frame's front feet are at Z306.9 and the
+insertion and capture geometry to its recorded artifact hashes. The frame's front feet are at Z306.9 and the
 receiver underside is Z307.4, giving 0.50 mm for the running fit and one supported face.
 The silicone lifts out from above. Deburr and wipe its seat without rounding the rail bearing faces.
 

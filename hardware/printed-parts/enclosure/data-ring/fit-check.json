@@ -53,11 +53,11 @@
     "retention:complete-wings-meet-wall": {
       "passed": true,
       "outward_motion_mm": 0.55,
-      "interference_mm3": 6.183808207976869
+      "interference_mm3": 5.579764835529997
     },
     "stock:finite-upper-pad-remainder": {
       "passed": true,
-      "native_face": 748,
+      "native_face": 725,
       "face_area_mm2": 30.557799999999745,
       "stock_thickness_mm": 2.0,
       "witness_volume_mm3": 61.11559999999948,
@@ -109,14 +109,14 @@
     "hardware/printed-parts/enclosure/data-ring/check_fit.py": "2cee6815cc9d7d1568662ad6731e16b14bf4a59bda29494fb95162cbb8307aa6",
     "hardware/printed-parts/enclosure/data-ring/data_ring.py": "d985727db6870a6f60eb5ae04b705e819198e719dd2f5f17d0e7525c75ab3a5a",
     "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "50f9faf6538cc2683c02d0e246c0650d299e4f64ad180be28d082921e909b060",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
-    "hardware/manifold-layout/enclosure_assembly.py": "01694815bf6923b7263adfe5a0db6edf2d2481f4d18af245fb86439c0fa97618",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "4857991f9c17d885823927425c3d4a2c74a4da9230e4fb90c9fef08628298f93",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e279ef1656fccd18fe9f75f42df5fb2a9b826a44ef120bd97b0cfd0e4402a579",
+    "hardware/manifold-layout/enclosure_assembly.py": "8ed2628015cb1c80d0e73d89858d4ebc2ddd6f49d5e218e64344f558bb9dd8ea",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "1905d8312ef7768749b22c968a86db302b344b7d3d2c452b336f6069c4fb4eda",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "6d76f74904cfca9d9d4cd7a4657c662ac26f65e4f871c556a1216e3bcba62f0e",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": "c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199",
     "hardware/reference/riteav-keystone/riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "8a337e7550da1de7daa31bba523c805f0cd3ddc3621322b87d125bf92f4b3e1b",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "10c9ec1fff1c135c64ae93634035f2fa0daa86443622185fbeb3e3b209bdc4f8",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc"
   },
   "station_mm": [

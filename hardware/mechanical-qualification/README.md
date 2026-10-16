@@ -495,7 +495,7 @@ bear first. Equal load sharing is unestablished. Block ligaments, wall roots and
 bending carry the load.
 
 Each screw axis stands mid-overlap, and the printed Ø5.6 mm clearance bore leaves each knuckle a ligament fore
-and aft of it, recorded per knuckle in the
+and aft of it, recorded per knuckle for the identified native inputs in the
 [native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json).
 Every knuckle has a
 [local 100% infill region](../printed-parts/enclosure/enclosure/heat-set-review/print-regions.json)
@@ -504,7 +504,9 @@ geometric area, not a measured bearing capacity.
 
 Each upper insert sits in front-top's knuckle under the funnel frame, with its cap and
 root in that knuckle; the [native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
-checks the seat after the funnel and all other functional cavities are cut. The rail arms use 4.5 mm nominal stock within the
+checks its recorded seat after the funnel and other functional cavities are cut. The
+[fit review](../printed-parts/enclosure/enclosure/y-seam-fit-review.json) identifies
+the current four M5 host-stock witnesses. The rail arms use 4.5 mm nominal stock within the
 existing side band; finished clearance, stops and roots are separate native checks.
 
 Those heights are 0.1016–0.1524 m: gravitational energy is 1.00–1.49 J per kilogram of
