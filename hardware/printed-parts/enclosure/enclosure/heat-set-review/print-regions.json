@@ -1,27 +1,27 @@
 {
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "85b4d52b696809c5ff295e5bab690d5159e90b523192d55f2b4c4cb54057b471",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23becd5cd5e20e612b0fde3caa01192e9b23b8ccd86486389fe91b9bf3ce685b",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "b2ff3cdb9f3f37e76c8bf7990de630350a12004acea8b840ed63f6718192f962",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb6fca7601d5d96e3ec44896f4b62f21905b733f016e2427713dd371cc6bdaf6",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
-      ".stl": "c8c6934ee10120b631d813a63dde8d5a4bdd9ef85606e1045e7ac35a629a6f68"
+      ".step": "52aa1d65f1c5e6cce73c853469d7eba4ad8dff74873649cf6c04aae3eff4bcef",
+      ".stl": "98bd5fe194c90f44c80cd5ad1c0eab5e8b2ac5fdae19178c9d8e99396c01bb0b"
     },
     "front-top": {
-      ".step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
-      ".stl": "0dd9f78f11dc3c44e74d4546dd037dbc473e9535b708e685e7a63419b8d354b0"
+      ".step": "3e8c462d300e5225d13072ff412781eb3578dce652fd41979da77e0b4a97aa8e",
+      ".stl": "c21f1de9d24a94e7c91e3da04cb2932a72a3a750649ae92dc820b0a822530fa7"
     },
     "back-bottom": {
-      ".step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
-      ".stl": "3cc6445454e69e71eea3d35743a9c840a37e10697cb47b99a9c05f9c55215090"
+      ".step": "6d4de9b9337ff9c93faad948e33e7fd4eea0081eb4b76871b86f83f4025621b3",
+      ".stl": "cd2c27073393bb717e9407aa54568f4719241177b175fbc4d3dd914bc0e1c9eb"
     },
     "back-top": {
-      ".step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
-      ".stl": "efc89af54ecd8d1c8901a2c6508151676dc7cc55d319407df65127ad96223226"
+      ".step": "7ad4fba360df7829573361ca4278d2c73d4c277c16c9fefdad885f7ae8ffcf51",
+      ".stl": "62ac65f901c0f51752b92610a8cd3e87e119d6aca69498380747eb1d01724894"
     },
     "pump-cartridge": {
       ".step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
@@ -35,13 +35,13 @@
   "pieces": {
     "front-bottom": [
       {
-        "name": "Y seam knuckle and its wall root +1/65.7",
+        "name": "Y seam knuckle and its wall root +1/66.2",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -90.75,
           197.0,
           217.8,
-          65.7,
+          66.2,
           101.65
         ],
         "sparse_infill_density": "100%",
@@ -51,23 +51,23 @@
         "name": "Y seam knuckle and its wall root +1/138.6",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -90.75,
           197.0,
           217.8,
           138.60000000000002,
-          175.05
+          174.8
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam knuckle and its wall root -1/65.7",
+        "name": "Y seam knuckle and its wall root -1/66.2",
         "machine_bounds_mm": [
-          90.5,
+          90.75,
           107.5,
           197.0,
           217.8,
-          65.7,
+          66.2,
           101.65
         ],
         "sparse_infill_density": "100%",
@@ -76,12 +76,12 @@
       {
         "name": "Y seam knuckle and its wall root -1/138.6",
         "machine_bounds_mm": [
-          90.5,
+          90.75,
           107.5,
           197.0,
           217.8,
           138.60000000000002,
-          175.05
+          174.8
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
@@ -263,7 +263,7 @@
         "name": "Y seam knuckle and its wall root +1/29.25",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -90.75,
           200.0,
           219.81,
           29.25,
@@ -276,7 +276,7 @@
         "name": "Y seam knuckle and its wall root +1/102.15",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -90.75,
           200.0,
           219.81,
           102.15,
@@ -288,7 +288,7 @@
       {
         "name": "Y seam knuckle and its wall root -1/29.25",
         "machine_bounds_mm": [
-          90.5,
+          90.75,
           107.5,
           200.0,
           219.81,
@@ -301,7 +301,7 @@
       {
         "name": "Y seam knuckle and its wall root -1/102.15",
         "machine_bounds_mm": [
-          90.5,
+          90.75,
           107.5,
           200.0,
           219.81,
@@ -343,7 +343,7 @@
         "name": "Y seam knuckle and its wall root +1/175.05",
         "machine_bounds_mm": [
           -107.5,
-          -90.5,
+          -90.75,
           200.0,
           219.81,
           175.05,
@@ -353,13 +353,13 @@
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam knuckle and its wall root +1/299.65",
+        "name": "Y seam knuckle and its wall root +1/299.9",
         "machine_bounds_mm": [
           -107.5,
           -91.5,
           200.0,
           219.81,
-          299.65,
+          299.9,
           355.0
         ],
         "sparse_infill_density": "100%",
@@ -368,7 +368,7 @@
       {
         "name": "Y seam knuckle and its wall root -1/175.05",
         "machine_bounds_mm": [
-          90.5,
+          90.75,
           107.5,
           200.0,
           219.81,
@@ -379,13 +379,13 @@
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "Y seam knuckle and its wall root -1/299.65",
+        "name": "Y seam knuckle and its wall root -1/299.9",
         "machine_bounds_mm": [
           91.5,
           107.5,
           200.0,
           219.81,
-          299.65,
+          299.9,
           355.0
         ],
         "sparse_infill_density": "100%",

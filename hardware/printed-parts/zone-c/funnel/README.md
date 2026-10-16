@@ -55,7 +55,9 @@ the rail wings. Below Z306.9, the two front foot wings outside the 196.5 mm body
 end at Y116.791 with 3 mm high blunt faces. The lower footprint runs from
 Y119.1 to Y210. The body widens
 upward to its flat front at Y95.458 and its rear at Y235.692. The rail datum
-is Z306.9 and its top is Z321.7.
+is Z306.9 and its top is Z321.7. The physical front foot is at Z306.9;
+front-top's receiver underside is Z307.4, leaving 0.50 mm for running clearance
+and one supported face. This allowance accommodates printed material at the seat.
 The broad body fills the stock between its bowl clearance and rails.
 The removable frame carries the complete brim bearing at Z349, with 3 mm of
 material beneath the slipped collar footprint. The front roof surround finishes

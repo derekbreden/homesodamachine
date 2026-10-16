@@ -23,6 +23,10 @@ screw tip. The seam screws carry a ±0.8 mm length allowance.
 
 Each screw head and flat washer sit in an inboard-open U-shaped access recess.
 Both complete washer-bearing annuli retain 3 mm of stock below their floors.
+Each pocket is 8.4 mm deep, including 0.40 mm of supported static-seat allowance;
+the lower floor is Z37.65 and the upper floor is Z346.60. Nominal head and washer
+poses retain the 2 mm head recess. The allowance accommodates printed material
+and does not guarantee an open gap after seating.
 The lower entry has a 0.5 mm bevel; its head seat and washer floor stay flat.
 The upper mouth continues inward into the funnel opening above the frame.
 The upper recess's roof-edge mouth has the named local thin-section allowance in
@@ -62,8 +66,13 @@ handhold ceiling through back-bottom, front-bottom, back-bottom and front-bottom
 back-top's hub over the Z seam, and an M5 × 150 drives up through it into the hub's
 insert. The upper stack stands under the roof: front-top's knuckle under the funnel
 frame and back-top's roof knuckle, with an M5 × 60 driven down into front-top's insert.
-The intended seated faces are datums; every other block face keeps its running
-and supported allowance. One Ø10 × 1 mm flat washer bears directly under each head.
+Lower axes stand at |X|98.25 and upper axes at |X|98. The lower blocks reach
+13.75 mm from `interior_x`, leaving 0.25 mm to the core. Front-bottom's first block
+starts at Z66.2 and its top block ends at Z174.8, 0.25 mm below the back-top hub.
+Front-top's upper insert mouth is Z299.65, 0.25 mm below back-top's Z299.9 block.
+Every printed block face requires its applicable static or running and supported-face
+allowances, including the faces loaded when the screws seat.
+One Ø10 × 1 mm flat washer bears directly under each head.
 Clearance holes print at Ø5.6 mm. The audit reports nominal and minimum thread
 engagement and tip clearance with the ±0.8 mm screw-length allowance.
 
