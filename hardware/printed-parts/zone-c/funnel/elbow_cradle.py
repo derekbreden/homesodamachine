@@ -10,16 +10,14 @@ elbow drops straight in, and every pocket face opens upward, so the body prints 
 block's top stands 1 mm under the top of the vertical leg's root band: the pocket wraps the band
 about 78% of the way round, and the collar, rung and nose stand free above it.
 
-Each X side of the block carries on up as a wing, the body's full length, through a straight slot
-in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
-`TIP_GAP` of the counterbore's X wall, which sets the block's width and so how far the slots stand
-off the drain hole. Going up, each wing bends inward into its slot's inboard lane until the hook
-clears the slot's outer edge, then springs back over the web. The silicone plug's flat underside
-rests on the two hook tops in that released pose.
+A full-wall-thickness top crossbar carries a wing on each X side, outboard of the lower body.
+Each wing runs the body's full length through a straight slot in the frame's bottom web. A flat
+hook at its top reaches outward over the web to within `TIP_GAP` of its capture pocket's X wall.
+Going up, each wing bends inward into its slot's inboard lane until the hook clears the slot's
+outer edge, then springs back over the web. The raised hooks stand outboard of the unchanged
+silicone plug, with running and supported-face room above the full-thickness receiving web.
+The outboard capture pockets open into the central silicone socket above that web.
 
-The counterbore and the silicone plug are rectangles centred on the hole, the plug's width across
-X. The counterbore's ±Y walls stand on the slots' farther ends, so the web carries no strip between
-a slot and a wall.
 """
 
 import functools
@@ -47,15 +45,17 @@ HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm 
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
 BODY_TOP_STATION = 10.0   # vertical-leg station of the block's top, 1 mm under the root band's top
 SOCKET_HALF = 18.3     # the counterbore's half-width, `funnel_frame.socket_width / 2`
-TIP_GAP = fits.slip    # hook tip off the counterbore's X wall
+TIP_GAP = 0.30         # hook tip on its R0.30 capture corner's X centre line
+WING_OUTSET = 5.0      # each wing and hook outboard of the central silicone socket
 
 LEAF_T = 1.3           # wing thickness
 SIDE = 0.5             # slot's outer edge off the wing's outer face
 OVERLAP = 2.6          # hook over the web past that edge
-HOOK_T = 3.15          # flat hook thickness; its released top bears under the silicone block
+HOOK_T = 3.15          # full flat-hook thickness outside the silicone plug
 HOOK_RISE = 0.25       # further lift the printed hooks need to clear the web
 CATCH_GAP = fits.slip + fits.supported_surface + HOOK_RISE   # release travel from insertion datum
-INSERTION_SLIP = 0.1   # hook tip inside the slot's outer edge while it passes
+HOOK_WEB_AIR = fits.running + fits.supported_surface
+INSERTION_SLIP = fits.running   # hook tip inside the slot's outer edge while it passes
 END_SLIP = 0.25        # slot beyond each wing end
 PLUG_CORNER = 0.0      # square plug corners; the socket's corner radius is its gap
 
@@ -74,8 +74,10 @@ def _profiles(leg):
 
 
 def block():
-    """`(half_width, y0, y1, z0, z1)` of the block the pocket is cut from. Its X sides are the
-    wings' outer faces, set back from the counterbore's wall by the hook and its clearances."""
+    """`(half_width, y0, y1, z0, z1)` of the lower block the elbow pocket is cut from.
+
+    Only its full-wall-thickness top crossbar reaches out to the shifted wings.
+    """
     rz = max(r for _t, r in _profiles("z")[0]) + SLIP + WALL
     ry = max(r for _t, r in _profiles("y")[0]) + SLIP + WALL
     half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
@@ -194,14 +196,15 @@ def passage(w_in, w_out, tip, slot_out, base, face, top):
 def stations():
     """The snap's stations, local mm, distances from the hole's axis in X."""
     half, y0, y1, z0, z1 = block()
-    w_in, w_out = half - LEAF_T, half
+    w_out = half + WING_OUTSET
+    w_in = w_out - LEAF_T
     slot_out = w_out + SIDE
-    face = WEB + CATCH_GAP
+    face = WEB + CATCH_GAP + HOOK_WEB_AIR
     s = {"half": half, "y0": y0, "y1": y1, "z0": z0, "top": z1, "w_in": w_in, "w_out": w_out,
          "slot_out": slot_out, "hook_tip": slot_out + OVERLAP, "face": face,
          "hook_top": face + HOOK_T}
     s["bend"] = passage(w_in, w_out, s["hook_tip"], slot_out, z1, face, s["hook_top"])
-    s["lane"] = round(s["bend"]["inner_face_travel"] + fits.running, 2)
+    s["lane"] = math.ceil((s["bend"]["inner_face_travel"] + fits.running) * 100) / 100
     s["slot_in"] = w_in - s["lane"]
     return s
 
@@ -218,10 +221,10 @@ def plug_half_length(half_width):
 
 
 def hook_corner_clearance(half_width):
-    """How far each hook's outer +Y corner stands inside the counterbore's corner round."""
+    """Normal room from a hook's outer corner to its rounded outboard capture wall."""
     s = stations()
     r = PLUG_CORNER + SOCKET_HALF - half_width
-    cx, cy = SOCKET_HALF - r, socket_half_length() - r
+    cx, cy = s["hook_tip"] + TIP_GAP - r, s["y1"] + END_SLIP - r
     return r - math.hypot(max(s["hook_tip"] - cx, 0.0), max(s["y1"] - cy, 0.0))
 
 
@@ -243,6 +246,25 @@ def socket(half_width, gap, depth, flare_h, flare):
     return body.fuse(lead).clean()
 
 
+def capture_pockets(half_width, depth):
+    """Open outboard hook pockets above the full web, joined into the central socket air.
+
+    The inboard opening removes the small wedge between the two rounded returns.
+    Only the outboard returns remain rounded; the silicone socket itself keeps its dimensions.
+    """
+    s = stations()
+    radius = PLUG_CORNER + SOCKET_HALF - half_width
+    xa, xb = s["w_in"] - TIP_GAP, s["hook_tip"] + TIP_GAP
+    ya, yb = s["y0"] - END_SLIP, s["y1"] + END_SLIP
+    plan = cq.Sketch().rect(xb - xa, yb - ya).vertices().fillet(radius)
+    pocket = (cq.Workplane("XY", origin=((xa + xb) / 2, (ya + yb) / 2, WEB))
+              .placeSketch(plan).extrude(depth).val())
+    join = SOCKET_HALF - radius - TIP_GAP
+    pocket = pocket.fuse(cq.Solid.makeBox(s["w_in"] - join, yb - ya, depth,
+                         cq.Vector(join, ya, WEB))).clean()
+    return cq.Compound.makeCompound([pocket, pocket.mirror("YZ")])
+
+
 def web_cuts():
     """The drain hole and the two wing slots through the frame's bottom web."""
     s = stations()
@@ -259,6 +281,10 @@ def build():
     half, y0, y1, z0, z1 = block()
     s = stations()
     body = cq.Solid.makeBox(2 * half, y1 - y0, z1 - z0, cq.Vector(-half, y0, z0))
+    root_half = half + WING_OUTSET
+    crossbar = cq.Solid.makeBox(2 * root_half, y1 - y0, WALL,
+                                cq.Vector(-root_half, y0, z1 - WALL))
+    body = body.fuse(crossbar)
     body = body.cut(shadow(z1 + 2.0)).clean()
     cradle = body
     for side in (-1, 1):
@@ -314,6 +340,9 @@ def main():
         "CRADLE_STRAIN": f"{100 * b['root_strain']:.1f}%",
         "CRADLE_TIP_GAP": f"{TIP_GAP:g} mm",
         "CRADLE_WIDTH": f"{2 * s['half']:.1f} mm",
+        "CRADLE_CROSSBAR": f"{2 * (s['half'] + WING_OUTSET):.1f} mm",
+        "CRADLE_SPAN": f"{2 * s['hook_tip']:g} mm",
+        "CRADLE_WEB_AIR": f"{HOOK_WEB_AIR:.2f} mm",
         "CRADLE_WEB": f"{s['slot_in'] - HOLE_D / 2:.2f} mm",
     })
     print(f"-> {step.name}, {stl.name}; {cradle.Volume():.1f} mm3; wings "
