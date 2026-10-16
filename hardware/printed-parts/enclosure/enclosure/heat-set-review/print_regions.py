@@ -24,7 +24,7 @@ def main():
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag'))
     lower, upper = e.y_stack(box.inner)
     for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-        for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
+        for rows, depth in ((lower, e.y_stack_low_depth), (upper, e.y_stack_high_depth)):
             for who, z0, z1, _g0, _g1 in rows:
                 b = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1,
                                 depth).BoundingBox()

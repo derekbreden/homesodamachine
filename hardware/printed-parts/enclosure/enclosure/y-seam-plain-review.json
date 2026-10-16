@@ -1,6 +1,6 @@
 {
   "review_date": "2026-10-15",
-  "scope": "Current plain-M5 Y-seam geometry: closed printed parts, straight assembly motions and funnel-frame bearing/capture. Nominal geometry is not physical fit, support-removal acceptance, retained clamp force, load capacity, drop acceptance or lifetime.",
+  "scope": "Plain-M5 Y-seam geometry receipts: closed printed parts, assembly motions and funnel-frame bearing/capture. Each nested receipt is limited to its recorded artifact hashes and stated scope. The current fit correction, including seating and clamping allowances, is recorded in y-seam-fit-review.json. These receipts do not establish physical fit, support-removal acceptance, retained clamp force, load capacity, drop acceptance or lifetime.",
   "native_geometry": {
     "scope": "Source-bound containment-envelope geometry; final quadrants are established by subtractive_head_access_update. The frame and front quadrants retain these dimensions. No physical fit, support-removal acceptance, retained clamp force, load, drop or lifetime result.",
     "source_sha256": {

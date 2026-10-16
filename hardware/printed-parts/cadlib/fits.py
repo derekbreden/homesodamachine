@@ -1,6 +1,10 @@
 """Per-face clearances between mating parts.
 
-Assembly seats use `slip`; moving service fits use `running`.
+Head-on assembly seats use `slip`; faces that slide past their mates use `running`.
+
+Rough or oozed printed material occupies space beyond the nominal face. The modeled gap
+provides room for that material at assembly. This applies to seating faces loaded by
+gravity or screws as well as other mating faces.
 
 The stock is Polymaker Fiberon PET-GF15 on a 0.4 mm tungsten carbide hotend, two loops to a
 face at 0.42 and 0.45 (`printed-parts/enclosure/enclosure/print-log.md`).
@@ -9,9 +13,11 @@ A bore adds twice its per-face clearance to the diameter. A plate in an inset ha
 clearance at each edge. A lap raked at 45 degrees takes the clearance times `sqrt(2)`
 along its insertion axis.
 
-A DATUM TAKES NONE OF IT. The face a screw pulls shut, the foot landing on the shoulder
-under it, the stop block a slide comes home against, the plate bearing on the land it is set
-down on — each of those stands on the plane the two pieces share.
+Printed mating and seating faces receive the applicable static or sliding allowance,
+including the additional allowance for each supported face. A locating datum, screw clamp,
+bearing shoulder or travel stop does not waive those clearances.
+A face printed against the build plate retains its base fit allowance without the
+additional finish allowance used for a supported overhang.
 """
 
 #: Assembly clearance at a printed seat.
@@ -23,7 +29,7 @@ sliding_extra = 0.10
 #: Clearance on each face of a moving service fit.
 running = slip + sliding_extra
 
-#: Extra room per supported mating face, assigned once to either part of its gap.
+#: Extra room per supported-overhang mating face, assigned once to either part of its gap.
 supported_surface = 0.25
 
 #: Additional clearance across the floor of a printed cavity a part slides to: the layers where

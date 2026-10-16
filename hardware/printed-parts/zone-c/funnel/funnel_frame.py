@@ -279,7 +279,15 @@ def receivers(inner, outer, y_joint, centre, seat, col):
 def shell_clearance(centre, seat, inner=DEFAULT_INNER, y_joint=200.0):
     """Body clearance through shell furniture; rail clearance has its own exact cutter."""
     import enclosure as enc
-    return body_blank(centre, seat, enc.slide_slip, inner, y_joint)
+    air = enc.slide_slip
+    blank = body_blank(centre, seat, air, inner, y_joint)
+    floor, _plug, rail = datums(seat)
+    cx, cy = centre
+    front = roof_datums(inner, centre, seat, y_joint)['front']
+    cap = _front_square_blank(width + 2 * air, front - air, cy + depth / 2 + air,
+        rail, rail + air + enc.fits.supported_surface,
+        cx, corner_radius + air, rear_narrowing(inner, y_joint, air))
+    return blank.fuse(cap.cut(corbel_cut(centre, floor, air))).clean()
 
 
 def front_roof_clearance(inner, centre, seat, y_joint):

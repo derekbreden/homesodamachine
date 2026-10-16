@@ -2,8 +2,11 @@
 
 Run after materializing the enclosure. This reads positive-area opposed faces,
 including exact contact that a whole-solid volume-intersection check misses.
-Only the stated clamp faces and seam seating planes permit zero gap.
-Rail end faces require running clearance at the nominal assembly position.
+Every measured printed mating face requires its applicable fit and supported-face
+allowances, including clamping faces, seating shoulders, closure ends and rail ends.
+Y-normal head-on closure faces use static clearance; tangential sliding faces use running
+clearance. Faces printed against the actual build plate retain the base allowance without
+the supported-overhang addition. Rail ends retain their local 0.25 mm gap.
 Curved contacts, insertion sweeps and physical support finish are separate checks.
 """
 from itertools import combinations
@@ -26,36 +29,16 @@ PRINT_UP = {"front-bottom": 1, "back-bottom": 1, "front-top": 1, "back-top": -1}
 TOL = 1e-5
 
 
-def datum(parts, normal, center, box):
-    """The locating faces explicitly allowed to touch, never all zero-gap faces."""
-    x, y, z = center
-    if parts in (("front-bottom", "back-bottom"), ("front-top", "back-top")):
-        if abs(normal[1]) > .999 and abs(y - box.y_joint) < TOL:
-            return "Y seam closure end face"
-    if abs(normal[2]) > .999:
-        # The faces a corner stack's rod pulls shut.
-        lower, upper = e.y_stack(box.inner)
-        pulled = {("front-bottom", "back-bottom"): lower[0][2],
-                  ("front-bottom", "back-top"): lower[-1][1],
-                  ("front-top", "back-top"): upper[-1][1]}
-        if parts in pulled and abs(z - pulled[parts]) < TOL:
-            return "corner-stack face the rod pulls shut"
-    for col, zj in zip(("front", "back"), box.splits):
-        if set(parts) != {f"{col}-bottom", f"{col}-top"}:
-            continue
-        if abs(normal[2]) > .999 and abs(z - zj) < TOL:
-            return "Z seam seating shoulder"
-    return None
-
-
 def survey(directory=DIRECTORY):
     box, _ = _box_spec.read(e.Box, e.Bound, (e.Pack, e.PortField, e.Nameplate))
-    groups, sources, solids = {}, {}, {}
+    groups, sources, solids, beds = {}, {}, {}, {}
     for name in NAMES:
         path = directory / f"enclosure-{name}.step"
         sources[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
         solid = cq.importers.importStep(str(path)).val()
         solids[name] = solid
+        bounds = solid.BoundingBox()
+        beds[name] = bounds.zmin if PRINT_UP[name] > 0 else bounds.zmax
         groups[name] = {}
         for index, face in enumerate(solid.Faces()):
             if face.geomType() != "PLANE":
@@ -80,25 +63,29 @@ def survey(directory=DIRECTORY):
                            - np.maximum(low, lows - gaps[:, None] * normal))
                 selected = (gaps >= -TOL) & (gaps <= .751) & (overlap >= -TOL).all(axis=1)
                 for j in np.flatnonzero(selected):
-                    ib, fb, nb, _cb, _lb, _hb = others[j]
+                    ib, fb, nb, _cb, low_b, high_b = others[j]
                     projected = fa.intersect(fb.translate(tuple(-gaps[j] * normal)))
                     if projected.Area() < .05:
                         continue
                     center = projected.Center().toTuple()
-                    locating = datum((first, second), normal, center, box)
-                    # Bed-contact and intentional bearing planes are handled above.
-                    # Other horizontal print-down mating faces need rough-face room.
-                    rough = (int(normal[2] * PRINT_UP[first] < -.99)
-                             + int(nb[2] * PRINT_UP[second] < -.99))
-                    target = 0. if locating else e.fits.running + rough * e.fits.supported_surface
+                    first_bedded = (abs(low[2] - beds[first]) < TOL
+                                    and abs(high[2] - beds[first]) < TOL)
+                    second_bedded = (abs(low_b[2] - beds[second]) < TOL
+                                     and abs(high_b[2] - beds[second]) < TOL)
+                    rough = (int(normal[2] * PRINT_UP[first] < -.99 and not first_bedded)
+                             + int(nb[2] * PRINT_UP[second] < -.99 and not second_bedded))
+                    head_on = abs(normal[1]) > .999
+                    ordinary = e.fits.slip if head_on else e.fits.running
+                    target = ordinary + rough * e.fits.supported_surface
                     gap = float(max(0., gaps[j]))
                     b = projected.BoundingBox()
                     readings.append({
                         "parts": [first, second], "face_indices": [ia, ib],
                         "gap_mm": gap, "minimum_mm": target,
                         "pass": bool(gap + TOL >= target),
-                        "classification": locating or "Assembly sliding clearance",
-                        "rough_faces_counted": 0 if locating else rough,
+                        "classification": ("Head-on closure clearance" if head_on
+                                           else "Assembly sliding clearance"),
+                        "rough_faces_counted": rough,
                         "area_mm2": projected.Area(), "center_mm": center,
                         "normal_from_first": normal.tolist(),
                         "bounds_mm": [b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax],
