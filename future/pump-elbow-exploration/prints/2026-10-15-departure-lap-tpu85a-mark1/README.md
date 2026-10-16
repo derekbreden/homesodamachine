@@ -1,6 +1,6 @@
 # TPU elbow departure-lap trial — Mark1
 
-**Status: Mark1 task 1343980666 accepted; physical result pending.**
+**Status: stopped; Derek reports no improvement and insufficient apparent nozzle clearance.**
 The [launch receipt](launch.json) records RUNNING at startup, with no errors,
 on **2026-10-15 at 23:15:25 CDT**. The [startup spacing record](startup-spacing.json)
 identifies Mark2’s existing job and the interval before this acceptance.
@@ -69,8 +69,12 @@ copy of the reviewed processed archive in Bambu Connect, with Timelapse On,
 Bed Leveling On, Flow Calibration Auto and Nozzle Offset Auto. Keep the selected
 import copy untouched until submission completes.
 
-The [physical record](physical-result.json) remains pending. The useful outcome
-is fewer strands across bores and between objects, without added rim damage
-or projecting wall-start strands. The Siraya exterior acceptance and rough
+The [physical record](physical-result.json) records Derek’s report: “It’s not
+helping, and I don’t think it’s getting away from the print.” Physical contact
+and the printed stop layer are unestablished. The
+[0.4 mm Normal Lift trial](../2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
+uses the same lap routes at full hop height. The useful outcome is fewer strands
+across bores and between objects, without added rim damage or projecting
+wall-start strands. The Siraya exterior acceptance and rough
 Bambu article's manual-fit acceptance retain their separate scopes. This
 trial supplies no pressure, retention or lifetime qualification.

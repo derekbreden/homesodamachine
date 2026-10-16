@@ -1,0 +1,24 @@
+{
+  "required_between_starts_seconds": 180,
+  "other_printer_previous_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-16T04:01:09.064467+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 48
+  },
+  "other_printer_current_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-16T05:09:51.674514+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "1343785668",
+    "subtask_name": "2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 104,
+    "print_error": 0,
+    "hms": []
+  },
+  "mark1_launch_observed_at": "2026-10-16T05:10:38.635702+00:00",
+  "mark1_task_id": "1344061857",
+  "seconds_from_prior_running_observation_to_mark1_acceptance": 4169.571235,
+  "assessment": "Mark2 continues the same already-running job with advancing layers; its startup predates the earlier running observation by more than the required interval."
+}
