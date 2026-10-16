@@ -374,18 +374,6 @@ def covers(c: Carrier) -> dict:
     return {name: cq.Workplane(obj=_sided(cover, side)) for name, side in COVERS.items()}
 
 
-def _receiver_mouth(c: Carrier, y0, y1, z0, z1):
-    """A 45-degree mouth from the interior flank to its receiving wall.
-
-    The receiving rectangle stays on its fitted plane. At the interior flank
-    its perimeter opens by the shallow pocket depth, with no square return.
-    """
-    wires = []
-    for x, grow in ((c.flank_x, c.air), (c.flank_x + c.air, 0.0)):
-        ring = ((y0 - grow, z0 - grow), (y1 + grow, z0 - grow),
-                (y1 + grow, z1 + grow), (y0 - grow, z1 + grow))
-        wires.append(cq.Wire.makePolygon([cq.Vector(x, y, z) for y, z in ring], close=True))
-    return cq.Solid.makeLoft(wires, ruled=True)
 
 
 def cover_clearance(c: Carrier):
@@ -406,15 +394,6 @@ def cover_clearance(c: Carrier):
                   p0 - fits.slip - air, p1 + fits.slip + air,
                   c.slot_z[0] + fits.clearance(at_floor=True) - COVER_FLOOR_AIR,
                   c.slot_z[1] + COVER_ROOF_AIR)
-    mouths = [
-        _receiver_mouth(c, y0 - air, p0 - fits.slip + air,
-                        c.floor_z - COVER_FLOOR_AIR, c.roof_z + COVER_ROOF_AIR),
-        _receiver_mouth(c, p1 + fits.slip - air, y1 + air,
-                        c.post_z[0] - COVER_FLOOR_AIR, c.post_z[1] + COVER_ROOF_AIR),
-        _receiver_mouth(c, p0 - fits.slip - air, p1 + fits.slip + air,
-                        c.slot_z[0] + fits.clearance(at_floor=True) - COVER_FLOOR_AIR,
-                        c.slot_z[1] + COVER_ROOF_AIR),
-    ]
     # Join the fore receiver to its entry with a 45-degree floor runout.
     # This gives the small aft-end portion of the carrier floor extra room;
     # the carrier's ordinary floor plane and the cover pose stay fixed.
@@ -427,7 +406,7 @@ def cover_clearance(c: Carrier):
     runout = cq.Solid.extrudeLinear(face, cq.Vector(x1 - x0, 0, 0))
     # Posts join after opening(); the same final entry air keeps that window
     # open through its full floor and roof without entering the guide finger.
-    envelope = fore.fuse(tongue, aft, runout, _cover_fore_entry(c), *mouths).clean()
+    envelope = fore.fuse(tongue, aft, runout, _cover_fore_entry(c)).clean()
     return cq.Compound.makeCompound([_sided(envelope, side) for side in (-1.0, 1.0)])
 
 
