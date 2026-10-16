@@ -5,10 +5,12 @@ The enclosure's PET-GF-to-PET-GF mating interfaces use the shared allowances in
 its artifact-scoped verification coverage. Current-source native verification is pending
 regeneration. The source dimensions do not certify a physical print's fit.
 
-TPU, cold-core internals, PETG parts, the faucet and display seating keep their existing
-geometry. Steel washer bearing planes also retain their nominal positions. The core crown
-remains at its Z253.4 reference; final enclosure pocket and hold-down readings are pending
-regenerated enclosure artifacts.
+This pass is bounded to the enclosure's PET-GF-to-PET-GF interfaces. Rigid-part fits
+elsewhere remain subject to the same printed-face allowances; this pass does not resolve
+them. Compliant gaskets and seals use their specified installed squeeze in the compression
+direction. Steel washer bearing planes retain their nominal source positions and are outside
+this pass's fit assessment. The core crown remains at its Z253.4 reference; final enclosure pocket and hold-down readings are
+pending regenerated enclosure artifacts.
 
 The allowances reserve room for rough or oozed printed material beyond the nominal CAD
 face. Seating under gravity or screw load uses that room too. A modeled gap does not
@@ -86,7 +88,7 @@ belong to a supported part.
 A face printed against the build plate keeps its base allowance; the extra 0.25 mm
 is for a supported overhang's retained finish.
 
-PET-GF-to-PET-GF screw-clamping faces, bearing planes, seating shoulders and stroke stops
+Rigid printed screw-clamping faces, bearing planes, seating shoulders and stroke stops
 receive the applicable allowances above. Locating a face from a datum does not waive
 its clearance or supported-face allowance. Manufacturer heat-set pilot cores
 retain their prescribed diameter; supported horizontal pilots receive crown relief only.
@@ -109,7 +111,7 @@ The same clearance policy follows these orientations rather than the assembled a
 | Pump cartridge and cap | PET-GF bay, bulkhead and casing interfaces use their static or sliding allowances. The receiving floor is 0.35 mm below the unchanged cartridge bed: 0.25 running + 0.10 local cavity-floor transition. Supported PET-GF shoulders and recesses receive directional relief with backing retained. |
 | Rear printed receivers | Nameplate, DATA plate and bulkhead-ring backs have 0.15 mm static clearance. Supported PET-GF pocket edges receive directional relief. Normal ring backing remains 4 mm; the CO2 land retains 3 mm. The clamped barrel stack includes the 0.15 mm ring-back gap. |
 | Funnel frame | Front rail receivers have 0.50 mm above the frame feet: 0.25 running + 0.25 supported receiver underside. Frame rail and foot stock remain at their specified sections. |
-| Other component interfaces | Existing display, hardware, TPU, PETG and cold-core component dimensions retain their separate records and geometry. They are outside this PET-GF-to-PET-GF source adjustment. |
+| Other rigid-part interfaces | Their fit remains unresolved by this bounded pass. Component records identify their geometry; the same rigid printed-face allowances apply. |
 
 ## Enclosure dimensions in the source
 
@@ -194,6 +196,6 @@ envelopes, and seam capture. Zero whole-part overlap does not establish positive
 clearance between printed mating faces.
 
 The separate [copper-plug reading](../cold-core/copper-plugs/clearance-check.json) records its
-own input hashes, scope and result. Those cold-core components retain their existing geometry
-and are outside this adjustment. Neither source values nor a retained reading of another
-build establish the final printed fit.
+own input hashes, scope and result. This enclosure pass does not resolve those rigid-part
+fits or waive their required allowances. Neither source values nor a retained reading of
+another build establish the final printed fit.
