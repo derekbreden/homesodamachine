@@ -1,3 +1,24 @@
-[ceiling] The plate prints lying on its back, troughs up. Its underside between the two columns is a side wall standing on the bed there, and the columns' own undersides are the same wall.
+[ceiling] Lint pose misclassification: the generator exports machine coordinates, while low-force-trial/prepare_print.py turns this carrier -90 degrees about X to print back-down with its troughs up. The emitted machine -Z normal becomes a vertical print wall. The lint's ceiling classifier assumes machine Z is print-up for this piece, so this specific face is not a print-down ceiling. This answer does not evaluate thickness or the carrier's other faces.
+alternatives: Give the lint this part's saved print rotation when evaluating its support-facing classes. Changing the physical face to satisfy an incorrect assumed pose would change the carrier's trough-spanning plate.
 file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step
 click: x=0.000 y=111.290 z=166.574
+
+[ledge] Lint pose misclassification: these exact tee-slot boundary faces emit machine -Z normals. In the saved -90-degree-X print pose they are vertical walls, so they do not face the bed. The lint's ledge pose map has no carrier rotation and ranks them using assembly Z. This answer concerns that orientation error only; the separate thin readings remain independent findings.
+alternatives: Evaluate ledges with the saved print rotation. Removing the tee-slot boundary faces would change the tie passages without correcting the pose assumed by the lint.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step
+click: x=-90.156 y=111.572 z=196.274
+click: x=90.156 y=111.572 z=196.274
+click: x=-90.156 y=111.572 z=179.574
+click: x=90.156 y=111.572 z=179.574
+click: x=-14.294 y=111.572 z=196.274
+click: x=14.294 y=111.572 z=196.274
+click: x=-14.294 y=111.572 z=179.574
+click: x=14.294 y=111.572 z=179.574
+click: x=-30.406 y=111.572 z=196.274
+click: x=30.406 y=111.572 z=196.274
+click: x=-30.406 y=111.572 z=179.574
+click: x=30.406 y=111.572 z=179.574
+click: x=-74.044 y=111.572 z=196.274
+click: x=74.044 y=111.572 z=196.274
+click: x=-74.044 y=111.572 z=179.574
+click: x=74.044 y=111.572 z=179.574

@@ -123,10 +123,23 @@ def receiver():
     return apply(shell,dimensions.station(0,0),THICK)
 
 
-def production_backing(solid, station, y_outer):
-    """Relieve the hidden east backing beside the installed PSU terminal corner."""
-    keepout=box(EAST_RELIEF_START,WIDTH/2+PROJECTION+4,
-                -FLOOR_STOCK-BACK_AIR-1,-EAST_BACKING-BACK_AIR,-HEIGHT/2-5,HEIGHT/2+5)
+def production_backing(solid, station, y_outer, *, wall_face=None):
+    """Relieve the hidden east backing, with run-outs beyond the complete pad."""
+    xa, xb = EAST_RELIEF_START, WIDTH/2+PROJECTION+4
+    ya, yb = -FLOOR_STOCK-BACK_AIR-1, -EAST_BACKING-BACK_AIR
+    za, zb = -HEIGHT/2-5, HEIGHT/2+5
+    keepout=box(xa,xb,ya,yb,za,zb)
+    if wall_face is not None:
+        wall_y = wall_face - (y_outer-THICK)
+        run = yb - wall_y
+        if run > 0:
+            # Only the shallow bite into the base wall runs out. Both triangles
+            # lie beyond the existing full pad/body/wing relief footprint.
+            for profile in (((wall_y,za-run),(yb,za),(wall_y,za)),
+                            ((wall_y,zb),(yb,zb),(wall_y,zb+run))):
+                end = (cq.Workplane('YZ',origin=(xa,0,0)).polyline(profile)
+                       .close().extrude(xb-xa).val())
+                keepout=keepout.fuse(end)
     return solid.cut(keepout.translate((station.x,y_outer-THICK,station.z))).clean()
 
 
