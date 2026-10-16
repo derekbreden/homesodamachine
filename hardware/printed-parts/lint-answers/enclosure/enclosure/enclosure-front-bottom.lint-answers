@@ -1,52 +1,27 @@
-[step] The condenser groove roof and corner-column pocket ceiling are independent 45-degree clearance faces. The groove keeps 0.25 mm of running clearance at the seated flange; the pocket follows its own room envelope. Their 0.75 mm Z/Y offset reads as 0.530 mm between parallel planes. Both faces rise toward the open insertion mouth and retain the full rail and column backing; the apparent step is the overlap of two open voids, not a thin load-bearing web.
+[sliver] The recorded strip widths, lengths and edge coordinates are NaN, and the reported plane normal is zero. These exact handhold-end diagnostics remain unresolved: they do not establish a finite material face, a thin section or a geometry pass.
+alternatives: Correct the undefined classifier result or inspect the exact facets separately. Thickening a rounded handhold without a finite material witness would not resolve this numerical result.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=96.750 y=16.917 z=149.167
-click: x=96.750 y=16.917 z=12.567
-
-[ceiling] The front Z-slide heads' square catches stand at z=160.00 + 8.70 + 0.25 running clearance + 0.25 supported-face allowance = 169.20. Each overlaps the top's full-section foot and retains at least 3 mm of head stock. Lifting the seated top lands the flat foot on this face along the rail; its flat bearing resists lift without camming the seam open. The arm returns to the wall on its 45-degree under-flare, and slicer support carries the catch underside. The groove under the catch is open air from the arm's sliding face out past the exterior plane, so that support stands on the outside of the flank with a face exposed down the whole run; it comes off in one piece without reaching into the cavity. The tee carrier's flank window
-interrupts each head over its own depth, so each catch runs as two faces either side of it.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=100.875 y=142.418 z=169.200
-click: x=-100.875 y=142.418 z=169.200
-click: x=100.875 y=160.218 z=169.200
-click: x=-100.875 y=160.218 z=169.200
-
-[slope] The Y-seam floor tongue's full-width 45-degree scarf nose — this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=0.000 y=209.196 z=-3.000
-
-[slope] The condenser flank vents' 45-degree closing hips — each is a 1.55-millimetre run-out inside its groove's shadow, made by the void cutter rather than an added wall ledge. At the sill material recedes as the standing print climbs, and at the ceiling each opening closes at the enclosure's supported 45-degree relief angle; the lint pairs these YZ hip faces with a remote X wall even though they do not hang from that wall.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=0.000 y=98.307 z=54.725
-click: x=0.000 y=98.307 z=83.225
-click: x=0.000 y=98.307 z=111.725
-click: x=0.000 y=98.307 z=140.225
-click: x=0.000 y=76.243 z=140.225
-click: x=0.000 y=132.656 z=54.724
-
-[ceiling] The exposed handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Each roof joins complete end walls, the blind inner wall and seam stock. Tree(auto)/Default supports the broad ceiling through the open handhold and seam end. Support cleanup, finger comfort and loaded lifting remain unqualified for these complete handholds; the recorded receiver/cover trials do not qualify the uncovered gripping surface.
-alternatives: A sloped ceiling changes the finger opening and lifting section; lowering or thickening the ceiling reduces that opening. Keep the full lifting section and accessible automatic support.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-99.354 y=189.998 z=29.250
-click: x=99.354 y=189.998 z=29.250
-
-[sliver] These picks are degenerate STL facets with zero normals and undefined strip dimensions at the curved front handhold end returns. They identify no finite thin wall or material ledge. The end returns lie before the intended flat ceiling interval, which starts at Y180. The final scoped lint receipt records these exact picks on the polished print mesh.
-alternatives: A tessellation can omit degenerate facets without changing the material boundary. Thickening or squaring the rounded return would change the gripping surface without addressing a finite thin section at these picks.
 click: x=-105.207 y=179.023 z=29.196
 click: x=-105.050 y=179.450 z=29.233
 click: x=105.207 y=179.023 z=29.196
 click: x=105.050 y=179.450 z=29.233
 
-[ceiling] The four lower faces belong to front-bottom's complete Y-seam screw-bearing blocks. The Z65.7 faces are the intended seating datums against back-bottom. The Z138.6 faces retain the 0.5 mm inter-block running/support gap; they are not compression spacers. The blocks root in the front flank and retain their full length around the printed screw passage. Tree(auto)/Default support is accessible from the open interior and seam before joining the pieces; removal effort remains unqualified.
-alternatives: Cutting a slope shortens the screw-bearing length and removes stock at the seating end. Adding a corbel below it occupies the mating back block's insertion envelope. Retain flat block ends and accessible support.
+[ceiling] These Z66.2 and Z138.6 flats are the complete ends of front-bottom lower screw-bearing blocks. The current finite mating audit includes their opposing faces and positive running/support gaps; no seating exemption applies. Tree (auto)/Default support has access through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
+alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening the end spends the required bearing and insert-host length.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-97.375 y=207.400 z=65.700
-click: x=97.375 y=207.400 z=65.700
-click: x=-97.375 y=207.400 z=138.600
-click: x=97.375 y=207.400 z=138.600
+click: x=-97.500 y=207.400 z=66.200
+click: x=97.500 y=207.400 z=66.200
+click: x=-97.500 y=207.400 z=138.600
+click: x=97.500 y=207.400 z=138.600
 
-[thin] These two points cross the handhold's nominal 3 mm inner wall. It stands on the front floor tongue and closes against the corresponding back wall beneath the lower screw blocks. The reading is the retained wall section, not a separate thin fin.
-alternatives: Thickening inward occupies the cold-core envelope; thickening toward the handhold narrows its accepted finger opening. Preserve the complete 3 mm section.
+[ceiling] The Z29.25 handhold ceilings are flat finger bearings with the shared R6 end profile and 12 mm roof section. Tree (auto)/Default supports can leave through the open handhold and seam before assembly. Full-part surface finish, cleanup, finger comfort and loaded lifting are unqualified.
+alternatives: Sloping changes the lifting surface and finger opening; filling below the roof obstructs entry. Retain the specified flat lifting profile.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-93.500 y=199.595 z=28.616
-click: x=-90.500 y=199.595 z=28.616
+click: x=-99.479 y=189.998 z=29.250
+click: x=99.479 y=189.998 z=29.250
+
+[ceiling] The Z169.2 faces are the front Z-rail square catches. Their opposing feet retain 0.50 mm running/supported clearance in the current native paired-face review. The flat overlap resists lifting after that play is taken up. Tree (auto)/Default supports approach through the open rail lane before assembly; removal effort is unqualified.
+alternatives: A sloped catch introduces camming. Filling the lane enters foot travel; cutting away the overlap loses capture.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-100.875 y=160.268 z=169.200
+click: x=100.875 y=160.268 z=169.200
