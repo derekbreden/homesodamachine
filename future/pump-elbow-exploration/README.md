@@ -1,13 +1,15 @@
 # TPU pump elbow and installed layout study
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A departure-lap pair submitted; physical result pending.**
-The [departure-lap trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A 0.4 mm Normal Lift lap pair submitted; physical result pending.**
+The [0.4 mm departure-lap trial](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
 uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
-Engineering Plate. Its processed G-code adds 368 retracted wall laps 0.2 mm
-above the layer at 10 mm/s, with 0.4 mm connectors and crossings. All native
-extrusion commands, positions and speeds remain unchanged. The planning
-estimate is about 2 hours 35 minutes / 8.57 g. String reduction and finished
-quality remain unassessed.
+Engineering Plate. Its processed G-code adds 368 retracted wall laps 0.4 mm
+above the layer at 10 mm/s, with full-height connectors and Normal Lift native
+travel. All extrusion commands, positions and speeds from its native slice
+remain unchanged. The planning estimate is about 2 hours 33 minutes / 8.57 g.
+String reduction and finished quality remain unassessed. The
+[0.2 mm lap's physical record](prints/2026-10-15-departure-lap-tpu85a-mark1/physical-result.json)
+reports no improvement and insufficient apparent nozzle clearance.
 
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. The accepted single Siraya job uses the glued Engineering Plate
@@ -57,7 +59,7 @@ neighboring hardware are considered together.
   clearance between brims. Its manual travel review covers both inter-object
   transitions, including the next-layer return and timelapse detour. Native
   estimate: 114 minutes / 7.83 g. Physical string reduction remains unassessed.
-- [Departure-lap trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+- [0.4 mm Normal Lift departure-lap trial](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
   contains the Bambu 85A pair's native and processed archives, reproducible
   preparation and the per-departure route review. The
   [stringing candidates](stringing-candidates.md) specify the lap and related

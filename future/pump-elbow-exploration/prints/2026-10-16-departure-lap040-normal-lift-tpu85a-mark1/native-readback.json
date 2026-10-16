@@ -1,0 +1,62 @@
+{
+  "prepared_at": "2026-10-16T05:02:50.881048+00:00",
+  "status": "Offline; not submitted",
+  "printer": "Mark1 (H2C)",
+  "source_project": "future/pump-elbow-exploration/prints/2026-10-15-departure-lap-tpu85a-mark1/2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.3mf",
+  "project": "2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1.3mf",
+  "project_sha256": "a6804f248df116a61554ff6b97a815807e915dddb131baca7a4026221ef26d75",
+  "native_archive": "2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1-native.gcode.3mf",
+  "native_archive_sha256": "6d26fe4541db0883074fe5d33e349b6db5cf247428eeeba8b597a1d0dc16f578",
+  "native_gcode_sha256": "9fb8babf356a3948999e1ad01d4ecd586ddfee7449b1f18a0d9ba9604922eb25",
+  "native_settings_differences": {
+    "filament_z_hop": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0.4",
+        "0.4",
+        "0.4"
+      ]
+    },
+    "filament_z_hop_types": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift"
+      ]
+    },
+    "print_settings_id": {
+      "from": "Two Bambu85A elbows 225C overhang10 departure lap 0.2mm Mark1",
+      "to": "Two Bambu85A elbows 225C Normal Lift 0.4mm departure lap Mark1"
+    },
+    "z_hop_types": {
+      "from": [
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift"
+      ],
+      "to": [
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift"
+      ]
+    }
+  },
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "native_estimated_seconds": 7269.10205078125,
+  "estimated_filament_g": 8.574027061462402,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/departure-lap040-normal/native-wteuofw1"
+}

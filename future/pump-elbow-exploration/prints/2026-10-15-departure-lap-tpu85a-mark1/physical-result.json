@@ -1,13 +1,26 @@
 {
-  "status": "Pending",
+  "status": "Stopped; user reports no improvement",
   "material": "Bambu TPU 85A Black",
   "printer": "Mark1 (H2C)",
   "nozzle": "Right fixed 0.6 mm",
   "archive": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
-  "observations": [],
-  "evidence_scope": "No finished-part acceptance. String reduction, exterior quality and socket fit remain unassessed. No pressure, retention or lifetime result.",
+  "observations": [
+    {
+      "recorded_at": "2026-10-16T05:06:10.019080+00:00",
+      "source": "Derek, current print chat",
+      "quote": "It\u2019s not helping, and I don\u2019t think it\u2019s getting away from the print. I\u2019m clearing plate now.",
+      "assessment": "User reports no benefit and perceives insufficient nozzle clearance. Actual physical contact and stop layer are not established."
+    }
+  ],
+  "evidence_scope": "User reports no stringing benefit and insufficient apparent clearance during the trial. No finished-part acceptance, measured contact, socket-fit, pressure, retention or lifetime result.",
   "printer_task_id": "1343980666",
   "archive_sha256": "e308315f8c561f192f36d96a7a6a6889b93a833f17e64febf2ea555f4d5ee503",
   "gcode_sha256": "83cc4838f8d1b0cb84caaa99af6c88b440645b87c619f5f3b7f6205fe297d4ab",
-  "launch_observed_at": "2026-10-16T04:15:25.648658+00:00"
+  "launch_observed_at": "2026-10-16T04:15:25.648658+00:00",
+  "post_stop_telemetry": {
+    "observed_at": "2026-10-16T04:58:13+00:00",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "scope": "Idle cancelled-job state; reset layer counters do not identify the printed stop layer."
+  }
 }

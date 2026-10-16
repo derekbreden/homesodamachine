@@ -1,9 +1,11 @@
 # TPU stringing candidates
 
-**Status: departure-lap trial submitted; physical result pending.** The
-[Mark1 Bambu 85A trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
-implements a 0.2 mm high, 10 mm/s wall lap at all 368 object departures, with
-full-height connectors and the native extrusion/travel commands retained.
+**Status: 0.4 mm Normal Lift departure-lap trial submitted; physical result pending.** The
+[Mark1 Bambu 85A trial](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
+implements a 0.4 mm high, 10 mm/s wall lap at all 368 object departures, with
+full-height connectors and Normal Lift native travel. The
+[0.2 mm lap's physical record](prints/2026-10-15-departure-lap-tpu85a-mark1/physical-result.json)
+reports no improvement and insufficient apparent clearance.
 Related options below remain candidates. The
 [two-object trial](prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
 is their baseline; its finished result is pending. A strand across a bore sits
@@ -13,14 +15,14 @@ in the water path and in the tube socket.
 
 At each point where the nozzle leaves an elbow:
 
-1. Stop extruding and retract standing still, as now (`G1 E-.8 F1800`).
-2. Rise 0.1–0.2 mm above the layer instead of the 0.4 mm hop.
+1. Stop extruding and retract standing still (`G1 E-1 F600` in Bambu 85A).
+2. Rise vertically 0.4 mm above the printed layer.
 3. Travel once around a wall loop of that elbow without extruding, ending at
-   the loop point nearest the next destination.
-4. Rise to the 0.4 mm hop, travel, lower, unretract and print.
+   the loop entry point, then return to the native departure XY.
+4. Continue native travel at 0.4 mm clearance, lower, unretract and print.
 
-Ooze hanging from the tip touches down on the wall top, where the next layer
-covers it, and the nozzle reaches the crossing carrying less. Derek's
+The proposed effect is that ooze hanging from the tip touches down on the wall
+top, where the next layer can cover it, leaving less for the crossing. Derek's
 experience: "When the ooze is wiped longer the stringing is less."
 
 The launched two-object job has 184 departures to the other elbow, over an
@@ -29,9 +31,12 @@ layer change; and 59 crossings between the two legs of each elbow.
 
 Settings to choose for a trial:
 
-- **Height.** Layers are 0.12 mm. At 0.1 mm the nozzle runs lower than it
+- **Height.** The selected lap is 0.4 mm above the layer. Layers are 0.12 mm.
+  At 0.1 mm the nozzle runs lower than it
   prints the next layer and brushes high spots. At 0.2 mm only ooze hanging at
-  least 0.2 mm touches down.
+  least 0.2 mm touches down; at 0.4 mm the proposed contact needs at least
+  0.4 mm of hanging material. Actual contact and string reduction are physical
+  observations.
 - **Speed.** A slower lap leaves the TPU more time to ooze onto the wall
   before the crossing.
 - **Loop.** The wall just inside the outer wall buries the deposit away from
@@ -44,7 +49,7 @@ starts and across the bores, compared with the baseline job.
 
 A post-processor runs between the offline slice and `tools/bambu_print.py`.
 [`departure_lap.py`](departure_lap.py) prepares the selected trial by hand;
-its [print record](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+its [print record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
 specifies the emitted path, thin-rim fallbacks, full-height wall connectors
 and return to the native departure point.
 It rewrites `Metadata/plate_1.gcode` in the native `.gcode.3mf` and its

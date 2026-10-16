@@ -1,0 +1,33 @@
+{
+  "archive": "2026-10-16-elbow-pair-tpu85a-lap040-normal-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "5bd85c3ab3311ed8f3e5433753130a126f1fe6d8b1ad9ebb4a4b00007b328dd2",
+  "gcode_sha256": "5ddbfd6f47e2942ab8a3e0a05530ee02d35578ff50102af130fdd17acca55518",
+  "only_modified_members": [
+    "Metadata/plate_1.gcode",
+    "Metadata/plate_1.gcode.md5"
+  ],
+  "embedded_md5_matches": true,
+  "independent_extrusion_runs": 3958,
+  "native_vs_processed_extrusion_coordinates_and_feeds_identical": true,
+  "native_vs_020_trial_extrusion_coordinates_identical": true,
+  "native_vs_020_trial_changed_feed_segments": 2946,
+  "native_vs_020_trial_feed_delta_mm_s": [
+    -0.016666666666669272,
+    0.0
+  ],
+  "editable_project_geometry_and_poses_byte_identical": true,
+  "laps": 368,
+  "layers": 184,
+  "laps_per_layer": 2,
+  "all_laps_no_extrusion": true,
+  "all_laps_full_040_clearance": true,
+  "all_laps_start_with_vertical_040_lift": true,
+  "all_laps_end_at_native_departure_xy": true,
+  "native_vertical_hops_in_object_blocks": 2991,
+  "native_combined_xy_z_rises_in_object_blocks": 0,
+  "native_hop_rises_mm": [
+    0.4
+  ],
+  "scope": "Commanded clearance above the nominal deposited layer; physical contact, curl and stringing are unassessed.",
+  "all_lap_xy_routes_identical_to_020_trial": true
+}
