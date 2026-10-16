@@ -1,6 +1,6 @@
 # TPU elbow 0.4 mm departure lap — Mark1
 
-**Status: Mark1 task 1344061857 accepted; physical result pending.** The
+**Status: stopped; threads persist, with a possible small reduction in thickness.** The
 [launch receipt](launch.json) records RUNNING without errors at startup on
 2026-10-16 at 00:10:38 CDT. The [startup spacing record](startup-spacing.json)
 identifies Mark2’s continuing job and the interval before acceptance.
@@ -8,7 +8,9 @@ Two compact elbows use black
 Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued Engineering Plate.
 Derek confirms the plate is glued, clear and ready. The useful outcome is fewer
 strands across the bores and between objects, with sufficient physical clearance
-and no added rim damage. The [physical record](physical-result.json) is pending.
+and no added rim damage. The [physical record](physical-result.json) records
+Derek’s report of persistent threads with a possible small improvement.
+No printed clearance or finished-part acceptance is established.
 
 ## Movement and material
 
