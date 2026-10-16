@@ -9,10 +9,10 @@ that pastes straight into the /3d Find box (or back into `pick_read.py`).
 Order of operations is part of the contract: publish first, lint second. The
 first shape that builds goes to the site so Derek sees it immediately; the lint
 is the agent's follow-through while Derek is already looking — never a gate
-between an edit and the first look, never wired into the build path. Justify or
-fix what it flags. A justification is a reason AND the alternatives: the
-thicker or larger constructions that would do the same job, and why each is
-worse. Thinness is a spectrum — larger is preferred and every thin feature is
+between an edit and the first look, never wired into the build path. Fix what
+it flags, or answer it as `hardware/printed-parts/lint-answers/AGENTS.md` says.
+An answer gives a reason AND the alternatives: the thicker or larger
+constructions that would do the same job, and why each is worse. Thinness is a spectrum — larger is preferred and every thin feature is
 a compromise — so `thin` and `ledge` are a ranking of where the piece is
 thinnest and smallest, and an answer never takes a place off it.
 
@@ -21,7 +21,8 @@ thinnest and smallest, and an answer never takes a place off it.
 
     geometry_lint.py <piece>.stl [<piece2>.stl …] [--top N] [--all] [--classes a,b]
 
-A finding's answer is recorded in `<piece>.lint-answers` beside the STL — one
+A finding's answer is recorded in `hardware/printed-parts/lint-answers/`, in
+`<piece>.lint-answers` at the piece's own path below `printed-parts/` — one
 entry per feature family: a `[class] reason` line, an `alternatives:` line,
 then pick lines whose points anchor it (one `click:` per instance). AN ANSWER
 EXPLAINS THE FACE IT NAMES AND NOTHING ELSE: a finding reports as answered
@@ -122,6 +123,20 @@ _ANSWER_TOL = 0.002
 _CLASSES = ("step", "sliver", "ceiling", "slope", "thin", "ledge")
 #: The classes that rank: an answer is printed beside the finding and never hides it.
 _RANKED = ("thin", "ledge")
+
+_REPO = Path(__file__).resolve().parents[2]
+_PRINTED_PARTS = _REPO / "hardware" / "printed-parts"
+#: Every piece's answers, at that piece's own path below `printed-parts/`.
+ANSWERS = _PRINTED_PARTS / "lint-answers"
+
+
+def answers_path(stl):
+    """Where `stl`'s answers live; None for a mesh outside `printed-parts/`."""
+    try:
+        rel = Path(stl).resolve().relative_to(_PRINTED_PARTS)
+    except ValueError:
+        return None
+    return ANSWERS / rel.with_suffix(".lint-answers")
 #: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
@@ -1128,9 +1143,9 @@ def report(stl, top, show_all, classes):
     step = stl.with_suffix("") if stl.suffix == ".stl" else stl
     step = step if step.suffix == ".step" else step.with_suffix(".step")
     mesh, found = lint(stl, classes)
-    answers_path = stl.with_suffix(".lint-answers")
-    entries = (parse_answers(answers_path.read_text())
-               if answers_path.exists() else [])
+    answers = answers_path(stl)
+    entries = (parse_answers(answers.read_text())
+               if answers is not None and answers.exists() else [])
     opens, answered = {}, []
     for name in classes:
         if name in _RANKED:
@@ -1142,6 +1157,9 @@ def report(stl, top, show_all, classes):
     print(f"{stl.name} · {len(mesh.faces)} printed facets · {total} findings"
           + (f" · {len(answered)} answered" if answered else "")
           + ("" if show_all or total <= top else f" · top {top} (--all for every one)"))
+    if answers is not None:
+        print(f"answers: {answers.relative_to(_REPO)} · read "
+              f"{(ANSWERS / 'AGENTS.md').relative_to(_REPO)} before writing one")
     shown = 0
     for name in classes:
         rows = opens[name] if show_all else opens[name][: max(3, top // len(classes))]
