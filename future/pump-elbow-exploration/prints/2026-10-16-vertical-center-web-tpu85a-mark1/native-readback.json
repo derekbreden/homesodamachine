@@ -1,0 +1,62 @@
+{
+  "prepared_at": "2026-10-16T06:33:11.342343+00:00",
+  "status": "Offline candidate; not submitted",
+  "printer": "Mark1 (H2C)",
+  "project": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.3mf",
+  "project_sha256": "a91c77a7fb9c080598298096ba1105f34f813fae7e6c2dad2f0000f8a8bac48c",
+  "archive": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1-native.gcode.3mf",
+  "archive_sha256": "86b5c929ed9833c35873536e4d823b3a7ad53c2c7acfbf0c98959b5c04006c47",
+  "gcode_sha256": "a7919d7aa0341e3459d120e756fa3beb4a5cad2cc50f75e192b3c0d700ae87fb",
+  "native_settings_differences": {
+    "retraction_minimum_travel": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "0.1",
+        "0.1",
+        "0.1",
+        "0.1"
+      ]
+    },
+    "time_lapse_gcode": {
+      "from": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "to": ""
+    },
+    "brim_object_gap": {
+      "from": "0.1",
+      "to": "0"
+    },
+    "filament_retraction_minimum_travel": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0.1",
+        "0.1",
+        "0.1"
+      ]
+    },
+    "print_settings_id": {
+      "from": "Two Bambu85A elbows 225C Normal Lift 0.4mm departure lap Mark1",
+      "to": "Bambu85A elbow pair vertical centre web 0.4 Normal Lift Mark1"
+    }
+  },
+  "objects": [
+    {
+      "identify_id": "1901",
+      "name": "Vertical centre-web TPU elbow pair",
+      "skipped": "false"
+    }
+  ],
+  "estimated_seconds": 8324.169921875,
+  "estimated_filament_g": 9.251193046569824,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/vertical-center-web/native-i3s4heqe",
+  "emitted_photo_trip_commands": 0
+}

@@ -1,6 +1,6 @@
 # TPU elbows with cutaway fins — Mark1
 
-**Status: Mark1 task 1344118843 accepted; physical result pending.** The
+**Status: stopped for vertical centre-web revision; physical result unassessed.** The
 [launch receipt](launch.json) records RUNNING without errors at startup on
 2026-10-16 at 00:49:17 CDT. The [startup spacing record](startup-spacing.json)
 identifies Mark2’s continuing task and the interval before acceptance.
@@ -9,7 +9,9 @@ identical elbow-and-fin units, with one additional web joining the units.
 There are three fins: one between each elbow's legs and one between elbows.
 The [standalone STL](single-elbow-with-fin.stl) and
 [standalone editable project](single-elbow-with-fin.3mf) retain the leg fin.
-Only the pair is selected for this print.
+The [vertical centre-web trial](../2026-10-16-vertical-center-web-tpu85a-mark1/README.md)
+contains the selected joining geometry. This archive retains the following-leg web
+and its original launch record.
 
 ![Single elbow and connected pair](cutaway-web-review.png)
 
@@ -102,3 +104,9 @@ identifies the safe-position branch as head relocation through firmware
 `M9711`. This establishes commanded photo detours, not observed camera motion.
 The [prior physical record](../2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
 reports persistent threads with a possible small reduction in thickness.
+
+The [layer-49 G-code comparison](../2026-10-16-vertical-center-web-tpu85a-mark1/travel-opening-review.json)
+identifies a 3.84 mm crossing of a small model opening in this submitted file.
+The archived bead-envelope review fills holes below 5 mm² and includes
+preceding-layer stock. Its zero off-stock result does not establish travel
+within every current-layer wall or around every bore.
