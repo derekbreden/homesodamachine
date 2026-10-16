@@ -78,9 +78,9 @@
     "ROLL_SPARE": "+2.23 ft",
     "SEAM_INSERTS": "4",
     "SEAM_LONG_RODS": "2",
-    "SEAM_LONG_SCREWS_COST": "$1.77",
+    "SEAM_LONG_SCREWS_COST": "$4.83",
     "SEAM_SHORT_RODS": "2",
-    "SEAM_SHORT_SCREWS_COST": "$0.41",
+    "SEAM_SHORT_SCREWS_COST": "$0.38",
     "SEAM_WASHERS": "4",
     "SEAM_WASHERS_COST": "$0.29",
     "SHELF_INSERTS": "17",
@@ -108,11 +108,11 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,451.90",
+    "BOM_GRAND": "$1,454.71",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$40.78",
     "BOM_SEC12": "$35.66",
-    "BOM_SEC13": "$19.27",
+    "BOM_SEC13": "$22.30",
     "BOM_SEC14": "$4.29",
     "BOM_SEC15": "$25.14",
     "BOM_SEC2": "$197.07",
@@ -120,7 +120,7 @@
     "BOM_SEC4": "$128.94",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$166.01",
+    "BOM_SEC7": "$165.79",
     "BOM_SEC8": "$229.61",
     "BOM_SEC9": "$72.01"
   }

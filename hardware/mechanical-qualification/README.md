@@ -487,7 +487,7 @@ them; the closed rail ends constrain common translation when the bottom halves r
 fixed. The hooked bearing runs retain Z lift. That translation check does not establish
 a compression path across the tops when the bottom halves bend toward each other.
 In that sagging mode, each top can withdraw relative to its moving bottom half. The
-lower stacks retain the opening: each fully threaded lower screw passes alternately through
+lower stacks retain the opening: each lower screw passes alternately through
 back and front blocks from the handhold ceiling to back-top's anchor block. Opening can
 load the screw in bearing against those blocks. The Ø5.6 mm printed holes have clearance
 around the nominal Ø5 mm screw, so print variation and deflection determine which blocks

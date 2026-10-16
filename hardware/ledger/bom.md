@@ -150,7 +150,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.235 | $5.88 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.19** | **[$166.01](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.19** | **[$165.79](BOM_SEC7)** |
 
 By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.32.
 
@@ -308,8 +308,8 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | [uxcell M3 flat washer, Ø9 mm OD × 0.8 mm, 304 stainless steel, 200 pc](https://www.amazon.com/dp/B0FB45MN93) | [4](PUMP_MOUNT_SCREWS) per build, one under each G Ganen mounting screw. The screw axis is 1.5 mm outward within the foot's elongated slot, so the washer bears on the nominal 7 mm rubber pad and clears its raised inner shoulder. The cap's screw stack uses this 0.8 mm washer with the M3 × 20 screw and ruthex M3 × 5.7 insert. Amazon 112-4339967-8873055 Sep 18: $9.00 ÷ 200 = $0.045/ea; delivered 2026-09-20. **ACQUIRED** ([purchases.md §11](/hardware/ledger/purchases.md)). | [4](PUMP_MOUNT_SCREWS) (of 200 pk) | $0.05 | $0.18 <!--@fasteners--> |
 | [MewuDecor M5 × 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc](https://www.amazon.com/dp/B0BHZVXNJX) | compressor floor screws, [4](FLOOR_SCREWS) per build, one down through a fender washer into each floor post's ruthex M5. Length is the stack: 1.5 of washer over a 9.5 insert leaves 8.5 of engagement and stops clear of the relief under it. Head Ø8.5, 4 mm hex — the one hex in the box that is not 2.5. Black oxide 12.9, the same family as the §13 shelf and touch-flo screws — hidden interior hardware with no cosmetic driver, and 12.9 is stronger than 304, which is worth more at this joint than at any other in the box: these four are what hold the heaviest body in the machine when it is tipped. Amazon 112-6038990-5011450 Aug 11: $9.49 + $0.69 tax = $10.18 ÷ 100 = $0.1018/ea | [4](FLOOR_SCREWS) (of 100 pk) | $0.10 | $0.41 <!--@fasteners--> |
 | [M5 × 25 mm OD fender washers, 304 stainless steel, 60 pc](https://www.amazon.com/dp/B0GSMDY5GL) | [4](FLOOR_WASHERS) per build, one under each compressor floor screw. **This washer is what fastens the compressor.** Ø25 over a Ø[14](COMPRESSOR_BORE) grommet bore: it spans that bore onto the grommet's top flange, squeezes it [0.4](GROMMET_SQUEEZE) mm and lands on the post's crown. The plate's own [7.5](COMPRESSOR_LIGAMENT) mm of steel outboard of each hole takes an OD up to Ø[29](WASHER_MAX_OD). 304 rather than the screw's black oxide: what this part is chosen for is OD against a grommet flange nobody has calipered yet, and Ø25 is wider than black comes in. Amazon 112-6038990-5011450 Aug 11: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [4](FLOOR_WASHERS) (of 60 pk) | $0.14 | $0.57 <!--@fasteners--> |
-| [iexcell M5 × 150 mm socket-head cap screws, fully threaded, 304 stainless steel, 10 pc](https://www.amazon.com/dp/B0DRB1XNWT) | [2](SEAM_LONG_RODS) per build, inserted upward from the handholds through the printed Y-seam blocks into back-top. Nominal head Ø8.5 × 5 mm, 4 mm hex; listing length tolerance ±0.8 mm. Each uses one flat washer. Prime verified 2026-10-15; $8.86 per pack before tax. Not purchased | [2](SEAM_LONG_RODS) (of 10 pk) | $0.89 | [$1.77](SEAM_LONG_SCREWS_COST) <!--@fasteners--> |
-| [SVLING M5 × 60 mm socket-head cap screws, fully threaded, 304 stainless steel, 40 pc](https://www.amazon.com/dp/B0GHNFGPD3) | [2](SEAM_SHORT_RODS) per build, inserted downward through back-top's roof blocks into front-top. Head Ø8.5 × 5 mm, 4 mm hex. The CAD screw stack allows ±0.8 mm length tolerance. Each uses one flat washer. Prime verified 2026-10-15; $8.20 per pack before tax. Not purchased | [2](SEAM_SHORT_RODS) (of 40 pk) | $0.21 | [$0.41](SEAM_SHORT_SCREWS_COST) <!--@fasteners--> |
+| [McMaster-Carr 91290A298 M5 × 150 mm socket-head cap screws, black-oxide alloy steel, class 12.9, partially threaded, 5 pc](https://www.mcmaster.com/91290A298/) | [2](SEAM_LONG_RODS) per build, inserted upward from the handholds through the printed Y-seam blocks into back-top. DIN 912 / ISO 4762, head Ø8.5 × 5 mm, 4 mm hex. Its 27 mm minimum thread starts below the insert's mouth, and the plain shank runs in the printed clearance holes. The CAD screw stack allows ±0.8 mm length tolerance. Each uses one flat washer. Black like the rest of the interior hardware: the heads sit exposed in the handhold ceilings, and these are the first screws anyone opening the enclosure sees. No Prime listing carries this length in black. Checked at McMaster-Carr 2026-10-15; $12.07 per pack of 5 before tax = $2.414/ea. Not purchased | [2](SEAM_LONG_RODS) (of 5 pk) | $2.41 | [$4.83](SEAM_LONG_SCREWS_COST) <!--@fasteners--> |
+| [SVLING M5 × 60 mm socket-head cap screws, black-oxide 12.9 alloy steel, fully threaded, 40 pc](https://www.amazon.com/dp/B0GHNHFYJN) | [2](SEAM_SHORT_RODS) per build, inserted downward through back-top's roof blocks into front-top. Head Ø8.5 × 5 mm, 4 mm hex. The CAD screw stack allows ±0.8 mm length tolerance. Each uses one flat washer. Prime verified 2026-10-15; $7.50 per pack of 40 before tax = $0.1875/ea. Not purchased | [2](SEAM_SHORT_RODS) (of 40 pk) | $0.19 | [$0.38](SEAM_SHORT_SCREWS_COST) <!--@fasteners--> |
 | [Small Parts DIN 125 M5 flat washers, black-oxide 18-8 stainless steel, 100 pc](https://www.amazon.com/dp/B009OK27FI) | [4](SEAM_WASHERS) per build, one directly under each Y-seam screw head. Ø5.3 ID × Ø10 OD × 1 mm thick. The U-shaped printed head recess opens inboard, with a nominal Ø10.8 × 8 mm head-and-washer envelope. Prime verified 2026-10-15; $7.23 per pack before tax. Not purchased | [4](SEAM_WASHERS) (of 100 pk) | $0.07 | [$0.29](SEAM_WASHERS_COST) <!--@fasteners--> |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); [2](VENT_FILTERS) per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | [2](VENT_FILTERS) (of 100 pk) | $0.13 | $0.26 <!--@vent-filter--> |
 
@@ -339,16 +339,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$166.01](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.79](BOM_SEC7) |
 | 8. Flavor subsystem | [$229.61](BOM_SEC8) |
 | 9. Dispensing | [$72.01](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$40.78](BOM_SEC11) |
 | 12. Level sensing | [$35.66](BOM_SEC12) |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | [$19.27](BOM_SEC13) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$22.30](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,451.90](BOM_GRAND)** |
+| **Total** | **[$1,454.71](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
