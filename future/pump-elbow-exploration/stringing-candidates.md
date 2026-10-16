@@ -1,10 +1,12 @@
 # TPU stringing candidates
 
-**Status: connected cutaway-fin pair submitted to Mark1; physical result pending.** The
-[selected trial](prints/2026-10-16-cutaway-web-tpu85a-mark1/README.md) connects
-both elbows and each elbow's legs with tapered cutaway fins. Both standalone
+**Status: vertical center-web pair accepted as Mark1 task 1344201657; physical result pending.** The
+[selected trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md) connects
+both elbows and each elbow's legs with tapered cutaway fins. The joining web
+stays in a vertical center plane from the bed to its top. Both standalone
 and paired versions have one connected island at all 184 layer section planes.
-The print record includes firsthand related work and emitted travel checks.
+The print record includes firsthand related work and emitted travel checks
+against model sections that retain every opening.
 The [0.4 mm lap's physical record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
 reports persistent threads with a possible small reduction in thickness. The
 [0.2 mm lap's physical record](prints/2026-10-15-departure-lap-tpu85a-mark1/physical-result.json)
