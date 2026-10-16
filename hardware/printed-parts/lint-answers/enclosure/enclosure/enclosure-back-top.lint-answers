@@ -1,7 +1,6 @@
 [step] The ordinary port-chip backing plane Y465.15 retains 4 mm to its Y469.15 receiver floor. The jack lip uses its independent Y464.792 inner boundary and complete 3 mm finite lip; surrounding bare wall is Y465.3. Current native chip/jack stock and positive back-gap checks cover those exact interfaces, with no seating exemption.
 alternatives: Moving these bearing-stock boundaries outward spends required stock. Extending the whole wall to the deepest local plane changes unrelated pack clearance; retain the finite station-owned depths.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-23.349 y=465.300 z=254.586
 click: x=-33.260 y=464.792 z=300.847
 
 [sliver] At X86.56 the nameplate changes from its complete 3.60 mm ordinary backing to the selected 2.14 mm east backing beside the PSU terminal. Current native full-footprint checks retain those depths and 1.020096 mm installed PSU clearance. The depth transition preserves these two explicit local requirements; it does not qualify printed load capacity.
@@ -19,14 +18,6 @@ click: x=-40.710 y=458.730 z=294.437
 alternatives: Removing/filling these projections changes snap engagement. Sloping their bearing faces changes the tang/latch capture geometry.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-43.193 y=458.513 z=294.437
-
-[sliver] These finite end returns join shell interior |X|104.5 to the rail guide |X|103.75 over Y219.8–223.8 and Z168.7–175.05. The opposing stop ends at |X|103.5 and Y223.55, retaining 0.25 mm side/end air and its complete 3.75 mm stop length. They are required transitions between the fixed show skin and the actual sliding guide.
-alternatives: Filling enters stop travel. Removing the entire 0.75 mm return widens this local guide clearance from 0.25 to 1 mm. A lead bevel changes only the endpoint and still leaves the functional guide transition.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-104.125 y=219.800 z=171.875
-click: x=104.125 y=219.800 z=171.875
-click: x=-104.125 y=221.800 z=168.700
-click: x=104.125 y=221.800 z=168.700
 
 [sliver] These recorded roof-side strip results have NaN dimensions/edge coordinates and zero plane normals. They remain unresolved classifier diagnostics, with no finite face or thin-section conclusion and no geometry pass.
 alternatives: Correct or independently inspect these exact numerical/facet cases before drawing a material conclusion; do not manufacture a wall change from undefined data.
@@ -97,7 +88,6 @@ click: x=-78.070 y=470.225 z=291.217
 alternatives: Filling blocks the body or swing path. Sloping away the flat lip changes its retention section. Expanding the whole pocket spends the prescribed surrounding stock.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=461.435 z=291.812
-click: x=-40.710 y=462.985 z=319.512
 click: x=-40.710 y=466.290 z=294.217
 
 [ceiling] These Z168.7 faces are the back Z-rail feet below the square catches. The current paired-face review retains 0.75 mm running air with both supported opposing faces and 0.25 mm at vertical guides. Support leaves through the open rail lanes before the halves are joined; cleanup remains unqualified.
@@ -141,8 +131,6 @@ click: x=87.802 y=468.550 z=260.553
 alternatives: Filling an unrestricted wedge occupies the authored populated-board/tail keepout. Cutting the chord or sleeve changes mounting/insert-entry stock. A board-layout change needs its own exact populated clearance review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.000 y=324.467 z=260.400
-click: x=97.000 y=324.467 z=326.700
-click: x=97.000 y=324.813 z=318.930
 
 [ledge] These sixteen 2 mm projection faces are the west/east Wago pockets' connector-specific end tabs. The center remains open for lever/wire access and the selected short-bridge lid profile.
 alternatives: Removing tabs loses end retention. Filling between them changes the selected open-center roof and its support treatment.

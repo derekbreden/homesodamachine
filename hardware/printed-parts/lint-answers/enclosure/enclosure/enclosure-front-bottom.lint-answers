@@ -1,11 +1,3 @@
-[sliver] The recorded strip widths, lengths and edge coordinates are NaN, and the reported plane normal is zero. These exact handhold-end diagnostics remain unresolved: they do not establish a finite material face, a thin section or a geometry pass.
-alternatives: Correct the undefined classifier result or inspect the exact facets separately. Thickening a rounded handhold without a finite material witness would not resolve this numerical result.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-105.207 y=179.023 z=29.196
-click: x=-105.050 y=179.450 z=29.233
-click: x=105.207 y=179.023 z=29.196
-click: x=105.050 y=179.450 z=29.233
-
 [ceiling] These Z66.2 and Z138.6 flats are the complete ends of front-bottom lower screw-bearing blocks. The current finite mating audit includes their opposing faces and positive running/support gaps; no seating exemption applies. Tree (auto)/Default support has access through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
 alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening the end spends the required bearing and insert-host length.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
@@ -17,8 +9,8 @@ click: x=97.500 y=207.400 z=138.600
 [ceiling] The Z29.25 handhold ceilings are flat finger bearings with the shared R6 end profile and 12 mm roof section. Tree (auto)/Default supports can leave through the open handhold and seam before assembly. Full-part surface finish, cleanup, finger comfort and loaded lifting are unqualified.
 alternatives: Sloping changes the lifting surface and finger opening; filling below the roof obstructs entry. Retain the specified flat lifting profile.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-99.479 y=189.998 z=29.250
-click: x=99.479 y=189.998 z=29.250
+click: x=-99.479 y=190.000 z=29.250
+click: x=99.479 y=190.000 z=29.250
 
 [ceiling] The Z169.2 faces are the front Z-rail square catches. Their opposing feet retain 0.50 mm running/supported clearance in the current native paired-face review. The flat overlap resists lifting after that play is taken up. Tree (auto)/Default supports approach through the open rail lane before assembly; removal effort is unqualified.
 alternatives: A sloped catch introduces camming. Filling the lane enters foot travel; cutting away the overlap loses capture.

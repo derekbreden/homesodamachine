@@ -73,7 +73,7 @@ click: x=0.000 y=82.302 z=196.179
 [ceiling] The Z280.924 flat is the pogo contact seat roof, with the authored supported-face clearance over its purchased body and ear-plane reference. The lead passage continues through its own teardrop. Support leaves through the empty bay-facing mouth before the contact is screwed in; cleanup remains unqualified.
 alternatives: Filling enters the purchased contact body. Sloping into the seat changes its clearance envelope; moving the contact changes alignment with the cartridge half.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=81.590 z=280.924
+click: x=0.000 y=82.020 z=280.924
 
 [ledge] These two 2 mm projection faces are the manifold-A Wago well retention tabs. Their separated ends capture the connector while the center remains open for lever/wire access and the selected short-bridge roof profile.
 alternatives: Removing tabs loses end retention. Joining them changes this selected open-center lid and its support treatment.
