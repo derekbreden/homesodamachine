@@ -21,8 +21,8 @@ do, in `geometry_lint.py`). A defect
 fixed at one station usually has siblings; the lint's job is to find them before Derek does.
 
 A remnant — a step, land, skin, fin or facet left where two features meet — is fixed in the
-source, not answered. An answer names the requirement that makes its face (a fit, a bearing, a
-support lane); "carries no load" names none.
+source so the two features meet cleanly. A `.lint-answers` entry is for a face that a
+requirement needs, such as a fit, a bearing or a support lane, and names that requirement.
 
 ## What each file shows
 
