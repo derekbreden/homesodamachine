@@ -187,7 +187,6 @@ local gaps include:
 | Intersection | Locations | Gap | Accounting |
 |---|---:|---:|---|
 | Handhold backing tab beneath the front roof | 2 | 0.50 mm in Z | 0.25 running + 0.25 rough roof |
-| Floor scarf beside the handhold backing wall | 2 | 0.25 mm in X | Running, vertical faces |
 | Front rail entrance behind the tee wall | 2 | 0.25 mm in Y | Local gap above the 0.15 mm head-on minimum |
 | Vent-chase split above the back-bottom rim | 1 | 0.25 mm in Z | Running; both faces print upward |
 | Closed-end rail blocks and top-piece foot ends | 4 | 0.25 mm in Y | Local gap above the 0.15 mm head-on minimum; blocks bound overtravel |

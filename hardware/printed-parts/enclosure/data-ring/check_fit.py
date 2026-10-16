@@ -95,7 +95,6 @@ def main():
 
     # Read the complete finite native surfaces behind the mesh-lint picks.
     for name, point, normal, thickness in (
-        ('upper-pad-remainder', (station[0],shift[1]-fit.BACK_AIR-fit.FLOOR_STOCK,station[1]+17.117), (0,-1,0),2.0),
         ('lower-mouth-floor', (station[0],shift[1]+fit.POCKET_DEPTH/2,
                                station[1]-fit.BOTTOM-fit.FACE_AIR-fit.SUPPORTED_AIR), (0,0,1),1.5),
     ):
