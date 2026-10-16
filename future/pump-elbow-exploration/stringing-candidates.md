@@ -1,7 +1,7 @@
 # TPU stringing candidates
 
-**Status: vertical center-web pair accepted as Mark1 task 1344201657; physical result pending.** The
-[selected trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md) connects
+**Status: the vertical center-web pair retains dense bore and exterior-to-fin stringing.** The
+[tested trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md) connects
 both elbows and each elbow's legs with tapered cutaway fins. The joining web
 stays in a vertical center plane from the bed to its top. Both standalone
 and paired versions have one connected island at all 184 layer section planes.
@@ -15,6 +15,21 @@ Related options below remain candidates. The
 [two-object trial](prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
 is their baseline; its finished result is pending. A strand across a bore sits
 in the water path and in the tube socket.
+
+## Deposited path and free strands
+
+The [finned pair's physical record](prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json)
+shows persistent stringing. A nonextruding travel that turns above a wall does
+not make a deposited attachment at the turn. Its free strand can straighten
+between attachment points and span the bore or exterior gap that the nozzle
+went around. The [command review](prints/2026-10-16-vertical-center-web-tpu85a-mark1/free-strand-review.json)
+contains a layer-49 example: zero nozzle travel outside the model, with a
+3.98 mm potential taut span across a bore.
+
+The proposed anchoring mechanism requires a continuous deposited path through
+the connection or a reliable new attachment before changing direction. One
+connected model and travel-wall avoidance alone do not establish it. No trial
+in this study demonstrates that mechanism as a stringing fix.
 
 ## Departure lap
 
