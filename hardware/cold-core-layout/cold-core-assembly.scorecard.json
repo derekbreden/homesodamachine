@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "checks": [
   {
    "id": "bodies-clear",
@@ -20,14 +20,10 @@
    "id": "routes-fit",
    "label": "No line meets a solid",
    "kind": "gate",
-   "status": "fail",
-   "value": "5/8 clear",
+   "status": "pass",
+   "value": "8/8 clear",
    "target": "every line clear",
-   "detail": [
-    "reservoir-a meets foam-cap-gasket-top by 12.24 mm\u00b3",
-    "reservoir-b meets foam-cap-gasket-top by 12.24 mm\u00b3",
-    "water-in meets foam-cap-gasket-top by 12.24 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -45,7 +41,7 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "29/36",
+   "value": "30/37",
    "target": "a body per billed part",
    "detail": [
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
@@ -54,11 +50,7 @@
     "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
     "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
     "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
-    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")",
-    "placed, unbilled: foam-cap-gasket-bottom",
-    "placed, unbilled: foam-cap-gasket-top",
-    "placed, unbilled: reservoir-a-gasket",
-    "placed, unbilled: reservoir-b-gasket"
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
    ],
    "active": true
   },
@@ -117,7 +109,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "56/56",
+   "value": "54/54",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -147,7 +139,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "54/56",
+   "value": "52/54",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -183,8 +175,6 @@
   "float-rod-b",
   "float-rod-carb",
   "foam-cap-bottom",
-  "foam-cap-gasket-bottom",
-  "foam-cap-gasket-top",
   "foam-cap-lid-bottom",
   "foam-cap-lid-top",
   "foam-cap-top",
@@ -222,13 +212,13 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 318.23,
+   "length": 316.23,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 240.87,
+   "reach": 239.06,
    "reachGrade": "C",
    "binding": null,
    "corners": [
@@ -270,7 +260,7 @@
     }
    ],
    "need": {
-    "detour": 1.321
+    "detour": 1.323
    }
   },
   {
@@ -280,13 +270,13 @@
    "to": "carbonator.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 314.09,
+   "length": 312.09,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 223.78,
+   "reach": 221.83,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -304,7 +294,7 @@
     }
    ],
    "need": {
-    "detour": 1.404
+    "detour": 1.407
    }
   },
   {
@@ -342,13 +332,13 @@
    "to": "reservoir-a.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 539.76,
+   "length": 537.76,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 330.26,
+   "reach": 328.87,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -378,7 +368,7 @@
     }
    ],
    "need": {
-    "detour": 1.634
+    "detour": 1.635
    }
   },
   {
@@ -388,13 +378,13 @@
    "to": "reservoir-a-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 22.25,
+   "length": 20.25,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 22.25,
+   "reach": 20.25,
    "reachGrade": "B",
    "binding": null,
    "corners": [],
@@ -409,13 +399,13 @@
    "to": "reservoir-b.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 336.77,
+   "length": 334.77,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 232.97,
+   "reach": 231.0,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -439,7 +429,7 @@
     }
    ],
    "need": {
-    "detour": 1.446
+    "detour": 1.449
    }
   },
   {
@@ -449,13 +439,13 @@
    "to": "reservoir-b-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 22.25,
+   "length": 20.25,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 22.25,
+   "reach": 20.25,
    "reachGrade": "B",
    "binding": null,
    "corners": [],
@@ -470,13 +460,13 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 229.1,
+   "length": 227.1,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 142.63,
+   "reach": 142.14,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -500,7 +490,7 @@
     }
    ],
    "need": {
-    "detour": 1.606
+    "detour": 1.598
    }
   }
  ]
