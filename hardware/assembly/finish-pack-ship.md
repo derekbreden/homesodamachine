@@ -8,7 +8,7 @@ Design intent for the Founder Edition shipping experience lives in [`/marketing/
 
 In: one soda machine that has passed acceptance + burn-in per [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) with its per-serial log archive intact under `logs/<serial>/`; the pre-generated per-unit nameplate plate (printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit identity encoded in its QR); the bagged faucet-and-umbilical sub-assembly (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)); the install kit's contents — the customer's plumbing from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §4 (both under-sink tees, the short jumper, the white run with the Waterdrop filter inline, the Taprite 3741 CGA-320 regulator, set to 75 PSI and locked at acceptance, with the red tether in its outlet), the collet press from §7, the NEMA 5-15P → C13 line cord from §5, the `TAP` and `CO2` tube collars, and the customer documentation packet — and the cold kit from §14 (Mudder PTFE tubing cutter, CARGEN nitrile foam segments, its own guide); the machine carton with molded foam end-caps; tracking + labeling supplies.
 
-Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with its QR verified; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
+Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with its QR verified; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped and the pump cartridge taped into its bay for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
 
 Not in scope: the customer-side countertop install at the kitchen — that's the customer's (or their installer's) job, supported by the printed install guide in the kit. International shipping is out of scope for Founder Edition; the run ships to lower 48 US states only (see Open items).
 
@@ -27,6 +27,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per machine | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
 | Customer documentation packet | Install guide printed by Lulu, per [`install-guide/press/ORDER.md`](/hardware/install-guide/press/ORDER.md); [`bom.md`](/hardware/ledger/bom.md) §15 | (a) The bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (b) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
 | Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
+| Transit tape | TBD per Open items | Blue painter's tape, the kind Epson ships its printers taped with. Holds the pump cartridge in its bay through transit; the customer peels it off at unboxing. |
 | Soda machine carton + molded foam end-caps | TBD per Open items | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
 
@@ -101,7 +102,7 @@ Photograph the permanent markings with the per-unit finish photos, recording the
 measured letter/symbol sizes and locations and the process-tube red extent. Check
 that labels remain readable and attached and do not cover a vent, connector or screw.
 
-### 4. Cap the +Y wall's inlets for transit
+### 4. Cap the inlets and tape the pump cartridge for transit
 
 Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the +Y wall — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
 
@@ -113,6 +114,8 @@ Inlet-by-inlet:
 The umbilical-port PP1208E bulkhead row on the +Y wall is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
 
 Cap specifications and source are TBD (see Open items); working assumption is a press-on rubber cap sized to each inlet OD, sourced as a small assortment kit from McMaster.
+
+Tape the pump cartridge into its bay with blue painter's tape, the kind Epson ships its printers taped with: run strips across the cartridge face onto the front face either side of the bay, so the cartridge cannot slide out of its bay in transit. The customer peels it off at unboxing.
 
 ### 5. Photograph the finished unit + archive to the per-serial log
 
@@ -183,6 +186,7 @@ A finished, ship-ready unit is:
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
 - Nameplate snapped into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit
+- Pump cartridge taped into its bay for transit
 - Carton sealed with the machine + bagged faucet-and-umbilical sub-assembly + install kit (the collet press, the regulator and the cold kit inside it) + customer documentation packet with the install guide face up
 - Shipping weight + dimensions recorded against the order in the per-serial run log
 - Outer shipping label affixed to the carton's top face; carrier tracking number assigned
@@ -198,7 +202,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 3. **Damage-claim + warranty-registration workflow.** Carrier handoff with insurance level, customer-facing claim process, and what the founder commits to on a damaged-in-transit unit (replace? repair? refund?) — all unwritten. Founder Edition unit value at [$7,500](FOUNDER_EDITION_PRICE) makes the answer non-trivial.
 4. **Per-serial archive disposition.** Whether `logs/<serial>/` exports with the machine (USB stick in the box, a cloud archive behind the plate's own link, both), is retained by Derek only, or some split between the two. The per-unit link on the nameplate could resolve to a customer-portal page that surfaces this unit's log archive — a future customer-portal decision per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "What it says".
 5. **International shipping — scoped out for Founder Edition.** Currently lower-48-only. Flagged here as a future-work item because the Founder Edition demand pipeline already includes inbound interest from outside the US, and the answer needs a separate set of carrier, customs, and regulatory marking workstreams (every marking this unit wears is written against US-only requirements).
-6. **Carton + foam end-cap + transit-cap source.** No SKU committed yet for the outer carton, the molded foam end-caps, or the two transit caps. Working assumption is a custom-cut carton + custom-poured foam from a local packaging house; the per-unit cost lands in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) once the source is committed. The box the customer opens is an inner box with a lift-off top inside the shipping carton, with the install kit accessible above the machine.
+6. **Carton + foam end-cap + transit-cap + transit-tape source.** No SKU committed yet for the outer carton, the molded foam end-caps, the two transit caps or the transit tape. Working assumption is a custom-cut carton + custom-poured foam from a local packaging house; the per-unit cost lands in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) once the source is committed. The box the customer opens is an inner box with a lift-off top inside the shipping carton, with the install kit accessible above the machine.
 7. **Shipping weight — precise number.** The [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH) working envelope is an estimate; the first-unit measurement at step 8 calibrates the run, and the cost model for the carrier-selection decision (Open item 1) depends on the precise number landing.
 8. **Founder Edition signature carrier.** The horizontal brand-and-QR nameplate has no signature field. The physical signature carrier remains to be specified with the Founder Edition presentation.
 
