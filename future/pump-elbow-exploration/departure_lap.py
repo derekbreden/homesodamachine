@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Insert a low, retracted wall lap at elbow object departures. Run by hand.
+"""Insert a retracted wall lap at elbow object departures. Run by hand.
 
     tools/cad-venv/bin/python future/pump-elbow-exploration/departure_lap.py \
         native.gcode.3mf trial.gcode.3mf --report lap-review.json
@@ -138,8 +138,8 @@ def wall_lap(paths, origin, native_inner, native_outer):
 def insert(source, output, report_path, height=.2, speed=10.):
     if source.resolve() == output.resolve():
         raise ValueError("Keep the native source archive separate")
-    if not .1 <= height <= .2 or not 1 <= speed <= 10:
-        raise ValueError("This trial supports 0.1–0.2 mm height and 1–10 mm/s")
+    if not .1 <= height <= .4 or not 1 <= speed <= 10:
+        raise ValueError("This trial supports 0.1–0.4 mm height and 1–10 mm/s")
     with zipfile.ZipFile(source) as z:
         members = {n: z.read(n) for n in z.namelist()}
     original = members[MEMBER]
@@ -193,8 +193,8 @@ def insert(source, output, report_path, height=.2, speed=10.):
                  f"G1 X{route[1][0]:.6f} Y{route[1][1]:.6f} F{speed * 60:.3f}\n",
                  f"G1 Z{z + height:.6f} F600\n"]
         block += [f"G1 X{x:.6f} Y{y:.6f} F{speed * 60:.3f}\n" for x, y in route[2:-1]]
-        # Restore XY and modal feed. Leave Z at the full hop before the stock
-        # helical lift or inter-object travel; no low crossing is introduced.
+        # Restore XY and modal feed. Leave Z at the full hop before native
+        # lift or inter-object travel; no low crossing is introduced.
         block += [f"G1 Z{z + .4:.6f} F600\n",
                   f"G1 X{route[0][0]:.6f} Y{route[0][1]:.6f} F{speed * 60:.3f}\n",
                   f"G1 F{departure['feed']:.3f}\n", END + "\n"]
@@ -242,7 +242,8 @@ def insert(source, output, report_path, height=.2, speed=10.):
                   modified_zip_members=[MEMBER, MEMBER + ".md5"],
                   loop_sources=dict(Counter(r["loop_source"] for r in rows)),
                   added_xy_mm=sum(r["total_added_xy_mm"] for r in rows),
-                  nominal_added_motion_seconds=sum(r["total_added_xy_mm"] / speed + .08 for r in rows),
+                  nominal_added_motion_seconds=sum(r["total_added_xy_mm"] / speed
+                                                   + 2 * (.4 - height) / 10 for r in rows),
                   scope="Object-end departures, including before timelapse. Intra-object leg transfers are native.",
                   native_preview_scope="Native thumbnails and time estimates do not depict the inserted moves.",
                   departures=rows)
