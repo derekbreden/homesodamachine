@@ -179,7 +179,7 @@ def review(project, native_directory):
             'profile': seams.profile(rows), 'zones_past_0_6_mm': seams.zones(main, .6)}
         seam_summary[name] = summary
         with (folder / (name + '-seams.csv')).open('w', newline='') as stream:
-            out = csv.writer(stream)
+            out = csv.writer(stream, lineterminator="\n")
             out.writerow(['layer', 'print_z', 'layer_h', 'gcode_line', 'closed', 'lateral_mm',
                           'start_cad_x', 'start_cad_y', 'start_cad_z', 'target_cad_y', 'target_cad_z'])
             for r in rows:
