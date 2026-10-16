@@ -2797,14 +2797,15 @@ KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
 def build_keystone(station: tuple):
     """The jack snapped into its fixed receptacle behind the wing-thick DATA plate.
 
-    The purchased face lands on the DATA pocket's seating plane, 3.36 mm
-    behind the rear wall. The fixed enclosure lip and catches retain the jack.
+    The purchased face is 0.16 mm behind the DATA plate's nominal back plane.
+    The complete receptacle and catches share that datum, preserving the
+    jack's insertion geometry and a full 3 mm lip behind the trim's back gap.
     """
     body = import_step(str(KEYSTONE_STEP)).val()
     x, z = station
     return seat_body(body, (), seat="keystone-jack",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                              (x, _enc.rear_plane_y + _enc.wall - _data_fit.POCKET_DEPTH, z)))
+                              (x, _data_fit.jack_face_y(_enc.rear_plane_y + _enc.wall), z)))
 
 
 def build_data_ring(station: tuple):

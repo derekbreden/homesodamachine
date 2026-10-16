@@ -71,11 +71,15 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     floor = y_outer-THICK
     shift = (station.x,floor,station.z)
     pw, ph = width+2*FACE_SLIP, height+2*FACE_SLIP
-    pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+4)
+    # Keep the full floor section behind the body before its print-down run-out.
+    # The opposite end retains its two-millimetre margin.
+    runout_margin = max(2.0, FLOOR_STOCK)
+    pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+2+runout_margin)
            .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges('|Z').fillet(dimensions.CORNER_R+2).val()
-           .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-BACK_AIR,0)))
+           .rotate((0,0,0),(1,0,0),-90)
+           .translate((0,-FLOOR_STOCK-BACK_AIR,-up*(runout_margin-2)/2)))
     # A 45-degree inboard run-out carries the added pocket floor in the wall pose.
-    zedge = -up*(ph/2+2)
+    zedge = -up*(ph/2+runout_margin)
     ramp = (cq.Workplane('YZ',origin=(-pw,0,0))
             .polyline([(-FLOOR_STOCK-BACK_AIR,zedge),
                        (-FLOOR_STOCK-BACK_AIR,zedge+up*FLOOR_STOCK),(-BACK_AIR,zedge)])
