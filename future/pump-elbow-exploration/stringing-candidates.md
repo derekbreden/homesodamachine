@@ -1,9 +1,12 @@
 # TPU stringing candidates
 
-**Status: 0.4 mm Normal Lift departure-lap trial submitted; physical result pending.** The
-[Mark1 Bambu 85A trial](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
-implements a 0.4 mm high, 10 mm/s wall lap at all 368 object departures, with
-full-height connectors and Normal Lift native travel. The
+**Status: connected cutaway-fin pair submitted to Mark1; physical result pending.** The
+[selected trial](prints/2026-10-16-cutaway-web-tpu85a-mark1/README.md) connects
+both elbows and each elbow's legs with tapered cutaway fins. Both standalone
+and paired versions have one connected island at all 184 layer section planes.
+The print record includes firsthand related work and emitted travel checks.
+The [0.4 mm lap's physical record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
+reports persistent threads with a possible small reduction in thickness. The
 [0.2 mm lap's physical record](prints/2026-10-15-departure-lap-tpu85a-mark1/physical-result.json)
 reports no improvement and insufficient apparent clearance.
 Related options below remain candidates. The
@@ -31,7 +34,7 @@ layer change; and 59 crossings between the two legs of each elbow.
 
 Settings to choose for a trial:
 
-- **Height.** The selected lap is 0.4 mm above the layer. Layers are 0.12 mm.
+- **Height.** The 0.4 mm lap trial runs above the layer. Layers are 0.12 mm.
   At 0.1 mm the nozzle runs lower than it
   prints the next layer and brushes high spots. At 0.2 mm only ooze hanging at
   least 0.2 mm touches down; at 0.4 mm the proposed contact needs at least
@@ -48,7 +51,7 @@ starts and across the bores, compared with the baseline job.
 ### Inserting it
 
 A post-processor runs between the offline slice and `tools/bambu_print.py`.
-[`departure_lap.py`](departure_lap.py) prepares the selected trial by hand;
+[`departure_lap.py`](departure_lap.py) prepares the wall-lap files by hand;
 its [print record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
 specifies the emitted path, thin-rim fallbacks, full-height wall connectors
 and return to the native departure point.

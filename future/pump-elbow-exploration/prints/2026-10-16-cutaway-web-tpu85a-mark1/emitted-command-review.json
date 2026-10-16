@@ -1,0 +1,44 @@
+{
+  "archive_details": {
+    "name": "2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf",
+    "sha256": "8dbea85592cd1c0db72fb0e9cce9dac9ad64c4cd9b1ac02c2a3f3c729db6eb9e",
+    "gcode_sha256": "fbea5a641b43c3a8a173381e9000542ec6912c7086c7ea7413ca50380090fe3b",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Connected cutaway-web TPU elbow pair"
+    ]
+  },
+  "independent_extrusion_runs": 4082,
+  "all_native_extrusion_coordinates_and_feeds_unchanged": true,
+  "modified_zip_members": [
+    "Metadata/plate_1.gcode",
+    "Metadata/plate_1.gcode.md5"
+  ],
+  "photo_trip_commands": 0,
+  "departure_laps": 0,
+  "local_z_trim_mm": [
+    0.0
+  ],
+  "conservative_full_bead_bounds_xy_mm": [
+    [
+      160.6901540956008,
+      138.32899999999998
+    ],
+    [
+      194.336996,
+      181.672
+    ]
+  ],
+  "conservative_bed_inset_mm": 135.663004,
+  "arc_sampling_chord_mm": 0.05,
+  "additional_envelope_inflation_mm": 0.025,
+  "all_4144_part_travels_assessed": true,
+  "maximum_routed_off_stock_mm": 0.0,
+  "maximum_unchanged_off_stock_mm": 0.0,
+  "scope": "Union of departing, arriving and their preceding layers' emitted bead envelopes. Prefer avoiding current bore holes; newly exposed cavities may require travel over their printed preceding-layer floor. 0.03 mm per-travel numerical tolerance. Startup and shutdown excluded."
+}
