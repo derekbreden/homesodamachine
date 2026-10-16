@@ -171,6 +171,11 @@ parts, complete funnel-brim bearing and sampled straight assembly motions. The
 records frame insertion and capture. Their source hashes define the checked geometry;
 physical fit and support removal remain separate observations.
 
+The [manual finish review](finish-lint-review.json) retains the raw post-publication lint
+and explanations for the functional faces at its recorded STL hashes. Six undefined
+numerical diagnostics remain unresolved. Its quadrant scope covers five face classes;
+whole-quadrant thin sampling is not included.
+
 Remove the two upper screws to free front-top, which draws fore off its rails. Removing
 all four lets the halves part. The upper screws need about 60 mm of clear space above
 the roof for insertion and withdrawal. The lower screws need about 120 mm below the

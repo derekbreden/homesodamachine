@@ -1,96 +1,82 @@
-[sliver] The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9.
+[step] The |X|98.75 receiver planes are 0.25 mm outside the covers' nominal |X|98.5 backs; the surrounding flank is at |X|98.5. These are the finite outer walls of the cover-back running-clearance pockets. Current native cover-face readings verify 0.25 mm actual opposed X clearance and complete 3 mm guide fingers.
+alternatives: Filling to the flank plane removes the cover-back gap. Moving the entire surrounding flank changes unrelated mounting and rail sections; the cover pose and guides remain fixed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.500 y=176.690 z=180.550
-click: x=-98.500 y=176.690 z=180.550
+click: x=98.750 y=141.361 z=203.048
+click: x=-98.750 y=141.361 z=203.048
 
-[ceiling] The pump-bay lintel is the complete fixed roof at Z284.674, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. The bay floor remains below this roof. Support is exposed in the empty cartridge bay and leaves through the front opening before assembly.
+[step] The Y80.012898 face above Z332.998205 is the aft wall of the 12 mm support-removal exit that continues the display-wing pocket outline. Its current pick at Z335.037 lies inside that short exit. The compared Y79.515 plane belongs to the pump bay below. The long removal extension joins the bay plane through a 45° transition below the short exit. The bounded source-negative proof retains the complete wing pocket and its 12 mm exits; physical support removal remains unqualified.
+alternatives: Moving the upper wall from Y80.012898 to Y79.515 clips a 0.497898 mm slice from the retained support passage. Enlarging the whole bay changes unrelated component clearances. The lower extension can share the bay boundary while the complete short exit remains open.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=42.257 z=284.674
+click: x=-64.775 y=80.013 z=335.037
 
-[sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing.
+[sliver] These Y153.436 end faces close the original rectangular aft-cover receiving pockets. The nominal cover ends at Y153.186, retaining 0.25 mm running air. Their 0.25 mm X span joins the nominal flank |X|98.5 to the receiving backwall |X|98.75, which also retains the cover-back gap. The current native window review preserves the full guide fingers and the specified receiving gaps.
+alternatives: Filling the return removes part of the cover-back or aft-end clearance. Extending the pocket changes its finite running envelope. A separate shallow corner chamfer introduces an additional pocket perimeter rather than changing the required fitted planes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-99.175 y=117.540 z=252.425
-click: x=99.175 y=117.540 z=252.425
-click: x=99.175 y=117.540 z=253.100
-click: x=-99.175 y=117.540 z=253.100
+click: x=-98.625 y=153.436 z=202.923
+click: x=98.625 y=153.436 z=202.923
+
+[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm depth is the required difference between flank |X|98.5 and the yoke sweep |X|99.85, including its finite fore/aft and lower end planes. They are named installation-envelope boundaries.
+alternatives: Filling the recess intrudes into the yoke approach. Cutting the surrounding flank back to the recess plane removes unrelated rail and mounting material. Retain this finite fitting envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=151.152 z=253.100
 click: x=99.175 y=150.882 z=253.100
-click: x=-98.500 y=176.690 z=180.550
-
-[sliver] The outer valve yoke-entry pocket's floor at Z235.811. Above this plane the pocket steps the flank's inner face from |X|98.50 to |X|99.85; below it the complete 6 mm flank section continues down to the recess roof at Z229.619. The 1.35 mm is the pocket's depth, not a strip's thickness.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-99.175 y=135.196 z=235.811
-click: x=99.175 y=135.061 z=235.811
+click: x=-99.175 y=117.540 z=253.100
+click: x=99.175 y=117.540 z=253.100
 click: x=-99.175 y=134.346 z=235.811
 click: x=99.175 y=134.211 z=235.811
 
-[sliver] These collinear STL triangles have zero area and a zero normal; their strip dimensions are undefined. They add no surface area or volume and do not describe a physical thin section. The complete unmodified mesh is watertight and consistently wound, with one positive exterior shell and the closed inward RC62 pocket shell. Removing these triangles alone would break indexed edge adjacency and is not a geometry correction.
+[ceiling] The complete bay roof at Z284.674 preserves the pump cartridge withdrawal envelope under the display/ridge storey. Support is accessible through the empty front cartridge bay before assembly; current native floor/roof fit evidence does not qualify physical cleanup.
+alternatives: Filling under this roof enters cartridge travel; sloping it changes the prescribed full-width bay envelope and lintel section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-107.433 y=156.194 z=349.894
-click: x=107.433 y=156.218 z=349.894
+click: x=0.000 y=42.257 z=284.674
 
-[ceiling] The tee carrier's flank window roofs, on the root plane of the fore valve tray's corbel. Each is a 9 mm flank section over the window, which is open to the outside and to the interior, so its support stands on the window's floor and comes out through either side in one piece. The carrier's column keeps a supported face's allowance under it (`tee-carrier/README.md`).
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.000 y=111.511 z=224.796
-click: x=103.000 y=111.511 z=224.796
-
-[step] The print-down display-wing exits meet the existing storey floor and bay wall at this offset. This is an open support-removal lane through otherwise continuous housing stock; the two parallel planes do not form a separate thin wall.
-click: x=-64.775 y=80.013 z=310.750
-
-[sliver] These are narrow patches on the existing thick lintel floor at the mouths of the vertical wing-support exits. The 0.498 mm measurement is the exposed surface width, not wall thickness; the full lintel remains below and the tee/bay geometry is unchanged.
-click: x=-64.775 y=79.764 z=284.424
-click: x=64.775 y=79.764 z=284.424
-
-[ceiling] The contact pair's male seat roof, one plane over the mouth and the body, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Behind the body the lead bore's teardrop roof takes over. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=81.590 z=280.924
-
-[step] These parallel top planes bound the frame-entry clearance beside the east mounting stock. The printed section at Y188 retains X90.70..93.70 across Z299.00..299.60, a complete 3 mm wall. At X93.50 its vertical backing spans Z293.15..299.65. The adjoining X99.20 section continues down from Z298.95 through Z180.10.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.100 y=188.000 z=298.950
-
-[sliver] This 0.70 mm-high exposed band closes the top of the 3 mm wall at X90.70..93.70. Printed ray sections at Y188 retain the complete 3 mm width across the band; at X93.50 the solid continues 6.50 mm down from its Z299.65 top. The surrounding mounting stock carries the wall below the frame-entry clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=93.700 y=188.000 z=299.300
-
-[slope] This is the end of the production rail channel's 45-degree gable, at its Y137.506 entrance. The Y-normal face is the channel's end cap; the ramp follows the rail's required X section. Preserve that mating section. The open Y entrance and interior give direct support access to the entry tip before inserting the frame; native slice and physical removal review remain required.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=96.249 y=139.534 z=324.926
-
-[sliver] The manifold-B well's top land at Z264.4 spans X95.20..95.35 and Y161.65..176.35. Its 0.15 mm exposed width comes from the lower well's 9.30 mm reach meeting the upper manifold-A well's 9.15 mm reach. Native sections at X95.275 through the land's ends and middle retain at least 3.00 mm of continuous Z stock beneath the face. The lower connector's complete retention lid carries this land.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=95.275 y=169.000 z=264.400
-
-[ceiling] The manifold-B Wago pocket keeps its complete flat retention lid. Its native underside at Z261.4 spans X95.20..104.50 and Y164.65..173.35, with at least 3.00 mm of stock above it. Support stands on the empty pocket's Z230.85 floor and leaves through its open inboard X-negative mouth before the connector is installed. This part requires its own native slice and physical support-removal review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.850 y=169.000 z=261.400
-
-[ceiling] This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/h2c-v20/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=82.302 z=196.179
-
-[ceiling] These are front-top's upper Y-seam block undersides, above the tap-water and flavor-line corridor. The full block section surrounds the insert above this face. Tree(auto)/Default support is accessible from the open interior before assembly; physical cleanup remains unqualified.
-alternatives: A corbel below the block enters the existing tube corridor. Raising the block shortens the insert host and its closed cap. Retain the flat underside and its open support access.
+[ceiling] These Z272.5 flats close the upper Y-seam insert hosts above the existing tube corridor. Current native integrity evidence retains the complete source-declared pilot backing. Tree (auto)/Default support approaches from the empty interior; physical cleanup is unqualified.
+alternatives: A corbel below the block enters the tube corridor. Cutting upward into the host spends insert or blind-cap stock.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-95.000 y=207.400 z=272.500
 click: x=95.000 y=207.400 z=272.500
 
-[ceiling] These faces are the roof of the clearance for back-top's lower anchor hub. The hub's top is Z195.05 and this roof is Z195.8, retaining the 0.75 mm running allowance for both supported faces while the back column telescopes into place. Support leaves through the open corner before assembly; this is not a statement of easy physical removal.
-alternatives: An added ramp below the roof reduces the hub's travel clearance. Cutting a slope above it removes the stock that joins this corner to the rail storey. Keep the full flat clearance roof.
+[ceiling] The Z224.796 window roofs preserve the specifically adopted 1.00 mm low-force roof air above the moving tee-carrier columns. The windows are open for support removal before the carrier and springs are installed. Existing carrier acceptance remains scoped to its recorded physical pieces.
+alternatives: Filling below the roof reduces the selected carrier clearance; cutting a different roof changes the column travel envelope and its adjoining tray root.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-103.000 y=105.138 z=224.796
+click: x=103.000 y=105.138 z=224.796
+
+[ceiling] The Z225.296 flats receive the cover tops with 0.50 mm normal clearance, comprising 0.25 mm running air and one 0.25 mm supported opposing face. The cover reference geometry is fixed. Support leaves through the empty window before cover insertion; removal effort is unqualified.
+alternatives: Filling reduces the supported running gap; sloping into the pocket changes the complete cover-top clearance envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=103.000 y=135.188 z=225.296
+click: x=-103.000 y=135.188 z=225.296
+
+[ceiling] The Z195.8 roofs clear back-top lower hubs at Z195.05 by 0.75 mm, including running air and both supported opposing faces. The current native paired-face audit verifies this gap. Support leaves through the open corner before assembly; physical cleanup is unqualified.
+alternatives: An added corbel occupies hub travel. A cut above the roof spends the corner root that joins the insert stack to the rail storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.375 y=208.900 z=195.800
 click: x=101.375 y=208.900 z=195.800
 
-[ceiling] The two flat faces at Z306.9 are the remaining front funnel receivers' hooked-rail feet. Their full mating profile retains the frame against lifting. Support is accessible from the inboard opening and the Y insertion mouth before installing the frame. Use Tree(auto)/Default; current-part support cleanup remains unqualified.
-alternatives: Sloping these bearing faces changes the hooked rail profile; extending them downward reduces the frame's entry clearance. A rear receiver pair occupies the upper screw blocks' space. Retain the front pair's full profile.
+[ceiling] The manifold-B connector pocket has the selected complete flat retention lid at Z261.4. It locates/captures the connector across its full width. Support can leave through the empty inboard pocket before the connector is installed; support-removal effort and printed fit remain unqualified.
+alternatives: Removing the lid loses the selected retention profile. Filling below it enters the connector/lever envelope; changing to tabs requires a different retention design.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-101.125 y=155.260 z=306.900
-click: x=101.125 y=155.260 z=306.900
+click: x=99.850 y=169.000 z=261.400
 
-[thin] These picks cross the corner where the funnel rail channel's outboard wall ends at |X|103.75, Y200, and the upper screw block's outboard face begins at |X|104.25. The 0.5 mm offset joins the complete flank fore of the seam and the complete block aft and below; it is not a freestanding 0.5 mm wall. The insert host and its full root are checked separately in heat-set-review/geometry-check.json.
-alternatives: Moving the channel out to the block face widens the production rail fit by 0.5 mm. Moving the block face inward changes its running fit against back-top and creates another step at that interface. Preserve the two functional boundaries and their joined stock.
+[ceiling] These Z307.4 flats are the front funnel-frame receivers' hooked bearing feet. The current native frame pair retains 0.50 mm at these supported moving faces and 0.25 mm at its vertical guides. Support is accessible through the empty frame opening; cleanup remains unqualified.
+alternatives: Sloping the caught face changes the lifting-retention profile. Filling under it reduces frame entry clearance; removing it loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.250 y=200.029 z=299.301
-click: x=-103.750 y=200.000 z=299.650
-click: x=104.250 y=200.029 z=299.301
-click: x=103.750 y=200.000 z=299.650
+click: x=-101.125 y=155.116 z=307.400
+click: x=101.125 y=155.116 z=307.400
+
+[ceiling] This flat roof closes the sealed C3 RC62 pocket after the insertion pause. The roof must bridge the 3.175 mm pocket depth while retaining the ring below both rims. The recorded magnet-retention native check is limited to its saved pause/closing paths; current-part heat exposure, roof finish and retention remain unqualified.
+alternatives: Leaving the pocket open changes ring retention. Filling its cavity obstructs the ring; support cannot remain in the closed pocket.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=82.302 z=196.179
+
+[ceiling] The Z280.924 flat is the pogo contact seat roof, with the authored supported-face clearance over its purchased body and ear-plane reference. The lead passage continues through its own teardrop. Support leaves through the empty bay-facing mouth before the contact is screwed in; cleanup remains unqualified.
+alternatives: Filling enters the purchased contact body. Sloping into the seat changes its clearance envelope; moving the contact changes alignment with the cartridge half.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=81.590 z=280.924
+
+[ledge] These two 2 mm projection faces are the manifold-A Wago well retention tabs. Their separated ends capture the connector while the center remains open for lever/wire access and the selected short-bridge roof profile.
+alternatives: Removing tabs loses end retention. Joining them changes this selected open-center lid and its support treatment.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=98.300 y=161.617 z=295.300
+click: x=98.300 y=175.717 z=295.300
