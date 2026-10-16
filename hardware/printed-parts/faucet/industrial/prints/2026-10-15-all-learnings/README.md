@@ -1,7 +1,9 @@
 # Complete faucet with selected finish and supports
 
-One complete set of five rigid PET-GF parts is printing across both machines.
-There are no controls or duplicate parts. Derek's authorization is:
+One complete set of five rigid PET-GF parts has
+[overall physical appearance acceptance](physical-result.json): “Alright,
+black industrial faucet looks good.” There are no controls or duplicate
+parts. Derek's print authorization is:
 
 > Please start me a complete faucet with ***EVERYTHING*** we've learned. Both beds are free.
 
@@ -78,8 +80,9 @@ without interface labels. Packaging preserves every native G-code byte and
 its embedded checksum.
 
 These readings bind the submitted commands and contact locations. The local
-physical acceptance records retain their identified scope; the complete
-faucet's finish, cleanup and mating fit await its own physical result.
+physical acceptance records retain their identified scope. The
+[complete black result](physical-result.json) records direct user appearance
+acceptance and the requested process transfer to the white Sculpted faucet.
 
 `prepare.py` and `review.py` are manual preparation/review tools and do not send
 prints. Submitted projects and archives are preserved.

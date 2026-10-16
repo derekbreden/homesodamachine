@@ -1,0 +1,701 @@
+{
+  "status": "Complete Sculpted native slice reviewed; physical result pending",
+  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+  "project_sha256": "0ba0548e6c6c6ac63b95e112439b7cebf49e8b0aa654b726a2021ce803e50b7e",
+  "archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.gcode.3mf",
+  "archive_sha256": "b8bee56dba1803598ef9287d945e88daa23f480290ac746534fecfb3da60b46d",
+  "submitted_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+  "gcode_sha256": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb",
+  "printer": "Mark2",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "filament_colour": "#FFFFFF",
+  "right_tool_offset_mm": [
+    -0.5,
+    0.7,
+    0.0
+  ],
+  "first_bed_layer_mm": 0.2,
+  "subsequent_layer_mm": 0.24,
+  "industrial_fine_bands": [],
+  "native_layer_heights_mm": [
+    0.2,
+    0.24
+  ],
+  "modifier_wall_setting_overrides": [],
+  "nominal_layer_count": 1022,
+  "native_settings_normalizations": {
+    "filament_map_2": {
+      "prepared": null,
+      "native": [
+        "1"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_overhang_totally_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_overhang_4_4_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_prime_volume": {
+      "prepared": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    },
+    "overhang_totally_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    }
+  },
+  "part_envelopes": [
+    {
+      "part": "faucet-shell-base",
+      "extrusion_bounds_xy_mm": [
+        [
+          56.902694,
+          98.453694
+        ],
+        [
+          143.090306,
+          209.545306
+        ]
+      ],
+      "maximum_line_width_mm": 0.732612,
+      "bounds_padding_mm": 0.466306
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extrusion_bounds_xy_mm": [
+        [
+          171.722517,
+          162.596517
+        ],
+        [
+          221.780483,
+          234.287483
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    {
+      "part": "faucet-display-cover",
+      "extrusion_bounds_xy_mm": [
+        [
+          251.5888105,
+          207.9218105
+        ],
+        [
+          280.41118950000003,
+          264.3691895
+        ]
+      ],
+      "maximum_line_width_mm": 0.696379,
+      "bounds_padding_mm": 0.4481895
+    },
+    {
+      "part": "above-counter-plate",
+      "extrusion_bounds_xy_mm": [
+        [
+          190.8,
+          79.001
+        ],
+        [
+          249.2,
+          138.4
+        ]
+      ],
+      "maximum_line_width_mm": 0.62,
+      "bounds_padding_mm": 0.41000000000000003
+    },
+    {
+      "part": "lever-replica",
+      "extrusion_bounds_xy_mm": [
+        [
+          144.110224,
+          73.970224
+        ],
+        [
+          171.468776,
+          132.784776
+        ]
+      ],
+      "maximum_line_width_mm": 0.647552,
+      "bounds_padding_mm": 0.42377600000000004
+    }
+  ],
+  "all_bead_envelope_xy_mm": [
+    [
+      56.902694,
+      73.970224
+    ],
+    [
+      280.41118950000003,
+      264.3691895
+    ]
+  ],
+  "right_nozzle_usable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "minimum_bead_edge_margin_mm": 31.902693999999997,
+  "seams": {
+    "faucet-shell-base": {
+      "all_exterior_loop_layers": 1021,
+      "goal_layers": 1019,
+      "maximum_lateral_mm": 0.36662751770019497,
+      "profile": [
+        {
+          "print_z_mm": [
+            0.0,
+            10.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.027,
+          "max_abs_lateral_mm": 27.113
+        },
+        {
+          "print_z_mm": [
+            10.0,
+            20.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.037,
+          "max_abs_lateral_mm": 0.092
+        },
+        {
+          "print_z_mm": [
+            20.0,
+            30.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.07,
+          "max_abs_lateral_mm": 0.163
+        },
+        {
+          "print_z_mm": [
+            30.0,
+            40.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -0.081,
+          "max_abs_lateral_mm": 0.171
+        },
+        {
+          "print_z_mm": [
+            40.0,
+            50.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.028,
+          "max_abs_lateral_mm": 0.13
+        },
+        {
+          "print_z_mm": [
+            50.0,
+            60.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.02,
+          "max_abs_lateral_mm": 0.11
+        },
+        {
+          "print_z_mm": [
+            60.0,
+            70.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -0.047,
+          "max_abs_lateral_mm": 0.113
+        },
+        {
+          "print_z_mm": [
+            70.0,
+            80.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.078,
+          "max_abs_lateral_mm": 0.112
+        },
+        {
+          "print_z_mm": [
+            80.0,
+            90.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.085,
+          "max_abs_lateral_mm": 0.116
+        },
+        {
+          "print_z_mm": [
+            90.0,
+            100.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -0.073,
+          "max_abs_lateral_mm": 0.108
+        },
+        {
+          "print_z_mm": [
+            100.0,
+            110.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.056,
+          "max_abs_lateral_mm": 0.111
+        },
+        {
+          "print_z_mm": [
+            110.0,
+            120.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.025,
+          "max_abs_lateral_mm": 0.116
+        },
+        {
+          "print_z_mm": [
+            120.0,
+            130.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.312,
+          "max_abs_lateral_mm": 0.358
+        },
+        {
+          "print_z_mm": [
+            130.0,
+            140.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.332,
+          "max_abs_lateral_mm": 0.34
+        },
+        {
+          "print_z_mm": [
+            140.0,
+            150.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.332,
+          "max_abs_lateral_mm": 0.351
+        },
+        {
+          "print_z_mm": [
+            150.0,
+            160.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.104,
+          "max_abs_lateral_mm": 0.367
+        },
+        {
+          "print_z_mm": [
+            160.0,
+            170.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.086,
+          "max_abs_lateral_mm": 0.214
+        },
+        {
+          "print_z_mm": [
+            170.0,
+            180.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.088,
+          "max_abs_lateral_mm": 0.162
+        },
+        {
+          "print_z_mm": [
+            180.0,
+            190.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.014,
+          "max_abs_lateral_mm": 0.151
+        },
+        {
+          "print_z_mm": [
+            190.0,
+            200.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.118,
+          "max_abs_lateral_mm": 0.235
+        },
+        {
+          "print_z_mm": [
+            200.0,
+            210.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.011,
+          "max_abs_lateral_mm": 0.114
+        },
+        {
+          "print_z_mm": [
+            210.0,
+            220.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -0.067,
+          "max_abs_lateral_mm": 0.115
+        },
+        {
+          "print_z_mm": [
+            220.0,
+            230.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.03,
+          "max_abs_lateral_mm": 0.143
+        },
+        {
+          "print_z_mm": [
+            230.0,
+            240.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.029,
+          "max_abs_lateral_mm": 0.095
+        },
+        {
+          "print_z_mm": [
+            240.0,
+            250.0
+          ],
+          "layers": 21,
+          "mean_lateral_mm": -0.055,
+          "max_abs_lateral_mm": 0.101
+        }
+      ],
+      "zones_past_0_6_mm": []
+    },
+    "faucet-shell-tip": {
+      "all_exterior_loop_layers": 574,
+      "goal_layers": 329,
+      "maximum_lateral_mm": 0.18799999999998818,
+      "profile": [
+        {
+          "print_z_mm": [
+            0.0,
+            10.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 5.961,
+          "max_abs_lateral_mm": 11.288
+        },
+        {
+          "print_z_mm": [
+            10.0,
+            20.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 2.636,
+          "max_abs_lateral_mm": 4.738
+        },
+        {
+          "print_z_mm": [
+            20.0,
+            30.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -0.095,
+          "max_abs_lateral_mm": 0.106
+        },
+        {
+          "print_z_mm": [
+            30.0,
+            40.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.008,
+          "max_abs_lateral_mm": 0.153
+        },
+        {
+          "print_z_mm": [
+            40.0,
+            50.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.157,
+          "max_abs_lateral_mm": 0.168
+        },
+        {
+          "print_z_mm": [
+            50.0,
+            60.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.155,
+          "max_abs_lateral_mm": 0.178
+        },
+        {
+          "print_z_mm": [
+            60.0,
+            70.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": 0.156,
+          "max_abs_lateral_mm": 0.159
+        },
+        {
+          "print_z_mm": [
+            70.0,
+            80.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.157,
+          "max_abs_lateral_mm": 0.16
+        },
+        {
+          "print_z_mm": [
+            80.0,
+            90.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": 0.159,
+          "max_abs_lateral_mm": 0.188
+        },
+        {
+          "print_z_mm": [
+            90.0,
+            100.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -5.32,
+          "max_abs_lateral_mm": 11.241
+        },
+        {
+          "print_z_mm": [
+            100.0,
+            110.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -11.133,
+          "max_abs_lateral_mm": 11.862
+        },
+        {
+          "print_z_mm": [
+            110.0,
+            120.0
+          ],
+          "layers": 42,
+          "mean_lateral_mm": -11.907,
+          "max_abs_lateral_mm": 11.913
+        },
+        {
+          "print_z_mm": [
+            120.0,
+            130.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -5.008,
+          "max_abs_lateral_mm": 11.914
+        },
+        {
+          "print_z_mm": [
+            130.0,
+            140.0
+          ],
+          "layers": 33,
+          "mean_lateral_mm": -5.191,
+          "max_abs_lateral_mm": 11.914
+        }
+      ],
+      "zones_past_0_6_mm": [],
+      "goal_scope": "Outer curved neck within the actual 70-140 degree bend; root, display frame and straight dispense terminal remain in the all-layer CSV."
+    },
+    "above-counter-plate": {
+      "all_exterior_loop_layers": 26,
+      "goal_layers": 17,
+      "maximum_lateral_mm": 0.02897043609618777,
+      "profile": [
+        {
+          "print_z_mm": [
+            0.0,
+            10.0
+          ],
+          "layers": 26,
+          "mean_lateral_mm": 0.031,
+          "max_abs_lateral_mm": 22.722
+        }
+      ],
+      "zones_past_0_6_mm": []
+    },
+    "faucet-display-cover": {
+      "all_exterior_loop_layers": 77,
+      "goal_layers": 77,
+      "maximum_lateral_mm": 12.713000000000022,
+      "profile": [
+        {
+          "print_z_mm": [
+            0.0,
+            10.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -3.362,
+          "max_abs_lateral_mm": 12.713
+        },
+        {
+          "print_z_mm": [
+            10.0,
+            20.0
+          ],
+          "layers": 36,
+          "mean_lateral_mm": 8.487,
+          "max_abs_lateral_mm": 10.266
+        }
+      ],
+      "zones_past_0_6_mm": [
+        {
+          "layers": [
+            1,
+            77
+          ],
+          "print_z_mm": [
+            0.2,
+            18.44
+          ],
+          "cad_z_mm": [
+            216.15,
+            231.44
+          ],
+          "peak_lateral_mm": 12.713,
+          "peak_print_z_mm": 3.08,
+          "peak_gcode_line": 116896
+        }
+      ]
+    },
+    "lever-replica": {
+      "all_exterior_loop_layers": 52,
+      "goal_layers": 52,
+      "maximum_lateral_mm": 5.760466535568241,
+      "profile": [
+        {
+          "print_z_mm": [
+            0.0,
+            10.0
+          ],
+          "layers": 41,
+          "mean_lateral_mm": -3.069,
+          "max_abs_lateral_mm": 5.76
+        },
+        {
+          "print_z_mm": [
+            10.0,
+            20.0
+          ],
+          "layers": 11,
+          "mean_lateral_mm": -4.758,
+          "max_abs_lateral_mm": 5.76
+        }
+      ],
+      "zones_past_0_6_mm": [
+        {
+          "layers": [
+            1,
+            17
+          ],
+          "print_z_mm": [
+            0.2,
+            4.04
+          ],
+          "cad_z_mm": [
+            0.2,
+            4.04
+          ],
+          "peak_lateral_mm": -5.76,
+          "peak_print_z_mm": 1.88,
+          "peak_gcode_line": 77550
+        },
+        {
+          "layers": [
+            36,
+            52
+          ],
+          "print_z_mm": [
+            8.6,
+            12.44
+          ],
+          "cad_z_mm": [
+            8.6,
+            12.44
+          ],
+          "peak_lateral_mm": -5.76,
+          "peak_print_z_mm": 8.6,
+          "peak_gcode_line": 301069
+        }
+      ]
+    }
+  },
+  "estimated_seconds": 22467.283203125,
+  "estimated_grams_saved_profile_density": 155.38742065429688,
+  "gcode_bytes_unchanged_by_packaging": true,
+  "plain_seams": {
+    "faucet-display-cover": {
+      "maximum_start_z_below_nominal_mm": 1.509903313490213e-14
+    },
+    "lever-replica": {
+      "maximum_start_z_below_nominal_mm": 1.7763568394002505e-15
+    }
+  }
+}

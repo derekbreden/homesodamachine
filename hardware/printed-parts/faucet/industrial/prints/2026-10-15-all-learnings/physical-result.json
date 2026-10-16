@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-15",
+  "recorded_at_utc": "2026-10-16T01:39:56.985206+00:00",
+  "status": "Complete black Industrial faucet looks good by direct user inspection",
+  "authority": "Direct user observation",
+  "acceptance_quote": "Alright, black industrial faucet looks good.",
+  "article_identification": "Latest complete all-learnings set: base on Mark2; tip, cover, plate and lever on Mark1.",
+  "prints": [
+    {
+      "printer": "Mark2",
+      "printer_task_id": "1342687225",
+      "launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/launch.json",
+      "submitted_archive_name": "2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004-print-only.gcode.3mf",
+      "submitted_archive_sha256": "729541dea6ef86df1de25e86f77a7f848c4f2a9f397823776f10b92572296e5c",
+      "gcode_sha256": "44d452540bc171b8e4a85a01b4856e2984fb9a289ac82cc4b0953daf4ec1c320"
+    },
+    {
+      "printer": "Mark1",
+      "printer_task_id": "1342697013",
+      "launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark1/launch.json",
+      "submitted_archive_name": "2026-10-15-complete-faucet-all-learnings-mark1-tip-disc-cover-plate-lever-z018-print-only.gcode.3mf",
+      "submitted_archive_sha256": "c05945c6e74b308d522b052efcaa7dda1b4bd856e9df4330e91a6fa127c2a8d7",
+      "gcode_sha256": "5e5af9685da437629650ebda80d4b155d61f52a6c21067f608f8cf3fff62f6ee"
+    }
+  ],
+  "observations": {
+    "overall": "Black Industrial faucet looks good; user requests the same print process for a white Sculpted faucet except the Industrial-specific fine-layer bands."
+  },
+  "scope": "Overall physical appearance acceptance of the identified complete black set. The existing dated production tag retains its exact project and physical-reference scope."
+}
