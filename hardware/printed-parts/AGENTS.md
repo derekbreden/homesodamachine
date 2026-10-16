@@ -10,7 +10,7 @@ materializer above); `publish_now.py` grafts the changed payload into both viewe
 enclosure aggregate and the appliance assembly — and tells the site.
 
 After the publish is live — never before, and never as a gate in the build path — lint the
-piece you changed and justify or fix what it flags while Derek is already looking:
+piece you changed and fix what it flags while Derek is already looking:
 
     tools/cad-venv/bin/python hardware/scripts/geometry_lint.py <piece>.stl
 
@@ -19,6 +19,10 @@ An answer goes in `<piece>.lint-answers` beside the STL — a `[class] reason` l
 `alternatives:` line, one `click:` per instance (format, and what an answer does and does not
 do, in `geometry_lint.py`). A defect
 fixed at one station usually has siblings; the lint's job is to find them before Derek does.
+
+A remnant — a step, land, skin, fin or facet left where two features meet — is fixed in the
+source, not answered. An answer names the requirement that makes its face (a fit, a bearing, a
+support lane); "carries no load" names none.
 
 ## What each file shows
 
