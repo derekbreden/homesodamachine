@@ -1,0 +1,158 @@
+{
+  "parts": [
+    {
+      "part": "faucet-shell-base",
+      "extruding_commands": 879869,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        10.0138,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 436910,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "extruding_commands": 62722,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "extruding_commands": 34341,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Top surface"
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "extruding_commands": 30858,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ]
+    }
+  ]
+}

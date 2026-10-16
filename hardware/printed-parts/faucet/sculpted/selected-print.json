@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "style": "Sculpted",
+  "material": "White PET-GF",
+  "printer": "Mark2",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+  "project_sha256": "0ba0548e6c6c6ac63b95e112439b7cebf49e8b0aa654b726a2021ce803e50b7e",
+  "native_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.gcode.3mf",
+  "submitted_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+  "gcode_sha256": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb",
+  "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
+  "launch": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/launch.json",
+  "readiness": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/readiness.json",
+  "printer_task_id": "1343785668",
+  "physical_result": null
+}

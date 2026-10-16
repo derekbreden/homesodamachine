@@ -4,7 +4,7 @@ The faucet has two styles, each in Black or White PET-GF.
 
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
-| **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
+| **Sculpted** | Smooth curves and softly blended transitions. | [Complete white project](sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf) · [print settings](sculpted/README.md) |
 | **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
@@ -56,8 +56,8 @@ show its nominal seated surface.
 | Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
 Use the matching base, cover, plate and gasket for the selected style.
-Both PET-GF projects contain the base, shared tip, cover and plate. The complete
-Industrial project also includes the side-down lever replica.
+Both current PET-GF projects contain the base, shared tip, cover, plate and
+side-down lever replica.
 The gasket is a separate TPU print.
 The organizer is a separate PET-GF print, fitted during
 [umbilical assembly](../../assembly/faucet-and-umbilical.md).

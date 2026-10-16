@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "accepted_at_utc": "2026-10-16T02:15:46.923117+00:00",
+  "printer_task_id": "1343785668",
+  "method": "Bambu Connect CUA; one Send after native review",
+  "single_send_click": true,
+  "repeat_control": false,
+  "archive": {
+    "name": "2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+    "gcode_sha256": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ]
+  },
+  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+  "project_sha256": "0ba0548e6c6c6ac63b95e112439b7cebf49e8b0aa654b726a2021ce803e50b7e",
+  "imported_copy_archive_sha256_after_send": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+  "imported_copy_gcode_sha256_after_send": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb",
+  "first_acceptance": {
+    "observed_at": "2026-10-16T02:15:46.923117+00:00",
+    "gcode_state": "PREPARE",
+    "subtask_id": "1343785668",
+    "task_id": "1343785668",
+    "subtask_name": "2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 1245,
+    "total_layer_num": 1245,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 26.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 30.0,
+    "nozzle_target_temper": 0.0
+  },
+  "acceptance_layer_counter_scope": "PREPARE initially retained the previous job counters; startup.json has the new 1022-layer count.",
+  "project_file_replies": [
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0",
+      "observed_at": "2026-10-16T02:15:45.821625+00:00"
+    }
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "material": "White PET-GF; printer material identifier PET-CF",
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_mm": 0.02,
+  "rigid_part_count": 5,
+  "estimated_seconds": 22467.283203125,
+  "estimated_grams_saved_profile_density": 155.38742065429688,
+  "earliest_other_printer_start_or_resume_utc": "2026-10-16T02:18:46.923117+00:00",
+  "previous_other_printer_task_id": "1342697013",
+  "seconds_after_previous_other_printer_acceptance": 28369.923117,
+  "native_review": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/native-review.json",
+  "startup_observation": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/startup.json",
+  "authorization_quote": "Alright, black industrial faucet looks good. Next, I've got white pet-gf loaded in the right hotend on Mark2 for a sculpted white faucet print.\n\nAlmost everything from our industrial black is going to carry over here, with the exception of the thinner layers that were specifically for ramps specific to that industrial design. So absolutely everything carries over, except those layer height differences. Do you follow? Repeat back to me what that means practically.\n\nAnd then, start the print.",
+  "physical_result": null,
+  "working_recipe_changed": true
+}

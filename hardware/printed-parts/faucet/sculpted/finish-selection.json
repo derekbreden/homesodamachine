@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "selected_date": "2026-10-15",
+  "selection_basis": "Carry the latest black Industrial printing process onto the complete white Sculpted faucet, except its design-specific fine-layer shoulder bands.",
+  "seam_specimen": "A2",
+  "seam_parts": [
+    "faucet-shell-base",
+    "faucet-shell-tip",
+    "above-counter-plate"
+  ],
+  "seam_object_overrides": {
+    "seam_position": "back",
+    "override_filament_scarf_seam_setting": "1",
+    "seam_slope_conditional": "1",
+    "scarf_angle_threshold": "155",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_steps": "10",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_min_length": "60",
+    "seam_slope_start_height": "10%",
+    "seam_slope_type": "external",
+    "seam_gap": "150%",
+    "seam_slope_gap": "0%"
+  },
+  "corner_seam_object_overrides": {
+    "seam_position": "aligned",
+    "seam_gap": "15%",
+    "override_filament_scarf_seam_setting": "0",
+    "seam_slope_type": "none"
+  },
+  "filament_overrides": {
+    "filament_wipe": "0",
+    "filament_wipe_distance": "0"
+  },
+  "overhang_recipe": {
+    "selected_date": "2026-10-15",
+    "bridge_flow": "1.25",
+    "fan_percent": 70,
+    "fan_off_bed_layers": 3,
+    "bridge_speed_mm_s": 15,
+    "maximum_overhang_speed_mm_s": 15,
+    "preserve_slower_overhang_limits": true,
+    "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
+    "physical_evidence": [
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json"
+    ],
+    "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
+  },
+  "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
+  "coarse_layer_height_mm": 0.24,
+  "base_fine_bands_print_z_mm": [],
+  "first_bed_layer_height_mm": 0.2,
+  "scope": "Print process transferred from the accepted black Industrial faucet; white Sculpted physical finish and fit require this complete print.",
+  "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
+  "default_printer": "Mark2",
+  "default_filament_colour": "#FFFFFF",
+  "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
+  "rear_seam_enforcement": {
+    "part": "faucet-shell-base",
+    "half_width_mm": 0.25,
+    "target": "Complete Sculpted rear silhouette at every build Z; facets intersecting CAD X=0 +/-0.25 mm",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Industrial reference only; Sculpted seam placement reviewed natively for this print."
+  },
+  "tip_rear_seam_enforcement": {
+    "part": "faucet-shell-tip",
+    "half_width_mm": 0.0,
+    "surface": "curved_outer_arc",
+    "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
+    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
+    "physical_result": "Retain the shared tip rear seam enforcement from the accepted Industrial process."
+  },
+  "base_rim_supports": {
+    "selected_date": "2026-10-15",
+    "part": "faucet-shell-base",
+    "method": "accepted-segmented-edge-following-arcs",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
+    "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
+    "arc_count": 7,
+    "nominal_wall_width_mm": 0.9,
+    "arc_span_degrees": 41,
+    "release_gap_degrees": 4,
+    "requested_vertical_gap_mm": 0.24,
+    "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
+    "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
+    "scope": "Accepted Industrial arc arrangement fitted to the 58 x 59 mm Sculpted foot ellipse using CAD X scale 58/59. Release angles, build Z and requested gap are retained; Sculpted physical result pending."
+  },
+  "edge_support_strategy": {
+    "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
+    "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
+    "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+  },
+  "tip_supports": {
+    "selected_date": "2026-10-15",
+    "part": "faucet-shell-tip",
+    "method": "accepted-eight-fins-lip-trees-hidden-root-disc",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+    "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
+    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
+    "fin_component_id": 2000,
+    "root_anchor_component_id": 2400,
+    "fin_count": 8,
+    "joint_plane": {
+      "point": [
+        0.0,
+        -38.36796889030837,
+        220.8576411168048
+      ],
+      "normal": [
+        0.0,
+        -0.9396926207859083,
+        0.3420201433256688
+      ]
+    },
+    "lip_enforcer_selection": {
+      "maximum_build_z_mm": 21,
+      "maximum_abs_cad_x_mm": 8
+    },
+    "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
+    "tree_support_scope": "Tree(auto)/Default elsewhere. Retain the accepted joint-plane block paint except the seam-side low lip support enforcers.",
+    "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
+  },
+  "style": "Sculpted",
+  "active_nozzle": 1,
+  "layer_height_mm": 0.24,
+  "authorization_quote": "Alright, black industrial faucet looks good. Next, I've got white pet-gf loaded in the right hotend on Mark2 for a sculpted white faucet print.\n\nAlmost everything from our industrial black is going to carry over here, with the exception of the thinner layers that were specifically for ramps specific to that industrial design. So absolutely everything carries over, except those layer height differences. Do you follow? Repeat back to me what that means practically.\n\nAnd then, start the print.",
+  "annotation_clarification": "The 0.24 mm layers are the normal model layers; no separate eight-layer override is necessary when the fine bands are absent.",
+  "source_complete_black_acceptance": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/physical-result.json"
+}

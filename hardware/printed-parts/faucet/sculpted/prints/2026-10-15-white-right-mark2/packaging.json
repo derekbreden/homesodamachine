@@ -1,0 +1,23 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "b8bee56dba1803598ef9287d945e88daa23f480290ac746534fecfb3da60b46d",
+  "print_only_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "2401413d09ca8e4273f6857eadc7d2d5a582ec1b660461490348ccf7a6a4e5ed",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "079bf9d4aed066fd34a050070a4d6965de957f6ad4508d0e8480413c7b55bcfb"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

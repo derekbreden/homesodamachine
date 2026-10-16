@@ -1,5 +1,9 @@
 # Retained Sculpted faucet PET-GF print project
 
+The [current complete white Sculpted project](sculpted/README.md) uses the
+selected Industrial print process, current shared tip and five rigid parts.
+The four-part archive below remains an identified older preparation.
+
 This four-part project is bound to the two-bung sealed-cavity tip identified in
 its native records. The [current shared tip](vent-qualification/README.md) uses
 an unsealed Ø4 mm drip opening and continuous close-fitting passages. A matching native slice
