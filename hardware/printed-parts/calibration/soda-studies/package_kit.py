@@ -42,7 +42,8 @@ def main():
     sources.append(HERE / manifest["assembly"])
     for part in manifest["parts"]:
         sources.extend((ROOT / part["stl"], ROOT / part["step"]))
-        answer = (ROOT / part["stl"]).with_suffix(".lint-answers")
+        answer = (ROOT / "hardware/printed-parts/lint-answers"
+                  / Path(part["stl"]).relative_to("hardware/printed-parts")).with_suffix(".lint-answers")
         if answer.exists():
             sources.append(answer)
         for volume in part.get("material_volumes", []):
