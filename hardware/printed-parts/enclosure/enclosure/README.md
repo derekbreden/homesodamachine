@@ -133,10 +133,10 @@ The [Ø10.8 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the 
 interior, with a complete washer-bearing floor. The lower floor is Z37.25 and the upper
 floor is Z347. The nominal screw and washer poses keep the head faces recessed 2 mm
 from the handhold ceiling and roof. The steel washers bear directly on those floors.
-The [native insert audit](heat-set-review/geometry-check.json) binds the current
-insert hosts and screw pockets. With the ±0.8 mm screw-length allowance, all four
-seam screws retain the full 9.5 mm insert engagement and at least
-1.7 mm of blind-tip room at nominal CAD part poses.
+The [native insert audit](heat-set-review/geometry-check.json) records insert hosts
+and screw pockets for its listed source and STEP hashes. At those nominal CAD part poses,
+the ±0.8 mm screw-length allowance leaves all four seam screws with the full 9.5 mm
+insert engagement and at least 1.7 mm of blind-tip room.
 The screw passages are printed to size.
 Seat the washers with a hand-operated 4 mm hex key and stop at the intended bearing faces.
 The printed joint has no qualified installation torque or retained clamping force.
@@ -148,17 +148,19 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [native fit review](y-seam-fit-review.json) binds 239 finite patches in nine targeted stages to the current
+The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted stages to the current
 production exports: quadrant and frame faces, hardware stock, pump receiver, nameplate
 and DATA receivers, bulkhead rings, window covers, tee carrier, the 45° bedding edge,
 and the core's five external printed bodies. Every measured finite patch meets its
 applicable static or running allowance, including the allowance for each supported face.
 The native tolerance is 0.00001 mm. The review retains exact witnesses, complete local
-stock checks and the standalone quadrant survey. The current cradle body has its own
-native stock and capture measurements. Complete protected hook/leaf equality and the
-unchanged frame preserve the identified hook gaps, webs and silicone bearing measurements.
-Earlier route readings remain conservative lower bounds because the body only removes
-stock; their original input and model scopes are retained.
+stock checks and the standalone quadrant survey. The [cradle finish](cradle-finish-review.json)
+binds the canonical body to its measured lower-mouth candidate by native equality. Its lower
+mouth is open aft of local Y15.5; the forward elbow-following pocket retains 302.779 mm²
+of native surface. This is pocket area, not loaded contact. Protected upper-body and hook/leaf
+equality, the unchanged frame and the actual silicone preserve the identified hook gaps,
+webs and upper bearing measurements. Earlier route readings remain conservative lower
+bounds under the measured cradle-subset chain; their original input and model scopes are retained.
 The 35 insert-station measurements and 14 finished-knuckle queries retain their original
 artifact scope. The current integrity stage measures the four M5 hosts and four washer
 floors; it does not refresh screw engagement or blind-tip reserve. Surface finish and
@@ -1747,8 +1749,9 @@ production Z-seam head/channel section and fit allowances for the front pair.
 
 The frame's brim bearing is Z349, its flat underside is Z299.9, and its two full-width
 end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm
-elbow-collet hole and the cradle's two wing slots. The silicone block rests on the carrier's
-hook tops 3.15 mm above that socket floor.
+elbow-collet hole and the cradle's two wing slots. The silicone block rests on the cradle's
+hook tops 3.15 mm above that socket floor. The 2.75 mm hooks leave 0.40 mm above
+the web for static assembly and its supported finish; the receiving web retains 3 mm.
 The front rail feet remain at Z306.9; front-top's receiver underside is Z307.4,
 providing 0.50 mm for the running fit and its supported receiver face.
 The front surround reaches the flush Z355 roof plane and ends at Y199.75,
