@@ -38,8 +38,8 @@ socket_width = 36.6
 socket_depth = 19.0
 socket_flare = (2.0, 1.0)   # height, outward reach of the plug's lead-in
 assert abs(socket_width / 2 - elbow_cradle.SOCKET_HALF) < 1e-9
-# The cradle's hooks keep running room at their rounded capture corners.
-assert elbow_cradle.hook_corner_clearance(funnel.plug_width / 2) >= fits.running
+# The installed hooks keep their static clearance at the socket corners.
+assert elbow_cradle.hook_corner_clearance(funnel.plug_width / 2) >= fits.slip - 1e-9
 DEFAULT_INNER = (-104.5, 104.5, 0.0, 290.0, 0.0, 352.0)
 
 
@@ -205,6 +205,8 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     import enclosure as enc
     cx, cy = centre
     floor, plug, rail = datums(seat)
+    assert abs(web + funnel.plug_lift -
+               (elbow_cradle.stations()['hook_top'] - elbow_cradle.CATCH_GAP)) < 1e-6
     body = body_blank(centre, seat, inner=inner, y_joint=y_joint)
     body = body.fuse(enc._z_rail_heads(
         inner, y_joint, rail, 'front', None, runs=rail_runs(inner, y_joint, 'front', centre)))
@@ -238,12 +240,15 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
-    captures = elbow_cradle.capture_pockets(half, socket_depth).translate(place)
+    primary_socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare,
+        corner_radius=elbow_cradle.PLUG_CORNER + gap).translate(place)
     pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
-    body = body.cut(clear.fuse(socket).fuse(captures).fuse(brim))
+    body = body.cut(clear.fuse(primary_socket).fuse(brim))
     for c in pierce:
         body = body.cut(c)
     body = merge_edges(body)
+    corner_air = socket.cut(primary_socket)
+    body = body.cut(corner_air).clean()
     assert body.isValid() and len(body.Solids()) == 1
     assert abs(body.BoundingBox().zmin - floor) < 0.0001
     # The web stands whole under the socket but for those cuts, and no stock stands in the socket.
