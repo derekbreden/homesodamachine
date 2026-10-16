@@ -1,8 +1,4 @@
-"""Per-face clearances for the enclosure's PET-GF-to-PET-GF mating surfaces.
-
-The enclosure fit adjustment covers these printed interfaces. TPU, PETG, cold-core
-internals, the faucet, display seating and metal bearing seats keep their component-specific
-geometry; these constants do not prescribe an additional gap through a compliant gasket.
+"""Per-face clearances for rigid printed mating parts.
 
 Head-on assembly seats use `slip`; faces that slide past their mates use `running`.
 
@@ -10,18 +6,22 @@ Rough or oozed printed material occupies space beyond the nominal face. The mode
 provides room for that material at assembly. This applies to seating faces loaded by
 gravity or screws as well as other mating faces.
 
-The stock is Polymaker Fiberon PET-GF15 on a 0.4 mm tungsten carbide hotend, two loops to a
-face at 0.42 and 0.45 (`printed-parts/enclosure/enclosure/print-log.md`).
+The enclosure's reference stock is Polymaker Fiberon PET-GF15 on a 0.4 mm tungsten carbide
+hotend, two loops to a face at 0.42 and 0.45
+(`printed-parts/enclosure/enclosure/print-log.md`).
 
 A bore adds twice its per-face clearance to the diameter. A plate in an inset has the
 clearance at each edge. A lap raked at 45 degrees takes the clearance times `sqrt(2)`
 along its insertion axis.
 
-PET-GF-to-PET-GF mating and seating faces receive the applicable static or sliding allowance,
+Rigid printed mating and seating faces receive the applicable static or sliding allowance,
 including the additional allowance for each supported face. A locating datum, screw clamp,
 bearing shoulder or travel stop does not waive those clearances.
 A face printed against the build plate retains its base fit allowance without the
 additional finish allowance used for a supported overhang.
+
+Compliant gaskets and seals use their specified installed squeeze in the compression
+direction rather than a rigid-fit clearance through their thickness.
 """
 
 #: Assembly clearance at a printed seat.

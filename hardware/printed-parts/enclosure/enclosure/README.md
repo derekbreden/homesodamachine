@@ -152,7 +152,7 @@ and 17 contact dispositions for its identified source and native hashes. The det
 quadrant survey records 59 patches and 11 local probes for its own inputs. These records
 do not establish the current source's final fit; refreshed exports and readings are pending.
 The core's nominal crown remains Z253.4; its pocket and hold-down readings await the
-regenerated enclosure artifacts. TPU and internal core fits retain their component geometry.
+regenerated enclosure artifacts.
 The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
 parts, complete funnel-brim bearing and sampled straight assembly motions. The
 [frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
@@ -497,8 +497,8 @@ fore, and back-top slides aft off its rails if the tub itself is the work.
 
 ## Cold-core grips
 
-The cap crown is the core's Z253.4 nominal reference. TPU and internal core fits retain
-their component geometry. Final enclosure readings are pending regeneration.
+The cap crown is the core's Z253.4 nominal reference. Final enclosure readings are pending
+regeneration.
 
 The core is the heaviest body in the machine and the one with no hole in it — a foamed cup
 under a screwed cap, plain skin the whole way round. What fastens it is the closed box: **the
@@ -750,9 +750,12 @@ A bore receives twice the base per-face allowance in its diameter; only its supp
 receives the extra 0.25 mm. Where a pocket's enclosing wall is 3 mm thick, its outer stock
 moves with the pocket or the mating part retreats. Printed bearing, locating, seating
 and clamping faces require the same applicable allowances; a datum does not waive them.
-TPU, PETG, cold-core internals, the faucet and display seating retain their existing
-component geometry. Steel washer floors retain their nominal bearing planes.
-Manufacturer-specified insert holes and interference fits retain their functional geometry.
+This enclosure pass covers the PET-GF-to-PET-GF interfaces in its stated scope.
+Rigid-part fits elsewhere remain subject to the same printed-face allowances and are
+unresolved by this pass. Compliant gaskets and seals use their specified installed squeeze
+in the compression direction. Steel washer floors retain their nominal source planes and
+are outside this pass's fit assessment.
+Heat-set pilots follow the manufacturer's installation dimensions.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.
 
 `petgf.3mf` carries a 0.45 mm requested support top Z distance, two top interface layers,

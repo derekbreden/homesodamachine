@@ -4,11 +4,11 @@ The procedure for standing the machine's pack inside the printed enclosure and c
 
 The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `enclosure-assembly.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
 
-The current fit adjustment covers PET-GF mating with PET-GF in the enclosure. TPU, PETG,
-cold-core internals, the faucet, display seating and metal bearing seats retain their
-component geometry. Refreshed native verification of the source changes is pending.
-The core's nominal crown remains Z253.4 and its hold-down foot is Z253.65. TPU and internal
-core fits retain their component geometry. Final enclosure readings are pending regeneration.
+The current fit adjustment covers PET-GF mating with PET-GF in the enclosure. Rigid-part
+fits elsewhere remain subject to the same printed-face allowances and are unresolved by
+this pass. Compliant gaskets and seals use their specified installed squeeze in the compression
+direction. The core's nominal crown remains Z253.4 and its hold-down foot is Z253.65.
+Refreshed native verification of the enclosure source changes is pending regeneration.
 
 ## The box
 
