@@ -2,26 +2,26 @@
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "b2ff3cdb9f3f37e76c8bf7990de630350a12004acea8b840ed63f6718192f962",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb6fca7601d5d96e3ec44896f4b62f21905b733f016e2427713dd371cc6bdaf6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "7af61adac130e943ea43ef1924a69882c0564aab90160aeb852251c45ec749a6"
+    "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "52aa1d65f1c5e6cce73c853469d7eba4ad8dff74873649cf6c04aae3eff4bcef",
-      ".stl": "98bd5fe194c90f44c80cd5ad1c0eab5e8b2ac5fdae19178c9d8e99396c01bb0b"
+      ".step": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
+      ".stl": "b88066a22a499856072120197c95e0b90cf81546f4d3d5c1fe6003e3d648a2a2"
     },
     "front-top": {
-      ".step": "3e8c462d300e5225d13072ff412781eb3578dce652fd41979da77e0b4a97aa8e",
-      ".stl": "c21f1de9d24a94e7c91e3da04cb2932a72a3a750649ae92dc820b0a822530fa7"
+      ".step": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
+      ".stl": "7b7fb87ef3f4f013b7327a6b33a9722b5bb65b60d50209e0c45cb0cac155d6ea"
     },
     "back-bottom": {
-      ".step": "6d4de9b9337ff9c93faad948e33e7fd4eea0081eb4b76871b86f83f4025621b3",
-      ".stl": "cd2c27073393bb717e9407aa54568f4719241177b175fbc4d3dd914bc0e1c9eb"
+      ".step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
+      ".stl": "6cf46b76fa43e69df67bae0ac00f452cb67539d0d7b77081d6b77941ab41ecfd"
     },
     "back-top": {
-      ".step": "7ad4fba360df7829573361ca4278d2c73d4c277c16c9fefdad885f7ae8ffcf51",
-      ".stl": "62ac65f901c0f51752b92610a8cd3e87e119d6aca69498380747eb1d01724894"
+      ".step": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
+      ".stl": "c1d061aed57cab14efe6622414b481f79305366f8efbab8e51ca279656e1326e"
     },
     "pump-cartridge": {
       ".step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
@@ -55,7 +55,7 @@
           197.0,
           217.8,
           138.60000000000002,
-          174.8
+          174.69644660940673
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
@@ -81,7 +81,7 @@
           197.0,
           217.8,
           138.60000000000002,
-          174.8
+          174.69644660940673
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"

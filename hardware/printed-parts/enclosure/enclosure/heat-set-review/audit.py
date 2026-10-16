@@ -151,7 +151,7 @@ for row in station_rows:
         row['insertion_access_pass']=row['blocked_whole_knurl_entry_mm3']<=tol
         row['screw_reach_pass']=row['nominal_thread_reach_mm']>=row['insert_length_mm'] and row['nominal_blind_tip_clearance_mm']>=0.5
 
-# Every knuckle of both corner stacks, whole in the piece that carries it, bores aside.
+# Every finished knuckle of both corner stacks, whole in its carrying piece.
 seam=[]
 lower, upper = e.y_stack(box.inner)
 for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
@@ -162,6 +162,10 @@ for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
             knuckle = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1, depth)
             for cutter in bores:
                 knuckle = knuckle.cut(cutter)
+            y_side, z_side = who.split('-')
+            if z_side == 'bottom':
+                knuckle = e._finish_handholds(knuckle, box.inner)
+            knuckle = e._seam_fit_reliefs(knuckle, box, y_side, z_side)
             seam.append(dict(side='west' if sx>0 else 'east', piece=who, z_mm=[z0, z1],
                              rod_axis_mm=[ax, ay], bearing_length_mm=z1-z0,
                              gaps_mm=[gap_below, gap_above],

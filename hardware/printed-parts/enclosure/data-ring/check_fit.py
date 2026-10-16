@@ -43,7 +43,9 @@ def main():
     wall = cq.importers.importStep(str(paths[6])).val()
     body, word = data.build_ring(), data.build_word()
     placed = body.translate(shift)
-    jack = cq.importers.importStep(str(paths[8])).val().translate(shift)
+    jack_y = fit.jack_face_y(y_outer)
+    jack = cq.importers.importStep(str(paths[8])).val().translate(
+        (station[0], jack_y, station[1]))
     checks = {}
 
     def add(name, passed, **values):
@@ -93,7 +95,7 @@ def main():
 
     # Read the complete finite native surfaces behind the mesh-lint picks.
     for name, point, normal, thickness in (
-        ('upper-pad-remainder', (station[0],shift[1]-fit.FLOOR_STOCK,station[1]+17.117), (0,-1,0),2.0),
+        ('upper-pad-remainder', (station[0],shift[1]-fit.BACK_AIR-fit.FLOOR_STOCK,station[1]+17.117), (0,-1,0),2.0),
         ('lower-mouth-floor', (station[0],shift[1]+fit.POCKET_DEPTH/2,
                                station[1]-fit.BOTTOM-fit.FACE_AIR-fit.SUPPORTED_AIR), (0,0,1),1.5),
     ):
@@ -148,7 +150,7 @@ def main():
     add('provenance:inputs-unchanged', before == after)
     result = dict(passed=all(r['passed'] for r in checks.values()), checks=checks,
                   source_and_artifact_sha256=before, station_mm=station,
-                  jack_show_face_y_mm=shift[1], trim_show_face_y_mm=shift[1]+fit.THICK,
+                  jack_show_face_y_mm=jack_y, trim_show_face_y_mm=shift[1]+fit.THICK,
                   scope='Production native fit, shared nameplate construction, complete broad wing lands, DATA/DRAIN alignment and plug approach. Printed fit, insertion force, pullout strength and endurance are unmeasured.')
     (HERE / 'fit-check.json').write_text(json.dumps(result, indent=2)+'\n')
     return 0 if result['passed'] else 1

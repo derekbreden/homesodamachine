@@ -597,9 +597,9 @@ MADE_UP = (
 
 # --- what stands against what ----------------------------------------------
 #
-# `clearance-floor` holds every body pair a millimetre apart. These are the pairs the machine
-# SEATS against each other, each named against the construction that seats it — a contact by
-# intent, not a pack closing on itself.
+# These named interfaces are excluded from the global 1 mm pack floor. Rigid printed mates
+# still require the clearances in fits.py and their local fit evidence, including seating,
+# clamping and bearing faces. A pack-floor exclusion does not authorize zero printed clearance.
 TOUCHING_OK = {frozenset(p) for p in (
     ("funnel-cover", "funnel"),
     ("funnel-cover", "funnel-frame"),
@@ -679,9 +679,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("data-ring", "data-ring-word"),
     # The frame surrounds the silicone bowl and its plug; the brim bears on the roof ledge.
     ("funnel", "funnel-frame"),
-    # THE DRAIN JOINT'S SEATS. The elbow's nose bears on the frame's underside round the hole and
-    # its body on the cradle's pocket; the cradle's wings stand in the web's slots with their
-    # hooks over it, supporting the plug's flat underside; the plug's land closes on the stub.
+    # Drain joint interfaces. The cradle's hook tops support the silicone plug;
+    # their undersides retain the supported static clearance above the frame web.
+    # The elbow fits the cradle pocket and the compliant plug closes on the stub.
     ("funnel-frame", "funnel-drain-union"),
     ("elbow-cradle", "funnel-drain-union"),
     ("elbow-cradle", "funnel-frame"),
@@ -1146,8 +1146,8 @@ def run_world(a, runs) -> tuple:
 
 def part_clearances(a, runs=()) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
-    `allowed` marks a `TOUCHING_OK` seat. A row names a run by its connection id and everything
-    else by the name it goes into the assembly under.
+    `allowed` marks a `TOUCHING_OK` exclusion from the global pack floor. A row names a run by
+    its connection id and everything else by the name it goes into the assembly under.
 
     TWO POPULATIONS, ONE FLOOR — body against body, and every drawn run against what it does not
     join. A run is as much a part of the machine as the fittings it joins, and the lane it
@@ -1159,12 +1159,11 @@ def part_clearances(a, runs=()) -> list[tuple]:
     miss are two solids that miss, so skipping on them is sound, while two boxes that overlap
     say nothing at all.
 
-    THE PRINTED BOX IS NOT IN THE BODY PASS. Bodies seat against walls by design and six of them
-    clamp THROUGH one, so a wall is never a body to stand off — an overlap there is
-    `pack-closes`'s reading, and there is no clearance to hold. It IS in the run pass: a run
-    passing a wall owes it the same millimetre it owes anything else, and the one contact
-    between the two that is by intent is an ANCHOR, which is declared as such
-    (`anchored_pairs`).
+    THE PRINTED BOX IS NOT IN THE GLOBAL BODY-PAIR PASS. Its fitted interfaces use their
+    applicable local clearance rules and evidence; rigid printed mating faces remain subject
+    to fits.py even when loaded by screws or gravity. `pack-closes` separately reads overlap.
+    The box IS in the run pass: a run passing a wall owes it the same millimetre it owes
+    anything else, except for a declared anchor (`anchored_pairs`).
 
     NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
     own hairpins and reports its own inner gap; this module seats it as one thing, so what is
@@ -1301,13 +1300,13 @@ def _clearance_floor(rows, lanes=()) -> Check:
     # acts on.
     detail = ["every body pair, and every drawn run against what its own line does not join it "
               "to — the exact solid distance, with boxes only as a prefilter"]
-    detail += [f"{x} — {y}: {g:.3f} mm — ✗ under the floor, and nothing seats them together"
+    detail += [f"{x} — {y}: {g:.3f} mm — ✗ under the global pack floor"
                for x, y, g, _ok in short]
     detail += list(lanes)
-    detail += [f"{x} — {y}: {g:.3f} mm" + (" — seated against it" if ok else "")
+    detail += [f"{x} — {y}: {g:.3f} mm" + (" — excluded from the global pack floor" if ok else "")
                for x, y, g, ok in rows if (x, y, g) not in seen]
     tightest = min((r[2] for r in rows if not r[3]), default=None)
-    return Check("clearance-floor", "Two things the machine does not seat together stand a "
+    return Check("clearance-floor", "Pairs outside named pack-floor exclusions stand a "
                  "millimetre apart", "gate", verdict(not short),
                  f"{len(short)} under, tightest {tightest:.3f} mm" if tightest is not None
                  else "no pair in reach", f"≥ {CLEARANCE_FLOOR:g} mm", detail)
