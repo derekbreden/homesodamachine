@@ -86,7 +86,10 @@ settle as the bundle bends.
 ## Print
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
-The [current complete organizer print](prints/2026-10-11-current-mark1/README.md)
+The [white Mark2 right-hotend print](prints/2026-10-16-white-right-mark2/README.md)
+retains the current geometry and organizer process, with Mark2’s normal +0.04 mm
+requested/+0.02 mm emitted trim and right-nozzle XY registration.
+The [complete black organizer reference](prints/2026-10-11-current-mark1/README.md)
 uses Mark1’s normal +0.18 mm requested/+0.16 mm emitted trim. Its complete
 production layout and ribbon-slot fit remain pending physical assessment.
 The accepted Mark2 article used its fixed left hardened 0.4 mm nozzle,

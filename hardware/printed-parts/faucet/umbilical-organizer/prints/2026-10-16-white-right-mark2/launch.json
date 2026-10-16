@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "before": {
+    "observed_at": "2026-10-16T19:45:30.730336+00:00",
+    "gcode_state": "FINISH",
+    "subtask_id": "1345901173",
+    "job_id": "1345901173",
+    "task_id": "1345901173",
+    "subtask_name": "2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 77,
+    "total_layer_num": 77,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 44.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 43.0,
+    "nozzle_target_temper": 0.0
+  },
+  "archive": {
+    "name": "2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "df41efb383cf7862bee78102f9a8ec2d92f1e035b94e6eb68bdcbfd0dcc53598",
+    "gcode_sha256": "3b9fec2463d4615f8e4d644519f874463b41f6c01731a85aa5c51eceeaf800db",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "umbilical-organizer"
+    ]
+  },
+  "project": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2.3mf",
+  "project_sha256": "05780cfef9034519a98d0a86fb83b7ae9c29750d767d00eb2ec2e4e4b0f17814",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "command_replies": [
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "observed_at": "2026-10-16T19:47:11.471932+00:00"
+    }
+  ],
+  "single_send_click": true,
+  "method": "Bambu Connect CUA; one Send after native review",
+  "physical_result": null,
+  "accepted_at_utc": "2026-10-16T19:47:14.181256+00:00",
+  "printer_task_id": "1346038475",
+  "first_acceptance": {
+    "observed_at": "2026-10-16T19:47:14.181344+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_id": "1346038475",
+    "job_id": "1346038475",
+    "task_id": "1346038475",
+    "subtask_name": "2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 42,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 43.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 43.0,
+    "nozzle_target_temper": 0.0
+  },
+  "earliest_other_printer_start_or_resume_utc": "2026-10-16T19:50:14.181256+00:00",
+  "quantity": 1,
+  "authorization_quote": "Next, I need a cable organizer on Mark 2's right hot end for the white PETGF.",
+  "imported_copy_archive_sha256_after_send": "df41efb383cf7862bee78102f9a8ec2d92f1e035b94e6eb68bdcbfd0dcc53598",
+  "imported_copy_gcode_sha256_after_send": "3b9fec2463d4615f8e4d644519f874463b41f6c01731a85aa5c51eceeaf800db",
+  "startup_observation": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/startup.json",
+  "estimated_seconds": 845.9664916992188,
+  "other_printer_last_launch": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/launch.json",
+  "seconds_after_other_printer_acceptance": 2890.706734
+}

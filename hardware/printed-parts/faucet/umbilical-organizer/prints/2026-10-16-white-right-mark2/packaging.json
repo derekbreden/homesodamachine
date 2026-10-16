@@ -1,0 +1,19 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "52e2f567f9b45603dfee60d0b42c453ed1219f6572f951f18f9fa1ccd7ece1cf",
+  "print_only_archive": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "df41efb383cf7862bee78102f9a8ec2d92f1e035b94e6eb68bdcbfd0dcc53598",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "3b9fec2463d4615f8e4d644519f874463b41f6c01731a85aa5c51eceeaf800db"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
