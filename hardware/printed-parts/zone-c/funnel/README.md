@@ -96,9 +96,12 @@ separate from geometric checks.
 
 The PET-GF cradle holds the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md)
 under the frame's drain hole, its vertical leg up the hole and its horizontal leg aft toward V-B.
-The pocket leaves at least [0.15 mm](CRADLE_SLIP) around the scanned elbow. Its lower horizontal
-profile follows the scanned body, while its upward mouth carries the widest horizontal
-clearance through the aft opening and joins the bend-core circle with a tangent boundary.
+The pocket adds [0.15 mm](CRADLE_SLIP) radially to the scanned profile. Its forward lower
+following surface is 302.779 mm². Beyond the largest horizontal section at local Y15.5,
+the lower mouth holds that radius through the aft exit, leaving a full 3 mm floor.
+The trailing 3.337 mm of the fixed-body span opens into this exit rather than following
+the body's narrowing profile. The upward mouth carries the widest horizontal clearance
+through the aft opening and joins the bend-core circle with a tangent boundary.
 The elbow drops straight in. At the body's top, 1 mm under the top of the vertical leg's
 root band, the circular pocket wraps 249.7° (69.4%) around the leg. The collar, rung and nose
 stand free above it. The [drain stub](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)

@@ -2064,19 +2064,20 @@ column_relief_slip = 1.0
 
 
 def _cradle_relief(room, station):
-    """One corner pocket a cradle rail crosses, floored on the rail's own groove.
+    """One corner pocket with its floor and roof following the cradle rail's groove.
 
-    THE GROOVE OWNS THE FLOOR TO ITS MOUTH. Fore of the mouth this holds the station's exact
-    grip datum — a box cut to the pocket's insertion floor there hangs the groove floor as a
-    shelf over 0.7 mm of pocket air at every plane the two cutters cross. From the mouth the
-    floor falls 1:1 to the insertion floor and runs out on it: one floor from seated stop to
-    aft reach, and the groove's fit figures never retyped."""
+    The floor holds the grip plane through the mouth, then falls 1:1 to the insertion
+    floor. The roof rises 1:1 from the flange's fitted ceiling to the body room's ceiling.
+    Both meet the column's relief walks on the same planes.
+    """
     x0, x1, y0, y1, z0, z1 = room
     face, _cx0, _cx1, fz0, fz1, _root = station
-    grip = fz0 - cond_slot_half(fz1 - fz0)
+    half = cond_slot_half(fz1 - fz0)
+    grip, roof = fz0 - half, fz1 + half
     mouth = cond_slot_mouth(face)
     return _yz_prism(x0, x1, [(y0, grip), (mouth, grip), (mouth + (grip - z0), z0),
-                              (y1, z0), (y1, z1), (y0, z1)])
+                              (y1, z0), (y1, z1), (face + z1 - roof, z1),
+                              (y0, roof)])
 
 
 def _column_relief(inner, sx, sy, room, zj, cradle=()):
@@ -3107,11 +3108,11 @@ def display_plane(outer):
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
 
 
-def _display_cuts(outer, support_floor=None):
+def _display_cuts(outer, support_floor=None, support_fore=None):
     """Accepted cover pocket, deeper glass/PCB seat and open wing support lanes.
 
-    The long exits stop at the existing display-storey floor. They clear the
-    pocket underside without cutting the pump-bay lintel or tee mechanism.
+    The long exits stop at the display-storey floor. Below the complete 12 mm
+    pocket exit, their aft wall joins the bay plane with a 45-degree run-out.
 
     THE SEATING LAND ENDS ON EACH POCKET MOUTH'S PLANE, ALL THE WAY TO THE CORNER ROUND. An
     exit's down-slope face leans forward as it drops and meets the cover's floor inside the
@@ -3119,18 +3120,31 @@ def _display_cuts(outer, support_floor=None):
     down-slope, held inside the inset's own outline, so the round carries on down from the
     floor until it meets that face.
     """
-    place = cq.Location(display_plane(outer))
-    exit_depth = 12
-    cut = _display_wings.cuts(display_facet_thickness+display_pcb_cut_through,
-                              exit_depth).moved(place)
+    plane = display_plane(outer)
+    place = cq.Location(plane)
+    canonical_exit = 12.0
+    cut = _display_wings.cuts(
+        display_facet_thickness+display_pcb_cut_through, canonical_exit).moved(place)
     round_r = _interface.display_inset_corner_r
     below = _swept_top.rounded_prism(display_inset_x, display_inset_slope, round_r,
                                      -display_facet_thickness, -display_inset_depth)
-    for exit in _display_wings.support_exits(exit_depth):
+    for exit in _display_wings.support_exits(canonical_exit):
         cut = cut.fuse(below.intersect(exit.translate((0, -round_r, 0))).moved(place))
     if support_floor is not None:
         room = _ybox(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,
                      support_floor,outer[5]+1)
+        if support_fore is not None:
+            roof = _display_wings.BACK + _display_wings.WING_THICK + _display_wings.BEARING_AIR
+            aft = plane.toWorldCoords((
+                0.0, _display_wings.WING_SPAN/2 + _display_wings.END_AIR
+                - canonical_exit*math.tan(math.radians(_display_wings.ANGLE)),
+                roof-canonical_exit))
+            run = max(0.0,aft.y-support_fore)
+            room = room.intersect(_yz_prism(outer[0]-1,outer[1]+1,(
+                (outer[2]-1,support_floor),(support_fore,support_floor),
+                (support_fore,aft.z-run),(aft.y,aft.z),
+                (outer[3]+1,aft.z),(outer[3]+1,outer[5]+1),
+                (outer[2]-1,outer[5]+1))))
         for exit in _display_wings.support_exits(250):
             cut = cut.fuse(exit.moved(place).intersect(room))
     return cut.clean()
@@ -3247,7 +3261,8 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
     pocket = _nameplate_fit.apply(solid, plate, y_outer,
-                                  supported=fits.supported_surface, up=up)
+                                  supported=fits.supported_surface, up=up,
+                                  wall_face=back_top_wall_face())
     return _nameplate_fit.production_backing(pocket, plate, y_outer,
                                               wall_face=back_top_wall_face())
 
@@ -3275,6 +3290,7 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
     at = (lambda _x, _z: wall) if wall_at is None else wall_at
     original = solid
     deep = y_outer
+    hosts = []
     for px, pz, *_size in field.pockets:
         # WHAT THIS LOOP OWES THE BORES BELOW IS ONLY HOW FAR INBOARD A LAND CAN STAND.
         # `proud` is what a chip's pocket costs a `wall`-thick face; a wall carrying more
@@ -3293,7 +3309,15 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
             host = _port_chip(px, pz, width+2*field.rim,
                               rise+field.rim, bottom+field.rim,
                               y_outer-t, y_outer-t+fits.slip)
-            solid = solid.fuse(original.intersect(host).translate((0,-fits.slip,0)))
+            hosts.append(host)
+    if hosts:
+        joined = hosts[0].fuse(*hosts[1:]).clean()
+        # A shared backing outline has no enclosed interstices between pads.
+        # Intersect the original wall afterwards to keep its functional voids.
+        for face in joined.Faces():
+            if face.geomType() == 'PLANE' and face.normalAt().y < -.999999:
+                host = cq.Solid.extrudeLinear(face.outerWire(), [], cq.Vector(0,fits.slip,0))
+                solid = solid.fuse(original.intersect(host).translate((0,-fits.slip,0)))
     for px, pz, width, rise, bottom in field.pockets:
         solid = solid.cut(_supported_cut(
             _port_chip(px, pz, width, rise, bottom,
@@ -5968,7 +5992,9 @@ def build_front_half(box):
     front = front.cut(_facet_wedge(outer))
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
-    front = front.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
+    front = front.cut(_display_cuts(
+        outer, box.pump_bay[2] if box.pump_bay else None,
+        bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
     for cavity in display_storey_cavities(box):
         front = front.cut(cavity)
     # Punch the funnel's throat through the top wall, behind the display.
@@ -8759,7 +8785,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if y_side == 'front':
             piece = piece.cut(_y_lip_channel(inner, y_joint))
         if y_side == 'front':
-            piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
+            piece = piece.cut(_display_cuts(
+                outer, box.pump_bay[2] if box.pump_bay else None,
+                bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
             for cavity in display_storey_cavities(box):
                 piece = piece.cut(cavity)
     if y_side == "front" and z_side == "top" and plate:

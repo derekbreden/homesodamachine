@@ -57,7 +57,7 @@ def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
 
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
-          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN):
+          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -84,7 +84,19 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
             .polyline([(-FLOOR_STOCK-BACK_AIR,zedge),
                        (-FLOOR_STOCK-BACK_AIR,zedge+up*FLOOR_STOCK),(-BACK_AIR,zedge)])
             .close().extrude(2*pw).val())
-    solid = solid.fuse(pad.cut(ramp).translate(shift))
+    pad = pad.cut(ramp)
+    if wall_face is not None:
+        # The opposite pad end meets the base wall on a 45-degree plane.
+        # Cut the pad alone so existing host feet keep their complete profiles.
+        rear, wall_y = -FLOOR_STOCK-BACK_AIR, wall_face-floor
+        run = wall_y-rear
+        if run > 0:
+            end = up*(ph/2+2.0)
+            finish = (cq.Workplane('YZ',origin=(-pw,0,0))
+                      .polyline([(rear,end),(wall_y,end),(rear,end-up*run)])
+                      .close().extrude(2*pw).val())
+            pad = pad.cut(finish)
+    solid = solid.fuse(pad.translate(shift))
     mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1+BACK_AIR)
              .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()
              .rotate((0,0,0),(1,0,0),-90).translate((0,-BACK_AIR,0)))
