@@ -42,7 +42,7 @@
     "hardware/printed-parts/valve-seat/valve_seat.py": "a3bfa08030793952b0706e5d306992571a994fb61ce68400c868de81d874f718",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "1d42315f3372ea20287b866eee01f4e19ce3c73301a7c898950dc89b6ee24d55",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "2418a64173e70901898e98c472ddff83e79a3e4c58bda8953d8d8b9f370b6a72",
-    "hardware/printed-parts/cadlib/fits.py": "bcf3906a2d94407f45f6cfdb9d0f3b73e1f1d3d985eddab8c8889b768e3c325b"
+    "hardware/printed-parts/cadlib/fits.py": "4eeb51739fa00db85e20a1a4a0d1021e76e1ca3bb2d6fdddef299eb6e2f5acc3"
   },
   "production_function_ast_sha256": {
     "enclosure._valve_socket_cutters": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
