@@ -8358,7 +8358,188 @@
         "scope": "The physical frame is a strict subset of the reviewed rounded frame; all enclosure clearance and receiver functions are unchanged. No enclosure geometry changed during the foot-wing finish.",
         "assembly_clearance": "Each previously clear rigid approach/closing pose remains clear because the frame only loses stock and every mating/fixed body is unchanged.",
         "retained_corner_review": "The rear R6 and upper bearing regions lie above rail Z306.9, where the final native toe-finish comparison records zero changed volume. Their source-bound corner and coupling measurements retain that stated scope."
-      }
+      },
+      "final_source_commit": "4bbfaa73e",
+      "final_published_pointer_commit": "2d5a04130",
+      "final_publication": "Root verified all eight current HTTP/local/pointer hashes, including final frame payload4427f99c81912120 and updated appliance aggregate, before the final frame lint.",
+      "final_frame_post_publication_lint": {
+        "scope": "Existing geometry_lint.lint, all six classes, once on the complete final small frame STL after verified live publication.",
+        "file": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+        "stl_sha256": "1a8c90f96dfb54d05b17cf95120942a617b6f4a78be81963a10d8f47a039d3af",
+        "unchanged_during_review": true,
+        "facets": 40436,
+        "source_sha256": {
+          "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "cacc2d4b2ea5fa7777fb6d1fe65fa388736e222865c2dab9842cf3540d995998",
+          "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "85ba74b516033695d8f620732f6e60e0426cdfd19822cd28b545fd27fc392ca5",
+          "hardware/scripts/geometry_lint.py": "ce24ddd2e77ae3e373acd78ba52b92cbbbd07e4f1d396bb959322a10fee8925b"
+        },
+        "finding_count_by_class": {
+          "step": 0,
+          "sliver": 0,
+          "ceiling": 2,
+          "slope": 0,
+          "thin": 8,
+          "ledge": 0
+        },
+        "findings": {
+          "step": [],
+          "sliver": [],
+          "ceiling": [
+            {
+              "class": "ceiling",
+              "score": 192.56821662322278,
+              "line": "438 mm² flat print-down face at z=16.200 · 84.3 × 5.2 mm · drop 9.2–9.2 mm to material below",
+              "pick": [
+                "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=-10.696 z=16.200",
+                "click: x=100.875 y=-10.696 z=16.200"
+              ]
+            },
+            {
+              "class": "ceiling",
+              "score": 192.56821662322278,
+              "line": "438 mm² flat print-down face at z=16.200 · 84.3 × 5.2 mm · drop 9.2–9.2 mm to material below",
+              "pick": [
+                "face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=-10.696 z=16.200",
+                "click: x=-100.875 y=-10.696 z=16.200"
+              ]
+            }
+          ],
+          "slope": [],
+          "thin": [
+            {
+              "class": "thin",
+              "score": -1.5182158777274228,
+              "line": "1.518 mm of material at its thinnest · 9.8 mm² of surface under 3 mm · spans 4.4 × 2.7 × 2.7 mm · in 2 pieces",
+              "pick": [
+                "click: x=98.016 y=-49.062 z=6.256",
+                "click: x=98.250 y=-47.759 z=7.000"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -1.5182158777274235,
+              "line": "1.518 mm of material at its thinnest · 9.3 mm² of surface under 3 mm · spans 4.3 × 2.5 × 2.7 mm · in 2 pieces",
+              "pick": [
+                "click: x=-98.016 y=-49.062 z=6.256",
+                "click: x=-98.250 y=-47.759 z=7.000"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -1.5403410627314573,
+              "line": "1.540 mm of material at its thinnest · 11.7 mm² of surface under 3 mm · spans 1.5 × 4.4 × 4.5 mm · in 2 pieces",
+              "pick": [
+                "click: x=-91.250 y=35.236 z=48.752",
+                "click: x=-89.750 y=35.200 z=49.100"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -1.5403410627314589,
+              "line": "1.540 mm of material at its thinnest · 14.6 mm² of surface under 3 mm · spans 1.5 × 4.8 × 5.0 mm · in 2 pieces",
+              "pick": [
+                "click: x=91.250 y=35.236 z=48.752",
+                "click: x=89.750 y=35.200 z=49.100"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 1071.5 mm² of surface under 3 mm · spans 36.6 × 41.6 × 0.0 mm",
+              "pick": [
+                "click: x=-14.106 y=-11.406 z=0.000",
+                "click: x=-14.106 y=-11.406 z=3.000"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 750.0 mm² of surface under 3 mm · spans 124.8 × 0.0 × 6.0 mm",
+              "pick": [
+                "click: x=62.150 y=-66.092 z=55.092",
+                "click: x=62.150 y=-69.092 z=55.092"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 748.8 mm² of surface under 3 mm · spans 124.8 × 0.0 × 5.7 mm",
+              "pick": [
+                "click: x=62.261 y=-69.092 z=52.166",
+                "click: x=62.261 y=-66.092 z=52.166"
+              ]
+            },
+            {
+              "class": "thin",
+              "score": -3.0,
+              "line": "3.000 mm of material at its thinnest · 1069.1 mm² of surface under 3 mm · spans 36.6 × 41.6 × 0.0 mm",
+              "pick": [
+                "click: x=-16.357 y=-20.727 z=3.000",
+                "click: x=-16.357 y=-20.727 z=0.000"
+              ]
+            }
+          ],
+          "ledge": []
+        },
+        "limits": "This is a geometry anomaly review. Findings retain source-scoped explanations; unrelated existing features are not redesigned or physically qualified."
+      },
+      "frame_findings_disposition": {
+        "removed_finite_toes": "The finite0.104mm front foot-wing readings are absent from the final lint. Native truncation removes27.279800mm3 and adds0; each free wing has a nominal3mm blunt end at localY-47.7594010768/Z4..7. Main body, all stock at or aboveZ7, rail bearings, complete silicone brim bearing and all shell-clearance functions remain unchanged.",
+        "current_body_wing_diagonals": "Two1.518mm readings cross the corner junction from the central corbel atX±98.016/Y-49.062/Z6.256 to the blunt wing root atX±98.25/Y-47.759/Z7. They are separately anchored with the native3mm wing-end and unchanged-body evidence. No thin free-toe exception is retained.",
+        "current_rear_roof_corner_diagonals": "The existing1.540mm family retains its source-scoped broad-section explanation. Its rear pick re-anchors atX±91.25/Y35.236/Z48.752; other pick remainsX±89.75/Y35.2/Z49.1 in exported frame coordinates.",
+        "ordinary_sections": "The remaining four3.000mm ranks read the ordinary web/forewall section. The two438mm2 rail-bearing ceilings retain their exact existing anchors and support-access explanation.",
+        "new_other_classes": "No step, sliver, slope or ledge finding on the final full small frame. The review makes no claim that every point around an access mouth is a full3mm section."
+      },
+      "live_artifact_verification": [
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "sha256": "a6dd270a6bdd07820a205fb6c11d6e5bc739ea37f5da746c5b2d88e3a7733f2a",
+          "live_sha256": "a6dd270a6bdd07820a205fb6c11d6e5bc739ea37f5da746c5b2d88e3a7733f2a",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "sha256": "c135f634530e5f872af9d5c1a1b1e78321d04a8486fca0e36e60c0ab06157d16",
+          "live_sha256": "c135f634530e5f872af9d5c1a1b1e78321d04a8486fca0e36e60c0ab06157d16",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+          "sha256": "ba1c3adbaa1bc66bdc346130bdbde9ef10c901de04852c50b42f42893731ca3d",
+          "live_sha256": "ba1c3adbaa1bc66bdc346130bdbde9ef10c901de04852c50b42f42893731ca3d",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "sha256": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
+          "live_sha256": "e26bcc321c2b7195f5838acfda3f140d69f303dc6f6c0af200b0d828f1fd585d",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+          "sha256": "4427f99c819121205e084aede4a1d87e30d625eba9ed109516fa97513d540094",
+          "live_sha256": "4427f99c819121205e084aede4a1d87e30d625eba9ed109516fa97513d540094",
+          "match": true
+        },
+        {
+          "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "df6a32839240e481ac88e5afa61b533beb7e35c8559394de7c92cda324abfb61",
+          "live_sha256": "df6a32839240e481ac88e5afa61b533beb7e35c8559394de7c92cda324abfb61",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "sha256": "e6277aebd5e75bedc9b41978e1e19761df6401d0943e1cd038589bd14b68ff2c",
+          "live_sha256": "e6277aebd5e75bedc9b41978e1e19761df6401d0943e1cd038589bd14b68ff2c",
+          "match": true
+        },
+        {
+          "path": "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
+          "sha256": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
+          "live_sha256": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
+          "match": true
+        }
+      ]
     }
   }
 }
