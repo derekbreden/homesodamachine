@@ -148,15 +148,21 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [native fit review](y-seam-fit-review.json) binds nine targeted stages to the current
+The [native fit review](y-seam-fit-review.json) binds 239 finite patches in nine targeted stages to the current
 production exports: quadrant and frame faces, hardware stock, pump receiver, nameplate
 and DATA receivers, bulkhead rings, window covers, tee carrier, the 45° bedding edge,
 and the core's five external printed bodies. Every measured finite patch meets its
 applicable static or running allowance, including the allowance for each supported face.
 The native tolerance is 0.00001 mm. The review retains exact witnesses, complete local
-stock checks and the standalone quadrant survey. The final inboard cradle and frame are
-measured directly from their production exports, including the hook gaps, webs and silicone
-bearing area. Surface finish and load capacity require their own evidence.
+stock checks and the standalone quadrant survey. The current cradle body has its own
+native stock and capture measurements. Complete protected hook/leaf equality and the
+unchanged frame preserve the identified hook gaps, webs and silicone bearing measurements.
+Earlier route readings remain conservative lower bounds because the body only removes
+stock; their original input and model scopes are retained.
+The 35 insert-station measurements and 14 finished-knuckle queries retain their original
+artifact scope. The current integrity stage measures the four M5 hosts and four washer
+floors; it does not refresh screw engagement or blind-tip reserve. Surface finish and
+load capacity require their own evidence.
 The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
 parts, complete funnel-brim bearing and sampled straight assembly motions. The
 [frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
