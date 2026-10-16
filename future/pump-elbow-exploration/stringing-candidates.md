@@ -1,6 +1,10 @@
 # TPU stringing candidates
 
-**Status: untried.** These are candidates for the next TPU joint print. The
+**Status: departure-lap trial submitted; physical result pending.** The
+[Mark1 Bambu 85A trial](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+implements a 0.2 mm high, 10 mm/s wall lap at all 368 object departures, with
+full-height connectors and the native extrusion/travel commands retained.
+Related options below remain candidates. The
 [two-object trial](prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
 is their baseline; its finished result is pending. A strand across a bore sits
 in the water path and in the tube socket.
@@ -39,6 +43,10 @@ starts and across the bores, compared with the baseline job.
 ### Inserting it
 
 A post-processor runs between the offline slice and `tools/bambu_print.py`.
+[`departure_lap.py`](departure_lap.py) prepares the selected trial by hand;
+its [print record](prints/2026-10-15-departure-lap-tpu85a-mark1/README.md)
+specifies the emitted path, thin-rim fallbacks, full-height wall connectors
+and return to the native departure point.
 It rewrites `Metadata/plate_1.gcode` in the native `.gcode.3mf` and its
 `plate_1.gcode.md5`, which the sender checks. It inserts moves only; every
 extrusion line stays as Bambu wrote it. In the launched job, all 368 object

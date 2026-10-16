@@ -1,0 +1,40 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-16T04:15:25.648658+00:00",
+  "archive": {
+    "name": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
+    "sha256": "e308315f8c561f192f36d96a7a6a6889b93a833f17e64febf2ea555f4d5ee503",
+    "gcode_sha256": "83cc4838f8d1b0cb84caaa99af6c88b440645b87c619f5f3b7f6205fe297d4ab",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Accepted Bambu elbow 1",
+      "Accepted Bambu elbow 2"
+    ]
+  },
+  "printer_task_id": "1343980666",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 120,
+  "submission": {
+    "application": "Bambu Connect",
+    "sender": "tools/bambu_print.py, using the already imported separate copy",
+    "imported_copy": ".cache/pump-elbow-exploration/departure-lap/connect-import/2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
+    "imported_gcode_sha256": "83cc4838f8d1b0cb84caaa99af6c88b440645b87c619f5f3b7f6205fe297d4ab",
+    "selected_copy_not_rewritten_during_submission": true,
+    "print_options": {
+      "Timelapse": "On",
+      "Auto bed leveling": "On",
+      "Flow dynamic calibration": "Auto",
+      "Nozzle Offset Calibration": "Auto"
+    }
+  }
+}

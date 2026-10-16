@@ -1,0 +1,57 @@
+{
+  "prepared_at": "2026-10-16T03:46:41.670749+00:00",
+  "status": "Offline; not submitted",
+  "printer": "Mark1 (H2C)",
+  "geometry_project": "future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-two-elbows-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "material_project": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/2026-10-13-compact-single-elbow-tpu85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "project": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.3mf",
+  "project_sha256": "0c27a84de888b9164cd486ebfbbe3c8382dd9b86984c317f9c116b3933908493",
+  "native_archive": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1-native.gcode.3mf",
+  "native_archive_sha256": "37a361358f06c94772d5b6d538345d46cdd052347a93ab900a68482b0b521983",
+  "native_gcode_sha256": "d1abe513b2bcc28d0ae9cfd23ab716d2e8be0efc00678342d6696d87a0f570ad",
+  "native_settings_differences": {
+    "seam_position": {
+      "from": "aligned",
+      "to": "nearest"
+    },
+    "reduce_crossing_wall": {
+      "from": "0",
+      "to": "1"
+    },
+    "filament_wipe": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "print_settings_id": {
+      "from": "One compact TPU85A elbow overhang10 Engineering Plate zero Z trim Mark1",
+      "to": "Two Bambu85A elbows 225C overhang10 departure lap 0.2mm Mark1"
+    }
+  },
+  "objects": [
+    {
+      "identify_id": "1901",
+      "name": "Accepted Bambu elbow 1",
+      "skipped": "false"
+    },
+    {
+      "identify_id": "1902",
+      "name": "Accepted Bambu elbow 2",
+      "skipped": "false"
+    }
+  ],
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "native_estimated_seconds": 7249.29345703125,
+  "estimated_filament_g": 8.574027061462402,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/departure-lap/native-1vx9v72s"
+}

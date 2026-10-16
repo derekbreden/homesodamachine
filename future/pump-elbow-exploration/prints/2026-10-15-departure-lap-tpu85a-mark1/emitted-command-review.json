@@ -1,0 +1,76 @@
+{
+  "archive": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "e308315f8c561f192f36d96a7a6a6889b93a833f17e64febf2ea555f4d5ee503",
+  "only_two_gcode_members_changed": [
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_1.gcode"
+  ],
+  "independent_native_extrusion_run_comparison": {
+    "runs": 3958,
+    "coordinates_identical": true,
+    "modal_speeds_identical": true
+  },
+  "each_layer_has_one_lap_per_object": true,
+  "all_368_blocks_have_no_extrusion": true,
+  "all_laps_at_print_z_plus_020": true,
+  "all_departures_lift_to_print_z_plus_040": true,
+  "all_routes_return_to_native_departure_xy": true,
+  "embedded_checksum_matches": true,
+  "native_child_mesh_bytes_identical_to_siraya_pair": true,
+  "child_mesh_sha256": {
+    "3D/Objects/object_2.model": "c44b2a6f09e7c89be1c6b1d8d0e5e8bb9b3cb28daff94452eb73ddbeee46b232",
+    "3D/Objects/object_1.model": "51b554cb9290c2e2355d9713b745af85d52ade0acb1ae16b92d8bbb06fe78b52"
+  },
+  "full_bead_envelopes_xy_mm": {
+    "1902": [
+      [
+        160.72234344542193,
+        161.35399999999998
+      ],
+      [
+        194.30499600000002,
+        181.64600000000002
+      ]
+    ],
+    "1901": [
+      [
+        160.72234344542193,
+        138.35399999999998
+      ],
+      [
+        194.30499600000002,
+        158.64600000000002
+      ]
+    ]
+  },
+  "envelope_method": "All native model/brim line endpoints and exact cardinal arc extrema, buffered by half emitted line width.",
+  "minimum_y_brim_envelope_gap_mm": 2.70799999999997,
+  "minimum_right_nozzle_bed_inset_mm": 135.69500399999998,
+  "right_nozzle_usable_area_xy_mm": [
+    [
+      25,
+      0
+    ],
+    [
+      330,
+      320
+    ]
+  ],
+  "exterior_speed_layers17_33_mm_s": [
+    10.0,
+    10.0
+  ],
+  "gcode_sha256": "83cc4838f8d1b0cb84caaa99af6c88b440645b87c619f5f3b7f6205fe297d4ab",
+  "all_low_laps_over_the_departing_objects_printed_stock": true,
+  "connectors_at_print_z_plus_040": true,
+  "actual_loop_sources": {
+    "native_inner_wall": 350,
+    "native_outer_wall": 10,
+    "terminal_bead_contour": 8
+  },
+  "manual_visual_review_layers": [
+    28,
+    100,
+    182
+  ]
+}
