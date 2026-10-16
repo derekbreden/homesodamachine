@@ -37,6 +37,9 @@ round the run roots either side of the branch. Each band has a
 outboard wall on the trough's edge. The tie closes round the tee's front, drops past the run
 root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
+The fore mouths open into the trough across its full adjoining curve. Their inboard
+edge stands one backing thickness inside the narrow passage; the 2 mm through passages
+and the full aft backing keep their stated dimensions.
 
 Each column's end face is flush with its flank and is show face. All four of its edges, and the
 column's four edges running inboard to it, roll over on the enclosure's [6 mm](SHOW_EDGE_R)
@@ -125,6 +128,11 @@ window's full height, [60.122 mm](COVER_H). Aft of the post it reaches
 [12 mm](COVER_AFT) at the post's height, so post and cover stand [24 mm](STRUCTURE_AFT) aft of the
 window. The finger stands between the two, so a cover lifts off
 only straight up.
+
+The fore window continues 0.35 mm below the cover and 0.50 mm above it. At the
+inboard flank face, 45° entry run-outs join those floor and roof clearances to the
+guide's receiving air. The guided faces keep 0.25 mm of normal room, and the post's
+inboard finger has its complete 3 mm section.
 
 Each cover prints lying on its outboard face.
 

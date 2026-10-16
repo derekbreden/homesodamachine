@@ -1,4 +1,5 @@
-[ceiling] The two hooks' flat undersides are the snap's retention bearings: each lies flat on the funnel frame's 3 mm web, so it keeps its square face. The current native slice in integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/ retains two bed-rooted supports beneath those bearings. Every emitted support bead has a clear outward removal sweep after its contact and branch junctions are detached. Physical retention, bearing finish and removal effort remain unqualified for the current hooks.
+[ceiling] These flat undersides are the snap's withdrawal shoulders. Each needs a square bearing over the frame's 3 mm catch web so a downward pull does not cam the wing inward. The installed model provides 0.40 mm static allowance, including the supported-face allowance, beneath each 2.75 mm hook; it does not require that modeled gap to remain physically open under load. The hook tops retain 269.895 mm² of silicone bearing at Z306.05. The body-down print needs removable support beneath these horizontal shoulders, accessible past their outer edges before assembly. Current support placement, finish, removal effort, loaded retention and lifetime remain unqualified.
+alternatives: Sloping the underside creates a release ramp under withdrawal. A corbel into the slot blocks the wing's insertion travel. Turning the cradle over puts support inside the elbow pocket. Keep the square shoulders and their accessible support requirement.
 file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
-click: x=-16.600 y=4.661 z=33.803
-click: x=16.600 y=4.661 z=33.803
+click: x=-16.600 y=4.661 z=34.203
+click: x=16.600 y=4.661 z=34.203

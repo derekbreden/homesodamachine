@@ -4537,8 +4537,8 @@ CEILING_RELIEF_Z_CLEAR = 1.0
 # Every row in one group takes its tallest member's roof without changing any plan extent.
 # The ASSE chain's five overlapping fitting sections are one purchased assembly and take one
 # floor, preserving their stepped plan without five ledges at the section boundaries.
-# The flow meter's body and two collet arms overlap in plan and are one purchased part; a common
-# floor makes that one cross-shaped pocket instead of leaving two 0.211 mm-deep end notches.
+# The flow meter's body, collet arms and lead root take one pocket roof;
+# their common service envelope is applied after this leveling.
 # Relay #1 and the ground ring occupy one overlapping service pocket at the ceiling. The ring
 # stands 0.688 mm taller, so both rectangles take its roof; separate roofs leave a sub-millimetre
 # horizontal ledge at their overlap instead of one clean opening round the two adjacent bodies.
@@ -4567,10 +4567,10 @@ CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
 CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),
                                   ("asse1022-assembly", "bulkhead-water"))
 CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
-# The ground stack's circular plans stagger by 0.8 mm in X. A single connected slab section
-# keeps its own plan. Two overlapping sections take one rectangular service pocket so neither
-# stagger leaves a thin wall tab. No other body's sections are enveloped together.
-CEILING_RELIEF_ENVELOPE_BODIES = ("ground-stack",)
+# The ground stack and flow meter each take one rectangular service pocket
+# across their overlapping sections. The flow meter's lead root and body
+# share one outer wall plane rather than a short return between their plans.
+CEILING_RELIEF_ENVELOPE_BODIES = ("ground-stack", "digiten-flow")
 CEILING_WATER_2_PLAN_SLIP = (
     CEILING_RELIEF_PLAN_SLIP
     + _lines.TUBE_BEND + _split.TUBE_D / 2.0 - _lines.WATER_2_LEAD
@@ -4718,10 +4718,10 @@ def ceiling_reliefs(placed: dict) -> tuple:
                             b.ymin - plan_slip, b.ymax + plan_slip,
                             min(lane, piece.BoundingBox().zmax + CEILING_RELIEF_Z_CLEAR),
                         ))
-    # A contained direct/lifted reading is the same void twice, not a second feature.
-    reliefs = list(_contained_reliefs(tuple(reliefs)))
-    reliefs = list(_enveloped_reliefs(tuple(reliefs)))
+    # Level each connected pocket before dropping contained sections and
+    # giving the named service pockets their common outer walls.
     reliefs = _level_reliefs(_minimum_depth_reliefs(tuple(reliefs)))
+    reliefs = _enveloped_reliefs(_contained_reliefs(reliefs))
     reliefs = tuple(row[:5] + (lane,) if row[0] in CEILING_RELIEF_LANE_BODIES else row
                     for row in reliefs)
     return _full_depth_reliefs(_connected_reliefs(reliefs))

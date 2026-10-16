@@ -32,6 +32,7 @@ Run:
 
 from __future__ import annotations
 
+import math
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -81,6 +82,13 @@ def _xz_prism(y0, y1, pts):
     pts = [cq.Vector(x, y0, z) for x, z in pts]
     face = cq.Face.makeFromWires(cq.Wire.makePolygon(pts + pts[:1]))
     return cq.Solid.extrudeLinear(face, cq.Vector(0, y1 - y0, 0))
+
+
+def _yz_prism(x0, x1, pts):
+    """The `(y, z)` polygon at `x0`, run across to `x1`."""
+    points = [cq.Vector(x0, y, z) for y, z in pts]
+    face = cq.Face.makeFromWires(cq.Wire.makePolygon(points + points[:1]))
+    return cq.Solid.extrudeLinear(face, cq.Vector(x1 - x0, 0, 0))
 
 
 def _sided(solid, side):
@@ -242,6 +250,25 @@ class Carrier:
         return self.axis_z - band, self.axis_z + band
 
 
+def _cover_fore_entry(c: Carrier):
+    """The fore cover's receiving air through the open +X flank window.
+
+    Floor and roof runouts join the carrier's ordinary window planes to the
+    cover receiver. Their 45-degree runs are the respective finish allowances.
+    """
+    x0, x1 = c.flank_x, c.exterior_x + 1.0
+    entry = c.cover_y[0] - c.air
+    end = c.post_y[0] - fits.slip + c.air
+    floor, roof = c.floor_z, c.roof_z
+    f, r = COVER_FLOOR_AIR, COVER_ROOF_AIR
+    body = _box(x0, x1, entry, end, floor - f, roof + r)
+    floor_runout = _yz_prism(x0, x1, (
+        (entry - f, floor), (entry, floor - f), (entry, floor)))
+    roof_runout = _yz_prism(x0, x1, (
+        (entry - r, roof), (entry, roof), (entry, roof + r)))
+    return body.fuse(floor_runout, roof_runout).clean()
+
+
 def opening(c: Carrier):
     """The way in and the slide: the tees' sweep across the column, the +X column's crossing at
     the staged plate, and each flank's window."""
@@ -249,9 +276,12 @@ def opening(c: Carrier):
     crossing = (c.column_y[0] + c.staged_dy - c.air, c.plate_y[1] + c.staged_dy + c.air)
     cutter = _box(x0, x1, *c.opening_y, c.floor_z, c.tee_top_z).fuse(
         _box(x0, x1, *crossing, c.floor_z, c.roof_z))
+    fore_entry = _cover_fore_entry(c)
     for side in (-1.0, 1.0):
         wx0, wx1 = sorted((side * c.flank_x, side * (c.exterior_x + 1.0)))
-        cutter = cutter.fuse(_box(wx0, wx1, *c.opening_y, c.floor_z, c.roof_z))
+        aft = max(c.opening_y[1], c.post_y[0] - fits.slip + c.air)
+        cutter = cutter.fuse(_box(wx0, wx1, c.opening_y[0], aft, c.floor_z, c.roof_z))
+        cutter = cutter.fuse(_sided(fore_entry, side))
     return cutter.clean()
 
 
@@ -272,13 +302,20 @@ def _plate_body(c: Carrier, *, filled_bottom=True):
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
     body = _box(-c.column_x[0], c.column_x[0], y0, y1, z0, z1)
     sx, sz = c.tie_slot
+    mouth_inner = c.trough_r - sx - c.backing
+    mouth_y = c.axis_y + math.sqrt(c.trough_r ** 2 - mouth_inner ** 2)
     for x in c.tee_xs:
         body = body.cut(cq.Solid.makeCylinder(
             c.trough_r, z1 - z0 + 2.0, cq.Vector(x, c.axis_y, z0 - 1.0), cq.Vector(0, 0, 1)))
         for side in (-1.0, 1.0):
             cx = x + side * (c.trough_r - sx / 2.0)
+            mx0, mx1 = sorted((x + side * mouth_inner, x + side * c.trough_r))
             for tz in c.tie_zs:
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
+                                     tz - sz / 2.0, tz + sz / 2.0))
+                # End the broad fore entry where a full backing-width section
+                # separates the rear passage from the trough circle.
+                body = body.cut(_box(mx0, mx1, y0 - 1.0, mouth_y,
                                      tz - sz / 2.0, tz + sz / 2.0))
     body = body.fuse(_column(c, -1.0), _column(c, 1.0))
     if filled_bottom:
@@ -337,6 +374,20 @@ def covers(c: Carrier) -> dict:
     return {name: cq.Workplane(obj=_sided(cover, side)) for name, side in COVERS.items()}
 
 
+def _receiver_mouth(c: Carrier, y0, y1, z0, z1):
+    """A 45-degree mouth from the interior flank to its receiving wall.
+
+    The receiving rectangle stays on its fitted plane. At the interior flank
+    its perimeter opens by the shallow pocket depth, with no square return.
+    """
+    wires = []
+    for x, grow in ((c.flank_x, c.air), (c.flank_x + c.air, 0.0)):
+        ring = ((y0 - grow, z0 - grow), (y1 + grow, z0 - grow),
+                (y1 + grow, z1 + grow), (y0 - grow, z1 + grow))
+        wires.append(cq.Wire.makePolygon([cq.Vector(x, y, z) for y, z in ring], close=True))
+    return cq.Solid.makeLoft(wires, ruled=True)
+
+
 def cover_clearance(c: Carrier):
     """Both covers' receiving air in world coordinates, including floor and roof finish.
 
@@ -355,7 +406,28 @@ def cover_clearance(c: Carrier):
                   p0 - fits.slip - air, p1 + fits.slip + air,
                   c.slot_z[0] + fits.clearance(at_floor=True) - COVER_FLOOR_AIR,
                   c.slot_z[1] + COVER_ROOF_AIR)
-    envelope = fore.fuse(tongue, aft).clean()
+    mouths = [
+        _receiver_mouth(c, y0 - air, p0 - fits.slip + air,
+                        c.floor_z - COVER_FLOOR_AIR, c.roof_z + COVER_ROOF_AIR),
+        _receiver_mouth(c, p1 + fits.slip - air, y1 + air,
+                        c.post_z[0] - COVER_FLOOR_AIR, c.post_z[1] + COVER_ROOF_AIR),
+        _receiver_mouth(c, p0 - fits.slip - air, p1 + fits.slip + air,
+                        c.slot_z[0] + fits.clearance(at_floor=True) - COVER_FLOOR_AIR,
+                        c.slot_z[1] + COVER_ROOF_AIR),
+    ]
+    # Join the fore receiver to its entry with a 45-degree floor runout.
+    # This gives the small aft-end portion of the carrier floor extra room;
+    # the carrier's ordinary floor plane and the cover pose stay fixed.
+    entry = y0 - air
+    floor = c.floor_z
+    f = COVER_FLOOR_AIR
+    points = [cq.Vector(x0, y, z) for y, z in
+              ((entry - f, floor), (entry, floor - f), (entry, floor))]
+    face = cq.Face.makeFromWires(cq.Wire.makePolygon(points + points[:1]))
+    runout = cq.Solid.extrudeLinear(face, cq.Vector(x1 - x0, 0, 0))
+    # Posts join after opening(); the same final entry air keeps that window
+    # open through its full floor and roof without entering the guide finger.
+    envelope = fore.fuse(tongue, aft, runout, _cover_fore_entry(c), *mouths).clean()
     return cq.Compound.makeCompound([_sided(envelope, side) for side in (-1.0, 1.0)])
 
 

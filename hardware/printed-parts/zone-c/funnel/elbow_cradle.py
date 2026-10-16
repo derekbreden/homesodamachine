@@ -5,10 +5,10 @@ flat underside, +Z up and +Y aft. At the insertion datum the scanned elbow's +Z 
 hole with its fixed nose face on that underside. The installed cradle and elbow hang `CATCH_GAP`
 below that datum, with the elbow's +Y leg aft toward V-B.
 
-The cradle is the block under the elbow less the elbow's upward shadow grown by `fits.slip`. The
-elbow drops straight in, and every pocket face opens upward, so the body prints bottom-down. The
-block's top stands 1 mm under the top of the vertical leg's root band: the pocket wraps the band
-about 78% of the way round, and the collar, rung and nose stand free above it.
+The pocket leaves at least `fits.slip` around the scanned elbow, retaining its horizontal
+underside and opening upward through a convex mouth. The body prints bottom-down. Its top
+stands 1 mm under the top of the vertical leg's root band, where the circular pocket wraps
+249.7 degrees (69.4%) around the leg. The collar, rung and nose stand free above it.
 
 Each X side of the block carries on up as a wing, the body's full length, through a straight slot
 in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
@@ -107,6 +107,45 @@ def _revolve(points, leg):
     return solid.rotate(cq.Vector(), cq.Vector(1, 0, 0), -90) if leg == "y" else solid
 
 
+def _upward_plan(horizontal, radius, height):
+    """The horizontal leg's convex upward mouth joined to the exact bend-core circle.
+
+    Running maxima keep the mouth open aft. The supporting tangent and convex
+    side chain enclose every scanned plan station; the fore arc remains analytic.
+    The separate vertical shadow retains its full scanned clearance footprint.
+    """
+    points, reach = [], 0.0
+    for station, r in horizontal:
+        reach = max(reach, r + SLIP)
+        points.append((reach, station))
+    tangents = []
+    for index, (x, y) in enumerate(points):
+        d2 = x * x + y * y
+        if d2 > radius * radius:
+            a = radius * radius / d2
+            b = radius * math.sqrt(d2 - radius * radius) / d2
+            tangent = (a * x + b * y, a * y - b * x)
+            tangents.append((math.atan2(tangent[1], tangent[0]), index, tangent))
+    _angle, start, tangent = min(tangents)
+    edge = [tangent]
+    for point in points[start:]:
+        while len(edge) > 1:
+            a, b = edge[-2:]
+            cross = ((b[0] - a[0]) * (point[1] - b[1])
+                     - (b[1] - a[1]) * (point[0] - b[0]))
+            if cross > 1e-12:
+                break
+            edge.pop()
+        edge.append(point)
+    tx, ty = tangent
+    outline = cq.Workplane("XY").moveTo(-tx, ty).threePointArc((0.0, -radius), (tx, ty))
+    for x, y in edge[1:]:
+        outline = outline.lineTo(x, y)
+    for x, y in reversed(edge[1:]):
+        outline = outline.lineTo(-x, y)
+    return outline.close().extrude(height).val()
+
+
 def shadow(top):
     """Everything directly above the elbow, grown by `SLIP`, up to local Z `top`."""
     c = SLIP
@@ -118,22 +157,17 @@ def shadow(top):
     for t, r in zb + zc[1:]:
         m = max(m, r)
         run.append((t, m + c))
-    run.append((h + 1.0, run[-1][1]))
+    # Close beyond the scanned run; a requested top inside that run must not
+    # reverse its last segment before the profile returns to the axis.
+    run.append((max(h + 1.0, run[-1][0]), run[-1][1]))
     out = _revolve([(0.0, run[0][1])] + run, "z")
-    # horizontal leg: the leg itself, and its plan footprint from the axis up
-    # Carry the fixed body's last section straight through the smaller collet.
-    # Following the collet's end taper leaves an unprintable knife edge at the
-    # block's aft face. This mouth clearance does not support the elbow.
+    # Keep the scanned horizontal underside and carry its final fixed-body
+    # section through the smaller collet. Only the separate upward mouth uses
+    # the convex plan; it opens from the axis without changing that underside.
     mouth_radius = max(yb[-1][1], *(r for _s, r in yc))
     horizontal = yb + [(yc[-1][0] + c, mouth_radius)]
     out = out.fuse(_revolve([(s, r + c) for s, r in horizontal], "y"))
-    edge = []
-    for s, r in horizontal:
-        q = (r + c, s)
-        if not edge or abs(q[0] - edge[-1][0]) > 1e-6 or abs(q[1] - edge[-1][1]) > 1e-6:
-            edge.append(q)
-    plan = [(-x, y) for x, y in edge] + [(x, y) for x, y in reversed(edge)]
-    out = out.fuse(cq.Workplane("XY").polyline(plan).close().extrude(h + 1.0).val())
+    out = out.fuse(_upward_plan(horizontal, CORE_R + c, h + 1.0))
     # the bend core and its outer-corner web, each with the column above it
     rc = CORE_R + c
     core = cq.Solid.makeSphere(rc, angleDegrees1=-90, angleDegrees2=90)
