@@ -5,8 +5,8 @@ The steps are the ones a hand performs in the application, each one read back be
 the next: the target's device page (which is what the send dialog offers as its
 printer), the import, the dialog, the filament mapping, the print options, Send, and
 the printer's own report over MQTT. `tools/bambu-ax` presses the controls in place;
-the one popover the accessibility tree cannot show is clicked by position and judged
-by the tile it fills in.
+the filament popover absent from accessibility is read visually by the shared
+foreground picker and verified by the tile it fills in.
 """
 
 import argparse
@@ -20,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bambu_printer  # noqa: E402
+import bambu_print  # noqa: E402
 
 AX = Path(__file__).resolve().parent / "bambu-ax" / "bambu-ax"
 PRINTERS = ("H2C", "Mark2")
@@ -29,11 +30,6 @@ STANDING_OPTIONS = {
     "Flow dynamic calibration": "Auto",
     "Nozzle Offset Calibration": "Auto",
 }
-# The filament tile's centre, and the External spool tile in the popover that opens
-# under it, both from the tile's own origin. H2C's popover: one AMS unit's trays
-# above the External spool.
-TILE_CENTRE = (47, 30)
-EXTERNAL_SPOOL = (-245, 282)
 # The dialog's printer selector, from its own origin: its name text, then the first row of
 # the popover that opens under it and the pitch to the rows below, one per printer in
 # PRINTERS order. Both clicks share one front borrow: the popover does not survive a
@@ -365,47 +361,16 @@ def main():
         print(f"dialog: printer {name}")
 
         # 4. The filament mapping, by the tile it fills in.
-        t = tile(nodes)
-        if t is None:
+        details = bambu_print.archive_details(archive)
+        bambu_print.verify_spools(details, before)
+        try:
+            with bambu_print.UI() as ui:
+                bambu_print.map_external_spools(ui, details)
+        except bambu_print.PrintError as error:
             ax("press", "cancel", "--role", "AXButton", check=False)
-            fail("no filament tile in the dialog")
-        if t["label"] == "? ?":
-            tries = []
-            for attempt in range(POPOVER_TRIES):
-                time.sleep(DIALOG_SETTLE)
-                nodes = tree()
-                t = tile(nodes) if dialog(nodes) else None
-                if t is None or t["label"] != "? ?":
-                    fail(f"filament tile changed before click {attempt + 1}: "
-                         f"{t['label'] if t else 'dialog closed'}")
-                x, y = t["x"], t["y"]
-                click = ax("click", str(x + TILE_CENTRE[0]), str(y + TILE_CENTRE[1]),
-                           str(x + EXTERNAL_SPOOL[0]), str(y + EXTERNAL_SPOOL[1]))
-                time.sleep(1.0)
-                nodes = tree()
-                t = tile(nodes) if dialog(nodes) else None
-                if t is not None and t["label"].startswith("Ext "):
-                    print(f"mapping: external spool selected on attempt {attempt + 1}")
-                    break
-                result = t["label"] if t is not None else "dialog closed"
-                tries.append(f"attempt {attempt + 1}: {click.splitlines()[-1]} -> {result}")
-                if attempt == POPOVER_TRIES - 1:
-                    if dialog(nodes):
-                        ax("press", "cancel", "--role", "AXButton", check=False)
-                    fail("external spool did not take: " + "; ".join(tries))
-                # The tile toggles its popover. Reusing this dialog could close an
-                # open popover, so every retry begins with a new dialog.
-                if dialog(nodes):
-                    ax("press", "cancel", "--role", "AXButton", check=False)
-                    if not wait_for(5, lambda n: not dialog(n) and n):
-                        fail("could not close the send dialog after a missed filament mapping: "
-                             + "; ".join(tries))
-                ax("press", "Print", "--role", "AXButton")
-                nodes = wait_for(10, lambda n: dialog(n) and selector(n) == args.printer and n)
-                if not nodes:
-                    fail("could not reopen the send dialog for a fresh mapping attempt: "
-                         + "; ".join(tries))
-                print(f"mapping: retrying from a fresh {args.printer} dialog")
+            fail(str(error))
+        nodes = tree()
+        t = tile(nodes) if dialog(nodes) else None
         if t is None or not t["label"].startswith("Ext "):
             ax("press", "cancel", "--role", "AXButton", check=False)
             fail(f"the filament tile reads {t['label'] if t else 'nothing'}; it must read the external spool")

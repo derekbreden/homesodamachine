@@ -338,6 +338,49 @@ def verify_dialog(nodes, printer, details):
         raise PrintError("The print options changed")
 
 
+def nozzle_tiles(nodes, nozzle):
+    """The labelled filament cards between nozzle headings and print options."""
+    headings = {name: matching(nodes, name + " Nozzle", "AXStaticText")
+                for name in ("Left", "Right")}
+    options = matching(nodes, "Print Options", "AXStaticText")
+    if any(len(rows) != 1 for rows in headings.values()) or len(options) != 1:
+        return []
+    heading = headings["Left" if nozzle == 1 else "Right"][0]
+    top = heading["rect"][1] + heading["rect"][3]
+    bottom = options[0]["rect"][1]
+    divider = headings["Right"][0]["rect"][0]
+    return [node for node in nodes if node["role"] == "AXGroup" and node["label"]
+            and node["rect"][2] > 0 and node["rect"][3] > 0
+            and node["rect"][1] >= top
+            and node["rect"][1] + node["rect"][3] <= bottom
+            and (2 if node["rect"][0] >= divider else 1) == nozzle]
+
+
+def external_mapped(nodes, nozzle, filament):
+    tiles = nozzle_tiles(nodes, nozzle)
+    label = "Ext " + filament["type"]
+    return len(tiles) == 1 and tiles[0]["label"] in (
+        label, label + (" L" if nozzle == 1 else " R"))
+
+
+def map_external_spools(ui, details):
+    for nozzle, filament in details["slots"].items():
+        nodes = ui.wait(lambda ns: len(nozzle_tiles(ns, nozzle)) == 1
+                        and not (nozzle_tiles(ns, nozzle)[0]["label"].startswith("Ext ")
+                                 and nozzle_tiles(ns, nozzle)[0]["label"].endswith("?")))
+        if external_mapped(nodes, nozzle, filament):
+            continue
+        tile, = nozzle_tiles(nodes, nozzle)
+        occurrence = matching(nodes, tile["label"], "AXGroup").index(tile)
+        # The popover is absent from AX. Read its visible External/Ext/type
+        # labels in the same foreground transaction, then verify the AX result.
+        result = ui.call("select_external", label=tile["label"], role="AXGroup",
+                         nth=occurrence, nozzle=nozzle, filament=filament["type"])
+        ui.wait(lambda ns: external_mapped(ns, nozzle, filament))
+        log(f"Mapped {'left' if nozzle == 1 else 'right'} external {filament['type']}: "
+            + result["clicked"])
+
+
 def prepare_dialog(ui, path, printer, details):
     close_dialog(ui)
     ui.click("Devices", "AXLink")
@@ -371,13 +414,8 @@ def prepare_dialog(ui, path, printer, details):
                 offsets=[[70, 32], [81, 91 + 36 * PRINTERS.index(printer)]])
         nodes = ui.wait(lambda ns: matching(ns, display_name + " chevron_down"))
         nodes = ui.settled_dialog()
-    # Mark2 maps its external spools automatically. H2C's left AMS can leave
-    # the external tile unresolved; the saved machine has one AMS above it.
-    if matching(nodes, "? ?", "AXGroup"):
-        if printer != "H2C" or set(details["slots"]) != {1}:
-            raise PrintError("The external spool mapping is unresolved")
-        ui.call("click_offsets", label="? ?", role="AXGroup",
-                offsets=[[47, 30], [-245, 282]])
+    set_options(ui)
+    map_external_spools(ui, details)
     # A two-nozzle dialog marks a tile "Ext <type> ?" until it has read the
     # printer's nozzles; Send stays disabled until the tile names its side.
     def tiles(ns):
@@ -385,7 +423,6 @@ def prepare_dialog(ui, path, printer, details):
     nodes = ui.wait(lambda ns: not matching(ns, "? ?", "AXGroup")
                     and len(tiles(ns)) == len(details["slots"])
                     and not any(tile["label"].endswith("?") for tile in tiles(ns)))
-    set_options(ui)
     verify_dialog(ui.nodes(), printer, details)
     log(f"Dialog: {printer}; external spools mapped; " + ", ".join(f"{k} {v}" for k, v in OPTIONS.items()))
     return ui.wait(lambda ns: matching(ns, "confirm", "AXButton"))

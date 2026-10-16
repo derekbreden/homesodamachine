@@ -2,6 +2,8 @@
 // Requests and replies are newline-delimited JSON on stdin and stdout.
 import AppKit
 import ApplicationServices
+import ScreenCaptureKit
+import Vision
 
 let bundle = "com.bambulab.bambu-connect"
 struct Failure: Error { let message: String }
@@ -132,6 +134,83 @@ func key(_ code: CGKeyCode, flags: CGEventFlags = []) throws {
         tick(0.05)
     }
 }
+
+struct VisibleText {
+    let value: String
+    let rect: CGRect // Image pixels, top-left origin.
+}
+func recognizedText(_ image: CGImage) throws -> [VisibleText] {
+    let request = VNRecognizeTextRequest()
+    request.recognitionLevel = .accurate
+    request.usesLanguageCorrection = false
+    request.recognitionLanguages = ["en-US"]
+    try VNImageRequestHandler(cgImage: image).perform([request])
+    return (request.results ?? []).compactMap { result in
+        guard let candidate = result.topCandidates(1).first, candidate.confidence >= 0.8 else { return nil }
+        let box = result.boundingBox
+        return VisibleText(value: candidate.string, rect: CGRect(
+            x: box.minX * Double(image.width), y: (1-box.maxY) * Double(image.height),
+            width: box.width * Double(image.width), height: box.height * Double(image.height)))
+    }
+}
+func filamentWord(_ text: String) -> String {
+    text.uppercased().filter { $0.isLetter || $0.isNumber }
+}
+func externalChoice(_ words: [VisibleText], filament: String) throws -> VisibleText {
+    // Connect's popover has an External heading and one Ext/type tile for
+    // the selected nozzle. Locate their visible relationship, not its offset
+    // from the source tile. The selected tile in the dialog has no such heading.
+    let headings = words.filter { $0.value.lowercased() == "external" }
+    let labels = words.filter { $0.value.lowercased() == "ext" }
+    let types = words.filter { filamentWord($0.value) == filamentWord(filament) }
+    var choices: [VisibleText] = []
+    for label in labels {
+        let heading = headings.contains { h in
+            let unit = max(h.rect.height,label.rect.height)
+            return label.rect.minY >= h.rect.maxY && label.rect.minY-h.rect.maxY < 10*unit
+                && label.rect.midX >= h.rect.minX && label.rect.midX-h.rect.minX < 15*unit
+        }
+        let matchingType = types.contains { t in
+            let unit = max(t.rect.height,label.rect.height)
+            return t.rect.minY >= label.rect.maxY && t.rect.minY-label.rect.maxY < 4*unit
+                && abs(t.rect.midX-label.rect.midX) < max(t.rect.width,label.rect.width)
+        }
+        if heading && matchingType { choices.append(label) }
+    }
+    guard choices.count == 1 else {
+        try refuse("Expected one visible External > Ext \(filament) choice, found \(choices.count)")
+    }
+    return choices[0]
+}
+func capturePrintWindow() throws -> (CGImage, CGRect) {
+    guard CGPreflightScreenCaptureAccess() else {
+        try refuse("Screen recording access is unavailable; the filament popover cannot be read")
+    }
+    var content: SCShareableContent?, contentError: Error?, contentDone = false
+    SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { value,error in
+        content = value; contentError = error; contentDone = true
+    }
+    guard wait(10,{ contentDone }) else { try refuse("Timed out reading Bambu Connect's window") }
+    if let error = contentError { throw error }
+    guard let pid = app?.processIdentifier,
+          let window = content?.windows.first(where: {
+              $0.owningApplication?.processID == pid && $0.title == "Bambu Connect (Beta)"
+          }) else { try refuse("The Bambu Connect print window was not found") }
+    let configuration = SCStreamConfiguration()
+    configuration.width = Int(window.frame.width*2)
+    configuration.height = Int(window.frame.height*2)
+    configuration.showsCursor = false
+    configuration.ignoreShadowsSingleWindow = true
+    var image: CGImage?, imageError: Error?, imageDone = false
+    SCScreenshotManager.captureImage(contentFilter: SCContentFilter(desktopIndependentWindow: window),
+                                    configuration: configuration) { value,error in
+        image = value; imageError = error; imageDone = true
+    }
+    guard wait(10,{ imageDone }) else { try refuse("Timed out capturing Bambu Connect's print window") }
+    if let error = imageError { throw error }
+    guard let image else { try refuse("Bambu Connect's window capture is empty") }
+    return (image,window.frame)
+}
 func handle(_ request: [String: Any]) throws -> [String: Any] {
     switch request["command"] as? String {
     case "focus":
@@ -172,6 +251,50 @@ func handle(_ request: [String: Any]) throws -> [String: Any] {
                       expected: i == 0 ? node.element : nil)
         }
         return ["clicked": node.label]
+    case "read_window_text":
+        let (image,frame) = try capturePrintWindow()
+        let words = try recognizedText(image)
+        return ["frame": [frame.minX,frame.minY,frame.width,frame.height],
+                "text": words.map { ["text":$0.value,
+                                      "rect":[$0.rect.minX,$0.rect.minY,$0.rect.width,$0.rect.height]] }]
+    case "select_external":
+        let node = try resolve(request)
+        guard let filament = request["filament"] as? String,
+              let nozzle = request["nozzle"] as? Int, [1,2].contains(nozzle),
+              let divider = nodes.first(where: {
+                  $0.role == kAXStaticTextRole && $0.label == "Right Nozzle"
+              })?.rect.minX else { try refuse("Filament and nozzle columns are required") }
+        guard (node.rect.minX >= divider ? 2 : 1) == nozzle else {
+            try refuse("The filament tile is in the wrong nozzle column")
+        }
+        try mouse(CGPoint(x:node.rect.midX,y:node.rect.midY),expected:node.element)
+        var choice: VisibleText?, shotFrame = CGRect.zero, shotSize = CGSize.zero
+        var lastError = "The filament popover did not appear"
+        for _ in 0..<3 {
+            let (image,frame) = try capturePrintWindow()
+            do {
+                choice = try externalChoice(recognizedText(image),filament:filament)
+                shotFrame = frame; shotSize = CGSize(width:image.width,height:image.height)
+                break
+            } catch { lastError = (error as? Failure)?.message ?? error.localizedDescription }
+            tick(0.2)
+        }
+        guard let choice else { try refuse(lastError + "; no spool choice was clicked") }
+        let point = CGPoint(x:shotFrame.minX+choice.rect.midX/shotSize.width*shotFrame.width,
+                            y:shotFrame.minY+choice.rect.midY/shotSize.height*shotFrame.height)
+        guard shotFrame.contains(point) else { try refuse("The spool choice is outside Bambu Connect") }
+        _ = snapshot()
+        guard let currentFrame = nodes.first(where: {
+            $0.role == kAXWindowRole && $0.label == "Bambu Connect (Beta)"
+        })?.rect, abs(currentFrame.minX-shotFrame.minX) < 1,
+              abs(currentFrame.minY-shotFrame.minY) < 1,
+              abs(currentFrame.width-shotFrame.width) < 1,
+              abs(currentFrame.height-shotFrame.height) < 1 else {
+            try refuse("Bambu Connect moved while the spool choice was being read")
+        }
+        try mouse(point)
+        return ["clicked":"External > Ext \(filament)","nozzle":nozzle,
+                "point":[point.x,point.y]]
     case "open_path":
         guard let path = request["path"] as? String, FileManager.default.fileExists(atPath: path) else {
             try refuse("The import file does not exist")

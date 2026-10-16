@@ -1,0 +1,72 @@
+{
+  "native_ocr_cases": [
+    {
+      "name": "left-popover-below",
+      "result": {
+        "point": [
+          234.88372058139535,
+          831.3953489341086
+        ]
+      }
+    },
+    {
+      "name": "right-popover-above-left",
+      "result": {
+        "point": [
+          551.1627912790698,
+          423.25581389534887
+        ]
+      }
+    },
+    {
+      "name": "resized-window",
+      "result": {
+        "point": [
+          99.99999971999999,
+          352.00000008000006
+        ]
+      }
+    },
+    {
+      "name": "retina-window",
+      "result": {
+        "point": [
+          1102.3255825581396,
+          846.5116277906977
+        ]
+      }
+    },
+    {
+      "name": "wrong-external-type",
+      "result": {
+        "error": "Expected one visible External > Ext TPU choice, found 0"
+      }
+    },
+    {
+      "name": "ambiguous-external",
+      "result": {
+        "error": "Expected one visible External > Ext TPU choice, found 2"
+      }
+    }
+  ],
+  "mapping_checks": [
+    "duplicate labels in two columns",
+    "both external nozzles",
+    "translated window",
+    "already-mapped source makes no click",
+    "wrong type rejected"
+  ],
+  "scope": "Native Vision OCR on generated popover fixtures; mapping protocol exercised with AX fixtures. No printer job is submitted by these checks.",
+  "observed_at": "2026-10-16T07:00:41.616288+00:00",
+  "swift_source_sha256": "79bcd14e1b37d26ea19e22c95ae0f09166fde9f0da0cb15db210508d367cf1de",
+  "live_window_capture": "ScreenCaptureKit capture and native Vision recognition succeeded on the real Bambu Connect window.",
+  "live_dry_run": {
+    "printer": "Mark1",
+    "task_id": "1344201657",
+    "state": "RUNNING",
+    "outcome": "Stopped at unresolved filament mapping; Connect does not expose a selectable popover while the printer is busy. No spool choice or Send was clicked.",
+    "live_idle_popover_selection_verified": false,
+    "unchanged_printer_task_id_after": "1344201657",
+    "verification_observed_at": "2026-10-16T07:02:19.148963+00:00"
+  }
+}
