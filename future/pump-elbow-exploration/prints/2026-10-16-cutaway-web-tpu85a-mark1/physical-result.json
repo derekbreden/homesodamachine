@@ -1,0 +1,13 @@
+{
+  "status": "Launched; physical result pending",
+  "material": "Bambu TPU 85A Black",
+  "printer": "Mark1 (H2C)",
+  "nozzle": "Right fixed 0.6 mm",
+  "archive": "2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "8dbea85592cd1c0db72fb0e9cce9dac9ad64c4cd9b1ac02c2a3f3c729db6eb9e",
+  "gcode_sha256": "fbea5a641b43c3a8a173381e9000542ec6912c7086c7ea7413ca50380090fe3b",
+  "observations": [],
+  "evidence_scope": "Connected section and emitted travel reviews establish commanded geometry and motion only. Fin stability, cutting or tearing, string reduction, finished exterior and socket fit require the physical article. No pressure, retention or lifetime qualification.",
+  "printer_task_id": "1344118843",
+  "launch_observed_at": "2026-10-16T05:49:17.457860+00:00"
+}

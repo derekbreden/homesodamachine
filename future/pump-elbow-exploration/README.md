@@ -1,15 +1,16 @@
 # TPU pump elbow and installed layout study
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A 0.4 mm Normal Lift lap pair submitted; physical result pending.**
-The [0.4 mm departure-lap trial](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/README.md)
-uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
-Engineering Plate. Its processed G-code adds 368 retracted wall laps 0.4 mm
-above the layer at 10 mm/s, with full-height connectors and Normal Lift native
-travel. All extrusion commands, positions and speeds from its native slice
-remain unchanged. The planning estimate is about 2 hours 33 minutes / 8.57 g.
-String reduction and finished quality remain unassessed. The
-[0.2 mm lap's physical record](prints/2026-10-15-departure-lap-tpu85a-mark1/physical-result.json)
-reports no improvement and insufficient apparent nozzle clearance.
+**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A pair with cutaway fins submitted to Mark1; physical result pending.**
+The [cutaway-fin trial](prints/2026-10-16-cutaway-web-tpu85a-mark1/README.md)
+contains two identical elbow-and-fin units joined by one web. Both the single
+and pair have connected layer sections through all 184 layers. The selected
+pair uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
+Engineering Plate, with Timelapse Off and 0.4 mm Normal Lift. Its reviewed
+travel stays over emitted bead stock, including preceding-layer floors where
+cavities first open. The planning estimate is about 2 hours 20 minutes / 9.14 g.
+Stability, fin removal and string reduction remain unassessed. The
+[0.4 mm lap's physical record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
+reports persistent threads with a possible small reduction in thickness.
 
 The selected geometry is the rounded heel and smooth-neck fitting with its
 integral flat foot. The accepted single Siraya job uses the glued Engineering Plate
@@ -48,6 +49,9 @@ neighboring hardware are considered together.
 
 ## Files
 
+- [Cutaway-fin pair and standalone elbow](prints/2026-10-16-cutaway-web-tpu85a-mark1/README.md)
+  contain the editable models, native and processed pair archives, geometry
+  and travel reviews, and the related cutaway-sprue report.
 - [Compact elbow and Mark1 preparation](prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md)
   identify one 15 mm elbow, the editable project, native sliced
   archive, Siraya Tech Flex TPU 85A Clear recipe, right fixed 0.6 mm nozzle,

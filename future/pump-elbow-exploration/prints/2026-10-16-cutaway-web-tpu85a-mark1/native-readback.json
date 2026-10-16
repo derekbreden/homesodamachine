@@ -1,0 +1,58 @@
+{
+  "prepared_at": "2026-10-16T05:45:07.010050+00:00",
+  "status": "Offline candidate; not submitted",
+  "printer": "Mark1 (H2C)",
+  "project": "2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.3mf",
+  "project_sha256": "d45c9f0d0476f7851b97dcd01930839b546ca78a33c6621ef9235ff81156da77",
+  "archive": "2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1-native.gcode.3mf",
+  "archive_sha256": "9b3e86287ab095735a8327f2fa5445cd362f139a436f8e3ed5c748dfa39e97ef",
+  "gcode_sha256": "ef6d0944fdbbe4bf30dccbeafd867ea98d9bfdde1d521f0045c1da0b2acde75e",
+  "native_settings_differences": {
+    "print_settings_id": {
+      "from": "Two Bambu85A elbows 225C Normal Lift 0.4mm departure lap Mark1",
+      "to": "Connected Bambu85A elbow pair cutaway web 0.4 Normal Lift Mark1"
+    },
+    "time_lapse_gcode": {
+      "from": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "to": ""
+    },
+    "retraction_minimum_travel": {
+      "from": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "to": [
+        "0.1",
+        "0.1",
+        "0.1",
+        "0.1"
+      ]
+    },
+    "filament_retraction_minimum_travel": {
+      "from": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "to": [
+        "0.1",
+        "0.1",
+        "0.1"
+      ]
+    }
+  },
+  "objects": [
+    {
+      "identify_id": "1901",
+      "name": "Connected cutaway-web TPU elbow pair",
+      "skipped": "false"
+    }
+  ],
+  "estimated_seconds": 8219.3681640625,
+  "estimated_filament_g": 9.141010284423828,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/cutaway-web/native-0lvv278a",
+  "emitted_photo_trip_commands": 0
+}
