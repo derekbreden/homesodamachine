@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "Native slice reviewed; physical result pending",
+  "printer": "Mark1",
+  "project": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf",
+  "project_sha256": "adeef5a27cb3a2c6806c60f7016b1ad3c65a2f4fec004633b0a62f375cbc04de",
+  "source": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+  "source_sha256": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+  "native_archive": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.gcode.3mf",
+  "native_archive_sha256": "daa5e6182f48b84d2d8961cdd1d4d9ef39905b11cb24da7782645239dee75551",
+  "submitted_archive": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+  "submitted_archive_sha256": "0db8e6e3feb9b95bc315e8bc079ba96480b0813b2ff79ee58c8b3b386c5fd239",
+  "gcode_sha256": "ce3dae922f9a38882a7e338bf18e3da2b9e7176c6741261e00988a2f95412ec0",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "filament": [
+    "Bambu TPU 90A @BBL H2C"
+  ],
+  "nozzle_diameters_mm": [
+    "0.6",
+    "0.6"
+  ],
+  "bed_type": "Engineering Plate",
+  "requested_z_trim_mm": 0.18,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.18
+  ],
+  "layer_count": 10,
+  "nominal_course_heights_mm": [
+    0.18,
+    0.3
+  ],
+  "estimated_seconds": 2063.526123046875,
+  "estimated_filament_g": 5.770378589630127,
+  "complete_bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        148.3873877948395,
+        130.4068350577775
+      ],
+      [
+        206.601579,
+        189.593464119193
+      ]
+    ],
+    "maximum_line_width_mm": 0.625158,
+    "bounds_padding_mm": 0.41257900000000003
+  },
+  "minimum_bead_edge_margin_mm": 123.3873877948395,
+  "object_settings": {
+    "name": "above-counter-gasket",
+    "extruder": "1"
+  },
+  "slicer_warning": "",
+  "archive_details": {
+    "name": "2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+    "sha256": "0db8e6e3feb9b95bc315e8bc079ba96480b0813b2ff79ee58c8b3b386c5fd239",
+    "gcode_sha256": "ce3dae922f9a38882a7e338bf18e3da2b9e7176c6741261e00988a2f95412ec0",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "above-counter-gasket"
+    ]
+  },
+  "physical_result": null
+}

@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "status": "Native slice reviewed; physical result pending",
+  "printer": "Mark2",
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
+  "project_sha256": "454f31b688a31e20059c44999d39b2f9ecf7d345f619ba0bd44a74196c447da2",
+  "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+  "source_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "native_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "a101b6e81beae5f3b8af54fb86dc9098e094002b97efd54566e16eb9806a75a4",
+  "submitted_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+  "gcode_sha256": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "nozzle_diameters_mm": [
+    "0.4",
+    "0.4"
+  ],
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "layer_count": 77,
+  "nominal_course_heights_mm": [
+    0.2,
+    0.24
+  ],
+  "estimated_seconds": 1481.6614990234375,
+  "estimated_filament_g": 6.640437126159668,
+  "complete_bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        162.5888105,
+        131.9218105
+      ],
+      [
+        191.4111895,
+        188.3691895
+      ]
+    ],
+    "maximum_line_width_mm": 0.696379,
+    "bounds_padding_mm": 0.4481895
+  },
+  "minimum_bead_edge_margin_mm": 131.6308105,
+  "object_settings": {
+    "name": "faucet-display-cover",
+    "extruder": "1",
+    "override_filament_scarf_seam_setting": "0",
+    "seam_gap": "15%",
+    "seam_position": "aligned",
+    "seam_slope_type": "none"
+  },
+  "slicer_warning": "",
+  "archive_details": {
+    "name": "2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+    "gcode_sha256": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-display-cover"
+    ]
+  },
+  "physical_result": null
+}
