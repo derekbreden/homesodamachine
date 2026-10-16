@@ -5,8 +5,9 @@ flat underside, +Z up and +Y aft. At the insertion datum the scanned elbow's +Z 
 hole with its fixed nose face on that underside. The installed cradle and elbow hang `CATCH_GAP`
 below that datum, with the elbow's +Y leg aft toward V-B.
 
-The pocket leaves at least `fits.slip` around the scanned elbow, retaining its horizontal
-underside and opening upward through a convex mouth. The body prints bottom-down. Its top
+The pocket adds `fits.slip` radially to the scanned profile. Its forward horizontal
+following seat is retained; the aft mouth continues the largest section to a broad exit.
+The opening above the axis uses a convex mouth. The body prints bottom-down. Its top
 stands 1 mm under the top of the vertical leg's root band, where the circular pocket wraps
 249.7 degrees (69.4%) around the leg. The collar, rung and nose stand free above it.
 
@@ -41,7 +42,7 @@ import fits                                                   # noqa: E402
 import elbow as _elbow                                        # noqa: E402
 
 WEB = 3.0              # the frame's bottom web under the socket
-SLIP = fits.slip       # pocket off the scanned elbow
+SLIP = fits.slip       # radial growth of the scanned pocket profile
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
@@ -147,7 +148,7 @@ def _upward_plan(horizontal, radius, height):
 
 
 def shadow(top):
-    """Everything directly above the elbow, grown by `SLIP`, up to local Z `top`."""
+    """Profile clearance air and the broad open mouth, up to local Z `top`."""
     c = SLIP
     zb, zc = _profiles("z")
     yb, yc = _profiles("y")
@@ -161,12 +162,13 @@ def shadow(top):
     # reverse its last segment before the profile returns to the axis.
     run.append((max(h + 1.0, run[-1][0]), run[-1][1]))
     out = _revolve([(0.0, run[0][1])] + run, "z")
-    # Keep the scanned horizontal underside and carry its final fixed-body
-    # section through the smaller collet. Only the separate upward mouth uses
-    # the convex plan; it opens from the axis without changing that underside.
+    # Retain the forward scanned following seat. Beyond its largest section,
+    # carry that radius through the collet mouth to a broad three-millimetre floor.
     mouth_radius = max(yb[-1][1], *(r for _s, r in yc))
     horizontal = yb + [(yc[-1][0] + c, mouth_radius)]
-    out = out.fuse(_revolve([(s, r + c) for s, r in horizontal], "y"))
+    peak = max(range(len(horizontal)), key=lambda i: horizontal[i][1])
+    lower = horizontal[:peak] + [(s, horizontal[peak][1]) for s, _r in horizontal[peak:]]
+    out = out.fuse(_revolve([(s, r + c) for s, r in lower], "y"))
     out = out.fuse(_upward_plan(horizontal, CORE_R + c, h + 1.0))
     # the bend core and its outer-corner web, each with the column above it
     rc = CORE_R + c
