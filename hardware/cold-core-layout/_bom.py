@@ -67,6 +67,8 @@ PARTS = (
     ("reservoir body R", "Flavor reservoir body — right", ("reservoir-a",)),
     ("reservoir cap L", "Flavor reservoir cap — left", ("reservoir-b-cap",)),
     ("reservoir cap R", "Flavor reservoir cap — right", ("reservoir-a-cap",)),
+    # Printed TPU from the uncosted soft-seal stock the bill names after §7.
+    ("reservoir gaskets", "2× reservoir gasket", ("reservoir-a-gasket", "reservoir-b-gasket")),
     ("reed bridge", "Carbonator reed bridge", ("reed-bridge",)),
 
     # §8 — the pockets' own hardware

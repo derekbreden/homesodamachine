@@ -77,8 +77,10 @@ HELD_BY = {
     "float-rod-carb": "plate registers",
     "reservoir-a": "pocket",
     "reservoir-b": "pocket",
-    "reservoir-a-cap": "body rim",
-    "reservoir-b-cap": "body rim",
+    "reservoir-a-gasket": "body rim",
+    "reservoir-b-gasket": "body rim",
+    "reservoir-a-cap": "the gasket on the body rim",
+    "reservoir-b-cap": "the gasket on the body rim",
     "copper-plug-west": "wall slot",
     "copper-plug-port": "wall slot",
     "prv-shroud": "the PRV it caps",
@@ -191,10 +193,17 @@ def build_bodies() -> dict:
     placed.update(_V.bodies())
 
     res_dir = _cold / "reservoir"
+    # One TPU gasket STEP, cut for the +X body; the −X body takes its mirror across x = 0
+    # (`reservoir.build_reservoir_gasket`). It fills the gap the body's wall top leaves under
+    # its cap, so its top face is the cap's own base plane.
+    gasket = _load(res_dir / "reservoir-gasket.step")
     for name, stem in RESERVOIRS.items():
         placed[name] = _load(res_dir / f"{stem}.step")
         cap = _load(res_dir / f"{stem.replace('reservoir', 'reservoir-cap')}.step")
         placed[f"{name}-cap"] = cap.translate((0, 0, _foam.RESERVOIR_CAP_Z))
+        side = gasket if stem.endswith("-right") else gasket.mirror("YZ")
+        placed[f"{name}-gasket"] = side.translate(
+            (0, 0, _foam.RESERVOIR_CAP_Z - side.BoundingBox().zmax))
 
     for plug, spec in _plugs.plug_specs.items():
         placed[f"copper-plug-{plug}"] = _plug_into_shell(
