@@ -1,6 +1,6 @@
 # TPU elbow pair with a vertical centre web — Mark1
 
-**Status: Mark1 task 1344201657 accepted; physical result pending.** Two identical
+**Status: stringing trial failed; dense bore and exterior-to-fin strands remain.** Two identical
 elbow-and-fin units connect through one straight vertical joining web. The
 [launch receipt](launch.json) records PREPARE without errors at
 2026-10-16 01:43:15 CDT. Derek selected the right external TPU spool in
@@ -74,7 +74,25 @@ shown here:
 
 ![Previous shortcut and corrected emitted travel](travel-opening-review.png)
 
-The [physical record](physical-result.json) separates commanded geometry
-and motion from the pending print result. Fin stability, clean cutting or
-tearing, string reduction, exterior quality and fit remain unassessed. There
-is no pressure, retention or lifetime qualification.
+The [physical record](physical-result.json) binds the reported failure to
+Mark1 task 1344201657 and the photograph. The joining web is present, but dense
+strands remain inside the bores and between exterior edges and fins.
+
+![Printed finned pair with persistent strings](result-photo.jpg)
+
+The [free-strand review](free-strand-review.json) measures the straight spans
+between the endpoints of the 118 rerouted nonextruding transitions. Of those,
+78 have a potential taut span crossing more than 0.1 mm of a bore and 19 have
+one crossing more than 0.1 mm of exterior air. These sets can overlap. At layer
+49, the nozzle detour stays inside the model while its endpoint chord crosses
+3.98 mm of a bore; the emitted detour contains no extrusion command to make a
+new attachment at the bend.
+
+A free strand can straighten between its attachment point and the moving
+nozzle. Model connectivity and a bent travel above walls do not constrain it to
+follow the nozzle's route. Continuous extrusion through the connection, or a
+reliable new deposited attachment before a direction change, is the proposed
+anchoring mechanism. It is not demonstrated by this trial. The chord survey
+identifies opportunities for this failure, not the path of each photographed
+strand. Fin removal, socket fit, pressure, retention and lifetime remain
+unqualified.
