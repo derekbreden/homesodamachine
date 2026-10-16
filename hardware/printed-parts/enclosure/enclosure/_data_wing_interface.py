@@ -47,6 +47,13 @@ def jack_face_y(y_outer):
     return y_outer-POCKET_DEPTH-JACK_SETBACK
 
 
+def pad_runout(station,y_outer,*,up=-1):
+    """Where the pad's 45-degree print-down run-out leaves its inboard face, as (y, z)."""
+    _x,z=station
+    edge=z+TOP+nameplate.FACE_SLIP if up<0 else z-BOTTOM-nameplate.FACE_SLIP
+    return y_outer-POCKET_DEPTH-BACK_AIR-FLOOR_STOCK,edge
+
+
 def aperture(y0,y1):
     return (cq.Workplane('XY').rect(OPENING_W,OPENING_H).extrude(y1-y0)
             .edges('|Z').fillet(OPENING_R).val()

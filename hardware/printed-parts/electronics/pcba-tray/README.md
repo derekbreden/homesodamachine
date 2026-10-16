@@ -50,8 +50,10 @@ so the four wall bosses reach 2 mm farther inboard to the actual board underside
 the wall is not allowed to occupy the solder-tail clearance simply because the
 fab visualization omits detailed clipped leads.
 
-The appliance's four Ø7 mm mounting sleeves fit inside those unchanged tail
-keepouts. Each short M3 insert starts 2.25 mm wallward of the board's mounting
+The appliance's Ø7 mm mounting sleeves at MH1, MH2 and MH4 fit inside those
+unchanged tail keepouts. MH3 seats on the rectangular pad it shares with the
+upper bar of relay #2, which the enclosure assembly reads clear of the whole
+envelope. Each short M3 insert starts 2.25 mm wallward of the board's mounting
 face, behind the tail zone and its 0.25 mm supported-face allowance. The complete
 Ø8 mm insert host starts at that recessed seat; a Ø5 mm entry admits the whole
 knurl. M3×8 through the 1.6 mm PCB reaches 4.15 mm into the 4 mm insert, with
