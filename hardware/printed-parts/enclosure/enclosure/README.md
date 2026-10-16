@@ -487,7 +487,7 @@ lies wholly in the donor block's open end recess and stops on the fin's west fac
 one keeps `cond_mount_clear` of assembly air.
 
 Each fore-flange groove keeps its exact [0.9 mm](COND_SLOT_OPEN) opening at the seated wall stop,
-then its roof rises toward the bay at 45° and runs through the rail crown at the insertion mouth.
+then its roof rises toward the bay at 45° and leaves through the rail's aft face [3 mm](COND_SLOT_GRIP) higher, a full rail wall under the crown.
 The groove keeps 0.25 mm on each face of the sheet at its datum. Its sloping roof prints without support.
 
 ## The box closes in four motions

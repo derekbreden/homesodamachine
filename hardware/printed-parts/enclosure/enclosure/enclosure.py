@@ -3112,9 +3112,22 @@ def _display_cuts(outer, support_floor=None):
 
     The long exits stop at the existing display-storey floor. They clear the
     pocket underside without cutting the pump-bay lintel or tee mechanism.
+
+    THE SEATING LAND ENDS ON EACH POCKET MOUTH'S PLANE, ALL THE WAY TO THE CORNER ROUND. An
+    exit's down-slope face leans forward as it drops and meets the cover's floor inside the
+    inset's lower corner round. Below the floor each exit runs one round radius further
+    down-slope, held inside the inset's own outline, so the round carries on down from the
+    floor until it meets that face.
     """
     place = cq.Location(display_plane(outer))
-    cut = _display_wings.cuts(display_facet_thickness+display_pcb_cut_through, 12).moved(place)
+    exit_depth = 12
+    cut = _display_wings.cuts(display_facet_thickness+display_pcb_cut_through,
+                              exit_depth).moved(place)
+    round_r = _interface.display_inset_corner_r
+    below = _swept_top.rounded_prism(display_inset_x, display_inset_slope, round_r,
+                                     -display_facet_thickness, -display_inset_depth)
+    for exit in _display_wings.support_exits(exit_depth):
+        cut = cut.fuse(below.intersect(exit.translate((0, -round_r, 0))).moved(place))
     if support_floor is not None:
         room = _ybox(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,
                      support_floor,outer[5]+1)
@@ -3431,29 +3444,21 @@ def _funnel_cut(inner, outer, centre):
             .fuse(_funnel_frame_part.shell_clearance(centre, seat, inner)))
 
 
-def _ceiling_corbels(solid, inner, outer, centre, y_joint):
-    """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
-    rising off each ±X wall to the funnel seat's underside at the opening's edge, so a top piece —
-    printing mouth-down — lays every ceiling layer on the one below it. The strip's own
-    span is wall-rooted on one side and open over the opening on the other.
+def _ceiling_corbels(solid, inner, centre, y_joint):
+    """The lip's ceiling tongue on a top piece, corbelled, so a top piece — printing
+    mouth-down — lays every tongue layer on the one below it. Fore of the tongue, from the
+    housing's back plane to the lip's shoulder, the roof is the funnel frame's own from flank
+    face to flank face (`_funnel_frame_part.front_roof_clearance`).
 
-    The corbel runs the housing's back plane to the lip's shoulder, and a second one carries
-    the lip's ceiling tongue, struck one `wall` lower on the tongue's own underside: its
-    funnel-side span roots on the side band's inboard face and its wall-side span walks 45°
-    off the thickened flank's face. Together they carry the whole tongue into the mouth it
+    Each side's two corbels run the lip's shoulder to its end on the tongue's own underside:
+    the funnel-side span roots on the side band's inboard face and the wall-side span walks
+    45° off the thickened flank's face. Together they carry the whole tongue into the mouth it
     telescopes into; at each flank the corner stack under the roof takes the corner over."""
     hole_x0, hole_x1, _hole_y0, _hole_y1 = _funnel_cut_plan(centre)
     iz1 = inner[5]
-    # The funnel seat's stock stands over the whole run, so the 45° rises to its underside.
-    top = min(iz1, funnel_seat_z(outer) - funnel_seat_thickness)
-    y0 = housing_back_y(outer)
     shoulder = y_joint - wall
     for hole_x, wall_x, sx in ((hole_x1, inner[1], -1.0),
                                (hole_x0, inner[0], +1.0)):
-        deep = abs(wall_x - hole_x)
-        solid = solid.fuse(_xz_prism(y0, shoulder,
-                                     [(hole_x, iz1), (wall_x, iz1),
-                                      (wall_x, top - deep), (hole_x, top)]))
         chain = wall_x + sx * side_band_inset
         tz = iz1 - wall - fits.running - ceiling_lip_drop
         solid = solid.fuse(_xz_prism(shoulder, y_joint + lip_len,
@@ -4217,6 +4222,15 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
                 [0.0, 1.0, 0.0, 0.0],
                 [0.0, 1.0, 1.0, -y_joint],
             ]))
+            # BACK-TOP'S LOWER HUB TAKES THE CROSSING OVER AT ITS CLEARANCE ROOF. `_y_stacks`
+            # clears the hub flat to that roof across this whole crossing, so a crossing that
+            # reaches the roof stops on it and the flank above keeps its square corner.
+            _piece, _hub, hub_top, _below, above = y_stack(inner)[0][-1]
+            hub_roof = hub_top + above
+            if floor < hub_roof < z_peak + rise:
+                xa, xb = sorted((x_in, x_f))
+                crossing = crossing.cut(_ybox(xa - 1.0, xb + 1.0, y_joint - 1.0,
+                                              lane_aft + 1.0, hub_roof, z_peak + rise + 1.0))
             void = void.fuse(crossing)
         void = void.intersect(keep)
         out = void if out is None else out.fuse(void)
@@ -6053,18 +6067,18 @@ def _east_boss_stem(wall_x, station, up=1.0):
         _ybox(tip, wall_x, sy - r, sy + r, z0, z1))
 
 
-def _east_wedge(wall_x, sz, ylo, yhi, reach, up=1.0):
+def _east_wedge(wall_x, sz, ylo, yhi, reach, up=1.0, r=mount_boss_dia / 2.0):
     """One wall-rooted 45 degree wedge on the print-down side of a boss at `sz`, folded on the
     D's chord at `sz - up * r`, from `reach` back to the wall, over the Y band `ylo..yhi`. For
     `up` of +1.0 it hangs under the chord and falls to the wall; for −1.0 it stands over the
-    chord and climbs to it."""
-    r = mount_boss_dia / 2.0
+    chord and climbs to it. `r` is the radius of the D it carries: the stem's, or the narrower
+    sleeve a recessed insert stands behind (`_east_bosses`)."""
     drop = wall_x - reach
     chord = sz - up * r
     return _xz_prism(ylo, yhi, [(wall_x, chord), (reach, chord), (wall_x, chord - up * drop)])
 
 
-def _east_boss_corbel(wall_x, station, up=1.0):
+def _east_boss_corbel(wall_x, station, up=1.0, r=mount_boss_dia / 2.0):
     """One boss's object-profiled 45 degree wedge from its carried chord to the +X wall, on the
     boss's print-down side — under the hole for `up` of +1.0, over it for −1.0.
 
@@ -6084,12 +6098,18 @@ def _east_boss_corbel(wall_x, station, up=1.0):
     taken the whole depth a wedge could occupy — there is nothing to build, not a zero-depth one.
     That band goes without, the D stem still carries the hole across it, and any `clear_bands`
     beside the blocker still take the full wall-rooted wedge. Returns None when none survives.
+
+    `r` is the radius of the D whose chord the wedge carries — the stem's, or the narrower
+    sleeve a recessed insert stands behind (`_east_bosses`). A narrower D brings the span and
+    every clear band in by the difference at each end, so the wedge stands on that D's chord
+    across its whole width and its two ends run on in the D's flat sides.
     """
     sy, sz, tip = station[:3]
     web_tip = station[3] if len(station) > 3 else tip
     clear_bands = station[4] if len(station) > 4 else ()
-    r = mount_boss_dia / 2.0
-    span = station[5] if len(station) > 5 else (sy - r, sy + r)
+    boss_r = mount_boss_dia / 2.0
+    span = station[5] if len(station) > 5 else (sy - boss_r, sy + boss_r)
+    lo, hi = span[0] + (boss_r - r), span[1] - (boss_r - r)
     if web_tip < tip - stated_bound_tol:
         raise ValueError(
             f"east boss at ({sy:g}, {sz:g}) has corbel tip x={web_tip:g}; "
@@ -6097,13 +6117,16 @@ def _east_boss_corbel(wall_x, station, up=1.0):
 
     out = None
     if web_tip < wall_x - stated_bound_tol:
-        out = _east_wedge(wall_x, sz, span[0], span[1], web_tip, up)
+        out = _east_wedge(wall_x, sz, lo, hi, web_tip, up, r)
     for ylo, yhi in clear_bands:
         if ylo < span[0] - 1e-6 or yhi > span[1] + 1e-6 or yhi <= ylo:
             raise ValueError(
                 f"east boss at ({sy:g}, {sz:g}) has invalid clear corbel band "
                 f"y={ylo:g}..{yhi:g}; expected inside {span[0]:g}..{span[1]:g}")
-        band = _east_wedge(wall_x, sz, ylo, yhi, tip, up)
+        ylo, yhi = max(ylo, lo), min(yhi, hi)
+        if yhi <= ylo:
+            continue
+        band = _east_wedge(wall_x, sz, ylo, yhi, tip, up, r)
         out = band if out is None else out.fuse(band)
     return out
 
@@ -6279,8 +6302,10 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
         # flank with a sliver edge round it, and its wedge comes out shorter still.
         if k in paired or roots[1] - tip < east_boss_min_stand - stated_bound_tol:
             continue
+        # A station with a recessed insert takes its wedge below, on the sleeve its entry band
+        # leaves, and not on the stem's chord that band cuts away.
         support = (_east_boss_stem(roots[1], station, up)
-                   if replaces_corbel(station)
+                   if replaces_corbel(station) or east_boss_insert_setback(station)
                    else _east_boss_support(roots[1], station, up))
         solid = solid.fuse(support)
     for i, j in pairs:
@@ -6307,9 +6332,10 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
                 f"east mounting fill z={fz0:g}..{fz1:g} crosses its piece band "
                 f"{z0:g}..{z1:g}")
         solid = solid.fuse(_ybox(fx0, fx1, fy0, fy1, fz0, fz1))
-    for station in mine:
+    for k, station in enumerate(mine):
         sy, sz, tip = station[:3]
-        if roots[1] - tip >= east_boss_min_stand - stated_bound_tol:
+        stands = roots[1] - tip >= east_boss_min_stand - stated_bound_tol
+        if stands:
             # Keep the manufacturer's complete radial ligament behind the relieved insert
             # crown. Only this local boss grows; the component's seating plane is unchanged.
             solid = solid.fuse(_supported_cut(_east_boss_stem(roots[1], station, up), up))
@@ -6329,6 +6355,13 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
             entry_band = _ybox(tip-0.001, insert_tip, sy-margin, sy+margin,
                                sz-margin, sz+margin)
             solid = solid.cut(entry_band.cut(sleeve))
+            # The sleeve's chord is the face this station's wedge carries. Struck on that chord
+            # and over the sleeve's width, the wedge meets it face for face and its two ends run
+            # on in the sleeve's flat sides.
+            corbel = (_east_boss_corbel(roots[1], station, up, entry_r)
+                      if stands and k not in paired and not replaces_corbel(station) else None)
+            if corbel is not None:
+                solid = solid.fuse(corbel)
             # Admit the complete 4.6 mm knurl through the mounting sleeve,
             # with access for the heat-set tip. This entry is outside the
             # installed insert's manufacturer-required surrounding stock.
@@ -6785,9 +6818,14 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
 
     THE GROOVE IS STRUCK OFF THE FLANGE IT TAKES and not off a figure typed here: `cond_slot_half`
     reads the station's own sheet. At the seated wall stop its roof keeps that exact opening;
-    from there it rises toward the bay at 45° until it runs through the rail's crown. The flange
-    therefore keeps its datum and fit while the opening is never closed by a flat
-    roof printed over material below it."""
+    from there it rises toward the bay at 45° and leaves the rail through its aft face,
+    `cond_slot_grip` higher. The flange therefore keeps its datum and fit while the opening is
+    never closed by a flat roof printed over material below it.
+
+    THE CROWN IS ONE SECTION OVER THE ROOF WHERE THE ROOF IS HIGHEST. The lip's skin is given up
+    across the bay (`_front_flat_lip_drop`), so a rail's top is a face of its own, and it stands
+    `cond_rail_wall` over the roof on the aft face: the crown ends there on one full section,
+    square to its top and on the same aft plane as the rail under the groove."""
     for face, cx0, cx1, fz0, fz1, root in stations:
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
@@ -6797,8 +6835,10 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in fridge_reliefs
                                         if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
                                         and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
-        solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
-                                 root, fz1 + half + cond_rail_wall))
+        # Its crown: one `cond_rail_wall` over the groove's roof where the roof leaves the aft
+        # face, `cond_slot_grip` above the seated opening.
+        crown = fz1 + half + cond_slot_grip + cond_rail_wall
+        solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip, root, crown))
         if root > inner[4] + 1e-6:
             solid = solid.fuse(_cond_cradle_corbel(
                 inner, (face, cx0, cx1, fz0, fz1, root)))
@@ -8621,10 +8661,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # here it roots with the bar in one continuous section.
     if y_side == "back":
         piece = _nameplate(piece, box.pack.nameplate, outer, oy1, zlo, zhi, up=up)
-    # And the flat ceiling's two strips over the funnel opening's flanks, on the front
-    # top alone — the piece whose ceiling is nothing but those strips.
+    # And the lip's ceiling tongue over the funnel opening's flanks, on the front top alone.
     if y_side == "front" and z_side == "top" and box.pack.funnel:
-        piece = _ceiling_corbels(piece, inner, outer, box.pack.funnel, y_joint)
+        piece = _ceiling_corbels(piece, inner, box.pack.funnel, y_joint)
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the pump cartridge, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
