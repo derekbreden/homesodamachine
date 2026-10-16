@@ -43,13 +43,13 @@ nozzle it knows.
   one of them, not the printing head. The send dialog checks the sliced diameter against
   the head and shows a mismatch on the filament tile.
 
-For H2C, a `? ?` tile under **Left Nozzle** is an unresolved filament mapping. Select
-the black **Ext PET-CF** tile in its popover. The numbered hotends and **R** tiles are
-separate choices; their displayed diameters do not establish the left external
-hotend's diameter. Check the left hotend on the printer display and the resolved
-external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
-hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
-the reviewed 0.4 mm cover job without a nozzle mismatch.
+An unresolved filament tile can read `? ?` or `? R`. The sender identifies
+its nozzle column, opens that tile and reads the visible **External → Ext
+<type>** choice using macOS Vision. The popover can open above, below or beside
+the card; its location differs between the left and right nozzle. The sender
+uses the captured choice's position and verifies the resulting external-spool
+tile in the same nozzle column. Missing or ambiguous choices stop the operation.
+Window resizing and fullscreen are not part of filament selection.
 
 ## Placement on unseasoned plates
 
@@ -230,7 +230,9 @@ tools/cad-venv/bin/python tools/bambu_print.py <file.gcode.3mf> Mark2 --dry-run
 `bambu_print.py` imports a separate copy of the reviewed archive, brings Bambu Connect
 forward, reads its controls and clicks them with mouse input. Its own Swift input process
 is `bambu-ui/main.swift`; the command compiles it into `.cache/printer-control/` as needed.
-It does not call `bambu-ax` or `bambu_send.py`. The previous application and pointer are
+It does not call `bambu-ax` or `bambu_send.py`. The filament picker captures only
+Bambu Connect’s window using ScreenCaptureKit; macOS Screen Recording access is
+required for unresolved mappings. The previous application and pointer are
 restored when the transaction ends. Input stops if another application takes focus.
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
@@ -245,7 +247,8 @@ sender waits until every tile names its side. The dialog's note “Please check 
 required nozzle diameter and flow rate match the current display.” does not block Send.
 
 `--dry-run` performs the import and dialog checks, then cancels without clicking Send. It
-also runs while a printer is busy, when Send is disabled. An ordinary run refuses a busy
+also runs while a printer is busy, when Send is disabled. Connect can disable
+filament selection while busy; an unresolved mapping then stops the dry run. An ordinary run refuses a busy
 printer before opening the application. A Send click is made only once per dialog.
 
 Success requires a new printer job ID, the archive's name, and PREPARE or RUNNING with no
@@ -332,17 +335,14 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    opened in step 1 does not decide it:
    on 2026-09-20 the dialog offered H2C three times after Mark2's page was opened and
    settled.
-4. **Read the filament tile.** The `AXGroup` under `Left Nozzle` reads the selected
-   AMS slot (for example `A4 PETG`) or the external source (`Ext PET-CF`). A `? ?`
-   tile requires mapping to the intended source. For an external spool it is one call:
-   `click <x+47> <y+30> <x-245> <y+282>` from the tile's `@x,y` — its centre, then the
-   External spool tile in the popover that opens under it. The popover is not in the
-   tree; the tile afterwards is, and it must read `Ext PET-CF`. The offsets are H2C's
-   popover: one AMS unit's trays above the External spool. If another app takes a
-   keystroke during the click, the popover can close before the External click lands.
-   The sender reads the tile after each attempt and, on a miss, closes the dialog
-   and reopens a fresh one before retrying. The tile toggles the popover, so another
-   click in the same dialog is not a safe retry.
+4. **Map the filament.** Both senders use `bambu_print.map_external_spools`.
+   It selects the card in the required nozzle column, reads the opened popover’s
+   **External → Ext <type>** labels and clicks the visible matching choice.
+   Its position is measured from the captured window, with no filament-popover
+   offsets. The operation retains foreground focus through opening, recognition
+   and selection. It checks that the window has not moved and reads the resolved
+   external-spool tile before continuing. The source type and colour also have
+   to match the printer’s external-spool telemetry.
 5. **Read the print options.** Each option is a row of `AXRadioButton`s and the chosen
    one carries an `AXImage "radio"` as its first child in `tree`. The standing settings
    are Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto and Nozzle
@@ -372,15 +372,24 @@ that costs the screen says so. Accessibility trust comes from the calling proces
 
 ### What the application will not show
 
-The printer selector's popup and the AMS filament-mapping popover are drawn outside the
-accessibility tree: `find` returns nothing with either open, and an `AXPress` on their
-`AXGroup` divs is a no-op, because Chromium synthesizes a click only for button and link
-roles. An event sent with `postToPid` never arrives either. The global tap is the only
-delivery and it follows the frontmost application, so `click` brings the window forward,
-clicks every coordinate given, then restores both the previous application and the
-pointer. One borrow measures about a second; both coordinates go in one call, and the
-popover under the tile survives the 0.25 s between them. A popover's only reading is
-the control it changes.
+The printer selector and filament popover are outside the accessibility tree.
+An `AXPress` on their `AXGroup` divs does not synthesize a Chromium click.
+The shared filament picker combines foreground mouse input, a capture of the
+Bambu Connect window and native Vision text recognition. It requires a single
+matching external choice under the External heading, retains every visible
+nozzle-column check, and refuses to click an unreadable or ambiguous choice.
+The selected tile’s accessibility text is the final mapping readback.
+
+Run its tests manually:
+
+```sh
+tools/cad-venv/bin/python tools/bambu-ui/test_filament_picker.py
+```
+
+The tests use generated popover images in different positions and scales,
+including wrong-type and duplicate choices, plus two-nozzle accessibility
+fixtures. [Validation scope](bambu-ui/filament-picker-review.json) distinguishes
+those results from the live dry run on a busy printer.
 
 Changing the printer in the selector clears the filament mapping.
 
