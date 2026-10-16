@@ -74,8 +74,11 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     # Keep the full floor section behind the body before its print-down run-out.
     # The opposite end retains its two-millimetre margin.
     runout_margin = max(2.0, FLOOR_STOCK)
+    # On a base wall the east end runs square into its hidden relief
+    # (`production_backing`); a corner round there leaves only a sliver.
+    rounds = '|Z' if wall_face is None else '|Z and <X'
     pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+2+runout_margin)
-           .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges('|Z').fillet(dimensions.CORNER_R+2).val()
+           .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges(rounds).fillet(dimensions.CORNER_R+2).val()
            .rotate((0,0,0),(1,0,0),-90)
            .translate((0,-FLOOR_STOCK-BACK_AIR,-up*(runout_margin-2)/2)))
     # A 45-degree inboard run-out carries the added pocket floor in the wall pose.
@@ -135,9 +138,14 @@ def receiver():
     return apply(shell,dimensions.station(0,0),THICK)
 
 
-def production_backing(solid, station, y_outer, *, wall_face=None):
-    """Relieve the hidden east backing, with run-outs beyond the complete pad."""
+def production_backing(solid, station, y_outer, *, wall_face=None, column=None):
+    """Relieve the hidden east backing, with run-outs beyond the complete pad.
+
+    Given the room's corner `column` as `(x, y, radius)`, the relief runs to it and ends
+    on the column's own round."""
     xa, xb = EAST_RELIEF_START, WIDTH/2+PROJECTION+4
+    if column is not None:
+        xb = column[0]-station.x
     ya, yb = -FLOOR_STOCK-BACK_AIR-1, -EAST_BACKING-BACK_AIR
     za, zb = -HEIGHT/2-5, HEIGHT/2+5
     keepout=box(xa,xb,ya,yb,za,zb)
@@ -152,7 +160,12 @@ def production_backing(solid, station, y_outer, *, wall_face=None):
                 end = (cq.Workplane('YZ',origin=(xa,0,0)).polyline(profile)
                        .close().extrude(xb-xa).val())
                 keepout=keepout.fuse(end)
-    return solid.cut(keepout.translate((station.x,y_outer-THICK,station.z))).clean()
+    keepout = keepout.translate((station.x,y_outer-THICK,station.z))
+    if column is not None:
+        x, y, r = column
+        keepout = keepout.cut(cq.Solid.makeCylinder(
+            r, 3*HEIGHT, cq.Vector(x, y, station.z-1.5*HEIGHT), cq.Vector(0, 0, 1)))
+    return solid.cut(keepout).clean()
 
 
 def plain_lips(station, y_outer, *, width=WIDTH, wing_span=WING_SPAN):

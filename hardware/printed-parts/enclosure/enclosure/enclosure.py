@@ -1626,7 +1626,7 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 pogo_crown_skin = 3.5        # clamp stock between the crown and the seat's mouth
 pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
 pogo_heatset_len = 4.0
-pogo_heatset_setback = 2.0   # anchor wholly behind the connector's 4.15 mm body cavity
+pogo_heatset_setback = 2.0   # anchor wholly behind the connector's body and slip, 4.15 mm in
 pogo_heatset_relief = 1.5    # pilot past the insert; also 0.5 mm beyond the M1.4×8 tip
 pogo_screw_len = 8.0
 pogo_head = (2.74, 1.4)      # Kozelo B0DFYKBQ2S, (diameter, height)
@@ -3030,7 +3030,7 @@ def _storey_section(box, y0):
     """The display storey's `(y, z)` section from `y0` back: the lintel's plane up past the top
     wall, aft to the ridge wall's fore face and 45° crown."""
     outer = box.outer
-    fore = bay_back_y(box.pack.collet_plate)
+    fore = box.pack.collet_plate["aft_y"]
     ry, rz = pcb_ridge(outer)
     jog, _aft_crown = _ridge_join(outer, fore)
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
@@ -3056,7 +3056,7 @@ def display_storey_cavities(box):
     def below_catch(y, z):
         return (y - o.y) * n.y + (z - o.z) * n.z + 10.02
 
-    y0, y1 = inner[2], box.pack.collet_plate["fore_y"]
+    y0, y1 = inner[2], bay_back_y(box.pack.collet_plate)
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
     section, ring = [], [(y0, z0), (y1, z0), (y1, z1), (y0, z1)]
     for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
@@ -3257,14 +3257,16 @@ def disposal_figures(outer):
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
-    """Flat-wing nameplate receiver with static back clearance at its rear-panel station."""
+    """Flat-wing nameplate receiver with static back clearance at its rear-panel station.
+    Its hidden east relief ends on the round of the +X column it reaches."""
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
     pocket = _nameplate_fit.apply(solid, plate, y_outer,
                                   supported=fits.supported_surface, up=up,
                                   wall_face=back_top_wall_face())
-    return _nameplate_fit.production_backing(pocket, plate, y_outer,
-                                              wall_face=back_top_wall_face())
+    return _nameplate_fit.production_backing(
+        pocket, plate, y_outer, wall_face=back_top_wall_face(),
+        column=(interior_x()[1], rear_plane_y, column_round))
 
 
 def _port_chip(px, pz, width, rise, bottom, y0, y1):
@@ -3277,8 +3279,8 @@ def _port_chip(px, pz, width, rise, bottom, y0, y1):
 def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
     """Flush port-chip pockets with static back clearance and retained backing.
 
-    Each pocket is `field.proud + fits.slip` deep. Normal stations grow their existing
-    backing inward by `fits.slip`, clipped to the host's roof and seam outline. Relieved
+    Each pocket is `field.proud + fits.slip` deep. Normal stations stand on the wall's own
+    field land, `fits.slip` inboard of its face (`_back_top_field_land`). Relieved
     stations retain their backing through `_back_top_wall_relief_cut`'s matching nut land.
     `enclosure_assembly.PORT_FIELD_WEB` reads the material between adjacent pockets.
 
@@ -3288,9 +3290,7 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
     if field is None:
         return solid
     at = (lambda _x, _z: wall) if wall_at is None else wall_at
-    original = solid
     deep = y_outer
-    hosts = []
     for px, pz, *_size in field.pockets:
         # WHAT THIS LOOP OWES THE BORES BELOW IS ONLY HOW FAR INBOARD A LAND CAN STAND.
         # `proud` is what a chip's pocket costs a `wall`-thick face; a wall carrying more
@@ -3299,25 +3299,6 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         t = at(px, pz)
         proud = max(0.0, field.proud - (t - wall))
         deep = min(deep, (y_outer - t) - proud - fits.slip)
-        landed = any(abs(px-rx) <= wx/2 and abs(pz-rz) <= wz/2
-                     for _who, rx, rz, wx, wz in back_top_wall_reliefs)
-        if not landed:
-            # Extend only the wall-normal backing section. Copying a deeper
-            # host also copies neighbouring receiver detail into thin returns.
-            # The narrow source section retains the actual roof/seam outline.
-            width, rise, bottom = _size
-            host = _port_chip(px, pz, width+2*field.rim,
-                              rise+field.rim, bottom+field.rim,
-                              y_outer-t, y_outer-t+fits.slip)
-            hosts.append(host)
-    if hosts:
-        joined = hosts[0].fuse(*hosts[1:]).clean()
-        # A shared backing outline has no enclosed interstices between pads.
-        # Intersect the original wall afterwards to keep its functional voids.
-        for face in joined.Faces():
-            if face.geomType() == 'PLANE' and face.normalAt().y < -.999999:
-                host = cq.Solid.extrudeLinear(face.outerWire(), [], cq.Vector(0,fits.slip,0))
-                solid = solid.fuse(original.intersect(host).translate((0,-fits.slip,0)))
     for px, pz, width, rise, bottom in field.pockets:
         solid = solid.cut(_supported_cut(
             _port_chip(px, pz, width, rise, bottom,
@@ -3450,8 +3431,23 @@ def with_funnel(box, centre):
     return box._replace(pack=box.pack._replace(funnel=centre))
 
 
-def _funnel_cut(inner, outer, centre):
-    """Rounded inset brim pocket and the filled, slipped funnel envelope below it."""
+def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
+    """Rounded inset brim pocket, the filled, slipped funnel envelope below it, and the frame's
+    sliding clearance.
+
+    THE POCKET'S SIDES RUN STRAIGHT ON TO THE CORNER STACKS' HEAD MOUTHS. Each mouth opens into
+    the pocket a sliver past where its aft round begins (`_y_stack_bores`), so the sides carry
+    on to the mouth rather than leave that sliver of round between them.
+
+    THROUGH THE BRIM SEAT'S STOCK the frame body's clearance stands plumb. Below that stock it
+    follows the frame's 30° end corbels, and the aft one turns plumb just above the stock's floor;
+    followed into the stock it would leave the opening's aft edge a 60° wedge.
+
+    AND OVER A WAGO LID UNDER THE FRAME'S FOOT the clearance comes on down to the lid. `wells`
+    are the side walls' Wago stations on a piece printed `up` (`_side_wells`). Where a
+    supportless lid's 45° ramp breaks out through the clearance's floor, the clearance carried
+    down over the ramp's span takes the wedge of flank the ramp would leave feathering out under
+    that floor."""
     cx, cy = centre
     seat = funnel_seat_z(outer)
     pocket = _swept_top.rounded_prism(
@@ -3459,13 +3455,34 @@ def _funnel_cut(inner, outer, centre):
         _funnel.collar_d + 2.0 * (_funnel.brim_overhang + funnel_collar_air),
         _funnel.brim_corner_r + funnel_collar_air,
         seat, outer[5] + 1.0, cx, cy)
+    half_w = _funnel.collar_w / 2.0 + _funnel.brim_overhang + funnel_collar_air
+    mouth = y_stack_axis(inner[1], -1.0, y_seam)[1] - y_stack_cbore_dia / 2.0
+    sides = _ybox(cx - half_w, cx + half_w, cy, mouth, seat, outer[5] + 1.0)
     throat = _swept_top.rounded_prism(
         _funnel.collar_w + 2.0 * funnel_collar_air,
         _funnel.collar_d + 2.0 * funnel_collar_air,
         _funnel.collar_corner_r + funnel_collar_air,
         inner[5] - wall - 1.0, seat + 0.01, cx, cy)
-    return (pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
-            .fuse(_funnel_frame_part.shell_clearance(centre, seat, inner)))
+    clearance = _funnel_frame_part.shell_clearance(centre, seat, inner)
+    # The body clearance's plan aft of the funnel's centre: inboard of back-top's roof knuckles
+    # (`rear_narrowing`), its aft corners rounded the way the frame's own are.
+    half, back = inner[1] - y_stack_high_depth, cy + _funnel_frame_part.depth / 2.0 + slide_slip
+    plumb = (cq.Workplane(obj=_ybox(-half, half, cy, back,
+                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
+             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
+    cut = (pocket.fuse(sides).fuse(throat).fuse(_funnel_keepout(outer, centre))
+           .fuse(clearance.fuse(plumb)))
+    floor = _funnel_frame_part.datums(seat)[0] - slide_slip
+    for side, sy, sz, size, _clear_z, supportless_roof in (s[:6] for s in wells):
+        if not supportless_roof:
+            continue
+        face, reach, pk_y, floor_z, roof_z = _wago_pocket(side, sz, size, inner, up)
+        lid = roof_z if up > 0 else floor_z
+        if lid < floor < lid + up * reach:
+            gap = pk_y - wago_roof_tab
+            opening = _ybox(*sorted((face, face - side * reach)), sy - gap, sy + gap, lid, floor)
+            cut = cut.fuse(opening.intersect(clearance.translate((0.0, 0.0, lid - floor))))
+    return cut
 
 
 def _ceiling_corbels(solid, inner, centre, y_joint):
@@ -3767,16 +3784,18 @@ def _y_lip_channel(inner, y_joint):
 
 def _floor_scarf(inner, y_joint):
     """The Y seam's FLOOR overlap: a bed-supported, full-thickness tongue with
-    a 45° scarf nose.
+    a 45° scarf nose and a square end.
 
     The floor is the one seam face whose cavity side is occupied — the cold core
     rides on it — so it cannot carry the proud tongue the walls and ceiling do
     (`_front_lip`). Its overlap stays within the slab instead. The FRONT floor runs
-    aft at the slab's whole `floor_t` thickness, then tapers to the cavity-side datum
-    over one `floor_t` — the run is the rise, which is what makes the nose 45° on a
-    slab of any section; the BACK floor gives up that envelope and keeps the matching
-    bed-side wedge under the nose. The tongue's broad underside is on the print bed
-    and the only rising face is 45°, so neither half asks support for the core's
+    aft at the slab's whole `floor_t` thickness, then rises at 45° off the bed — the
+    run is the rise — and ENDS SQUARE on the plane the handholds' inner walls end on
+    (`_handhold_backing_end`), so the joint ends in a plumb face under the cavity-side
+    datum rather than a feather tapering to it; the BACK floor gives up that envelope
+    and keeps the matching bed-side wedge under the nose, ending square one
+    `fits.running` aft of the front. The tongue's broad underside is on the print bed
+    and its rising faces are 45° and plumb, so neither half asks support for the core's
     bearing surface. Assembled, the top remains one plane at z=iz0.
 
     Each flank is a plumb face standing one `fits.running` off the side wall beside
@@ -3788,17 +3807,18 @@ def _floor_scarf(inner, y_joint):
     ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
     zbed = iz0 - floor_t
     root = y_joint - 1.0                              # robust face overlap into front slab
-    tongue_tip = y_joint + lip_len - scarf_axial
-    tongue_flat = tongue_tip - floor_t
-    relief_tip = y_joint + lip_len
-    relief_flat = relief_tip - floor_t
+    tongue_flat = y_joint + lip_len - scarf_axial - floor_t
+    tongue_end = _handhold_backing_end(y_joint, "front")
+    relief_flat = y_joint + lip_len - floor_t
+    relief_end = _handhold_backing_end(y_joint, "back")
     tongue = _yz_prism(
         ix0 + fits.running, ix1 - fits.running,
-        [(root, zbed), (tongue_flat, zbed), (tongue_tip, iz0), (root, iz0)])
+        [(root, zbed), (tongue_flat, zbed), (tongue_end, zbed + tongue_end - tongue_flat),
+         (tongue_end, iz0), (root, iz0)])
     relief = _yz_prism(
         ix0, ix1,
-        [(root, zbed - 1.0), (relief_flat, zbed - 1.0),
-         (relief_flat, zbed), (relief_tip, iz0), (root, iz0)])
+        [(root, zbed - 1.0), (relief_flat, zbed - 1.0), (relief_flat, zbed),
+         (relief_end, zbed + relief_end - relief_flat), (relief_end, iz0), (root, iz0)])
     return tongue, relief
 
 
@@ -3853,18 +3873,6 @@ def _handhold_backing_joint(inner, y_joint, x_ext, sx, y_side):
                  bed - (1.0 if y_side == "front" else 0.0), roof)
 
 
-def _handhold_floor_side_relief(inner, y_joint, x_ext, sx):
-    """Running space beside the floor scarf where it passes the back's inner wall.
-
-    This vertical face needs no overhang allowance. Cut the tongue's edge so the
-    back's nominal 3 mm wall stays whole, beginning before that wall's leading end.
-    """
-    _flank, cap = _band_x(x_ext, sx)
-    xa, xb = sorted((cap, cap + sx * fits.running))
-    return _ybox(xa, xb, _handhold_backing_end(y_joint, "front"),
-                 y_joint + lip_len + wall, inner[4] - floor_t - 1.0, inner[4])
-
-
 def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
     """A roof, inner wall and two end walls, rooted on the floor at the opening's ends.
 
@@ -3898,7 +3906,6 @@ def _handholds(solid, inner, y_joint, y_side):
         solid = solid.cut(_handhold_cutter(inner, x_ext, sx))
         if y_side == "front":
             solid = solid.cut(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
-            solid = solid.cut(_handhold_floor_side_relief(inner, y_joint, x_ext, sx))
     return solid.clean()
 
 
@@ -3915,22 +3922,9 @@ def _handhold_finish_air(inner):
     end_stock = handhold_corner_r + handhold_edge_r + handhold_wall
     blank = _ybox(0.0, depth, y0 - end_stock, y1 + end_stock, bed, crown)
     before = blank.cut(_handhold_cutter(inner, 0.0, 1.0)).clean()
-    rim = []
-    for edge in before.Edges():
-        b = edge.BoundingBox()
-        if (abs(b.xmin) < 1e-6 and abs(b.xmax) < 1e-6
-                and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
-                and b.zmin >= bed - 1e-6 and b.zmax <= roof + 1e-6
-                and b.zmax > bed + 1e-6):
-            rim.append(edge)
-    from overhang_round import roof_rim, transition
-    rounded = before.fillet(handhold_edge_r, rim)
-    finished = roof_rim(before, rounded, 0.0, 1.0, y0, y1, roof,
-                        handhold_corner_r, handhold_edge_r)
-    # The interpolated corner loft must not ripple the intended flat ceiling.
-    _rise, foot = transition(handhold_edge_r)
-    finished = finished.fuse(_ybox(foot, depth,
-        y0 + handhold_corner_r, y1 - handhold_corner_r, roof, crown)).clean()
+    from overhang_round import pocket_rim
+    finished = pocket_rim(before, 0.0, 1.0, y0, y1, bed, roof,
+                          handhold_corner_r, handhold_edge_r, floor=False)
     return blank.cut(finished).clean()
 
 
@@ -4128,7 +4122,8 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     channel cut at the END of the piece's work.
 
     Each is one box: the box interior face out to the foot's face, mouth to the
-    caught face, the run less the closed-end zone. The block's front face is one
+    caught face, the run less the closed-end zone; back-top's runs on through that zone,
+    and the lane cuts it back to the channel's standing wall there. The block's front face is one
     running clearance past this foot end. It is rooted to the wall down its whole height. Front-top
     prints that face up from its mouth; back-top prints it down from its ceiling and support
     carries it. On both columns the foot carries the full nominal flank section to the seam,
@@ -4138,12 +4133,16 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
         sy = 1.0 if y1 > y0 else -1.0
-        y1 -= sy * rail_stop_len
         if col == "back":
             # The open end runs one `wall` on into the rear corner column, so the foot meets
             # the column's round on its whole section instead of leaving a crescent of air
-            # between its square end and the arc.
+            # between its square end and the arc. The closed end runs on to the run's end,
+            # under the flank section that stands down to the caught face over the stop
+            # block; the lane cuts both back to one standing wall beside the block, mouth to
+            # roof, and leaves the foot's end on the stop face inboard of it.
             y0 -= sy * wall
+        else:
+            y1 -= sy * rail_stop_len
         _hk, x_f, _a, _h1 = _rail_x(x_in, sx, col)
         x_root = x_in - sx * 1.0
         slab = _ybox(min(x_root, x_f), max(x_root, x_f),
@@ -4183,8 +4182,8 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     of that piece standing aft of the stop — the flank's own seam band, the wall
     under the lip's cavity, the Y-seam tongue's own flank segment — sweeps over the
     stop block, the head and the arm on its way in, and this is the lane it does it
-    in. The back column needs no deep zone: its `lane_aft` is the stop itself,
-    because the rear horizon has already emptied the lane behind it.
+    in. The back column carries the same full section FORE of its stop, mouth to roof,
+    through the stop block's berth and off the piece's fore end at `lane_aft`.
 
     THE LANE RUNS OFF THE FRONT PIECE'S AFT END. It carries the full section as far
     as `lane_aft`, past the tongue's own tip, so the flank's mouth band comes out as
@@ -4780,10 +4779,17 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
     mouth. For `up > 0` the piece beds on its seam rim, that same face looks print-down, and
     it rises at `relief_chamfer` off the rim instead, the way `_back_top_flanks`' does on the
     two walls that turn out of this one. Every hole and relief in the wall reads the same `up`
-    (`_port_cuts`, `_back_top_wall_relief_cut`)."""
+    (`_port_cuts`, `_back_top_wall_relief_cut`).
+
+    The port field's nut land is part of the section (`_back_top_field_land`), so the same
+    bores and reliefs pass through it."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     rim, depth = zj + z_rise, back_top_wall_t - wall
     band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj if up < 0 else rim, iz1)
+    land = _back_top_field_land(box.pack.port_field, box.pack.core_holds)
+    if land is not None:
+        band = band.fuse(land.intersect(_ybox(ix0, ix1, back_top_wall_face() - fits.slip,
+                                              back_top_wall_face(), zj, iz1)))
     if up > 0:
         band = band.cut(_yz_prism(ix0 - 1.0, ix1 + 1.0,
                                   [(iy1, rim), (back_top_wall_face(), rim),
@@ -4793,6 +4799,42 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
         band = band.cut(cutter)
     return band.cut(_back_top_wall_relief_cut(box.pack.port_field, up,
                                               ceiling=box.inner[5]))
+
+
+def _back_top_field_land(field, holds):
+    """The port field's nut land, `fits.slip` inboard of back-top's +Y wall face, or None.
+
+    A normal station's barrel clamps `enclosure_assembly.port_clamp_stack`, so its nut lands one
+    static back gap inboard of the wall. One land carries every normal station: the rectangle
+    holding each chip with its rim; the wall between the cold core's two hold-downs over their
+    height, run into the core's pocket so the land's lower edge is that pocket's ceiling and its
+    ends are the brackets' faces; and the strip over to a relieved station, which ends on that
+    station's relief (`_back_top_wall_relief_cut`)."""
+    if field is None:
+        return None
+    spans, reliefs = [], []
+    for px, pz, width, rise, bottom in field.pockets:
+        relief = [(rx, rz, wz) for _who, rx, rz, wx, wz in back_top_wall_reliefs
+                  if abs(px - rx) <= wx / 2.0 and abs(pz - rz) <= wz / 2.0]
+        if relief:
+            reliefs += relief
+        else:
+            spans.append((px - width / 2.0 - field.rim, px + width / 2.0 + field.rim,
+                          pz - bottom - field.rim, pz + rise + field.rim))
+    if not spans:
+        return None
+    y0, y1 = back_top_wall_face() - fits.slip, back_top_wall_face()
+    x0, x1 = min(s[0] for s in spans), max(s[1] for s in spans)
+    z0, z1 = min(s[2] for s in spans), max(s[3] for s in spans)
+    land = _ybox(x0, x1, y0, y1, z0, z1)
+    for rx, rz, wz in reliefs:
+        if rx > x1:
+            land = land.fuse(_ybox(x1, rx, y0, y1, rz - wz / 2.0, z1))
+    if len(holds) == 2:
+        (_x0, west, _aft, crown), (east, *_rest) = sorted(holds)
+        floor = crown + fits.running
+        land = land.fuse(_ybox(west, east, y0, y1, floor - 1.0, floor + core_hold_rise))
+    return land
 
 
 def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
@@ -4844,9 +4886,12 @@ def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
                     [cq.Vector(x0 - g, y, zlo), cq.Vector(x1 + g, y, zlo),
                      cq.Vector(x1 + g, y, zhi), cq.Vector(x0 - g, y, zhi)],
                     close=True)
+            # The plug's faces run on through the wall's face at their own slopes, so the
+            # field's land in front of it ends on the same skirt, roof and sill.
+            k = 1.0 + 1.0 / fall
             cut = cq.Solid.makeLoft(
-                [ring(face - 1.0, d, fall, sill_draft),
-                 ring(face, d, fall, sill_draft), ring(land_y, 0.0, 0.0, 0.0)],
+                [ring(face - 1.0, d * k, fall + 1.0, sill_draft * k),
+                 ring(land_y, 0.0, 0.0, 0.0)],
                 True)
         else:
             back = roof - up * depth            # the roof's line on the relief's floor
@@ -5018,7 +5063,24 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     if box.pack.funnel:
         x0, x1, y0, y1 = _funnel_cut_plan(box.pack.funnel)
         stock = stock.cut(_ybox(x0, x1, y0 - 1.0, y1, face - 1.0, lane + 2.0))
-    for who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
+    # A pocket that runs on out of another body's pocket under the same roof, its two sides
+    # standing less than a wall inside that pocket's, is cut with that pocket's sides: the gas
+    # chain's adapters run on in line out of the gasher's crown pocket, and on their own slipped
+    # plans they would leave a sub-wall step at each end of it.
+    reliefs = []
+    for who, *plan in box.pack.ceiling_reliefs:
+        for name, *other in box.pack.ceiling_reliefs:
+            if ("c14-inlet" in (who, name) or name == who
+                    or abs(other[4] - plan[4]) > stated_bound_tol
+                    or min(other[1], plan[1]) <= max(other[0], plan[0])
+                    or min(other[3], plan[3]) <= max(other[2], plan[2])):
+                continue
+            for k in (0, 2):
+                if (other[k] <= plan[k] < other[k] + wall
+                        and other[k + 1] - wall < plan[k + 1] <= other[k + 1]):
+                    plan[k:k + 2] = other[k:k + 2]
+        reliefs.append((who, *plan))
+    for who, x0, x1, y0, y1, top in reliefs:
         if who == "c14-inlet":
             cx, cz, _wx, _wz, _r = _c14_aperture(box.pack.c14, box.pack.back_ports)
             pocket = (c14_pocket_prism(c14_pocket_slip, y0, y1)
@@ -5294,25 +5356,14 @@ def _cradle_pulls(box):
 
 def _round_cradle_pull_rims(solid, box):
     """Round the complete exposed perimeter of each hand pocket."""
+    from overhang_round import pocket_rim
     solid = solid.clean()
     edge = _cap_x_span(box.pump_bay)[1]
     y0, y1 = pull_y_span(box.pack.pump_trays, box.pack.collet_plate)
     z0, z1 = pull_z_span(box)
     for x in (-edge, edge):
-        rim = []
-        for candidate in solid.Edges():
-            b = candidate.BoundingBox()
-            if (abs(b.xmin - x) < 1e-6 and abs(b.xmax - x) < 1e-6
-                    and b.ymin >= y0 - 1e-6 and b.ymax <= y1 + 1e-6
-                    and b.zmin >= z0 - 1e-6 and b.zmax <= z1 + 1e-6):
-                rim.append(candidate)
-        if not rim:
-            raise ValueError(f"cradle pull at X{x:g} has no exterior hand-contact edge")
-        from overhang_round import roof_rim
-        before = solid
-        solid = solid.fillet(pull_edge_r, rim)
-        solid = roof_rim(before, solid, x, -1 if x > 0 else 1,
-                         y0, y1, z1, pull_corner_r, pull_edge_r)
+        solid = pocket_rim(solid, x, -1 if x > 0 else 1, y0, y1, z0, z1,
+                           pull_corner_r, pull_edge_r)
     return solid
 
 
@@ -5831,15 +5882,18 @@ def _y_stadium(length, width, x, z, y0, y1):
             .extrude(-(hi - lo)).val().translate((0.0, lo, 0.0)))
 
 
-def _pogo_seat(face_y, into, x, z, up):
+def _pogo_seat(face_y, into, x, z, up, deep=False):
     """One half's seat let into the face at `face_y`, struck `into` (±1 along Y) from it: the
     cutter, then the two insert bores.
 
-    The ear datum and working body cavity retain their own dimensions. Each insert starts two
-    millimetres behind that datum, wholly past the body cavity. A slipped knurl-sized entry
-    reaches the anchor and opens toward the body cavity so no thin web serves as an insertion
-    guide. The pilot retains the full insert in the rear stock. `up` assigns the supported-face
-    allowance; the separate factory depth gauge reads the recessed anchor from the mating face.
+    The ear datum retains its own dimension. Each insert starts two millimetres behind that
+    datum, wholly past the connector's body and slip. A slipped knurl-sized entry reaches the
+    anchor and opens toward the body cavity so no thin web serves as an insertion guide. The
+    body cavity takes the body's own depth with slip; `deep` runs it back to the anchor plane, so
+    the entries open into it over their whole depth and leave no web against a lead passage
+    behind the body. The pilot retains the full insert in the rear stock. `up` assigns the
+    supported-face allowance; the separate factory depth gauge reads the recessed anchor from the
+    mating face.
     """
     s = fits.slip
     w = _pogo.BODY_W + 2.0 * s
@@ -5859,8 +5913,9 @@ def _pogo_seat(face_y, into, x, z, up):
     def at(d0, d1):
         return face_y + into * d0, face_y + into * d1
 
+    cavity = anchor + 0.01 if deep else _pogo.BODY_T + s
     seat = (_y_stadium(_pogo.EAR_L + 2.0 * s, w, x, z, *at(-1.0, back))
-            .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, _pogo.BODY_T + s))))
+            .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, cavity))))
     bores = [
         _supported_cut(_y_stadium(
             2.0 * pogo_insert_entry_dia, pogo_insert_entry_dia,
@@ -5897,7 +5952,8 @@ def _lead_bore_floor(box):
 def _pump_contact_fixed_cuts(box):
     """The male half's seat in the bay bulkhead's fore face, its two insert bores, and the lead
     bore from the body's back to the bulkhead's aft face, teardropped for front-top's print and
-    wide enough at the contact row for the tails and their joints."""
+    wide enough at the contact row for the tails and their joints. The seat runs deep: its body
+    cavity reaches the inserts' anchor plane, so both knurl entries open into the lead bore."""
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
     face, up = bay_back_y(plate), PIECE_PRINT_UP["front-top"]
@@ -5908,7 +5964,7 @@ def _pump_contact_fixed_cuts(box):
         raise ValueError(
             f"the lead bore's Ø{2.0 * pogo_lead_r:g} on its axis at z {axis:.3f} reaches the outer "
             f"contact's joint at {reach:.3f} mm and needs {need:.3f}: it no longer takes the tails")
-    seat, bores = _pogo_seat(face, 1.0, x, z, up)
+    seat, bores = _pogo_seat(face, 1.0, x, z, up, deep=True)
     lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.BODY_T, wall + 1.0, up=up)
     floor = _lead_bore_floor(box)
     if floor is not None and floor > axis - pogo_lead_r:
@@ -6380,6 +6436,11 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
             margin = mount_boss_dia/2.0 + fits.supported_surface + 0.02
             entry_band = _ybox(tip-0.001, insert_tip, sy-margin, sy+margin,
                                sz-margin, sz+margin)
+            # A fill is read whole against the installed board, tails and all
+            # (`wall_mounts`), so the band clears none of its stock: a station
+            # standing in one is seated in the fill's own block.
+            for _name, bounds, _replaced_corbels in fills:
+                entry_band = entry_band.cut(_ybox(*bounds))
             solid = solid.cut(entry_band.cut(sleeve))
             # The sleeve's chord is the face this station's wedge carries. Struck on that chord
             # and over the sleeve's width, the wedge meets it face for face and its two ends run
@@ -6417,6 +6478,20 @@ def east_boss_bore_end(sy, tip, outer):
     edge = min(flank_x_at(sy - heatset_dia / 2.0, outer),
                flank_x_at(sy + heatset_dia / 2.0, outer))
     return min(tip + heatset_depth + mount_bore_relief, edge - flute_backing)
+
+
+def _wago_pocket(side, sz, size, inner, up=1.0):
+    """One well's lug pocket on a piece printed `up`, as `(face, reach, half_y, floor_z,
+    roof_z)`: the wall plane it bottoms on, how far inboard it runs (a millimetre past the lug's
+    engagement), half its span along the row, and its floor and roof, the print-down one with
+    the supported allowance."""
+    face = inner[1] if side > 0 else inner[0]
+    stand_y, stand_z, _sx = wago_stand(size)
+    floor_z = sz - (stand_z / 2.0 + wago_well_press)
+    roof_z = sz + stand_z / 2.0 + wago_well_press
+    floor_z -= fits.supported_surface if up < 0.0 else 0.0
+    roof_z += fits.supported_surface if up > 0.0 else 0.0
+    return face, wago_engage(size) + 1.0, stand_y / 2.0 + wago_well_press, floor_z, roof_z
 
 
 def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
@@ -6518,15 +6593,8 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
     # Stacked towers share backing. Cut every pocket after all backing and
     # wedges are joined so an upper tower cannot fill the lower connector seat.
     for side, sy, sz, size, clear_z, supportless_roof in (s[:6] for s in pockets):
-        face = inner[1] if side > 0 else inner[0]
-        reach = wago_engage(size) + 1.0
+        face, reach, pk_y, floor_z, roof_z = _wago_pocket(side, sz, size, inner, up)
         pocket = sorted((face, face - side * reach))
-        stand_y, stand_z, _sx = wago_stand(size)
-        pk_y = stand_y / 2.0 + wago_well_press
-        floor_z = sz - (stand_z / 2.0 + wago_well_press)
-        roof_z = sz + stand_z / 2.0 + wago_well_press
-        floor_z -= fits.supported_surface if up < 0.0 else 0.0
-        roof_z += fits.supported_surface if up > 0.0 else 0.0
         solid = solid.cut(_ybox(pocket[0], pocket[1],
                                 sy - pk_y, sy + pk_y, floor_z, roof_z))
         if supportless_roof:
@@ -6638,6 +6706,12 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
         mouth_bot = (sz - vent_channel_w / 2.0
                      - (fits.supported_surface if up < 0.0 else 0.0))
         groove_top = sz - vent_duct_drop            # where the skin opens
+        # The groove's open side closes on a roof across the wall's three-millimetre section,
+        # its visible root at `groove_top` on the show face. Printed ceiling-down that roof
+        # looks print-up and lies level, square to the show face. Printed mouth-down it rises
+        # one-for-one to the inner face, the cutter's one-millimetre overrun starting one
+        # lower, so the down-facing transition is support-free.
+        groove_rise = 1.0 if up > 0.0 else 0.0
         ramp_top = groove_top - vent_groove_drop
         ramp_bot = ramp_top - ramp_rise              # where the floor has met the outer face
         # The ramp is carried one more millimetre of DEPTH past that, out into air.
@@ -6726,14 +6800,9 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
                                      (floor_x, mouth_bot),           # \ the floor, straight down
                                      (floor_x, ramp_top),            # /  behind duct and groove
                                      (outer[0] - 1.0, ramp_bot - over),   # the ramp, run out
-                                     # The groove's open side closes on a 45-degree X roof.
-                                     # Its visible root stays at `groove_top` on the show face;
-                                     # the one-millimetre cutter overrun starts one lower, and
-                                     # the inner point rises by the wall's exact three-millimetre
-                                     # section, making the complete down-facing transition
-                                     # support-free.
-                                     (outer[0] - 1.0, groove_top - 1.0),
-                                     (inner[0], groove_top + (inner[0] - outer[0])),
+                                     (outer[0] - 1.0, groove_top - groove_rise),  # the groove's
+                                     (inner[0], groove_top                        # roof, across
+                                      + groove_rise * (inner[0] - outer[0])),     # the skin
                                      (inner[0], rim + slide_slip),    # the rail's same roof;
                                      (liner_x, rim + slide_slip),     # above it the liner is,
                                      (liner_x, mouth_top)]))         # and the rib roofs the duct
@@ -7157,6 +7226,13 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
     opening is widened into the other merely to erase their narrow intersection — and above the
     chute both grooves vent like any other, there being nothing up there to leave a strip against.
 
+    AND THE SKIN BETWEEN TWO SLOTS ON ONE FLANK OF THE CHUTE ENDS LEVEL. Over the chute, the
+    added skin left between two crossing slots is a tooth standing on the chute's arched roof.
+    Where both slots stand on one flank of the arch, the arch under the tooth falls toward the
+    outer slot and would meet its jamb at an acute edge, so the tooth ends level at the crown of
+    the can's sweep (`mq6_chute_reach`), on the roof's own 45° across the skin. The tooth over
+    the crown stands on the arch's top.
+
     LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
     a slot is air, air a later step fuses back in is not a slot, and because what decides where
     each slot stops is what the piece has standing on that face when the cut is made."""
@@ -7185,6 +7261,18 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
                for sx, columns in runs.items() for y, got in columns for rz0, rz1 in got]
     if not cutters:
         return solid
+    half = reeding.pierce_width / 2.0
+    chute_half = mq6_can_yz / 2.0 + mq6_slot_press
+    lx0, fx0 = lip_face_x()[0], vent_flank_face(-1.0)
+    for _x, cy, cz in (west_cradle if -1.0 in runs else ()):
+        crown, inboard = mq6_chute_reach(cz)
+        axis = cz + mq6_card_z                     # the can's axis at its highest ride
+        over = [y for y, got in runs[-1.0] if abs(y - cy) < chute_half + half
+                and any(rz0 <= axis and inboard <= rz1 for rz0, rz1 in got)]
+        for ya, yb in zip(over, over[1:]):
+            if not ya + half < cy < yb - half:
+                cutters.append(_xz_prism(ya, yb, ((lx0, axis), (fx0 + 1.0, axis),
+                                                  (fx0 + 1.0, inboard + 1.0), (lx0, crown))))
     return solid.cut(*cutters)
 
 
@@ -7293,6 +7381,8 @@ def _core_fit_pocket(box):
     Corner centres/radius come from the front stops and the aft face/crown from the
     hold-down stations. The pocket spans the floor through the lid, including positive
     allowance below the core and above its crown. Core and component positions stay fixed.
+    Each corner is a `_zcyl` on its round's own axis — at the front, the bore `_core_stops`
+    cuts — so a corner block's round and the pocket's below it are one surface.
     """
     stops, holds = box.pack.core_stops, box.pack.core_holds
     if not stops or not holds:
@@ -7306,10 +7396,13 @@ def _core_fit_pocket(box):
     x1 = max(cx + radius for cx, _cy, radius in stops)
     fore = min(cy - radius for _cx, cy, radius in stops)
     air = fits.running
-    return _swept_top.rounded_prism(
-        x1 - x0 + 2.0 * air, aft - fore + 2.0 * air, r + air,
-        box.inner[4] - fits.clearance(sliding=True, at_floor=True), crown + fits.running,
-        (x0 + x1) / 2.0, (fore + aft) / 2.0)
+    z0 = box.inner[4] - fits.clearance(sliding=True, at_floor=True)
+    z1 = crown + fits.running
+    xa, xb, ya, yb = x0 + r, x1 - r, fore + r, aft - r
+    pocket = _ybox(xa, xb, fore - air, aft + air, z0, z1).fuse(
+        _ybox(x0 - air, x1 + air, ya, yb, z0, z1),
+        *(_zcyl(r + air, x, y, z0, z1) for x in (xa, xb) for y in (ya, yb)))
+    return pocket.clean()
 
 
 # --- the tap-water chain's cradle on the −X wall ---------------------------
@@ -8318,9 +8411,11 @@ def _keystone_pocket_cut(x, z, y_face):
     pocket = _rect_cut_y(x, z + _keystone.POCKET_RISE, pocket_w, pocket_h, 0.0,
                         y_back - 0.01, y_lip + 0.01)
     top = z + aperture_h / 2.0
+    # The ease spans the lip as these two cut it, from the aperture's open end to the
+    # pocket's front, so it leaves the face on the aperture's own top edge.
     ease = _yz_prism(x - aperture_w / 2.0, x + aperture_w / 2.0,
-                     [(y_face, top), (y_lip, top),
-                      (y_lip, top + _keystone.ease_rise())])
+                     [(y_face + 0.01, top), (y_lip + 0.01, top),
+                      (y_lip + 0.01, top + _keystone.ease_rise())])
     return aperture.fuse(pocket).fuse(ease), (y_lip, y_back)
 
 
@@ -8390,9 +8485,9 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         if catches is not None:
             catches = catches.intersect(below_ceiling)
     if block is not None:
-        # Full surrounding stock joins the recessed receptacle to the actual wall.
-        # Only its two three-millimetre side cheeks carry the longer run-out;
-        # the complete central roof retains the receiver's own corbel.
+        # Full surrounding stock joins the recessed receptacle to the actual wall. Only its two
+        # three-millimetre side cheeks carry the longer run-out to the wall; between them, under
+        # the soda union, the corbel turns back at 45 degrees onto the DATA pad's own run-out.
         b=block.BoundingBox()
         root=outer[3]-back_wall_t_at(x,z)
         if root>b.ymax:
@@ -8403,6 +8498,11 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
                 cheek=_yz_prism(xa,xb,[(root,edge),(b.ymin,edge),
                                            (root,edge-up*(root-b.ymin))])
                 feature=feature.fuse(cheek)
+            pad_y,pad_z=_data_fit.pad_runout(station,outer[3],up=up)
+            ridge=(b.ymin+pad_y)/2-up*(pad_z-edge)/2
+            feature=feature.fuse(_yz_prism(x-pw/2,x+pw/2,[
+                (b.ymin,edge),(ridge,edge-up*(ridge-b.ymin)),
+                (pad_y+.01,pad_z+up*.01),(pad_y+.01,edge)]))
             feature=feature.intersect(below_ceiling)
     cutter, _bands = _keystone_pocket_cut(x, z, y_face)
     if catches is not None:
@@ -8773,7 +8873,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             inner, outer, y_joint, box.pack.funnel, funnel_seat_z(outer), y_side)
         if receivers is not None:
             piece = piece.fuse(receivers)
-        piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
+        piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel, box.pack.side_wells, up))
         if y_side == 'front':
             piece = piece.cut(_funnel_frame_part.front_roof_clearance(
                 inner, box.pack.funnel, funnel_seat_z(outer), y_joint))

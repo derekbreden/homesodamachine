@@ -85,11 +85,12 @@ tongue is the wall continued one `wall` *into* the cavity, and on those faces th
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
 tongue would drive straight into the core. The floor laps anyway, but as a
 **full-thickness tongue with a 45° scarf nose inside the slab** (`_floor_scarf`):
-the front floor runs one overlap aft on the print bed and tapers through the slab
-at its nose; the back keeps the matching bed-side wedge. The assembled top stays
+the front floor runs one overlap aft on the print bed, rises in a 45° nose off the bed
+and ends square; the back keeps the matching bed-side wedge. The assembled top stays
 flat under the core, while both printed bearing faces remain support-free. The handholds remove the slab at both flanks; the scarf continues across the middle
-under the cold core. Each handhold's inner wall ends square at its full 3 mm
-section, with one running fit between the front and back faces.
+under the cold core. Its square ends stand on the plane each handhold's inner wall ends
+on, the wall at its full 3 mm section, with one running fit between the front and back
+faces.
 
 Each ±X corner of that seam is a **stack of knuckles**: blocks of one piece standing in the
 other's overlap, alternating up the corner, with two vertical M5 screws through them
@@ -475,9 +476,10 @@ on the two tabs and the wall's press fit locates it.
 The manifold junctions share the +X front-top flank at Y169: the J1 221-420
 is centred at Z280 and the J2 221-415 at Z246. Their pockets retain the
 3 mm wall section. The lower pocket has a full lid; the upper pocket keeps its two tabs
-and ramp. Both connectors face inboard, with room for their wire entries and
-lever travel below the funnel frame. J1 branches feed V-A through V-H; J2 branches
-feed V-I, V-J, the condenser fan and V-K. Their routes and remaining harness
+and ramp, and between the tabs the funnel frame's foot clearance comes down to its lid, so the
+ramp ends on that clearance's outboard face. Both connectors face inboard, with room for their
+wire entries and lever travel below the funnel frame. J1 branches feed V-A through V-H; J2
+branches feed V-I, V-J, the condenser fan and V-K. Their routes and remaining harness
 qualification are described in the
 [wiring schedule](/hardware/wiring/ac-wiring-schedule.md#loom-terminations).
 
@@ -699,7 +701,9 @@ such a land stays wall too. The MQ-6's two posts stop below the vent band, but i
 cut through the added inner flank skin beside it. The two intake grooves whose jambs would leave
 less than one 3 mm wall to that chute stay solid through the courses the chute reaches, and vent
 like any other above it, there being no chute up there to leave a strip against; the chute is not
-widened into a vent, and no 1.261 or 1.981 mm strip survives between the two openings. All
+widened into a vent, and no strip thinner than a wall survives between the two openings. Over
+the chute, the skin between two crossing slots on one flank of its arched roof ends level at
+the crown of the can's sweep, square to both jambs. All
 [85](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
@@ -1071,8 +1075,8 @@ The Y-seam lip is the one joint the orientation costs something. Front-top's cei
 tongue juts one overlap past the body into the space the back piece's ceiling
 occupies — a cantilever that cannot be buttressed without colliding with the back
 piece, and so wants print support. The floor does not share that cost: its tongue
-runs aft at the slab's full thickness with its underside on the bed, then ends in
-a one-wall-long 45° scarf nose. The back half's matching wedge also grows from the
+runs aft at the slab's full thickness with its underside on the bed, then rises in
+a 45° scarf nose and ends square. The back half's matching wedge also grows from the
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free. Back-top's upper corner blocks grow directly from
 the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
@@ -1132,9 +1136,10 @@ shroud opening continues through the rear wall. Over the inlet the ceiling is th
 underside, which looks print-up, so nothing between the receptacle's moulded rim and the ceiling
 asks for a separate rectangular relief band or a support stack.
 
-The **PRV chase's roofs lean from the −X wall too**. Where its open exterior groove
-becomes the closed fall, the roof rises inward across the exact
-[3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. The closed passage's roof is one X plane
+The **PRV chase's closed roof leans from the −X wall too**. Where its open exterior groove
+becomes the closed fall, the groove's roof is level across the
+[3 mm](VENT_GROOVE_ROOF) show-skin section: it looks print-up on back-top and meets the show
+face square. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
 keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
 at X−90.75, 0.25 mm outboard of the core's X−90.5 flank. Back-top's share of the rib
@@ -1788,10 +1793,13 @@ collapse to one cutter. The ASSE chain's five overlapping section plans share on
 without changing any plan edge, and the flow meter's body and two arms do the same. Relay #1 and
 the ground stack share one named roof plane and one local connector across their 1.181 mm plan
 gap; the ground stack's two overlapping source rectangles alone take their small rectangular
-envelope. No other pair is merged by proximity. Gasher's singleton crown pocket keeps its plan
-and is exactly one 3 mm wall deep; every other local pocket between zero and 3 mm deep is a
-producer error. The C14's ceiling pocket is its canonical slipped flange profile continued along
-the insertion run, so the pocket and the flange seat are one outline.
+envelope. No other pair is merged by proximity. Where a pocket runs on out of another body's
+overlapping pocket under the same roof, both its sides less than a wall inside that pocket's,
+the slab takes it with that pocket's sides (`enclosure._back_top_ceiling`): the gas chain's two
+check adapters and the gasher's crown open as one channel. Gasher's singleton crown pocket
+keeps its plan and is exactly one 3 mm wall deep; every other local pocket between zero and
+3 mm deep is a producer error. The C14's ceiling pocket is its canonical slipped flange profile
+continued along the insertion run, so the pocket and the flange seat are one outline.
 The flow meter's two anchors and every rib rooted on
 the ceiling — the carb-1 and co2-2 ribs and the regulator's — get the room their zip tie's
 loop comes down: over the tie band alone, the rib's reach plus the tie's thickness and its
