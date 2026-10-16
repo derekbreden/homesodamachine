@@ -1,0 +1,21 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-16T08:56:46.365351+00:00",
+  "options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mapped_tiles": {
+    "2": [
+      "Ext TPU R"
+    ]
+  },
+  "notes": [
+    "Nozzle Diameter",
+    "Left Nozzle",
+    "Right Nozzle",
+    "Nozzle Offset Calibration"
+  ]
+}

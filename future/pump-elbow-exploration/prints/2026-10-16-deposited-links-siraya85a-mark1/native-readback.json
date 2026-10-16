@@ -1,0 +1,67 @@
+{
+  "prepared_at": "2026-10-16T08:38:05.442278+00:00",
+  "geometry_source": "future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.3mf",
+  "geometry_sha256": "a91c77a7fb9c080598298096ba1105f34f813fae7e6c2dad2f0000f8a8bac48c",
+  "material_source": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "material_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
+  "project": "2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.3mf",
+  "project_sha256": "95493e6128cb9213923c23afbbbca245e233922e2951c3b7000f511ee88fdab1",
+  "archive": "2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1-native.gcode.3mf",
+  "archive_sha256": "d217f2f4d34866dc0460f0e2773f1091b182afd0b3b5bd9e25acbbcc676a0124",
+  "gcode_sha256": "67f3ce660504ca1171eecb3fbd7d6d9fdda9df1b0c13c5d6054c96e6c308ecb1",
+  "estimated_seconds": 7719.529296875,
+  "estimated_filament_g": 8.445480346679688,
+  "slicer_warning": "",
+  "cache_run": ".cache/pump-elbow-exploration/deposited-links/native-4jh8t7aq",
+  "emitted_photo_trip_commands": 0,
+  "settings": {
+    "filament_settings_id": [
+      "Siraya Tech Flex TPU 85A Clear @H2C right 0.6"
+    ],
+    "filament_colour": [
+      "#FFFFFF"
+    ],
+    "filament_map": [
+      "2"
+    ],
+    "filament_nozzle_map": [
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.6",
+      "0.6"
+    ],
+    "nozzle_temperature": [
+      "215",
+      "215",
+      "215"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "225",
+      "225",
+      "225"
+    ],
+    "eng_plate_temp": [
+      "35"
+    ],
+    "filament_flow_ratio": [
+      "0.96",
+      "0.96",
+      "0.96"
+    ],
+    "filament_max_volumetric_speed": [
+      "2.2",
+      "2.2",
+      "2.2"
+    ],
+    "filament_retraction_length": [
+      "0.8",
+      "0.8",
+      "0.8"
+    ],
+    "curr_bed_type": "Engineering Plate",
+    "wall_loops": "6",
+    "sparse_infill_density": "100%",
+    "brim_object_gap": "0"
+  }
+}

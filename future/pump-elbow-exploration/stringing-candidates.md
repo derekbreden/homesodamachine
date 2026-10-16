@@ -1,6 +1,16 @@
 # TPU stringing candidates
 
-**Status: the vertical center-web pair retains dense bore and exterior-to-fin stringing.** The
+**Status: the deposited-path Siraya pair is submitted; its physical stringing result is pending.**
+The [current trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+prints native wall and fin paths through turns and uses straight material-contained
+chords between those paths. Its emitted review covers every free attachment span,
+including a conservative case that ignores extrusion runs shorter than 1 mm as
+attachments. It adds 1.21% deposition on existing inner-wall paths, with no part
+retractions, Z hops or photo trips. Mark1 accepted task 1344414329 with clear
+Siraya Tech TPU 85A; allow about 2 hours / 8.55 g. Actual strand attachment and
+string reduction remain unassessed.
+
+The vertical center-web Bambu pair retains dense bore and exterior-to-fin stringing. The
 [tested trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md) connects
 both elbows and each elbow's legs with tapered cutaway fins. The joining web
 stays in a vertical center plane from the bed to its top. Both standalone
@@ -26,10 +36,14 @@ went around. The [command review](prints/2026-10-16-vertical-center-web-tpu85a-m
 contains a layer-49 example: zero nozzle travel outside the model, with a
 3.98 mm potential taut span across a bore.
 
-The proposed anchoring mechanism requires a continuous deposited path through
-the connection or a reliable new attachment before changing direction. One
-connected model and travel-wall avoidance alone do not establish it. No trial
-in this study demonstrates that mechanism as a stringing fix.
+The anchoring mechanism requires a continuous deposited path through the
+connection or a reliable new attachment before changing direction. The
+[deposited-path trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+splices the existing paths into layer tours, printing through the turns. Its
+free transfers and potential taut spans are straight and contained within
+material. Its physical result is pending. One connected model and travel-wall
+avoidance alone do not establish attachment, and no completed trial in this
+study demonstrates this mechanism as a stringing fix.
 
 ## Departure lap
 
