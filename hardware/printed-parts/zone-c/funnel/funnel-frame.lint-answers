@@ -4,10 +4,30 @@ file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
 click: x=100.875 y=-10.696 z=16.200
 click: x=-100.875 y=-10.696 z=16.200
 
-[thin] These 1.540 mm nearest-surface readings run diagonally from the narrowed rear body's upper outer corner to the front roof surround's inner end corner. In machine coordinates the east pair is (91.25, 200.098, 348.978) to (89.75, 199.75, 349.0); frame coordinates subtract Y164.55 and Z299.9. Native horizontal sections through the rear pick retain X82.8..91.25, or 8.45 mm of stock, through Z346..348.978. Immediately above Z349 that rear region is empty; ahead of Y199.75 the upper surround retains X89.75..98.25, or 8.50 mm. The short diagonal is real material at the meeting of those two broad sections; it does not identify a finite 1.5 mm rear wall. The complete 3 mm brim-bearing plane remains beneath the silicone. The source-bound native corner sections are recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
+[thin] These 1.540 mm nearest-surface readings run diagonally from the narrowed rear body's upper outer corner to the front roof surround's inner end corner. In machine coordinates the east pair is (91.25, 199.786, 348.652) to (89.75, 199.75, 349.0); frame coordinates subtract Y164.55 and Z299.9. Native horizontal sections through the rear pick retain X82.8..91.25, or 8.45 mm of stock, through Z346..348.978. Immediately above Z349 that rear region is empty; ahead of Y199.75 the upper surround retains X89.75..98.25, or 8.50 mm. The short diagonal is real material at the meeting of those two broad sections; it does not identify a finite 1.5 mm rear wall. The complete 3 mm brim-bearing plane remains beneath the silicone. The source-bound native corner sections are recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
 alternatives: Widening the rear body enters back-top's corner-block passage, which retains 0.25 mm running clearance. Removing the bearing below Z349 would reduce the agreed full silicone-brim support. A cut confined to the rear above Z349 removes no material there. The two broad sections retain their square functional ends rather than adding a local blend around the diagnostic's diagonal.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=-91.250 y=35.548 z=49.078
+click: x=-91.250 y=35.236 z=48.752
 click: x=-89.750 y=35.200 z=49.100
-click: x=91.250 y=35.548 z=49.078
+click: x=91.250 y=35.236 z=48.752
 click: x=89.750 y=35.200 z=49.100
+
+[thin] These 1.518 mm readings follow a diagonal across the junction between the central frame body and each blunt front foot wing. The first pick at X±98.016 lies inside the retained body boundary X±98.25 on the corbel underside; the other is the wing's upper root corner at local Y-47.759, Z7. The free wing ends on that plane with a full nominal 3 mm vertical section, Z4..7. The rail bearings stand at Z16.2, above this foot-wing junction. The diagnostic's short diagonal crosses the corner between the broad body and the nominal 3 mm end. The finite wing-end intervals and source-bound body and bearing regions are recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
+alternatives: Extending the cut inboard would remove the main body and under-flare stock. Moving the end forward would reduce its section below the nominal 3 mm; moving it farther aft would remove more of the wing. The straight 3 mm end keeps the broad body and the rail geometry.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=98.016 y=-49.062 z=6.256
+click: x=98.250 y=-47.759 z=7.000
+click: x=-98.016 y=-49.062 z=6.256
+click: x=-98.250 y=-47.759 z=7.000
+
+[thin] These four 3.000 mm readings cross the nominal 3 mm drain web and front roof-surround wall. The floor readings run from Z0 to Z3; the front-wall readings run between Y-69.092 and Y-66.092 in exported frame coordinates. They identify the ordinary full section. The complete native silicone-brim bearing retains its required 3 mm thickness, as recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
+alternatives: Removing material would reduce the ordinary section. Adding stock into the forming clearance or moving the front surround would change the defined funnel fit; the measured nominal section requires no thin-feature allowance.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=-14.106 y=-11.406 z=0.000
+click: x=-14.106 y=-11.406 z=3.000
+click: x=62.150 y=-66.092 z=55.092
+click: x=62.150 y=-69.092 z=55.092
+click: x=62.261 y=-69.092 z=52.166
+click: x=62.261 y=-66.092 z=52.166
+click: x=-16.357 y=-20.727 z=3.000
+click: x=-16.357 y=-20.727 z=0.000
