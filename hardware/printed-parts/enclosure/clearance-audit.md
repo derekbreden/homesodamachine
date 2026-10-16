@@ -163,11 +163,16 @@ the nominal hardware envelopes used to size the CAD pockets.
 The [native enclosure fit review](enclosure/y-seam-fit-review.json) binds nine targeted
 stages to the current production artifacts. It retains every measured finite planar
 patch, its normal, print direction, required allowance and actual gap, together with
-complete local stock checks. The stages cover quadrants and frame, hardware stock,
+complete local stock checks. The stages cover quadrants and frame, four M5 insert
+hosts and four washer floors,
 pump receiver, nameplate and DATA, rings, window covers, tee carrier, the 45° bedding
-edge and the five external core bodies. The final cradle/frame confirmation records
-actual canonical geometry, supported hook clearance, complete webs and the retained
-silicone bearing. Its sampled flexure and route results retain their stated model scope.
+edge and the five external core bodies. The cradle body has its own native finish,
+stock and capture measurements. Complete protected hook/leaf equality and the unchanged
+frame preserve the identified hook gaps, webs and silicone bearing measurements.
+Earlier route readings remain conservative lower bounds because the body only removes
+stock; their original input and model scopes are retained. The 35 insert-station readings
+and 14 finished-knuckle queries remain evidence for their original artifact hashes.
+The current stock-only stage does not refresh screw engagement or blind-tip reserve.
 
 The [quadrant reading](mating-clearance-check.json) records the four current enclosure
 STEP hashes and its complete finite-patch and explicit-probe results. Its measured

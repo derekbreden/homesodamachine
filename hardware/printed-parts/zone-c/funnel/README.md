@@ -82,8 +82,8 @@ Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
-and their integration checks. The current front-rail engagement, brim bearing,
-capture and assembly motion are recorded in
+and their integration checks. Front-rail engagement, brim bearing,
+capture and assembly motion for the identified artifact hashes are recorded in
 [`integration-review/rail-motion-check.json`](integration-review/rail-motion-check.json).
 
 The frame prints on its underside. The exported individual STEP and STL place
@@ -154,8 +154,8 @@ records sampled insertion of the exported frame through both actual upper shells
 their closing motion, and capture against 2 mm translations on all three axes.
 Run `integration-review/check_fit.py` from the CAD environment to refresh it.
 
-The [current Mark2 frame job](flush-roof-review/mark2-v1/README.md) binds the
-exported STEP/STL to one accepted print, all 230 native model layers and complete
+The [Mark2 frame job](flush-roof-review/mark2-v1/README.md) binds its
+recorded STEP/STL to one printer-accepted job, all 230 native model layers and complete
 support-slab removal sweeps. Its four bed-rooted supports reach the external
 rail bearings and have outward removal paths after contacts and branch
 junctions are detached. Physical support-removal effort and fit remain
