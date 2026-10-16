@@ -104,11 +104,12 @@ overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
 - **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
   **hub** over the lip rim: back-bottom, front-bottom, back-bottom, front-bottom, then the hub
   at Z[175.05..195.05](Y_STACK_HUB). Front-bottom's first block starts at Z66.2;
-  its top block ends at Z174.8, 0.25 mm below that hub. An [M5 × 150](LOWER_ROD) drives up from the handhold
+  its top block ends at Z174.696447, 0.353553 mm below that hub. The same retreat gives
+  0.25 mm measured normal to front-top's adjacent 45° rail bedding. An [M5 × 150](LOWER_ROD) drives up from the handhold
   ceiling, its head recessed into back-bottom's knuckle, through every
-  knuckle into a ruthex RX-M5x9.5 set in the hub's underside. Tightening it pushes back-bottom
-  up into front-bottom and pulls back-top down onto front-bottom's top knuckle, so both bottoms
-  and the back column's Z seam are clamped at the corner. The hub stands where back-top's notch
+  knuckle into a ruthex RX-M5x9.5 set in the hub's underside. The screw captures both bottom
+  pieces at the corner and anchors them to back-top; the Z rails retain back-top vertically.
+  The hub stands where back-top's notch
   roof already stands over the back rail's heads, so it slides fore over them as back-top
   goes on.
 - **The upper stack** stands under the roof, over the tap-water line on the −X flank:
@@ -120,23 +121,22 @@ overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
   Front-top's knuckle gives its inboard-aft edge a 45° chamfer for the flavour line that turns
   past the −X corner under the frame (`y_stack_upper_chamfer`).
 
-All printed faces between blocks require their applicable static or sliding fit and the allowance for
-each supported surface, including faces loaded when the screws seat.
+All PET-GF-to-PET-GF faces between blocks require their applicable static or sliding fit and
+the allowance for each supported surface, including faces loaded when the screws seat.
 The middle bottom-piece gaps are [0.5 mm](Y_STACK_GAP).
 The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. The M5 insert and
 its manufacturer minimum surrounding stock, [Ø11.6](Y_STACK_INSERT_BOSS) about the screw
 axis, fit inside the side band.
 
 Each screw carries **one ordinary M5 flat washer**, Ø10 × 1 mm, directly under its head.
-The [Ø10.8 × 8.4 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
-interior, with a complete washer-bearing floor. Its depth includes 0.40 mm for the
-supported washer seat: 0.15 mm static fit plus 0.25 mm supported-face allowance.
-The lower floor is Z37.65 and the upper floor is Z346.60. The nominal screw and washer
-poses keep the head faces recessed 2 mm from the handhold ceiling and roof.
-These modeled allowances provide room for printed material; they do not establish
-an empty gap after seating. Screw length tolerance and the actual blind
-pocket are reported in the [native insert audit](heat-set-review/geometry-check.json), including minimum thread engagement and
-clearance beyond the longest specified screw. The screw passages are printed to size.
+The [Ø10.8 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
+interior, with a complete washer-bearing floor. The lower floor is Z37.25 and the upper
+floor is Z347. The nominal screw and washer poses keep the head faces recessed 2 mm
+from the handhold ceiling and roof. The steel washers bear directly on those floors.
+The [native insert audit](heat-set-review/geometry-check.json) reports screw reach for
+its identified artifacts. The current source retains the ±0.8 mm screw-length allowance;
+its refreshed native engagement and blind-tip readings are pending regeneration.
+The screw passages are printed to size.
 Seat the washers with a hand-operated 4 mm hex key and stop at the intended bearing faces.
 The printed joint has no qualified installation torque or retained clamping force.
 
@@ -147,11 +147,12 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [current fit review](y-seam-fit-review.json) binds the final native parts and
-records 111 compliant finite planar pairs, the detailed 59-patch quadrant survey
-and its 11 local probes, four 0.40 mm washer-seat allowances with complete 3 mm
-backing, M5 insert backing, the full-height core pocket and positive hub/PRV
-separation. Seating and clamping faces receive the same applicable fit rules.
+The [retained fit review](y-seam-fit-review.json) contains 111 finite planar-pair readings
+and 17 contact dispositions for its identified source and native hashes. The detailed
+quadrant survey records 59 patches and 11 local probes for its own inputs. These records
+do not establish the current source's final fit; refreshed exports and readings are pending.
+The core's nominal crown remains Z253.4; its pocket and hold-down readings await the
+regenerated enclosure artifacts. TPU and internal core fits retain their component geometry.
 The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
 parts, complete funnel-brim bearing and sampled straight assembly motions. The
 [frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
@@ -361,8 +362,9 @@ The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
 core meets the band at the seam's storey; the compressor and condenser stand wholly
-under the mouth. The core's rounded fit pocket extends 0.25 mm below its nominal
-floor plane; the slab retains 5.75 mm under that pocket. The print-corner relief runs
+under the mouth. The core's rounded fit pocket extends 0.35 mm below its nominal
+floor plane: 0.25 mm running plus 0.10 mm cavity-floor transition allowance. The slab
+retains 5.65 mm under that pocket. The print-corner relief runs
 on the standing verticals and the Y-seam's floor joint stays inside the slab.
 
 The pack's enclosing seam features retain their applicable fit allowances, and both
@@ -389,6 +391,14 @@ assembly is off.
 `rear_seam_clear` is the single source for the +Y wall: `enclosure_assembly` seats the
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
+
+PET-GF bulkhead rings retain their flush front poses, with 0.15 mm behind each ring.
+Normal port backing extends inward by the same amount and retains 4 mm below the pocket;
+the relieved CO2 land retains 3 mm. The barrel's clamped stack includes the 0.15 mm gap.
+Supported pocket edges receive their directional allowance in back-top's inverted print pose.
+The nameplate and DATA plate backs also have 0.15 mm static clearance. The nameplate's
+production station is 0.30 mm west of the rear-field midpoint, with 2.14 mm of hidden east
+backing for the specified 1 mm PSU margin. Native confirmation is pending regeneration.
 
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
@@ -487,6 +497,9 @@ fore, and back-top slides aft off its rails if the tub itself is the work.
 
 ## Cold-core grips
 
+The cap crown is the core's Z253.4 nominal reference. TPU and internal core fits retain
+their component geometry. Final enclosure readings are pending regeneration.
+
 The core is the heaviest body in the machine and the one with no hole in it — a foamed cup
 under a screwed cap, plain skin the whole way round. What fastens it is the closed box: **the
 seams stand every piece against its neighbours**, so a feature printed on one piece stands
@@ -511,7 +524,7 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
   [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
-  0.25 mm above the core's nominal crown, putting the cap-facing foot at Z253.65.
+  0.25 mm above the core's cap crown, putting the cap-facing foot at Z253.65.
   This face prints upward with back-top inverted and adds no supported-face allowance.
   The straight web carries
   the flange. The lane is the one strip of the aft crown clear of
@@ -519,9 +532,10 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   band, taken on both flanks so the pair is a mirror.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
-from Z−0.25 under the core to Z253.65 above its crown. The remaining floor is
-5.75 mm thick. The floor, front blocks, rear seam band and cap brackets bound
-the core in all directions with the modeled allowance at their mating faces.
+from Z−0.35 under the core to Z253.65 above its cap crown. Its floor allowance is
+0.25 mm running plus 0.10 mm at the cavity-floor transition. The remaining floor is
+5.65 mm thick. The floor, front blocks, rear seam band and cap brackets bound
+the nominal core envelope in all directions with the modeled allowance at their mating faces.
 
 **The core enters from ahead, and only from ahead.** The back column closes empty — its
 +Y wall cannot pass over a seated core — so the core rides in through the open Y-seam
@@ -708,7 +722,7 @@ its doors shut is in the [enclosure README](/hardware/printed-parts/enclosure/RE
 ## Mating clearances
 
 [`cadlib/fits.py`](/hardware/printed-parts/cadlib/fits.py) supplies the per-face allowances
-for the enclosure and its installed printed accessories:
+for PET-GF parts mating with other PET-GF parts in the enclosure:
 
 | Mating surface | CAD clearance |
 |---|---:|
@@ -736,8 +750,9 @@ A bore receives twice the base per-face allowance in its diameter; only its supp
 receives the extra 0.25 mm. Where a pocket's enclosing wall is 3 mm thick, its outer stock
 moves with the pocket or the mating part retreats. Printed bearing, locating, seating
 and clamping faces require the same applicable allowances; a datum does not waive them.
-Gasket compression, manufacturer-specified insert holes and interference fits retain
-their functional geometry.
+TPU, PETG, cold-core internals, the faucet and display seating retain their existing
+component geometry. Steel washer floors retain their nominal bearing planes.
+Manufacturer-specified insert holes and interference fits retain their functional geometry.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.
 
 `petgf.3mf` carries a 0.45 mm requested support top Z distance, two top interface layers,
@@ -1049,13 +1064,13 @@ Behind the anchor, one channel spans both zip-tie bands: its fore and aft end fa
 `tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top
 mouth opens into the lane the slab leaves over the same span (`_ceiling_tie_channel_relief`).
 
-The **bay floor** is front-top's first layer: it IS front-top's
-first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
+The **bay floor** begins at front-top's Z160.25 print bed, one running fit above the
+nominal Z seam, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the whole front storey. The pump cartridge slides across it,
 and the rear bulkhead grows from its full section.
 
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
-only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
+only thing in it that could have hung. The piece beds parallel to the Z seam, so a bore on Y
 lies horizontal and its crown is the only face in the wall that could be laid on air.
 Each is **teardropped** (`_tee_bore`): the roof stands on the bore's own tangent points.
 Its two planes rise at [36°](TEARDROP_ROOF), one whole degree above the history-only back-top
@@ -1302,8 +1317,9 @@ east lane to the cold core.
 
 **The pumps leave through one large lower cradle.** `enclosure-pump-cartridge`
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
-and both hand pulls. Its filled bearing block rides the bay floor; its exterior
-face begins on that same bed plane above a [0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) recess in the fixed sill and ends
+and both hand pulls. Its filled bearing block has 0.35 mm of modeled room above the receiving
+floor: 0.25 mm running clearance plus 0.10 mm for the cavity-floor transition. Its exterior
+face begins on the cartridge bed plane and ends
 [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The bed plane is z [165.195 mm](PUMP_CARTRIDGE_BOTTOM_Z), the crown is z
 [284.174 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
 [118.979 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
@@ -1450,17 +1466,18 @@ straight aft face meets the bay bulkhead across the complete width.
 
 The cradle's exterior stands plumb from its common bed plane to
 [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The fixed shell perimeter is recessed
-[0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) below its lower edge while the interior
-floor carries its flat underside. Both rounded hand pockets belong to this cradle.
+[0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) below its lower edge; the receiving
+floor is 0.35 mm below its flat underside. Both rounded hand pockets belong to this cradle.
 
 ## The bay floor
 
 Front-top carries one continuous floor from the front wall through the rear bulkhead.
-Its flat bearing sill is z [165.195 mm](PUMP_BAY_FLOOR_Z),
-[2.6 mm](PUMP_BAY_FLOOR_RELIEF) below the pump-neutral floor datum. The independently scanned
-rigid front-rim envelope keeps [0.329 mm](PUMP_HEAD_FLOOR_AIR) above it. The full floor retains
-[5.195 mm](PUMP_BAY_FLOOR_STOCK) of stock and keeps one flat insertion/withdrawal lane. The floor begins on front-top's Z-seam
-print bed and runs into the full thickness of the bulkhead.
+Its flat receiving sill is z [164.845 mm](PUMP_BAY_FLOOR_Z), 0.35 mm below the cartridge's
+unchanged Z165.195 bed datum. The independent [2.6 mm](PUMP_BAY_FLOOR_RELIEF) neutral-floor
+relief also remains. The scanned rigid front-rim envelope keeps
+[0.679 mm](PUMP_HEAD_FLOOR_AIR) above the receiver. The full floor retains
+[4.595 mm](PUMP_BAY_FLOOR_STOCK) of stock above front-top's Z160.25 print bed and keeps one
+flat insertion/withdrawal lane. It runs into the full thickness of the bulkhead.
 
 Front-bottom's lip drops around the front and both flanks as far as the tee-wall datum.
 The floor crosses that run wall to wall.
@@ -1489,7 +1506,7 @@ The clamp lifts through the cradle's straight upper wells, which open through it
 face. Its broad underside, fitted boss openings and motor bores close over both pumps.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
-side face, from the floor's own top at z [165.195 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
+side face, from the receiver floor at z [164.845 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
 [284.674 mm](PUMP_BAY_LINTEL_Z), and aft to the flat bay bulkhead. The lintel is relieved
 [2.5 mm](PUMP_BAY_ROOF_RELIEF) upward from its pump-neutral roof datum and keeps
 [7.45 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor crowns. The flat sill runs wall to

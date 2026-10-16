@@ -1761,21 +1761,15 @@ PORT_BOSS_PROUD = _ring.THICK
 
 
 def port_clamp_stack(t: float) -> float:
-    """What a fitting's bare barrel spans at a station carrying `t` of wall — its flange's face
-    down to its nut's landing, and the whole of what `port-clamp-stack` may spend.
+    """The barrel length from the flush ring face to the inboard nut land.
 
-    THE RING IS IN THE SECTION AND NOT ON IT. `bulkhead_seat_y` is the wall's own outer face and
-    the chip lies flush in a pocket cut one `bulkhead_ring.THICK` into it, so the flange bears on
-    one plane and nothing of the chip stands outboard of the wall to be added to the stack.
+    The section includes the ring, its static back gap and the complete receiving wall.
+    A relieved station retains `wall + PORT_BOSS_PROUD` of total nominal section;
+    a thicker station retains its full `t`. The backing grows inward by the back gap.
+    """
+    return max(t, _enc.wall + PORT_BOSS_PROUD) + fits.slip
 
-    AND THE NUT LANDS ON RETAINED STOCK ONLY WHERE THE WALL KEEPS SOME. What it spans is the
-    chip, the stock left under it and `PORT_BOSS_PROUD` of retained land — and that land is only
-    what the wall has not already made back, so a wall carrying more than `enclosure.wall`
-    retains none and the nut lands on its bare inner face. The stack is the section itself
-    there, and `enclosure.wall` plus the whole land where the wall figure is `enclosure.wall`:
-    a RELIEVED station stacks more than `back_wall_t_at` names, and a thick one stacks exactly
-    what it carries."""
-    return max(t, _enc.wall + PORT_BOSS_PROUD)
+
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
     it. The wall cuts it and `PORT_FIELD_PITCH` spaces the columns by it, off this one call."""
@@ -1886,10 +1880,9 @@ def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
 def build_bulkhead_rings(stations):
     """The chips and their words, two solids per station, as `(name, solid, colour)`.
 
-    Each is seated on the same column its pocket was struck on, with its own inboard face on that
-    POCKET'S FLOOR — one chip's thickness inside the +Y wall of back-top's outer face. So the chip's outboard
-    face and the wall's come out one plane, the fitting's flange lands on the chip where the bare
-    wall would otherwise carry it, and the chip is in the clamped stack the way the wall is.
+    Each chip's inboard face is one chip thickness inside back-top's outer face. The receiving
+    floor stands one static allowance farther inboard. The chip's outboard face and the wall
+    share a plane, and the fitting's flange traps the chip in the clamp stack.
 
     THE WORD RIDES THE CHIP IT IS CUT INTO, on that same seating: one station is ONE file holding
     both bodies in one frame, with the word already lying in its recess, so the pair cannot come
@@ -1931,7 +1924,7 @@ def nameplate_field() -> tuple:
 
 
 def nameplate_station(stations, foam) -> tuple:
-    """Centre the plate across the rear field, above the cap's complete wall ligament."""
+    """The plate 0.30 mm west of the field midpoint, above the cap's complete wall ligament."""
     west, east, _north = nameplate_field()
     _x, axis, _fitting, _family, which, _fluid = stations["bulkhead-flavor-a"]
     od, rise = _ring.outline(which)
@@ -1944,7 +1937,7 @@ def nameplate_station(stations, foam) -> tuple:
     required_z = max(crown + NAMEPLATE_CAP_CLEAR - pad_low,
                      crown + _enc.wall - mouth_low)
     lift = max(0.0, math.ceil((required_z - chip_z) * 4) / 4)
-    return ((west + east) / 2, chip_z + lift)
+    return ((west + east) / 2 - .30, chip_z + lift)
 
 
 def nameplate_cut(station) -> _enc.Nameplate:
@@ -1953,7 +1946,7 @@ def nameplate_cut(station) -> _enc.Nameplate:
 
 
 def nameplate_receiver(station):
-    """The accepted flat-wing receiver's inboard stock at its enclosure station."""
+    """The flat-wing receiver's complete inboard stock at its enclosure station."""
     x,z=station
     floor=_enc.rear_plane_y+_enc.wall-_np.THICK
     fixture=_np.wing_interface.production_backing(
@@ -1962,8 +1955,10 @@ def nameplate_receiver(station):
 
 
 def build_nameplate(station, unit: int = 1):
-    """The plate and its lettering, two solids, seated on the pocket's own floor — one plate's
-    thickness inside the wall's outer face, so its face and the wall's come out one plane."""
+    """The plate and lettering with the back one plate thickness inside the outer wall.
+
+    Its receiving floor retreats by the static allowance while this installed pose stays fixed.
+    """
     x, z = station
     floor = _enc.rear_plane_y + _enc.wall - _np.THICK
     plate, ink = _np.split(import_step(str(_np.step_path(unit))).val())

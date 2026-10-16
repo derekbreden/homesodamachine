@@ -1,4 +1,8 @@
-"""Per-face clearances between mating parts.
+"""Per-face clearances for the enclosure's PET-GF-to-PET-GF mating surfaces.
+
+The enclosure fit adjustment covers these printed interfaces. TPU, PETG, cold-core
+internals, the faucet, display seating and metal bearing seats keep their component-specific
+geometry; these constants do not prescribe an additional gap through a compliant gasket.
 
 Head-on assembly seats use `slip`; faces that slide past their mates use `running`.
 
@@ -13,7 +17,7 @@ A bore adds twice its per-face clearance to the diameter. A plate in an inset ha
 clearance at each edge. A lap raked at 45 degrees takes the clearance times `sqrt(2)`
 along its insertion axis.
 
-Printed mating and seating faces receive the applicable static or sliding allowance,
+PET-GF-to-PET-GF mating and seating faces receive the applicable static or sliding allowance,
 including the additional allowance for each supported face. A locating datum, screw clamp,
 bearing shoulder or travel stop does not waive those clearances.
 A face printed against the build plate retains its base fit allowance without the
