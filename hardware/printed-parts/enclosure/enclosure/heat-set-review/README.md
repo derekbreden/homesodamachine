@@ -2,14 +2,14 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cartridge precisely and can be handled without its joints opening.
-The [native audit](geometry-check.json) binds 35 insert stations to its six recorded
+The [retained native audit](geometry-check.json) binds 35 insert stations to its six recorded
 piece exports. It reads the complete installed insert envelopes, open pilots,
 blind relief, closed stock, insertion access and the Y seam's knuckles. Source and
 STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
-qualification. The [seam and handhold review](../y-seam-plain-review.json) records the
-current geometry and the scope of the handhold change relative to these bound insert
-and seam records.
+qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
+identified geometry and handhold scope. Refreshed native readings for the current
+PET-GF-to-PET-GF source adjustments are pending regeneration.
 
 ## Supplier constraints and screw stacks
 
@@ -23,10 +23,9 @@ screw tip. The seam screws carry a ±0.8 mm length allowance.
 
 Each screw head and flat washer sit in an inboard-open U-shaped access recess.
 Both complete washer-bearing annuli retain 3 mm of stock below their floors.
-Each pocket is 8.4 mm deep, including 0.40 mm of supported static-seat allowance;
-the lower floor is Z37.65 and the upper floor is Z346.60. Nominal head and washer
-poses retain the 2 mm head recess. The allowance accommodates printed material
-and does not guarantee an open gap after seating.
+Each pocket is 8 mm deep; the lower floor is Z37.25 and the upper floor is Z347.
+Nominal head and washer poses retain the 2 mm head recess. Each steel washer
+bears directly on its printed floor.
 The lower entry has a 0.5 mm bevel; its head seat and washer floor stay flat.
 The upper mouth continues inward into the funnel opening above the frame.
 The upper recess's roof-edge mouth has the named local thin-section allowance in
@@ -37,7 +36,7 @@ specific to the access mouth.
 
 | Station | Body | Pilot depth | Host / screw stack |
 | --- | --- | --- | --- |
-| Four Y-seam stack stations | M5, 9.5 mm | Lower 13.70 mm; upper 14.15 mm | The lower insert is in back-top's anchor block over the Z seam; the upper is in front-top's block under the funnel frame. Full 9.5 mm thread engagement remains at the shortest specified screw length; the longest screw retains 1.7 mm of blind-tip clearance |
+| Four Y-seam stack stations | M5, 9.5 mm | Lower 13.70 mm; upper 14.15 mm in the retained audit | The lower insert is in back-top's anchor block over the Z seam; the upper is in front-top's block under the funnel frame. The retained audit records full engagement and 1.7 mm minimum blind-tip clearance for its inputs; current-source native readings are pending |
 | Seventeen electronics / ground stations | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the unchanged PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
@@ -68,16 +67,19 @@ insert. The upper stack stands under the roof: front-top's knuckle under the fun
 frame and back-top's roof knuckle, with an M5 × 60 driven down into front-top's insert.
 Lower axes stand at |X|98.25 and upper axes at |X|98. The lower blocks reach
 13.75 mm from `interior_x`, leaving 0.25 mm to the core. Front-bottom's first block
-starts at Z66.2 and its top block ends at Z174.8, 0.25 mm below the back-top hub.
+starts at Z66.2 and its top block ends at Z174.696447, 0.353553 mm below the back-top hub.
+This gives 0.25 mm measured normal to the adjacent 45° front-top rail bedding.
 Front-top's upper insert mouth is Z299.65, 0.25 mm below back-top's Z299.9 block.
-Every printed block face requires its applicable static or running and supported-face
+Every PET-GF-to-PET-GF block face requires its applicable static or running and supported-face
 allowances, including the faces loaded when the screws seat.
 One Ø10 × 1 mm flat washer bears directly under each head.
 Clearance holes print at Ø5.6 mm. The audit reports nominal and minimum thread
 engagement and tip clearance with the ±0.8 mm screw-length allowance.
 
-A seam-opening load can put the fully threaded screws in bearing against the alternating
-blocks. The Ø5.6 mm printed holes have clearance around the nominal Ø5 mm screws; print
+A seam-opening load can put the screws in bearing against the alternating blocks.
+The lower M5 × 150 screws are partially threaded McMaster 91290A298, with at least 27 mm
+of thread at the tip; the upper M5 × 60 screws are fully threaded SVLING B0GHNHFYJN.
+The Ø5.6 mm printed holes have clearance around the nominal Ø5 mm screws; print
 variation and deflection determine which blocks bear first. Equal load sharing is
 unestablished. The audit reads every block's whole native section, its length along the
 screw and its ligament fore and aft of the clearance hole. These are geometric quantities,

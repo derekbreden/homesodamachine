@@ -125,18 +125,22 @@ def native_checks(enc, box):
     measured = json.loads(MEASUREMENTS.read_text())
     land = enc.pump_skirt_support_z(trays)
     floor_bottom, floor_top = enc.bay_floor_z(trays)
+    receiver_floor = floor_top - enc.pump_bay_floor_air
+    printed_bed = floor_bottom + enc.fits.running
     observed_front = measured['baseline_front_rim']['head_front_height_above_skirt_land_mm']['min']
-    front_air = land + observed_front - floor_top
-    declared_air = land - enc._tray.head_front_below_skirt - floor_top
+    front_air = land + observed_front - receiver_floor
+    declared_air = land - enc._tray.head_front_below_skirt - receiver_floor
     check('scan rigid front rim clears continuous floor', front_air >= enc.fits.running,
-          minimum_observed_air_mm=front_air, floor_top_z_mm=floor_top)
+          minimum_observed_air_mm=front_air, floor_top_z_mm=receiver_floor)
     check('declared rigid front envelope clears floor', declared_air >= enc.fits.running,
           minimum_envelope_air_mm=declared_air)
-    check('floor retains minimum stock', floor_top-floor_bottom >= 4.,
-          stock_mm=floor_top-floor_bottom)
-    check('emitted cradle beds on the corrected floor datum',
+    check('floor retains minimum stock', receiver_floor-printed_bed >= 4.,
+          stock_mm=receiver_floor-printed_bed)
+    check('emitted cradle retains its cartridge bed reference above the relieved receiver',
           abs(cradle.BoundingBox().zmin-floor_top) < 1e-6,
-          native_bed_z_mm=cradle.BoundingBox().zmin)
+          native_bed_z_mm=cradle.BoundingBox().zmin,
+          receiver_floor_z_mm=receiver_floor,
+          modeled_floor_gap_mm=enc.pump_bay_floor_air)
     lands = [f for f in cradle.Faces() if f.geomType() == 'PLANE'
              and f.normalAt().z > .99999 and abs(f.Center().z-land) < 1e-5]
     check('emitted cradle retains both flat skirt bearing lands',

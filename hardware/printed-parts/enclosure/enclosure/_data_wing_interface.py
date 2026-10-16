@@ -26,6 +26,7 @@ WING_END_INSET = (nameplate.HEIGHT-nameplate.WING_SPAN)/2
 WING_SPAN = HEIGHT-2*WING_END_INSET
 PROJECTION = nameplate.PROJECTION
 FACE_AIR = nameplate.FACE_X_AIR
+BACK_AIR = nameplate.BACK_AIR
 TIP_AIR = nameplate.TIP_AIR
 END_AIR = nameplate.END_AIR
 THICKNESS_AIR = nameplate.THICKNESS_AIR
@@ -57,9 +58,9 @@ def apply(solid,station,y_outer,*,up=-1,supported=SUPPORTED_AIR):
     solid=nameplate.apply(solid,Station(x,z+CENTER_Z),y_outer,up=up,
                           supported=supported,width=WIDTH,height=HEIGHT,wing_span=WING_SPAN)
     mouth=port_chip.outline(WIDTH+2*FACE_AIR,TOP+FACE_AIR,BOTTOM+FACE_AIR,
-                           POCKET_DEPTH+1,radius=CORNER_R+FACE_AIR)
+                           POCKET_DEPTH+1+BACK_AIR,radius=CORNER_R+FACE_AIR)
     mouth=mouth.fuse(mouth.translate((0,0,up*supported)))
-    return solid.cut(mouth.translate((x,y_outer-POCKET_DEPTH,z))).clean()
+    return solid.cut(mouth.translate((x,y_outer-POCKET_DEPTH-BACK_AIR,z))).clean()
 
 
 def plain_lips(station,y_outer):

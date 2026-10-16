@@ -23,15 +23,16 @@ The drain exits at X1.85, Y164.55, Z306.05. Geometry and clearances are recorded
 [`integration-review/forward-expansion-check.json`](integration-review/forward-expansion-check.json).
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
-centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
-hook tops. Its walls run up into the bowl's underside, so none of its top shows. Its straight 6 mm outlet grips the 6.35 mm drain tube along the complete
+centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05. The cradle's
+hooks stand outside this plug, with 0.60 mm minimum lateral air to the silicone.
+Its walls run up into the bowl's underside, so none of its top shows. Its straight 6 mm outlet grips the 6.35 mm drain tube along the complete
 5.015 mm insertion depth. The tube stays in the elbow when the silicone
 funnel lifts out for cleaning.
 
 The intended cleaning motion is lifting the whole silicone funnel out by hand.
 Its straight bore slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
 elbow's collet under the frame. To refit, press the plug into the frame's socket
-until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
+until the brim seats in the frame's roof recess.
 The [two mold shells and straight steel rod](../funnel-mold/README.md) form the
 complete block and cylindrical outlet.
 
@@ -41,14 +42,16 @@ The frame's complete plan envelope is 207 mm wide and 140.233 mm long.
 Its lower footprint runs from Y119.1 to Y210, 90.9 mm long and at most 207 mm wide;
 aft of Y199.75 it narrows to [182.5 mm](FRAME_REAR_WIDTH). Its underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
-silicone block's lower face between the hook tops. An [11.25 mm](FRAME_HOLE) hole at
+silicone block's lower face. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
 below the frame's underside in the released pose. The plug socket is a
 [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
-hole, its corners rounded by the plug's gap, with a 1 mm lead-in at its mouth. Its ±Y walls stand
-on the far ends of two straight
-[5.49 × 32.3 mm](FRAME_SLOTS) slots through the web, one each side of the hole, that take
-the elbow cradle's wings, so no strip of web stands between a slot and a wall.
+hole, its corners rounded by the plug's gap, with a 1 mm lead-in at its mouth.
+Two straight [5.65 × 32.3 mm](FRAME_SLOTS) slots through the web take the cradle's
+wings, with 0.25 mm air beyond each wing end. Above the web, outboard hook pockets
+open into the plug socket. Their outer corners have R0.30 rounds and at least
+0.25 mm normal air to the hooks. The complete 2.6 mm catch overlap stands above
+3 mm of frame web on both sides.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. Below Z306.9, the two front foot wings outside the 196.5 mm body
@@ -101,23 +104,32 @@ about 78% of the way round, and the collar, rung and nose stand free above it. T
 stands in the elbow's upper collet and up into the plug's bore, and `fluid-4` leaves the elbow's
 aft collet for V-B.
 
-Both X sides of the block carry on up the body's full [31.8 mm](CRADLE_LENGTH) length as
-[1.3 mm](CRADLE_WING_T) wings, [15.64 mm](CRADLE_WING_H) above the body, through the frame's
-slots. Each ends in a flat hook reaching [3.1 mm](CRADLE_HOOK) outward,
-[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge, to within
-[0.15 mm](CRADLE_TIP_GAP) of the counterbore's X wall. The cradle releases
-[0.65 mm](CRADLE_CATCH) from its insertion datum until the hook undersides bear on the web.
-The 3.15 mm thick hooks' flat tops at Z306.05 then bear beneath the silicone block over
-269.895 mm² in the native geometry.
-That reach sets the cradle's [30.1 mm](CRADLE_WIDTH) width and leaves
-[4.44 mm](CRADLE_WEB) of web between each slot and the drain hole. Pushed up, each wing bends [2.53 mm](CRADLE_BEND) inward at its
-hook into a [3.69 mm](CRADLE_LANE) lane inboard of it. A tip-loaded cantilever estimate puts the
-root strain near [3.2%](CRADLE_STRAIN). The [cradle trial](cradle-trial/README.md) tests the snap.
-The accepted v4 trial applies to its frozen meshes; the current hook thickness, slots and
-block bearing need a separate physical trial.
+The lower body is [29.8 mm](CRADLE_WIDTH) wide. Its full-length top crossbar is
+[39.8 mm](CRADLE_CROSSBAR) wide and 3 mm thick, with accessible support beneath its
+outboard ledges. Both sides carry [1.3 mm](CRADLE_WING_T) wings along the body's
+full [31.8 mm](CRADLE_LENGTH) length, [16.14 mm](CRADLE_WING_H) above the body.
+The wings and hooks stand 5 mm outward from each lower-body side. Their complete
+span is [46 mm](CRADLE_SPAN). Each flat hook reaches [3.1 mm](CRADLE_HOOK) outward,
+[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge. The outboard pocket gives
+[0.30 mm](CRADLE_TIP_GAP) X air and 0.25 mm end air; its R0.30 returns preserve
+0.25 mm normal corner clearance.
 
-The cradle prints on its bottom. The hooks' flat undersides are retention bearings and take
-accessible supports.
+The installed cradle stands [0.65 mm](CRADLE_CATCH) below its insertion datum.
+The hook undersides are at Z303.4, [0.50 mm](CRADLE_WEB_AIR) above the frame's
+Z302.9 web top: 0.25 mm running allowance plus 0.25 mm for the supported hook
+underside. Each hook retains its full 3.15 mm thickness, ending at Z306.55.
+The hooks sit outside the silicone plug; the plug, drain seal and elbow keep
+their specified shapes and positions.
+
+Each hook passes its slot's outer edge with 0.25 mm air while the wing is pinched
+inward. The source's tip-loaded cantilever model sizes the inboard lane and gives
+at least 0.25 mm nominal passage air; it does not establish insertion force or
+strain capacity. The [cradle trial](cradle-trial/README.md) records physical snap
+observations for its identified trial meshes. Those results do not qualify this
+hook, crossbar and slot geometry.
+
+The cradle prints on its bottom. The crossbar ledges and the hooks' flat
+undersides take accessible supports.
 
 ## Regenerate
 

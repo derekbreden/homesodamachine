@@ -18,12 +18,13 @@ WING_THICK = 1.68
 WING_SPAN = 30.0
 END_RADIUS = .6
 FACE_SLIP = fits.slip
+BACK_AIR = fits.slip
 # Full-depth body-width clearance; retain the ordinary Z gaps.
 FACE_X_AIR = .15
-# Local Y fit trial: keep the seating floor fixed and relieve the retaining face.
+# Local relief above each wing; the back has its own static clearance.
 THICKNESS_AIR = .45
-# The body locates X. Keep nonlocating wing tips clear of rounded slot corners.
-TIP_AIR = .25
+# The body locates X. Wing tips retain static clearance at full body travel.
+TIP_AIR = FACE_X_AIR + fits.slip
 END_AIR = fits.slip
 SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
@@ -60,10 +61,10 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
-    Nonlocating wing tips have 0.25 mm centered X clearance, retaining
-    0.10 mm at maximum body travel. The plate back and wing
-    undersides share the zero-clearance seating datum. The Y slot has 0.45 mm
-    of local trial relief above the seated wing. Its walls print vertically,
+    Nonlocating wing tips have 0.30 mm centered X clearance, retaining
+    0.15 mm at maximum body travel. The plate back and wing
+    undersides have static clearance from their receiving floors. The Y slot has
+    0.45 mm of local relief above the nominal wing. Its walls print vertically,
     so only the print-down mouth and slot ends receive the extra
     supported-surface allowance. This hand-inserted plate has no low-force fit.
     """
@@ -71,17 +72,18 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     shift = (station.x,floor,station.z)
     pw, ph = width+2*FACE_SLIP, height+2*FACE_SLIP
     pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+4)
-           .extrude(FLOOR_STOCK+THICK).edges('|Z').fillet(dimensions.CORNER_R+2).val()
-           .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK,0)))
+           .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges('|Z').fillet(dimensions.CORNER_R+2).val()
+           .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-BACK_AIR,0)))
     # A 45-degree inboard run-out carries the added pocket floor in the wall pose.
     zedge = -up*(ph/2+2)
     ramp = (cq.Workplane('YZ',origin=(-pw,0,0))
-            .polyline([(-FLOOR_STOCK,zedge),(-FLOOR_STOCK,zedge+up*FLOOR_STOCK),(0,zedge)])
+            .polyline([(-FLOOR_STOCK-BACK_AIR,zedge),
+                       (-FLOOR_STOCK-BACK_AIR,zedge+up*FLOOR_STOCK),(-BACK_AIR,zedge)])
             .close().extrude(2*pw).val())
     solid = solid.fuse(pad.cut(ramp).translate(shift))
-    mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1)
+    mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1+BACK_AIR)
              .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()
-             .rotate((0,0,0),(1,0,0),-90))
+             .rotate((0,0,0),(1,0,0),-90).translate((0,-BACK_AIR,0)))
     # The print-down mouth edge gets the same rough-surface allowance as the
     # slot end; otherwise that edge can bind before the wings are seated.
     mouth=mouth.fuse(mouth.translate((0,0,up*supported)))
@@ -90,7 +92,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     z1 = wing_span/2+END_AIR+max(0,up*supported)
     for side in (-1,1):
         xa,xb = sorted((side*(width/2-.1),side*(width/2+PROJECTION+TIP_AIR)))
-        solid = solid.cut(box(xa,xb,0,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
+        solid = solid.cut(box(xa,xb,-BACK_AIR,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
         # Entry bevel clears the rotating wing during hand-bent insertion.
         # The outer flat bearing retains the trial thickness gap.
         # The bevel follows the slot roof with its width and slope fixed.
@@ -105,8 +107,8 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     # Back access permits pushing the centre outward to release the wings.
     # Its diamond ceiling is self-supporting in the enclosure wall orientation.
     access=(cq.Workplane('XY').polyline([(-9,0),(0,10),(9,0),(0,-10)])
-            .close().extrude(FLOOR_STOCK+1).val()
-            .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-.5,0)))
+            .close().extrude(FLOOR_STOCK+BACK_AIR+1).val()
+            .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-BACK_AIR-.5,0)))
     solid=solid.cut(access.translate(shift))
     return solid.clean()
 
@@ -120,7 +122,7 @@ def receiver():
 def production_backing(solid, station, y_outer):
     """Relieve the hidden east backing beside the installed PSU terminal corner."""
     keepout=box(EAST_RELIEF_START,WIDTH/2+PROJECTION+4,
-                -FLOOR_STOCK-1,-EAST_BACKING,-HEIGHT/2-5,HEIGHT/2+5)
+                -FLOOR_STOCK-BACK_AIR-1,-EAST_BACKING-BACK_AIR,-HEIGHT/2-5,HEIGHT/2+5)
     return solid.cut(keepout.translate((station.x,y_outer-THICK,station.z))).clean()
 
 
@@ -129,7 +131,7 @@ def plain_lips(station, y_outer, *, width=WIDTH, wing_span=WING_SPAN):
     fields=[]
     for side in (-1,1):
         x0,x1=sorted((side*(width/2+FACE_X_AIR),side*(width/2+PROJECTION+TIP_AIR)))
-        fields.append((station.x+x0-.4,station.x+x1+.4,y_outer-THICK,y_outer+1,
+        fields.append((station.x+x0-.4,station.x+x1+.4,y_outer-THICK-BACK_AIR,y_outer+1,
                        station.z-wing_span/2-END_AIR-SUPPORTED_END_AIR-.4,
                        station.z+wing_span/2+END_AIR+.4))
     return tuple(fields)

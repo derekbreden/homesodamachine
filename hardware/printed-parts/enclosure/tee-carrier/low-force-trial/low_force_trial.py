@@ -18,9 +18,8 @@ from _materials import M_PETGF_BLACK, one_body
 from flute_payload import cut
 
 NAME = 'tee-carrier-low-force'
-# Low-force addition on this identified moving gap; ordinary running and rough
-# roof allowances remain in Carrier.column_z. See enclosure/clearance-audit.md.
-ROOF_RELIEF = .50
+# The production carrier owns this identified local roof allowance.
+ROOF_RELIEF = carrier.CARRIER_ROOF_LOW_FORCE
 # The carrier beds on its aft (+Y) face. A shallow chamfer tangent to the
 # retained R6 roll fills the print-bottom corner without changing its envelope.
 BOTTOM_OUTWARD_PER_HEIGHT = .5
@@ -28,10 +27,7 @@ PRINTED_FRONT_TOP_SHA256 = '80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72
 
 
 class LowForceCarrier(carrier.Carrier):
-    @property
-    def column_z(self):
-        low, high = super().column_z
-        return low, high-ROOF_RELIEF
+    """Use the shared carrier roof fit without applying its local relief twice."""
 
 
 def specifications():

@@ -469,15 +469,13 @@ y_stack_lower_axis_in = y_stack_axis_in - fits.running
 y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
-y_stack_clearance_dia = 5.6    # as-printed clearance for the fully threaded M5 screw
+y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
 y_stack_cbore_dia = 10.8       # M5 SHCS head Ø8.5 and one DIN 125 washer Ø10
 y_stack_mouth_ease = 0.5      # 45° ease at the exposed lower pocket's finger-contact edge
 y_stack_head_recess = 2.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
 y_stack_washer_h = 1.0         # one DIN 125 M5 flat washer per screw
-y_stack_washer_air = fits.clearance(supported=True)
-y_stack_cbore_depth = (y_stack_head_recess + y_stack_head_h + y_stack_washer_h
-                      + y_stack_washer_air)
+y_stack_cbore_depth = y_stack_head_recess + y_stack_head_h + y_stack_washer_h
 y_stack_tip_clearance = 2.5    # nominal blind air beyond the screw tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
 y_stack_hub_h = 20.0           # back-top's knuckle on the Z seam: the lower insert and its cap
@@ -1061,7 +1059,8 @@ back_top_wall_t = 6.0
 # of barrel and do not care; the CO2 neoFit offers 7.90, and a 6 mm wall spends six of them — an
 # M17 × 1.5 nut left holding 290 psi on 1.90 mm of thread. So the wall gives that one station back
 # to `rear_plane_y` — the plane it is struck off — and the port field stands its whole boss on the
-# section that leaves, so the nut lands on the boss with 2.90 mm of barrel under it.
+# section that leaves. The land also includes the ring's static back clearance;
+# `enclosure_assembly.port_clamp_stack` reads the resulting barrel engagement.
 #
 # AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle bears on the fore face
 # of a TUNNEL standing off this wall (`c14_tunnel_len`) and not on the wall itself, and the two
@@ -1107,7 +1106,7 @@ back_top_wall_reliefs = (
                                                   # `back_top_wall_t` over and under it
 )
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
-# keeps its whole clamped stack and gives back only the last millimetre to the nut land, down a
+# keeps its whole clamped stack and static ring-back allowance up to the nut land, down a
 # drafted skirt (`_back_top_wall_relief_cut`). Two-to-one is past the lint's ligament bar — a
 # 45° skirt on a one-millimetre fall is a 1.414 mm face, which is a strip — and in the print's
 # frame every face of it stands steeper than the 45° floor. The roof keeps the relief's own
@@ -1507,8 +1506,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
-# brackets. The cradle's filled bearing block rides the bay floor while the fixed shell perimeter
-# stays one running clearance below its exterior face. A centred RC62 pair pulls the
+# brackets. The cradle keeps its nominal bed while the receiver floor retreats by
+# `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
+# A centred RC62 pair pulls the
 # lower cradle toward the bulkhead on the tubes' own insertion axis. Four
 # barb tubes gripped in the anchor tees' branch collets retain the fluid connections, and the collet plate
 # (`_tee_wall`) is the release — pull the pump cartridge and the tees
@@ -1517,10 +1517,10 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # the same collets, the cradle's own aft face landing on the plate's.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
-# slides across it. THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam
-# plane, so a floor struck there lies on the bed with nothing under it to hang. Its top is a
-# fixed bay datum, relieved downward from the pump-neutral sill independently of the pump
-# station. Front-bottom's side lip is given up over this whole run (`_flank_lip_drop`), so the
+# slides across it. The floor begins at front-top's actual bed, above the nominal
+# Z seam by its base running clearance. The cartridge datum is fixed independently of
+# the receiving sill's relief. Front-bottom's side lip is given up over this whole run
+# (`_flank_lip_drop`), so the
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
@@ -1540,6 +1540,7 @@ pump_relief_z_air = 1.0      # pump pocket past each head/collar end
 pump_cartridge_z_clearance = fits.running  # Z air at the fixed sill and on the pump clamp; this
                                   # is not an X/Y inset or a cosmetic surface offset
 pump_cartridge_top_clearance = fits.running  # the removable face's crown below the fixed lintel
+pump_bay_floor_air = fits.clearance(sliding=True, at_floor=True)
 pump_bay_side_air = fits.running      # pump-body air inside each cavity throat plane
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
 # complete plan silhouette and its filled body reaches both cavity planes without a side taper.
@@ -2467,7 +2468,9 @@ def _dims(pack):
     # cold core packs its `side_band_inset` off `interior_x` on the slab, and the Wago wells
     # bore through the thickened ±X flanks to bottom on `interior_x` itself
     # (`front_top_flank_t`, `front_bottom_flank_t`), so a lever nut's back face IS that plane.
-    # A reading with no air in it is a seat, and the name beside it is what says which.
+    # This width bound measures the pack envelope, not its mating fit. The reserved
+    # side band includes the running room beside the lower blocks; receiver geometry
+    # supplies the applicable PET-GF-to-PET-GF allowances at every printed face.
     floor = [(n, b) for n, b in zip(placed.keys(), bbs)
              if b.zmin < wall + 1e-6 and _in_a_boss(b, band_bosses)]
     wide_need, wide_who = max(
@@ -3216,7 +3219,7 @@ def disposal_figures(outer):
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
-    """Accepted flat-wing nameplate pocket at the fixed rear-panel station."""
+    """Flat-wing nameplate receiver with static back clearance at its rear-panel station."""
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
     pocket = _nameplate_fit.apply(solid, plate, y_outer,
@@ -3232,24 +3235,20 @@ def _port_chip(px, pz, width, rise, bottom, y0, y1):
 
 
 def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
-    """The pocket each port chip lies in, cut INTO the +Y wall's outer face — what the customer
-    meets is a flush face: colour and wall in one plane, with no pad standing off it.
+    """Flush port-chip pockets with static back clearance and retained backing.
 
-    THE STOCK UNDER EVERY CHIP IS THE WALL'S OWN. The pocket is `proud` deep, and a station
-    standing in a relieved band keeps `wall` and the chip's own `proud` as retained stock,
-    bottoming on the nut land the wall's relief is cut to (`_back_top_wall_relief_cut`) — so
-    there is nothing to fuse here. `enclosure_assembly.PORT_FIELD_WEB` is the reading that
-    keeps the POCKETS apart.
+    Each pocket is `field.proud + fits.slip` deep. Normal stations grow their existing
+    backing inward by `fits.slip`, clipped to the host's roof and seam outline. Relieved
+    stations retain their backing through `_back_top_wall_relief_cut`'s matching nut land.
+    `enclosure_assembly.PORT_FIELD_WEB` reads the material between adjacent pockets.
 
-    The pocket is cut on every piece it reaches, so one straddling the seam is cut on both
-    halves of it. Everything the wall carries through a station it carries through that
-    station's land too, so `ports` is bored here past the deepest land: the wall's holes cross
-    every station whole, roofed toward the piece's print-up `up` (`_port_cuts`). The chip's
-    own D pocket reads no `up`: the separately printed bulkhead ring matches it, and it is only
-    `field.proud` deep."""
+    A pocket is cut on every piece it reaches. Its supported edge retreats toward
+    print-up `up`; ports are rebored past the deepest land with their own directional
+    crown relief. The chip's nominal pose and the fitting's axis stay fixed."""
     if field is None:
         return solid
     at = (lambda _x, _z: wall) if wall_at is None else wall_at
+    original = solid
     deep = y_outer
     for px, pz, *_size in field.pockets:
         # WHAT THIS LOOP OWES THE BORES BELOW IS ONLY HOW FAR INBOARD A LAND CAN STAND.
@@ -3258,10 +3257,21 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         # the station, because this wall is not one thickness (`back_wall_t_at`).
         t = at(px, pz)
         proud = max(0.0, field.proud - (t - wall))
-        deep = min(deep, (y_outer - t) - proud)
+        deep = min(deep, (y_outer - t) - proud - fits.slip)
+        landed = any(abs(px-rx) <= wx/2 and abs(pz-rz) <= wz/2
+                     for _who, rx, rz, wx, wz in back_top_wall_reliefs)
+        if not landed:
+            # Move local backing with the pocket floor. Clipping to the existing
+            # host keeps the boss inside the retained roof and seam outline.
+            width, rise, bottom = _size
+            host = _port_chip(px, pz, width+2*field.rim,
+                              rise+field.rim, bottom+field.rim,
+                              y_outer-t-1.0, y_outer+1.0)
+            solid = solid.fuse(original.intersect(host).translate((0,-fits.slip,0)))
     for px, pz, width, rise, bottom in field.pockets:
         solid = solid.cut(_supported_cut(
-            _port_chip(px, pz, width, rise, bottom, y_outer - field.proud, y_outer + 1.0), up))
+            _port_chip(px, pz, width, rise, bottom,
+                       y_outer-field.proud-fits.slip, y_outer+1.0), up))
     for cutter in _port_cuts(ports, deep - 1.0, y_outer + 1.0, up):
         solid = solid.cut(cutter)
     return solid
@@ -3507,12 +3517,15 @@ def y_stack(inner):
     h = (hub - ceiling) / 4.0
     g = _y_stack_gap(False, True)
     seated = _y_stack_gap(False, False)
+    # The front root also passes front-top's 45-degree flank bedding.
+    # A vertical retreat projects by sqrt(2) onto that face's normal.
+    hub_gap = seated * math.sqrt(2.0)
     lower = (
         ("back-bottom", ceiling, ceiling + h, 0.0, g),
         ("front-bottom", ceiling + h + g, ceiling + 2.0 * h - g, g, g),
         ("back-bottom", ceiling + 2.0 * h, ceiling + 3.0 * h - g, g, g),
-        ("front-bottom", ceiling + 3.0 * h, hub - seated, g, seated),
-        ("back-top", hub, hub + y_stack_hub_h, seated, _y_stack_gap(True, True)),
+        ("front-bottom", ceiling + 3.0 * h, hub - hub_gap, g, hub_gap),
+        ("back-top", hub, hub + y_stack_hub_h, hub_gap, _y_stack_gap(True, True)),
     )
     roof = inner[5] + wall
     datum = _funnel_frame_part.datums(roof - _funnel.brim_thickness)[0] - slide_slip
@@ -4628,7 +4641,8 @@ def _pump_cartridge_side_flute_rail(outer):
 def _bay_cut(inner, outer, bay, pump_trays, plate):
     """The full-width opening between the sill, lintel and flat rear bulkhead."""
     return _supported_cut(_pump_full_width_band(
-        inner, outer, bay, pump_trays, bay_back_y(plate), lower_inset=0.0))
+        inner, outer, bay, pump_trays, bay_back_y(plate),
+        lower_inset=-pump_bay_floor_air, upper_inset=0.0))
 
 
 def bay_back_y(plate):
@@ -4737,8 +4751,8 @@ def _back_top_wall_relief_cut(field, up=1.0):
 
     A RELIEF WITH A PORT STATION IN IT IS A NUT LAND AND NOT A POCKET. What the CO2 station
     needs is `port_clamp_stack` and not `wall`: the wall keeps the whole clamped section —
-    `wall` of skin plus the chip's own `field.proud` — and gives back only the last millimetre
-    down to the land, as ONE drafted plug from the wall's own face to the land's outline. Its
+    `wall` of backing, the chip's own `field.proud` and its static back allowance — and
+    opens down to the land as one drafted plug from the wall's face to the land's outline. Its
     two sides and its print-floor edge run `station_land_draft` in plan for the depth they
     fall; its print-roof edge keeps the relief's own `relief_chamfer` line. Cut as one solid,
     there is no emptied pocket for a boss to make back, so the one-millimetre perimeter ledge a
@@ -4762,8 +4776,8 @@ def _back_top_wall_relief_cut(field, up=1.0):
         landed = any(abs(px - rx) <= hx and abs(pz - rz) <= hz
                      for px, pz, *_size in pockets)
         if landed:
-            land_y = floor - field.proud
-            fall = land_y - face                # the retained stock's one millimetre
+            land_y = floor - field.proud - fits.slip
+            fall = land_y - face                # relief remaining beyond the retained stack
             d = station_land_draft
             x0, x1 = rx - hx, rx + hx
 
@@ -5262,6 +5276,8 @@ def pump_cartridge_figures(box):
     clamp_base = cap_base_z(trays)
     clamp_crown = cap_crown_z(box)
     floor_top = bay_floor_z(trays)[1]
+    receiver_floor = floor_top - pump_bay_floor_air
+    receiver_bed = z_seam + fits.running
     cartridge_top = bay[2] - pump_cartridge_top_clearance
     head_floor = pump_skirt_support_z(trays) - _tray.head_front_below_skirt
     motor_crown = max(cz + _tray.motor_crown - _interface.pump_seated_drop
@@ -5274,11 +5290,11 @@ def pump_cartridge_figures(box):
         "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
         "PUMP_BAY_ROOF_RELIEF": f"{pump_bay_roof_relief:.4g} mm",
-        "PUMP_BAY_FLOOR_Z": f"{floor_top:.6g} mm",
-        "PUMP_BAY_FLOOR_STOCK": f"{floor_top - z_seam:.6g} mm",
+        "PUMP_BAY_FLOOR_Z": f"{receiver_floor:.6g} mm",
+        "PUMP_BAY_FLOOR_STOCK": f"{receiver_floor - receiver_bed:.6g} mm",
         "PUMP_BAY_LINTEL_Z": f"{bay[2] + fits.supported_surface:.6g} mm",
         "PUMP_CARTRIDGE_TOP_AIR": f"{pump_cartridge_top_clearance + fits.supported_surface:.4g} mm",
-        "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - floor_top):.4g} mm",
+        "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - receiver_floor):.4g} mm",
         "PUMP_MOTOR_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - motor_crown):.4g} mm",
         "PUMP_CARTRIDGE_BOTTOM_Z": f"{floor_top:.6g} mm",
         "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
@@ -5419,20 +5435,18 @@ def pump_contact_figures(box):
 
 
 def bay_floor_z(pump_trays):
-    """The bay floor's two planes: its underside on front-top's own seam mouth, and its top
-    on the plane the pump cartridge's filled bearing block reaches down to.
+    """The seam and cartridge bed datums; the receiver retreats below the cartridge bed.
 
-    THE FLOOR IS THIS PIECE'S FIRST LAYERS. Front-top beds on the seam plane, so a floor
-    struck there lies on the bed and nothing under it hangs. Its top answers to the
+    The finished floor begins at front-top's actual bed, one base running fit above
+    the nominal seam. The cartridge's bed answers to the
     pump-neutral station: `_pump_relief_regions` follows the installed pumps, so
     `pump_station_drop` restores the fixed reference and `pump_bay_floor_relief` opens that
     sill downward. `pump_cartridge_z_clearance` remains the stationary-perimeter gap below
     the removable face.
 
-    AND IT IS ONE PLANE ACROSS THE WHOLE MOUTH. The filled block's flat bearing sill, the
-    stationary sill the fixed shell perimeter stops on, and the removable exterior face's own
-    bed plane are all this figure, so the bay's floor reads flat from the front wall's section
-    through to the bay bulkhead."""
+    The cartridge retains its bed, pump, tube and contact stations. The stationary
+    sill is `pump_bay_floor_air` below that bed throughout the receiving opening.
+    Its running clearance includes the local cavity-floor transition allowance."""
     # The relief pocket follows the pump; adding its independent drop returns the fixed bay
     # reference, and the floor relief is spent downward from there.
     return z_seam, (min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
@@ -7205,7 +7219,7 @@ def _core_fit_pocket(box):
     air = fits.running
     return _swept_top.rounded_prism(
         x1 - x0 + 2.0 * air, aft - fore + 2.0 * air, r + air,
-        box.inner[4] - fits.running, crown + fits.running,
+        box.inner[4] - fits.clearance(sliding=True, at_floor=True), crown + fits.running,
         (x0 + x1) / 2.0, (fore + aft) / 2.0)
 
 
@@ -8356,6 +8370,8 @@ def _seam_fit_reliefs(piece, box, y_side, z_side):
     core_pocket = _core_fit_pocket(box)
     if core_pocket is not None:
         piece = piece.cut(core_pocket)
+    if y_side == "front" and box.pack.collet_plate:
+        piece = piece.cut(_tee_carrier.cover_clearance(tee_carrier(box.pack)))
     x0, x1, y0, y1, z0, z1 = box.outer
     if y_side == "back":
         piece = piece.intersect(_ybox(x0 - 1.0, x1 + 1.0,
@@ -8702,7 +8718,7 @@ def _report_bay_sill(front_top, box):
     if not (box.pump_bay and box.pack.pump_trays):
         return
     outer = box.outer
-    top = bay_floor_z(box.pack.pump_trays)[1]
+    top = bay_floor_z(box.pack.pump_trays)[1] - pump_bay_floor_air
     expected = _rounded_outer(outer).intersect(_ybox(
         outer[0] - 1.0, outer[1] + 1.0,
         outer[2] - 1.0, front_plane_y,
@@ -8713,7 +8729,7 @@ def _report_bay_sill(front_top, box):
             "the fixed front sill is not one uninterrupted section immediately below the "
             f"pump bay floor: {missing:.6f} mm³ is missing")
     print(f"  bay sill:         one uninterrupted {pump_cartridge_z_clearance:g} mm "
-          "witness band below the cartridge")
+          f"witness band below the receiver floor; {pump_bay_floor_air:g} mm cartridge gap")
 
 
 def _report_ridge_roof(half, box):
@@ -8836,12 +8852,12 @@ def _report_split(pieces, core=None):
     for i, a in enumerate(names):
         for b in names[i + 1:]:
             v = pieces[a].val().intersect(pieces[b].val()).Volume()
-            tag = "CLEAR slip-fit" if v < 5 else "INTERFERENCE"
+            tag = "NO SHARED VOLUME; fit measured separately" if abs(v) <= 1e-6 else "INTERFERENCE"
             print(f"  {a} ∩ {b}: {v:.1f} mm³  ({tag})")
     if core is not None:
         clash = max(core.intersect(p.val()).Volume() for p in pieces.values())
         print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  "
-              f"({'CLEAR' if clash < 1 else 'CLASH'})")
+              f"({'NO SHARED VOLUME; fit measured separately' if abs(clash) <= 1e-6 else 'CLASH'})")
 
 
 def _report_seams(box):
@@ -8925,7 +8941,7 @@ def _report_slide(pieces, box):
             v = top.translate(cq.Vector(0.0, -dy * d, 0.0)).intersect(bot).Volume()
             if v > worst[0]:
                 worst = (v, d)
-        clear = worst[0] <= 1.0
+        clear = worst[0] <= 1e-6
         record_bound(Bound(
             f"z-slide-{col}-clear",
             f"The {col} top slides its whole travel onto its bottom clear", clear,

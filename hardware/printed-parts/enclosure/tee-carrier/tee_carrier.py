@@ -66,6 +66,10 @@ POST_D = 12.0
 SLOT_W = 3.0
 COVER_T = 6.0
 COVER_AFT = 12.0
+# The identified carrier roof fit needs this local low-force relief.
+CARRIER_ROOF_LOW_FORCE = 0.50
+COVER_FLOOR_AIR = fits.clearance(sliding=True, at_floor=True)
+COVER_ROOF_AIR = fits.clearance(sliding=True, supported=True)
 
 
 def _box(x0, x1, y0, y1, z0, z1):
@@ -161,14 +165,15 @@ class Carrier:
 
     @property
     def column_y(self):
-        """Fore to a slip short of the tee wall's aft face at release, back to the plate's back."""
-        return self.wall_aft_y + fits.slip + release_travel(), self.plate_y[1]
+        """Fore to one running fit short of the tee wall at release, back to the plate's back."""
+        return self.wall_aft_y + self.air + release_travel(), self.plate_y[1]
 
     @property
     def column_z(self):
-        """Running air over the floor; under the roof, which front-top prints facing down over
-        support, a supported face's allowance more."""
-        return self.floor_z + self.air, self.roof_z - self.air - fits.supported_surface
+        """Running air over the floor; under front-top's supported roof, the rough-face
+        allowance and the identified low-force relief."""
+        return (self.floor_z + self.air,
+                self.roof_z - self.air - fits.supported_surface - CARRIER_ROOF_LOW_FORCE)
 
     @property
     def spring_x(self):
@@ -296,10 +301,12 @@ def build_plate(c: Carrier, *, filled_bottom=True):
 
 def _post(c: Carrier):
     """The +X post, rooted a millimetre into the flank, its underside a 45° corbel off the flank's
-    inner face, less the slot between its top half and the flank."""
+    inner face, less the slot between its top half and the flank. Its inboard finger grows
+    with the running slot so the finished receiver retains a full three-millimetre section."""
     (y0, y1), (z0, z1) = c.post_y, c.post_z
-    x_in = c.flank_x - POST_W
-    post = _xz_prism(y0, y1, [(c.flank_x + 1.0, z0), (c.flank_x, z0), (x_in, z0 + POST_W),
+    width = POST_W + c.air - fits.slip
+    x_in = c.flank_x - width
+    post = _xz_prism(y0, y1, [(c.flank_x + 1.0, z0), (c.flank_x, z0), (x_in, z0 + width),
                               (x_in, z1), (c.flank_x + 1.0, z1)])
     return post.cut(_box(c.flank_x - SLOT_W, c.flank_x, y0 - 1.0, y1 + 1.0,
                          c.slot_z[0], z1 + 1.0))
@@ -314,9 +321,8 @@ def posts(c: Carrier) -> tuple:
 def _cover(c: Carrier):
     """The +X cover: the slab against the flank's inner face, fore of the post from the window's
     floor to its roof and aft of it the post's height, joined over the post's top half by the
-    tongue in its slot. It stands on the window's floor, and its face lies on the flank; a slip
-    stands between it and the post everywhere else, and across the slot's floor the tongue
-    takes the floor's rounded turn too."""
+    tongue in its slot. These are nominal component-reference planes; `cover_clearance`
+    supplies the receiving shell's running gaps and cavity-floor turn relief."""
     x0, x1 = c.flank_x - COVER_T, c.flank_x
     (y0, y1), (p0, p1) = c.cover_y, c.post_y
     fore = _box(x0, x1, y0, p0 - fits.slip, c.floor_z, c.roof_z)
@@ -329,6 +335,28 @@ def _cover(c: Carrier):
 def covers(c: Carrier) -> dict:
     cover = _cover(c)
     return {name: cq.Workplane(obj=_sided(cover, side)) for name, side in COVERS.items()}
+
+
+def cover_clearance(c: Carrier):
+    """Both covers' receiving air in world coordinates, including floor and roof finish.
+
+    The cover solids and their reference poses stay fixed. The shell cuts these envelopes
+    after its posts and other receiver stock have joined it. Downward floor relief includes
+    the cavity turn; upward roof relief includes front-top's supported opposing face.
+    """
+    air = c.air
+    x0, x1 = c.flank_x - COVER_T - air, c.flank_x + air
+    (y0, y1), (p0, p1) = c.cover_y, c.post_y
+    fore = _box(x0, x1, y0 - air, p0 - fits.slip + air,
+                c.floor_z - COVER_FLOOR_AIR, c.roof_z + COVER_ROOF_AIR)
+    aft = _box(x0, x1, p1 + fits.slip - air, y1 + air,
+               c.post_z[0] - COVER_FLOOR_AIR, c.post_z[1] + COVER_ROOF_AIR)
+    tongue = _box(c.flank_x - SLOT_W + fits.slip - air, x1,
+                  p0 - fits.slip - air, p1 + fits.slip + air,
+                  c.slot_z[0] + fits.clearance(at_floor=True) - COVER_FLOOR_AIR,
+                  c.slot_z[1] + COVER_ROOF_AIR)
+    envelope = fore.fuse(tongue, aft).clean()
+    return cq.Compound.makeCompound([_sided(envelope, side) for side in (-1.0, 1.0)])
 
 
 def _spring(length):
@@ -380,7 +408,7 @@ def figures(c: Carrier) -> dict:
         "COLUMN_H": c.column_z[1] - c.column_z[0],
         "COLUMN_X": c.column_x[1] - c.column_x[0],
         "COLUMN_Y": c.column_y[1] - c.column_y[0],
-        "COLUMN_FORE": c.axis_y - c.column_y[0], "SLIP": fits.slip,
+        "COLUMN_FORE": c.axis_y - c.column_y[0], "SLIP": fits.slip, "RELEASE_AIR": c.air,
         "ROOF_AIR": c.roof_z - c.column_z[1], "SUPPORTED": fits.supported_surface,
         "OPENING_Y": c.opening_y[1] - c.opening_y[0],
         "OPENING_Z": c.roof_z - c.floor_z, "TEE_SWEEP_Z": c.tee_top_z - c.floor_z,
@@ -404,13 +432,18 @@ def figures(c: Carrier) -> dict:
         "SPRING_SIDE_WALL": c.spring_x - c.spring_bore_r - c.column_x[0],
         "SPRING_LAND": c.spring_land,
         "FLANK_T": c.exterior_x - c.flank_x, "SHOW_EDGE_R": c.show_edge_r,
-        "POST_W": POST_W, "POST_D": POST_D, "POST_H": c.post_z[1] - c.post_z[0],
-        "SLOT_W": SLOT_W, "SLOT_H": c.slot_z[1] - c.slot_z[0],
+        "POST_W": POST_W + c.air - fits.slip,
+        "POST_D": POST_D - 2 * (c.air - fits.slip), "POST_H": c.post_z[1] - c.post_z[0],
+        "SLOT_W": SLOT_W - fits.slip + 2 * c.air,
+        "SLOT_H": (c.slot_z[1] - c.slot_z[0]
+                   + COVER_FLOOR_AIR - fits.clearance(at_floor=True)),
         "TONGUE_T": SLOT_W - fits.slip, "COVER_T": COVER_T, "COVER_AFT": COVER_AFT,
         "STRUCTURE_AFT": c.cover_y[1] - c.opening_y[1],
         "COVER_FORE": c.post_y[0] - fits.slip - c.cover_y[0],
         "COVER_Y": c.cover_y[1] - c.cover_y[0], "COVER_H": c.roof_z - c.floor_z,
-        "TONGUE_AIR": fits.clearance(at_floor=True), "LAYER_TRANSITION": fits.layer_transition,
+        "TONGUE_AIR": COVER_FLOOR_AIR, "LAYER_TRANSITION": fits.layer_transition,
+        "COVER_RUNNING_AIR": c.air, "COVER_FLOOR_AIR": COVER_FLOOR_AIR,
+        "COVER_ROOF_AIR": COVER_ROOF_AIR,
         "WINDOW_AFT": c.opening_y[1] - c.plate_y[1],
         "LENGTH": 2.0 * c.exterior_x,
     }
@@ -440,9 +473,9 @@ def selftest(c: Carrier) -> int:
     for name, spring in springs(c).items():
         if not spring.isValid():
             errors.append(f"{name} is not a valid solid")
-    if c.column_y[0] - release_travel() < c.opening_y[0] + fits.slip - 1e-9:
+    if c.column_y[0] - release_travel() < c.opening_y[0] + c.air - 1e-9:
         errors.append("the openings stop the columns short of pressing the collets home")
-    if c.post_z[0] + POST_W > c.slot_z[0] + 1e-9:
+    if c.post_z[0] + POST_W + c.air - fits.slip > c.slot_z[0] + 1e-9:
         errors.append("the post's corbel reaches into its slot")
     if c.cover_y[0] >= c.post_y[0] - fits.slip:
         errors.append("the cover leaves nothing fore of its post")

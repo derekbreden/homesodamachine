@@ -1,9 +1,14 @@
 # Enclosure fit clearances
 
-The enclosure assembly and its printed accessories use the shared allowances in
+The enclosure's PET-GF-to-PET-GF mating interfaces use the shared allowances in
 [fits.py](/hardware/printed-parts/cadlib/fits.py). This page describes the source geometry and
-its verification coverage. It does not certify dimensions measured from a physical print.
-The faucet has its own completed fit tests and is outside this adjustment.
+its artifact-scoped verification coverage. Current-source native verification is pending
+regeneration. The source dimensions do not certify a physical print's fit.
+
+TPU, cold-core internals, PETG parts, the faucet and display seating keep their existing
+geometry. Steel washer bearing planes also retain their nominal positions. The core crown
+remains at its Z253.4 reference; final enclosure pocket and hold-down readings are pending
+regenerated enclosure artifacts.
 
 The allowances reserve room for rough or oozed printed material beyond the nominal CAD
 face. Seating under gravity or screw load uses that room too. A modeled gap does not
@@ -27,19 +32,18 @@ For the enclosure's Y assembly motion, Y-normal end faces approach head-on and u
 clearance, as do sloping laps with tangential motion. The rail ends retain a local
 0.25 mm gap, conservatively above the 0.15 mm head-on minimum.
 
-The horizontal-wing nameplate gives each wing
-tip **0.25 mm of X clearance** at the centered position. This is a local
-narrow-slot relief of 0.10 mm beyond the body's shared static X fit gap. The body locates X
-at 0.15 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
-These tips need capture, not a second X locating fit. This trial allowance does
-not add to every face or establish a low-force rule.
+The horizontal-wing nameplate gives each wing tip **0.30 mm of X clearance** at the
+centered position: 0.15 mm body travel plus 0.15 mm static clearance. The body locates X
+at 0.15 mm per side; the wing tips retain 0.15 mm at the extreme of body travel.
+DATA uses the same construction. The wing tips retain their capture within the slots.
 
-The [nameplate receiver trial](nameplate/horizontal-wing-trial/README.md) uses
-a separate 0.45 mm total thickness gap above its 1.68 mm seated wing. This local
-fit combines ordinary body X clearance with local wing Y relief and a fixed seating floor. The retaining face and
-entry bevel define a 2.13 mm slot with 1.23 mm of stock over its flat bearing.
-The physical comparison uses the existing nameplate; the shared static rule
-remains unchanged.
+The nameplate receiver has 0.45 mm of local relief above each 1.68 mm wing and
+0.15 mm static clearance beneath it, giving a 2.28 mm slot. The body back also has
+0.15 mm clearance. The retaining face and entry bevel retain 1.23 mm of stock over
+the flat bearing. The production station stands 0.30 mm west of the rear-field midpoint;
+the hidden east backing remains 2.14 mm thick to preserve the specified 1 mm PSU margin.
+The [receiver trial](nameplate/horizontal-wing-trial/README.md) records its own source and
+physical support-removal scope; it does not validate the current receiver's added back gap.
 
 The [face-up display receiver](display-cover/face-up-trial/README.md) uses
 0.30 mm per side around the body's full-depth X seating pocket. The wing tips
@@ -82,7 +86,7 @@ belong to a supported part.
 A face printed against the build plate keeps its base allowance; the extra 0.25 mm
 is for a supported overhang's retained finish.
 
-Printed screw-clamping faces, bearing planes, seating shoulders and stroke stops
+PET-GF-to-PET-GF screw-clamping faces, bearing planes, seating shoulders and stroke stops
 receive the applicable allowances above. Locating a face from a datum does not waive
 its clearance or supported-face allowance. Manufacturer heat-set pilot cores
 retain their prescribed diameter; supported horizontal pilots receive crown relief only.
@@ -102,13 +106,10 @@ The same clearance policy follows these orientations rather than the assembled a
 | Interface family | Source coverage |
 |---|---|
 | Enclosure quadrant seams | Y-normal head-on closure faces use 0.15 mm static clearance. Tangential sliding tongues, scarf laps, rail channels and pin passages use 0.25 mm running clearance. Both broad Z shoulders use 0.25 mm: front-top's mating face is bedded, and the rear shoulder pair looks print-up. The separate front catch has one supported face and retains 0.50 mm; the rear catch has two and retains 0.75 mm. |
-| Pump cartridge and cap | Bay, fixed-bulkhead and casing passages use their static or sliding allowances. Supported shoulders, recesses and cap screw-head seats carry bridge relief with backing retained. Bracket and floor-bearing faces are included in the printed-fit policy. |
-| Display | The glass cavity is 113.8 × 77.3 mm and the PCB passage is 106.3 × 69.3 mm, providing 0.15 mm per side around their nominal envelopes. The glass seat is 4 mm deep. The deeper cover land has its own 0.15 mm inner-wall clearance. The facet's 45° walls and insert axes are support-free; the PCB opening's start ridge is carried by the solid rib. |
-| Rear ports and accessories | C14 flange/shroud and keystone body pockets use 0.15 mm static clearance. Nameplate and bulkhead-ring pockets use the shared static allowance; supported pocket edges receive directional relief. The dedicated 4 mm OVER uses a 15.3 mm rear-wall bore for its M15 barrel. |
-| Hardware supports | Wago pocket roofs and tabs, supported tube/body-seat crowns, anchor tie cavities, ASSE seats and the PRV chase receive their applicable bridge allowance. The surrounding towers and ribs retain their working sections. |
-| Fasteners | M3 through clearance is Ø3.3 mm and nominal Ø5.5 mm heads receive Ø5.8 mm counterbores. Horizontal supported shank/insert crowns and supported head seats receive directional relief; bedded vertical insert openings retain the prescribed pilot. |
-| Other enclosure accessories | Display cover, gasket, nameplate, bulkhead rings and collet press retain their stated print orientations. Supported head seats are treated locally; flat bedded plates and support-free tools do not receive blanket offsets. |
-| Cold-core printed parts | Foam shell/caps, reservoirs/caps, copper plugs, PRV shroud and reed bridge follow the [component coverage](../cold-core/fit-clearances.md). Copper-plug tabs have 0.50 mm wall clearance and their opposite channel faces have 0.25 mm running clearance. |
+| Pump cartridge and cap | PET-GF bay, bulkhead and casing interfaces use their static or sliding allowances. The receiving floor is 0.35 mm below the unchanged cartridge bed: 0.25 running + 0.10 local cavity-floor transition. Supported PET-GF shoulders and recesses receive directional relief with backing retained. |
+| Rear printed receivers | Nameplate, DATA plate and bulkhead-ring backs have 0.15 mm static clearance. Supported PET-GF pocket edges receive directional relief. Normal ring backing remains 4 mm; the CO2 land retains 3 mm. The clamped barrel stack includes the 0.15 mm ring-back gap. |
+| Funnel frame | Front rail receivers have 0.50 mm above the frame feet: 0.25 running + 0.25 supported receiver underside. Frame rail and foot stock remain at their specified sections. |
+| Other component interfaces | Existing display, hardware, TPU, PETG and cold-core component dimensions retain their separate records and geometry. They are outside this PET-GF-to-PET-GF source adjustment. |
 
 ## Enclosure dimensions in the source
 
@@ -118,16 +119,17 @@ to the geometry identified by their input hashes.
 | Location | Modeled dimensions and allowance |
 |---|---|
 | Lower seam blocks and handholds | Lower screw axes are at X±98.25, 9.25 mm from the exterior. The blocks reach 13.75 mm from `interior_x` and stop 0.25 mm short of the core. Each complete 3 mm blind handhold wall spans 90.75 to 93.75 mm from the centreline, 0.25 mm outboard of the core flank. |
-| Lower stack faces | Front-bottom's first block starts at Z66.2. Its top block ends at Z174.8; back-top's hub starts at Z175.05, leaving 0.25 mm. The supported middle gaps retain 0.50 mm. |
+| Lower stack faces | Front-bottom's first block starts at Z66.2. Its top block ends at Z174.696447; back-top's hub starts at Z175.05, leaving 0.353553 mm in Z. This gives 0.25 mm normal to front-top's adjacent 45° rail bedding. The supported middle gaps retain 0.50 mm. |
 | Upper stack faces | Upper axes are at X±98, 9.5 mm from the exterior. Front-top's insert mouth is Z299.65 and back-top's block starts at Z299.9, leaving 0.25 mm. |
-| Screw-head pockets | Each 8.4 mm deep pocket includes 0.40 mm at the supported washer seat: 0.15 static + 0.25 supported. Floors are Z37.65 and Z346.60. Nominal metal poses retain the 2 mm head recess. |
+| Screw-head pockets | Each pocket is 8 mm deep. Floors are Z37.25 and Z347; steel washers bear on those nominal planes. The nominal head recess is 2 mm. Each complete washer annulus retains 3 mm of backing. |
+| Pump receiver floor | Floor Z164.845 is 0.35 mm below the cartridge bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
 | Funnel front rail | Frame foot Z306.9 to receiver underside Z307.4 gives 0.50 mm: 0.25 running + 0.25 supported. |
-| Whole core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it and extends from Z−0.25 to Z253.65. The floor retains 5.75 mm. The complete hold-down profile stands 0.25 mm above the core crown. |
+| Core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it, from Z−0.35 to Z253.65. Floor room is 0.25 mm running + 0.10 mm cavity-floor transition; the slab retains 5.65 mm. The complete hold-down profile stands 0.25 mm above the nominal Z253.4 crown. Final readings await regenerated enclosure exports. |
 | PRV chase beside core | Lip X−90.75 to core flank X−90.5 gives 0.25 mm. |
 
 The lower washer's separate 35° entry moves with the lower screw axis and complete
 inner wall, preserving their relative entry geometry. Practical ease remains
-unqualified. Modeled block, floor, bracket and washer-seat gaps reserve room for
+unqualified. Modeled PET-GF-to-PET-GF block, floor and bracket gaps reserve room for
 printed material; they are not guaranteed empty spaces after assembly or tightening.
 
 ## Physical observations
@@ -151,16 +153,12 @@ the nominal hardware envelopes used to size the CAD pockets.
 
 ## Verification
 
-The [current enclosure fit review](enclosure/y-seam-fit-review.json) binds the
-current source and native artifact hashes. Its 111 finite planar pairs meet the
-applicable allowances, with zero deficits above the 0.00001 mm native tolerance.
-It records all 17 corrected contact patches in six interface families, the four
-0.40 mm washer-seat allowances and complete 3 mm backing, M5 insert backing,
-the full-height core pocket and lower-corner separation, and a positive-separation
-proof for the hub passing the unchanged PRV route under pure Y motion.
-The record does not certify curved/nonparallel contacts, every internal cold-core
-interface or physical support finish. Those scope limits do not waive any modeled
-clearance requirement.
+The [retained enclosure fit review](enclosure/y-seam-fit-review.json) contains 111
+finite planar-pair readings and 17 contact dispositions for its identified source
+and native artifact hashes. Its dimensions and judgments apply to those inputs.
+The current PET-GF-to-PET-GF source adjustments require refreshed exports and readings;
+the retained receipt is not a final-current QA result. The record does not certify
+curved/nonparallel contacts or physical support finish.
 
 The [retained quadrant reading](mating-clearance-check.json) records opposing planar
 faces from those four identified enclosure STEPs: 59 passing patches and 11 passing
@@ -175,7 +173,7 @@ local probes. Its measured local gaps include:
 | Closed-end rail blocks and top-piece foot ends | 4 | 0.25 mm in Y | Local gap above the 0.15 mm head-on minimum; blocks bound overtravel |
 
 The check requires the applicable static or running clearance plus each supported-face
-allowance on every measured printed mating patch, including screw-clamping faces,
+allowance on every measured PET-GF-to-PET-GF mating patch, including screw-clamping faces,
 Y closure ends, main Z seating shoulders and rail ends. Its bed-face classification uses
 each part's actual minimum Z for +Z printing or maximum Z for −Z printing.
 Zero-clearance contacts fail this requirement.
@@ -195,16 +193,7 @@ assembly checks also cover whole-part intersections, cap/cartridge withdrawal, h
 envelopes, and seam capture. Zero whole-part overlap does not establish positive
 clearance between printed mating faces.
 
-[check_copper_plug_clearance.py](/hardware/scripts/check_copper_plug_clearance.py) reads the
-finished standalone front-top, foam assembly and both copper-plug STEPs. It places the plugs
-through the production transforms and writes a focused, hashed reading beside the plugs.
-Run it after those outputs have been regenerated:
-
-```sh
-tools/cad-venv/bin/python hardware/scripts/check_copper_plug_clearance.py
-```
-
-The [focused reading](../cold-core/copper-plugs/clearance-check.json) records its input hashes,
-scope and pass/fail result. Use those hashes when interpreting its measurements. The enclosure
-and cold-core scorecards carry the results for the geometry they built; neither the source
-values on this page nor a retained reading of another build establish the final printed fit.
+The separate [copper-plug reading](../cold-core/copper-plugs/clearance-check.json) records its
+own input hashes, scope and result. Those cold-core components retain their existing geometry
+and are outside this adjustment. Neither source values nor a retained reading of another
+build establish the final printed fit.

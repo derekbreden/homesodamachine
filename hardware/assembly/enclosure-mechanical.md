@@ -4,6 +4,12 @@ The procedure for standing the machine's pack inside the printed enclosure and c
 
 The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `enclosure-assembly.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
 
+The current fit adjustment covers PET-GF mating with PET-GF in the enclosure. TPU, PETG,
+cold-core internals, the faucet, display seating and metal bearing seats retain their
+component geometry. Refreshed native verification of the source changes is pending.
+The core's nominal crown remains Z253.4 and its hold-down foot is Z253.65. TPU and internal
+core fits retain their component geometry. Final enclosure readings are pending regeneration.
+
 ## The box
 
 Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 466.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the `enclosure-pump-cartridge` and its top clamp: six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cartridge's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
@@ -43,7 +49,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | Bench-built electronics bay | Output of [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](/hardware/assembly/wiring.md) |
 | ruthex M3 heat-set inserts, **both bodies** + M3 fasteners | ruthex B08BCRZZS3 (RX-M3x5.7 full-length) + B09ZHSGHXD (RX-M3Sx4.0 short) + BNUOK B0DJQGF665 / B0DJQGPRPV | Per the mount schedules the printed pieces carry, including the condenser's two aft fingers. The cold core's grips take none, being printed features the box closes on. The nameplate's receiving slots and retaining shoulders are printed features |
 | ruthex M5 heat-set inserts + M5 fasteners | ruthex B07YSVXWS8 + MewuDecor B0BHZVXNJX + M5 × 25 fender washers B0GSMDY5GL | The floor slab's four posts under the compressor's plate, and the Y seam's four corner-stack stations |
-| Y-seam screws and flat washers | Two M5 × 150 and two M5 × 60 socket-head screws; four M5 flat washers, Ø10 × 1 mm | One washer under each head; all four use 4 mm hex. The screws pass through printed clearance holes into ruthex M5 inserts |
+| Y-seam screws and flat washers | Two partially threaded M5 × 150 and two fully threaded M5 × 60 socket-head screws; four M5 flat washers, Ø10 × 1 mm | One washer under each head; all four use 4 mm hex. The screws pass through printed clearance holes into ruthex M5 inserts |
 | Chassis bonding lead — compressor body | Green 18 AWG, ring terminal | Rings under the compressor's own earth screw at its terminal box; landed at the ground bus in [`wiring.md`](/hardware/assembly/wiring.md) |
 
 Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm for M5), soldering iron + ruthex insert tips for any inserts not pre-installed at the printed-part stage, a level, and a bench fixture that holds the pieces square while the pack goes in (not yet specified — see Open items).
@@ -205,7 +211,7 @@ The box closes in two slides and four screws, and everything in the service bay 
 
 1. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, **slides FORE onto a bare `enclosure-back-bottom`** — entering aft of home, standing [237.5 mm](RAIL_TRAVEL_BACK) proud of the bottom piece's rear wall, to its assembled position at the stop blocks at the Y-seam end of their runs. Its broad shoulder and rail ends each have 0.25 mm of modeled allowance. Both flanks carry the same run: the rail passes straight through the PRV chase's station, which keeps out of the joint's own band for that storey. The tub under it is EMPTY, and that is the design and not a convenience: this piece's whole fore band sweeps the depth of the column on its way in, so nothing may stand in the tub yet — `z-slide-back-clear` is the card's reading of the travel. Everything the bay needs from this piece — the seven connection bodies, the electronics bay, the tap-water chain in its anchor, the meter under its ceiling — is already riding it.
 
-2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's scarfed tongue closes inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets register the core with 0.25 mm of modeled room around its rounded plan, below its nominal floor and above its crown. The floor pocket is Z−0.25 and the hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
+2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's scarfed tongue closes inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor pocket is Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, leaving 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
 3. **Four screws, one washer on each.** Support the flank securely over the bench edge.
    Allow about 120 mm clear below the enclosure for the lower screws to enter or withdraw,
@@ -224,15 +230,20 @@ The box closes in two slides and four screws, and everything in the service bay 
    cooled insert by fingers for several turns. Put the long leg of a 4 mm hex key in
    the head and turn its short leg with thumb and forefinger. Stop at the first distinct
    seating resistance, with the washer flat and head free play removed. Do not use a
-   screw to pull a binding slide home. The modeled block and washer-seat allowances
-   accommodate printed material; tightening does not guarantee a visible gap remains. The lower
+   screw to pull a binding slide home. The modeled PET-GF-to-PET-GF block allowances
+   accommodate printed material; the steel washers bear on nominal pocket floors. Tightening
+   does not guarantee a visible block gap remains. The lower
    washer placement and holding operation's practical ease remain unqualified.
 
    No installation torque or retained clamping force is established for these printed parts.
    The lower screws connect both bottom pieces to back-top; the upper screws connect the two
    tops and retain front-top on its sliding rails. The hooked rails retain each top vertically.
 
-   **This is what shuts the core down.** Two brackets (`enclosure._core_holds`) stand in the [3 mm](REAR_SEAM_CLEAR) band behind the core, one either side of the flavour unions' column, each with its foot [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Each clears the flavour-A union beside it by [4.46 mm](CORE_HOLD_CLEAR), so a bulkhead nut run down crooked is the one thing in the bay that fouls one. With the screws driven, the core is closed in on every face: slab under, blocks ahead, +Y wall aft, brackets over.
+   **The brackets retain the core's nominal envelope.** Two brackets
+   (`enclosure._core_holds`) stand in the [3 mm](REAR_SEAM_CLEAR) band behind the nominal
+   core, one either side of the flavour unions' column, each with its foot
+   [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Their feet are Z253.65,
+   0.25 mm above the nominal cap crown.
 
 **Teardown uses the enclosure slides in reverse**, and its first move needs no cart: **the two upper screws alone free front-top**, with about 60 mm of roof access for their withdrawal. Front-top draws fore off its rails with the machine standing where it is, taking the valve trays, fixed release plate, tee journals and tees with it. All four out and the back assembly rides aft off the core — the whole bay open on the cart again — or, with the core out, front-top slides fore and back-top slides aft off their own columns. Pump-cartridge service does not require this teardown; it uses the front bay.
 

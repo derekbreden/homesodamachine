@@ -1,6 +1,6 @@
 {
   "review_date": "2026-10-15",
-  "scope": "Current enclosure fit correction: finite opposing planar patches on four native enclosure quadrants and the funnel frame; supported washer floors, M5 insert backing, whole-height external core pocket and lower-corner separation; and pure-Y hub/PRV separation. Seating, clamping, shoulders and stops receive their applicable fit allowance. This is a scoped geometry result, not a whole-machine pass.",
+  "scope": "Fit correction for the identified native artifacts: finite opposing planar patches on four enclosure quadrants and the funnel frame; supported washer floors, M5 insert backing, whole-height external core pocket and lower-corner separation; and pure-Y hub/PRV separation. Seating, clamping, shoulders and stops receive their applicable fit allowance. This is a scoped geometry result, not a whole-machine pass.",
   "policy": {
     "static_per_face_mm": 0.15,
     "moving_per_face_mm": 0.25,
@@ -1322,7 +1322,7 @@
   },
   "limits": [
     "The finite-patch surveys do not certify curved or nonparallel contacts, or every assembly insertion motion. The PRV proof covers the stated pure-Y motion only.",
-    "The core-pocket rows establish the enclosure allowance around the external rounded core envelope. They do not certify every internal cold-core interface.",
+    "The core-pocket rows establish the enclosure allowance around the external rounded core envelope. They do not include the two 2 mm TPU core gaskets in the assembled stack or certify every internal cold-core interface.",
     "The four M5 rows verify complete specified radial backing through the installed insert spans. They do not repeat the separate 35-station pilot-depth, screw-reach and installation-access audit.",
     "Native geometry does not establish physical support finish, assembly ease, retained clamp force, lifting or drop capacity, or lifetime. Those limits do not waive modeled clearance requirements."
   ],
