@@ -28,9 +28,9 @@ def add(piece, family, seat, into, pilot, length, depth, minimum, supported=Fals
         minimum_wall_mm=minimum, supported=supported))
 
 for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-    ax, ay = e.y_stack_axis(xi, sx, box.y_joint)
     bores = e._y_stack_bores(xi, sx, box.y_joint, box.inner)
     for rod, _seat, tip, length, piece, z0, z1 in e.y_stack_rods(box.inner):
+        ax, ay = e.y_stack_axis(xi, sx, box.y_joint, rod)
         # Read the blind end from the cutter that actually makes this pocket.
         bore = bores[2 if rod == 'lower' else 5].BoundingBox()
         mouth, into, blind = (z0, 1.0, bore.zmax) if rod == 'lower' else (z1, -1.0, bore.zmin)
@@ -155,9 +155,9 @@ for row in station_rows:
 seam=[]
 lower, upper = e.y_stack(box.inner)
 for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-    ax, ay = e.y_stack_axis(xi, sx, box.y_joint)
     bores = e._y_stack_bores(xi, sx, box.y_joint, box.inner)
-    for rows, depth in ((lower, e.side_band_inset), (upper, e.y_stack_high_depth)):
+    for rows, depth in ((lower, e.y_stack_low_depth), (upper, e.y_stack_high_depth)):
+        ax, ay = e.y_stack_axis(xi, sx, box.y_joint, "lower" if rows is lower else "upper")
         for who, z0, z1, gap_below, gap_above in rows:
             knuckle = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1, depth)
             for cutter in bores:

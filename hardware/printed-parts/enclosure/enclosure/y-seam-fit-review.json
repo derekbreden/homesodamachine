@@ -1,0 +1,1330 @@
+{
+  "review_date": "2026-10-15",
+  "scope": "Current enclosure fit correction: finite opposing planar patches on four native enclosure quadrants and the funnel frame; supported washer floors, M5 insert backing, whole-height external core pocket and lower-corner separation; and pure-Y hub/PRV separation. Seating, clamping, shoulders and stops receive their applicable fit allowance. This is a scoped geometry result, not a whole-machine pass.",
+  "policy": {
+    "static_per_face_mm": 0.15,
+    "moving_per_face_mm": 0.25,
+    "additional_per_supported_opposing_face_mm": 0.25,
+    "minimum_finite_area_mm2": 1e-05,
+    "ordinary_fit_method": "Y-normal end faces approach head-on along Y and require static clearance. X/Z and sloping tangential slide faces require moving clearance.",
+    "supported_face_method": "A horizontal downward-facing surface relative to production print-up needs supported-face allowance unless that plane actually rests on the print bed. Bedded faces still require ordinary fit clearance; they do not receive a bridge-finish allowance. Angled faces retain ordinary clearance; support-free45-degree slopes are not treated as supported flats.",
+    "native_linear_tolerance_mm": 1e-05,
+    "maximum_survey_gap_mm": 1.001
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bb6fca7601d5d96e3ec44896f4b62f21905b733f016e2427713dd371cc6bdaf6",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "67450c00bb70375a668f5c2cdcde0f8f399a2a1b0eab7ac3d18fa50546c4dbb1",
+    "hardware/printed-parts/cadlib/fits.py": "1446172c7c83f300857e77fb30dcb7b0cb4edc5ba17ad74fa74b1863922a550f",
+    "hardware/scripts/check_enclosure_mating_clearance.py": "83f3f821ce69e00725301e2e8954da7f63320d1032dce90494f257f6a8d0696d"
+  },
+  "source_binding": "Source hashes identify the frozen implementation after comment cleanup. Artifact hashes identify the native shapes measured by the receipts. This record consolidates JSON/text evidence without rebuilding geometry.",
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "52aa1d65f1c5e6cce73c853469d7eba4ad8dff74873649cf6c04aae3eff4bcef",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "6d4de9b9337ff9c93faad948e33e7fd4eea0081eb4b76871b86f83f4025621b3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "3e8c462d300e5225d13072ff412781eb3578dce652fd41979da77e0b4a97aa8e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7ad4fba360df7829573361ca4278d2c73d4c277c16c9fefdad885f7ae8ffcf51",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "cacc2d4b2ea5fa7777fb6d1fe65fa388736e222865c2dab9842cf3540d995998"
+  },
+  "evidence_receipts": {
+    "finite_face_audit": {
+      "path": ".cache/y-seam-clearance-audit/after/finite-face-audit.json",
+      "sha256": "c459a15922e88f6c5e4e33fa46cf0c9b137e70bd10fb16cee21121e6f054f702"
+    },
+    "contact_resolution": {
+      "path": ".cache/y-seam-clearance-audit/after/baseline-contact-resolution.json",
+      "sha256": "acfd762be91d19b6dea9eeed9bcbfd592af39f5d97515db65d7bcd7c673b757f"
+    },
+    "quadrant_metadata": {
+      "path": ".cache/y-seam-clearance-audit/after/quadrant-native-metadata.json",
+      "sha256": "274dcd0848c0c3a599d46f61e0e91fa02769350b4cab514f40822a7ac2a73a11"
+    },
+    "hub_prv_separation": {
+      "path": ".cache/y-seam-clearance-audit/after/hub-prv-positive-separation.json",
+      "sha256": "7c27d813f6a9e3e8d70c616ef6077d67e5e5cab2a8b97181056d4738dfc85e03"
+    },
+    "retained_quadrant_survey": {
+      "path": "hardware/printed-parts/enclosure/mating-clearance-check.json",
+      "sha256": "384b46016a4dbf8243c76456b7c52291ec9b07062e9f32cff7a6690df8b105fb"
+    }
+  },
+  "audit_method_source": {
+    "path": ".cache/y-seam-clearance-audit/audit_after.py",
+    "sha256": "4a870914624bf6c93a1a85b171b13e4f26c0fb9d30cd93a4f55f6ee635ecc6d1"
+  },
+  "production_printing": {
+    "print_up_world_z": {
+      "front-bottom": 1,
+      "back-bottom": 1,
+      "front-top": 1,
+      "back-top": -1,
+      "funnel-frame": 1
+    },
+    "actual_bed_plane_world_z_mm": {
+      "front-bottom": -6.0,
+      "back-bottom": -6.0000001,
+      "front-top": 160.2499999,
+      "back-top": 355.00000010002543,
+      "funnel-frame": 299.9
+    },
+    "bed_classification": "The bed plane is the part minimum Z for +Z print-up and maximum Z for -Z print-up. A face on that plane keeps ordinary clearance without a supported-overhang addition.",
+    "frame_world_translation_mm": [
+      0,
+      164.55,
+      299.9
+    ]
+  },
+  "native_quadrants": {
+    "front-bottom": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_world_mm": [
+        -107.50000010000002,
+        5.0,
+        -6.0,
+        107.50000010000004,
+        217.8,
+        174.8
+      ]
+    },
+    "back-bottom": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_world_mm": [
+        -107.50000010000002,
+        200.1499999,
+        -6.0000001,
+        107.50000010000002,
+        471.9000001,
+        174.8
+      ]
+    },
+    "front-top": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_world_mm": [
+        -107.50000010000001,
+        4.999999899999999,
+        160.2499999,
+        107.5000001,
+        217.8000001,
+        355.0000001038191
+      ]
+    },
+    "back-top": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_world_mm": [
+        -107.5000001,
+        200.1499999,
+        160.2499999,
+        107.5000001,
+        471.30000010000003,
+        355.00000010002543
+      ]
+    }
+  },
+  "finite_planar_pair_summary": {
+    "paired_patch_count": 111,
+    "noncompliant_patch_count": 0,
+    "deficits_above_native_tolerance_count": 0,
+    "raw_subtolerance_deficit_count": 3,
+    "maximum_raw_deficit_mm": 4.2525982735242e-12,
+    "numerical_note": "Three positive raw deficits are floating-point residuals below 0.000000000005 mm; none exceeds the 0.00001 mm native tolerance. Required nominal clearances are retained.",
+    "pairs": [
+      {
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "paired_patch_count": 19,
+        "minimum_measured_gap_mm": 0.1500000000000341,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "front-bottom",
+          "front-top"
+        ],
+        "paired_patch_count": 15,
+        "minimum_measured_gap_mm": 0.25,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "front-bottom",
+          "back-top"
+        ],
+        "paired_patch_count": 4,
+        "minimum_measured_gap_mm": 0.25,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "back-bottom",
+          "back-top"
+        ],
+        "paired_patch_count": 17,
+        "minimum_measured_gap_mm": 0.25,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "front-top",
+          "back-top"
+        ],
+        "paired_patch_count": 8,
+        "minimum_measured_gap_mm": 0.15000000000000568,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "front-top",
+          "funnel-frame"
+        ],
+        "paired_patch_count": 29,
+        "minimum_measured_gap_mm": 0.25,
+        "noncompliant_patch_count": 0
+      },
+      {
+        "parts": [
+          "back-top",
+          "funnel-frame"
+        ],
+        "paired_patch_count": 19,
+        "minimum_measured_gap_mm": 0.2499999999957474,
+        "noncompliant_patch_count": 0
+      }
+    ],
+    "compliant": true
+  },
+  "corrected_contact_families": {
+    "contact_patch_count": 17,
+    "family_count": 6,
+    "location_method": "Projected finite opposed-patch centroids in machine coordinates; face indices belong to the final artifact hashes above.",
+    "correspondence_basis_artifact_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "ce33ee403c3ad195dd1afa5cf9a9468252cd86dc4270a2a37aff70bd81d4a9e7",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "a56ec55d3054a91a4f97914717e3b1c961fe49c8952d1b05c6073575699f4fab",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fd36789ceb65b02056fda394cb2475a580d372ec46f4d1bf15b01c9298cb137f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b74fa9de9ad364d14d3551244ca51ac039d43994af15d28d574025606bd32e64",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "cacc2d4b2ea5fa7777fb6d1fe65fa388736e222865c2dab9842cf3540d995998"
+    },
+    "families": [
+      {
+        "family": "lower stack first contact",
+        "patch_count": 2,
+        "rows": [
+          {
+            "parts": [
+              "front-bottom",
+              "back-bottom"
+            ],
+            "face_indices": [
+              563,
+              43
+            ],
+            "projected_patch_center_world_mm": [
+              -97.41353613576754,
+              208.98364638642326,
+              66.2
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 213.64491359585617,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-bottom",
+              "back-bottom"
+            ],
+            "face_indices": [
+              1175,
+              1556
+            ],
+            "projected_patch_center_world_mm": [
+              97.41353613576754,
+              208.98364638642326,
+              66.2
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 213.64491359585617,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          }
+        ]
+      },
+      {
+        "family": "Y seam closure wall",
+        "patch_count": 4,
+        "rows": [
+          {
+            "parts": [
+              "front-bottom",
+              "back-bottom"
+            ],
+            "face_indices": [
+              8,
+              7
+            ],
+            "projected_patch_center_world_mm": [
+              -102.70033911074457,
+              200.0,
+              83.69844150004572
+            ],
+            "normal_from_first": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "finite_opposed_area_mm2": 914.2624849675872,
+            "measured_gap_mm": 0.1500000000000341,
+            "required_mm": 0.15,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-bottom",
+              "back-bottom"
+            ],
+            "face_indices": [
+              552,
+              15
+            ],
+            "projected_patch_center_world_mm": [
+              102.7003391107488,
+              200.0,
+              83.69844150000198
+            ],
+            "normal_from_first": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "finite_opposed_area_mm2": 914.2624849683747,
+            "measured_gap_mm": 0.1500000000000341,
+            "required_mm": 0.15,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "back-top"
+            ],
+            "face_indices": [
+              5,
+              8
+            ],
+            "projected_patch_center_world_mm": [
+              -104.53301329980738,
+              200.0,
+              266.8059752483298
+            ],
+            "normal_from_first": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "finite_opposed_area_mm2": 883.3698805414627,
+            "measured_gap_mm": 0.15000000000000568,
+            "required_mm": 0.15,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "back-top"
+            ],
+            "face_indices": [
+              25,
+              21
+            ],
+            "projected_patch_center_world_mm": [
+              104.53301329984428,
+              200.0,
+              266.80597524818995
+            ],
+            "normal_from_first": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "finite_opposed_area_mm2": 883.3698805555437,
+            "measured_gap_mm": 0.1500000000000341,
+            "required_mm": 0.15,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          }
+        ]
+      },
+      {
+        "family": "main Z shoulder",
+        "patch_count": 3,
+        "rows": [
+          {
+            "parts": [
+              "front-bottom",
+              "front-top"
+            ],
+            "face_indices": [
+              4,
+              4
+            ],
+            "projected_patch_center_world_mm": [
+              -6.133239425367683e-14,
+              68.91404906862795,
+              160.0
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 5746.216191713106,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "back-bottom",
+              "back-top"
+            ],
+            "face_indices": [
+              2,
+              5
+            ],
+            "projected_patch_center_world_mm": [
+              22.481739370803503,
+              388.88934462461697,
+              160.0
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 4705.272054589414,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "back-bottom",
+              "back-top"
+            ],
+            "face_indices": [
+              6,
+              1
+            ],
+            "projected_patch_center_world_mm": [
+              -103.2321282512678,
+              266.24835187305746,
+              160.0
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 916.95,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          }
+        ]
+      },
+      {
+        "family": "lower stack hub contact",
+        "patch_count": 2,
+        "rows": [
+          {
+            "parts": [
+              "front-bottom",
+              "back-top"
+            ],
+            "face_indices": [
+              1112,
+              34
+            ],
+            "projected_patch_center_world_mm": [
+              -97.38293626598012,
+              208.986706373402,
+              174.8
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 206.10509122724056,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-bottom",
+              "back-top"
+            ],
+            "face_indices": [
+              1190,
+              109
+            ],
+            "projected_patch_center_world_mm": [
+              97.38293626598012,
+              208.986706373402,
+              174.8
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 206.10509122724056,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          }
+        ]
+      },
+      {
+        "family": "upper stack contact",
+        "patch_count": 2,
+        "rows": [
+          {
+            "parts": [
+              "front-top",
+              "back-top"
+            ],
+            "face_indices": [
+              161,
+              38
+            ],
+            "projected_patch_center_world_mm": [
+              -98.1790065440636,
+              208.4922834381371,
+              299.65
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 180.3675912272405,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "back-top"
+            ],
+            "face_indices": [
+              300,
+              105
+            ],
+            "projected_patch_center_world_mm": [
+              98.17900654406341,
+              208.49228343813715,
+              299.65
+            ],
+            "normal_from_first": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "finite_opposed_area_mm2": 180.36759122726073,
+            "measured_gap_mm": 0.25,
+            "required_mm": 0.25,
+            "supported_opposing_faces": 0,
+            "compliant": true
+          }
+        ]
+      },
+      {
+        "family": "frame rail foot/receiver underside",
+        "patch_count": 4,
+        "rows": [
+          {
+            "parts": [
+              "front-top",
+              "funnel-frame"
+            ],
+            "face_indices": [
+              246,
+              62
+            ],
+            "projected_patch_center_world_mm": [
+              -101.25,
+              156.270299461625,
+              307.4
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 355.317304845375,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "funnel-frame"
+            ],
+            "face_indices": [
+              246,
+              90
+            ],
+            "projected_patch_center_world_mm": [
+              -98.75,
+              156.270299461625,
+              307.4
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 39.479700538375,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "funnel-frame"
+            ],
+            "face_indices": [
+              383,
+              54
+            ],
+            "projected_patch_center_world_mm": [
+              101.25,
+              156.270299461625,
+              307.4
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 355.317304845375,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          },
+          {
+            "parts": [
+              "front-top",
+              "funnel-frame"
+            ],
+            "face_indices": [
+              383,
+              83
+            ],
+            "projected_patch_center_world_mm": [
+              98.75,
+              156.270299461625,
+              307.4
+            ],
+            "normal_from_first": [
+              -0.0,
+              -0.0,
+              -1.0
+            ],
+            "finite_opposed_area_mm2": 39.479700538375,
+            "measured_gap_mm": 0.5,
+            "required_mm": 0.5,
+            "supported_opposing_faces": 1,
+            "compliant": true
+          }
+        ]
+      }
+    ]
+  },
+  "retained_quadrant_survey": {
+    "record": "../mating-clearance-check.json",
+    "sha256": "384b46016a4dbf8243c76456b7c52291ec9b07062e9f32cff7a6690df8b105fb",
+    "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
+    "checked_patches": 59,
+    "failed_patch_count": 0,
+    "local_probe_count": 11,
+    "failed_local_probe_count": 0,
+    "status": "pass",
+    "local_probes": [
+      {
+        "feature": "west handhold inner wall/knuckle fore rib",
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            -92.25,
+            201.75,
+            28.75
+          ],
+          [
+            -92.25,
+            201.75,
+            29.25
+          ]
+        ],
+        "gap_mm": 0.5,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "west scarf/backing wall",
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            -90.5,
+            215.3,
+            -0.5
+          ],
+          [
+            -90.75,
+            215.3,
+            -0.5
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "west rail entrance/tee wall",
+        "parts": [
+          "front-bottom",
+          "front-top"
+        ],
+        "face_points_mm": [
+          [
+            -96.0,
+            94.086,
+            161.0
+          ],
+          [
+            -96.0,
+            93.836,
+            161.0
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "east handhold inner wall/knuckle fore rib",
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            92.25,
+            201.75,
+            28.75
+          ],
+          [
+            92.25,
+            201.75,
+            29.25
+          ]
+        ],
+        "gap_mm": 0.5,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "east scarf/backing wall",
+        "parts": [
+          "front-bottom",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            90.5,
+            215.3,
+            -0.5
+          ],
+          [
+            90.75,
+            215.3,
+            -0.5
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "east rail entrance/tee wall",
+        "parts": [
+          "front-bottom",
+          "front-top"
+        ],
+        "face_points_mm": [
+          [
+            96.0,
+            94.086,
+            161.0
+          ],
+          [
+            96.0,
+            93.836,
+            161.0
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "vent chase seam",
+        "parts": [
+          "back-bottom",
+          "back-top"
+        ],
+        "face_points_mm": [
+          [
+            -92.0000001069748,
+            323.79999999999995,
+            174.8
+          ],
+          [
+            -92.0000001069748,
+            323.79999999999995,
+            175.05
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "front west rail end",
+        "parts": [
+          "front-top",
+          "front-bottom"
+        ],
+        "face_points_mm": [
+          [
+            -101.0,
+            191.0,
+            164.35
+          ],
+          [
+            -101.0,
+            191.25,
+            164.35
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "front east rail end",
+        "parts": [
+          "front-top",
+          "front-bottom"
+        ],
+        "face_points_mm": [
+          [
+            101.0,
+            191.0,
+            164.35
+          ],
+          [
+            101.0,
+            191.25,
+            164.35
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "back west rail end",
+        "parts": [
+          "back-top",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            -101.0,
+            223.8,
+            164.35
+          ],
+          [
+            -101.0,
+            223.55,
+            164.35
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      },
+      {
+        "feature": "back east rail end",
+        "parts": [
+          "back-top",
+          "back-bottom"
+        ],
+        "face_points_mm": [
+          [
+            101.0,
+            223.8,
+            164.35
+          ],
+          [
+            101.0,
+            223.55,
+            164.35
+          ]
+        ],
+        "gap_mm": 0.25,
+        "maximum_surface_error_mm": 0.0,
+        "gap_contains_air": true,
+        "pass": true
+      }
+    ],
+    "detail": "The retained record carries all 59 detailed quadrant patch rows. This compact record does not duplicate the separate 111-patch table."
+  },
+  "washer_printed_floor_review": [
+    {
+      "side": "west",
+      "joint": "lower",
+      "printed_owner": "back-bottom",
+      "axis_world_xy_mm": [
+        -98.25,
+        208.9
+      ],
+      "washer_face_z_mm": 37.25,
+      "actual_native_floor_z_mm": 37.65,
+      "actual_gap_mm": 0.3999999999999986,
+      "static_required_mm": 0.4,
+      "normal_from_printed_floor": [
+        0,
+        0,
+        -1
+      ],
+      "print_up_world_z": 1,
+      "supported_printed_floor": true,
+      "witness_world_mm": [
+        -102.25,
+        208.9,
+        37.65
+      ],
+      "native_witness_surface_error_mm": 0.0,
+      "required_floor_stock_mm": 3,
+      "missing_floor_stock_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "side": "west",
+      "joint": "upper",
+      "printed_owner": "back-top",
+      "axis_world_xy_mm": [
+        -98.0,
+        208.9
+      ],
+      "washer_face_z_mm": 347.0,
+      "actual_native_floor_z_mm": 346.6,
+      "actual_gap_mm": 0.39999999999997726,
+      "static_required_mm": 0.4,
+      "normal_from_printed_floor": [
+        0,
+        0,
+        1
+      ],
+      "print_up_world_z": -1,
+      "supported_printed_floor": true,
+      "witness_world_mm": [
+        -102.0,
+        208.9,
+        346.6
+      ],
+      "native_witness_surface_error_mm": 0.0,
+      "required_floor_stock_mm": 3,
+      "missing_floor_stock_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "side": "east",
+      "joint": "lower",
+      "printed_owner": "back-bottom",
+      "axis_world_xy_mm": [
+        98.25,
+        208.9
+      ],
+      "washer_face_z_mm": 37.25,
+      "actual_native_floor_z_mm": 37.65,
+      "actual_gap_mm": 0.3999999999999986,
+      "static_required_mm": 0.4,
+      "normal_from_printed_floor": [
+        0,
+        0,
+        -1
+      ],
+      "print_up_world_z": 1,
+      "supported_printed_floor": true,
+      "witness_world_mm": [
+        102.25,
+        208.9,
+        37.65
+      ],
+      "native_witness_surface_error_mm": 0.0,
+      "required_floor_stock_mm": 3,
+      "missing_floor_stock_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "side": "east",
+      "joint": "upper",
+      "printed_owner": "back-top",
+      "axis_world_xy_mm": [
+        98.0,
+        208.9
+      ],
+      "washer_face_z_mm": 347.0,
+      "actual_native_floor_z_mm": 346.6,
+      "actual_gap_mm": 0.39999999999997726,
+      "static_required_mm": 0.4,
+      "normal_from_printed_floor": [
+        0,
+        0,
+        1
+      ],
+      "print_up_world_z": -1,
+      "supported_printed_floor": true,
+      "witness_world_mm": [
+        102.0,
+        208.9,
+        346.6
+      ],
+      "native_witness_surface_error_mm": 0.0,
+      "required_floor_stock_mm": 3,
+      "missing_floor_stock_mm3": 0.0,
+      "compliant": true
+    }
+  ],
+  "m5_insert_backing_review": [
+    {
+      "side": "west",
+      "joint": "lower",
+      "printed_owner": "back-top",
+      "axis_world_xy_mm": [
+        -98.25,
+        208.9
+      ],
+      "insert_z_mm": [
+        175.05,
+        184.55
+      ],
+      "source_declared_pilot_diameter_mm": 6.4,
+      "source_declared_minimum_radial_backing_mm": 2.6,
+      "missing_required_backing_mm3": 0.0,
+      "complete": true
+    },
+    {
+      "side": "west",
+      "joint": "upper",
+      "printed_owner": "front-top",
+      "axis_world_xy_mm": [
+        -98.0,
+        208.9
+      ],
+      "insert_z_mm": [
+        290.15,
+        299.65
+      ],
+      "source_declared_pilot_diameter_mm": 6.4,
+      "source_declared_minimum_radial_backing_mm": 2.6,
+      "missing_required_backing_mm3": 0.0,
+      "complete": true
+    },
+    {
+      "side": "east",
+      "joint": "lower",
+      "printed_owner": "back-top",
+      "axis_world_xy_mm": [
+        98.25,
+        208.9
+      ],
+      "insert_z_mm": [
+        175.05,
+        184.55
+      ],
+      "source_declared_pilot_diameter_mm": 6.4,
+      "source_declared_minimum_radial_backing_mm": 2.6,
+      "missing_required_backing_mm3": 0.0,
+      "complete": true
+    },
+    {
+      "side": "east",
+      "joint": "upper",
+      "printed_owner": "front-top",
+      "axis_world_xy_mm": [
+        98.0,
+        208.9
+      ],
+      "insert_z_mm": [
+        290.15,
+        299.65
+      ],
+      "source_declared_pilot_diameter_mm": 6.4,
+      "source_declared_minimum_radial_backing_mm": 2.6,
+      "missing_required_backing_mm3": 0.0,
+      "complete": true
+    }
+  ],
+  "lower_corner_core_normal_separation": [
+    {
+      "printed_owner": "front-bottom",
+      "side": "west",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        -106,
+        197,
+        29.25,
+        -89,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.7499999,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.2499997930252107,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    },
+    {
+      "printed_owner": "front-bottom",
+      "side": "east",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        89,
+        197,
+        29.25,
+        106,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.7499999,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.2499997930252107,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-bottom",
+      "side": "west",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        -106,
+        197,
+        29.25,
+        -89,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.7499999,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.2499997930252107,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-bottom",
+      "side": "east",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        89,
+        197,
+        29.25,
+        106,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.7499999,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.2499997930252107,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-top",
+      "side": "west",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        -106,
+        197,
+        29.25,
+        -89,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.75,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.24999989302520476,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-top",
+      "side": "east",
+      "scope": "Finished native material in the lower corner/hub crop against the retained actual core flank bounding plane. This is a normal-separation lower bound; it does not label a silhouette as a finite face pair.",
+      "corner_crop_world_bounds_mm": [
+        89,
+        197,
+        29.25,
+        106,
+        219.81,
+        195.05
+      ],
+      "native_finished_inboard_abs_x_mm": 90.75,
+      "retained_core_flank_abs_x_mm": 90.5000001069748,
+      "normal_gap_lower_bound_mm": 0.24999989302520476,
+      "moving_required_mm": 0.25,
+      "compliant": true
+    }
+  ],
+  "full_height_core_fit_pocket_review": [
+    {
+      "printed_owner": "front-bottom",
+      "scope": "Final native quadrant against the source expanded R12 core plan over its full declared height; no assembled-machine import or proximity calculation. Empty pocket establishes the declared core fit envelope is retained after all final unions/cuts.",
+      "expanded_core_pocket_world_bounds_mm": [
+        -90.75000000697483,
+        182.0499999999999,
+        -0.25,
+        90.75000000697483,
+        465.55,
+        253.65
+      ],
+      "source_normal_running_allowance_mm": 0.25,
+      "native_intrusion_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-bottom",
+      "scope": "Final native quadrant against the source expanded R12 core plan over its full declared height; no assembled-machine import or proximity calculation. Empty pocket establishes the declared core fit envelope is retained after all final unions/cuts.",
+      "expanded_core_pocket_world_bounds_mm": [
+        -90.75000000697483,
+        182.0499999999999,
+        -0.25,
+        90.75000000697483,
+        465.55,
+        253.65
+      ],
+      "source_normal_running_allowance_mm": 0.25,
+      "native_intrusion_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "printed_owner": "front-top",
+      "scope": "Final native quadrant against the source expanded R12 core plan over its full declared height; no assembled-machine import or proximity calculation. Empty pocket establishes the declared core fit envelope is retained after all final unions/cuts.",
+      "expanded_core_pocket_world_bounds_mm": [
+        -90.75000000697483,
+        182.0499999999999,
+        -0.25,
+        90.75000000697483,
+        465.55,
+        253.65
+      ],
+      "source_normal_running_allowance_mm": 0.25,
+      "native_intrusion_mm3": 0.0,
+      "compliant": true
+    },
+    {
+      "printed_owner": "back-top",
+      "scope": "Final native quadrant against the source expanded R12 core plan over its full declared height; no assembled-machine import or proximity calculation. Empty pocket establishes the declared core fit envelope is retained after all final unions/cuts.",
+      "expanded_core_pocket_world_bounds_mm": [
+        -90.75000000697483,
+        182.0499999999999,
+        -0.25,
+        90.75000000697483,
+        465.55,
+        253.65
+      ],
+      "source_normal_running_allowance_mm": 0.25,
+      "native_intrusion_mm3": 0.0,
+      "compliant": true
+    }
+  ],
+  "hub_prv_positive_separation": {
+    "scope": "Analytical positive-separation proof for the back-top lower hub passing the retained installed flush PRV vent during the prescribed pure +Y translation. Uses final hub native X bound and the earlier source-bound installed vent native X bound, with current route-export hashes checked unchanged. No repeated pose sweep or whole-machine proximity job.",
+    "final_hub_step_sha256": "7ad4fba360df7829573361ca4278d2c73d4c277c16c9fefdad885f7ae8ffcf51",
+    "retained_vent_evidence": ".cache/y-seam-plain/clearance/vent-materialization.json",
+    "current_route_output_sha256": {
+      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "59118582b56b13060b721de7fc250fb9f689958c03c6b933bf5f25b974ff84bc",
+      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "b6804531d29d5e1a472828e503ec75cde562e9547f01bdc0f8f7b386dd63e209"
+    },
+    "retained_route_hashes_match": true,
+    "back_top_west_hub_max_x_mm": -90.75,
+    "installed_vent_min_x_mm": -90.5000002069701,
+    "normal_separation_lower_bound_mm": 0.24999979302990027,
+    "moving_required_mm": 0.25,
+    "prescribed_motion_world_vector": [
+      0,
+      1,
+      0
+    ],
+    "proof": "Y translation preserves every X coordinate. The entire hub remains X<=-90.75 and the retained installed tube remains X>=-90.500000207, so their minimum separation throughout every Y pose is at least 0.25 mm nominal (STEP tolerance below 0.000001 mm). The old zero-volume flush-fit result is not used as a positive-clearance argument.",
+    "native_tolerance_mm": 1e-05,
+    "pass": true
+  },
+  "limits": [
+    "The finite-patch surveys do not certify curved or nonparallel contacts, or every assembly insertion motion. The PRV proof covers the stated pure-Y motion only.",
+    "The core-pocket rows establish the enclosure allowance around the external rounded core envelope. They do not certify every internal cold-core interface.",
+    "The four M5 rows verify complete specified radial backing through the installed insert spans. They do not repeat the separate 35-station pilot-depth, screw-reach and installation-access audit.",
+    "Native geometry does not establish physical support finish, assembly ease, retained clamp force, lifting or drop capacity, or lifetime. Those limits do not waive modeled clearance requirements."
+  ],
+  "fit_requirements_satisfied_within_scope": true
+}

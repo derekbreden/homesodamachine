@@ -96,12 +96,15 @@ other's overlap, alternating up the corner, with two vertical M5 screws through 
 (`_y_stacks`). A front knuckle roots [3 mm](Y_STACK_FRONT_ROOT) fore of the seam in its own
 flank and runs aft one running fit inside the back piece's skin; a back knuckle grows out of
 that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
-overlap and the [14 mm](SIDE_BAND) side band, and the screws' axis stands
-[9.5 mm](Y_STACK_AXIS_OUT) in from the exterior, mid-overlap.
+overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
+[9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior; the upper axes stand at |X|98,
+[9.5 mm](Y_STACK_AXIS_OUT) in. All four are mid-overlap in Y. The lower blocks reach
+13.75 mm inward from `interior_x`, leaving 0.25 mm to the cold core's flank.
 
 - **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
   **hub** over the lip rim: back-bottom, front-bottom, back-bottom, front-bottom, then the hub
-  at Z[175.05..195.05](Y_STACK_HUB). An [M5 × 150](LOWER_ROD) drives up from the handhold
+  at Z[175.05..195.05](Y_STACK_HUB). Front-bottom's first block starts at Z66.2;
+  its top block ends at Z174.8, 0.25 mm below that hub. An [M5 × 150](LOWER_ROD) drives up from the handhold
   ceiling, its head recessed into back-bottom's knuckle, through every
   knuckle into a ruthex RX-M5x9.5 set in the hub's underside. Tightening it pushes back-bottom
   up into front-bottom and pulls back-top down onto front-bottom's top knuckle, so both bottoms
@@ -109,25 +112,29 @@ overlap and the [14 mm](SIDE_BAND) side band, and the screws' axis stands
   roof already stands over the back rail's heads, so it slides fore over them as back-top
   goes on.
 - **The upper stack** stands under the roof, over the tap-water line on the −X flank:
-  front-top's knuckle from Z[272.5](Y_STACK_UPPER_FLOOR) up to the funnel frame's floor, and
-  back-top's from there to the roof. The frame slides into front-top from the seam end, so
-  front-top keeps nothing in the corner above Z[299.65](Y_STACK_DATUM). An
+  front-top's knuckle from Z[272.5](Y_STACK_UPPER_FLOOR) to its insert mouth at Z299.65,
+  and back-top's from Z[299.9](Y_STACK_DATUM) to the roof, with 0.25 mm between them.
+  The frame slides into front-top from the seam end above the front-top block. An
   [M5 × 60](UPPER_ROD) drives down from back-top's roof into an insert in front-top's knuckle,
   so tightening it holds front-top up against back-top; that also locks front-top's slide.
   Front-top's knuckle gives its inboard-aft edge a 45° chamfer for the flavour line that turns
   past the −X corner under the frame (`y_stack_upper_chamfer`).
 
-The intended bearing faces meet when the screws are seated: front-bottom's lowest
-block on back-bottom's, back-top's anchor block on front-bottom's top block, and back-top's
-roof block on front-top's. Other faces between blocks retain their running fit and the
-allowance for any supported surface: [0.5 mm](Y_STACK_GAP) between the bottom pieces' blocks.
+All printed faces between blocks require their applicable static or sliding fit and the allowance for
+each supported surface, including faces loaded when the screws seat.
+The middle bottom-piece gaps are [0.5 mm](Y_STACK_GAP).
 The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. The M5 insert and
 its manufacturer minimum surrounding stock, [Ø11.6](Y_STACK_INSERT_BOSS) about the screw
 axis, fit inside the side band.
 
 Each screw carries **one ordinary M5 flat washer**, Ø10 × 1 mm, directly under its head.
-The [Ø10.8 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
-interior, with a complete washer-bearing floor. Screw length tolerance and the actual blind
+The [Ø10.8 × 8.4 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
+interior, with a complete washer-bearing floor. Its depth includes 0.40 mm for the
+supported washer seat: 0.15 mm static fit plus 0.25 mm supported-face allowance.
+The lower floor is Z37.65 and the upper floor is Z346.60. The nominal screw and washer
+poses keep the head faces recessed 2 mm from the handhold ceiling and roof.
+These modeled allowances provide room for printed material; they do not establish
+an empty gap after seating. Screw length tolerance and the actual blind
 pocket are reported in the [native insert audit](heat-set-review/geometry-check.json), including minimum thread engagement and
 clearance beyond the longest specified screw. The screw passages are printed to size.
 Seat the washers with a hand-operated 4 mm hex key and stop at the intended bearing faces.
@@ -140,7 +147,12 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [native seam and frame review](y-seam-plain-review.json) records the current closed
+The [current fit review](y-seam-fit-review.json) binds the final native parts and
+records 111 compliant finite planar pairs, the detailed 59-patch quadrant survey
+and its 11 local probes, four 0.40 mm washer-seat allowances with complete 3 mm
+backing, M5 insert backing, the full-height core pocket and positive hub/PRV
+separation. Seating and clamping faces receive the same applicable fit rules.
+The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
 parts, complete funnel-brim bearing and sampled straight assembly motions. The
 [frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
 records frame insertion and capture. Their source hashes define the checked geometry;
@@ -220,10 +232,16 @@ there are no grip covers, cover seats or wing slots. Tree(auto)/Default supports
 the flat ceiling during printing. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
 
-The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
+The [3 mm](HANDHOLD_WALL) inner wall stands between |X|90.75 and |X|93.75,
+0.25 mm outboard of the cold core's |X|90.5 flank. The complete wall, including its
+rounded ends, uses that offset. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
 handhold; its inner wall closes on square, full-thickness ends with one running
 fit between the faces.
+The central recess reaches 13.75 mm from the exterior plane to the wall's finger-facing
+plane. The exterior transition ends at |X|105.208, leaving 11.458 mm of flat central
+lifting-ceiling depth before the screw-pocket openings. The block's 13.75 mm reach
+uses a different reference, `interior_x`; it includes the retained blind wall.
 The floor scarf continues across the middle of the enclosure. The lower seam screws drive up
 through the handhold ceilings. Each head and its single flat washer sit inside
 an inward-open pocket, with the head face recessed 2 mm above the finger surface.
@@ -257,9 +275,11 @@ with [5.6 mm](HOOK_HEAD) of head over the front catch. The rear groove is
 seam's overlap, which its corner stacks stand in, and the two are independent figures. The two columns
 enter from opposite ends: **front-top enters fore of home and slides AFT**, over the front
 wall's own plane in open air ahead of the box; **back-top enters aft of home and slides FORE**,
-over the open Y-seam mouth before the halves telescope. Each mouth rides its shoulder.
+over the open Y-seam mouth before the halves telescope. Both broad mouth-to-shoulder
+gaps are 0.25 mm. Front-top's mating shoulder face prints on the bed and adds no
+supported-overhang allowance.
 At the nominal assembled position, each foot's end face has **0.25 mm of running
-clearance** to its stop block, matching the end-wall and corner allowances. The blocks
+clearance** to its stop block, a local allowance above the 0.15 mm head-on minimum. The blocks
 retain 3.75 mm of length and bound overtravel; the upper seam screws join the two
 tops. Reaching the assembled position does not require compressing the rail ends.
 
@@ -274,7 +294,7 @@ outside its channel.
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
 [232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
-face on horizontal printed face, square faces bearing full from the first micron. The two
+face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
 **The two columns end their runs on different things.** Aft of the front run the top
@@ -341,11 +361,11 @@ The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
 core meets the band at the seam's storey; the compressor and condenser stand wholly
-under the mouth. Everything on the slab sits flat on it: the print-corner relief runs
-on the standing verticals and the Y-seam's floor joint stays inside the slab, so the
-seat is square and there is nothing standing there to clear.
+under the mouth. The core's rounded fit pocket extends 0.25 mm below its nominal
+floor plane; the slab retains 5.75 mm under that pocket. The print-corner relief runs
+on the standing verticals and the Y-seam's floor joint stays inside the slab.
 
-So the pack seats flush against the **seams**, not against the walls, and both
+The pack's enclosing seam features retain their applicable fit allowances, and both
 walls carry their corner stacks at full section.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
@@ -478,11 +498,11 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
   corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
   past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
-  own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.5 mm](CORE_STOP_BORE)
+  own rounded plan outline offset by 0.25 mm**: a Ø[24.5 mm](CORE_STOP_BORE)
   bore on the round's own axis outboard of the tangent, and the core's own flat front face
   inboard of it. So the block bears flat where the core is flat and round where it is round —
-  the flat takes it forward, the round takes it across and in yaw, and the pair leaves it no
-  lateral travel. The web ahead of that outline is [6 mm](CORE_STOP_WEB) at every point of it,
+  the flat bounds forward travel and the round bounds sideways travel and yaw after the
+  modeled allowance is taken up. The web ahead of that outline is [6 mm](CORE_STOP_WEB) at every point of it,
   including the tangent, where a bore alone leaves it thinnest. Underside on the slab, outboard
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
@@ -490,26 +510,28 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   [9 mm](CORE_HOLD_WIDE) wide: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
-  [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way a seat
-  in this box lands on the face it takes unless something else locates it — and that straight is
-  what makes the foot a flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
+  [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
+  0.25 mm above the core's nominal crown, putting the cap-facing foot at Z253.65.
+  This face prints upward with back-top inverted and adds no supported-face allowance.
+  The straight web carries
+  the flange. The lane is the one strip of the aft crown clear of
   the water pump inboard, the electronics bay outboard and the +Y wall's two flavour unions in the
   band, taken on both flanks so the pair is a mirror.
 
-The slab takes the weight and the +Y wall takes the aft, so the four between them close every
-direction the core could go.
+The whole core pocket follows that same rounded plan with 0.25 mm around it,
+from Z−0.25 under the core to Z253.65 above its crown. The remaining floor is
+5.75 mm thick. The floor, front blocks, rear seam band and cap brackets bound
+the core in all directions with the modeled allowance at their mating faces.
 
 **The core enters from ahead, and only from ahead.** The back column closes empty — its
 +Y wall cannot pass over a seated core — so the core rides in through the open Y-seam
 mouth, aft over the slab to its seat, the crown sliding under the brackets' eased feet. The front assembly then slides aft onto it and
-the corner blocks' pockets — the core's own plan outline offset one `split_slip` — close
-on the front face at the slip.
+the corner blocks' pockets close around the front face with the same 0.25 mm allowance.
 
-**The front blocks need no support**: they print floor-down with no overhang in them at all. **An
-aft bracket's bearing face does.** The straight from the head of the leg out to the foot's tip
-descends at 25° off vertical and is the bracket's upper face, laid on the section beneath it the
-whole way out — but the bearing face under it is flat and is the lowest thing on the bracket, so
-it is a soffit off the +Y wall and takes removable support in its open lane.
+**The front blocks need no support**: they print floor-down with no overhang in them.
+The aft brackets print with back-top ceiling-down. Each cap-facing flat looks print-up;
+the opposite gusset face is 25° from vertical and lays on the preceding layers.
+The brackets take no print support.
 
 ## The reeded skin
 
@@ -697,17 +719,25 @@ for the enclosure and its installed printed accessories:
 | Sliding with retained bridge strands on one face | 0.50 mm |
 | Sliding with retained bridge strands on both opposing faces | 0.75 mm |
 
-Each supported face contributes one bridge allowance in its print direction, applied to
-that face or its mate. The rear Z-seam has two opposing supported faces and uses 0.75 mm
-CAD play; the front seam has one and uses 0.50 mm.
+The modeled gaps reserve room for rough or oozed printed material, including at
+seating and clamping faces. Each supported overhang contributes one bridge allowance
+in its print direction, applied to that face or its mate. Both Z-seams' broad
+seating shoulders have 0.25 mm running clearance. Front-top's mating face is bedded;
+the rear pair's mating faces look print-up. Neither broad shoulder adds an overhang
+allowance. The separate front catch has one supported
+face and uses 0.50 mm; the rear catch has two and uses 0.75 mm.
+Y-normal closure faces approach head-on and use 0.15 mm static clearance. The existing
+0.25 mm rail-end gaps remain a local conservative fit.
 Sliding covers constrained motion that needs to move easily, including short
 spring-driven engagement. The [low-force rule](../clearance-audit.md) adds a working
 0.50 mm only to an identified gap requiring low actuation force. The tee-carrier
 trial uses 1.00 mm above and 0.25 mm below; the flat-wing nameplate uses static fits.
 A bore receives twice the base per-face allowance in its diameter; only its supported crown
 receives the extra 0.25 mm. Where a pocket's enclosing wall is 3 mm thick, its outer stock
-moves with the pocket or the mating part retreats. Bearing datums, gasket compression,
-manufacturer-specified insert holes and interference fits retain their functional geometry.
+moves with the pocket or the mating part retreats. Printed bearing, locating, seating
+and clamping faces require the same applicable allowances; a datum does not waive them.
+Gasket compression, manufacturer-specified insert holes and interference fits retain
+their functional geometry.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.
 
 `petgf.3mf` carries a 0.45 mm requested support top Z distance, two top interface layers,
@@ -786,7 +816,9 @@ surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including
 short support bodies without an interface label.
 
-The face a feature works through keeps the shape its work requires, and support carries it.
+Printed working faces meet the clearance, supported-surface and stock requirements.
+A seating or bearing role does not waive them. The face keeps its required working
+shape, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
 pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
@@ -1062,7 +1094,8 @@ The **PRV chase's roofs lean from the −X wall too**. Where its open exterior g
 becomes the closed fall, the roof rises inward across the exact
 [3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
-keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. Back-top's share of the rib
+keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
+at X−90.75, 0.25 mm outboard of the core's X−90.5 flank. Back-top's share of the rib
 stands square on the seam rim, which looks print-up on that piece. Its exterior crown is flat
 at the lip's height across the [8 mm](VENT_RIB_BASE) to the grown flank, with the complete
 first printed section carried by removable tree support. The inner passage roof keeps its
@@ -1679,6 +1712,8 @@ The frame's brim bearing is Z349, its flat underside is Z299.9, and its two full
 end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm
 elbow-collet hole and the cradle's two wing slots. The silicone block rests on the carrier's
 hook tops 3.15 mm above that socket floor.
+The front rail feet remain at Z306.9; front-top's receiver underside is Z307.4,
+providing 0.50 mm for the running fit and its supported receiver face.
 The front surround reaches the flush Z355 roof plane and ends at Y199.75,
 one running clearance before the seam. The rear frame retains its Z349
 envelope beneath the existing back-top roof. Front-top's opening clears the

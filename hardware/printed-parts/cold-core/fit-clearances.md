@@ -4,8 +4,8 @@
 0.25 mm for a sliding face. Each supported mating face gets an additional 0.25 mm allowance for the
 retained bridge strands, allocated once on that face or its mate. Two supported
 faces contribute 0.50 mm to their shared gap. Cylindrical fits
-add two radial allowances to the diameter. Bearing and sealing datums remain
-contact planes.
+add two radial allowances to the diameter. Printed bearing and seating faces
+receive the same applicable allowances; a datum does not waive them.
 
 | Part and print orientation | Fit and supported-face allowance |
 |---|---|
