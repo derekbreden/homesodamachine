@@ -27,6 +27,9 @@ WING_SPAN = HEIGHT-2*WING_END_INSET
 PROJECTION = nameplate.PROJECTION
 FACE_AIR = nameplate.FACE_X_AIR
 BACK_AIR = nameplate.BACK_AIR
+# The jack's complete receptacle sits behind the trim-back allowance. Include
+# the pocket cutter's 0.01 mm end overlap to retain its full 3 mm flat lip.
+JACK_SETBACK = BACK_AIR + .01
 TIP_AIR = nameplate.TIP_AIR
 END_AIR = nameplate.END_AIR
 THICKNESS_AIR = nameplate.THICKNESS_AIR
@@ -37,6 +40,11 @@ ENTRY_DEPTH = nameplate.ENTRY_BEVEL_DEPTH
 CORNER_R = port_chip.LOWER_CORNER_RADIUS
 box = nameplate.box
 Station = namedtuple('Station', 'x z')
+
+
+def jack_face_y(y_outer):
+    """Purchased jack and complete receptacle datum, independent of the DATA plate."""
+    return y_outer-POCKET_DEPTH-JACK_SETBACK
 
 
 def aperture(y0,y1):
