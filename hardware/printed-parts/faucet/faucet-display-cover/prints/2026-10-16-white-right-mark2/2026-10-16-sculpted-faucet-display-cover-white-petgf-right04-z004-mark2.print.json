@@ -1,0 +1,135 @@
+{
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+  "settings_source_sha256": "0ba0548e6c6c6ac63b95e112439b7cebf49e8b0aa654b726a2021ce803e50b7e",
+  "settings_sha256": "2ba8ce6155fb24f3d443d5124a6dc85d7a656c2449829d63a3c71358d439c67a",
+  "source_settings_sha256": "2ba8ce6155fb24f3d443d5124a6dc85d7a656c2449829d63a3c71358d439c67a",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "faucet-display-cover",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+      "triangles": 31552,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        0.0,
+        -129.46268844604492,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        177.5,
+        159.44979166922403,
+        11.824286838025852
+      ],
+      "plate_translation_mm": [
+        177.5,
+        159.44979166922403,
+        11.824286838025852
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          163.32660675048828,
+          134.37166440973698,
+          0.0
+        ],
+        [
+          191.67339324951172,
+          185.62833559026302,
+          18.550017694937623
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "454f31b688a31e20059c44999d39b2f9ecf7d345f619ba0bd44a74196c447da2",
+  "settings_preserved_byte_for_byte": true,
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "rigid_part_count": 1,
+  "authorization_quote": "I need a new display cover printed from the right hot end on the white PETGF filament on Mark 2, please. That is the faucet display cover on the Mark 2 on the right hot end. And then also I need an above-counter mounting gasket for the faucet printed on Mark 1 on the right hot end for the white TPU 90A that is loaded in there right now.",
+  "source_geometry_changed": false,
+  "source_project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
+  "source_project_sha256": "0ba0548e6c6c6ac63b95e112439b7cebf49e8b0aa654b726a2021ce803e50b7e",
+  "native_object_settings": {
+    "name": "faucet-display-cover",
+    "extruder": "1",
+    "seam_position": "aligned",
+    "seam_gap": "15%",
+    "override_filament_scarf_seam_setting": "0",
+    "seam_slope_type": "none"
+  }
+}

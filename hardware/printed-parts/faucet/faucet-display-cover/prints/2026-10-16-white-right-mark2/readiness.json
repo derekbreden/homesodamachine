@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "Native reviewed and running; physical result pending",
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
+  "project_sha256": "454f31b688a31e20059c44999d39b2f9ecf7d345f619ba0bd44a74196c447da2",
+  "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+  "source_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "submitted_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+  "gcode_sha256": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0",
+  "native_review": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/native-review.json",
+  "native_review_sha256": "64ace504dc674454cd997c564a86bcb79fcf01eb03ea861087ed52b70b498827",
+  "launch": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/launch.json",
+  "printer_task_id": "1345901173",
+  "printer": "Mark2",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "physical_result": null
+}

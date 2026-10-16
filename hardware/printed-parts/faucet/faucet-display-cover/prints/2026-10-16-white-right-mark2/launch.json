@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "before": {
+    "observed_at": "2026-10-16T18:53:41.189686+00:00",
+    "gcode_state": "FINISH",
+    "subtask_id": "1343785668",
+    "job_id": "1343785668",
+    "task_id": "1343785668",
+    "subtask_name": "2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 1022,
+    "total_layer_num": 1022,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0
+  },
+  "archive": {
+    "name": "2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+    "gcode_sha256": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-display-cover"
+    ]
+  },
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
+  "project_sha256": "454f31b688a31e20059c44999d39b2f9ecf7d345f619ba0bd44a74196c447da2",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "command_replies": [
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "observed_at": "2026-10-16T18:54:15.784457+00:00"
+    }
+  ],
+  "single_send_click": true,
+  "method": "Bambu Connect CUA; one Send after native review",
+  "physical_result": null,
+  "accepted_at_utc": "2026-10-16T18:54:18.473038+00:00",
+  "printer_task_id": "1345901173",
+  "first_acceptance": {
+    "observed_at": "2026-10-16T18:54:18.473089+00:00",
+    "gcode_state": "PREPARE",
+    "subtask_id": "1345901173",
+    "job_id": "1345901173",
+    "task_id": "1345901173",
+    "subtask_name": "2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 77,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0
+  },
+  "earliest_other_printer_start_or_resume_utc": "2026-10-16T18:57:18.473038+00:00",
+  "imported_copy_archive_sha256_after_send": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+  "imported_copy_gcode_sha256_after_send": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0",
+  "authorization_quote": "I need a new display cover printed from the right hot end on the white PETGF filament on Mark 2, please. That is the faucet display cover on the Mark 2 on the right hot end. And then also I need an above-counter mounting gasket for the faucet printed on Mark 1 on the right hot end for the white TPU 90A that is loaded in there right now.",
+  "startup_observation": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/startup.json",
+  "estimated_seconds": 1481.6614990234375
+}

@@ -1,0 +1,19 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.gcode.3mf",
+  "source_archive_sha256": "daa5e6182f48b84d2d8961cdd1d4d9ef39905b11cb24da7782645239dee75551",
+  "print_only_archive": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "0db8e6e3feb9b95bc315e8bc079ba96480b0813b2ff79ee58c8b3b386c5fd239",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "ce3dae922f9a38882a7e338bf18e3da2b9e7176c6741261e00988a2f95412ec0"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

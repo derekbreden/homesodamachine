@@ -1,0 +1,19 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "a101b6e81beae5f3b8af54fb86dc9098e094002b97efd54566e16eb9806a75a4",
+  "print_only_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "9185fb67da5b78d3802eba883b19793720c5cf4c934dcabc712146093a29de16",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "11849edc26199db21fee8432013543c19895c04f4203a0c455fe5421c7ba6db0"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
