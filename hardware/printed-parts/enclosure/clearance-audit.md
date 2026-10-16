@@ -115,7 +115,7 @@ The same clearance policy follows these orientations rather than the assembled a
 | Enclosure quadrant seams | Y-normal head-on closure faces use 0.15 mm static clearance. Tangential sliding tongues, scarf laps, rail channels and pin passages use 0.25 mm running clearance. Both broad Z shoulders use 0.25 mm: front-top's mating face is bedded, and the rear shoulder pair looks print-up. The separate front catch has one supported face and retains 0.50 mm; the rear catch has two and retains 0.75 mm. |
 | Pump cartridge and cap | PET-GF bay, bulkhead and casing interfaces use their static or sliding allowances. The receiving floor is 0.35 mm below the unchanged cartridge bed: 0.25 running + 0.10 local cavity-floor transition. Supported PET-GF shoulders and recesses receive directional relief with backing retained. |
 | Rear printed receivers | Nameplate, DATA plate and bulkhead-ring backs have 0.15 mm static clearance. Supported PET-GF pocket edges receive directional relief. Normal ring backing remains 4 mm; the CO2 land retains 3 mm. The clamped barrel stack includes the 0.15 mm ring-back gap. |
-| Funnel frame | Front rail receivers have 0.50 mm above the frame feet: 0.25 running + 0.25 supported receiver underside. Frame rail and foot stock remain at their specified sections. |
+| Funnel frame | Front rail receivers have 0.50 mm above the frame feet: 0.25 running + 0.25 supported receiver underside. The cradle's 2.75 mm hooks have 0.40 mm over the full 3 mm web: 0.15 static + 0.25 supported finish. Frame rail and foot stock remain at their specified sections. |
 | Other rigid-part interfaces | Their fit remains unresolved by this bounded pass. Component records identify their geometry; the same rigid printed-face allowances apply. |
 
 ## Enclosure dimensions in the source
@@ -166,11 +166,17 @@ patch, its normal, print direction, required allowance and actual gap, together 
 complete local stock checks. The stages cover quadrants and frame, four M5 insert
 hosts and four washer floors,
 pump receiver, nameplate and DATA, rings, window covers, tee carrier, the 45° bedding
-edge and the five external core bodies. The cradle body has its own native finish,
-stock and capture measurements. Complete protected hook/leaf equality and the unchanged
-frame preserve the identified hook gaps, webs and silicone bearing measurements.
-Earlier route readings remain conservative lower bounds because the body only removes
-stock; their original input and model scopes are retained. The 35 insert-station readings
+edge and the five external core bodies. The [cradle finish](enclosure/cradle-finish-review.json)
+binds the canonical body to its measured lower-mouth candidate by native equality and
+records complete local stock and capture. Its lower mouth is open aft of local Y15.5;
+the forward elbow-following pocket retains 302.779 mm² of native surface. The area is
+geometric pocket surface, not loaded contact. Protected upper-body and hook/leaf equality,
+the unchanged frame and actual silicone preserve the identified hook gaps, webs and upper
+bearing measurements. Earlier route readings remain conservative lower bounds under the
+measured cradle-subset chain; their original input and model scopes are retained.
+The unchanged physical tee carrier retains separate native stock/void and same-plane
+interpretations of its 18 ranked thickness pairs, without a whole-mesh thickness pass.
+The 35 insert-station readings
 and 14 finished-knuckle queries remain evidence for their original artifact hashes.
 The current stock-only stage does not refresh screw engagement or blind-tip reserve.
 

@@ -514,15 +514,13 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "41 print-down slope(s): 24 under a body, 7 within 1 mm of one, 2 in a kept room, 8 could be columns",
+   "value": "40 print-down slope(s): 24 under a body, 8 within 1 mm of one, 2 in a kept room, 6 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
-    "enclosure-back-top: a 45\u00b0 face at x 96.52..98.50 y 241.30..249.30 z 327.47..329.45: a column of 112 mm\u00b3 rising 13.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=97.510 y=245.300 z=328.460\nclick: x=97.510 y=245.300 z=328.460",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 258.56..261.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.060 z=309.411\nclick: x=-94.500 y=260.060 z=309.411",
-    "enclosure-back-top: a 45\u00b0 face at x -30.23..-20.36 y 464.19..465.30 z 321.56..322.67: a column of 195 mm\u00b3 rising 26.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-25.244 y=464.692 z=322.058\nclick: x=-25.244 y=464.692 z=322.058",
     "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 453.30..465.15 z 261.65..293.25: a column of 1187 mm\u00b3 rising 29.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.192 y=459.026 z=276.918\nclick: x=-61.192 y=459.026 z=276.918",
-    "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.19 y 464.19..465.30 z 321.56..322.67: a column of 90 mm\u00b3 rising 26.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.079 y=464.677 z=322.044\nclick: x=-56.079 y=464.677 z=322.044",
+    "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.19 y 464.19..465.30 z 321.56..322.67: a column of 88 mm\u00b3 rising 26.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.079 y=464.677 z=322.044\nclick: x=-56.079 y=464.677 z=322.044",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.01..315.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=313.510 z=317.361\nclick: x=-92.850 y=313.510 z=317.361",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361"
    ],

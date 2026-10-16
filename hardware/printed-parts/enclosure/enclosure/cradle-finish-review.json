@@ -1,34 +1,39 @@
 {
-  "scope": "One-time cradle-only canonical export plus native before/after finish review. No full-machine, route refit, lint or physical qualification.",
-  "source_sha256": "69cc786eec8c9b486a9e0df8cdf5dbd8934b4b895ba9ed3eadabf29acbc9f9f5",
-  "old_step": {
-    "path": ".cache/y-seam-fit/post-live-lint/inputs/artifacts/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
-    "sha256": "dec39d4bccefa686db6551ceecf71fa7297116c27cef1904232d25e634f72d1b"
-  },
+  "scope": "Current canonical cradle native equality to the measured lower-mouth candidate, with explicit retained upper-finish provenance. No full-machine/route refit, mesh proximity, lint or physical qualification.",
+  "source_sha256": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
   "current_artifact_sha256": {
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "fd2f384382b3e90ec043d1221e903d9a462c28f24df17988becfc81408a4badf",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "0e3c9fffc4bc7e9e1ed18342782e6ffb5e2ea8b88ca44dce25260cbfb4006b1f",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "b0c11d713d9a8aa8c916edf842e4dfdd5a4048a9dfbba1827d0ec744cd47c367"
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "831c6b23a58f8f541735f5c76d5ebf6d50394912eb4979c1e29003e0fb754b46",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "607085545eddb7b15a882408250b7a3e28e52beaf8299682e6f7107cdd47c295",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "a31b2710c5b5dabc377b9ad91c1831c5f0db642bc1159dc910983120e8db07fe"
   },
   "valid": true,
   "solid_count": 1,
-  "old_volume_mm3": 17578.73042580853,
-  "new_volume_mm3": 17301.173530502136,
-  "removed_volume_mm3": 277.55689533097757,
+  "old_step": {
+    "path": ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/before-lower-mouth.step",
+    "sha256": "fd2f384382b3e90ec043d1221e903d9a462c28f24df17988becfc81408a4badf"
+  },
+  "old_volume_mm3": 17301.173530502136,
+  "new_volume_mm3": 17156.15915293609,
+  "removed_volume_mm3": 145.0143775654459,
   "added_volume_mm3": 0.0,
   "removed_bounds_print_mm": [
-    -8.3129,
-    8.312900000000003,
-    -0.8244561115310262,
-    20.56239,
-    11.312899900000001,
-    21.312900100000014
+    -8.3129001,
+    8.3129001,
+    15.4999999,
+    20.562390100000002,
+    2.9999999,
+    11.3129001
   ],
   "axis_print_z_mm": 11.312900000000003,
   "body_top_print_z_mm": 21.312900000000003,
-  "underside_delta": {
+  "forward_underbody_delta": {
     "old_minus_new_mm3": 0.0,
-    "new_minus_old_mm3": 0.0
+    "new_minus_old_mm3": 0.0,
+    "scope": "Complete lower body only forward of local Y15.5."
+  },
+  "upper_body_delta": {
+    "current_minus_candidate_mm3": 0.0,
+    "candidate_minus_current_mm3": 0.0
   },
   "hooks_and_leaves_above_body_delta": {
     "old_minus_new_mm3": 0.0,
@@ -39,69 +44,43 @@
       "name": "complete_3mm_floor",
       "required_mm3": 2871.755817000001,
       "missing_mm3": 0.0,
-      "pass": true
+      "pass": true,
+      "applicability": "Direct candidate stock query transferred by final canonical/candidate native equality."
     },
     {
       "name": "west_3mm_body_side",
       "required_mm3": 2033.4034734930005,
       "missing_mm3": 0.0,
-      "pass": true
+      "pass": true,
+      "applicability": "Direct candidate stock query transferred by final canonical/candidate native equality."
     },
     {
       "name": "east_3mm_body_side",
       "required_mm3": 2033.4034734930005,
       "missing_mm3": 0.0,
-      "pass": true
+      "pass": true,
+      "applicability": "Direct candidate stock query transferred by final canonical/candidate native equality."
     },
     {
       "name": "fore_3mm_body_wall",
       "required_mm3": 1924.5548700000006,
       "missing_mm3": 0.0,
-      "pass": true
+      "pass": true,
+      "applicability": "Direct candidate stock query transferred by final canonical/candidate native equality."
     },
     {
       "name": "hook_-1_full_2_75mm",
       "required_mm3": 271.11537475,
       "missing_mm3": 0.0,
-      "pass": true
+      "pass": true,
+      "applicability": "Earlier hook stock query retained by whole upper-body and hook/leaf equality; no new hook measurement."
     },
     {
       "name": "hook_1_full_2_75mm",
       "required_mm3": 271.11537475,
       "missing_mm3": 0.0,
-      "pass": true
-    }
-  ],
-  "old_finding_witnesses": [
-    {
-      "center_print_mm": [
-        -6.315,
-        20.542,
-        11.67
-      ],
-      "cube_side_mm": 0.04,
-      "old_stock_mm3": 6.39999999999959e-05,
-      "current_stock_mm3": 0.0
-    },
-    {
-      "center_print_mm": [
-        5.094,
-        6.963,
-        20.856
-      ],
-      "cube_side_mm": 0.04,
-      "old_stock_mm3": 3.1999999999996536e-05,
-      "current_stock_mm3": 0.0
-    },
-    {
-      "center_print_mm": [
-        -5.094,
-        6.963,
-        20.856
-      ],
-      "cube_side_mm": 0.04,
-      "old_stock_mm3": 3.1999999999996536e-05,
-      "current_stock_mm3": 0.0
+      "pass": true,
+      "applicability": "Earlier hook stock query retained by whole upper-body and hook/leaf equality; no new hook measurement."
     }
   ],
   "native_band_sections": [
@@ -149,7 +128,8 @@
         "retained_angle_degrees": 241.34123541217605,
         "retained_fraction": 0.6703923205893779
       },
-      "pass": true
+      "pass": true,
+      "applicability": "Earlier upper-pocket native section retained by exact equality above horizontal axis; no section rerun."
     },
     {
       "scan_station_mm": 9.5,
@@ -195,7 +175,8 @@
         "retained_angle_degrees": 249.51134760644732,
         "retained_fraction": 0.6930870766845759
       },
-      "pass": true
+      "pass": true,
+      "applicability": "Earlier upper-pocket native section retained by exact equality above horizontal axis; no section rerun."
     },
     {
       "scan_station_mm": 9.99999,
@@ -241,9 +222,21 @@
         "retained_angle_degrees": 249.66479723661664,
         "retained_fraction": 0.6935133256572684
       },
-      "pass": true
+      "pass": true,
+      "applicability": "Earlier upper-pocket native section retained by exact equality above horizontal axis; no section rerun."
     }
   ],
+  "root_band_capture_bound": {
+    "method": "The new fore supporting line is tangent to the exact core circleR4.2. On the unchanged analytic root band, retained angle is180+2*(tangent_normal_angle+acos(4.2/vertical_clearance_radius)), in degrees. This increases over the source root-band radius interval; the lower endpoint and near-top endpoint have direct native section witnesses.",
+    "source_radius_interval_mm": [
+      6.1007,
+      6.9627
+    ],
+    "min_native_angle_degrees": 236.85166963588665,
+    "top_native_angle_degrees": 249.66479723661664,
+    "pass": true,
+    "limits": "Geometric circular capture; no force, load capacity or lifetime qualification."
+  },
   "unchanged_hook_metrics_applicability": {
     "method": "Native equality of the complete hooks/leaves above body top plus unchanged frame STEP transfers only identified hook/web/corner/bearing measurements. The current body is not declared geometrically equal to the old cradle.",
     "prior_receipt_path": ".cache/y-seam-clearance-audit/cradle-inboard/production-fit-review.json",
@@ -344,41 +337,655 @@
       "origin": "final canonical native"
     }
   },
+  "following_surface_area": {
+    "method": "Actual current native analytic horizontal-axis cone/cylinder faces plus actual scan-shoulder planes, clipped to the lower half and namedYranges; subtract the candidate air from those native faces. This is geometric pocket surface area, not a measured loaded contact area.",
+    "selected_native_faces": 75,
+    "rows": [
+      {
+        "region": "retained_forward",
+        "y_mm": [
+          2.5,
+          15.5
+        ],
+        "current_native_following_area_mm2": 302.77855941819223,
+        "same_following_area_retained_mm2": 302.77855941819223,
+        "following_area_removed_mm2": 0.0
+      },
+      {
+        "region": "relaxed_aft_fixed_body",
+        "y_mm": [
+          15.5,
+          18.837
+        ],
+        "current_native_following_area_mm2": 109.94544779106968,
+        "same_following_area_retained_mm2": 0.0,
+        "following_area_removed_mm2": 109.94544779106968
+      }
+    ],
+    "source_analytic_aft_mm2": 109.94544779105983,
+    "source_plan_projection_aft_mm2": 50.37341500000001
+  },
+  "lower_mouth_definition": {
+    "method": "Constant largest horizontal radius after its actual scan maximum; lower half only.",
+    "axis_print_z_mm": 11.312900000000003,
+    "radius_mm": 8.3129,
+    "start_y_mm": 15.5,
+    "fixed_body_end_y_mm": 18.837,
+    "body_end_y_mm": 20.56239,
+    "following_seat_axial_length_relaxed_mm": 3.3369999999999997
+  },
+  "canonical_candidate_equality": {
+    "method": "Exact canonical STEP and accepted candidate imports; native solid subtraction in both directions.",
+    "canonical_step_sha256": "831c6b23a58f8f541735f5c76d5ebf6d50394912eb4979c1e29003e0fb754b46",
+    "candidate_step_sha256": "b34525c98123656209be80591d27b7817cd31c7cc4676f86cf4a2439264add6b",
+    "canonical_valid": true,
+    "canonical_solid_count": 1,
+    "canonical_volume_mm3": 17156.15915293609,
+    "candidate_volume_mm3": 17156.15915293608,
+    "canonical_minus_candidate_mm3": 0.0,
+    "candidate_minus_canonical_mm3": 0.0,
+    "criterion_mm3": 1e-05,
+    "elapsed_seconds": 4.5632569789886475,
+    "peak_rss_bytes": 415367168,
+    "pass": true
+  },
+  "source_candidate_equality": {
+    "path": ".cache/y-seam-fit/polish/cradle-source-lower-mouth-equality.json",
+    "sha256": "78bbbdb2a107b218dbb146dcb0810726de29724eeb564f2dd95291ddd860e90f",
+    "measurements": {
+      "scope": "One-time source build and native equality against the accepted cache candidate; no canonical export, mesh, full-machine query or lint.",
+      "input_sha256": {
+        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
+        ".cache/y-seam-fit/polish/elbow-cradle-lower-mouth-candidate.step": "b34525c98123656209be80591d27b7817cd31c7cc4676f86cf4a2439264add6b",
+        ".cache/y-seam-fit/polish/cradle-lower-mouth-candidate-review.json": "6e44beba6eee30b2e81a051d3f6ae44f5c1e1321cd5a3640c2d716c75d4e4072",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+      },
+      "valid": true,
+      "solid_count": 1,
+      "source_body_volume_mm3": 17156.15915293699,
+      "accepted_candidate_volume_mm3": 17156.15915293608,
+      "source_minus_candidate_mm3": 0.0,
+      "candidate_minus_source_mm3": 0.0,
+      "proof_applicability": "Whole native equality transfers only the accepted candidate review\u2019s explicit protected-region, stock, capture, following-area and scanned-reference measurements. Canonical production outputs still require their scheduled materialization and binding.",
+      "input_stable": {
+        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": true,
+        ".cache/y-seam-fit/polish/elbow-cradle-lower-mouth-candidate.step": true,
+        ".cache/y-seam-fit/polish/cradle-lower-mouth-candidate-review.json": true,
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": true
+      },
+      "elapsed_seconds": 3.143955945968628,
+      "peak_rss_bytes": 389316608,
+      "pass": true
+    }
+  },
+  "lower_mouth_native_review": {
+    "path": ".cache/y-seam-fit/polish/cradle-lower-mouth-candidate-review.json",
+    "sha256": "6e44beba6eee30b2e81a051d3f6ae44f5c1e1321cd5a3640c2d716c75d4e4072",
+    "measurements": {
+      "scope": "Cache-only lower-mouth finish candidate; current cradle plus candidate and actual scanned elbow only. No production source/export, frame/full machine, mesh or lint.",
+      "input_sha256": {
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "fd2f384382b3e90ec043d1221e903d9a462c28f24df17988becfc81408a4badf",
+        "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
+        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "f96b09611423004346c3a44a524aa00b5e2d69ad3f340f2928699d32a4e9a417",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+      },
+      "candidate_path": ".cache/y-seam-fit/polish/elbow-cradle-lower-mouth-candidate.step",
+      "candidate_sha256": "b34525c98123656209be80591d27b7817cd31c7cc4676f86cf4a2439264add6b",
+      "candidate_definition": {
+        "method": "Constant largest horizontal radius after its actual scan maximum; lower half only.",
+        "axis_print_z_mm": 11.312900000000003,
+        "radius_mm": 8.3129,
+        "start_y_mm": 15.5,
+        "fixed_body_end_y_mm": 18.837,
+        "body_end_y_mm": 20.56239,
+        "following_seat_axial_length_relaxed_mm": 3.3369999999999997
+      },
+      "valid": true,
+      "solid_count": 1,
+      "current_volume_mm3": 17301.173530502136,
+      "candidate_volume_mm3": 17156.15915293611,
+      "removed_mm3": 145.0143775654459,
+      "added_mm3": 0.0,
+      "removed_bounds_print_mm": [
+        -8.3129001,
+        8.3129001,
+        15.4999999,
+        20.562390100000002,
+        2.9999999,
+        11.3129001
+      ],
+      "protected": {
+        "entire_body_above_horizontal_axis": {
+          "current_minus_candidate_mm3": 0.0,
+          "candidate_minus_current_mm3": 0.0
+        },
+        "complete_hooks_and_leaves_above_body": {
+          "current_minus_candidate_mm3": 0.0,
+          "candidate_minus_current_mm3": 0.0
+        },
+        "entire_underbody_forward_of_peak": {
+          "current_minus_candidate_mm3": 0.0,
+          "candidate_minus_current_mm3": 0.0
+        }
+      },
+      "stock": [
+        {
+          "name": "complete_3mm_floor",
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "west_3mm_side",
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "east_3mm_side",
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "fore_3mm_wall",
+          "missing_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "band_sections": [
+        {
+          "label": "lower_band",
+          "current_degrees": 236.85166963588665,
+          "candidate_degrees": 236.85166963588665,
+          "unchanged": true
+        },
+        {
+          "label": "top_band",
+          "current_degrees": 249.66479723661664,
+          "candidate_degrees": 249.66479723661664,
+          "unchanged": true
+        }
+      ],
+      "actual_scanned_elbow": {
+        "translation_to_print_mm": [
+          0,
+          0,
+          11.312900000000003
+        ],
+        "current_overlap_mm3": 0.0,
+        "candidate_overlap_mm3": 0.0,
+        "current_minimum_surface_distance_mm": 0.0,
+        "candidate_minimum_surface_distance_mm": 0.0
+      },
+      "following_surface_area": {
+        "method": "Actual current native analytic horizontal-axis cone/cylinder faces plus actual scan-shoulder planes, clipped to the lower half and namedYranges; subtract the candidate air from those native faces. This is geometric pocket surface area, not a measured loaded contact area.",
+        "selected_native_faces": 75,
+        "rows": [
+          {
+            "region": "retained_forward",
+            "y_mm": [
+              2.5,
+              15.5
+            ],
+            "current_native_following_area_mm2": 302.77855941819223,
+            "same_following_area_retained_mm2": 302.77855941819223,
+            "following_area_removed_mm2": 0.0
+          },
+          {
+            "region": "relaxed_aft_fixed_body",
+            "y_mm": [
+              15.5,
+              18.837
+            ],
+            "current_native_following_area_mm2": 109.94544779106968,
+            "same_following_area_retained_mm2": 0.0,
+            "following_area_removed_mm2": 109.94544779106968
+          }
+        ],
+        "source_analytic_aft_mm2": 109.94544779105983,
+        "source_plan_projection_aft_mm2": 50.37341500000001
+      },
+      "sections": {
+        "path": ".cache/y-seam-fit/polish/cradle-lower-mouth-candidate-sections.json",
+        "sha256": "308734cb99857e1529ee4d3292b74d480288c527fa507e6df06676379048e470"
+      },
+      "local_45_degree_option_source_math": {
+        "preserve_following_seat_through_y_mm": 18.837,
+        "start_center_floor_print_z_mm": 5.102900000000003,
+        "end_center_floor_print_z_mm": 3.377510000000002,
+        "interpretation": "The retained scanned taper rises to this start floor, then the45-degree exit falls. Preserving that complete taper keeps an interior raised crest; smoothing the crest necessarily relaxes some following seat. This option is source reasoning only, not a second native candidate."
+      },
+      "input_stable": {
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": true,
+        "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": true,
+        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": true,
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": true
+      },
+      "pass": true,
+      "elapsed_seconds": 5.188570261001587,
+      "peak_rss_bytes": 350437376
+    }
+  },
+  "historical_upper_finish": {
+    "path": ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/prior-upper-finish.json",
+    "sha256": "8778611ae8b8926a94624aa45a5ceaef8dbf5a42f10ce8d8f8a708323b20a8fd",
+    "scope": "Exact earlier upper-finish evidence. Its whole-underside equality belongs to that earlier stage; final applicability is limited to upper body, hooks/leaves, forward lower seat and explicitly retained joint metrics.",
+    "measurements": {
+      "scope": "One-time cradle-only canonical export plus native before/after finish review. No full-machine, route refit, lint or physical qualification.",
+      "source_sha256": "69cc786eec8c9b486a9e0df8cdf5dbd8934b4b895ba9ed3eadabf29acbc9f9f5",
+      "old_step": {
+        "path": ".cache/y-seam-fit/post-live-lint/inputs/artifacts/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
+        "sha256": "dec39d4bccefa686db6551ceecf71fa7297116c27cef1904232d25e634f72d1b"
+      },
+      "current_artifact_sha256": {
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "fd2f384382b3e90ec043d1221e903d9a462c28f24df17988becfc81408a4badf",
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "0e3c9fffc4bc7e9e1ed18342782e6ffb5e2ea8b88ca44dce25260cbfb4006b1f",
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "b0c11d713d9a8aa8c916edf842e4dfdd5a4048a9dfbba1827d0ec744cd47c367"
+      },
+      "valid": true,
+      "solid_count": 1,
+      "old_volume_mm3": 17578.73042580853,
+      "new_volume_mm3": 17301.173530502136,
+      "removed_volume_mm3": 277.55689533097757,
+      "added_volume_mm3": 0.0,
+      "removed_bounds_print_mm": [
+        -8.3129,
+        8.312900000000003,
+        -0.8244561115310262,
+        20.56239,
+        11.312899900000001,
+        21.312900100000014
+      ],
+      "axis_print_z_mm": 11.312900000000003,
+      "body_top_print_z_mm": 21.312900000000003,
+      "underside_delta": {
+        "old_minus_new_mm3": 0.0,
+        "new_minus_old_mm3": 0.0
+      },
+      "hooks_and_leaves_above_body_delta": {
+        "old_minus_new_mm3": 0.0,
+        "new_minus_old_mm3": 0.0
+      },
+      "full_stock": [
+        {
+          "name": "complete_3mm_floor",
+          "required_mm3": 2871.755817000001,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "west_3mm_body_side",
+          "required_mm3": 2033.4034734930005,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "east_3mm_body_side",
+          "required_mm3": 2033.4034734930005,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "fore_3mm_body_wall",
+          "required_mm3": 1924.5548700000006,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "hook_-1_full_2_75mm",
+          "required_mm3": 271.11537475,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "hook_1_full_2_75mm",
+          "required_mm3": 271.11537475,
+          "missing_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "old_finding_witnesses": [
+        {
+          "center_print_mm": [
+            -6.315,
+            20.542,
+            11.67
+          ],
+          "cube_side_mm": 0.04,
+          "old_stock_mm3": 6.39999999999959e-05,
+          "current_stock_mm3": 0.0
+        },
+        {
+          "center_print_mm": [
+            5.094,
+            6.963,
+            20.856
+          ],
+          "cube_side_mm": 0.04,
+          "old_stock_mm3": 3.1999999999996536e-05,
+          "current_stock_mm3": 0.0
+        },
+        {
+          "center_print_mm": [
+            -5.094,
+            6.963,
+            20.856
+          ],
+          "cube_side_mm": 0.04,
+          "old_stock_mm3": 3.1999999999996536e-05,
+          "current_stock_mm3": 0.0
+        }
+      ],
+      "native_band_sections": [
+        {
+          "scan_station_mm": 7.1,
+          "print_z_mm": 18.4129,
+          "circle_radius_mm": 6.3684,
+          "old": {
+            "arcs": [
+              {
+                "length_mm": 29.08060113857799,
+                "radius_mm": 6.3684,
+                "first_mm": [
+                  4.819579662009169,
+                  4.162711909506541,
+                  18.4129
+                ],
+                "last_mm": [
+                  -4.819579662008868,
+                  4.162711909506889,
+                  18.4129
+                ]
+              }
+            ],
+            "retained_angle_degrees": 261.6349021644142,
+            "retained_fraction": 0.7267636171233727
+          },
+          "current": {
+            "arcs": [
+              {
+                "length_mm": 26.824969250099286,
+                "radius_mm": 6.3684,
+                "first_mm": [
+                  -5.47754983204347,
+                  3.2485329608117812,
+                  18.4129
+                ],
+                "last_mm": [
+                  5.4775498320439535,
+                  3.2485329608109654,
+                  18.4129
+                ]
+              }
+            ],
+            "retained_angle_degrees": 241.34123541217605,
+            "retained_fraction": 0.6703923205893779
+          },
+          "pass": true
+        },
+        {
+          "scan_station_mm": 9.5,
+          "print_z_mm": 20.812900000000003,
+          "circle_radius_mm": 6.9504,
+          "old": {
+            "arcs": [
+              {
+                "length_mm": 32.981250200462306,
+                "radius_mm": 6.9504,
+                "first_mm": [
+                  -4.8333132686613,
+                  4.994711503879141,
+                  20.8129
+                ],
+                "last_mm": [
+                  4.833313268663765,
+                  4.994711503876755,
+                  20.8129
+                ]
+              }
+            ],
+            "retained_angle_degrees": 271.8816815653042,
+            "retained_fraction": 0.7552268932369561
+          },
+          "current": {
+            "arcs": [
+              {
+                "length_mm": 30.267563948717747,
+                "radius_mm": 6.9504,
+                "first_mm": [
+                  -5.710382535454923,
+                  3.9622709976440795,
+                  20.8129
+                ],
+                "last_mm": [
+                  5.710382535457041,
+                  3.9622709976410255,
+                  20.8129
+                ]
+              }
+            ],
+            "retained_angle_degrees": 249.51134760644732,
+            "retained_fraction": 0.6930870766845759
+          },
+          "pass": true
+        },
+        {
+          "scan_station_mm": 9.99999,
+          "print_z_mm": 21.312890000000003,
+          "circle_radius_mm": 6.962699780000001,
+          "old": {
+            "arcs": [
+              {
+                "length_mm": 33.062283697613076,
+                "radius_mm": 6.96269978,
+                "first_mm": [
+                  -4.833715195692071,
+                  5.011425509108921,
+                  21.312890000000003
+                ],
+                "last_mm": [
+                  4.833715195688964,
+                  5.011425509111918,
+                  21.312890000000003
+                ]
+              }
+            ],
+            "retained_angle_degrees": 272.068217328396,
+            "retained_fraction": 0.7557450481344332
+          },
+          "current": {
+            "arcs": [
+              {
+                "length_mm": 30.33977447494576,
+                "radius_mm": 6.96269978,
+                "first_mm": [
+                  -5.715167521161188,
+                  3.976939581069385,
+                  21.312890000000003
+                ],
+                "last_mm": [
+                  5.715167521162699,
+                  3.976939581067213,
+                  21.312890000000003
+                ]
+              }
+            ],
+            "retained_angle_degrees": 249.66479723661664,
+            "retained_fraction": 0.6935133256572684
+          },
+          "pass": true
+        }
+      ],
+      "unchanged_hook_metrics_applicability": {
+        "method": "Native equality of the complete hooks/leaves above body top plus unchanged frame STEP transfers only identified hook/web/corner/bearing measurements. The current body is not declared geometrically equal to the old cradle.",
+        "prior_receipt_path": ".cache/y-seam-clearance-audit/cradle-inboard/production-fit-review.json",
+        "prior_receipt_sha256": "2efc75f49ce7b6bb5b880a00f69c87db60fff20d5b40f2b5385dc8ff418617be",
+        "unchanged_frame_step_sha256": "df191fc564dc14803527dfdb8d880e67841dc6a575f9ba996596e30794bd1157",
+        "prior_hook_rows": [
+          {
+            "side": "west",
+            "web_top": {
+              "coordinate_mm": 302.9,
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "hook_underside": {
+              "coordinate_mm": 303.3,
+              "normal": [
+                -0.0,
+                -0.0,
+                -1.0
+              ]
+            },
+            "hook_top": {
+              "coordinate_mm": 306.05,
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "gap_mm": 0.4000000000000341,
+            "hook_thickness_mm": 2.75,
+            "corner_point_world_mm": [
+              -16.3,
+              185.11239,
+              304.675
+            ],
+            "corner_gap_mm": 0.14999999999999858,
+            "full_web_height_mm": 3.0,
+            "full_web_missing_mm3": 0,
+            "slot_outer_x_mm": -13.700000000000001,
+            "slot_inner_x_mm": -8.16
+          },
+          {
+            "side": "east",
+            "web_top": {
+              "coordinate_mm": 302.9,
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "hook_underside": {
+              "coordinate_mm": 303.3,
+              "normal": [
+                -0.0,
+                -0.0,
+                -1.0
+              ]
+            },
+            "hook_top": {
+              "coordinate_mm": 306.05,
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "gap_mm": 0.4000000000000341,
+            "hook_thickness_mm": 2.75,
+            "corner_point_world_mm": [
+              20.000000000000004,
+              185.11239,
+              304.675
+            ],
+            "corner_gap_mm": 0.14999999999999503,
+            "full_web_height_mm": 3.0,
+            "full_web_missing_mm3": 0,
+            "slot_outer_x_mm": 17.4,
+            "slot_inner_x_mm": 11.86
+          }
+        ],
+        "prior_actual_silicone_bearing": {
+          "name": "actual silicone bearing preserved",
+          "pass": true,
+          "measured": {
+            "canonical_bearing_mm2": 269.8953150000001,
+            "measured_candidate_mm2": 269.895315,
+            "plane_alignment_mm": [
+              0.0,
+              0.0
+            ]
+          },
+          "criterion": "Area equals candidate within 0.001mm\u00b2; every exported plane alignment <= 1e-05mm.",
+          "origin": "final canonical native"
+        }
+      },
+      "source_stable": true,
+      "old_step_stable": true,
+      "frame_step_stable": true,
+      "elapsed_seconds": 25.226997137069702,
+      "peak_rss_bytes": 305414144,
+      "pass": true,
+      "source_docstring_relation": {
+        "materialized_source_path": ".cache/y-seam-fit/polish/cradle-materialized-source.py",
+        "materialized_source_sha256": "69cc786eec8c9b486a9e0df8cdf5dbd8934b4b895ba9ed3eadabf29acbc9f9f5",
+        "current_source_path": "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+        "current_source_sha256": "f96b09611423004346c3a44a524aa00b5e2d69ad3f340f2928699d32a4e9a417",
+        "method": "Only module docstring differs; exact AST after removing that module docstring is unchanged. No geometry or execution statement differs.",
+        "pass": true
+      },
+      "section_visual": {
+        "path": ".cache/y-seam-fit/polish/cradle-pocket-sections.json",
+        "sha256": "56c35d5f67fde22d68b5eded48df67db7d4e89798dfcabaa1e20518ac1822d1b",
+        "scope": "Old/current native XY section edges at bodytop\u22120.1 and horizontalaxis+0.36, central YZ lower-bearing outline, and lower vertical-band boundary."
+      },
+      "root_band_capture_bound": {
+        "method": "The new fore supporting line is tangent to the exact core circleR4.2. On the unchanged analytic root band, retained angle is180+2*(tangent_normal_angle+acos(4.2/vertical_clearance_radius)), in degrees. This increases over the source root-band radius interval; the lower endpoint and near-top endpoint have direct native section witnesses.",
+        "source_radius_interval_mm": [
+          6.1007,
+          6.9627
+        ],
+        "min_native_angle_degrees": 236.85166963588665,
+        "top_native_angle_degrees": 249.66479723661664,
+        "pass": true,
+        "limits": "Geometric circular capture; no force, load capacity or lifetime qualification."
+      },
+      "failed_attempt_provenance": {
+        "diagnostic_path": ".cache/y-seam-fit/polish/cradle-finish-invalid.json",
+        "diagnostic_sha256": "7828f3c3345436f84356991fcc251028cb590253895653d85e71cafd91e8114f",
+        "source_path": ".cache/y-seam-fit/polish/cradle-invalid-plan-source.py",
+        "source_sha256": "882c0b0f184959e573034366a881a667d438180c01fbcc81714ec546d30fd5fe",
+        "scope": "Failed candidate stopped at valid-single-solid assertion before export. A vertical air profile closing below its last scan station doubled back; forward-only cap resolves it outside the occupied body-height interval. The final native differences above bind actual resulting geometry."
+      }
+    }
+  },
+  "source_docstring_relation": {
+    "materialized_source_path": ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/source.py",
+    "materialized_source_sha256": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
+    "current_source_path": "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+    "current_source_sha256": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
+    "method": "Exact full source bytes match the source-built accepted-candidate equality and current canonical generator source.",
+    "pass": true
+  },
+  "mesh_binding_scope": {
+    "method": "Exact canonical generator output SHA256 binding plus binary STL count/byte-length inventory. Native equality applies to STEP; no STL/candidate surface equality or mesh-quality pass is claimed.",
+    "stl_facet_count": 8798,
+    "stl_byte_length": 439984
+  },
   "source_stable": true,
   "old_step_stable": true,
   "frame_step_stable": true,
-  "elapsed_seconds": 25.226997137069702,
-  "peak_rss_bytes": 305414144,
-  "pass": true,
-  "source_docstring_relation": {
-    "materialized_source_path": ".cache/y-seam-fit/polish/cradle-materialized-source.py",
-    "materialized_source_sha256": "69cc786eec8c9b486a9e0df8cdf5dbd8934b4b895ba9ed3eadabf29acbc9f9f5",
-    "current_source_path": "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-    "current_source_sha256": "f96b09611423004346c3a44a524aa00b5e2d69ad3f340f2928699d32a4e9a417",
-    "method": "Only module docstring differs; exact AST after removing that module docstring is unchanged. No geometry or execution statement differs.",
-    "pass": true
+  "input_stable": {
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": true,
+    ".cache/y-seam-fit/polish/elbow-cradle-lower-mouth-candidate.step": true,
+    ".cache/y-seam-fit/polish/cradle-lower-mouth-candidate-review.json": true,
+    ".cache/y-seam-fit/polish/cradle-source-lower-mouth-equality.json": true,
+    ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/prior-upper-finish.json": true,
+    ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/before-lower-mouth.step": true,
+    ".cache/y-seam-fit/polish/lower-mouth-binding-inputs/source.py": true,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": true,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": true,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": true,
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": true
   },
-  "section_visual": {
-    "path": ".cache/y-seam-fit/polish/cradle-pocket-sections.json",
-    "sha256": "56c35d5f67fde22d68b5eded48df67db7d4e89798dfcabaa1e20518ac1822d1b",
-    "scope": "Old/current native XY section edges at bodytop\u22120.1 and horizontalaxis+0.36, central YZ lower-bearing outline, and lower vertical-band boundary."
-  },
-  "root_band_capture_bound": {
-    "method": "The new fore supporting line is tangent to the exact core circleR4.2. On the unchanged analytic root band, retained angle is180+2*(tangent_normal_angle+acos(4.2/vertical_clearance_radius)), in degrees. This increases over the source root-band radius interval; the lower endpoint and near-top endpoint have direct native section witnesses.",
-    "source_radius_interval_mm": [
-      6.1007,
-      6.9627
-    ],
-    "min_native_angle_degrees": 236.85166963588665,
-    "top_native_angle_degrees": 249.66479723661664,
-    "pass": true,
-    "limits": "Geometric circular capture; no force, load capacity or lifetime qualification."
-  },
-  "failed_attempt_provenance": {
-    "diagnostic_path": ".cache/y-seam-fit/polish/cradle-finish-invalid.json",
-    "diagnostic_sha256": "7828f3c3345436f84356991fcc251028cb590253895653d85e71cafd91e8114f",
-    "source_path": ".cache/y-seam-fit/polish/cradle-invalid-plan-source.py",
-    "source_sha256": "882c0b0f184959e573034366a881a667d438180c01fbcc81714ec546d30fd5fe",
-    "scope": "Failed candidate stopped at valid-single-solid assertion before export. A vertical air profile closing below its last scan station doubled back; forward-only cap resolves it outside the occupied body-height interval. The final native differences above bind actual resulting geometry."
-  }
+  "limits": [
+    "The final entire underside is not unchanged. The aft145.014mm3 relief includes3.337mm of the narrowing fixed-body following seat.",
+    "The0.15mm pocket value is radial/profile growth; a global minimum normal gap is not established.",
+    "Following-surface area and capture are geometric measures, not loaded contact, load capacity or lifetime qualification."
+  ],
+  "pass": true
 }

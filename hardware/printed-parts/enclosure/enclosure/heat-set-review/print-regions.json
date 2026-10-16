@@ -2,26 +2,26 @@
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "b2ff3cdb9f3f37e76c8bf7990de630350a12004acea8b840ed63f6718192f962",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e279ef1656fccd18fe9f75f42df5fb2a9b826a44ef120bd97b0cfd0e4402a579",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6e9b45a2fa9bdc0cf020ce4005b5fc01b547a6982c9d57512a43df70c3048c9",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "5722f63e6290b97073cad9595bae92bc17dbc830166d907df4d25c9df067ebfe"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "bcd491217b5362f059bb49a0614a51e81e0edea867596da3b68bbb816a77d3ca",
-      ".stl": "ac8618afffcd740e6d5c0523ce4834cef7329d40c38dfaca163e3ca668acccc9"
+      ".step": "510c9d63755233baf36c647481cde560a533813291c0ed2f78b846b046442eb7",
+      ".stl": "3bfb2fb9d909c1c61eb03768e2eef935bfe4c489f4551e701f17d3e873f432ee"
     },
     "front-top": {
-      ".step": "364b90aba775e8f84eac955c341fc3a9fdcd44e239259fbf402bab14993176fe",
-      ".stl": "75ce71cfb761e9a8f42e37b9f4986eb9b77fcd1ca9413671f4061d32cf3c5df5"
+      ".step": "d803bd4b12f25cc9e8ea3bbd8c50732d3892e15bfb2e5e68e1abba9b36f8eba5",
+      ".stl": "b892d025e3ed93b57f7f8654741971e88862ad029c9494364c2dc3c0e458bdc5"
     },
     "back-bottom": {
       ".step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
       ".stl": "6cf46b76fa43e69df67bae0ac00f452cb67539d0d7b77081d6b77941ab41ecfd"
     },
     "back-top": {
-      ".step": "6d76f74904cfca9d9d4cd7a4657c662ac26f65e4f871c556a1216e3bcba62f0e",
-      ".stl": "332b60b814f1e3879e008abf13d4af6c6420fcb36fcffc3937139fe4d0661562"
+      ".step": "0471d0ef640c8a856924202fb6361d080a66678acb21f5c3111bc5c500bd374b",
+      ".stl": "647ea1fe9af492a2f9a4b5f22a2c2c319201290bef63994f95b36216b4c92701"
     },
     "pump-cartridge": {
       ".step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
