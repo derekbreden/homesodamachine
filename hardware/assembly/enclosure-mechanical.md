@@ -8,7 +8,9 @@ The current fit adjustment covers PET-GF mating with PET-GF in the enclosure. Ri
 fits elsewhere remain subject to the same printed-face allowances and are unresolved by
 this pass. Compliant gaskets and seals use their specified installed squeeze in the compression
 direction. The core's nominal crown remains Z253.4 and its hold-down foot is Z253.65.
-Refreshed native verification of the enclosure source changes is pending regeneration.
+The [native fit review](/hardware/printed-parts/enclosure/enclosure/y-seam-fit-review.json)
+binds the measured enclosure interfaces, local stock and inboard cradle/frame geometry
+to their production artifacts. It does not establish physical assembly force or lifetime.
 
 ## The box
 
@@ -137,7 +139,7 @@ All seven land in `enclosure-back-top`, on the bench, before that piece goes any
 | Tap-water union (PP1208E) | x [-78.07](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[17.44](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 66.9, z 336.2](C14_BACK) | Rounded rectangle | Rim on the inlet tunnel's pocket floor, two M3 through the ears into that floor |
 | CO2 ABU44 bulkhead | [x -3.35, z 336](CO2_BACK) | Ø[17.3](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
-| Umbilical-signal keystone | x −37.81, z 303.35 | 14.9 × 16.3 mm keyed receptacle | RiteAV RJ11 jack enters from inside, tang first; latch snaps over the printed catch and its face finishes flush |
+| Umbilical-signal keystone | x −40.71, z 302.62 | 14.8 × 16.3 mm keyed receptacle | RiteAV RJ11 jack enters from inside, tang first; latch snaps over the printed catch; face recessed behind DATA |
 
 **The CO2 comes in at the +Y wall**, not at the front — carbonator, tap and umbilical all land on the one face the customer reaches at install. No connection is cut in the front wall: its one opening is the pump bay, and the pump cartridge's face closes that.
 
@@ -148,7 +150,7 @@ Install, in this order:
 - **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-40.71](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [+Y wall of back-top "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md), and that rule only works if the ring is where the customer expects it.
 - **The C14 inlet** — it lands from *inside*: flange against the fore face of the printed tunnel standing round the cutout, its rim bearing on the pocket floor around the bore and two M3 through the ears into that floor either side of it. Nothing on this station stands proud of the rear face; the rim face sits [8.25 mm](C14_RIM_INSET) inside it, and the C13 nose comes down the bore to reach it. Solder tabs face into the cabinet.
 - **The ABU44** — a 1/4" collet on each face, the red bulkhead ring dropped into its rim before the fitting goes in, flange bearing on that ring and the panel nut made up inside. Nothing threads onto either collet here.
-- **The RiteAV RJ11 keystone** — enter from inside, upper tang first, swing the body through the receptacle's ease and press until its latch snaps over the printed catch. Its black face and dust cover finish flush on the rear show face; its 110 IDC remains accessible inside for SIG-6.
+- **The RiteAV RJ11 keystone** — enter from inside, upper tang first, swing the body through the receptacle's ease and press until its latch snaps over the printed catch. Its face is 3.52 mm inside the rear show plane, 0.16 mm behind DATA's nominal back; its 110 IDC remains accessible inside for SIG-6.
 
 Set the populated back-top piece aside; the electronics bay joins it at step 5, and it closes in step 6.
 
@@ -330,7 +332,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Cold core seated in its rounded floor pocket behind the compressor bay, both front corners inside front-bottom's blocks and back-top's two brackets over the aft edge of its cap, no tension on the refrigerant lines, all [9](CAP_CONDUITS) cap conduits open on the lid
 - Four printed quadrants telescoped at the Y seam and slid home on both Z seams, the four corner screws driven and set — `enclosure-back-top` last, since it is the lid over the whole service bay
 - Fixed release plate carrying [4](PLATE_HOLES) forward-facing tube passages; Y-C/Y-D/Y-F/Y-G tied into the tee carrier plate's troughs, their branch collars in the tee wall's journals; four bowed flex stubs and four hairpin ends free to follow the tees; pump bay open for the cartridge connection in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
-- +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone flush in its keyed receptacle. No connection is cut in the front wall.
+- +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone recessed behind DATA in its keyed receptacle. No connection is cut in the front wall.
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - OVER bulkhead installed through its middle-row chip, with both 4 mm collets reachable
 - Machine display seated in the rounded 30° housing of `enclosure-front-top`, with the TPU ring on the glass and both horizontal cover wings captured in their pockets, leads loose

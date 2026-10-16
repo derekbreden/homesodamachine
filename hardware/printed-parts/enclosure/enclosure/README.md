@@ -118,7 +118,7 @@ overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
   The frame slides into front-top from the seam end above the front-top block. An
   [M5 × 60](UPPER_ROD) drives down from back-top's roof into an insert in front-top's knuckle,
   so tightening it holds front-top up against back-top; that also locks front-top's slide.
-  Front-top's knuckle gives its inboard-aft edge a 45° chamfer for the flavour line that turns
+  Front-top's knuckle gives its inboard-aft edge a 5.1 mm, 45° chamfer for the flavour line that turns
   past the −X corner under the frame (`y_stack_upper_chamfer`).
 
 All PET-GF-to-PET-GF faces between blocks require their applicable static or sliding fit and
@@ -133,9 +133,10 @@ The [Ø10.8 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the 
 interior, with a complete washer-bearing floor. The lower floor is Z37.25 and the upper
 floor is Z347. The nominal screw and washer poses keep the head faces recessed 2 mm
 from the handhold ceiling and roof. The steel washers bear directly on those floors.
-The [native insert audit](heat-set-review/geometry-check.json) reports screw reach for
-its identified artifacts. The current source retains the ±0.8 mm screw-length allowance;
-its refreshed native engagement and blind-tip readings are pending regeneration.
+The [native insert audit](heat-set-review/geometry-check.json) binds the current
+insert hosts and screw pockets. With the ±0.8 mm screw-length allowance, all four
+seam screws retain the full 9.5 mm insert engagement and at least
+1.7 mm of blind-tip room at nominal CAD part poses.
 The screw passages are printed to size.
 Seat the washers with a hand-operated 4 mm hex key and stop at the intended bearing faces.
 The printed joint has no qualified installation torque or retained clamping force.
@@ -147,12 +148,15 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [retained fit review](y-seam-fit-review.json) contains 111 finite planar-pair readings
-and 17 contact dispositions for its identified source and native hashes. The detailed
-quadrant survey records 59 patches and 11 local probes for its own inputs. These records
-do not establish the current source's final fit; refreshed exports and readings are pending.
-The core's nominal crown remains Z253.4; its pocket and hold-down readings await the
-regenerated enclosure artifacts.
+The [native fit review](y-seam-fit-review.json) binds nine targeted stages to the current
+production exports: quadrant and frame faces, hardware stock, pump receiver, nameplate
+and DATA receivers, bulkhead rings, window covers, tee carrier, the 45° bedding edge,
+and the core's five external printed bodies. Every measured finite patch meets its
+applicable static or running allowance, including the allowance for each supported face.
+The native tolerance is 0.00001 mm. The review retains exact witnesses, complete local
+stock checks and the standalone quadrant survey. The final inboard cradle and frame are
+measured directly from their production exports, including the hook gaps, webs and silicone
+bearing area. Surface finish and load capacity require their own evidence.
 The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
 parts, complete funnel-brim bearing and sampled straight assembly motions. The
 [frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
@@ -398,7 +402,13 @@ the relieved CO2 land retains 3 mm. The barrel's clamped stack includes the 0.15
 Supported pocket edges receive their directional allowance in back-top's inverted print pose.
 The nameplate and DATA plate backs also have 0.15 mm static clearance. The nameplate's
 production station is 0.30 mm west of the rear-field midpoint, with 2.14 mm of hidden east
-backing for the specified 1 mm PSU margin. Native confirmation is pending regeneration.
+backing for the specified 1 mm PSU margin. The [native fit review](y-seam-fit-review.json)
+confirms the actual receiver stock and clearance against the placed PSU.
+The label pads retain their full ordinary backing before their 45° print-down run-outs.
+The DATA jack and its complete receptacle are recessed 0.16 mm behind the plate's nominal
+back plane, preserving a 3 mm flat lip behind the plate's 0.15 mm allowance. Its required
+50° insertion ease remains a separate functional bevel; DATA's wings and retaining roofs
+keep their specified sections and poses.
 
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
@@ -497,8 +507,9 @@ fore, and back-top slides aft off its rails if the tub itself is the work.
 
 ## Cold-core grips
 
-The cap crown is the core's Z253.4 nominal reference. Final enclosure readings are pending
-regeneration.
+The cap crown is the core's Z253.4 nominal reference. The [native fit review](y-seam-fit-review.json)
+identifies the five external printed core bodies individually and checks the enclosure's
+finite floor, flank, crown and hold-foot faces against their actual native material.
 
 The core is the heaviest body in the machine and the one with no hole in it — a foamed cup
 under a screwed cap, plain skin the whole way round. What fastens it is the closed box: **the

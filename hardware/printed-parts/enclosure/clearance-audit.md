@@ -2,15 +2,16 @@
 
 The enclosure's PET-GF-to-PET-GF mating interfaces use the shared allowances in
 [fits.py](/hardware/printed-parts/cadlib/fits.py). This page describes the source geometry and
-its artifact-scoped verification coverage. Current-source native verification is pending
-regeneration. The source dimensions do not certify a physical print's fit.
+its artifact-scoped verification coverage. The [native fit review](enclosure/y-seam-fit-review.json)
+records the current measured interfaces and complete local stock. The rules determine
+the required geometry between printed faces, including faces loaded by screws or gravity.
 
 This pass is bounded to the enclosure's PET-GF-to-PET-GF interfaces. Rigid-part fits
 elsewhere remain subject to the same printed-face allowances; this pass does not resolve
 them. Compliant gaskets and seals use their specified installed squeeze in the compression
 direction. Steel washer bearing planes retain their nominal source positions and are outside
-this pass's fit assessment. The core crown remains at its Z253.4 reference; final enclosure pocket and hold-down readings are
-pending regenerated enclosure artifacts.
+this pass's fit assessment. The core crown remains at its Z253.4 reference; the native
+review checks the enclosure pocket and hold-downs against the five external printed bodies.
 
 The allowances reserve room for rough or oozed printed material beyond the nominal CAD
 face. Seating under gravity or screw load uses that room too. A modeled gap does not
@@ -44,6 +45,10 @@ The nameplate receiver has 0.45 mm of local relief above each 1.68 mm wing and
 0.15 mm clearance. The retaining face and entry bevel retain 1.23 mm of stock over
 the flat bearing. The production station stands 0.30 mm west of the rear-field midpoint;
 the hidden east backing remains 2.14 mm thick to preserve the specified 1 mm PSU margin.
+Both pads carry their full ordinary backing before the 45° print-down run-out.
+The DATA jack and its complete receptacle stand 0.16 mm farther inboard than the
+plate's nominal back plane. The flat jack lip retains 3 mm behind the 0.15 mm
+printed back gap; the required 50° swing ease has its own functional profile.
 The [receiver trial](nameplate/horizontal-wing-trial/README.md) records its own source and
 physical support-removal scope; it does not validate the current receiver's added back gap.
 
@@ -126,7 +131,7 @@ to the geometry identified by their input hashes.
 | Screw-head pockets | Each pocket is 8 mm deep. Floors are Z37.25 and Z347; steel washers bear on those nominal planes. The nominal head recess is 2 mm. Each complete washer annulus retains 3 mm of backing. |
 | Pump receiver floor | Floor Z164.845 is 0.35 mm below the cartridge bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
 | Funnel front rail | Frame foot Z306.9 to receiver underside Z307.4 gives 0.50 mm: 0.25 running + 0.25 supported. |
-| Core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it, from Z−0.35 to Z253.65. Floor room is 0.25 mm running + 0.10 mm cavity-floor transition; the slab retains 5.65 mm. The complete hold-down profile stands 0.25 mm above the nominal Z253.4 crown. Final readings await regenerated enclosure exports. |
+| Core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it, from Z−0.35 to Z253.65. Floor room is 0.25 mm running + 0.10 mm cavity-floor transition; the slab retains 5.65 mm. The complete hold-down profile stands 0.25 mm above the nominal Z253.4 crown. The native review checks finite material at both hold-foot lands and the complete 8 mm foot stock. |
 | PRV chase beside core | Lip X−90.75 to core flank X−90.5 gives 0.25 mm. |
 
 The lower washer's separate 35° entry moves with the lower screw axis and complete
@@ -155,16 +160,18 @@ the nominal hardware envelopes used to size the CAD pockets.
 
 ## Verification
 
-The [retained enclosure fit review](enclosure/y-seam-fit-review.json) contains 111
-finite planar-pair readings and 17 contact dispositions for its identified source
-and native artifact hashes. Its dimensions and judgments apply to those inputs.
-The current PET-GF-to-PET-GF source adjustments require refreshed exports and readings;
-the retained receipt is not a final-current QA result. The record does not certify
-curved/nonparallel contacts or physical support finish.
+The [native enclosure fit review](enclosure/y-seam-fit-review.json) binds nine targeted
+stages to the current production artifacts. It retains every measured finite planar
+patch, its normal, print direction, required allowance and actual gap, together with
+complete local stock checks. The stages cover quadrants and frame, hardware stock,
+pump receiver, nameplate and DATA, rings, window covers, tee carrier, the 45° bedding
+edge and the five external core bodies. The final cradle/frame confirmation records
+actual canonical geometry, supported hook clearance, complete webs and the retained
+silicone bearing. Its sampled flexure and route results retain their stated model scope.
 
-The [retained quadrant reading](mating-clearance-check.json) records opposing planar
-faces from those four identified enclosure STEPs: 59 passing patches and 11 passing
-local probes. Its measured local gaps include:
+The [quadrant reading](mating-clearance-check.json) records the four current enclosure
+STEP hashes and its complete finite-patch and explicit-probe results. Its measured
+local gaps include:
 
 | Intersection | Locations | Gap | Accounting |
 |---|---:|---:|---|
@@ -179,9 +186,9 @@ allowance on every measured PET-GF-to-PET-GF mating patch, including screw-clamp
 Y closure ends, main Z seating shoulders and rail ends. Its bed-face classification uses
 each part's actual minimum Z for +Z printing or maximum Z for −Z printing.
 Zero-clearance contacts fail this requirement.
-Each closed-end block retains 3.75 mm of length. A retained reading's input hashes
-and acceptance criteria define its scope; its status alone does not establish
-compliance with the requirements on this page.
+Each closed-end block retains 3.75 mm of length. Input hashes, actual finite witnesses
+and acceptance criteria define each reading's scope. The review does not establish
+unmeasured curved contacts, a complete insertion sweep or physical surface finish.
 
 Run `tools/cad-venv/bin/python hardware/scripts/check_enclosure_mating_clearance.py`
 after materializing the quadrants. Its scope is parallel planar patches larger
