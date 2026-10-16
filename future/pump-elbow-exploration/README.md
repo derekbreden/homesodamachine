@@ -1,18 +1,23 @@
 # TPU pump elbow and installed layout study
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A pair with a vertical center web retains dense bore and exterior-to-fin stringing.**
-The [vertical center-web trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md)
-contains two identical elbow-and-fin units joined by a straight vertical web
-at their center. Both the single
-and pair have connected layer sections through all 184 layers. The tested
-pair uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
-Engineering Plate, with Timelapse Off and 0.4 mm Normal Lift. Its reviewed
-travel stays within the model layer outlines, preserving every opening, with
-no preceding-layer floor fallback. The planning estimate is about 2 hours 20 minutes / 9.25 g.
-The [physical result](prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json)
-shows persistent dense strings. An unanchored strand can straighten across a
-bore or exterior gap even when the nozzle detours above wall material. Fin
-removal and fit remain unassessed. The
+**Status: single Siraya elbow exterior accepted; internal stringing reported.
+The deposited-path Siraya pair is submitted, with its physical result pending.**
+Mark1 accepted [task 1344414329](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+with clear Siraya Tech TPU 85A on the right 0.6 mm nozzle and the glued Engineering
+Plate at zero local user Z trim. Its layer tours print the native wall and fin
+paths through turns, using contained straight transfers between paths. All
+6,118 free attachment chords stay inside material sections that retain every
+opening, including a conservative check that ignores deposited runs shorter
+than 1 mm as attachments. Added deposition retraces inner walls and totals
+1.21%. Timelapse, in-part retractions and Z hops are off. Allow about
+2 hours / 8.55 g. These are commanded-path checks; physical string reduction,
+fin removal and fit remain unassessed.
+
+The [vertical center-web Bambu trial's physical result](prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json)
+shows dense bore and exterior-to-fin strings. A free strand can straighten
+across an opening when the nozzle follows a bent nonextruding detour. Its
+geometry supplies the two identical elbow-and-fin units and vertical joining
+sheet used by the deposited-path trial. The
 [0.4 mm lap's physical record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
 reports persistent threads with a possible small reduction in thickness.
 
@@ -53,6 +58,11 @@ neighboring hardware are considered together.
 
 ## Files
 
+- [Deposited-path Siraya trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+  contains the editable pair, native and processed archives, per-layer path
+  record, independent emitted-command review and launch receipt. The manual
+  [`deposited_links.py`](deposited_links.py) processor splices native paths into
+  layer tours with straight free chords between deposited paths.
 - [Vertical center-web pair and standalone elbow](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md)
   contain the editable models, native and processed pair archives, geometry
   and travel reviews. The [following-leg web trial](prints/2026-10-16-cutaway-web-tpu85a-mark1/README.md)
