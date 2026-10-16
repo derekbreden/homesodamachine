@@ -2097,7 +2097,7 @@ def _column_relief(inner, sx, sy, room, zj, cradle=()):
     return body.intersect(_column_pillar(inner, sx, sy, zj))
 
 
-def _column_relief_rise(inner, sx, sy, room, zj, up=1.0):
+def _column_relief_rise(inner, sx, sy, room, zj, up=1.0, cradle=()):
     """The walk one pocket's PRINT-UP FACE takes into the column beyond it — its ceiling where
     the piece's print up is the box's +Z (`up` = +1), its floor where it is −Z (`up` = −1) —
     and the piece that decides how much of it survives.
@@ -2118,9 +2118,20 @@ def _column_relief_rise(inner, sx, sy, room, zj, up=1.0):
     held_x, free_x = (x1, x0) if sx > 0 else (x0, x1)
     held_y, free_y = (y1, y0) if sy > 0 else (y0, y1)
     lid = z1 if up > 0 else z0                # the pocket face on its print-up side
+    y_lid = lid
+    if up > 0:
+        crossed = [s for s in cradle
+                   if abs(s[0] - y0) < 1e-6 and z0 < s[3] and s[4] < z1
+                   and s[1] < x1 and x0 < s[2]]
+        if crossed:
+            station = crossed[0]
+            # The rail groove and the pocket share one Y roof walk. The
+            # pocket's complete body room and its independent X walk remain.
+            y_lid = station[4] + cond_slot_half(station[4] - station[3])
     wx, wy = up * abs(x1 - x0), up * abs(y1 - y0)
     return (_xz_prism(y0, y1, [(free_x, lid), (held_x, lid), (free_x, lid + wx)])
-            .intersect(_yz_prism(x0, x1, [(free_y, lid), (held_y, lid), (free_y, lid + wy)]))
+            .intersect(_yz_prism(x0, x1, [(free_y, y_lid), (held_y, y_lid),
+                                         (free_y, y_lid + wy)]))
             .intersect(_column_pillar(inner, sx, sy, zj)))
 
 
@@ -3018,7 +3029,7 @@ def _storey_section(box, y0):
     """The display storey's `(y, z)` section from `y0` back: the lintel's plane up past the top
     wall, aft to the ridge wall's fore face and 45° crown."""
     outer = box.outer
-    fore = box.pack.collet_plate["aft_y"]
+    fore = bay_back_y(box.pack.collet_plate)
     ry, rz = pcb_ridge(outer)
     jog, _aft_crown = _ridge_join(outer, fore)
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
@@ -3224,7 +3235,8 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
         return solid
     pocket = _nameplate_fit.apply(solid, plate, y_outer,
                                   supported=fits.supported_surface, up=up)
-    return _nameplate_fit.production_backing(pocket, plate, y_outer)
+    return _nameplate_fit.production_backing(pocket, plate, y_outer,
+                                              wall_face=back_top_wall_face())
 
 
 def _port_chip(px, pz, width, rise, bottom, y0, y1):
@@ -3261,12 +3273,13 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         landed = any(abs(px-rx) <= wx/2 and abs(pz-rz) <= wz/2
                      for _who, rx, rz, wx, wz in back_top_wall_reliefs)
         if not landed:
-            # Move local backing with the pocket floor. Clipping to the existing
-            # host keeps the boss inside the retained roof and seam outline.
+            # Extend only the wall-normal backing section. Copying a deeper
+            # host also copies neighbouring receiver detail into thin returns.
+            # The narrow source section retains the actual roof/seam outline.
             width, rise, bottom = _size
             host = _port_chip(px, pz, width+2*field.rim,
                               rise+field.rim, bottom+field.rim,
-                              y_outer-t-1.0, y_outer+1.0)
+                              y_outer-t, y_outer-t+fits.slip)
             solid = solid.fuse(original.intersect(host).translate((0,-fits.slip,0)))
     for px, pz, width, rise, bottom in field.pockets:
         solid = solid.cut(_supported_cut(
@@ -4740,10 +4753,11 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
     # The wall's own holes, bored in `build_back_half` before this stood here.
     for cutter in _port_cuts(box.pack.back_ports, iy1 - 5.0, outer[3] + 5.0, up):
         band = band.cut(cutter)
-    return band.cut(_back_top_wall_relief_cut(box.pack.port_field, up))
+    return band.cut(_back_top_wall_relief_cut(box.pack.port_field, up,
+                                              ceiling=box.inner[5]))
 
 
-def _back_top_wall_relief_cut(field, up=1.0):
+def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
     """Every station's relief. One hosting no port station is the whole extra section given
     back — floored on `rear_plane_y`, its print-roof rising at `relief_chamfer` to the mouth —
     so what clamps on that face lands on the section it always had (the C14's tunnel roots on
@@ -4779,19 +4793,22 @@ def _back_top_wall_relief_cut(field, up=1.0):
             land_y = floor - field.proud - fits.slip
             fall = land_y - face                # relief remaining beyond the retained stack
             d = station_land_draft
+            sill_draft = (min(d, max(0.0, ceiling-sill))
+                          if up < 0 and ceiling is not None else d)
             x0, x1 = rx - hx, rx + hx
 
-            def ring(y, g, gt):
-                # `g` is the draft's growth on the sides and the sill, `gt` the chamfer's on
-                # the roof, each read outward from the land's own outline.
-                za, zb = sill - up * g, (roof - up * fall) + up * gt
+            def ring(y, g, gt, gs):
+                # Side, print-roof and sill growth are independent. The sill
+                # ends on the ceiling plane without an overshooting shelf.
+                za, zb = sill - up * gs, (roof - up * fall) + up * gt
                 zlo, zhi = min(za, zb), max(za, zb)
                 return cq.Wire.makePolygon(
                     [cq.Vector(x0 - g, y, zlo), cq.Vector(x1 + g, y, zlo),
                      cq.Vector(x1 + g, y, zhi), cq.Vector(x0 - g, y, zhi)],
                     close=True)
             cut = cq.Solid.makeLoft(
-                [ring(face - 1.0, d, fall), ring(face, d, fall), ring(land_y, 0.0, 0.0)],
+                [ring(face - 1.0, d, fall, sill_draft),
+                 ring(face, d, fall, sill_draft), ring(land_y, 0.0, 0.0, 0.0)],
                 True)
         else:
             back = roof - up * depth            # the roof's line on the relief's floor
@@ -6403,7 +6420,13 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
     pockets = []
     for (side, sz, clear_z, supportless_roof), row in rows:
         face = inner[1] if side > 0 else inner[0]
-        engage = max(wago_engage(st[3]) for st in row)
+        # Vertically stacked rows on the same station share one inboard
+        # backing plane. Their individual connector pockets remain separate.
+        # A different reach above a carried row leaves a narrow land where
+        # the two pieces of backing meet.
+        engage = max(wago_engage(st[3]) for st in mine
+                     if st[0] == side and any(abs(st[1] - member[1]) <= stated_bound_tol
+                                             for member in row))
         half_z = max(wago_half(st[3])[1] for st in row)
         # inboard is −X on the east wall and +X on the west, so the tower and the pocket
         # both run from the wall towards the room
@@ -6652,8 +6675,8 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
                                      # support-free.
                                      (outer[0] - 1.0, groove_top - 1.0),
                                      (inner[0], groove_top + (inner[0] - outer[0])),
-                                     (inner[0], rim),                # is the duct's west face;
-                                     (liner_x, rim),                 # above it the liner is,
+                                     (inner[0], rim + slide_slip),    # the rail's same roof;
+                                     (liner_x, rim + slide_slip),     # above it the liner is,
                                      (liner_x, mouth_top)]))         # and the rib roofs the duct
         # ONE WALL-NORMAL ROOF THROUGH THE FLANK AND THE EXPOSED RIB. The square passage keeps its
         # complete section at `liner_x`; from there every layer advances one millimetre toward the
@@ -7540,7 +7563,7 @@ def _valve_socket_cutters(plane, sign, seat_x, seat_z):
 
 
 def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
-                 wall_aft_y=None, flank_bed_z=None):
+                 wall_aft_y=None, flank_bed_z=None, flank_runs=()):
     """Every valve tray whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
@@ -7631,6 +7654,22 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         if flank_bed_z is not None:
             tray = tray.cut(_front_top_flank_bedding_cut(
                 inner, near - 1.0, far + 1.0, flank_bed_z))
+            for x_in, sx, run_start, _run_stop, run_end in flank_runs:
+                ya, yb = max(near, min(run_start, run_end)), min(far, max(run_start, run_end))
+                if yb <= ya:
+                    continue
+                x_open, x_face, x_deep = _rail_channel_span(x_in, sx, "front")
+                roof = flank_bed_z + z_rise + slide_slip
+                gable = roof + abs(x_deep-x_open)/2.0
+                bedding = flank_bed_z + z_rise + abs(x_in-x_face)
+                difference = bedding - gable
+                if difference > stated_bound_tol:
+                    # Join the tray's inboard gable to the existing flank
+                    # bedding without a short vertical land at their ridge.
+                    # This cut never enters the rail foot outboard of x_face.
+                    tray = tray.cut(_xz_prism(ya, yb, [
+                        (x_face, gable), (x_face, bedding),
+                        (x_deep, roof)]))
         solid = solid.fuse(tray)
         turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
                            -90.0 if sign > 0 else 90.0)
@@ -8482,7 +8521,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # the walk (`_column_relief_rise`).
     for sx, sy, _name, room in box.column_reliefs:
         piece = piece.cut(_column_relief_rise(
-            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1], up=up))
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1],
+            up=up, cradle=box.pack.cond_cradle))
     zlo, zhi = _piece_bands(box, f"{y_side}-{z_side}")[2:]
     if y_side == "back":
         rear = back_top_wall_face() if z_side == "top" else None
@@ -8560,6 +8600,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
         flank_bed_z=(zj if (y_side, z_side) == ("front", "top") else None),
+        flank_runs=(_z_rail_runs(inner, y_joint, "front", box.pack.collet_plate)
+                    if (y_side, z_side) == ("front", "top") else ()),
     )
     # The removable cartridge bears on the floor joined to the bay bulkhead.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
@@ -8605,7 +8647,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1],
             box.pack.cond_cradle))
         piece = piece.cut(_column_relief_rise(
-            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1], up=up))
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1],
+            up=up, cradle=box.pack.cond_cradle))
     # And the condenser's two vents, which are the last cut this piece takes for the same reason
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
