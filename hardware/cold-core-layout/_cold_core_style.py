@@ -65,6 +65,8 @@ def colour_for(name: str):
         return _mat.M_JG_GREY_ACETAL
     if name.startswith("collet-"):
         return _mat.M_JG_BLACK_PP
+    if name.endswith("-gasket"):
+        return _mat.C_SILICONE
     if name.endswith("-cap"):
         return _mat.C_RES_CAP
     if name.startswith("reservoir"):
