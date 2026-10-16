@@ -480,7 +480,7 @@ y_stack_tip_clearance = 2.5    # nominal blind air beyond the screw tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
 y_stack_hub_h = 20.0           # back-top's knuckle on the Z seam: the lower insert and its cap
 y_stack_upper_floor = 272.5    # over the tap-water line's run along the −X flank
-y_stack_upper_chamfer = 5.0    # front-top's knuckle gives its inboard-aft edge to the flavour
+y_stack_upper_chamfer = 5.1    # front-top's knuckle gives its inboard-aft edge to the flavour
                                # line (`tube-fluid-1`) that turns past the −X corner under the frame
 lower_rod_len = 150.0          # ISO 4762 M5 × 150, handhold ceiling to back-top's hub
 upper_rod_len = 60.0           # ISO 4762 M5 × 60, roof to front-top's knuckle under the frame
@@ -9159,9 +9159,12 @@ def _handhold_bound(pieces, box):
 
         xa, xb = sorted((face, tangent))
         bearing = _ybox(xa, xb, y0 + handhold_corner_r, y1 - handhold_corner_r, roof, crown)
-        # The lower rod's head seat and bore are the one opening the lifting roof carries.
+        # The roof retains its section up to each finished seam face. The back
+        # quadrant starts at joint + fits.slip, leaving the required head-on fit.
+        closure_air = _ybox(xa, xb, joint, joint + fits.slip, roof, crown)
+        # The lower rod's head seat and bore pass through the lifting roof.
         seat, bore = _y_stack_bores(xi, sx, joint, inner)[:2]
-        roof_missing = missing(bearing.cut(seat).cut(bore)).Volume()
+        roof_missing = missing(bearing.cut(seat).cut(bore).cut(closure_air)).Volume()
         xa, xb = sorted((cap, tangent))
         posts = _ybox(xa, xb, y0 - handhold_wall, y0, bed, crown).fuse(
             _ybox(xa, xb, y1, y1 + handhold_wall, bed, crown))

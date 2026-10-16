@@ -8,9 +8,12 @@ The complete plate, including both wings, is 1.68 mm deep. Each wing projects
 the RJ11 jack.
 White DATA lettering fills a 0.72 mm recess and rises 0.48 mm above the face.
 
-The plate and jack sit on the nameplate pocket's seating datum, 3.36 mm behind
-the rear wall. The plate face is 1.68 mm behind that wall; the fixed jack
-receptacle carries cable insertion and withdrawal loads. The matching wing
+The plate's nominal back is 3.36 mm behind the rear wall, with 0.15 mm to its
+PET-GF receiver. Its face is recessed 1.68 mm. The jack and its complete fixed
+receptacle stand another 0.16 mm inboard, retaining a full 3 mm flat aperture lip
+behind the plate's back allowance. The receptacle carries cable insertion and
+withdrawal loads; its upper swing ease retains the specified 50° profile.
+The matching wing
 slots use the accepted nameplate's 0.45 mm Y clearance, entry bevel and complete
 1.23 mm retaining lands. The three rear rows retain their installed positions.
 
@@ -20,11 +23,12 @@ identification project in the [OVER print set](../../drain-readiness/README.md),
 with black PET-GF on Mark2's right nozzle and white PET-GF on its left nozzle.
 Bend the plate gently to seat its wings in the side slots, as for the nameplate.
 
-The [native fit check](fit-check.json) reads the saved production wall, shared
-nameplate construction, complete wing retaining lands, DATA/OVER alignment
-and plug/latch approach. Printed fit, insertion force, pullout capacity and
-endurance remain observations on the finished plate and wall. Accepted
-nameplate and display results retain their identified print scope.
+The [enclosure fit review](../enclosure/y-seam-fit-review.json) records the current
+back and wing gaps, ordinary backing, complete jack lip and insertion-ease profile.
+The separate [DATA fit record](fit-check.json) retains its identified wall/plate inputs,
+wing lands, DATA/OVER alignment and plug/latch-approach readings. Its input hashes define
+that scope. Insertion force, pullout capacity and endurance require their own evidence;
+accepted nameplate and display results retain their identified print scope.
 
 `data_ring.py` exports the colored plate and lettering. The shared
 [`_data_wing_interface.py`](../enclosure/_data_wing_interface.py) calls the

@@ -2,14 +2,18 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cartridge precisely and can be handled without its joints opening.
-The [retained native audit](geometry-check.json) binds 35 insert stations to its six recorded
-piece exports. It reads the complete installed insert envelopes, open pilots,
+The [native audit](geometry-check.json) covers 35 insert stations and 14 finished
+knuckles. Station readings keep their exact source and native input hashes. Current
+front-top applicability is proved by unchanged complete insert-query envelopes and
+two finished-knuckle measurements; the other twelve knuckles retain identical native inputs.
+It reads the complete installed insert envelopes, open pilots,
 blind relief, closed stock, insertion access and the Y seam's knuckles. Source and
 STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
 qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
-identified geometry and handhold scope. Refreshed native readings for the current
-PET-GF-to-PET-GF source adjustments are pending regeneration.
+identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
+records current PET-GF-to-PET-GF gaps and complete local stock; the insert audit
+separately checks the installed insert envelopes and screw reach.
 
 ## Supplier constraints and screw stacks
 
@@ -36,7 +40,7 @@ specific to the access mouth.
 
 | Station | Body | Pilot depth | Host / screw stack |
 | --- | --- | --- | --- |
-| Four Y-seam stack stations | M5, 9.5 mm | Lower 13.70 mm; upper 14.15 mm in the retained audit | The lower insert is in back-top's anchor block over the Z seam; the upper is in front-top's block under the funnel frame. The retained audit records full engagement and 1.7 mm minimum blind-tip clearance for its inputs; current-source native readings are pending |
+| Four Y-seam stack stations | M5, 9.5 mm | Lower 13.70 mm; upper 14.15 mm | The lower insert is in back-top's anchor block over the Z seam; the upper is in front-top's block under the funnel frame. All four retain full 9.5 mm engagement and at least 1.7 mm blind-tip room with the ±0.8 mm length allowance at nominal CAD part poses |
 | Seventeen electronics / ground stations | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the unchanged PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
@@ -111,6 +115,6 @@ shear allowable for these joints. A filled assembled enclosure, its landing
 orientation and actual stopping distance determine the relevant drop result.
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py
+HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py
+HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py
 ```
