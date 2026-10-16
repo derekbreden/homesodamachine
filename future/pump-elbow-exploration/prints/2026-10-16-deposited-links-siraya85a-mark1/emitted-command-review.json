@@ -1,0 +1,55 @@
+{
+  "archive": {
+    "name": "2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
+    "sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+    "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "Vertical centre-web TPU elbow pair"
+    ]
+  },
+  "modified_zip_members": [
+    "Metadata/plate_1.gcode",
+    "Metadata/plate_1.gcode.md5"
+  ],
+  "native_deposition_commands_preserved": 126402,
+  "all_native_source_commands_accounted_once": true,
+  "maximum_per_source_e_difference_mm": 5.100000000091143e-08,
+  "maximum_native_path_hausdorff_difference_mm": 0.0013365901660728388,
+  "maximum_native_feed_difference_mm_min": 128.019,
+  "maximum_line_width_difference_mm": 0.0,
+  "source_commands_slowed_for_2_2_mm3_s_cap": 9,
+  "added_e_mm_by_kind_and_feature": {
+    "('deposited_return', 'Inner wall')": 36.37624999800026
+  },
+  "extra_deposition_scope": "Returns duplicate native inner-wall paths; no new bore-crossing deposition.",
+  "nonextruding_transfers_assessed": 6118,
+  "straight_layer_change_transfers": 120,
+  "maximum_free_attachment_chord_outside_model_mm": 0.0,
+  "maximum_nonextruding_route_outside_model_mm": 0.0,
+  "maximum_nonextruding_route_excess_over_chord_mm": 0.0,
+  "conservative_attachment_minimum_deposited_length_mm": 1.0,
+  "maximum_chord_outside_model_ignoring_shorter_deposition_runs_mm": 0.0,
+  "in_part_retractions": 0,
+  "in_part_z_hops": 0,
+  "maximum_deposition_flow_mm3_s": 2.200000688487157,
+  "photo_trip_commands": 0,
+  "local_z_trim_mm": 0,
+  "conservative_full_bead_bounds_xy_mm": [
+    [
+      160.689965,
+      138.429
+    ],
+    [
+      194.32799599999998,
+      181.572
+    ]
+  ],
+  "conservative_bed_inset_mm": 135.67200400000002,
+  "scope": "Every in-part free attachment chord and XY travel stays inside the arriving native model section, retaining every hole. Native paths are reordered and may reverse. Arc chords are at most 0.10 mm; path deviation is measured above. Startup and shutdown are retained and outside this in-part assessment. Adhesion, ooze capture, fin removal and fit require the physical result."
+}

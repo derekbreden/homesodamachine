@@ -68,5 +68,18 @@
     "live_idle_popover_selection_verified": false,
     "unchanged_printer_task_id_after": "1344201657",
     "verification_observed_at": "2026-10-16T07:02:19.148963+00:00"
+  },
+  "live_idle_popover_selection": {
+    "printer": "Mark1",
+    "observed_at": "2026-10-16T08:56:46.365351+00:00",
+    "source_tile_nozzle": "right",
+    "visible_choice": "External > Ext TPU",
+    "ax_readback": "Ext TPU R",
+    "selection": "Automatic production select_external; no manual selection or window resizing.",
+    "source_sha256": "79bcd14e1b37d26ea19e22c95ae0f09166fde9f0da0cb15db210508d367cf1de",
+    "printer_task_id": "1344414329",
+    "result": "SUCCESS; printer accepted the reviewed archive in PREPARE with print_error 0.",
+    "evidence": "../../future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/launch-dialog.json",
+    "live_idle_popover_selection_verified": true
   }
 }

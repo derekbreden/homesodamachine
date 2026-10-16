@@ -1,0 +1,9 @@
+{
+  "status": "RUNNING; physical stringing result pending",
+  "printer_task_id": "1344414329",
+  "archive_sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+  "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
+  "material": "Siraya Tech Flex TPU 85A Clear",
+  "scope": "Evaluate strands inside both bores and between exterior surfaces and the three fins. The path review establishes commanded spans and deposition, not actual ooze attachment, fin removal, fit, pressure or lifetime.",
+  "startup_status": "startup-status.json"
+}

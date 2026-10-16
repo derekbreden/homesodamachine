@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-16T09:00:59.546673+00:00",
+  "job_id": "1344414329",
+  "subtask_name": "2026-10-16-elbows-siraya-links.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 128,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 32.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 35.0,
+  "bed_target_temper": 35.0
+}
