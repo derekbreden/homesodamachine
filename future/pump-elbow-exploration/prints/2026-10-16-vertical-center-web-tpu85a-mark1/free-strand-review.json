@@ -1,0 +1,74 @@
+{
+  "archive": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "d1ec55e4b70bfc037eadae4671b709528ae1d24cfc461965bdccafdcb0c8b54d",
+  "gcode_sha256": "197f6067b23d223eee71d970c7d6b7b1b68e933b14bae386bf71eb982e738011",
+  "rerouted_transitions_assessed": 118,
+  "transitions_with_taut_chord_over_bore_more_than_point1_mm": 78,
+  "transitions_with_taut_chord_over_exterior_air_more_than_point1_mm": 19,
+  "bore_example": {
+    "layer": 49,
+    "departing_layer": 49,
+    "arriving_layer": 49,
+    "source_first_line": 44734,
+    "route_xy_mm": [
+      [
+        170.973,
+        145.543
+      ],
+      [
+        169.6253820732236,
+        147.95000080019236
+      ],
+      [
+        169.753,
+        152.212
+      ]
+    ],
+    "travel_z_mm": 6.36,
+    "nozzle_path_outside_model_mm": 0.0,
+    "potential_taut_chord_length_mm": 6.779672632214615,
+    "potential_taut_chord_outside_model_mm": 3.9782016552291077,
+    "potential_taut_chord_over_bore_mm": 3.9782016552291077,
+    "potential_taut_chord_over_exterior_air_mm": 0.0,
+    "emitted_detour_first_line": 44461,
+    "emitted_detour_gcode": "; WALL_ROUTE layer=49\nG1 Z6.360000 F600\nG1 X169.625382 Y147.950001 F6000.000\nG1 X169.753000 Y152.212000 F6000.000\nG1 Z6.360000 F600\nG1 F60000.000\n",
+    "extrusion_commands_in_emitted_detour": 0
+  },
+  "exterior_example": {
+    "layer": 177,
+    "departing_layer": 177,
+    "arriving_layer": 177,
+    "source_first_line": 293570,
+    "route_xy_mm": [
+      [
+        170.967,
+        172.388
+      ],
+      [
+        171.15030595213173,
+        171.4565045505762
+      ],
+      [
+        177.30030595213174,
+        171.0065045505762
+      ],
+      [
+        177.15030595213173,
+        148.9565045505762
+      ],
+      [
+        171.002,
+        148.815
+      ]
+    ],
+    "travel_z_mm": 21.72,
+    "nozzle_path_outside_model_mm": 0.0,
+    "potential_taut_chord_length_mm": 23.573025983101964,
+    "potential_taut_chord_outside_model_mm": 20.311043223501883,
+    "potential_taut_chord_over_bore_mm": 0.0,
+    "potential_taut_chord_over_exterior_air_mm": 20.311043223501883
+  },
+  "scope": "A straight unanchored strand can span the endpoints of a nonextruding detour even when the nozzle path stays over model material. These chord measurements identify opportunities for that failure, not measured strand trajectories. The photograph and founder report establish continued stringing; they do not identify the exact command responsible for each strand. Existing nozzle-path review remains a geometric XY measurement only.",
+  "photo": "result-photo.jpg",
+  "photo_sha256": "1437af11634f7f2dd22b8dba491f0a5dc97b8dcaefaa5fce36969b68ae6bf385"
+}

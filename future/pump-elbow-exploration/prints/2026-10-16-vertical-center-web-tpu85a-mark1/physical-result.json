@@ -1,13 +1,29 @@
 {
-  "status": "Launched; physical result pending",
+  "status": "Stringing trial failed; dense bore and exterior-to-fin strands reported",
   "material": "Bambu TPU 85A Black",
   "printer": "Mark1 (H2C)",
   "nozzle": "Right fixed 0.6 mm",
   "archive": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.gcode.3mf",
   "archive_sha256": "d1ec55e4b70bfc037eadae4671b709528ae1d24cfc461965bdccafdcb0c8b54d",
   "gcode_sha256": "197f6067b23d223eee71d970c7d6b7b1b68e933b14bae386bf71eb982e738011",
-  "observations": [],
-  "evidence_scope": "The joining fin is a vertical sheet at the centre plane. Geometry and travel reviews do not establish physical stability, fin removal, string reduction or finished fit. No pressure, retention or lifetime qualification.",
+  "observations": [
+    {
+      "recorded_at": "2026-10-16T08:29:59.315585+00:00",
+      "source": "Derek, current print chat and attached Photo 1.jpg",
+      "quotes": [
+        "Well that didn\u2019t work at all. What did we miss?",
+        "There is also stringing from the outside edges to the fins. I think I know the problem.",
+        "This only really helps for continuing to print in a continuous path. Anytime we're traveling, it really doesn't do any good to stay above unless you start printing before you make a turn. And so if you stop printing and you travel south and then you travel east, you end up drawing a diagonal thread in the southeast direction. Do you understand what I'm saying?"
+      ],
+      "photo": "result-photo.jpg",
+      "photo_sha256": "1437af11634f7f2dd22b8dba491f0a5dc97b8dcaefaa5fce36969b68ae6bf385",
+      "visible_result": "Dense strands inside the large bores and strands between exterior regions and the connecting fins. The joining web is present.",
+      "interpretation": "A free strand can straighten between its last attachment and the moving nozzle. A bent nonextruding nozzle path above walls does not anchor that strand at its bends. Connected geometry does not require continuous extrusion through the connections.",
+      "command_evidence": "free-strand-review.json",
+      "scope": "Physical rejection of this stringing approach. The image does not identify the exact command that formed each strand. Fin removal, socket fit, pressure, retention and lifetime are not established by this result."
+    }
+  ],
+  "evidence_scope": "The photograph and founder report establish persistent dense bore stringing and exterior-to-fin strands. The emitted path review only establishes nozzle XY containment; it does not constrain a loose strand between attachment points. A continuous deposited connection or reliable new attachment before a change of direction is the proposed mechanism, not a demonstrated fix. Earlier exterior and manual-fit acceptance records retain their original scope.",
   "printer_task_id": "1344201657",
   "launch_observed_at": "2026-10-16T06:43:15.594744+00:00",
   "latest_telemetry": {

@@ -1,15 +1,18 @@
 # TPU pump elbow and installed layout study
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A pair with a vertical center web accepted as Mark1 task 1344201657; physical result pending.**
+**Status: single Siraya elbow exterior accepted; internal stringing reported. Bambu 85A pair with a vertical center web retains dense bore and exterior-to-fin stringing.**
 The [vertical center-web trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md)
 contains two identical elbow-and-fin units joined by a straight vertical web
 at their center. Both the single
-and pair have connected layer sections through all 184 layers. The selected
+and pair have connected layer sections through all 184 layers. The tested
 pair uses black Bambu TPU 85A, Mark1's right fixed 0.6 mm hotend and the glued
 Engineering Plate, with Timelapse Off and 0.4 mm Normal Lift. Its reviewed
 travel stays within the model layer outlines, preserving every opening, with
 no preceding-layer floor fallback. The planning estimate is about 2 hours 20 minutes / 9.25 g.
-Stability, fin removal and string reduction remain unassessed. The
+The [physical result](prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json)
+shows persistent dense strings. An unanchored strand can straighten across a
+bore or exterior gap even when the nozzle detours above wall material. Fin
+removal and fit remain unassessed. The
 [0.4 mm lap's physical record](prints/2026-10-16-departure-lap040-normal-lift-tpu85a-mark1/physical-result.json)
 reports persistent threads with a possible small reduction in thickness.
 
