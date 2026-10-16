@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "Native reviewed and running; physical result pending",
+  "project": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2.3mf",
+  "project_sha256": "05780cfef9034519a98d0a86fb83b7ae9c29750d767d00eb2ec2e4e4b0f17814",
+  "source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+  "source_sha256": "a06f55f3d23db5068bd825199afb4bb2e597cf5f471c7da1ca63abd5f5999752",
+  "submitted_archive": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "df41efb383cf7862bee78102f9a8ec2d92f1e035b94e6eb68bdcbfd0dcc53598",
+  "gcode_sha256": "3b9fec2463d4615f8e4d644519f874463b41f6c01731a85aa5c51eceeaf800db",
+  "native_review": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/native-review.json",
+  "native_review_sha256": "930fc0a1ce6f73a448287ffdc1720944f31805794f52e4e259f2d830e97148c1",
+  "launch": "hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/launch.json",
+  "printer_task_id": "1346038475",
+  "printer": "Mark2",
+  "active_nozzle": 1,
+  "external_spool": 255,
+  "physical_result": null
+}
