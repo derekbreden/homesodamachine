@@ -1,0 +1,35 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-16T06:43:15.594744+00:00",
+  "archive": {
+    "name": "2026-10-16-elbows-center-wall.gcode.3mf",
+    "sha256": "d1ec55e4b70bfc037eadae4671b709528ae1d24cfc461965bdccafdcb0c8b54d",
+    "gcode_sha256": "197f6067b23d223eee71d970c7d6b7b1b68e933b14bae386bf71eb982e738011",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Vertical centre-web TPU elbow pair"
+    ]
+  },
+  "printer_task_id": "1344201657",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-10-16-elbows-center-wall.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 184,
+  "mc_remaining_time": 0,
+  "repository_archive": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.gcode.3mf",
+  "submitted_name_is_identical_byte_copy": true,
+  "launch_options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping_selected_by": "Derek in Bambu Connect"
+}

@@ -91,9 +91,11 @@ def loft(rings):
     return solid(mesh)
 
 
-def build(project, copies=2):
+def build(project, copies=2, joining_web="vertical_center"):
     if copies not in (1, 2):
         raise ValueError("This specimen supports one or two elbows")
+    if joining_web not in ("vertical_center", "follow_leg"):
+        raise ValueError("Unknown joining-web geometry")
     mesh = archived_mesh(project)
     body = solid(mesh)
     top = float(mesh.bounds[1, 2])
@@ -122,13 +124,32 @@ def build(project, copies=2):
             if not l.is_empty and not r.is_empty:
                 legs.append((z, tent((l.bounds[2] - OVERLAP, 0),
                                      (r.bounds[0] + OVERLAP, 0))))
-    webs = [loft(spine)] if copies == 2 else []
+        elif joining_web == "vertical_center" and legs:
+            # Keep the unit's centre fin joined to the remaining high leg.
+            # Its sheet stays in the Y=0 plane and prints on the sheet below.
+            hit = right.intersection(LineString([(-30, 0), (30, 0)]))
+            if not hit.is_empty:
+                penetration = min(OVERLAP, (hit.bounds[2] - hit.bounds[0]) * .6)
+                legs.append((z, tent((-.25, 0), (hit.bounds[0] + penetration, 0))))
+    webs = []
     if legs:
         # Start in the solid heel before its first split section, so a gap
         # cannot appear between the sampled split and a slicer's layer plane.
         legs.insert(0, (legs[0][0] - .18, legs[0][1]))
         fin = loft(legs)
         webs += [fin.translate((0, PITCH * i, 0)) for i in range(copies)]
+    if copies == 2:
+        if joining_web == "vertical_center":
+            unit = body + fin
+            spine = []
+            for z in heights:
+                stock = unary_union(sections(unit, max(.001, min(z, heights[-1] - .00001))))
+                hit = stock.intersection(LineString([(0, -20), (0, 20)]))
+                if hit.is_empty:
+                    raise ValueError(f"Centre fin has no attachment at Z{z}")
+                y = hit.bounds[3]
+                spine.append((z, tent((0, y - OVERLAP), (0, PITCH - y + OVERLAP))))
+        webs.append(loft(spine))
     web = md.Manifold.batch_boolean(webs, md.OpType.Add)
     pair = md.Manifold.batch_boolean([body.translate((0, PITCH * i, 0))
                                       for i in range(copies)], md.OpType.Add)
@@ -139,6 +160,10 @@ def build(project, copies=2):
         raise ValueError("An original elbow lost material")
     record = dict(web_width_mm=WIDTH, attachment_neck_mm=NECK,
                   surface_overlap_mm=OVERLAP, elbow_pitch_mm=PITCH, elbows=copies,
+                  joining_web=joining_web,
+                  joining_web_centre_x_range_mm=([0., 0.] if joining_web == "vertical_center"
+                                               else [float(min(r[1][:,0].mean() for r in spine)),
+                                                     float(max(r[1][:,0].mean() for r in spine))]),
                   section_spacing_mm=.06,
                   leg_web_z_range_mm=[legs[0][0], legs[-1][0]],
                   original_pair_volume_mm3=pair.volume(),

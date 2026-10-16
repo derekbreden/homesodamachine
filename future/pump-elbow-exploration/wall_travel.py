@@ -1,8 +1,9 @@
 """Route native nonextruding shortcuts over the connected printed walls.
 
-Manual experiment only. The available stock is the union of the departing,
-arriving and preceding layers' emitted beads. Every E-command state and feed
-is retained. Startup, shutdown and firmware interventions are outside scope.
+Manual experiment only. Model-outline routing retains every hole in the native
+3MF's layer sections. The earlier bead-envelope mode is available to reproduce
+its archived trial. Every E-command state and feed is retained. Startup,
+shutdown and firmware interventions are outside scope.
 """
 import heapq
 import hashlib
@@ -10,6 +11,7 @@ import json
 import math
 from pathlib import Path
 import sys
+import xml.etree.ElementTree as ET
 import zipfile
 
 import numpy as np
@@ -21,8 +23,8 @@ from departure_lap import movements, MEMBER
 from travel_survey import read, material, arc_xy
 
 
-def safe_path(stock, start, end, pitch=.15):
-    """Grid search followed by line-of-sight simplification inside bead stock."""
+def safe_path(stock, start, end, pitch=.15, grid_clearance=.025):
+    """Grid search followed by line-of-sight simplification inside material."""
     allowed = stock.buffer(.000001)
     if allowed.covers(LineString([start, end])):
         return [start, end]
@@ -31,7 +33,7 @@ def safe_path(stock, start, end, pitch=.15):
     nx, ny = np.ceil((high-low)/pitch).astype(int) + 1
     xx, yy = np.meshgrid(low[0]+np.arange(nx)*pitch,
                          low[1]+np.arange(ny)*pitch)
-    valid = contains_xy(stock.buffer(-.025), xx, yy)
+    valid = contains_xy(stock.buffer(-grid_clearance), xx, yy)
     def anchor(p):
         ix, iy = np.rint((np.array(p)-low)/pitch).astype(int)
         choices = []
@@ -84,16 +86,79 @@ def safe_path(stock, start, end, pitch=.15):
     return out
 
 
-def route(source, output, report_path):
-    runs, _, photos, *_ = read(source)
-    if photos:
-        raise ValueError("Disable photo trips before routing walls")
-    stock = {k:material(v) for k,v in runs.items()}
+def model_layer_outlines(source, moves):
+    """Section the single connected native 3MF mesh in bed coordinates.
+
+    Each section is at the midpoint of its printed layer. No hole-area cutoff
+    or morphological filling is applied. This experiment uses one mesh owner.
+    """
+    import trimesh
+    from sacrificial_web import solid, sections, Q
+
+    production = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"
+    def transform(text):
+        values = np.array([float(v) for v in text.split()])
+        matrix = np.eye(4)
+        matrix[:3,:3] = values[:9].reshape(3,3).T
+        matrix[:3,3] = values[9:]
+        return matrix
+
+    with zipfile.ZipFile(source) as z:
+        settings = json.loads(z.read("Metadata/project_settings.config"))
+        root = ET.fromstring(z.read("3D/3dmodel.model"))
+        items = root.findall(f"{Q('build')}/{Q('item')}")
+        if len(items) != 1:
+            raise ValueError("Model-outline routing requires one connected owner")
+        item, = items
+        owner = root.find(f"{Q('resources')}/{Q('object')}[@id='{item.get('objectid')}']")
+        component, = owner.findall(f"{Q('components')}/{Q('component')}")
+        child_path = component.get(f"{{{production}}}path").lstrip("/")
+        child = ET.fromstring(z.read(child_path))
+        mesh = child.find(f"{Q('resources')}/{Q('object')}[@id='{component.get('objectid')}']/{Q('mesh')}")
+        vertices = [[float(v.get(k)) for k in "xyz"] for v in mesh.find(Q("vertices"))]
+        faces = [[int(t.get(k)) for k in ("v1","v2","v3")] for t in mesh.find(Q("triangles"))]
+        model = trimesh.Trimesh(vertices, faces, process=True)
+        model.apply_transform(transform(item.get("transform")) @ transform(component.get("transform")))
+    body = solid(model)
+    heights = {m["layer"]:m["layer_z"] for m in moves if m["layer"] > 0}
+    outlines, previous_z, planes = {},0.,{}
+    for layer,z in sorted(heights.items()):
+        plane = (previous_z+z)/2
+        outlines[(layer,0)] = unary_union(sections(body,plane))
+        planes[layer] = plane
+        previous_z = z
+    brim_width = float(settings.get("brim_width",0))
+    if any(m["layer"] == 1 and m["feature"] == "Brim" for m in moves):
+        if settings.get("brim_type") != "outer_only" or float(settings["brim_object_gap"]) != 0:
+            raise ValueError("Connected first-layer routing requires an outer brim with zero object gap")
+        first = outlines[(1,0)]
+        islands = list(getattr(first,"geoms",[first]))
+        holes = unary_union([Polygon(r) for p in islands for r in p.interiors]).difference(first)
+        outlines[(1,0)] = unary_union([Polygon(p.exterior).buffer(brim_width)
+                                      for p in islands]).difference(holes)
+    return outlines, dict(native_mesh_member=child_path,
+                          archive_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+                          section_heights_mm=planes,
+                          first_layer_outer_brim_width_mm=brim_width,
+                          first_layer_brim_object_gap_mm=0,
+                          hole_area_cutoff_mm2=None)
+
+
+def route(source, output, report_path, model_outlines=False):
     with zipfile.ZipFile(source) as z:
         members = {n:z.read(n) for n in z.namelist()}
     native = members[MEMBER]
     lines = native.decode().splitlines(keepends=True)
     moves = list(movements(lines))
+    photos = native.count(b"M9711")
+    if photos:
+        raise ValueError("Disable photo trips before routing walls")
+    outline_record = None
+    if model_outlines:
+        stock, outline_record = model_layer_outlines(source,moves)
+    else:
+        runs, *_ = read(source)
+        stock = {k:material(v) for k,v in runs.items()}
     extrusions = [i for i,m in enumerate(moves) if m["layer"] > 0
                   and m["words"].get("E",-1) >= 0
                   and ("X" in m["words"] or "Y" in m["words"])]
@@ -107,7 +172,7 @@ def route(source, output, report_path):
         if not travel:
             continue
         current_keys = {(departure["layer"],0),(arrival["layer"],0)}
-        keys = current_keys | {
+        keys = current_keys if model_outlines else current_keys | {
                 (departure["layer"]-1,0),(arrival["layer"]-1,0)}
         cache_key = tuple(sorted(keys))
         if cache_key not in available_cache:
@@ -115,7 +180,8 @@ def route(source, output, report_path):
             holes = unary_union([Polygon(r) for p in getattr(current,"geoms",[current])
                                  for r in p.interiors]).difference(current)
             available = unary_union([stock[k] for k in keys if k in stock])
-            available_cache[cache_key] = available, available.difference(holes)
+            available_cache[cache_key] = (available, available if model_outlines
+                                         else available.difference(holes))
         available, preferred = available_cache[cache_key]
         pts = [travel[0]["start"][:2]]
         for m in travel:
@@ -125,7 +191,7 @@ def route(source, output, report_path):
         line = LineString(pts)
         off = line.difference(preferred).length
         tested += 1
-        if off <= .03:
+        if off <= (1e-5 if model_outlines else .03):
             maximum_off = max(maximum_off,line.difference(available).length)
             continue
         first,last = travel[0],travel[-1]
@@ -134,8 +200,14 @@ def route(source, output, report_path):
             raise ValueError("A travel contains an E command between XY moves")
         previous_floor = False
         try:
-            path = safe_path(preferred,pts[0],pts[-1])
-        except ValueError:
+            # A clearance greater than half a grid diagonal prevents a grid
+            # edge cutting across a concave boundary between valid nodes.
+            path = safe_path(preferred,pts[0],pts[-1],
+                             grid_clearance=.12 if model_outlines else .025)
+        except ValueError as error:
+            if model_outlines:
+                raise ValueError(f"Layer {arrival['layer']}, line {first['index']+1}, "
+                                 f"{departure['feature']} to {arrival['feature']}: {error}") from error
             # A new cavity can expose disconnected skin paths over a fully
             # printed preceding-layer floor. That floor remains printed stock.
             path = safe_path(available,pts[0],pts[-1])
@@ -179,7 +251,9 @@ def route(source, output, report_path):
                   routed_travel_max_off_stock_mm=max((r["routed_off_stock_mm"] for r in rows),default=0.),
                   photo_trip_commands=0,wall_grid_pitch_mm=.15,
                   routes_using_preceding_layer_floor=sum(r["uses_preceding_layer_floor_at_new_cavity"] for r in rows),
-                  stock_scope="Union of departing, arriving and their preceding layers' emitted bead envelopes. Prefer avoiding current bore holes; newly exposed cavities may require travel over their printed preceding-layer floor. 0.03 mm per-travel numerical tolerance. Startup and shutdown excluded.",
+                  stock_scope=("Native 3MF material sections at each layer midpoint, retaining every hole. Same-layer travel uses only that layer; layer changes use the union of departing and arriving sections. The first layer includes its attached outer brim. No preceding-layer floor fallback. 0.00001 mm per-travel numerical length tolerance. Startup, shutdown and firmware interventions excluded. This tests the model's wall footprint, not the time order of deposited beads."
+                               if model_outlines else "Union of departing, arriving and their preceding layers' emitted bead envelopes. Prefer avoiding current bore holes; newly exposed cavities may require travel over their printed preceding-layer floor. 0.03 mm per-travel numerical tolerance. Startup and shutdown excluded."),
+                  layer_outline_source=outline_record,
                   routes=rows)
     report_path.write_text(json.dumps(record,indent=2)+"\n")
     print(json.dumps({k:v for k,v in record.items() if k!="routes"},indent=2),flush=True)

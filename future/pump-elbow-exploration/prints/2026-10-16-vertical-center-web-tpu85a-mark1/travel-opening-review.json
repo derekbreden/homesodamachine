@@ -1,0 +1,43 @@
+{
+  "previous_archive": "future/pump-elbow-exploration/prints/2026-10-16-cutaway-web-tpu85a-mark1/2026-10-16-elbow-pair-cutaway-web-tpu85a-right06-z000-mark1.gcode.3mf",
+  "previous_archive_sha256": "8dbea85592cd1c0db72fb0e9cce9dac9ad64c4cd9b1ac02c2a3f3c729db6eb9e",
+  "previous_gcode_sha256": "fbea5a641b43c3a8a173381e9000542ec6912c7086c7ea7413ca50380090fe3b",
+  "layer": 49,
+  "layer_print_z_mm": 5.96,
+  "travel_z_mm": 6.36,
+  "previous_highlighted_travel_xy_mm": [
+    [
+      171.17,
+      145.551
+    ],
+    [
+      169.286,
+      152.841
+    ],
+    [
+      169.753,
+      152.212
+    ]
+  ],
+  "previous_highlighted_travel_outside_actual_model_wall_mm": 3.8421637438128986,
+  "corrected_native_source_lines": [
+    44734,
+    44735
+  ],
+  "corrected_emitted_route_xy_mm": [
+    [
+      170.973,
+      145.543
+    ],
+    [
+      169.625382,
+      147.950001
+    ],
+    [
+      169.753,
+      152.212
+    ]
+  ],
+  "corrected_route_outside_actual_model_wall_mm": 0.0,
+  "scope": "Top-down replay of the submitted previous G-code and corrected emitted route. The previous bead-envelope analysis filled holes smaller than 5 mm2; model-outline routing retains every hole. The 0.4 mm Z hop also offsets travel in an angled preview. No physical print result."
+}

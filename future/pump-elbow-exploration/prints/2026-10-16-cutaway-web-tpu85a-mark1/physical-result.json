@@ -1,5 +1,5 @@
 {
-  "status": "Launched; physical result pending",
+  "status": "Stopped for vertical centre-web revision; no finished-part result",
   "material": "Bambu TPU 85A Black",
   "printer": "Mark1 (H2C)",
   "nozzle": "Right fixed 0.6 mm",
@@ -9,5 +9,26 @@
   "observations": [],
   "evidence_scope": "Connected section and emitted travel reviews establish commanded geometry and motion only. Fin stability, cutting or tearing, string reduction, finished exterior and socket fit require the physical article. No pressure, retention or lifetime qualification.",
   "printer_task_id": "1344118843",
-  "launch_observed_at": "2026-10-16T05:49:17.457860+00:00"
+  "launch_observed_at": "2026-10-16T05:49:17.457860+00:00",
+  "design_review": {
+    "recorded_at": "2026-10-16T06:13:29.822464+00:00",
+    "source": "Derek, current print chat",
+    "quote": "Why didn't you make the fin between the two objects a vertical fin at the center point of them?",
+    "requested_geometry": "A straight vertical joining fin at the centre, attached to each unit\u2019s fin.",
+    "scope": "Design review; no physical failure mechanism is established."
+  },
+  "post_stop_telemetry": {
+    "observed_at": "2026-10-16T06:03:51.035015+00:00",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "scope": "Cancelled-job state. Stop layer is unestablished; RUNNING was observed at layer 5 at 05:59:56 UTC."
+  },
+  "commanded_travel_review": {
+    "source": "Derek\u2019s slice screenshots and replay of the submitted G-code",
+    "quote": "I'm looking at the previous slice and there are a number of places the travel goes outside the outside wall.",
+    "evidence": "../2026-10-16-vertical-center-web-tpu85a-mark1/travel-opening-review.json",
+    "finding": "A circled layer-49 travel crosses 3.84 mm of a small model opening. The archived envelope analysis filled holes below 5 mm2.",
+    "scope": "Commanded path finding; no finished-part or physical stringing result."
+  }
 }

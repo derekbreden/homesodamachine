@@ -1,0 +1,45 @@
+{
+  "archive_details": {
+    "name": "2026-10-16-elbow-pair-vertical-center-web-tpu85a-right06-z000-mark1.gcode.3mf",
+    "sha256": "d1ec55e4b70bfc037eadae4671b709528ae1d24cfc461965bdccafdcb0c8b54d",
+    "gcode_sha256": "197f6067b23d223eee71d970c7d6b7b1b68e933b14bae386bf71eb982e738011",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "Vertical centre-web TPU elbow pair"
+    ]
+  },
+  "independent_extrusion_runs": 4073,
+  "all_native_extrusion_coordinates_and_feeds_unchanged": true,
+  "modified_zip_members": [
+    "Metadata/plate_1.gcode",
+    "Metadata/plate_1.gcode.md5"
+  ],
+  "photo_trip_commands": 0,
+  "departure_laps": 0,
+  "local_z_trim_mm": [
+    0.0
+  ],
+  "conservative_full_bead_bounds_xy_mm": [
+    [
+      160.68978954654534,
+      138.429
+    ],
+    [
+      194.32799599999998,
+      181.572
+    ]
+  ],
+  "conservative_bed_inset_mm": 135.67200400000002,
+  "arc_sampling_chord_mm": 0.05,
+  "additional_envelope_inflation_mm": 0.025,
+  "part_travels_assessed": 4140,
+  "independent_emitted_travel_max_outside_model_wall_mm": 0.0,
+  "maximum_routed_off_stock_mm": 0.0,
+  "maximum_unchanged_off_stock_mm": 0.0,
+  "scope": "Native 3MF material sections at each layer midpoint, retaining every hole. Same-layer travel uses only that layer; layer changes use the union of departing and arriving sections. The first layer includes its attached outer brim. No preceding-layer floor fallback. 0.00001 mm per-travel numerical length tolerance. Startup, shutdown and firmware interventions excluded. This tests the model's wall footprint, not the time order of deposited beads."
+}

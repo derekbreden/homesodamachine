@@ -47,7 +47,7 @@ def mesh_xml(template, mesh):
 
 def main():
     source = next(p for p in BASE.glob("*.3mf") if not p.name.endswith(".gcode.3mf"))
-    mesh, web, geometry = build(source)
+    mesh, web, geometry = build(source, joining_web="follow_leg")
     mesh.export(HERE / "connected-pair.stl")
     web.export(HERE / "cutaway-web.stl")
     body = solid(mesh)
@@ -97,7 +97,7 @@ def main():
     with zipfile.ZipFile(project, "w", zipfile.ZIP_DEFLATED) as z:
         for name, data in members.items():
             z.writestr(name, data)
-    single, _, single_geometry = build(source, copies=1)
+    single, _, single_geometry = build(source, copies=1, joining_web="follow_leg")
     single.export(HERE / "single-elbow-with-fin.stl")
     single_body = solid(single)
     single_counts = [len(sections(single_body, z)) for z in layer_z]
@@ -126,6 +126,7 @@ def main():
         for name, data in single_members.items():
             z.writestr(name, data)
     cache = ROOT / ".cache/pump-elbow-exploration/cutaway-web"
+    cache.mkdir(parents=True, exist_ok=True)
     run = Path(tempfile.mkdtemp(prefix="native-", dir=cache))
     native = HERE / (STEM + "-native.gcode.3mf")
     with (run / "slice.log").open("w") as log:
