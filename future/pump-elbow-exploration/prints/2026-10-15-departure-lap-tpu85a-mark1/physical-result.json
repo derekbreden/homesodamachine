@@ -1,0 +1,13 @@
+{
+  "status": "Pending",
+  "material": "Bambu TPU 85A Black",
+  "printer": "Mark1 (H2C)",
+  "nozzle": "Right fixed 0.6 mm",
+  "archive": "2026-10-15-elbow-pair-tpu85a-lap020-right06-z000-mark1.gcode.3mf",
+  "observations": [],
+  "evidence_scope": "No finished-part acceptance. String reduction, exterior quality and socket fit remain unassessed. No pressure, retention or lifetime result.",
+  "printer_task_id": "1343980666",
+  "archive_sha256": "e308315f8c561f192f36d96a7a6a6889b93a833f17e64febf2ea555f4d5ee503",
+  "gcode_sha256": "83cc4838f8d1b0cb84caaa99af6c88b440645b87c619f5f3b7f6205fe297d4ab",
+  "launch_observed_at": "2026-10-16T04:15:25.648658+00:00"
+}
