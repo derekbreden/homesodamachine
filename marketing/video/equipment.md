@@ -14,13 +14,21 @@ Living gear list and capture settings for the marketing video pipeline. Updates 
 
 | Setting | Pick | Why |
 |---|---|---|
-| Resolution + Aspect Ratio | **2.7K 8:7** at 30 fps | 8:7 is the full HERO13 sensor — most pixels GoPro can capture. 2.7K gives headroom to crop to 16:9 horizontal *or* 9:16 vertical without quality loss, while keeping file sizes sane. 5.3K 8:7 also works but eats storage 2–3× faster — overkill for talking-head and table-work content. |
-| Frame rate | **30 fps** | Baseline. Bump to 60 fps only on clips where slow-mo might matter (welding sparks, fluid splash). |
-| Digital Lens | **Linear** | HERO13 lens menu offers HyperView / Wide / Linear / Linear + Horizon Lock / Narrow. Avoid HyperView and Wide — both heavily distort the frame and make hands at the table look like sausages. Linear digitally undistorts so a soldering iron looks like a soldering iron. Skip "Linear + Horizon Lock" — it crops more aggressively and adds rotation correction that misbehaves on head tilt. Plain Linear is right. |
-| HyperSmooth | **On** (or AutoBoost) | HERO13 options are Off / On / AutoBoost / Boost. Cap mount is body-stabilized; On is enough. AutoBoost uses available pixels for slightly better stabilization on bumpier moments. Avoid Boost in this mode — it crops ~30% and defeats the 8:7 capture cushion. **Switch to Boost when you take the camera off the cap and handhold for a close-up** (weld-joint inspection, settings screen of the welder, etc.) — handheld shake is meaningfully worse than head-mounted, and the cropped FOV is acceptable for closeups. |
-| HDR | **Off** | Wasted bitrate at this content type. |
+| Resolution + Aspect Ratio | **4K 16:9** at 30 fps for horizontal shop videos | Gives room for a detail crop in a 1080p edit and works with the Linear digital lens. Full-sensor 8:7 video is available at 4K and 5.3K in supported frame rates; use a digital lens offered by that preset. |
+| Frame rate | **30 fps** | Baseline. Use 60 fps for specific motion intended to play at half speed. |
+| Digital Lens | **Linear** for the 16:9 profile | Shows mechanical geometry without the wide lens's fisheye appearance. Use the lens options offered by the selected resolution and aspect ratio; fixed explanation shots benefit from a composition without automatic horizon correction. |
+| HyperSmooth | **On** for cap or handheld footage; **Off** on a rigid support | Fixed explanation shots need a stable composition for arrows and labels. Use a supported phone for small details that the stock GoPro lens cannot render sharply. |
+| HDR | **Off** | Standard SDR footage is convenient to combine with phone inserts in the existing edit pipeline. |
 | Audio | Default (Stereo) | Fine for ambient (tool clicks, welder hum). Real audio comes from the DJI Mic via the iPhone. |
 | Orientation | **Auto** | Settings → Preferences → General → Orientation. Auto handles minor head tilt. "Locked Landscape" is for special use cases — not these. |
 | Voice Control | **On** | Preferences → Voice Control. "GoPro start recording" / "GoPro stop recording" works hands-free for solder/weld/torch moments. |
 
 **To check or change on the camera:** From the capture screen, tap the bottom strip showing current settings (e.g. "5.3K | 30 | W") to access Resolution, Aspect Ratio, Framerate, and Digital Lens. For Orientation and Voice Control: swipe down from the top → gear icon → Preferences → General.
+
+GoPro documents the supported full-sensor modes in [HERO13 Black 8:7 Sensor Information](https://community.gopro.com/s/article/HERO13-Black-8-7-Sensor-Information?language=en_US) and exposure, color, and bitrate settings in [Advanced Protune Controls](https://community.gopro.com/s/article/HERO13-Black-Advanced-Protune-Controls-Explained?language=en_US).
+
+## Carbonator weld capture
+
+[Carbonator weld filming plan](carbonator-weld-shooting-plan.md) covers the shot list, fixed closeups for graphics, dry demonstrations, audio, and the solo shoot sequence. The iPhone serves as the detail camera between operations and as the DJI audio recorder for GoPro sessions. Record voiceover separately for phone inserts.
+
+Closeup setup instructions apply with the laser disabled. Active-process cameras require a position and optical protection suitable for that laser and use, as described in the filming plan.
