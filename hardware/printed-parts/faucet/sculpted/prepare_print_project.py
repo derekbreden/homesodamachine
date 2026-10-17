@@ -71,6 +71,7 @@ def prepare(project):
     members.pop('Metadata/layer_config_ranges.xml', None)
     settings = json.loads(members[writer.SETTINGS_MEMBER])
     original = deepcopy(settings)
+    industrial.apply_overhang_recipe(settings, selection['overhang_recipe'])
     settings['filament_map'] = ['2']
     settings['filament_nozzle_map'] = ['1']
     settings['filament_map_mode'] = 'Manual'

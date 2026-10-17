@@ -1,5 +1,9 @@
 # Tube insertion tooling
 
+Current PET-GF editable projects follow the [localized cooling policy](../../cooling/README.md).
+Re-slice them for current cooling commands. Identified native archives retain
+their original commands and physical-evidence scope.
+
 A split plus-shaped handle holds two thick, preformed 85A TPU liners for
 gripping the 3/8-inch LLDPE tube. The closure screws, liners and crossbar
 share the same axial centre. A cap-support puck assists fitting the sealing thimble to the
