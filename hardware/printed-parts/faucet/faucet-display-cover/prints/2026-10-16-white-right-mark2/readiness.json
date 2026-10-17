@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Native reviewed and running; physical result pending",
+  "status": "Printed; display cover failed during assembly",
   "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
   "project_sha256": "454f31b688a31e20059c44999d39b2f9ecf7d345f619ba0bd44a74196c447da2",
   "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
@@ -15,5 +15,8 @@
   "printer": "Mark2",
   "active_nozzle": 1,
   "external_spool": 255,
-  "physical_result": null
+  "physical_result": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json",
+  "part_physical_results": {
+    "faucet-display-cover": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json"
+  }
 }

@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "status": "Prepared and reviewed offline; not submitted",
+  "printer": "Mark2",
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2.3mf",
+  "project_sha256": "55e8e674d488e96b4c2424771a0ca89d732df60b369f9752396bc65354496740",
+  "native_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "dea47d44607aed23ac35bf2f6d0982964e8cdd22edf16238c594919847709c2c",
+  "ready_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+  "ready_archive_sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
+  "gcode_sha256": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4",
+  "source_geometry_changed": false,
+  "source_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "changed_project_members": [
+    "Metadata/project_settings.config"
+  ],
+  "changed_process_keys": {
+    "fan_max_speed": {
+      "from": [
+        "70"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "fan_min_speed": {
+      "from": [
+        "70"
+      ],
+      "to": [
+        "0"
+      ]
+    },
+    "overhang_fan_speed": {
+      "from": [
+        "70"
+      ],
+      "to": [
+        "0"
+      ]
+    }
+  },
+  "part_fan_pwm_at_model_extrusions": {
+    "0.0": 64630
+  },
+  "model_extrusion_moves_read": 64630,
+  "pre_model_part_fan_command": "M106 S0 ; turn off fan , too noisy",
+  "layer_count": 77,
+  "nominal_course_heights_mm": [
+    0.2,
+    0.24
+  ],
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "object_settings": {
+    "name": "faucet-display-cover",
+    "extruder": "1",
+    "override_filament_scarf_seam_setting": "0",
+    "seam_gap": "15%",
+    "seam_position": "aligned",
+    "seam_slope_type": "none"
+  },
+  "minimum_bead_edge_margin_mm": 131.6308105,
+  "complete_bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        162.5888105,
+        131.9218105
+      ],
+      [
+        191.4111895,
+        188.3691895
+      ]
+    ],
+    "maximum_line_width_mm": 0.696379,
+    "bounds_padding_mm": 0.4481895
+  },
+  "estimated_seconds": 1481.6964111328125,
+  "estimated_filament_g": 6.640437126159668,
+  "archive_details": {
+    "name": "2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
+    "gcode_sha256": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-display-cover"
+    ]
+  },
+  "slicer_warning": "",
+  "submitted": false,
+  "physical_result": null
+}

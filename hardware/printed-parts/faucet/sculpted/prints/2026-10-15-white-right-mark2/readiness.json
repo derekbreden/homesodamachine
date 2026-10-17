@@ -26,5 +26,8 @@
   },
   "launch": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/launch.json",
   "printer_task_id": "1343785668",
-  "physical_result": null
+  "physical_result": null,
+  "part_physical_results": {
+    "faucet-display-cover": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json"
+  }
 }
