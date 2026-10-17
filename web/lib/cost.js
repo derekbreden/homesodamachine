@@ -17,6 +17,7 @@ import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import { categoryName } from "./cost-categories.js";
+import { readJ2Harness, renderHarnessGuide } from "./harness-guide.js";
 import {
   SALE_PRICE, SALES_HORIZON, dollars, recoveryPlan, recoveryRange,
   recoverySummary, salesBalance, renderRecoveryChart,
@@ -480,7 +481,7 @@ export const COST_CSS = `
 // The labor half of the page: the same ranked-bar + itemization shape as the
 // parts half, with attended time scaling the bar and the money it comes to
 // beside it. The rate is the ledger's.
-function renderLaborSection(labor) {
+function renderLaborSection(labor, harness) {
   const { minutes, rate, opCount, cats } = labor;
   const mx = Math.max(...cats.map((c) => c.minutes), 1);
   const cash = (mins) => money((mins / 60) * rate);
@@ -511,6 +512,7 @@ function renderLaborSection(labor) {
     <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} hand operations across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
   </div>
   <p class="cost-note">Planned hands-on time per machine at an ideal pace, with practiced hands and fixtures ready. Our early builds take substantially longer. These operation times are estimates.</p>
+${renderHarnessGuide(harness, rate)}
   <h3 class="cost-h2">All work, ranked</h3>
   <div class="cost-chart">
 ${bars}
@@ -659,7 +661,7 @@ function renderCostPanel(panel) {
   </details>`;
 }
 
-function renderCostBody(rollup, labor, mach, investment, forecast) {
+function renderCostBody(rollup, labor, mach, investment, forecast, harness) {
   const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
   const unitCost = labor && labor.rate > 0 && labor.opCount > 0
@@ -720,7 +722,7 @@ ${bars}
   <h3 class="cost-h2">Full itemization</h3>
 ${details}
   <div class="cost-total"><span>Per-unit total</span><span class="v">${money(total)}</span></div>
-${labor ? renderLaborSection(labor) : ""}${mach ? renderMachineSection(mach) : ""}`;
+${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(mach) : ""}`;
   const metric = (value, label) => `<span class="cost-panel-value"><strong>${value}</strong><small>${label}</small></span>`;
   const plan = unitCost !== null && investment ? recoveryPlan({ unitCost, investment: investment.total }) : null;
   const panels = [{
@@ -761,6 +763,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
     let mach = null;
     let investment = null;
     let forecast = null;
+    let harness = null;
     try {
       labor = readLaborRollup(hardwareDir);
     } catch (e) { /* no labor.md */ }
@@ -774,13 +777,23 @@ export function mountCostRoutes(app, { hardwareDir }) {
       forecast = readBatchForecast(hardwareDir, labor);
     } catch (e) { /* optional supplier forecast */ }
     try {
-      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast);
+      harness = readJ2Harness(hardwareDir);
+    } catch (e) { /* optional bench guide */ }
+    try {
+      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast, harness);
     } catch (e) {
       // A stripped checkout (no bom.md) shouldn't 500 — render an empty state.
       body = `<main class="cost-wrap"><h1 class="cost-title">Cost &amp; price</h1>${renderPrice(null)}<p class="cost-note">Cost data unavailable.</p></main>`;
     }
     res.send(
-      renderHead({ title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS }) +
+      renderHead({
+        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS,
+        pageHead: '<link rel="stylesheet" href="/css/harness.css">',
+        importMap: { imports: {
+          three: "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        } },
+      }) +
       renderNav({ active: "cost" }) +
       body +
       renderFooter(),

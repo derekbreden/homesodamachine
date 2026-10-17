@@ -78,6 +78,12 @@ enters at an angle. Rework on a 28 AWG XH termination has a second contact optio
 
 ## Procedure (per assembly)
 
+The [J2 bench map](harnesses/j2.md) and [interactive J2 guide](https://homesodamachine.com/cost#j2-harness)
+put one complete harness, its ribbon-edge assignment, dressing order, far-end
+terminations and provisional attended-time estimate together. Its ribbon and
+stripe assignment is a proposed build convention, not an observation of the
+completed reference sample.
+
 For each cable assembly in the schedule below:
 
 1. **Cut to length.** For a loom, take the pair § Ribbon pairs names for that wafer and cut both ribbons to the loom's longest leg from the AC wiring schedule, plus a service loop. For a fan-out branch or an AC run, pull from the bulk spool and cut to the run length plus a service loop. All-black except the AC mains trio.
