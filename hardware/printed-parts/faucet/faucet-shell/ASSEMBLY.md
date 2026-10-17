@@ -174,8 +174,9 @@ give the full endpoint map and plug/jack continuity procedure.
 
 The nominal tube-to-USB clearance is 1.80 mm along the display normal. The flavor passages permit
 some tube movement, so the seated real bundle is part of the complete faucet's
-fit reading. The [production print projects](../vent-print-readiness/README.md)
-contain the matching complete tip and cover in their reviewed orientations.
+fit reading. The current complete [Sculpted](../sculpted/README.md) and
+[Industrial](../industrial/faucet-industrial-petgf.md) projects contain the
+matching tip and cover in their selected orientations.
 Their native records identify the geometry, settings and support contacts.
 
 The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
