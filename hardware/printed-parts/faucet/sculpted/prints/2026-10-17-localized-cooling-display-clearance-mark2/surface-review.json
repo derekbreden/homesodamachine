@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "status": "Post-publication surface readings; no new print gate",
+  "current_cover_lint": "Sculpted cover: two rear-corner short-ray regions at 0.229/0.231 mm; lower-land and bezel slope flags; a 1.822 mm sampled rear-region chord.",
+  "successful_fan_off_cover_comparison": "Same rear-corner locations: 0.202/0.232 mm short-ray findings on the exact mesh from task 1348440331. That article has reported normal assembly acceptance.",
+  "rim_measurement": "Complete rear-opening boundary distances are 1.22787 mm seated and 1.23037 mm relaxed, with sampled transverse material at least 1.24390 and 1.25240 mm. This does not disprove the separate short-ray corner findings.",
+  "scope": "The small rear-corner geometry is outside the requested cooling/display-seat change. It remains visible in the lint output for a separate review; no new broad cover-thickness change is inferred from physical assembly success. Derek was told in the same response that those findings remain.",
+  "tip": "Raised bearing-pad inner walls meet the existing channel walls at X=\u00b16.75 mm; their width is 3.25 mm. The retained outlet, channel and neck have their separate existing thickness findings.",
+  "industrial_cover": "Retained broad preformed wings and 1.3 mm bezel have their existing thin-section exception; physical acceptance remains scoped to identified articles.",
+  "printability": "Saved -50 degree cover pose makes the lower lands level and the bezel underside accessible to automatic supports. Retaining those poses does not establish support-removal force or durability.",
+  "cover_rear_corner_comparison_mm": {
+    "accepted_fan_off_cover": [
+      0.202,
+      0.232
+    ],
+    "clearance_revision": [
+      0.229,
+      0.231
+    ]
+  },
+  "new_pad_wall_alignment": "Bearing-pad inner faces meet the existing X=\u00b16.75 mm channel walls; their transverse width is 3.25 mm. The new 0.25 mm offset is removed."
+}

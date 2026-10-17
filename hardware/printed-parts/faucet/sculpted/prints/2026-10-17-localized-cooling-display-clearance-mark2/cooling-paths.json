@@ -93,8 +93,8 @@
       "part": "faucet-shell-tip",
       "feature": "Support",
       "fan_percent": 0.0,
-      "chord_length_mm": 34596.7209961969,
-      "moves": 50256,
+      "chord_length_mm": 33047.885788318206,
+      "moves": 48317,
       "nominal_z_mm": [
         0.2,
         135.56
@@ -104,8 +104,8 @@
       "part": "faucet-shell-tip",
       "feature": "Brim",
       "fan_percent": 0.0,
-      "chord_length_mm": 1866.186212459904,
-      "moves": 2685,
+      "chord_length_mm": 1870.2905355686817,
+      "moves": 2707,
       "nominal_z_mm": [
         0.2,
         0.2
@@ -115,8 +115,8 @@
       "part": "faucet-shell-tip",
       "feature": "Inner wall",
       "fan_percent": 0.0,
-      "chord_length_mm": 92003.51481281214,
-      "moves": 114211,
+      "chord_length_mm": 92005.53451599626,
+      "moves": 114132,
       "nominal_z_mm": [
         0.2,
         137.24
@@ -126,8 +126,8 @@
       "part": "faucet-shell-tip",
       "feature": "Outer wall",
       "fan_percent": 0.0,
-      "chord_length_mm": 92499.14437155476,
-      "moves": 129457,
+      "chord_length_mm": 92502.45261495534,
+      "moves": 129374,
       "nominal_z_mm": [
         0.2,
         137.72
@@ -269,8 +269,8 @@
       "part": "faucet-shell-tip",
       "feature": "Top surface",
       "fan_percent": 0.0,
-      "chord_length_mm": 610.9049138450351,
-      "moves": 183,
+      "chord_length_mm": 616.4139827770925,
+      "moves": 185,
       "nominal_z_mm": [
         0.44,
         130.52
@@ -280,8 +280,8 @@
       "part": "faucet-shell-tip",
       "feature": "Gap infill",
       "fan_percent": 0.0,
-      "chord_length_mm": 3134.9045375612154,
-      "moves": 1992,
+      "chord_length_mm": 3135.0549189516437,
+      "moves": 1997,
       "nominal_z_mm": [
         0.44,
         137.48
@@ -390,7 +390,7 @@
       "part": "faucet-shell-tip",
       "feature": "Outer wall",
       "fan_percent": 70.0,
-      "chord_length_mm": 1106.3696813750955,
+      "chord_length_mm": 1109.063681375095,
       "moves": 1070,
       "nominal_z_mm": [
         0.92,
@@ -489,11 +489,11 @@
       "part": "faucet-shell-tip",
       "feature": "Support",
       "fan_percent": 70.0,
-      "chord_length_mm": 38788.06325380727,
-      "moves": 61780,
+      "chord_length_mm": 40158.04405165373,
+      "moves": 64143,
       "nominal_z_mm": [
         1.4,
-        135.32
+        135.56
       ]
     },
     {
@@ -533,8 +533,8 @@
       "part": "faucet-shell-base",
       "feature": "Floating vertical shell",
       "fan_percent": 0.0,
-      "chord_length_mm": 34099.2626219358,
-      "moves": 41440,
+      "chord_length_mm": 34099.27028773463,
+      "moves": 41515,
       "nominal_z_mm": [
         2.6,
         226.04
@@ -544,8 +544,8 @@
       "part": "faucet-shell-tip",
       "feature": "Sparse infill",
       "fan_percent": 0.0,
-      "chord_length_mm": 60334.91479759146,
-      "moves": 38518,
+      "chord_length_mm": 60340.952880053635,
+      "moves": 38500,
       "nominal_z_mm": [
         2.6,
         130.52
@@ -555,7 +555,7 @@
       "part": "above-counter-plate",
       "feature": "Floating vertical shell",
       "fan_percent": 0.0,
-      "chord_length_mm": 349.12852272655454,
+      "chord_length_mm": 349.1287002395821,
       "moves": 360,
       "nominal_z_mm": [
         2.84,
@@ -588,8 +588,8 @@
       "part": "faucet-shell-tip",
       "feature": "Floating vertical shell",
       "fan_percent": 0.0,
-      "chord_length_mm": 17138.856601533593,
-      "moves": 25246,
+      "chord_length_mm": 17137.247683047033,
+      "moves": 25202,
       "nominal_z_mm": [
         3.56,
         130.76

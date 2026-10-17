@@ -1,0 +1,1356 @@
+{
+  "wall:display-rear-opening-rim-seated": {
+    "minimum_complete_boundary_distance_mm": 1.2278739,
+    "minimum_sampled_transverse_material_mm": 1.2439032,
+    "required_mm": 1.0,
+    "cut_face_normal": [
+      0.0,
+      0.8574929,
+      -0.5144958
+    ],
+    "faces": [
+      {
+        "face": 0,
+        "outer_edge_count": 3,
+        "inner_edge_count": 1,
+        "excluded_flat_lower_join_edge_indices": [
+          3,
+          5
+        ]
+      }
+    ],
+    "complete_boundary_pairs": [
+      {
+        "face": 0,
+        "outer_edge": 0,
+        "inner_edge": 4,
+        "minimum_complete_edge_distance_mm": 1.2278739
+      },
+      {
+        "face": 0,
+        "outer_edge": 1,
+        "inner_edge": 4,
+        "minimum_complete_edge_distance_mm": 1.7503235
+      },
+      {
+        "face": 0,
+        "outer_edge": 2,
+        "inner_edge": 4,
+        "minimum_complete_edge_distance_mm": 1.2278739
+      }
+    ],
+    "transverse_samples": [
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          14.7536436,
+          44.2722335,
+          3.6203891
+        ],
+        "in_plane_direction": [
+          -0.997228,
+          -0.0382819,
+          -0.0638032
+        ],
+        "continuous_material_stock_mm": 1.2439032
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          14.7067215,
+          44.5602484,
+          4.100414
+        ],
+        "in_plane_direction": [
+          -0.9956924,
+          -0.0477029,
+          -0.0795048
+        ],
+        "continuous_material_stock_mm": 1.2819163
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          14.6052336,
+          45.0391047,
+          4.8985078
+        ],
+        "in_plane_direction": [
+          -0.9922434,
+          -0.0639572,
+          -0.1065953
+        ],
+        "continuous_material_stock_mm": 1.3664486
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          14.3097581,
+          45.9902714,
+          6.4837856
+        ],
+        "in_plane_direction": [
+          -0.9812933,
+          -0.09905,
+          -0.1650834
+        ],
+        "continuous_material_stock_mm": 1.6088636
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          13.6066713,
+          47.3884612,
+          8.814102
+        ],
+        "in_plane_direction": [
+          -0.9500177,
+          -0.1606236,
+          -0.2677059
+        ],
+        "continuous_material_stock_mm": 2.1165076
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          12.52795,
+          48.7210708,
+          11.0351179
+        ],
+        "in_plane_direction": [
+          -0.8870084,
+          -0.2375702,
+          -0.3959503
+        ],
+        "continuous_material_stock_mm": 2.6914562
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          10.9767111,
+          49.922152,
+          13.0369201
+        ],
+        "in_plane_direction": [
+          -0.7607615,
+          -0.333924,
+          -0.5565399
+        ],
+        "continuous_material_stock_mm": 3.151125
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          8.8613011,
+          50.8634773,
+          14.6057954
+        ],
+        "in_plane_direction": [
+          -0.5178791,
+          -0.4401274,
+          -0.7335456
+        ],
+        "continuous_material_stock_mm": 3.3063767
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          7.1522826,
+          51.250284,
+          15.2504733
+        ],
+        "in_plane_direction": [
+          -0.2757381,
+          -0.4945502,
+          -0.8242503
+        ],
+        "continuous_material_stock_mm": 3.1917556
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          6.2372056,
+          51.3503536,
+          15.417256
+        ],
+        "in_plane_direction": [
+          -0.1388185,
+          -0.5095143,
+          -0.8491905
+        ],
+        "continuous_material_stock_mm": 3.0576264
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          5.6782519,
+          51.378404,
+          15.4640067
+        ],
+        "in_plane_direction": [
+          -0.0552993,
+          -0.5137085,
+          -0.8561808
+        ],
+        "continuous_material_stock_mm": 2.9468358
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          -5.091771,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.768089
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          -4.7735353,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.640645
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          -4.2431425,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.4488607
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          -3.1823569,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.1388832
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          -1.5911784,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8465372
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          0.0,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.7504492
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          1.5911784,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8465372
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          3.1823569,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.1388832
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          4.2431425,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.4488607
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          4.7735353,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.640645
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          5.091771,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.768089
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          -14.7536436,
+          44.2722335,
+          3.6203891
+        ],
+        "in_plane_direction": [
+          0.997228,
+          -0.0382819,
+          -0.0638032
+        ],
+        "continuous_material_stock_mm": 1.2439032
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          -14.7067215,
+          44.5602484,
+          4.100414
+        ],
+        "in_plane_direction": [
+          0.9956924,
+          -0.0477029,
+          -0.0795048
+        ],
+        "continuous_material_stock_mm": 1.2819163
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          -14.6052336,
+          45.0391047,
+          4.8985078
+        ],
+        "in_plane_direction": [
+          0.9922434,
+          -0.0639572,
+          -0.1065953
+        ],
+        "continuous_material_stock_mm": 1.3664486
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          -14.3097581,
+          45.9902714,
+          6.4837856
+        ],
+        "in_plane_direction": [
+          0.9812933,
+          -0.09905,
+          -0.1650834
+        ],
+        "continuous_material_stock_mm": 1.6088636
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          -13.6066713,
+          47.3884612,
+          8.814102
+        ],
+        "in_plane_direction": [
+          0.9500177,
+          -0.1606236,
+          -0.2677059
+        ],
+        "continuous_material_stock_mm": 2.1165076
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          -12.52795,
+          48.7210708,
+          11.0351179
+        ],
+        "in_plane_direction": [
+          0.8870084,
+          -0.2375702,
+          -0.3959503
+        ],
+        "continuous_material_stock_mm": 2.6914562
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          -10.9767111,
+          49.922152,
+          13.0369201
+        ],
+        "in_plane_direction": [
+          0.7607615,
+          -0.333924,
+          -0.5565399
+        ],
+        "continuous_material_stock_mm": 3.151125
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          -8.8613011,
+          50.8634773,
+          14.6057954
+        ],
+        "in_plane_direction": [
+          0.5178791,
+          -0.4401274,
+          -0.7335456
+        ],
+        "continuous_material_stock_mm": 3.3063767
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          -7.1522826,
+          51.250284,
+          15.2504733
+        ],
+        "in_plane_direction": [
+          0.2757381,
+          -0.4945502,
+          -0.8242503
+        ],
+        "continuous_material_stock_mm": 3.1917556
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          -6.2372056,
+          51.3503536,
+          15.417256
+        ],
+        "in_plane_direction": [
+          0.1388185,
+          -0.5095143,
+          -0.8491905
+        ],
+        "continuous_material_stock_mm": 3.0576264
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          -5.6782519,
+          51.378404,
+          15.4640067
+        ],
+        "in_plane_direction": [
+          0.0552993,
+          -0.5137085,
+          -0.8561808
+        ],
+        "continuous_material_stock_mm": 2.9468358
+      }
+    ],
+    "method": "complete outer-to-inner edge distances on every actual rear opening face, with tangent-perpendicular material chords within that plane; outer edges match the source show skin at three points, using the inverse wing preform for the relaxed part",
+    "scope": "the physical opening band, separate from inward show-wall normals; only the connecting flat lower-edge segments are excluded from the inner-boundary set",
+    "passed": true
+  },
+  "wall:display-rear-opening-rim-relaxed": {
+    "minimum_complete_boundary_distance_mm": 1.230372,
+    "minimum_sampled_transverse_material_mm": 1.252396,
+    "required_mm": 1.0,
+    "cut_face_normal": [
+      0.0,
+      0.8574929,
+      -0.5144958
+    ],
+    "faces": [
+      {
+        "face": 0,
+        "outer_edge_count": 4,
+        "inner_edge_count": 2,
+        "excluded_flat_lower_join_edge_indices": [
+          4,
+          7
+        ]
+      }
+    ],
+    "complete_boundary_pairs": [
+      {
+        "face": 0,
+        "outer_edge": 0,
+        "inner_edge": 5,
+        "minimum_complete_edge_distance_mm": 5.0975873
+      },
+      {
+        "face": 0,
+        "outer_edge": 0,
+        "inner_edge": 6,
+        "minimum_complete_edge_distance_mm": 1.230372
+      },
+      {
+        "face": 0,
+        "outer_edge": 1,
+        "inner_edge": 5,
+        "minimum_complete_edge_distance_mm": 1.7659292
+      },
+      {
+        "face": 0,
+        "outer_edge": 1,
+        "inner_edge": 6,
+        "minimum_complete_edge_distance_mm": 1.7659292
+      },
+      {
+        "face": 0,
+        "outer_edge": 2,
+        "inner_edge": 5,
+        "minimum_complete_edge_distance_mm": 1.7956456
+      },
+      {
+        "face": 0,
+        "outer_edge": 2,
+        "inner_edge": 6,
+        "minimum_complete_edge_distance_mm": 1.8414625
+      },
+      {
+        "face": 0,
+        "outer_edge": 3,
+        "inner_edge": 5,
+        "minimum_complete_edge_distance_mm": 1.230372
+      },
+      {
+        "face": 0,
+        "outer_edge": 3,
+        "inner_edge": 6,
+        "minimum_complete_edge_distance_mm": 5.0975873
+      }
+    ],
+    "transverse_samples": [
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          -13.2910176,
+          44.2689213,
+          3.6148689
+        ],
+        "in_plane_direction": [
+          0.9999798,
+          -0.0032664,
+          -0.005444
+        ],
+        "continuous_material_stock_mm": 1.252396
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          -13.282536,
+          44.5522675,
+          4.0871125
+        ],
+        "in_plane_direction": [
+          0.9996989,
+          -0.0126236,
+          -0.0210394
+        ],
+        "continuous_material_stock_mm": 1.2930326
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          -13.24565,
+          45.0241725,
+          4.8736209
+        ],
+        "in_plane_direction": [
+          0.9984248,
+          -0.0288662,
+          -0.0481103
+        ],
+        "continuous_material_stock_mm": 1.3821205
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          -13.0806437,
+          45.9647727,
+          6.4412878
+        ],
+        "in_plane_direction": [
+          0.9921455,
+          -0.0643577,
+          -0.1072628
+        ],
+        "continuous_material_stock_mm": 1.6359887
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          -12.5723308,
+          47.3563949,
+          8.7606582
+        ],
+        "in_plane_direction": [
+          0.9685344,
+          -0.1280475,
+          -0.2134126
+        ],
+        "continuous_material_stock_mm": 2.1711178
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          -11.6769484,
+          48.6945534,
+          10.9909223
+        ],
+        "in_plane_direction": [
+          0.9127485,
+          -0.2101828,
+          -0.3503047
+        ],
+        "continuous_material_stock_mm": 2.7819797
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          -10.2781857,
+          49.9111106,
+          13.0185177
+        ],
+        "in_plane_direction": [
+          0.7883359,
+          -0.316541,
+          -0.5275684
+        ],
+        "continuous_material_stock_mm": 3.2624422
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          -8.2624028,
+          50.8661008,
+          14.610168
+        ],
+        "in_plane_direction": [
+          0.5327121,
+          -0.435416,
+          -0.7256933
+        ],
+        "continuous_material_stock_mm": 3.4111611
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          -6.594133,
+          51.2530538,
+          15.2550897
+        ],
+        "in_plane_direction": [
+          0.2778985,
+          -0.49423,
+          -0.8237167
+        ],
+        "continuous_material_stock_mm": 3.290988
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          -5.6970373,
+          51.3513478,
+          15.418913
+        ],
+        "in_plane_direction": [
+          0.1380071,
+          -0.5095727,
+          -0.8492878
+        ],
+        "continuous_material_stock_mm": 3.1533571
+      },
+      {
+        "face": 0,
+        "edge": 0,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          -5.148952,
+          51.3785912,
+          15.4643186
+        ],
+        "in_plane_direction": [
+          0.054516,
+          -0.5137306,
+          -0.8562177
+        ],
+        "continuous_material_stock_mm": 3.0391478
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          0.4159159,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.7930036
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          0.256798,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.7811176
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          -0.0083984,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.7664672
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          -0.5387912,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8035262
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          -1.3343804,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.9003824
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          -2.1299697,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.048316
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          -2.9255589,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          -0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.2497156
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          -3.7211481,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.5078097
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          -4.2515409,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.7134387
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          -4.5167373,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.8268969
+      },
+      {
+        "face": 0,
+        "edge": 1,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          -4.6758552,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.8985064
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          0.6071932,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8098935
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          0.7349914,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8227699
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          0.9479884,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.8470829
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          1.3739823,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 1.9065213
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          2.0129732,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.023274
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          2.6519641,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.1742432
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          3.290955,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.3609811
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          3.9299459,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.5854449
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          4.3559398,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.7572359
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          4.5689368,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.8500928
+      },
+      {
+        "face": 0,
+        "edge": 2,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          4.696735,
+          51.3837222,
+          15.4728703
+        ],
+        "in_plane_direction": [
+          0.0,
+          -0.5144958,
+          -0.8574929
+        ],
+        "continuous_material_stock_mm": 2.9081036
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.02,
+        "point_x_s_n_mm": [
+          13.2910176,
+          44.2689213,
+          3.6148689
+        ],
+        "in_plane_direction": [
+          -0.9999798,
+          -0.0032664,
+          -0.005444
+        ],
+        "continuous_material_stock_mm": 1.252396
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.05,
+        "point_x_s_n_mm": [
+          13.282536,
+          44.5522675,
+          4.0871125
+        ],
+        "in_plane_direction": [
+          -0.9996989,
+          -0.0126236,
+          -0.0210394
+        ],
+        "continuous_material_stock_mm": 1.2930326
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.1,
+        "point_x_s_n_mm": [
+          13.24565,
+          45.0241725,
+          4.8736209
+        ],
+        "in_plane_direction": [
+          -0.9984248,
+          -0.0288662,
+          -0.0481103
+        ],
+        "continuous_material_stock_mm": 1.3821205
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.2,
+        "point_x_s_n_mm": [
+          13.0806437,
+          45.9647727,
+          6.4412878
+        ],
+        "in_plane_direction": [
+          -0.9921455,
+          -0.0643577,
+          -0.1072628
+        ],
+        "continuous_material_stock_mm": 1.6359887
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.35,
+        "point_x_s_n_mm": [
+          12.5723308,
+          47.3563949,
+          8.7606582
+        ],
+        "in_plane_direction": [
+          -0.9685344,
+          -0.1280475,
+          -0.2134126
+        ],
+        "continuous_material_stock_mm": 2.1711178
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.5,
+        "point_x_s_n_mm": [
+          11.6769484,
+          48.6945534,
+          10.9909223
+        ],
+        "in_plane_direction": [
+          -0.9127485,
+          -0.2101828,
+          -0.3503047
+        ],
+        "continuous_material_stock_mm": 2.7819797
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.65,
+        "point_x_s_n_mm": [
+          10.2781857,
+          49.9111106,
+          13.0185177
+        ],
+        "in_plane_direction": [
+          -0.7883359,
+          -0.316541,
+          -0.5275684
+        ],
+        "continuous_material_stock_mm": 3.2624422
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.8,
+        "point_x_s_n_mm": [
+          8.2624028,
+          50.8661008,
+          14.610168
+        ],
+        "in_plane_direction": [
+          -0.5327121,
+          -0.435416,
+          -0.7256933
+        ],
+        "continuous_material_stock_mm": 3.4111611
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.9,
+        "point_x_s_n_mm": [
+          6.594133,
+          51.2530538,
+          15.2550897
+        ],
+        "in_plane_direction": [
+          -0.2778985,
+          -0.49423,
+          -0.8237167
+        ],
+        "continuous_material_stock_mm": 3.290988
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.95,
+        "point_x_s_n_mm": [
+          5.6970373,
+          51.3513478,
+          15.418913
+        ],
+        "in_plane_direction": [
+          -0.1380071,
+          -0.5095727,
+          -0.8492878
+        ],
+        "continuous_material_stock_mm": 3.1533571
+      },
+      {
+        "face": 0,
+        "edge": 3,
+        "parameter": 0.98,
+        "point_x_s_n_mm": [
+          5.148952,
+          51.3785912,
+          15.4643186
+        ],
+        "in_plane_direction": [
+          -0.054516,
+          -0.5137306,
+          -0.8562177
+        ],
+        "continuous_material_stock_mm": 3.0391478
+      }
+    ],
+    "method": "complete outer-to-inner edge distances on every actual rear opening face, with tangent-perpendicular material chords within that plane; outer edges match the source show skin at three points, using the inverse wing preform for the relaxed part",
+    "scope": "the physical opening band, separate from inward show-wall normals; only the connecting flat lower-edge segments are excluded from the inner-boundary set",
+    "passed": true
+  }
+}

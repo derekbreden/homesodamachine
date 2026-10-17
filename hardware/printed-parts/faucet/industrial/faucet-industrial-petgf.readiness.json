@@ -6,14 +6,14 @@
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "7aa9c9ad88f02da8c92be53e9ab82a4f63242510c48ac467565f826696c7e07a",
+  "project_sha256": "b7dee5a01488462501b59a23330974455df015f00499610d658213ef985f130c",
   "settings_sha256": "73ddca1a51a6de2ada2dac8f59afb37b29b45f96b4b8d4e7e8fd7dda006f33cc",
-  "print_report_sha256": "e691905acd2543ccb10a43e58ee50b98fb7a195bfb362b93e8b70d5cce43611a",
+  "print_report_sha256": "49d1d343445da246303c06ce11e3d3fd52fea315023a3eaf18b5c7c53be7ac25",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "all_profile_members_preserved_byte_for_byte": false,
   "source_stls": {
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"

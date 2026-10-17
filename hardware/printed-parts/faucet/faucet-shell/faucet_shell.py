@@ -1350,6 +1350,7 @@ display_clip_lip_radius = display_neck_outer_r - _display_snap.ENGAGEMENT
 display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
 display_foot_pad_depth = wall_thickness_min + display_additional_tube_clearance
+display_channel_half_width = 6.75
 # Factory assembly: place the display in the open cover, approach from the
 # outlet at S=-slide, translate along S while lifted, then seat along -N.
 # A 9.5 mm factory lift clears the complete relaxed cover from the round neck
@@ -1447,13 +1448,16 @@ def build_display_neck_clearance() -> cq.Workplane:
 
 
 def build_display_feet_pads() -> cq.Workplane:
-    """Four 3 mm square bearing pads under the measured metal feet."""
+    """Four bearing pads with their inner walls flush to the open channel."""
     solids = []
     h = display_foot_pad_width / 2.0
     for x, s in display_foot_centers:
+        outer_x = abs(x) + h
+        inner_x = min(abs(x) - h, display_channel_half_width)
         solids.append(_cradle_prism(
-            h, s - h, s + h, display_feet_n - display_foot_pad_depth,
-            display_feet_n).translate((x, 0.0, 0.0)).val())
+            (outer_x - inner_x) / 2.0, s - h, s + h,
+            display_feet_n - display_foot_pad_depth,
+            display_feet_n).translate((math.copysign((outer_x + inner_x) / 2.0, x), 0.0, 0.0)).val())
     return cq.Workplane(obj=cq.Compound.makeCompound(solids))
 
 
@@ -1506,7 +1510,8 @@ def _display_cavity() -> cq.Workplane:
         display_seat_reference_n, display_cover_top_n + 1.0,
     ).cut(build_display_feet_pads())
     open_channel = _cradle_prism(
-        6.75, dispense_face_thickness, display_s_top, 0.0, display_seat_reference_n + 0.1)
+        display_channel_half_width, dispense_face_thickness, display_s_top,
+        0.0, display_seat_reference_n + 0.1)
     return device_opening.union(open_channel)
 
 

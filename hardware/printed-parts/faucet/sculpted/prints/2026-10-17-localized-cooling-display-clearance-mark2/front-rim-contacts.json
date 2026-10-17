@@ -3,25 +3,25 @@
   "traces": [
     {
       "print_z_mm": 15.32,
-      "gcode_line": 503579,
+      "gcode_line": 503592,
       "length_mm": 9.226206583349315,
       "longest_run_without_lower_bead_xy_overlap_mm": 0
     },
     {
       "print_z_mm": 15.32,
-      "gcode_line": 503867,
+      "gcode_line": 503880,
       "length_mm": 24.50411895322882,
       "longest_run_without_lower_bead_xy_overlap_mm": 0
     },
     {
       "print_z_mm": 15.32,
-      "gcode_line": 505505,
+      "gcode_line": 505518,
       "length_mm": 46.98021072908801,
       "longest_run_without_lower_bead_xy_overlap_mm": 0
     },
     {
       "print_z_mm": 15.56,
-      "gcode_line": 509852,
+      "gcode_line": 509864,
       "length_mm": 20.180492196620985,
       "longest_run_without_lower_bead_xy_overlap_mm": 0
     }

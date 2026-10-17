@@ -1,10 +1,10 @@
 {
   "source_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.gcode.3mf",
-  "source_archive_sha256": "375d7987c21eaad69aa7464e1fbcbe73dd54d1f3aa79ac8b0d97f6af8e9de95c",
-  "print_only_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-print-only.gcode.3mf",
-  "print_only_archive_sha256": "c1d538411aa2305dfa8d04f514ae0544f24166c320f1c956c410581354d3ece5",
+  "source_archive_sha256": "d4c8a62ea270d872c632ca76c928b0dc59e32957e1b78b4b5eb0854d2ec9e374",
+  "print_only_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "019aa62f3aa581af0077ebd37208794fd1636927754aa435c20fefec8cebb545",
   "gcode_sha256": {
-    "Metadata/plate_1.gcode": "ace1452373d98ec1a0be33879a9cea71145f0dee119095a0fe60a9f4686da7c6"
+    "Metadata/plate_1.gcode": "2b3d747aa3007c12d7f3611b2b8ff1fe959ea57d103439803bedcb3686f37fb3"
   },
   "gcode_byte_identical": true,
   "changed_container_entries": [

@@ -5,7 +5,7 @@
   "geometry_source_sha256": {
     "hardware/scripts/check_faucet_geometry.py": "7ac950b9aac3deb568db30816a025d3cdab7de26cdd1e7df0476da5da2946135",
     "hardware/faucet-layout/faucet_assembly.py": "7b41880a83106aa6074215ac7b4bde8272a36f3bd69b26e46911b9b0811dd338",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f17a6e1adb9400452fd73e5c907b76bc10c18e42c1eb4b477a25a7c33bbd839b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "72e73db7df4a40fd98cf663f5d5fb1db784af4d5b9095ab7b0abd9575fe411bd",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
@@ -16,8 +16,8 @@
   "saved_geometry_sha256": {
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "b9570bf6fbb07af83020bc084f8486e50bd75f13905b3145fdcc35e3e02ef7bd",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "0fb7f3d93df68f7e30935885f3f8d1b99430d896b3937a07894333f93d72a577",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "a6f4a11bfdb644208616b7027cd2057b2fa94b01d4abdb7ebec3e8eddd8ed5d5",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "9bc2694fb96cadf8e86f01985efe4c4b5276f96ba6bfad5814317073de399a96",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "9c8941c7183970120a1e3c0246f2e7fb4f8d93fda69e3fcf71a307e15600d9cb",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109"
   },
@@ -43,7 +43,7 @@
     "solid:shell_tip": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 43668.9958593,
+      "volume_mm3": 43673.4958593,
       "bounds_mm": [
         -13.5000001,
         13.5000001,
@@ -83,8 +83,8 @@
       "consistent_winding": true,
       "body_count": 1,
       "triangle_count": 171436,
-      "stl_sha256": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
-      "step_sha256": "a6f4a11bfdb644208616b7027cd2057b2fa94b01d4abdb7ebec3e8eddd8ed5d5",
+      "stl_sha256": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
+      "step_sha256": "9bc2694fb96cadf8e86f01985efe4c4b5276f96ba6bfad5814317073de399a96",
       "scope": "actual saved STL bytes, not a fresh tessellation or slicer result",
       "passed": true
     },
