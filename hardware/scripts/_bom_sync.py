@@ -38,6 +38,9 @@ import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imp
 import enclosure as _enc  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
+import meanwell_irm90 as _psu  # likewise — the +X wall's bodies, each counting its own screws
+import teyleten_relay as _relay  # likewise
+import pcba_tray as _pcba  # likewise
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -218,11 +221,17 @@ faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 # its own and no tray ships, so this is the whole of the shelf's retention.
 shelf_inserts_per_build = len(_east_bosses)
 # One SHCS in through each body from the room, into its boss's insert — 1:1 with the
-# bosses. The ground stack's is the long one: it comes down through a fan of ring
-# terminals before it reaches its insert, so its own pattern is what counts the M3 × 10s.
+# bosses. Every insert is a 4 mm short in a bore of about 6 mm, so each body's length is
+# its own clamp stack and each body's own pattern counts its screws. The PSU's moulded
+# ears are 6.7 mm and the ground stack fans ring terminals under its head: M3 × 10. The
+# main board's 1.6 mm stands over an insert recessed 2.25 mm: M3 × 8. A relay's 1.5 mm
+# board sits on a flush insert: M3 × 6.
 shelf_screws_per_build = shelf_inserts_per_build
-shelf_long_screws_per_build = len(_gnd.holes)
-shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_build
+shelf_psu_screws_per_build = len(_psu.holes)
+shelf_ground_screws_per_build = len(_gnd.holes)
+shelf_pcba_screws_per_build = len(_pcba.board.holes)
+shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("relay-"))
+                                * len(_relay.holes))
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
@@ -244,7 +253,7 @@ floor_washers_per_build = floor_screws_per_build
 # and the floor's are. The fore pair takes a groove and no fastener.
 cond_inserts_per_build = len(_cond_bosses)
 # One M3 × 8 down through each aft flange into its finger's insert — 1:1 with the fingers, and
-# the same screw the shelf's sixteen are.
+# the same screw the main board's four are.
 cond_screws_per_build = cond_inserts_per_build
 
 # The nameplate's two integral PET-GF tabs engage rigid enclosure shoulders.
@@ -300,16 +309,52 @@ enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 enclosure_seam_washers_per_build = enclosure_seam_rods_per_build
 
-# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair,
-# the faucet base and the C14 inlet. The inlet's two suit it for the same reason the
-# condenser's do — a 2 mm flange under the head and the tunnel's own bore past it.
-m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
+# Every M3 × 8 in the build: the main board's four, the condenser's aft pair, the faucet
+# base and the C14 inlet. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
+# seating face on the receptacle's rim, so an 8 leaves 2.9 mm in the 4 mm insert.
+m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
                   + touchflo_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one.
-m3x10_per_build = shelf_long_screws_per_build
+# And every M3 x 10: the PSU's four and the ground-stack clamp's one.
+m3x10_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
+
+# And every M3 x 6: the relays'.
+m3x6_per_build = shelf_relay_screws_per_build
+
+# THE SHELF'S AND THE INLET'S SCREW STACKS, each read off what stands under the head and the
+# bore the screw lands in. A +X wall insert seats on its boss where the boss stands, on the
+# wall where the wall is the body's mounting face, and behind a recess where the main board's
+# tails need one (`enclosure.east_boss_insert_setback`); its bore runs as far as
+# `enclosure.east_boss_bore_end` lets it. The reach past the insert's mouth fills the 4 mm
+# insert, or nearly, and stops short of the blind end.
+psu_screw_len, pcba_screw_len, relay_screw_len, c14_screw_len = 10.0, 8.0, 6.0, 8.0
+
+
+def _east_seats():
+    """Each +X wall station as `(stands, insert setback, bore depth from the insert's seat)`."""
+    inner, outer = _f.box["inner"], _f.box["outer"]
+    for station in _east_bosses:
+        sy, sz, tip = station[:3]
+        piece = ("front" if sy <= _f.box["y_joint"] else "back",
+                 "top" if sz > _enc.z_seam else "bottom")
+        root = _enc.piece_root_faces(inner, *piece)[1]
+        stands = root - tip >= _enc.east_boss_min_stand - _enc.stated_bound_tol
+        setback = _enc.east_boss_insert_setback(station)
+        seat = (tip if stands else root) + setback
+        yield stands, setback, _enc.east_boss_bore_end(sy, seat, outer) - seat
+
+
+_seats = list(_east_seats())
+pcba_insert_recess = max(setback for _stands, setback, _depth in _seats)
+pcba_bore = min(depth for _stands, setback, depth in _seats if setback)
+psu_bore = min(depth for stands, setback, depth in _seats if not stands and not setback)
+relay_bore = min(depth for stands, setback, depth in _seats if stands and not setback)
+psu_screw_reach = psu_screw_len - _psu.ledge_h
+pcba_screw_reach = pcba_screw_len - _pcba._thickness - pcba_insert_recess
+relay_screw_reach = relay_screw_len - _relay.pcb_t
+c14_screw_reach = c14_screw_len - _c14.FLANGE_T - _c14.RIM_PROUD
 
 # One screw and insert per ear, on each of the magnetic pair's two halves.
 pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
@@ -481,9 +526,33 @@ def main(*, only_bom=False):
         "FAUCET_DISPLAY_SCREWS": f"{faucet_display_cover_screws_per_build:.4g}",
         "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
-        "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
+        "SHELF_SCREWS_PSU": f"{shelf_psu_screws_per_build:.4g}",
+        "SHELF_SCREWS_GROUND": f"{shelf_ground_screws_per_build:.4g}",
+        "SHELF_SCREWS_PCBA": f"{shelf_pcba_screws_per_build:.4g}",
+        "SHELF_SCREWS_RELAY": f"{shelf_relay_screws_per_build:.4g}",
         "COND_INSERTS": f"{cond_inserts_per_build:.4g}",
         "COND_SCREWS": f"{cond_screws_per_build:.4g}",
+        "SHORT_INSERT_LEN": f"{_enc.heatset_len:g}",
+        "PSU_EAR_T": f"{_psu.ledge_h:g}",
+        "PSU_BORE": f"{psu_bore:.3g}",
+        "PSU_SCREW_REACH": f"{psu_screw_reach:.3g}",
+        "PSU_SCREW_TIP": f"{psu_bore - psu_screw_reach:.3g}",
+        "PCBA_BOARD_T": f"{_pcba._thickness:g}",
+        "PCBA_INSERT_RECESS": f"{pcba_insert_recess:.3g}",
+        "PCBA_BORE": f"{pcba_bore:.3g}",
+        "PCBA_SCREW_REACH": f"{pcba_screw_reach:.3g}",
+        "PCBA_SCREW_TIP": f"{pcba_bore - pcba_screw_reach:.3g}",
+        "RELAY_BOARD_T": f"{_relay.pcb_t:g}",
+        "RELAY_BORE": f"{relay_bore:.3g}",
+        "RELAY_SCREW_REACH": f"{relay_screw_reach:.3g}",
+        "RELAY_SCREW_TIP": f"{relay_bore - relay_screw_reach:.3g}",
+        "C14_FLANGE_T": f"{_c14.FLANGE_T:g}",
+        "C14_RIM_PROUD": f"{_c14.RIM_PROUD:g}",
+        "C14_BORE": f"{_enc.heatset_depth:g}",
+        "C14_SCREW_REACH": f"{c14_screw_reach:.3g}",
+        "C14_SCREW_TIP": f"{_enc.heatset_depth - c14_screw_reach:.3g}",
+        "M3X6_TOTAL": f"{m3x6_per_build:.4g}",
+        "M3X6_COST": pack_line_cost(m3x6_per_build, "7.12", 120),
         "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
         "M3X8_COST": pack_line_cost(m3x8_per_build, "7.71", 120),
         "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
@@ -500,7 +569,6 @@ def main(*, only_bom=False):
             "The TPU ring bears between the cover's lap and the glass. "
             f"The cover takes {display_cover_screws_per_build} screws and "
             f"{display_cover_inserts_per_build} inserts."),
-        "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",

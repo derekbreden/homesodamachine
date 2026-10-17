@@ -50,7 +50,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | Funnel frame, elbow cradle, PP0308E elbow + drain stub | Frame and cradle: [`/hardware/printed-parts/zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/README.md) (printed PET-GF15); elbow: John Guest PP0308E ([`bom.md`](/hardware/ledger/bom.md) §8); stub: 1/4" black LLDPE cut to [25.79 mm](FUNNEL_STUB_LEN) | The cradle snaps under the frame's web with the elbow in it and the stub in the elbow's upper collet, and the frame slides into front-top before closure (§8). The silicone funnel itself seats at final staging |
 | MQ-6 combustible-gas sensor | ACEIRMC B0978JSCZ8 ([`/hardware/reference/mq6-gas-sensor/`](/hardware/reference/mq6-gas-sensor/)) | Drops from above into the two grooved posts printed on the floor of the refrigeration bay's −X strip; no fastener — the module has no mounting hole. Wires to SIG-12 on the J11 GAS loom in [`wiring.md`](/hardware/assembly/wiring.md); safety rationale at [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety" |
 | Bench-built electronics bay | Output of [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](/hardware/assembly/wiring.md) |
-| ruthex M3 heat-set inserts, **both bodies** + M3 fasteners | ruthex B08BCRZZS3 (RX-M3x5.7 full-length) + B09ZHSGHXD (RX-M3Sx4.0 short) + BNUOK B0DJQGF665 / B0DJQGPRPV | Per the mount schedules the printed pieces carry, including the condenser's two aft fingers. The cold core's grips take none, being printed features the box closes on. The nameplate's receiving slots and retaining shoulders are printed features |
+| ruthex M3 heat-set inserts, **both bodies** + M3 fasteners | ruthex B08BCRZZS3 (RX-M3x5.7 full-length) + B09ZHSGHXD (RX-M3Sx4.0 short) + BNUOK B0DJQGF665 / B0DJQH3WSX (M3 × 6) / B0DJQGPRPV (M3 × 8) / B0DJQGGDP2 (M3 × 10) | Per the mount schedules the printed pieces carry, including the condenser's two aft fingers. The cold core's grips take none, being printed features the box closes on. The nameplate's receiving slots and retaining shoulders are printed features |
 | ruthex M5 heat-set inserts + M5 fasteners | ruthex B07YSVXWS8 + MewuDecor B0BHZVXNJX + M5 × 25 fender washers B0GSMDY5GL | The floor slab's four posts under the compressor's plate, and the Y seam's four corner-stack stations |
 | Y-seam screws and flat washers | Two partially threaded M5 × 150 and two fully threaded M5 × 60 socket-head screws; four M5 flat washers, Ø10 × 1 mm | One washer under each head; all four use 4 mm hex. The screws pass through printed clearance holes into ruthex M5 inserts |
 | Chassis bonding lead — compressor body | Green 18 AWG, ring terminal | Rings under the compressor's own earth screw at its terminal box; landed at the ground bus in [`wiring.md`](/hardware/assembly/wiring.md) |
@@ -92,7 +92,9 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
   the sleeve. Calibrate its travel with a spare insert and calipers, stop at the
   marked recess and cold-check the depth after cooling. The M3×8 crosses the
   1.6 mm PCB and 2.25 mm recess, leaving 4.15 mm nominal threaded reach. The
-  other electronics inserts seat on their actual mounting faces.
+  other electronics inserts seat on their actual mounting faces: the PSU takes
+  M3 × 10 through its moulded ears and each relay M3 × 6 through its board, with
+  each stack in `bom.md` §13.
 - **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The insert's top sits 5 mm inside the mating face, 2 mm behind the ear plate's 3 mm bearing step. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-top's two hubs over the Z seam, pressed into their undersides with the piece on its back, and front-top's two knuckles under the funnel frame, pressed from above. A second tip off the same T18 kit.
 
@@ -138,7 +140,7 @@ All seven land in `enclosure-back-top`, on the bench, before that piece goes any
 |---|---|---|---|
 | Umbilical unions × 3 (PP1208E) | [-78.07 / -40.71 / -40.71](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[17.44](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-78.07](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[17.44](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
-| C14 mains inlet | [x 66.9, z 336.2](C14_BACK) | Rounded rectangle | Rim on the inlet tunnel's pocket floor, two M3 through the ears into that floor |
+| C14 mains inlet | [x 66.9, z 336.2](C14_BACK) | Rounded rectangle | Rim on the inlet tunnel's pocket floor, two M3 × 8 through the ears into that floor |
 | CO2 ABU44 bulkhead | [x -3.35, z 336](CO2_BACK) | Ø[17.3](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 | Umbilical-signal keystone | x −40.71, z 302.62 | 14.8 × 16.3 mm keyed receptacle | RiteAV RJ11 jack enters from inside, tang first; latch snaps over the printed catch; face recessed behind DATA |
 
@@ -149,7 +151,7 @@ The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBIL
 Install, in this order:
 
 - **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-40.71](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [+Y wall of back-top "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md), and that rule only works if the ring is where the customer expects it.
-- **The C14 inlet** — it lands from *inside*: flange against the fore face of the printed tunnel standing round the cutout, its rim bearing on the pocket floor around the bore and two M3 through the ears into that floor either side of it. Nothing on this station stands proud of the rear face; the rim face sits [8.25 mm](C14_RIM_INSET) inside it, and the C13 nose comes down the bore to reach it. Solder tabs face into the cabinet.
+- **The C14 inlet** — it lands from *inside*: flange against the fore face of the printed tunnel standing round the cutout, its rim bearing on the pocket floor around the bore and two M3 × 8 through the ears into that floor either side of it. Drive them snug and no further: the rim is what bears and the ears stand off the floor, so a screw driven past snug bends its ear toward it. Nothing on this station stands proud of the rear face; the rim face sits [8.25 mm](C14_RIM_INSET) inside it, and the C13 nose comes down the bore to reach it. Solder tabs face into the cabinet.
 - **The ABU44** — a 1/4" collet on each face, the red bulkhead ring dropped into its rim before the fitting goes in, flange bearing on that ring and the panel nut made up inside. Nothing threads onto either collet here.
 - **The RiteAV RJ11 keystone** — enter from inside, upper tang first, swing the body through the receptacle's ease and press until its latch snaps over the printed catch. Its face is 3.52 mm inside the rear show plane, 0.16 mm behind DATA's nominal back; its 110 IDC remains accessible inside for SIG-6.
 
@@ -196,11 +198,13 @@ The bench-built electronics bay's five bodies stand against the **+X wall**, and
 
 **Every one of those bosses is on `enclosure-back-top`**, which is why this step is bench work on that piece and not work inside a standing box: the bodies are offered up to its wall and screwed down there, alongside the seven connection bodies of step 2, and they come down with it.
 
+**Three screw lengths go into this wall, and they do not trade places.** An M3 × 8 in a relay or an M3 × 10 in the main board bottoms in its bore before the head seats. Work from labelled troughs.
+
 The column, aft to fore:
 
-- **Mean Well IRM-90-12ST PSU** — lying on its side against the wall so only its [33.5 mm](PSU_DEPTH) depth reaches into the lane and its [109 mm](PSU_LENGTH) long axis runs fore and aft. Its aft face stands just clear of the rear seam, under the C14 inlet's own column.
-- **Teyleten relay #2** stands ON END in the band between the main board and the brick — the only pose a third body fits that depth in. **Teyleten relay #1** lies on the main board's crown, and the **ground ring-terminal stack** takes the same seat one clearance forward of it. The **five Wago lever nuts** press into wells printed on the wall itself over the brick's crown; nothing bolts them.
-- **Main board** forward of the brick on the same seat, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
+- **Mean Well IRM-90-12ST PSU** — lying on its side against the wall so only its [33.5 mm](PSU_DEPTH) depth reaches into the lane and its [109 mm](PSU_LENGTH) long axis runs fore and aft. Its aft face stands just clear of the rear seam, under the C14 inlet's own column. Four M3 × 10 through its moulded ears.
+- **Teyleten relay #2** stands ON END in the band between the main board and the brick — the only pose a third body fits that depth in. **Teyleten relay #1** lies on the main board's crown, and the **ground ring-terminal stack** takes the same seat one clearance forward of it. Each relay takes four M3 × 6, and the ground stack's clamp one M3 × 10. The **five Wago lever nuts** press into wells printed on the wall itself over the brick's crown; nothing bolts them.
+- **Main board** forward of the brick on the same seat, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads. Four M3 × 8.
 
 The electronics bay is **unpowered** at this step: the AC pigtails from the wall's own three mains Wagos hang free and get terminated at the C14's solder-tab pins, which stand on the same wall just aft of the row, in [`wiring.md`](/hardware/assembly/wiring.md). The compressor's earth-bond lead routes toward the ground stack and waits.
 
