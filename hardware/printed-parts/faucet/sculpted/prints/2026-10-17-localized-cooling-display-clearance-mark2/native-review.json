@@ -1,12 +1,12 @@
 {
   "status": "Complete Sculpted native slice reviewed; physical result pending",
   "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.3mf",
-  "project_sha256": "ce89644144cb623b78b205507461143431c673b75cc8a1be1f26dab108f83976",
+  "project_sha256": "363e11998d60fd88b585860b42628f9de48ffb4ea582f4ecd68e2f38f8d25d11",
   "archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.gcode.3mf",
-  "archive_sha256": "375d7987c21eaad69aa7464e1fbcbe73dd54d1f3aa79ac8b0d97f6af8e9de95c",
-  "submitted_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-print-only.gcode.3mf",
-  "submitted_archive_sha256": "c1d538411aa2305dfa8d04f514ae0544f24166c320f1c956c410581354d3ece5",
-  "gcode_sha256": "ace1452373d98ec1a0be33879a9cea71145f0dee119095a0fe60a9f4686da7c6",
+  "archive_sha256": "d4c8a62ea270d872c632ca76c928b0dc59e32957e1b78b4b5eb0854d2ec9e374",
+  "submitted_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+  "submitted_archive_sha256": "019aa62f3aa581af0077ebd37208794fd1636927754aa435c20fefec8cebb545",
+  "gcode_sha256": "2b3d747aa3007c12d7f3611b2b8ff1fe959ea57d103439803bedcb3686f37fb3",
   "printer": "Mark2",
   "active_nozzle": 1,
   "external_spool": 255,
@@ -26,7 +26,59 @@
   "modifier_wall_setting_overrides": [],
   "nominal_layer_count": 1022,
   "native_settings_normalizations": {
-    "overhang_3_4_speed": {
+    "filament_overhang_4_4_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "filament_overhang_1_4_speed": {
+      "prepared": [
+        "15.0",
+        "15.0",
+        "15.0"
+      ],
+      "native": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "filament_overhang_3_4_speed": {
+      "prepared": [
+        "15.0",
+        "15.0",
+        "15.0"
+      ],
+      "native": [
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "prepared": [
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0",
+        "10.0"
+      ],
+      "native": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "overhang_1_4_speed": {
       "prepared": [
         "15.0",
         "15.0",
@@ -54,59 +106,7 @@
         "10"
       ]
     },
-    "filament_prime_volume": {
-      "prepared": [
-        "30"
-      ],
-      "native": [
-        "45"
-      ]
-    },
-    "filament_overhang_4_4_speed": {
-      "prepared": [
-        "10.0",
-        "10.0",
-        "10.0"
-      ],
-      "native": [
-        "10",
-        "10",
-        "10"
-      ]
-    },
-    "overhang_2_4_speed": {
-      "prepared": [
-        "15.0",
-        "15.0",
-        "15.0",
-        "15.0",
-        "15.0"
-      ],
-      "native": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "overhang_1_4_speed": {
-      "prepared": [
-        "15.0",
-        "15.0",
-        "15.0",
-        "15.0",
-        "15.0"
-      ],
-      "native": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_overhang_1_4_speed": {
+    "filament_overhang_2_4_speed": {
       "prepared": [
         "15.0",
         "15.0",
@@ -134,28 +134,12 @@
         "10"
       ]
     },
-    "filament_overhang_3_4_speed": {
+    "filament_prime_volume": {
       "prepared": [
-        "15.0",
-        "15.0",
-        "15.0"
+        "30"
       ],
       "native": [
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_overhang_2_4_speed": {
-      "prepared": [
-        "15.0",
-        "15.0",
-        "15.0"
-      ],
-      "native": [
-        "15",
-        "15",
-        "15"
+        "45"
       ]
     },
     "filament_map_2": {
@@ -164,20 +148,36 @@
         "1"
       ]
     },
-    "overhang_4_4_speed": {
+    "overhang_3_4_speed": {
       "prepared": [
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0"
+        "15.0",
+        "15.0",
+        "15.0",
+        "15.0",
+        "15.0"
       ],
       "native": [
-        "10",
-        "10",
-        "10",
-        "10",
-        "10"
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "prepared": [
+        "15.0",
+        "15.0",
+        "15.0",
+        "15.0",
+        "15.0"
+      ],
+      "native": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
       ]
     }
   },
@@ -202,7 +202,7 @@
       "extrusion_bounds_xy_mm": [
         [
           171.722517,
-          162.591517
+          162.634517
         ],
         [
           221.780483,
@@ -605,8 +605,8 @@
             100.0
           ],
           "layers": 41,
-          "mean_lateral_mm": 3.533,
-          "max_abs_lateral_mm": 7.21
+          "mean_lateral_mm": 3.477,
+          "max_abs_lateral_mm": 6.96
         },
         {
           "print_z_mm": [
@@ -632,8 +632,8 @@
             130.0
           ],
           "layers": 41,
-          "mean_lateral_mm": 4.22,
-          "max_abs_lateral_mm": 7.21
+          "mean_lateral_mm": 3.784,
+          "max_abs_lateral_mm": 11.912
         },
         {
           "print_z_mm": [
@@ -641,7 +641,7 @@
             140.0
           ],
           "layers": 33,
-          "mean_lateral_mm": 4.194,
+          "mean_lateral_mm": 4.201,
           "max_abs_lateral_mm": 11.912
         }
       ],
@@ -713,7 +713,7 @@
           ],
           "peak_lateral_mm": -12.692,
           "peak_print_z_mm": 3.08,
-          "peak_gcode_line": 116682
+          "peak_gcode_line": 116712
         }
       ]
     },
@@ -757,7 +757,7 @@
           ],
           "peak_lateral_mm": -5.76,
           "peak_print_z_mm": 1.88,
-          "peak_gcode_line": 77526
+          "peak_gcode_line": 77558
         },
         {
           "layers": [
@@ -774,12 +774,12 @@
           ],
           "peak_lateral_mm": -5.76,
           "peak_print_z_mm": 8.6,
-          "peak_gcode_line": 304679
+          "peak_gcode_line": 304726
         }
       ]
     }
   },
-  "estimated_seconds": 22471.025390625,
-  "estimated_grams_saved_profile_density": 155.6129913330078,
+  "estimated_seconds": 22419.3671875,
+  "estimated_grams_saved_profile_density": 155.58688354492188,
   "gcode_bytes_unchanged_by_packaging": true
 }

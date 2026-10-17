@@ -249,7 +249,7 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+      "stl_sha256": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
       "triangles": 171436,
       "rotation_x_degrees": -105.0,
       "source_center_mm": [
@@ -466,7 +466,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "ce89644144cb623b78b205507461143431c673b75cc8a1be1f26dab108f83976",
+  "project_sha256": "363e11998d60fd88b585860b42628f9de48ffb4ea582f4ecd68e2f38f8d25d11",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -776,7 +776,7 @@
   "requested_z_trim_mm": 0.04,
   "filament_colour": "#FFFFFF",
   "parent_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "parent_project_sha256": "7aa9c9ad88f02da8c92be53e9ab82a4f63242510c48ac467565f826696c7e07a",
+  "parent_project_sha256": "b7dee5a01488462501b59a23330974455df015f00499610d658213ef985f130c",
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
@@ -939,11 +939,11 @@
   "source_sha256": {
     "hardware/printed-parts/faucet/sculpted/prepare_print_project.py": "6ff61570581a98d3ae971c1e5230bc246a018da55ccf0212e782c6717fb7ab86",
     "hardware/printed-parts/faucet/sculpted/finish-selection.json": "98f0e3431238ef431d81aaf710bcce8db4e3a458c9b4f1a5da47db881f4eba32",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "7aa9c9ad88f02da8c92be53e9ab82a4f63242510c48ac467565f826696c7e07a",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "b7dee5a01488462501b59a23330974455df015f00499610d658213ef985f130c",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "0fb7f3d93df68f7e30935885f3f8d1b99430d896b3937a07894333f93d72a577",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"

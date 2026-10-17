@@ -25,7 +25,8 @@ rounded skin tapers to the skirt around the neck. The bezel is
 [1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
 section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_HEIGHT)-high retaining lips
 continue inward from the side walls. The four metal-foot bearing pads are
-[3 mm](FOOT_PAD_WIDTH) square and [3.5 mm](FOOT_PAD_DEPTH) deep.
+[3 mm](FOOT_PAD_WIDTH) along the display and 3.25 mm across it, with
+inner faces flush to the open channel, and [3.5 mm](FOOT_PAD_DEPTH) deep.
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward

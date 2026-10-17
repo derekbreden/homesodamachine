@@ -78,7 +78,8 @@ identify the current complete project and its submitted archive.
 
 The display seat and cover bezel have 1.50 mm additional clearance along the
 display normal, giving 1.80064 mm nominal clearance to either flavor tube.
-Four existing 3 mm square bearing pads extend by 1.50 mm. The neck opening,
+Four bearing pads extend by 1.50 mm. Their 3.25 × 3.00 mm footprint
+has inner faces flush with the open channel. The neck opening,
 tube paths, snap datums and lower cover shoulder remain fixed. The
 [clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 binds the geometry; physical assembly of this revision remains to be evaluated.

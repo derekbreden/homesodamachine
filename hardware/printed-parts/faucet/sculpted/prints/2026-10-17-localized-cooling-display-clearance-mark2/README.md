@@ -8,8 +8,8 @@ and [print preparation](2026-10-17-sculpted-white-localcool-clearance150-right04
 bind the complete project. Physical assembly and finish remain pending.
 
 The display and bezel move 1.50 mm along the display normal, giving
-1.80064 mm minimum nominal clearance to both flavor tubes. Four existing
-3 mm square bearing pads extend 1.50 mm. The neck pocket, tube routes,
+1.80064 mm minimum nominal clearance to both flavor tubes. Four bearing pads extend 1.50 mm. Their 3.25 × 3.00 mm footprint
+meets the open channel without an intermediate ledge. The neck pocket, tube routes,
 retaining grooves, lower cover shoulder and lip datums stay fixed. The
 [clearance reading](display-clearance.json) records the dimensions and stock.
 The [retention reading](display-retention.json) passes the display/cover fit,
@@ -45,10 +45,17 @@ support treatments: segmented base-rim arcs, tip fins, hidden root disc,
 local lip trees and Tree(auto)/Default elsewhere. No new support blockers
 are introduced. The complete native bead envelope has a 31.90 mm minimum
 bed-edge margin. [Packaging](packaging.json) keeps G-code bytes unchanged in
-the print-only archive. Estimate: **6 h 14 min 31 s**, 1,022 nominal layers.
+the print-only archive. Estimate: **6 h 13 min 39 s**, 1,022 nominal layers.
 
 The [successful fan-off cover](../../../faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
 passed normal loading and installation before this clearance revision. It
 does not establish acceptance of these new meshes or measured strength and
 cycle life. The [launch](launch.json) and [startup](startup.json) identify the
 actual submitted task when accepted.
+
+The [post-publication surface reading](surface-review.json) retains the
+existing rear-corner short-ray flags also found on the successful fan-off
+cover. They are outside this cooling/display-seat change and remain visible
+for separate geometric review. The [complete rear-opening rim reading](rear-opening-rim.json)
+has at least 1.22787 mm boundary separation; it does not disprove those
+separate local flags.
