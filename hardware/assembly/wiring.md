@@ -48,9 +48,9 @@ Compressor lead (AC-4 + AC-5 + AC-6): pre-build a single [18 AWG](COMP_LEAD_AWG)
 
 At the column end of the bundle: H_switched lands on the Teyleten relay #1 NO terminal; N lands at the AC distribution block N pole; G lands on the ground bus. AC distribution-block landings use ferrules into the Wago 221 lever-nut block. The SJOOW switched-hot conductor lands in the relay screw cage with a ferrule; the fixed AC-3 feed is bare solid copper.
 
-AC-1 (C14 inlet → AC distribution block) is [~150 mm](AC1_LEN), soldered to the inlet's tab pins at the C14 end and ferruled into the Wago block at the distribution end; H, N, and G land directly on the block. AC-2 (distribution block → PSU primary) is [~100 mm](AC2_LEN), solid black hot and white neutral directly in the WAGO and PSU screw cages. The encapsulated Class II PSU has no earth terminal; exposed metalwork bonds to the separate ground bus. AC-3 is the hot-pickup leg from the distribution block into relay #1's contact common.
+AC-1 (C14 inlet → AC distribution block) is [~150 mm](AC1_LEN) of solid black hot, white neutral and green earth, soldered to the inlet's tab pins at the C14 end and stripped bare into the Wago block at the distribution end; H, N, and G land directly on the block. AC-2 (distribution block → PSU primary) is [~100 mm](AC2_LEN), solid black hot and white neutral directly in the WAGO and PSU screw cages. The encapsulated Class II PSU has no earth terminal; exposed metalwork bonds to the separate ground bus. AC-3 is the hot-pickup leg from the distribution block into relay #1's contact common.
 
-Color discipline (AC only): [16 AWG](AWG_AC_MAIN), solid PVC on AC-2/3 and stranded silicone on AC-1 and separate earth bonds, black for hot, white for neutral, green for ground. DC and signal wire is all-black (cut-to-length, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)) — color is reserved for the mains as a safety convention.
+Color discipline (AC only): [16 AWG](AWG_AC_MAIN), solid PVC on AC-1/2/3 and stranded silicone on the separate earth bonds, black for hot, white for neutral, green for ground. DC and signal wire is all-black (cut-to-length, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)) — color is reserved for the mains as a safety convention.
 
 ### 3. Static dielectric / continuity check on the AC side
 
