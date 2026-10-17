@@ -15,9 +15,15 @@
 .harness-toolbar button:hover { background: #fff; }
 .harness-views { display: flex; flex-wrap: wrap; gap: .25rem; margin-right: auto; }
 .harness-views button[aria-pressed="true"] { color: #fff; background: #244766; border-color: #244766; }
+.harness-navigation { display: flex; align-items: center; flex-wrap: wrap; gap: .3rem 1rem; padding: .4rem .65rem; border-bottom: 1px solid #b9c8db; font-size: .62rem; }
+.harness-navigation > div { display: flex; gap: .2rem; }
+.harness-navigation button { color: inherit; background: #f5f8fc88; border: 1px solid #a9bbd2; border-radius: 4px; padding: .3rem .65rem; font-size: .65rem; }
+.harness-navigation button[aria-pressed="true"] { color: #fff; background: #244766; border-color: #244766; }
+.harness-navigation > span { color: var(--bench-muted); }
 .harness-stage { flex: 1; min-height: 0; position: relative; overflow: hidden; touch-action: none; scroll-margin-top: 55px; background: radial-gradient(ellipse at 45% 25%, #f6f9fd, #d7e2ef); }
 .harness-stage canvas { display: block; width: 100%; height: 100%; position: absolute; inset: 0; touch-action: none; cursor: grab; }
 .harness-stage canvas:active { cursor: grabbing; }
+.harness-stage .harness-gizmo { inset: auto auto .4rem .4rem; width: var(--cube-size); height: var(--cube-size); z-index: 3; cursor: pointer; }
 .harness-loading { position: absolute; z-index: 4; inset: 38% 10% auto; margin: 0; color: var(--bench-muted); text-align: center; font-size: .8rem; }
 .harness-leaders, .harness-labels { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .harness-leaders line { stroke: #657c95; stroke-width: 1; stroke-opacity: .72; }
@@ -26,17 +32,25 @@
 .harness-label { position: absolute; transform: translate(-50%, -50%); color: #28435e; background: #f5f8fdeb; border: 1px solid #a6b9cf; border-radius: 4px; padding: .32rem .48rem; white-space: nowrap; font-size: 11px; pointer-events: auto; box-shadow: 0 2px 5px #173c5b0c; }
 .harness-label:hover { background: #fff; border-color: #456a8d; }
 .harness-label[aria-pressed="true"] { background: #fff0df; border-color: #ac591a; color: #784216; box-shadow: 0 0 0 2px #de99513b; }
+.harness-stage:is([data-navigation="pan"], [data-navigation="zoom"]) .harness-label { pointer-events: none; }
 .harness-open-banner { position: absolute; top: .75rem; left: .75rem; right: .75rem; display: flex; align-items: center; justify-content: space-between; gap: .6rem; border: 1px solid #d8ad7b; background: #fff7eaeF; border-radius: 5px; padding: .55rem .65rem; font-size: .74rem; }
 .harness-open-banner button { color: #784216; background: #fff; border: 1px solid #c89a65; border-radius: 4px; font-size: .7rem; padding: .35rem .5rem; flex-shrink: 0; }
 .harness-scene-controls { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1rem; border-top: 1px solid #b9c8db; padding: .6rem .75rem; font-size: .65rem; }
 .harness-scene-controls label { display: flex; align-items: center; gap: .3rem; }
 .harness-scene-controls input { accent-color: #244766; }
+.harness-scene-controls button, .harness-hide { border: 1px solid #a9bbd2; color: inherit; background: #f5f8fc88; padding: .25rem .4rem; border-radius: 4px; font-size: .65rem; }
 .harness-explode { margin-left: auto; }
 .harness-explode input { width: 65px; min-width: 0; }
 .harness-explode output { width: 2rem; text-align: right; font-variant-numeric: tabular-nums; }
 .harness-caption { color: var(--bench-muted); margin: 0; padding: .25rem .75rem .75rem; font-size: .67rem; line-height: 1.6; }
 .harness-caption span { display: block; font-size: .6rem; color: #64758c; }
 .harness-inspector { min-width: 0; min-height: 0; overflow: auto; background: var(--surface); border-left: 1px solid var(--border); font-size: .75rem; scrollbar-width: thin; }
+.harness-find { padding: .65rem .75rem; border-bottom: 1px solid var(--border); }
+.harness-find input { width: 100%; box-sizing: border-box; padding: .55rem .65rem; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 5px; font: inherit; font-size: .72rem; }
+.harness-find input::placeholder { color: var(--text-3); opacity: 1; }
+[data-harness-find-results] { display: flex; flex-direction: column; gap: .3rem; margin-top: .5rem; }
+[data-harness-find-results] button { text-align: left; border: 1px solid var(--border); color: var(--text); background: var(--bg); border-radius: 4px; padding: .4rem .5rem; font-size: .7rem; }
+[data-harness-find-results] p { margin: .25rem; color: var(--text-2); font-size: .7rem; }
 .harness-tabs { display: flex; position: sticky; top: 0; z-index: 2; background: var(--surface); border-bottom: 1px solid var(--border); }
 .harness-tabs button { flex: 1; background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--text-3); padding: .85rem .4rem; font-size: .73rem; }
 .harness-tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--action); }
@@ -53,6 +67,7 @@
 .harness-back:hover { color: var(--action); }
 .harness-open { width: 100%; border: 1px solid var(--action); border-radius: 5px; background: var(--action); color: var(--bg); padding: .6rem; font-weight: 600; font-size: .77rem; margin: 0 0 .85rem; }
 .harness-open:hover { filter: brightness(1.08); }
+.harness-hide { margin: 0 0 .75rem; color: var(--text-2); border-color: var(--border); background: var(--bg); }
 .harness-connection { padding: .1rem 0 .5rem; }
 .harness-connection button { display: block; text-align: left; width: 100%; padding: .55rem .65rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 5px; }
 .harness-connection button:hover { border-color: var(--action); }
@@ -100,7 +115,7 @@
 .harness-guide.is-preview .harness-workbench { display: block; height: 190px; }
 .harness-guide.is-preview .harness-visual { height: 100%; }
 .harness-guide.is-preview .harness-stage { height: 100%; }
-.harness-guide.is-preview :is(.harness-toolbar, .harness-inspector, .harness-scene-controls, .harness-caption, .harness-labels, .harness-leaders, .harness-open-banner) { display: none !important; }
+.harness-guide.is-preview :is(.harness-toolbar, .harness-navigation, .harness-inspector, .harness-scene-controls, .harness-caption, .harness-labels, .harness-leaders, .harness-open-banner, .harness-gizmo) { display: none !important; }
 .harness-dialog::backdrop { background: #101d36bb; }
 .harness-dialog[open] { position: fixed; inset: 0; display: flex; flex-direction: column; box-sizing: border-box; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--text); overscroll-behavior: contain; }
 .harness-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-shrink: 0; padding: max(.65rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) .65rem max(1rem, env(safe-area-inset-left)); border-bottom: 1px solid var(--border); }

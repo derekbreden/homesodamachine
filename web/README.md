@@ -47,6 +47,15 @@ uses the full viewport width, with the inspector beneath the model and a
 Close button above it. Desktop Expand uses the same dialog. Pinching zooms
 the model, and multi-touch gestures do not select conductors.
 
+The harnesses and CAD viewer share `public/js/viewer/navigation.js`: free
+Trackball rotation, right-drag and two-finger pan, surface-aware zoom,
+ViewCube snaps and camera persistence. Rotate, Pan and Zoom choose the
+one-finger or left-drag action. Reset view preserves the assembly state.
+`axis-rulers.js` and `xray-render.js` provide the same instance-owned rulers
+and x-ray rendering to both viewers. Harness rulers switch to the native
+PCB view, where the geometry has a physical millimeter scale. Find searches
+conductors, endpoints and parts; selections can be hidden and restored.
+
 Both guides include a crop of the native PCB geometry and its printed labels,
 with crop assets and provenance in `public/harness/`. Cable reach is compressed
 for the bench view; it does not specify installed routing. The labor ledger
