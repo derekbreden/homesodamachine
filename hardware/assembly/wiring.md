@@ -18,7 +18,7 @@ Not in scope: applying [120 VAC](AC_LINE_V); flashing firmware; bringing up the 
 
 ## Inputs per appliance
 
-Wire stock, connectors, and termination consumables are in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 — that one section carries all of it: the 16 AWG AC + ground stock, the 22 AWG DC/signal stock, the Wago 221 lever nuts, the spade / fork / ring terminals, the ferrules, the heat-shrink, and the braided sleeve. The AC hardware the runs land *on* is §5 (C14 inlet, line cord, the GEARit SJOOW compressor lead, the thermal fuse). Status in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md). The runs themselves are in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) §"Run table".
+Wire stock, connectors, and termination consumables are in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 — that one section carries all of it: the 16 AWG AC + ground stock, the 22 AWG DC/signal stock, the Wago 221 lever nuts, the spade and ring terminals, the ferrules, the heat-shrink, and the braided sleeve. The AC hardware the runs land *on* is §5 (C14 inlet, line cord, the GEARit SJOOW compressor lead, the thermal fuse). Status in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md). The runs themselves are in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) §"Run table".
 
 Tooling: ratcheting crimper for insulated and uninsulated terminals + ferrules + Faston disconnects + JST XH (one tool covers all four with the appropriate die per terminal family); wire strippers sized for [16/22 AWG](AWG_TRIPLE); small flat screwdriver for Wago 221 levers and the relay screw terminals; PEX-style sidecutters for trimming; a hot-glue gun for strain relief at intermediate tie points where the run crosses a printed-part edge; cable-tie tensioner (optional); multimeter for the continuity + dielectric checks at step 3.
 
@@ -28,7 +28,7 @@ Execution order: chassis-ground bonding, then AC, then the cabinet-side DC, then
 
 ### 1. Chassis-ground bonds (single-point ground at the electronics bay)
 
-Establish the single-point chassis ground first. Chassis grounding is via discrete green wires from the exposed metal parts back to a central ground bus in the electronics bay. Per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Grounding strategy" all bonds are [16 AWG](AWG_AC_MAIN) green-insulated, ring terminal at the bus end, ring or fork at the target end.
+Establish the single-point chassis ground first. Chassis grounding is via discrete green wires from the exposed metal parts back to a central ground bus in the electronics bay. Per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Grounding strategy" all bonds are [16 AWG](AWG_AC_MAIN) green-insulated, with ring terminals at both ends.
 
 Bond, from each target to the ground bus in the electronics bay:
 
