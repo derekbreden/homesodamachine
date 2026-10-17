@@ -153,11 +153,11 @@
     ],
     "finding": "Sampled lower wing sections differ by at most 0.014 mm near N8; the upper sampled sections are slightly thicker. No wholesale thinning appears in these samples. The broader neck and rear closure can change stiffness and required motion; their effects are unmeasured."
   },
-  "leading_hypothesis": "Continuous 70 percent part cooling may reduce interlayer bonding in this thin flexing part. It is a plausible cause, not established by the observed breaks.",
+  "leading_hypothesis": "The fracture photo shows strips and strands at the curved rim/sidewall junction, with separation appearing broadly parallel to layer courses. Weak interlayer or inter-road fusion is the leading failure-mode hypothesis. Continuous 70 percent part cooling remains a plausible contributor, not an established cause.",
   "alternative_hypotheses": [
     "Rear closure and broader neck alter flexibility or insertion load",
     "Filament moisture, feed or nozzle condition differ from the September print",
-    "Local seam or support-removal damage; the fracture plane and exact break location are not supplied"
+    "A local seam, curved-transition stress concentration or support-removal damage may initiate the fracture; the photograph does not measure the fracture-plane normal."
   ],
   "manufacturer_guidance": [
     {
@@ -177,5 +177,6 @@
     "submitted": false,
     "next_physical_reading": "After cooling and support removal, load the display and seat the complete cover on the matching current Sculpted tip using the documented sequence. It must survive that normal motion without a crack and retain the display and cover. Record underside quality as well, because cooling is used for overhang finish. This result establishes that assembly only."
   },
-  "recommendation": "Test the current geometry with part cooling off before adding thickness. A thicker flexing wall also becomes stiffer, so thickness alone is not a controlled cure for assembly fracture."
+  "recommendation": "Test the current geometry with part cooling off before adding thickness. A thicker flexing wall also becomes stiffer, so thickness alone is not a controlled cure for assembly fracture.",
+  "photo_evidence": "reported-failure.json"
 }

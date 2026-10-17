@@ -23,11 +23,44 @@
     "both_recent_covers_broke_during_assembly": true,
     "display_loading_alone_can_cause_break": true,
     "older_white_cover_tolerates_motion_better": true,
-    "fracture_location": null,
-    "fracture_plane": null
+    "fracture_location": "Curved perimeter wall beneath the bezel, with a long detached rim section on one side.",
+    "fracture_plane": null,
+    "photo_visible_features": [
+      "Long thin strip separated from the curved wall/rim transition",
+      "Several thinner strips and individual extrusion strands bridge the separation"
+    ],
+    "fracture_direction_interpretation": "The peeling separation appears broadly parallel to the print-layer courses. This is a photograph-based interpretation, not a measured fracture-plane normal."
   },
   "cause_established": false,
   "candidate": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/native-review.json",
   "candidate_submitted": false,
-  "scope": "The two identified current-cover jobs are rejected for assembly. September accepted-cover evidence is retained for its identified geometry; the report does not reject the other parts in the complete white faucet set."
+  "scope": "The two identified current-cover jobs are rejected for assembly. September accepted-cover evidence is retained for its identified geometry; the report does not reject the other parts in the complete white faucet set.",
+  "photo_evidence": {
+    "file": "fracture-photo.jpg",
+    "sha256": "a9765d6371ec86a6b7b92ae4437ac775d5a768d6cc5e152b074fc6821279e8cb",
+    "reported_date": "2026-10-17",
+    "user_statement": "Here is your fracture location.",
+    "identity_scope": "One photographed failed cover from the reported recent covers; the photo does not identify which of the two job IDs.",
+    "print_orientation": {
+      "source_project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/2026-10-16-sculpted-faucet-display-cover-white-petgf-right04-z004-mark2.3mf",
+      "cad_x_rotation_degrees": -50,
+      "display_x_axis_in_build": [
+        1,
+        0,
+        0
+      ],
+      "display_long_s_axis_in_build": [
+        0,
+        1,
+        0
+      ],
+      "display_normal_n_axis_in_build": [
+        0,
+        0,
+        1
+      ],
+      "meaning": "Layer planes are parallel to the display bezel; the skirt and bezel build successively along local N."
+    },
+    "interpretation": "The strips, strands and apparent layer-parallel peeling strengthen weak interlayer or inter-road fusion as the leading failure-mode hypothesis. They do not identify excessive cooling as the cause or exclude a stress concentration at the curved transition."
+  }
 }
