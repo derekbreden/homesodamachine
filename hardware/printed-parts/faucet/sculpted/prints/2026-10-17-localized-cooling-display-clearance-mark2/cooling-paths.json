@@ -1,0 +1,863 @@
+{
+  "scope": "Emitted part-fan state on model/support extrusion paths; arc lengths below are endpoint chords. Native overhang classification can retain Outer wall or Inner wall feature labels.",
+  "paths": [
+    {
+      "part": "faucet-shell-base",
+      "feature": "Support interface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 1176.8541612302117,
+      "moves": 1680,
+      "nominal_z_mm": [
+        0.2,
+        61.4
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Support",
+      "fan_percent": 0.0,
+      "chord_length_mm": 15963.649989534408,
+      "moves": 31482,
+      "nominal_z_mm": [
+        0.2,
+        62.84
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Brim",
+      "fan_percent": 0.0,
+      "chord_length_mm": 5894.57991124399,
+      "moves": 5770,
+      "nominal_z_mm": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Outer wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 228107.51686829736,
+      "moves": 297757,
+      "nominal_z_mm": [
+        0.2,
+        245.24
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Support",
+      "fan_percent": 0.0,
+      "chord_length_mm": 6881.982034504697,
+      "moves": 15906,
+      "nominal_z_mm": [
+        0.2,
+        16.52
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Inner wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 8949.12805427129,
+      "moves": 8167,
+      "nominal_z_mm": [
+        0.2,
+        19.88
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Outer wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 18560.775419904498,
+      "moves": 12364,
+      "nominal_z_mm": [
+        0.2,
+        20.12
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Gap infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 6063.393181680101,
+      "moves": 3744,
+      "nominal_z_mm": [
+        0.2,
+        20.12
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Support",
+      "fan_percent": 0.0,
+      "chord_length_mm": 34596.7209961969,
+      "moves": 50256,
+      "nominal_z_mm": [
+        0.2,
+        135.56
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Brim",
+      "fan_percent": 0.0,
+      "chord_length_mm": 1866.186212459904,
+      "moves": 2685,
+      "nominal_z_mm": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Inner wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 92003.51481281214,
+      "moves": 114211,
+      "nominal_z_mm": [
+        0.2,
+        137.24
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Outer wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 92499.14437155476,
+      "moves": 129457,
+      "nominal_z_mm": [
+        0.2,
+        137.72
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Bottom surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 270.0428855944885,
+      "moves": 202,
+      "nominal_z_mm": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Support",
+      "fan_percent": 0.0,
+      "chord_length_mm": 338.3715748424987,
+      "moves": 829,
+      "nominal_z_mm": [
+        0.2,
+        1.16
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Inner wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 7730.391119715568,
+      "moves": 11796,
+      "nominal_z_mm": [
+        0.2,
+        5.96
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Outer wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 8019.92742699209,
+      "moves": 12209,
+      "nominal_z_mm": [
+        0.2,
+        6.2
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Bottom surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 4388.4407358898825,
+      "moves": 567,
+      "nominal_z_mm": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Support",
+      "fan_percent": 0.0,
+      "chord_length_mm": 2758.3841196319468,
+      "moves": 6909,
+      "nominal_z_mm": [
+        0.2,
+        10.76
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Inner wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 5862.090043982459,
+      "moves": 2981,
+      "nominal_z_mm": [
+        0.2,
+        12.2
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Outer wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 6126.598766813512,
+      "moves": 4089,
+      "nominal_z_mm": [
+        0.2,
+        12.44
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Bottom surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 658.7289104422323,
+      "moves": 190,
+      "nominal_z_mm": [
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Overhang wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 92.2729540635228,
+      "moves": 86,
+      "nominal_z_mm": [
+        0.44,
+        0.68
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Internal solid infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 4682.771704031022,
+      "moves": 2367,
+      "nominal_z_mm": [
+        0.44,
+        19.88
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Internal solid infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 4697.016569692003,
+      "moves": 4760,
+      "nominal_z_mm": [
+        0.44,
+        136.76
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Top surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 610.9049138450351,
+      "moves": 183,
+      "nominal_z_mm": [
+        0.44,
+        130.52
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Gap infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 3134.9045375612154,
+      "moves": 1992,
+      "nominal_z_mm": [
+        0.44,
+        137.48
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Internal solid infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 28513.754604278904,
+      "moves": 3177,
+      "nominal_z_mm": [
+        0.44,
+        3.8
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Internal solid infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 7861.557950511165,
+      "moves": 2668,
+      "nominal_z_mm": [
+        0.44,
+        12.2
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Inner wall",
+      "fan_percent": 0.0,
+      "chord_length_mm": 224933.10554197285,
+      "moves": 267457,
+      "nominal_z_mm": [
+        0.68,
+        244.76
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Bridge",
+      "fan_percent": 0.0,
+      "chord_length_mm": 13.727442976562333,
+      "moves": 7,
+      "nominal_z_mm": [
+        0.68,
+        0.68
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Support",
+      "fan_percent": 70.0,
+      "chord_length_mm": 35630.71487156204,
+      "moves": 93689,
+      "nominal_z_mm": [
+        0.92,
+        63.8
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Support interface",
+      "fan_percent": 70.0,
+      "chord_length_mm": 3769.705156032663,
+      "moves": 5487,
+      "nominal_z_mm": [
+        0.92,
+        61.64
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Overhang wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 5381.400242048649,
+      "moves": 2505,
+      "nominal_z_mm": [
+        0.92,
+        64.28
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Bridge",
+      "fan_percent": 70.0,
+      "chord_length_mm": 7710.532352162328,
+      "moves": 2678,
+      "nominal_z_mm": [
+        0.92,
+        64.28
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Sparse infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 749.2702182052674,
+      "moves": 539,
+      "nominal_z_mm": [
+        0.92,
+        16.28
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Outer wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 1106.3696813750955,
+      "moves": 1070,
+      "nominal_z_mm": [
+        0.92,
+        136.28
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Sparse infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 7875.383993065575,
+      "moves": 1831,
+      "nominal_z_mm": [
+        0.92,
+        2.84
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Support",
+      "fan_percent": 70.0,
+      "chord_length_mm": 2953.755799422528,
+      "moves": 10314,
+      "nominal_z_mm": [
+        0.92,
+        10.76
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Sparse infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 2416.7417308710114,
+      "moves": 1487,
+      "nominal_z_mm": [
+        0.92,
+        11.24
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Gap infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 39.47239737478888,
+      "moves": 119,
+      "nominal_z_mm": [
+        0.92,
+        12.44
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Top surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 1610.9207781011812,
+      "moves": 278,
+      "nominal_z_mm": [
+        0.92,
+        12.44
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Internal solid infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 9276.925095669185,
+      "moves": 12754,
+      "nominal_z_mm": [
+        1.16,
+        244.28
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Floating vertical shell",
+      "fan_percent": 0.0,
+      "chord_length_mm": 616.5674538013683,
+      "moves": 713,
+      "nominal_z_mm": [
+        1.16,
+        11.48
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Sparse infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 355563.26264584303,
+      "moves": 112580,
+      "nominal_z_mm": [
+        1.4,
+        225.8
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Support",
+      "fan_percent": 70.0,
+      "chord_length_mm": 38788.06325380727,
+      "moves": 61780,
+      "nominal_z_mm": [
+        1.4,
+        135.32
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Support",
+      "fan_percent": 70.0,
+      "chord_length_mm": 361.36384119143423,
+      "moves": 1305,
+      "nominal_z_mm": [
+        1.4,
+        2.84
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Floating vertical shell",
+      "fan_percent": 0.0,
+      "chord_length_mm": 454.47490332574756,
+      "moves": 205,
+      "nominal_z_mm": [
+        2.12,
+        16.52
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Support",
+      "fan_percent": 70.0,
+      "chord_length_mm": 6938.00838686706,
+      "moves": 22134,
+      "nominal_z_mm": [
+        2.36,
+        17.72
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Floating vertical shell",
+      "fan_percent": 0.0,
+      "chord_length_mm": 34099.2626219358,
+      "moves": 41440,
+      "nominal_z_mm": [
+        2.6,
+        226.04
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Sparse infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 60334.91479759146,
+      "moves": 38518,
+      "nominal_z_mm": [
+        2.6,
+        130.52
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Floating vertical shell",
+      "fan_percent": 0.0,
+      "chord_length_mm": 349.12852272655454,
+      "moves": 360,
+      "nominal_z_mm": [
+        2.84,
+        2.84
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Top surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 1176.4397237037626,
+      "moves": 326,
+      "nominal_z_mm": [
+        3.08,
+        20.12
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Bridge",
+      "fan_percent": 70.0,
+      "chord_length_mm": 4535.455879850465,
+      "moves": 784,
+      "nominal_z_mm": [
+        3.08,
+        3.56
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Floating vertical shell",
+      "fan_percent": 0.0,
+      "chord_length_mm": 17138.856601533593,
+      "moves": 25246,
+      "nominal_z_mm": [
+        3.56,
+        130.76
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Overhang wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 84.986013527741,
+      "moves": 188,
+      "nominal_z_mm": [
+        3.56,
+        3.56
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Top surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 5734.140320632389,
+      "moves": 341,
+      "nominal_z_mm": [
+        4.04,
+        6.2
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "feature": "Gap infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 475.94870199730696,
+      "moves": 954,
+      "nominal_z_mm": [
+        4.04,
+        6.2
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Support interface",
+      "fan_percent": 70.0,
+      "chord_length_mm": 355.8763986047588,
+      "moves": 426,
+      "nominal_z_mm": [
+        6.68,
+        10.52
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Support interface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 201.29432803405177,
+      "moves": 123,
+      "nominal_z_mm": [
+        6.68,
+        11.0
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Outer wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 120.58827389359364,
+      "moves": 170,
+      "nominal_z_mm": [
+        7.88,
+        14.6
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Overhang wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 198.49797376621908,
+      "moves": 153,
+      "nominal_z_mm": [
+        7.88,
+        11.72
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Inner wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 7.829033335935593,
+      "moves": 25,
+      "nominal_z_mm": [
+        8.12,
+        11.72
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Outer wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 96.37592651117286,
+      "moves": 133,
+      "nominal_z_mm": [
+        8.12,
+        11.72
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "feature": "Bridge",
+      "fan_percent": 70.0,
+      "chord_length_mm": 853.3171005749654,
+      "moves": 250,
+      "nominal_z_mm": [
+        8.12,
+        11.72
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Overhang wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 335.2836824926342,
+      "moves": 273,
+      "nominal_z_mm": [
+        9.8,
+        18.92
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Inner wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 15.629177289889602,
+      "moves": 34,
+      "nominal_z_mm": [
+        11.0,
+        14.6
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Outer wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 2546.327049647284,
+      "moves": 4278,
+      "nominal_z_mm": [
+        11.0,
+        243.56
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Bridge",
+      "fan_percent": 70.0,
+      "chord_length_mm": 870.8257915444287,
+      "moves": 314,
+      "nominal_z_mm": [
+        11.24,
+        18.92
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Support interface",
+      "fan_percent": 70.0,
+      "chord_length_mm": 24.441652719462912,
+      "moves": 39,
+      "nominal_z_mm": [
+        13.16,
+        13.4
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "feature": "Support interface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 507.8748201139089,
+      "moves": 404,
+      "nominal_z_mm": [
+        13.16,
+        18.2
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Support interface",
+      "fan_percent": 70.0,
+      "chord_length_mm": 277.23591713836964,
+      "moves": 435,
+      "nominal_z_mm": [
+        14.12,
+        16.52
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Overhang wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 13.764687430101834,
+      "moves": 75,
+      "nominal_z_mm": [
+        15.32,
+        132.68
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Support interface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 2.153675316017659,
+      "moves": 14,
+      "nominal_z_mm": [
+        15.56,
+        16.52
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Inner wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 10.429970833467099,
+      "moves": 19,
+      "nominal_z_mm": [
+        16.28,
+        123.56
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "feature": "Bridge",
+      "fan_percent": 70.0,
+      "chord_length_mm": 196.70242156818458,
+      "moves": 204,
+      "nominal_z_mm": [
+        16.28,
+        130.76
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Inner wall",
+      "fan_percent": 70.0,
+      "chord_length_mm": 4.298739028990501,
+      "moves": 27,
+      "nominal_z_mm": [
+        17.48,
+        51.8
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Top surface",
+      "fan_percent": 0.0,
+      "chord_length_mm": 282.000554478964,
+      "moves": 132,
+      "nominal_z_mm": [
+        49.16,
+        213.8
+      ]
+    },
+    {
+      "part": "faucet-shell-base",
+      "feature": "Gap infill",
+      "fan_percent": 0.0,
+      "chord_length_mm": 38.366746264388695,
+      "moves": 144,
+      "nominal_z_mm": [
+        49.16,
+        213.8
+      ]
+    }
+  ]
+}

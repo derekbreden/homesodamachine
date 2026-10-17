@@ -1284,7 +1284,7 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # ============================================================
 # Tip frame: s runs up-gooseneck from the tube exit, n points out through
 # the display face, and x is world X. The headerless vendor components,
-# corrected to the caliper PCB height, clear the real tubes by 0.30064 mm.
+# corrected to the caliper PCB height, clear the real tubes by 1.80064 mm.
 # Four small feet pads support the display; the space over the tubes is open.
 # The vendor USB-C shell extends beyond the PCB and housing's lower end.
 # Bounds use the device's centred XY / feet-Z frame.
@@ -1300,7 +1300,10 @@ display_usb_y_range = (math.floor(display_usb_reference_bounds[0][1] * 100.0) / 
                        math.ceil(display_usb_reference_bounds[1][1] * 100.0) / 100.0)
 display_usb_top_z = math.ceil(display_usb_reference_bounds[1][2] * 100.0) / 100.0
 dispense_face_thickness = 2.0  # [2 mm](DISPENSE_FACE_T)
-display_feet_n = 10.10
+display_seat_reference_n = 10.10
+display_additional_tube_clearance = 1.50
+display_nominal_tube_clearance = 0.30 + display_additional_tube_clearance
+display_feet_n = display_seat_reference_n + display_additional_tube_clearance
 display_floor_n = display_feet_n
 display_pocket_inset = tube_shell_center_y + display_neck_outer_r - display_feet_n
 display_cradle_clearance = 0.25
@@ -1311,7 +1314,7 @@ display_ribbon_side_x = -8.2
 display_ribbon_side_radius = 8.0
 display_ribbon_side_drop = 0.0
 display_ribbon_side_lift = 0.40
-display_ribbon_side_run_n = 11.10
+display_ribbon_side_run_n = display_seat_reference_n + 1.0
 display_ribbon_pcb_gap = 0.30
 display_s_bottom = (dispense_face_thickness - display_usb_y_range[0]
                     - display_housing_length / 2.0)
@@ -1320,8 +1323,9 @@ _display_housing_center_s = display_s_bottom + display_cradle_clearance + displa
 display_face_n = display_feet_n + display_total_depth
 display_cosmetic_wall = 1.30
 display_cover_top_n = display_face_n + display_cover_over_face + display_cosmetic_wall
-display_cover_bottom_n = display_feet_n - 6.8
-display_cover_shoulder_n = display_feet_n + 0.5
+# Retain the neck's snap datums while the display and bezel move outward.
+display_cover_bottom_n = display_seat_reference_n - 6.8
+display_cover_shoulder_n = display_seat_reference_n + 0.5
 display_cover_face_width = 27.5
 display_cover_end_margin = 1.25
 display_cover_face_length = display_s_top + display_cover_end_margin
@@ -1345,7 +1349,7 @@ display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
 display_clip_lip_radius = display_neck_outer_r - _display_snap.ENGAGEMENT
 display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
-display_foot_pad_depth = wall_thickness_min
+display_foot_pad_depth = wall_thickness_min + display_additional_tube_clearance
 # Factory assembly: place the display in the open cover, approach from the
 # outlet at S=-slide, translate along S while lifted, then seat along -N.
 # A 9.5 mm factory lift clears the complete relaxed cover from the round neck
@@ -1495,12 +1499,14 @@ def build_display_retention_grooves() -> cq.Workplane:
 
 
 def _display_cavity() -> cq.Workplane:
+    # Keep the open underside and ribbon route at their fixed neck datum.
+    # Only the four existing bearing pads extend to the raised display seat.
     device_opening = _cradle_prism(
         display_neck_outer_r + wall_thickness_min, dispense_face_thickness, display_s_top,
-        display_feet_n, display_cover_top_n + 1.0,
-    )
+        display_seat_reference_n, display_cover_top_n + 1.0,
+    ).cut(build_display_feet_pads())
     open_channel = _cradle_prism(
-        6.75, dispense_face_thickness, display_s_top, 0.0, display_feet_n + 0.1)
+        6.75, dispense_face_thickness, display_s_top, 0.0, display_seat_reference_n + 0.1)
     return device_opening.union(open_channel)
 
 

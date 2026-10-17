@@ -1,0 +1,369 @@
+{
+  "parts": [
+    {
+      "part": "faucet-shell-base",
+      "extruding_commands": 879953,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        10.0138,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Bridge": [
+          0.0,
+          70.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 431107,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "faucet-display-cover",
+      "extruding_commands": 66986,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "above-counter-plate",
+      "extruding_commands": 34341,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "lever-replica",
+      "extruding_commands": 30858,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    }
+  ]
+}

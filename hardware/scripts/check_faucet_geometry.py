@@ -1260,11 +1260,11 @@ def display_rigid_neck_reading(reading, f, part):
     restored = skin_outer.cut(skin_inner).intersect(
         band(f.display_s_bottom+edge_inset, f.display_s_top-edge_inset,
              f.display_clip_top_n+f._display_snap.BEARING_SLIP+edge_inset,
-             f.display_feet_n-edge_inset))
+             f.display_seat_reference_n-edge_inset))
     missing_skin = volume(restored.cut(tip))
     samples = []
     groove_ceiling = f.display_clip_top_n+f._display_snap.BEARING_SLIP
-    n_low, n_high = groove_ceiling+0.5, f.display_feet_n-1.0
+    n_low, n_high = groove_ceiling+0.5, f.display_seat_reference_n-1.0
     n_stations = (n_low, (n_low+n_high)/2.0, n_high)
     for station in (2.0, 6.0, 10.0, 13.573, 20.0, 26.0, 30.0, 34.0, 40.0, 44.0):
         for n in n_stations:
@@ -1853,15 +1853,15 @@ def display_reading(reading, f, assembly, parts, body, free_cover):
     gaps = []
     for name, tube in tubes.items():
         gap, overlap = body.distance(shape(tube)), volume(body.intersect(shape(tube)))
-        required = 0.15 if name.startswith("flavor") else 0.0
+        required = f.display_nominal_tube_clearance - 0.15 if name.startswith("flavor") else 0.0
         passed = overlap <= VOLUME_TOLERANCE and gap >= required - DISTANCE_TOLERANCE
         if name.startswith("flavor"):
-            passed = passed and gap <= 0.40 + DISTANCE_TOLERANCE
+            passed = passed and gap <= f.display_nominal_tube_clearance + 0.10 + DISTANCE_TOLERANCE
             gaps.append(gap)
         reading.add(f"clearance:display-{name}", passed,
                     gap_mm=clean_number(gap), overlap_mm3=clean_number(overlap),
                     required_minimum_mm=required,
-                    nominal_target_mm=0.30 if name.startswith("flavor") else None,
+                    nominal_target_mm=f.display_nominal_tube_clearance if name.startswith("flavor") else None,
                     scope="fixed nominal tube and corrected vendor-component envelopes; no printed central floor")
     reading.add("placement:display-tube-budget", True,
                 nominal_minimum_gap_mm=clean_number(min(gaps)),

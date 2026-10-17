@@ -1,0 +1,23 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "375d7987c21eaad69aa7464e1fbcbe73dd54d1f3aa79ac8b0d97f6af8e9de95c",
+  "print_only_archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "c1d538411aa2305dfa8d04f514ae0544f24166c320f1c956c410581354d3ece5",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "ace1452373d98ec1a0be33879a9cea71145f0dee119095a0fe60a9f4686da7c6"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

@@ -18,7 +18,9 @@ The lower passages, rigid plate and gasket use the centered mounting layout and 
 
 The curved joint is at 70°, with a female base and male tip and 20/18 mm overlap. Smooth tangent walls surround the tube and flat ribbon passages. The flavor pair shares a capsule without a central divider or outlet cusp. The drain ends square with 3 mm of local mouth clearance and an unsealed Ø4 mm underside fault-drip hole. The tip's hole cutter reaches 0.60 mm inward of the soda-clearance wall. No intermediate guide discs, drain bung or insertion tool are fitted.
 
-The cover has 0.50 mm longer wings and matching arch headroom with the retaining-lip datum preserved. The [geometry review](prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json) compares current meshes with the embedded meshes of the [accepted complete print](physical-acceptance.json), and binds the current [assembly readings](geometry-check.json) and [cover readings](display-cover-check.json). The upper base, cover and lever retain the accepted surfaces within the stated sampled comparison. Source review confines tip changes to the fault-drip cut and mesh cleanup.
+The display seat and bezel have 1.50 mm additional outward clearance over the
+flavor tubes, giving 1.80064 mm nominal hardware clearance. The neck snap
+datums are fixed. The cover also retains 0.50 mm longer wings and matching arch headroom with the retaining-lip datum preserved. The [geometry review](prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json) compares current meshes with the embedded meshes of the [accepted complete print](physical-acceptance.json), and binds the current [assembly readings](geometry-check.json) and [cover readings](display-cover-check.json). The upper base, cover and lever retain the accepted surfaces within the stated sampled comparison. Source review confines tip changes to the fault-drip cut and mesh cleanup.
 
 One foot modifier supplies 100% zigzag infill and inherits the ordinary wall settings, with base Arachne and 15% infill/wall overlap. The [native box-face reading](prints/2026-10-11-infill-only-reinforcement-review/box-face-wall-review.json) finds zero artificial outer wall through material at the modifier faces. The existing three insert-host/root volumes are retained.
 
@@ -36,12 +38,15 @@ inner-wall scarf and partial-loop mode. Wipe is off. The [rear-center seam enfor
 solid foot are retained; the other objects use Classic.
 
 The saved process uses two global walls, 15% grid infill, 265/280 °C nozzle temperatures
-and an 80 °C bed. All five rigid parts receive native **125% bridge flow, 70% part
-cooling after three fan-off bed layers, 15 mm/s bridges, and overhang limits at most
-15 mm/s**, retaining the existing 10 mm/s fully overhung-wall limit. Cooling includes
-Floating vertical shell and support paths; ordinary supported-wall and infill speeds
-retain their saved settings. The [whole-project native command reading](overhang-native-review.json)
-records the actual per-part fan and speed commands. The
+and an 80 °C bed. All five rigid parts receive native **125% bridge flow,
+15 mm/s bridges, and overhang limits at most 15 mm/s**, retaining the existing
+10 mm/s fully overhung-wall limit. The [localized PET-GF cooling policy](../../cooling/README.md)
+keeps ordinary part and auxiliary cooling off. After three fan-off bed layers,
+bridges and walls meeting the 50% overhang threshold receive 70% cooling.
+Fan-always-on and pre-start are off. Ordinary supported-wall and infill speeds
+retain their saved settings. The identified earlier
+[whole-project reading](overhang-native-review.json) is evidence for its own
+archive; current settings require their matching native commands. The
 [tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 reports the best observed bottom-side rim appearance, with the opposite side still
 rough. The [base result](../finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
