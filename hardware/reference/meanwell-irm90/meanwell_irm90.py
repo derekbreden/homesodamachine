@@ -40,8 +40,8 @@ mass_g = 219.0
 # in from the top face and lands in whatever stands under the base.
 holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
 
-# The two screw blocks on their ledges. Each is entered from ABOVE — a ferrule goes down under
-# a captive screw — and its station is its own top face, looking +Z.
+# Screw heads face +Z. Wire entries face out along the module's long axis,
+# +Y for AC and -Y for DC. Block dimensions are representative, not measured.
 block_inset = 6.0      # block centre in from the module's own end
 block_h = 7.0          # block height off its ledge
 block_w = {1.0: 16.0, -1.0: 25.0}    # +Y = AC (2-pole), -Y = DC (4-pole)
@@ -53,14 +53,23 @@ def _block(sy):
 
 
 def ac_in():
-    """The AC primary's screw block, at the face a ferrule lands on: `(position, outward
-    axis)` in the module's own frame."""
+    """AC screw-head plane and screwdriver axis in the module's frame."""
     return _block(1.0)
 
 
 def dc_out():
-    """The DC secondary's screw block, the same way."""
+    """DC screw-head plane and screwdriver axis in the module's frame."""
     return _block(-1.0)
+
+
+def wire_entry(side):
+    """Representative wire-mouth centre and outward axis, AC +1 / DC -1.
+
+    Separate from the screw-head axis. The side-entry mouths and screw heads
+    require room in different directions.
+    """
+    return ((0.0, side * (length / 2.0 - block_inset + block_len / 2.0),
+             ledge_h + block_h / 2.0), (0.0, side, 0.0))
 
 
 def build():

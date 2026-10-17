@@ -99,7 +99,7 @@ def _report_front_ports(shell):
     # EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
     # carry one of the evaporator's coppers, so a check that read them all on the port
     # lane would report the west lane's as blocked and the port lane's slot as its bore.
-    clear = port_hole_radius - 0.25            # the probe, one clearance inside the bore
+    clear = tube_clearance_radius - 0.25      # the copper slot, independent of fluid passages
     stations = dict(slot_stations())
     for name, ((sx, sy, sz), _axis) in sorted(stations.items(), key=lambda kv: kv[1][0][2]):
         probe = cq.Solid.makeCylinder(

@@ -1,0 +1,319 @@
+{
+  "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": {
+    "sha256": "79c2ffc259a043f30048997b34614050c4504f2f2ea081844afc8e88ae8fcf2c",
+    "valid": true,
+    "solid_count": 1,
+    "diameter_mm": 7.5,
+    "distinct_cylinder_axes": 9,
+    "axes_nearest_origin_xyz_and_direction": [
+      [
+        -134.5,
+        -31.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -102.5,
+        57.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        1.5,
+        77.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        52.2,
+        77.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        90.5,
+        -43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.5,
+        -31.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        -56.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        -43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
+    "sha256": "5890626547d923cebf0303120d87a80c4b3535293926711a7b470d6805f009f0",
+    "valid": true,
+    "solid_count": 1,
+    "diameter_mm": 7.5,
+    "distinct_cylinder_axes": 9,
+    "axes_nearest_origin_xyz_and_direction": [
+      [
+        -134.5,
+        -31.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -102.5,
+        57.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        1.5,
+        77.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        52.2,
+        77.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        90.5,
+        -43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.5,
+        -31.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        -56.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        -43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        134.9,
+        43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": {
+    "sha256": "ac6d321e4a0875dcf46b027b8a9fde4f0978d59a6498808a6f056980a6958edb",
+    "valid": true,
+    "solid_count": 1,
+    "diameter_mm": 7.5,
+    "distinct_cylinder_axes": 1,
+    "axes_nearest_origin_xyz_and_direction": [
+      [
+        -90.5,
+        43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": {
+    "sha256": "237e8d5d91939464a794740aeae444f9337ef3dbc1d4514ebaabc65705b76e13",
+    "valid": true,
+    "solid_count": 1,
+    "diameter_mm": 7.5,
+    "distinct_cylinder_axes": 1,
+    "axes_nearest_origin_xyz_and_direction": [
+      [
+        102.5,
+        -57.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
+    "sha256": "730c380ff4fb59584748fbf2cd563191480504df4df4d4355c2eea9041f7c62a",
+    "valid": true,
+    "solid_count": 1,
+    "diameter_mm": 7.5,
+    "distinct_cylinder_axes": 12,
+    "axes_nearest_origin_xyz_and_direction": [
+      [
+        -134.9,
+        -43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -134.9,
+        0.0,
+        6.0,
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      [
+        -134.9,
+        0.0,
+        6.25,
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      [
+        -134.9,
+        43.5,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -134.9,
+        56.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -134.9,
+        133.53645,
+        114.84134,
+        -0.0,
+        0.65204,
+        -0.75819
+      ],
+      [
+        -134.9,
+        133.66004,
+        114.94763,
+        -0.0,
+        0.65204,
+        -0.75819
+      ],
+      [
+        -50.49715,
+        -56.46547,
+        0.11412,
+        0.02499,
+        -0.02033,
+        0.99948
+      ],
+      [
+        -48.5,
+        -58.09006,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -47.0,
+        -59.31025,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        -12.12511,
+        62.68313,
+        59.21687,
+        0.19814,
+        0.69309,
+        -0.69309
+      ],
+      [
+        -12.09078,
+        62.80323,
+        59.34677,
+        0.19814,
+        0.69309,
+        -0.69309
+      ]
+    ]
+  },
+  "connecting_webs": [
+    {
+      "between": [
+        "reed-cable-b",
+        "reservoir-b"
+      ],
+      "midpoint_web_width_mm": 3.000000000006995
+    },
+    {
+      "between": [
+        "reservoir-b",
+        "water-in"
+      ],
+      "midpoint_web_width_mm": 3.0000000000015348
+    }
+  ]
+}
