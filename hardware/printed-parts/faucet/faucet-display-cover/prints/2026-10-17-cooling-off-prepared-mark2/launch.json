@@ -1,19 +1,95 @@
 {
   "schema": 1,
-  "status": "Blocked before Send; not started",
-  "observed_at": "2026-10-17T13:15:42.524298+00:00",
   "printer": "Mark2",
-  "scheduled_start_utc": "2026-10-17T13:15:00Z",
-  "scheduled_start_local": "2026-10-17T08:15:00-05:00",
-  "archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
-  "archive_sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
-  "gcode_sha256": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4",
-  "send_attempted": false,
-  "accepted_task_id": null,
-  "accepted_at_utc": null,
-  "blocker": "The local Mac remained locked at the scheduled start. Bambu Connect could not be operated, and automatic unlock was unsuccessful. Manual unlock requested.",
+  "status": "Accepted",
+  "archive": {
+    "name": "2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+    "sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
+    "gcode_sha256": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-display-cover"
+    ]
+  },
+  "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2.3mf",
+  "project_sha256": "55e8e674d488e96b4c2424771a0ca89d732df60b369f9752396bc65354496740",
+  "before": {
+    "observed_at": "2026-10-17T15:24:10.796947+00:00",
+    "gcode_state": "FINISH",
+    "subtask_id": "1346038475",
+    "job_id": "1346038475",
+    "subtask_name": "2026-10-16-umbilical-organizer-white-petgf-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 42,
+    "total_layer_num": 42,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 26.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 33.0,
+    "nozzle_target_temper": 0.0
+  },
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "method": "Bambu Connect CUA; one Send",
+  "command_replies": [
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "observed_at": "2026-10-17T15:26:27.748688+00:00"
+    }
+  ],
+  "physical_result": null,
+  "accepted_at_utc": "2026-10-17T15:26:28.929256+00:00",
+  "printer_task_id": "1348440331",
+  "first_acceptance": {
+    "observed_at": "2026-10-17T15:26:28.929337+00:00",
+    "gcode_state": "PREPARE",
+    "subtask_id": "1348440331",
+    "job_id": "1348440331",
+    "subtask_name": "2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 42,
+    "total_layer_num": 42,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 33.0,
+    "nozzle_target_temper": 0.0
+  },
+  "single_send_click": true,
+  "accepted_at_local": "2026-10-17T10:26:28.929256-05:00",
+  "retry_authorization_quote": "try now",
+  "authorization_quote": "Can you schedule things so your print starts at 8:15 am central time please. Mark2 is loaded for this on the right hotend still, and the bed is clear.",
   "preflight": "preflight.json",
-  "printer_commands_sent": false,
+  "startup_observation": "startup.json",
+  "estimated_finish_local": "2026-10-17T10:51:10.625667-05:00",
+  "estimated_seconds": 1481.6964111328125,
+  "part_cooling_percent": 0,
+  "other_printer_last_launch_record": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/launch.json",
+  "other_printer_last_accepted_at_utc": "2026-10-16T18:59:03.474522+00:00",
+  "seconds_since_other_printer_acceptance": 73645.454734,
   "automation_status": "PAUSED",
-  "physical_result": null
+  "scheduled_start_utc": "2026-10-17T13:15:00Z",
+  "schedule_outcome": "Blocked before Send at the scheduled time; current start authorized by try now after manual unlock."
 }

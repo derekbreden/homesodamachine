@@ -33,7 +33,7 @@
   },
   "cause_established": false,
   "candidate": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/native-review.json",
-  "candidate_submitted": false,
+  "candidate_submitted": true,
   "scope": "The two identified current-cover jobs are rejected for assembly. September accepted-cover evidence is retained for its identified geometry; the report does not reject the other parts in the complete white faucet set.",
   "photo_evidence": {
     "file": "fracture-photo.jpg",
@@ -62,5 +62,7 @@
       "meaning": "Layer planes are parallel to the display bezel; the skirt and bezel build successively along local N."
     },
     "interpretation": "The strips, strands and apparent layer-parallel peeling strengthen weak interlayer or inter-road fusion as the leading failure-mode hypothesis. They do not identify excessive cooling as the cause or exclude a stress concentration at the curved transition."
-  }
+  },
+  "candidate_launch": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/launch.json",
+  "candidate_task_id": "1348440331"
 }

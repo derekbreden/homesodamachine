@@ -1,13 +1,12 @@
-# Sculpted display cover — part-cooling trial, prepared only
+# Sculpted display cover — part-cooling trial, Mark2
 
-One complete current cover is ready for Mark2's right hardened 0.4 mm hotend
-and white PET-GF, external spool 255. **Not submitted.** The
-[authorized start](scheduled-launch.json) is October 17 at **8:15 a.m. Central
-(CDT, 13:15 UTC)**. The [launch record](launch.json) reports that the local
-Mac is locked at that time, preventing Bambu Connect operation. The
-[preflight](preflight.json) finds Mark2 idle, correctly loaded and without a
-reported fault. No Send occurred and no printer was heated or moved.
-The one-time follow-up is paused pending manual unlock.
+One complete current cover is printing as **Mark2 task 1348440331**, using
+the right hardened 0.4 mm hotend and white PET-GF, external spool 255.
+The [launch record](launch.json) confirms acceptance at **10:26:28 a.m. CDT
+on October 17**, following Derek's “try now” instruction. The
+[startup observation](startup.json) reports RUNNING, 0/77 layers, no print
+error and no HMS. The [preflight](preflight.json) binds the correct material,
+unchanged G-code and send-dialog choices. The one-time follow-up stays paused.
 The native estimate is **24 min 42 s, 6.64 g**, 77 layers.
 
 The single experimental change is part cooling: minimum, maximum and overhang
@@ -55,7 +54,7 @@ not a stress analysis or proof that the geometry has no effect. The broader
 neck and closure can affect flexing. Thickening the spring walls would also
 increase stiffness, so the cooling comparison precedes a thickness change.
 
-## Physical reading after authorization
+## Physical assembly reading
 
 Let the print cool, remove its supports, load the display and seat the complete
 cover on the matching current Sculpted tip using the documented assembly
