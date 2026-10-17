@@ -10,8 +10,11 @@ The [physical trial](../../fixtures/faucet-display-snap/print-log.md) establishe
 solid construction, useful give and spring, firm snap seating and retention
 for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
 preserves the successful STL and reported results. The current cover matches the
-27 mm vent-bearing neck and has a different STL; its complete printed fit
-requires its own assembly reading. Numerical force and cycle life have not been measured.
+27 mm vent-bearing neck and has a different STL. Both identified current white
+covers [broke during assembly](prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
+including display loading. The [prepared cooling trial](prints/2026-10-17-cooling-off-prepared-mark2/README.md)
+uses the current geometry with part cooling off; it has not been submitted.
+Numerical force and cycle life have not been measured.
 
 ## Geometry
 

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-17",
+  "reported_by": "Derek",
+  "part": "Sculpted faucet display cover",
+  "material": "White PET-GF",
+  "result": "Failed during normal assembly",
+  "user_statement": "So both that last display cover and this latest one broke as I was try to place them on the faucet. I confirmed with the previous white pet-gf faucet we printed (which was an older sculpted design, hopefully there is a specific record of it) and it does not snap this easily - even just getting the display into the display cover which is hardly any bend at all, certainly less bend than it takes to get on the faucet, is all it took to break these new display covers.",
+  "identified_recent_jobs": [
+    {
+      "task_id": "1343785668",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/launch.json",
+      "scope": "Display cover from the complete five-part set; other parts not assessed by this report."
+    },
+    {
+      "task_id": "1345901173",
+      "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-16-white-right-mark2/launch.json",
+      "scope": "Single replacement display cover."
+    }
+  ],
+  "cover_stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "observations": {
+    "both_recent_covers_broke_during_assembly": true,
+    "display_loading_alone_can_cause_break": true,
+    "older_white_cover_tolerates_motion_better": true,
+    "fracture_location": null,
+    "fracture_plane": null
+  },
+  "cause_established": false,
+  "candidate": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/native-review.json",
+  "candidate_submitted": false,
+  "scope": "The two identified current-cover jobs are rejected for assembly. September accepted-cover evidence is retained for its identified geometry; the report does not reject the other parts in the complete white faucet set."
+}
