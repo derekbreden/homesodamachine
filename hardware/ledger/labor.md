@@ -6,6 +6,8 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and per-batch setup shared across [10](BATCH_SIZE) units, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
 
+**The maturity benchmark is the 25th unit using the documented method.** A practiced assembler has the maps, material locations, terminal choices and tools ready. Development, lookup and learning are outside the recurring labor estimate. A complete harness remains one bench job, made start to finish by one person; repeat volume does not assume separate stations for mass crimping.
+
 **The pace is a practiced one.** Three minutes an operation is a relaxed rate for repetitive work once it is practiced, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
 
 **Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what the site's `/cost` page prices the labor column with; it reads the number from the marker above, so this file sets it.
@@ -89,9 +91,10 @@ Three pour-in-place foam operations: both cold-core caps, the body foam around t
 ## 6. Wiring
 
 The [J2 bench guide](https://homesodamachine.com/cost#j2-harness) groups one
-complete harness, its wire map and its provisional 45-minute estimate into
-one bench job. Its first reference build was reported at approximately one
-hour including lookups. This reference is separate from the aggregate
+complete harness, its wire map and its theoretical 10-minute unit-25 estimate
+into one bench job. Fifteen minutes is an upper planning allowance. Its first
+reference build was reported at approximately one hour, mostly spent looking
+up the build map. This reference is separate from the aggregate
 twelve-harness allowance below; the other harnesses need individual estimates
 before the unit rollup represents complete bench jobs.
 
