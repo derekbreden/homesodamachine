@@ -40,7 +40,7 @@
     "measured_tube_od_mm": 6.5,
     "passive_passage_diameter_mm": 7.5,
     "gripping_fits": "Use their own part dimensions: faucet, organizer, copper-plug seats and PRV tube socket.",
-    "cap_column_webs_mm": 3.0
+    "cap_column_webs_mm": 5.0
   },
   "wire": {
     "fixed_solid_runs": [

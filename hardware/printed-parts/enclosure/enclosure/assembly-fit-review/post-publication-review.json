@@ -1,0 +1,264 @@
+{
+  "scope": "Manual post-publication review of the default top-ranked back-top lint findings. Local native symmetric differences establish whether these reported regions changed; they do not dismiss a reported defect.",
+  "baseline_pointer_commit": "8a8083b1055d4d158d92320eab32987e5a201622",
+  "baseline_step_sha256": "88291742a66090e21e19cd92d898e75d5ddb9dbeb21abbaf8a88ae8f413d63fd",
+  "current_step_sha256": "63ec80861a5abf44802da9bdb39ed0695613dde9567036d7b35ad166c76fc6c4",
+  "regions": [
+    {
+      "feature": "rear port-chip strip",
+      "window_min_mm": [
+        -94,
+        464,
+        253
+      ],
+      "window_max_mm": [
+        -64,
+        467,
+        256
+      ],
+      "baseline_material_mm3": 165.24252692785083,
+      "current_material_mm3": 165.24252691019197,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "west seam return",
+      "window_min_mm": [
+        -106,
+        218,
+        159
+      ],
+      "window_max_mm": [
+        -102,
+        222,
+        177
+      ],
+      "baseline_material_mm3": 144.4199999999998,
+      "current_material_mm3": 144.4199999999998,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "east seam return",
+      "window_min_mm": [
+        102,
+        218,
+        159
+      ],
+      "window_max_mm": [
+        106,
+        222,
+        177
+      ],
+      "baseline_material_mm3": 144.41999999999976,
+      "current_material_mm3": 144.41999999999976,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "keystone ceiling slope",
+      "window_min_mm": [
+        -50,
+        458,
+        318
+      ],
+      "window_max_mm": [
+        -31,
+        467,
+        325
+      ],
+      "baseline_material_mm3": 798.8377387865662,
+      "current_material_mm3": 798.8377387865662,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "west fitting-anchor tip",
+      "window_min_mm": [
+        -89,
+        395,
+        319
+      ],
+      "window_max_mm": [
+        -83,
+        401,
+        325
+      ],
+      "baseline_material_mm3": 101.70516569291661,
+      "current_material_mm3": 101.70516569291661,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "keystone upper lip",
+      "window_min_mm": [
+        -42,
+        463,
+        311
+      ],
+      "window_max_mm": [
+        -36,
+        468,
+        316
+      ],
+      "baseline_material_mm3": 30.12641299420267,
+      "current_material_mm3": 30.12641299420267,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    },
+    {
+      "feature": "keystone west lip",
+      "window_min_mm": [
+        -50,
+        466,
+        308
+      ],
+      "window_max_mm": [
+        -45,
+        470,
+        314
+      ],
+      "baseline_material_mm3": 32.17178670796177,
+      "current_material_mm3": 32.17178670796177,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0
+    }
+  ],
+  "cap_perimeter": {
+    "baseline_step_sha256": "a63d436f61f04618812c885020a3c50df74f99e64c2bd23064ab062e87449a96",
+    "current_step_sha256": "25263659650e859fe8daf77cc6df6118dc2b0e9556236275e867826e654ff6a7",
+    "regions": [
+      {
+        "pick_mm": [
+          -138.147,
+          -86.756,
+          9.094
+        ],
+        "window_min_mm": [
+          -140.147,
+          -88.756,
+          7.093999999999999
+        ],
+        "window_max_mm": [
+          -136.147,
+          -84.756,
+          11.094
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "pick_mm": [
+          138.147,
+          86.756,
+          9.094
+        ],
+        "window_min_mm": [
+          136.147,
+          84.756,
+          7.093999999999999
+        ],
+        "window_max_mm": [
+          140.147,
+          88.756,
+          11.094
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "pick_mm": [
+          -138.147,
+          86.756,
+          5.406
+        ],
+        "window_min_mm": [
+          -140.147,
+          84.756,
+          3.4059999999999997
+        ],
+        "window_max_mm": [
+          -136.147,
+          88.756,
+          7.406
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      }
+    ]
+  },
+  "support_faces": {
+    "scope": "Functional C14 passage roofs and moved relay-pad ends retain Tree(auto)/Default support access through the empty openings before hardware installation. Cleanup is unqualified.",
+    "c14_ceiling_picks_mm": [
+      [
+        66.9,
+        467.175,
+        326.311
+      ],
+      [
+        66.9,
+        460.55,
+        324.226
+      ]
+    ],
+    "relay_pad_ceiling_pick_mm": [
+      97.375,
+      338.3,
+      259.4
+    ]
+  },
+  "shell_entry_rims": {
+    "status": "Open print-detail findings in the retained curved-corridor construction; no printed rim finish is qualified by the clearance review.",
+    "baseline_stl_sha256": "747f7ff3bd419f71fe9439dfd146d52e3f90f3a02748aa28627944f8b4331c40",
+    "current_stl_sha256": "ef907e69dc899cb991f96cdedba8b7d3efac7e40553a9b41558db79584b5c5fe",
+    "baseline_thin_picks_mm": [
+      [
+        -51.388,
+        -62.293,
+        185.311
+      ],
+      [
+        97.89,
+        -72.5,
+        6.077
+      ],
+      [
+        -111.039,
+        70.5,
+        6.081
+      ]
+    ],
+    "current_thin_picks_mm": [
+      [
+        -51.365,
+        -62.334,
+        182.637
+      ],
+      [
+        90.489,
+        -70.5,
+        6.078
+      ],
+      [
+        -103.723,
+        72.499,
+        5.629
+      ]
+    ],
+    "observation": "Both published STL versions report 0.000\u20130.001 mm at acute corridor/wall intersection rims. The enlarged openings move those edges; this is not evidence that an independent wall has that thickness.",
+    "native_surface_observation": "Current picks lie at torus/cylindrical-wall or torus/plane intersections. The two local edge-treatment candidates were excluded because their B-reps were invalid or could not be constructed.",
+    "edge_treatment_candidates": [
+      {
+        "kind": "chamfer",
+        "size_mm": 0.2,
+        "valid": false
+      },
+      {
+        "kind": "round",
+        "size_mm": 0.35,
+        "constructed": false
+      }
+    ],
+    "exported_shell": "One valid native solid and a watertight print STL; physical assembly and edge finish remain unmeasured."
+  }
+}

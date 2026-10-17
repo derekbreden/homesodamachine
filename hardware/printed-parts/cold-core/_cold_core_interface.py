@@ -1020,7 +1020,7 @@ cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 # The bore axes and their 7.5 mm clear passages are independent of this stock.
 cap_conduit_links = (("reed-cable-b", "reservoir-b"),
                      ("reservoir-b", "water-in"))
-cap_conduit_link_width = 3.0
+cap_conduit_link_width = 5.0
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
 # Naming is what carries the pairing across the two frames, so the name is checked too: the
