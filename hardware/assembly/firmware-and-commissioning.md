@@ -89,13 +89,17 @@ Confirm the LVGL splash renders on the 800×480 panel after reset.
 
 ### 5. Flash the ESP32-S3 faucet display
 
-Plug the USB-C cable into the 1.47" faucet display at the end of the gooseneck. Same native USB-CDC boot as the 4.3B.
+Take the SIG-6 plug out of its jack, then plug the USB-C cable into the 1.47" faucet display at the end of the gooseneck. Same native USB-CDC boot as the 4.3B. With the plug in, the display's USB reaches the main board's 5 V rail through SIG-6 C1, and what the glass shows is no longer the display's alone.
+
+Flash it, then write its factory logos over the same cable. They live in its image store, not its firmware, and until they are written the glass is plain blue for every flavor ([`/firmware/README.md`](/firmware/README.md) "Flash the ESP32-S3 (faucet display)"):
 
 ```
 pio run -e esp32s3_faucet -t upload
+~/.platformio/penv/bin/python tools/make_logos.py --store -o .pio/build/esp32s3_faucet/logos-store.bin
+~/.platformio/penv/bin/python -m esptool --chip esp32s3 --port <the display's port> write-flash 0x6d4000 .pio/build/esp32s3_faucet/logos-store.bin
 ```
 
-Confirm the flavor UI renders after reset. The touch-toggle check lands in step 6, once the base ESP32 is broadcasting flavor frames over the SIG-6 UART.
+Confirm flavor 1's logo renders after reset and a tap switches it to flavor 2. That is the display passing on its own, before any wire to the main board is in question. Unplug its USB and put the SIG-6 plug back. The touch-toggle check over J3 lands in step 6, once the base ESP32 is broadcasting flavor frames over the SIG-6 UART.
 
 ### 6. Sensor health walkthrough
 

@@ -420,7 +420,7 @@ A board whose `art` partition is empty runs and shows its pointer file screen wi
 logo; `ART` on its console says what is there and `ART:VERIFY` walks the CRC.
 
 ```bash
-PLATFORMIO_UPLOAD_PORT=/dev/cu.usbmodem1101 ~/.platformio/penv/bin/python -m esptool --chip esp32s3 write-flash 0x510000 .pio/build/esp32s3_front/art.bin
+~/.platformio/penv/bin/python -m esptool --chip esp32s3 --port /dev/cu.usbmodem1101 write-flash 0x510000 .pio/build/esp32s3_front/art.bin
 ```
 
 Over the link instead, with only the main board on USB:
@@ -437,8 +437,37 @@ pio run -e esp32s3_front -t upload
 
 ### Flash the ESP32-S3 (faucet display)
 
+**A display is proved on its own USB before J3 comes into it.** Unplug its SIG-6
+plug first, so what the glass shows is the display's alone. The display's VBUS pad
+is SIG-6 C1, which lands on J3's V5: with the plug in, the display's USB reaches the
+main board's 5 V rail through the ribbon, and powers the main board when its own
+supply is off. Name the port `tools/boards.py` gives it.
+
 ```bash
-pio run -e esp32s3_faucet -t upload
+PLATFORMIO_UPLOAD_PORT=/dev/cu.usbmodem101 pio run -e esp32s3_faucet -t upload
 ```
+
+**Then its factory logos, over the same USB.** They are not in the firmware. They
+live in the image store's slots 4–7, and a board those slots have never been written
+on draws a plain blue glass for every flavor. `make_logos.py --store` lays the four
+out as the store holds them and prints where they go; the slots a person fills are
+not in the file, and writing it leaves their pictures as they are.
+
+```bash
+~/.platformio/penv/bin/python tools/make_logos.py --store -o .pio/build/esp32s3_faucet/logos-store.bin
+~/.platformio/penv/bin/python -m esptool --chip esp32s3 --port /dev/cu.usbmodem101 write-flash 0x6d4000 .pio/build/esp32s3_faucet/logos-store.bin
+```
+
+The display passes alone when its console's boot lines report `4 held`, the glass
+shows flavor 1's logo, and a tap changes it to flavor 2, which `GET_DIAG` counts as
+`touchInts` and `toggles`. Opening that port restarts the display, so the boot lines
+are the first thing it prints.
+
+**J3 is its own check, after.** Display USB out, SIG-6 plug in, the main board on
+12 V at J10 and USB at J14. The glass lighting is V5 and GND. Once the main board's
+console has printed `[J3 faucet] CONNECTED`, its `link` reads J3 `connected, flavor
+synchronized` with frames arriving; `versions` names the display's build, and a tap
+on the glass changes the main board's `flavor`. Over the link, `tools/ota.py
+logos-faucet` writes the same four logos.
 
 The [pioarduino platform](https://github.com/pioarduino/platform-espressif32) for Arduino core 3.x, and [LVGL v8.4](https://github.com/lvgl/lvgl) for the UI. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. Rotation 0 puts the USB connector down on the faucet mount. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_DIAG`, `BL:n` (raw backlight duty), `GET_VERSION`.
