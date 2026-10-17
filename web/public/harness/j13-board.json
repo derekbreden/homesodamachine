@@ -1,0 +1,108 @@
+{
+  "source": "hardware/pcb/pcba/out/pcba.glb",
+  "sha256": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
+  "textures": {
+    "top": "33f0594349c352265afea7fc89917fb8717a01b52c0d3737c6ce2d4e08fff396",
+    "bottom": "edbb07f70c48ef2208601a6ae775fd310d94a68aa47f56e04198337313761538"
+  },
+  "header": "J13",
+  "headerNode": 35,
+  "headerCad": "cad_component_34",
+  "headerPcb": "pcb_component_34",
+  "cropMm": [
+    -19.75,
+    -4.75,
+    27.8,
+    36.5
+  ],
+  "textureCrops": {
+    "top": {
+      "sourceSize": [
+        2048,
+        1754
+      ],
+      "pixelBounds": [
+        1162,
+        0,
+        1524,
+        210
+      ]
+    },
+    "bottom": {
+      "sourceSize": [
+        2048,
+        1754
+      ],
+      "pixelBounds": [
+        1162,
+        0,
+        1524,
+        210
+      ]
+    }
+  },
+  "pins": [
+    {
+      "pin": 1,
+      "label": "AM2",
+      "boardMm": [
+        -16,
+        31.000127
+      ]
+    },
+    {
+      "pin": 2,
+      "label": "AM1",
+      "boardMm": [
+        -13.5,
+        30.999873
+      ]
+    },
+    {
+      "pin": 3,
+      "label": "BM2",
+      "boardMm": [
+        -11,
+        30.999873
+      ]
+    },
+    {
+      "pin": 4,
+      "label": "BM1",
+      "boardMm": [
+        -8.5,
+        30.999873
+      ]
+    }
+  ],
+  "pinTipZMm": 7.2000068,
+  "padSurfaceZMm": 0.7,
+  "pinMaterialName": "mat_2",
+  "benchPose": {
+    "scale": 1000,
+    "rotationXYZ": [
+      -1.5707963267948966,
+      0,
+      1.5707963267948966
+    ],
+    "positionMm": [
+      -68.55,
+      0.4,
+      -12.25
+    ]
+  },
+  "matingAxis": {
+    "native": [
+      0,
+      0,
+      1
+    ],
+    "bench": [
+      0,
+      1,
+      0
+    ],
+    "type": "vertical top-entry"
+  },
+  "method": "Native J13 mesh and board triangles clipped in board XY; triangles batched by native material with unchanged vertex positions, normals and winding. Original fabrication PNG pixels embedded with matching UV coordinates. No retyped silkscreen."
+}

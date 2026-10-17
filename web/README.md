@@ -33,12 +33,28 @@ npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboar
 
 ## Dependencies
 
-The `/cost#j2-harness` assembly guide reads its bench map, materials and time
-estimate from `hardware/assembly/harnesses/j2.json`. `lib/harness-guide.js`
-renders the complete instructions and map; `public/js/harness/` adds a lazy
-Three.js workbench with selectable wires, assembly steps and an exploded view.
-The diagram is a bench layout rather than installed CAD routing. J2's working
-estimate is shown separately from the ledger's aggregate harness allowance.
+The Wiring section of `/cost` contains the `/cost#j2-harness` and
+`/cost#j13-harness` assembly guides. Their connections, materials and estimates
+come from `hardware/assembly/harnesses/j2.json` and `j13.json`;
+`lib/harness-guide.js` renders each workbench and its text fallback.
+`public/js/harness/main.js` lazily initializes each Three.js model as its guide
+approaches the viewport. Clicking a conductor highlights it; the separate
+**Open conductor** action opens its end-to-end view. The Build and Parts panels
+keep the assembly sequence and components beside the model.
+
+Both guides include a crop of the native PCB geometry and its printed labels,
+with crop assets and provenance in `public/harness/`. Cable reach is compressed
+for the bench view; it does not specify installed routing. The labor ledger
+includes J2's ten minutes and the J13 fixed half's five minutes once within
+Wiring, with the other harnesses listed as individual estimates and
+installation counted separately. These are theoretical, unmeasured unit-25
+estimates for practiced hands with the map, tools and materials ready;
+development and lookup time are excluded.
+
+Regenerate the native PCB crops on demand with
+`tools/cad-venv/bin/python tools/harness/extract-j2-board.py J2 J13` from the
+repository root. The producer clips the published PCB and embeds its original
+fabrication pixels; the provenance records its source hashes and bench pose.
 
 `package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree.
 

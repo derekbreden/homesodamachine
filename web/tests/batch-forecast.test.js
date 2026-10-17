@@ -177,9 +177,9 @@ test("five machines use opening stock and whole packs, with small-order reserves
   assert.equal(five.taxCents, 21868);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
   assert.equal(five.cashCents, 421838);
-  assert.equal(five.laborHours, 51.25);
-  assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 934338);
+  assert.equal(five.laborHours, 665 / 60 * 5);
+  assert.equal(five.laborCents, 554167);
+  assert.equal(five.totalCents, 976005);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
   assert.equal(ten.cashCents, 1090602);
   assert.equal(twenty.cashCents, 2719376);
