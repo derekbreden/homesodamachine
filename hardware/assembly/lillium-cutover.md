@@ -162,7 +162,7 @@ Populate it inverted, ceiling down
 
    | Run | From → to | Termination |
    |---|---|---|
-   | AC-1 | C14 tabs → the H, N, G Wagos | soldered at the C14 ([wiring §2](wiring.md#2-ac-mains-c14--distribution--relay-1--compressor--psu)); ferrules at the Wagos |
+   | AC-1 | C14 tabs → the H, N, G Wagos | 16 AWG solid black/white/green, soldered at the C14 ([wiring §2](wiring.md#2-ac-mains-c14--distribution--relay-1--compressor--psu)); stripped directly in the Wagos |
    | AC-2 | the H and N WAGOs → PSU L and N | 16 AWG solid black/white, stripped directly in both clamps; the PSU has no earth terminal |
    | G leg | the G Wago → the ground stack | ferrule; ring at the stack |
    | DC-1 | PSU + and − → the + and GND WAGOs | 16 AWG solid black, stripped directly in both clamps |

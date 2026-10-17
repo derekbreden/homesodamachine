@@ -44,19 +44,21 @@ Every low-voltage run below names its board connector and pin labels; the labels
 ## Conductor construction
 
 Use **16 AWG solid tinned-copper appliance hookup wire** for fixed runs
-**AC-2 (H/N), AC-3, DC-1, DC-2 and DC-4**. Strip and land the solid conductor
+**AC-1, AC-2 (H/N), AC-3, DC-1, DC-2 and DC-4**. Strip and land the solid conductor
 directly in each screw cage and WAGO lever clamp, one conductor per entry;
-no fork, ferrule or solder-added tip on these solid ends. Use black for hot
-and DC, white for neutral. The selected stock is marked UL1007, 300 V / 80°C;
+no fork, ferrule or solder-added tip on these solid ends. AC-1's other end is
+soldered to the C14 inlet's tabs. Use black for hot and DC, white for neutral
+and green for AC-1's earth. The selected stock is marked UL1007, 300 V / 80°C;
 its [black](https://www.amazon.com/dp/B0FK5HH8H1) and
-[white](https://www.amazon.com/dp/B0FK5G1Q1J) 25 ft spools are Prime offers
-verified 2026-10-17, not purchased. Keep this fixed wire away from hot
-refrigeration surfaces. WAGO's [221 documentation](https://www.wago.com/us/installation-221-ad)
+[white](https://www.amazon.com/dp/B0FK5G1Q1J) 25 ft spools were bought
+2026-10-17, and its [green](https://www.amazon.com/dp/B0FK5JHQW7) spool is a
+Prime offer verified 2026-10-17, not purchased. Keep this fixed wire away from
+hot refrigeration surfaces. WAGO's [221 documentation](https://www.wago.com/us/installation-221-ad)
 covers solid copper; J10's KF301-5.0 block accepts 14–22 AWG.
 
-AC-1's solder-tab pigtails, the 18 AWG SJOOW compressor cord, DC-3's pump
-lead, protective-earth bonds and the JST / Faston / removable-display
-harnesses use stranded wire. Retain the specified crimps; use a correctly
+The 18 AWG SJOOW compressor cord, DC-3's pump lead, protective-earth bonds
+and the JST / Faston / removable-display harnesses use stranded wire. Retain
+the specified crimps; use a correctly
 sized ferrule where a stranded lead enters a screw cage. A screw at one end
 does not make a moving or crimp-terminated run a solid-wire run. SIG-7's
 JST-to-display loom therefore stays stranded at its display screw terminals.
@@ -76,7 +78,7 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| AC-1 | C14 inlet (+Y wall of back-top) | AC distribution block on the +X wall of back-top | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (the C14 inlet's cordage drops the +Y wall of back-top and runs forward over the foam-cap top to the +X wall) | Solder to the C14 inlet's tabs; crimp ferrules into Wago 221 lever block | Inlet ships with solder-tab pins; [16 AWG](AWG_MAINS_U) appliance wire drops from the inlet to the distribution block on the wall below. The C14 inlet lands directly on the AC distribution block with no device in series; all downstream loads (PSU, compressor, etc.) tap the block. Ground-fault protection is deferred — see [`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md). |
+| AC-1 | C14 inlet (+Y wall of back-top) | AC distribution block on the +X wall of back-top | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (the C14 inlet's cordage drops the +Y wall of back-top and runs forward over the foam-cap top to the +X wall) | Solder to the C14 inlet's tabs; solid copper directly in the WAGO clamps | Inlet ships with solder-tab pins; [16 AWG](AWG_MAINS_U) solid black / white / green drops from the inlet to the distribution block on the wall below. The C14 inlet lands directly on the AC distribution block with no device in series; all downstream loads (PSU, compressor, etc.) tap the block. Ground-fault protection is deferred — see [`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md). |
 | AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N | [16](AWG_AC_BRANCH) | [~100 mm](LEN_SHORT_2) | Solid copper directly in PSU screw cages and WAGO clamps | PSU primary draws [0.67 A](PSU_PRI_A) at [80 W](PSU_W) full load; [16 AWG](AWG_AC_BRANCH_U) ample. The module has no earth terminal. |
 | AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | [16](AWG_AC_BRANCH) | [~50 mm](LEN_SHORT) | Solid copper directly in relay screw cage and WAGO clamp | Unswitched hot leg into the relay's "common" terminal. |
 | AC-4 | Teyleten relay #1 contact output ("normally open") | Verified hot side of current donor compressor's factory-external electrical interface, through SF76E thermal fuse | H_switched | [18](AWG_COMP_LEAD) | [~400 mm](LEN_COMPRESSOR) | Ferrule in relay screw cage; current-donor external-interface connector TBD | Switched hot. One of the three conductors of the [18 AWG](AWG_COMP_LEAD_U) SJOOW jacketed lead that runs unbroken from the +X wall of back-top to the compressor. The terminal block and PTC stay under the retained donor cover; this run terminates only at the factory-external interface. Length includes service slack. |
