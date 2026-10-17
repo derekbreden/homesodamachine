@@ -3,8 +3,11 @@
 One complete current cover is ready for Mark2's right hardened 0.4 mm hotend
 and white PET-GF, external spool 255. **Not submitted.** The
 [authorized start](scheduled-launch.json) is October 17 at **8:15 a.m. Central
-(CDT, 13:15 UTC)**. A one-time follow-up wakes at 8:10 for app preparation and
-fresh printer readings; no printer action is authorized before 8:15.
+(CDT, 13:15 UTC)**. The [launch record](launch.json) reports that the local
+Mac is locked at that time, preventing Bambu Connect operation. The
+[preflight](preflight.json) finds Mark2 idle, correctly loaded and without a
+reported fault. No Send occurred and no printer was heated or moved.
+The one-time follow-up is paused pending manual unlock.
 The native estimate is **24 min 42 s, 6.64 g**, 77 layers.
 
 The single experimental change is part cooling: minimum, maximum and overhang

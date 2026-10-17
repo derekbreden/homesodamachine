@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "Blocked before Send; not started",
+  "observed_at": "2026-10-17T13:15:42.524298+00:00",
+  "printer": "Mark2",
+  "scheduled_start_utc": "2026-10-17T13:15:00Z",
+  "scheduled_start_local": "2026-10-17T08:15:00-05:00",
+  "archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+  "archive_sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
+  "gcode_sha256": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4",
+  "send_attempted": false,
+  "accepted_task_id": null,
+  "accepted_at_utc": null,
+  "blocker": "The local Mac remained locked at the scheduled start. Bambu Connect could not be operated, and automatic unlock was unsuccessful. Manual unlock requested.",
+  "preflight": "preflight.json",
+  "printer_commands_sent": false,
+  "automation_status": "PAUSED",
+  "physical_result": null
+}
