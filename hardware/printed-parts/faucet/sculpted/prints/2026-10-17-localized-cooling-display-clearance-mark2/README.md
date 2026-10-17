@@ -5,7 +5,9 @@ above-counter plate and side-down lever. Target: Mark2's right hardened
 standard-flow 0.4 mm hotend, white PET-GF in external spool 255. The bed is
 confirmed clear by Derek's print request. The [native review](native-review.json)
 and [print preparation](2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.print.json)
-bind the complete project. Physical assembly and finish remain pending.
+bind the complete project. Mark2 accepted **task 1349558196 at 5:16:35 p.m. CDT on October 17**.
+The startup observation is RUNNING, 0/1,022 layers, no print error or HMS.
+Estimated finish is **11:30 p.m. CDT**. Physical assembly and finish remain pending.
 
 The display and bezel move 1.50 mm along the display normal, giving
 1.80064 mm minimum nominal clearance to both flavor tubes. Four bearing pads extend 1.50 mm. Their 3.25 × 3.00 mm footprint

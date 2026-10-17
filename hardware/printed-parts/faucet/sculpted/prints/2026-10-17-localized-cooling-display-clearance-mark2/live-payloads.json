@@ -2,9 +2,9 @@
   {
     "path": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
     "url": "https://homesodamachine.com/meshes/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
-    "sha256": "802a354d7559983c149a7852f7bc0b487e158d1de69225342fc10165003b2022",
+    "sha256": "e12030617887dc97a274008b0caeeb61e2cbe27f5561159c886b1b26bcd1876c",
     "matches_local": true,
-    "bytes": 4190896
+    "bytes": 4190864
   },
   {
     "path": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
@@ -23,8 +23,8 @@
   {
     "path": "hardware/faucet-layout/faucet-assembly.step.mesh",
     "url": "https://homesodamachine.com/meshes/faucet-layout/faucet-assembly.step.mesh",
-    "sha256": "798f8b32c6a079e7a80864c7cb3558e2546e9abe1ccdc05cd1dd4fd6ef011c2c",
+    "sha256": "73cb34a5e1166ad95de6b25e94bbc0ef718bf138798f0ac09ff024df7a167ebe",
     "matches_local": true,
-    "bytes": 13089448
+    "bytes": 13089416
   }
 ]

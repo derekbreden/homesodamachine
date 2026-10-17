@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "status": "Accepted",
+  "archive": {
+    "name": "2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+    "sha256": "019aa62f3aa581af0077ebd37208794fd1636927754aa435c20fefec8cebb545",
+    "gcode_sha256": "2b3d747aa3007c12d7f3611b2b8ff1fe959ea57d103439803bedcb3686f37fb3",
+    "slots": {
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ]
+  },
+  "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.3mf",
+  "project_sha256": "363e11998d60fd88b585860b42628f9de48ffb4ea582f4ecd68e2f38f8d25d11",
+  "before": {
+    "observed_at": "2026-10-17T22:15:23.446263+00:00",
+    "gcode_state": "FINISH",
+    "subtask_id": "1348440331",
+    "job_id": "1348440331",
+    "subtask_name": "2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+    "layer_num": 77,
+    "total_layer_num": 77,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0
+  },
+  "active_nozzle": 1,
+  "physical_extruder": 2,
+  "external_spool": 255,
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "authorization_quote": "and then the last thing that I need you to do is to start a new print on Mark 2, which is still ready and the bed is clear now, on the right hot end of the complete faucet, please. Thanks.",
+  "method": "Bambu Connect foreground CUA; one Send",
+  "command_replies": [
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "observed_at": "2026-10-17T22:16:34.465602+00:00"
+    }
+  ],
+  "physical_result": null,
+  "accepted_at_utc": "2026-10-17T22:16:35.321911+00:00",
+  "printer_task_id": "1349558196",
+  "first_acceptance": {
+    "observed_at": "2026-10-17T22:16:35.321945+00:00",
+    "gcode_state": "PREPARE",
+    "subtask_id": "1349558196",
+    "job_id": "1349558196",
+    "subtask_name": "2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+    "layer_num": 77,
+    "total_layer_num": 77,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0
+  },
+  "single_send_click": true,
+  "accepted_at_local": "2026-10-17T17:16:35.321911-05:00",
+  "estimated_seconds": 22419.3671875,
+  "estimated_finish_local": "2026-10-17T23:30:14.689099-05:00",
+  "preflight": "preflight.json",
+  "startup": "startup.json",
+  "send_attempted_at_utc": "2026-10-17T22:16:21.858109+00:00",
+  "other_printer_last_launch_record": "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/launch.json",
+  "other_printer_last_accepted_at_utc": "2026-10-16T18:59:03.474522+00:00",
+  "seconds_since_other_printer_start": 98238.383587,
+  "source_review": "native-review.json"
+}

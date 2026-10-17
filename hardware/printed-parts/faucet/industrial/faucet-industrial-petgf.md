@@ -1,6 +1,6 @@
 # Complete Industrial faucet PET-GF project
 
-[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) is the current planned production project. Its geometry, seams and layer bands have the physical reference tagged `faucet-industrial-production-2026-10-14`; the selected overhang material recipe has the short-section evidence linked below. It contains all five rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The saved project targets Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI. The [accepted seam-fixed Mark2 print](prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md) uses Mark2's own trim and spool colour.
+[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) is the current planned production project. Its seam and layer-band reference is tagged `faucet-industrial-production-2026-10-14`. The current raised display seat, matching cover and localized cooling require their own physical result; the identified references below retain their original scope. It contains all five rigid parts: Industrial base, shared tip, Industrial cover, above-counter plate and side-down lever replica. The saved project targets Mark1's left hardened standard-flow 0.4 mm nozzle, external PET-GF and Textured PEI. The [accepted seam-fixed Mark2 print](prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md) uses Mark2's own trim and spool colour.
 
 The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip and mounting plate, rear-center seam enforcement through the base's full rear silhouette and the tip's exposed curved neck, ordinary corner seams on the cover and lever, and E's eight coarse lip layers. The [production approval](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json) binds the exact base-and-tip print, complete project and source meshes. The other three rigid parts retain the [accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json). Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
 
@@ -20,7 +20,7 @@ The curved joint is at 70°, with a female base and male tip and 20/18 mm overla
 
 The display seat and bezel have 1.50 mm additional outward clearance over the
 flavor tubes, giving 1.80064 mm nominal hardware clearance. The neck snap
-datums are fixed. The cover also retains 0.50 mm longer wings and matching arch headroom with the retaining-lip datum preserved. The [geometry review](prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json) compares current meshes with the embedded meshes of the [accepted complete print](physical-acceptance.json), and binds the current [assembly readings](geometry-check.json) and [cover readings](display-cover-check.json). The upper base, cover and lever retain the accepted surfaces within the stated sampled comparison. Source review confines tip changes to the fault-drip cut and mesh cleanup.
+datums are fixed. The cover also retains 0.50 mm longer wings and matching arch headroom with the retaining-lip datum preserved. The [geometry review](prints/2026-10-11-centered-mounting-review-mark2/geometry-review.json) compares current meshes with the embedded meshes of the [accepted complete print](physical-acceptance.json), and binds the current [assembly readings](geometry-check.json) and [cover readings](display-cover-check.json). That comparison applies to its identified meshes. The [current display-clearance reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json) binds the raised pads and bezel, fixed snap datums and 1.80064 mm nominal flavor-tube clearance. The bearing-pad inner walls meet the existing open channel.
 
 One foot modifier supplies 100% zigzag infill and inherits the ordinary wall settings, with base Arachne and 15% infill/wall overlap. The [native box-face reading](prints/2026-10-11-infill-only-reinforcement-review/box-face-wall-review.json) finds zero artificial outer wall through material at the modifier faces. The existing three insert-host/root volumes are retained.
 
@@ -82,10 +82,8 @@ unreported.
 
 Mark1's standard +0.18 mm requested trim emits +0.16 mm after Textured PEI compensation. Mark2 uses its own +0.04/+0.02 mm standard trim when explicitly selected. Timelapse and leveling are On; flow dynamic and nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
-The complete Mark1 native estimate is **6 h 47 min 49 s, 161.40 g**, recorded with
-the source hashes, settings, retained geometry and layer bands in the
-[readiness record](faucet-industrial-petgf.readiness.json). The
-[seam-path reference](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks
+The current Industrial editable project is prepared; its matching complete native
+slice is pending. The [seam-path reference](prints/2026-10-13-a2-back-mark2/seam-path-review.json) checks
 the scarfed parts and plain cover/lever corners on its identified print. The
 [physical production approval](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
 retains its exact seam-fixed print and material scope.
