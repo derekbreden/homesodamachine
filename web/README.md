@@ -42,6 +42,11 @@ approaches the viewport. Clicking a conductor highlights it; the separate
 **Open conductor** action opens its end-to-end view. The Build and Parts panels
 keep the assembly sequence and components beside the model.
 
+On phone and tablet widths, each guide is a tappable 3D preview. Opening it
+uses the full viewport width, with the inspector beneath the model and a
+Close button above it. Desktop Expand uses the same dialog. Pinching zooms
+the model, and multi-touch gestures do not select conductors.
+
 Both guides include a crop of the native PCB geometry and its printed labels,
 with crop assets and provenance in `public/harness/`. Cable reach is compressed
 for the bench view; it does not specify installed routing. The labor ledger

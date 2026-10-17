@@ -46,6 +46,9 @@ export async function initHarness(root) {
   const camera = new THREE.PerspectiveCamera(34, 1, .1, 1800);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true; controls.dampingFactor = .12;
+  controls.enableZoom = true;
+  controls.touches.ONE = THREE.TOUCH.ROTATE;
+  controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
   controls.minDistance = 8; controls.maxDistance = 850;
   controls.maxPolarAngle = Math.PI * .49; controls.zoomToCursor = true;
   let frame = 0, visible = true, transition = null, openedEnds = null;
@@ -306,16 +309,47 @@ export async function initHarness(root) {
     $('[data-harness-explode]').value = 0; $('[data-harness-explode-value]').textContent = '0%';
     tab('wires'); inspect(); update(); view('overall');
   });
-  const full = $('[data-harness-fullscreen]');
-  full.addEventListener('click', async () => {
-    try { if (document.fullscreenElement) await document.exitFullscreen(); else await $('.harness-workbench').requestFullscreen(); }
-    catch { full.hidden = true; }
+  const workbench = $('.harness-workbench'), launch = $('[data-harness-launch]');
+  const mobile = matchMedia('(max-width: 960px)');
+  const home = document.createComment(`${data.id} workbench`);
+  workbench.before(home);
+  const dialog = document.createElement('dialog');
+  dialog.className = 'harness-dialog';
+  dialog.setAttribute('aria-label', `${data.id} ${data.name} interactive harness`);
+  const dialogHeading = document.createElement('header'), dialogTitle = document.createElement('strong'), dialogClose = document.createElement('button');
+  dialogHeading.className = 'harness-dialog-heading';
+  dialogTitle.textContent = `${data.id} · ${data.name}`;
+  dialogClose.type = 'button'; dialogClose.textContent = 'Close ×'; dialogClose.dataset.harnessDismiss = '';
+  dialogHeading.append(dialogTitle, dialogClose); dialog.append(dialogHeading); root.append(dialog);
+  let opener = null;
+  function previewMode() {
+    const preview = mobile.matches && !dialog.open;
+    root.classList.toggle('is-preview', preview);
+    launch.hidden = !preview;
+    stage.tabIndex = preview ? -1 : 0;
+    renderer.domElement.setAttribute('aria-hidden', String(preview));
+  }
+  function expand() {
+    if (dialog.open) return;
+    opener = document.activeElement;
+    dialog.append(workbench); dialog.showModal();
+    visible = true;
+    document.documentElement.classList.add('harness-modal-open');
+    previewMode(); resize(); dialogClose.focus();
+  }
+  dialogClose.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => {
+    home.after(workbench);
+    document.documentElement.classList.toggle('harness-modal-open', !!document.querySelector('.harness-dialog[open]'));
+    previewMode(); resize(); opener?.focus({ preventScroll: true });
   });
-  if (!document.fullscreenEnabled) full.hidden = true;
-  document.addEventListener('fullscreenchange', () => { full.textContent = document.fullscreenElement === $('.harness-workbench') ? 'Close expanded view' : 'Expand'; resize(); });
+  launch.addEventListener('click', expand);
+  $('[data-harness-fullscreen]').addEventListener('click', expand);
+  mobile.addEventListener('change', previewMode);
 
   const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
-  let down = null;
+  let down = null, multiTouch = false, suppressClickUntil = 0;
+  const pointers = new Set();
   const pick = event => {
     const bounds = stage.getBoundingClientRect();
     pointer.set((event.clientX - bounds.left) / bounds.width * 2 - 1, -(event.clientY - bounds.top) / bounds.height * 2 + 1);
@@ -327,17 +361,52 @@ export async function initHarness(root) {
       return true;
     });
   };
-  renderer.domElement.addEventListener('pointerdown', event => { down = [event.clientX, event.clientY]; });
-  renderer.domElement.addEventListener('pointercancel', () => { down = null; });
+  renderer.domElement.addEventListener('pointerdown', event => {
+    pointers.add(event.pointerId);
+    if (pointers.size > 1) { multiTouch = true; down = null; }
+    else down = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+  });
+  renderer.domElement.addEventListener('pointercancel', event => {
+    pointers.delete(event.pointerId); down = null;
+    if (!pointers.size) multiTouch = false;
+  });
   renderer.domElement.addEventListener('pointerup', event => {
-    const click = down && Math.hypot(event.clientX - down[0], event.clientY - down[1]) <= 5;
-    down = null; if (!click || state.opened) return;
+    const click = !multiTouch && performance.now() > suppressClickUntil && down?.id === event.pointerId && !down.moved && Math.hypot(event.clientX - down.x, event.clientY - down.y) <= 5;
+    if (multiTouch) suppressClickUntil = performance.now() + 350;
+    pointers.delete(event.pointerId); down = null;
+    if (!pointers.size) multiTouch = false;
+    if (!click || state.opened) return;
     const hit = pick(event); if (hit) select(model.tagFor(hit.object));
   });
   renderer.domElement.addEventListener('pointermove', event => {
-    if (down || state.opened) return;
+    if (down?.id === event.pointerId && Math.hypot(event.clientX - down.x, event.clientY - down.y) > 5) down.moved = true;
+    if (down || multiTouch || state.opened) return;
     renderer.domElement.style.cursor = pick(event) ? 'pointer' : 'grab';
   });
+  // WebKit trackpads can report scale gestures rather than ctrl-wheel events.
+  // Keep their zoom inside the model, using the same camera distance limits.
+  let gesture = null;
+  stage.addEventListener('gesturestart', event => {
+    event.preventDefault(); transition = null; down = null;
+    gesture = { offset: camera.position.clone().sub(controls.target), target: controls.target.clone(), enabled: controls.enabled };
+    controls.enabled = false;
+  }, { passive: false });
+  stage.addEventListener('gesturechange', event => {
+    if (!gesture || !Number.isFinite(event.scale) || event.scale <= 0) return;
+    event.preventDefault();
+    const distance = THREE.MathUtils.clamp(gesture.offset.length() / event.scale, controls.minDistance, controls.maxDistance);
+    controls.target.copy(gesture.target);
+    camera.position.copy(gesture.target).addScaledVector(gesture.offset.clone().normalize(), distance);
+    controls.update(); requestRender();
+  }, { passive: false });
+  stage.addEventListener('gestureend', event => {
+    if (!gesture) return;
+    event.preventDefault(); controls.enabled = gesture.enabled; gesture = null;
+    down = null; suppressClickUntil = performance.now() + 350;
+  }, { passive: false });
+  stage.addEventListener('click', event => {
+    if (multiTouch || performance.now() <= suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
   stage.addEventListener('keydown', event => {
     if (event.target !== stage || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(event.key)) return;
     event.preventDefault(); transition = null;
@@ -358,9 +427,9 @@ export async function initHarness(root) {
   controls.addEventListener('change', requestRender);
   controls.addEventListener('start', () => { transition = null; });
   new ResizeObserver(resize).observe(stage);
-  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; if (visible) requestRender(); }).observe(stage);
+  new IntersectionObserver(entries => { visible = dialog.open || entries[0].isIntersecting; if (visible) requestRender(); }).observe(stage);
   root.classList.add('is-interactive');
   $$('.harness-toolbar, .harness-scene-controls, .harness-tabs').forEach(element => { element.hidden = false; });
   $('.harness-loading').hidden = true;
-  inspect(); update(); resize(); root.dataset.harnessReady = 'true';
+  previewMode(); inspect(); update(); resize(); root.dataset.harnessReady = 'true';
 }
