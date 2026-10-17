@@ -429,6 +429,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | <!--purchase:pur-0b46664d71b844b3a5c1167a437c655f--> BNTECHGO 22 AWG silicone ribbon cable, 5-conductor flat (5P), black, 50 ft — J6 REEDS A and both reservoir reed columns on its own, and with the 4P it makes J1 MANIFOLD A (9). Same construction as the 4P above — 60 × 0.08 mm tinned strands per conductor, 1.7 mm per conductor, 200 °C, 600 V; 1.7 × 5 mm section. $28.98 + $2.10 tax | [B09X46Y36M](https://www.amazon.com/dp/B09X46Y36M) | 1 (50 ft) | $31.08 | 112-3585791-4776226 | 2026-09-17 | 2026-09-21 | ACQUIRED |
 | <!--purchase:pur-c444ea7f58834964b05cf2a767596f98--> BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | 112-8448573-3185817 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-918df672831a4c4e95c0e052eb0bb356--> BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | 112-8492724-3195462 | 2026-06-22 | 2026-06-24 | ACQUIRED |
+| <!--purchase:pur-a02ce33a2d984d9fbea615cbad793ab3--> MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, hot and DC conductors. $11.99 item price + $0.87 allocated tax | [B0FK5HH8H1](https://www.amazon.com/dp/B0FK5HH8H1) | 1 (25 ft) | $12.86 | 114-8768578-0217027 | 2026-10-17 | — | ON-ORDER |
+| <!--purchase:pur-91bd3b099e80493ab591655550b439ca--> MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, neutral conductors. $11.99 item price + $0.87 allocated tax | [B0FK5G1Q1J](https://www.amazon.com/dp/B0FK5G1Q1J) | 1 (25 ft) | $12.86 | 114-8768578-0217027 | 2026-10-17 | — | ON-ORDER |
 | <!--purchase:pur-395e856bb32044f180d8c0f6ef913ef4--> HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | 112-7522816-0777851 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-f1d4b8acb6c84ea08eea6c8722eea66a--> TANTTI 4" zip ties, black, 18 lb tensile, nylon 66 UV-resistant, stated 0.1" across the strap, 200-pack — cabinet cable management and the narrow tube-anchor ties | [B0BC1VH4XB](https://www.amazon.com/dp/B0BC1VH4XB) | 1 pk (200) | $4.28 | 112-5463509-3741018 | 2026-08-10 | 2026-08-11 | ACQUIRED |
 | <!--purchase:pur-0027ab81640e4a45a75713c0f82c2f79--> TANTTI 8" zip ties, black, 50 lb tensile, nylon 66 UV-resistant, stated 0.19" across the strap, 100-pack — the two zip ties that shut the ASSE anchor's mouth on the Multiplex barrel, whose 105 mm loop passes what a 4" closes. That 0.19" is `enclosure.tie_wide_w`, and `tie_cav_wide_w` is the cavity cut for it — the one wide one on the box | [B08BKSHJ93](https://www.amazon.com/dp/B08BKSHJ93) | 1 pk (100) | $5.35 | 112-8079907-6555421 | 2026-08-10 | 2026-08-11 | ACQUIRED |
@@ -802,17 +804,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$701.25](LEDGER_ON_ORDER) |
+| ON-ORDER | [$726.97](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,761.69](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,787.41](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$20,489.05](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,282.96](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,308.68](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

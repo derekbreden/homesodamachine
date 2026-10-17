@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-17",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8289,6 +8289,32 @@
         "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ]
+    },
+    "pur-91bd3b099e80493ab591655550b439ca": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4",
+        "src-0649cb496f6e45c3a07e83026856a9f2"
+      ]
+    },
+    "pur-a02ce33a2d984d9fbea615cbad793ab3": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4",
+        "src-0649cb496f6e45c3a07e83026856a9f2"
+      ]
     }
   },
   "orders": {
@@ -14050,6 +14076,18 @@
         "src-f3504a07b3da4440a42381a5c35446a4",
         "src-37921a0b742a4d97a9b12ed2e09697cb"
       ]
+    },
+    "amazon:114-8768578-0217027": {
+      "vendor": "Amazon",
+      "reference": "114-8768578-0217027",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+      ]
     }
   },
   "events": [
@@ -17516,6 +17554,27 @@
       "order_ids": [
         "amazon:114-5530613-2918640"
       ]
+    },
+    {
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "amount_minor": 9089,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4",
+        "src-0649cb496f6e45c3a07e83026856a9f2"
+      ],
+      "verified_at": "2026-10-17",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ]
     }
   ],
   "allocations": [
@@ -18845,6 +18904,30 @@
       "purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04",
       "order_id": "amazon:114-5530613-2918640",
       "amount_minor": 660,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-0bce06418d7d4f88afc445f3f981acff",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
+      "order_id": "amazon:114-8768578-0217027",
+      "amount_minor": 1286,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ecfd3794f056471bb0402e41a11ec9e8",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
+      "order_id": "amazon:114-8768578-0217027",
+      "amount_minor": 1286,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-e74ce6747dfd4ef3a05d346f304285ff",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "purchase_id": null,
+      "order_id": "amazon:114-8768578-0217027",
+      "amount_minor": 6517,
       "currency": "USD"
     }
   ],
@@ -29104,6 +29187,33 @@
       ],
       "verified_at": "2026-10-15",
       "note": "Signed-in Amazon order details and invoice: ordered 2026-10-14; two PureSec bulkhead 5-packs sold by JEAMSWORLD at USD 10.99 each, arriving 2026-10-16, and one uxcell silicone washer 10-pack sold by uxcell at USD 6.15, arriving 2026-10-19; USD 28.13 item subtotal, USD 0.00 shipping, USD 2.05 estimated tax and USD 30.18 grand total. The tax is not itemized; it is allocated in proportion to item price (USD 1.60 and USD 0.45). Order-scoped Transactions listed no transactions on 2026-10-15; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-d814ffbbc33146fb887f9e1bdc6944a4": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-8768578-0217027",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-17",
+      "note": "Signed-in Amazon order history and order details: ordered 2026-10-17; MECCANIXITY UL1007 16 AWG solid core wire 25 ft in white (B0FK5G1Q1J) and black (B0FK5HH8H1), sold by MECCANIXITY at USD 11.99 each, white arriving 2026-10-18 and black 2026-10-19. The order's other project lines are a BNUOK M3 \u00d7 6 SHCS 120-pack (USD 7.12), an iexcell M5 \u00d7 150 304 stainless SHCS 10-pack (USD 8.86), a SVLING M5 \u00d7 60 SHCS 40-pack (USD 7.50), a Small Parts DIN 125 M5 black-oxide washer 100-pack (USD 7.16) and a Mean Well IRM-90-12ST (USD 30.13); USD 84.75 item subtotal, USD 0.00 shipping, USD 6.14 estimated tax and USD 90.89 grand total. The tax is not itemized; it is allocated in proportion to item price, USD 0.87 per spool."
+    },
+    "src-0649cb496f6e45c3a07e83026856a9f2": {
+      "vendor": "Amazon",
+      "document_type": "pending_merchant_transaction",
+      "reference": "114-8768578-0217027",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "proves": [],
+      "verified_at": "2026-10-17",
+      "note": "Order-scoped Transactions lists the USD 90.89 debit In Progress (Pending) on 2026-10-17; this is an expected charge, without completed-charge or authorization proof. Delivery is pending."
     }
   },
   "coverage": [
@@ -30791,6 +30901,29 @@
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100708929",
         "Fresh Water Systems account order page WEBFWS100708929 (link expired)"
+      ]
+    },
+    {
+      "gap_id": "gap-b377c38272c84c2d9d0b972f58b6c35c",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-91bd3b099e80493ab591655550b439ca",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3"
+      ],
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4",
+        "src-0649cb496f6e45c3a07e83026856a9f2"
+      ],
+      "missing_fact": "USD 65.17 of the order's expected USD 90.89 charge is allocated to the order only: its five other project lines (M3 \u00d7 6, M5 \u00d7 150 and M5 \u00d7 60 screws, M5 washers and a Mean Well IRM-90-12ST) are not yet itemized purchases, and the charge is not yet completed.",
+      "sources_checked": [
+        "Amazon order details 114-8768578-0217027",
+        "Amazon order-scoped Transactions 114-8768578-0217027"
       ]
     }
   ],
