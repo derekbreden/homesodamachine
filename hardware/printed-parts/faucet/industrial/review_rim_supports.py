@@ -35,10 +35,10 @@ def vertices(raw):
     return np.array([[float(v.get(k)) for k in 'xyz'] for v in ET.fromstring(raw).findall('.//' + writer.qn('vertex'))])
 
 
-def material_review(gcode, report, early_max_z=16.8):
+def material_review(gcode, report, early_max_z=16.8, *, localized_cooling=False):
     names = {p['identify_id']: p['name'] for p in report['parts']}
     readings = {label:dict(part=name, extruding_commands=0, first_three_fans=set(), later_fans=set(),
-        bridge_speeds=set(), overhang_speeds=set(), features=set()) for label,name in names.items()}
+        bridge_speeds=set(), overhang_speeds=set(), features=set(), fan_by_feature={}) for label,name in names.items()}
     obj, feature, z, fan, feed = None, '', 0., 0., 0.
     xy = np.zeros(2)
     absolute_xyz, relative_e, e_pos = True, True, 0.
@@ -89,8 +89,10 @@ def material_review(gcode, report, early_max_z=16.8):
                     item = readings[obj]
                     item['extruding_commands'] += 1
                     item['features'].add(feature)
+                    item['fan_by_feature'].setdefault(feature, set()).add(fan/2.55)
                     item['first_three_fans' if z <= .68001 else 'later_fans'].add(fan/2.55)
-                    if abs(fan-(0 if z <= .68001 else 178.5)) > .001:
+                    allowed = (0., 178.5) if localized_cooling and z > .68001 else (0 if z <= .68001 else 178.5,)
+                    if min(abs(fan-value) for value in allowed) > .001:
                         violations.append(dict(line=number, part=names[obj], feature=feature, z=z, fan=fan))
                     if feature == 'Bridge':
                         item['bridge_speeds'].add(feed)
@@ -106,6 +108,7 @@ def material_review(gcode, report, early_max_z=16.8):
         for key,value in list(item.items()):
             if isinstance(value,set):
                 item[key] = sorted(value)
+        item['fan_by_feature'] = {k: sorted(v) for k,v in item['fan_by_feature'].items()}
         result.append(item)
     return result, ''.join(early)
 
