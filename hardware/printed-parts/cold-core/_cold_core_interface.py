@@ -117,13 +117,12 @@ foam_shell_outer_height = (
 carbonator_support_ring_height = 30.0
 support_ring_radial_width = 9.0
 
-# ⌀[6.8](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
-# (water outlet, reservoir bulkheads, reed cable holes, CO2 tube clearance).
-#   IT IS SIZED OFF THE TUBE ON THE BENCH AND NOT THE NOMINAL. 1/4" LLDPE calipers ⌀6.5 at the
-# top of its spool band (`tube-collar/tube_collar.py`), so a bore cut to the ⌀6.35 nominal is
-# an interference fit on the line it is for, and the printer takes more off it again. This is
-# that measured tube plus the slip a hand needs to push it through.
-port_hole_radius = 6.5 / 2.0 + fits.slip
+# Passive cold-core passages leave 0.5 mm radial air around the measured 6.5 mm
+# tube, including the blind crossing below a reservoir. These holes guide a line
+# through the shell; they do not grip it or seal the foam pour. Mask pour gaps
+# temporarily. Faucet, organizer, fitting and copper-plug fits have their own sizes.
+passage_tube_od = 6.5
+port_hole_radius = passage_tube_od / 2.0 + 0.5
 
 # Reed-channel cavity depth (radial, out from the bag-pocket far wall). The reed
 # column drops into this cavity; the outer_shell X width is sized so the cavity +
@@ -144,7 +143,7 @@ reed_y_half_w = 4.0
 # walls anywhere along that half.
 #   What pins it HERE is the FORWARD BAND overhead: the reed channel's envelope and
 # reservoir B's draw conduit both stand in that band's 8 mm, on the same face of the shell,
-# and a ⌀[6.8](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
+# and a ⌀[7.5](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
 # own deck wants and the reed column steps off it.
 level_rod_y = 32.5
 
@@ -399,11 +398,13 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # (`cap_conduits`), and so do the two reed cables, each up the channel its column stands in
 # (`reed_cable_conduit_xy`). What is left on this face is the copper slot on each lane and
 # no round bore at all.
-front_port_pitch = 2 * port_hole_radius + port_lane_wall
+# Copper-tail crossing datums are independent of passive LLDPE passage clearance.
+front_slot_layout_radius = 3.4
+front_port_pitch = 2 * front_slot_layout_radius + port_lane_wall
 # WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PET-GF over the floor, one
 # bore of lane, one wall again. That is the lowest anything can sit on this lane and still leave
 # the floor its material.
-front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
+front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + front_slot_layout_radius
 # AND WHAT HOLDS IT UP OFF THAT IS THE APPLIANCE'S OWN FLOOR. The core stands on `enclosure`'s
 # slab with the compressor bay mated to this face, and both coppers cross here — so a slot
 # that sits at the bottom of its lane puts the evaporator's two legs in the slab's material
@@ -414,7 +415,7 @@ front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 # the refrigerant loop into a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up
 # from this top.
 front_slot_standoff = front_port_pitch
-front_port_field_top_z = front_port_floor_z + front_slot_standoff + port_hole_radius
+front_port_field_top_z = front_port_floor_z + front_slot_standoff + front_slot_layout_radius
 
 # The face every penetration opens on, as a direction: the shell's own −X. A station is a
 # position and the way out of it, so a turn that moves the shell moves both.
@@ -483,10 +484,10 @@ state("flute-backed", "A groove keeps a whole wall behind it",
       f"{outer_shell_wall - flute_depth:g} mm, under the {wall_and_floor_thickness:g} mm a "
       f"fluted face must stand on")
 state("forward-band-takes-a-bore", "The forward band still passes a line",
-      f"{forward_band_width:g} >= {port_hole_radius * 2:g} mm",
-      forward_band_width >= port_hole_radius * 2,
-      f"the show skin thickened the ±X wall into the forward band, leaving "
-      f"{forward_band_width:g} mm against the {port_hole_radius * 2:g} mm bore that climbs it")
+      f"{forward_band_width:g} >= {passage_tube_od:g} mm",
+      forward_band_width >= passage_tube_od,
+      f"the open routing band is {forward_band_width:g} mm wide for the "
+      f"{passage_tube_od:g} mm measured tube; enlarged bores cross printed walls and caps")
 
 # A STATION NAMES THE WALL IT LEANS ON, and that is the whole of this table. A boss is a
 # cylinder tangent to one exterior face with a web run out to it, and WHICH face cannot be
@@ -829,7 +830,7 @@ def cap_cradle_room(name):
 # and a line runs up it from the shell's open top out onto the lid's outer face. The
 # service bay stands on that face.
 lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
-cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.8](PORT_HOLE_DIAMETER) every shell penetration takes
+cap_conduit_bore_radius = port_hole_radius   # the ⌀[7.5](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
@@ -896,7 +897,7 @@ state(
 # behind it, comes about, and climbs the forward strip potted to this bore. B takes the +Y band
 # and A the −Y one, because that is the wall each one's elbow points at, and A's climb is the
 # longer for it — its pocket is the far one from this strip.
-#   A ⌀[6.8](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
+#   A ⌀[7.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
 # pins the two stations in Y is that and the reed channels, whose envelopes stand in this same
 # strip and which both bores clear (`_reed_channels` measures it).
 #   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything
@@ -1015,6 +1016,11 @@ cap_cable_conduits = {
     "reed-cable-b": reed_cable_conduit_xy(-1),
 }
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
+# Full-height webs close the narrow foam gaps between these forward columns.
+# The bore axes and their 7.5 mm clear passages are independent of this stock.
+cap_conduit_links = (("reed-cable-b", "reservoir-b"),
+                     ("reservoir-b", "water-in"))
+cap_conduit_link_width = 3.0
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
 # Naming is what carries the pairing across the two frames, so the name is checked too: the
@@ -1571,6 +1577,10 @@ def cap_conduit_pair_neck(a, b):
     what matters is the NECK the lens leaves, which carries the joint and must be a wall
     thick. What neither may be is tangent: two circles meeting near a point close a knife
     edge that prints as a void and holds no load."""
+    pair = frozenset((tuple(a), tuple(b)))
+    for first, second in cap_conduit_links:
+        if pair == frozenset((cap_conduits[first], cap_conduits[second])):
+            return (cap_conduit_link_width, "the connecting web")
     r = cap_conduit_boss_radius
     d = math.hypot(a[0] - b[0], a[1] - b[1])
     if d >= 2.0 * r:

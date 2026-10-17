@@ -464,14 +464,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "new_return_centerline_radii_mm": [
         25.4
       ],
       "existing_front_route_scope": "Front supports and their existing bends retained.",
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "new_return_centerline_radii_mm": [
         25.4
       ],
@@ -482,7 +482,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "8ed2628015cb1c80d0e73d89858d4ebc2ddd6f49d5e218e64344f558bb9dd8ea",
+    "hardware/manifold-layout/enclosure_assembly.py": "53efb4ddaffff1b5e81616e8542022c01c61bd03f6d81f72cf7cd279e38ce2d8",
     "hardware/manifold-layout/_lines.py": "87e89188eb77e425049ee9513a29cfec8e3967c24f81712b080d0be5be9e7f81",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

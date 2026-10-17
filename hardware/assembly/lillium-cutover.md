@@ -48,7 +48,7 @@ what this build does differently.
 - §9: the Westbrass donor, an SS under-counter plate, the DIGITEN meter, CARGEN foam, black, blue
   and white 1/4" LLDPE, white 3/8" LLDPE, and the 28 AWG umbilical ribbon.
 - §11: the 22 AWG 3P, 4P and 5P ribbons and black spool, JST XH kits, female spades, ring
-  terminals, ferrules, heat-shrink, braided sleeve, 16 AWG silicone, Wago 221-413, -415 and -420,
+  terminals, ferrules, heat-shrink, braided sleeve, 16 AWG stranded silicone plus solid black/white stock, Wago 221-413, -415 and -420,
   the RJ11 keystone and plugs, the pogo contact pair, and 4", 6" zip ties.
 - §12: the RC62 magnets, MDSR-7-10-15 reeds and the 1/8" 316 rod.
 - §13: ruthex short and full-length M3 inserts, M3×8, ×10, ×60 and 304 ×12 screws, and the PTFE
@@ -59,9 +59,8 @@ what this build does differently.
   ([B003NUUKL8](https://www.amazon.com/dp/B003NUUKL8), 10-pack).
 - Two John Guest PP0408W 1/4" straight unions, joining the white faucet's flavor runs to the black
   umbilical runs ([B005S4MTXO](https://www.amazon.com/dp/B005S4MTXO), one per listing).
-- Five insulated fork terminals, 22–16 AWG, for the IRM-90-12ST's screw terminals: AC-2 ×3, DC-1
-  ×2 ([B0FQBYXZS2](https://www.amazon.com/dp/B0FQBYXZS2), #6 stud). BOM §11 sizes these to the
-  terminal screw; confirm it on the supply first.
+- 16 AWG solid tinned-copper black and white hookup wire for AC-2 and DC-1/4,
+  with Prime links in [BOM §11](/hardware/ledger/bom.md#11-wiring--fasteners).
 
 **On order:** the M1.4 heat-set inserts and M1.4×8 screws for both pogo halves, and the Wiha
 1.3 mm hex driver that seats them.
@@ -157,17 +156,17 @@ Populate it inverted, ceiling down
    CARGEN: the line is cold and the cabinet is not.
 4. **The electronics bay** ([electronics bay](electronics-bay.md)). The five Wago 221-413 lever nuts
    press into their wall wells, labeled H, N, G, +, GND. Then bolt up the bodies: the
-   IRM-90-12ST on its four bosses, the main board on its four (ESD-safe), and the ground stack
+   IRM-90-12ST on its four bosses after preforming and landing its unpowered solid-wire pigtails, the main board on its four (ESD-safe), and the ground stack
    under its M3×10.
 5. **Mains and 12 V:**
 
    | Run | From → to | Termination |
    |---|---|---|
    | AC-1 | C14 tabs → the H, N, G Wagos | soldered at the C14 ([wiring §2](wiring.md#2-ac-mains-c14--distribution--relay-1--compressor--psu)); ferrules at the Wagos |
-   | AC-2 | the H, N, G Wagos → the PSU's primary and earth | ferrules; forks at the PSU |
+   | AC-2 | the H and N WAGOs → PSU L and N | 16 AWG solid black/white, stripped directly in both clamps; the PSU has no earth terminal |
    | G leg | the G Wago → the ground stack | ferrule; ring at the stack |
-   | DC-1 | PSU + and − → the + and GND Wagos | forks at the PSU; ferrules |
-   | DC-4 | the + and GND Wagos → J10 | ferrules; `V12` east, `GND` west |
+   | DC-1 | PSU + and − → the + and GND WAGOs | 16 AWG solid black, stripped directly in both clamps |
+   | DC-4 | the + and GND WAGOs → J10 | 16 AWG solid black, stripped directly in both clamps; `V12` east, `GND` west |
 
    AC-3 to AC-6 (the compressor's), DC-2 and DC-3 (the water pump's) and the J5 loom are not built.
    Run [electronics bay §7](electronics-bay.md#7-pre-power-continuity--isolation-check)'s

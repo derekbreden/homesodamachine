@@ -206,7 +206,7 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # here, above the liquid, so the two never share a mouth and everything entering
 # has to cross the cavity to leave by the trough.
 #
-# The bore is the ⌀[6.8 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
+# The bore is the ⌀[7.5 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
 # boss hanging below the base plate so the joint has bore length to seat in.
 #
 # EACH SIDE HAS ITS OWN STATION and they are not a mirrored pair — A at

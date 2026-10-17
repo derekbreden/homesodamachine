@@ -6,6 +6,15 @@ or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
 2026-10-04 against the generators, saved print projects and linked physical records.
 
+The [prototype assembly-clearance review](../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+records the October 17 C14 height and cold-core blind-insertion feedback.
+It binds the C14 measurement to the October 10 Mark1 article and retains the
+May 31 foam-shell record's scope. Current passive core crossings are Ø7.5 mm;
+the C14 has 0.5 mm extra per X/Z edge with fixed Y seating depth. Mean Well
+wire entry and screwdriver directions are separate interfaces. Native local
+wire/tool clearance is measured; physical fit of the revised parts remains
+unmeasured.
+
 Bench issues and accepted results retain the scope of their linked physical records.
 An accepted fit establishes that fit; a geometric clearance establishes that clearance.
 Neither supplies an unmeasured load capacity or endurance result.

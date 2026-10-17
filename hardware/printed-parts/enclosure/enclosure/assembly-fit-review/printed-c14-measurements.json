@@ -1,0 +1,71 @@
+{
+  "scope": "Mesh dimensions at two C14 sections; excludes deposited bead error and hand fit.",
+  "article": {
+    "path": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.3mf",
+    "sha256": "f0a32edbab06109c379271e8892a26537e308546be6e78b6ebcf6799c41b0a22",
+    "registration": {
+      "member": "3D/Objects/object_1.model",
+      "offset_mm": [
+        -0.0,
+        335.650006104,
+        257.5
+      ],
+      "raw_bounds_mm": [
+        [
+          -107.5,
+          -135.649993896,
+          -97.5
+        ],
+        [
+          107.5,
+          135.649993896,
+          97.5
+        ]
+      ]
+    },
+    "pocket_at_y460": {
+      "x_mm": 50.06995636061325,
+      "z_mm": 22.720001219999972,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        25.03497777317529,
+        25.03497858743796,
+        11.235006320443176,
+        11.484994899556794
+      ]
+    },
+    "cord_bore_at_y469": {
+      "x_mm": 24.300003051999994,
+      "z_mm": 18.550018310000073,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        12.150003051999986,
+        12.150000000000006,
+        9.150014865443222,
+        9.400003444556852
+      ]
+    }
+  },
+  "current": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "sha256": "7d7733bd30f9ecf13f334849bf14dd7e9f3b3e8644066bd30671c9ad9671d0cb",
+    "pocket_at_y460": {
+      "x_mm": 51.06976679721793,
+      "z_mm": 23.720001220703125,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        25.53488301713923,
+        25.5348837800787,
+        11.735006320646335,
+        11.98499490005679
+      ]
+    },
+    "cord_bore_at_y469": {
+      "x_mm": 25.300003051757812,
+      "z_mm": 19.550018310546882,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        12.650003051757809,
+        12.650000000000006,
+        9.650014865568242,
+        9.900003444978642
+      ]
+    }
+  }
+}

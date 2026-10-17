@@ -39,7 +39,7 @@ reservoir's far wall, centered on the same +Y rod/reed plane. It is open at the
 top and has a bottom shelf. The column drops into this dry channel after the
 foam pour has cured; it is mechanically captured by the shelf, sides and cap.
 It is not embedded in foam. The cable rises directly through the cap's
-**[6.8 mm](CONDUIT_BORE_D)** conduit at
+**[7.5 mm](CONDUIT_BORE_D)** conduit at
 [reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)](REED_CONDUIT_XY).
 The −X face stays flat against the refrigeration base. The fluid draw exits
 through each pocket's −Y wall at x = [±97](FLAVOR_HOLE_X).

@@ -34,3 +34,12 @@ of moulded ear ([`bom.md`](/hardware/ledger/bom.md) §13 sizes it). The ledge
 outline and terminal blocks here are representative; the **envelope, ledge
 height and hole pattern are the drawing's**. Regenerate with
 `tools/cad-venv/bin/python meanwell_irm90.py`.
+
+## Terminal access
+
+AC wire entry faces +Y and DC entry −Y along the 109 mm axis. Screw heads
+face +Z in this reference; in the appliance they face the room along −X.
+`wire_entry()` separates the representative side-entry mouths from the
+`ac_in()` / `dc_out()` screw-head planes. Block dimensions are representative.
+The [assembly-fit review](../../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+records the module placement and installed-wire fit scope.

@@ -37,6 +37,7 @@ from _foam_cap import (
     top_cap_height,
 )
 from _outer_shell import build_attachment_bosses
+from _cold_core_interface import cap_conduit_links, cap_conduit_link_width
 from _cold_core_interface import (
     build_z_axis_hole_punch,
     attachment_xy_positions,
@@ -158,6 +159,13 @@ def _conduit_section_area():
             if d < 2.0 * r:
                 area -= (2.0 * r ** 2 * math.acos(d / (2.0 * r))
                          - (d / 2.0) * math.sqrt(4.0 * r ** 2 - d ** 2))
+    # The named links join separated columns inside the cup. Each rectangle's
+    # exposed area is its length times width, less the two circular end strips.
+    # Their added sections do not overlap each other or the perimeter wall.
+    half = cap_conduit_link_width / 2.0
+    end_strip = half * math.sqrt(r * r - half * half) + r * r * math.asin(half / r)
+    for first, second in cap_conduit_links:
+        area += math.dist(cap_conduits[first], cap_conduits[second]) * cap_conduit_link_width - 2 * end_strip
     return area - sum(_conduit_wall_overlap_area(*c) for c in centres)
 
 

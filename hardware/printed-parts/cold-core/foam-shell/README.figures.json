@@ -6,7 +6,7 @@
     "CAP_H_TOP": "12.6 mm",
     "CAP_SCREW_LEN": "25",
     "CAP_SCREW_REACH": "6.4 mm",
-    "CENTROID": "(0.932826, 0.199508, 91.240772) mm",
+    "CENTROID": "(0.978988, 0.207718, 91.236179) mm",
     "CO2_BORE_Y": "-19.05",
     "CO2_BORE_Z": "17",
     "COIL_GAP": "7 mm",
@@ -16,7 +16,7 @@
     "FACE_SCREWS": "10",
     "FLAVOR_POCKET_X": "97 mm",
     "FSHELL_BBOX_X": "-141.508 to 141.508 mm",
-    "FSHELL_BBOX_Y": "-90.508 to 90.508 mm",
+    "FSHELL_BBOX_Y": "-90.508 to 90.515 mm",
     "FSHELL_BBOX_Z": "-0.008 to 213.455 mm",
     "FSHELL_FLUTE_COUNT": "182",
     "FSHELL_FLUTE_DEPTH": "1.2 mm",
@@ -27,7 +27,7 @@
     "FSHELL_OUTER_Y": "181",
     "FSHELL_PLAN_PERIMETER": "907.4 mm",
     "FSHELL_POUR_BAND": "14.8 mm",
-    "FSHELL_VOLUME": "1264096.127 mm\u00b3",
+    "FSHELL_VOLUME": "1263443.047 mm\u00b3",
     "FSHELL_WALL_T": "2 mm",
     "GASKET_T": "2 mm",
     "GASKET_W": "5 mm",
@@ -67,7 +67,7 @@
     "TANK_R": "63.5 mm",
     "TIP_CLEAR": "1.6 mm",
     "TRANSITION_ARC_R": "8 mm",
-    "TUBE_HOLE_D": "6.8 mm"
+    "TUBE_HOLE_D": "7.5 mm"
   },
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "RESERVOIR_D": "48.5 mm",
