@@ -13,7 +13,7 @@ relay. Preform and terminate the fixed solid-wire leads before fastening
 the module. The block model is representative; the complete installed
 wire bend remains a physical assembly observation.
 
-Two 3 mm full-height webs join the close forward conduit columns while
+Two 5 mm full-height webs join the close forward conduit columns while
 retaining their 2 mm walls and tube stations.
 Passive cold-core tube crossings and cap conduits are Ø7.5 mm for tubing
 measured at approximately Ø6.5 mm. Mask the gaps during the foam pour as
@@ -46,9 +46,17 @@ preparation records `prepared_not_started`.
 
 [Core passage measurements](core-passage-measurements.json) read Ø7.5 mm
 cylinder faces from the exported top cap, top lid, both reservoir caps and
-foam shell and measure both connecting webs at 3 mm. `measure_core.py` is a
+foam shell and measure both connecting webs at 5 mm. `measure_core.py` is a
 manual B-rep measurement. The [appliance assembly review](../../../../manifold-layout/enclosure-assembly.scorecard.json)
 passes its active checks, including pack closure and conduit wall/pair stock.
+
+The [post-publication mesh review](post-publication-review.json) records open
+sharp passage-rim findings and the unchanged seam, port and cap-perimeter
+regions. Both the preceding and current shell STL report acute curved-passage
+entry edges. The Ø7.5 mm clearance review does not qualify their printed
+finish. Local chamfer/round candidates did not produce valid solids and are
+excluded from the exports. The listed back-top support faces retain their
+functional openings and stated support exits.
 
 [Wiring construction](../../../../wiring/ac-wiring-schedule.md#conductor-construction)
 names the fixed solid-wire runs, stranded exceptions and Prime stock.

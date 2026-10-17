@@ -59,7 +59,7 @@ click: x=-40.710 y=469.545 z=291.217
 [ceiling] These are the finite ends of the authored main-board/relay mounting-pad unions. The source keeps their component mounting planes and insert hosts, while candidate corbels are limited by the actual neighboring pin/blocker fields. Tree (auto)/Default supports the exposed ends before electronics installation; cleanup remains unqualified.
 alternatives: Adding an unrestricted corbel occupies the populated board/tail keepout. Shortening the pads changes insert-host/root geometry; replacing the layout requires a separate populated-board clearance check.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.375 y=341.300 z=259.400
+click: x=97.375 y=338.300 z=259.400
 click: x=97.375 y=340.300 z=327.200
 
 [ceiling] The ASSE anchor has a shared tie-return cavity under its V and a flat web over the tie span. Outside that span columns join the ceiling; inside it the loop requires open room. Support leaves from the shared cavity into the empty chain pocket before the chain and ties are installed; removal effort remains unqualified.
@@ -68,11 +68,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-100.000 y=378.510 z=321.671
 click: x=-91.207 y=378.510 z=345.211
 
-[ceiling] These two flats belong to the C14 purchased flange/tunnel passage. The canonical fitted outline, receptacle ears and heat-set stations define their finite boundaries. Support leaves through the empty rear opening/tunnel before the inlet is screwed in; cleanup remains unqualified.
+[ceiling] These two flats belong to the C14 flange/tunnel passage with 0.5 mm extra clearance per X/Z edge. The specified outline, receptacle ears and fixed heat-set stations define their finite boundaries. Support leaves through the empty rear opening/tunnel before the inlet is screwed in; physical fit and cleanup of this opening remain unqualified.
 alternatives: Filling enters the inlet or flange insertion path. Sloping the fitted outline changes the seat or aperture; reducing the tunnel spends the insert-host/root geometry.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=467.175 z=326.811
-click: x=66.900 y=460.550 z=324.726
+click: x=66.900 y=467.175 z=326.311
+click: x=66.900 y=460.550 z=324.226
 
 [ceiling] These six Z-facing flats are the lower ends of the rear port-chip pockets. The chip outlines remain fixed, their backs retain 0.15 mm positive static air, and the supported lower ends receive their directional allowance. Current native backing checks retain full 4 mm ordinary and 3 mm CO2 stock. Support leaves through the open field before chips and fittings are installed.
 alternatives: Filling reduces the chip-end fit. Removing the edge changes the complete pocket outline or flange retention; changing fitting or chip positions is a different layout choice.
@@ -131,6 +131,7 @@ click: x=87.802 y=468.550 z=260.553
 alternatives: Filling an unrestricted wedge occupies the authored populated-board/tail keepout. Cutting the chord or sleeve changes mounting/insert-entry stock. A board-layout change needs its own exact populated clearance review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.000 y=324.467 z=260.400
+click: x=97.000 y=320.300 z=327.200
 
 [ledge] These sixteen 2 mm projection faces are the west/east Wago pockets' connector-specific end tabs. The center remains open for lever/wire access and the selected short-bridge lid profile.
 alternatives: Removing tabs loses end retention. Filling between them changes the selected open-center roof and its support treatment.
