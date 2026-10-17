@@ -20,7 +20,9 @@ The [native review](native-review.json) records one object, 77 layers,
 24 min 42 s and 6.64 g using the saved profile density. Model, support and brim
 beads retain 131.63 mm minimum clearance to the right nozzle's usable area.
 [Packaging](packaging.json) retains byte-identical G-code in the print-only copy.
-Physical finish, support cleanup and fit remain pending.
+The [reported physical result](../2026-10-17-cooling-off-prepared-mark2/reported-failure.json)
+rejects this cover for assembly: it breaks under the small spreading motion
+needed to load the display. The initiating cause is unestablished.
 
 The printer accepted this job as task **1345901173**.
 The [startup observation](startup.json) reports the correct 77-layer

@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "date": "2026-10-17",
+  "question": "Two current white PET-GF covers break during light assembly while an older white Sculpted cover tolerates the motion.",
+  "historical_white_set": {
+    "record": "hardware/printed-parts/faucet/faucet-shell/print-log.md#white-sculpted-faucet--2026-09-18-mark2",
+    "submitted_name": "sculpted-white-z018-mark2.gcode.3mf",
+    "native_archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
+    "successful_cover_stl_sha256": "d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f",
+    "retained_editable_project_git_revision": "12649bc17",
+    "retained_editable_project_sha256": "775ebd194b780e16df6e507c903a33fee8357e3a7bd104e193b7405ce6089bb7",
+    "note": "The September log identifies the submitted white set and successful source STL. The retained editable snapshot provides the historical process; its readiness file labels the full-plate slice pending, so it is not presented as the submitted archive."
+  },
+  "recent_cover_geometry_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "settings_comparison": {
+    "fan_min_speed": {
+      "september_retained_project": [
+        "0"
+      ],
+      "october_solo_cover": [
+        "70"
+      ]
+    },
+    "fan_max_speed": {
+      "september_retained_project": [
+        "70"
+      ],
+      "october_solo_cover": [
+        "70"
+      ]
+    },
+    "overhang_fan_speed": {
+      "september_retained_project": [
+        "0"
+      ],
+      "october_solo_cover": [
+        "70"
+      ]
+    },
+    "close_fan_the_first_x_layers": {
+      "september_retained_project": [
+        "3"
+      ],
+      "october_solo_cover": [
+        "3"
+      ]
+    },
+    "nozzle_temperature": {
+      "september_retained_project": [
+        "280",
+        "265",
+        "270"
+      ],
+      "october_solo_cover": [
+        "280",
+        "265",
+        "270"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "september_retained_project": [
+        "265",
+        "265",
+        "270"
+      ],
+      "october_solo_cover": [
+        "265",
+        "265",
+        "270"
+      ]
+    },
+    "hot_plate_temp": {
+      "september_retained_project": [
+        "80"
+      ],
+      "october_solo_cover": [
+        "80"
+      ]
+    },
+    "layer_height": {
+      "september_retained_project": "0.24",
+      "october_solo_cover": "0.24"
+    },
+    "initial_layer_print_height": {
+      "september_retained_project": "0.2",
+      "october_solo_cover": "0.2"
+    },
+    "wall_loops": {
+      "september_retained_project": "2",
+      "october_solo_cover": "2"
+    },
+    "bridge_flow": {
+      "september_retained_project": "1",
+      "october_solo_cover": "1.25"
+    },
+    "seam_position": {
+      "september_retained_project": "aligned",
+      "october_solo_cover": "aligned"
+    },
+    "seam_gap": {
+      "september_retained_project": "15%",
+      "october_solo_cover": "15%"
+    },
+    "filament_wipe": {
+      "september_retained_project": [
+        "nil",
+        "nil",
+        "nil"
+      ],
+      "october_solo_cover": [
+        "0",
+        "nil",
+        "nil"
+      ]
+    },
+    "bridge_speed": {
+      "september_retained_project": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "october_solo_cover": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    }
+  },
+  "geometry_comparison": {
+    "september_source_revision": "12649bc17",
+    "current_source_revision": "59c242516e7023e19488ab4229ee45e99f16776c",
+    "september_measurement": "september-geometry.json",
+    "current_measurement": "current-geometry.json",
+    "sample_scope": "X-direction material intervals at S12/24/36 and N8/10/13/16/19 in each cover's own display frame. This is a local section comparison, not a complete minimum-thickness or stress analysis.",
+    "unchanged": [
+      "1.30 mm nominal cosmetic wall",
+      "1.25 mm top inward preload per wing",
+      "1.513 mm bottom inward preload per wing",
+      "3 mm lip height",
+      "1.2 mm engagement",
+      "0.25 mm display cavity clearance",
+      "0.24 mm ordinary layer height",
+      "-50 degree CAD X cover print pose"
+    ],
+    "changed": [
+      "Neck radius 13.012455 to 13.5 mm; skirt width 28.924911 to 29.9 mm",
+      "Rear lower skirt extends 1.2 mm aft with a revised sloping rear opening",
+      "Total cover volume 3621.97 to 3803.46 cubic mm"
+    ],
+    "finding": "Sampled lower wing sections differ by at most 0.014 mm near N8; the upper sampled sections are slightly thicker. No wholesale thinning appears in these samples. The broader neck and rear closure can change stiffness and required motion; their effects are unmeasured."
+  },
+  "leading_hypothesis": "Continuous 70 percent part cooling may reduce interlayer bonding in this thin flexing part. It is a plausible cause, not established by the observed breaks.",
+  "alternative_hypotheses": [
+    "Rear closure and broader neck alter flexibility or insertion load",
+    "Filament moisture, feed or nozzle condition differ from the September print",
+    "Local seam or support-removal damage; the fracture plane and exact break location are not supplied"
+  ],
+  "manufacturer_guidance": [
+    {
+      "url": "https://wiki.polymaker.com/polymaker-products/polymaker-filaments/fiberon-tm/fiberon-tm-pet-gf15",
+      "checked_date": "2026-10-17",
+      "relevant_guidance": "280\u2013310 C print temperature; cooling fan off; slower printing for layer-adhesion issues."
+    }
+  ],
+  "prepared_trial": {
+    "native_review": "native-review.json",
+    "variable": "Part cooling only; fan_min_speed, fan_max_speed and overhang_fan_speed all zero",
+    "geometry_changed": false,
+    "temperatures_changed": false,
+    "speed_settings_changed": false,
+    "supports_changed": false,
+    "production_recipe_changed": false,
+    "submitted": false,
+    "next_physical_reading": "After cooling and support removal, load the display and seat the complete cover on the matching current Sculpted tip using the documented sequence. It must survive that normal motion without a crack and retain the display and cover. Record underside quality as well, because cooling is used for overhang finish. This result establishes that assembly only."
+  },
+  "recommendation": "Test the current geometry with part cooling off before adding thickness. A thicker flexing wall also becomes stiffer, so thickness alone is not a controlled cure for assembly fracture."
+}

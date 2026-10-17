@@ -1,0 +1,19 @@
+{
+  "source_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "dea47d44607aed23ac35bf2f6d0982964e8cdd22edf16238c594919847709c2c",
+  "print_only_archive": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2-print-only.gcode.3mf",
+  "print_only_archive_sha256": "ec54acb75feeb57dd986408c5d8f6262b8cd05dbdf1a3df7dce02e47834cdf96",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "575aaa7bd5ab3a8616d2195b9a8689ec68576cf77170be2d589dec4c22ee37e4"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

@@ -10,7 +10,9 @@ bytes. The [startup observation](startup.json) reports RUNNING, layer 0 of
 1022, error 0 and no HMS at 02:16:34 UTC on October 16.
 Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
 The slice estimate is **6 h 14 min 27 s**, approximately **155.39 g** using the
-saved profile density. Physical finish, cleanup and fit are pending.
+saved profile density. The display cover
+[broke during assembly](../../../faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json).
+That report assesses the cover only; the other four parts have no result here.
 
 ## Selected process
 
