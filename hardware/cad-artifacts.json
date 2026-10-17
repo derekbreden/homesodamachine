@@ -16,7 +16,11 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "hardware/printed-parts/cadlib/petgf_cooling.py",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/industrial/prepare_print_project.py",
+      "hardware/printed-parts/faucet/refresh_print_project.py",
+      "hardware/printed-parts/faucet/sculpted/prepare_print_project.py",
       "hardware/scripts/check_faucet_geometry.py"
     ],
     "members": [
@@ -1703,9 +1707,9 @@
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "0769ffd8b8dbe23f94e304346aecbf550636ad58e6226f588036767ddd8dac7f",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "6a8a621c2702b90d25ca0f226637aad2938d63644538f5bf9897f50143b60cba",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "85ec0e325430487fcaa13487156612e7772c105d0df4584ac76b1b3a73fa2675",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "25a9c65cecbaf93e5fa5f46d322194941ee584fb0d928d6c41ad40cf295263b2",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "9c8941c7183970120a1e3c0246f2e7fb4f8d93fda69e3fcf71a307e15600d9cb",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "99459c0ea5e7efc2c4fdacbf1534c8968cd8cad5d826ac4f0b7bfe4b65b7a52b",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "b9570bf6fbb07af83020bc084f8486e50bd75f13905b3145fdcc35e3e02ef7bd",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "9fdbfc308110bc0b922439c42984c44fe99558017ea499501f6b4fd11d32a91a",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "0fb7f3d93df68f7e30935885f3f8d1b99430d896b3937a07894333f93d72a577",
@@ -3018,9 +3022,9 @@
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step": 1791366507,
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh": 1791366507,
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": 1791366507,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": 1791370293,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": 1791370293,
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": 1791370293,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": 1792273499,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": 1792273499,
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": 1792273499,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": 1792273478,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": 1791681861,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": 1792273478,
