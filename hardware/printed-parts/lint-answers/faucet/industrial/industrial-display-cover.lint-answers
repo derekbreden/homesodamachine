@@ -22,3 +22,20 @@ click: x=0.000 y=-143.818 z=188.637
 alternatives: Flattening this wall changes display clearance or closes its underside access. Enlarging the cover changes its neck fit and outside envelope. Retain the matching hardware pocket and inspect any supported contact before installing the display.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-112.627 z=224.797
+
+[slope] The slope class reads CAD Z without the saved -50 degree production rotation. The bezel underside is horizontal in the print frame and receives accessible automatic supports; the front and rear end walls are vertical there. The reported 45 degree interpretation therefore does not describe this print pose.
+alternatives: Account for the saved pose in this lint class. Changing these display-clearance faces changes the hardware pocket rather than fixing the classification.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=0.000 y=-135.281 z=213.939
+click: x=0.000 y=-144.394 z=189.116
+click: x=0.000 y=-113.203 z=225.277
+
+[thin] Outside the cooling/display-seat task: these are the retained 1.25 mm broad preformed wings and 1.30 mm bezel, with the same lip datums and 0.50 mm Industrial wing extension. Their flexure and display-capture geometry is not being redesigned. This entry does not establish strength or endurance of the taller cover. See ../../../faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/surface-review.json; Derek was told existing thin-section findings remain separate from this revision.
+alternatives: A thicker wing or bezel changes stiffness, display recess and available snap travel. Such a geometry revision requires its own complete fit and assembly reading.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=12.799 y=-141.287 z=189.576
+click: x=14.042 y=-141.213 z=189.514
+click: x=-12.799 y=-141.287 z=189.576
+click: x=-14.042 y=-141.213 z=189.514
+click: x=-10.616 y=-146.890 z=202.127
+click: x=-10.616 y=-145.894 z=201.292

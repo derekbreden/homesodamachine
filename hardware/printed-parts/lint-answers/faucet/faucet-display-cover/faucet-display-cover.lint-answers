@@ -5,3 +5,19 @@ click: x=0.000 y=-133.838 z=212.552
 [slope] These are the flat lower skirt and lip seating lands at local N3.30. The saved STEP witness in lower-land-lint-check.json measures 160.56 mm² across both lands. The cover's -50 degree CAD-X print pose makes both lands horizontal on the bed with downward normals; the upper retaining lands face up. The 3.00 mm lips have 0.25 mm relief only at their inner curved corners, preserving their broad flat seating and retaining lands.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
 click: x=0.000 y=-120.449 z=201.672
+
+[slope] The slope class reads CAD Z without this cover's -50 degree production rotation. The actual bezel-underface normal (0, 0.766044, -0.642788) becomes (0, 0, -1) in the print frame: a horizontal supported underside, not a 45 degree wall ending without a foot. The lower seating land is horizontal too. This is a pose limitation of that lint class, not a requested change to the display fit surfaces.
+alternatives: A pose-aware slope classification would distinguish these faces. Reorienting or changing the bezel/retaining lands changes the selected print or hardware fit.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=0.000 y=-134.986 z=213.514
+click: x=0.000 y=-120.447 z=201.671
+
+[thin] Outside the cooling/display-seat task: these rear-corner short-ray regions also occur at the same locations on the successful fan-off cover (0.202/0.232 mm before, 0.229/0.231 mm on this revision). The remaining rear-region chord is 1.822 mm. They remain separate unresolved geometric findings, not an inferred strength acceptance. The complete rear-opening boundary reading is at least 1.22787 mm; it does not disprove a separate short-ray finding. See ../../../faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/surface-review.json. Derek was told these existing flags are retained for separate review.
+alternatives: Reconcile the rounded skin, cylindrical neck opening and rear lower trim in a dedicated corner revision, then read the complete opening and display-loading envelope. A uniform rear trim does not address their intersection; a blanket wall-thickness increase changes the retained flexure.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=-10.221 y=-110.460 z=222.152
+click: x=-10.221 y=-110.244 z=222.227
+click: x=10.227 y=-110.458 z=222.140
+click: x=10.227 y=-110.240 z=222.216
+click: x=0.254 y=-112.356 z=227.936
+click: x=0.254 y=-112.821 z=229.697

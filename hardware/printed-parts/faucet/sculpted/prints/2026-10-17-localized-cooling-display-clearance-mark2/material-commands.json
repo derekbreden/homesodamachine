@@ -2,7 +2,7 @@
   "parts": [
     {
       "part": "faucet-shell-base",
-      "extruding_commands": 879953,
+      "extruding_commands": 880028,
       "first_three_fans": [
         0.0
       ],
@@ -79,7 +79,7 @@
     },
     {
       "part": "faucet-shell-tip",
-      "extruding_commands": 431107,
+      "extruding_commands": 431336,
       "first_three_fans": [
         0.0
       ],

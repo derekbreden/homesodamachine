@@ -20,81 +20,87 @@
   },
   "added_tip_stock": [
     {
-      "volume_mm3": 13.49999999999171,
+      "volume_mm3": 14.624999999999938,
       "bounds_x_s_n_mm": [
         [
-          7.0,
-          3.7399999999965723,
-          10.099999999932562
+          6.75,
+          3.7399999999999807,
+          10.099999999999984
         ],
         [
           10.0,
-          6.740000000046229,
-          11.59999999998459
+          6.740000000000286,
+          11.600000000000005
         ]
       ]
     },
     {
-      "volume_mm3": 13.499999985996483,
+      "volume_mm3": 14.624999982018364,
       "bounds_x_s_n_mm": [
         [
-          6.9999999,
-          42.73999989952844,
-          10.099999899948742
+          6.7499999,
+          42.7399998995009,
+          10.099999899999995
         ],
         [
-          10.000000105884636,
-          45.74000010080796,
-          11.60000009998325
+          10.000000106742633,
+          45.7400001007606,
+          11.600000099999994
         ]
       ]
     },
     {
-      "volume_mm3": 13.49999999999171,
+      "volume_mm3": 14.62500000000015,
       "bounds_x_s_n_mm": [
         [
           -10.0,
-          3.7399999999965723,
-          10.099999999932562
+          3.7399999999999807,
+          10.099999999999984
         ],
         [
-          -7.0,
-          6.740000000046229,
-          11.59999999998459
+          -6.75,
+          6.740000000000286,
+          11.599999999999994
         ]
       ]
     },
     {
-      "volume_mm3": 13.499999999847924,
+      "volume_mm3": 14.625000000087189,
       "bounds_x_s_n_mm": [
         [
-          -10.000000105885775,
-          42.739999899528044,
-          10.099999899948742
+          -10.000000106683764,
+          42.73999989949979,
+          10.099999899999967
         ],
         [
-          -6.9999999,
-          45.74000010080874,
-          11.60000009998325
+          -6.7499999,
+          45.740000100761094,
+          11.600000100000022
         ]
       ]
     }
   ],
-  "removed_tip_stock_mm3": 0.0,
+  "removed_tip_stock_mm3": 0,
   "retained_ribbon_side_run_n_mm": 11.1,
   "existing_gooseneck_ribbon_clearance_mm": 0.018942134468551818,
   "same_clearance_before_change_mm": 0.018942134471674903,
   "source_sha256": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f17a6e1adb9400452fd73e5c907b76bc10c18e42c1eb4b477a25a7c33bbd839b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "72e73db7df4a40fd98cf663f5d5fb1db784af4d5b9095ab7b0abd9575fe411bd",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f"
   },
-  "stock_comparison_method": "Native before/after shell-tip B-reps; STEP exchange is used separately for saved-artifact clearance readings. Four added 3 x 3 x 1.5 mm bearing-pad extensions. No native tip stock removed.",
+  "stock_comparison_method": "Native before/after tip Booleans. Four bearing pads extend upward 1.50 mm and 0.25 mm inward to meet the existing channel wall. No intermediate ledge. No native tip stock removed.",
   "before_source_commit": "23e85414a012d718c7fe4dd7c2bc4f242d86b1fe",
   "previous_flavor_hardware_gaps_mm": {
     "-1": 0.3006397181854381,
     "1": 0.3006397181854457
   },
-  "existing_gooseneck_ribbon_reading_scope": "Both before and after have positive 0.018942 mm nominal clearance with no intersection at the same gooseneck location. The existing manual reader requests 0.1 mm; that pre-existing shortfall is retained and is not a display-seat regression."
+  "existing_gooseneck_ribbon_reading_scope": "Both before and after have positive 0.018942 mm nominal clearance with no intersection at the same gooseneck location. The existing manual reader requests 0.1 mm; that pre-existing shortfall is retained and is not a display-seat regression.",
+  "bearing_pad_dimensions_x_s_n_mm": [
+    3.25,
+    3.0,
+    3.5
+  ],
+  "bearing_pad_inner_wall_abs_x_mm": 6.75
 }
