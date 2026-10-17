@@ -172,7 +172,7 @@ give the full endpoint map and plug/jack continuity procedure.
    and the display remains seated when its touch surface is pressed. The
    enclosure's lower edge and the three tube outlets end at the same plane.
 
-The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
+The nominal tube-to-USB clearance is 1.80 mm along the display normal. The flavor passages permit
 some tube movement, so the seated real bundle is part of the complete faucet's
 fit reading. The [production print projects](../vent-print-readiness/README.md)
 contain the matching complete tip and cover in their reviewed orientations.

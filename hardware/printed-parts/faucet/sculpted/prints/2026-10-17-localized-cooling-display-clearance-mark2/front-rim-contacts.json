@@ -1,0 +1,29 @@
+{
+  "scope": "Front rim near CAD Y<-24 at the first two last-starting courses. Bearing includes model and support beads within the preceding 0.80 mm in Z; it is an XY envelope reading, not an adhesion measurement.",
+  "traces": [
+    {
+      "print_z_mm": 15.32,
+      "gcode_line": 503579,
+      "length_mm": 9.226206583349315,
+      "longest_run_without_lower_bead_xy_overlap_mm": 0
+    },
+    {
+      "print_z_mm": 15.32,
+      "gcode_line": 503867,
+      "length_mm": 24.50411895322882,
+      "longest_run_without_lower_bead_xy_overlap_mm": 0
+    },
+    {
+      "print_z_mm": 15.32,
+      "gcode_line": 505505,
+      "length_mm": 46.98021072908801,
+      "longest_run_without_lower_bead_xy_overlap_mm": 0
+    },
+    {
+      "print_z_mm": 15.56,
+      "gcode_line": 509852,
+      "length_mm": 20.180492196620985,
+      "longest_run_without_lower_bead_xy_overlap_mm": 0
+    }
+  ]
+}
