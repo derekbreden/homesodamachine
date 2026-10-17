@@ -12,8 +12,10 @@ for its two identified PET-GF covers. The [acceptance record](physical-acceptanc
 preserves the successful STL and reported results. The current cover matches the
 27 mm vent-bearing neck and has a different STL. Both identified current white
 covers [broke during assembly](prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
-including display loading. The [prepared cooling trial](prints/2026-10-17-cooling-off-prepared-mark2/README.md)
-uses the current geometry with part cooling off; it has not been submitted.
+including display loading. The [fan-off cooling trial](prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
+passed normal display loading and cover installation. Its acceptance belongs
+to the identified pre-clearance-change STL. The current seat and bezel add
+1.50 mm outward clearance while retaining the neck snap datums.
 Numerical force and cycle life have not been measured.
 
 ## Geometry
@@ -23,7 +25,7 @@ rounded skin tapers to the skirt around the neck. The bezel is
 [1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
 section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_HEIGHT)-high retaining lips
 continue inward from the side walls. The four metal-foot bearing pads are
-[3 mm](FOOT_PAD_WIDTH) square and [2 mm](FOOT_PAD_DEPTH) deep.
+[3 mm](FOOT_PAD_WIDTH) square and [3.5 mm](FOOT_PAD_DEPTH) deep.
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
@@ -36,7 +38,7 @@ The underside remains open.
 The lips follow the neck profile with [1.2 mm](SNAP_ENGAGEMENT) nominal radial
 engagement in [1.2 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
 roots share a contact surface. The relaxed print pulls each wing inward by
-[1.25 mm](WING_PRELOAD) at the lip top and [1.513 mm](WING_BOTTOM_PRELOAD) at
+[1.25 mm](WING_PRELOAD) at the lip top and [1.488 mm](WING_BOTTOM_PRELOAD) at
 its bottom. This inset tapers to zero at the bezel's inner face.
 The grooves leave [0.48 mm](GROOVE_ROOF_CLEARANCE) above the lip tops and
 [0.3 mm](GROOVE_END_CLEARANCE) at their ends. The lips' inner upper and lower
@@ -51,8 +53,8 @@ or long-term preload.
 
 The window is [20.5 mm](WINDOW_X) × [40.5 mm](WINDOW_S). Its lip overlaps the
 module housing and leaves [0.1 mm](COVER_OVER_FACE) above the glass. The display
-feet sit at n = [10.1 mm](DISPLAY_FEET_N). The measured device and corrected
-vendor component envelopes leave 0.30064 mm between the flavor tubes and
+feet sit at n = [11.6 mm](DISPLAY_FEET_N). The measured device and corrected
+vendor component envelopes leave 1.80064 mm between the flavor tubes and
 the limiting USB-C housing. The underside over the tubes is open; four small
 pads support the metal feet.
 

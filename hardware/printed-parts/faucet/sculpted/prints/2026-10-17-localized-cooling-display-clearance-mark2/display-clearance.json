@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "scope": "Exact before/after shared tip stock and display-to-tube clearance. Before is rebuilt from the unchanged HEAD shell source. Geometric fit only; physical assembly pending.",
+  "added_display_normal_clearance_mm": 1.5,
+  "display_feet_n_mm": 11.6,
+  "retained_cover_bottom_n_mm": 3.3,
+  "retained_cover_shoulder_n_mm": 10.6,
+  "retained_snap_n_mm": [
+    3.3,
+    6.3
+  ],
+  "display_shift_world_mm": [
+    0.0,
+    -1.1490666646784669,
+    0.9641814145298092
+  ],
+  "new_flavor_hardware_gaps_mm": {
+    "-1": 1.80063971818545,
+    "1": 1.80063971818544
+  },
+  "added_tip_stock": [
+    {
+      "volume_mm3": 13.49999999999171,
+      "bounds_x_s_n_mm": [
+        [
+          7.0,
+          3.7399999999965723,
+          10.099999999932562
+        ],
+        [
+          10.0,
+          6.740000000046229,
+          11.59999999998459
+        ]
+      ]
+    },
+    {
+      "volume_mm3": 13.499999985996483,
+      "bounds_x_s_n_mm": [
+        [
+          6.9999999,
+          42.73999989952844,
+          10.099999899948742
+        ],
+        [
+          10.000000105884636,
+          45.74000010080796,
+          11.60000009998325
+        ]
+      ]
+    },
+    {
+      "volume_mm3": 13.49999999999171,
+      "bounds_x_s_n_mm": [
+        [
+          -10.0,
+          3.7399999999965723,
+          10.099999999932562
+        ],
+        [
+          -7.0,
+          6.740000000046229,
+          11.59999999998459
+        ]
+      ]
+    },
+    {
+      "volume_mm3": 13.499999999847924,
+      "bounds_x_s_n_mm": [
+        [
+          -10.000000105885775,
+          42.739999899528044,
+          10.099999899948742
+        ],
+        [
+          -6.9999999,
+          45.74000010080874,
+          11.60000009998325
+        ]
+      ]
+    }
+  ],
+  "removed_tip_stock_mm3": 0.0,
+  "retained_ribbon_side_run_n_mm": 11.1,
+  "existing_gooseneck_ribbon_clearance_mm": 0.018942134468551818,
+  "same_clearance_before_change_mm": 0.018942134471674903,
+  "source_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f17a6e1adb9400452fd73e5c907b76bc10c18e42c1eb4b477a25a7c33bbd839b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f75640a6bb9f147a4f5847d31012e9818fbd175fa9e9c063380619d43fa41a74",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "09df3102a6ffd4280a134788535686b2d9406e6878a548d4e2c334594fdc7109",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f"
+  },
+  "stock_comparison_method": "Native before/after shell-tip B-reps; STEP exchange is used separately for saved-artifact clearance readings. Four added 3 x 3 x 1.5 mm bearing-pad extensions. No native tip stock removed.",
+  "before_source_commit": "23e85414a012d718c7fe4dd7c2bc4f242d86b1fe",
+  "previous_flavor_hardware_gaps_mm": {
+    "-1": 0.3006397181854381,
+    "1": 0.3006397181854457
+  },
+  "existing_gooseneck_ribbon_reading_scope": "Both before and after have positive 0.018942 mm nominal clearance with no intersection at the same gooseneck location. The existing manual reader requests 0.1 mm; that pre-existing shortfall is retained and is not a display-seat regression."
+}
