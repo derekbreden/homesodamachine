@@ -41,6 +41,14 @@
       "purchase_id": "pur-d92c92ee98974e94a6c1c0e8aff69fcf"
     },
     {
+      "allocation_id": "alloc-0bce06418d7d4f88afc445f3f981acff",
+      "amount_minor": 1286,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-91bd3b099e80493ab591655550b439ca"
+    },
+    {
       "allocation_id": "alloc-0bff2066ef144d7399fb2586d335089a",
       "amount_minor": 7542,
       "currency": "USD",
@@ -1225,6 +1233,14 @@
       "purchase_id": "pur-c33baf4aa1214ee082b5fd066c357035"
     },
     {
+      "allocation_id": "alloc-e74ce6747dfd4ef3a05d346f304285ff",
+      "amount_minor": 6517,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": null
+    },
+    {
       "allocation_id": "alloc-e78df5ef750e434096c1a49d205880a4",
       "amount_minor": 4012,
       "currency": "USD",
@@ -1255,6 +1271,14 @@
       "event_id": "evt-8f1a779d159345bd85a4db24ff91b31f",
       "order_id": "anthropic:HYODLCRX-0068",
       "purchase_id": "pur-ee24b4d0aad04c8c9d937c573a2edee3"
+    },
+    {
+      "allocation_id": "alloc-ecfd3794f056471bb0402e41a11ec9e8",
+      "amount_minor": 1286,
+      "currency": "USD",
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3"
     },
     {
       "allocation_id": "alloc-f0dca15f8d4e4228afe24d078e2b5084",
@@ -1329,7 +1353,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-17",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -4717,6 +4741,37 @@
     },
     {
       "allocation_ids": [
+        "alloc-0bce06418d7d4f88afc445f3f981acff",
+        "alloc-e74ce6747dfd4ef3a05d346f304285ff",
+        "alloc-ecfd3794f056471bb0402e41a11ec9e8"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 9089,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "event_id": "evt-7f73633b6a97457eaa442c0429f18359",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "purchase_ids": [
+        "pur-91bd3b099e80493ab591655550b439ca",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3"
+      ],
+      "source_ids": [
+        "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+      ],
+      "unallocated_to_purchase_minor": 6517,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-17"
+    },
+    {
+      "allocation_ids": [
         "alloc-51c7581f230940d0b1d15f42f33e94c6"
       ],
       "allocation_status": "all_project",
@@ -7386,6 +7441,28 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
+      "gap_id": "gap-b377c38272c84c2d9d0b972f58b6c35c",
+      "missing_fact": "USD 65.17 of the order's expected USD 90.89 charge is allocated to the order only: its five other project lines (M3 × 6, M5 × 150 and M5 × 60 screws, M5 washers and a Mean Well IRM-90-12ST) are not yet itemized purchases, and the charge is not yet completed.",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "purchase_ids": [
+        "pur-91bd3b099e80493ab591655550b439ca",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3"
+      ],
+      "source_ids": [
+        "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+      ],
+      "sources_checked": [
+        "Amazon order details 114-8768578-0217027",
+        "Amazon order-scoped Transactions 114-8768578-0217027"
+      ]
+    },
+    {
       "gap_id": "gap-b513fdee8791439ca43d36cdba1179f2",
       "missing_fact": "merchant payment evidence; exact delivery date. The order confirmation proves the USD 1,129.00 total and the 2026-02-01 order date; the 2026-02-06 shipment-status update states no delivery date.",
       "order_ids": [
@@ -7503,7 +7580,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:68c10741b57b6caa49c8e2d5e4d6d1923e58460b5ee1c96ba2b9e07fe17585c3",
+  "input_fingerprint": "sha256:1adbef8fe78ba5adeff2ab461e002badb324e4ec8bd0b8f789f7afd4ee4e9dec",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13226,6 +13303,26 @@
       "reference": "114-8354589-7380236",
       "source_ids": [
         "saved-amazon:114-8354589-7380236"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_id": "amazon:114-8768578-0217027",
+      "purchase_ids": [
+        "pur-91bd3b099e80493ab591655550b439ca",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3"
+      ],
+      "reference": "114-8768578-0217027",
+      "source_ids": [
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
       "vendor": "Amazon"
     },
@@ -34621,6 +34718,53 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, neutral conductors. $11.99 item price + $0.87 allocated tax",
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
+      "purpose": "consumables_materials",
+      "quantity": 1,
+      "quantity_text": "1 (25 ft)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
+      "service_period": null,
+      "source_ids": [
+        "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 15550,
       "contributes": true,
@@ -36667,6 +36811,53 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, hot and DC conductors. $11.99 item price + $0.87 allocated tax",
+      "event_ids": [
+        "evt-7f73633b6a97457eaa442c0429f18359"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
+      "purpose": "consumables_materials",
+      "quantity": 1,
+      "quantity_text": "1 (25 ft)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
+      "service_period": null,
+      "source_ids": [
+        "src-0649cb496f6e45c3a07e83026856a9f2",
+        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -54792,6 +54983,19 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-17"
+      },
+      "document_type": "pending_merchant_transaction",
+      "note": "Order-scoped Transactions lists the USD 90.89 debit In Progress (Pending) on 2026-10-17; this is an expected charge, without completed-charge or authorization proof. Delivery is pending.",
+      "proves": [],
+      "reference": "114-8768578-0217027",
+      "source_id": "src-0649cb496f6e45c3a07e83026856a9f2",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-17"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-22"
       },
       "document_type": "merchant_monetary_receipt",
@@ -58482,6 +58686,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-17"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and order details: ordered 2026-10-17; MECCANIXITY UL1007 16 AWG solid core wire 25 ft in white (B0FK5G1Q1J) and black (B0FK5HH8H1), sold by MECCANIXITY at USD 11.99 each, white arriving 2026-10-18 and black 2026-10-19. The order's other project lines are a BNUOK M3 × 6 SHCS 120-pack (USD 7.12), an iexcell M5 × 150 304 stainless SHCS 10-pack (USD 8.86), a SVLING M5 × 60 SHCS 40-pack (USD 7.50), a Small Parts DIN 125 M5 black-oxide washer 100-pack (USD 7.16) and a Mean Well IRM-90-12ST (USD 30.13); USD 84.75 item subtotal, USD 0.00 shipping, USD 6.14 estimated tax and USD 90.89 grand total. The tax is not itemized; it is allocated in proportion to item price, USD 0.87 per spool.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-8768578-0217027",
+      "source_id": "src-d814ffbbc33146fb887f9e1bdc6944a4",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-17"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "order_details",
@@ -60120,7 +60340,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 70125,
+          "amount_minor": 72697,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -60129,8 +60349,10 @@
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+            "pur-91bd3b099e80493ab591655550b439ca",
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9c025ba9576044b38a4745d084361ea5",
+            "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
@@ -60156,8 +60378,10 @@
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+        "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9835cb05727440fa98029e6134ffd627",
         "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b6c01a5b012340fc888139c1070dc054",
@@ -60173,6 +60397,7 @@
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
+        "evt-7f73633b6a97457eaa442c0429f18359",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
@@ -60430,6 +60655,7 @@
             "evt-422e912275ec4062a0eed9ac2913a016",
             "evt-4991502f7a0d484788efb14e364fc889",
             "evt-4f7b7d18ceab43979159e02bdb2a306d",
+            "evt-7f73633b6a97457eaa442c0429f18359",
             "evt-822df10968c94d009e356f29f845abc5",
             "evt-859aaf61508e423492ba56484ab9f2df",
             "evt-8b786496a51248269419124e3f7b6073",
@@ -61166,7 +61392,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 64243,
+          "estimate_minor": 66815,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 93684,
           "legacy_unverified_minor": 30634,
@@ -61190,8 +61416,10 @@
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
+            "pur-91bd3b099e80493ab591655550b439ca",
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9c025ba9576044b38a4745d084361ea5",
+            "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
@@ -61206,7 +61434,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 188561,
+          "total_minor": 191133,
           "unknown_amount_ids": []
         },
         {
@@ -61239,7 +61467,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 605504,
+          "amount_minor": 608076,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -61272,10 +61500,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 228296,
+          "estimate_minor": 230868,
           "final_vendor_amount_minor": 2048905,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4676169
+          "total_minor": 4678741
         }
       ],
       "undated_unallocated": [
@@ -61416,6 +61644,7 @@
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
         "gap-8703c8fb55124412b9d51de641020ca7",
         "gap-9738d616dea64eaabb2b35df6ba49073",
+        "gap-b377c38272c84c2d9d0b972f58b6c35c",
         "gap-b513fdee8791439ca43d36cdba1179f2",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
@@ -61426,11 +61655,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 228296,
+          "estimated_purchase_minor": 230868,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2917037,
+          "purchases_without_merchant_charge_minor": 2919609,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -61456,7 +61685,9 @@
         "pur-88c94356779a413f95d4e1b878b4bb18",
         "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
+        "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
@@ -62034,6 +62265,7 @@
       ],
       "order_only_allocation_event_ids": [
         "evt-0a248482126b481c9dc3c58fd1f7b687",
+        "evt-7f73633b6a97457eaa442c0429f18359",
         "evt-db226e9820d147058384c3bfe695bab8"
       ],
       "partial_merchant_charge_purchase_ids": [],
@@ -62337,6 +62569,7 @@
         "pur-918d697bf0bb4f3d9d2a64c0880fc463",
         "pur-918df672831a4c4e95c0e052eb0bb356",
         "pur-919b9c3e559c445c81030adb1835e192",
+        "pur-91bd3b099e80493ab591655550b439ca",
         "pur-91bf8d5d3cfe41f096b1ae148d3fd635",
         "pur-92e9a8843e42401389b973926a963edc",
         "pur-933ff98159c34bab9ccbd21853dad300",
@@ -62365,6 +62598,7 @@
         "pur-9f1d0a0093fa41998cc583b3dec261be",
         "pur-9f4f2f41bd0e473e99f1ba6d885d8c3c",
         "pur-9f81aa36ad4e47ac8232415d46371a22",
+        "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a065b01d45c946409f7342ac3e821a22",
         "pur-a0715d56214f4690b90294677aee5b42",
         "pur-a1316f2f48b34bd58a54999b032db5ac",
@@ -62694,7 +62928,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "13 authored evidence gap(s) remain",
+      "14 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -62765,7 +62999,7 @@
       "coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "1 legacy named order(s) lack an exact invoice allocation check",
+      "2 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
