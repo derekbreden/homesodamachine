@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-17",
+  "reported_by": "Derek",
+  "task_id": "1348440331",
+  "material": "White PET-GF",
+  "status": "Accepted for normal display loading and cover installation",
+  "part_cooling_percent": 0,
+  "geometry_stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "launch": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/launch.json",
+  "user_statement": "That new printed cover works great. In fact, it worked so well that the other parts of the faucet broke while I was trying to put that cover on, which I think really indicates that we have a brittleness issue with those cooling settings that we need to be aware of.",
+  "observations": {
+    "cover_normal_assembly_successful": true,
+    "other_faucet_parts_fractured_during_cover_installation": true,
+    "other_fractured_part_names_and_task_ids": "Not identified in the report"
+  },
+  "scope": "This cover geometry with part cooling off passed the reported assembly. The comparison supports avoiding general cooling; it does not establish measured strength, cycle life, or acceptance of the raised-display geometry."
+}

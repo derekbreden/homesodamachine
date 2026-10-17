@@ -40,14 +40,22 @@
     "bridge_speed_mm_s": 15,
     "maximum_overhang_speed_mm_s": 15,
     "preserve_slower_overhang_limits": true,
-    "scope": "All five rigid faucet parts, including Floating vertical shell. Ordinary supported-wall and infill speeds retain their saved settings. The combined recipe has short-section physical evidence; complete-faucet physical finish remains a separate result.",
+    "scope": "Part cooling is off on ordinary paths. Force 70% only on bridges and wall paths with at least 50% of their bead width unsupported, after the first three bed layers. No layer-time cooling, auxiliary part cooling or fan pre-start.",
     "physical_evidence": [
       "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json"
     ],
-    "selection_quote": "But the cooling and speed settings for overhang, I think we definitely want to keep those and make sure that they're everywhere."
+    "selection_quote": "the cooling, high cooling, is totally fine. We can use 100% cooling if we want, but only on the places that actually need it, and everywhere else we shouldn't be using that cooling.",
+    "fan_threshold": "50%",
+    "ordinary_fan_percent": 0,
+    "auxiliary_fan_percent": 0,
+    "keep_fan_always_on": false,
+    "fan_prestart_seconds": 0,
+    "cooling_selection_date": "2026-10-17",
+    "cooling_physical_evidence": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
+    "cooling_policy": "hardware/printed-parts/cooling/README.md"
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "coarse_layer_height_mm": 0.24,
@@ -129,7 +137,7 @@
   "style": "Sculpted",
   "active_nozzle": 1,
   "layer_height_mm": 0.24,
-  "authorization_quote": "Alright, black industrial faucet looks good. Next, I've got white pet-gf loaded in the right hotend on Mark2 for a sculpted white faucet print.\n\nAlmost everything from our industrial black is going to carry over here, with the exception of the thinner layers that were specifically for ramps specific to that industrial design. So absolutely everything carries over, except those layer height differences. Do you follow? Repeat back to me what that means practically.\n\nAnd then, start the print.",
+  "authorization_quote": "and then the last thing that I need you to do is to start a new print on Mark 2, which is still ready and the bed is clear now, on the right hot end of the complete faucet, please. Thanks.",
   "annotation_clarification": "The 0.24 mm layers are the normal model layers; no separate eight-layer override is necessary when the fine bands are absent.",
   "source_complete_black_acceptance": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/physical-result.json"
 }

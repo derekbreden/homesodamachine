@@ -55,9 +55,11 @@ def relative(path: Path) -> str:
 
 def profile_members(path: Path) -> dict[str, bytes]:
     with zipfile.ZipFile(path) as archive:
-        return {name: archive.read(name) for name in archive.namelist()
+        members = {name: archive.read(name) for name in archive.namelist()
                 if name == writer.SETTINGS_MEMBER
                 or name.startswith("Metadata/filament_settings_") and name.endswith(".config")}
+    writer.petgf_cooling.apply_members(members)
+    return members
 
 def emitted_config(archive: zipfile.ZipFile) -> tuple[dict, list[float], int]:
     config, trims, layers = {}, [], None
@@ -290,7 +292,8 @@ def refresh(profile: Path, record: Path, project: Path) -> dict:
     if report["parts"][1]["stl_sha256"] != report["parts"][2]["stl_sha256"]:
         raise ValueError("Both complete cover instances must contain the exact same STL")
     report.update(project_title=TITLE, successful_profile=baseline, cad_sources_sha256=source_hashes,
-                  all_profile_members_preserved_byte_for_byte=True,
+                  all_profile_members_preserved_byte_for_byte=False,
+                  profile_treatment="Non-cooling settings retained; current localized PET-GF cooling applied.",
                   production_artifacts_unchanged=before)
     verify_sources(report)
     if production_hashes() != before:
@@ -597,7 +600,7 @@ def main() -> None:
             successful_profile(args.settings_from.resolve(), args.baseline_record.resolve())
             refresh_production(args.settings_from.resolve())
         report = refresh(args.settings_from.resolve(), args.baseline_record.resolve(), project)
-        print(f"{project}: one real tip and two identical complete cover meshes; exact successful PET-GF profile", flush=True)
+        print(f"{project}: one real tip and two complete covers; retained process with current localized PET-GF cooling", flush=True)
         if not args.slice_output:
             return
         result = native_slice(project, report, args.slice_output.resolve(), args.slicer.resolve())

@@ -1,6 +1,6 @@
 # Sculpted display cover — part-cooling trial, Mark2
 
-One complete current cover is printing as **Mark2 task 1348440331**, using
+One complete cover finished as **Mark2 task 1348440331**, using
 the right hardened 0.4 mm hotend and white PET-GF, external spool 255.
 The [launch record](launch.json) confirms acceptance at **10:26:28 a.m. CDT
 on October 17**, following Derek's “try now” instruction. The
@@ -13,7 +13,8 @@ The single experimental change is part cooling: minimum, maximum and overhang
 fan speeds are all zero. The current cover geometry, −50° pose, 0.20/0.24 mm
 layers, 265/280°C nozzle, 80°C bed, speed settings, bridge flow, automatic
 Tree/Default supports and Aligned/15%/scarf-off seam remain as in the October 16
-single-cover project. The production recipe is unchanged.
+single-cover project. The [physical result](physical-result.json) records successful normal assembly.
+Current production cooling follows the [localized PET-GF policy](../../../../cooling/README.md).
 
 The [native review](native-review.json) verifies zero commanded part-fan PWM
 through all 64,630 identified model extrusion moves, the right nozzle mapping,
@@ -56,11 +57,9 @@ increase stiffness, so the cooling comparison precedes a thickness change.
 
 ## Physical assembly reading
 
-Let the print cool, remove its supports, load the display and seat the complete
-cover on the matching current Sculpted tip using the documented assembly
-sequence. The normal assembly motion must produce no crack and leave the
-display and cover retained. Record underside finish too: removing cooling
-can affect the overhangs. This trial assesses normal assembly; it establishes
-no cycle-life value. If it still fractures, record whether the same curved
-junction separates and examine the fracture surface before selecting a local
-geometry change.
+Derek reports that this fan-off cover works great during display loading and
+installation. Other faucet parts fractured while he fitted it; their exact
+part names and print IDs were not supplied. The [physical result](physical-result.json)
+binds the cover's successful normal assembly to this archive and STL. This is
+an assembly observation, not a measured strength or cycle-life result. The
+additional display-clearance geometry is a separate revision.

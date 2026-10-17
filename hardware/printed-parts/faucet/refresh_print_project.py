@@ -27,6 +27,8 @@ ET.register_namespace("", CORE)
 ET.register_namespace("p", PROD)
 sys.path.insert(0, str(HERE / "faucet-shell"))
 import faucet_shell as shell
+sys.path.insert(0, str(HERE.parent / "cadlib"))
+import petgf_cooling
 
 PARTS = (
     ("faucet-shell-base", HERE / "faucet-shell/faucet-shell-base.stl", -math.degrees(shell.print_base_build_rot)),
@@ -203,6 +205,10 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
         for name in source.namelist():
             if name.startswith("Metadata/filament_settings_") and name.endswith(".config"):
                 members[name] = source.read(name)
+        cooling_changes = petgf_cooling.apply_members(members)
+        settings_payload = members[SETTINGS_MEMBER]
+        settings = json.loads(settings_payload)
+        settings_changes.update(cooling_changes.get(SETTINGS_MEMBER, {}))
     model = ET.Element(qn("model"), unit="millimeter", requiredextensions="p",
                        **{"xmlns:BambuStudio": "http://schemas.bambulab.com/package/2021"})
     ET.SubElement(model, qn("metadata"), name="Application").text = "BambuStudio-02.08.02.61"

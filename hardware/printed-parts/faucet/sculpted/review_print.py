@@ -108,7 +108,9 @@ def review(project, native_directory):
         assert effective['extruder_offset'] == ['0x0', '0.5x-0.7']
         assert settings['layer_height'] == effective['layer_height'] == '0.24'
         assert settings['initial_layer_print_height'] == effective['initial_layer_print_height'] == '0.2'
-        for k in ('fan_min_speed', 'fan_max_speed', 'overhang_fan_speed', 'bridge_flow',
+        for k in ('fan_min_speed', 'fan_max_speed', 'overhang_fan_speed',
+                  'overhang_fan_threshold', 'enable_overhang_bridge_fan',
+                  'reduce_fan_stop_start_freq', 'pre_start_fan_time', 'bridge_flow',
                   'bridge_speed', 'filament_bridge_speed', 'filament_wipe', 'filament_wipe_distance',
                   'nozzle_temperature', 'nozzle_temperature_initial_layer', 'support_type', 'support_style'):
             assert effective[k] == settings[k], k
@@ -133,7 +135,8 @@ def review(project, native_directory):
     nominal_heights = sorted({round(b-a, 5) for a, b in zip([0.] + layer_z, layer_z)})
     assert nominal_heights == [.20, .24]
     assert not re.search(r'^; (?:WIPE_START|WIPE_END)', text, re.M)
-    material, early = material_review(native_directory / 'plate_1.gcode', report, early_max_z=16)
+    material, early = material_review(native_directory / 'plate_1.gcode', report, early_max_z=16,
+                                     localized_cooling=True)
     save(folder / 'material-commands.json', {'parts': material})
     contacts = front_rim_contacts(early, report)
     save(folder / 'front-rim-contacts.json', contacts)

@@ -1,5 +1,9 @@
 # Overflow print set
 
+Current PET-GF editable projects follow the [localized cooling policy](../cooling/README.md).
+Re-slice them for current cooling commands. Identified native archives retain
+their original commands and physical-evidence scope.
+
 This set supplies the three-row rear enclosure wall, six rectangular fluid identification
 chips, six matching tube collars and a snap-in DATA plate. The black 4 mm OVER bulkhead receives the
 white drain return. The separate [faucet print set](../faucet/vent-print-readiness/README.md)

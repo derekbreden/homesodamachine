@@ -85,6 +85,10 @@ settle as the bundle bends.
 
 ## Print
 
+The reusable [editable project](umbilical-organizer-petgf.3mf) uses the
+[current localized PET-GF cooling](../../cooling/README.md). Re-slice it for
+new printing; the dated native archives retain their original commands.
+
 PET-GF, flat bottom face on the textured plate with all passages vertical.
 The [white Mark2 right-hotend print](prints/2026-10-16-white-right-mark2/README.md)
 retains the current geometry and organizer process, with Mark2’s normal +0.04 mm
