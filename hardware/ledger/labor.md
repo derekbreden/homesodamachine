@@ -88,6 +88,13 @@ Three pour-in-place foam operations: both cold-core caps, the body foam around t
 
 ## 6. Wiring
 
+The [J2 bench guide](https://homesodamachine.com/cost#j2-harness) groups one
+complete harness, its wire map and its provisional 45-minute estimate into
+one bench job. Its first reference build was reported at approximately one
+hour including lookups. This reference is separate from the aggregate
+twelve-harness allowance below; the other harnesses need individual estimates
+before the unit rollup represents complete bench jobs.
+
 Twelve harness assemblies off the bench plus the in-cabinet runs — roughly sixty crimped terminations per unit across JST-XH contacts, ferrules, Fastons, forks and rings. The pump cartridge disconnect also has eight solder tails on the fixed male/pin and cartridge female/pad halves of its four-pin magnetic pogo pair. The harnesses are built a batch at a time against the schedule. Pogo assembly and verification are included in the estimates below; their production times are unmeasured.
 
 | Operation | Procedure | Notes | Minutes |

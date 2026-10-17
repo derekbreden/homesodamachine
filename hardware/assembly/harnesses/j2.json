@@ -1,0 +1,57 @@
+{
+  "id": "J2",
+  "name": "Manifold B",
+  "scope": "Complete integrated-machine harness, built on the bench",
+  "mapStatus": "Proposed ribbon and stripe assignment; not a transcription of the completed sample.",
+  "housing": "XHP-6",
+  "contact": "SXH-001T-P0.6",
+  "pitchMm": 2.5,
+  "referenceBuild": {
+    "minutes": 60,
+    "approximate": true,
+    "basis": "Builder-reported first finished harness, including substantial lookup time. No individual steps were timed."
+  },
+  "ribbons": [
+    { "id": "A", "poles": 3, "cutMm": 650, "stripeNet": "COM", "description": "White stripe on A1; A2 is FAN. Peel away and discard unused A3." },
+    { "id": "B", "poles": 3, "cutMm": 650, "stripeNet": "OUT3", "description": "White stripe on B1; B2 is OUT2 and B3 is OUT1. Peel B1 off for the short V-K leg." }
+  ],
+  "pins": [
+    { "pin": 1, "net": "COM", "ribbon": "A", "conductor": 1, "stripe": true, "cutMm": 300, "destination": "Wago 221-415 · shared +12 V", "termination": "Bootlace ferrule", "detail": "One feed to the five-port common. The other four ports feed V-I, V-J, the fan and V-K. COM is positive supply, not ground." },
+    { "pin": 2, "net": "FAN", "ribbon": "A", "conductor": 2, "stripe": false, "cutMm": 650, "destination": "Condenser fan −", "termination": "Device-end connection provisional", "detail": "Direct switched return. The schedule reserves 650 mm to the condenser crown; donor lead, connector and final trim remain unlocated." },
+    { "pin": 3, "net": "OUT4", "ribbon": "A", "conductor": 3, "stripe": false, "cutMm": null, "destination": "Empty cavity · no contact", "termination": "None", "detail": "Peel away and discard A3. Do not crimp it, populate cavity 3, or close the gap in the five-contact sequence." },
+    { "pin": 4, "net": "OUT3", "ribbon": "B", "conductor": 1, "stripe": true, "cutMm": 150, "destination": "V-K · water-supply valve −", "termination": "Female disconnect · tab size unrecorded", "detail": "Short branch leaves before the descending four-wire bundle. Keep its white stripe visible at both exposed ends." },
+    { "pin": 5, "net": "OUT2", "ribbon": "B", "conductor": 2, "stripe": false, "cutMm": 550, "destination": "V-J · manifold valve −", "termination": "Female disconnect · tab size unrecorded", "detail": "Direct switched return from the valve to J2. It does not enter the positive Wago." },
+    { "pin": 6, "net": "OUT1", "ribbon": "B", "conductor": 3, "stripe": false, "cutMm": 550, "destination": "V-I · manifold valve −", "termination": "Female disconnect · tab size unrecorded", "detail": "Direct switched return from the valve to J2. It does not enter the positive Wago." }
+  ],
+  "positiveBranches": {
+    "wire": "22 AWG black bulk silicone",
+    "count": 4,
+    "stockCutMm": 450,
+    "destinations": ["V-I +", "V-J +", "Condenser fan +", "V-K +"],
+    "terminations": "Ferrule at each Wago end; female disconnect at each device, with the fan interface provisional.",
+    "basis": "450 mm branch stock per the wiring schedule, trimmed at each landing. Native junction review recommends 300 mm for V-I, V-J and V-K, and provisionally 450 mm for fan positive."
+  },
+  "dress": {
+    "sleeve": "Black PET braided mesh · nominal 1/2 in",
+    "collars": 2,
+    "ties": 2,
+    "description": "Two heat-shrink end collars and two black zip ties, one at each sleeve end, tails flush-cut. Slip on mesh and collars before the large far-end terminals; shrink collars and close ties after dressing.",
+    "qualification": "Sleeve length, collar sizes and tie positions are a bench layout proposal. Sleeve fit is unqualified. The installed J1/J2 shared flat corridor stays bare; the illustrated mesh must not be taken as permission to sleeve that corridor."
+  },
+  "steps": [
+    { "id": "cut", "title": "Cut & map", "minutes": 5, "instruction": "Cut two 650 mm 3P ribbons. Call the striped edge A1 on one and B1 on the other. Map every lead before peeling; discard A3, then trim COM to 300 mm, OUT3 to 150 mm and OUT1/OUT2 to 550 mm. Prepare four 450 mm positive branch blanks for fitting.", "focus": "ribbons" },
+    { "id": "jst", "title": "Crimp the JST end", "minutes": 15, "instruction": "Splay the five active leads. Strip for the contact barrel, crimp five SXH-001T-P0.6 contacts, inspect conductor and insulation crimps, and seat in cavities 1, 2, 4, 5 and 6. Cavity 3 stays empty. Identify cavity 1 by the housing mark and the board COM pin; do not infer it from a mirrored picture.", "focus": "connector" },
+    { "id": "dress", "title": "Slip on the dressing", "minutes": 5, "instruction": "Peel the short striped B1 / OUT3 leg away before the descending trunk. Slide on mesh and both heat-shrink collars while the far ends are still small. Stage a black zip tie at each mesh end; leave the installed flat ribbon corridor bare.", "focus": "dress" },
+    { "id": "ends", "title": "Finish the far ends", "minutes": 15, "instruction": "Crimp the COM feed and four positive branches for the Wago. Put each positive branch in its own port. Fit the three valve-return and three valve-positive disconnects to the matching tabs; verify tab width before selecting 4.8 or 6.3 mm. Keep both fan terminations provisional until its donor interface is identified. Set collars, close ties and flush-cut their tails.", "focus": "terminals" },
+    { "id": "test", "title": "Ring out & label", "minutes": 5, "instruction": "With the harness disconnected from the board and devices, verify the five pin destinations, all four positive branches and the empty cavity. COM should reach only the five-port common and its four positives; each switched return should reach only its own device end. Check every pair of separate nets for isolation. Label the housing J2 · MANIFOLD B.", "focus": "all" }
+  ],
+  "estimateBasis": "45 minutes for one complete bench job with this map and tools ready. Provisional attended-time estimate; step allocations are not measurements. Fan fitting and in-chassis routing are outside this estimate.",
+  "sources": [
+    { "label": "Board pin order", "path": "hardware/pcb/pcba/pcba.tsx" },
+    { "label": "Cable assembly schedule", "path": "hardware/assembly/cable-assemblies.md" },
+    { "label": "Run lengths & fan-out", "path": "hardware/wiring/ac-wiring-schedule.md" },
+    { "label": "Native routing evidence", "path": "hardware/wiring/manifold-junction-clearance-check.json" },
+    { "label": "Current Lillium build", "path": "hardware/assembly/lillium-cutover.md" },
+    { "label": "JST housing & contact drawing", "url": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf" }
+  ]
+}

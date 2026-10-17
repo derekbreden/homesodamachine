@@ -33,6 +33,13 @@ npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboar
 
 ## Dependencies
 
+The `/cost#j2-harness` assembly guide reads its bench map, materials and time
+estimate from `hardware/assembly/harnesses/j2.json`. `lib/harness-guide.js`
+renders the complete instructions and map; `public/js/harness/` adds a lazy
+Three.js workbench with selectable wires, assembly steps and an exploded view.
+The diagram is a bench layout rather than installed CAD routing. J2's working
+estimate is shown separately from the ledger's aggregate harness allowance.
+
 `package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree.
 
 `overrides` pins `uuid` to `^11.1.1`. Below that it misses a buffer bounds check in its v3/v5/v6 generators. It arrives four levels down — `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid` — and again through `gaxios`.
