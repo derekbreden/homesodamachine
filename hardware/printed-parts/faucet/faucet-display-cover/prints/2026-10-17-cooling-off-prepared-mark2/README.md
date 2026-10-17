@@ -32,8 +32,13 @@ September project and continuous 70% after three layers in both recent
 archives. Nozzle temperatures and nominal layer height match. Polymaker's
 [PET-GF guidance](https://wiki.polymaker.com/polymaker-products/polymaker-filaments/fiberon-tm/fiberon-tm-pet-gf15)
 specifies fan off and suggests slower printing for layer-adhesion trouble.
-Reduced bonding from continuous cooling is the leading hypothesis; these
-breaks do not establish their fracture plane or cause.
+The [fracture photo](fracture-photo.jpg) shows a long detached section at the
+curved perimeter wall/rim transition, with thin strips and individual strands
+bridging the separation. In the retained −50° pose the layer planes are
+parallel to the bezel. The apparent peeling along those courses strengthens
+weak fusion as the leading failure-mode hypothesis. The photograph does not
+measure the fracture-plane normal or establish cooling as the cause; a local
+stress concentration or cleanup damage can still initiate the crack.
 
 The [September](september-geometry.json) and [current](current-geometry.json)
 CAD readings retain 1.3 mm nominal walls, 3 mm lips and the same designed
@@ -51,5 +56,6 @@ cover on the matching current Sculpted tip using the documented assembly
 sequence. The normal assembly motion must produce no crack and leave the
 display and cover retained. Record underside finish too: removing cooling
 can affect the overhangs. This trial assesses normal assembly; it establishes
-no cycle-life value. If it still fractures, identify the broken section and
-layer direction before selecting a local geometry change.
+no cycle-life value. If it still fractures, record whether the same curved
+junction separates and examine the fracture surface before selecting a local
+geometry change.
