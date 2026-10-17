@@ -1,0 +1,124 @@
+{
+  "source": "hardware/pcb/pcba/out/pcba.glb",
+  "sha256": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
+  "textures": {
+    "top": "33f0594349c352265afea7fc89917fb8717a01b52c0d3737c6ce2d4e08fff396",
+    "bottom": "edbb07f70c48ef2208601a6ae775fd310d94a68aa47f56e04198337313761538"
+  },
+  "header": "J2",
+  "headerNode": 34,
+  "headerCad": "cad_component_33",
+  "headerPcb": "pcb_component_33",
+  "cropMm": [
+    5.0,
+    17.0,
+    -16.0,
+    5.0
+  ],
+  "textureCrops": {
+    "top": {
+      "sourceSize": [
+        2048,
+        1754
+      ],
+      "pixelBounds": [
+        1758,
+        758,
+        2048,
+        1265
+      ]
+    },
+    "bottom": {
+      "sourceSize": [
+        2048,
+        1754
+      ],
+      "pixelBounds": [
+        1758,
+        758,
+        2048,
+        1265
+      ]
+    }
+  },
+  "pins": [
+    {
+      "pin": 1,
+      "label": "COM",
+      "boardMm": [
+        11,
+        -12.019924
+      ]
+    },
+    {
+      "pin": 2,
+      "label": "FAN",
+      "boardMm": [
+        11,
+        -9.520056
+      ]
+    },
+    {
+      "pin": 3,
+      "label": "OUT4",
+      "boardMm": [
+        11,
+        -7.019933999999999
+      ]
+    },
+    {
+      "pin": 4,
+      "label": "OUT3",
+      "boardMm": [
+        11,
+        -4.520066
+      ]
+    },
+    {
+      "pin": 5,
+      "label": "OUT2",
+      "boardMm": [
+        11,
+        -2.0199439999999997
+      ]
+    },
+    {
+      "pin": 6,
+      "label": "OUT1",
+      "boardMm": [
+        11,
+        0.47992400000000046
+      ]
+    }
+  ],
+  "pinTipZMm": 7.100006,
+  "padSurfaceZMm": 0.7,
+  "pinMaterialName": "mat_6",
+  "benchPose": {
+    "scale": 1000,
+    "rotationXYZ": [
+      -1.5707963267948966,
+      0,
+      0
+    ],
+    "positionMm": [
+      -110.55,
+      0.4,
+      -5.77
+    ]
+  },
+  "matingAxis": {
+    "native": [
+      0,
+      0,
+      1
+    ],
+    "bench": [
+      0,
+      1,
+      0
+    ],
+    "type": "vertical top-entry"
+  },
+  "method": "Native J2 mesh and board triangles clipped in board XY; triangles batched by native material with unchanged vertex positions, normals and winding. Original fabrication PNG pixels embedded with matching UV coordinates. No retyped silkscreen."
+}
