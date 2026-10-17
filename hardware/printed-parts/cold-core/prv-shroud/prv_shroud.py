@@ -77,7 +77,6 @@ sys.path.insert(0, str(_here.parents[1]))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
 from _cadq_export import export_assembly
-from _cold_core_interface import port_hole_radius
 import fits
 from _materials import C_SHROUD, one_body
 from docgen import substitute_md, substitute_py_comments
@@ -93,12 +92,9 @@ wall_thickness = 2.0
 cap_thickness = 2.0
 # [44 mm](CAVITY_L) — elbow seat bottom to PRV pull-ring tip.
 cavity_length = 44.0
-# [6.8 mm](PRV_VENT_D) — the vent line's own hole, on the `port_hole_radius` every bore this
-# machine threads a line through is cut to. IT IS THE TUBE ON THE BENCH PLUS A SLIP AND NOT THE
-# 6.35 NOMINAL: 1/4" LLDPE calipers ⌀6.5 at the top of its band, so a hole cut to the nominal is
-# an interference fit on the line it is for, and this one is bored in a barrel a hand pushes a
-# tube into.
-vent_hole_diameter = 2.0 * port_hole_radius
+# [6.8 mm](PRV_VENT_D) — the vent tube's socket. Its sliding fit supports the
+# installed tube; the shell crossings elsewhere provide loose passage clearance.
+vent_hole_diameter = 6.5 + 2.0 * fits.slip  # tube socket; separate from loose shell passages
 # [37.88 mm](VENT_STATION) along the barrel from the open end — where the radial vent
 # stands. The shroud seats on the PRV elbow's own lateral mouth and reaches along the
 # carbonator's port axis from there, so this distance is the mouth-to-lane gap: the mouth stands

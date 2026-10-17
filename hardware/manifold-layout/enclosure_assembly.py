@@ -3081,6 +3081,12 @@ def condenser_airway(cond, cond_carry) -> tuple:
 # height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
 # inboard and its 109 mm long axis runs fore and aft down the flank.
 PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
+# Both wire entries point along Y, at the ends of the 109 mm module.
+# The aft allowance clears the nameplate backing; the adjacent relay and board
+# have inboard-facing connections and use separate body gaps.
+PSU_AFT_WIRE_ALLOWANCE = 5.0
+PSU_RELAY_BODY_GAP = 4.0
+RELAY_BOARD_BODY_GAP = 3.0
 
 
 def build_psu(foam, wall_seat):
@@ -3091,13 +3097,13 @@ def build_psu(foam, wall_seat):
     answers to the corner with the hole pattern it has, so its aft face lands wherever that
     puts it. The lane it lies in is what the G Ganen leaves east of itself on that cap.
 
-    THE COLUMN AHEAD OF IT HAS NOTHING TO TAKE. Relay #2 and the main board are packed one
-    `WIRED_CLEAR` at a time off this brick's own fore face and the main board stands about a
-    millimetre off `carb-1` there, which `clearance-floor` reads — so this plane is the whole of
-    the brick's travel, and what gives to the row on its crown is the row (`build_wago_row`)."""
+    The aft mounting row stands `PSU_AFT_WIRE_ALLOWANCE` ahead of the corner's
+    mounting limit, leaving room for the AC leads beside the nameplate backing.
+    Relay #2 uses its own body gap; the main board keeps its mounting stations."""
     return seat_body(import_step(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
-                     y1=_enc.wall_boss_aft_limit() + (_psu.length / 2.0 - _psu.hole_dy),
+                     y1=(_enc.wall_boss_aft_limit() + (_psu.length / 2.0 - _psu.hole_dy)
+                         - PSU_AFT_WIRE_ALLOWANCE),
                      z0=cap_face(foam))
 
 
@@ -3110,10 +3116,8 @@ def build_psu(foam, wall_seat):
 # the flank, so the short edge is what stands, and the corner that meets the cap is the one nearest
 # the brick.
 PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((1.0, 0.0, 0.0), -90.0))
-# What one wired body on the cap storey stands off the next along this flank. Brick, relay and
-# board all take their conductors on the faces that look down the column at each other, and a
-# hand making off a connector between two of them needs the gap to be a gap — a working reach
-# rather than the `STACK_CLEAR` the boss between them would leave on its own.
+# Working space between the C14 terminals and the distribution row.
+# PSU, relay and board body gaps are specified separately above.
 WIRED_CLEAR = 6.0
 
 
@@ -3122,11 +3126,11 @@ def build_pcba(foam, ahead_of, wall_seat):
 
     EAST places the 2 mm THT-tail envelope on the same wall seat the brick takes; the PCB
     underside and its four mounting holes consequently stand `pcba_tray.pin_drop` farther
-    inboard, and the wall bosses reach that plane. AFT is one `WIRED_CLEAR` ahead of
+    inboard, and the wall bosses reach that plane. AFT is `RELAY_BOARD_BODY_GAP` ahead of
     `ahead_of`'s own front face — relay #2, not the brick, since the relay stands between them;
     FOOT is on the cap. The pcba-tray is not placed — this is the main board's envelope."""
     return seat_body(import_step(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
-                     x1=wall_seat, y1=box(ahead_of).ymin - WIRED_CLEAR, z0=cap_face(foam))
+                     x1=wall_seat, y1=box(ahead_of).ymin - RELAY_BOARD_BODY_GAP, z0=cap_face(foam))
 
 
 # The rest of the power block, on the two crowns: relay #1 on the MAIN BOARD'S crown with the ground
@@ -3190,11 +3194,11 @@ def _wago_skirt(size="413"):
 def build_relay2(psu, foam, wall_seat):
     """Relay #2 on end, in the band between the brick and the main board.
 
-    EAST on the wall seat every body on this flank takes; AFT one `WIRED_CLEAR` ahead of the
+    EAST on the wall seat every body on this flank takes; AFT `PSU_RELAY_BODY_GAP` ahead of the
     brick's own front face; FOOT on the cap, the same lid the brick and the main board stand on. Its
     screw block and its header stand one over the other, both facing the room."""
     return seat_body(import_step(str(RELAY_STEP)).val(), RELAY2_TURN, seat="relay-2",
-                     x1=wall_seat, y1=box(psu).ymin - WIRED_CLEAR, z0=cap_face(foam))
+                     x1=wall_seat, y1=box(psu).ymin - PSU_RELAY_BODY_GAP, z0=cap_face(foam))
 
 
 def wago_row_reach() -> float:
@@ -3223,8 +3227,8 @@ def build_wago_row(psu, wall_seat, inlet):
     AND THE BRICK'S FORE FACE IS WHERE THAT DRAW STOPS. A lug's height is struck off the crown
     (`WAGO_CLEAR + WAGO_CORBEL_LIFT` over it), so a lug past the brick's fore end is at a Z
     justified by nothing under it. The brick cannot give the ground back either:
-    the column ahead of it is packed one `WIRED_CLEAR` at a time onto a board that stands about a
-    millimetre off `carb-1` (`build_psu`). So the row lies over the crown whole and the working
+    the column ahead uses its separate PSU/relay/board gaps, with the board's mounting
+    stations fixed. So the row lies over the crown whole and the working
     reach at the terminals is what is left of `WIRED_CLEAR` once it does.
 
     THEY SEAT ON THE WALL AND NOT ON `east_wall_seat`. Every other body on this flank stands its

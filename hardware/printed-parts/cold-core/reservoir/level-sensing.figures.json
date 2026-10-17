@@ -2,7 +2,7 @@
   "/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py": {},
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "CAVITY_FAR_WALL_X": "126.25",
-    "CONDUIT_BORE_D": "6.8 mm",
+    "CONDUIT_BORE_D": "7.5 mm",
     "FLAVOR_HOLE_X": "\u00b197",
     "FLOAT_TRAVEL": "52.48\u2013188.15 mm",
     "REEDS_PER_RES": "4",

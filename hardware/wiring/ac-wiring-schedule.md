@@ -41,6 +41,33 @@ Every low-voltage run below names its board connector and pin labels; the labels
 | J13 | PUMPS | `AM2`, `AM1`, `BM2`, `BM1` | peristaltic pumps A + B (DC-5) |
 | J14 | — | USB-C receptacle | programming port; no loom |
 
+## Conductor construction
+
+Use **16 AWG solid tinned-copper appliance hookup wire** for fixed runs
+**AC-2 (H/N), AC-3, DC-1, DC-2 and DC-4**. Strip and land the solid conductor
+directly in each screw cage and WAGO lever clamp, one conductor per entry;
+no fork, ferrule or solder-added tip on these solid ends. Use black for hot
+and DC, white for neutral. The selected stock is marked UL1007, 300 V / 80°C;
+its [black](https://www.amazon.com/dp/B0FK5HH8H1) and
+[white](https://www.amazon.com/dp/B0FK5G1Q1J) 25 ft spools are Prime offers
+verified 2026-10-17, not purchased. Keep this fixed wire away from hot
+refrigeration surfaces. WAGO's [221 documentation](https://www.wago.com/us/installation-221-ad)
+covers solid copper; J10's KF301-5.0 block accepts 14–22 AWG.
+
+AC-1's solder-tab pigtails, the 18 AWG SJOOW compressor cord, DC-3's pump
+lead, protective-earth bonds and the JST / Faston / removable-display
+harnesses use stranded wire. Retain the specified crimps; use a correctly
+sized ferrule where a stranded lead enters a screw cage. A screw at one end
+does not make a moving or crimp-terminated run a solid-wire run. SIG-7's
+JST-to-display loom therefore stays stranded at its display screw terminals.
+
+The [Mean Well IRM-90-12ST](https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf)
+is an encapsulated Class II module with two AC terminals, L and N, and no
+protective-earth terminal. Bond the exposed
+metalwork through the ground bus. Preform and terminate both PSU pigtail
+pairs with power disconnected before fastening the module to its wall
+bosses; leave the wire bends free of the nameplate backing and relay.
+
 ## Run table
 
 Per-run gauges, terminations, and approximate lengths. Lengths assume the enclosure layout in [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)"; revise once the prototype enclosure is mocked up and lengths are measured.
@@ -50,9 +77,9 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
 | AC-1 | C14 inlet (+Y wall of back-top) | AC distribution block on the +X wall of back-top | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (the C14 inlet's cordage drops the +Y wall of back-top and runs forward over the foam-cap top to the +X wall) | Solder to the C14 inlet's tabs; crimp ferrules into Wago 221 lever block | Inlet ships with solder-tab pins; [16 AWG](AWG_MAINS_U) appliance wire drops from the inlet to the distribution block on the wall below. The C14 inlet lands directly on the AC distribution block with no device in series; all downstream loads (PSU, compressor, etc.) tap the block. Ground-fault protection is deferred — see [`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md). |
-| AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N + G | [16](AWG_AC_BRANCH) | [~100 mm](LEN_SHORT_2) | Crimp ring or fork terminal at PSU; ferrule at distribution block | PSU primary draws [0.67 A](PSU_PRI_A) at [80 W](PSU_W) full load; [16 AWG](AWG_AC_BRANCH_U) ample. Ground bonds PSU chassis. |
-| AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | [16](AWG_AC_BRANCH) | [~50 mm](LEN_SHORT) | Crimp fork to relay screw terminal | Unswitched hot leg into the relay's "common" terminal. |
-| AC-4 | Teyleten relay #1 contact output ("normally open") | Verified hot side of current donor compressor's factory-external electrical interface, through SF76E thermal fuse | H_switched | [18](AWG_COMP_LEAD) | [~400 mm](LEN_COMPRESSOR) | Crimp fork to relay; current-donor external-interface connector TBD | Switched hot. One of the three conductors of the [18 AWG](AWG_COMP_LEAD_U) SJOOW jacketed lead that runs unbroken from the +X wall of back-top to the compressor. The terminal block and PTC stay under the retained donor cover; this run terminates only at the factory-external interface. Length includes service slack. |
+| AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N | [16](AWG_AC_BRANCH) | [~100 mm](LEN_SHORT_2) | Solid copper directly in PSU screw cages and WAGO clamps | PSU primary draws [0.67 A](PSU_PRI_A) at [80 W](PSU_W) full load; [16 AWG](AWG_AC_BRANCH_U) ample. The module has no earth terminal. |
+| AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | [16](AWG_AC_BRANCH) | [~50 mm](LEN_SHORT) | Solid copper directly in relay screw cage and WAGO clamp | Unswitched hot leg into the relay's "common" terminal. |
+| AC-4 | Teyleten relay #1 contact output ("normally open") | Verified hot side of current donor compressor's factory-external electrical interface, through SF76E thermal fuse | H_switched | [18](AWG_COMP_LEAD) | [~400 mm](LEN_COMPRESSOR) | Ferrule in relay screw cage; current-donor external-interface connector TBD | Switched hot. One of the three conductors of the [18 AWG](AWG_COMP_LEAD_U) SJOOW jacketed lead that runs unbroken from the +X wall of back-top to the compressor. The terminal block and PTC stay under the retained donor cover; this run terminates only at the factory-external interface. Length includes service slack. |
 | AC-5 | AC distribution block (N) | Verified neutral side of current donor compressor's factory-external electrical interface | N | [18](AWG_COMP_LEAD) | [~400 mm](LEN_COMPRESSOR) | Crimp ferrule at distribution block; current-donor external-interface connector TBD | The SJOOW's second conductor, in the same jacket as AC-4. It terminates only at the factory-external interface without disturbing the retained donor cover. |
 | AC-6 | Earth bus on chassis ground point | Compressor body, at its terminal-box earth screw | G | [18](AWG_COMP_LEAD) | [~400 mm](LEN_COMPRESSOR) | Ring terminal both ends | The SJOOW's third conductor, in the same jacket as AC-4 / AC-5. Bonds the compressor body to chassis ground — the machine's only bond to the refrigeration metalwork. The ring goes under the compressor's own terminal-box earth screw, never under a rubber-isolated floor mount. |
 
@@ -72,10 +99,10 @@ One 22 AWG 4P ribbon carries RELAYS J5 (`GND` / `V5` / `IO2` / `IO19`) from the 
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| DC-1 | PSU [12 V](V_DC) output | [12 V](V_DC) distribution block on the +X wall of back-top | + + GND | [16](AWG_MAINS) | [~100 mm](LEN_SHORT_2) | Crimp fork at PSU; ferrule at distribution block | PSU max [6.7 A](PSU_MAX_A); [16 AWG](AWG_MAINS_U) comfortable. |
-| DC-2 | [12 V](V_DC) distribution block | Teyleten relay #2 contact input | + | [16](AWG_MAINS) | [~100 mm](LEN_SHORT_2) | Crimp fork to relay terminal | Switched [12 V](V_DC) to diaphragm pump. |
+| DC-1 | PSU [12 V](V_DC) output | [12 V](V_DC) distribution block on the +X wall of back-top | + + GND | [16](AWG_MAINS) | [~100 mm](LEN_SHORT_2) | Solid copper directly in PSU screw cages and WAGO clamps | PSU max [6.7 A](PSU_MAX_A); [16 AWG](AWG_MAINS_U) comfortable. |
+| DC-2 | [12 V](V_DC) distribution block | Teyleten relay #2 contact input | + | [16](AWG_MAINS) | [~100 mm](LEN_SHORT_2) | Solid copper directly in relay screw cage and WAGO clamp | Switched [12 V](V_DC) to diaphragm pump. |
 | DC-3 | Teyleten relay #2 contact output | G Ganen diaphragm pump | + + GND | [16](AWG_MAINS) | [~250 mm](LEN_PUMP) | Female disconnect | Budgeted at [5 A](DIAPHRAGM_A); the pump's current is unmeasured. |
-| DC-4 | [12 V](V_DC) distribution block | Board inlet J10 `V12` + `GND` | + + GND | [16](AWG_MAINS) | [~150 mm](LEN_MID) | Ferrules under the J10 screw clamps | Everything the main board feeds — [10](SOLENOID_COUNT) manifold valves + the V-K supply valve, both peristaltic pumps, the condenser fan, display [12 V](V_DC), and both logic rails — draws through this run: ~[3.33 A](BOARD_PEAK_A) peak (both pumps priming + [3](MAX_VALVES) valves + the fan), against [32 A](WAGO_RATED_A)-rated WAGO 221-413 lever nuts. The diaphragm pump's [5 A](DIAPHRAGM_A) budget on DC-3 parallels it off the same supply — [8.32 A](COINCIDENT_A) against [6.7 A](PSU_MAX_A) if a refill overlaps a dispense, which is why relay #2 is gated on the dispense window ([`power.mmd`](/hardware/wiring/power.mmd)). `V12` seats on the east pad, `GND` west; reversing them cooks the polarized bulk cap, the buck, and the drivers. |
+| DC-4 | [12 V](V_DC) distribution block | Board inlet J10 `V12` + `GND` | + + GND | [16](AWG_MAINS) | [~150 mm](LEN_MID) | Solid copper directly in J10 screw cages and WAGO clamps | Everything the main board feeds — [10](SOLENOID_COUNT) manifold valves + the V-K supply valve, both peristaltic pumps, the condenser fan, display [12 V](V_DC), and both logic rails — draws through this run: ~[3.33 A](BOARD_PEAK_A) peak (both pumps priming + [3](MAX_VALVES) valves + the fan), against [32 A](WAGO_RATED_A)-rated WAGO 221-413 lever nuts. The diaphragm pump's [5 A](DIAPHRAGM_A) budget on DC-3 parallels it off the same supply — [8.32 A](COINCIDENT_A) against [6.7 A](PSU_MAX_A) if a refill overlaps a dispense, which is why relay #2 is gated on the dispense window ([`power.mmd`](/hardware/wiring/power.mmd)). `V12` seats on the east pad, `GND` west; reversing them cooks the polarized bulk cap, the buck, and the drivers. |
 | DC-5 | PUMPS J13 (`AM2` / `AM1` → pump A, `BM2` / `BM1` → pump B) | The **contact pair**, a YYFKGCP 4-pin magnetic pogo pair: the male half in front-top's bay bulkhead, the female half in the pump cartridge's top clamp, mated as the cartridge seats | 2 motor pairs, 4 conductors | 22 | [~350 mm](LEN_PUMP_FIXED) fixed J13 half + [~100 mm](LEN_CARTRIDGE) cartridge leads | J13 XH → 22 AWG 4P ribbon soldered to the male half's four tails; four 22 AWG leads soldered to the female half's tails → four female Fastons kept on the pump tabs | Each DRV8870 H-bridge drives one motor differentially, so each of the pair's four contacts carries one motor conductor at the pump's published ~[0.8 A](PUMP_PEAK_A), never both pumps, against the contact's 2 A rating and 30 mΩ maximum. Conductor order by contact, +X to −X: `AM2`, `AM1`, `BM2`, `BM1`, so the +X pair serves pump A on +X and the −X pair pump B; both halves carry the same order, read in machine X. The fixed half leaves the bulkhead's lead bore, climbs to the bulkhead's crown behind the ridge wall, passes through the ridge-wall cable clip and returns along the +X wall toward the main board. The cartridge leads run in the clamp's crown grooves and follow the cartridge out. With power removed, draw the cartridge; the pair parts as it leaves and mates as it seats, and the four Fastons stay on the pump tabs. |
 | DC-6 | MANIFOLD A J1 (`COM` + `OUT1`–`OUT8`) | 8 Beduan solenoid coils on manifold A | 9-conductor trunk | [22](AWG_SIG) | [~550 mm](LEN_MAN_A) to each coil, `COM` [~300 mm](LEN_MAN_A_COM) to the fan-out, then [~350 mm](LEN_MAN_A_FANOUT) per valve | XH housing at J1; `COM` into a Wago 221-420 at the manifold; female disconnects per valve | Low-side switching: `COM` carries the shared [12 V](V_DC) from the main board's V12 island to every valve +, exploded at the manifold Wago; each valve − returns on its `OUT` conductor to the on-board TBD62083 (U4). Valve ↔ `OUT` mapping per [`valve-control.mmd`](/hardware/wiring/valve-control.mmd). |
 | DC-7 | MANIFOLD B J2 (`COM` + `OUT1`–`OUT2`) | 2 Beduan solenoid coils on manifold B | 5 of the 6-way J2 trunk populated | [22](AWG_SIG) | [~550 mm](LEN_MAN_B) to each coil; `COM` [~300 mm](LEN_MAN_B_COM) to the fan-out, then [~450 mm](LEN_MAN_B_FANOUT) maximum per positive branch | XH housing at J2; `COM` into a Wago 221-415 at the manifold; female disconnects per valve | Same pattern as DC-6. The trunk populates `COM` + `OUT1` + `OUT2` + `FAN` (the fan sink is DC-8) + `OUT3` (V-K's − on run DC-9); `OUT4` is wired on the main board but carries no valve — a spare channel, left unpopulated in the harness. |
@@ -159,8 +186,8 @@ Fabrication — bulk cut-to-length all-black wire, crimp tooling, sleeving, and 
 Single-point chassis ground at the +X wall of back-top, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
 - **C14 ground pin** → ground bus on the +X wall of back-top (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
-- **Ground bus** distributes to: PSU chassis (via AC-2 ground), compressor body (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS carbonator inside the cold core, etc.) via short bonding wires. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
-- All ground conductors are [16 AWG](AWG_MAINS_U) green-insulated. Ring terminals at the bus, ring or fork terminals at the load.
+- **Ground bus** distributes to: compressor body (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS carbonator inside the cold core, etc.) via short bonding wires. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
+- Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
 ## What's not yet decided

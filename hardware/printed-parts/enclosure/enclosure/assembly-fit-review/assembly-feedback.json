@@ -1,0 +1,91 @@
+{
+  "reported_date": "2026-10-17",
+  "scope": "Prototype assembly observations; unprinted geometry is not physical fit acceptance.",
+  "c14": {
+    "observation": "Height clearance is insufficient in the assembled back-top article.",
+    "requested_extra_total_mm": {
+      "x": 1.0,
+      "y": 0.0,
+      "z": 1.0
+    },
+    "article_record": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/launch.json",
+    "accepted_at_utc": "2026-10-10T06:36:57.529465+00:00",
+    "printer_task_id": "1325371485",
+    "article_identity_basis": "Latest accepted back-top launch found in the repository; the October 11 preparation is recorded as not started. Used as the identified article for comparison, without a serial-number identification claim.",
+    "prior_acceptance_scope": "The earlier inlet/C13 station acceptance in tee-readiness/full-enclosure-print/hard-contact-review retains its identified-part scope. It does not override this installed-article observation.",
+    "measurements": "printed-c14-measurements.json"
+  },
+  "mean_well": {
+    "observation": "Provide wire space at the terminal ends along the module's long axis.",
+    "reference": "https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf",
+    "wire_axes_reference_frame": {
+      "ac": "+Y",
+      "dc": "-Y",
+      "screwdriver": "+Z"
+    },
+    "wire_axes_machine_frame": {
+      "ac": "+Y",
+      "dc": "-Y",
+      "screwdriver": "-X"
+    },
+    "reference_block_dimensions": "Representative; exact installed wire bend and terminal-mouth placement are unmeasured."
+  },
+  "cold_core": {
+    "observation": "Blind tube insertion below the reservoir is too tight. Passive passages must be larger than the tube.",
+    "latest_logged_success_date": "2026-05-31",
+    "geometry_commit": "7cd497027",
+    "small_passage_diameter_at_logged_source_mm": 6.5,
+    "record": "hardware/printed-parts/cold-core/foam-shell/print-log.md",
+    "success_record_commit": "56c4d179be",
+    "measured_tube_od_mm": 6.5,
+    "passive_passage_diameter_mm": 7.5,
+    "gripping_fits": "Use their own part dimensions: faucet, organizer, copper-plug seats and PRV tube socket.",
+    "cap_column_webs_mm": 3.0
+  },
+  "wire": {
+    "fixed_solid_runs": [
+      "AC-2 H/N",
+      "AC-3",
+      "DC-1",
+      "DC-2",
+      "DC-4"
+    ],
+    "gauge_awg": 16,
+    "stock_rating": "Marked UL1007, 300 V, 80 degrees C; inspect delivered marking.",
+    "prime_verified_date": "2026-10-17",
+    "black": "https://www.amazon.com/dp/B0FK5HH8H1",
+    "white": "https://www.amazon.com/dp/B0FK5G1Q1J",
+    "per_25_ft_spool_usd_before_tax": 11.99,
+    "purchased": false,
+    "stranded_runs": "C14 solder-tab pigtails, SJOOW compressor cord, pump lead, protective-earth bonds and JST/Faston/removable-display harnesses."
+  },
+  "other_agent_review": {
+    "session": "Screw lengths for C14/Meanwell/PCB enclosure",
+    "commit": "8a8083b1055d4d158d92320eab32987e5a201622",
+    "reviewed_scope": "Screw-length and documentation changes; no terminal, C14 or cold-core clearance correction in that commit.",
+    "manufacturer_crosscheck": "IRM-90 ST mechanical drawing dimensions the mounting ears at 6.7 mm. The existing screw-length selection is retained."
+  },
+  "baseline_main_board_mounting_stations_mm": [
+    [
+      245.3,
+      256.90000000000003,
+      96.25
+    ],
+    [
+      323.3,
+      256.90000000000003,
+      96.25
+    ],
+    [
+      323.3,
+      323.2,
+      96.25
+    ],
+    [
+      245.3,
+      323.2,
+      96.25
+    ]
+  ],
+  "baseline_placement_description_sha256": "5722f63e6290b97073cad9595bae92bc17dbc830166d907df4d25c9df067ebfe"
+}

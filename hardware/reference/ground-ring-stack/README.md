@@ -25,7 +25,6 @@ step 3 — one green ring-terminal bond per exposed-metal part:
 - Carbonator
 - Compressor body (run AC-6, at the can's own terminal-box earth screw)
 - Under-counter plate
-- PSU chassis (run AC-2 G)
 - the C14 inlet's earth feed (G Wago → bus)
 
 This is a **Class I** appliance ([`/business/regulatory.md`](/business/regulatory.md)):
@@ -39,7 +38,7 @@ earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 | | mm |
 |---|---|
-| Lugs in the fan | **5**, fanned 60° apart, rising one tongue thickness each |
+| Layout-model lug capacity | **5**, fanned 60° apart, rising one tongue thickness each; four earth connections are allocated above |
 | Ring-terminal tongue | ⌀**8.0** eye, ⌀**3.2** bore, **0.8** thick |
 | Crimp barrel | ⌀**4.2** × **6.0** stub (no wire past it) |
 | Tooth washer | ⌀**7.0** × **0.8** over the top lug |

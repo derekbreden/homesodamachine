@@ -3,6 +3,8 @@ mouth during the pour, and the TPU 90A gasket that rings the cup's mating edge a
 outer shell's face. The two ends are the same cup and the same plate divided differently — the
 top lid is solid to its full height and its cup one head pad shorter for it."""
 
+import math
+import cadquery as cq
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
@@ -14,6 +16,8 @@ from _cold_core_interface import (
     cap_conduits,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
+    cap_conduit_links,
+    cap_conduit_link_width,
     cap_conduit_entry_relief_radius,
     foam_cap_height,
     foam_shell_outer_height,
@@ -93,6 +97,17 @@ def build_conduit_columns(height):
             .extrude(height)
         )
         columns = column if columns is None else columns.union(column)
+    # Simple full-height webs connect the two close pairs. The subsequent bore
+    # cut keeps the passages open through the entire joined stock.
+    for first, second in cap_conduit_links:
+        a, b = cap_conduits[first], cap_conduits[second]
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        link = (cq.Workplane("XY")
+                .box(math.hypot(dx, dy), cap_conduit_link_width, height,
+                     centered=(True, True, False))
+                .rotate((0, 0, 0), (0, 0, 1), math.degrees(math.atan2(dy, dx)))
+                .translate(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0)))
+        columns = columns.union(link)
     return columns
 
 
@@ -153,7 +168,7 @@ def build_foam_cap(open_down=False):
     on all of them at once.
 
     A CONDUIT column runs the full height to the mouth rim, where the lid's plate lands on
-    it, and carries a ⌀[6.8 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
+    it, and carries a ⌀[7.5 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
     the mouth-up top cap has them: `cap_conduits` is everything that leaves by the top —
     `cap_fluid_conduits` and a reed cable apiece in the other two — and the service bay is on
     the top cap's outer face."""

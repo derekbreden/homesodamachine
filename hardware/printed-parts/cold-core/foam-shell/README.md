@@ -29,7 +29,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. **Two mouths, and they never share one.** The FILL is a
-  ⌀[6.8 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
+  ⌀[7.5 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
   liquid; the DRAW is a PureSec bulkhead clamped through the floor's central
   trough, at the bottom of the wet V and the lowest drainable point in the
   cavity. Everything that enters has to cross the cavity to leave. The floor is
@@ -141,7 +141,7 @@ the cardinal axes. The slots let pour foam reach the under-carbonator
 floor regardless of which cavity it enters from.
 
 **Both bottom-plate lines cross the ring at the 225° slot, and the ring is bored
-nowhere.** The **CO2 inlet** takes a ⌀[6.8 mm](TUBE_HOLE_D) reach in from the
+nowhere.** The **CO2 inlet** takes a ⌀[7.5 mm](TUBE_HOLE_D) reach in from the
 bottom plate's lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z),
 **leaning** across the shell's floor to land on the port lane under the top cap's
 `co2-in` conduit. The line falls the shell's whole height down that lane, and an
@@ -214,7 +214,8 @@ half a pitch otherwise, which would land every groove of the cap on a land of th
 untouched — [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y), the same figures the cabinet was
 measured against — and the foam gives up the difference: the ±Y pour band is
 [14.8 mm](FSHELL_POUR_BAND) and the ±X forward band is [6.8 mm](FSHELL_FORWARD_BAND), which
-still passes the ⌀[6.8 mm](TUBE_HOLE_D) line that climbs it. The floor takes none of it and
+passes the measured 6.5 mm tube. The Ø[7.5 mm](TUBE_HOLE_D) holes are the
+crossings through printed walls and caps. The floor takes none of it and
 stays [2 mm](FSHELL_WALL_T): it lies flat, so it carries no flutes, and every height in the
 core is measured off its top face.
 
@@ -336,8 +337,10 @@ both ends of that.
 ## Penetrations
 
 Twelve pass-throughs total — ten tube lines and two reed cables. Every tube is **1/4" OD
-(6.35 mm)**, and where one crosses printed material the hole is ⌀[6.8 mm](TUBE_HOLE_D) for
-a tight fit.
+(6.35 mm nominal, about 6.5 mm measured)**. Passive passages through printed
+material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radial air around the measured
+tube for insertion below the reservoirs and through the cap. These passages
+do not retain the tube. Faucet and organizer fits use their own dimensions.
 
 **THE CORE IS REACHED THROUGH ITS LID.** All seven fluid lines leave by the TOP, each up a
 conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
@@ -453,8 +456,8 @@ and between the two the run turns onto the lane and climbs to it — the lane is
 them sit at different X *and* different Z.
 
 The cable's crossing is a round bore because a cable is limp. A DRAW's is not: it is that
-line's own corridor through the wall, which is a longer opening in x and the same tight
-fit round the tube (`_port_cuts.cut_line_corridors`). Only two bodies in the shell give
+line's own corridor through the wall, which is a longer opening in x with the same loose
+clearance round the tube (`_port_cuts.cut_line_corridors`). Only two bodies in the shell give
 way to a line that way — a bag pocket's ±Y wall and the pocket corner posts — and every
 other thing a line meets stops it.
 
@@ -471,7 +474,7 @@ threaded after the pour has cured, and are potted nowhere.
 
 The −X outer_shell wall carries a **Z-elongated slot** on each of its two lanes, and
 between them they take the two copper evaporator lines, one lane pitch up off each lane’s floor. Each slot is
-⌀[6.8 mm](TUBE_HOLE_D) wide (rounded ends along Z) and both are cut by
+⌀[6.65 mm](PLUG_ARCH_D) wide (rounded ends along Z) and both are cut by
 `cut_lane_slots` in `_port_cuts.py`. A slot's
 top extends past the wall top so no sliver of wall material remains
 above it — the plugs slide down into the slot from
@@ -641,9 +644,10 @@ coil at the ±X azimuths — the foam has to work through the embedded
 helical wraps and fill the 15 mm blanket out to the centerward wall's
 carbonator-side face, ~110 mm of arc to reach around from the ±Y entry.
 
-Foam expansion may push a small amount of material out through the
-clearance bands around tubes in the slot and through the tight-fit
-tube exits at the other penetrations. Trim flush after cure.
+Before the pour, mask the clearance gaps around installed tubes at both
+reservoir-pocket crossings and outer exits with removable tape on the dry
+side. Keep tube mouths, collets and reed channels open. After cure, remove
+the masks and trim any external foam flush.
 
 ### Final assembly (after the body foam pour has cured)
 
@@ -740,11 +744,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1264096.127 mm³](FSHELL_VOLUME) |
+| volume | [1263443.047 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
-| bbox y | [-90.508 to 90.508 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.932826, 0.199508, 91.240772) mm](CENTROID) |
+| bbox y | [-90.508 to 90.515 mm](FSHELL_BBOX_Y) |
+| centroid | [(0.978988, 0.207718, 91.236179) mm](CENTROID) |
 
 Quick reproduction:
 
