@@ -28,7 +28,9 @@ measured current and voltage under the intended load schedule.
 In the file's frame: X = width (52), Y = length (109), Z up from the base; origin
 at the footprint center, Z = 0 the mounting plane.
 
-The mounting-tab outline/thickness isn't dimensioned by the datasheet, so the
-ledge + terminal-block shapes here are representative; the **envelope and the
-hole pattern are exact**. Regenerate with
+The drawing dimensions the terminal-end ledges, which carry the four mounting
+holes, at 6.7 mm (±1 mm general tolerance), so each mounting screw crosses 6.7 mm
+of moulded ear ([`bom.md`](/hardware/ledger/bom.md) §13 sizes it). The ledge
+outline and terminal blocks here are representative; the **envelope, ledge
+height and hole pattern are the drawing's**. Regenerate with
 `tools/cad-venv/bin/python meanwell_irm90.py`.
