@@ -260,5 +260,39 @@
       }
     ],
     "exported_shell": "One valid native solid and a watertight print STL; physical assembly and edge finish remain unmeasured."
+  },
+  "final_cap_mesh_review": {
+    "stl_sha256": "f601af2058bb41b357c34a23328a3dc8eb273e3e01d53c6486cbf1ec7129db6f",
+    "printed_facets": 195966,
+    "total_findings": 9,
+    "sliver_findings_reported": 0,
+    "reported_thin_picks": "The three default ranked picks are the perimeter regions compared above. They remain open findings.",
+    "web_width_mm": 5.0
+  },
+  "live_delivery": {
+    "verified_utc": "2026-10-17T17:48:24.133593+00:00",
+    "pointer_commit": "571fd396754b38b3cf1d7aaee11d68de1da8c926",
+    "scope": "Live STEP, viewer mesh and STL downloads match the local pointer hashes after gzip decoding.",
+    "verified_members": [
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "hardware/cold-core-layout/cold-core-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl"
+    ]
   }
 }

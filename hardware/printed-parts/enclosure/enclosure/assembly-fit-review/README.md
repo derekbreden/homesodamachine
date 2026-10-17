@@ -55,8 +55,11 @@ sharp passage-rim findings and the unchanged seam, port and cap-perimeter
 regions. Both the preceding and current shell STL report acute curved-passage
 entry edges. The Ø7.5 mm clearance review does not qualify their printed
 finish. Local chamfer/round candidates did not produce valid solids and are
-excluded from the exports. The listed back-top support faces retain their
-functional openings and stated support exits.
+excluded from the exports. The final cap review reports no short-face
+slivers at the 5 mm webs; its ranked perimeter findings remain open. The
+listed back-top support faces retain their functional openings and stated
+support exits. Live STEP, viewer mesh and STL downloads match their pointer
+hashes for all 19 reviewed files.
 
 [Wiring construction](../../../../wiring/ac-wiring-schedule.md#conductor-construction)
 names the fixed solid-wire runs, stranded exceptions and Prime stock.
