@@ -6,6 +6,14 @@ Durable principles for marketing video on this project. These predate any specif
 
 First-person footage of hands doing work is the best angle for shop/build content. It's authentic, sidesteps the "performing" problem, and is what the cap mount does well.
 
+## Process videos stay below shoulder level
+
+Process videos show hands, tools and the work, with any torso framing below the
+shoulders. Keep the head and face outside the picture, including reflections
+in stainless, windows and screens. Rehearse entering, reaching and leaving so
+the framing holds throughout the action. Voiceover and observations can be
+recorded with the camera aimed at the part.
+
 ## Voiceover > on-camera narration
 
 Narrating while watching your own footage on the couch is easier than talking to a camera and produces better results for technical content. No pressure, unlimited retakes.

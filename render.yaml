@@ -67,6 +67,7 @@ services:
         - hardware/weld-rotator-guide/**
         - hardware/faucet-assembly-guide/**
         - hardware/tube-insertion-guide/**
+        - hardware/carbonator-filming-guide/**
         - hardware/gun-positioner-guide/**
         - hardware/guide-assets/**
         - hardware/assembly-letter-guide/**
