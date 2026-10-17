@@ -34,10 +34,14 @@ export function renderHarnessGuide(data, rate) {
           <button type="button" data-harness-view="connector" aria-pressed="false">JST plug</button>
           <button type="button" data-harness-view="top" aria-pressed="false">Top</button>
         </div>
-        <button type="button" data-harness-reset aria-label="Reset ${esc(data.id)} view">Reset</button>
+        <button type="button" data-harness-reset aria-label="Reset ${esc(data.id)} view">Reset view</button>
         <button type="button" data-harness-fullscreen>Expand</button>
       </div>
-      <div class="harness-stage" tabindex="0" aria-label="${esc(data.id)} interactive harness. Click a wire to highlight it. Use Open conductor separately to inspect its ends. Drag to orbit, pinch or scroll to zoom; arrow keys and plus or minus also move the view.">
+      <div class="harness-navigation" hidden>
+        <div role="group" aria-label="${esc(data.id)} drag action">${[['rotate', 'Rotate'], ['pan', 'Pan'], ['zoom', 'Zoom']].map(([key, label]) => `<button type="button" data-harness-nav="${key}" aria-pressed="${key === 'rotate'}">${label}</button>`).join('')}</div>
+        <span>Right drag or two fingers to pan</span>
+      </div>
+      <div class="harness-stage" tabindex="0" aria-label="${esc(data.id)} interactive harness. Click a wire to highlight it. Use Open conductor separately to inspect its ends. Drag to rotate; right drag, two fingers, or Pan mode to pan; pinch or scroll to zoom. Arrow keys rotate, Shift and arrows pan, plus and minus zoom, Home resets the view.">
         <p class="harness-loading" role="status">Loading the harness and its native PCB…</p>
         <svg class="harness-leaders" aria-hidden="true"></svg>
         <div class="harness-labels"></div>
@@ -45,12 +49,16 @@ export function renderHarnessGuide(data, rate) {
       </div>
       <div class="harness-scene-controls" hidden>
         <label><input type="checkbox" data-harness-wires> See through sleeves</label>
+        <label><input type="checkbox" data-harness-xray> X-ray</label>
+        <label title="Millimeter rulers on the native PCB; cable reach is compressed."><input type="checkbox" data-harness-rulers> PCB rulers</label>
         <label><input type="checkbox" data-harness-labels checked> Part labels</label>
+        <button type="button" data-harness-show-all disabled>Show all</button>
         <label class="harness-explode">Separate parts <input type="range" data-harness-explode min="0" max="100" value="0" aria-label="Separate ${esc(data.id)} parts"><output data-harness-explode-value>0%</output></label>
       </div>
-      <p class="harness-caption">Drag to orbit · pinch or scroll to zoom. Click a wire to highlight it, then choose <strong>Open conductor</strong> to inspect both ends.<span>Native PCB crop and printed labels · plug lifted for inspection · cable reach compressed</span></p>
+      <p class="harness-caption">Drag to rotate · two fingers or right drag to pan · pinch or scroll to zoom. Use the cube for a precise view. Click a wire to highlight it, then choose <strong>Open conductor</strong> to inspect both ends.<span>Native PCB crop and printed labels · plug lifted for inspection · cable reach compressed · rulers measure the native PCB only</span></p>
     </div>
     <aside class="harness-inspector" aria-label="${esc(data.id)} assembly inspector">
+      <div class="harness-find" hidden><input type="search" data-harness-find aria-label="Find ${esc(data.id)} conductor or part" placeholder="Find a wire, pin or part…"><div data-harness-find-results aria-live="polite" hidden></div></div>
       <div class="harness-tabs" role="tablist" aria-label="${esc(data.id)} guide" hidden>
         ${[['wires', 'Conductors'], ['build', 'Build'], ['parts', 'Parts']].map(([key, label]) => `<button type="button" role="tab" id="${id}-tab-${key}" aria-controls="${id}-panel-${key}" aria-selected="${key === 'wires'}" data-harness-tab="${key}">${label}</button>`).join('')}
       </div>
@@ -64,6 +72,7 @@ export function renderHarnessGuide(data, rate) {
           <button type="button" class="harness-back" data-harness-clear>← All conductors</button>
           <h4 data-harness-selection-title></h4>
           <button type="button" class="harness-open" data-harness-open hidden>Open conductor ↗</button>
+          <button type="button" class="harness-hide" data-harness-hide>Hide selected</button>
           <div class="harness-connection" hidden>
             <button type="button" data-harness-focus="from"><small>FROM</small><strong data-harness-from></strong><span>Show this end</span></button>
             <div class="harness-connection-arrow" aria-hidden="true">↓</div>
