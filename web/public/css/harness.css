@@ -5,7 +5,7 @@
 .harness-time { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .harness-time strong { font-size: 1.3rem; }
 .harness-time span { display: block; font-size: .7rem; color: var(--text-2); margin-top: .18rem; }
-.harness-workbench { display: grid; grid-template-columns: minmax(0, 1fr) 18.5rem; height: 680px; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; min-width: 0; background: var(--surface); }
+.harness-workbench { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 18.5rem; height: 680px; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; min-width: 0; background: var(--surface); }
 .harness-visual { min-width: 0; display: flex; flex-direction: column; color: #193451; background: #e2eaf4; --bench-muted: #4b617a; }
 .harness-guide button { font-family: inherit; cursor: pointer; line-height: 1.4; }
 .harness-guide button:disabled { cursor: default; opacity: .4; }
@@ -15,7 +15,7 @@
 .harness-toolbar button:hover { background: #fff; }
 .harness-views { display: flex; flex-wrap: wrap; gap: .25rem; margin-right: auto; }
 .harness-views button[aria-pressed="true"] { color: #fff; background: #244766; border-color: #244766; }
-.harness-stage { flex: 1; min-height: 0; position: relative; overflow: hidden; scroll-margin-top: 55px; background: radial-gradient(ellipse at 45% 25%, #f6f9fd, #d7e2ef); }
+.harness-stage { flex: 1; min-height: 0; position: relative; overflow: hidden; touch-action: none; scroll-margin-top: 55px; background: radial-gradient(ellipse at 45% 25%, #f6f9fd, #d7e2ef); }
 .harness-stage canvas { display: block; width: 100%; height: 100%; position: absolute; inset: 0; touch-action: none; cursor: grab; }
 .harness-stage canvas:active { cursor: grabbing; }
 .harness-loading { position: absolute; z-index: 4; inset: 38% 10% auto; margin: 0; color: var(--bench-muted); text-align: center; font-size: .8rem; }
@@ -91,9 +91,24 @@
 .harness-fallback li { padding: .3rem; }
 .harness-guide.is-interactive .harness-fallback { display: none; }
 .harness-guide [hidden] { display: none !important; }
-.harness-workbench:fullscreen { width: 100%; height: 100%; border: 0; border-radius: 0; grid-template-columns: minmax(0, 1fr) 22rem; }
-.harness-workbench:fullscreen .harness-inspector { max-height: 100vh; }
-.harness-workbench:fullscreen .harness-stage { min-height: 0; }
+.harness-modal-open { overflow: hidden; }
+.harness-launch { position: absolute; inset: 0; z-index: 5; display: flex; align-items: flex-end; width: 100%; border: 0; padding: .8rem 1rem; text-align: left; color: #193451; background: linear-gradient(transparent 45%, #eef4fbeF); }
+.harness-launch strong, .harness-launch small { display: block; }
+.harness-launch strong { font-size: .8rem; font-weight: 600; }
+.harness-launch small { font-size: .66rem; margin-top: .1rem; color: #4b617a; }
+.harness-launch:hover { background: linear-gradient(transparent 40%, #fff); }
+.harness-guide.is-preview .harness-workbench { display: block; height: 190px; }
+.harness-guide.is-preview .harness-visual { height: 100%; }
+.harness-guide.is-preview .harness-stage { height: 100%; }
+.harness-guide.is-preview :is(.harness-toolbar, .harness-inspector, .harness-scene-controls, .harness-caption, .harness-labels, .harness-leaders, .harness-open-banner) { display: none !important; }
+.harness-dialog::backdrop { background: #101d36bb; }
+.harness-dialog[open] { position: fixed; inset: 0; display: flex; flex-direction: column; box-sizing: border-box; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--text); overscroll-behavior: contain; }
+.harness-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-shrink: 0; padding: max(.65rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) .65rem max(1rem, env(safe-area-inset-left)); border-bottom: 1px solid var(--border); }
+.harness-dialog-heading strong { font-size: .85rem; font-weight: 500; }
+.harness-dialog-heading button { flex-shrink: 0; padding: .4rem .7rem; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 5px; font-size: .75rem; }
+.harness-dialog .harness-workbench { flex: 1; min-height: 0; width: 100%; height: auto; border: 0; border-radius: 0; grid-template-columns: minmax(0, 1fr) 22rem; }
+.harness-dialog .harness-stage { min-height: 0; }
+.harness-dialog [data-harness-fullscreen] { display: none; }
 @media (max-width: 1000px) {
   .harness-workbench { grid-template-columns: minmax(0, 1fr) 16.5rem; }
   .harness-explode { margin-left: 0; }
@@ -101,6 +116,11 @@
 @media (min-width: 1100px) {
   /* The workbench gets enough width to inspect a complete piece inside costs. */
   #wiring[open] { width: min(1220px, calc(100vw - 70px)); margin-left: 50%; transform: translateX(-50%); }
+}
+@media (max-width: 960px) {
+  .harness-dialog .harness-workbench { display: block; overflow: auto; padding-bottom: env(safe-area-inset-bottom); }
+  .harness-dialog .harness-stage { height: clamp(260px, 52dvh, 560px); }
+  .harness-dialog .harness-inspector { max-height: none; overflow: visible; }
 }
 @media (max-width: 760px) {
   .harness-workbench { grid-template-columns: minmax(0, 1fr); height: auto; }
@@ -110,9 +130,6 @@
   .harness-selection dl, [data-harness-materials] { display: grid; grid-template-columns: 1fr 1fr; gap: .1rem 1rem; }
   .harness-connection { display: grid; grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); align-items: center; gap: .3rem; }
   .harness-connection-arrow { transform: rotate(-90deg); }
-  .harness-workbench:fullscreen { display: flex; flex-direction: column; overflow: auto; }
-  .harness-workbench:fullscreen .harness-stage { height: 47vh; }
-  .harness-workbench:fullscreen .harness-inspector { max-height: none; overflow: visible; }
 }
 @media (max-width: 480px) {
   .harness-heading { align-items: flex-start; }

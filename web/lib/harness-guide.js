@@ -25,6 +25,7 @@ export function renderHarnessGuide(data, rate) {
     <div class="harness-time"><strong>${minutes} min</strong><span>unit ${data.estimateUnit}${rate ? ` · ${money}` : ''}</span></div>
   </header>
   <div class="harness-workbench">
+    <button type="button" class="harness-launch" data-harness-launch aria-haspopup="dialog" aria-label="Open ${esc(data.id)} interactive 3D harness" hidden><span><strong>Explore ${esc(data.id)} in 3D ↗</strong><small>Tap to open · pinch to zoom</small></span></button>
     <div class="harness-visual">
       <div class="harness-toolbar" hidden>
         <div class="harness-views" role="group" aria-label="${esc(data.id)} camera">
@@ -36,7 +37,7 @@ export function renderHarnessGuide(data, rate) {
         <button type="button" data-harness-reset aria-label="Reset ${esc(data.id)} view">Reset</button>
         <button type="button" data-harness-fullscreen>Expand</button>
       </div>
-      <div class="harness-stage" tabindex="0" aria-label="${esc(data.id)} interactive harness. Click a wire to highlight it. Use Open conductor separately to inspect its ends. Drag to orbit, scroll to zoom; arrow keys and plus or minus also move the view.">
+      <div class="harness-stage" tabindex="0" aria-label="${esc(data.id)} interactive harness. Click a wire to highlight it. Use Open conductor separately to inspect its ends. Drag to orbit, pinch or scroll to zoom; arrow keys and plus or minus also move the view.">
         <p class="harness-loading" role="status">Loading the harness and its native PCB…</p>
         <svg class="harness-leaders" aria-hidden="true"></svg>
         <div class="harness-labels"></div>
@@ -47,7 +48,7 @@ export function renderHarnessGuide(data, rate) {
         <label><input type="checkbox" data-harness-labels checked> Part labels</label>
         <label class="harness-explode">Separate parts <input type="range" data-harness-explode min="0" max="100" value="0" aria-label="Separate ${esc(data.id)} parts"><output data-harness-explode-value>0%</output></label>
       </div>
-      <p class="harness-caption">Click a wire to highlight it. Then choose <strong>Open conductor</strong> to inspect both ends.<span>Native PCB crop and printed labels · plug lifted for inspection · cable reach compressed</span></p>
+      <p class="harness-caption">Drag to orbit · pinch or scroll to zoom. Click a wire to highlight it, then choose <strong>Open conductor</strong> to inspect both ends.<span>Native PCB crop and printed labels · plug lifted for inspection · cable reach compressed</span></p>
     </div>
     <aside class="harness-inspector" aria-label="${esc(data.id)} assembly inspector">
       <div class="harness-tabs" role="tablist" aria-label="${esc(data.id)} guide" hidden>
