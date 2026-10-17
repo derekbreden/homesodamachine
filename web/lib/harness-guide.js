@@ -14,11 +14,11 @@ export function readJ2Harness(hardwareDir) {
 export function renderHarnessGuide(data, rate) {
   if (!data) return '';
   const minutes = data.steps.reduce((total, step) => total + step.minutes, 0);
-  const money = mins => ((mins / 60) * rate).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const money = mins => ((mins / 60) * rate).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return `<section class="harness-guide" id="j2-harness" aria-labelledby="j2-title">
   <header class="harness-heading">
     <div><p class="harness-eyebrow">Assembly · one finished harness</p><h3 id="j2-title">J2 <span>Manifold B</span></h3><p>Two ribbons. Five populated contacts. One complete bench job.</p></div>
-    <div class="harness-time"><strong>${minutes} min</strong><span>working estimate${rate ? ` · ${money(minutes)}` : ''}</span><small>First reference build: ~${data.referenceBuild.minutes} min, including lookups</small></div>
+    <div class="harness-time"><strong>${minutes} min</strong><span>unit ${data.estimateUnit} estimate${rate ? ` · ${money(minutes)}` : ''}</span><small>Practiced hands · map ready · one complete harness</small></div>
   </header>
   <p class="harness-scope">${esc(data.scope)}. ${esc(data.mapStatus)} The Lillium build parks FAN and OUT3; its active loads are V-I and V-J.</p>
   <p class="harness-scope">This J2 estimate is shown separately from the unit total. The ledger&rsquo;s shared 45-minute allowance for all twelve harnesses still needs to be mapped to complete bench jobs.</p>
