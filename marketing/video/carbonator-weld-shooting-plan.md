@@ -4,23 +4,32 @@ Film Derek welding a carbonator end cap while the rotator moves the seam under t
 
 The audience needs to understand where the cap meets the tube, what turns, what Derek controls, and what the weld looks like afterward. Those four ideas should each have a clear picture.
 
+Process footage shows hands and work below shoulder level. Keep the head and
+face outside the frame throughout entry, reaching and exit, including their
+reflections in stainless, windows and screens. Spoken observations can be
+recorded over a view of the part.
+
+Use the [illustrated filming guide](../../hardware/carbonator-filming-guide/README.md)
+for the shot-by-shot sequence and recording times. It assumes all four listed
+purchases, including the macro lens: one GoPro moves between a fixed overall
+position and a macro position, while the phone records the DJI microphone.
+
 ## What to buy
 
-Buy these three items for **$318.98 before tax**, at the prices checked in signed-in Amazon on October 17, 2026. Each selected offer displayed Prime. Delivery estimates and prices can change.
+Use these four purchases for **$418.87 before tax**, at the prices checked in signed-in Amazon on October 17, 2026. Each selected offer displayed Prime. Delivery estimates and prices can change.
 
 | Item | Quantity | Price | Purpose |
 |---|---:|---:|---|
-| [SmallRig CT25 horizontal overhead tripod](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $99.00 | Supports the iPhone above or obliquely over the bench so the rim does not hide the recessed joint. The listing includes a phone holder. |
-| [SmallRig CT-10 camera tripod](https://www.amazon.com/dp/B0B63VTW46) | 1 | $69.99 | Holds the GoPro in a fixed overall view while the phone supplies details. Also allows a clear view of operator stance instead of relying entirely on head movement. |
+| [SmallRig CT25 horizontal overhead tripod](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $99.00 | Supports the GoPro with its macro lens above or obliquely over the bench so the rim does not hide the recessed joint. |
+| [SmallRig CT-10 camera tripod](https://www.amazon.com/dp/B0B63VTW46) | 1 | $69.99 | Holds the GoPro in a fixed overall view showing hands, the welding head and the rotator below shoulder level. |
 | [NEEWER NL-192AI two-panel light kit](https://www.amazon.com/dp/B08TMBXLGD) | 1 kit | $149.99 | Two diffused panels, two adjustable stands, two power adapters, built-in batteries, and a carrying bag. One light defines the joint; the other lifts shadows or lights the wider setup. |
+| [Official GoPro Macro Lens Mod AEWAL-021](https://www.amazon.com/dp/B0DCLKZYFR) | 1 | $99.89 | Provides manually focused joint details from the same GoPro. |
 
-The supports earn their places by letting the overall composition and closeup composition remain set between takes. For a smaller first purchase, the CT25 and lights total **$248.99**; move the GoPro onto the tripod between phone inserts and use its existing cap mount for the wider work record.
-
-The [official GoPro Macro Lens Mod AEWAL-021](https://www.amazon.com/dp/B0DCLKZYFR) is **$99.89**, also checked as Prime on October 17. Add it if the phone cannot show the joint clearly or if closeups should use the GoPro. It has manual focus from 11 to 75 cm and focus peaking on the HERO13; [GoPro documents those functions](https://gopro.com/en/us/shop/mounts-accessories/macro-lens-mod/AEWAL-021.html?option-id=AEWAL-021). With all three recommended items plus this lens, the total is **$418.87 before tax**. The phone is the first detail camera to try.
+The guide assumes all four purchases. Move the same camera between the two tripod positions between operations. The macro lens focuses from 11 to 75 cm and provides focus peaking on the HERO13; [GoPro documents those functions](https://gopro.com/en/us/shop/mounts-accessories/macro-lens-mod/AEWAL-021.html?option-id=AEWAL-021).
 
 ### Where the equipment goes
 
-Put the CT-10 on the floor for a three-quarter overall view. The HERO13 has a built-in 1/4-20 mounting thread for the tripod's camera plate, shown in [GoPro's camera overview](https://gopro.com/en/us/out-of-the-box-experience/hero-13-black). Use the CT25's phone holder on its head for the close view. Extend its horizontal arm only as far as needed, orient a leg toward the extended load, and follow its instructions for setup and counterweight. Keep the camera support clear of the rotator, operator, pedal, and hoses.
+Put the CT-10 on the floor for a three-quarter overall view. The HERO13 has a built-in 1/4-20 mounting thread for the tripod's camera plate, shown in [GoPro's camera overview](https://gopro.com/en/us/out-of-the-box-experience/hero-13-black). Move the GoPro with the Macro Lens Mod to the CT25 for the close view. Extend its horizontal arm only as far as needed, orient a leg toward the extended load, and follow its instructions for setup and counterweight. Keep the camera support clear of the rotator, operator, pedal, and hoses.
 
 For disabled-laser closeups, start with both lights at 5600 K, roughly 50 cm from the subject, with the main light above and to one side. Try the main light at 50% and the opposite fill at 20%, then adjust from the recorded image. Those are starting positions and settings. Keep the corner between wall and plate visible; reduce or move the fill if it erases the shadows that explain that corner. [NEEWER specifies](https://neewer.com/products/neewer-384-2-pack-3200k-5600k-cri-95-led-soft-video-light-kit-with-light-stand-and-handbag-built-in-lithium-battery-66600142) 20 W per panel, adjustable 3200–5600 K color, and the kit contents above.
 
@@ -74,29 +83,23 @@ Get the unwelded joint before tacking or welding changes it. Capture the actual 
 
 ## Camera roles and settings
 
-The available kit is a GoPro HERO13 Black with cap mount, an iPhone, and a DJI Mic Mini transmitter and USB-C receiver. Use the phone for stationary details and the GoPro for a wider record of the work. A camera on a fixed support also gives a useful alternative to the cap view.
+The available camera and sound kit is a GoPro HERO13 Black, an iPhone and a DJI Mic Mini transmitter and USB-C receiver. With the assumed purchases, position A uses the stock-lens GoPro on the CT-10 for an overall view; position B uses the same GoPro with the macro lens on the CT25 for details.
 
-The iPhone is both a camera and the current audio recorder. For live speech accompanying GoPro footage, record the DJI receiver into Voice Memos and clap once with both recordings running. For a phone insert, use Camera and record narration afterward. Do not depend on Voice Memos and Camera recording separate tracks simultaneously on that phone.
+Keep the iPhone available for the DJI receiver and Voice Memos. For live speech accompanying GoPro footage, clap once with both recordings running. Spoken observations can be recorded over a stationary view of the part. Keep all process framing below shoulder level, including entry and exit.
 
 ### GoPro
 
-Use **4K, 30 fps, 16:9, Linear, standard SDR** for this horizontal video. Use HyperSmooth On for the cap view and Off when the camera is firmly mounted for explanation shots. Natural color and High bitrate are useful starting choices; leave shutter on Auto for the first ordinary bench-light test. Use 60 fps only for a specific motion intended to play at half speed.
+Use **4K, 30 fps, 16:9, Linear, standard SDR** for this horizontal video. Keep HyperSmooth Off on the rigid supports used for this guide. Natural color and High bitrate are useful starting choices; leave shutter on Auto for the first ordinary bench-light test. Use 60 fps only for a specific motion intended to play at half speed.
 
 Full-sensor 8:7 capture is available at 4K and 5.3K in supported frame rates. Choose it when the extra framing room matters, and use a lens mode offered by that preset. The 16:9 Linear profile above is the straightforward choice for showing mechanical geometry. See [GoPro's 8:7 mode information](https://community.gopro.com/s/article/HERO13-Black-8-7-Sensor-Information?language=en_US) and [Protune controls](https://community.gopro.com/s/article/HERO13-Black-Advanced-Protune-Controls-Explained?language=en_US).
 
-The stock lens is a wide view of the work. Establish useful detail by examining a recorded sample at full size; moving the camera closer only helps while the feature remains sharply focused. If the joint is soft or too small, use the phone. A tighter digital view cannot recover missing focus.
+The stock lens supplies the overall view. For the macro position, let the HERO13 recognize the attached lens, select 4K at 30 fps in 16:9 where offered, and use a digital lens available in that profile. Start 15-25 cm from the selected joint arc and turn the focus ring. Examine a recorded sample at full size before the work changes the joint.
 
-### iPhone
-
-Use the rear camera, landscape orientation, ordinary Video mode, and **4K at 30 fps** where supported. Turn HDR Video off where that setting is available to keep the clips convenient to combine with the GoPro's SDR footage. Start at 1×. Move the supported phone toward the work until the joint fills the frame while remaining sharp.
-
-Touch and hold the joint until **AE/AF Lock** appears, then adjust brightness so the metal still shows surface detail. Check the lock after changing the lens, mode, or camera distance. On models with macro video, choose the macro view before the take and let the camera settle; inspect the recording for unwanted lens changes. Apple documents [focus and exposure locking](https://support.apple.com/guide/iphone/use-camera-tools-iph3dc593597/ios) and [macro photo and video support](https://support.apple.com/guide/iphone/take-macro-photos-and-videos-iphfaacf2eb0/ios).
-
-If close focus is unavailable at the required distance, back up until the image is sharp and capture a wider detail plus a high-resolution still. Keep the original 4K files. A crop from 3840 × 2160 to a 1920 × 1080 region gives a 2× linear punch-in for a 1080p edit before upscaling is needed; practical sharpness still depends on the source.
+Keep the original 4K files. A crop from 3840 x 2160 to a 1920 x 1080 region gives a 2x linear punch-in for a 1080p edit before upscaling is needed; practical sharpness still depends on the source. Preserve matching full-resolution stills.
 
 ## How to make the explanation closeups
 
-Do these with the laser disabled. Reserve a quiet part of the bench where the phone and light can remain in place for several related shots.
+Do these with the laser disabled. Reserve a quiet part of the bench where the macro camera and light can remain in place for several related shots.
 
 1. **Support both the camera and the part.** Use a tripod or rigid mount. Keep the tube seated securely. Set the camera where touching the work does not shake it; a floor tripod isolates it from a vibrating bench better than a clamp attached to that bench.
 2. **Find the view that explains the joint.** Start above and to one side of the open tube, looking obliquely into the recessed cap. Adjust until the near rim stops hiding the joint and both mating surfaces are visible. A top view explains the circular path; the oblique detail explains the recess and corner.
@@ -141,7 +144,7 @@ The following durations include useful holds but allow additional time for handl
 | Pedal | Frame the foot and pedal. Show approach, press, a short hold, release, and foot withdrawn. Laser disabled. | 20 s | The pedal commands rotation. |
 | Dry full revolution | Fixed medium view; include an existing index or recognizable port feature returning to its starting position. | Full lap + 10 s | Rotation direction, steadiness, and actual elapsed time. |
 | Head and wire pose | Joint closeup with the disabled head and wire in their actual working positions. Hold, withdraw, hold clear. | 25–35 s | Where the wire arrives and where welding occurs. |
-| Working stance | Wider dry demonstration with Derek at the head and foot at the pedal. | 20–30 s | The relationship between operator, head, and moving work. |
+| Working stance | Dry demonstration of hands at the welding head and a separate foot-and-pedal view, all below shoulder level. | 20–30 s | The relationship between operator, head, and moving work. |
 | Actual settings | Square-on view of welder settings; screen-record the actual rotator console if useful. Hold each legible display. | 10–15 s per view | Values used for this attempt. |
 | Tack pattern | Still overall view and detail of the actual tacks after they have been made. | 20 s + still | How the plate is held and where the continuous pass starts. |
 
@@ -149,7 +152,7 @@ The [rotator description](../../hardware/assembly/weld-rotation-rig.md) gives 48
 
 ### The actual attempt
 
-Set and start the camera before taking the working position. Frame the joint, the hands, and enough of the tube to show motion. Use a disabled rehearsal to check that the helmet, hands, nozzle, and near rim do not hide the intended subject.
+Set and start the camera before taking the working position. Frame the joint, the hands, and enough of the tube to show motion. Use a disabled rehearsal to check that hands, nozzle, and near rim do not hide the intended subject.
 
 Keep the recording running through the approach, actual start, complete pass, finish, and immediate reaction. Leave roughly ten seconds at either end where the work permits. Do not interrupt a pass to change framing. With one suitable recording camera, prioritize a complete, readable account; collect the explanation details separately.
 
@@ -201,7 +204,7 @@ If a suitable active-process recording position is unavailable, collect the geom
 
 ## Order of work for a solo session
 
-1. **Set up the two useful views.** A wider GoPro position and a supported phone detail position. Put the light where it makes the joint readable. Charge devices, clear storage, clean lenses, and silence notifications.
+1. **Set up the two useful views.** An overall stock-lens GoPro position and a separate supported macro position for the same camera. Put the light where it makes the joint readable. Charge devices, clear storage, clean lenses, and silence notifications.
 2. **Record a ten-second disabled sample.** Perform a representative hand movement, then hold the joint clear. Play it back at full size. The decision is whether the viewer can distinguish the wall, cap, seam, and wire without focus hunting, glare, or hand obstruction. Adjust the camera or light only if that answer is no.
 3. **Capture the unwelded geometry.** Overall, joint detail, clean plate, and still. Record internal features before they are enclosed.
 4. **Film preparation and dry demonstrations.** Collect the actual fit work, settings, pedal, full lap, and disabled head pose. Reuse the already planned dry run for these views where practical.
@@ -209,7 +212,7 @@ If a suitable active-process recording position is unavailable, collect the geom
 6. **Do the weld.** Let the full attempt run on camera without adjusting it during the pass.
 7. **Record the consequence.** Safely stop, capture the immediate observation, then film the unchanged bead and accessible interior when safe to approach.
 8. **Collect the quiet extras.** Finish with relevant B-roll, room tone, and a thumbnail still. Explain the observation separately from the suspected cause in the spoken notes.
-9. **Preserve the originals.** Follow [workflow.md](workflow.md) to transfer the GoPro clips and external audio. Transfer the phone videos and original stills too. Keep the high-resolution sources for detail crops and freeze frames; make edit proxies separately.
+9. **Preserve the originals.** Follow [workflow.md](workflow.md) to transfer the GoPro clips and external audio. Transfer the original stills too. Keep the high-resolution sources for detail crops and freeze frames; make edit proxies separately.
 
 Use clip notes such as `unwelded joint`, `dry rotation`, `actual attempt 1`, `bead before dressing`, and `room tone`. Say the label aloud at the beginning if writing it down is inconvenient, then pause before the usable shot. Distinguish another coupon, a dry demonstration, and the actual carbonator whenever clips could be confused.
 

@@ -29,6 +29,6 @@ GoPro documents the supported full-sensor modes in [HERO13 Black 8:7 Sensor Info
 
 ## Carbonator weld capture
 
-[Carbonator weld filming plan](carbonator-weld-shooting-plan.md) covers the shot list, fixed closeups for graphics, dry demonstrations, audio, and the solo shoot sequence. The iPhone serves as the detail camera between operations and as the DJI audio recorder for GoPro sessions. Record voiceover separately for phone inserts.
+[Carbonator weld filming plan](carbonator-weld-shooting-plan.md) covers the shot list, fixed closeups for graphics, dry demonstrations, audio, and the solo shoot sequence. The guide assumes the two tripods, lights and GoPro macro lens: one GoPro moves between the overall and macro positions, while the iPhone records the DJI mic. Process framing stays below shoulder level, including reflections and entry or exit.
 
 Closeup setup instructions apply with the laser disabled. Active-process cameras require a position and optical protection suitable for that laser and use, as described in the filming plan.
