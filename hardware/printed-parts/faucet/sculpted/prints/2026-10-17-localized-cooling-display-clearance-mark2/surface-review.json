@@ -18,5 +18,6 @@
       0.231
     ]
   },
-  "new_pad_wall_alignment": "Bearing-pad inner faces meet the existing X=\u00b16.75 mm channel walls; their transverse width is 3.25 mm. The new 0.25 mm offset is removed."
+  "new_pad_wall_alignment": "No step finding after joining both inner pad walls to X=\u00b16.75 mm. Four 3.25 x 3.00 mm pads extend 1.50 mm.",
+  "final_tip_surface_reading": "Post-publication reading: no step, ledge, skin or fin findings. Retained outlet/neck thin-section readings and local bearing-pad short-ray readings remain separate from nominal pad dimensions."
 }

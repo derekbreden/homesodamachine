@@ -1,5 +1,5 @@
 {
-  "status": "Prepared and natively reviewed; not yet submitted",
+  "status": "Accepted by Mark2; startup confirmed",
   "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.3mf",
   "project_sha256": "363e11998d60fd88b585860b42628f9de48ffb4ea582f4ecd68e2f38f8d25d11",
   "archive": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.gcode.3mf",
@@ -782,8 +782,8 @@
   "estimated_seconds": 22419.3671875,
   "estimated_grams_saved_profile_density": 155.58688354492188,
   "gcode_bytes_unchanged_by_packaging": true,
-  "submitted": false,
-  "send_attempted": false,
+  "submitted": true,
+  "send_attempted": true,
   "physical_result": null,
   "authorization_quote": "and then the last thing that I need you to do is to start a new print on Mark 2, which is still ready and the bed is clear now, on the right hot end of the complete faucet, please. Thanks.",
   "launch_options": {
@@ -791,5 +791,12 @@
     "bed_leveling": "On",
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
-  }
+  },
+  "send_attempted_at_utc": "2026-10-17T22:16:21.858109+00:00",
+  "printer_task_id": "1349558196",
+  "accepted_at_utc": "2026-10-17T22:16:35.321911+00:00",
+  "accepted_at_local": "2026-10-17T17:16:35.321911-05:00",
+  "estimated_finish_local": "2026-10-17T23:30:14.689099-05:00",
+  "launch": "launch.json",
+  "startup": "startup.json"
 }

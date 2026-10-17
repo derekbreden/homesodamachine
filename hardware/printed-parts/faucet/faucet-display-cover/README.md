@@ -100,13 +100,13 @@ height in that print pose. The named cosmetic and lower-land slope findings
 are answered beside the published mesh.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
-the cosmetic minimum and the lip thickness. The
-[faucet geometry audit](../faucet-shell/centered-vent-check.json) checks
-actual hardware and tube clearance, display loading, lifted axial assembly
-motion, the final seating stroke and snap geometry. Its rear-opening readings
-measure the complete rim boundaries and material sections in both the nominal
-seated and relaxed printable shapes; its electronics reading checks for an
-actual printed barrier behind occupied hardware.
+the cosmetic minimum and the lip thickness. The current [display-clearance reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+and [retention reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
+bind the raised seat, hardware clearance, display loading, axial approach and
+snap geometry. The [rear-opening reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
+measures complete rim boundaries and material sections in both nominal seated
+and relaxed shapes. The [full faucet audit](../faucet-shell/centered-vent-check.json)
+retains the geometry hashes and electronics reading for its identified inputs.
 Those geometric readings do not measure the printed snap's force or durability.
 The [physical trial log](../../fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.

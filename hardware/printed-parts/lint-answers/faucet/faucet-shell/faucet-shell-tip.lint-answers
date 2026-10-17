@@ -38,3 +38,34 @@ click: x=-11.673 y=-114.546 z=214.117
 alternatives: Filling or sloping this boundary changes the matching component insertion envelope. Opening it farther removes the display pocket's end wall. Retain the hardware clearance and inspect supported contacts before loading the display.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
 click: x=0.000 y=-109.268 z=221.305
+
+[thin] Outside the cooling/display-seat revision: these retained outlet, pocket and neck surfaces keep their separate thickness findings. The raised bearing pads have a 3.25 x 3.00 mm footprint and 3.50 mm depth; their inner faces meet the channel at X=+/-6.75 mm. The post-publication reading has no step, ledge, skin or fin findings. Short-ray results below the generic 3 mm threshold remain visible in the surface record and do not establish a complete wall minimum or strength. Derek was told existing thin-section findings are separate from this change. See ../../../faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/surface-review.json.
+alternatives: Reconcile any retained outlet/rim feature in a dedicated geometry revision with its tube, display and cover clearances. Increasing all stock changes those retained interfaces; physical assembly success does not settle the local geometry question.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=7.082 y=-140.391 z=188.481
+click: x=6.292 y=-139.702 z=187.787
+click: x=-7.082 y=-140.391 z=188.481
+click: x=-6.292 y=-139.702 z=187.787
+click: x=-7.382 y=-113.151 z=224.584
+click: x=-6.750 y=-113.482 z=222.884
+click: x=7.215 y=-113.235 z=224.657
+click: x=6.750 y=-113.482 z=222.884
+click: x=6.393 y=-132.801 z=181.996
+click: x=6.393 y=-134.086 z=180.464
+click: x=-6.393 y=-132.801 z=181.996
+click: x=-6.393 y=-134.086 z=180.464
+click: x=-0.072 y=-32.464 z=212.710
+click: x=-0.099 y=-33.470 z=210.745
+click: x=8.484 y=-35.245 z=227.621
+click: x=10.530 y=-34.954 z=228.401
+click: x=-10.539 y=-23.588 z=223.091
+click: x=-8.493 y=-23.998 z=222.363
+click: x=-11.656 y=-116.703 z=216.132
+click: x=-11.673 y=-114.546 z=214.117
+click: x=7.110 y=-137.459 z=192.092
+click: x=7.110 y=-139.387 z=189.794
+click: x=-7.110 y=-137.459 z=192.092
+click: x=-7.110 y=-139.387 z=189.794
+click: x=9.858 y=-114.841 z=220.109
+click: x=9.858 y=-112.913 z=222.407
+click: x=0.000 y=-109.268 z=221.305
