@@ -37,18 +37,21 @@ window.addEventListener("hashchange", () => revealCostTarget(location.hash));
 updateContents();
 if (location.hash) revealCostTarget(location.hash);
 
-// Maps and instructions are server-rendered; load the model only near its section.
-const harness = document.getElementById("j2-harness");
-if (harness) {
-  const observer = new IntersectionObserver(entries => {
-    if (!entries.some(entry => entry.isIntersecting)) return;
-    observer.disconnect();
-    import("./js/harness/main.js").catch(() => {
-      harness.querySelector(".harness-loading").textContent = "The 3D view could not load. The complete wire map, materials and build sequence are available below.";
+// Each guide loads near its own section. The shared module initializes an
+// independent scene for each complete harness.
+let harnessModule;
+const harnessObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    const harness = entry.target;
+    harnessObserver.unobserve(harness);
+    harnessModule ||= import("./js/harness/main.js");
+    harnessModule.then(module => module.initHarness(harness)).catch(() => {
+      harness.querySelector(".harness-loading").textContent = "The 3D view could not load. Text connections and build instructions are available below.";
     });
-  }, { rootMargin: "180px" });
-  observer.observe(harness);
-}
+  }
+}, { rootMargin: "180px" });
+document.querySelectorAll("[data-harness]").forEach(harness => harnessObserver.observe(harness));
 
 const section = document.querySelector("#recovery[data-unit-cost]");
 if (section) {

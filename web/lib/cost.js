@@ -17,7 +17,7 @@ import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import { categoryName } from "./cost-categories.js";
-import { readJ2Harness, renderHarnessGuide } from "./harness-guide.js";
+import { readJ2Harness, readJ13Harness, renderHarnessGuide } from "./harness-guide.js";
 import {
   SALE_PRICE, SALES_HORIZON, dollars, recoveryPlan, recoveryRange,
   recoverySummary, salesBalance, renderRecoveryChart,
@@ -448,6 +448,12 @@ export const COST_CSS = `
 .cost-bar.lab { grid-template-columns: minmax(130px, 1.6fr) minmax(60px, 3fr) 4.9rem 4.4rem; }
 .cost-bar.lab .cost-bf { background: var(--chart-two); }
 .cost-hero.lab .cost-big, .cost-total.lab .v { color: var(--chart-two); }
+.cost-wiring > .cost-wiring-content { padding: 0 1rem 1rem; }
+.cost-wiring .harness-guide { margin: 1.5rem 0; }
+.cost-wiring h4.cost-h2 { margin: 1.6rem 0 0.65rem; }
+.cost-wiring .cost-items { width: 100%; }
+.cost-wiring .cost-items th { color: var(--text-3); font-size: 0.68rem; font-weight: 500; text-align: left; padding: 0.55rem 0.75rem; }
+.cost-wiring .cost-items th.cost-qty, .cost-wiring .cost-items th.cost-num { text-align: right; }
 /* Machine time — a third colour because it is a third ledger, and because it
    must not read as money. Two derived figures lead; the processes sit under
    them, grouped the way the ledger groups them. */
@@ -496,11 +502,28 @@ function renderLaborSection(labor, harness) {
   }).join("\n");
 
   const details = cats.map((c) => {
-    const rows = c.ops.map((o) => `<tr>
-        <td>${escape(o.name)}${o.cards ? ` <span class="cost-secs">${escape(o.cards)}</span>` : ""}</td>
+    const row = (o, showCards = true) => `<tr>
+        <td>${escape(o.name)}${showCards && o.cards ? ` <span class="cost-secs">${escape(o.cards)}</span>` : ""}</td>
         <td class="cost-qty">${hm(o.minutes)}</td><td class="cost-num">${cash(o.minutes)}</td>
-      </tr>`).join("");
+      </tr>`;
     const n = c.ops.length;
+    if (c.n === 6) {
+      const bench = c.ops.filter(o => /^(?:J\d+|Pump cartridge) · /.test(o.name));
+      const install = c.ops.filter(o => !bench.includes(o));
+      const guides = ["J2", "J13"].filter(id => harness?.[id] && bench.some(o => o.name.startsWith(`${id} · `)));
+      const remaining = bench.filter(o => !guides.some(id => o.name.startsWith(`${id} · `)));
+      const table = ops => `<table class="cost-items"><thead><tr><th scope="col">Finished job</th><th scope="col" class="cost-qty">Time</th><th scope="col" class="cost-num">Labor</th></tr></thead><tbody>${ops.map(o => row(o, false)).join("")}</tbody></table>`;
+      const benchMinutes = bench.reduce((sum, o) => sum + o.minutes, 0);
+      const installMinutes = install.reduce((sum, o) => sum + o.minutes, 0);
+      return `<details class="cost-cat cost-wiring" id="wiring" open><summary>Wiring <span class="cost-dt">${hm(c.minutes)} &middot; ${cash(c.minutes)}</span></summary>
+      <div class="cost-wiring-content">
+        <p class="cost-note">${bench.length} complete bench harnesses &middot; ${hm(benchMinutes)} / ${cash(benchMinutes)}. Unit 25, with practiced hands, the map and materials ready, making each piece start to finish. The estimates are theoretical and unmeasured. Installation and AC checks add ${hm(installMinutes)} / ${cash(installMinutes)}.</p>
+        ${guides.map(id => renderHarnessGuide(harness[id], rate)).join("\n")}
+        ${remaining.length ? `<h4 class="cost-h2">${guides.length ? "Other harness estimates" : "Bench harness estimates"}</h4>${table(remaining)}` : ""}
+        ${install.length ? `<h4 class="cost-h2">Installation &amp; AC checks</h4><p class="cost-note">Land and route the finished harnesses, make the cabinet power connections, and check the installed wiring.</p>${table(install)}` : ""}
+      </div></details>`;
+    }
+    const rows = c.ops.map(o => row(o)).join("");
     return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${hm(c.minutes)} &middot; ${cash(c.minutes)} &middot; ${n} op${n === 1 ? "" : "s"}</span></summary>
       <table class="cost-items"><tbody>${rows}</tbody></table></details>`;
   }).join("\n");
@@ -509,10 +532,9 @@ function renderLaborSection(labor, harness) {
   <h2 class="cost-title" id="labor">Labor by category</h2>
   <div class="cost-hero lab">
     <div class="cost-big">${hm(minutes)}</div>
-    <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} hand operations across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
+    <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} build jobs across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
   </div>
-  <p class="cost-note">Planned hands-on time per machine at an ideal pace, with practiced hands and fixtures ready. Our early builds take substantially longer. These operation times are estimates.</p>
-${renderHarnessGuide(harness, rate)}
+  <p class="cost-note">Planned hands-on time for the 25th machine, with practiced hands, the maps, tools and fixtures ready. Development and lookup time are outside the recurring estimate. Each harness is one complete bench job. These times are estimates.</p>
   <h3 class="cost-h2">All work, ranked</h3>
   <div class="cost-chart">
 ${bars}
@@ -763,7 +785,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
     let mach = null;
     let investment = null;
     let forecast = null;
-    let harness = null;
+    const harness = { J2: null, J13: null };
     try {
       labor = readLaborRollup(hardwareDir);
     } catch (e) { /* no labor.md */ }
@@ -777,8 +799,11 @@ export function mountCostRoutes(app, { hardwareDir }) {
       forecast = readBatchForecast(hardwareDir, labor);
     } catch (e) { /* optional supplier forecast */ }
     try {
-      harness = readJ2Harness(hardwareDir);
+      harness.J2 = readJ2Harness(hardwareDir);
     } catch (e) { /* optional bench guide */ }
+    try {
+      harness.J13 = readJ13Harness(hardwareDir);
+    } catch (e) { /* optional second bench guide */ }
     try {
       body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast, harness);
     } catch (e) {

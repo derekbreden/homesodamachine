@@ -1,68 +1,95 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { conductorRecords } from '../public/js/harness/conductors.js';
 
 const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const repo = 'https://github.com/derekbreden/homesodamachine/blob/main/';
 
-export function readJ2Harness(hardwareDir) {
-  const file = path.join(hardwareDir, 'assembly', 'harnesses', 'j2.json');
+function readHarness(hardwareDir, id) {
+  const file = path.join(hardwareDir, 'assembly', 'harnesses', `${id}.json`);
   return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
 }
+export const readJ2Harness = hardwareDir => readHarness(hardwareDir, 'j2');
+export const readJ13Harness = hardwareDir => readHarness(hardwareDir, 'j13');
 
-// One bench object owns its wire map, sequence and estimate. The browser reads
-// this same record from the JSON block, including when WebGL is unavailable.
+// The estimate, conductor inspector and build sequence describe the same piece.
+// Both guides are embedded in Wiring and included in its ledger total once.
 export function renderHarnessGuide(data, rate) {
   if (!data) return '';
-  const minutes = data.steps.reduce((total, step) => total + step.minutes, 0);
-  const money = mins => ((mins / 60) * rate).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return `<section class="harness-guide" id="j2-harness" aria-labelledby="j2-title">
+  const id = data.id.toLowerCase(), rows = conductorRecords(data);
+  const minutes = data.steps.reduce((sum, step) => sum + step.minutes, 0);
+  const money = ((minutes / 60) * rate).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  return `<section class="harness-guide" id="${id}-harness" data-harness="${esc(data.id)}" aria-labelledby="${id}-title">
   <header class="harness-heading">
-    <div><p class="harness-eyebrow">Assembly · one finished harness</p><h3 id="j2-title">J2 <span>Manifold B</span></h3><p>Two ribbons. Five populated contacts. One complete bench job.</p></div>
-    <div class="harness-time"><strong>${minutes} min</strong><span>unit ${data.estimateUnit} estimate${rate ? ` · ${money(minutes)}` : ''}</span><small>Practiced hands · map ready · one complete harness</small></div>
+    <h3 id="${id}-title">${esc(data.id)} <span>${esc(data.name)}</span></h3>
+    <div class="harness-time"><strong>${minutes} min</strong><span>unit ${data.estimateUnit}${rate ? ` · ${money}` : ''}</span></div>
   </header>
-  <p class="harness-scope">${esc(data.scope)}. ${esc(data.mapStatus)} The Lillium build parks FAN and OUT3; its active loads are V-I and V-J.</p>
-  <p class="harness-scope">This J2 estimate is shown separately from the unit total. The ledger&rsquo;s shared 45-minute allowance for all twelve harnesses still needs to be mapped to complete bench jobs.</p>
   <div class="harness-workbench">
     <div class="harness-visual">
       <div class="harness-toolbar" hidden>
-        <div class="harness-views" role="group" aria-label="Harness camera"><button type="button" data-harness-view="overall" aria-pressed="true">3D</button><button type="button" data-harness-view="top" aria-pressed="false">Top</button><button type="button" data-harness-view="connector" aria-pressed="false">JST close-up</button></div>
-        <button type="button" data-harness-reset>Reset view</button>
+        <div class="harness-views" role="group" aria-label="${esc(data.id)} camera">
+          <button type="button" data-harness-view="overall" aria-pressed="true">Whole harness</button>
+          <button type="button" data-harness-view="pcb" aria-pressed="false">PCB labels</button>
+          <button type="button" data-harness-view="connector" aria-pressed="false">JST plug</button>
+          <button type="button" data-harness-view="top" aria-pressed="false">Top</button>
+        </div>
+        <button type="button" data-harness-reset aria-label="Reset ${esc(data.id)} view">Reset</button>
         <button type="button" data-harness-fullscreen>Expand</button>
       </div>
-      <div class="harness-stage" tabindex="0" aria-label="Interactive J2 harness. Drag to orbit, scroll to zoom, or use arrow keys to orbit and plus or minus to zoom. Select a wire in the pin map to trace it."><p class="harness-loading" role="status">Loading the 3D harness… The complete wire map and build sequence are below.</p><div class="harness-labels"></div></div>
-      <div class="harness-scene-controls" hidden>
-        <label><input type="checkbox" data-harness-wires> Reveal wires through mesh</label>
-        <label><input type="checkbox" data-harness-labels checked> Labels</label>
-        <label class="harness-explode">Explode <input type="range" min="0" max="100" value="0" data-harness-explode aria-label="Separate housing, mesh, collars and terminals"><output data-harness-explode-value>0%</output></label>
+      <div class="harness-stage" tabindex="0" aria-label="${esc(data.id)} interactive harness. Click a wire to highlight it. Use Open conductor separately to inspect its ends. Drag to orbit, scroll to zoom; arrow keys and plus or minus also move the view.">
+        <p class="harness-loading" role="status">Loading the harness and its native PCB…</p>
+        <svg class="harness-leaders" aria-hidden="true"></svg>
+        <div class="harness-labels"></div>
+        <div class="harness-open-banner" hidden><span data-harness-open-title></span><button type="button" data-harness-close>Back to harness</button></div>
       </div>
-      <p class="harness-caption">Drag to orbit · Scroll / pinch to zoom · Select a wire to trace it<br>Bench layout is schematic; printed cut lengths come from the run schedule.</p>
+      <div class="harness-scene-controls" hidden>
+        <label><input type="checkbox" data-harness-wires> See through sleeves</label>
+        <label><input type="checkbox" data-harness-labels checked> Part labels</label>
+        <label class="harness-explode">Separate parts <input type="range" data-harness-explode min="0" max="100" value="0" aria-label="Separate ${esc(data.id)} parts"><output data-harness-explode-value>0%</output></label>
+      </div>
+      <p class="harness-caption">Click a wire to highlight it. Then choose <strong>Open conductor</strong> to inspect both ends.<span>Native PCB crop and printed labels · plug lifted for inspection · cable reach compressed</span></p>
     </div>
-    <aside class="harness-inspector" aria-label="Selected harness component">
-      <p class="harness-eyebrow">On the bench</p><h4 data-harness-selection-title>The finished harness</h4>
-      <p data-harness-selection-detail>JST-XH at the board, two 3P ribbons with white index stripes, a dressed four-wire trunk, a short V-K branch and a five-port positive fan-out.</p>
-      <dl data-harness-selection-facts><div><dt>Board end</dt><dd>1 × XHP-6 + 5 contacts</dd></div><div><dt>Wire stock</dt><dd>22 AWG · 3P + 3P</dd></div><div><dt>Far end</dt><dd>5 ferrules + 6 valve disconnects + 2 provisional fan ends</dd></div></dl>
-      <button type="button" data-harness-clear hidden>Show the whole harness</button>
-      <div class="harness-cavity-note"><strong>Cavity 3 stays empty.</strong><span>COM is +12 V. The Wago carries positives only; every switched return goes straight to its J2 pin.</span></div>
+    <aside class="harness-inspector" aria-label="${esc(data.id)} assembly inspector">
+      <div class="harness-tabs" role="tablist" aria-label="${esc(data.id)} guide" hidden>
+        ${[['wires', 'Conductors'], ['build', 'Build'], ['parts', 'Parts']].map(([key, label]) => `<button type="button" role="tab" id="${id}-tab-${key}" aria-controls="${id}-panel-${key}" aria-selected="${key === 'wires'}" data-harness-tab="${key}">${label}</button>`).join('')}
+      </div>
+      <div class="harness-pane" id="${id}-panel-wires" role="tabpanel" aria-labelledby="${id}-tab-wires" data-harness-panel="wires">
+        <div data-harness-wire-list>
+          <p class="harness-panel-intro">Choose one physical conductor.</p>
+          <div class="harness-conductors">${rows.map(row => `<button type="button" data-harness-select="${esc(row.id)}" aria-pressed="false"><i class="harness-wire-swatch${row.stripe ? ' is-striped' : ''}" aria-hidden="true"></i><span>${esc(row.title.replace(/^J13 /, ''))}</span></button>`).join('')}</div>
+          <p class="harness-map-status">${esc(data.mapStatus)}</p>
+        </div>
+        <div class="harness-selection" hidden>
+          <button type="button" class="harness-back" data-harness-clear>← All conductors</button>
+          <h4 data-harness-selection-title></h4>
+          <button type="button" class="harness-open" data-harness-open hidden>Open conductor ↗</button>
+          <div class="harness-connection" hidden>
+            <button type="button" data-harness-focus="from"><small>FROM</small><strong data-harness-from></strong><span>Show this end</span></button>
+            <div class="harness-connection-arrow" aria-hidden="true">↓</div>
+            <button type="button" data-harness-focus="to"><small>TO</small><strong data-harness-to></strong><span>Show this end</span></button>
+          </div>
+          <p data-harness-selection-detail></p>
+          <dl data-harness-selection-facts></dl>
+          <div data-harness-part-wires></div>
+        </div>
+      </div>
+      <div class="harness-pane" id="${id}-panel-build" role="tabpanel" aria-labelledby="${id}-tab-build" data-harness-panel="build" hidden>
+        <div class="harness-sequence-heading"><span>${minutes} minutes · one complete piece</span><button type="button" data-harness-finished aria-pressed="true">Finished view</button></div>
+        <ol class="harness-steps">${data.steps.map((step, index) => `<li><button type="button" data-harness-step="${esc(step.id)}" aria-pressed="false"><span>${index + 1}</span><strong>${esc(step.title)}</strong><b>${step.minutes} min</b></button></li>`).join('')}</ol>
+        <div class="harness-step-detail" hidden><p data-harness-step-index></p><h4 data-harness-step-title></h4><p data-harness-step-copy></p><div class="harness-step-nav"><button type="button" data-harness-prev>Previous</button><button type="button" data-harness-next>Next step</button></div></div>
+        <p class="harness-practice-note">Practiced time at unit ${data.estimateUnit}, with the map, tools and materials ready. The estimate is theoretical and unmeasured.</p>
+      </div>
+      <div class="harness-pane" id="${id}-panel-parts" role="tabpanel" aria-labelledby="${id}-tab-parts" data-harness-panel="parts" hidden>
+        <h4>Everything on this piece</h4><dl data-harness-materials></dl>
+        <p class="harness-map-status">${esc(data.dress.qualification)}</p>
+      </div>
     </aside>
   </div>
-  <div class="harness-sequence-heading"><h4>Build this piece, start to finish</h4><button type="button" data-harness-finished aria-pressed="true" hidden>Finished view</button></div>
-  <ol class="harness-steps">${data.steps.map((step, i) => `<li><button type="button" data-harness-step="${step.id}" aria-pressed="false"><span class="harness-step-number">${i + 1}</span><span>${esc(step.title)}</span><b>${step.minutes} min</b></button><p>${esc(step.instruction)}</p></li>`).join('')}</ol>
-  <div class="harness-step-detail" hidden aria-live="polite"><div><span data-harness-step-index></span><h4 data-harness-step-title></h4></div><p data-harness-step-copy></p><div class="harness-step-nav"><button type="button" data-harness-prev>Previous</button><button type="button" data-harness-next>Next step</button></div></div>
-  <details class="harness-map" open><summary>Wire map <span>Count from the white-striped edge of each ribbon</span></summary>
-    <div class="harness-pin-face"><div><strong>Housing orientation</strong><p data-harness-face-label>Wire-entry view · orient the circuit 1 mark to the left</p></div><button type="button" data-harness-face hidden>Show mating face</button></div>
-    <div class="harness-pin-strip" aria-label="J2 cavities, wire-entry view">${data.pins.map(pin => `<button type="button" data-harness-pin="${pin.pin}" aria-pressed="false" class="${pin.pin === 3 ? 'is-empty' : ''}" aria-label="Cavity ${pin.pin}, ${pin.net}, ${pin.pin === 3 ? 'empty' : `${pin.ribbon}${pin.conductor}${pin.stripe ? ', white stripe' : ''}, ${pin.destination}`}"><b>${pin.pin}</b><span>${pin.net}</span><small>${pin.pin === 3 ? 'empty' : `${pin.ribbon}${pin.conductor}${pin.stripe ? ' ▰' : ''}`}</small>${pin.pin === 1 ? '<i aria-hidden="true">1 ◂</i>' : ''}</button>`).join('')}</div>
-    <p class="harness-map-note">The circuit 1 mark identifies COM. The mating face mirrors this order. ▰ = white stripe on the black insulation. ${esc(data.mapStatus)}</p>
-    <div class="harness-map-table"><table><thead><tr><th>Cavity / net</th><th>Ribbon lead</th><th>Bench cut</th><th>Other end</th></tr></thead><tbody>${data.pins.map(pin => `<tr data-harness-row="${pin.pin}"><th scope="row"><button type="button" data-harness-select="${pin.pin}">${pin.pin} · ${pin.net}</button></th><td>${pin.ribbon}${pin.conductor}${pin.stripe ? ' · white stripe' : ''}${pin.pin === 3 ? ' · discard' : ''}</td><td>${pin.cutMm ? `${pin.cutMm} mm` : '—'}</td><td>${esc(pin.destination)}<small>${esc(pin.termination)}</small></td></tr>`).join('')}</tbody></table></div>
-    <p class="harness-map-note"><strong>Positive branches:</strong> 4 × 450 mm blanks of 22 AWG black bulk wire, each ferruled into its own Wago port. Trim to the V-I, V-J, fan and V-K landings. These four branches are additional to the five wires leaving J2.</p>
-  </details>
-  <details class="harness-materials"><summary>Everything that goes on this harness</summary><ul>
-    <li><strong>Board end:</strong> 1 XHP-6 housing; 5 SXH-001T-P0.6 contacts. No contact in cavity 3.</li>
-    <li><strong>Cable:</strong> 2 × 650 mm 3P ribbon blanks, 22 AWG black silicone; 4 × 450 mm bulk-wire positive branch blanks. Short leads trimmed per the map.</li>
-    <li><strong>Slip on before large terminals:</strong> nominal 1/2 in black PET mesh and 2 heat-shrink end collars. Stage 2 black zip ties; close and flush-cut after dressing.</li>
-    <li><strong>Far ends:</strong> 5 bootlace ferrules, 1 Wago 221-415, 6 female valve disconnects. The two fan ends have provisional disconnects in the schedule. Valve tab widths (4.8 / 6.3 mm) and the donor fan interface are not recorded.</li>
-    <li><strong>Tools:</strong> stripper, SN-2549 JST crimper, ferrule crimper, insulated-terminal crimper, heat gun, flush cutters and multimeter.</li>
-  </ul><p>${esc(data.dress.qualification)}</p></details>
-  <details class="harness-basis"><summary>Time estimate, scope &amp; sources</summary><p>${esc(data.estimateBasis)}</p><p>${esc(data.referenceBuild.basis)} The ${minutes}-minute guide estimate${rate ? ` (${money(minutes)} at the ledger’s $${rate}/h)` : ''} is a reference for this piece. The cost rollup still carries its shared 45-minute allowance for all twelve harnesses; it needs a harness-by-harness estimate before this reference is included in the total.</p><p>${esc(data.positiveBranches.basis)}</p><p>${data.sources.map(source => `<a href="${esc(source.url || repo + source.path)}">${esc(source.label)}</a>`).join(' · ')}</p></details>
-  <script type="application/json" id="j2-harness-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
+  <div class="harness-fallback"><details><summary>Text connections &amp; build instructions</summary>
+    <table><thead><tr><th>From</th><th>To</th><th>Wire / cut</th><th>Ends</th></tr></thead><tbody>${rows.map(row => `<tr><td>${esc(row.from)}</td><td>${esc(row.to)}</td><td>${esc(row.ribbon || 'Bulk wire')}${row.stripe ? ' · white stripe' : ''} · ${row.cutMm} mm</td><td>${esc(row.fromPart)} → ${esc(row.toPart)}</td></tr>`).join('')}</tbody></table>
+    <ol>${data.steps.map(step => `<li><strong>${esc(step.title)} · ${step.minutes} min.</strong> ${esc(step.instruction)}</li>`).join('')}</ol>
+  </details></div>
+  <details class="harness-basis"><summary>Estimate basis &amp; sources</summary><p>${esc(data.estimateBasis)}</p><p>This ${minutes}-minute bench job is included in Wiring and in the assembly cost total. Installation is estimated separately.</p><p>${data.sources.map(source => `<a href="${esc(source.url || repo + source.path)}">${esc(source.label)}</a>`).join(' · ')} · <a href="/harness/${id}-board.json">Native PCB crop provenance</a></p></details>
+  <script type="application/json" data-harness-data>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
 </section>`;
 }
