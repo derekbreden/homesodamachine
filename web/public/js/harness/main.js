@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { createNavigation } from '../viewer/navigation.js';
+import { createAxisRulers } from '../viewer/axis-rulers.js';
+import { createXrayRenderer } from '../viewer/xray-render.js';
 import { conductorRecords } from './conductors.js';
 import { loadBoard } from './board.js';
 
@@ -12,7 +14,8 @@ export async function initHarness(root) {
   const $ = selector => root.querySelector(selector);
   const $$ = selector => [...root.querySelectorAll(selector)];
   const stage = $('.harness-stage');
-  const state = { selection: null, opened: null, step: null, reveal: false, explode: 0, labels: true, view: 'overall' };
+  const state = { selection: null, opened: null, step: null, reveal: false, xray: false, explode: 0, labels: true, view: 'overall' };
+  const hiddenParts = new Set(), hiddenObjects = new Map();
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0, 0);
@@ -23,6 +26,7 @@ export async function initHarness(root) {
   renderer.domElement.setAttribute('role', 'img');
   stage.prepend(renderer.domElement);
   const scene = new THREE.Scene();
+  const content = new THREE.Group(); scene.add(content);
   scene.add(new THREE.HemisphereLight(0xf5f8ff, 0x71829e, 2.5));
   const light = new THREE.DirectionalLight(0xffffff, 3.5);
   light.position.set(-65, 160, 100); light.castShadow = true;
@@ -35,8 +39,8 @@ export async function initHarness(root) {
   const grid = new THREE.GridHelper(500, 50, 0x97aecf, 0xa6bad6);
   grid.material.transparent = true; grid.material.opacity = .13; grid.position.y = -.35; scene.add(grid);
   const { buildHarness } = await import(data.id === 'J13' ? './j13-model.js' : './model.js');
-  const model = buildHarness(scene, data);
-  const board = await loadBoard(scene, data);
+  const model = buildHarness(content, data);
+  const board = await loadBoard(content, data);
   // PCB labels is an inspection of the native board alone. A separate camera
   // layer keeps the lifted bench plug from covering the real silkscreen.
   board.root.traverse(item => item.layers.enable(1));
@@ -44,33 +48,68 @@ export async function initHarness(root) {
   const pinMarker = new THREE.Mesh(new THREE.TorusGeometry(.9, .12, 6, 32), new THREE.MeshBasicMaterial({ color: 0xe98526, depthTest: false }));
   pinMarker.rotation.x = Math.PI / 2; pinMarker.layers.enable(1); pinMarker.renderOrder = 10; pinMarker.visible = false; scene.add(pinMarker);
   const camera = new THREE.PerspectiveCamera(34, 1, .1, 1800);
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; controls.dampingFactor = .12;
-  controls.enableZoom = true;
-  controls.touches.ONE = THREE.TOUCH.ROTATE;
-  controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
-  controls.minDistance = 8; controls.maxDistance = 850;
-  controls.maxPolarAngle = Math.PI * .49; controls.zoomToCursor = true;
   let frame = 0, visible = true, transition = null, openedEnds = null;
+  let cameraReady = false, saveTimer = 0;
+  let boundsDirty = true, boundsLayer = 0;
+  const contentBounds = new THREE.Box3();
+  const poseKey = `harness-camera:${data.id}`;
+  const navigation = createNavigation({
+    camera, renderer, getGroup: () => content, getBounds: visibleBounds,
+    defaultUp: new THREE.Vector3(0, 1, 0), invalidate: requestRender,
+    gizmoClassName: 'harness-gizmo',
+  });
+  const controls = navigation.controls;
+  stage.append(navigation.gizmoCanvas);
+  const rulers = createAxisRulers({ scene, camera, controls, renderer, invalidate: requestRender });
+  rulers.group.layers.enable(1);
+  const xray = createXrayRenderer();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const vec = p => new THREE.Vector3(...p);
   const recordFor = () => records.find(row => row.id === state.selection);
 
   function requestRender() { if (!frame && visible) frame = requestAnimationFrame(render); }
+  function visibleBounds() {
+    if (!boundsDirty && boundsLayer === camera.layers.mask) return contentBounds;
+    contentBounds.makeEmpty();
+    content.updateWorldMatrix(true, true);
+    content.traverseVisible(item => {
+      if (!item.isMesh || item.userData.hitOnly || item.userData.isXrayEdge || !camera.layers.test(item.layers)) return;
+      if (!item.geometry.boundingBox) item.geometry.computeBoundingBox();
+      contentBounds.union(item.geometry.boundingBox.clone().applyMatrix4(item.matrixWorld));
+    });
+    boundsDirty = false; boundsLayer = camera.layers.mask;
+    return contentBounds;
+  }
+  function savePose() {
+    if (cameraReady && !transition && !state.opened && !state.step && ['overall', 'top'].includes(state.view)) {
+      navigation.savePose(poseKey);
+      try { localStorage.setItem(`${poseKey}:aspect`, String(camera.aspect)); } catch { /* Storage is optional. */ }
+    }
+  }
+  function adaptAspect(previous, next) {
+    if (!(previous > 0) || previous === next) return;
+    // Preserve the horizontal framing and the user's pan/rotation when moving
+    // between the wide thumbnail and the tall full-screen bench.
+    transition = null; navigation.dropStalledGesture();
+    camera.position.sub(controls.target).multiplyScalar(previous / next).add(controls.target);
+    controls.update();
+  }
   function showStage() {
     const bounds = stage.getBoundingClientRect();
     if (bounds.top < 55 || bounds.bottom > innerHeight) stage.scrollIntoView({ block: 'start', behavior: reduced.matches ? 'instant' : 'smooth' });
   }
   function moveCamera(target, position, immediate = false) {
+    navigation.dropStalledGesture();
+    const up = vec([0, 1, 0]);
     if (immediate || reduced.matches) {
-      transition = null; camera.position.copy(position); controls.target.copy(target); controls.update();
-    } else transition = { start: performance.now(), from: camera.position.clone(), fromTarget: controls.target.clone(), to: position, target };
+      transition = null; camera.position.copy(position); camera.up.copy(up); controls.target.copy(target); controls.update();
+    } else transition = { start: performance.now(), from: camera.position.clone(), fromUp: camera.up.clone(), fromTarget: controls.target.clone(), to: position, target, up };
     requestRender();
   }
   function fit(bounds, direction, immediate = false, padding = 1.12) {
     const target = bounds.getCenter(new THREE.Vector3());
     const normal = vec(direction).normalize();
-    const right = new THREE.Vector3().crossVectors(camera.up, normal).normalize();
+    const right = new THREE.Vector3().crossVectors(vec([0, 1, 0]), normal).normalize();
     const up = new THREE.Vector3().crossVectors(normal, right).normalize();
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2), tanH = tanV * camera.aspect;
     let distance = 12;
@@ -86,6 +125,9 @@ export async function initHarness(root) {
   }
   function view(name, immediate = false) {
     markView(name);
+    if (name !== 'pcb') {
+      rulers.setEnabled(false); $('[data-harness-rulers]').checked = false;
+    }
     camera.layers.set(name === 'pcb' ? 1 : 0);
     light.castShadow = name !== 'pcb';
     if (name === 'pcb') {
@@ -93,9 +135,8 @@ export async function initHarness(root) {
     } else if (name === 'connector') {
       fit(model.boundsFor('connector'), [-1, .8, 1], immediate, 1.12);
     } else {
-      const bounds = state.opened
-        ? new THREE.Box3(vec([-113, 0, -18]), vec([120, 36, 18]))
-        : new THREE.Box3().setFromObject(model.root).union(board.bounds);
+      const bounds = visibleBounds();
+      if (bounds.isEmpty()) return;
       fit(bounds, name === 'top' ? [0, 1, .001] : [.12, 1, 1.2], immediate, 1.18);
     }
     requestRender();
@@ -138,6 +179,7 @@ export async function initHarness(root) {
     $('[data-harness-open]').hidden = !record;
     $('[data-harness-open]').disabled = !!state.opened;
     $('[data-harness-open]').textContent = state.opened ? 'Conductor open' : 'Open conductor ↗';
+    $('[data-harness-hide]').disabled = !key || !!state.opened;
     const partWires = $('[data-harness-part-wires]'); partWires.replaceChildren();
     if (!key) return;
     let title, detail, rows;
@@ -184,7 +226,7 @@ export async function initHarness(root) {
         if (!bounds.isEmpty()) point = bounds.getCenter(new THREE.Vector3());
       }
       const p = point.project(camera);
-      const hidden = !state.labels || !!state.opened || ['pcb', 'connector', 'end'].includes(state.view) || p.z > 1 || p.z < -1 || Math.abs(p.x) > 1.05 || Math.abs(p.y) > 1.05 || (state.step === 'cut' && !['ribbons', 'connector', 'pcb'].includes(label.key)) || (['jst', 'dress'].includes(state.step) && ['wago', 'FAN', 'OUT1', 'OUT2', 'OUT3', 'pogo'].includes(label.key));
+      const hidden = hiddenParts.has(label.key) || !state.labels || !!state.opened || ['pcb', 'connector', 'end'].includes(state.view) || p.z > 1 || p.z < -1 || Math.abs(p.x) > 1.05 || Math.abs(p.y) > 1.05 || (state.step === 'cut' && !['ribbons', 'connector', 'pcb'].includes(label.key)) || (['jst', 'dress'].includes(state.step) && ['wago', 'FAN', 'OUT1', 'OUT2', 'OUT3', 'pogo'].includes(label.key));
       label.button.hidden = hidden; label.line.style.display = hidden ? 'none' : ''; label.dot.style.display = hidden ? 'none' : '';
       if (hidden) continue;
       const x = Math.max(label.button.offsetWidth / 2 + 6, Math.min(width - label.button.offsetWidth / 2 - 6, label.slot[0] * width));
@@ -202,22 +244,35 @@ export async function initHarness(root) {
     if (transition) {
       const t = Math.min(1, (now - transition.start) / 400), ease = 1 - (1 - t) ** 3;
       camera.position.lerpVectors(transition.from, transition.to, ease); controls.target.lerpVectors(transition.fromTarget, transition.target, ease);
+      camera.up.lerpVectors(transition.fromUp, transition.up, ease).normalize();
       if (t === 1) transition = null;
     }
-    const changing = controls.update();
+    const changing = navigation.update(now);
+    xray.syncEdgeResolution(renderer);
+    rulers.update();
     renderer.render(scene, camera); placeLabels();
     if (changing || transition) requestRender();
   }
   function resize() {
     const { width, height } = stage.getBoundingClientRect();
     if (!width || !height) return;
+    const previousAspect = camera.aspect;
     renderer.setSize(width, height, false); camera.aspect = width / height; camera.updateProjectionMatrix();
-    // Refitting follows a resize, never an ordinary conductor selection.
-    view(state.view === 'end' ? 'overall' : state.view, true);
+    if (cameraReady) adaptAspect(previousAspect, camera.aspect);
+    navigation.resize(); requestRender();
   }
   function update() {
+    xray.restore(content);
+    for (const [item, wasVisible] of hiddenObjects) item.visible = wasVisible;
+    hiddenObjects.clear();
     model.update(state);
     board.root.visible = !state.opened || openedEnds?.sourceIsPcb;
+    content.traverse(item => {
+      if (!hiddenParts.has(item.userData.key)) return;
+      hiddenObjects.set(item, item.visible); item.visible = false;
+    });
+    xray.apply(content, state.xray);
+    boundsDirty = true;
     board.select(board.root.visible && state.selection === 'pcb' ? 'pcb' : null);
     const record = recordFor();
     pinMarker.visible = !!record?.pin && board.root.visible;
@@ -231,17 +286,43 @@ export async function initHarness(root) {
     $('[data-harness-view="pcb"]').disabled = !!state.opened && !openedEnds?.sourceIsPcb;
     $('[data-harness-view="connector"]').disabled = !!state.opened;
     $('[data-harness-explode]').disabled = !!state.opened;
+    $('[data-harness-show-all]').disabled = !hiddenParts.size;
+    $('[data-harness-show-all]').textContent = hiddenParts.size ? `Show all (${hiddenParts.size} hidden)` : 'Show all';
+    $('[data-harness-find]').disabled = !!state.opened;
+    $('[data-harness-rulers]').disabled = !!state.opened && !openedEnds?.sourceIsPcb;
     root.dataset.harnessSelection = state.selection || '';
     root.dataset.harnessOpened = state.opened || '';
     requestRender();
   }
   function select(key) {
     if (state.opened) return;
+    hiddenParts.delete(key);
     state.selection = state.selection === key ? null : key;
+    $('[data-harness-find]').value = ''; findParts();
     tab('wires'); inspect(); update();
+  }
+  const searchable = [
+    ...records.map(row => ({ key: row.id, title: row.title, text: `${row.title} ${row.id} ${row.from} ${row.to} ${row.fromPart} ${row.toPart} ${row.note}` })),
+    ...model.anchors.filter(anchor => !records.some(row => row.id === anchor.key)).map(anchor => ({ key: anchor.key, title: anchor.title, text: `${anchor.title} ${partInfo(anchor.key).flat(2).join(' ')}` })),
+  ];
+  function findParts() {
+    const query = $('[data-harness-find]').value.trim().toLowerCase();
+    const results = $('[data-harness-find-results]');
+    results.hidden = !query;
+    if (!query) { results.replaceChildren(); return; }
+    const matches = searchable.filter(row => query.split(/\s+/).every(word => row.text.toLowerCase().includes(word)));
+    const buttons = matches.map(row => {
+      const button = document.createElement('button'); button.type = 'button'; button.textContent = row.title;
+      button.addEventListener('click', () => select(row.key)); return button;
+    });
+    if (!buttons.length) {
+      const empty = document.createElement('p'); empty.textContent = 'No matching conductor or part.'; buttons.push(empty);
+    }
+    results.replaceChildren(...buttons);
   }
   function closeConductor() {
     if (!state.opened) return;
+    xray.restore(content);
     model.close(); state.opened = null; openedEnds = null;
     inspect(); update(); view('overall');
   }
@@ -264,6 +345,7 @@ export async function initHarness(root) {
     const ends = state.opened ? openedEnds : model.endpointsFor(record.id);
     const point = ends[which].clone();
     markView('end');
+    rulers.setEnabled(false); $('[data-harness-rulers]').checked = false;
     camera.layers.set(0); light.castShadow = true;
     if (which === 'from' && ends.sourceIsPcb) {
       // Includes the native silk and selected contact above its actual pin.
@@ -278,6 +360,7 @@ export async function initHarness(root) {
   $('[data-harness-open]').addEventListener('click', () => {
     const record = recordFor(); if (!record || state.opened) return;
     state.opened = record.id; state.step = null;
+    xray.restore(content);
     openedEnds = model.open(record.id);
     $('[data-harness-open-title]').textContent = record.title;
     inspect(); update(); view('overall'); showStage();
@@ -299,15 +382,30 @@ export async function initHarness(root) {
   $('[data-harness-prev]').addEventListener('click', () => showStep(data.steps[data.steps.findIndex(step => step.id === state.step) - 1]?.id || null));
   $('[data-harness-next]').addEventListener('click', () => showStep(data.steps[data.steps.findIndex(step => step.id === state.step) + 1]?.id || null));
   $('[data-harness-wires]').addEventListener('change', event => { state.reveal = event.target.checked; update(); });
+  $('[data-harness-xray]').addEventListener('change', event => { state.xray = event.target.checked; update(); });
+  $('[data-harness-rulers]').addEventListener('change', event => {
+    const enabled = event.target.checked;
+    if (enabled && state.view !== 'pcb') view('pcb');
+    rulers.setEnabled(enabled); requestRender();
+  });
+  $('[data-harness-find]').addEventListener('input', findParts);
+  $('[data-harness-hide]').addEventListener('click', () => {
+    if (!state.selection || state.opened) return;
+    hiddenParts.add(state.selection); state.selection = null; inspect(); update();
+  });
+  $('[data-harness-show-all]').addEventListener('click', () => { hiddenParts.clear(); update(); });
+  $$('[data-harness-nav]').forEach(button => button.addEventListener('click', () => {
+    navigation.setMode(button.dataset.harnessNav);
+    $$('[data-harness-nav]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    stage.dataset.navigation = navigation.mode;
+  }));
   $('[data-harness-labels]').addEventListener('change', event => { state.labels = event.target.checked; requestRender(); });
   $('[data-harness-explode]').addEventListener('input', event => {
     state.explode = Number(event.target.value) / 100; $('[data-harness-explode-value]').textContent = `${event.target.value}%`; update();
   });
   $('[data-harness-reset]').addEventListener('click', () => {
-    closeConductor(); state.step = null; state.selection = null; state.explode = 0; state.reveal = false; state.labels = true;
-    $('[data-harness-labels]').checked = true; $('[data-harness-wires]').checked = false;
-    $('[data-harness-explode]').value = 0; $('[data-harness-explode-value]').textContent = '0%';
-    tab('wires'); inspect(); update(); view('overall');
+    try { localStorage.removeItem(poseKey); } catch { /* Storage is optional. */ }
+    view('overall');
   });
   const workbench = $('.harness-workbench'), launch = $('[data-harness-launch]');
   const mobile = matchMedia('(max-width: 960px)');
@@ -339,6 +437,7 @@ export async function initHarness(root) {
   }
   dialogClose.addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => {
+    navigation.clearTouches(); clearPicking(); savePose();
     home.after(workbench);
     document.documentElement.classList.toggle('harness-modal-open', !!document.querySelector('.harness-dialog[open]'));
     previewMode(); resize(); opener?.focus({ preventScroll: true });
@@ -350,6 +449,9 @@ export async function initHarness(root) {
   const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
   let down = null, multiTouch = false, suppressClickUntil = 0;
   const pointers = new Set();
+  function clearPicking() { pointers.clear(); down = null; multiTouch = false; suppressClickUntil = performance.now() + 350; }
+  window.addEventListener('blur', clearPicking);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) clearPicking(); });
   const pick = event => {
     const bounds = stage.getBoundingClientRect();
     pointer.set((event.clientX - bounds.left) / bounds.width * 2 - 1, -(event.clientY - bounds.top) / bounds.height * 2 + 1);
@@ -371,7 +473,7 @@ export async function initHarness(root) {
     if (!pointers.size) multiTouch = false;
   });
   renderer.domElement.addEventListener('pointerup', event => {
-    const click = !multiTouch && performance.now() > suppressClickUntil && down?.id === event.pointerId && !down.moved && Math.hypot(event.clientX - down.x, event.clientY - down.y) <= 5;
+    const click = event.button === 0 && !multiTouch && !navigation.isTouchGesture() && performance.now() > suppressClickUntil && down?.id === event.pointerId && !down.moved && Math.hypot(event.clientX - down.x, event.clientY - down.y) <= 5;
     if (multiTouch) suppressClickUntil = performance.now() + 350;
     pointers.delete(event.pointerId); down = null;
     if (!pointers.size) multiTouch = false;
@@ -381,55 +483,53 @@ export async function initHarness(root) {
   renderer.domElement.addEventListener('pointermove', event => {
     if (down?.id === event.pointerId && Math.hypot(event.clientX - down.x, event.clientY - down.y) > 5) down.moved = true;
     if (down || multiTouch || state.opened) return;
-    renderer.domElement.style.cursor = pick(event) ? 'pointer' : 'grab';
+    renderer.domElement.style.cursor = navigation.mode === 'pan' ? 'move' : navigation.mode === 'zoom' ? 'ns-resize' : pick(event) ? 'pointer' : 'grab';
   });
-  // WebKit trackpads can report scale gestures rather than ctrl-wheel events.
-  // Keep their zoom inside the model, using the same camera distance limits.
-  let gesture = null;
-  stage.addEventListener('gesturestart', event => {
-    event.preventDefault(); transition = null; down = null;
-    gesture = { offset: camera.position.clone().sub(controls.target), target: controls.target.clone(), enabled: controls.enabled };
-    controls.enabled = false;
-  }, { passive: false });
-  stage.addEventListener('gesturechange', event => {
-    if (!gesture || !Number.isFinite(event.scale) || event.scale <= 0) return;
-    event.preventDefault();
-    const distance = THREE.MathUtils.clamp(gesture.offset.length() / event.scale, controls.minDistance, controls.maxDistance);
-    controls.target.copy(gesture.target);
-    camera.position.copy(gesture.target).addScaledVector(gesture.offset.clone().normalize(), distance);
-    controls.update(); requestRender();
-  }, { passive: false });
-  stage.addEventListener('gestureend', event => {
-    if (!gesture) return;
-    event.preventDefault(); controls.enabled = gesture.enabled; gesture = null;
-    down = null; suppressClickUntil = performance.now() + 350;
-  }, { passive: false });
+  // Navigation owns all gestures. Picking only suppresses incidental taps.
+  renderer.domElement.addEventListener('gesturestart', () => { down = null; suppressClickUntil = performance.now() + 350; });
+  renderer.domElement.addEventListener('gestureend', () => { down = null; suppressClickUntil = performance.now() + 350; });
   stage.addEventListener('click', event => {
     if (multiTouch || performance.now() <= suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
   }, true);
   stage.addEventListener('keydown', event => {
     if (event.target !== stage || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(event.key)) return;
-    event.preventDefault(); transition = null;
+    event.preventDefault(); transition = null; navigation.dropStalledGesture();
     if (event.key === 'Home') { view('overall'); return; }
-    const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(controls.target));
-    if (event.key === 'ArrowLeft') spherical.theta -= .12;
-    if (event.key === 'ArrowRight') spherical.theta += .12;
-    if (event.key === 'ArrowUp') spherical.phi = Math.max(.02, spherical.phi - .12);
-    if (event.key === 'ArrowDown') spherical.phi = Math.min(Math.PI * .48, spherical.phi + .12);
-    if (['+', '=', '-'].includes(event.key)) spherical.radius = THREE.MathUtils.clamp(spherical.radius * (event.key === '-' ? 1.12 : .88), controls.minDistance, controls.maxDistance);
-    camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(spherical)); controls.update(); requestRender();
+    const offset = camera.position.clone().sub(controls.target);
+    const right = vec([1, 0, 0]).applyQuaternion(camera.quaternion), up = camera.up.clone().normalize();
+    const horizontal = event.key === 'ArrowLeft' ? -1 : event.key === 'ArrowRight' ? 1 : 0;
+    const vertical = event.key === 'ArrowUp' ? 1 : event.key === 'ArrowDown' ? -1 : 0;
+    if (event.shiftKey) {
+      const delta = right.multiplyScalar(horizontal).addScaledVector(up, vertical).multiplyScalar(offset.length() * .06);
+      camera.position.add(delta); controls.target.add(delta);
+    } else if (horizontal || vertical) {
+      const rotation = new THREE.Quaternion().setFromAxisAngle(horizontal ? up : right, (horizontal || vertical) * .12);
+      offset.applyQuaternion(rotation); camera.up.applyQuaternion(rotation);
+      camera.position.copy(controls.target).add(offset);
+    } else {
+      offset.multiplyScalar(event.key === '-' ? 1.12 : .88);
+      camera.position.copy(controls.target).add(offset);
+    }
+    controls.update(); requestRender();
   });
   renderer.domElement.addEventListener('webglcontextlost', event => {
     event.preventDefault(); $('.harness-loading').hidden = false;
     $('.harness-loading').textContent = '3D graphics paused. Reload to restore the model; text connections and build instructions are available below.';
     root.classList.remove('is-interactive');
   });
-  controls.addEventListener('change', requestRender);
+  controls.addEventListener('change', () => {
+    requestRender(); clearTimeout(saveTimer); saveTimer = setTimeout(savePose, 250);
+  });
   controls.addEventListener('start', () => { transition = null; });
+  window.addEventListener('pagehide', savePose);
   new ResizeObserver(resize).observe(stage);
   new IntersectionObserver(entries => { visible = dialog.open || entries[0].isIntersecting; if (visible) requestRender(); }).observe(stage);
   root.classList.add('is-interactive');
-  $$('.harness-toolbar, .harness-scene-controls, .harness-tabs').forEach(element => { element.hidden = false; });
+  $$('.harness-toolbar, .harness-navigation, .harness-find, .harness-scene-controls, .harness-tabs').forEach(element => { element.hidden = false; });
   $('.harness-loading').hidden = true;
-  previewMode(); inspect(); update(); resize(); root.dataset.harnessReady = 'true';
+  previewMode(); inspect(); update(); resize(); view('overall', true);
+  if (navigation.applyPose(poseKey)) {
+    try { adaptAspect(Number(localStorage.getItem(`${poseKey}:aspect`)), camera.aspect); } catch { /* Storage is optional. */ }
+  }
+  cameraReady = true; root.dataset.harnessReady = 'true';
 }
