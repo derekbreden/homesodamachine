@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Blocked before Send: Mac locked",
+  "status": "Accepted by Mark2; startup confirmed",
   "printer": "Mark2",
   "part": "Sculpted faucet display cover",
   "quantity": 1,
@@ -29,13 +29,19 @@
     "Flow dynamic calibration": "Auto",
     "Nozzle Offset Calibration": "Auto"
   },
-  "send_attempted": false,
-  "accepted_task_id": null,
-  "accepted_at_utc": null,
+  "send_attempted": true,
+  "accepted_task_id": "1348440331",
+  "accepted_at_utc": "2026-10-17T15:26:28.929256+00:00",
   "automation_id": "start-fan-off-display-cover-at-8-15-am",
   "authorization_quote": "Can you schedule things so your print starts at 8:15 am central time please. Mark2 is loaded for this on the right hotend still, and the bed is clear.",
   "automation_status": "PAUSED",
   "single_scheduled_run": true,
   "last_checked_utc": "2026-10-17T13:15:42.524298+00:00",
-  "blocker": "The local Mac remained locked at the scheduled start. Bambu Connect could not be operated, and automatic unlock was unsuccessful. Manual unlock requested."
+  "blocker": null,
+  "send_attempted_at_utc": "2026-10-17T15:26:13.584982+00:00",
+  "retry_authorization_quote": "try now",
+  "accepted_at_local": "2026-10-17T10:26:28.929256-05:00",
+  "estimated_finish_local": "2026-10-17T10:51:10.625667-05:00",
+  "launch_record": "launch.json",
+  "startup_record": "startup.json"
 }

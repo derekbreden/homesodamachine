@@ -174,8 +174,11 @@
     "speed_settings_changed": false,
     "supports_changed": false,
     "production_recipe_changed": false,
-    "submitted": false,
-    "next_physical_reading": "After cooling and support removal, load the display and seat the complete cover on the matching current Sculpted tip using the documented sequence. It must survive that normal motion without a crack and retain the display and cover. Record underside quality as well, because cooling is used for overhang finish. This result establishes that assembly only."
+    "submitted": true,
+    "next_physical_reading": "After cooling and support removal, load the display and seat the complete cover on the matching current Sculpted tip using the documented sequence. It must survive that normal motion without a crack and retain the display and cover. Record underside quality as well, because cooling is used for overhang finish. This result establishes that assembly only.",
+    "launch": "launch.json",
+    "printer_task_id": "1348440331",
+    "physical_result": null
   },
   "recommendation": "Test the current geometry with part cooling off before adding thickness. A thicker flexing wall also becomes stiffer, so thickness alone is not a controlled cure for assembly fracture.",
   "photo_evidence": "reported-failure.json"
