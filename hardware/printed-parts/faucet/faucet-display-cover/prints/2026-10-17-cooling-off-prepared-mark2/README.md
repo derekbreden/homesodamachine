@@ -1,8 +1,11 @@
 # Sculpted display cover — part-cooling trial, prepared only
 
 One complete current cover is ready for Mark2's right hardened 0.4 mm hotend
-and white PET-GF, external spool 255. **Not submitted.** Derek will give the
-instruction to start. The native estimate is **24 min 42 s, 6.64 g**, 77 layers.
+and white PET-GF, external spool 255. **Not submitted.** The
+[authorized start](scheduled-launch.json) is October 17 at **8:15 a.m. Central
+(CDT, 13:15 UTC)**. A one-time follow-up wakes at 8:10 for app preparation and
+fresh printer readings; no printer action is authorized before 8:15.
+The native estimate is **24 min 42 s, 6.64 g**, 77 layers.
 
 The single experimental change is part cooling: minimum, maximum and overhang
 fan speeds are all zero. The current cover geometry, −50° pose, 0.20/0.24 mm
