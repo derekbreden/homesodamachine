@@ -13,6 +13,15 @@ Every rendition is 43:80, and the faucet's 172x320 headers are byte-for-byte the
 enclosure's anchors, so one blob fills either store.
 
     tools/make_logos.py -o logos.bin
+
+`--store` lays the same four faces out as the store itself holds them — in the
+slots `flavorArtFactorySlot` names, each under the header `imageStoreWriteFinish`
+puts down — for esptool to write straight into a display's flash over its own
+USB, with no link to carry the blob. The slots a person fills sit below them and
+are not in the file, so writing it leaves their pictures where they are. It
+prints the command, at the offset the partition table puts those slots.
+
+    tools/make_logos.py --store -o .pio/build/esp32s3_faucet/logos-store.bin
 """
 import argparse
 import pathlib
@@ -23,6 +32,13 @@ import zlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 IMAGES = ROOT / "firmware" / "src_front" / "images"
+STORE_H = ROOT / "firmware" / "lib" / "image_store" / "image_store.h"
+PROTO_H = ROOT / "firmware" / "lib" / "proto_link" / "proto_msg.h"
+
+# Both displays open their store over this partition, and erase a slot in
+# sectors of this size (image_store.cpp).
+STORE_PARTITION = "spiffs"
+ERASE = 4096
 
 MAGIC = 0x53474F4C  # 'LOGS'
 FORMAT = 1
@@ -69,15 +85,93 @@ def build() -> bytes:
     return header + b"".join(bundles)
 
 
+def constant(path: pathlib.Path, name: str) -> int:
+    """One `constexpr` out of a firmware header, so the layout follows the board's."""
+    m = re.search(rf"constexpr\s+\w+\s+{name}\s*=\s*(0[xX][0-9a-fA-F]+|\d+)",
+                  path.read_text())
+    if not m:
+        sys.exit(f"no {name} in {path.relative_to(ROOT)}")
+    return int(m[1], 0)
+
+
+def partition(table: pathlib.Path, label: str) -> tuple[int, int]:
+    """Offset and size of one partition, as the table names them."""
+    for line in table.read_text().splitlines():
+        cols = [c.strip() for c in line.split("#")[0].split(",")]
+        if len(cols) >= 5 and cols[0] == label:
+            return int(cols[3], 0), int(cols[4], 0)
+    sys.exit(f"no '{label}' partition in {table}")
+
+
+def build_store(blob: bytes) -> tuple[bytes, int, int]:
+    """The factory slots as the store holds them: the bytes, the first slot, slot size.
+
+    A slot is its header, erased flash out to IMAGE_SLOT_PIXELS_AT, the bundle,
+    and erased flash out to the next erase boundary. The store recognises a slot
+    by its header alone, so the header is what has to be the board's own.
+    """
+    magic = constant(STORE_H, "IMAGE_SLOT_MAGIC")
+    fmt = constant(STORE_H, "IMAGE_SLOT_FORMAT")
+    pixels_at = constant(STORE_H, "IMAGE_SLOT_PIXELS_AT")
+    max_sizes = constant(STORE_H, "IMAGE_MAX_SIZES")
+    first = constant(PROTO_H, "FLAVOR_ART_CUSTOM")   # flavorArtFactorySlot(0)
+
+    per = (len(blob) - HEADER_BYTES) // FACES
+    slot_bytes = (pixels_at + per + ERASE - 1) // ERASE * ERASE
+
+    sizes, at = b"", 0
+    for _, w, h in RENDITIONS:
+        sizes += struct.pack("<HHI", w, h, at)
+        at += w * h * 2
+    sizes += b"\0" * (8 * (max_sizes - len(RENDITIONS)))
+
+    slots = []
+    for face in range(FACES):
+        bundle = blob[HEADER_BYTES + face * per:HEADER_BYTES + (face + 1) * per]
+        crc = zlib.crc32(bundle) & 0xFFFFFFFF
+        # ImageSlotHeader: magic, format, bytes, crc32, seq, count, reserved[7],
+        # then the rendition table. The seq is what four writes in a row into an
+        # empty store would give them; nothing reads it but the next write.
+        header = struct.pack("<IIIIIB7x", magic, fmt, per, crc, face,
+                             len(RENDITIONS)) + sizes
+        if len(header) > pixels_at:
+            sys.exit(f"slot header is {len(header)} B, past the pixels at {pixels_at}")
+        slot = header.ljust(pixels_at, b"\xff") + bundle
+        slots.append(slot.ljust(slot_bytes, b"\xff"))
+    return b"".join(slots), first, slot_bytes
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("-o", "--out", required=True, help="where to write the blob")
+    ap.add_argument("--store", action="store_true",
+                    help="write the factory slots as the image store holds them")
+    ap.add_argument("--partitions", default="firmware/partitions_s3_faucet.csv",
+                    help="the display's partition table, for --store's offset")
     ap.add_argument("-q", "--quiet", action="store_true")
     a = ap.parse_args()
 
     blob = build()
     out = pathlib.Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
+
+    if a.store:
+        image, first, slot_bytes = build_store(blob)
+        base, size = partition(ROOT / a.partitions, STORE_PARTITION)
+        if (first + FACES) * slot_bytes > size:
+            sys.exit(f"'{STORE_PARTITION}' is {size:,} B, too small for slot "
+                     f"{first + FACES - 1} at {slot_bytes:,} B a slot")
+        offset = base + first * slot_bytes
+        out.write_bytes(image)
+        if not a.quiet:
+            print(f"{out}")
+            print(f"  {len(image):,} bytes  (slots {first}-{first + FACES - 1}, "
+                  f"{slot_bytes:,} B each)")
+            print(f"  write it at {offset:#x}, over the display's own USB:")
+            print(f"    ~/.platformio/penv/bin/python -m esptool --chip esp32s3 "
+                  f"--port <port> write-flash {offset:#x} {out}")
+        return 0
+
     out.write_bytes(blob)
 
     if not a.quiet:
