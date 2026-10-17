@@ -1,6 +1,6 @@
 {
   "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": {
-    "sha256": "79c2ffc259a043f30048997b34614050c4504f2f2ea081844afc8e88ae8fcf2c",
+    "sha256": "25263659650e859fe8daf77cc6df6118dc2b0e9556236275e867826e654ff6a7",
     "valid": true,
     "solid_count": 1,
     "diameter_mm": 7.5,
@@ -306,14 +306,14 @@
         "reed-cable-b",
         "reservoir-b"
       ],
-      "midpoint_web_width_mm": 3.000000000006995
+      "midpoint_web_width_mm": 4.999999999998924
     },
     {
       "between": [
         "reservoir-b",
         "water-in"
       ],
-      "midpoint_web_width_mm": 3.0000000000015348
+      "midpoint_web_width_mm": 5.000000000001706
     }
   ]
 }
