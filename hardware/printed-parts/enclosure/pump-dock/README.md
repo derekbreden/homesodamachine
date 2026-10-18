@@ -24,7 +24,7 @@ so tightening the screws does not drive the support into the TPU flange.
 The locks lie on the two magnet-column axes, X±52.225 mm, between each
 pump's fluid ports. The 15.85 mm wide mounting roots share the magnet
 columns' full width and meet the frame on one flat plane. They extend
-40.025 mm vertically, with at least 3 mm stock around their Ø4 mm insert
+41.5 mm vertically to the keeper-pocket floor, with at least 3 mm stock around their Ø4 mm insert
 pilots and the magnet cavities.
 The four keeper pilots pass through the dry wall; the two frame pilots are
 blind. The keeper screws retain full 4 mm insert engagement and end 2.5 mm
@@ -78,10 +78,15 @@ independently of the 0.250 mm body gap.
 
 The four pump-side tees stand in integral open-aft saddles behind the wall.
 Two owned six-inch, 18 lb ties secure each tee's fixed run collars. Open
-central tie bands retain at least 3.15 mm side stock. Three-millimetre
-side webs and lower floor brackets join the saddles to the wall. The outer
+central tie bands retain at least 3.15 mm side stock. The 4.25 mm side webs
+and 3 mm lower floor brackets join the saddles to the wall. Their undersides
+rise at 45 degrees from the print bed; a second corbel continues beneath
+each lower collar while preserving the full vertical trunk opening. The outer
 two supports stop at the slide-channel planes and use their inboard webs;
-the inner supports have both webs. Clock the tie heads fore of the saddles,
+the inner supports have both webs. The lower tie passes through 3.5 × 3.5 mm
+openings in the added arm corbels, with at least 4.85 mm of stock below the
+opening and the complete arm above it. These openings leave the original
+collar rails intact. Clock the tie heads fore of the saddles,
 clear of the coils, and keep both straps on the fixed run collars. The two
 run-end collets remain exposed. The fore
 branch collet has about 0.733 mm clearance to the rear frame and needs the
@@ -128,7 +133,7 @@ keeper access pocket has a 45-degree roof rising aft, preserving its full
    pocket, connect the four pump terminals and close the cap. The assembled
    four-tip gauge registers the cartridge back and checks simultaneous tip
    position. Its ordinary open stem channels meet the flush cartridge back;
-   two fore reliefs clear the projecting magnet guards. The aft tip backstop
+   two 3 mm-deep fore reliefs clear the projecting magnet guards. The aft tip backstop
    is 3 mm thick. Calibrate its actual 7.750 mm datum before
    using it as a factory measurement fixture; printed nominal dimensions
    alone do not establish it.

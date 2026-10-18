@@ -154,6 +154,10 @@ either Y direction encounters printed material, establishing the intended
 geometric capture rather than a friction-only pocket. The complete assembly
 must still establish neighboring keeper and plumbing clearances.
 
+The [manual mesh review](dock-lint-review.json) records the groove-rail,
+guard-interface and factory-gauge findings against their exact current
+STLs. Its gauge bridge findings use the flat-back print poses defined above.
+
 The [product page](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet)
 identifies N42 material, an 80°C maximum continuous service temperature and a
 3.42 lbf pull rating to thick steel. That rating does not establish installed

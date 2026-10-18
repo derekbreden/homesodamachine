@@ -1,20 +1,109 @@
-[step] The 0.25 mm recess is the floor allowance beneath the discharge-chain zip-tie tunnel. It gives the supported roof strands clearance while retaining the seated body's axis, the tunnel roof and the full anchor feet. The surrounding lid face is the locating datum. The recess ends at the open tunnel mouths, leaving a 0.25 mm lip to clear during cleanout.
+[step] Unavoidable tie-tunnel floor allowance: the 0.25 mm recess leaves room beneath the discharge-chain tunnel roof while retaining the seated body axis and complete anchor feet. The surrounding lid face remains the locating datum. Its open mouths retain the 0.25 mm cleanout lip.
+alternatives: Removing the allowance spends roof-strand clearance. Lowering the surrounding lid changes its locating face; a flush run-out must preserve the tube/body axis and complete tunnel.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=61.000 y=-60.500 z=5.150
 
-[ceiling] The suction-chain and discharge-chain tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path.
+[ceiling] Unavoidable tie passages: these three Z8.4 roofs close the suction/discharge and fluid-14 clamping ribs over their 2.8 mm tie spans. Their Y mouths remain open above the 0.25 mm floor-relief lip. Detach support contacts, clear the lip and withdraw through a mouth before installing fittings and ties. Physical cleanup remains unqualified.
+alternatives: Filling blocks the tie path. Sloping through the span changes the defined tie clearance or its clamping rib; preserve the passages and assess actual support contacts in the production slice.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=33.120 y=65.050 z=8.400
 click: x=61.000 y=-60.500 z=8.400
+click: x=33.120 y=65.050 z=8.400
+click: x=41.000 y=44.750 z=8.400
 
-[ceiling] The fluid-18 side-anchor window carries the tie beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 5.8 mm transverse extent is the post depth above the relieved window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Release any attached support and lift it clear of the 0.25 mm floor-relief lip before withdrawing it through a mouth; the surrounding lid surface is above the recessed floor. The tie's rear channel continues openly from the window floor to the post crown. The 16.24 mm² roof is below the lint's 20 mm² ceiling threshold; the native cap and mouth checks in fluid-18-clearance-check.json establish its geometry.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=117.900 y=34.000 z=6.675
-
-[ceiling] The water-3 side-anchor window lets the tie pass beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 7.6 mm transverse extent is the post depth above the window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Any attached support must be released and lifted clear of the 0.25 mm floor-relief lip before it leaves through a mouth; the surrounding lid surface is above the recessed floor.
+[ceiling] Unavoidable water-3 side-anchor tie window: this Z6.675 roof bridges 2.8 mm along Y with both X mouths open and 1.525 mm available height including the 0.25 mm floor relief. Release support and lift it clear of the lip before withdrawal. Actual cleanup remains unqualified.
+alternatives: Filling blocks the tie path. Sloping spends its required passage or tube-seat profile; preserve the complete window and review emitted supports in its production slice.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=134.200 y=-13.000 z=6.675
 
-[ceiling] The fluid-14 tie tunnel is the open passage beneath its clamping rib. Its flat roof bridges 2.8 mm along X between full 3 mm feet and spans 12.7 mm along Y. Native mouth probes verify 3.0 mm openings along both Y directions above the 0.25 mm floor-relief lip. Detach any emitted support from the roof, clear that lip and withdraw through an open mouth before fitting tubing or ties. The current production slice supplies the actual branch and contact geometry.
+[ledge] Unavoidable fluid-18 side-anchor tie roof: this 16.24 mm² Z6.675 face bridges the 2.8 mm tie span beneath its low tube seat. Both X mouths are open above the 0.25 mm floor lip, with the tie return continuing to the post crown. Detach support and lift it clear of the lip before removal; cleanup remains unqualified.
+alternatives: Filling blocks the tie path. Removing or sloping the roof changes the low tube seat or tie clearance. Retain the defined passage and assess actual support contacts in the native production slice.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=41.000 y=44.750 z=8.400
+click: x=118.867 y=34.467 z=6.675
+
+[thin] Wrong material-thickness classification: every listed tie-anchor foot segment lies on the native boundary at all five interior positions. Their 0.347–0.738 mm lengths run along the existing foot/ramp face rather than through a wall.
+alternatives: Reject boundary-tangent pairs before diagnosing wall thickness. A thickness change at these exact surface segments does not address the invalid measurement.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=113.800 y=32.564 z=5.745
+click: x=129.200 y=-14.436 z=5.745
+click: x=113.800 y=35.748 z=5.897
+click: x=129.200 y=-11.252 z=5.897
+click: x=138.000 y=-11.413 z=6.074
+click: x=120.800 y=35.588 z=6.074
+click: x=31.512 y=53.400 z=6.108
+click: x=31.512 y=76.700 z=6.108
+click: x=59.392 y=-72.150 z=6.108
+click: x=62.608 y=-48.850 z=6.108
+click: x=39.392 y=38.425 z=6.108
+click: x=42.608 y=51.075 z=6.108
+
+[thin] Outside the pump-dock/cradle-station change and unresolved: these retained lid-perimeter, opening and tie-seat sections have identical native material in exact 4 mm windows. The whole-lid comparison separately proves no material change outside the two moved cradle windows. This scope evidence does not accept these fine sections, deposition or load capacity.
+alternatives: Reconcile the fitted lid rim, passage edge or tie-seat outline with its mate if larger local stock is required, preserving lid seating and tie access. Those lid-interface redesigns are not implemented here.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-132.128 y=-89.331 z=4.612
+click: x=132.128 y=-89.331 z=4.612
+click: x=-132.128 y=89.331 z=3.038
+click: x=132.128 y=89.331 z=3.038
+click: x=-140.400 y=0.018 z=3.038
+click: x=140.400 y=-0.018 z=4.612
+click: x=40.054 y=-89.399 z=3.038
+click: x=-39.946 y=-89.399 z=3.038
+click: x=-40.018 y=89.399 z=3.035
+click: x=39.982 y=89.399 z=3.035
+click: x=141.500 y=43.775 z=5.102
+click: x=141.500 y=-55.868 z=5.070
+click: x=141.500 y=-43.237 z=5.051
+click: x=-107.345 y=59.193 z=5.171
+click: x=141.500 y=-31.307 z=5.023
+click: x=-141.500 y=-31.148 z=4.993
+click: x=-106.046 y=58.716 z=0.846
+click: x=138.648 y=-56.070 z=0.846
+click: x=138.648 y=-43.570 z=0.846
+click: x=138.648 y=43.430 z=0.846
+
+[thin] Outside the pump-dock/cradle-station change and unresolved: these actual 2.530–2.656 mm valve socket/channel sections retain the shared fixture construction. Exact current-native windows match the reference at unchanged V-K coordinates or the authored −0.5 mm local-X transform for V-A/B. The moves do not qualify the fixture thickness, valve retention or service life.
+alternatives: Reconcile the socket, body channel and plinth outline together if larger ligaments are required while preserving the purchased valve envelope and insertion. That shared valve-fixture redesign is not implemented here.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=54.964 y=30.545 z=9.170
+click: x=78.216 y=17.995 z=9.170
+click: x=103.896 y=58.775 z=14.220
+click: x=80.644 y=71.325 z=14.220
+click: x=54.964 y=-16.075 z=9.170
+click: x=78.216 y=-28.625 z=9.170
+click: x=103.898 y=71.233 z=14.126
+click: x=54.962 y=18.087 z=9.076
+click: x=80.642 y=58.867 z=14.126
+click: x=78.218 y=30.453 z=9.076
+click: x=78.218 y=-16.167 z=9.076
+click: x=54.962 y=-28.533 z=9.076
+click: x=79.001 y=15.520 z=8.166
+click: x=54.151 y=15.520 z=8.166
+click: x=79.001 y=-31.100 z=8.166
+click: x=79.029 y=33.020 z=8.166
+click: x=54.179 y=33.020 z=8.166
+click: x=104.681 y=56.300 z=13.216
+click: x=79.831 y=56.300 z=13.216
+click: x=54.151 y=-31.100 z=8.166
+click: x=79.029 y=-13.600 z=8.166
+click: x=54.179 y=-13.600 z=8.166
+click: x=104.709 y=73.800 z=13.216
+click: x=79.859 y=73.800 z=13.216
+
+[thin] Numerical threshold boundary: these exact pairs span the two moved valve fixtures’ authored 3.000 mm blind floors. Native interior samples are material and both endpoints differ by exactly 3.000 mm in Z. Floating-point ranking at the 3 mm reach does not establish a smaller design floor or qualify print/load performance.
+alternatives: Apply an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal 3 mm fitted floor solely to change its rank has no dimensional basis.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=82.140 y=-35.869 z=0.000
+click: x=56.955 y=-36.200 z=0.000
+click: x=56.998 y=-11.904 z=0.000
+click: x=80.154 y=-13.203 z=0.000
+click: x=79.501 y=8.946 z=0.000
+click: x=54.473 y=8.841 z=0.000
+click: x=54.592 y=33.298 z=0.000
+click: x=78.479 y=33.422 z=0.000
+click: x=81.600 y=-12.431 z=3.000
+click: x=56.750 y=-12.431 z=3.000
+click: x=81.600 y=-36.831 z=3.000
+click: x=56.750 y=-36.831 z=3.000
+click: x=81.600 y=34.189 z=3.000
+click: x=56.750 y=34.189 z=3.000
+click: x=81.600 y=9.789 z=3.000
+click: x=56.750 y=9.789 z=3.000

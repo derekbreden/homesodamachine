@@ -1,345 +1,472 @@
-[step] Unavoidable core-clearance level boundary: the two measured +Z planes are the finite core receiver floor at Z−0.35 and the surrounding floor at Z0. The rounded core plan requires 0.25 mm running room plus 0.10 mm cavity-floor transition beneath the complete core footprint. This pick is outside that rounded plan. The same-normal plane comparison identifies the cavity perimeter; it does not identify material projecting into the required core room. Core, hardware and column reference poses remain fixed. The post-live report records this original-STL face comparison; it is not a whole-part thickness result.
-alternatives: Extending the lowered floor through the surrounding platform would change unrelated hardware and column floor datums. A perimeter run-out could retain the complete 0.35 mm core room, but it would still join these two required levels. Preserve the named receiver floor and surrounding datums.
+[step] Unavoidable core-clearance level boundary: these planes are the finite receiver floor at Z−0.35 and surrounding floor at Z0. The rounded core footprint retains its 0.25 mm running room and 0.10 mm cavity-floor transition. This same-normal plane comparison identifies the perimeter of those required levels, rather than material projecting into the core room.
+alternatives: Lowering the surrounding platform changes unrelated floor datums. A perimeter run-out still joins the required levels and must preserve the complete core clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-90.733 y=465.372 z=0.000
+click: x=-90.733 y=468.372 z=0.000
 
-[ceiling] Unavoidable flat lifting interface: these are the two flat handhold lifting ceilings at Z29.25, 35.25 mm above the standing underside, with the complete 12 mm roof section. Their flat finger bearing and the shared R6 end returns define the gripping surface. Tree(auto)/Default support can reach through the downward and outward handhold openings and the open seam before assembly. Actual support cleanup, bare-surface comfort and loaded lifting remain unqualified for these complete handholds.
-alternatives: A sloped working ceiling changes the lifting bearing and finger opening. Filling beneath it blocks upward finger entry. Retain the flat roof and its open support-removal approaches.
+[sliver] Outside the pump-dock change and unresolved: these finite strips belong to the retained integral disposal-warning outlines. The entire native warning field and wall match the identified reference after the actual rear-plane transform, with unchanged text/font/relief construction. This establishes scope and does not accept fine strokes, deposition or legibility.
+alternatives: Reconcile the font strokes and marking method as a complete warning. Widening individual strokes changes counters and fit; a separate or contrasting flush marking replaces the selected integral implementation. That marking redesign is not implemented here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=58.339 y=481.599 z=48.948
+click: x=53.050 y=481.600 z=11.431
+click: x=51.067 y=481.599 z=39.569
+click: x=45.526 y=481.597 z=11.431
+click: x=33.622 y=481.600 z=30.189
+click: x=20.208 y=481.598 z=48.948
+click: x=7.534 y=481.600 z=30.189
+click: x=-4.490 y=481.600 z=30.189
+click: x=-6.531 y=481.598 z=58.327
+click: x=-8.656 y=481.598 z=11.431
+click: x=-19.022 y=481.600 z=30.189
+click: x=-20.078 y=481.596 z=58.327
+click: x=-41.271 y=481.597 z=11.431
+click: x=-50.049 y=481.598 z=48.948
+click: x=-52.311 y=481.600 z=39.569
+click: x=-58.833 y=481.599 z=39.569
+click: x=-63.595 y=481.598 z=48.948
+click: x=-72.380 y=481.600 z=20.810
+click: x=-51.636 y=481.900 z=39.569
+click: x=59.014 y=481.900 z=48.948
+click: x=20.882 y=481.900 z=48.948
+click: x=-5.856 y=481.900 z=58.327
+click: x=8.209 y=481.900 z=30.189
+click: x=-53.506 y=481.900 z=30.189
+click: x=-49.374 y=481.900 z=48.948
+click: x=51.742 y=481.900 z=39.569
+click: x=-80.569 y=481.600 z=30.189
+click: x=-75.012 y=481.600 z=30.189
+click: x=-69.132 y=481.597 z=11.431
+click: x=-68.512 y=481.600 z=30.189
+click: x=-67.101 y=481.600 z=20.810
+click: x=-63.148 y=481.600 z=11.431
+click: x=-58.317 y=481.599 z=48.948
+click: x=-48.699 y=481.598 z=48.948
+click: x=-47.420 y=481.600 z=30.189
+click: x=-41.428 y=481.600 z=30.189
+click: x=-40.034 y=481.599 z=20.810
+click: x=-37.018 y=481.600 z=39.569
+click: x=-35.993 y=481.597 z=11.431
+click: x=-35.404 y=481.600 z=30.189
+click: x=-30.527 y=481.599 z=39.569
+click: x=-30.240 y=481.598 z=48.948
+click: x=-24.512 y=481.599 z=39.569
+click: x=-24.247 y=481.598 z=48.948
+click: x=-23.001 y=481.600 z=11.431
+click: x=-20.503 y=481.599 z=20.810
+click: x=-20.358 y=481.600 z=30.189
+click: x=-18.479 y=481.600 z=39.569
+click: x=-16.986 y=481.599 z=11.431
+click: x=-14.799 y=481.596 z=58.327
+click: x=-13.972 y=481.599 z=20.810
+click: x=-12.208 y=481.600 z=48.948
+click: x=-7.307 y=481.600 z=11.431
+click: x=-5.916 y=481.599 z=20.810
+click: x=-5.181 y=481.596 z=58.327
+click: x=-4.932 y=481.599 z=39.569
+click: x=-3.168 y=481.599 z=48.948
+click: x=-0.922 y=481.597 z=11.431
+click: x=0.767 y=481.600 z=30.189
+click: x=1.091 y=481.599 z=39.569
+click: x=10.610 y=481.597 z=11.431
+click: x=17.141 y=481.600 z=11.431
+click: x=19.670 y=481.599 z=20.810
+click: x=21.557 y=481.598 z=48.948
+click: x=24.666 y=481.599 z=39.569
+click: x=25.665 y=481.597 z=11.431
+click: x=31.221 y=481.597 z=11.431
+click: x=37.721 y=481.600 z=11.431
+click: x=38.901 y=481.600 z=30.189
+click: x=43.750 y=481.599 z=20.810
+click: x=43.750 y=481.600 z=39.569
+click: x=51.028 y=481.598 z=48.948
+click: x=51.810 y=481.598 z=11.431
+click: x=51.923 y=481.600 z=30.189
+click: x=52.417 y=481.600 z=39.569
+click: x=56.765 y=481.600 z=20.810
+click: x=58.414 y=481.600 z=30.189
+click: x=59.333 y=481.597 z=11.431
+click: x=59.688 y=481.598 z=48.948
+click: x=62.780 y=481.600 z=20.810
+click: x=66.074 y=481.598 z=48.948
+click: x=69.341 y=481.599 z=20.810
+click: x=71.350 y=481.598 z=11.431
+click: x=75.325 y=481.599 z=20.810
+click: x=4.626 y=481.597 z=11.426
+click: x=26.968 y=481.599 z=48.943
+click: x=34.994 y=481.598 z=48.943
+click: x=76.867 y=481.599 z=11.426
+click: x=80.882 y=481.599 z=20.806
+click: x=-45.315 y=481.597 z=10.855
+click: x=-43.948 y=481.597 z=10.855
+click: x=3.490 y=481.600 z=29.614
+click: x=-2.549 y=481.600 z=57.752
+click: x=-11.057 y=481.600 z=29.614
+click: x=-9.690 y=481.600 z=29.614
+click: x=-1.182 y=481.597 z=57.752
+click: x=4.857 y=481.600 z=29.614
+click: x=-38.376 y=481.600 z=40.153
+click: x=69.992 y=481.597 z=12.015
+click: x=42.397 y=481.600 z=21.394
+click: x=29.863 y=481.597 z=12.015
+click: x=18.312 y=481.599 z=21.394
+click: x=-41.392 y=481.599 z=21.394
+click: x=-48.779 y=481.600 z=30.774
+click: x=-76.371 y=481.600 z=30.774
+click: x=-31.598 y=481.599 z=49.532
+click: x=-44.627 y=481.598 z=14.680
+click: x=4.178 y=481.600 z=33.439
+click: x=-1.861 y=481.596 z=61.577
+click: x=-10.370 y=481.600 z=33.439
+click: x=-83.032 y=481.600 z=26.939
+click: x=60.317 y=481.599 z=17.560
+click: x=72.863 y=481.599 z=17.560
+click: x=-65.611 y=481.597 z=8.181
+click: x=-19.449 y=481.597 z=8.181
+click: x=8.147 y=481.597 z=8.181
+click: x=23.202 y=481.597 z=8.181
+click: x=-19.370 y=481.598 z=14.680
+click: x=60.396 y=481.600 z=24.060
+click: x=72.942 y=481.600 z=24.060
+click: x=-14.592 y=481.598 z=52.196
+click: x=37.635 y=481.600 z=29.248
+click: x=-37.258 y=481.600 z=10.489
+click: x=-16.065 y=481.597 z=57.386
+click: x=-59.583 y=481.598 z=48.006
+click: x=-68.367 y=481.600 z=19.869
+click: x=32.690 y=481.598 z=52.196
+click: x=74.563 y=481.598 z=14.680
+click: x=28.932 y=481.597 z=8.181
+click: x=-77.301 y=481.600 z=26.939
+click: x=69.061 y=481.597 z=8.181
+click: x=68.023 y=481.600 z=20.810
+click: x=-70.450 y=481.597 z=11.431
+click: x=-65.531 y=481.598 z=14.680
+click: x=23.281 y=481.598 z=14.680
+click: x=-82.952 y=481.600 z=33.439
+click: x=24.664 y=481.598 z=52.196
+click: x=6.844 y=481.599 z=42.818
+click: x=78.578 y=481.600 z=24.060
+click: x=-57.567 y=481.600 z=40.550
+click: x=-18.812 y=481.597 z=59.308
+click: x=-71.114 y=481.599 z=21.791
+click: x=34.888 y=481.600 z=31.170
+click: x=-40.005 y=481.597 z=12.412
+click: x=-62.330 y=481.600 z=49.929
+click: x=50.604 y=481.600 z=30.189
+
+[sliver] Wrong finite-strip diagnostic: these exact rows have zero plane normals and NaN edge coordinates, widths and lengths. They supply no finite strip dimension or geometry verdict. The actual integral warning remains subject to the separately recorded unresolved fine-section findings.
+alternatives: Correct the degenerate-plane numerical case or inspect its actual finite facets before selecting a geometry change. Do not derive a wall correction from undefined dimensions.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-76.834 y=481.725 z=19.974
+click: x=40.000 y=481.298 z=18.729
+click: x=29.562 y=481.775 z=40.714
+click: x=48.586 y=481.750 z=40.660
+click: x=48.740 y=481.700 z=40.943
+
+[thin] Outside the pump-dock change and unresolved: these actual fine sections are in the retained integral warning strokes and their outlines. The complete native marking field is identical to the reference after the explicit rear-plane transform. This scope evidence does not accept these small sections as printable, durable or legible.
+alternatives: Reconcile the complete lettering and its method if larger local sections are required, retaining all specified warning content. No marking redesign or physical legibility qualification is performed here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=45.292 y=481.499 z=45.698
+click: x=-23.414 y=481.599 z=45.698
+click: x=-17.764 y=481.599 z=52.198
+click: x=-23.269 y=481.595 z=52.198
+click: x=45.472 y=481.585 z=52.198
+click: x=-17.688 y=481.486 z=45.698
+click: x=-6.335 y=481.496 z=8.181
+click: x=51.356 y=481.497 z=17.560
+click: x=11.738 y=481.494 z=8.181
+click: x=-19.368 y=481.491 z=17.560
+click: x=-28.394 y=481.489 z=8.181
+click: x=23.285 y=481.485 z=17.560
+click: x=-35.943 y=481.798 z=36.487
+click: x=-10.349 y=481.798 z=36.487
+click: x=-8.585 y=481.798 z=45.866
+click: x=60.658 y=481.798 z=45.866
+click: x=13.495 y=481.799 z=45.866
+click: x=52.998 y=481.753 z=27.108
+click: x=-74.435 y=481.700 z=10.157
+click: x=-61.346 y=481.700 z=8.542
+click: x=-77.915 y=481.700 z=17.928
+click: x=-73.079 y=481.700 z=27.325
+click: x=-72.429 y=481.700 z=33.343
+click: x=-65.533 y=481.700 z=18.656
+click: x=-60.091 y=481.700 z=27.481
+click: x=-57.118 y=481.700 z=47.604
+click: x=-27.833 y=481.700 z=14.094
+click: x=-46.330 y=481.700 z=30.662
+click: x=-40.375 y=481.700 z=31.234
+click: x=-37.762 y=481.700 z=17.775
+click: x=-30.117 y=481.700 z=17.547
+click: x=-15.592 y=481.700 z=12.870
+click: x=-5.753 y=481.700 z=14.094
+click: x=-18.804 y=481.700 z=23.473
+click: x=-22.410 y=481.700 z=38.861
+click: x=-3.033 y=481.700 z=38.953
+click: x=-47.780 y=481.700 z=47.899
+click: x=-35.358 y=481.700 z=42.232
+click: x=-28.605 y=481.700 z=48.485
+click: x=-13.601 y=481.700 z=56.983
+click: x=-8.000 y=481.700 z=51.611
+click: x=-1.917 y=481.700 z=47.604
+click: x=12.309 y=481.700 z=14.094
+click: x=2.723 y=481.700 z=17.896
+click: x=1.684 y=481.700 z=22.260
+click: x=12.437 y=481.700 z=36.225
+click: x=23.838 y=481.700 z=23.473
+click: x=26.871 y=481.700 z=31.415
+click: x=26.435 y=481.700 z=36.705
+click: x=33.154 y=481.700 z=8.566
+click: x=33.807 y=481.700 z=14.586
+click: x=30.215 y=481.700 z=18.780
+click: x=27.663 y=481.700 z=27.530
+click: x=47.626 y=481.700 z=27.381
+click: x=51.933 y=481.700 z=23.473
+click: x=46.601 y=481.700 z=36.223
+click: x=53.582 y=481.700 z=32.853
+click: x=53.530 y=481.700 z=38.294
+click: x=2.488 y=481.700 z=55.300
+click: x=6.736 y=481.700 z=57.163
+click: x=14.080 y=481.700 z=51.611
+click: x=15.048 y=481.700 z=55.723
+click: x=14.310 y=481.700 z=59.553
+click: x=36.507 y=481.700 z=46.917
+click: x=52.812 y=481.700 z=46.059
+click: x=65.058 y=481.700 z=17.992
+click: x=60.918 y=481.700 z=27.159
+click: x=61.242 y=481.700 z=51.611
+click: x=49.391 y=481.900 z=37.846
+click: x=14.439 y=481.375 z=28.459
+click: x=-57.525 y=481.429 z=38.354
+click: x=-16.418 y=481.400 z=29.841
+click: x=-84.283 y=481.450 z=29.779
+click: x=72.748 y=481.553 z=10.906
+click: x=-45.989 y=481.600 z=39.473
+click: x=-41.546 y=481.476 z=36.319
+click: x=-51.268 y=481.550 z=26.939
+click: x=43.926 y=481.817 z=32.358
+click: x=42.791 y=481.883 z=13.597
+click: x=83.561 y=481.407 z=32.357
+click: x=-63.538 y=481.337 z=32.624
+click: x=59.333 y=481.532 z=13.608
+click: x=45.526 y=481.484 z=12.261
+click: x=-66.031 y=481.587 z=45.698
+click: x=58.833 y=481.850 z=39.567
+click: x=-69.132 y=481.850 z=11.429
+click: x=83.829 y=481.450 z=27.668
+click: x=18.312 y=481.600 z=21.387
+click: x=-54.851 y=481.649 z=18.423
+click: x=-1.182 y=481.750 z=55.835
+click: x=5.371 y=481.875 z=60.577
+click: x=-35.993 y=481.881 z=13.416
+click: x=-20.078 y=481.333 z=55.893
+click: x=-41.271 y=481.531 z=9.254
+
+[thin] Wrong material-thickness classification: this exact warning segment crosses empty space. All five native interior samples are outside material; the actual STL leaves material after its first interior sample. Its 0.200 mm endpoint distance is not a continuous material section.
+alternatives: Require continuous material occupancy before classifying thickness. Filling this opening would alter a letter outline.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=34.550 y=481.700 z=11.029
+
+[thin] Wrong material-thickness classification: these exact rear rail-entry segments lie on the native Y466.3 boundary plane at all five interior samples. Their 0.463 mm diagonal lengths run along a surface rather than through material.
+alternatives: Reject boundary-tangent pairs before classifying a wall section. A local thickness change would change the rail-entry profile without addressing the invalid measurement.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-95.888 y=466.300 z=160.253
+click: x=95.888 y=466.300 z=160.253
+
+[thin] Wrong material-thickness classification: this exact 2.355 mm segment crosses the exterior groove opening between material intervals. The final-STL samples from 30% through 55% are outside; its midpoint is 0.0761 mm from the nearest mesh surface. The smooth unfluted STEP is not the finished texture and cannot establish occupancy here.
+alternatives: Check continuous occupancy in the finished mesh before classifying material thickness. Filling the opening changes the retained cosmetic groove profile.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-107.342 y=327.800 z=128.616
+
+[thin] Specific cosmetic-flute profile exception: these short material chords belong to the retained exterior groove, fade and opening-edge contour. All five interior samples of every listed pair lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and has a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This permits this specified cosmetic contour, without a 3 mm finished-wall, current deposition or load-capacity acceptance.
+alternatives: Flattening or shallowing changes the selected visible profile; widening lands changes the closed field. Assess any finish change against the appearance evidence rather than selecting it from a thickness cutoff.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=101.855 y=479.476 z=127.621
+click: x=-101.855 y=479.476 z=-0.370
+click: x=-107.306 y=471.439 z=-0.380
+click: x=107.306 y=471.439 z=127.627
+click: x=-107.360 y=339.800 z=128.617
+click: x=-104.500 y=213.029 z=91.847
+click: x=104.500 y=213.029 z=91.847
+click: x=-104.500 y=213.003 z=138.333
+click: x=104.500 y=213.003 z=138.333
+
+[thin] Outside the pump-dock change and unresolved: these actual floor/handhold edges, seam returns and rear entry transitions retain the native material in their exact 4 mm windows. Fixed seam interfaces use unchanged coordinates; the rear entry uses its explicit rear-plane transform. The new core-stop tail has its own separate 0.50 mm clearance proof. This correspondence does not accept these fine sections or lifting/load capacity.
+alternatives: Reconcile each retained floor seam, handhold return or rail-entry contour with its mate to increase local stock while retaining running clearance and the finger opening. Those interface redesigns are not implemented here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-93.400 y=211.803 z=-5.997
+click: x=-47.207 y=211.986 z=-5.814
+click: x=-95.671 y=466.176 z=157.195
+click: x=95.671 y=466.176 z=157.195
+click: x=105.247 y=209.512 z=29.327
+click: x=-105.247 y=209.512 z=29.327
+click: x=-106.383 y=208.410 z=37.812
+click: x=106.405 y=208.411 z=37.688
+click: x=-91.100 y=200.150 z=29.269
+click: x=91.100 y=200.150 z=29.269
+click: x=-91.503 y=203.025 z=29.275
+click: x=91.503 y=203.025 z=29.275
+click: x=-98.415 y=203.069 z=29.315
+click: x=98.415 y=203.069 z=29.315
+
+[thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm core-receiver and anchor sections, with material at all five native interior samples. Endpoint coordinates differ by exactly 3.000 mm along their section axis. Floating-point inclusion at the 3 mm search reach does not establish a smaller design section or qualify printed dimensions and load capacity.
+alternatives: Use an explicit numerical tolerance at the requested section threshold. Enlarging a nominal fitted section solely to change its floating-point rank has no dimensional basis.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-90.750 y=215.854 z=-0.171
+click: x=-93.750 y=247.630 z=29.128
+click: x=-98.130 y=257.000 z=0.286
+click: x=-94.513 y=327.800 z=141.090
+click: x=-98.407 y=324.800 z=154.900
+click: x=-90.750 y=339.261 z=142.317
+click: x=-98.125 y=342.800 z=138.106
+click: x=90.750 y=253.835 z=-0.013
+click: x=93.750 y=215.460 z=-0.157
+click: x=94.031 y=257.000 z=0.451
+
+[ledge] Outside the pump-dock change and unresolved: these print-down ledges are edges of the retained integral warning. Their anchors lie inside the complete native marking field whose correspondence is recorded in pump-dock/lint-interface-review.json. This establishes scope and does not accept support contacts, removal effort or finished legibility.
+alternatives: Reconcile the complete marking and its deposition method. Widening or removing individual edges changes the font and warning; a separate marking is a different implementation and is not introduced here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-15.250 y=481.496 z=8.181
+click: x=38.479 y=481.633 z=26.939
+click: x=-53.976 y=481.567 z=36.319
+click: x=-67.584 y=481.566 z=17.560
+click: x=-58.975 y=481.432 z=45.698
+click: x=-36.586 y=481.496 z=8.181
+click: x=53.649 y=481.496 z=8.181
+click: x=58.656 y=481.430 z=8.181
+click: x=-15.378 y=481.430 z=55.077
+click: x=51.215 y=481.431 z=8.181
+click: x=46.075 y=481.497 z=8.181
+click: x=11.956 y=481.581 z=26.939
+click: x=-77.840 y=481.500 z=22.124
+click: x=45.653 y=481.500 z=40.883
+click: x=-46.994 y=481.433 z=50.262
+click: x=-61.192 y=481.498 z=12.745
+click: x=57.972 y=481.633 z=26.939
+click: x=48.639 y=481.496 z=8.181
+click: x=56.212 y=481.497 z=8.181
+click: x=56.118 y=481.432 z=17.560
+click: x=65.464 y=481.432 z=45.698
+click: x=-14.661 y=481.498 z=17.560
+click: x=-1.550 y=481.430 z=8.181
+click: x=16.437 y=481.498 z=8.181
+click: x=-23.644 y=481.499 z=8.181
+click: x=-31.528 y=481.433 z=22.032
+click: x=-65.428 y=481.498 z=45.698
+click: x=50.396 y=481.499 z=45.698
+click: x=-80.204 y=481.432 z=17.560
+click: x=-14.235 y=481.633 z=26.939
+click: x=-76.138 y=481.430 z=8.181
+click: x=-42.327 y=481.633 z=26.939
+click: x=-7.986 y=481.500 z=8.181
+click: x=59.012 y=481.432 z=45.698
+click: x=26.238 y=481.499 z=45.698
+click: x=-49.384 y=481.432 z=45.698
+click: x=80.149 y=481.498 z=17.560
+click: x=-44.703 y=481.633 z=36.319
+click: x=-60.492 y=481.633 z=31.274
+click: x=73.467 y=481.633 z=31.274
+click: x=-58.303 y=481.433 z=36.319
+click: x=-5.800 y=481.430 z=55.077
+click: x=-62.844 y=481.448 z=45.698
+click: x=76.205 y=481.497 z=8.181
+click: x=3.992 y=481.496 z=8.181
+click: x=-71.764 y=481.432 z=17.560
+click: x=4.150 y=481.448 z=26.939
+click: x=-1.893 y=481.447 z=55.077
+click: x=-54.112 y=481.499 z=17.560
+click: x=-40.591 y=481.496 z=8.181
+click: x=14.930 y=481.429 z=59.412
+click: x=-44.605 y=481.496 z=8.181
+click: x=84.653 y=481.581 z=26.939
+click: x=-62.456 y=481.500 z=26.939
+click: x=12.959 y=481.499 z=55.077
+click: x=0.292 y=481.447 z=17.560
+click: x=50.076 y=481.498 z=17.560
+click: x=44.001 y=481.496 z=8.181
+click: x=65.562 y=481.444 z=8.181
+click: x=-29.785 y=481.496 z=8.181
+click: x=-66.684 y=481.633 z=26.939
+click: x=-33.948 y=481.448 z=26.939
+click: x=80.320 y=481.567 z=26.939
+click: x=8.314 y=481.498 z=55.077
+click: x=-4.325 y=481.499 z=17.560
+click: x=45.297 y=481.498 z=17.560
+click: x=-50.516 y=481.581 z=17.560
+click: x=60.812 y=481.496 z=8.181
+click: x=39.356 y=481.496 z=8.181
+click: x=-34.430 y=481.496 z=8.181
+click: x=53.987 y=481.567 z=26.939
+click: x=52.041 y=481.433 z=17.560
+click: x=12.643 y=481.700 z=8.181
+click: x=-27.642 y=481.500 z=8.181
+click: x=-18.693 y=481.499 z=17.560
+click: x=61.382 y=481.499 z=45.698
+click: x=14.195 y=481.432 z=45.698
+click: x=-5.616 y=481.496 z=8.181
+click: x=-13.665 y=481.499 z=10.584
+click: x=-18.444 y=481.499 z=45.698
+click: x=2.279 y=481.500 z=32.288
+click: x=-55.861 y=481.433 z=22.909
+click: x=-52.491 y=481.500 z=22.909
+click: x=-3.601 y=481.499 z=60.426
+click: x=-43.118 y=481.500 z=13.530
+click: x=-0.097 y=481.496 z=60.426
+click: x=-31.858 y=481.500 z=28.275
+click: x=-64.976 y=481.633 z=28.275
+click: x=82.028 y=481.500 z=28.275
+click: x=-48.289 y=481.433 z=18.896
+click: x=-32.164 y=481.446 z=9.517
+click: x=63.167 y=481.497 z=9.517
+click: x=41.621 y=481.447 z=9.517
+click: x=78.127 y=481.433 z=20.285
+click: x=24.153 y=481.446 z=48.423
+click: x=1.823 y=481.500 z=10.906
+click: x=74.054 y=481.498 z=10.906
+click: x=-82.948 y=481.567 z=29.779
+click: x=-22.738 y=481.633 z=29.779
+click: x=72.419 y=481.500 z=20.400
+click: x=-23.509 y=481.500 z=20.400
+click: x=22.741 y=481.498 z=11.021
+click: x=7.723 y=481.498 z=11.021
+click: x=-66.077 y=481.498 z=11.021
+click: x=77.848 y=481.500 z=22.909
+click: x=73.860 y=481.432 z=13.530
+click: x=-83.043 y=481.633 z=32.288
+click: x=22.175 y=481.633 z=32.288
+click: x=72.270 y=481.500 z=22.909
+click: x=59.741 y=481.433 z=22.909
+click: x=7.612 y=481.498 z=13.530
+click: x=-77.753 y=481.448 z=26.939
+click: x=28.848 y=481.429 z=8.181
+click: x=69.024 y=481.496 z=8.181
+click: x=-82.211 y=481.567 z=26.939
+click: x=72.880 y=481.499 z=17.560
+click: x=60.257 y=481.432 z=17.560
+click: x=23.279 y=481.430 z=8.181
+click: x=8.128 y=481.429 z=8.181
+click: x=-19.471 y=481.432 z=8.181
+click: x=-65.552 y=481.430 z=8.181
+
+[ceiling] Unavoidable square capture interfaces: these Z169.45 flats are the rear rail catches above mating feet at Z168.70. They retain 0.25 mm running air plus the two supported-face allowances. The square overlap resists lifting without a ramp. Tree(auto)/Default support can leave through the empty slide channels; physical cleanup and loaded behavior remain unqualified.
+alternatives: Sloping introduces a camming bearing. Filling blocks the mating foot; removing overlap loses capture.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=100.875 y=344.925 z=169.450
+click: x=-100.875 y=403.050 z=169.450
+click: x=-100.875 y=275.675 z=169.450
+
+[ceiling] Unavoidable lifting interfaces: these Z29.25 flats retain the finger bearings, R6 end returns and 12 mm handhold roofs. Support can leave through the downward/outward openings and empty seam before assembly. Actual cleanup, bare-surface comfort and loaded lifting remain unqualified.
+alternatives: Sloping changes the finger bearing and opening. Filling beneath it blocks upward entry; retain the named lifting profile.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.979 y=224.075 z=29.250
 click: x=97.979 y=224.075 z=29.250
 
-[ceiling] These Z102.15 faces are the lower ends of the two interleaved Y-seam screw-bearing blocks. The adjacent printed block faces retain their 0.50 mm running/support allowance. Each flat end preserves the defined bearing length around the printed screw passage. Tree(auto)/Default support is accessible from the empty seam and enclosure interior before the halves interleave. The raw ceiling finding does not establish physical removal effort.
-alternatives: A corbel beneath an end enters the neighboring block’s assembly envelope. Sloping the end removes part of the defined screw-bearing length. A continuous post prevents interleaving. Keep the block end and its accessible support.
+[ceiling] Unavoidable interleaved screw-bearing ends: these Z102.15 flats retain the complete block lengths and positive running/support room to the neighboring blocks. Support is accessible through the empty seam and interior before assembly; removal effort remains unqualified.
+alternatives: A corbel enters the adjacent block envelope. Sloping or shortening spends the defined screw-bearing length; a continuous post prevents interleaving.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.625 y=209.975 z=102.150
 click: x=97.625 y=209.975 z=102.150
 
-[ceiling] These Z37.25 flats are the lower screws’ washer-bearing floors. Each 8 mm-deep U-pocket receives one flat M5 washer, retains the complete 3 mm annular backing and has a printed Ø5.6 screw passage. The nominal head recess is 2 mm. Support must leave through the inward-open pocket and handhold before installing the loose washer and screw. The current native stock evidence has its own identified inputs; this face lint does not qualify cleanup or washer-handling ease.
-alternatives: Sloping a floor tilts the flat washer. Moving the floor changes screw seating, engagement and blind-tip room. Closing the inward access adds the removed cup strip and obstructs hardware placement. Retain the flat bearing and open access.
+[ceiling] Unavoidable washer bearings: these Z37.25 flats seat the two lower M5 washers in the inward-open head pockets and retain their full native annular backing. Support leaves through the empty pocket and handhold before hardware placement. Geometric access does not qualify cleanup or washer-handling ease.
+alternatives: Sloping tilts a flat washer. Moving the floor changes seating and engagement; closing the inward access obstructs hardware placement.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.200 y=208.900 z=37.250
 click: x=97.200 y=208.900 z=37.250
-
-[ceiling] Unavoidable square capture interface: these Z169.45 flats are the rear slide hooks’ catches. The mating foot remains at Z168.70, leaving 0.25 mm running room plus 0.25 mm for each of the two supported opposing faces. The square catch retains the top against lifting without introducing a ramp along that bearing. The west PRV opening divides its run. Tree(auto)/Default support leaves through the open slide channels before assembly; current-part removal effort remains unqualified.
-alternatives: Sloping the catch introduces a camming bearing. Filling the channel beneath it blocks the mating foot’s slide. Retain the square retention profile and supported-face allowances.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=100.875 y=343.425 z=169.450
-click: x=-100.875 y=393.050 z=169.450
-click: x=-100.875 y=270.675 z=169.450
-
-[sliver] These finite strips are the glyph strokes and 0.6 mm relief sides of the permanent integral disposal warning specified in hardware/markings/README.md. The warning uses 6.5 mm H capitals and its prescribed complete letter outlines. Their narrow visible faces implement that marking geometry; they are not remnants from intersecting enclosure clearance cutters. The recorded picks span the raised warning on the exterior rear wall. This raw face review establishes neither printed legibility nor support-contact quality.
-alternatives: Widening every stroke to an ordinary structural-wall section changes glyph counters and text fit. Removing the glyphs removes the specified warning. A separate label or flush contrasting marking would replace the selected integral raised implementation and requires a product decision. Retain the marking’s actual outlines and assess any support contacts in its own production slice.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=58.339 y=471.599 z=48.948
-click: x=53.050 y=471.599 z=11.431
-click: x=51.067 y=471.599 z=39.569
-click: x=45.526 y=471.597 z=11.431
-click: x=33.622 y=471.600 z=30.189
-click: x=20.208 y=471.598 z=48.948
-click: x=7.534 y=471.600 z=30.189
-click: x=-4.490 y=471.600 z=30.189
-click: x=-6.531 y=471.598 z=58.327
-click: x=-8.656 y=471.598 z=11.431
-click: x=-19.022 y=471.600 z=30.189
-click: x=-20.078 y=471.597 z=58.327
-click: x=-41.271 y=471.597 z=11.431
-click: x=-50.049 y=471.598 z=48.948
-click: x=-52.311 y=471.599 z=39.569
-click: x=-58.833 y=471.600 z=39.569
-click: x=-63.595 y=471.600 z=48.948
-click: x=-72.380 y=471.599 z=20.810
-click: x=-58.158 y=471.900 z=20.810
-click: x=-51.636 y=471.900 z=39.569
-click: x=59.014 y=471.900 z=48.948
-click: x=20.882 y=471.900 z=48.948
-click: x=-5.856 y=471.900 z=58.327
-click: x=8.209 y=471.900 z=30.189
-click: x=-53.506 y=471.900 z=30.189
-click: x=-49.374 y=471.900 z=48.948
-click: x=51.742 y=471.900 z=39.569
-click: x=-80.569 y=471.600 z=30.189
-click: x=-75.012 y=471.600 z=30.189
-click: x=-69.132 y=471.600 z=11.431
-click: x=-68.512 y=471.600 z=30.189
-click: x=-67.101 y=471.599 z=20.810
-click: x=-63.148 y=471.598 z=11.431
-click: x=-58.317 y=471.600 z=48.948
-click: x=-52.831 y=471.600 z=30.189
-click: x=-48.699 y=471.600 z=48.948
-click: x=-47.420 y=471.600 z=30.189
-click: x=-41.428 y=471.600 z=30.189
-click: x=-40.034 y=471.599 z=20.810
-click: x=-37.018 y=471.599 z=39.569
-click: x=-35.993 y=471.597 z=11.431
-click: x=-35.404 y=471.600 z=30.189
-click: x=-30.527 y=471.599 z=39.569
-click: x=-30.240 y=471.598 z=48.948
-click: x=-24.512 y=471.599 z=39.569
-click: x=-24.247 y=471.598 z=48.948
-click: x=-23.001 y=471.600 z=11.431
-click: x=-20.503 y=471.599 z=20.810
-click: x=-20.358 y=471.600 z=30.189
-click: x=-18.479 y=471.600 z=39.569
-click: x=-16.986 y=471.598 z=11.431
-click: x=-14.799 y=471.597 z=58.327
-click: x=-13.972 y=471.599 z=20.810
-click: x=-12.208 y=471.600 z=48.948
-click: x=-7.307 y=471.600 z=11.431
-click: x=-5.916 y=471.599 z=20.810
-click: x=-5.181 y=471.596 z=58.327
-click: x=-4.932 y=471.599 z=39.569
-click: x=-3.168 y=471.599 z=48.948
-click: x=-0.922 y=471.597 z=11.431
-click: x=0.767 y=471.600 z=30.189
-click: x=1.091 y=471.599 z=39.569
-click: x=10.610 y=471.597 z=11.431
-click: x=17.141 y=471.599 z=11.431
-click: x=19.670 y=471.599 z=20.810
-click: x=21.557 y=471.598 z=48.948
-click: x=24.666 y=471.599 z=39.569
-click: x=25.665 y=471.597 z=11.431
-click: x=31.221 y=471.597 z=11.431
-click: x=37.721 y=471.599 z=11.431
-click: x=38.901 y=471.600 z=30.189
-click: x=43.750 y=471.600 z=39.569
-click: x=43.750 y=471.600 z=20.810
-click: x=51.028 y=471.598 z=48.948
-click: x=51.810 y=471.597 z=11.431
-click: x=51.923 y=471.600 z=30.189
-click: x=52.417 y=471.599 z=39.569
-click: x=56.765 y=471.599 z=20.810
-click: x=58.414 y=471.600 z=30.189
-click: x=59.333 y=471.600 z=11.431
-click: x=59.688 y=471.600 z=48.948
-click: x=62.780 y=471.599 z=20.810
-click: x=66.074 y=471.598 z=48.948
-click: x=69.341 y=471.600 z=20.810
-click: x=71.350 y=471.597 z=11.431
-click: x=75.325 y=471.599 z=20.810
-click: x=4.626 y=471.597 z=11.426
-click: x=26.968 y=471.598 z=48.943
-click: x=34.994 y=471.598 z=48.943
-click: x=76.867 y=471.597 z=11.426
-click: x=80.882 y=471.599 z=20.806
-click: x=-45.315 y=471.597 z=10.855
-click: x=-43.948 y=471.600 z=10.855
-click: x=3.490 y=471.600 z=29.614
-click: x=-2.549 y=471.600 z=57.752
-click: x=-11.057 y=471.600 z=29.614
-click: x=-9.690 y=471.600 z=29.614
-click: x=-1.182 y=471.597 z=57.752
-click: x=4.857 y=471.600 z=29.614
-click: x=-38.376 y=471.600 z=40.153
-click: x=69.992 y=471.598 z=12.015
-click: x=42.396 y=471.599 z=21.394
-click: x=29.863 y=471.597 z=12.015
-click: x=18.312 y=471.600 z=21.394
-click: x=-41.392 y=471.599 z=21.394
-click: x=-48.779 y=471.600 z=30.774
-click: x=-76.371 y=471.600 z=30.774
-click: x=-31.598 y=471.598 z=49.532
-click: x=-44.627 y=471.598 z=14.680
-click: x=-1.861 y=471.596 z=61.577
-click: x=-83.032 y=471.600 z=26.939
-click: x=60.317 y=471.599 z=17.560
-click: x=72.863 y=471.599 z=17.560
-click: x=-65.611 y=471.597 z=8.181
-click: x=-19.449 y=471.597 z=8.181
-click: x=23.202 y=471.597 z=8.181
-click: x=8.147 y=471.597 z=8.181
-click: x=-19.370 y=471.598 z=14.680
-click: x=60.396 y=471.600 z=24.060
-click: x=72.942 y=471.600 z=24.060
-click: x=-82.952 y=471.600 z=33.439
-click: x=-14.592 y=471.598 z=52.196
-click: x=37.635 y=471.600 z=29.248
-click: x=-37.258 y=471.598 z=10.489
-click: x=-16.065 y=471.597 z=57.386
-click: x=-59.583 y=471.599 z=48.006
-click: x=-68.367 y=471.599 z=19.869
-click: x=32.690 y=471.598 z=52.196
-click: x=74.563 y=471.598 z=14.680
-click: x=28.932 y=471.597 z=8.181
-click: x=-77.301 y=471.600 z=26.939
-click: x=69.061 y=471.597 z=8.181
-click: x=68.023 y=471.599 z=20.810
-click: x=-70.450 y=471.598 z=11.431
-click: x=-65.531 y=471.598 z=14.680
-click: x=23.281 y=471.598 z=14.680
-click: x=24.664 y=471.598 z=52.196
-click: x=6.844 y=471.599 z=42.818
-click: x=78.578 y=471.600 z=24.060
-click: x=-57.567 y=471.600 z=40.550
-click: x=-18.812 y=471.598 z=59.308
-click: x=-71.114 y=471.599 z=21.791
-click: x=34.888 y=471.600 z=31.170
-click: x=-40.005 y=471.598 z=12.412
-click: x=-62.330 y=471.598 z=49.929
-click: x=50.604 y=471.600 z=30.189
-
-[sliver] These five rows have zero plane normals and NaN strip width, length and edge coordinates. Two lie on the curved handhold returns; three lie on the disposal lettering. The current strip classifier does not reject these undefined inputs before ranking them. They cannot establish a finite wall, ledge or strip dimension. This limitation is specific to these recorded rows and does not certify the remainder of the mesh.
-alternatives: Reject zero-normal/nonfinite groups in the classifier before dimension ranking. Re-emitting the tessellation can remove degenerate facets while preserving the intended boundary; deleting indexed triangles without a topology review is not a shape correction. Do not thicken the gripping surface or glyphs on the strength of undefined dimensions.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-104.988 y=248.546 z=29.232
-click: x=-76.834 y=471.725 z=19.974
-click: x=104.988 y=248.546 z=29.232
-click: x=48.586 y=471.750 z=40.660
-click: x=48.740 y=471.700 z=40.943
-
-[ledge] These print-down faces are the lower edges of the same specified integral raised disposal glyphs. Their 0.6 mm projection is the marking relief. Every recorded pick lies in that warning field. The current source specifies no support contacts beneath the lettering; these original-STL face findings do not independently verify emitted support paths, finished lettering or physical cleanup.
-alternatives: A flush contrasting marking removes the raised projection but changes the selected implementation. Beveling glyph undersides changes their outlines and must retain complete readable characters and the specified minimum letter height. Erasing the relief is not a local clearance-remnant repair. Retain the warning geometry and its separately scoped production preparation.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-15.250 y=471.496 z=8.181
-click: x=38.479 y=471.633 z=26.939
-click: x=-53.976 y=471.567 z=36.319
-click: x=-58.979 y=471.433 z=45.698
-click: x=53.517 y=471.500 z=8.181
-click: x=58.634 y=471.433 z=8.181
-click: x=-15.433 y=471.430 z=55.077
-click: x=-36.586 y=471.496 z=8.181
-click: x=46.075 y=471.496 z=8.181
-click: x=51.215 y=471.496 z=8.181
-click: x=-77.716 y=471.500 z=22.124
-click: x=45.653 y=471.499 z=40.883
-click: x=-46.994 y=471.431 z=50.262
-click: x=-61.191 y=471.497 z=12.745
-click: x=48.771 y=471.499 z=8.181
-click: x=57.529 y=471.500 z=26.939
-click: x=65.464 y=471.432 z=45.698
-click: x=-23.610 y=471.500 z=8.181
-click: x=-14.620 y=471.432 z=17.560
-click: x=56.212 y=471.496 z=8.181
-click: x=56.119 y=471.498 z=17.560
-click: x=-1.423 y=471.565 z=8.181
-click: x=-31.526 y=471.433 z=22.032
-click: x=-80.203 y=471.432 z=17.560
-click: x=16.438 y=471.497 z=8.181
-click: x=-65.392 y=471.499 z=45.698
-click: x=-14.235 y=471.567 z=26.939
-click: x=-15.011 y=471.430 z=12.652
-click: x=-41.877 y=471.567 z=26.939
-click: x=-76.137 y=471.429 z=8.181
-click: x=58.876 y=471.433 z=45.698
-click: x=-8.119 y=471.500 z=8.181
-click: x=-49.384 y=471.433 z=45.698
-click: x=80.378 y=471.566 z=17.560
-click: x=26.238 y=471.499 z=45.698
-click: x=-44.703 y=471.633 z=36.319
-click: x=-60.492 y=471.633 z=31.274
-click: x=73.467 y=471.633 z=31.274
-click: x=-58.280 y=471.448 z=36.319
-click: x=-5.800 y=471.430 z=55.077
-click: x=-62.866 y=471.447 z=45.698
-click: x=3.992 y=471.496 z=8.181
-click: x=76.295 y=471.496 z=8.181
-click: x=4.150 y=471.448 z=26.939
-click: x=-54.171 y=471.448 z=17.560
-click: x=-1.893 y=471.447 z=55.077
-click: x=14.930 y=471.429 z=59.412
-click: x=-40.590 y=471.496 z=8.181
-click: x=-44.605 y=471.499 z=8.181
-click: x=85.021 y=471.567 z=26.939
-click: x=-28.866 y=471.633 z=26.939
-click: x=-61.983 y=471.633 z=26.939
-click: x=12.959 y=471.500 z=55.077
-click: x=44.035 y=471.498 z=8.181
-click: x=50.049 y=471.447 z=17.560
-click: x=0.293 y=471.446 z=17.560
-click: x=-29.785 y=471.497 z=8.181
-click: x=65.591 y=471.496 z=8.181
-click: x=-67.066 y=471.581 z=26.939
-click: x=-33.566 y=471.633 z=26.939
-click: x=80.180 y=471.567 z=26.939
-click: x=8.314 y=471.498 z=55.077
-click: x=-4.324 y=471.499 z=17.560
-click: x=-50.516 y=471.581 z=17.560
-click: x=45.259 y=471.498 z=17.560
-click: x=39.356 y=471.496 z=8.181
-click: x=-34.430 y=471.499 z=8.181
-click: x=60.812 y=471.496 z=8.181
-click: x=53.987 y=471.567 z=26.939
-click: x=-18.593 y=471.500 z=17.560
-click: x=12.406 y=471.500 z=8.181
-click: x=-27.642 y=471.497 z=8.181
-click: x=52.043 y=471.432 z=17.560
-click: x=61.382 y=471.498 z=45.698
-click: x=-13.664 y=471.500 z=10.584
-click: x=-5.615 y=471.496 z=8.181
-click: x=-18.360 y=471.500 z=45.698
-click: x=46.121 y=471.581 z=45.698
-click: x=2.279 y=471.500 z=32.288
-click: x=-55.860 y=471.433 z=22.909
-click: x=-8.388 y=471.633 z=32.288
-click: x=-52.489 y=471.500 z=22.909
-click: x=-3.601 y=471.499 z=60.426
-click: x=-42.984 y=471.498 z=13.530
-click: x=-0.097 y=471.496 z=60.426
-click: x=-31.858 y=471.500 z=28.275
-click: x=-64.976 y=471.633 z=28.275
-click: x=82.028 y=471.500 z=28.275
-click: x=-48.154 y=471.499 z=18.896
-click: x=63.301 y=471.500 z=9.517
-click: x=-32.164 y=471.445 z=9.517
-click: x=41.622 y=471.445 z=9.517
-click: x=-16.825 y=471.633 z=29.841
-click: x=78.128 y=471.433 z=20.285
-click: x=24.153 y=471.447 z=48.423
-click: x=74.055 y=471.498 z=10.906
-click: x=1.824 y=471.500 z=10.906
-click: x=-82.948 y=471.567 z=29.779
-click: x=-23.790 y=471.500 z=29.779
-click: x=-23.263 y=471.500 z=20.400
-click: x=59.716 y=471.500 z=20.400
-click: x=72.421 y=471.499 z=20.400
-click: x=7.724 y=471.498 z=11.021
-click: x=22.742 y=471.499 z=11.021
-click: x=-19.875 y=471.498 z=11.021
-click: x=-66.077 y=471.496 z=11.021
-click: x=77.939 y=471.433 z=22.909
-click: x=73.861 y=471.433 z=13.530
-click: x=1.672 y=471.433 z=13.530
-click: x=-83.043 y=471.567 z=32.288
-click: x=23.321 y=471.633 z=32.288
-click: x=59.743 y=471.433 z=22.909
-click: x=72.271 y=471.500 z=22.909
-click: x=7.681 y=471.499 z=13.530
-click: x=-66.226 y=471.497 z=13.530
-click: x=-77.945 y=471.500 z=26.939
-click: x=69.024 y=471.497 z=8.181
-click: x=28.981 y=471.429 z=8.181
-click: x=-83.821 y=471.433 z=26.939
-click: x=72.921 y=471.498 z=17.560
-click: x=60.258 y=471.432 z=17.560
-click: x=8.197 y=471.430 z=8.181
-click: x=23.280 y=471.430 z=8.181
-click: x=-19.604 y=471.433 z=8.181
-click: x=-65.552 y=471.429 z=8.181
-
-[sliver] Outside the pump-dock interface: these raised disposal-warning strokes remain unresolved finite-strip findings. Their 4 mm native windows have zero material change from the identified pre-dock geometry after the +7 mm rear-station translation; all marking functions, text and font/relief constants are unchanged in pump-dock/lint-interface-review.json. This establishes scope, not acceptance of the strips or printed warning.
-alternatives: Reconcile the stroke and relief profiles into complete printable sections while preserving the entire readable warning and its letter height. A flush marking or revised glyph contour needs its own emitted-path and legibility review; this answer does not select or qualify either.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=58.339 y=478.599 z=48.948
-click: x=53.050 y=478.598 z=11.431
-click: x=51.067 y=478.599 z=39.569
-
-[thin] Outside the pump-dock interface: this 0.003 mm handhold-floor section remains unresolved. Native samples lie inside material throughout the emitted segment. Its exact 4 mm native window is identical to the pre-dock published part without any station translation; the handhold producers are unchanged in pump-dock/lint-interface-review.json. This edge is distinct from the core-stop tail's separately corrected rear-handhold clearance. No thin-section or lifting-strength acceptance is claimed.
-alternatives: Reconcile the curved opening and standing floor into a complete section while preserving the entire handhold opening, backing and lifting load path. That handhold/floor correction needs a direct local geometry and printed-surface review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-93.400 y=211.803 z=-5.997
-click: x=-93.400 y=211.803 z=-6.000
-
-[thin] Outside the pump-dock interface: these 0.009 mm and 0.011 mm warning-stroke sections remain unresolved. Native samples are inside material along both reported segments. Their native windows are identical to the pre-dock lettering after the +7 mm rear-station translation, with unchanged marking producers/settings in pump-dock/lint-interface-review.json. They are not dismissed as mesh chords or accepted as printable strokes.
-alternatives: Reconcile the tapered stroke ends and relief intersections into complete printable contours while preserving all characters, letter height and spacing. Review the resulting emitted paths and readable warning before accepting a revised marking.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-17.762 y=478.599 z=52.198
-click: x=-17.755 y=478.599 z=52.193
-click: x=-17.663 y=478.498 z=45.698
-click: x=-17.654 y=478.498 z=45.704
-
-[ledge] Outside the pump-dock interface: these lower edges of the raised disposal warning remain unresolved print-down ledges. Their native windows are identical to the pre-dock geometry after the +7 mm rear-station translation, with unchanged marking producers/settings in pump-dock/lint-interface-review.json. This establishes scope only; it does not accept support contacts, removal or finished legibility.
-alternatives: Review a supported or relieved underside against the complete readable glyph outlines, or a flush marking construction. That marking review must inspect the actual emitted paths and retained characters before selecting a change.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-15.250 y=478.496 z=8.181
-click: x=38.479 y=478.567 z=26.939
-click: x=-53.976 y=478.567 z=36.319
