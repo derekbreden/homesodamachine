@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "reported_date": "2026-10-18",
+  "reported_timezone": "America/Chicago",
+  "reported_by": "Derek",
+  "session": "Firmware valve control for prime/dispense",
+  "status": "reported_flavor_path_faults_corrected",
+  "reported_observations": {
+    "demonstration": "A guest picked a flavor and Derek dispensed it, with one valve temporarily replaced by an elbow fitting to make it work. The guest said it tasted like Mug root beer.",
+    "cause": "Derek had read a valve's flow arrow backwards and had the pumps mixed up. Flavor B's line carried flavor A's valve, so flavor B did not pump. Flavor A's valve was fitted backwards, so flavor A poured.",
+    "resolution": "All issues resolved."
+  },
+  "quotes": [
+    "Successful demo ... of her picking a flavor and me dispensing it not too much later, but I did have to replace a valve with an elbow joint to make it work.",
+    "All issues resolved. I had indeed read an arrow backwards, and so had not realized that I had the flavor B valve on the flavor A pump and this explains why no pumping was occurring - essentially I had the pumps mixed up, and subsequently everything else.",
+    "So flavor B was not working, but it was because it had flavor A's valve, and flavor A was working, but it was because it had a backwards valve"
+  ],
+  "diagnosis": [
+    {
+      "reported": "Across the two unplugged loom leads of the valve the elbow had replaced, on the AstroAI DM6000AR's DC-volts setting, the reading stayed between 2 and 3 whether or not Prime B was held.",
+      "interpretation": "An off TBD62083 output leaks through the meter's 10 MΩ input and reads a few volts against the 12 V lead; an output Prime switches on reads about 12 V. The valve's switched lead sat on an output Prime B does not turn on, which fits flavor B's line carrying flavor A's valve."
+    },
+    {
+      "reported": "The arrow was read backwards on one valve.",
+      "interpretation": "The Beduan listing (B07NWCQJK9) gives a working pressure of 0.02–0.8 MPa and warns that reverse installation leaves the valve open and unable to close. A reversed valve passes flow under its pump's pressure whether or not it is switched, which fits flavor A pouring."
+    }
+  ],
+  "firmware": {
+    "installed_build": "2026.10.18 eee1362e2+, read back on the main board's console after it was flashed.",
+    "valve_plan": "Prime and the pour on flavor A open V-E and V-G (MANIFOLD A OUT5 and OUT7); on flavor B, V-H and V-J (MANIFOLD A OUT8 and MANIFOLD B OUT2).",
+    "investigation_build": "e46c94c1c drove every J1 and J2 output on any Prime or pour while the wiring was in question; eee1362e2 reverted it."
+  },
+  "article_identity": {
+    "valves": "Beduan 12 V 1/4 in normally closed solenoid valve, B07NWCQJK9; coil label DC12V, 4.8 W.",
+    "scope": "The report does not name the valve positions, pump heads or loom cavities involved, or the corrected arrangement."
+  },
+  "qualification_limits": [
+    "Derek reports all issues resolved. No post-correction measurement is recorded: no coil resistance, no 12 V reading under Prime, no flow rate or ratio.",
+    "Whether the valve the elbow replaced has been restored is not stated.",
+    "The unit of the 2–3 reading was not reported. Its interpretation as volts from an off driver output is the diagnosing session's, made before Derek's finding and consistent with it.",
+    "Fill, Clean and Dry operation remain unreported, as in the soda-service observation.",
+    "The guest's comparison is one impression, not a blind or side-by-side taste test.",
+    "This record does not establish leakage, the pressure across any valve or its margin to the listed 0.02 MPa minimum, safety qualification or endurance."
+  ],
+  "related_records": [
+    {
+      "path": "hardware/printed-parts/enclosure/lillium-prototype-2026-10-18/physical-observation.json",
+      "scope": "Derek's earlier same-day report of soda service with fit workarounds; its scope and limits stand."
+    },
+    {
+      "path": "hardware/assembly/lillium-cutover.md",
+      "scope": "The build's procedure; its firmware section gives each flavor's valve pair."
+    }
+  ]
+}
