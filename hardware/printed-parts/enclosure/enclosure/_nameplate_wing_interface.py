@@ -57,7 +57,7 @@ def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
 
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
-          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None):
+          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None, access=True):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -125,10 +125,12 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
         solid = solid.cut(lead.translate(shift))
     # Back access permits pushing the centre outward to release the wings.
     # Its diamond ceiling is self-supporting in the enclosure wall orientation.
-    access=(cq.Workplane('XY').polyline([(-9,0),(0,10),(9,0),(0,-10)])
-            .close().extrude(FLOOR_STOCK+BACK_AIR+1).val()
-            .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-BACK_AIR-.5,0)))
-    solid=solid.cut(access.translate(shift))
+    # A plate with its own opening is released through it and takes no diamond.
+    if access:
+        diamond=(cq.Workplane('XY').polyline([(-9,0),(0,10),(9,0),(0,-10)])
+                 .close().extrude(FLOOR_STOCK+BACK_AIR+1).val()
+                 .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK-BACK_AIR-.5,0)))
+        solid=solid.cut(diamond.translate(shift))
     return solid.clean()
 
 
@@ -160,6 +162,13 @@ def production_backing(solid, station, y_outer, *, wall_face=None, column=None):
                 end = (cq.Workplane('YZ',origin=(xa,0,0)).polyline(profile)
                        .close().extrude(xb-xa).val())
                 keepout=keepout.fuse(end)
+    # The relief's west end is a 45-degree face from the pad's back at EAST_RELIEF_START to
+    # its full depth, so the body's backing ends without a step as tall as the relief is deep.
+    rear = -FLOOR_STOCK-BACK_AIR
+    head = (cq.Workplane('XY').workplane(offset=za-HEIGHT)
+            .polyline([(xa,rear),(xa+yb-rear,yb),(xa,yb)]).close()
+            .extrude(zb-za+2*HEIGHT).val())
+    keepout = keepout.cut(head)
     keepout = keepout.translate((station.x,y_outer-THICK,station.z))
     if column is not None:
         x, y, r = column
