@@ -93,19 +93,6 @@ alternatives: Ignore single zero-area samples at a round. Thickening the pad cha
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-59.582 y=474.198 z=290.731
 
-[thin] Specific board-standoff sleeve, pending Derek's decision on the main board: the main board stands 2.25 mm off the flank to clear its 2.0 mm pin tails (`wall_mounts`), on a Ø7 D sleeve with the insert in the flank behind it. The sleeve's outside is bounded by the board's 7.2 mm square wall-side keepout (pcba-tray README; J8 and J11 stand about 2 mm off the pads) and its bore must pass the Ø4.6 knurl and iron tip (Ø5, plus 0.25 at the supported crown), so its wall is 0.75-1.0 mm and at most 1.1 mm. The 1.235, 1.500 and 1.602 rows are the same sleeve meeting its 45° corbel, MH3's Ø8 footprint and the pilot's mouth. The insert's own host meets ruthex's 1.6 mm minimum in the flank. The reinforcement modifiers over these stations are infill-only (b1f86c0a2), so they draw no walls out through the flute skin.
-alternatives: Revise the board's wall-side keepout round MH1-MH4 to at least 8.7 mm square (J8 and J11 move about 0.35 mm); then the standoff becomes the standard Ø8 host. A loose purchased spacer is the other route.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.376 y=255.365 z=253.401
-click: x=97.376 y=333.365 z=253.401
-click: x=97.376 y=255.365 z=319.701
-click: x=96.480 y=255.493 z=260.630
-click: x=96.480 y=255.493 z=326.930
-click: x=97.375 y=330.800 z=322.966
-click: x=99.500 y=333.022 z=254.669
-click: x=99.500 y=255.006 z=254.672
-click: x=99.500 y=255.006 z=320.972
-
 [thin] Specific fitted M3 insert-host interface: these sections span 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Inside a fill the host keeps the fill's face, 1.75 mm behind the relieved crown.
 alternatives: A 3 mm host needs every body gap in the bay widened by about 1 mm and relays with pins further from their holes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -171,11 +158,6 @@ click: x=98.300 y=439.027 z=312.450
 click: x=-101.400 y=321.767 z=254.600
 click: x=-101.400 y=338.017 z=254.600
 click: x=-101.400 y=295.117 z=254.700
-
-[ledge] Specific board-standoff sleeve chord: MH2's sleeve has no corbel because the board's tails cross the wedge; a corbel could start no closer than x 99.25, past the 98.5 flank face. Same decision as the sleeve rows.
-alternatives: Move the tails above MH2 or revise the board keepout.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.000 y=334.467 z=260.400
 
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
 alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
