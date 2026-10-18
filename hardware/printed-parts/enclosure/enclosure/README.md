@@ -267,8 +267,9 @@ The floor tongue continues across the middle of the enclosure. The lower seam sc
 through the handhold ceilings. Each head and its single flat washer sit inside
 an inward-open pocket, with the head face recessed 2 mm above the finger surface.
 The openings remain exposed during use.
-Their finger-contact entrances have a 0.5 mm, 45° ease; the washer-bearing floors
-and screw seating planes retain their full sections.
+Their finger-contact entrances have a 0.35 mm, 45° ease, which leaves back-bottom one full
+wall between the eased mouth and its seam face; the washer-bearing floors and screw seating
+planes retain their full sections.
 
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
