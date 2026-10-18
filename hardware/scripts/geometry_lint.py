@@ -305,6 +305,10 @@ def group_planes(mesh, vids):
     Returns ({rounded-normal bytes: [Plane, …]}, per-facet group id) with each
     normal's planes sorted by offset. Curved surfaces tessellate into many
     small single-strip groups; the classes filter by relation, not here.
+
+    A zero-area facet has no normal: trimesh gives it (0, 0, 0). Those facets keep a group
+    id, so the fold readings see their edges, but they make no plane — a plane needs a
+    normal, and without one every in-plane measure is NaN.
     """
     nrm = mesh.face_normals
     off = np.einsum("ij,ij->i", nrm, mesh.triangles[:, 0, :])
@@ -319,6 +323,10 @@ def group_planes(mesh, vids):
     next_gid = 0
     for run in np.split(order, bounds):
         n = nrm[run[0]]
+        if np.linalg.norm(n) < 0.5:
+            gid[run] = next_gid
+            next_gid += 1
+            continue
         o = off[run]
         by_o = run[np.argsort(o, kind="stable")]
         o_sorted = off[by_o]

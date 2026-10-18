@@ -153,15 +153,6 @@ click: x=-40.005 y=481.597 z=12.412
 click: x=-62.330 y=481.600 z=49.929
 click: x=50.604 y=481.600 z=30.189
 
-[sliver] Wrong finite-strip diagnostic: these exact rows have zero plane normals and NaN edge coordinates, widths and lengths. They supply no finite strip dimension or geometry verdict. The actual integral warning remains subject to the separately recorded unresolved fine-section findings.
-alternatives: Correct the degenerate-plane numerical case or inspect its actual finite facets before selecting a geometry change. Do not derive a wall correction from undefined dimensions.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-76.834 y=481.725 z=19.974
-click: x=40.000 y=481.298 z=18.729
-click: x=29.562 y=481.775 z=40.714
-click: x=48.586 y=481.750 z=40.660
-click: x=48.740 y=481.700 z=40.943
-
 [thin] Outside the pump-dock change and unresolved: these actual fine sections are in the retained integral warning strokes and their outlines. The complete native marking field is identical to the reference after the explicit rear-plane transform. This scope evidence does not accept these small sections as printable, durable or legible.
 alternatives: Reconcile the complete lettering and its method if larger local sections are required, retaining all specified warning content. No marking redesign or physical legibility qualification is performed here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
