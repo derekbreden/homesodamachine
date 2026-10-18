@@ -319,11 +319,15 @@ prv_port_y = +carbonator_port_offset
 
 # Cap-to-outer-shell joinery: one attachment point per station in
 # `attachment_stations`, per face × 2 faces, each screw passing lid + cap into an
-# insert pressed from the shell face it mates. TPU gasket per cap
-# (foam-cap-gasket.step). See bom.md for hardware SKUs.
+# insert pressed from the shell face it mates. The dry casing seams are
+# sealed externally with 3M 425 foil tape. See bom.md for hardware SKUs.
+cap_shell_clearance = fits.slip
+cap_lid_clearance = fits.slip
+casing_seal_rebate = 0.30  # two 0.12 mm layers of 3M 425 stay inside the bare envelope
+casing_seal_shell_band = 13.0
 screw_clearance_radius = 3.0 / 2.0 + fits.slip
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
-insert_pocket_depth = 8.0  # 5.7 mm insert engagement + 2.3 mm relief
+insert_pocket_depth = 10.5  # 5.7 mm insert; room for the M3×25 tip beyond it
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
 # The head sits in the lid, and a lid is [5.4 mm](FOAM_CAP_LID_H) thick where it takes one —
@@ -505,8 +509,7 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 #   THE FOUR CORNER BOSSES stand over the reservoir pockets' own far walls, which is the
 # furthest out they can go and still keep one wall of PET-GF around their insert pockets
 # inside the corner's rounded skin.
-#   THE FOUR MID BOSSES stand two to a wall. What a mid boss is FOR is the gasket: the clamp
-# is what holds the TPU land against the pour, and a station's worth is the span it halves.
+#   THE FOUR MID BOSSES stand two to a wall, clamping its cap edge between the corners.
 # Two to a wall also settles the shroud, which is the one body standing where a single centred
 # boss would go: the PRV's ⌀23 cup lies on the carbonator's +Y port axis (`prv-shroud/`) and
 # its closed end reaches within ~3 mm of the +Y wall, so its section spans x ±11.5 there. At
@@ -520,11 +523,14 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 # `water-3`'s tie post, which stands along its own run and is set where this station is not
 # (`cap_side_anchors`, `cap_side_anchor_room`).
 #
-# The whole pattern is symmetric under a 180° turn about Z — balanced gasket compression, and
+# The whole pattern is symmetric under a 180° turn about Z — balanced cap clamping, and
 # the top cap free to install either way round. Two bosses to a ±Y wall is what makes that
 # free: one to a wall bought the same symmetry only by standing the pair on a diagonal.
 _boss_wall_y = outer_shell_y_length / 2 - screw_boss_size / 2
 _boss_wall_x = outer_shell_x_length / 2 - screw_boss_size / 2
+# Rounded-corner insert pilots retain ruthex's 1.6 mm surrounding wall
+# behind the smooth 0.30 mm exterior foil land.
+_corner_boss_y = _boss_wall_y - 0.25
 _end_boss_x = bag_pocket_outermost_x
 # EVEN THIRDS OF THE RUN WOULD BE 43.83 — the corner bosses stand at ±`_end_boss_x`, so a
 # third of what lies between them is that. The last 3.8 mm of it is bought from the
@@ -536,7 +542,7 @@ mid_screw_x_offset = 40.0
 #: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
 #: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
 attachment_stations = (
-    tuple(((x_sign * _end_boss_x, y_sign * _boss_wall_y), "corner")
+    tuple(((x_sign * _end_boss_x, y_sign * _corner_boss_y), "corner")
           for x_sign in (1, -1) for y_sign in (1, -1))
     + tuple(((x_sign * mid_screw_x_offset, y_sign * _boss_wall_y), "y")
             for x_sign in (1, -1) for y_sign in (1, -1))
@@ -549,33 +555,13 @@ attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
 # lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
 # lines arrive AT, clear of both lanes in y.
 
-gasket_thickness = 2.0
-gasket_strip_width = 5.0
-
-# EVERY BAND OF THE SILHOUETTE, AND WHICH SIDE OF THE RUN-OUT IT FALLS ON. The stack stands on
-# one footprint with seams across it, so what runs down the core's side is a column of bands —
-# shell, cup, plate, gasket, and nothing else: every other piece of the core is potted inside
-# the foam or inside the shell and reaches the outer plan at no station.
+# The shell's central wall carries its fluted show skin. Its two end bands,
+# both cups and both lid edges are smooth recessed lands for exterior foil seals.
+# The foil stays off the horizontal seating and bearing faces.
 #
-# A BAND CARRIES THE FIELD ONLY WHERE IT IS TWICE `flute_rise` TALL, and that is the field's own
-# fact rather than a choice. The fade is driven by how far a station stands from the nearest edge
-# of the show face (`_show_skin`, `flute_skin._depth_field`), a band's own two faces are both
-# edges, so the deepest station on a band of height h stands h / 2 from one — and reaches
-# `flute_depth` only once that clears `flute_rise`. Under that height every station on the band
-# is still on the ramp.
-#
-# WHAT A SHORT BAND GETS INSTEAD IS A REVEAL. Cut on the core's own field the top lid's plate
-# comes back at 0.604 mm and the bottom lid's and the gasket's at 0.121 mm, against the 0.4 mm
-# layer and 0.82 mm bead the core prints at (`foam-shell/print-log.md`) — the last two shallower
-# than one layer of the very defect the field is cut to hide. So the three take none of it, and
-# each seam of the stack is a smooth band standing between the two run-outs either side of it.
-#
-# AND THE GASKET WOULD OWE THIS AT ANY HEIGHT. It is the TPU 90A land the cap clamps against the
-# shell's face, and a groove across a sealing land is a path out.
-
 # The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
 # crosses the land, then the one continuous PET-GF section the lid and the cap's
-# boss column make between them, then the gasket — and whatever is left is what
+# boss column and seating clearances make between them — whatever is left is what
 # it has to give the insert on the far side of the shell's face. The recess
 # spends none of that: the head carries the land down with it, so the screw
 # arrives deeper by exactly the pad it sank.
@@ -588,7 +574,6 @@ insert_length = 5.7  # ruthex RX-M3x5.7, set flush with the face
 cap_screw_beyond_face = cap_screw_length - (
     wall_and_floor_thickness  # the land under the head
     + (foam_cap_height - head_pad_height)  # the boss column under the pad
-    + gasket_thickness
 )
 state(
     "cap-screw-reach", "The clamp screw reaches the whole of its insert",
