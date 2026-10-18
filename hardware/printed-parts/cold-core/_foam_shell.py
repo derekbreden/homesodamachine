@@ -22,13 +22,10 @@ def build_full_shell():
     # pocket's ±Y wall is two millimetres of PET-GF a draw crosses on its way out and the CO2
     # crosses on its way in; the pocket corner posts stand under the reservoirs in the space
     # the CO2's reach to the carbonator runs through. Each is opened along the line's own
-    # corridor where it meets one (`_port_cuts.cut_line_corridors`). Nothing else in the
-    # shell does — the outer shell, the carbonator support ring and the reed channels all fence a
-    # line, and `_internal_routes.report_routes` reads what that costs at every build.
-    #   THE OUTER SHELL IS FENCE, NOT GIVE-WAY, and that is what sends six of the seven lines
-    # up to the lid. The one opening in the skin is `cut_prv_vent_port`, below: named for the
-    # single line it lets out, so opening the skin stays a decision about that line rather
-    # than a property of every corridor that happens to touch it.
+    # corridor where it meets one, and a draw's crossing of a pocket's flat ±Y wall is that
+    # corridor carried square through the wall (`_port_cuts.cut_line_corridors`). Nothing else
+    # in the shell does — the outer shell, the carbonator support ring and the reed channels all
+    # fence a line, and `_internal_routes.report_routes` reads what that costs at every build.
     #   THE OUTER SHELL IS FENCE, NOT GIVE-WAY, and that is what sends six of the seven lines
     # up to the lid. The one opening in the skin is `cut_prv_vent_port`, below: named for the
     # single line it lets out, so opening the skin stays a decision about that line rather

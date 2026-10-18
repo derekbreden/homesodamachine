@@ -117,9 +117,10 @@ def _report_front_ports(shell):
 def _report_wall_openings():
     """The one opening each −Y bag-pocket wall carries.
 
-    A DRAW's crossing is that line's own corridor (`_port_cuts.cut_line_corridors`), so its
-    footprint in the wall is a consequence of where the route goes and not of a diameter —
-    move the run and the hole changes shape. Nothing else pierces that wall: the reed cable
+    A DRAW's crossing is that line's own corridor carried square through the wall
+    (`_port_cuts.pocket_wall_shadows`), so its footprint is a consequence of where the route
+    goes and not of a diameter — move the run and the hole changes shape; its x span is the
+    corridor's own span across the wall. Nothing else pierces that wall: the reed cable
     leaves by the top of its own channel, so the pocket is opened once and for the draw.
       Each opening is met with the pocket walls themselves — the hole in the wall, not the
     run through it — and what it leaves is what its box leaves. A box is enough here because
@@ -136,7 +137,7 @@ def _report_wall_openings():
 
     for name in ("reservoir-a", "reservoir-b"):
         for draw in holes(route_corridor(name)):
-            print(f"  {name} crossing: its own corridor at the stock arc, x "
+            print(f"  {name} crossing: its corridor squared through the wall, x "
                   f"{draw.xmin:.4g} .. {draw.xmax:.4g}, the wall's only opening  OK")
 
 
