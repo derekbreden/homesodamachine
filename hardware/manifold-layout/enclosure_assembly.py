@@ -4734,15 +4734,15 @@ def _minimum_depth_reliefs(reliefs: tuple) -> tuple:
     )
 
 
-def ceiling_reliefs(placed: dict, meter=None) -> tuple:
+def ceiling_reliefs(placed: dict, cradle=None) -> tuple:
     """Named body pockets in back-top's ceiling slab, `(name, x0, x1, y0, y1, roof_z)` each.
 
     A body less than one clearance below the slab's interior face still earns a pocket:
     translating each exact solid piece upward by that clearance exposes the plan which would
     otherwise be a near miss. The direct and lifted sections of that same piece make one box.
     The C14 tuple bounds the canonical flange-profile passage which runs over the same Y span.
-    `meter` is the flow meter's anchor station (`digiten_anchors`), which its own pocket stands
-    off (`_meter_tie_partitions`)."""
+    `cradle` is the ASSE anchor's station (`asse_cradle`), whose end faces the chain's own
+    pockets end on (`_asse_end_reliefs`)."""
     raw = _enc.back_top_ceiling_stock()
     lane = interior_ceiling()
     reliefs = []
@@ -4791,33 +4791,35 @@ def ceiling_reliefs(placed: dict, meter=None) -> tuple:
     # Level each connected pocket before dropping contained sections and
     # giving the named service pockets their common outer walls.
     reliefs = _level_reliefs(_minimum_depth_reliefs(tuple(reliefs)))
-    reliefs = _meter_tie_partitions(_enveloped_reliefs(_contained_reliefs(reliefs)), meter)
+    reliefs = _asse_end_reliefs(_enveloped_reliefs(_contained_reliefs(reliefs)), cradle)
     reliefs = tuple(row[:5] + (lane,) if row[0] in CEILING_RELIEF_LANE_BODIES else row
                     for row in reliefs)
     return _full_depth_reliefs(_connected_reliefs(reliefs))
 
 
-def _meter_tie_partitions(reliefs: tuple, meter) -> tuple:
-    """The flow meter's own pocket, one `wall` off each of its anchors' tie bands in Y.
+def _asse_end_reliefs(reliefs: tuple, cradle) -> tuple:
+    """The ASSE chain's pockets ended on the anchor's own end face where they would run on less
+    than one `wall` past it.
 
-    Each band's slab relief (`enclosure._ceiling_tie_reliefs`) ends on the anchor's inner end web,
-    `enclosure.flow_meter_anchor_end_wall` thick because the measured collar leaves it no more,
-    and the slab past that web is the partition between the zip tie's channel and the housing's
-    pocket. The anchors hold the meter along Y to the collar's 0.15 mm axial room, so the pocket's
-    two faces toward the bands give up that part of `CEILING_RELIEF_PLAN_SLIP` and keep the rest
-    round the housing."""
-    if not meter:
+    A pocket is one fitting's section box plus `CEILING_RELIEF_PLAN_SLIP`, and the Multiplex
+    body's box takes its barrel's plan the body's whole length, over the inlet thread the
+    coupling swallows too. Past the anchor's last section the coupling's own pocket carries on
+    east of the barrel's plan, so west of it that box ends in a slot narrower than a wall between
+    the anchor's end face and the box's own end. The steps hold the barrel to `ASSE_STEP_SLIP`
+    along the axis, so an end clips onto the anchor's end face only where the section in that
+    pocket stops that travel plus one `ASSE_SEAT_SLIP` short of the face."""
+    if not cradle:
         return reliefs
+    sections = cradle[1]
+    fore, aft = sections[0][0], sections[-1][1]
+    keep = ASSE_STEP_SLIP + ASSE_SEAT_SLIP
     out = []
     for name, x0, x1, y0, y1, roof in reliefs:
-        if name == "digiten-flow":
-            for by0, by1 in meter[3]:
-                mid = (by0 + by1) / 2.0
-                lo, hi = mid - _enc.tie_cav_w / 2.0, mid + _enc.tie_cav_w / 2.0
-                if hi <= y0 < hi + _enc.wall:
-                    y0 = hi + _enc.wall
-                if lo - _enc.wall < y1 <= lo:
-                    y1 = lo - _enc.wall
+        if name == "asse1022-assembly":
+            if 0.0 < y1 - aft < _enc.wall and y1 - CEILING_RELIEF_PLAN_SLIP + keep <= aft:
+                y1 = aft
+            if 0.0 < fore - y0 < _enc.wall and y0 + CEILING_RELIEF_PLAN_SLIP - keep >= fore:
+                y0 = fore
         out.append((name, x0, x1, y0, y1, roof))
     return tuple(out)
 
@@ -5235,7 +5237,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
-                     ceiling_reliefs=ceiling_reliefs(placed, a.digiten_anchors),
+                     ceiling_reliefs=ceiling_reliefs(placed, a.asse_cradle),
                      flank_reliefs=flank_reliefs(placed),
                      front_flank_reliefs=front_flank_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
