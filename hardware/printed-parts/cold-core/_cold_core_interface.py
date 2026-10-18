@@ -842,7 +842,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # `_lines.CAP_BORE_SKEW` is bound to this name.
 cap_conduit_entry_skew = 38.0
 # The countersink's mouth on the lid's outer face — the bore opened at that angle through the
-# one wall of plate the cone is sunk into: ⌀[9.925](ENTRY_RELIEF_D).
+# one wall of plate the cone is sunk into: ⌀[10.63](ENTRY_RELIEF_D).
 cap_conduit_entry_relief_radius = (
     cap_conduit_bore_radius
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
