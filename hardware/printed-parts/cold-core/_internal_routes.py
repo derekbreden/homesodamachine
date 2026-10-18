@@ -266,7 +266,7 @@ def _routes():
     carb_upper_x = water_outlet_upper_climb_x
     carb_upper_y = coil_standoff_y(carb_upper_x)
     # The drift's middle stands on the coil standoff too, so neither half of its chord cuts
-    # in toward the coil by more than a tenth of a millimetre.
+    # in toward the coil by more than 0.12 mm.
     carb_mid_x = (carb_x + carb_upper_x) / 2.0
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
     carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
