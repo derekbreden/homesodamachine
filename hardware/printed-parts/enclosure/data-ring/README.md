@@ -15,13 +15,16 @@ behind the plate's back allowance. The receptacle carries cable insertion and
 withdrawal loads; its upper swing ease retains the specified 50° profile.
 The matching wing
 slots use the accepted nameplate's 0.45 mm Y clearance, entry bevel and complete
-1.23 mm retaining lands. The three rear rows retain their installed positions.
+1.23 mm retaining lands. DATA and OVER share the middle row, which stands where its webs
+to the SODA and FLAVOR pockets come out equal.
 
 Print flat-back-down with the lettering facing up. The continuous face and both
 wings lie directly on the bed, without supports. The plate uses the black
 identification project in the [OVER print set](../../drain-readiness/README.md),
 with black PET-GF on Mark2's right nozzle and white PET-GF on its left nozzle.
 Bend the plate gently to seat its wings in the side slots, as for the nameplate.
+DATA is fixed trim. The jack is installed and serviced from inside the machine, behind
+the plate, so the plate is fitted once and not removed; its receiver has no release opening.
 
 The [enclosure fit review](../enclosure/y-seam-fit-review.json) records the current
 back and wing gaps, ordinary backing, complete jack lip and insertion-ease profile.

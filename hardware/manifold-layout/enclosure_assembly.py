@@ -1828,11 +1828,11 @@ PORT_BOSS_PROUD = _ring.THICK
 def port_clamp_stack(t: float) -> float:
     """The barrel length from the flush ring face to the inboard nut land.
 
-    The section includes the ring, its static back gap and the complete receiving wall.
-    A relieved station retains `wall + PORT_BOSS_PROUD` of total nominal section;
-    a thicker station retains its full `t`. The backing grows inward by the back gap.
+    A full-section station clamps its whole `t`, which already holds the ring, its static
+    back gap and the wall under them. A relieved station's land stands one `wall` behind
+    the ring and its gap, so it clamps `wall + PORT_BOSS_PROUD + fits.slip`.
     """
-    return max(t, _enc.wall + PORT_BOSS_PROUD) + fits.slip
+    return max(t, _enc.wall + PORT_BOSS_PROUD + fits.slip)
 
 
 def port_pocket_d(ring: str = "union") -> float:
@@ -2061,9 +2061,9 @@ DECK_CLEAR = 6.0
 # How far a deck body is dropped before the strike gives up on it. A body that never lands inside
 # this reach has nothing under it, and does not fence the storey.
 DECK_FALL_LIMIT = 60.0
-# Clear wall between two nuts on this face: a hand has to get a socket onto each one after its
-# neighbour is made up. The wall spends it, so it is stated here and `_enclosure_mechanical_sync`
-# prices its row of nuts off it.
+# Clear wall between two nuts on this face. Each nut is made up by hand from its two sides, so a
+# hand has to get onto each one after its neighbour is made up. The wall spends it, so it is
+# stated here and `_enclosure_mechanical_sync` prices its row of nuts off it.
 PORT_NUT_GAP = 7.0
 # What the two columns carry BESIDE their nuts, and it is wider than they are: the ASSE chain
 # hangs off the west column and the DIGITEN meter lies on the east one, both on the deck's own
@@ -2839,9 +2839,23 @@ _stated.state(
 #
 # DATA and DRAIN share the middle row between SODA and FLAVOR. Their
 # identification faces have the same Z height and alignment.
+def middle_row_z(flavor: float) -> float:
+    """The DATA/OVER row's Z: where its webs to the upper row's pockets and to the flavour
+    row's come out equal.
+
+    Every pocket on this wall takes the same slip and, at its machine-lower edge, the same
+    supported-face allowance, so both cancel between the two webs. What is left is the chips'
+    own outlines: the upper row's bottom against the middle row's, and the flavour row's rise
+    against the middle row's."""
+    upper, middle, lower = "carb", "drain", "flavor-a"
+    return ((deck_storey() + flavor) / 2.0
+            + (_ring.bottom(_ring.family(middle)) - _ring.bottom(_ring.family(upper))
+               + _ring.rise(lower) - _ring.rise(middle)) / 2.0)
+
+
 def keystone_station(flavor: float) -> tuple:
     """The jack centre on the middle row, as `(x, z)`."""
-    return (PANEL_X["bulkhead-carb"], (deck_storey()+flavor)/2)
+    return (PANEL_X["bulkhead-carb"], middle_row_z(flavor))
 
 
 KEYSTONE_NEIGHBOUR_CLEAR = _enc.wall
@@ -4365,10 +4379,9 @@ def build_pack() -> cq.Assembly:
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
     a.gate_z = flavor_storey(gate_cruise, water_pump_carry)
-    # The signal jack shares the soda/flavour-A column and centres its taller inboard pocket
-    # between their two axes. It goes down before the deck strike so the soda union's descent
-    # reads the real body standing below it rather than an empty interval the finished machine
-    # does not have.
+    # The signal jack shares the soda/flavour-A column on the middle row (`middle_row_z`). It
+    # goes down before the deck strike so the soda union's descent reads the real body standing
+    # below it rather than an empty interval the finished machine does not have.
     a.keystone_station = keystone_station(a.gate_z)
     keystone, _keystone_carry = build_keystone(a.keystone_station)
     a.add(keystone, name="keystone-jack", color=C_C14)
@@ -4429,7 +4442,7 @@ def build_pack() -> cq.Assembly:
     trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
-    drain_z = (a.deck_z + a.gate_z) / 2
+    drain_z = middle_row_z(a.gate_z)
     drain, drain_carry = seat_body(_drain_bulkhead.build(), (), seat="bulkhead-drain",
         station=(((0, 0, 0), (0, 1, 0)),
                  (PANEL_X["bulkhead-flavor-b"], bulkhead_seat_y(), drain_z)))

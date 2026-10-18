@@ -421,14 +421,17 @@ rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
 PET-GF bulkhead rings retain their flush front poses, with 0.15 mm behind each ring.
-Normal port backing extends inward by the same amount and retains 4 mm below the pocket;
-the relieved CO2 land retains 3 mm. The barrel's clamped stack includes the 0.15 mm gap.
+A full-section station keeps 3.85 mm of wall under its pocket, and its nut bears on the wall's
+inner face. The relieved CO2 land keeps 3 mm and stands the 0.15 mm gap further in, so that
+barrel's clamped stack includes it.
 Supported pocket edges receive their directional allowance in back-top's inverted print pose.
 The nameplate and DATA plate backs also have 0.15 mm static clearance. The nameplate's
 production station is 0.30 mm west of the rear-field midpoint, with 2.14 mm of hidden east
 backing for the specified 1 mm PSU margin. The [native fit review](y-seam-fit-review.json)
 confirms the actual receiver stock and clearance against the placed PSU.
-The label pads retain their full ordinary backing before their 45° print-down run-outs.
+The label pads keep their full ordinary backing a short lead past the pocket's print-down
+edge before their 45° run-outs, so the corner between pocket floor and run-out keeps a 3 mm
+wall.
 The DATA jack and its complete receptacle are recessed 0.16 mm behind the plate's nominal
 back plane, preserving a 3 mm flat lip behind the plate's 0.15 mm allowance. Its required
 50° insertion ease remains a separate functional bevel; DATA's wings and retaining roofs

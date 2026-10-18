@@ -139,6 +139,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "yyfkgcp-pogo-4p"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
@@ -161,6 +162,7 @@ import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
 import iec_c14_inlet as _c14
+import jg_bulkhead_union as _jg
 import yyfkgcp_pogo_4p as _pogo
 import valve_seat as _seat
 import valve_tray as _valve_tray
@@ -3287,7 +3289,8 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
         return solid
     pocket = _nameplate_fit.apply(solid, plate, y_outer,
                                   supported=fits.supported_surface, up=up,
-                                  wall_face=back_top_wall_face())
+                                  wall_face=back_top_wall_face(),
+                                  runout_lead=_nameplate_fit.RUNOUT_LEAD)
     return _nameplate_fit.production_backing(
         pocket, plate, y_outer, wall_face=back_top_wall_face(),
         column=(interior_x()[1], rear_plane_y, column_round))
@@ -3303,9 +3306,8 @@ def _port_chip(px, pz, width, rise, bottom, y0, y1):
 def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
     """Flush port-chip pockets with static back clearance and retained backing.
 
-    Each pocket is `field.proud + fits.slip` deep. Normal stations stand on the wall's own
-    field land, `fits.slip` inboard of its face (`_back_top_field_land`). Relieved
-    stations retain their backing through `_back_top_wall_relief_cut`'s matching nut land.
+    Each pocket is `field.proud + fits.slip` deep. A normal station's nut bears on the wall's
+    own inner face; a relieved station's on `_back_top_wall_relief_cut`'s nut land.
     `enclosure_assembly.PORT_FIELD_WEB` reads the material between adjacent pockets.
 
     A pocket is cut on every piece it reaches. Its supported edge retreats toward
@@ -4858,17 +4860,11 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
     mouth. For `up > 0` the piece beds on its seam rim, that same face looks print-down, and
     it rises at `relief_chamfer` off the rim instead, the way `_back_top_flanks`' does on the
     two walls that turn out of this one. Every hole and relief in the wall reads the same `up`
-    (`_port_cuts`, `_back_top_wall_relief_cut`).
-
-    The port field's nut land is part of the section (`_back_top_field_land`), so the same
-    bores and reliefs pass through it."""
+    (`_port_cuts`, `_back_top_wall_relief_cut`). A full-section station's nut bears on this
+    section's own inner face."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     rim, depth = zj + z_rise, back_top_wall_t - wall
     band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj if up < 0 else rim, iz1)
-    land = _back_top_field_land(box.pack.port_field, box.pack.core_holds)
-    if land is not None:
-        band = band.fuse(land.intersect(_ybox(ix0, ix1, back_top_wall_face() - fits.slip,
-                                              back_top_wall_face(), zj, iz1)))
     if up > 0:
         band = band.cut(_yz_prism(ix0 - 1.0, ix1 + 1.0,
                                   [(iy1, rim), (back_top_wall_face(), rim),
@@ -4878,42 +4874,6 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
         band = band.cut(cutter)
     return band.cut(_back_top_wall_relief_cut(box.pack.port_field, up,
                                               ceiling=box.inner[5]))
-
-
-def _back_top_field_land(field, holds):
-    """The port field's nut land, `fits.slip` inboard of back-top's +Y wall face, or None.
-
-    A normal station's barrel clamps `enclosure_assembly.port_clamp_stack`, so its nut lands one
-    static back gap inboard of the wall. One land carries every normal station: the rectangle
-    holding each chip with its rim; the wall between the cold core's two hold-downs over their
-    height, run into the core's pocket so the land's lower edge is that pocket's ceiling and its
-    ends are the brackets' faces; and the strip over to a relieved station, which ends on that
-    station's relief (`_back_top_wall_relief_cut`)."""
-    if field is None:
-        return None
-    spans, reliefs = [], []
-    for px, pz, width, rise, bottom in field.pockets:
-        relief = [(rx, rz, wz) for _who, rx, rz, wx, wz in back_top_wall_reliefs
-                  if abs(px - rx) <= wx / 2.0 and abs(pz - rz) <= wz / 2.0]
-        if relief:
-            reliefs += relief
-        else:
-            spans.append((px - width / 2.0 - field.rim, px + width / 2.0 + field.rim,
-                          pz - bottom - field.rim, pz + rise + field.rim))
-    if not spans:
-        return None
-    y0, y1 = back_top_wall_face() - fits.slip, back_top_wall_face()
-    x0, x1 = min(s[0] for s in spans), max(s[1] for s in spans)
-    z0, z1 = min(s[2] for s in spans), max(s[3] for s in spans)
-    land = _ybox(x0, x1, y0, y1, z0, z1)
-    for rx, rz, wz in reliefs:
-        if rx > x1:
-            land = land.fuse(_ybox(x1, rx, y0, y1, rz - wz / 2.0, z1))
-    if len(holds) == 2:
-        (_x0, west, _aft, crown), (east, *_rest) = sorted(holds)
-        floor = crown + fits.running
-        land = land.fuse(_ybox(west, east, y0, y1, floor - 1.0, floor + core_hold_rise))
-    return land
 
 
 def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
@@ -4966,7 +4926,7 @@ def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
                      cq.Vector(x1 + g, y, zhi), cq.Vector(x0 - g, y, zhi)],
                     close=True)
             # The plug's faces run on through the wall's face at their own slopes, so the
-            # field's land in front of it ends on the same skirt, roof and sill.
+            # opening it leaves in that face has the same skirt, roof and sill.
             k = 1.0 + 1.0 / fall
             cut = cq.Solid.makeLoft(
                 [ring(face - 1.0, d * k, fall + 1.0, sill_draft * k),
@@ -8691,6 +8651,12 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     return feature, bore, inserts
 
 
+# THE UNION ROW'S CLAMP NUT STANDS OVER THE KEYSTONE ON ITS COLUMN, and the union's model does
+# not draw it: `jg_bulkhead_union.panel_footprint` is the face it takes. The receptacle keeps
+# the assembly-clearance floor (`_scorecard.CLEARANCE_FLOOR`) off that envelope.
+keystone_nut_clear = 1.0
+
+
 def _keystone_pocket_cut(x, z, y_face):
     """The unchanged jack's face and body with the enclosure's static mating clearance.
 
@@ -8766,7 +8732,18 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         bb = block.BoundingBox()
         pw = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
         ph = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
-        hx, hz = pw / 2.0 + _keystone.RECEPTACLE_WALL, ph / 2.0 + _keystone.RECEPTACLE_WALL
+        hz = ph / 2.0 + _keystone.RECEPTACLE_WALL
+        # The cheeks carry the run-out up to the wall face, where the clamp nut over this column
+        # comes nearest. In a ceiling-bedded print their inner faces stand where its envelope,
+        # on `back_top_port_row_z`, keeps `keystone_nut_clear` off their tops.
+        cheek_in = pw / 2.0
+        if up < 0:
+            crest = (z + _keystone.POCKET_RISE + hz
+                     + (outer[3] - back_wall_t_at(x, z)) - bb.ymin)
+            reach = _jg.panel_footprint()[0] / 2.0 + keystone_nut_clear
+            over = back_top_port_row_z - crest
+            cheek_in = max(cheek_in, math.sqrt(max(0.0, reach * reach - over * over)))
+        hx = cheek_in + _keystone.RECEPTACLE_WALL
         block = _ybox(x - hx, x + hx, bb.ymin, bb.ymax,
                        z + _keystone.POCKET_RISE - hz, z + _keystone.POCKET_RISE + hz)
     feature = _supported_cut(block, up) if block is not None else None
@@ -8787,20 +8764,21 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
     if block is not None:
         # Full surrounding stock joins the recessed receptacle to the actual wall. Only its two
         # three-millimetre side cheeks carry the longer run-out to the wall; between them, under
-        # the soda union, the corbel turns back at 45 degrees onto the DATA pad's own run-out.
+        # the soda union and its nut, the corbel turns back at 45 degrees onto the DATA pad's
+        # own run-out.
         b=block.BoundingBox()
         root=outer[3]-back_wall_t_at(x,z)
         if root>b.ymax:
             extension=_ybox(b.xmin,b.xmax,b.ymax-.01,root+.01,b.zmin,b.zmax)
             feature=feature.fuse(_supported_cut(extension,up))
             edge=b.zmin if up>0 else b.zmax
-            for xa,xb in ((b.xmin,x-pw/2),(x+pw/2,b.xmax)):
+            for xa,xb in ((b.xmin,x-cheek_in),(x+cheek_in,b.xmax)):
                 cheek=_yz_prism(xa,xb,[(root,edge),(b.ymin,edge),
                                            (root,edge-up*(root-b.ymin))])
                 feature=feature.fuse(cheek)
             pad_y,pad_z=_data_fit.pad_runout(station,outer[3],up=up)
             ridge=(b.ymin+pad_y)/2-up*(pad_z-edge)/2
-            feature=feature.fuse(_yz_prism(x-pw/2,x+pw/2,[
+            feature=feature.fuse(_yz_prism(x-cheek_in,x+cheek_in,[
                 (b.ymin,edge),(ridge,edge-up*(ridge-b.ymin)),
                 (pad_y+.01,pad_z+up*.01),(pad_y+.01,edge)]))
             feature=feature.intersect(below_ceiling)
