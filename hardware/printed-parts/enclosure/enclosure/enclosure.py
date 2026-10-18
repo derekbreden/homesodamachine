@@ -4111,7 +4111,11 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         wall_face = _rail_nominal_foot_face(col, sx)
         x_uw = wall_face - sx * 0.5
         drop = rail_flare_drop                    # equals abs(x_h1 - x_uw): the fall is the run
-        arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
+        # Under the mouth the back flare runs one `wall` past the open end into the rear corner
+        # column, as back-top's feet do over it (`_z_rail_feet`), so it meets the column's lip
+        # skin on its whole section instead of stopping square short of the arc.
+        flare_y0 = y0 - sy * wall if col == "back" else y0
+        arm = arm.fuse(_xz_prism(flare_y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
         # The plan taper at the OPEN end, whichever end that is: the head's lap falls back
         # to the arm's own sliding face over `rail_lead`, the cut reaching INTO the run,
         # every face of it vertical.
