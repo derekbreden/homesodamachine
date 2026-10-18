@@ -16,9 +16,9 @@ The glass-facing operations are one flavor pump, the funnel fill, the clean cycl
 cycle before a pump replacement. The main board also establishes and reports the safe I/O
 foundation the next connected bench uses.
 
-- **The pour.** Carbonated water flowing at the faucet opens the selected channel's dispense
-  path — its draw and its flavor tube, `DispenseA/B` — and bursts that channel's pump into the
-  stream on a duty cycle that follows the flow. The DIGITEN meter's falling edges are counted
+- **The pour.** Carbonated water flowing at the faucet opens every valve — `DispenseA/B`, with
+  J2's OUT4 and FAN driven beside them, so a valve on the wrong output still opens — and bursts
+  the selected channel's pump into the stream on a duty cycle that follows the flow. The DIGITEN meter's falling edges are counted
   on an interrupt at IO25 and read every 50 ms; a cycle's on and off times are locked at its
   start from that reading and the channel's ratio, which [`/firmware/README.md`](/firmware/README.md)
   "The pour" puts in numbers. A reading of zero inside a cycle sends it into a second's cooldown
@@ -62,8 +62,8 @@ foundation the next connected bench uses.
   opens a main-board-owned session and wakes the faucet into the same mode. Either display
   can hold its pad to run that selected pump; tokenized `MSG_PRIME_SESSION_*` controls keep
   retries idempotent and the complete absolute state is mirrored to both displays. A hold
-  opens that reservoir's draw and outlet valves (V-E and V-G, or V-H and V-J) before the pump
-  starts, and every ending stops the pump before they close. The pump stops on lift, a hold
+  opens every valve, with J2's OUT4 and FAN, before the pump starts, and every ending stops the
+  pump before they close. The pump stops on lift, a hold
   heartbeat more than 2 s late, loss of its owning faucet connection, expiry of the
   enclosure's 5 s session lease, or the 60 s ceiling. A hold is refused while anything else
   runs, while the expanders are unverified or under the gas alarm, and a hold that meets an
@@ -92,8 +92,9 @@ foundation the next connected bench uses.
 
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
-on. Every operation that opens a valve opens one topology state at a time, at most three
-valves, and parks them the instant a write or a reed read fails. The condenser fan turns with
+on. Every operation that opens a valve opens one topology state at a time — at most three
+valves, except Prime and the pour, which open every one — and parks them the instant a write
+or a reed read fails. The condenser fan turns with
 the compressor, and under the self-test; both relays are driven, relay #1 by the cold loop and
 relay #2 by the refill.
 
@@ -325,7 +326,8 @@ They are in `main.cpp`'s header, in
 [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 where
 Derek confirms them per unit, and in [`/firmware/README.md`](/firmware/README.md) with
 the part that pays for each. At most 3 solenoid valves energized at once; relay #2 off while
-a dispense is open; `GPPU` written on both MCP23017s.
+a dispense is open; `GPPU` written on both MCP23017s. Prime and the pour break the first: they
+drive every output on J1 and J2, which is for a manifold with two valves wired.
 
 `machine_policy::kRefillDuringDispense` refuses a `CarbonatorRefill` plan whose `SafetyContext`
 carries an open dispense window, and `machineDispenseWindowOpen()` is the accessor that asks.
