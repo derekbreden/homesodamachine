@@ -636,5 +636,33 @@
       "pass": true
     }
   ],
-  "passed": true
+  "passed": true,
+  "post_publication_head_pocket_mesh_review": {
+    "scope": "Changed head-pocket regions only, within 8 mm of each of the ten axes and at/below the 5.4 mm plate. Thickness is queried against each complete closed mesh. Retained hardware above the plate and the complete machine are outside this follow-up.",
+    "method": "geometry_lint.surface_samples and find_thin; native STEP tessellated at 0.02 mm linear / 0.1 rad angular tolerance. The 1.999 mm mesh reading agrees with the independently checked native 2 mm inward stock; it is not a strength or deposition result.",
+    "results": [
+      {
+        "piece": "foam-cap-lid-top",
+        "native_step_sha256": "775395d76d3ac4ea903db847968b4565d71f876e02c39d782ef3f81a726e9ec8",
+        "review_mesh_sha256": "ed66bf6ba5cdb6fc1fbadbd6a86ef6bc203761150c28746e65ed8aac1880aa36",
+        "minimum_reported_chord_mm": 2.045,
+        "minimum_chord_picks": [
+          "click: x=131.927 y=-87.843 z=1.126",
+          "click: x=132.438 y=-89.823 z=1.128"
+        ],
+        "locations_ranked_under_3mm": 10
+      },
+      {
+        "piece": "foam-cap-lid-bottom",
+        "native_step_sha256": "73382d10175214fe26823ce32b432d54752d0450b396def45adba455687057b9",
+        "review_mesh_sha256": "0d8ac27c6e7794d04e07367205437dbf1d99a0cc5aeeab58f80d2472e701be1c",
+        "minimum_reported_chord_mm": 1.999,
+        "minimum_chord_picks": [
+          "click: x=-130.633 y=-81.429 z=2.844",
+          "click: x=-130.987 y=-83.396 z=2.844"
+        ],
+        "locations_ranked_under_3mm": 10
+      }
+    ]
+  }
 }
