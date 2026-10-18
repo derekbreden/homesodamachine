@@ -131,9 +131,45 @@
     "hardware/scripts/_box_spec.py": "ad960841cd9c780fde4e95f7db640d583e9b27db47d0ffdfa9613b5820ef02a3"
   },
   "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063"
+  },
+  "physical_record": "physical-observations.json",
+  "native_reader_artifact_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063"
   },
-  "physical_record": "physical-observations.json"
+  "current_artifact_binding": {
+    "scope": "The seven recorded checks are retained without rerunning the unchanged distant seats. Every recorded source input, including complete owning enclosure/contact and placement constructors, is byte-identical. Moving cap/cartridge native bodies are byte-identical. The fixed native body carries only the separately reviewed additive lower-corbel change below the complete contact hosts and passages.",
+    "recorded_checks": 7,
+    "all_recorded_source_inputs_identical": true,
+    "owning_constructor_AST_identical": true,
+    "reference_fixed_native_sha256": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
+    "current_fixed_native_sha256": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+    "changed_source_path": "hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+    "reference_changed_source_sha256": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "current_changed_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "changed_source_function": "tee_saddle",
+    "all_other_executable_AST_identical": true,
+    "change_additive_only": true,
+    "complete_change_z_bounds_mm": [
+      160.25,
+      164.924
+    ],
+    "native_export_added_mm3": 983.622600000002,
+    "native_export_removed_mm3": 0,
+    "actual_added_stock_bounds_mm": {
+      "xmin": -93.25,
+      "xmax": 93.25,
+      "ymin": 106.866,
+      "ymax": 111.54,
+      "zmin": 160.25,
+      "zmax": 164.924
+    },
+    "complete_contact_host_min_z_mm": 263.1256261237512,
+    "separation_mm": 98.2016261237512,
+    "limits": "No current physical fit, tool access, contact resistance, printed gap, load capacity or endurance qualification is inferred."
+  }
 }

@@ -1,13 +1,13 @@
 {
   "scope": "Current post-publication manual mesh-interface review for the unchanged front-bottom, back-top, back-bottom and revised cold-core lid. All six classes and every emitted row are accounted for. Exact classifier diagnoses, specified cosmetic contours, fitted interfaces and true unresolved inherited geometry retain distinct dispositions. No recurring checker, CAD export or graph mutation is added.",
-  "publication_at_read": {
-    "source": {
-      "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
-    },
+  "current_publication": {
+    "artifact_source_commit": "be4cf7d3015d4e9e3e66c23e38f367a74d66065b",
+    "artifact_pointer_commit": "a651d8176f86604f6c82379c25614d61911f5694",
     "live_object_hashes_verified": 42,
-    "appliance_payload_bytes": 33193220,
-    "appliance_payload_sha256": "db245a187b95288d019cf29084f557769dcdb653cfdd82f67c6d712acd50471e",
-    "retired_tee_carrier_absent": true
+    "appliance_payload_bytes": 33201188,
+    "appliance_payload_sha256": "2b628c3924393d0d7c9d8a49ede37f7e0f567eee8b83f0d0353dc158e2e3ddc1",
+    "retired_tee_carrier_absent": true,
+    "reader_binding_scope": "The four recorded native STEP and STL inputs are byte-identical to their complete six-class readings. Eight input digests were compared against the current artifacts; reader logs, anchors and numerical findings are unchanged. No unchanged-part reader was rerun for this publication rebind."
   },
   "checker": {
     "path": "hardware/scripts/geometry_lint.py",

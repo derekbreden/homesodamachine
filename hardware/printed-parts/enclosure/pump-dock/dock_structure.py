@@ -147,15 +147,11 @@ def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0,
     parts=[stock,box(x-13.5,x+13.5,wall_fore_y+receiver.WALL_THICKNESS,
                      center_y-9.0,z-end-3,z-end)]
     if print_bed_z is not None:
-        y0,y1=wall_fore_y+receiver.WALL_THICKNESS,center_y-9.0
-        bottom=z-end-3
-        parts.append(_bed_corbel(x-13.5,x+13.5,y0,y1,bottom,print_bed_z))
-        # Continue the underside beneath the lower collar, retaining its
-        # complete vertical trunk opening for the tee and run tube.
-        corbel=_bed_corbel(x-13.5,x+13.5,center_y-9.0,aft,
+        corbel=_bed_corbel(x-13.5,x+13.5,
+                           wall_fore_y+receiver.WALL_THICKNESS,aft,
                            z-end,print_bed_z)
-        trunk=cq.Solid.makeCylinder(radius,6.2,
-                                    cq.Vector(x,center_y,z-end-6.1),
+        trunk=cq.Solid.makeCylinder(radius,z-end-print_bed_z+.2,
+                                    cq.Vector(x,center_y,print_bed_z-.1),
                                     cq.Vector(0,0,1))
         parts.append(corbel.cut(trunk))
     for side in (-1,1):
