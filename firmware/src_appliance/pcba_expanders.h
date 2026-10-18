@@ -10,8 +10,8 @@
 //
 // Nothing in this file is an operation sequencer. The machine state machine
 // remains responsible for deciding which *valid* set of valves represents a
-// dispense, clean, refill, or service operation. This layer enforces
-// machine_policy::kMaxOpenValves and makes every I2C failure converge
+// dispense, clean, refill, or service operation. This layer enforces the
+// board's absolute three-solenoid ceiling and makes every I2C failure converge
 // on verified-low Port-A pins where the bus still permits it. It does not drive
 // the separate refill relay, so the arbiter must still validate the complete
 // machine_policy::ActuatorPlan and its refill/dispense interlock.

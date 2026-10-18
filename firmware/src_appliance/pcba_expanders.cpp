@@ -125,9 +125,6 @@ bool Expanders::encodeOutputs(const ExpanderOutputs &outputs,
     if ((outputs.valves & valveBit(Valve::J)) != 0) portA21 |= (1u << 6);
     if ((outputs.valves & valveBit(Valve::K)) != 0) portA21 |= (1u << 5);
     if (outputs.condenserFan)                        portA21 |= (1u << 3);
-    // Every valve open drives J2's spare OUT4 and its FAN contact as well, so
-    // a valve lead in any J1 or J2 cavity opens.
-    if (outputs.valves == machine_policy::kAllValves) portA21 |= (1u << 4) | (1u << 3);
     return true;
 }
 

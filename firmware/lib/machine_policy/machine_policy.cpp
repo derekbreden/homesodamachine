@@ -30,12 +30,10 @@ ActuatorPlan makePlan(Operation operation,
 
 ActuatorPlan canonicalPlan(Operation operation) {
     switch (operation) {
-        // Troubleshooting a two-valve wiring: a prime or a pour opens every
-        // valve, so a valve landed on the wrong output still opens.
         case Operation::DispenseA:
-            return makePlan(operation, kAllValves, kPumpA, false, true);
+            return makePlan(operation, valves2(Valve::E, Valve::G), kPumpA, false, true);
         case Operation::DispenseB:
-            return makePlan(operation, kAllValves, kPumpB, false, true);
+            return makePlan(operation, valves2(Valve::H, Valve::J), kPumpB, false, true);
         case Operation::FunnelFillA:
             return makePlan(operation, valves3(Valve::B, Valve::C, Valve::F), kPumpA, false, false);
         case Operation::FunnelFillB:
