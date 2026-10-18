@@ -4159,6 +4159,17 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
         slab = _ybox(min(x_root, x_f), max(x_root, x_f),
                      min(y0, y1), max(y0, y1), zj, z_foot)
         out = slab if out is None else out.fuse(slab)
+        if col == "front":
+            # THE NOTCH'S STANDING WALL IS STOCK. The channel stops one slip outboard of the
+            # head (`_rail_channel_span`), while this piece's grown flank begins on the rim at
+            # `x_in`, so the shell over the notch would be one `wall`. The foot's outer edge
+            # runs on up to the flank's 45° bedding and meets it on its own line, from the
+            # run's open end to one running fit short of the lower stack's front knuckle.
+            x_open = _rail_channel_span(x_in, sx, col)[0]
+            rim = zj + z_rise
+            out = out.fuse(_xz_prism(y0, y_joint - y_stack_front_root - fits.running, [
+                (x_root, zj), (x_open, zj), (x_open, rim + abs(x_in - x_open)),
+                (x_in, rim), (x_root, rim)]))
     return out
 
 
