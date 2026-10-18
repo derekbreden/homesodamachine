@@ -1,5 +1,5 @@
 {
-  "scope": "One-off native dry casing closure review. No recurring build, commit or edit check is added. Outer construction datums and protected native regions are checked; physical sealing, print fit and lifetime remain unqualified.",
+  "scope": "One-off native dry casing closure review. No recurring build, commit or edit check is added. Outer construction datums, complete screw-head bearing lands, tapered seal transitions and protected native regions are checked; physical sealing, print fit and lifetime remain unqualified.",
   "basis": {
     "customer_outcome": "Caps close around cured insulation without a compliant stack-height variable; no liquid or pressure seal is required at these casing seams.",
     "construction": "0.15mm dry PET-GF seats, full 2mm floors, 0.30mm smooth foil lands; at most two 0.12mm 3M425 layers, off the Z bearing faces. Reservoir gaskets remain separate wetted seals.",
@@ -9,19 +9,19 @@
     "maximum_film_stack_mm": 0.24
   },
   "native_input_sha256": {
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "6266be2eb75b24d75a9d6a3b5e5446680bf0cc78f924aa51e9d55d30d69b839d",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "9f359171f040167d6118af2ee71f5980a39319617c0d9b8ceb0d56be86fca922",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "775f1953512c16960cc232335b948ae87ec6b4a36b60286ebb1e9f73a83a2fd2",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "a6ada27317485c70fad5787ffa20dd9ff51e2a937122892b5c6699344eb80fc0",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2448417f47a811246f63574344d625fa12a7fbdfaea8265358d2c454246bed2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "0d5c38fea2fd0d9bd523075d7f5da18f37d58f0ef4ad85812f99309178981ee1",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "a1cc7fc79e0d7ac6a23ee19f96f81bc8fda8fd441cc659adef564628032ee662",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "b2de59b774d7fe67dfad2b98533781e8bc492f552eac1a1c670dff30e9eb2cbd"
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "9af679ebedc92b9337c8a1f893f6bf74841a4ad2c9dc46bb8335015860c2ad7a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "2a4b2ef726f317ccaf24666077cf4767e1249fec2582a26a84ba956e3677119f"
   },
   "source_sha256": {
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "413e1f0c0b8cccfb673a9fbffce3f68aff9edf5bd0eb96d55c976978697d0595",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "52ee679cf167650dcb0cfd2cd14310a94ed192f3261f6054e99a23117f4921ef",
-    "hardware/printed-parts/cold-core/_outer_shell.py": "690d605522fd5156e14ab2079536f743913cd1212de41a3254068f37fde64ed6",
-    "hardware/printed-parts/cold-core/_foam_shell.py": "cdfe18fb42f133247a8e5a1f8b40673a49f72f709c7c7fbd89eb6da368e35d49",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "72f206e98f92c596ce73d757173fdd4c5ce8a98f5ea3f7d3574c6f8b2a927cad",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "aaa074e5b6d628ea07ba4cc005f7ca6cdd0920f4c43fb78c311aa2da9176a639",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "77074b26e0223b41a33012c315e456af57655cba5c0a44816fdb4d2aafbf429c",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "2f7e15b14124938c8314fe1516829e9335f48977e04ad36b8ca441112a867eab",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "9e0b45fd18558827f7b333781fa4d3e6ab616cde90ad6e01b5e1a17444a4ecd9",
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "cb052ab8ceef20c4901531f13793e13970ab625cc26fd2b7bcf80e441ba1c5b3"
   },
   "checks": [
@@ -87,6 +87,23 @@
         15.850000000000001,
         17.85
       ]
+    },
+    {
+      "check": "foam-cap-lid-top complete 2mm screw-head bearing land",
+      "passed": true,
+      "missing_material_mm3": 0.0
+    },
+    {
+      "check": "foam-cap-lid-bottom complete 2mm screw-head bearing land",
+      "passed": true,
+      "missing_material_mm3": 0.0
+    },
+    {
+      "check": "foil recess transitions have no horizontal ledges",
+      "passed": true,
+      "flat_ledge_area_mm2": 0,
+      "axial_transition_mm": 0.6,
+      "radial_growth_per_axial_mm": 0.5
     },
     {
       "check": "20 complete cap pilots and manufacturer wall envelopes",

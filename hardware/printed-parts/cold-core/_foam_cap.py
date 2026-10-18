@@ -26,6 +26,7 @@ from _cold_core_interface import (
     foam_cap_lid_pour_xy,
     foam_cap_lid_vent_xy,
     attachment_xy_positions,
+    attachment_stations,
     cap_shell_clearance,
     cap_lid_clearance,
     screw_clearance_radius,
@@ -218,6 +219,32 @@ def build_foam_cap(open_down=False):
     return rebate_casing_seals(cap, ((0.0, height),)).unwrap()
 
 
+def head_access_pockets(z0, depth):
+    """Head pockets open to the outside, retaining complete head-bearing floors.
+
+    The outward slots remove the thin counterbore rims at the casing edge.
+    The exterior foil band covers these dry side openings, with driver access
+    through the lid's flat outer face.
+    """
+    pockets = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+               .pushPoints(attachment_xy_positions).circle(head_cbore_radius)
+               .extrude(depth))
+    r = head_cbore_radius
+    for (x, y), wall in attachment_stations:
+        if wall == "x":
+            end = (1 if x > 0 else -1) * (outer_shell_x_length/2 + 1)
+            slot = (cq.Workplane("XY").box(abs(end-x), 2*r, depth,
+                    centered=(True, True, False))
+                    .translate(((x+end)/2, y, z0)))
+        else:
+            end = (1 if y > 0 else -1) * (outer_shell_y_length/2 + 1)
+            slot = (cq.Workplane("XY").box(2*r, abs(end-y), depth,
+                    centered=(True, True, False))
+                    .translate((x, (y+end)/2, z0)))
+        pockets = pockets.union(slot)
+    return pockets
+
+
 def build_foam_cap_lid(open_down=False):
     """The pour lid for the cap built with the same `open_down` — the plate that closes
     its mouth. Authored mouth-facing-side-down either way, so z=0 is the face that lands on the
@@ -244,13 +271,7 @@ def build_foam_cap_lid(open_down=False):
         # The pads are the cap boss's own section — what its columns gave up.
         lid = lid.union(build_attachment_bosses(head_pad_height).translate(
             (0, 0, wall_and_floor_thickness)))
-    head_cbores = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=cbore_z0)
-        .pushPoints(attachment_xy_positions)
-        .circle(head_cbore_radius)
-        .extrude(cbore_depth)
-    )
+    head_cbores = head_access_pockets(cbore_z0, cbore_depth)
 
     # Pour hole on the +X half, off the centreline by whatever the deck-mount stations and
     # the valve cradles there leave it (`foam_cap_lid_pour_xy`); vent holes mirrored across y

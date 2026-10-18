@@ -4,6 +4,7 @@ corners rounded; each corner boss seated in the corner with its ⌀ tangent to t
 exterior wall arc, two short webs filling to the flanking flat walls — the
 cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports."""
 
+import cadquery as cq
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
@@ -23,7 +24,7 @@ from _cold_core_interface import (
 )
 
 
-def rebate_casing_seals(solid, bands):
+def rebate_casing_seals(solid, bands, *, transitions=()):
     """Smooth foil-seal lands within the fixed outside envelope.
 
     The 0.30 mm recess leaves 2.90 mm of the 3.20 mm casing wall and at
@@ -40,6 +41,21 @@ def rebate_casing_seals(solid, bands):
                    .rect(outer_shell_x_length + 2, outer_shell_y_length + 2)
                    .extrude(z1 - z0))
         solid = solid.cut(outside.cut(keep).unwrap())
+    # A 0.5 mm/mm taper joins a shell seal land to its standing wall.
+    # The band itself remains flat; neither transition adds to the envelope.
+    def outline(z, inset):
+        return (cq.Workplane("XY")
+                .rect(outer_shell_x_length - 2 * inset,
+                      outer_shell_y_length - 2 * inset).extrude(1)
+                .edges("|Z").fillet(corner_round_radius - inset)
+                .faces("<Z").wires().val().translate((0, 0, z)))
+    for z0, z1, inset0, inset1 in transitions:
+        keep = cq.Solid.makeLoft([outline(z0, inset0), outline(z1, inset1)], True)
+        outside = cq.Solid.makeBox(outer_shell_x_length + 2,
+                                  outer_shell_y_length + 2, z1 - z0,
+                                  cq.Vector(-outer_shell_x_length/2 - 1,
+                                            -outer_shell_y_length/2 - 1, z0))
+        solid = solid.cut(outside.cut(keep))
     return solid
 
 
