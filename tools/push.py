@@ -468,8 +468,14 @@ def main(argv) -> int:
         print("  a linked worktree is not a checkout to push from; run this in the main one")
         return 0
     # A COMMIT MADE BY A REBASE IS NOT A COMMIT TO PUSH. `git rebase` runs the commit hooks for
-    # each replayed commit, and pushing from inside one lands a branch mid-rewrite.
-    for busy in ("REBASE_HEAD", "MERGE_HEAD", "CHERRY_PICK_HEAD", "REVERT_HEAD"):
+    # each replayed commit, and pushing from inside one lands a branch mid-rewrite. A rebase is
+    # under way while its state directory stands, which is what `git status` reads. REBASE_HEAD
+    # names only the commit a rebase stopped at, and it can outlive the rebase that wrote it.
+    for state in ("rebase-merge", "rebase-apply"):
+        if (ROOT / git("rev-parse", "--git-path", state)).exists():
+            print("  a rebase is in progress — not pushing into the middle of it")
+            return 0
+    for busy in ("MERGE_HEAD", "CHERRY_PICK_HEAD", "REVERT_HEAD"):
         if ok("rev-parse", "--verify", "-q", busy):
             print(f"  a {busy.replace('_HEAD', '').lower()} is in progress — not pushing into "
                   "the middle of it")
