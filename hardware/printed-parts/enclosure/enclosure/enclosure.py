@@ -473,7 +473,6 @@ y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the 
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
 y_stack_cbore_dia = 10.8       # M5 SHCS head Ø8.5 and one DIN 125 washer Ø10
-y_stack_mouth_ease = 0.5      # 45° ease at the exposed lower pocket's finger-contact edge
 y_stack_head_recess = 2.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
 y_stack_washer_h = 1.0         # one DIN 125 M5 flat washer per screw
@@ -839,6 +838,10 @@ y_stack_low_depth = side_band_inset - fits.running
 # and the M5 insert's boss keeps [3.1 mm](Y_STACK_INSERT_LIGAMENT) of knuckle ahead of it and
 # behind it.
 lip_len = 17.8
+# The 45° ease at the exposed lower head pocket's finger-contact edge. The back pieces start one
+# `fits.slip` aft of the seam (`_seam_fit_reliefs`); the eased mouth keeps one `wall` of the
+# lowest back knuckle between that face and the recess.
+y_stack_mouth_ease = lip_len / 2.0 - y_stack_cbore_dia / 2.0 - fits.slip - wall
 
 # The appliance's stated HEIGHT — floor slab's underside (z = −floor_t) to the top
 # wall's outer face. It is the machine's silhouette, the one dimension a counter

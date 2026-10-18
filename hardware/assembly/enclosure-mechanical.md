@@ -241,7 +241,7 @@ The box closes in two slides and four screws, and everything in the service bay 
    and about 60 mm above the roof for the upper screws.
 
    **Place each lower washer first.** Tip the loose washer sideways by about 35° and guide
-   it up through the handhold into the open head pocket, whose entry has a 0.5 mm bevel.
+   it up through the handhold into the open head pocket, whose entry has a 0.35 mm bevel.
    Once it is inside, turn it flat
    against the bearing floor and hold it there. Feed the [M5 × 150](LOWER_ROD) screw upward
    through the washer and the printed blocks into back-top's anchor block.
