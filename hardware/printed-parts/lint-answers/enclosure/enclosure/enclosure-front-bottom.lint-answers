@@ -241,14 +241,6 @@ click: x=-57.153 y=23.571 z=5.150
 click: x=15.367 y=20.286 z=7.300
 click: x=13.997 y=28.273 z=5.150
 
-[thin] Outside the pump-dock change and unresolved: these actual 2.750 mm MQ-6 locating cheeks retain the pre-dock card-cradle source and finite native material. The scope comparison does not accept their thickness, deposition or loaded behavior.
-alternatives: Reconcile the card groove and outer post together to increase the cheek while preserving the purchased card, sensor can and header approach. That card-mount redesign is not implemented here.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-87.732 y=38.050 z=22.653
-click: x=-85.737 y=35.300 z=17.919
-click: x=-86.030 y=70.550 z=3.309
-click: x=-87.609 y=73.300 z=3.943
-
 [ceiling] Unavoidable flat bearing interfaces: these Z66.2/Z138.6 flats are the complete lower ends of the front screw-bearing blocks. Their current paired native interfaces retain positive running/support clearance. Tree(auto)/Default support can leave through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
 alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening spends the defined screw-bearing and insert-host length.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
