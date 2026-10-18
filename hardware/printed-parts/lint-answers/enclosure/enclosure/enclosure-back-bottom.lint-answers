@@ -1,13 +1,13 @@
-[step] The two measured +Z planes are the finite core receiver floor at Z−0.35 and the surrounding floor at Z0. The rounded core plan requires 0.25 mm running room plus 0.10 mm cavity-floor transition beneath the complete core footprint. This pick is outside that rounded plan. The same-normal plane comparison identifies the cavity perimeter; it does not identify material projecting into the required core room. Core, hardware and column reference poses remain fixed. The post-live report records this original-STL face comparison; it is not a whole-part thickness result.
+[step] Unavoidable core-clearance level boundary: the two measured +Z planes are the finite core receiver floor at Z−0.35 and the surrounding floor at Z0. The rounded core plan requires 0.25 mm running room plus 0.10 mm cavity-floor transition beneath the complete core footprint. This pick is outside that rounded plan. The same-normal plane comparison identifies the cavity perimeter; it does not identify material projecting into the required core room. Core, hardware and column reference poses remain fixed. The post-live report records this original-STL face comparison; it is not a whole-part thickness result.
 alternatives: Extending the lowered floor through the surrounding platform would change unrelated hardware and column floor datums. A perimeter run-out could retain the complete 0.35 mm core room, but it would still join these two required levels. Preserve the named receiver floor and surrounding datums.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-90.733 y=458.372 z=0.000
+click: x=-90.733 y=465.372 z=0.000
 
-[ceiling] These are the two flat handhold lifting ceilings at Z29.25, 35.25 mm above the standing underside, with the complete 12 mm roof section. Their flat finger bearing and the shared R6 end returns define the gripping surface. Tree(auto)/Default support can reach through the downward and outward handhold openings and the open seam before assembly. Actual support cleanup, bare-surface comfort and loaded lifting remain unqualified for these complete handholds.
+[ceiling] Unavoidable flat lifting interface: these are the two flat handhold lifting ceilings at Z29.25, 35.25 mm above the standing underside, with the complete 12 mm roof section. Their flat finger bearing and the shared R6 end returns define the gripping surface. Tree(auto)/Default support can reach through the downward and outward handhold openings and the open seam before assembly. Actual support cleanup, bare-surface comfort and loaded lifting remain unqualified for these complete handholds.
 alternatives: A sloped working ceiling changes the lifting bearing and finger opening. Filling beneath it blocks upward finger entry. Retain the flat roof and its open support-removal approaches.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-97.979 y=224.077 z=29.250
-click: x=97.979 y=224.077 z=29.250
+click: x=-97.979 y=224.075 z=29.250
+click: x=97.979 y=224.075 z=29.250
 
 [ceiling] These Z102.15 faces are the lower ends of the two interleaved Y-seam screw-bearing blocks. The adjacent printed block faces retain their 0.50 mm running/support allowance. Each flat end preserves the defined bearing length around the printed screw passage. Tree(auto)/Default support is accessible from the empty seam and enclosure interior before the halves interleave. The raw ceiling finding does not establish physical removal effort.
 alternatives: A corbel beneath an end enters the neighboring block’s assembly envelope. Sloping the end removes part of the defined screw-bearing length. A continuous post prevents interleaving. Keep the block end and its accessible support.
@@ -21,10 +21,10 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.200 y=208.900 z=37.250
 click: x=97.200 y=208.900 z=37.250
 
-[ceiling] These Z169.45 flats are the rear slide hooks’ catches. The mating foot remains at Z168.70, leaving 0.25 mm running room plus 0.25 mm for each of the two supported opposing faces. The square catch retains the top against lifting without introducing a ramp along that bearing. The west PRV opening divides its run. Tree(auto)/Default support leaves through the open slide channels before assembly; current-part removal effort remains unqualified.
+[ceiling] Unavoidable square capture interface: these Z169.45 flats are the rear slide hooks’ catches. The mating foot remains at Z168.70, leaving 0.25 mm running room plus 0.25 mm for each of the two supported opposing faces. The square catch retains the top against lifting without introducing a ramp along that bearing. The west PRV opening divides its run. Tree(auto)/Default support leaves through the open slide channels before assembly; current-part removal effort remains unqualified.
 alternatives: Sloping the catch introduces a camming bearing. Filling the channel beneath it blocks the mating foot’s slide. Retain the square retention profile and supported-face allowances.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=100.875 y=339.925 z=169.450
+click: x=100.875 y=343.425 z=169.450
 click: x=-100.875 y=393.050 z=169.450
 click: x=-100.875 y=270.675 z=169.450
 
@@ -315,3 +315,31 @@ click: x=8.197 y=471.430 z=8.181
 click: x=23.280 y=471.430 z=8.181
 click: x=-19.604 y=471.433 z=8.181
 click: x=-65.552 y=471.429 z=8.181
+
+[sliver] Outside the pump-dock interface: these raised disposal-warning strokes remain unresolved finite-strip findings. Their 4 mm native windows have zero material change from the identified pre-dock geometry after the +7 mm rear-station translation; all marking functions, text and font/relief constants are unchanged in pump-dock/lint-interface-review.json. This establishes scope, not acceptance of the strips or printed warning.
+alternatives: Reconcile the stroke and relief profiles into complete printable sections while preserving the entire readable warning and its letter height. A flush marking or revised glyph contour needs its own emitted-path and legibility review; this answer does not select or qualify either.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=58.339 y=478.599 z=48.948
+click: x=53.050 y=478.598 z=11.431
+click: x=51.067 y=478.599 z=39.569
+
+[thin] Outside the pump-dock interface: this 0.003 mm handhold-floor section remains unresolved. Native samples lie inside material throughout the emitted segment. Its exact 4 mm native window is identical to the pre-dock published part without any station translation; the handhold producers are unchanged in pump-dock/lint-interface-review.json. This edge is distinct from the core-stop tail's separately corrected rear-handhold clearance. No thin-section or lifting-strength acceptance is claimed.
+alternatives: Reconcile the curved opening and standing floor into a complete section while preserving the entire handhold opening, backing and lifting load path. That handhold/floor correction needs a direct local geometry and printed-surface review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-93.400 y=211.803 z=-5.997
+click: x=-93.400 y=211.803 z=-6.000
+
+[thin] Outside the pump-dock interface: these 0.009 mm and 0.011 mm warning-stroke sections remain unresolved. Native samples are inside material along both reported segments. Their native windows are identical to the pre-dock lettering after the +7 mm rear-station translation, with unchanged marking producers/settings in pump-dock/lint-interface-review.json. They are not dismissed as mesh chords or accepted as printable strokes.
+alternatives: Reconcile the tapered stroke ends and relief intersections into complete printable contours while preserving all characters, letter height and spacing. Review the resulting emitted paths and readable warning before accepting a revised marking.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-17.762 y=478.599 z=52.198
+click: x=-17.755 y=478.599 z=52.193
+click: x=-17.663 y=478.498 z=45.698
+click: x=-17.654 y=478.498 z=45.704
+
+[ledge] Outside the pump-dock interface: these lower edges of the raised disposal warning remain unresolved print-down ledges. Their native windows are identical to the pre-dock geometry after the +7 mm rear-station translation, with unchanged marking producers/settings in pump-dock/lint-interface-review.json. This establishes scope only; it does not accept support contacts, removal or finished legibility.
+alternatives: Review a supported or relieved underside against the complete readable glyph outlines, or a flush marking construction. That marking review must inspect the actual emitted paths and retained characters before selecting a change.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-15.250 y=478.496 z=8.181
+click: x=38.479 y=478.567 z=26.939
+click: x=-53.976 y=478.567 z=36.319

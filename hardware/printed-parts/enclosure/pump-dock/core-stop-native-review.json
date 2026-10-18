@@ -456,5 +456,209 @@
     "check_count": 14,
     "failed_checks": [],
     "limitations": "Geometry/contact/root stock and lower-pair clearance only. Earlier scoped analytical and physical limitations remain unchanged; complete appliance review is separate."
+  },
+  "post_lint_final_export_review": {
+    "scope": "Direct read of final canonical lower native parts and current declared Box, including both stop-tail/rear-handhold mate clearances. No candidate fusion, part construction, Box derivation or graph write.",
+    "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_core_stops.py --final-export --record-key post_lint_final_export_review --box hardware/manifold-layout/enclosure-box.json",
+    "prior_scoped_record_sha256_before_append": "d13263c8ac8fab35d699b8774814c2577437b6b2ddcfdb993047bd84fc8af61c",
+    "source_sha256": "3caf16daf781f06a907e16484ee4fba839a71bdb14d4dd7c889cd9fa6e8d3a3c",
+    "review_script_sha256": "5d05a9b995eb8940c1c651a4463e2c28b8e7e46e749e04eac175f401b1ea0180",
+    "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "input_step_sha256": {
+      "front-bottom": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa",
+      "back-bottom": "1b468f760457f2364c00db78b42e3585807868c48fa64d28ec5683c37ed16116",
+      "front-top": "be1f038c1d361dd7b1412c2b4289649bb0d1257fe848146cee2f6cde88eb41a7",
+      "back-top": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+      "pump-cartridge": "80d7c95ef273445a2b1c638681c5d46769ec66b2149ee881833c5a7c194a7b32",
+      "pump-cap": "c172a54aaeb530f175bbb18447dc77bc347afdbb830184b0148aceaebbbe7299"
+    },
+    "station_datums_mm": [
+      {
+        "x": -78.5000001156408,
+        "corner_axis_y": 201.29999989999993,
+        "forward_bearing_y": 189.04999989999993,
+        "radius": 12.0,
+        "rise": 40.0,
+        "forward_web": 6.0
+      },
+      {
+        "x": 78.5000001156408,
+        "corner_axis_y": 201.29999989999993,
+        "forward_bearing_y": 189.04999989999993,
+        "radius": 12.0,
+        "rise": 40.0,
+        "forward_web": 6.0
+      }
+    ],
+    "checks": [
+      {
+        "check": "actual exported front-bottom: one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "actual exported back-bottom: one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "actual exported lower-shell pair is clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported stop X-78.500: bearing station belongs to front column",
+        "passed": true,
+        "forward_bearing_y_mm": 189.04999989999993
+      },
+      {
+        "check": "exported stop X-78.500: full forward web",
+        "passed": true,
+        "missing_web_mm3": 0.0,
+        "web_volume_mm3": 2880.0,
+        "web_depth_mm": 6.0,
+        "stop_height_mm": 40.0
+      },
+      {
+        "check": "exported stop X-78.500: full integral 3 mm floor root",
+        "passed": true,
+        "missing_root_mm3": 0.0,
+        "root_stock_mm3": 216.0
+      },
+      {
+        "check": "exported stop X-78.500: full flat bearing face",
+        "passed": true,
+        "bearing_area_mm2": 479.9999999999999
+      },
+      {
+        "check": "exported stop X-78.500: full rounded face outside required knuckle air",
+        "passed": true,
+        "present_area_mm2": 755.0376101401142,
+        "expected_area_mm2": 755.0376101401142,
+        "required_knuckle_clearance_area_mm2": 14.001363767634757,
+        "required_handhold_tail_clearance_area_mm2": 0.6512262217504485
+      },
+      {
+        "check": "exported stop X-78.500: actual rear-handhold roof running/support gap",
+        "passed": true,
+        "native_gap_mm": 0.5,
+        "required_gap_mm": 0.5,
+        "front_tail_bounds_mm": {
+          "x": [
+            -93.4999901156408,
+            -91.2500101156408
+          ],
+          "y": [
+            200.15001,
+            201.29998989999993
+          ],
+          "z": [
+            27.25,
+            28.75
+          ]
+        },
+        "back_roof_bounds_mm": {
+          "x": [
+            -93.4999901156408,
+            -91.2500101156408
+          ],
+          "y": [
+            200.15001,
+            201.29998989999993
+          ],
+          "z": [
+            29.25,
+            31.25
+          ]
+        }
+      },
+      {
+        "check": "exported stop X+78.500: bearing station belongs to front column",
+        "passed": true,
+        "forward_bearing_y_mm": 189.04999989999993
+      },
+      {
+        "check": "exported stop X+78.500: full forward web",
+        "passed": true,
+        "missing_web_mm3": 0.0,
+        "web_volume_mm3": 2880.0,
+        "web_depth_mm": 6.0,
+        "stop_height_mm": 40.0
+      },
+      {
+        "check": "exported stop X+78.500: full integral 3 mm floor root",
+        "passed": true,
+        "missing_root_mm3": 0.0,
+        "root_stock_mm3": 216.0
+      },
+      {
+        "check": "exported stop X+78.500: full flat bearing face",
+        "passed": true,
+        "bearing_area_mm2": 479.9999999999999
+      },
+      {
+        "check": "exported stop X+78.500: full rounded face outside required knuckle air",
+        "passed": true,
+        "present_area_mm2": 755.0376101401141,
+        "expected_area_mm2": 755.0376101401141,
+        "required_knuckle_clearance_area_mm2": 14.00136376763487,
+        "required_handhold_tail_clearance_area_mm2": 0.6512262217504485
+      },
+      {
+        "check": "exported stop X+78.500: actual rear-handhold roof running/support gap",
+        "passed": true,
+        "native_gap_mm": 0.5,
+        "required_gap_mm": 0.5,
+        "front_tail_bounds_mm": {
+          "x": [
+            91.2500101156408,
+            93.4999901156408
+          ],
+          "y": [
+            200.15001,
+            201.29998989999993
+          ],
+          "z": [
+            27.25,
+            28.75
+          ]
+        },
+        "back_roof_bounds_mm": {
+          "x": [
+            91.2500101156408,
+            93.4999901156408
+          ],
+          "y": [
+            200.15001,
+            201.29998989999993
+          ],
+          "z": [
+            29.25,
+            31.25
+          ]
+        }
+      },
+      {
+        "check": "identified source, Box and six native exports stayed stable",
+        "passed": true
+      }
+    ],
+    "check_count": 16,
+    "failed_checks": [],
+    "limitations": "Geometry/contact/root stock and lower-pair clearance only. Earlier scoped analytical and physical limitations remain unchanged; complete appliance review is separate."
+  },
+  "current_canonical_lower_binding": {
+    "scope": "Final lower canonical STEP and declared Box byte identity retains the exact 15 native bearing/root/rounded-face/tail-gap/solid/pair conditions already measured in post_lint_final_export_review. Its original source and six-export stability statement retains that earlier scope; the current pump and frame revisions are outside these lower-shell inputs.",
+    "current_enclosure_source_sha256": "f3f053f5189cf238af0829a56e3a52359923893ed33a368ece827fc4589a8bdd",
+    "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "input_step_sha256": {
+      "front-bottom": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa",
+      "back-bottom": "1b468f760457f2364c00db78b42e3585807868c48fa64d28ec5683c37ed16116"
+    },
+    "retained_native_review": "post_lint_final_export_review",
+    "retained_native_condition_count": 15,
+    "identical_native_inputs": true,
+    "failed_checks": [],
+    "limitations": "Exact unchanged lower artifacts preserve geometry evidence only; printed fit, load capacity, support removal and lifetime keep their physical scope."
   }
 }

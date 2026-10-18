@@ -1,0 +1,938 @@
+{
+  "scope": "Manual review of first-published pump-dock lint interfaces. Finite native geometry correspondence identifies inherited rear-interface findings; it does not accept their geometry, printability or load capacity. The two front-bottom classifier diagnoses are limited to the emitted anchors/segments. No part generation, assembly graph write or recurring check.",
+  "baseline_commit": "b5b7f1e6c",
+  "rear_interface_source_correspondence": {
+    "pre_dock_commit": "b5b7f1e6c",
+    "source_function_AST_unchanged": {
+      "_nameplate": true,
+      "_port_chip": true,
+      "_port_field": true,
+      "_keystone_pocket_cut": true,
+      "_keystone_catches": true,
+      "_keystone_receptacle_geometry": true,
+      "_tube_anchors": true,
+      "_anchor_rib": true,
+      "_anchor_corbel": true,
+      "_anchor_column": true,
+      "tube_anchor_end_columns": true,
+      "tube_anchor_corbel_depth": true,
+      "tube_anchor_end_corbel_bounds": true,
+      "_vent_chase": true,
+      "_east_bosses": true
+    },
+    "auxiliary_source_unchanged": {
+      "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": {
+        "byte_identical": true,
+        "sha256": "8253cd622ec495d1b7acd1f98ca0824e2f11cca047dbde8ab13298c7b932a04d"
+      },
+      "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": {
+        "byte_identical": true,
+        "sha256": "7b43314c25a765cf736014670a63f3b00e8b6881c571acdecb62fc69354a0608"
+      },
+      "hardware/reference/riteav-keystone/riteav_keystone.py": {
+        "byte_identical": true,
+        "sha256": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe"
+      }
+    }
+  },
+  "rear_interface_native_correspondence": {
+    "scope": "Native finite-window correspondence between identified pre-pump-dock hardware and first-published pump dock. Baseline is the exact native input identified in cord-access-measurements.json; its post-C14 local equality is recorded there. Source ASTs for these interface producers and auxiliary files are compared separately. No physical acceptance or printability conclusion.",
+    "baseline_path": ".cache/c14-cord-width/enclosure-back-top.step",
+    "baseline_sha256": "63ec80861a5abf44802da9bdb39ed0695613dde9567036d7b35ad166c76fc6c4",
+    "baseline_record": "hardware/printed-parts/enclosure/enclosure/assembly-fit-review/cord-access-measurements.json",
+    "first_published_path": ".cache/pump-dock-engineering/post-lint/published-enclosure-back-top.step",
+    "first_published_sha256": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+    "checks": [
+      {
+        "feature": "port field backing step",
+        "current_pick_mm": [
+          -48.16,
+          471.79,
+          307.556
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "nameplate backing relief",
+        "current_pick_mm": [
+          86.56,
+          471.92,
+          275.953
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "port-chip rim strip",
+        "current_pick_mm": [
+          -79.26,
+          472.225,
+          254.444
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "keystone upper tang",
+        "current_pick_mm": [
+          -40.71,
+          465.78,
+          314.487
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "PRV chase crown",
+        "current_pick_mm": [
+          -94.625,
+          330.8,
+          214.35
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "nameplate body mouth",
+        "current_pick_mm": [
+          34.17,
+          476.545,
+          256.553
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "electronics pad",
+        "current_pick_mm": [
+          97.375,
+          345.3,
+          259.4
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "nameplate diamond east",
+        "current_pick_mm": [
+          38.67,
+          472.99,
+          270.953
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "nameplate diamond west",
+        "current_pick_mm": [
+          29.67,
+          472.99,
+          270.953
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "keystone pocket roof",
+        "current_pick_mm": [
+          -40.71,
+          470.174,
+          322.573
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "tube-anchor thin",
+        "current_pick_mm": [
+          -86.51,
+          366.358,
+          321.921
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "keystone rim thin first",
+        "current_pick_mm": [
+          -42.226,
+          472.284,
+          313.754
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "keystone rim thin second",
+        "current_pick_mm": [
+          -47.74,
+          474.79,
+          310.878
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "electronics ledge",
+        "current_pick_mm": [
+          97.0,
+          327.3,
+          327.2
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "DATA wing-slot end",
+        "current_pick_mm": [
+          -23.477,
+          475.55,
+          295.217
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      },
+      {
+        "feature": "nameplate wing-slot end",
+        "current_pick_mm": [
+          -19.462,
+          475.55,
+          260.553
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "same_geometry_within_native_boolean_tolerance": true
+      }
+    ]
+  },
+  "rear_true_thin_sections": {
+    "native_step_sha256": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+    "probes": [
+      {
+        "label": "tube-anchor thin",
+        "p": [
+          -86.51,
+          366.358,
+          321.921
+        ],
+        "q": [
+          -86.497,
+          366.358,
+          321.929
+        ],
+        "distance_to_native_mm": 0.00016167511000730883,
+        "distance_q_to_native_mm": 0.0006326659691852355,
+        "segment_states": [
+          {
+            "t": 0.1,
+            "point": [
+              -86.5087,
+              366.358,
+              321.92179999999996
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.25,
+            "point": [
+              -86.50675000000001,
+              366.358,
+              321.923
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.5,
+            "point": [
+              -86.5035,
+              366.358,
+              321.92499999999995
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.75,
+            "point": [
+              -86.50025,
+              366.358,
+              321.92699999999996
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.9,
+            "point": [
+              -86.4983,
+              366.358,
+              321.92819999999995
+            ],
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      },
+      {
+        "label": "keystone rim thin first",
+        "p": [
+          -42.226,
+          472.284,
+          313.754
+        ],
+        "q": [
+          -42.226,
+          472.31,
+          313.754
+        ],
+        "distance_to_native_mm": 0.00011253808557369659,
+        "distance_q_to_native_mm": 0.0,
+        "segment_states": [
+          {
+            "t": 0.1,
+            "point": [
+              -42.226,
+              472.2866,
+              313.754
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.25,
+            "point": [
+              -42.226,
+              472.2905,
+              313.754
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.5,
+            "point": [
+              -42.226,
+              472.297,
+              313.754
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.75,
+            "point": [
+              -42.226,
+              472.3035,
+              313.754
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.9,
+            "point": [
+              -42.226,
+              472.30740000000003,
+              313.754
+            ],
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      },
+      {
+        "label": "keystone rim thin second",
+        "p": [
+          -47.74,
+          474.79,
+          310.878
+        ],
+        "q": [
+          -47.74,
+          474.736,
+          310.832
+        ],
+        "distance_to_native_mm": 0.0,
+        "distance_q_to_native_mm": 0.00022811710789852037,
+        "segment_states": [
+          {
+            "t": 0.1,
+            "point": [
+              -47.74,
+              474.7846,
+              310.8734
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.25,
+            "point": [
+              -47.74,
+              474.7765,
+              310.8665
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.5,
+            "point": [
+              -47.74,
+              474.76300000000003,
+              310.855
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.75,
+            "point": [
+              -47.74,
+              474.7495,
+              310.8435
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.9,
+            "point": [
+              -47.74,
+              474.7414,
+              310.8366
+            ],
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      }
+    ]
+  },
+  "front_classifier_diagnostics": {
+    "native_step_sha256": "d6b4eb9389eabb819ff4d3dd3dad8b107a81334da82ed4ea102d529508e5aa51",
+    "probes": [
+      {
+        "label": "rail entry thin",
+        "p": [
+          -94.345,
+          93.694,
+          160.0
+        ],
+        "q": [
+          -94.048,
+          94.086,
+          159.702
+        ],
+        "distance_to_native_mm": 0.0,
+        "distance_q_to_native_mm": 0.0,
+        "segment_states": [
+          {
+            "t": 0.1,
+            "point": [
+              -94.3153,
+              93.7332,
+              159.9702
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.25,
+            "point": [
+              -94.27074999999999,
+              93.792,
+              159.9255
+            ],
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "t": 0.5,
+            "point": [
+              -94.1965,
+              93.89,
+              159.851
+            ],
+            "native_state": "TopAbs_OUT"
+          },
+          {
+            "t": 0.75,
+            "point": [
+              -94.12225000000001,
+              93.988,
+              159.7765
+            ],
+            "native_state": "TopAbs_OUT"
+          },
+          {
+            "t": 0.9,
+            "point": [
+              -94.07770000000001,
+              94.0468,
+              159.7318
+            ],
+            "native_state": "TopAbs_OUT"
+          }
+        ]
+      },
+      {
+        "label": "slope centroid",
+        "p": [
+          0.0,
+          87.881,
+          140.225
+        ],
+        "distance_to_native_mm": 73.881
+      }
+    ]
+  },
+  "limits": "The rear label/jack/anchor windows match pre-pump-dock native material after +7 mm Y; the handhold-floor thin window matches without translation. This is scope evidence only. Fine tube-anchor/keystone/handhold-floor sections, raised warning strokes and rear label/pad/roof support details remain unresolved outside this pump-dock change.",
+  "back_bottom_native_correspondence": {
+    "scope": "Manual finite-window native correspondence for actual first-published back-bottom top findings. The old native/source artifacts are bound by the frozen publication manifest. This distinguishes inherited local features from the pump-dock/depth changes; it establishes no acceptance of thin sections or markings. No canonical generation or graph write.",
+    "baseline_publication_commit": "292c861941587f9f15afb07885e38705c1f2845c",
+    "baseline_manifest": ".cache/y-seam-fit/post-live-lint/inputs/artifact-manifest.json",
+    "baseline_native_sha256": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
+    "first_published_native_sha256": "1b468f760457f2364c00db78b42e3585807868c48fa64d28ec5683c37ed16116",
+    "source_AST_unchanged": {
+      "disposal_lines": true,
+      "disposal_font": true,
+      "disposal_kind": true,
+      "disposal_cap_height": true,
+      "disposal_raise": true,
+      "disposal_embed": true,
+      "disposal_line_gap": true,
+      "disposal_bottom": true,
+      "disposal_margin": true,
+      "_disposal_flat": true,
+      "disposal_letters": true,
+      "disposal_field": true,
+      "_handhold_cutter": true,
+      "_handhold_frame": true,
+      "_finish_handholds": true
+    },
+    "checks": [
+      {
+        "feature": "handhold-floor thin",
+        "current_pick_mm": [
+          -93.4,
+          211.803,
+          -5.997
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 7.105427357601002e-15,
+        "second_pick_mm": [
+          -93.4,
+          211.803,
+          -6.0
+        ],
+        "segment_states": [
+          {
+            "fraction": 0.1,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.25,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.5,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.75,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.9,
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      },
+      {
+        "feature": "warning thin upper",
+        "current_pick_mm": [
+          -17.762,
+          478.599,
+          52.198
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.00023790597000328262,
+        "second_pick_mm": [
+          -17.755,
+          478.599,
+          52.193
+        ],
+        "segment_states": [
+          {
+            "fraction": 0.1,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.25,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.5,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.75,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.9,
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      },
+      {
+        "feature": "warning thin lower",
+        "current_pick_mm": [
+          -17.663,
+          478.498,
+          45.698
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.00023790597000328262,
+        "second_pick_mm": [
+          -17.654,
+          478.498,
+          45.704
+        ],
+        "segment_states": [
+          {
+            "fraction": 0.1,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.25,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.5,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.75,
+            "native_state": "TopAbs_IN"
+          },
+          {
+            "fraction": 0.9,
+            "native_state": "TopAbs_IN"
+          }
+        ]
+      },
+      {
+        "feature": "warning sliver first",
+        "current_pick_mm": [
+          58.339,
+          478.599,
+          48.948
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 4.3369267004322865e-05
+      },
+      {
+        "feature": "warning sliver second",
+        "current_pick_mm": [
+          53.05,
+          478.598,
+          11.431
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.0004748982359998877
+      },
+      {
+        "feature": "warning sliver third",
+        "current_pick_mm": [
+          51.067,
+          478.599,
+          39.569
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.0003337356169978989
+      },
+      {
+        "feature": "warning ledge first",
+        "current_pick_mm": [
+          -15.25,
+          478.496,
+          8.181
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.00019935725899955514
+      },
+      {
+        "feature": "warning ledge second",
+        "current_pick_mm": [
+          38.479,
+          478.567,
+          26.939
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.0002813683850000359
+      },
+      {
+        "feature": "warning ledge third",
+        "current_pick_mm": [
+          -53.976,
+          478.567,
+          36.319
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.0004782687920013018
+      },
+      {
+        "feature": "core receiver floor perimeter",
+        "current_pick_mm": [
+          -90.733,
+          465.372,
+          0.0
+        ],
+        "baseline_to_current_translation_mm": [
+          0.0,
+          7.0,
+          0.0
+        ],
+        "window_halfwidth_mm": 2.0,
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "native_identical": true,
+        "pick_distance_to_native_mm": 0.0
+      }
+    ]
+  },
+  "manual_checker_review": {
+    "scope": "Manual checker memory correction and completed reading of the exact published back-bottom STL. No permanent runner, recurring check, hook, scorecard row or build gate. All surface samples, distance reach, thickness bands and six defect classes are retained.",
+    "checker_path": "hardware/scripts/geometry_lint.py",
+    "checker_sha256": "40a5ba8474b785ffa6c4754f3be287f66b51c4ea910962870f1c2103cf5b27bb",
+    "back_bottom_reading": {
+      "stl_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "stl_sha256": "dba32322626021bcb1d7ed9984f159e05963db384c359f5c1d609c1e43db1be1",
+      "facets": 1101220,
+      "classes": [
+        "step",
+        "sliver",
+        "ceiling",
+        "slope",
+        "thin",
+        "ledge"
+      ],
+      "findings": 408,
+      "previously_answered_at_run": 4,
+      "requested_top": 18,
+      "reported_top": 13,
+      "failed_classes": [],
+      "reported_peak_resident_mb": 817.0,
+      "observed_physical_footprint_approx_gb": 2.1,
+      "memory_limit": "The resident high-water reading excludes compressed/swapped memory; the separate footprint is an observed approximate value, not a measured process peak.",
+      "phase_seconds": {
+        "plane_map": 89.0,
+        "find_steps": 10.0,
+        "find_slivers": 33.8,
+        "find_ceilings": 8.1,
+        "find_slopes": 5.8,
+        "surface_samples": 2.2,
+        "material_thickness": 40.6,
+        "thin_places": 457.5,
+        "find_thin_total": 500.5,
+        "find_ledges": 66.3
+      }
+    },
+    "existing_selftest": "passed at the recorded checker hash",
+    "bounded_clustering_reference": {
+      "fixtures": 54,
+      "scope": "Sparse, dense, multiband, separated, exact-radius, isolated, empty and singleton inputs; full output arrays are compared with the prior whole-graph algorithm and with that algorithm using the explicit deterministic tie rule.",
+      "exact_against_prior": 52,
+      "exact_against_deterministic_reference": 54,
+      "root_anchors_and_covered_sample_multisets_unchanged": true,
+      "permitted_exception": "In two fixtures, a thicker region touching multiple eligible roots of exactly equal least thickness is assigned to the root with the lowest original sample index instead of the undocumented cKDTree point-pair traversal order. Only the thicker rim ownership and its reported area/band can change. Root findings, anchors, thicknesses and the complete covered-sample multiset are retained."
+    },
+    "bounded_memory_examples": [
+      {
+        "samples": 10000,
+        "scope": "dense exact-radius connected component, new algorithm only",
+        "theoretical_undirected_pairs": 49995000,
+        "complete_membership": true,
+        "seconds": 19.3777383750421,
+        "reported_peak_resident_mb": 364.085248
+      },
+      {
+        "samples": 100000,
+        "scope": "sparse component spanning multiple edge batches, exact old/new output",
+        "seconds": 0.654171000001952,
+        "reported_peak_resident_mb": 341.77024
+      }
+    ]
+  }
+}

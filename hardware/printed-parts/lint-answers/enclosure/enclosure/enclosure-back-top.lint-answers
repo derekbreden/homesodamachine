@@ -179,3 +179,70 @@ click: x=-39.194 y=465.284 z=313.754
 click: x=-39.194 y=465.310 z=313.754
 click: x=-47.740 y=467.790 z=310.878
 click: x=-47.740 y=467.736 z=310.832
+
+[step] Outside the pump-dock interface: the 0.360 mm port-field/DATA backing transition remains an unresolved geometry finding. The finite native window in pump-dock/lint-interface-review.json is identical to the pre-dock interface after its +7 mm Y station translation; the port-field, DATA and jack producers are unchanged. This establishes scope, not acceptance of the step.
+alternatives: Reconcile the adjoining backing planes into a continuous full-section transition while preserving the complete chip floor, independent jack lip and installed rear-hardware clearance. Review that rear interface directly before changing either plane.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-48.160 y=471.790 z=307.556
+
+[sliver] Outside the pump-dock interface: the 1.460 mm nameplate backing transition remains unresolved. Its finite native window is identical to the pre-dock interface after the +7 mm Y station translation, as recorded in pump-dock/lint-interface-review.json. The unchanged nameplate producer retains this depth transition; it is not a consequence of the changed flute pitch.
+alternatives: Blend the ordinary and relieved backing into a complete section while retaining the plate fit and actual PSU clearance. A separate nameplate/PSU interface review must establish those bounds; the present answer does not accept the strip.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=86.560 y=471.920 z=275.953
+
+[sliver] Outside the pump-dock interface: the 0.150 mm port-chip rim strip remains unresolved. Its finite native window and producing interface are unchanged from the pre-dock geometry after the +7 mm Y station translation, with zero material added or removed in pump-dock/lint-interface-review.json.
+alternatives: Reconcile the pocket rim and backing into a complete wall section while preserving the chip's full seat and insertion envelope. Filling or removing this strip requires that receiver-interface fit review; no thin-wall or print-finish acceptance is supplied here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-79.260 y=472.225 z=254.444
+
+[sliver] Unavoidable purchased-module capture face: this 1.4 mm projection is the upper keystone tang keeper. Its flat face provides the specified positive tang engagement; the projection is not a wall-thickness measurement. The actual source and finite native window match the pre-dock interface after the +7 mm Y station translation in pump-dock/lint-interface-review.json. Physical engagement and support cleanup remain unqualified.
+alternatives: Removing the projection loses tang capture. Filling the pocket prevents module insertion; sloping the flat catch changes the purchased module's retention contact and needs a redesigned receptacle.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=465.780 z=314.487
+
+[ceiling] Outside the pump-dock interface: the PRV chase crown remains an unresolved print-down roof finding. Its finite native window is identical to the pre-dock chase after the +7 mm Y station translation in pump-dock/lint-interface-review.json; _vent_chase is unchanged. No support-removal or discharge-path acceptance is inferred.
+alternatives: Reconcile the exterior crown into a supported section or a removable-support roof while preserving the complete vent passage and installed tube envelope. That chase review must assess the actual removal path before selecting a changed roof.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-94.625 y=330.800 z=214.350
+
+[ceiling] Outside the pump-dock interface: the nameplate body-mouth end remains an unresolved support detail. The source interface and finite native window are identical to the pre-dock mouth after its +7 mm Y station translation in pump-dock/lint-interface-review.json. This does not qualify full-part support removal or plate fit.
+alternatives: Review a supported or accessible roof construction against the complete plate body and wing insertion sweep. Filling the mouth or cutting away its locating end changes that interface and requires a new fit review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=34.170 y=476.545 z=256.553
+
+[ceiling] Outside the pump-dock interface: this electronics mounting-pad end remains an unresolved supported-face detail. Its producer and finite native window are identical to the pre-dock pad after the +7 mm Y station translation in pump-dock/lint-interface-review.json. No support-cleanup or mounting-strength acceptance is claimed.
+alternatives: Reconcile the pad with a full-section corbel or accessible support construction after checking the populated board, its pins and adjacent mounting fields. Cutting or filling this end needs that electronics-mounting review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=345.300 z=259.400
+
+[slope] Unavoidable release-access boundary: these finite 48.013 degree faces bound the nameplate's 9 mm run and 10 mm rise diamond used to press the plate outward. The flagged faces are the access opening's ceiling. Their source and native windows match the pre-dock geometry after the +7 mm Y station translation in pump-dock/lint-interface-review.json; no print-finish acceptance is inferred.
+alternatives: Filling the opening with a level foot blocks the selected release access. Changing its roof requires a redesigned push opening and complete plate insertion/release review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.670 y=472.990 z=270.953
+click: x=29.670 y=472.990 z=270.953
+
+[slope] Outside the pump-dock interface: the keystone pocket roof remains unresolved. The producing functions and its finite native window are identical to the pre-dock jack after the +7 mm Y station translation in pump-dock/lint-interface-review.json. This establishes scope only, without accepting its underside or printed finish.
+alternatives: Reconcile the roof with a full-section wall or accessible support construction while preserving the entire purchased jack and latch swing. This needs a separate receptacle-interface review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=470.174 z=322.573
+
+[thin] Outside the pump-dock interface: these tube-anchor and keystone rim sections remain unresolved. Native samples lie inside material along each reported segment; these are not dismissed as mesh chords. Their producing functions and finite native windows are identical to pre-dock geometry after the +7 mm Y station translation in pump-dock/lint-interface-review.json. The enclosure-depth and flute-count changes add no material to or remove material from these windows.
+alternatives: Reconcile the curved seat and jack-rim intersections with complete sections while retaining the fitting seat, tie return, module insertion and latch swing envelopes. Those distinct fitting/jack interface corrections require their own fit review; no thin-section exception or physical acceptance is claimed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-86.510 y=366.358 z=321.921
+click: x=-86.497 y=366.358 z=321.929
+click: x=-42.226 y=472.284 z=313.754
+click: x=-42.226 y=472.310 z=313.754
+click: x=-47.740 y=474.790 z=310.878
+click: x=-47.740 y=474.736 z=310.832
+
+[ledge] Outside the pump-dock interface: this electronics pad return remains an unresolved print-down ledge. Its source interface and finite native window match the pre-dock mounting field after the +7 mm Y station translation in pump-dock/lint-interface-review.json. This does not accept the ledge or establish support cleanup.
+alternatives: Reconcile the return with a full-section pad/corbel after checking the populated board and neighboring insert/pin envelopes. Filling or cutting the ledge without that mounting review can change its assembly clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.000 y=327.300 z=327.200
+
+[ledge] Outside the pump-dock interface: these DATA and nameplate wing-slot ends remain unresolved support details. Their producers and finite native windows match the pre-dock receiver interfaces after the +7 mm Y station translation in pump-dock/lint-interface-review.json. No plate-release or support-removal acceptance is supplied.
+alternatives: Reconcile each end with an accessible supported profile while retaining the entire wing insertion/release sweep and positive locating boundary. Filling or removing the end requires a new receiver-interface fit review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-23.477 y=475.550 z=295.217
+click: x=-19.462 y=475.550 z=260.553

@@ -1,0 +1,451 @@
+{
+  "status": "Current local native frame, post, lock and keeper-motion review; complete-appliance closure is separate",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "494c38cb5af5ae4ae56bf416a5de18ef66f6e3d0e1a590ad7401d0f5e256bb82",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "1698e622f202d508f685a41ded07f50e663ee385038ba5fd29d782964910c28c"
+  },
+  "support_lock_x_mm": [
+    -52.225,
+    52.225
+  ],
+  "post_section_xz_mm": [
+    10,
+    10
+  ],
+  "validity": {
+    "bar": true,
+    "posts": [
+      true,
+      true
+    ]
+  },
+  "magnet_loading_stock_top_relative_z_mm": 19.681399999999968,
+  "magnet_loading_cavity_top_relative_z_mm": 16.681399999999968,
+  "local_checks": [
+    {
+      "name": "post0-bar",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "post0-magnet-loading-cavity0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.835903463325789
+    },
+    {
+      "name": "post0-magnet-loading-cavity1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 94.52869595842313
+    },
+    {
+      "name": "post0-moving-magnet-stock0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.396000000000001
+    },
+    {
+      "name": "post0-moving-magnet-stock1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 91.68392684107722
+    },
+    {
+      "name": "post0-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 12.874999999999993
+    },
+    {
+      "name": "post0-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 12.875
+    },
+    {
+      "name": "post0-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 57.575
+    },
+    {
+      "name": "post0-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 117.32499999999999
+    },
+    {
+      "name": "post1-bar",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "post1-magnet-loading-cavity0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 94.52869595842313
+    },
+    {
+      "name": "post1-magnet-loading-cavity1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.835903463325789
+    },
+    {
+      "name": "post1-moving-magnet-stock0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 91.68392684107722
+    },
+    {
+      "name": "post1-moving-magnet-stock1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.396000000000001
+    },
+    {
+      "name": "post1-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 117.32499999999999
+    },
+    {
+      "name": "post1-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 57.575
+    },
+    {
+      "name": "post1-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 12.875
+    },
+    {
+      "name": "post1-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 12.874999999999993
+    },
+    {
+      "name": "bar-magnet-fixed-stock0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.0191999999999837
+    },
+    {
+      "name": "bar-magnet-fixed-stock1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.0191999999999837
+    },
+    {
+      "name": "bar-magnet-moving-stock0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 10.245999999999995
+    },
+    {
+      "name": "bar-magnet-moving-stock1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 10.245999999999995
+    },
+    {
+      "name": "bar-support-washer--52.225",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "support-washer--52.225-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.219744577357394
+    },
+    {
+      "name": "support-washer--52.225-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.219744577357401
+    },
+    {
+      "name": "support-washer--52.225-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 59.286217833489765
+    },
+    {
+      "name": "support-washer--52.225-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 118.93015019329623
+    },
+    {
+      "name": "bar-support-head--52.225",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.5
+    },
+    {
+      "name": "support-head--52.225-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 16.093962377239478
+    },
+    {
+      "name": "support-head--52.225-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 16.093962377239485
+    },
+    {
+      "name": "support-head--52.225-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 60.0772887620605
+    },
+    {
+      "name": "support-head--52.225-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 119.70142281944688
+    },
+    {
+      "name": "bar-support-washer-52.225",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "support-washer-52.225-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 118.93015019329623
+    },
+    {
+      "name": "support-washer-52.225-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 59.286217833489765
+    },
+    {
+      "name": "support-washer-52.225-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.219744577357401
+    },
+    {
+      "name": "support-washer-52.225-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.219744577357394
+    },
+    {
+      "name": "bar-support-head-52.225",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.5
+    },
+    {
+      "name": "support-head-52.225-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 119.70142281944688
+    },
+    {
+      "name": "support-head-52.225-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 60.0772887620605
+    },
+    {
+      "name": "support-head-52.225-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 16.093962377239485
+    },
+    {
+      "name": "support-head-52.225-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 16.093962377239478
+    },
+    {
+      "name": "bar-keeper-washer--82.1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3729530217745924
+    },
+    {
+      "name": "bar-keeper-head--82.1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.0
+    },
+    {
+      "name": "bar-keeper-washer--22.35",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3729530217745924
+    },
+    {
+      "name": "bar-keeper-head--22.35",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.0
+    },
+    {
+      "name": "bar-keeper-washer-22.35",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3729530217745924
+    },
+    {
+      "name": "bar-keeper-head-22.35",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.0
+    },
+    {
+      "name": "bar-keeper-washer-82.1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3729530217745924
+    },
+    {
+      "name": "bar-keeper-head-82.1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.0
+    },
+    {
+      "name": "bar-installed-expanded-receiver0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "bar-installed-expanded-receiver1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "bar-installed-expanded-receiver2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "bar-installed-expanded-receiver3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "name": "bar-keeper-full20mm-sweep0",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.8499999999999943
+    },
+    {
+      "name": "bar-keeper-full20mm-sweep1",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.8499999999999943
+    },
+    {
+      "name": "bar-keeper-full20mm-sweep2",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.8499999999999943
+    },
+    {
+      "name": "bar-keeper-full20mm-sweep3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.8499999999999943
+    }
+  ],
+  "pack_snapshot_leaf_count": 182,
+  "pack_checks_below1_01": [
+    {
+      "existing": "tee-y-c",
+      "gap_mm": 0.7327004845091805,
+      "overlap_mm3": 0.0,
+      "part": "rear-frame"
+    },
+    {
+      "existing": "tee-y-d",
+      "gap_mm": 0.7327004845091782,
+      "overlap_mm3": 0.0,
+      "part": "rear-frame"
+    },
+    {
+      "existing": "tee-y-f",
+      "gap_mm": 0.7327004845091805,
+      "overlap_mm3": 0.0,
+      "part": "rear-frame"
+    },
+    {
+      "existing": "tee-y-g",
+      "gap_mm": 0.7327004845091782,
+      "overlap_mm3": 0.0,
+      "part": "rear-frame"
+    },
+    {
+      "existing": "pump-dock-potting-fixed",
+      "gap_mm": 0.835903463325764,
+      "overlap_mm3": 0.0,
+      "part": "post0"
+    },
+    {
+      "existing": "pump-dock-potting-fixed",
+      "gap_mm": 0.835903463325764,
+      "overlap_mm3": 0.0,
+      "part": "post1"
+    }
+  ],
+  "pack_clashes": [],
+  "conditional_beam_screen": {
+    "section_yz_mm": [
+      3.15,
+      9.5
+    ],
+    "I_mm4": 24.744234374999994,
+    "section_modulus_mm3": 15.710624999999997,
+    "stress_ratio": 0.3925755584756898,
+    "tip_deflection_ratio": 0.06050200561413836,
+    "stress_mpa": {
+      "4.0": {
+        "reference_centered_locks": 19.375422683693362,
+        "column_locks": 7.606317380753471
+      },
+      "17.46812543505122": {
+        "reference_centered_locks": 84.61307844897311,
+        "column_locks": 33.21702652645297
+      }
+    },
+    "scope": "Same-EI ideal point-load cantilevers from lock centers only. The actual continuous bridge, two ring uprights, lock/washer joints and intended keeper axial reaction are outside this beam model; no PET-GF allowable, total frame deflection or life rating.",
+    "reference_center_lock_span_mm": 76.1,
+    "column_lock_outer_span_mm": 29.874999999999993
+  },
+  "added_post_stock_checks": [
+    {
+      "post": 0,
+      "added_stock_to_existing_fixed_potting_mm": 3.0047676515830357,
+      "added_stock_to_current_magnet_cavities_mm": 3.004767651583063,
+      "intentional_union_with_existing_magnet_stock_mm3": 61.75107119999932
+    },
+    {
+      "post": 1,
+      "added_stock_to_existing_fixed_potting_mm": 3.0047676515830357,
+      "added_stock_to_current_magnet_cavities_mm": 3.004767651583063,
+      "intentional_union_with_existing_magnet_stock_mm3": 61.75107119999932
+    }
+  ],
+  "scope": "Current-source local bar and pilot-cut post solids, full conservative rectangular 20 mm keeper sweep bounds, expanded receiver solids, current magnet host/cavity solids and all six lock washer/head envelopes. Native distances use the named complete obstacle snapshot and its stated pose updates. The front-top host is omitted only where posts intentionally fuse to that host; complete regenerated-appliance closure is a separate result.",
+  "post_definition": {
+    "lock_x_rule": "tuple(x for x, _ in retention.column_stations(plate['holes']))",
+    "post_half_rule": "LOCK_INSERT_D/2 + SUPPORT_POST_LIGAMENT",
+    "insert_pilot_d_mm": 4.0,
+    "finished_ligament_mm": 3.0,
+    "section_xz_mm": [
+      10.0,
+      10.0
+    ],
+    "lock_z_relative_mm": 22.5,
+    "y_seat_relative_mm": 11.85
+  },
+  "unchanged_lock_stack": {
+    "rear_frame_thickness_mm": 3.15,
+    "washer_thickness_mm": 0.5,
+    "screw_under_head_mm": 8.0,
+    "thread_projection_mm": 4.35,
+    "insert_engagement_mm": 4.0,
+    "blind_end_room_mm": 0.9
+  },
+  "near_interface_scope": "The posts fuse into their magnet hosts. Stock outside those hosts has at least 3.00477 mm clearance to the magnet cavities and cured fill. The frame-to-tee mouth gap is 0.73270 mm; factory branch access requires disconnecting the run links, removing the two ties and withdrawing tee plus tail aft before operating the branch collet. No extraction force is qualified.",
+  "limits": "Local exact native geometry, conservative continuous keeper bounds and a conditional single-point cantilever screen. No printed fit, extraction force, material allowable, pressure load-sharing, total frame deflection or lifetime result.",
+  "source_to_reviewed_solids_identity": {
+    "bar_symmetric_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "post_symmetric_difference_mm3": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "scope": "Exact native symmetric-difference identity binds the current-source solids to every listed local check."
+  },
+  "native_obstacle_snapshot": {
+    "step_sha256": "62524a705a7961544c46c8067e55c56dd691363f055a02ebdd5404a2e1c31b99",
+    "named_leaves": 182,
+    "pose_scope": "Complete native snapshot with rise 10 fore-valve/coil and Y180 WAGO pose updates, and the seven source-authored route replacements installed together. Current loading-mouth magnet hosts/cavities, expanded receivers and all six lock washer/head envelopes are checked separately. Regenerated front-top/cap/cartridge geometry is outside this local obstacle-snapshot result."
+  },
+  "canonical_native_identity": {
+    "step_sha256": "2785f1a6393a5969eeb8ee34f7e63115412f32729b77d7b6ccd27d3964bb1fe5",
+    "stl_sha256": "c9316ee1811928a0761e80c04e7864687e90f0c662b945ea0612fc6416dbba05",
+    "source_shape_valid": true,
+    "source_solid_count": 1,
+    "exported_shape_valid": true,
+    "exported_solid_count": 1,
+    "source_volume_mm3": 7968.256754192353,
+    "exported_volume_mm3": 7968.256754192598,
+    "source_minus_export_mm3": 0.0,
+    "export_minus_source_mm3": 0.0
+  }
+}

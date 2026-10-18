@@ -33,9 +33,10 @@ GUIDE_INNER_X = 9.25
 GUIDE_OUTER_X = 15.25
 GUIDE_Z = (-11.0, 8.5)
 RECESS_Z = (-14.0, 40.0)
-SUPPORT_LOCK_X = (-6.0, 6.0)
 SUPPORT_LOCK_Z = 22.5
+SUPPORT_POST_LIGAMENT = 3.0
 SUPPORT_SEAT_AIR = 0.0
+SUPPORT_BRIDGE_Z = (17.75, 27.25)
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -51,6 +52,11 @@ def fused(parts):
     return parts[0].fuse(*parts[1:]).clean()
 
 
+def support_lock_x(plate):
+    """Frame locks align with the two columns between the fluid ports."""
+    return tuple(x for x, _ in retention.column_stations(plate['holes']))
+
+
 def keeper(wall_fore_y=0.0, x=0.0, z=0.0):
     y0,y1 = (wall_fore_y+y for y in receiver.KEEPER_Y)
     slab = box(x-KEEPER_HALF_WIDTH,x+KEEPER_HALF_WIDTH,y0,y1,
@@ -62,11 +68,16 @@ def keeper(wall_fore_y=0.0, x=0.0, z=0.0):
 
 
 def wall_recess(plate):
-    """One broad flat access pocket below the retained contact/ridge backing."""
+    """Broad keeper access pocket with a 45-degree roof rising aft."""
     row = plate['holes'][0][1]
-    return box(plate['x0']+6.25,plate['x1']-6.25,
-               plate['fore_y']+receiver.WALL_THICKNESS,plate['wall_aft_y']+.1,
-               row+RECESS_Z[0],row+RECESS_Z[1])
+    x0,x1=plate['x0']+6.25,plate['x1']-6.25
+    y0,y1=plate['fore_y']+receiver.WALL_THICKNESS,plate['wall_aft_y']+.1
+    roof=row+RECESS_Z[1]
+    pocket=box(x0,x1,y0,y1,row+RECESS_Z[0],roof)
+    points=[cq.Vector(x0,y0,roof),cq.Vector(x0,y1,roof),
+            cq.Vector(x0,y1,roof+y1-y0)]
+    wire=cq.Wire.makePolygon(points+[points[0]])
+    return pocket.fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(x1-x0,0,0))).clean()
 
 
 def guides(wall_fore_y,x,z):
@@ -104,9 +115,8 @@ def tee_saddle(wall_fore_y, x, z, center_y):
     trunk=cq.Solid.makeCylinder(8.5,36.7,cq.Vector(x,center_y,z-18.35),cq.Vector(0,0,1))
     stock=stock.cut(trunk).cut(ycyl(8.5,x,z,near-.1,center_y+.1))
     for dz in (-13.5,13.5):
-        for sx in (-1,1):
-            a,b=sorted((x+sx*8.5,x+sx*10.5))
-            stock=stock.cut(box(a,b,near-.1,center_y+.1,z+dz-1.75,z+dz+1.75))
+        stock=stock.cut(box(x-10.5,x+10.5,near-.1,center_y+.1,
+                            z+dz-1.75,z+dz+1.75))
     parts=[stock]
     for side in (-1,1):
         a,b=sorted((x+side*12.25,x+side*15.25))
@@ -124,9 +134,10 @@ def fixed_features(plate):
         cuts.extend((receiver.receiver_wall_cut(fore,x,z),lock_cut(fore,x,z)))
     row=plate['holes'][0][1]
     face=fore+receiver.REAR_SUPPORT_Y[0]-SUPPORT_SEAT_AIR
-    for x in SUPPORT_LOCK_X:
-        stocks.append(box(x-4,x+4,fore+receiver.WALL_THICKNESS,face,
-                          row+SUPPORT_LOCK_Z-4,row+SUPPORT_LOCK_Z+4))
+    half=LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT
+    for x in support_lock_x(plate):
+        stocks.append(box(x-half,x+half,fore+receiver.WALL_THICKNESS,face,
+                          row+SUPPORT_LOCK_Z-half,row+SUPPORT_LOCK_Z+half))
         cuts.append(ycyl(2,x,row+SUPPORT_LOCK_Z,
                          face-LOCK_INSERT_LENGTH-LOCK_RELIEF,face+.01))
     return stocks,cuts
@@ -151,7 +162,7 @@ def rear_support(plate):
     y0,y1=(plate['fore_y']+y for y in receiver.REAR_SUPPORT_Y)
     span=receiver.WALL_BORE_D/2+3
     pieces=[box(plate['holes'][0][0]-span,plate['holes'][-1][0]+span,
-                y0,y1,row+18,row+27)]
+                y0,y1,row+SUPPORT_BRIDGE_Z[0],row+SUPPORT_BRIDGE_Z[1])]
     for x,z in plate['holes']:
         pieces.append(ycyl(span,x,z,y0,y1).cut(
             receiver.rear_support_cut(plate['fore_y'],x,z)))
@@ -159,7 +170,7 @@ def rear_support(plate):
             a,b=sorted((x+side*3.75,x+side*6.75))
             pieces.append(box(a,b,y0,y1,z+6,z+27))
     stock=fused(pieces)
-    for x in SUPPORT_LOCK_X:
+    for x in support_lock_x(plate):
         stock=stock.cut(ycyl(LOCK_BORE_D/2,x,row+SUPPORT_LOCK_Z,y0-.1,y1+.1))
     return stock.clean()
 
@@ -179,8 +190,10 @@ def tube_setting_jig(plate, cartridge_face_y):
         bore=ycyl(3.5,x,z,cartridge_face_y-.1,tip)
         opening=box(x-3.5,x+3.5,cartridge_face_y-.1,tip,z,row+8.1)
         body=body.cut(bore.fuse(opening))
-        body=body.cut(ycyl(stems.GUARD_OD/2+.25,x,z,
-                           cartridge_face_y-.1,stems.GUARD_AFT_Y+.25))
+        guard_half=stems.GUARD_OD/2+.25
+        body=body.cut(box(x-guard_half,x+guard_half,
+                          cartridge_face_y-.1,stems.GUARD_AFT_Y+.25,
+                          row-8.1,row+8.1))
     # The two magnet guards also project behind the retained cartridge plane.
     for x,z in retention.column_stations(plate['holes']):
         half=retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK+.25

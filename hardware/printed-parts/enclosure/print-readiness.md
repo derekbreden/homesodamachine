@@ -10,7 +10,7 @@ The four TPU receivers have a completed
 [native plate preparation](pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
 using Siraya Tech Flex TPU85A Clear on the retained Mark1/right 0.6 mm Engineering
 Plate recipe. Its emitted-path review covers all four parts, exterior support and
-bore exclusion; the slicer estimates 2 h 7 min and 9.83 g including support/brim.
+bore exclusion; the slicer estimates 2 h 14 min and 10.53 g including support/brim.
 The archive is prepared for review and has not been sent to a printer. Internal
 strands, support cleanup, seal fit and physical behavior remain unassessed on these receivers.
 The remaining PET-GF dock parts require their own native slices. The complete pump
@@ -20,6 +20,12 @@ SB443-IN magnet capture and rigid cartridge stops belong to that qualification. 
 [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
 [connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
 retain their identified scopes; neither establishes receiver sealing or retention under pressure.
+
+The [manual mesh-interface review](pump-dock/lint-interface-review.json) records
+two front-bottom classifier limitations and separately scoped unresolved rear-interface,
+handhold-floor and raised-warning details. Its native/source correspondence and
+completed checker reading establish the recorded geometry scope; physical print
+quality, cleanup and load capacity remain unqualified.
 
 Every reviewed print archive, the printer and settings it is sliced for, the geometry it binds
 by hash and its support-removal review are in the

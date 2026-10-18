@@ -1,0 +1,10 @@
+[ledge] Wrong build direction for this factory tool. magnet-retention.md specifies the common Y76.515 back on the bed, with machine +Y as build-up. These Z-normal bridge faces are vertical in that pose. The hash-bound factory_gauge_build_pose_review in magnet-geometry.json reads the canonical STL and finds every horizontal print-down facet on the bed.
+alternatives: Printing upright in machine +Z would require support below both bridge arms. The specified flat-back pose retains the required 1.754 mm pole-setting step, with the central rib, both feet and bridge starting directly on the common bed plane; changing the gauge's machine-frame geometry is unnecessary.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-fixed.step
+click: x=-47.167 y=78.515 z=206.855
+click: x=-59.342 y=78.515 z=206.855
+
+[thin] Wrong threshold classification at the nominal 3 mm boundary. The tool plate is exactly 3.000 mm between Y76.515 and Y79.515. The canonical STL's corresponding coordinate interval also measures exactly 3.000 mm, meeting the ordinary wall dimension. The gauge_three_mm_boundary_review in magnet-geometry.json binds both surfaces and their hashes.
+alternatives: Adding a small thickness solely to move an exact 3 mm plate past the classifier's numeric boundary changes the factory tool without addressing an actual thin section. The classifier should distinguish its numeric threshold from a material section below 3 mm; printed gauge accuracy remains a separate measurement.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-fixed.step
+click: x=-61.417 y=76.515 z=206.502

@@ -34,11 +34,11 @@ MAGNETS_PER_HALF = ROWS_PER_COLUMN * COLUMNS_PER_HALF
 # These are local dry fitting allowances, separate from the wet receiver bore.
 SLOT_HALF = 3.325
 RAIL_TIP = 2.625
-RAIL_FRONT = 1.95
+RAIL_FRONT = 2.00
 RAIL_THICKNESS = 0.60
 BACK_AIR = 0.20
 SIDE_KEY = 1.60
-KEY_FRONT = 2.65
+KEY_FRONT = RAIL_FRONT + RAIL_THICKNESS
 STRUCTURAL_STOCK = 3.0
 GUARD_AIR = 0.25
 GUARD_POLE_PROUD = 0.15
@@ -282,6 +282,7 @@ def dimensions(i):
             "guard_running_air_mm": GUARD_AIR,
             "common_drawing_groove_interval_mm": [common_front, common_back],
             "rail_depth_interval_mm": [RAIL_FRONT, RAIL_FRONT + RAIL_THICKNESS],
+            "key_cavity_front_depth_mm": KEY_FRONT,
             "rail_to_worst_drawing_groove_air_mm": [RAIL_FRONT - common_front,
                                                     common_back - RAIL_FRONT - RAIL_THICKNESS],
             "rail_tip_to_maximum_groove_neck_air_mm": RAIL_TIP - (GROOVED_WIDTH + GROOVED_WIDTH_TOLERANCE) / 2,

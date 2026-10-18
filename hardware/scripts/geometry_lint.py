@@ -425,14 +425,28 @@ def _met_islands(aa, bb):
     (island of `aa`, island of `bb`, met uv lo, met uv hi)."""
     a_lo, a_hi = np.array([p.uv_lo for p in aa]), np.array([p.uv_hi for p in aa])
     b_lo, b_hi = np.array([p.uv_lo for p in bb]), np.array([p.uv_hi for p in bb])
-    lo = np.maximum(a_lo[:, None, :], b_lo[None, :, :])
-    hi = np.minimum(a_hi[:, None, :], b_hi[None, :, :])
-    w = hi - lo
-    met = ((w.min(axis=2) >= _STEP_OVERLAP_MINOR)
-           & (w.max(axis=2) >= _STEP_OVERLAP_MAJOR))
-    pairs = np.argwhere(met)
-    order = np.argsort(-w.max(axis=2)[met], kind="stable")
-    return [(aa[i], bb[j], lo[i, j], hi[i, j]) for i, j in pairs[order]]
+    pairs, widths = [], []
+    # A fluted face can have thousands of disconnected islands on each plane.
+    # Keep the Cartesian comparison bounded rather than holding several N by M
+    # arrays at once. Row order and the final stable sort match the full matrix.
+    rows = max(1, 262144 // max(1, len(bb)))
+    for start in range(0, len(aa), rows):
+        lo = np.maximum(a_lo[start:start + rows, None, :], b_lo[None, :, :])
+        hi = np.minimum(a_hi[start:start + rows, None, :], b_hi[None, :, :])
+        w = hi - lo
+        major = w.max(axis=2)
+        met = ((w.min(axis=2) >= _STEP_OVERLAP_MINOR)
+               & (major >= _STEP_OVERLAP_MAJOR))
+        selected = np.argwhere(met)
+        selected[:, 0] += start
+        pairs.append(selected)
+        widths.append(major[met])
+    if not pairs:
+        return []
+    pairs = np.concatenate(pairs)
+    order = np.argsort(-np.concatenate(widths), kind="stable")
+    return [(aa[i], bb[j], np.maximum(a_lo[i], b_lo[j]),
+             np.minimum(a_hi[i], b_hi[j])) for i, j in pairs[order]]
 
 
 def _on_facets(p, lo, hi):
@@ -832,6 +846,56 @@ def _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet):
             break
 
 
+def _near_sample_pairs(tree, pts, counts, radius):
+    """The exact radius graph in bounded batches, each undirected edge once.
+
+    Size a batch by its neighbor count, not its number of query points: a dense
+    patch can put thousands of neighbors behind one point. One unusually dense
+    query still holds at most one row of the graph, never its whole square.
+    """
+    ends = np.cumsum(counts)
+    start = 0
+    while start < len(pts):
+        before = int(ends[start - 1]) if start else 0
+        stop = max(start + 1, int(np.searchsorted(ends, before + 262144,
+                                                side="right")))
+        neighbors = tree.query_ball_point(pts[start:stop], radius,
+                                         return_sorted=False)
+        a = np.repeat(np.arange(start, stop), counts[start:stop])
+        b = np.concatenate(neighbors)
+        keep = a < b
+        yield a[keep], b[keep]
+        start = stop
+
+
+def _component_roots(parent, at):
+    """Current disjoint-set roots, compressing only the requested paths."""
+    roots = parent[at]
+    above = parent[roots]
+    while np.any(roots != above):
+        roots = above
+        above = parent[roots]
+    parent[at] = roots
+    return roots
+
+
+def _join_sample_components(parent, a, b):
+    """Union a bounded edge batch, retaining the minimum original index as root."""
+    a, b = _component_roots(parent, a), _component_roots(parent, b)
+    keep = a != b
+    if not np.any(keep):
+        return
+    a, b = a[keep], b[keep]
+    vertices, inverse = np.unique(np.concatenate((a, b)), return_inverse=True)
+    edges = sp.coo_matrix((np.ones(len(a), bool),
+                           (inverse[:len(a)], inverse[len(a):])),
+                          shape=(len(vertices), len(vertices)))
+    count, labels = sp.csgraph.connected_components(edges, directed=False)
+    least = np.full(count, len(parent), np.int64)
+    np.minimum.at(least, labels, vertices)
+    parent[vertices] = least[labels]
+
+
 def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
     """Where the material is thin, one entry per place, thinnest first: (the sample where it is
     thinnest, the samples of the place, the band edge the place reaches up to, its pieces).
@@ -849,15 +913,29 @@ def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
     band = np.where(t < _THIN_BAND0, 0,
                     np.floor(np.log2(np.maximum(t, _THIN_BAND0) / _THIN_BAND0)).astype(np.int64)
                     + 1)
-    pairs = cKDTree(pts[thin]).query_pairs(link, output_type="ndarray")
-    a, b = pairs[:, 0], pairs[:, 1]
-    same = band[a] == band[b]
-    graph = sp.coo_matrix((np.ones(int(same.sum())), (a[same], b[same])),
-                          shape=(len(thin), len(thin)))
-    count, region = sp.csgraph.connected_components(graph, directed=False)
+    points = pts[thin]
+    tree = cKDTree(points)
+    counts = tree.query_ball_point(points, link, return_length=True)
+    parent = np.arange(len(thin))
+    for a, b in _near_sample_pairs(tree, points, counts, link):
+        same = band[a] == band[b]
+        _join_sample_components(parent, a[same], b[same])
+    # SciPy numbers a component when it first visits its lowest input index.
+    # Minimum-index roots reproduce those labels without retaining every edge.
+    roots, region = np.unique(_component_roots(parent, np.arange(len(thin))),
+                              return_inverse=True)
+    count = len(roots)
     level = np.zeros(count, np.int64)
     level[region] = band
-    ra, rb = region[a[~same]], region[b[~same]]
+    cross = set()
+    for a, b in _near_sample_pairs(tree, points, counts, link):
+        ra, rb = region[a], region[b]
+        different = level[ra] != level[rb]
+        pairs = np.column_stack((np.minimum(ra[different], rb[different]),
+                                 np.maximum(ra[different], rb[different])))
+        cross.update(map(tuple, np.unique(pairs, axis=0)))
+    pairs = np.array(sorted(cross), dtype=np.int64).reshape(-1, 2)
+    ra, rb = pairs[:, 0], pairs[:, 1]
     thicker = np.where(level[ra] > level[rb], ra, rb)
     thinner = np.where(level[ra] > level[rb], rb, ra)
     surrounded = np.zeros(count, bool)
@@ -869,7 +947,9 @@ def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
     out, into = thicker[step], thinner[step]
     joins = {}
     if len(out):
-        order = np.lexsort((least[into], out))
+        # Equal-thickness roots use their minimum original sample index, rather
+        # than the undocumented order in which KDTree returned point pairs.
+        order = np.lexsort((into, least[into], out))
         first = order[np.r_[True, out[order][1:] != out[order][:-1]]]
         joins = dict(zip(out[first].tolist(), into[first].tolist()))
     by_place = {}
@@ -886,10 +966,11 @@ def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
     hi = np.array([pts[thin[o]].max(axis=0) for o in owns])
     lv = level[roots]
     near = []
-    for i in range(0, len(roots), 512):              # boxes within reach, a block of rows at a time
-        gap = np.maximum(lo[i:i + 512, None, :] - hi[None, :, :],
-                         lo[None, :, :] - hi[i:i + 512, None, :]).max(axis=2)
-        a_, b_ = np.nonzero((gap <= gather) & (np.abs(lv[i:i + 512, None] - lv[None, :]) <= 1))
+    rows = max(1, 262144 // max(1, len(roots)))
+    for i in range(0, len(roots), rows):
+        gap = np.maximum(lo[i:i + rows, None, :] - hi[None, :, :],
+                         lo[None, :, :] - hi[i:i + rows, None, :]).max(axis=2)
+        a_, b_ = np.nonzero((gap <= gather) & (np.abs(lv[i:i + rows, None] - lv[None, :]) <= 1))
         near.extend((int(x + i), int(y)) for x, y in zip(a_, b_) if x + i < y)
     parent = np.arange(len(roots))
 

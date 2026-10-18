@@ -1,16 +1,15 @@
 [ceiling] Flat transition from the fitted motor bore to the wider open terminal well. The cap prints crown-down; support is open to the bed and withdraws axially through the same Ø45 well before pump installation.
+alternatives: Extending the Ø45 opening through the complete motor bore removes its locating shoulder. A sloping transition changes the retained motor seat. The flat shoulder retains that fitted interface and receives supports through the open terminal well; its printed finish and support removal keep their own physical scope.
 click: x=-52.225 y=44.859 z=278.925
 click: x=52.225 y=44.859 z=278.925
 
-[ceiling] The contact pair's female seat and the lead slot behind it share one roof, the seat's floor in the machine, 0.25 mm below the seat for the crown-down print. It bridges between the mouth's round ends and the slot's walls, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Support placed here stands 4.6 mm in the open seat and leaves through the mouth or the crown before the half goes in.
+[ceiling] Required flat lower boundary of the female connector seat and its lead slot. The cap prints crown-down, with the supported-face allowance on this machine-floor face. Supports have a 4.6 mm-deep open seat and leave through its aft mouth or the crown slot before the connector is installed. Ear plates, screws and inserts retain their separate mounting datums; this answer does not transfer the coupon's fit result to the full cap.
+alternatives: A ramp intruding into the seat changes the connector's required stadium clearance; ramping outward removes additional cap stock beside the lead route. An open slot through the floor removes the enclosure boundary beneath the connector. The flat seat keeps the specified body envelope and uses its accessible mouth/crown support path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=0.000 y=74.769 z=276.124
+click: x=0.000 y=74.705 z=276.124
 
-[ceiling] Each crown groove's floor, 3.5 mm into the bed face. The groove is 4 mm wide, so its roof in the print is a 4 mm bridge between the groove's two walls, and the two leads it carries lie loose in it.
+[ceiling] Required routing floors of the two crown grooves, 4 mm wide and 3.5 mm into the cap's bed face. Each groove opens directly to the crown and joins an open motor-terminal well, so supports are removed through the bed-side opening before wiring. The groove defines routing space; assembled lead restraint and printed roof finish are separate qualifications.
+alternatives: A V-section with the same depth reduces the space for the two insulated leads; retaining that space requires a deeper or wider cut through the cap. Cutting through the cap removes the floor and its connection between the seat and terminal wells. The open flat-bottom grooves preserve the specified wire envelope and support access.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-18.325 y=63.771 z=280.674
-click: x=18.325 y=63.771 z=280.674
-
-[step] The recessed M1.4 insertion entry opens into the connector's existing body cavity. These parallel faces at Y74.259 and Y75.119 are clearance transitions in front of the installed insert, whose top is Y74.269 and body extends toward lower Y. The Ø2.6 entry admits the whole knurl without moving the ear-bearing datum at Y76.269. The native heat-set audit reads the full 4 mm installed body and retains at least 1.148 mm surrounding stock; the 0.860 mm depth offset is not a load-bearing thin web.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=6.324 y=75.119 z=278.399
+click: x=-18.313 y=63.689 z=280.674
+click: x=18.313 y=63.689 z=280.674

@@ -934,5 +934,555 @@
     "check_count": 39,
     "failed_checks": [],
     "limitations": "This bounded review establishes geometry in the identified exported parts. The retained physical limitations and separate complete-assembly review still apply."
+  },
+  "post_lint_final_export_review": {
+    "scope": "Canonical exported native STEP geometry read directly, with no stop fuse or other candidate construction; verifies surviving stock, contact, backing and sampled service extraction.",
+    "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_body_stops.py --final-export --record-key post_lint_final_export_review --box hardware/manifold-layout/enclosure-box.json",
+    "prior_scoped_record_sha256_before_append": "dc41bb4853c9d803ee38d4983af9e96c083d6903154267b852a12b4c09310480",
+    "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "review_script_sha256": "d5a17650fcf9d8d126e808f8d90ae54ffaa0988a7fdbe3b26ee45878de36aee9",
+    "enclosure_source_sha256": "3caf16daf781f06a907e16484ee4fba839a71bdb14d4dd7c889cd9fa6e8d3a3c",
+    "isolated_helper_and_constants_sha256": "b5273487086c37c4a6b24334231f8dcd90066954b0c9cd1b30a87de6638abc3f",
+    "input_step_sha256": {
+      "enclosure-front-top.step": "be1f038c1d361dd7b1412c2b4289649bb0d1257fe848146cee2f6cde88eb41a7",
+      "enclosure-pump-cartridge.step": "80d7c95ef273445a2b1c638681c5d46769ec66b2149ee881833c5a7c194a7b32",
+      "enclosure-pump-cap.step": "c172a54aaeb530f175bbb18447dc77bc347afdbb830184b0148aceaebbbe7299",
+      "enclosure-front-bottom.step": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa"
+    },
+    "checks": [
+      {
+        "check": "final source retains the candidate stop helper and constants",
+        "passed": true,
+        "isolated_helper_and_constants_sha256": "b5273487086c37c4a6b24334231f8dcd90066954b0c9cd1b30a87de6638abc3f"
+      },
+      {
+        "check": "current declared Box yields the same four body-stop regions",
+        "passed": true,
+        "box_stop_bounds_mm": [
+          {
+            "x": [
+              -102.0,
+              -98.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              217.925,
+              229.925
+            ]
+          },
+          {
+            "x": [
+              -102.0,
+              -98.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              260.17400000000004,
+              272.17400000000004
+            ]
+          },
+          {
+            "x": [
+              98.0,
+              102.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              217.925,
+              229.925
+            ]
+          },
+          {
+            "x": [
+              98.0,
+              102.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              260.17400000000004,
+              272.17400000000004
+            ]
+          }
+        ]
+      },
+      {
+        "check": "exported front-top is one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "exported land 1: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 1: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 1: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 2: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 2: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 2: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 3: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 3: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 3: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 4: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 4: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 4: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported cradle withdrawal Y+0.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y+0.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y+0.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y+0.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.01: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.01: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.01: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.01: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.25: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.25: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.25: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.25: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-8.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-8.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-8.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-8.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-40.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-40.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-40.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-40.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported fixed wall arrests lower-cradle overtravel 0.001",
+        "passed": true,
+        "overlap_mm3": 0.19200000000091663
+      },
+      {
+        "check": "exported fixed wall arrests lower-cradle overtravel 0.010",
+        "passed": true,
+        "overlap_mm3": 1.9200000000009787
+      },
+      {
+        "check": "exported cap remains outside both stop X lanes for any Z lift",
+        "passed": true,
+        "minimum_lateral_air_mm": 4.902841276038615
+      },
+      {
+        "check": "canonical native inputs remained stable throughout this review",
+        "passed": true
+      }
+    ],
+    "check_count": 39,
+    "failed_checks": [],
+    "limitations": "This bounded review establishes geometry in the identified exported parts. The retained physical limitations and separate complete-assembly review still apply."
+  },
+  "current_canonical_export_review": {
+    "scope": "Canonical exported native STEP geometry read directly, with no stop fuse or other candidate construction; verifies surviving stock, contact, backing and sampled service extraction.",
+    "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_body_stops.py --final-export --record-key current_canonical_export_review --box hardware/manifold-layout/enclosure-box.json",
+    "prior_scoped_record_sha256_before_append": "7a2172de30ca4d03bd7078eb19c51e088b168b7f3e0100cbc2789e9c00602bca",
+    "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "review_script_sha256": "d5a17650fcf9d8d126e808f8d90ae54ffaa0988a7fdbe3b26ee45878de36aee9",
+    "enclosure_source_sha256": "f3f053f5189cf238af0829a56e3a52359923893ed33a368ece827fc4589a8bdd",
+    "isolated_helper_and_constants_sha256": "b5273487086c37c4a6b24334231f8dcd90066954b0c9cd1b30a87de6638abc3f",
+    "input_step_sha256": {
+      "enclosure-front-top.step": "b73c43b33a8941e6ac9d268fd3e9ddb432ec719981d31683fd7c4e0b4761e36f",
+      "enclosure-pump-cartridge.step": "339c84bb21c4f29fdc14f20b28914af177792b1aa8a4d27e829633d13ef27540",
+      "enclosure-pump-cap.step": "3a5cda11f8460477cdf3a6ea66e9b13b1322e912359f06bf1285c5852a6086a1",
+      "enclosure-front-bottom.step": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa"
+    },
+    "checks": [
+      {
+        "check": "final source retains the candidate stop helper and constants",
+        "passed": true,
+        "isolated_helper_and_constants_sha256": "b5273487086c37c4a6b24334231f8dcd90066954b0c9cd1b30a87de6638abc3f"
+      },
+      {
+        "check": "current declared Box yields the same four body-stop regions",
+        "passed": true,
+        "box_stop_bounds_mm": [
+          {
+            "x": [
+              -102.0,
+              -98.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              217.925,
+              229.925
+            ]
+          },
+          {
+            "x": [
+              -102.0,
+              -98.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              260.17400000000004,
+              272.17400000000004
+            ]
+          },
+          {
+            "x": [
+              98.0,
+              102.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              217.925,
+              229.925
+            ]
+          },
+          {
+            "x": [
+              98.0,
+              102.0
+            ],
+            "y": [
+              79.269,
+              82.515
+            ],
+            "z": [
+              260.17400000000004,
+              272.17400000000004
+            ]
+          }
+        ]
+      },
+      {
+        "check": "exported front-top is one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "exported land 1: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 1: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 1: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 2: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 2: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 2: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 3: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 3: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 3: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported land 4: complete stop stock survived later cuts",
+        "passed": true,
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "check": "exported land 4: complete 3 mm integral wall backing",
+        "passed": true,
+        "embedded_stock_mm3": 144.0
+      },
+      {
+        "check": "exported land 4: full coplanar fixed/cradle contact faces",
+        "passed": true,
+        "fixed_contact_face_mm2": 48.0,
+        "cradle_contact_face_mm2": 48.0
+      },
+      {
+        "check": "exported cradle withdrawal Y+0.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y+0.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y+0.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y+0.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.01: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.01: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.01: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.01: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.25: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-0.25: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.25: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-0.25: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-8.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-8.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-8.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-8.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-40.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cradle withdrawal Y-40.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-40.00: front-top clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported cap withdrawal Y-40.00: front-bottom clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported fixed wall arrests lower-cradle overtravel 0.001",
+        "passed": true,
+        "overlap_mm3": 0.19200000000091663
+      },
+      {
+        "check": "exported fixed wall arrests lower-cradle overtravel 0.010",
+        "passed": true,
+        "overlap_mm3": 1.9200000000009787
+      },
+      {
+        "check": "exported cap remains outside both stop X lanes for any Z lift",
+        "passed": true,
+        "minimum_lateral_air_mm": 4.7528030429169945
+      },
+      {
+        "check": "canonical native inputs remained stable throughout this review",
+        "passed": true
+      }
+    ],
+    "check_count": 39,
+    "failed_checks": [],
+    "limitations": "This bounded review establishes geometry in the identified exported parts. The retained physical limitations and separate complete-assembly review still apply."
   }
 }

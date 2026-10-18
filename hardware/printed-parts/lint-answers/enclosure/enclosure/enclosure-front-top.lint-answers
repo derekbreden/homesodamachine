@@ -1,29 +1,17 @@
-[step] The |X|98.75 receiver planes are 0.25 mm outside the covers' nominal |X|98.5 backs; the surrounding flank is at |X|98.5. These are the finite outer walls of the cover-back running-clearance pockets. Current native cover-face readings verify 0.25 mm actual opposed X clearance and complete 3 mm guide fingers.
-alternatives: Filling to the flank plane removes the cover-back gap. Moving the entire surrounding flank changes unrelated mounting and rail sections; the cover pose and guides remain fixed.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.750 y=141.361 z=203.048
-click: x=-98.750 y=141.361 z=203.048
-
 [step] The Y80.012898 face above Z332.998205 is the aft wall of the 12 mm support-removal exit that continues the display-wing pocket outline. Its current pick at Z335.037 lies inside that short exit. The compared Y79.515 plane belongs to the pump bay below. The long removal extension joins the bay plane through a 45° transition below the short exit. The bounded source-negative proof retains the complete wing pocket and its 12 mm exits; physical support removal remains unqualified.
 alternatives: Moving the upper wall from Y80.012898 to Y79.515 clips a 0.497898 mm slice from the retained support passage. Enlarging the whole bay changes unrelated component clearances. The lower extension can share the bay boundary while the complete short exit remains open.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-64.775 y=80.013 z=335.037
 
-[sliver] These Y153.436 end faces close the original rectangular aft-cover receiving pockets. The nominal cover ends at Y153.186, retaining 0.25 mm running air. Their 0.25 mm X span joins the nominal flank |X|98.5 to the receiving backwall |X|98.75, which also retains the cover-back gap. The current native window review preserves the full guide fingers and the specified receiving gaps.
-alternatives: Filling the return removes part of the cover-back or aft-end clearance. Extending the pocket changes its finite running envelope. A separate shallow corner chamfer introduces an additional pocket perimeter rather than changing the required fitted planes.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-98.625 y=153.436 z=202.923
-click: x=98.625 y=153.436 z=202.923
-
-[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm depth is the required difference between flank |X|98.5 and the yoke sweep |X|99.85, including its finite fore/aft and lower end planes. They are named installation-envelope boundaries.
+[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm pocket depth is the required difference between flank |X|98.5 and the yoke sweep |X|99.85, including its finite fore/aft and lower end planes. They are finite installation-envelope boundaries, not 1.35 mm enclosure walls.
 alternatives: Filling the recess intrudes into the yoke approach. Cutting the surrounding flank back to the recess plane removes unrelated rail and mounting material. Retain this finite fitting envelope.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-99.175 y=151.152 z=253.100
-click: x=99.175 y=150.882 z=253.100
-click: x=-99.175 y=117.540 z=253.100
-click: x=99.175 y=117.540 z=253.100
-click: x=-99.175 y=134.346 z=235.811
-click: x=99.175 y=134.211 z=235.811
+click: x=-99.175 y=163.152 z=253.100
+click: x=99.175 y=162.882 z=253.100
+click: x=-99.175 y=129.540 z=253.100
+click: x=99.175 y=129.540 z=253.100
+click: x=-99.175 y=146.346 z=235.811
+click: x=99.175 y=146.211 z=235.811
 
 [ceiling] The complete bay roof at Z284.674 preserves the pump cartridge withdrawal envelope under the display/ridge storey. Support is accessible through the empty front cartridge bay before assembly; current native floor/roof fit evidence does not qualify physical cleanup.
 alternatives: Filling under this roof enters cartridge travel; sloping it changes the prescribed full-width bay envelope and lintel section.
@@ -36,28 +24,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-95.000 y=207.400 z=272.500
 click: x=95.000 y=207.400 z=272.500
 
-[ceiling] The Z224.796 window roofs preserve the specifically adopted 1.00 mm low-force roof air above the moving tee-carrier columns. The windows are open for support removal before the carrier and springs are installed. Existing carrier acceptance remains scoped to its recorded physical pieces.
-alternatives: Filling below the roof reduces the selected carrier clearance; cutting a different roof changes the column travel envelope and its adjoining tray root.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-103.000 y=105.138 z=224.796
-click: x=103.000 y=105.138 z=224.796
-
-[ceiling] The Z225.296 flats receive the cover tops with 0.50 mm normal clearance, comprising 0.25 mm running air and one 0.25 mm supported opposing face. The cover reference geometry is fixed. Support leaves through the empty window before cover insertion; removal effort is unqualified.
-alternatives: Filling reduces the supported running gap; sloping into the pocket changes the complete cover-top clearance envelope.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=103.000 y=135.188 z=225.296
-click: x=-103.000 y=135.188 z=225.296
-
 [ceiling] The Z195.8 roofs clear back-top lower hubs at Z195.05 by 0.75 mm, including running air and both supported opposing faces. The current native paired-face audit verifies this gap. Support leaves through the open corner before assembly; physical cleanup is unqualified.
 alternatives: An added corbel occupies hub travel. A cut above the roof spends the corner root that joins the insert stack to the rail storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.375 y=208.900 z=195.800
 click: x=101.375 y=208.900 z=195.800
-
-[ceiling] The manifold-B connector pocket has the selected complete flat retention lid at Z261.4. It locates/captures the connector across its full width. Support can leave through the empty inboard pocket before the connector is installed; support-removal effort and printed fit remain unqualified.
-alternatives: Removing the lid loses the selected retention profile. Filling below it enters the connector/lever envelope; changing to tabs requires a different retention design.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.850 y=169.000 z=261.400
 
 [ceiling] These Z307.4 flats are the front funnel-frame receivers' hooked bearing feet. The current native frame pair retains 0.50 mm at these supported moving faces and 0.25 mm at its vertical guides. Support is accessible through the empty frame opening; cleanup remains unqualified.
 alternatives: Sloping the caught face changes the lifting-retention profile. Filling under it reduces frame entry clearance; removing it loses capture.
@@ -65,18 +36,32 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.125 y=155.116 z=307.400
 click: x=101.125 y=155.116 z=307.400
 
-[ceiling] This flat roof closes the sealed C3 RC62 pocket after the insertion pause. The roof must bridge the 3.175 mm pocket depth while retaining the ring below both rims. The recorded magnet-retention native check is limited to its saved pause/closing paths; current-part heat exposure, roof finish and retention remain unqualified.
-alternatives: Leaving the pocket open changes ring retention. Filling its cavity obstructs the ring; support cannot remain in the closed pocket.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=82.302 z=196.179
-
-[ceiling] The Z280.924 flat is the pogo contact seat roof, with the authored supported-face clearance over its purchased body and ear-plane reference. The lead passage continues through its own teardrop. Support leaves through the empty bay-facing mouth before the contact is screwed in; cleanup remains unqualified.
-alternatives: Filling enters the purchased contact body. Sloping into the seat changes its clearance envelope; moving the contact changes alignment with the cartridge half.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=82.020 z=280.924
-
 [ledge] These two 2 mm projection faces are the manifold-A Wago well retention tabs. Their separated ends capture the connector while the center remains open for lever/wire access and the selected short-bridge roof profile.
 alternatives: Removing tabs loses end retention. Joining them changes this selected open-center lid and its support treatment.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.300 y=161.617 z=295.300
-click: x=98.300 y=175.717 z=295.300
+click: x=98.300 y=172.617 z=295.300
+click: x=98.300 y=186.717 z=295.300
+
+[step] Four 4 by 12 mm lands establish the cartridge closing plane at Y79.269. The surrounding wall is a separate clearance surface at Y79.515, not a bearing intended to be flush with these lands. The body-stop native review verifies the four specified contact areas and arrested overtravel.
+alternatives: Removing the 0.246 mm projection permits extra tube insertion and pogo compression before the frame stops. Advancing the complete wall makes the whole broad face a seating datum, requiring broad-face flatness instead of four defined bearing areas. Retain the specified bearing plane and surrounding clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-100.000 y=79.269 z=223.925
+click: x=100.000 y=79.269 z=223.925
+click: x=-100.000 y=79.269 z=266.174
+click: x=100.000 y=79.269 z=266.174
+
+[step] These faces bound the fixed magnet's groove-engaging rail. The 0.700 mm X step is intentional engagement into the purchased SB443-IN groove. Its rail tip must clear the maximum groove neck while overlapping the full-width magnet body. The native magnet review checks the complete drawing tolerance and loading route.
+alternatives: Making the rail-tip and cavity faces flush removes positive groove engagement. Moving the tip further inward enters the maximum supplier neck envelope. Moving it outward removes engagement. The two planes must remain distinct for this capture.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-49.600 y=83.569 z=186.426
+click: x=49.600 y=83.569 z=186.426
+
+[ceiling] The fore valve tray retains a flat lower edge above the fixed dock and rear support. Its lower datum and valve-port channels preserve the four purchased valve envelopes. Tree(auto)/Default support is accessible through the empty interior before receivers, rear support, tees and valves are installed; physical cleanup remains unqualified.
+alternatives: A full 45 degree corbel from Y111.44/Z230.4 to the wall at Y93.836 reaches Z213.475 at the rear support's Y94.515 aft edge, only 0.051 mm above its Z213.424 top, losing the required clearance. A solid foot occupies the fixed plumbing and support installation region. Raising the whole tray changes all four valve and link stations. Retain the fitted tray and remove its supports through the empty interior.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=106.840 z=230.400
+
+[ceiling] The manifold-B connector pocket has a complete flat retention lid at Z261.4. It captures the connector across its width. Tree(auto)/Default support leaves through the empty inboard pocket at Y180 before connector installation; printed fit and removal effort remain unqualified.
+alternatives: Removing the lid removes connector capture. Filling or sloping into it enters the connector and open-lever envelope. Replacing it with tabs requires a different retention profile and support treatment.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=99.850 y=180.000 z=261.400

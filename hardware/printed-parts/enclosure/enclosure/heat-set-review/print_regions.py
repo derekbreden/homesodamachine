@@ -69,9 +69,10 @@ def dock_regions(box, region):
             b[2] = fore
             region('front-top', f'Dock keeper guide {number}/{side}, stop and wall root', b)
 
-    # fixed_features appends these two native support posts in SUPPORT_LOCK_X order.
-    posts = dock.fixed_features(plate)[0][-len(dock.SUPPORT_LOCK_X):]
-    for x, shape in zip(dock.SUPPORT_LOCK_X, posts):
+    # fixed_features appends the two posts in the plate-derived lock-station order.
+    support_x = dock.support_lock_x(plate)
+    posts = dock.fixed_features(plate)[0][-len(support_x):]
+    for x, shape in zip(support_x, posts):
         b = shape_bounds(shape)
         b[2] = fore
         region('front-top', f'Dock rear-support lock {x:g}, complete post and wall root', b)
