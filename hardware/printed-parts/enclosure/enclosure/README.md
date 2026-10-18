@@ -1131,8 +1131,10 @@ from inside the box, and the back of the machine is flat.
 The inlet stands on one column, `enclosure.c14_station_x`: the aperture, tunnel, pocket and
 both screw stations all follow that one X datum, and its Z is aligned with the other top-row
 ports. The ceiling passage and shallow flange seat are the canonical slipped flange profile —
-the same straight-sided dog-bone with its two round ears. Only the smaller 25 × 19 mm, r1.5
-shroud opening continues through the rear wall. Over the inlet the ceiling is the slab's own
+the same straight-sided dog-bone with its two round ears. Only the 28.3 × 19.3 mm, R1.5
+cord-access opening continues through the rear wall and tunnel. Its 3 mm total extra X width
+is independent of the female inlet's mounting pocket and keeps the X datum fixed.
+Over the inlet the ceiling is the slab's own
 underside, which looks print-up, so nothing between the receptacle's moulded rim and the ceiling
 asks for a separate rectangular relief band or a support stack.
 

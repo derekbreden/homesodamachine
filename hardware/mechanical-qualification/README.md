@@ -10,7 +10,10 @@ The [prototype assembly-clearance review](../printed-parts/enclosure/enclosure/a
 records the October 17 C14 height and cold-core blind-insertion feedback.
 It binds the C14 measurement to the October 10 Mark1 article and retains the
 May 31 foam-shell record's scope. Current passive core crossings are Ø7.5 mm;
-the C14 has 0.5 mm extra per X/Z edge with fixed Y seating depth. Mean Well
+the C14 flange pocket has 0.5 mm extra per X/Z edge with fixed Y seating depth.
+The external cord bore is 28.3 × 19.3 mm, including a separate 3 mm total
+X allowance for the mating plug body; the reported female-side fit is retained.
+Mean Well
 wire entry and screwdriver directions are separate interfaces. Native local
 wire/tool clearance is measured; physical fit of the revised parts remains
 unmeasured.

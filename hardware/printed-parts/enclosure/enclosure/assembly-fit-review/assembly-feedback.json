@@ -13,7 +13,20 @@
     "printer_task_id": "1325371485",
     "article_identity_basis": "Latest accepted back-top launch found in the repository; the October 11 preparation is recorded as not started. Used as the identified article for comparison, without a serial-number identification claim.",
     "prior_acceptance_scope": "The earlier inlet/C13 station acceptance in tee-readiness/full-enclosure-print/hard-contact-review retains its identified-part scope. It does not override this installed-article observation.",
-    "measurements": "printed-c14-measurements.json"
+    "measurements": "printed-c14-measurements.json",
+    "cord_access_test_fit": {
+      "reported_date": "2026-10-17",
+      "observation": "The female side fits; the mating plug body needs 3 mm more X width in the external rounded-rectangle access cavity to reach it.",
+      "requested_extra_total_mm": {
+        "x": 3.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "centered_extra_per_x_edge_mm": 1.5,
+      "female_mounting_pocket_changed": false,
+      "widened_bore_physical_fit": "Unmeasured",
+      "geometry_measurements": "cord-access-measurements.json"
+    }
   },
   "mean_well": {
     "observation": "Provide wire space at the terminal ends along the module's long axis.",

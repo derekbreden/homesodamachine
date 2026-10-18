@@ -1085,7 +1085,9 @@ co2_axis_drop = _interface.co2_axis_drop
 # the ears stand that far off the floor and the two screws hold through them. The pocket's
 # outline is what the flange's width and the rim's height both clear with `c14_pocket_slip`.
 c14_fit_extra = 0.5                 # per edge in X/Z; seating depth and screw stations are fixed
-c14_bore_w, c14_bore_h, c14_bore_r = 24.3 + 2 * c14_fit_extra, 18.3 + 2 * c14_fit_extra, 1.5
+c14_cord_extra_x = 3.0              # total extra plug-access width; the inlet pocket is independent
+c14_bore_w = 24.3 + 2 * c14_fit_extra + c14_cord_extra_x
+c14_bore_h, c14_bore_r = 18.3 + 2 * c14_fit_extra, 1.5
 c14_pocket_w, c14_pocket_h = 49.77, 22.17
 c14_pocket_end_chord = 17.98          # ear nose to the end of a long flat
 c14_pocket_knuckle_r = 1.2

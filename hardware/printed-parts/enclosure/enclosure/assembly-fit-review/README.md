@@ -1,9 +1,18 @@
 # Prototype assembly clearances
 
-The C14 station has a 25.3 × 19.3 mm cord bore and 0.65 mm per-edge
+The C14 station has a 28.3 × 19.3 mm cord bore and 0.65 mm per-edge
 flange-pocket clearance in X/Z. The 5 mm pocket depth, seating plane and
 40 mm screw pitch are fixed. Its nominal pocket spans are 51.07 × 23.47 mm;
 the print-down face also has its separate supported-surface allowance.
+The cord bore is centered at X=66.9 mm with R1.5 corners. The reported
+female-side fit is retained; the external plug-access bore has an independent
+3 mm total X allowance for the mating cord body. Physical fit of this wider
+access bore remains unmeasured.
+
+The [cord-access measurements](cord-access-measurements.json) read the exported
+print mesh at 28.30 mm across, retain the flange-pocket section and measure
+3.85 mm nominal stock between the widened bore and the nearest heat-set bore.
+The local STEP comparison finds no material change outside the cord opening.
 
 The Mean Well's AC wire entry faces +Y and its DC entry faces −Y. Both
 screwdriver axes face the room along −X. The module's aft mounting row is
