@@ -3794,6 +3794,12 @@ def _floor_tongue(inner, y_joint):
     on the print bed and its joint face is plumb, so neither asks support. Assembled,
     the top remains one plane at z=iz0.
 
+    THE JOINT IS SQUARE BECAUSE THE SLAB CANNOT LAP. Under the core the slab is 5.65 mm
+    (`floor_t` less the core pocket's floor allowance), and a lap inside it with one
+    `fits.running` between its members leaves no way for both members to keep the
+    nominal 3 mm section. Nothing here has to align the halves: the corner knuckle stacks
+    and their M5 rods do (`_y_stacks`).
+
     Each flank is a plumb face standing one `fits.running` off the side wall beside
     it.
 

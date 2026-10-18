@@ -91,7 +91,10 @@ core, and both printed bearing faces remain support-free. The handholds remove t
 at both flanks; the tongue continues across the middle under the cold core. Its square
 ends stand on the plane each handhold's inner wall ends on, the wall at its full 3 mm
 section, so the floor and both inner walls close on one pair of plumb faces with one
-running fit between them.
+running fit between them. The joint is square because the slab cannot lap: it is 5.65 mm
+under the core, and a lap inside it with one running fit between its members cannot keep
+both members at the nominal 3 mm section. The corner knuckle stacks and their M5 rods align
+the halves.
 
 Each ±X corner of that seam is a **stack of knuckles**: blocks of one piece standing in the
 other's overlap, alternating up the corner, with two vertical M5 screws through them
