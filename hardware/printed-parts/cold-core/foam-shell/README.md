@@ -744,11 +744,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1263443.047 mm³](FSHELL_VOLUME) |
+| volume | [1263443.054 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.508 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.978988, 0.207718, 91.236179) mm](CENTROID) |
+| centroid | [(0.978988, 0.207718, 91.236178) mm](CENTROID) |
 
 Quick reproduction:
 
