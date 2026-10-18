@@ -274,12 +274,14 @@ It is the clamp for the pour and it stays: the lid ships bolted to its cap, and
 its outer face is the plane the core stands on at the bottom and the water deck
 and the electronics stand on at the top.
 
-Both the cap and the lid carry the **same [10](BOSS_COUNT) ⌀[8 mm](BOSS_D) bosses
-with teardrop corner-fill webs** as the outer shell (built from the one shared
-boss builder, so every mating part's boss cross-section is identical) — four at the
-corners, four at the mid-points of the long edges (two to each ±Y wall, offset in X by
-±[40 mm](MID_BOSS_OFFSET)) and one centred on each ±X wall. Each position
-passes a clearance hole for an M3 cap screw all the way through the part.
+The shell, cups and lids share the same **[10](BOSS_COUNT) clamp axes** —
+four corners, four long-wall stations at X ±[40 mm](MID_BOSS_OFFSET), and
+one centred on each ±X wall. The shell and cup hosts use the common
+⌀[8 mm](BOSS_D) cylinder and teardrop-web builder. The lower lid's head
+pads add 0.9 mm radially, giving a 9.8 mm diameter and 2 mm inward wall
+around each ⌀5.8 mm head pocket. The bottom cup receives those pads in
+10.1 mm pockets with 0.15 mm radial static clearance. Every position
+passes an M3 screw through the lid and cup into its shell insert.
 See "Cap-to-outer-shell joinery" below.
 
 ### Dry casing seams
@@ -314,8 +316,9 @@ edge without folding onto its flat bearing face. Apply to clean, dry parts
 at room temperature. Press around the rounded corners and burnish the
 edges; overlap the band's ends by 25 mm. Use at most two foil layers, with
 no patches stacked over that overlap. The head pockets open to the casing
-edge, removing the thin outer rims;
-the complete 2 mm bearing floors remain under the screw heads. The band
+edge, with radial corner openings and 2 mm radial stock on the lower
+lid's inward pad walls. The complete 2 mm bearing floors remain under
+the screw heads. The band
 spans those small dry side openings. Keep the axial driver openings on
 the lid's flat outer face, mounting seats and fluid passages clear. Burnish
 the foil onto the smooth lands around the openings without wrinkles or

@@ -13,6 +13,7 @@ from _cold_core_interface import (
     outer_shell_x_length,
     outer_shell_y_length,
     corner_round_radius,
+    screw_boss_size,
     cap_conduits,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
@@ -45,6 +46,8 @@ from _outer_shell import (build_attachment_bosses, take_skin_off_the_floor,
 # stands on, and a plate with pads under it has no face to print on.
 lid_total_height = foam_cap_lid_height
 lid_cut_through_depth = lid_total_height + wall_and_floor_thickness
+# The lower lid's open head pockets retain the casing's full 2 mm radial stock.
+head_pad_growth = max(0.0, head_cbore_radius + wall_and_floor_thickness - screw_boss_size / 2)
 
 # THE TWO CUPS ARE NOT THE SAME HEIGHT. The bottom cup stands the whole `foam_cap_height` and
 # its lid's pads sink into the relief its boss columns leave at the mouth. The top cup stops one
@@ -200,7 +203,8 @@ def build_foam_cap(open_down=False):
         # The mouth-end relief: the bottom lid's pad section, one slip larger all round,
         # standing on the mouth at z=0 because that is the material side of a mouth-down cup.
         cap = cap.cut(build_attachment_bosses(
-            head_pad_height + cap_lid_clearance, oversize=head_pad_slip))
+            head_pad_height + cap_lid_clearance,
+            oversize=head_pad_growth + head_pad_slip))
     else:
         cap = cap.union(build_conduit_columns(height))
     # Screw clearance passes the full cap height, floor through to mating edge.
@@ -231,7 +235,16 @@ def head_access_pockets(z0, depth):
                .extrude(depth))
     r = head_cbore_radius
     for (x, y), wall in attachment_stations:
-        if wall == "x":
+        if wall == "corner":
+            # A radial opening meets the rounded outside normally, leaving no
+            # narrow wedge between a straight slot flank and the corner arc.
+            ox=x-(1 if x>0 else -1)*(outer_shell_x_length/2-corner_round_radius)
+            oy=y-(1 if y>0 else -1)*(outer_shell_y_length/2-corner_round_radius)
+            angle=math.degrees(math.atan2(oy,ox))-90.0
+            slot=(cq.Workplane("XY").box(2*r,2*corner_round_radius+2,depth,
+                  centered=(True,False,False))
+                  .rotate((0,0,0),(0,0,1),angle).translate((x,y,z0)))
+        elif wall == "x":
             end = (1 if x > 0 else -1) * (outer_shell_x_length/2 + 1)
             slot = (cq.Workplane("XY").box(abs(end-x), 2*r, depth,
                     centered=(True, True, False))
@@ -268,8 +281,9 @@ def build_foam_cap_lid(open_down=False):
         .fillet(corner_round_radius)
     )
     if open_down:
-        # The pads are the cap boss's own section — what its columns gave up.
-        lid = lid.union(build_attachment_bosses(head_pad_height).translate(
+        # Each pad retains 2 mm inward stock around its head pocket.
+        lid = lid.union(build_attachment_bosses(
+            head_pad_height, oversize=head_pad_growth).translate(
             (0, 0, wall_and_floor_thickness)))
     head_cbores = head_access_pockets(cbore_z0, cbore_depth)
 

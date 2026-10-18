@@ -12,16 +12,16 @@
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "775f1953512c16960cc232335b948ae87ec6b4a36b60286ebb1e9f73a83a2fd2",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "a6ada27317485c70fad5787ffa20dd9ff51e2a937122892b5c6699344eb80fc0",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2448417f47a811246f63574344d625fa12a7fbdfaea8265358d2c454246bed2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "0d5c38fea2fd0d9bd523075d7f5da18f37d58f0ef4ad85812f99309178981ee1",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "9af679ebedc92b9337c8a1f893f6bf74841a4ad2c9dc46bb8335015860c2ad7a",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "2a4b2ef726f317ccaf24666077cf4767e1249fec2582a26a84ba956e3677119f"
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "40fb1650cb18db37351f85b2ee3a49a1ae4cb78d408d65f6202ba095ea1b81ab",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "775395d76d3ac4ea903db847968b4565d71f876e02c39d782ef3f81a726e9ec8",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "73382d10175214fe26823ce32b432d54752d0450b396def45adba455687057b9"
   },
   "source_sha256": {
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "413e1f0c0b8cccfb673a9fbffce3f68aff9edf5bd0eb96d55c976978697d0595",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "aaa074e5b6d628ea07ba4cc005f7ca6cdd0920f4c43fb78c311aa2da9176a639",
-    "hardware/printed-parts/cold-core/_outer_shell.py": "77074b26e0223b41a33012c315e456af57655cba5c0a44816fdb4d2aafbf429c",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "cd8619f0593bbc096890eab2c27bed9f7318b01379e87ac411d413e6a8f7300f",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "4ccdda49aa14730633fa8d90a401887b3bfeb02e5cdab8a4e6a7b2bc6671ed1f",
     "hardware/printed-parts/cold-core/_foam_shell.py": "2f7e15b14124938c8314fe1516829e9335f48977e04ad36b8ca441112a867eab",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "9e0b45fd18558827f7b333781fa4d3e6ab616cde90ad6e01b5e1a17444a4ecd9",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "92b8b2f5ccab509b0f64fecaf7aacf6c3735cf616047b8f4ebd0b9f4c2129415",
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "cb052ab8ceef20c4901531f13793e13970ab625cc26fd2b7bcf80e441ba1c5b3"
   },
   "checks": [
@@ -63,7 +63,7 @@
     {
       "check": "bottom lid/cup static clearance",
       "passed": true,
-      "gap_mm": 0.14999999999999858
+      "gap_mm": 0.14999999999999147
     },
     {
       "check": "retained construction datums",
@@ -95,6 +95,16 @@
     },
     {
       "check": "foam-cap-lid-bottom complete 2mm screw-head bearing land",
+      "passed": true,
+      "missing_material_mm3": 0.0
+    },
+    {
+      "check": "foam-cap-lid-bottom complete 2mm inward head-pocket walls",
+      "passed": true,
+      "missing_material_mm3": 0.0
+    },
+    {
+      "check": "foam-cap-lid-top complete 2mm inward head-pocket walls",
       "passed": true,
       "missing_material_mm3": 0.0
     },

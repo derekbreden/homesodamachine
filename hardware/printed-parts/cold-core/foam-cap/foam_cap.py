@@ -30,6 +30,7 @@ from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
     head_access_pockets,
+    head_pad_growth,
     lid_cut_through_depth,
     lid_total_height,
     top_cap_height,
@@ -546,7 +547,8 @@ def main():
     # trimming both, and that section is BUILT rather than stated. So it is measured off the
     # builder the bottom lid stands it with, and everything on either side of it is closed form.
     plate_gain = ((footprint_area - lid_open_area) * head_pad_height
-                  - rebate_casing_seals(build_attachment_bosses(head_pad_height),
+                  - rebate_casing_seals(build_attachment_bosses(
+                      head_pad_height, oversize=head_pad_growth),
                       ((0.0, head_pad_height),)).val().Volume())
     # The two cups differ by the deck columns and the conduits, read over the height they BOTH
     # stand: the top cup gives its mouth band to its lid, so the bottom one is trimmed by that
@@ -565,7 +567,8 @@ def main():
     # The open-sided head pockets share one XY section through the pad's
     # outward web. Only the lower lid's supported recess adds 0.25 mm depth.
     head_cut_area = head_access_pockets(0.0, 1.0).intersect(
-        rebate_casing_seals(build_attachment_bosses(1.0), ((0.0, 1.0),)))
+        rebate_casing_seals(build_attachment_bosses(
+            1.0, oversize=head_pad_growth), ((0.0, 1.0),)))
     lid_expect -= (head_cut_area.val().Volume()
                    - len(attachment_xy_positions) * math.pi * screw_clearance_radius**2
                    ) * fits.supported_surface
