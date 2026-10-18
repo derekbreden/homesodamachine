@@ -1093,8 +1093,10 @@ The **ASSE anchor** looks print-down on its top. Outside the zip ties'
 span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,
 back to the wall and straight to the ceiling lane — the piece's own first layers — so nothing
 over it looks print-down; over the span the column is absent so the loop has
-its room, and the web between the tie cavity and the V ends in a flat top, a supported face
-whose support stands on the slab in the tie channel. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
+its room, and the web between the tie cavity and the V ends square to the V, one wall across,
+a supported face whose support stands on the slab in the tie channel. Nothing stands under the
+block on this print either, so the V's foot ends square to its flank the same way the whole
+anchor long. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
 the two round seats' lower arcs look print-down inside their bores and are supported faces.
 Behind the anchor, one channel spans both zip-tie bands: its fore and aft end faces remain
 `tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top
