@@ -21,6 +21,7 @@ import trimesh
 HERE=Path(__file__).resolve().parent
 ROOT=next(p for p in HERE.parents if (p/'tools/bambu_printer.py').is_file())
 SOURCE=ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl'
+SOURCE_REFERENCE=HERE/'input-snapshots/receiver-source-current-geometry.py.txt'
 RECIPE_DIR=ROOT/'future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1'
 RECIPE=next(p for p in RECIPE_DIR.glob('*.3mf') if not p.name.endswith('.gcode.3mf'))
 SLICER=Path('/Applications/BambuStudio.app/Contents/MacOS/BambuStudio')
@@ -68,6 +69,8 @@ def mesh_object(resources,id_,mesh,name):
 
 def main():
     HERE.mkdir(parents=True,exist_ok=True)
+    SOURCE_REFERENCE.parent.mkdir(exist_ok=True)
+    SOURCE_REFERENCE.write_bytes((ROOT/'hardware/printed-parts/enclosure/pump-dock/pump_receiver.py').read_bytes())
     with zipfile.ZipFile(RECIPE) as z:
         recipe=json.loads(z.read(SETTINGS))
         original=json.loads(z.read(SETTINGS))
@@ -157,6 +160,8 @@ def main():
                 prepared_at=datetime.now(timezone.utc).isoformat(),parts=parts,
                 source_recipe=str(RECIPE.relative_to(ROOT)),source_recipe_sha256=sha(RECIPE.read_bytes()),
                 source_geometry_sha256=sha(SOURCE.read_bytes()),project=project.name,
+                geometry_definition_snapshot=str(SOURCE_REFERENCE.relative_to(HERE)),
+                geometry_definition_sha256=sha(SOURCE_REFERENCE.read_bytes()),
                 project_sha256=sha(project.read_bytes()),settings_changes=changes,
                 rotation='Source +Y bore rotated +90 degrees about X to print +Z; front lip at Z0',
                 normal_volume_count=4,bore_support_blocker_count=4,

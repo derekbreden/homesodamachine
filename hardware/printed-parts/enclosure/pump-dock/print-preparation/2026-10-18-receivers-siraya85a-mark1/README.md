@@ -10,7 +10,7 @@ stringing; it supplies no receiver acceptance.
 The [editable project](2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf)
 and [native sliced archive](2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf)
 are prepared for review. No printer was contacted, submitted to or started.
-Bambu Studio estimates **2 h 7 min / 9.83 g**, with **124 layers** and no
+Bambu Studio estimates **2 h 14 min / 10.53 g**, with **124 layers** and no
 slicer warning. The archive contains unprocessed native G-code.
 
 | Setting | Prepared value |
@@ -43,25 +43,31 @@ actual widths, arcs, features, object labels and travels:
 
 | Native reading | Result |
 | --- | --- |
-| Complete model/support/brim bed inset | At least 118.68 mm, using conservative bead projections |
-| Separation between complete bead projections | At least 2.19 mm; first-layer actual minimum 2.59 mm |
+| Complete model/support/brim bed inset | At least 117.54 mm, using conservative bead projections |
+| Separation between complete bead projections | At least 2.22 mm; first-layer actual minimum 2.59 mm |
 | Front and rear sealing lands | At least four complete circumferential runs on every sampled layer; wider collar sections have up to nine |
-| Support in wet bores | None; minimum support-bead clearance to the current bore 2.84 mm |
+| Factory-stop waist | Five complete circumferential runs in each of four layers on all four receivers |
+| Support in wet bores | None; minimum support-bead clearance to the bore through the full bead height 2.69 mm |
 | Second-layer model centerlines | Entirely backed by first-layer model beads on all four receivers |
-| Second-layer bead area overlapping first layer | 93.85%; the funnel adds the inward-growing strip |
+| Second-layer bead area overlapping first layer | 93.84%; the funnel adds the inward-growing strip |
 | Support interfaces | Z10.04 and Z10.16 mm; 0.19 mm from the last interface top to the nominal Z10.35 rear-flange underside |
 
 ![Native receiver paths and exterior support](native-bead-review.png)
 
-The six exterior tree branches and annular interface are accessible before
+The exterior Tree(auto)/Default branches and annular interface are accessible before
 wall assembly. Segment the exterior support/interface ring and peel it
 radially from the 3.35 mm keeper groove. Support release, groove finish and
 the receiver's flexibility during that operation have no physical result.
 No support-removal tool needs to enter a sealing bore.
 
+The Ø5.00 mm throat's 0.475 mm axial waist appears in layers 71–74, at
+Z8.60, Z8.72, Z8.84 and Z8.96 mm. Every layer/object sample has five complete
+circumferential roads with zero loop-end gap. The innermost road's mean
+radius is 2.804–2.808 mm, inside the factory tail's nominal 3.175 mm radius.
+These are commanded paths, without a measured printed stop or bearing result.
+
 The native travel review records projected bore crossings longer than
-0.3 mm on five within-object transfers, twelve same-layer object transfers
-and forty-four next-layer returns. These commanded paths retain exposure
+0.3 mm on twenty-six next-layer returns. These commanded paths retain exposure
 to internal strands. Wall paths and bore-support exclusion do not establish
 a strand-free passage. Inspect and clear the actual fluid passage before
 factory assembly; receiver dimensions, seal holding and lifetime remain
@@ -73,10 +79,10 @@ project, archive and figure. All reviewed functional settings survive the
 native slicer's metadata normalization, and the native G-code checksum
 matches. The [preparation record](preparation.json),
 [native readback](native-readback.json) and [slicer result](slice-result.json)
-retain their separate evidence. The [binding audit](binding-audit.json) compares the
-retained source reference while isolating the dry keeper datum and engineering
-metadata. It independently checks canonical wet STL bytes and all eight
-embedded receiver meshes.
+retain their separate evidence. The [binding audit](binding-audit.json)
+compares the fresh preparation's exact geometry snapshot, current canonical
+wet STL bytes and all eight embedded receiver meshes. The original source
+reference remains intact, with geometric differences reported explicitly.
 
 Reproduce this preparation manually, without any printer action:
 

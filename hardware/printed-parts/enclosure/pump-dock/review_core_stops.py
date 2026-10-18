@@ -103,18 +103,41 @@ def final_export_review(args, enc, box_spec):
                     if who.startswith("back"):
                         air = enc._y_knuckle_air(x_in, sx, box.y_joint, who, za, zb, ga, gb, depth)
                         curved = [f.cut(air) for f in curved]
+        after_knuckle_area = sum(f.Area() for f in curved)
+        tail_air = enc._core_stop_handhold_air(box.inner, (cx, cy, radius), box.y_joint)
+        if tail_air is not None:
+            curved = [f.cut(tail_air) for f in curved]
         expected = sum(f.Area() for f in curved)
         present = sum(f.intersect(front).Area() for f in curved)
         check(f"exported stop X{cx:+.3f}: full rounded face outside required knuckle air",
               abs(present-expected) < 1e-5, present_area_mm2=present,
-              expected_area_mm2=expected, required_knuckle_clearance_area_mm2=bare_area-expected)
+              expected_area_mm2=expected,
+              required_knuckle_clearance_area_mm2=bare_area-after_knuckle_area,
+              required_handhold_tail_clearance_area_mm2=after_knuckle_area-expected)
+        # Read the actual two parts in a finite handhold-mate footprint. The
+        # window excludes the ordinary Y-seam air and the curved boundary so
+        # the distance measures the stop tail beneath the rear roof itself.
+        roof = enc._handhold_levels(box.inner)[1]
+        gap = enc._y_stack_gap(False, True)
+        xa, xb = sorted((side*(abs(cx)+radius+.75001),
+                         side*(abs(cx)+radius+2.99999)))
+        window = enc._ybox(xa, xb, box.y_joint+enc.fits.slip+1e-5,
+                           cy-1e-5, roof-2.0, roof+2.0)
+        tail, mate = front.intersect(window), back.intersect(window)
+        native_gap = tail.distance(mate)
+        check(f"exported stop X{cx:+.3f}: actual rear-handhold roof running/support gap",
+              abs(native_gap-gap) < 1e-5
+              and abs(tail.BoundingBox().zmax-(roof-gap)) < 1e-6
+              and abs(mate.BoundingBox().zmin-roof) < 1e-6,
+              native_gap_mm=native_gap, required_gap_mm=gap,
+              front_tail_bounds_mm=bounds(tail), back_roof_bounds_mm=bounds(mate))
         station_data.append(dict(x=cx, corner_axis_y=cy, forward_bearing_y=face_y,
                                  radius=radius, rise=enc.core_stop_rise, forward_web=enc.core_stop_web))
     check("identified source, Box and six native exports stayed stable",
           source_sha == sha(Path(enc.__file__)) and box_sha == sha(args.box)
           and all(input_hashes[n] == sha(p) for n, p in paths.items()))
     record[args.record_key] = {
-        "scope": "Direct read of final canonical lower native parts and current declared Box. No candidate fusion, part construction, Box derivation or graph write.",
+        "scope": "Direct read of final canonical lower native parts and current declared Box, including both stop-tail/rear-handhold mate clearances. No candidate fusion, part construction, Box derivation or graph write.",
         "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_core_stops.py --final-export"
                           + f" --record-key {args.record_key} --box hardware/manifold-layout/enclosure-box.json",
         "prior_scoped_record_sha256_before_append": hashlib.sha256(original_bytes).hexdigest(),

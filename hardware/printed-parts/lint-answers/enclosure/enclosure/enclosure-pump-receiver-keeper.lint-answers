@@ -1,0 +1,7 @@
+[thin] Functional sliding-plate thickness. Both readings are the nominal 3.00 mm PET-GF keeper section, not a tapered edge or cut remnant. The plate fits the TPU's 3.35 mm axial groove with 0.35 mm rear running room when its fore face is clamped against the wall. keeper-nominal3-review.json records the full 20 mm lift envelope and installed clearances; it does not qualify printed fit or load capacity. The ranked thin reading remains applicable to this plate.
+alternatives: A 3.35 mm plate consumes the nominal axial assembly room. Greater thickness requires a different TPU groove, retaining collars and guide slot. A thinner plate gives up the specified nominal 3 mm section without a demonstrated fit requirement.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step
+click: x=-6.281 y=7.000 z=-0.348
+click: x=-6.281 y=10.000 z=-0.348
+click: x=-11.549 y=10.000 z=-10.847
+click: x=-11.549 y=7.000 z=-10.847

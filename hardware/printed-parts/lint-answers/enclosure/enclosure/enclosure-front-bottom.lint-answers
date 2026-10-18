@@ -12,8 +12,19 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-99.479 y=190.000 z=29.250
 click: x=99.479 y=190.000 z=29.250
 
-[ceiling] The Z169.2 faces are the front Z-rail square catches. Their opposing feet retain 0.50 mm running/supported clearance in the current native paired-face review. The flat overlap resists lifting after that play is taken up. Tree (auto)/Default supports approach through the open rail lane before assembly; removal effort is unqualified.
+[ceiling] Unavoidable flat capture interface: the Z169.2 faces are the front Z-rail square catches. Their opposing feet retain 0.50 mm running/supported clearance in the current native paired-face review. The flat overlap resists lifting after that play is taken up. Tree (auto)/Default supports approach through the open rail lane before assembly; removal effort is unqualified.
 alternatives: A sloped catch introduces camming. Filling the lane enters foot travel; cutting away the overlap loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.875 y=160.268 z=169.200
-click: x=100.875 y=160.268 z=169.200
+click: x=-100.875 y=142.668 z=169.200
+click: x=100.875 y=142.668 z=169.200
+
+[slope] Wrong diagnostic location: this merged coplanar group's projected bounding-box midpoint is 73.881 mm from the actual native solid. It is not a finite underside at the emitted click. This answer applies only to that invalid locator; it does not qualify the group's individual finite faces.
+alternatives: Split the plane group into connected finite patches and choose a point on an actual facet before diagnosing or changing its wall connection. Cutting material at the emitted click would cut empty space.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=0.000 y=87.881 z=140.225
+
+[thin] Wrong material-thickness classification: the measured segment crosses the 0.25 mm open interval between the plate foot ending at Y93.836 and the Z-rail starting at Y94.086. Native solid classification is OUT at the segment midpoint and its last quarter; the reported 0.575 mm is not a continuous material section.
+alternatives: Require segment occupancy or exact solid intersection before calling a nearby opposing face material thickness. Filling this interval would remove the authored sliding clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-94.345 y=93.694 z=160.000
+click: x=-94.048 y=94.086 z=159.702

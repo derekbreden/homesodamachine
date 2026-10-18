@@ -5,6 +5,7 @@ Use --only-bom to update the BOM without rewriting the labor ledger.
 """
 
 import argparse
+import json
 import sys
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
@@ -279,7 +280,7 @@ pump_cap_screws_per_build = pump_cap_inserts_per_build
 dock_keepers_per_build = len(_f.box["collet_plate"]["holes"])
 dock_keeper_inserts_per_build = dock_keepers_per_build
 dock_keeper_screws_per_build = dock_keepers_per_build
-dock_rear_support_locks_per_build = len(_enc._dock.SUPPORT_LOCK_X)
+dock_rear_support_locks_per_build = len(_enc._dock.support_lock_x(_f.box['collet_plate']))
 
 # The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
 # stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
@@ -480,6 +481,9 @@ def pack_line_cost(quantity, pack_price, pack_quantity):
 
 def main(*, only_bom=False):
     casting = casting_estimate()
+    receiver_slice = json.loads((_here.parent / "printed-parts" / "enclosure" /
+        "pump-dock" / "print-preparation" / "2026-10-18-receivers-siraya85a-mark1" /
+        "native-readback.json").read_text())
     variables = {
         **_casting_figures(),
         "FUNNEL_KIT_YIELD": f"{1098.0 / casting['mixed_g']:.2f}",
@@ -594,6 +598,7 @@ def main(*, only_bom=False):
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_STEMS": f"{len(_f.box['collet_plate']['holes'])}",
         "DOCK_RECEIVERS": f"{len(_f.box['collet_plate']['holes'])}",
+        "DOCK_TPU_PLATE_G": f"{receiver_slice['estimated_filament_g']:.2f}",
         "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
         "DOCK_KEEPER_INSERTS": f"{dock_keeper_inserts_per_build:.4g}",
         "DOCK_KEEPER_SCREWS": f"{dock_keeper_screws_per_build:.4g}",

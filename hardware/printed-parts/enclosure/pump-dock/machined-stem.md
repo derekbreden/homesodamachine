@@ -28,7 +28,7 @@ pump joint.
 | Through bore | 4.30 mm, continuous |
 | Flange | Ø16.00 × 2.50 mm |
 | Flange root | R0.40 mm, both sides |
-| Forward tip | 0.30 mm long lead; Ø6.05 at its end |
+| Forward tip | 0.30 ±0.03 mm axial lead; Ø6.05 ±0.03 mm at its end |
 | Working sealing land | Machine Y80.515–86.515 mm; Ra ≤0.8 µm, free of tool marks, burrs and axial scratches |
 | Low rear barbs | Two Ø6.90 mm peaks, with R0.10 mm back-edge blends |
 | Nominal rear engagement | 12.00 mm behind the prepared BPT end |
@@ -43,25 +43,35 @@ pressure capacity. The machined part is not an FFF wet component.
 
 ## Load path and assembly
 
-The lower cradle carries one half of each Ø22 mm guard. A flange pocket
+The lower cradle carries one half of each Ø22.30 mm guard. A flange pocket
 opens straight upward with 0.15 mm nominal clearance at each flange face and
-on its radius. Its fore and aft shoulders carry stem insertion, withdrawal
+on its radius. The guard's diameter includes that radial fit allowance and
+retains 3.00 mm radial stock around the Ø16.30 mm pocket. Its fore and aft shoulders carry stem insertion, withdrawal
 and hydraulic separation reactions directly into the cradle. The fore
-shoulder has 3.00 mm axial stock; the aft shoulder has 3.35 mm to the guard's
-end at Y82.25 mm.
+shoulder starts on the retained head-well aft plane, Y72.887 mm, and has
+3.213 mm axial stock to its pocket. The integrated caller supplies that
+plane from `cy + pump_tray.skirt_body_open_y_bounds[1]`. The aft shoulder
+has 3.35 mm to the guard's end at Y82.25 mm.
 
-The cap carries the guard's upper halves and vertical webs joining its
-existing filled body. The cap's flange pockets have 0.35 mm clearance at
-each face, so the lower cradle encounters axial travel first. Closing the
-cap blocks vertical flange escape without clamping the smooth stem or using
-an unsupported thin blade for axial retention. The cap's straight lift path
+The cap carries rear upper arches and straight, 3.00 mm-deep webs joining its
+existing filled body. Every arch and web starts at Y76.269 mm, 0.300 mm
+behind the actual reference head's Y75.969 mm aft extent, so they clear the
+seated heads throughout a straight cap lift. This named case clearance has
+no printed fit result. The arches have open fore faces and 0.35 mm aft
+clearance to the stem flanges; the lower cradle encounters axial travel first.
+The webs finish within the cap body's own X planes. The two outer webs
+are 11.175 mm wide, and the two inner webs are 12.100 mm wide; each keeps
+the complete 3.000 mm Y section into the cap body.
+Closing the cap blocks vertical flange escape without clamping the smooth
+stem. Its aft upper halves retain the TPU backing. The cap's straight lift path
 is cut through the complete modified cartridge exit lane to the cradle's
 crown at Z284.174 mm. The integrated feature call supplies
 `cap_route_top_z=cap_crown_z(box)`; the guard webs retain their own lower
 joining height.
 
-Each moving guard enters a Ø22.5 mm counterbore in the fixed wall, ending
-at Y82.50 mm. Its Ø14.3 entrance clears the flexible TPU lip; its Ø12.0
+Each moving guard enters a Ø22.80 mm counterbore in the fixed wall, ending
+at the receiver flare start, Y82.515 mm, with 0.265 mm to the guard's end.
+Its Ø14.3 entrance clears the flexible TPU lip; its Ø12.0
 section supports the receiver body through Y82.25 mm. The remaining fixed
 wall contains the receiver in X/Z. The cartridge's body stops retain their
 existing positions, independent of the machined stem tip and the TPU's
@@ -70,9 +80,11 @@ annular stop.
 The actual outlet identification distinguishes the local molded casing
 from the entire pump head's bounding box. Native scan sections identify an
 approximately 4 mm exposed BPT region at world Y72.1–76.1 mm. The factory tie
-occupies Y73.23–75.77 mm. Its 12.1 mm circular clearance extends through
-Y75.87 mm; the remaining passage is Ø10.1 mm. The tie head uses the relieved
-upper channel. Received tube shape, tie-head dimensions, tightening and the
+occupies Y73.23–75.77 mm. Its Ø12.1 mm circular clearance continues through
+the complete fore shoulder to the flange pocket at Y76.10 mm. The tie head uses the relieved
+upper channel. The modeled tie-head relief ends at Y76.07 mm, ahead of the
+rear arch's Y76.269 mm fore face. The delivered head's Y width has no
+measurement or applicable drawing. Received tube shape, tie-head dimensions, tightening and the
 machined tail remain part of the prepared-pump fit observation.
 
 ## Force screen
@@ -86,7 +98,7 @@ shoulder gives:
 | --- | ---: |
 | Aft bearing area, outside the Ø14.3 opening | 20.23 mm² |
 | Aft mean bearing stress | 0.864 MPa |
-| Fore bearing area backed through the complete 3 mm, outside the Ø12.1 tie passage | 43.04 mm² |
+| Fore bearing area backed through 3.213 mm, outside the Ø12.1 tie passage | 43.04 mm² |
 | Fore mean bearing stress | 0.406 MPa |
 | Mean flange-root axial shear | 0.350 MPa |
 | Radial-strip flange-root bending, load assigned to the lower semicircle | 7.41 MPa |
@@ -100,26 +112,29 @@ they are not a lifetime, seal or system-pressure rating.
 
 ## Factory fixture and review
 
-The [setting fixture](pump-stem-setting-fixture.step) supports the tail and
-flange and provides a flat annular tip stop. Its
+The [setting fixture](pump-stem-setting-fixture.step) supports the plain rear
+shank and flange of the bare machined stem, before fitting the BPT tubing,
+and provides a flat annular tip stop. Its
 [STL](pump-stem-setting-fixture.stl) is a bench tool, not a shipped wet part.
-No fixture surface touches the working seal land. Measure its actual
-tip-to-flange datum before using it to prepare pump units. The finished stem
-itself establishes that distance by machining.
+The fork spans the full 24 mm base width and has 3 mm fore and aft cheeks.
+Its fore cheek supports the plain shank beyond the last barb; the aft cheek's
+Ø8.65 mm opening clears the working sealing surface. The Ø16.30 mm flange
+pocket remains at Y76.15–78.85 mm and the tip stop at Y87.015 mm. Measure
+the actual tip-to-flange datum before using the fixture to prepare pump
+units. The finished stem itself establishes that distance by machining.
 
 The [local native review](stem-native-review.json) checks solid validity, flange-to-guard clearance,
 vertical installation of the prepared stems and cap, and the intended
 division of load paths: a 0.20 mm stem translation along either Y direction
 encounters the lower cradle while remaining clear of the cap; a 0.30 mm
-vertical lift encounters the cap. Added guard and web material clears both
-purchased pump heads, bosses and motors in their actual assembly pose and
-clears the occupied TPU receiver envelopes. The upper webs retreat behind
-the broad molded skirts and join the existing cap one millimetre above its
+vertical lift encounters the cap. Guard and web material clears both
+retained native pump-reference heads, bosses and motors in their assembly pose and
+clears the occupied TPU receiver envelopes. The upper arches and webs remain
+behind the complete reference heads and join the existing cap one millimetre above its
 body's lower plane. An exported-cradle native review with the complete
 cap-lane cutter checks cap lifts through 110 mm and a continuous conservative
-sweep of the new upper guards. It retains all bracket-and-lower stock, the
-central screw-pillar envelope and 14.15 mm uninterrupted outboard stock at
-the recorded sections. BPT/tie, neighboring plumbing, printed capacity and
+sweep of the upper guards. The recorded sections keep 14.00 mm
+uninterrupted outboard stock beside the cap lanes. BPT/tie, neighboring plumbing, printed capacity and
 lifetime remain outside those geometric results.
 
 Recreate the machining part and bench fixture explicitly:

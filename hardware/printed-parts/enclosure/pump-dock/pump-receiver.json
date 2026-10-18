@@ -4,6 +4,23 @@
   "front_seal_bore_mm": 6.1,
   "front_seal_land_mm": 6.0,
   "rear_seal_land_mm": 6.0,
+  "front_lip_thickness_mm": 0.6,
+  "front_collar_ramp_y_mm": [
+    3.0,
+    5.9
+  ],
+  "front_collar_flat_y_mm": [
+    5.9,
+    7.0
+  ],
+  "front_collar_periphery_thickness_mm": 1.0999999999999996,
+  "flow_throat_d_mm": 5.0,
+  "relief_taper_y_mm": [
+    7.625,
+    8.525
+  ],
+  "relief_taper_degrees_from_axis": 45.0,
+  "customer_stop_reference": "First nominal contact of the actual 6.05 mm tip end after 0.50 mm overtravel; the 0.30 mm axial stem lead reduces radius by 0.15 mm.",
   "relaxed_cuff_od_mm": 11.7,
   "wall_radial_room_mm": 0.15000000000000036,
   "keeper_radial_room_mm": 0.35000000000000053,

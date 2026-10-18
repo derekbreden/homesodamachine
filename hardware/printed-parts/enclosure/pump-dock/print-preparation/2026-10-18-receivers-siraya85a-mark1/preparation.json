@@ -1,13 +1,13 @@
 {
   "status": "Offline print preparation; no printer contacted or started",
-  "prepared_at": "2026-10-18T06:38:40.029276+00:00",
+  "prepared_at": "2026-10-18T09:24:43.995544+00:00",
   "parts": [
     {
       "name": "permanent-pump-receiver-1",
       "object_id": 11,
       "identify_id": 2301,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
       "source_center_mm": [
         0,
         0,
@@ -56,7 +56,7 @@
       "object_id": 12,
       "identify_id": 2302,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
       "source_center_mm": [
         0,
         0,
@@ -105,7 +105,7 @@
       "object_id": 13,
       "identify_id": 2303,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
       "source_center_mm": [
         0,
         0,
@@ -154,7 +154,7 @@
       "object_id": 14,
       "identify_id": 2304,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
       "source_center_mm": [
         0,
         0,
@@ -201,9 +201,11 @@
   ],
   "source_recipe": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
   "source_recipe_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
-  "source_geometry_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+  "source_geometry_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
   "project": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf",
-  "project_sha256": "43de7c17e1c5003d19afb88f3797fb9e95a7578f6a3660a78ef94bc0b01f96b6",
+  "geometry_definition_snapshot": "input-snapshots/receiver-source-current-geometry.py.txt",
+  "geometry_definition_sha256": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
+  "project_sha256": "f53860b0d7b3a7972dda1381c2345fec6da3f9f3df0ffe814febca9c002f1f2c",
   "settings_changes": {
     "enable_support": {
       "source": "0",
@@ -265,7 +267,7 @@
       15.0
     ]
   ],
-  "per_part_cad_volume_mm3": 1586.3509294376029,
+  "per_part_cad_volume_mm3": 1713.3760466371461,
   "material": "Siraya Tech Flex TPU85A Clear; SKU ST3008",
   "inherited_physical_scope": "Accepted single-elbow exterior quality; internal stringing reported. No receiver acceptance."
 }
