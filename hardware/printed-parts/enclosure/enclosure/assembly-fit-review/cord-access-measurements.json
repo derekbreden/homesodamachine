@@ -120,5 +120,199 @@
   },
   "exported_step_valid": true,
   "exported_step_solid_count": 1,
-  "limits": "Nominal geometry and deposited-mesh dimensions establish no hand fit, insertion force, bridge quality or service-life result."
+  "limits": "Nominal geometry and print-mesh dimensions establish no hand fit, insertion force, bridge quality or service-life result.",
+  "publication": {
+    "source_commit": "714328c515fd5421844e87b2503cda547c36303e",
+    "artifact_pointer_commit": "6c4e21d279191cebdae08bbbfffe41818fcfb96e",
+    "live_payloads": [
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh?c14-width=714328c51",
+        "sha256": "830856a7d12b24bb928d2a6d572fd3c2a998b4ab252379d8299313c1eea837b6",
+        "matches_live": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure.step.mesh?c14-width=714328c51",
+        "sha256": "715f0e7d8b09c1cd642c3cdbbfef841e2b723fc986c88efadacf5c6ba634b0f9",
+        "matches_live": true
+      },
+      {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh?c14-width=714328c51",
+        "sha256": "57a2fb909bae7d1a6182b9aff372cacebed307e3d573892730ea47adf920f243",
+        "matches_live": true
+      }
+    ]
+  },
+  "post_publication_lint": {
+    "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "facets": 583786,
+    "total_findings": 182,
+    "answered_at_run": 43,
+    "scope": "Default top 12 findings reviewed after publication. No top-ranked finding falls at the widened C14 opening. Listed regions are unchanged from the identified baseline; thin/rim findings elsewhere remain unresolved and outside the cord-access change. Functional supported faces retain their existing answers.",
+    "unchanged_regions": [
+      {
+        "feature": "port-chip rim",
+        "pick_mm": [
+          -79.26,
+          465.225,
+          254.444
+        ],
+        "window_min_mm": [
+          -81.26,
+          463.225,
+          252.444
+        ],
+        "window_max_mm": [
+          -77.26,
+          467.225,
+          256.44399999999996
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "west seam return",
+        "pick_mm": [
+          -104.125,
+          219.8,
+          167.65
+        ],
+        "window_min_mm": [
+          -106.125,
+          217.8,
+          165.65
+        ],
+        "window_max_mm": [
+          -102.125,
+          221.8,
+          169.65
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "east seam return",
+        "pick_mm": [
+          104.125,
+          219.8,
+          167.65
+        ],
+        "window_min_mm": [
+          102.125,
+          217.8,
+          165.65
+        ],
+        "window_max_mm": [
+          106.125,
+          221.8,
+          169.65
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "electronics pad end",
+        "pick_mm": [
+          97.375,
+          338.8,
+          327.2
+        ],
+        "window_min_mm": [
+          95.375,
+          336.8,
+          325.2
+        ],
+        "window_max_mm": [
+          99.375,
+          340.8,
+          329.2
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "keystone roof",
+        "pick_mm": [
+          -40.71,
+          463.174,
+          322.573
+        ],
+        "window_min_mm": [
+          -42.71,
+          461.174,
+          320.573
+        ],
+        "window_max_mm": [
+          -38.71,
+          465.174,
+          324.573
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "tube-anchor edge",
+        "pick_mm": [
+          -86.51,
+          397.662,
+          321.921
+        ],
+        "window_min_mm": [
+          -88.51,
+          395.662,
+          319.921
+        ],
+        "window_max_mm": [
+          -84.51,
+          399.662,
+          323.921
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "keystone upper lip",
+        "pick_mm": [
+          -39.194,
+          465.284,
+          313.754
+        ],
+        "window_min_mm": [
+          -41.194,
+          463.284,
+          311.754
+        ],
+        "window_max_mm": [
+          -37.194,
+          467.284,
+          315.754
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      },
+      {
+        "feature": "keystone west lip",
+        "pick_mm": [
+          -47.74,
+          467.79,
+          310.878
+        ],
+        "window_min_mm": [
+          -49.74,
+          465.79,
+          308.878
+        ],
+        "window_max_mm": [
+          -45.74,
+          469.79,
+          312.878
+        ],
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0
+      }
+    ],
+    "numerical_diagnostic": "The classifier also reports its existing invalid-value warning at geometry_lint.py:180."
+  }
 }
