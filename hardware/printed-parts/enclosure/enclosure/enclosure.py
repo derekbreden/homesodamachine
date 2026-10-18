@@ -28,8 +28,8 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     the front pieces' aft walls telescope (a full-wall lip,
     nothing shaved) into the back pieces — a proud tongue on the side walls and
     ceiling, and on the floor, where the cold core rides the cavity side and a
-    proud tongue cannot, a full-thickness tongue with a 45° scarf nose
-    (`_floor_scarf`). Each ±X corner of the seam is a STACK of knuckles that
+    proud tongue cannot, a full-thickness tongue that ends square inside the slab
+    (`_floor_tongue`). Each ±X corner of the seam is a STACK of knuckles that
     alternate between the front and back pieces, sliding past one another as
     the halves telescope, pinned and clamped by two vertical M5 rods: the lower
     driven up from the handhold ceiling through both bottom pieces into an
@@ -70,8 +70,8 @@ The cold core seats flush against the seams instead, and stands flat on the floo
 every cap screw is down in a counterbore, so nothing goes under it. The ±X bands'
 own seam furniture fences it sideways, the back Z seam's lip behind, and the floor's
 two core lugs (`_core_fence`) ahead. The floor that core stands on is flat: the
-Y seam's floor tongue stays within the slab, with a 45° scarf nose rather than a
-feature standing proud of its cavity-side face.
+Y seam's floor tongue stays within the slab and ends square, rather than standing
+proud of its cavity-side face.
 
 Three pieces print on their Z− FACE — the bottom pieces floor-down on the slab,
 front-top mouth-down on its seam rim — and back-top prints on its Z+ face, its
@@ -486,9 +486,6 @@ y_stack_upper_chamfer = 5.1    # front-top's knuckle gives its inboard-aft edge 
                                # line (`tube-fluid-1`) that turns past the −X corner under the frame
 lower_rod_len = 150.0          # ISO 4762 M5 × 150, handhold ceiling to back-top's hub
 upper_rod_len = 60.0           # ISO 4762 M5 × 60, roof to front-top's knuckle under the frame
-# What a 45 degree lap gives up along the axis it is driven home on, so the two raked faces
-# stand one `fits.running` apart where they pass.
-scarf_axial = fits.running * math.sqrt(2.0)
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
@@ -3514,9 +3511,9 @@ def _ceiling_corbels(solid, inner, centre, y_joint):
 # --- split joint: telescoping lip + two corner stacks ----------------------
 #
 # The front half's lip telescopes into the back half on both side walls and the ceiling, and its
-# floor laps in a scarf (`_floor_scarf`). What holds the halves together is a STACK of knuckles in
-# each ±X corner of the overlap — blocks of one piece standing in the other's band, alternating up
-# the seam — with two vertical M5 rods through them.
+# floor runs on inside the slab as a square-ended tongue (`_floor_tongue`). What holds the halves
+# together is a STACK of knuckles in each ±X corner of the overlap — blocks of one piece standing
+# in the other's band, alternating up the seam — with two vertical M5 rods through them.
 #
 #   * THE LOWER STACK runs from the handhold ceiling to the lip rim: back-bottom, front-bottom,
 #     back-bottom, front-bottom, and over the rim back-top's HUB, the knuckle the lower rod's
@@ -3742,18 +3739,17 @@ def _front_lip(inner, y_joint):
     one-wall overlap where the band meets the body wall (out to y_joint), NOT a
     slab across the seam.
 
-    THREE-SIDED here: both side walls and the ceiling. The floor is lapped too —
-    every seam laps, none butts — but by a different means, because the floor is
-    the one seam face whose inner side is not free. This proud tongue is the wall
-    or ceiling continuing one `wall` INTO the cavity, and on the free faces that
-    space is empty; on the floor the cold core rides there, so a proud floor tongue
-    would drive straight into it. The floor's overlap therefore lives inside the
-    slab as a full-thickness tongue with a 45° scarf nose (`_floor_scarf`), not
-    standing proud — the right overlap for a bearing face. So the lip proper stays
+    THREE-SIDED here: both side walls and the ceiling. The floor runs on past the
+    seam too, but by a different means, because the floor is the one seam face whose
+    inner side is not free. This proud tongue is the wall or ceiling continuing one
+    `wall` INTO the cavity, and on the free faces that space is empty; on the floor
+    the cold core rides there, so a proud floor tongue would drive straight into it.
+    The floor's tongue therefore lives inside the slab at its full thickness and ends
+    square (`_floor_tongue`), not standing proud. So the lip proper stays
     three-sided, and the floor carries its own joint. The ceiling segment remains
     a cantilever that juts one overlap past the body and wants print support; the
-    floor tongue lies on the bed, and only its scarf nose rises at 45°. The side-wall
-    segments, vertical to the bed, are free."""
+    floor tongue lies on the bed. The side-wall segments, vertical to the bed, are
+    free."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
     lip_top = iz1 - ceiling_lip_drop
@@ -3781,43 +3777,31 @@ def _y_lip_channel(inner, y_joint):
                             iz1 - ceiling_lip_drop - fits.running, zhi))
 
 
-def _floor_scarf(inner, y_joint):
-    """The Y seam's FLOOR overlap: a bed-supported, full-thickness tongue with
-    a 45° scarf nose and a square end.
+def _floor_tongue(inner, y_joint):
+    """The Y seam's FLOOR joint: a bed-supported, full-thickness tongue with a square end.
 
     The floor is the one seam face whose cavity side is occupied — the cold core
     rides on it — so it cannot carry the proud tongue the walls and ceiling do
-    (`_front_lip`). Its overlap stays within the slab instead. The FRONT floor runs
-    aft at the slab's whole `floor_t` thickness, then rises at 45° off the bed — the
-    run is the rise — and ENDS SQUARE on the plane the handholds' inner walls end on
-    (`_handhold_backing_end`), so the joint ends in a plumb face under the cavity-side
-    datum rather than a feather tapering to it; the BACK floor gives up that envelope
-    and keeps the matching bed-side wedge under the nose, ending square one
-    `fits.running` aft of the front. The tongue's broad underside is on the print bed
-    and its rising faces are 45° and plumb, so neither half asks support for the core's
-    bearing surface. Assembled, the top remains one plane at z=iz0.
+    (`_front_lip`). Its tongue stays within the slab instead. The FRONT floor runs
+    aft at the slab's whole `floor_t` thickness and ENDS SQUARE on the plane the
+    handholds' inner walls end on (`_handhold_backing_end`); the BACK floor gives up
+    that envelope and starts square one `fits.running` aft. Both joint ends keep the
+    slab's whole section from the bed to the core's bearing floor, so the floor joint
+    and both inner-wall joints are one pair of plumb planes. Each half's underside is
+    on the print bed and its joint face is plumb, so neither asks support. Assembled,
+    the top remains one plane at z=iz0.
 
     Each flank is a plumb face standing one `fits.running` off the side wall beside
-    it. The nose is raked, and the tongue's is struck `scarf_axial` short of the
-    relief's, which stands the two rakes one `fits.running` apart where they pass.
+    it.
 
     Returns (tongue, relief): the solid the FRONT half fuses and the matching
     envelope the BACK half cuts."""
     ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
     zbed = iz0 - floor_t
     root = y_joint - 1.0                              # robust face overlap into front slab
-    tongue_flat = y_joint + lip_len - scarf_axial - floor_t
-    tongue_end = _handhold_backing_end(y_joint, "front")
-    relief_flat = y_joint + lip_len - floor_t
-    relief_end = _handhold_backing_end(y_joint, "back")
-    tongue = _yz_prism(
-        ix0 + fits.running, ix1 - fits.running,
-        [(root, zbed), (tongue_flat, zbed), (tongue_end, zbed + tongue_end - tongue_flat),
-         (tongue_end, iz0), (root, iz0)])
-    relief = _yz_prism(
-        ix0, ix1,
-        [(root, zbed - 1.0), (relief_flat, zbed - 1.0), (relief_flat, zbed),
-         (relief_end, zbed + relief_end - relief_flat), (relief_end, iz0), (root, iz0)])
+    tongue = _ybox(ix0 + fits.running, ix1 - fits.running,
+                   root, _handhold_backing_end(y_joint, "front"), zbed, iz0)
+    relief = _ybox(ix0, ix1, root, _handhold_backing_end(y_joint, "back"), zbed - 1.0, iz0)
     return tongue, relief
 
 
@@ -6146,10 +6130,10 @@ def build_front_half(box):
     for cutter in _front_relief_cuts(inner, fridge_reliefs):
         front = front.cut(cutter)
     front = front.fuse(_front_lip(inner, y_joint))
-    # The floor's overlap: a full-thickness tongue on the bed, ending in a 45°
-    # scarf nose within the slab (the core rides the cavity side, so the floor
-    # cannot tongue proud like the walls). Lands in the bottom piece.
-    front = front.fuse(_floor_scarf(inner, y_joint)[0])
+    # The floor's tongue: full thickness on the bed, ending square within the slab
+    # (the core rides the cavity side, so the floor cannot tongue proud like the
+    # walls). Lands in the bottom piece.
+    front = front.fuse(_floor_tongue(inner, y_joint)[0])
     # Trim to the display facet's plane. The facet runs wall to wall, so it needs no end
     # wall — both ends are the exterior side walls, which seal themselves.
     front = front.cut(_facet_wedge(outer))
@@ -6181,9 +6165,9 @@ def build_back_half(box):
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    # Give up the tongue envelope and keep the bed-side 45° wedge under its nose.
+    # Give up the tongue envelope, starting square one running fit aft of its end.
     # The assembled top stays flat under the core. Lands in the bottom piece.
-    back = back.cut(_floor_scarf(inner, y_joint)[1])
+    back = back.cut(_floor_tongue(inner, y_joint)[1])
     if box.pack.funnel:
         back = back.cut(_funnel_cut(inner, outer, box.pack.funnel))
     # Clip any corner feature that pokes past the rounded print silhouette.
@@ -9474,8 +9458,8 @@ def _handhold_bound(pieces, box):
     def missing(shape):
         return shape.cut(front).cut(back)
 
-    tongue, relief = _floor_scarf(inner, joint)
-    scarf_air = relief.cut(tongue)
+    tongue, relief = _floor_tongue(inner, joint)
+    floor_air = relief.cut(tongue)
     for xi, sx in ((inner[0], 1.0), (inner[1], -1.0)):
         xe = xi - sx * wall
         _flank, cap = _band_x(xe, sx)
@@ -9488,12 +9472,12 @@ def _handhold_bound(pieces, box):
         xa, xb = sorted((cap, face))
         backing = _ybox(xa, xb, y0, y1, bed, roof)
         # The seam's own fits through the wall: the joint between the two pieces' walls, the
-        # air over front-bottom's wall under the knuckle it stands beneath, and the scarf's.
+        # air over front-bottom's wall under the knuckle it stands beneath, and the floor joint's.
         xa, xb = sorted((cap, face))
         seam_air = _handhold_backing_joint(inner, joint, xe, sx, "front").cut(
             _handhold_backing_joint(inner, joint, xe, sx, "back")).fuse(
             _ybox(xa, xb, joint, _handhold_backing_end(joint, "front"),
-                  roof - _y_stack_gap(False, True), roof)).fuse(scarf_air)
+                  roof - _y_stack_gap(False, True), roof)).fuse(floor_air)
         wall_missing = missing(backing).cut(seam_air).Volume()
 
         xa, xb = sorted((face, tangent))

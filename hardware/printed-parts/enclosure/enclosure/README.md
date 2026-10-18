@@ -83,14 +83,15 @@ Three seams. Front↔back: the front pieces' rear lip telescopes into the back p
 **proud** lip is **3-sided** — both side walls and the ceiling. A proud
 tongue is the wall continued one `wall` *into* the cavity, and on those faces the
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
-tongue would drive straight into the core. The floor laps anyway, but as a
-**full-thickness tongue with a 45° scarf nose inside the slab** (`_floor_scarf`):
-the front floor runs one overlap aft on the print bed, rises in a 45° nose off the bed
-and ends square; the back keeps the matching bed-side wedge. The assembled top stays
-flat under the core, while both printed bearing faces remain support-free. The handholds remove the slab at both flanks; the scarf continues across the middle
-under the cold core. Its square ends stand on the plane each handhold's inner wall ends
-on, the wall at its full 3 mm section, with one running fit between the front and back
-faces.
+tongue would drive straight into the core. The floor runs on anyway, as a
+**full-thickness tongue inside the slab** (`_floor_tongue`): the front floor runs aft
+on the print bed and ends square; the back floor starts square one running fit aft of
+it. Both ends keep the slab's whole section, the assembled top stays flat under the
+core, and both printed bearing faces remain support-free. The handholds remove the slab
+at both flanks; the tongue continues across the middle under the cold core. Its square
+ends stand on the plane each handhold's inner wall ends on, the wall at its full 3 mm
+section, so the floor and both inner walls close on one pair of plumb faces with one
+running fit between them.
 
 Each ±X corner of that seam is a **stack of knuckles**: blocks of one piece standing in the
 other's overlap, alternating up the corner, with two vertical M5 screws through them
@@ -191,7 +192,7 @@ its own floor tongue to the joint with back-bottom's wall, one fit under the low
 whole section and the four M5 insert envelopes.
 
 An edge-first drop that opens the lower Y seam loads the lower screws and the knuckles they pass
-in bearing. The floor scarf registers the floor and supplies no tensile interlock. Drop
+in bearing. The floor tongue supplies no tensile interlock. Drop
 resistance requires assembled physical qualification; native solid volume and the saved 15%
 general infill do not establish that capacity.
 
@@ -262,7 +263,7 @@ The central recess reaches 13.75 mm from the exterior plane to the wall's finger
 plane. The exterior transition ends at |X|105.208, leaving 11.458 mm of flat central
 lifting-ceiling depth before the screw-pocket openings. The block's 13.75 mm reach
 uses a different reference, `interior_x`; it includes the retained blind wall.
-The floor scarf continues across the middle of the enclosure. The lower seam screws drive up
+The floor tongue continues across the middle of the enclosure. The lower seam screws drive up
 through the handhold ceilings. Each head and its single flat washer sit inside
 an inward-open pocket, with the head face recessed 2 mm above the finger surface.
 The openings remain exposed during use.
@@ -1078,9 +1079,9 @@ The Y-seam lip is the one joint the orientation costs something. Front-top's cei
 tongue juts one overlap past the body into the space the back piece's ceiling
 occupies — a cantilever that cannot be buttressed without colliding with the back
 piece, and so wants print support. The floor does not share that cost: its tongue
-runs aft at the slab's full thickness with its underside on the bed, then rises in
-a 45° scarf nose and ends square. The back half's matching wedge also grows from the
-bed, so the cold-core bearing plane carries no supported surface. The side-wall
+runs aft at the slab's full thickness with its underside on the bed and ends square.
+The back half's floor starts square from the bed one running fit aft, so the cold-core
+bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free. Back-top's upper corner blocks grow directly from
 the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
 them through the ceiling tongue.

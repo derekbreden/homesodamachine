@@ -289,11 +289,9 @@ click: x=104.500 y=213.029 z=91.847
 click: x=-104.500 y=213.003 z=138.333
 click: x=104.500 y=213.003 z=138.333
 
-[thin] Outside the pump-dock change and unresolved: these actual floor/handhold edges, seam returns and rear entry transitions retain the native material in their exact 4 mm windows. Fixed seam interfaces use unchanged coordinates; the rear entry uses its explicit rear-plane transform. The new core-stop tail has its own separate 0.50 mm clearance proof. This correspondence does not accept these fine sections or lifting/load capacity.
+[thin] Outside the pump-dock change and unresolved: these actual handhold edges, seam returns and rear entry transitions retain the native material in their exact 4 mm windows. Fixed seam interfaces use unchanged coordinates; the rear entry uses its explicit rear-plane transform. The new core-stop tail has its own separate 0.50 mm clearance proof. This correspondence does not accept these fine sections or lifting/load capacity.
 alternatives: Reconcile each retained floor seam, handhold return or rail-entry contour with its mate to increase local stock while retaining running clearance and the finger opening. Those interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-93.400 y=211.803 z=-5.997
-click: x=-47.207 y=211.986 z=-5.814
 click: x=-95.671 y=466.176 z=157.195
 click: x=95.671 y=466.176 z=157.195
 click: x=105.247 y=209.512 z=29.327
