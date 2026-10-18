@@ -1770,8 +1770,10 @@ static bool beginPrimePump(
         primeSession.pumpStarted(owner, holdToken);
     soundPlay(SND_ENGAGE);           // the pad took — richer than a tick, and specific to a hold
     lastHoldNoteMs = millis();       // the first reading is a second in, not immediately
-    Serial.printf("\n[machine] prime %s at full (IO%d -> %s.IN1 -> J13.%s)\n",
-                  kPump[channel].who, kPump[channel].pin, kPump[channel].driver, kPump[channel].j13);
+    char names[24];
+    Serial.printf("\n[machine] prime %s at full (IO%d -> %s.IN1 -> J13.%s), valves %s open\n",
+                  kPump[channel].who, kPump[channel].pin, kPump[channel].driver, kPump[channel].j13,
+                  valveNames(machineValvesOpen(), names, sizeof(names)));
     primeEventUsesSession = primeRunUsesSession;
     if (machineOnPrimeState) machineOnPrimeState(PRIME_RUNNING, channel, 0);
     primeEventUsesSession = false;

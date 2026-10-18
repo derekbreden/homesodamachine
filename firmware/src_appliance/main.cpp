@@ -31,7 +31,8 @@
 //   1. At most 3 solenoid valves energized at once. Eight coils on
 //      MANIFOLD A draw past J1's COM contact rating and land in one
 //      TBD62083. hardware/wiring/ac-wiring-schedule.md, "Solenoid COM
-//      current budget".
+//      current budget". Prime and the pour break it: they drive every
+//      output on J1 and J2, which is for a manifold with two valves wired.
 //   2. Relay #2 (IO2) de-energized while a dispense is open. The main board
 //      peaks at 3.33 A and the G Ganen is budgeted at 5 A, on one 6.7 A
 //      supply. The carbonator's low reed asserts mid-pour, so the refill it
