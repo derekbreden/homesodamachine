@@ -1,0 +1,546 @@
+{
+  "review_date": "2026-10-18",
+  "scope": "One-off exact native B-rep review of seven source-authored external fluid routes against the complete named STEP obstacle snapshot, with the source-selected fore-valve and WAGO translations applied. All seven replacement routes are installed together before the mutual-neighbor review. Printed supports and shells in the snapshot retain their exported shape; regenerated whole-appliance closure is a separate result. No physical bending, handling, pressure or lifetime qualification is established.",
+  "source_sha256": {
+    "hardware/manifold-layout/_lines.py": "4565b972779eae2b6cd0d9ade39a45a1b3f4cc0dcae6c5c28962efd56c20237d",
+    "hardware/scripts/_routing.py": "bed6ac3add88ca1912958fe3ebeec092a88181c8d55f2287d798d44160e2a048",
+    "hardware/manifold-layout/manifold_layout.py": "2182d5788db552d37b0200c236007e549d808ee963a9f54b2f1ddae251f708c3",
+    "hardware/manifold-layout/enclosure_assembly.py": "c82b414da3456351aac5381d819afc2315afd7970484347e3e37f5641a1adcdc",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "fc882aac1274f4f309ad8fef43dc7370037ed996822d389e32360e9bb6a7bfc4"
+  },
+  "native_obstacle_step_sha256": "62524a705a7961544c46c8067e55c56dd691363f055a02ebdd5404a2e1c31b99",
+  "named_obstacle_count": 182,
+  "native_query": "BRepExtrema_DistShapeShape after conservative AABB prefilter; native sweep validity and actual seated corner radii. Existing source/destination connections are omitted from unconnected-gap comparisons.",
+  "snapshot_translations_mm": {
+    "valve-v-e": [
+      0,
+      0,
+      -5
+    ],
+    "coil-v-e": [
+      0,
+      0,
+      -5
+    ],
+    "valve-v-f": [
+      0,
+      0,
+      -5
+    ],
+    "coil-v-f": [
+      0,
+      0,
+      -5
+    ],
+    "valve-v-h": [
+      0,
+      0,
+      -5
+    ],
+    "coil-v-h": [
+      0,
+      0,
+      -5
+    ],
+    "valve-v-i": [
+      0,
+      0,
+      -5
+    ],
+    "coil-v-i": [
+      0,
+      0,
+      -5
+    ],
+    "wago-mana": [
+      0,
+      11,
+      0
+    ],
+    "wago-manb": [
+      0,
+      11,
+      0
+    ]
+  },
+  "endpoint_binding": "Actual source getter positions through enclosure_assembly.manifold_carry with preserved WORLD_LIFT; cold-core and seated bulkhead mouths use the mutually fresh snapshot facts. No fluid topology or endpoint station is changed by _lines.py.",
+  "existing_bearing_interfaces": [
+    {
+      "pair": [
+        "tube-fluid-18",
+        "foam-assembly"
+      ],
+      "nominal_gap_mm": 0.15,
+      "declaration": "Existing cold-core cap side bearing; _scorecard.anchored_pairs."
+    },
+    {
+      "pair": [
+        "tube-fluid-28",
+        "enclosure-back-top"
+      ],
+      "nominal_gap_mm": 0.15,
+      "declaration": "Existing enclosure tube bearing; _scorecard.anchored_pairs."
+    }
+  ],
+  "unconnected_clearance_floor_mm": 1.0,
+  "report_neighbors_under_mm": 2.0,
+  "minimum_stock_centerline_radius_mm": 14.0,
+  "return_corner_radius_mm": 25.4,
+  "route_24_to_26_gap_mm": 4.064199511214373,
+  "route_28_to_drain_vent_gap_mm": 1.613729,
+  "routes": [
+    {
+      "id": "fluid-4",
+      "pts": [
+        [
+          1.8499999999999996,
+          185.11239,
+          280.41
+        ],
+        [
+          1.8499999999999996,
+          288.0,
+          280.41
+        ],
+        [
+          -44.568850675444985,
+          288.0,
+          280.41
+        ],
+        [
+          -44.568850675444985,
+          316.0,
+          280.41
+        ],
+        [
+          -22.35,
+          316.0,
+          263.05
+        ],
+        [
+          -22.35,
+          293.46000000000004,
+          263.05
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 204.00763145853458,
+      "near": [],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0
+      }
+    },
+    {
+      "id": "fluid-14",
+      "pts": [
+        [
+          82.1,
+          117.29,
+          282.175
+        ],
+        [
+          82.1,
+          118.02960409378927,
+          296.77500000000003
+        ],
+        [
+          44.75000001564078,
+          198.4299999,
+          289.0
+        ],
+        [
+          44.75000001564078,
+          212.4299999,
+          289.0
+        ],
+        [
+          44.75000001564078,
+          218.4299999,
+          267.7940001
+        ],
+        [
+          44.75000001564078,
+          275.4,
+          267.7940001
+        ],
+        [
+          44.75000001564078,
+          283.4,
+          269.2940001
+        ],
+        [
+          44.75000001564078,
+          295.1470234175445,
+          269.2940001
+        ],
+        [
+          44.75000001564078,
+          315.1470234175445,
+          268.0440001
+        ],
+        [
+          44.75000001564078,
+          361.67202341754455,
+          268.0440001
+        ],
+        [
+          57.5000000156408,
+          433.29999999999995,
+          269.2940001
+        ],
+        [
+          57.5000000156408,
+          433.29999999999995,
+          253.4000001
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 352.6424358599458,
+      "near": [
+        [
+          "vk-solenoid",
+          1.125
+        ],
+        [
+          "funnel-frame",
+          1.171507
+        ],
+        [
+          "valve-v-a",
+          1.305
+        ],
+        [
+          "tube-water-7",
+          1.371795
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0,
+        "6": 14.0,
+        "7": 14.0,
+        "8": 14.0,
+        "9": 14.0,
+        "10": 14.0
+      }
+    },
+    {
+      "id": "fluid-16",
+      "pts": [
+        [
+          43.500000015640786,
+          195.89999999999995,
+          253.4000001
+        ],
+        [
+          43.500000015640786,
+          195.89999999999995,
+          281.15
+        ],
+        [
+          22.35,
+          118.13091972307548,
+          298.77500000000003
+        ],
+        [
+          22.35,
+          117.29,
+          282.175
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 114.53333222227232,
+      "near": [
+        [
+          "funnel-frame",
+          1.162093
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0
+      }
+    },
+    {
+      "id": "fluid-18",
+      "pts": [
+        [
+          73.82,
+          173.23999999999998,
+          229.675
+        ],
+        [
+          73.82,
+          173.23999999999998,
+          259.80000010000003
+        ],
+        [
+          53.40000001564078,
+          208.99999999999994,
+          261.0000001
+        ],
+        [
+          27.00000001564078,
+          208.99999999999994,
+          261.0000001
+        ],
+        [
+          5.000000015640779,
+          208.99999999999994,
+          259.80000010000003
+        ],
+        [
+          -76.5,
+          208.99999999999994,
+          259.80000010000003
+        ],
+        [
+          -76.5,
+          345.0,
+          259.80000010000003
+        ],
+        [
+          -40.709999999999994,
+          375.0,
+          265.4438222682448
+        ],
+        [
+          -40.709999999999994,
+          391.0,
+          265.4438222682448
+        ],
+        [
+          -40.709999999999994,
+          411.0,
+          269.024
+        ],
+        [
+          -40.709999999999994,
+          453.51,
+          269.024
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 446.83030219764396,
+      "near": [
+        [
+          "foam-assembly",
+          0.15
+        ],
+        [
+          "enclosure-back-top",
+          1.307912
+        ],
+        [
+          "tube-water-3",
+          1.421216
+        ],
+        [
+          "tube-water-5",
+          1.591023
+        ],
+        [
+          "g-ganen-pump",
+          1.868822
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0,
+        "6": 25.4,
+        "7": 25.4,
+        "8": 25.4,
+        "9": 25.4
+      }
+    },
+    {
+      "id": "fluid-24",
+      "pts": [
+        [
+          -82.1,
+          117.29,
+          282.175
+        ],
+        [
+          -82.1,
+          117.96881471621755,
+          295.575
+        ],
+        [
+          -82.1,
+          170.0,
+          295.575
+        ],
+        [
+          -43.499999984359214,
+          192.0,
+          295.575
+        ],
+        [
+          -43.499999984359214,
+          240.29999999999995,
+          295.575
+        ],
+        [
+          -43.499999984359214,
+          240.29999999999995,
+          253.4000001
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 185.94644609682467,
+      "near": [
+        [
+          "funnel-frame",
+          1.15
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0
+      }
+    },
+    {
+      "id": "fluid-26",
+      "pts": [
+        [
+          -43.499999984359214,
+          195.89999999999995,
+          253.4000001
+        ],
+        [
+          -43.499999984359214,
+          195.89999999999995,
+          286.675
+        ],
+        [
+          -22.551369889565326,
+          118.0384485593587,
+          297.475
+        ],
+        [
+          -22.35,
+          117.29,
+          282.175
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 118.30725864967732,
+      "near": [
+        [
+          "funnel-frame",
+          1.144805
+        ],
+        [
+          "tube-water-3",
+          1.75
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0
+      }
+    },
+    {
+      "id": "fluid-28",
+      "pts": [
+        [
+          -73.82,
+          173.23999999999998,
+          229.675
+        ],
+        [
+          -73.82,
+          173.23999999999998,
+          270.574
+        ],
+        [
+          -78.07,
+          193.14,
+          270.574
+        ],
+        [
+          -78.07,
+          302.0,
+          270.574
+        ],
+        [
+          -78.07,
+          340.0,
+          274.074
+        ],
+        [
+          -94.57,
+          365.0,
+          274.074
+        ],
+        [
+          -94.57,
+          402.0,
+          274.074
+        ],
+        [
+          -78.07,
+          448.5,
+          269.024
+        ],
+        [
+          -78.07,
+          453.51,
+          269.024
+        ]
+      ],
+      "min_radius": 14.0,
+      "blocked": null,
+      "length": 322.732576461581,
+      "near": [
+        [
+          "enclosure-back-top",
+          0.15
+        ],
+        [
+          "tube-drain-vent",
+          1.613729
+        ],
+        [
+          "water-split",
+          1.962626
+        ]
+      ],
+      "valid": true,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 25.4,
+        "4": 25.4,
+        "5": 25.4,
+        "6": 25.4,
+        "7": 25.4
+      }
+    }
+  ],
+  "result": "All seven native sweeps are valid, no blocked endpoint is recorded, all corners retain at least R14, all rear return corners on fluid-18/fluid-28 retain R25.4, and no unconnected body is below the existing 1 mm floor. Existing printed bearing clearances are retained. No scorecard exclusion, floor or recurring check is added."
+}

@@ -346,36 +346,68 @@ and successful insertion are accepted for the reported use. The individual
 effects of centering and added backing, physical pressure distribution,
 numerical forces and endurance are not measured separately.
 
+## Permanent pump dock
+
+The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) defines four
+permanent Siraya Tech Flex TPU 85A receivers in closed PET-GF wall bores. The wall
+locates X/Z; four locked flat keepers capture Y, and a separate two-screw frame supports
+the rear cuffs. Fixed LLDPE tails connect the rear sockets to stationary commercial
+tees. Factory-prepared complete pumps carry smooth machined natural PP-H Polystone P flanged
+stems. Their integral flanges transfer axial withdrawal load into the cradle while
+the cap closes upward escape. The customer replaces complete pumps and leaves the
+receiver assembly installed.
+
+The [fluid geometry review](../printed-parts/enclosure/pump-dock/fluid-geometry-review.json)
+records the source-derived sealing lands, tube stations, nominal occupied envelopes
+and pressure-load cases. The [fixed-pack and fixture review](../printed-parts/enclosure/pump-dock/pack-integration-review.json)
+and [external route review](../printed-parts/enclosure/pump-dock/external-route-review.json)
+record local native clearances at their bound source and obstacle geometry. The
+[core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
+records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
+The [pressure and retention review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)
+maps single-channel flow and blocked-fill modes to separating loads and defines
+the dry/wet assembly qualification with the available fixtures and tools.
+The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
+describes six attracting SB443-IN pairs with exposed faces, grooved rails and keyed,
+room-cured bedding. These are geometry and design-basis records. They establish no
+accepted seal, assembled retaining force, adhesive capacity, cleanability or service
+life. The machined stem's fit, flange bearing, tip location and pump-end joint also
+remain physical qualifications of this assembly.
+
+The [Bambu TPU elbow fit](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
+and [Siraya exterior result](../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
+retain their separate material, geometry and process scopes. Neither qualifies the
+permanent receiver. The accepted tee-carrier surfaces, sliding fit and RC62 print
+articles remain in their linked records; those observations do not transfer
+to the fixed pump dock.
+
 ## Pump cartridge magnetic contacts
 
 The [mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md) covers the current
 YYFKGCP four-contact pair, its factory-contained magnets, screw-fastened printed
-seats, polarity, load path and dimensional allowance. The separate
-[RC62 retention pair](../printed-parts/enclosure/enclosure/magnet-retention/README.md)
-places one paused-in ring in the lower cradle and one in front-top at tube height.
-Its insertion sweep, covers and surrounding stock pass the native geometry checks;
-the [completed Mark2 cartridge report](../printed-parts/enclosure/enclosure/magnet-retention/v4/physical-result.json)
-confirms the ring is sealed in but rattles, and its first covering layer is a bit
-wonky. The [current open-pocket hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
-sets **C3**, 19.05 mm in X and 3.175 mm in Y, for the two production pockets.
-The closed pocket keeps 19.53 mm in Z: 0.48 mm nominal headroom and 0.38 mm
-at the specified maximum magnet diameter. The
-[H2C C3/V69 front-top result](../printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json)
-accepts the first layer above the inserted magnet, with two supplied photos.
-Finished roof behavior, rattle and the Mark2 cradle’s first covering layer remain
-separate observations.
-Installed seating force, magnet heat exposure and retention remain unmeasured. Current-export
-checks establish nominal mating and clear passages. H2C reported the two seat
-coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
-accepts the founder's successful connector fit and mating/compression check in
-the printed test piece, reported 2026-10-04. Insert retention and electrical
-continuity have no reported result.
+seats, polarity, load path and dimensional allowance. The
+[completed Mark2 RC62 cartridge article](../printed-parts/enclosure/enclosure/magnet-retention/v4/physical-result.json)
+records its enclosed ring's rattle and first covering-layer finish. The
+[C3 open-pocket selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+records 19.05 mm X and 3.175 mm Y fit for its identified ring-pocket articles; the
+[H2C C3/V69 result](../printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json)
+accepts its first layer above the inserted ring. Those records retain their individual
+printed-article scopes and provide no acceptance of the SB443-IN mounts.
 
-The drawing's conservative pin protrusion is 0.80–1.20 mm. The coupon criterion
-of ±0.05 mm face flushness per half gives 0.454–1.054 mm compression at the
-nominal 0.246 mm frame gap, leaving 0.046 mm additional closing allowance before
-the stated 1.10 mm stroke. That conditional calculation does not bound the complete
-printed frame. Installed compression, magnetic pull against the four springs,
+H2C reported the two contact-seat coupons complete. The
+[physical contact record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
+accepts the founder's successful connector fit and mating/compression check in the
+identified test piece, reported 2026-10-04. Insert retention and electrical continuity
+have no reported result.
+
+The current seats recess both connector faces 0.127 mm, giving a 0.500 mm nominal
+contact-face gap across the 0.246 mm printed-frame gap. The drawing's conservative
+pin protrusion is 0.80–1.20 mm. Applying ±0.05 mm installed face error per half
+about the recessed positions gives 0.200–0.800 mm compression, leaving 0.300 mm
+additional closing allowance before the stated 1.10 mm stroke. This conditional
+calculation does not bound the complete printed frame. The accepted coupon result
+retains its own seat geometry and does not qualify these recessed seats. Installed
+compression, magnetic pull against the four pogo-pin springs,
 whole-cartridge retention, operating resistance and lifetime remain unmeasured.
 The accepted pump-holder fit does not establish those connector properties.
 

@@ -137,6 +137,11 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": (
+        "hardware/printed-parts/enclosure/pump-dock/pump-stem-machining.step.mesh",
+        "hardware/printed-parts/enclosure/pump-dock/pump-stem-setting-fixture.step.mesh",
+        "hardware/printed-parts/enclosure/pump-dock/pump-stem-setting-fixture.stl",
+    ),
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": (
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh",
@@ -284,8 +289,7 @@ ACTION_INTERMEDIATE = frozenset({
 # because every action has to hold them.
 _FLUTE_ROOTS = {
     "hardware/scripts/flute_payload_enclosure.py": (
-        "hardware/printed-parts/enclosure/enclosure/",
-        "hardware/printed-parts/enclosure/tee-carrier/"),
+        "hardware/printed-parts/enclosure/enclosure/",),
     "hardware/scripts/flute_payload_cold_core.py": (
         "hardware/printed-parts/cold-core/foam-cap/",
         "hardware/printed-parts/cold-core/foam-shell/"),

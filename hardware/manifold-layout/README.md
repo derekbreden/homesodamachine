@@ -11,7 +11,9 @@ fills, 16 and 26 the draws. Free here: where every body stands, how it is turned
 three ports takes its run.
 
 Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`. Two decks of valves over the pumps, the upper one folded onto the lower
-about the hinge the four barb tees' front collets stand on.
+about the layout's fold line. The valve rows and pump-side tees are fixed in the enclosure;
+the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md) supplies the
+TPU receivers, keepers and prepared machined stems.
 
 ## The bodies, and the figures that set the packing
 
@@ -21,24 +23,25 @@ about the hinge the four barb tees' front collets stand on.
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [8](TUBE_COUNT2) × tube | 1/4" OD LLDPE — four straight runs across the collet plate's berth from the pump barbs to the anchor tees, and [4](FORE_STUB_COUNT) bowed flex stubs above those tees. |
+| [8](TUBE_COUNT2) × tube | Four permanent straight 1/4" OD LLDPE receiver-to-tee tails and [4](FORE_STUB_COUNT) fixed fore S links. The four pump stems are machined PP-H components, supplied on the prepared pumps. |
 
 ## Frame
 
 X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
 depth; the two flavour mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
-height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
-[90.81](DECK_Z) and [151.76](UPPER_Z).
+height, 0 at the pumps' own floor. The unshifted authoring deck references are z
+[90.81](DECK_Z) and [151.76](UPPER_Z); the fixed fore and aft groups carry the explicit
+offsets described below.
 
 ## Four limbs, folded in two
 
-A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump
-hands out two parallel lanes [59.75](BARB_PITCH2) mm apart, one branch reach off its own skin.
+A fixed pump-side tee takes its prepared pump stem through a permanent TPU receiver
+and straight tail on its BRANCH. Its RUN lies across the head's face, giving each pump
+two parallel lanes [59.75](BARB_PITCH2) mm apart.
 Every valve is straight through and every junction's run takes two valve ports, so a lane is
 one line of valves and tees, front to back. Three interior pairs are butted collet to collet;
-the four barb tees instead meet V-E/F/H/I through the exposed bowed flex stubs below.
-`LIMB_PITCH` is the lane spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward
-the pump's axis and draws the leaning tube each barb then needs to reach its tee.
+the four pump-side tees meet V-E/F/H/I through stationary fore S links. Their branch
+axes align with the prepared pump stems and permanent receivers.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
@@ -51,20 +54,18 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [90.81](DECK_Z2), [17.08](DECK_GAP) mm over the pump heads'
-crowns; the folded deck's at z [151.76](UPPER_Z2). The two inner limbs leave
+The unshifted deck port references are z [90.81](DECK_Z2) and
+[151.76](UPPER_Z2). The two inner limbs leave
 [10.45](INNER_GAP) mm between their valve bodies across the mirror plane.
 
 ## The fold
 
-The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
-with two quarter circles and a tangent straight between them. Each pair turns on whichever of
-its two mouths is lower and reaches the other with a 4 mm axial leg: at the tee on the inner
-pair, whose fixed valve rides the source limbs' drop, and at the fixed valve on the outer pair.
-Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[82.93](SPINE_LEN) mm for each inner hairpin and [84.48](OUTER_SPINE_LEN) mm for each outer one.
-As the tees move aft, the bend radii increase and the straight shortens, preserving the
-complete tube length.
+The four connections across the fold — fluid-9, 17, 19 and 27 — are stationary
+180° hairpins with two quarter circles and a tangent straight between them. Both
+ends meet their fixed collets on their own axes. The radius is R[14](SPINE_R), with
+[75.93](SPINE_LEN) mm for each inner hairpin and
+[77.55](OUTER_SPINE_LEN) mm for each outer one. Their geometry comes from the fixed
+tee and valve stations; pump service does not flex these paths.
 
 V-G and V-J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
 lean between the two axes. The valves' tray sockets and external tube routes follow their
@@ -76,11 +77,10 @@ member with no middle chord in it, and it is the worst to pick, because what the
 a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
 starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
 
-The decks stand [60.95](DECK_SEP) mm apart, clearing the folded valve undersides and the
-narrow terminals beneath them. The four barb tees' fore datum stands 1.75 mm fore of the
-hinge plane, leaving the aft valves' complete 6 mm post-insertion route.
-`HSM_DECK_SEP=` builds another separation. `HSM_SPINE_R=` moves the bend
-radius on its own.
+The authoring fold uses [60.95](DECK_SEP) mm separation. The fixed tee, fore-valve
+and aft-valve groups also carry their explicit offsets in `manifold_layout.py`.
+The [native fluid review](/hardware/printed-parts/enclosure/pump-dock/fluid-geometry-review.json)
+records the occupied pack, keeper access and valve insertion routes.
 
 ## The quarter turns
 
@@ -123,7 +123,7 @@ which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_
 
 That pair has a member only while `(2R − jog)² + travel² ≥ (2R)²`, and the travel is not this
 run's to choose: V-A and V-B stand on the cold core's cap, which the pack does not carry, so
-every millimetre the pack goes aft — the collet plate's berth among them — comes off it. **THE
+every millimetre the pack goes aft comes off it. **THE
 JOG IS WHAT THE FLOOR IS SET BY.** Written out, that floor is `√(jog·(4R − jog))`, and it climbs
 with the jog for every jog under 2R: at [13.625](STEP_JOG2) mm across it is
 [24.03](STEP_FLOOR) mm against a travel of [46.72](STEP_TRAVEL2), so each run is the pair of
@@ -146,8 +146,8 @@ only the length of the step is solved for. V-A takes [1.92](STEP_SPREAD) mm of t
 s = [40.02](STEP_STRAIGHT_A) mm, [48.83](STEP_LEN_A) mm of tube. V-A retains this
 outboard offset.
 
-**Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs on the barbs' own
-axes, branch down, at the hinge. **Y-A and Y-B** stand on the
+**Y-C, Y-D, Y-F and Y-G** receive the four permanent receiver tails along the
+prepared pump stems' axes, branch down in this authoring frame. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER
 RESERVOIR HAS A JUNCTION**: each carries two mouths of its own, so every one of the four gate
@@ -160,12 +160,14 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[4](STRAIGHT_COUNT) are straight pump-barb runs. The [4](FORE_STUB_COUNT) connections from the
-anchor tees to V-E/F/H/I are [17.251](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
-[15.251](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
-tees while the tees can move fore and aft. [4](SPINE_COUNT) are the fold's 180° turns and
-[2](QUARTER_COUNT2) are the quarter turns above. Every formed corner in the manifold —
-[14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
+[4](STRAIGHT_COUNT) pump branches contain a prepared machined stem, permanent TPU
+receiver and 18.175 mm straight LLDPE tail. The [4](FORE_STUB_COUNT) connections from
+those fixed tees to V-E/F/H/I have [15.2531](FORE_STUB_EXPOSED) mm exposed R14 S paths.
+Add the actual insertion inside each fitting for their finished blanks.
+[4](SPINE_COUNT) are the fold's stationary 180° turns and
+[2](QUARTER_COUNT2) are the source quarter turns above. The hairpin and source
+routes contain [14](CORNER_COUNT) formed corners at the stock's
+[14](MIN_BEND) mm minimum radius; each fore S link adds two reverse arcs.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (funnel), V-G-O (flavor A) and
@@ -174,46 +176,42 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [166](ENV_Y) × [274](ENV_Z) mm — [8.98](ENV_L) L of bounding box over the
+[198](ENV_X) × [166](ENV_Y) × [279](ENV_Z) mm — [9.14](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [166](REACH_Y) × [288](REACH_Z).
+[198](REACH_X) × [166](REACH_Y) × [293](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck placement span, referenced
-to the extended branch nose at the nominal fore-deck plane. The pump station uses a
-[3](PUMP_DROP) mm downward world-Z datum, while the stationary manifold stands 2 mm above
-its nominal datum. The fitted pump outlets meet the tee plane. At the fore stop the sleeve
-is depressed and the exposed tube is [7.53](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
-with the cartridge 2.15 mm short of seating. The full tube projection includes its insertion
-to the internal body stop.
-Both pumps ride out of the box on their own pump cartridge and these four runs are what
-release. The collet plate is a 3.175 mm section printed into front-top, with four
-Ø8.5 mm teardrop passages around the Ø6.35 mm tubes. A passage passes its tube and stops the
-collet nose. Pulling the pump cartridge carries the four tees to the fore stop;
-the fixed plate continuously holds the depressed sleeves while the tubes leave. To reinstall,
-bottom all four tubes against their measured 10 mm insertion stops at release, then push the
-cartridge through its final 2.15 mm to seat it. At connected the sleeves stand extended with
-0.5 mm between their noses and the plate, and the tubes bottom 11.65 mm beyond the extended
-noses. Nothing is unscrewed for pump cartridge service.
+`BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck authoring placement
+span. The pump station retains its fitted [3](PUMP_DROP) mm downward world-Z datum.
+Four smooth prepared stems project [9.85](BARB_TUBE_LEN) mm from the modeled free
+BPT tube plane. Their production setting uses the cartridge's actual flat aft
+face: all four tips lie 7.746 mm aft of it, at machine Y87.015 mm.
 
-`enclosure_assembly.collet_plate_spec` places the release face on the actual fully depressed
-branch noses. The complete enclosure assembly is displayed at nominal connected rest with the cartridge fully seated.
-The standalone manifold study shows the fore stop and the pumps 2.15 mm short of seating.
-`enclosure` joins the plate's rectangular section to the tee wall while forming front-top.
-The floor joins, outer cheeks, upper cap and front-bottom feet are part of the
-enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
+Both pumps ride out on the cartridge. Their integral stem flanges transfer
+insertion and withdrawal reactions into the lower cradle, while the cap closes
+upward escape. The four stems enter the TPU funnels and six-millimetre tight lands.
+A rigid wall locates each receiver in X/Z and one flat interior keeper captures Y.
+The receiver remains in the wall when the cartridge is withdrawn; its permanent
+18.175 mm rear tail and commercial tee stay fixed. The stem tips remain 0.50 mm
+short of the receiver shoulders with the cartridge on its dedicated outboard stop
+lands. The broad cartridge and wall planes retain 0.246 mm clearance.
+
+The standalone study draws the four short pump-axis spans and permanent tails.
+The [complete enclosure assembly](enclosure_assembly.py) supplies the manufactured
+flanged-stem geometry, installed TPU envelopes, flat keepers, rear cuff support,
+fixed tee saddles and positive SB443-IN mounts. The customer changes complete
+prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 
 ## Standing it on the compressor bay
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
-read from the outer release-state hairpins over the pair's crown. The tee ends
-and outer hairpins extend 4 mm below the fold datum; the inner hairpins extend 6 mm below it.
-The eight fixed valves bear in front-top's two trays and the
-four moving tees float on their tubes. The cold core is not one of the pair — it
+read from the fixed manifold's occupied envelope above the pair's crown.
+The eight fixed valves bear in front-top's two trays and the four pump-side tees
+stand in its integral saddles. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.
 

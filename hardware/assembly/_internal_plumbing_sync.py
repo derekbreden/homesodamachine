@@ -115,7 +115,12 @@ def main():
         # `_cards_ip` puts on IP-03 — a station added to the topology moves both.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{sum(1 for n in _ml.P if n.startswith('Y-'))}",
-        "PUMP_TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.4g} mm",
+        "DOCK_TAIL_CUT": f"{_ml.factory_tail_length('Y-C'):.6g} mm",
+        "DOCK_FORE_LINK": f"{_ml.FORE_STUB_EXPOSED:.6g} mm",
+        "FLAVOR_A_CORNERS": f"{_runs['fluid-18'].corners}",
+        "FLAVOR_B_CORNERS": f"{_runs['fluid-28'].corners}",
+        "FLAVOR_B_RETURN_RISE": f"{_lines.GATE_B_DRAIN_RETURN_RISE:.4g} mm",
+        "FLAVOR_B_RETURN_WEST": f"{_lines.GATE_B_RETURN_WEST:.4g} mm",
         # What each of the flow meter's anchors leave alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the anchor's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",

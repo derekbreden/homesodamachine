@@ -1,215 +1,166 @@
 # Pump replacement
 
-This is the intended mechanism and service sequence for the enclosure assembly-test candidate.
-The complete printed assembly must establish simultaneous release and support cleanup before
-this sequence is accepted as a customer procedure.
+Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
+The customer replaces complete prepared pumps: each replacement has two smooth, machined natural PP-H Polystone P flanged stems
+already fitted and secured in its pump tubing. The fixed TPU receivers, keepers,
+commercial tees and magnetic mounts remain installed during pump changes.
+No enclosure quadrant comes off for a pump change.
 
-The BPT tube around each Kamoer KPHM600's rotor is a consumable and a pump is replaced as a
-unit. Both pumps ride in `enclosure-pump-cartridge`, the large lower cradle whose full-height
-face fills the bay in the front wall. Pull that cradle against a braced box and both pumps and
-their small top clamp come out together. No enclosure quadrant comes off.
+[4](JOINT_COUNT) flavor joints separate when the cartridge is pulled straight forward.
+Each smooth Ø[6.35 mm](TUBE_OD) stem slides out of a stationary TPU socket. The four tee
+branches remain connected behind the receiver wall. Water, CO2 and carbonated-water
+connections stay closed, so the carbonator remains connected and charged.
 
-[4](JOINT_COUNT) joints part, all four on the flavor path, and none of them is opened by
-hand — the collet plate opens all four as the cartridge is pulled. No joint on the water, CO2
-or carbonated-water path is opened either: every body on those three paths stands aft of the
-bay or on the cold core's own lid, so the carbonator stays full, stays under pressure, and
-stays connected.
+This is the service procedure for the built dock geometry. Pump-holder fit has its
+[recorded physical acceptance](/hardware/reference/kamoer-kphm400/physical-fit.json).
+The complete dock's sealing, insertion and withdrawal forces, retention under pressure,
+cleanability and endurance remain to be established on the assembled hardware; those
+properties do not follow from the CAD fit.
 
-The appliance runs **dry mode** first: a firmware cycle that fills the manifold with air. Air
-enters at the funnel and both reservoir cap vents; what it displaces leaves at the
-gooseneck's tip. The user's part is a container under the faucet.
+## What leaves the bay
 
-## What the cartridge carries
-
-| Rides out on `enclosure-pump-cartridge` | Stays |
+| Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| Both Kamoer pumps, [2](CART_PUMPS) molded skirts bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
-| The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| The contact pair's female half in the top clamp, its four leads in the clamp's crown grooves, and both Faston pairs on the pump tabs | The contact pair's male half in the bay bulkhead, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
-| One enclosed RC62 in the lower cradle | One enclosed RC62 in front-top, its attracting mate at tube height |
-| | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied into the tee carrier plate, their branch collars journalled in the tee wall |
-| | The integral collet plate and tee-journal wall in `enclosure-front-top` |
-| | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the tees; their valve ends remain fixed |
-| | Every other turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
-| | The funnel, in its throat; the enclosure display; the water pump and both its chains; the cold core itself |
+| [2](CART_PUMPS) complete pumps, their prepared flanged stems and the fitted top clamp | [4](RECEIVERS) permanent TPU receivers in the rigid wall and [4](KEEPERS) locked flat interior keepers |
+| The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
+| The cartridge's positively retained SB443-IN magnets | Their positively retained mates in front-top |
+| | All [6](BOX_TEES) commercial tees; the four pump-side tees are fixed behind the receivers |
+| | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
+| | All stationary tee-to-valve links, hairpins, other tubing, the funnel, display and cold core |
 
-**The manifold stays in the appliance, and its four barb tees travel on the tee carrier inside front-top.**
-The [tee carrier](/hardware/printed-parts/enclosure/tee-carrier/README.md) plate holds Y-C, Y-D,
-Y-F and Y-G, two ties each, and slides fore and aft in a window through each front flank, with
-four springs holding it aft; the fixed wall journals their branch collars in X and Z. The
-tee-side ends of four bowed stubs and four hairpins follow the same stroke. None of them
-rides out on the cartridge: the only tube ends that cross the bay's mouth are the four the
-pumps carry with them.
+The wall locates each TPU receiver in X/Z. Its recessed collar bears in the wall;
+one flat keeper per receiver slides down the interior face and captures its groove in Y.
+Each keeper is locked at the factory against the wall by one M3×8 screw with a
+Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0 insert.
+A common rear support frame backs the four permanent tube cuffs and is secured by
+two more factory-only M3×8 screws and the same washers, with its mounting pads in contact.
+The keeper has running clearance around the neck and does not position the receiver
+across its axis. Neither keepers nor receivers move during a pump change.
 
-## The [4](JOINT_COUNT_3) joints the plate opens
+## The four separating joints
 
-Derived at every build from `manifold_layout.SEGMENTS` and `manifold_layout.MOUTHS` against
-`_scorecard.fastened_by` and `_facts.pump_trays`, then asked a second time of the collet passages — the
-plate is bored one hole per barb tee, so what the pieces hold and what the plate releases have
-to name one set. A pump that changes seat changes this table, and `_pump_replacement_sync.py`
-fails rather than letting it drift.
+| Joint | Cartridge end | Staying end | Air-purge states |
+|---|---|---|---|
+| `fluid-11` | pump A suction stem | TPU receiver to Y-C branch | 1 and 2 |
+| `fluid-12` | pump A discharge stem | TPU receiver to Y-D branch | 1 and 2 |
+| `fluid-21` | pump B suction stem | TPU receiver to Y-F branch | 3 and 4 |
+| `fluid-22` | pump B discharge stem | TPU receiver to Y-G branch | 3 and 4 |
 
-| Joint | Cartridge end | Staying end | Exposed tube at fore stop | Air-filled by |
-|---|---|---|---|---|
-| `fluid-11` | pump A's suction barb | Y-C's branch collet | [7.5](LEN_11) mm | states 1 and 2 |
-| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [7.5](LEN_12) mm | states 1 and 2 |
-| `fluid-21` | pump B's suction barb | Y-F's branch collet | [7.5](LEN_21) mm | states 3 and 4 |
-| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [7.5](LEN_22) mm | states 3 and 4 |
-
-**Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
-and a tee on that pump's own channel, so either state that runs a pump carries air across both
-of its joints. Nothing comes apart wet, nothing drains onto a body beneath it, and no reservoir
-is drawn on — the container under the faucet is the only one the procedure asks for.
-
-## How the plate lets go
-
-The collet plate is printed into front-top, with a nominal release section
-[209](PLATE_SPAN) mm across and [3.175](PLATE_T) mm thick. Its release face stands
-[0.5](REST_GAP) mm fore of the fully extended branch-collet noses at nominal connected. Four Ø8.5 mm
-circular passages pass the Ø[6.35 mm](TUBE_OD) cartridge tubes while retaining a full annular land under each
-release sleeve. The upper cap, outer cheeks, floor joins and front-bottom feet are features of
-the printed enclosure. The cartridge's aft notches clear the cheeks as it moves.
-
-**The wall behind the plate holds each tee square in X and Z and leaves it free in Y.** The
-wall clears each branch collar by `TEE_WALL_BORE_SLIP` on the radius.
-Its larger collar bore meets the smaller circular passage at the release face. At the fore
-stop the sleeves are fully depressed and the tee bodies retain [1.454](BODY_AIR) mm of air to
-the fixed wall (`TEE_WALL_BODY_AIR`). The connected-to-release stroke is [2](STROKE) mm:
-[0.5](REST_GAP) mm of nose air plus the PP0208E's measured [1.5](SLEEVE_TRAVEL) mm branch-sleeve
-travel. Each run sleeve independently travels 1.65 mm
-([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). The plate and
-wall stay fixed throughout a pump swap.
-
-Offsets are enclosure +Y, aft, from the fore stop. Nominal connected and the park/loading
-datum are 2.00 mm from release.
-
-| Operation | Tee offset | Tube relation |
-|---|---:|---|
-| release | [0](RELEASE_OFFSET) mm | fore stop; fixed plate continuously holds all four sleeves open |
-| squeeze | [0](SQUEEZE_OFFSET) mm | same fore stop; tubes bottom [10](SQUEEZE_DEPTH) mm beyond the depressed sleeves |
-| connected | [+2](CONNECTED_OFFSET) mm | nominal rest; sleeves extended, tubes gripped with the cartridge seated |
-| park datum | [+2](PARK_OFFSET) mm | nominal loading datum |
-
-A straight cartridge pull carries all four tees to the fore stop, a
-[2](CONNECTED_RELEASE_TRAVEL) mm motion from nominal connected. The noses meet the fixed plate and the last
-1.50 mm depresses the sleeves; the plate continues holding them while the tubes leave. The
-tee-side ends of the bowed stubs and of the hairpins travel with the tees; the valve ends stay
-fixed. There is no cartridge lock and no release tool. At the fore stop, the tubes bottom
-while the cartridge is 2.00 mm short of seating. Push it through that final 2.00 mm; the tubes
-then bottom at nominal connected and the cartridge face finishes flush. Verify all four tubes
-are gripped with a gentle tug.
+The socket entrances are TPU funnels leading to tight straight sealing lands. Dedicated
+outboard rigid stop lands on the receiver wall bear against the lower cradle to
+establish its final position, while the broad aft faces retain 0.246 mm clearance. The prepared stem tips enter
+the sockets together. The magnets hold that seated position; the TPU receiver is not
+a cartridge stop. A straight pull parts the magnets, contact pair and four slip joints
+without moving the fixed tees or operating their collets.
 
 ## Dry mode
 
-Four states in order, both pumps forward, every valve inlet to outlet.
+Run the four canonical air-purge states before opening the dock. Both pumps run forward
+and each open valve carries flow from inlet to outlet.
 
-| # | Canonical state | Open | Pump | Path |
+| # | State | Open | Pump | Path |
 |---|---|---|---|---|
-| 1 | Air Purge In → Reservoir A | V-B, V-C, V-F | A | funnel → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
-| 2 | Air Purge Through A | V-B, V-C, V-G | A | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
-| 3 | Air Purge In → Reservoir B | V-B, V-D, V-I | B | mirror of 1, into reservoir B |
-| 4 | Air Purge Through B | V-B, V-D, V-J | B | mirror of 2, out the tip |
+| 1 | Air Purge In → Reservoir A | V-B, V-C, V-F | A | funnel → crossbar → V-C → `fluid-9` → Y-C → pump A → Y-D → V-F → reservoir A |
+| 2 | Air Purge Through A | V-B, V-C, V-G | A | same inlet, then Y-D → `fluid-17` → V-G → faucet tip |
+| 3 | Air Purge In → Reservoir B | V-B, V-D, V-I | B | mirror of 1 into reservoir B |
+| 4 | Air Purge Through B | V-B, V-D, V-J | B | mirror of 2 to the faucet tip |
 
-States 2 and 4 are the ones that carry air out the gooseneck without drawing on a reservoir, so a pump
-swap costs no concentrate. Three valves is the most any state opens, and states 1 and 2 sit entirely
-on MANIFOLD A — inside the shared-COM budget in
-[`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
-
-Every state is timed with overrun. A reservoir's float travel begins above its wet slope
-([`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)) and the draw
-port is the bulkhead in the trough below it, so no reed stands at the line a purge drains to; the
-DIGITEN meter stands on the carbonated-water line, not the flavor path.
-
-The states themselves are canonical in
-[`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Operations — Valve
-States"; this doc names the order they run in.
+Place a container under the faucet for expelled air and residual concentrate. With
+the pumps rotating and moving fluid, these states sweep all four separating joints;
+a film or a remaining drop still needs wiping when the cartridge is out. An elapsed
+cycle does not verify pump rotation, dry lines or depressurization of both pump ports.
+The states are specified in
+[`fluid-topology.md`](/hardware/topology/fluid-topology.md#operations--valve-states).
 
 ## Procedure
 
-Before a swap, check that the visible portions of all four bowed stubs and four moving hairpin
-ends are free of kinks, abrasion and enclosure contact. A damaged flexible member stops the
-procedure for inspection; the cartridge is not a lever for clearing it.
+The release steps below apply to a qualified, depressurized flavor dock. Release
+with a stalled or faulted pump remains unqualified pending the isolated per-port
+vent test in the [pressure and retention review](/hardware/printed-parts/enclosure/pump-dock/pressure-retention-review.json).
+The test must establish the actual valve behavior and residual pressure for the
+service state; the topology and Dry timer do not establish them.
 
-**1. Run dry mode, then disconnect power.** A container under the faucet — states 2 and 4 send a slug of air and residual
-syrup out the gooseneck. When the cycle finishes, unplug the appliance. Confirm the display
-is dark and the pumps have stopped before withdrawing the cartridge and parting its contacts.
+1. **Establish the qualified depressurized service state, then disconnect power.**
+   Use Dry mode for fluid clearing under the pump and valve conditions covered by
+   the completed port-vent qualification. Leave the collection container under the
+   faucet. Proceed only with the flavor dock depressurized under those qualified
+   conditions; elapsed time alone does not establish that condition. Then unplug
+   the appliance and confirm that its display is dark and both pumps have stopped.
 
-**2. Pull the cartridge.** Hook into the cradle pockets and brace the enclosure with a hand, foot or cupboard edge,
-or let its weight provide the reaction. Both hands can pull when the enclosure is otherwise
-supported. Pull the fore ledge and draw the cradle straight forward along the bay floor.
-The four gripped tubes carry the tees from nominal connected to the fore stop.
-The fixed plate takes up the nose gap and depresses the sleeves, then holds them continuously
-while all [4](JOINT_COUNT_2) tubes leave. Stop if one tube remains caught; do not twist the
-cradle or pry a sleeve. The contact pair parts as the cartridge leaves.
+2. **Withdraw the depressurized cartridge.** With the release condition above
+   satisfied, brace the appliance and pull evenly using the cradle's
+   hand pockets. Keep the cradle on its bay floor and draw it straight forward until
+   all four tube ends and the electrical contacts have separated. If resistance becomes
+   uneven or a tube remains caught, stop and return the cartridge to its seat; do not
+   twist it or use a pump as a lever.
 
-With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
-square, unscarred mouth; inspect the four plate holes and the visible travel ends of all eight
-flexible links, and wipe both contact faces. The four pump Fastons remain made off until the
-cartridge is on the bench.
+3. **Inspect the open dock.** Wipe any residual syrup from the four socket entrances
+   and tube ends with a clean damp cloth. The TPU funnels must remain seated, clear of
+   debris and free of cuts, folds or displaced lips.
+   Wipe the electrical contact faces and magnet faces dry. A displaced receiver, damaged
+   socket or loose magnetic mount requires appliance service; it is not a customer
+   replacement item.
 
-**3. Unscrew the top clamp, then swap the pumps.** Pull the two Faston pairs off the old motor
-tabs through the clamp's open terminal wells, back out the [2](CAP_SCREWS)
-M3×[60](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up with the
-contact half and its four leads aboard. Lift each pump out of its cradle well. Lower each replacement until its molded
-skirt lies flat on the cradle lands, lower the clamp until its two octagonal collars surround
-the bosses, then draw both screws down evenly.
-The skirts carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
-If it does not sit flat, lift and reseat the pump instead of using a screw to force it. Tug-test
-each pump once the clamp is closed.
+4. **Replace the complete pumps.** Pull each Faston receptacle by its insulated body,
+   then remove the [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) clamp screws. Lift the clamp with
+   its contact half and leads together, then lift out the pumps. Lower the prepared
+   replacements onto the cradle's skirt lands, with all four straight stems facing
+   aft and each integral flange seated in its cradle capture. Lower the clamp over both bosses and tighten the screws evenly until the clamp
+   seats. If it will not sit flat, lift and reseat the pumps. Do not use screw force to
+   correct alignment. The clamp closes the stem flanges' upward escape; the cradle
+   captures their axial load. Confirm firm pump retention and seated flanges.
 
-**4. Land 1/4" OD LLDPE in the new heads** — the tube runs around the rotor, and the LLDPE goes
-**into the tube's own bore** at each of its two ends, not onto the moulded barb. Zip-tie the tube
-down onto the LLDPE at all [4](JOINT_COUNT_4) joints and leave each length standing aft off the
-face. After securing each pump-end joint, set its free tip [17.53 mm](TUBE_PROJECTION) beyond
-the pump outlet tip; this includes the tee insertion and the final cartridge seating stroke.
-That LLDPE is what the plate's hole passes and the branch collet grips. **The zip tie is
-load-bearing here** — this joint takes the release tension when the cartridge is next drawn, so
-tug-test each of the four before the deck goes back in.
+5. **Reconnect and seat.** Reconnect the Faston pairs to the marked motor tabs: the
+   +X crown-groove pair serves pump A and the −X pair serves pump B. Return the leads to
+   their grooves below the clamp crown. With power still disconnected, set the cartridge
+   on its bay floor and present all four stem tips to the TPU funnels. Push squarely and
+   evenly until the rigid stop lands seat and the front face finishes flush. Do not
+   count a magnetic snap as full seating: check the complete perimeter, receiver lips
+   and electrical contact engagement. The stems must remain straight and the receivers
+   must remain seated when the cartridge is gently pulled against its retention.
 
-**5. Connect and seat.** Push both Faston pairs back onto the replacement motor tabs through the
-clamp's terminal wells, the +X groove's pair on pump A and the −X groove's on pump B, and lay
-the leads back in their grooves below the crown. With power removed, set the cradle on the bay
-floor and present all four tubes squarely through their plate holes. Bring all four tubes to
-their 10 mm bottoms at the fore stop, with the cartridge still 2.00 mm short of seating. Push
-the cartridge through its final 2.00 mm to seat it with the tubes bottomed at nominal connected
-and 0.50 mm of nose air. Gently tug the cartridge to prove all four connections; if a tube is
-loose, withdraw it, inspect its end and alignment, and reconnect. The cartridge face should
-finish flush, and the contact pair mates as it does. Inspect both RC62 covers and
-confirm the marked tube depths and installed pogo compression. The separate
-retention pair's attraction is not a substitute for those checks; installed
-retention force, printed-cover capacity and magnet heat exposure remain
-unqualified.
+6. **Re-prime and observe.** Restore power and prime each channel through the funnel-fill
+   path, then dispense from each until flow is clean. Inspect the four dock joints and
+   the pump-end tubing for seepage. Stop and disconnect power if a joint leaks, a pump
+   shifts, or the cartridge moves off its seats.
 
-**6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
-runs clean. While each channel flows, inspect both replacement-head connections and all visible
-flex links for seepage, rubbing or a link pulled taut.
+## Factory preparation of replacement pumps
+
+Prepare each pump with the specified BPT tube around the rotor and two smooth,
+machined natural PP-H Polystone P tube stems fitted into its ends. Each stem has a 6.35 mm OD,
+4.3 mm bore and integral retention flange. The smooth wet portion enters the TPU;
+the flange seats in the cradle outside that sealing region. Verify each bare stem's
+flange-to-tip datum in its [setting fixture](/hardware/printed-parts/enclosure/pump-dock/machined-stem.md#factory-fixture-and-review),
+then remove it and fit its tail into the BPT. Use calipers to set the BPT end
+0.15 mm fore of the flange's fore face, and the
+existing 2.54 mm nylon tie center 1.75 mm fore of that same face, toward the pump.
+The tie center is 1.60 mm fore of the BPT cut end. These are enclosure Y76.10 mm
+and Y74.50 mm respectively; the tie occupies
+Y73.23–75.77 mm. Keep its head toward +Z in the open channel. The stem flange has
+Ø16 mm outside diameter and a 2.5 mm section, with fore/aft faces at Y76.25/78.75 mm.
+Verify that the cradle, with its cap seated, captures the flange axially and closes
+its upward escape. The flange bearing supplies the cartridge-withdrawal load path.
+
+Use the printed setting jig against the cartridge's flat rear seating face to verify
+all four free tips at [7.746 mm](TIP_FROM_CARTRIDGE) aft of that face. This is enclosure
+Y[87.015 mm](TIP_Y) when seated; the modeled flexible-tube start-to-tip projection is
+[9.851 mm](TUBE_PROJECTION). Check the flange seats, smooth wet surfaces, clean bores,
+pump-end sealing and all four tip positions before supplying the replacement set.
+The customer receives the complete prepared pumps and does not machine, cut, trim
+or transfer the stems.
 
 ## Output condition
 
-- Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
-- Both Faston pairs on the replacement motor tabs and the four leads below the clamp's crown; the
-  contact pair mated with the cartridge seated, and the fixed J13-side ribbon retained in the
-  ridge-wall clip
-- During removal, all four tubes released together at the fore stop
-- Four LLDPE ends secured in the pump tubing and all [4](JOINT_COUNT_4) joints bottomed together at
-  the fore stop with the cartridge 2.00 mm short of seating; cartridge fully seated and tubes
-  bottomed at nominal connected, all four tubes tug-checked
-- Four bowed stubs and four moving hairpin ends clear, unscarred, unkinked and slack through
-  the observed stroke
-- Both channels re-primed and dispensing clean
-- No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
+- Both complete pumps sit firmly on their cradle lands under the seated clamp.
+- Both Faston pairs are connected and all four leads remain below the crown.
+- All four straight stems enter seated TPU receivers together; the cartridge is
+  flush against its rigid seats and the contact pair is engaged.
+- Receiver funnels, all four locked keepers, rear support and magnetic mounts remain fixed in the appliance.
+- Both channels prime and dispense with no observed dock or pump-end seepage.
+- The water, CO2 and carbonated-water connections remain closed.
 
-## Open items
-
-1. **Dry-run wear on a KPHM600's BPT tube is not characterised.** Every one of the four states
-   turns a rotor on air.
-2. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
-   The carbonator's only liquid outlet climbs to the faucet, and the pre-shipment transit sequence is
-   [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-3. **Bowed-stub stock lengths.** The four tee-to-valve links' exposed paths and sleeve-face gaps are
-   in [`fluid-topology.md`](/hardware/topology/fluid-topology.md). Their stock blanks also include both fittings' insertion depths;
-   the valve-side depth is not recorded. Factory assembly fits and records these lengths in
-   [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 step 3.
+Dry-run wear of the BPT tubing and a customer return/drain procedure remain separate
+service questions. This pump procedure does not depressurize the carbonator for shipping.
 
 ## Sources
 [value](NAME) texts are updated by:

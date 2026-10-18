@@ -182,7 +182,7 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, and so is the collet plate. The sliding funnel frame is installed; "
+             "material, including the permanent receiver wall. The sliding funnel frame is installed; "
              "the silicone funnel and pump cartridge enter with the box standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
@@ -196,8 +196,10 @@ SCENES = (
         note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
-             "and takes two screws. Nothing on this unit is screwed to the box — the four tube "
-             "stubs, gripped in the anchor tees, are the whole of what holds it in.",
+             "and takes two screws. The prepared stems' flanges seat in the cradle and the "
+             "cap closes their upward escape. Six positively retained SB443-IN magnet pairs "
+             "hold the installed cartridge against its rigid seats; the four short stems "
+             "enter permanent TPU receivers in the bay wall.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -340,9 +342,9 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # Between a carrier column and the tee wall, fitted with the carrier on front-top's bench.
-    **{f"tee-carrier-spring-{side}-{level}": "enclosure-front-top"
-       for side in ("west", "east") for level in ("lower", "upper")},
+    # The wall and its separate locked keeper jointly retain each TPU receiver.
+    **{f"pump-receiver-{port}": "enclosure-front-top"
+       for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
@@ -367,11 +369,6 @@ def holders():
         # a body a tuple, and where it stands is `BEARS_ON` — the cold core is fastened by the
         # front-bottom's blocks and the back-top's brackets and sits on the back-bottom's slab.
         out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
-    # Printed parts sit outside the purchased-pack fastening census. The tee carrier stands in
-    # front-top's flanks and brings its four tied tees into front-top's bench scene; each window
-    # cover hangs on a post of front-top's.
-    for name in (_ea._tee_carrier.PLATE, *_ea._tee_carrier.COVERS):
-        out[name] = "enclosure-front-top"
     for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:
@@ -380,16 +377,13 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # A TUBE PUSHED OVER A BARB GOES ON WITH THE PUMP AND COMES OFF WITH IT, and no table above
-    # holds one: `manifold_layout` draws these four inside the pack, one per anchor tee, from the
-    # barb's own collet plane to the tee's branch. `BARB_OF` names the pump each stands on. A
-    # stub is made up on the pump cartridge's own bench, threads the collet plate's hole as the
-    # pump cartridge goes home, and is drawn back out of the tee when the pump cartridge is pulled — so it
-    # stands on the head whose barb grips it and goes wherever that head goes.
+    # Prepared flanged stems ride the cartridge; permanent straight tails between
+    # receivers and commercial tees remain on front-top's bench.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
         if how in _ml.BARB_OF:
             out[f"tube-fluid-{cid}"] = f"{pump_at[_ml.BARB_OF[how][0]]}-head"
+            out[f"tube-fluid-{cid}-fixed-tail"] = "enclosure-front-top"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
     # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
     # several so each takes its own colour.

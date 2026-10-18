@@ -94,8 +94,8 @@ class Seg:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
-      `bowed`    — a short exposed developed length laid in a bow; its cut blank is a bench
-                   result because the valve-side insertion depth has not been measured.
+      `bowed`    — a fixed reverse-arc fore link; its known exposed path excludes the
+                   actual fitting insertions needed for the finished tube blank.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `fold`     — one of the hinge's 180° hairpins, carrying a deck change.
       `turn`     — a quarter out of the deck plane and the step that follows it.
@@ -109,7 +109,7 @@ class Seg:
     id: str
     ends: tuple           # one or two anchor names; one means the far end is not placed
     made: str
-    length: float = None  # known mm of stock; None for an open segment or unknown cut blank
+    length: float = None  # reported path/cut mm; pump branches count complete permanent tails
     corners: int = 0
     developed: float = None  # exposed centreline where it is known but cut length is not
 
@@ -144,6 +144,10 @@ def _interior(cid: int, how: str) -> tuple:
     The step is the one figure that is the SEGMENT'S and not the kind's: each source valve is
     spread its own distance outboard, so each of the two turns is its own length of tube."""
     kind = _scorecard.made_of(how)
+    if how in ml.BARB_OF:
+        # Each pump branch includes a machined stem, a permanent TPU receiver
+        # and this LLDPE tail. Only the tail belongs in the tube-stock total.
+        return (kind, ml.factory_tail_length(how), 0, None)
     if kind == "fold":
         return (kind, ml.spine_tube_length(ml.SPINE[cid]), 2, None)
     if kind == "turn":                                       # the quarter, then the step's pair
@@ -151,7 +155,7 @@ def _interior(cid: int, how: str) -> tuple:
     if kind == "butt":
         return (kind, 0.0, 0, None)
     if kind == "bowed":
-        return (kind, None, 0, ml.FORE_STUB_EXPOSED)
+        return (kind, None, 2, ml.fore_stub_length(*ml.FORE_STUBS[how]))
     return (kind, ml.dist(*ml.RUNS[how]), 0, None)           # a lane's own straight
 
 
@@ -598,7 +602,7 @@ def rewrite_linkstyles(lines: list[str], edges: list[Edge]) -> list[str]:
 
 
 def manifold_variables(segs: dict) -> dict:
-    """Chart prose figures, keeping unknown bowed blanks out of the known stock total."""
+    """Reported tube figures, counting complete tails and keeping fore links separate."""
     fluid = [s for k, s in segs.items() if k.startswith("fluid-")]
     cut = [s for s in fluid if s.length]
     longest = max(cut, key=lambda s: s.length)
@@ -607,8 +611,9 @@ def manifold_variables(segs: dict) -> dict:
         "DRAWN_COUNT":   f"{sum(1 for s in fluid if s.made == 'drawn')}",
         "BUTT_COUNT":    f"{sum(1 for s in fluid if s.made == 'butt')}",
         "BOWED_COUNT":   f"{sum(1 for s in fluid if s.made == 'bowed')}",
-        "BOWED_EXPOSED": f"{ml.FORE_STUB_EXPOSED:g} mm",
-        "BOWED_GAP":     f"{ml.FORE_STUB_GAP:g} mm",
+        "BOWED_EXPOSED": f"{ml.FORE_STUB_EXPOSED:.6g} mm",
+        "BOWED_GAP":     f"{ml.dist(*next(iter(ml.FORE_STUBS.values()))):.6g} mm",
+        "FIXED_TAIL_CUT": f"{ml.factory_tail_length(next(iter(ml.BARB_OF))):.6g} mm",
         "OPEN_COUNT":    f"{sum(1 for s in fluid if s.made == 'not drawn')}",
         "FLUID_TOTAL":   f"{sum(s.length for s in cut):.1f} mm",
         "FLUID_BENDS":   f"{sum(s.corners for s in fluid)}",
@@ -676,7 +681,7 @@ def main() -> int:
                  for i, (b, a) in enumerate(zip(was, now)) if b != a]
         stale += _stale_markers(MANIFOLD, mf_vars)
         stale += _stale_markers(LIMBS, limb_vars)
-        stale += _stale_markers(TOPOLOGY, limb_vars)
+        stale += _stale_markers(TOPOLOGY, {**mf_vars, **limb_vars})
         if stale:
             print("fluid-topology charts are stale — run _fluid_topology_sync.py:")
             print("\n".join(stale))
@@ -697,7 +702,7 @@ def main() -> int:
         CARBONATOR.write_text("\n".join(carb_lines) + "\n")
     substitute_mmd(MANIFOLD, mf_vars)
     substitute_mmd(LIMBS, limb_vars)
-    substitute_md(TOPOLOGY, limb_vars)
+    substitute_md(TOPOLOGY, {**mf_vars, **limb_vars})
 
     fluid = [s for k, s in sorted(segs.items(), key=lambda kv: _seg_no(kv[0]))
              if k.startswith("fluid-")]
@@ -705,14 +710,15 @@ def main() -> int:
         if s.length is not None:
             length = f"{s.length:7.1f} mm"
         elif s.developed is not None:
-            length = f"{s.developed:7.1f} mm exposed; cut TBD"
+            length = f"{s.developed:7.1f} mm exposed; add both fitting insertions"
         else:
             length = "        —"
         print(f"  {s.id:<9} {length}  {s.corners} corners  {s.made:<9} "
               f"{' → '.join(s.ends)}")
     unknown = sum(1 for s in fluid if s.made == "bowed" and s.length is None)
-    print(f"  {'KNOWN':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm of tube over "
-          f"{len(fluid)} segments; {unknown} bowed cut blanks TBD")
+    print(f"  {'REPORTED':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm over "
+          f"{len(fluid)} segments; add actual fitting insertions to {unknown} fixed fore links; "
+          "other mouth-to-mouth paths also need their fitting insertions; machined stems excluded")
     print(f"  limbs {limb_vars['LIMB_COUNT']}, valves {limb_vars['LIMB_VALVES']}, "
           f"tees {limb_vars['TEE_COUNT']}, pumps {limb_vars['PUMP_COUNT']} "
           f"({limb_vars['UPPER_COUNT']} bodies folded up, {limb_vars['LOWER_COUNT']} down)")

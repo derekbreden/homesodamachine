@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 224,
+  "installed_body_count": 244,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -29,17 +29,17 @@
       "neighbors": [
         {
           "name": "bulkhead-flavor-b",
-          "gap_mm": 18.5051769,
+          "gap_mm": 18.505177,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-28",
-          "gap_mm": 1.2220676,
+          "gap_mm": 1.6137294,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 32.1454674,
+          "gap_mm": 32.154566,
           "overlap_mm3": 0
         },
         {
@@ -97,22 +97,22 @@
         },
         {
           "name": "turn-fluid-5",
-          "gap_mm": 22.5385684,
+          "gap_mm": 22.5385683,
           "overlap_mm3": 0
         },
         {
           "name": "step-fluid-3",
-          "gap_mm": 2.7525468,
+          "gap_mm": 2.7525467,
           "overlap_mm3": 0
         },
         {
           "name": "step-fluid-5",
-          "gap_mm": 3.7187084,
+          "gap_mm": 3.7187083,
           "overlap_mm3": 0
         },
         {
           "name": "g-ganen-pump",
-          "gap_mm": 1.6531292,
+          "gap_mm": 1.8688223,
           "overlap_mm3": 0
         },
         {
@@ -152,17 +152,17 @@
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 32.1454674,
+          "gap_mm": 32.154566,
           "overlap_mm3": 0
         },
         {
           "name": "tube-water-7",
-          "gap_mm": 81.598379,
+          "gap_mm": 80.7616216,
           "overlap_mm3": 0
         },
         {
           "name": "tube-water-6",
-          "gap_mm": 2.5305051,
+          "gap_mm": 7.2997053,
           "overlap_mm3": 0
         },
         {
@@ -172,27 +172,27 @@
         },
         {
           "name": "tube-water-3",
-          "gap_mm": 1.3947212,
+          "gap_mm": 1.4212158,
           "overlap_mm3": 0
         },
         {
           "name": "tube-co2-2",
-          "gap_mm": 93.6414447,
+          "gap_mm": 93.5512225,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-2",
-          "gap_mm": 36.6673316,
+          "gap_mm": 36.6386337,
           "overlap_mm3": 0
         },
         {
           "name": "tube-carb-1",
-          "gap_mm": 61.1559995,
+          "gap_mm": 60.9258195,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-28",
-          "gap_mm": 4.5377902,
+          "gap_mm": 4.5377901,
           "overlap_mm3": 0
         },
         {
@@ -217,12 +217,12 @@
         },
         {
           "name": "elbow-cradle",
-          "gap_mm": 15.7922766,
+          "gap_mm": 22.2254748,
           "overlap_mm3": 0
         },
         {
           "name": "funnel-drain-union",
-          "gap_mm": 19.9010698,
+          "gap_mm": 25.456776,
           "overlap_mm3": 0
         },
         {
@@ -232,12 +232,12 @@
         },
         {
           "name": "enclosure-front-top",
-          "gap_mm": 9.4396108,
+          "gap_mm": 9.4396107,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 1.3079121,
+          "gap_mm": 1.307912,
           "overlap_mm3": 0
         },
         {
@@ -262,7 +262,7 @@
         },
         {
           "name": "cold-core/reservoir-a-cap",
-          "gap_mm": 29.9599073,
+          "gap_mm": 30.1047466,
           "overlap_mm3": 0
         },
         {
@@ -282,7 +282,7 @@
         },
         {
           "name": "cold-core/float-rod-a",
-          "gap_mm": 37.3931905,
+          "gap_mm": 37.3931904,
           "overlap_mm3": 0
         },
         {
@@ -302,7 +302,7 @@
         },
         {
           "name": "cold-core/prv-shroud",
-          "gap_mm": 26.0033263,
+          "gap_mm": 25.675,
           "overlap_mm3": 0
         },
         {
@@ -365,37 +365,37 @@
         },
         {
           "name": "water-split",
-          "gap_mm": 1.9626256,
+          "gap_mm": 1.9626257,
           "overlap_mm3": 0
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 1.2220676,
+          "gap_mm": 1.6137294,
           "overlap_mm3": 0
         },
         {
           "name": "tube-water-3",
-          "gap_mm": 3.224,
+          "gap_mm": 3.2239999,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-2",
-          "gap_mm": 20.5865807,
+          "gap_mm": 24.9101653,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 4.5377902,
+          "gap_mm": 4.5377901,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-24",
-          "gap_mm": 19.1214171,
+          "gap_mm": 20.5301367,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-front-top",
-          "gap_mm": 9.4396108,
+          "gap_mm": 9.4396107,
           "overlap_mm3": 0
         },
         {
@@ -425,7 +425,7 @@
         },
         {
           "name": "cold-core/reservoir-a-cap",
-          "gap_mm": 33.5414306,
+          "gap_mm": 33.5414305,
           "overlap_mm3": 0
         },
         {
@@ -440,7 +440,7 @@
         },
         {
           "name": "cold-core/prv-shroud",
-          "gap_mm": 39.7016824,
+          "gap_mm": 38.8747581,
           "overlap_mm3": 0
         },
         {
@@ -482,8 +482,8 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "53efb4ddaffff1b5e81616e8542022c01c61bd03f6d81f72cf7cd279e38ce2d8",
-    "hardware/manifold-layout/_lines.py": "87e89188eb77e425049ee9513a29cfec8e3967c24f81712b080d0be5be9e7f81",
+    "hardware/manifold-layout/enclosure_assembly.py": "c82b414da3456351aac5381d819afc2315afd7970484347e3e37f5641a1adcdc",
+    "hardware/manifold-layout/_lines.py": "4565b972779eae2b6cd0d9ade39a45a1b3f4cc0dcae6c5c28962efd56c20237d",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "6e3e624ca10c1f81d2e487d27a16facc8cfb12ea4567dbac6bd8788148eddded"

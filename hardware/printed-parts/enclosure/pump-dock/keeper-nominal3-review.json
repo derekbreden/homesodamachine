@@ -1,0 +1,132 @@
+{
+  "scope": "One-off nominal geometry review of the 3 mm flat dry keeper. The source candidate is instantiated with KEEPERY7..10 while the production module still has7..9.85; the same single assignment is then adopted. Original receiver and unchanged-stock reviews retain their separate source bindings. Hardware/formed-tube tolerances, load capacity and physical print fit are unqualified.",
+  "source_before_sha256": {
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "ed2400c194ab6d4c8ff403ab7c86d5c4d848bfde26a49b28060266b76f8bf648",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168"
+  },
+  "source_after_sha256": {
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168"
+  },
+  "keeper_y_mm": [
+    7.0,
+    10.0
+  ],
+  "keeper_thickness_mm": 3.0,
+  "groove_y_mm": [
+    7.0,
+    10.35
+  ],
+  "rear_assembly_room_mm": 0.35,
+  "keeper_wall_gap_mm": 0.0,
+  "local_part_validity": {
+    "pump-receiver-west-outer": true,
+    "pump-receiver-keeper-west-outer": true,
+    "pump-receiver-west-inner": true,
+    "pump-receiver-keeper-west-inner": true,
+    "pump-receiver-east-inner": true,
+    "pump-receiver-keeper-east-inner": true,
+    "pump-receiver-east-outer": true,
+    "pump-receiver-keeper-east-outer": true,
+    "pump-receiver-rear-support": true
+  },
+  "local_stock_validity": {
+    "fixed-stock-0": true,
+    "fixed-stock-1": true,
+    "fixed-stock-2": true,
+    "fixed-stock-3": true,
+    "fixed-stock-4": true,
+    "fixed-stock-5": true,
+    "fixed-stock-6": true,
+    "fixed-stock-7": true,
+    "fixed-stock-8": true,
+    "fixed-stock-9": true
+  },
+  "keeper_sample_poses": 44,
+  "keeper_lift_samples_mm": [
+    0,
+    0.1,
+    0.35,
+    1,
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    20
+  ],
+  "keeper_sample_motion_clashes": [],
+  "bar_clashes": [],
+  "lock_metal_envelopes": 18,
+  "lock_metal_clashes": [],
+  "continuous_motion": {
+    "scope": "Four conservative continuous20mm keeper lift envelopes against all182 cached appliance leaves and candidate hardware, with each keeper own removed lock excluded during travel. Lock hole is filled in the motion envelope, giving conservative occupied volume. Unchanged fixed stocks rely on their separately retained native review; no full unchanged60leaf scan is repeated.",
+    "candidate_keeper_y_mm": [
+      7.0,
+      10.0
+    ],
+    "travel_mm": 20.0,
+    "envelope_count": 4,
+    "named_obstacle_count": 182,
+    "continuous_motion_clashes": [],
+    "relaxed_and_installed_wet_geometry_identity": {
+      "False": {
+        "baseline_volume_mm3": 1586.6231469849063,
+        "candidate_volume_mm3": 1586.6231469849063,
+        "baseline_minus_candidate_mm3": 0.0,
+        "candidate_minus_baseline_mm3": 0.0
+      },
+      "True": {
+        "baseline_volume_mm3": 1592.7440041180766,
+        "candidate_volume_mm3": 1592.7440041180766,
+        "baseline_minus_candidate_mm3": 0.0,
+        "candidate_minus_baseline_mm3": 0.0
+      }
+    }
+  },
+  "static_appliance_review": {
+    "scope": "Candidate 3.00mm keeper and all six M3x8 head/shaft/washer envelopes against the complete cached named appliance population. Existing keeper leaves are replaced by matching candidate leaves. Cached stationary obstacles retain their exported geometry with the fore valve and WAGO translations from external-route-review; canonical regenerated closure is separate.",
+    "candidate_keeper_y_mm": [
+      7.0,
+      10.0
+    ],
+    "candidate_leaf_count": 22,
+    "named_obstacle_count": 182,
+    "clashes": [],
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "ed2400c194ab6d4c8ff403ab7c86d5c4d848bfde26a49b28060266b76f8bf648",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168"
+    }
+  },
+  "unchanged_fixed_stock_coverage": "Unchanged fixed stocks retain the separately bound native review in fluid-geometry-review.json. No repeated full60leaf unchanged-stock scan is claimed; the four candidate keepers and all18metal envelopes are checked against the entire182leaf cached population.",
+  "screw_stacks": {
+    "keeper": {
+      "clamp_stack_mm": 3.5,
+      "thread_projection_mm": 4.5,
+      "insert_engagement_mm": 4.0,
+      "tip_floor_allowance_mm": 0.75
+    },
+    "rear_support": {
+      "clamp_stack_mm": 3.65,
+      "thread_projection_mm": 4.35,
+      "insert_engagement_mm": 4.0,
+      "tip_floor_allowance_mm": 0.9
+    }
+  },
+  "wet_stl_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+  "result": "All requested local sample/continuous motion and metal/static delta checks are clear. Relaxed and installed wet receiver geometry have zero bidirectional Boolean volume difference. Canonical regenerated whole-appliance closure is a separate result.",
+  "print_binding_audit": {
+    "evidence": "print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json",
+    "current_receiver_source_sha256": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+    "retained_reference_sha256": "f21d559880a4f1e84bea1f0a913dfd2fc7d93786b9bf0df499d1a07ca4ae43d2",
+    "remaining_ast_identical": true,
+    "exact_dry_datum_delta_matches": true,
+    "canonical_stl_bytes_identical": true,
+    "canonical_stl_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+    "embedded_receiver_mesh_count": 8,
+    "all_embedded_receiver_meshes_identical": true,
+    "reran_slicer": false,
+    "repeated_path_qa": false
+  }
+}
