@@ -39,12 +39,14 @@ unqualified. Branch routing changes with the roof geometry; the
 monotonic guarantee. A local branch exclusion or different tree style would
 be a separate support trial if the remaining residue matters.
 
-[Preparation](prepare_prints.py) creates fresh projects without replacing
-reviewed archives. The H2C front-top retains its functional ceilings, current
-solid-host density boxes, complete fine show-round band, nominal RC62 pocket
-and one insertion pause. Its 0.50 mm XY correction is separate from the
-funnel-frame's production tree settings. The frame carries the roof-side
-six-wall range. Full-part starts are deferred.
+[`prepare_prints.py`](prepare_prints.py) is the preparation of the v18 front-top and
+Mark2 v2 projects from their bound sources. The v18 front-top retains its functional
+ceilings, its bound solid-host density boxes, the complete fine show-round band, a
+nominal RC62 pocket and one insertion pause. Its 0.50 mm XY correction is separate from the
+funnel-frame's production tree settings. That frame carries a roof-side six-wall range.
+Fresh front-top and frame projects come from the
+[trial preparation](../../trial-preparation/README.md), which carries the 0.50 mm XY
+correction on front-top.
 
 The [combined Mark2 project and review](mark2-v2/README.md) pass all twenty-two
 fit-object checks and the frame's native perimeter, support-contact and

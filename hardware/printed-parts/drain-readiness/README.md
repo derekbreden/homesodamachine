@@ -4,26 +4,23 @@ Current PET-GF editable projects follow the [localized cooling policy](../coolin
 Re-slice them for current cooling commands. Identified native archives retain
 their original commands and physical-evidence scope.
 
-This set supplies the three-row rear enclosure wall, six rectangular fluid identification
-chips, six matching tube collars and a snap-in DATA plate. The black 4 mm OVER bulkhead receives the
+This set supplies six rectangular fluid identification chips, six matching tube collars and
+a snap-in DATA plate for the three-row rear enclosure wall, which prints as back-top in the
+[trial preparation](../enclosure/trial-preparation/README.md). The black 4 mm OVER bulkhead receives the
 white drain return. The separate [faucet print set](../faucet/vent-print-readiness/README.md)
 contains the shell, counter stack, vent seals and insertion tool.
 The [assembly instructions](../../assembly/asse-drain.md) list every drain plumbing
 part with its Fresh Water Systems link.
 
 The delivered editable projects are in [projects](projects/) and their sliced
-archives are in [ready](ready/). The [manifest](manifest.json) binds all five cabinet
+archives are in [ready](ready/). The [manifest](manifest.json) binds the finalized
 plates and the five finalized faucet plates to their source geometry and reviews.
 The generators use `.cache/prints/2026-10-07-drain/`
-as their local working directory. Reproduce them with:
+as their local working directory. Prepare, read and finalize the identification plates with:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/prepare.py
+tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/prepare.py labels
 tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_native.py
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_show_support.py
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_dense_regions.py
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_insert_backing.py --native-stock
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_insert_backing.py
 tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/finalize_prints.py
 ```
 
@@ -52,11 +49,13 @@ whole face is 1.68 mm deep; the jack mounts independently behind it.
 
 The body and lettering keep their separate materials. Chips print face-up;
 collars print flat-face-down. The saved recipe uses a 0.20 mm first layer, 0.24 mm
-normal layers and no supports or brim. White, blue and red use a 0.12 mm chip
-closing band. All five black-plate objects share two 0.14 mm layers
-from 1.40 to 1.68 mm to close the complete DATA face and wings, then 0.08 mm
-layers from 1.92 to 2.48 mm to close the 2.00 mm chip face, 2.16 mm DATA
-lettering and 2.48 mm FLAVOR lettering. The accepted Mark2
+normal layers and no supports or brim. All objects on a plate share one layer schedule,
+whose fine closing layers put a layer top on every face-up chip and DATA face and
+lettering top; `prepare.py` reads those heights from the tessellated bodies. In the
+committed archives, white, blue and red close the 2.00 mm chip face with one 0.12 mm layer.
+The black plate closes the complete DATA face and wings at 1.68 mm with two 0.14 mm
+layers, then the 2.00 mm chip face, 2.16 mm DATA lettering and 2.48 mm FLAVOR lettering
+with 0.08 mm layers from 1.92 mm. The accepted Mark2
 nozzle registration is `0x0`, `0.5x-0.7`. Requested +0.04 mm user trim emits
 `G29.1 Z0.02` on Textured PEI.
 
@@ -70,7 +69,8 @@ observations on the finished pieces.
 
 ## Rear wall
 
-Fresh rear-wall preparation retains the shared PET-GF tree support profile.
+The [trial preparation](../enclosure/trial-preparation/README.md) writes the rear wall as
+back-top from its current mesh. Fresh rear-wall preparation retains the shared PET-GF tree support profile.
 The complete emitted footprint must fit the 20 mm bed margin. Normal supports
 require a specific exception under the
 [support-removal strategy](../enclosure/enclosure/README.md#support-removal-strategy).

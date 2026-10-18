@@ -1,0 +1,274 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "printers": {
+    "Mark1": {"connection_key": "H2C", "z_trim_mm": 0.18, "filament_colour": "#000000"},
+    "Mark2": {"z_trim_mm": 0.04, "filament_colour": "#161616"}
+  },
+  "filament_mapping": {
+    "extruder_ams_count": ["1#0|4#0", "1#0|4#0"],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "pieces": {
+    "front-top": {
+      "printer": "Mark1",
+      "settings": {
+        "support_object_xy_distance": {
+          "value": "0.5",
+          "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+        }
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "regions": "front-top",
+          "features": [
+            {
+              "name": "R6 roof side edges, level run",
+              "kind": "fine_band",
+              "select": {"normal_z": [0.02, 0.995], "top_mm": 15, "exterior_x_mm": 15, "abs_normal_y_max": 0.05},
+              "min_component_area_mm2": 50,
+              "expect": {"span_mm": [5.0, 9.5], "components": [2, 2], "area_mm2": [600, 3000]},
+              "reason": "Inward/top show round where the R6 side edges roll level into the roof, with the flute runout beneath it. enclosure/enclosure/README.md Display housing; print-readiness.md."
+            },
+            {
+              "name": "R18 display-to-roof roll",
+              "kind": "fine_band",
+              "select": {"normal_z": [0.871, 0.995], "top_mm": 6, "abs_normal_x_max": 0.05, "normal_y_max": -0.05},
+              "min_component_area_mm2": 50,
+              "expect": {"span_mm": [1.5, 3.5], "components": [1, 1]},
+              "reason": "Inward/top show round where the 30-degree display plane rolls level into the roof. enclosure/enclosure/README.md Display housing."
+            },
+            {
+              "name": "Flank tube-anchor tie channels",
+              "kind": "tie_windows",
+              "channel_widths_mm": [2.0, 3.5],
+              "long_side_max_mm": 30,
+              "cavity_depth_mm": 3.25,
+              "blockers": true,
+              "expect": {"count": [1, 12]},
+              "reason": "Support printed in zip-tie cavities is impossible to remove (drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json). Local support blockers fill only each detected channel's room under its roof."
+            }
+          ]
+        }
+      ]
+    },
+    "front-bottom": {
+      "printer": "Mark1",
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+          "regions": "front-bottom",
+          "features": [
+            {
+              "name": "Handhold lifting-edge transition",
+              "kind": "transition_band",
+              "select": {"exterior_x_mm": 3.0},
+              "radius_mm": 6.0,
+              "expect": {"chamfer_area_mm2": [60, 600]},
+              "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
+            },
+            {
+              "name": "Handhold lifting ceiling boundary strip",
+              "kind": "ceiling_inset",
+              "select": {"exterior_x_mm": 15},
+              "inset_mm": 0.8,
+              "expect": {"area_mm2": [200, 2000]},
+              "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
+            },
+            {
+              "name": "Handhold lifting edge fins",
+              "kind": "edge_fins",
+              "enabled": false,
+              "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
+              "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
+              "reason": "Disabled: no physical record reports roughness at this edge. printed-parts/AGENTS.md follows reported rough overhang edges with removable fin walls; the accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+            }
+          ]
+        }
+      ]
+    },
+    "back-top": {
+      "printer": "Mark2",
+      "settings": {
+        "max_bridge_length": {
+          "value": "50",
+          "reason": "Support in back-top's zip-tie cavities is impossible to remove (2026-10-09 Mark1 article). With a 50 mm bridge limit the native 2026-10-10 slice has no support in the tie windows and its article drew no tie-cavity report. drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md. Back-top only."
+        },
+        "tree_support_branch_diameter_angle": {
+          "value": "0.5",
+          "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+        },
+        "tree_support_branch_diameter": {
+          "value": "3",
+          "reason": "Thicker constant-diameter trunks at 0.5-degree growth (2026-10-11 preparation, drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/preparation.json). Back-top only."
+        }
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+          "regions": "back-top",
+          "pose": {"turns": [["x", 180]]},
+          "features": [
+            {
+              "name": "Roof side edge transition",
+              "kind": "transition_band",
+              "select": {"exterior_x_mm": 3.0, "bottom_mm": 12},
+              "radius_mm": 6.0,
+              "expect": {"chamfer_area_mm2": [1000, 5000]},
+              "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
+            },
+            {
+              "name": "Z-seam sliding-groove ribbons",
+              "kind": "groove_ribbons",
+              "select": {"top_mm": 20, "exterior_x_mm": 16},
+              "min_length_mm": 40,
+              "width_mm": [3.5, 8.0],
+              "max_depth_mm": 12,
+              "side_clearance_mm": 0.40,
+              "expect": {"count": [2, 4], "total_length_mm": [300, 560]},
+              "ribbon_settings": {"extruder": "1", "wall_loops": "2", "sparse_infill_density": "0%",
+                                  "top_shell_layers": "2", "bottom_shell_layers": "2",
+                                  "top_shell_thickness": "0", "bottom_shell_thickness": "0"},
+              "reason": "Each caught face prints down from back-top's ceiling over its open sliding groove. A removable two-wall ribbon stands on the groove floor one empty layer up and stops two empty layers under the caught face; automatic support is blocked on the caught faces and the ribbons, and the solid-host modifiers stop at the ribbons. The 2026-10-10 article's long groove stems were trapped in the walls; the other quadrants' groove supports released easily. enclosure/enclosure/README.md Support-removal strategy; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json."
+            },
+            {
+              "name": "Tie channel windows",
+              "kind": "tie_windows",
+              "channel_widths_mm": [2.0, 3.5],
+              "long_side_max_mm": 30,
+              "cavity_depth_mm": 3.25,
+              "blockers": false,
+              "expect": {"count": [18, 30]},
+              "reason": "Review windows for support in the zip-tie channels; the 50 mm bridge limit carries their roofs. drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/tie-cavity-support-review.json."
+            }
+          ]
+        }
+      ]
+    },
+    "back-bottom": {
+      "printer": "Mark2",
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+          "regions": "back-bottom",
+          "features": [
+            {
+              "name": "Handhold lifting-edge transition",
+              "kind": "transition_band",
+              "select": {"exterior_x_mm": 3.0},
+              "radius_mm": 6.0,
+              "expect": {"chamfer_area_mm2": [100, 1000]},
+              "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
+            },
+            {
+              "name": "Handhold lifting ceiling boundary strip",
+              "kind": "ceiling_inset",
+              "select": {"exterior_x_mm": 15},
+              "inset_mm": 0.8,
+              "expect": {"area_mm2": [400, 3000]},
+              "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
+            },
+            {
+              "name": "Handhold lifting edge fins",
+              "kind": "edge_fins",
+              "enabled": false,
+              "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
+              "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
+              "reason": "Disabled: no physical record reports roughness at this edge. printed-parts/AGENTS.md follows reported rough overhang edges with removable fin walls; the accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+            }
+          ]
+        }
+      ]
+    },
+    "pump-cartridge-cap": {
+      "printer": "Mark1",
+      "spacing_mm": 15,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+          "regions": "pump-cartridge",
+          "features": [
+            {
+              "name": "Lower hand-pocket rims",
+              "kind": "fine_band",
+              "select": {"normal_z": [0.02, 0.995], "exterior_x_mm": 7.5, "half": "lower"},
+              "rolls_to_normal_z": 0.9,
+              "min_component_area_mm2": 20,
+              "expect": {"span_mm": [8.0, 16.0], "components": [2, 2]},
+              "reason": "The cartridge's inward/top lower hand-pocket rims. enclosure/layer-policy-correction/README.md; print-readiness.md."
+            },
+            {
+              "name": "Upper hand-pocket rim transitions",
+              "kind": "transition_band",
+              "select": {"exterior_x_mm": 3.0, "half": "upper"},
+              "radius_mm": 6.0,
+              "expect": {"chamfer_area_mm2": [50, 600]},
+              "reason": "Expanding print-down R6 under each hand pocket's flat pull roof, with its corner returns. layer-policy-correction/README.md."
+            }
+          ]
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+          "regions": "pump-cap",
+          "pose": {"turns": [["x", 180]]}
+        }
+      ]
+    },
+    "funnel-frame": {
+      "printer": "Mark2",
+      "settings": {
+        "elefant_foot_compensation": {"value": "0", "reason": "The 2026-10-05 Mark2 frame recipe (zone-c/funnel/flush-roof-review/mark2-v1/preparation.json), whose article fit the 2026-10-07 build (enclosure/lillium-prototype-2026-10-07/physical-observation.json)."},
+        "brim_type": {"value": "no_brim", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."},
+        "brim_width": {"value": "0", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."},
+        "support_object_xy_distance": {"value": "0.5", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."}
+      },
+      "parts": [
+        {"stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"}
+      ]
+    },
+    "factory-tools": {
+      "printer": "Mark2",
+      "spacing_mm": 15,
+      "parts": [
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl",
+         "pose": {"turns": [["x", -90]]}},
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-fixed.stl",
+         "pose": {"turns": [["x", 90]]}},
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"},
+        {"stl": "hardware/printed-parts/enclosure/pump-dock/pump-stem-setting-fixture.stl"}
+      ]
+    },
+    "dock-petgf": {
+      "printer": "Mark1",
+      "spacing_mm": 12,
+      "parts": [
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
+         "quantity": 4,
+         "pose": {"turns": [["x", 90]]},
+         "object_settings": {
+           "wall_loops": {"value": "6", "reason": "heat-set-review/print-regions.json part_process_overrides: the thin continuous keeper section is the load path."},
+           "sparse_infill_density": {"value": "100%", "reason": "heat-set-review/print-regions.json part_process_overrides."},
+           "sparse_infill_pattern": {"value": "zig-zag", "reason": "heat-set-review/print-regions.json part_process_overrides."}
+         }},
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
+         "pose": {"turns": [["x", 90]]},
+         "object_settings": {
+           "wall_loops": {"value": "6", "reason": "heat-set-review/print-regions.json part_process_overrides: the thin continuous support section is the load path."},
+           "sparse_infill_density": {"value": "100%", "reason": "heat-set-review/print-regions.json part_process_overrides."},
+           "sparse_infill_pattern": {"value": "zig-zag", "reason": "heat-set-review/print-regions.json part_process_overrides."}
+         }}
+      ]
+    },
+    "labels": {
+      "printer": "Mark2",
+      "external": {
+        "command": ["hardware/printed-parts/drain-readiness/prepare.py", "labels"],
+        "reason": "The chips, collars and DATA plate are two-body STEPs; their meshes are tessellated from the CAD source under the CAD lock."
+      }
+    }
+  }
+}

@@ -1,7 +1,6 @@
-"""Save the checked DRAIN native archives and their evidence beside the parts.
+"""Save the checked identification plate archives and their evidence beside the parts.
 
-Run after prepare.py and the four native reviews. No printer job is submitted.
-The strict radial pore/bore reading is retained as an independent diagnostic.
+Run after `prepare.py labels` and `review_native.py`. No printer job is submitted.
 """
 from pathlib import Path
 import hashlib
@@ -42,45 +41,8 @@ def archive_binding(path, expected_gcode):
 
 
 def main():
-    job = WORK / "back-top-mark2"
-    stem = "back-top-black-z004-mark2"
-    prep = read(job / (stem + ".preparation.json"))
-    archive = read(job / "archive-review.json")
-    dense = read(job / "dense-region-review.json")
-    support = read(job / "show-support-clearance-summary.json")
-    radial = read(job / "insert-radial-backing.json")
-    stock = read(HERE / "reviews/insert-stock.json")
-    assert archive["passed"] and dense["passed"] and support["pass"] and stock["passed"]
-    assert dense["preparation_sha256"] == radial["preparation_sha256"] == sha(job / (stem + ".preparation.json"))
-    source = ROOT / prep["parts"][0]["source"]
-    assert dense["source_stl_sha256"] == radial["source_stl_sha256"] == stock["source_stl_sha256"] == archive["source_stl_sha256"] == sha(source)
-    assert stock["source_step_sha256"] == support["source_step_sha256"] == archive["source_step_sha256"] == sha(source.with_suffix(".step"))
-    region_spec = ROOT / "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json"
-    assert prep["solid_host_region_source_sha256"] == sha(region_spec)
-    assert len(dense["regions"]) == 23 and len(stock["stations"]) == 19
-    sliced = job / "ready" / (stem + ".gcode.3mf")
-    assert archive["native_archive_sha256"] == dense["native_archive_sha256"] == radial["native_archive_sha256"] == sha(sliced)
-    archive_binding(sliced, archive["gcode_sha256"])
-    project = job / (stem + ".3mf")
-    assert prep["project_sha256"] == sha(project)
-    project_path = copy(project, HERE / "projects" / project.name)
-    archive_path = copy(sliced, HERE / "ready" / sliced.name)
-    archive["native_archive"] = archive_path
-    save(HERE / "reviews/back-top-native.json", archive)
-    for name in ("dense-region-review.json", "insert-radial-backing.json", "show-support-clearance-summary.json",
-                 "show-support-clearance.json", "rear-port-support-contacts.json"):
-        copy(job / name, HERE / "reviews" / name)
-    copy(job / (stem + ".preparation.json"), HERE / "projects" / (stem + ".preparation.json"))
-    copy(job / "preview.png", HERE / "reviews/back-top.png")
-    result = read(job / "ready/result.json")["sliced_plates"][0]
-    plates = [{"name": "back-top", "printer": "Mark2", "filament": ["Black PET-GF"],
-               "project": project_path, "project_sha256": sha(project),
-               "native_archive": archive_path, "native_archive_sha256": sha(sliced),
-               "gcode_sha256": archive["gcode_sha256"],
-               "native_estimated_seconds": result["total_predication"],
-               "complete_emitted_bead_minimum_bed_margin_mm": archive["full_native_bead_footprint"]["minimum_shared_bed_margin_mm"],
-               "minimum_sampled_host_root_coverage_fraction": min(r["minimum_sample_coverage_fraction"] for r in dense["regions"])}]
-    labels = read(HERE / "reviews/labels.json")
+    plates = []
+    labels = read(WORK / "label-archive-review.json")
     assert labels["passed"] and len(labels["plates"]) == 4
     source_hashes = {}
     for plate in labels["plates"]:
@@ -113,19 +75,16 @@ def main():
     for plate in faucet["plates"]:
         assert sha(ROOT / plate["project"]) == plate["project_sha256"]
         assert sha(ROOT / plate["native_archive"]) == plate["native_archive_sha256"]
-    for path in [Path(__file__), HERE / "prepare.py", HERE / "review_native.py", HERE / "review_dense_regions.py",
-                 HERE / "review_insert_backing.py", HERE / "review_show_support.py", HERE / "review_roads.py", source,
-                 source.with_suffix(".step"), region_spec]:
+    for path in [Path(__file__), HERE / "prepare.py", HERE / "review_native.py", HERE / "review_roads.py"]:
         source_hashes[str(path.relative_to(ROOT))] = sha(path)
     reviews = {str(p.relative_to(ROOT)): sha(p) for p in sorted((HERE / "reviews").glob("*.json"))}
     save(HERE / "manifest.json", {"schema_version": 1,
-        "status": "ready to print; five cabinet plates and five linked faucet plates finalized",
-        "scope": "Current source geometry, editable projects, native archive integrity, emitted bead footprints, sampled whole-host/root deposition and geometric support access. No printer job is submitted. Physical fit, fusion, insert retention, support release, vent capacity and product lifetime remain qualification properties.",
+        "status": "ready to print; four identification plates and five linked faucet plates finalized",
+        "scope": "Current source geometry, editable projects, native archive integrity, emitted bead footprints and face-closing layers. No printer job is submitted. Lettering appearance, chip fit and collar grip remain physical observations.",
         "plates": plates, "source_sha256": source_hashes, "review_sha256": reviews,
         "faucet_print_manifest": str(faucet_path.relative_to(ROOT)), "faucet_print_manifest_sha256": sha(faucet_path),
-        "strict_radial_pore_bore_diagnostic_passed": radial["passed"],
-        "strict_radial_pore_bore_diagnostic_scope": radial["scope"], "submitted": False})
-    print("Finalized five cabinet plates; linked five finalized faucet plates.")
+        "submitted": False})
+    print("Finalized four identification plates; linked five finalized faucet plates.")
 
 
 if __name__ == "__main__":
