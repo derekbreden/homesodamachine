@@ -2952,6 +2952,7 @@ def flute_rails(box, berthed=()):
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer),
                               plain=((disposal_field(outer),) +
+                                     _stack_flute_plain(box.inner, box.y_joint) +
                                      (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
                                       if box.pack.nameplate else ()) +
                                      (_data_fit.plain_lips(box.pack.keystone,outer[3])
@@ -3253,6 +3254,20 @@ def disposal_figures(outer):
         "DISPOSAL_FIELD_HEIGHT": f"{field[5] - field[4]:.1f} mm",
         "DISPOSAL_MARGIN": f"{disposal_margin:g} mm",
     }
+
+
+def _disposal_clear_loose(mesh, outer):
+    """`mesh` without what its flute cut leaves of the raised letters in front of the wall.
+
+    The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth is
+    zero, so over the plain field it takes each letter's root and leaves the rest of its relief
+    standing loose. `_export_pieces` carries the letters back on whole, once, after this."""
+    fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
+    loose = trimesh.creation.box(bounds=(
+        (fx0, outer[3] + _flute_skin.cut_margin / 2.0, fz0),
+        (fx1, outer[3] + disposal_raise + 1.0, fz1)))
+    return trimesh.boolean.difference([_flute_skin.as_written(mesh), loose],
+                                      engine="manifold", check_volume=False)
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
@@ -3927,6 +3942,25 @@ def _finish_handholds(solid, inner):
         placed = air if sx > 0 else air.mirror("YZ")
         solid = solid.cut(placed.translate((x_in - sx * wall, 0.0, 0.0)))
     return solid.clean()
+
+
+def _stack_flute_plain(inner, y_joint):
+    """Where each flank stays plain outboard of its lower head pocket, as flute `plain` boxes:
+    the pocket's chord that stands within `flute_depth + flute_backing` of the exterior face,
+    from the handhold ceiling to the top of the handhold's R6 roll. The flutes fade in above it,
+    so the washer floor's outboard corner keeps `flute_backing` behind every groove."""
+    _bed, roof, _crown = _handhold_levels(inner)
+    rc = y_stack_cbore_dia / 2.0
+    out = []
+    for x_in, sx in ((inner[0], 1.0), (inner[1], -1.0)):
+        x_ext = x_in - sx * wall
+        lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
+        short = flute_depth + flute_backing - (abs(lx - x_ext) - rc)
+        if short > 0.0:
+            half = math.sqrt(rc * rc - (rc - short) ** 2)
+            out.append((x_ext - 1.0, x_ext + 1.0, ly - half, ly + half,
+                        roof, roof + handhold_edge_r))
+    return tuple(out)
 
 
 # --- bottom↔top joint: the HOOKED SLIDE --------------------------------------
@@ -9792,7 +9826,9 @@ def _export_pieces(pieces, assy):
                                  flute_pitch(outer), flute_depth, flute_rise)
         if name == "back-bottom":
             # The flute cutter closes outside the wall even where its depth is zero.
-            # Carry the raised outlines onto the finished smooth field after that cut.
+            # Clear what it leaves of the letters, then carry the raised outlines onto the
+            # finished smooth field after that cut, once.
+            mesh = _disposal_clear_loose(mesh, outer)
             letters = _piece_mesh(disposal_letters(outer))
             mesh = trimesh.boolean.union(
                 [_flute_skin.as_written(mesh), _flute_skin.as_written(letters)],

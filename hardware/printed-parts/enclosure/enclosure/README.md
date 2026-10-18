@@ -148,10 +148,14 @@ The printed joint has no qualified installation torque or retained clamping forc
 
 **Upper screw-access mouth at the roof edge:** the exterior show-edge taper leaves a
 minimum horizontal outboard rim width of 1.81 mm over the top 2.38 mm of the opening.
-That width reaches at least 3 mm below Z352.6164. The rim joins 3.5 mm fore and aft
-ribs and has continuous support into the thicker block. This local thin-section
-allowance applies only to that access mouth.
+That width reaches at least 3 mm below Z352.6164. The rim is the fluted flank skin, under
+the same show-field profile exception as every fluted face; the Ø10 washer, front-top's M5
+insert host in its 13 mm knuckle and the fixed exterior set the recess it stands outside.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
+Outboard of each lower recess the flank stays plain from the handhold ceiling to the top of
+its R6 roll, so the flutes fade in above the recess and its washer floor keeps the full
+3 mm flute backing. The rim of that recess at the handhold's R6 edge is the washer-locating
+rim and bears nothing; the washer bears on the floor.
 
 The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted
 stages to its identified exports: quadrant and frame faces, hardware stock, pump-cartridge
