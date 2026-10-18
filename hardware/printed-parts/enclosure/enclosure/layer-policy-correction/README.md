@@ -17,12 +17,14 @@ hashes and saved band declarations. The [archived native layer readings](existin
 are evidence of the inherited settings, with each archive identified by its
 digest. Geometry exports remain frozen.
 
-`prepare.py` creates separate immutable projects. The cartridge project retains
-the reviewed RC62 pause, mesh members, solid hosts, support paint, layout and
-printer settings. Its upper transition uses 0.24 mm. Each bottom project uses
-the current published mesh, current complete insert-host modifiers and the
-production support policy for the integral lifting ceilings and inner corner returns.
-Only the exterior R6 band receives the show-surface support exclusion. These are preparation and slice commands; they do not control printers.
+`prepare.py` is the preparation of the v5 cartridge/cap and v6 bottom projects. The
+cartridge project retains the reviewed RC62 pause, mesh members, solid hosts, support
+paint, layout and printer settings. Its upper transition uses 0.24 mm. Each bottom project
+uses its bound mesh, its complete insert-host modifiers and the production support policy
+for the integral lifting ceilings and inner corner returns. Only the exterior R6 band
+receives the show-surface support exclusion. Fresh cartridge, cap and bottom projects come
+from the [trial preparation](../../trial-preparation/README.md), which reads these bands from
+the current meshes. These are preparation and slice commands; they do not control printers.
 
 The intended result is an ordinary-layer surface through the additive edges
 without unnecessary fine-layer deposition. Native paths establish layer
