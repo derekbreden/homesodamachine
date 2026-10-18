@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "reported_date": "2026-10-18",
+  "reported_timezone": "America/Chicago",
+  "reported_by": "Derek",
+  "status": "reported_soda_service_with_assembly_fit_workarounds",
+  "reported_observations": {
+    "soda_service": "The new prototype is connected and serving soda.",
+    "assembly_fit": "Fit issues require assembly workarounds.",
+    "next_milestone": "Resolve the fit issues and button up this working level of prototype."
+  },
+  "quotes": [
+    "I do have a new prototype technically connected up and serving soda, but due to a number of fit issues I had not identified soon enough, it is a bit of a hack.",
+    "I still think getting this level of prototype tight and buttoned up will be a good next milestone, but we do have progress here and I am pleased with that."
+  ],
+  "photographs": {
+    "count": 2,
+    "availability": "Retained privately; no photographs or private attachment references are included in the repository.",
+    "visible_observations": [
+      "The prototype is arranged on the countertop beside the kitchen sink.",
+      "A white faucet stands on a separate countertop support with its small display illuminated.",
+      "The black fluted printed enclosure carries a display in its sloped face.",
+      "Two exposed pump heads and looping external tubes are visible above the enclosure.",
+      "One photograph shows a glass containing yellow-green liquid beside the prototype."
+    ],
+    "scope": "The photographs document the visible assembly state. Soda service is established by Derek's report; the photographs do not independently establish dispensing or fluid routing."
+  },
+  "article_identity": {
+    "source_revision": null,
+    "print_archive_names": null,
+    "printer_task_ids": null,
+    "installed_firmware_builds": null,
+    "scope": "The report and photographs do not bind the installed parts to exact design or print revisions. The photographed faucet is not identified as the October 17 localized-cooling and raised-display replacement."
+  },
+  "qualification_limits": [
+    "The report establishes soda service without identifying the working flavor or confirming both flavors.",
+    "The actual fluid routing, reservoir operation and installed firmware are unspecified.",
+    "Installed Prime, Fill, Clean and Dry operation and complete cutover acceptance are not separately recorded here.",
+    "The setup is on the countertop; final under-sink installation, intended shell closure and complete assembly fit are not established.",
+    "The revised C14 access bore, enlarged passive tube passages and raised-display faucet geometry retain their separate physical-fit evidence limits.",
+    "This observation does not establish leakage or pressure performance, safety qualification, load capacity or endurance.",
+    "The report does not enumerate the fit workarounds. The linked part observations retain their own article identities and acceptance scopes."
+  ],
+  "related_records": [
+    {
+      "path": "hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/physical-observation.json",
+      "scope": "Reported fit of the listed October 7 prints; excludes the back top and completed wet-prototype acceptance."
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/assembly-fit-review/assembly-feedback.json",
+      "scope": "October 17 C14 access, Mean Well wire-space and blind tube-insertion observations; revised geometry has separate physical-fit limits."
+    },
+    {
+      "path": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
+      "scope": "Normal assembly accepted for the identified fan-off cover; other faucet parts fractured during installation and the raised-display revision has no acceptance in that record."
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/lillium-prototype-2026-10-18/flavor-path-correction.json",
+      "scope": "Same-day report that flavor B's line carried flavor A's valve and flavor A's valve was fitted backwards; all issues reported resolved."
+    }
+  ]
+}
