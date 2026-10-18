@@ -3,16 +3,6 @@ alternatives: A common plane requires reconciling the chip clamp stock and jack 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-48.160 y=474.790 z=307.556
 
-[sliver] Wrong finite-strip diagnostic: these exact rows have zero plane normals and NaN widths, edge coordinates and lengths. They supply no finite strip measurement or geometry verdict. Other rear-interface findings remain separately unresolved.
-alternatives: Correct the degenerate-plane numerical case or inspect actual finite facets before selecting a geometry change. Do not derive a wall correction from undefined dimensions.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.787 y=481.079 z=288.376
-click: x=-97.787 y=481.079 z=289.626
-click: x=-97.787 y=481.079 z=290.625
-click: x=-97.787 y=481.079 z=291.625
-click: x=-97.787 y=481.079 z=292.375
-click: x=-105.543 y=475.868 z=351.875
-
 [sliver] Outside the pump-dock change and unresolved: these port-chip rim, nameplate-depth, core-chain pocket and seam-return strips retain their exact finite native material under the recorded fixed-world or rear-station transform. Source/interface correspondence establishes scope, without accepting the strips or their deposition.
 alternatives: Reconcile each rim, relief or seam with its fitted body and mating contour to remove the narrow return while preserving hardware clearance and insertion. Those rear-interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
