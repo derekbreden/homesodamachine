@@ -4628,9 +4628,12 @@ CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
 # opens that web without growing either pocket to a neighbour's far edge. This is a reviewed
 # relationship between these two bodies, not a general merge-nearby-pockets rule. The ASSE
 # chain's aft section and the water union's nut are the second such pair: their slipped pockets
-# leave a web thinner than a wall between them, which the same connector opens.
+# leave a web thinner than a wall between them, which the same connector opens. The flow meter's
+# housing and the regulator's body are the third: where their pockets run side by side they
+# stand 1.52 mm apart in X, a fin of slab the same connector opens.
 CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),
-                                  ("asse1022-assembly", "bulkhead-water"))
+                                  ("asse1022-assembly", "bulkhead-water"),
+                                  ("digiten-flow", "wr1110"))
 CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
 # The ground stack and flow meter each take one rectangular service pocket
 # across their overlapping sections. The flow meter's lead root and body
@@ -4731,13 +4734,15 @@ def _minimum_depth_reliefs(reliefs: tuple) -> tuple:
     )
 
 
-def ceiling_reliefs(placed: dict) -> tuple:
+def ceiling_reliefs(placed: dict, meter=None) -> tuple:
     """Named body pockets in back-top's ceiling slab, `(name, x0, x1, y0, y1, roof_z)` each.
 
     A body less than one clearance below the slab's interior face still earns a pocket:
     translating each exact solid piece upward by that clearance exposes the plan which would
     otherwise be a near miss. The direct and lifted sections of that same piece make one box.
-    The C14 tuple bounds the canonical flange-profile passage which runs over the same Y span."""
+    The C14 tuple bounds the canonical flange-profile passage which runs over the same Y span.
+    `meter` is the flow meter's anchor station (`digiten_anchors`), which its own pocket stands
+    off (`_meter_tie_partitions`)."""
     raw = _enc.back_top_ceiling_stock()
     lane = interior_ceiling()
     reliefs = []
@@ -4786,10 +4791,35 @@ def ceiling_reliefs(placed: dict) -> tuple:
     # Level each connected pocket before dropping contained sections and
     # giving the named service pockets their common outer walls.
     reliefs = _level_reliefs(_minimum_depth_reliefs(tuple(reliefs)))
-    reliefs = _enveloped_reliefs(_contained_reliefs(reliefs))
+    reliefs = _meter_tie_partitions(_enveloped_reliefs(_contained_reliefs(reliefs)), meter)
     reliefs = tuple(row[:5] + (lane,) if row[0] in CEILING_RELIEF_LANE_BODIES else row
                     for row in reliefs)
     return _full_depth_reliefs(_connected_reliefs(reliefs))
+
+
+def _meter_tie_partitions(reliefs: tuple, meter) -> tuple:
+    """The flow meter's own pocket, one `wall` off each of its anchors' tie bands in Y.
+
+    Each band's slab relief (`enclosure._ceiling_tie_reliefs`) ends on the anchor's inner end web,
+    `enclosure.flow_meter_anchor_end_wall` thick because the measured collar leaves it no more,
+    and the slab past that web is the partition between the zip tie's channel and the housing's
+    pocket. The anchors hold the meter along Y to the collar's 0.15 mm axial room, so the pocket's
+    two faces toward the bands give up that part of `CEILING_RELIEF_PLAN_SLIP` and keep the rest
+    round the housing."""
+    if not meter:
+        return reliefs
+    out = []
+    for name, x0, x1, y0, y1, roof in reliefs:
+        if name == "digiten-flow":
+            for by0, by1 in meter[3]:
+                mid = (by0 + by1) / 2.0
+                lo, hi = mid - _enc.tie_cav_w / 2.0, mid + _enc.tie_cav_w / 2.0
+                if hi <= y0 < hi + _enc.wall:
+                    y0 = hi + _enc.wall
+                if lo - _enc.wall < y1 <= lo:
+                    y1 = lo - _enc.wall
+        out.append((name, x0, x1, y0, y1, roof))
+    return tuple(out)
 
 
 def _connected_reliefs(reliefs: tuple) -> tuple:
@@ -5205,7 +5235,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
-                     ceiling_reliefs=ceiling_reliefs(placed),
+                     ceiling_reliefs=ceiling_reliefs(placed, a.digiten_anchors),
                      flank_reliefs=flank_reliefs(placed),
                      front_flank_reliefs=front_flank_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
