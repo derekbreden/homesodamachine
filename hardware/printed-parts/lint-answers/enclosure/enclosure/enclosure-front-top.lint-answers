@@ -241,17 +241,36 @@ click: x=31.100 y=113.407 z=264.875
 click: x=-73.350 y=113.407 z=240.025
 click: x=-73.350 y=113.407 z=264.875
 
-[thin] Outside the pump-dock change and unresolved: these actual fine seam-to-roof transitions retain the identified pre-dock native material in exact 4 mm windows at unchanged coordinates. This local correspondence establishes scope and does not accept the thin transition or loaded behavior.
-alternatives: Reconcile the seam tongue and roof-opening contours together to remove the fine transition while preserving the sliding seam and installed frame clearance. That enclosure-joint redesign is not implemented here.
+[thin] Wrong material-thickness classification across a concave corner: front-top's upper Y-stack knuckle face (|X|104.25, exposed aft of Y200, top on the frame datum Z299.65) meets the funnel-frame foot's running clearance (|X|103.75, floor Z299.65, ending on the rear-narrowing plane Y200) only at one shared edge. Between |X|103.75 and 104.25 three of the four quadrants about that edge are solid. A ray along the knuckle sample's inward normal crosses 12.75 mm of material, and from the clearance wall 3.74 mm, the flank beside the clearance (probe on the current STL).
+alternatives: The reader should not rank a closest point that lies on the edge where the opposite face ends. Moving either face off the shared frame datum adds a 0.25 mm step between fitted faces.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-104.250 y=200.029 z=299.301
 click: x=104.250 y=200.029 z=299.301
 
-[thin] Outside the pump-dock change and unresolved: these actual fine display-wing corner sections retain the immediate pre-dock display cutter and pose. The source-based finite cutter comparison and current exact 4 mm native-window correspondence identify this local construction. The older reference native window is not claimed identical. This is not a thickness, load or print-quality acceptance.
-alternatives: Reconcile the wing, support-exit corner and surrounding display-seat contour together to increase the local section while retaining the fitted display and support-removal path. That display-interface redesign is not implemented here.
+[thin] Wrong material-thickness classification at an inside pocket corner: each pair joins the world-vertical support exit's fore face (Y19.132) to the seating-floor vertex where the inset's R6.15 lower round crosses the exit's inboard plane |X|62.65; the normals are exactly 120° apart and the material between is the inset's solid corner surround. Rays from the pair cross 9.1 mm and 6.2 mm of material (probe on the current STL). The real section here is the 1.80 mm wing-retention lip (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-63.394 y=19.131 z=308.466
 click: x=63.397 y=19.131 z=308.470
+
+[thin] Specific flute-land profile, not a wall section: each pair spans the land between two adjacent grooves on the R12 front-corner arc, in front-top's band from the bay lintel Z284.674 to the front curve's foot Z298.696. Both points lie on the nominal surface 0.82 mm apart inside the 1.007 mm land the 5.0073 mm pitch leaves beside 4.0 mm grooves, with at least 6.3 mm behind it. The land is the corner coupon's profile (c14bb2fff, cadlib/flute-evidence).
+alternatives: A wider land needs a narrower or shallower groove on every fluted face, Derek's appearance decision.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-105.400 y=10.269 z=289.850
+click: x=105.400 y=10.269 z=295.888
+click: x=97.995 y=5.294 z=290.006
+click: x=-97.155 y=5.172 z=292.884
+
+[thin] Pending Derek's decision, reported: the 1.2 mm flute groove cut into a local shell of one `wall` behind the +X J1/J2 Wago pocket floors (the lugs seat on interior_x), or of wall + 0.75 mm at the funnel-frame foot clearance (Z299.65-307.4), the frame-rail lane (Z315.6-321.95) and the Z-rail lane, each one running fit outboard of a 5 mm catch lap. The groove floor is 1.8 or 2.55 mm; it still lays four 0.42/0.45 mm perimeter loops.
+alternatives: A 3 mm groove floor needs 4.2 mm shells: front catch lap 5.0 -> 4.55 mm (front-bottom heads, front-top lanes, frame heads), frame width 207 -> 206.1 mm, ten Wago lugs 1.2 mm inboard of their wall datum, and the front lower-stack knuckle 1.2 mm inboard.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=104.500 y=173.049 z=287.207
+click: x=-103.750 y=163.068 z=316.523
+click: x=103.750 y=163.068 z=316.523
+click: x=-103.750 y=143.059 z=300.055
+click: x=-106.306 y=148.011 z=299.812
+click: x=-106.306 y=148.011 z=315.812
+click: x=106.306 y=148.011 z=315.688
 
 [thin] Boundary-tangent classification, not a through-material section. All five interior positions at 10/25/50/75/90 percent along each exact current rounded segment classify ON the native boundary; none classifies inside the solid. Four lie on the X±98.5 valve-fixture boundary and two on the display interface. The reported separation follows a surface boundary and supplies no wall-thickness acceptance.
 alternatives: The reader needs an interior-material requirement before ranking tangent boundary pairs as thickness. Thickening geometry solely to move this surface tangent does not measure the surrounding section; use a section through actual interior material when assessing it.
@@ -270,23 +289,6 @@ click: x=-55.233 y=86.865 z=176.844
 click: x=-49.262 y=86.265 z=177.335
 click: x=49.217 y=86.865 z=176.844
 click: x=55.187 y=86.265 z=177.335
-
-[thin] Specific retained cosmetic-profile exception, outside the pump-dock change. These are real material chords in the finished fluted STL: all five current samples lie inside that closed mesh. The show field is 4.00 mm wide, 1.20 mm deep, with 5.00 mm fades and the actual 5.007346 mm pitch. It cuts a nominal 3 mm show wall to 1.8 mm on a full-depth plateau; oblique end/corner chords can be shorter. This answers the retained appearance profile only and does not claim a finished 3 mm minimum, structural capacity or print acceptance.
-alternatives: Reduce the cosmetic depth or add inward stock while preserving the adjoining fitted clearances. That show-wall/interface redesign is outside this dock implementation; the retained profile has no transferred load or lifetime qualification.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-105.400 y=10.269 z=289.850
-click: x=105.400 y=10.269 z=295.888
-click: x=97.995 y=5.294 z=290.006
-click: x=-97.155 y=5.172 z=292.884
-click: x=104.500 y=173.049 z=287.207
-click: x=-104.500 y=143.045 z=169.087
-click: x=104.500 y=143.045 z=169.087
-click: x=-103.750 y=163.068 z=316.523
-click: x=103.750 y=163.068 z=316.523
-click: x=-103.750 y=143.059 z=300.055
-click: x=-106.306 y=148.011 z=299.812
-click: x=-106.306 y=148.011 z=315.812
-click: x=106.306 y=148.011 z=315.688
 
 [thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
 alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.
