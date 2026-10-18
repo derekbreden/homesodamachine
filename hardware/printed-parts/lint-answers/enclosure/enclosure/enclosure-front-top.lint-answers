@@ -261,8 +261,8 @@ click: x=105.400 y=10.269 z=295.888
 click: x=97.995 y=5.294 z=290.006
 click: x=-97.155 y=5.172 z=292.884
 
-[thin] Pending Derek's decision, reported: the 1.2 mm flute groove cut into a local shell of one `wall` behind the +X J1/J2 Wago pocket floors (the lugs seat on interior_x), or of wall + 0.75 mm at the funnel-frame foot clearance (Z299.65-307.4), the frame-rail lane (Z315.6-321.95) and the Z-rail lane, each one running fit outboard of a 5 mm catch lap. The groove floor is 1.8 or 2.55 mm; it still lays four 0.42/0.45 mm perimeter loops.
-alternatives: A 3 mm groove floor needs 4.2 mm shells: front catch lap 5.0 -> 4.55 mm (front-bottom heads, front-top lanes, frame heads), frame width 207 -> 206.1 mm, ten Wago lugs 1.2 mm inboard of their wall datum, and the front lower-stack knuckle 1.2 mm inboard.
+[thin] Specific cosmetic-flute profile exception, the same profile the cosmetic-flute answers on every enclosure piece take (front-bottom, back-top, back-bottom, pump cartridge): the 4 mm wide, 1.2 mm deep groove with its 5 mm smoothstep fade (cadlib/reeding.py) cut into a local shell of one `wall` behind the +X J1/J2 Wago pocket floors (the lugs seat on interior_x), or of wall + 0.75 mm at the funnel-frame foot clearance (Z299.65-307.4), the frame-rail lane (Z315.6-321.95) and the Z-rail lane, each one running fit outboard of a 5 mm catch lap. The groove floor is 1.8 or 2.55 mm and still lays four 0.42/0.45 mm perimeter loops. The field is what keeps the PET-GF show walls from disclosing the material (cadlib/flute-evidence/README.md).
+alternatives: A 3 mm groove floor needs 4.2 mm shells: front catch lap 5.0 -> 4.55 mm (front-bottom heads, front-top lanes, frame heads), frame width 207 -> 206.1 mm, ten Wago lugs 1.2 mm inboard of their wall datum, and the front lower-stack knuckle 1.2 mm inboard; a shallower groove changes the profile the appearance evidence rests on.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=104.500 y=173.049 z=287.207
 click: x=-103.750 y=163.068 z=316.523
