@@ -304,7 +304,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "2a5a8c6a0585a761ee2c3952738ff74d6ea189cdec054bac7fb9777b3c2a4f3c",
     "hardware/manifold-layout/enclosure-box.json": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f"
@@ -315,8 +315,8 @@
       ".stl": "7e533a0a2ba46a8875993c3e15e8601e77d09e07d0ad876d1dfada0c6f71edeb"
     },
     "front-top": {
-      ".step": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
-      ".stl": "adffe46e1c34dff72b8e5a5c8754b3f22bedcfe8fd9a35c7faac466ae4986bb1"
+      ".step": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+      ".stl": "27fa82f52622ca515e3c371e3d0ed2b2cc1c2f44d47b3ff5b34c511fe6632fcc"
     },
     "back-bottom": {
       ".step": "93a473bf05db2f8b43f5d411c29cdad5bb2ebcc133b10633b78488b99f285f10",
