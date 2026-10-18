@@ -5089,6 +5089,14 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     lane = inner[5]
     face = back_top_ceiling_face()
     stock = back_top_ceiling_stock(y_joint, lane)
+    # Inside a wall relief the wall's face is the relief's floor, not `back_top_wall_face`. The
+    # slab runs on to it, so no slit stands between the slab's end and that floor; the pockets
+    # below open the slab again over every body that enters it.
+    behind = _back_top_wall_relief_cut(box.pack.port_field, BACK_TOP_UP, ceiling=lane)
+    if behind is not None:
+        fx0, fx1 = back_top_flank_face()
+        stock = stock.fuse(behind.intersect(
+            _ybox(fx0, fx1, back_top_wall_face(), rear_plane_y, face, lane + 1.0)))
     if box.pack.funnel:
         x0, x1, y0, y1 = _funnel_cut_plan(box.pack.funnel)
         stock = stock.cut(_ybox(x0, x1, y0 - 1.0, y1, face - 1.0, lane + 2.0))
@@ -8623,6 +8631,10 @@ def _keystone_catches(catches, up):
     for part in loose:
         sign = -1.0 if part.isSame(lower) else 1.0
         rooted = part.fuse(part.translate((0, 0, sign * pocket_growth)))
+        # The fitted pocket grows by the same allowance across X: each catch runs on to both
+        # side walls, which carry its bridge face.
+        rooted = rooted.fuse(rooted.translate((pocket_growth, 0, 0)),
+                             rooted.translate((-pocket_growth, 0, 0)))
         # Lower catch's top faces print-down in a ceiling-bedded print, upper catch's
         # underside in a floor-bedded print. Moving its complete section preserves retention.
         if sign * up > 0.0:
