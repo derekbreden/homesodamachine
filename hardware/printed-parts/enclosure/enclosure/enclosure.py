@@ -7577,8 +7577,10 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 #
 # STRAIGHT ON THE WEST, THE ANCHOR'S OWN V ON THE EAST. The V's apex stands closest to that
 # straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
-# `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
-# leaves a zip tie pushed through the room to turn the vertex by cutting its corner.
+# `wall / sin 60°` short of where its flank of the V crosses the block's face — on a face nothing
+# stands on, the corner where the web between them ends square to that flank
+# (`_asse_square_end`) — and at the axis the flare leaves a zip tie pushed through the room to
+# turn the vertex by cutting its corner.
 #
 # ONE CHANNEL SPANS BOTH ZIP TIE BANDS. Its fore and aft ends stand half `tie_cav_wide_w` beyond
 # the corresponding tie centre, and the volume between them is open. The slicer's support under
@@ -7649,6 +7651,26 @@ def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
     )
 
 
+def _asse_square_end(x_apex, z_axis, reach):
+    """The `(x, z)` section of air that ends a V flank square to itself where it leaves the block
+    through a level face.
+
+    The flank crosses that face at `asse_v_half`, a 60° arris, and the web the tie cavity leaves
+    inside the V is one `wall` square to the flank. So the end runs square to the flank from the
+    point `wall / sin(asse_v_half)` short of the arris on the face — where the cavity's own face
+    reaches it — and is one `wall` across. `reach` is the flank's signed rise off the axis plane:
+    `asse_cradle_up` for the upper flank, minus the station's `dn` for the lower. The section
+    runs on into the V's room and past the face, so the one face it leaves is that square end."""
+    v = math.radians(asse_v_half)
+    run = 1.0 / math.tan(v)
+    s = math.copysign(1.0, reach)
+    arris, face = x_apex + abs(reach) * run, z_axis + reach
+    h = wall * math.cos(v)
+    bx, cx, cz = arris - wall / math.sin(v), arris - h * run, face - s * h
+    ux, uz = math.sin(v), -s * math.cos(v)
+    return [(bx - ux, face - uz), (cx + ux, cz + uz), (arris, face + s), (bx - ux, face + s)]
+
+
 def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     """The tap-water chain's cradle fused onto the −X wall, if this piece owns its band.
 
@@ -7684,8 +7706,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     crossing of the top) back to the wall and up to the lane, standing on the slab through the
     chain's own pocket: nothing west of the arris stands in that air, so nothing over the block
     looks print-down and no wedge is asked to carry it. Over the span the loop needs that room, so
-    the column is absent and the web between the cavity and the V ends in a flat top, a supported
-    face whose support stands on the slab in the tie channel and leaves into the chain's pocket.
+    the column is absent and the web between the cavity and the V ends square to the V, one `wall`
+    across: a supported face whose support stands on the slab in the tie channel and leaves into
+    the chain's pocket. Nothing stands under the block on this print either, so the V's foot ends
+    square to its flank the same way the length of the section.
     The two round seats' lower arcs look print-down inside their bores and are supported faces.
     The V's own two flanks stand 30° off vertical and carry themselves either way.
 
@@ -7753,6 +7777,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
             for wy0, wy1 in ((sy0, min(sy1, tie_y0)), (max(sy0, tie_y1), sy1)):
                 if wy1 - wy0 > 1e-6 and climb > 1e-6:
                     solid = solid.fuse(_ybox(inner[0], lip, wy0, wy1, top, top + climb))
+            if seat_r is None:
+                # A V FLANK THAT LEAVES THE BLOCK THROUGH A LEVEL FACE ENDS SQUARE TO ITSELF where
+                # nothing stands on that face: the foot the whole section long, and the upper arris
+                # over the tie span, where no column stands on the top.
+                solid = solid.cut(_xz_prism(sy0, sy1, _asse_square_end(sapex, z_axis, -dn)))
+                ty0, ty1 = max(sy0, tie_y0), min(sy1, tie_y1)
+                if ty1 - ty0 > 1e-6:
+                    solid = solid.cut(_xz_prism(ty0, ty1, _asse_square_end(sapex, z_axis, rise)))
     # THE ZIP TIES' SHARED CHANNEL, cut after every section is fused so a neighbour's block cannot
     # fill it back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
@@ -7761,12 +7793,12 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     # IT IS THE WIDE ZIP TIE'S CAVITY. The barrel and this anchor make a 105 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
     # 18 lb zip tie the flow-meter anchors and the runs' ribs take.
-    solid = solid.cut(_supported_cut(_asse_tie_cavity(
-        apex, inner[0], z_axis, tie_y0, tie_y1, rise, dn + corbel), up))
+    solid = solid.cut(_asse_tie_cavity(
+        apex, inner[0], z_axis, tie_y0, tie_y1, rise, dn + corbel, print_up=up))
     return solid
 
 
-def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
+def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn, print_up=1.0):
     """The zip tie's cavity: STRAIGHT on the west, the ASSE anchor's own V on the east.
 
     Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
@@ -7779,11 +7811,18 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     air, and carrying the cutter lower would leave a separate one-millimetre notch in the flank.
     `dn` is what the caller has standing under the axis — the block's own storey and the corbel
     below it — because a tie's loop leaves this cavity by running east UNDER all of it, and a
-    channel that stopped above the block would be stopped by the corbel."""
+    channel that stopped above the block would be stopped by the corbel.
+
+    `print_up` is the piece's print up. The end that is the cavity's print roof — the lower one on
+    a piece printed ceiling-down, where it roofs the cavity in the flank's own stock — runs on
+    `fits.supported_surface`, the room its supported finish takes. The two faces offset from the
+    V stand 30° off vertical and carry themselves, so the web between them and the V stays one
+    `wall`."""
     run = 1.0 / math.tan(math.radians(asse_v_half))
     x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the anchor
     x_w = x_wall + wall                                          # and a `wall` off the side wall
-    over_up, over_dn = up + 1.0, dn
+    over_up = up + 1.0 + (fits.supported_surface if print_up > 0 else 0.0)
+    over_dn = dn + (fits.supported_surface if print_up < 0 else 0.0)
     return (
         cq.Workplane("XZ")
         .polyline(_ring([(x_w, z_axis + over_up),
