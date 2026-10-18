@@ -6975,7 +6975,9 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
         for into in (1.0, -1.0):
             end = sy - into * mq6_card_y / 2.0
             # The post: slab to the card's own crown, rooted on the wall over its whole depth.
-            pa, pb = sorted((end - into * mq6_rail_wall, end + into * grip))
+            # Its end wall stands one whole `mq6_rail_wall` past the groove's slipped end, the
+            # section the east cheek keeps past the groove's slipped face.
+            pa, pb = sorted((end - into * (mq6_slot_press + mq6_rail_wall), end + into * grip))
             solid = solid.fuse(_ybox(px0, px1, pa, pb, inner[4], zt))
             # And its groove, open at the top so the card comes in from above and blind at the
             # bottom so it lands: what it lands ON is the post's own first `mq6_rail_wall`.
