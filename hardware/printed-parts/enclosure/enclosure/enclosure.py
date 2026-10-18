@@ -522,6 +522,13 @@ boss_ligament = _interface.boss_ligament
 # behind it. Most corbels reach their mounting face; this is spent only where the body itself
 # crosses the otherwise printable 45 degree wedge.
 east_boss_corbel_clear = 1.0
+# THE ENTRY A RECESSED INSERT IS DRIVEN THROUGH: the RX-M3Sx4.0's Ø4.6 knurl and the heat-set
+# tip pass it to the insert's seat in complete flank stock behind (`_east_bosses`).
+east_knurl_entry_r = 2.5
+# Air between a main-board sleeve and the board's own solder joints beside it (`east_sleeve_r`).
+# The board floats 0.1 on its screws, Ø3.2 holes on M3, its drilled joints stand within 0.1 of
+# their placement, and the printed face takes `fits.slip`; half a millimetre covers the three.
+east_boss_joint_air = 0.5
 # HOW FAR A BODY HAS TO STAND OFF THE WALL BEFORE A BOSS IS WORTH STANDING, and it is the ring
 # the insert already needs. A stem shorter than `boss_ligament` comes out thinner in X than the
 # material it is made of is in section: its D-fill corners, its 45 degree wedge and its free face
@@ -1716,7 +1723,10 @@ def documented(box):
 #                 the mounting plane after all). The X planes normally agree. A body crossing
 #                 only part of the candidate wedge holds that part back by
 #                 `east_boss_corbel_clear`; the clear bands keep their wall-rooted corbel all
-#                 the way to the body, and the D-shaped stem still reaches the whole hole
+#                 the way to the body, and the D-shaped stem still reaches the whole hole.
+#                 Optional trailing fields: the Y span its corbel is offered over, its
+#                 insert's recess behind the mounting face, and the radius of the sleeve its
+#                 body stands on across that recess (`east_boss_sleeve_r`)
 #   east_mount_fills  individually reviewed rectangular unions in that mounting field, each
 #                 `(name, (x0, x1, y0, y1, z0, z1), replaced_corbels)`. A replacement station
 #                 keeps its D stem and bore; the box replaces only its ordinary wedge
@@ -6339,9 +6349,10 @@ def _east_boss_corbel(wall_x, station, up=1.0, r=mount_boss_dia / 2.0):
     beside the blocker still take the full wall-rooted wedge. Returns None when none survives.
 
     `r` is the radius of the D whose chord the wedge carries — the stem's, or the narrower
-    sleeve a recessed insert stands behind (`_east_bosses`). A narrower D brings the span and
-    every clear band in by the difference at each end, so the wedge stands on that D's chord
-    across its whole width and its two ends run on in the D's flat sides.
+    sleeve a recessed insert stands behind (`_east_bosses`). A D of another radius moves the
+    span's two ends by the difference, so the wedge stands on that D's chord across its whole
+    width and its two ends run on in the D's flat sides; its clear bands are read over that
+    same width (`enclosure_assembly.wall_mounts`).
     """
     sy, sz, tip = station[:3]
     web_tip = station[3] if len(station) > 3 else tip
@@ -6358,10 +6369,11 @@ def _east_boss_corbel(wall_x, station, up=1.0, r=mount_boss_dia / 2.0):
     if web_tip < wall_x - stated_bound_tol:
         out = _east_wedge(wall_x, sz, lo, hi, web_tip, up, r)
     for ylo, yhi in clear_bands:
-        if ylo < span[0] - 1e-6 or yhi > span[1] + 1e-6 or yhi <= ylo:
+        if ylo < min(span[0], lo) - 1e-6 or yhi > max(span[1], hi) + 1e-6 or yhi <= ylo:
             raise ValueError(
                 f"east boss at ({sy:g}, {sz:g}) has invalid clear corbel band "
-                f"y={ylo:g}..{yhi:g}; expected inside {span[0]:g}..{span[1]:g}")
+                f"y={ylo:g}..{yhi:g}; expected inside {min(span[0], lo):g}.."
+                f"{max(span[1], hi):g}")
         ylo, yhi = max(ylo, lo), min(yhi, hi)
         if yhi <= ylo:
             continue
@@ -6376,13 +6388,17 @@ def east_boss_wings(span, bands):
 
     A WING IS READ BY WHAT IT LEAVES. A wing at each end of the span leaves the run between
     them rooted at both ends, and that run is a bridge the slicer lays with nothing under it:
-    relay #2's upper bar keeps a 2.5 mm wing at either end and bridges the 15 mm between. Any
+    relay #2's lower bar keeps a 3 mm wing at either end and bridges the 15 mm between. Any
     other set of wings leaves an open-ended flat, hung or supported exactly as it would be with
     no wing at all, and the wings stand only while they carry more of the span than that flat
     is. Below that they stand down together and the boss offers its whole floor, with nothing
-    standing against whatever carries it: the main board's forward upper hole, where the pin
-    field leaves 1.53 mm of a 7 mm floor clear, keeps no wing."""
-    bands = tuple(sorted((float(lo), float(hi)) for lo, hi in bands if hi > lo))
+    standing against whatever carries it.
+
+    A BAND NARROWER THAN `boss_ligament` IS NO WING: beside its blocker it would stand as a fin,
+    so it goes before the rest are read. The main board's aft lower hole keeps the wing aft of
+    J1's first solder joint and not the sliver fore of it."""
+    bands = tuple(sorted((float(lo), float(hi)) for lo, hi in bands
+                         if hi - lo >= boss_ligament - stated_bound_tol))
     if not bands:
         return (), ()
     lo, hi = span
@@ -6472,6 +6488,43 @@ def east_boss_insert_setback(station):
     return float(station[6]) if len(station) > 6 else 0.0
 
 
+def east_boss_sleeve_r(station):
+    """The radius of the sleeve a recessed insert's body stands on across the recess, in field
+    eight (`enclosure_assembly.wall_mounts`, from `east_sleeve_r`)."""
+    return float(station[7])
+
+
+def east_sleeve_r(sy, sz, joints, up=1.0, reach=None):
+    """The radius a recessed insert's sleeve takes about its hole at (sy, sz): one `wall` round
+    the knurl entry, or what the board's own solder joints beside it leave, each kept
+    `east_boss_joint_air` off. `joints` are the board's pads as `(y, z, radius)` in the machine
+    frame; `reach` caps the radius where something other than the board stops the sleeve first.
+
+    THE JOINTS ARE READ AGAINST THE SLEEVE `_east_bosses` BUILDS: round on the print-up side,
+    flat-chorded on the print-down side, and grown `fits.supported_surface` toward print-up as
+    the entry it surrounds is. A joint over the chord meets the chord's flat, not the circle."""
+    target = east_knurl_entry_r + wall
+    target = target if reach is None else min(target, reach)
+    chord = -up
+
+    def gap(rad):
+        nearest = math.inf
+        for jy, jz, jr in joints:
+            for cz in (sz, sz + up * fits.supported_surface):
+                dy, dz = abs(jy - sy), chord * (jz - cz)
+                flat = math.hypot(max(dy - rad, 0.0), max(dz - rad, 0.0) if dz >= 0.0 else -dz)
+                nearest = min(nearest, math.hypot(jy - sy, jz - cz) - rad - jr, flat - jr)
+        return nearest
+
+    if gap(target) >= east_boss_joint_air:
+        return target
+    lo, hi = 0.0, target
+    for _ in range(50):
+        mid = (lo + hi) / 2.0
+        lo, hi = (mid, hi) if gap(mid) >= east_boss_joint_air else (lo, mid)
+    return lo
+
+
 def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
@@ -6513,8 +6566,8 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     round its three clear stations; and relay 1's two vertical pairs each get one ceiling column.
     Their separate wedges are omitted so every underside is one flat supported face. All four
     fuse before the bores are cut. Where one fill prints on another and overhangs its side by
-    less than `boss_ligament` — MH3's pad union under relay 1's aft column — a strip that
-    narrow is no support's to reach, so a 45° corbel in the free corner carries it.
+    less than a `wall` — MH3's pad union under relay 1's aft column — a strip that narrow is
+    no support's to reach, so a 45° corbel in the free corner carries it.
 
     A PAIR OF HOLES ON ONE LINE IS ONE BAR (`east_boss_pairs`): the two stems and the run
     between them are one flat-topped box with two bores in it, on one corbel — the print-down
@@ -6584,7 +6637,7 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
                 continue                        # not printed straight on that fill
             for end, side, inward in ((ay0, by0, 1.0), (ay1, by1, -1.0)):
                 step = inward * (side - end)
-                if stated_bound_tol < step < boss_ligament:
+                if stated_bound_tol < step < wall:
                     solid = solid.fuse(_yz_prism(ax0, ax1, [
                         (end, shelf), (side, shelf), (side, shelf - up * step)]))
     for k, station in enumerate(mine):
@@ -6601,24 +6654,24 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
         setback = east_boss_insert_setback(station)
         insert_tip = tip + setback
         if setback:
-            # The populated PCB's established 7.2 mm square mounting clearance
-            # admits the Ø7 D sleeve, including its chord. It does not admit an
-            # Ø8 host in the 2 mm tail zone. Keep that mounting footprint only
-            # in front of the recessed brass; the installed body retains the
-            # complete Ø8 supported host without moving the PCB or its tails.
-            entry_r = 3.5
-            za, zb = (sz-entry_r, sz) if up > 0 else (sz, sz+entry_r)
-            sleeve = _xcyl(entry_r, sy, sz, tip, insert_tip).fuse(
-                _ybox(tip, insert_tip, sy-entry_r, sy+entry_r, za, zb))
-            margin = mount_boss_dia/2.0 + fits.supported_surface + 0.02
-            entry_band = _ybox(tip-0.001, insert_tip, sy-margin, sy+margin,
-                               sz-margin, sz+margin)
-            # A fill is read whole against the installed board, tails and all
-            # (`wall_mounts`), so the band clears none of its stock: a station
-            # standing in one is seated in the fill's own block.
-            for _name, bounds, _replaced_corbels in fills:
-                entry_band = entry_band.cut(_ybox(*bounds))
-            solid = solid.cut(entry_band.cut(sleeve))
+            # THE BOARD STANDS ON A SLEEVE ACROSS ITS TAIL ZONE, sized off the board's own solder
+            # joints (`east_sleeve_r`, read into the station by `wall_mounts`): one `wall` round
+            # the knurl entry wherever they leave room, less where one stands closer. Grown toward
+            # print-up as the entry is, it keeps that wall all round, and the Ø8 stem's corners
+            # outside it are cleared off the tail zone. A station standing in a fill is seated in
+            # the fill's own block, which `wall_mounts` sizes the same way, so neither a sleeve
+            # nor the clearing band touches anything round it.
+            entry_r = east_boss_sleeve_r(station)
+            if not replaces_corbel(station):
+                za, zb = (sz-entry_r, sz) if up > 0 else (sz, sz+entry_r)
+                sleeve = _supported_cut(_xcyl(entry_r, sy, sz, tip, insert_tip).fuse(
+                    _ybox(tip, insert_tip, sy-entry_r, sy+entry_r, za, zb)), up)
+                margin = mount_boss_dia/2.0 + fits.supported_surface + 0.02
+                entry_band = _ybox(tip-0.001, insert_tip, sy-margin, sy+margin,
+                                   sz-margin, sz+margin)
+                for _name, bounds, _replaced_corbels in fills:
+                    entry_band = entry_band.cut(_ybox(*bounds))
+                solid = solid.cut(entry_band.cut(sleeve)).fuse(sleeve)
             # The sleeve's chord is the face this station's wedge carries. Struck on that chord
             # and over the sleeve's width, the wedge meets it face for face and its two ends run
             # on in the sleeve's flat sides.
@@ -6630,7 +6683,7 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
             # with access for the heat-set tip. This entry is outside the
             # installed insert's manufacturer-required surrounding stock.
             solid = solid.cut(_supported_cut(
-                _xcyl(2.5, sy, sz, tip-0.01, insert_tip), up))
+                _xcyl(east_knurl_entry_r, sy, sz, tip-0.01, insert_tip), up))
         # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
         # the piece is not: a station standing where the flank has already turned into its rear
         # corner meets a face inboard of that plane, and a bore struck on the plane leaves that

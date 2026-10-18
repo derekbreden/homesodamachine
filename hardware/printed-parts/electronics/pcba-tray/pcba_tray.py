@@ -39,7 +39,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from docgen import substitute_py_comments
-from module_tray import Mount, _boss_spec
+from module_tray import Mount
 
 # Board datum — pcba.tsx <board outline> + the MH1–MH4 <platedhole>s.
 _outline_x = (-68.0, 17.0)
@@ -49,8 +49,20 @@ _centre = (sum(_outline_x) / 2.0, sum(_outline_y) / 2.0)
 _thickness = 1.6
 _hole_dia = 3.2
 pin_drop = 2.0
-_mount_boss_dia = _boss_spec(_hole_dia)[0]
 _GLB = _hw / "pcb" / "pcba" / "out" / "pcba.glb"
+# WHAT THE UNDERSIDE PRESENTS ROUND EACH MOUNTING HOLE. Every part on this board is top-side, so
+# the face a wall meets carries only through-hole solder joints and flush copper. Within
+# `_hole_reach` of a hole, in X and in Y, the model carries those joints as placed, each as
+# (part.pin, pad centre in the pcb frame, pad diameter) off the fab export of `pcba.tsx`, and
+# not the component boxes. Each stands `pin_drop` deep: its fillet on the pad, its clipped
+# lead inside it. MH1 has none; its nearest, a J14 shield leg, is 11.3 mm off.
+_hole_reach = 8.0
+_hole_joints = (
+    ("J1.1", (11.0, 26.48), 1.6), ("J8.4", (5.05, 31.0), 1.5),
+    ("J7.1", (7.0, -30.3), 1.8),
+    ("J11.1", (-62.0, -27.6), 1.5), ("J11.2", (-62.0, -25.1), 1.5),
+    ("J3.4", (-56.0, -30.3), 1.5),
+)
 
 
 def _glb_component_boxes():
@@ -107,9 +119,10 @@ def _build_board():
     is kept above the top face and its wall-facing projection is kept separately
     as the 2 mm pin-tail envelope. Imported lead lengths vary by model, so that
     projection is capped at the assembly clearance this board states rather than
-    letting one decorative component model move the PCB mounting datum. The four
-    established boss footprints are cut back out: component AABBs are conservative
-    rectangles, while the real MH1–MH4 lands must remain clear for the board to seat."""
+    letting one decorative component model move the PCB mounting datum. Round each
+    mounting hole the boxes give way to the board's own joints (`_hole_joints`):
+    component AABBs are conservative rectangles drawn from top-side bodies, and
+    within `_hole_reach` of a hole the underside carries nothing else."""
     slab = cq.Workplane("XY").box(
         _outline_x[1] - _outline_x[0], _outline_y[1] - _outline_y[0], _thickness,
         centered=(True, True, False))
@@ -141,9 +154,13 @@ def _build_board():
         for hx, hy in _holes_pcb:
             tails = tails.cut(
                 cq.Workplane("XY")
-                .box(_mount_boss_dia, _mount_boss_dia, pin_drop + 1.0,
+                .box(2.0 * _hole_reach, 2.0 * _hole_reach, pin_drop + 1.0,
                      centered=(True, True, False))
                 .translate((hx - _centre[0], hy - _centre[1], -pin_drop - 0.5)))
+        for _pin, (px, py), dia in _hole_joints:
+            tails = tails.union(
+                cq.Workplane("XY").cylinder(pin_drop, dia / 2.0, centered=(True, True, False))
+                .translate((px - _centre[0], py - _centre[1], -pin_drop)))
         slab = slab.union(tails)
     return slab
 
@@ -153,6 +170,8 @@ board = SimpleNamespace(
     length=_outline_x[1] - _outline_x[0],
     width=_outline_y[1] - _outline_y[0],
     holes=tuple((hx - _centre[0], hy - _centre[1]) for hx, hy in _holes_pcb),
+    joints=tuple((px - _centre[0], py - _centre[1], dia / 2.0)
+                 for _pin, (px, py), dia in _hole_joints),
     hole_dia=_hole_dia,
     pin_drop=pin_drop,
     build=_build_board,
