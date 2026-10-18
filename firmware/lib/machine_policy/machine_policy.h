@@ -25,8 +25,7 @@ enum class Valve : uint8_t {
 using ValveMask = uint16_t;
 
 constexpr uint8_t   kValveCount       = 11;
-// A dispense opens every valve (canonicalPlan), so the ceiling is all of them.
-constexpr uint8_t   kMaxOpenValves    = kValveCount;
+constexpr uint8_t   kMaxOpenValves    = 3;
 constexpr ValveMask kAllValves        = (ValveMask{1} << kValveCount) - 1;
 constexpr ValveMask valveBit(Valve v) {
     return ValveMask{1} << static_cast<uint8_t>(v);
