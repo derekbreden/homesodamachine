@@ -1,7 +1,7 @@
 """Top-level foam-shell assembly: union the wall builders, then cut
 all the port holes and channel openings."""
 
-from _cold_core_interface import foam_shell_outer_height, casing_seal_shell_band
+from _cold_core_interface import foam_shell_outer_height, casing_seal_shell_band, casing_seal_rebate
 from _reservoir_pocket_walls import build_reservoir_pocket_walls
 from _reservoir_supports import build_reservoir_supports
 from _support_ring import build_carbonator_support_ring
@@ -54,4 +54,10 @@ def build_full_shell():
         foam_shell = cut(foam_shell)
     return rebate_casing_seals(foam_shell, (
         (0.0, casing_seal_shell_band),
-        (foam_shell_outer_height - casing_seal_shell_band, foam_shell_outer_height)))
+        (foam_shell_outer_height - casing_seal_shell_band, foam_shell_outer_height)),
+        transitions=(
+            (casing_seal_shell_band, casing_seal_shell_band + 0.6,
+             casing_seal_rebate, 0.0),
+            (foam_shell_outer_height - casing_seal_shell_band - 0.6,
+             foam_shell_outer_height - casing_seal_shell_band,
+             0.0, casing_seal_rebate)))

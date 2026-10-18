@@ -29,6 +29,7 @@ import _foam_cap as _foam_cap_module
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
+    head_access_pockets,
     lid_cut_through_depth,
     lid_total_height,
     top_cap_height,
@@ -561,9 +562,13 @@ def main():
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
                   - side_anchor_volume - plate_gain)
-    lid_expect -= (len(attachment_xy_positions) * math.pi
-                   * (head_cbore_radius ** 2 - screw_clearance_radius ** 2)
-                   * fits.supported_surface)
+    # The open-sided head pockets share one XY section through the pad's
+    # outward web. Only the lower lid's supported recess adds 0.25 mm depth.
+    head_cut_area = head_access_pockets(0.0, 1.0).intersect(
+        rebate_casing_seals(build_attachment_bosses(1.0), ((0.0, 1.0),)))
+    lid_expect -= (head_cut_area.val().Volume()
+                   - len(attachment_xy_positions) * math.pi * screw_clearance_radius**2
+                   ) * fits.supported_surface
     cap_diff = cap_top.val().Volume() - cap_bottom.cut(
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=-1.0)

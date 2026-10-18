@@ -299,8 +299,8 @@ The bottom lid's pad ends and top cap's flush deck columns have the same
 axial allowance; their radial fits retain their own dimensions.
 
 The cups and lids carry smooth perimeter lands recessed 0.30 mm. The
-shell has matching lands for 13 mm at each end. The wall remains 2.90 mm
-there; the full-depth flutes continue on the shell between the lands.
+shell has matching lands for 13 mm at each end, joined to its standing wall
+by 0.6 mm axial tapers. The wall remains 2.90 mm there; the full-depth flutes continue on the shell between the lands.
 The four rounded-corner screw stations stand 0.25 mm inward along Y from
 the flat-wall station line; the shell, cups and lids share this pattern.
 Each corner pilot retains at least 1.69 mm radial wall through its depth.
@@ -313,10 +313,13 @@ joints. Trim the 50.8 mm stock to the land, ending at the lid's outside
 edge without folding onto its flat bearing face. Apply to clean, dry parts
 at room temperature. Press around the rounded corners and burnish the
 edges; overlap the band's ends by 25 mm. Use at most two foil layers, with
-no patches stacked over that overlap. Keep mounting seats, screw recesses
-and functional openings clear. The smooth land must have continuous
-adhesive contact, without wrinkles or air channels. This local seam seal
-is not a complete cold-core vapor-barrier or lifetime qualification.
+no patches stacked over that overlap. The head pockets open to the casing
+edge, removing the thin outer rims;
+the complete 2 mm bearing floors remain under the screw heads. The band
+spans those small dry side openings. Keep the axial driver openings on
+the lid's flat outer face, mounting seats and fluid passages clear. Burnish
+the foil onto the smooth lands around the openings without wrinkles or
+air channels. This local seam seal is not a complete cold-core vapor-barrier or lifetime qualification.
 
 [3M's technical data](https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf)
 identifies low moisture-vapor transmission and seam-sealing use. This is
@@ -770,11 +773,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1257889.328 mm³](FSHELL_VOLUME) |
-| bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
+| volume | [1257727.309 mm³](FSHELL_VOLUME) |
+| bbox x | [-141.510 to 141.510 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
-| bbox y | [-90.508 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.977470, 0.208635, 91.173647) mm](CENTROID) |
+| bbox y | [-90.510 to 90.515 mm](FSHELL_BBOX_Y) |
+| centroid | [(0.977461, 0.208662, 91.171736) mm](CENTROID) |
 
 Quick reproduction:
 
