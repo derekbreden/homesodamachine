@@ -29,7 +29,7 @@ Both complete washer-bearing annuli retain 3 mm of stock below their floors.
 Each pocket is 8 mm deep; the lower floor is Z37.25 and the upper floor is Z347.
 Nominal head and washer poses retain the 2 mm head recess. Each steel washer
 bears directly on its printed floor.
-The lower entry has a 0.5 mm bevel; its head seat and washer floor stay flat.
+The lower entry has a 0.35 mm bevel; its head seat and washer floor stay flat.
 The upper mouth continues inward into the funnel opening above the frame.
 The upper recess's roof-edge mouth has the named local thin-section allowance in
 [the enclosure specification](../README.md#seams--corner-stacks): the exterior taper
