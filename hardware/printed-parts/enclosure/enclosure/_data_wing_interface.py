@@ -71,7 +71,8 @@ def blank():
 def apply(solid,station,y_outer,*,up=-1,supported=SUPPORTED_AIR):
     x,z=station
     solid=nameplate.apply(solid,Station(x,z+CENTER_Z),y_outer,up=up,
-                          supported=supported,width=WIDTH,height=HEIGHT,wing_span=WING_SPAN)
+                          supported=supported,width=WIDTH,height=HEIGHT,wing_span=WING_SPAN,
+                          access=False)
     mouth=port_chip.outline(WIDTH+2*FACE_AIR,TOP+FACE_AIR,BOTTOM+FACE_AIR,
                            POCKET_DEPTH+1+BACK_AIR,radius=CORNER_R+FACE_AIR)
     mouth=mouth.fuse(mouth.translate((0,0,up*supported)))
