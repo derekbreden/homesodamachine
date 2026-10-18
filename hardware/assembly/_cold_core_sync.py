@@ -26,6 +26,8 @@ from _cold_core_interface import (  # noqa: E402
     deck_mount_xy,
     co2_inlet_y,
     foam_cap_interior_height,
+    cap_shell_clearance,
+    cap_lid_clearance,
     foam_cap_lid_pour_radius,
     foam_cap_lid_pour_xy,
     foam_cap_lid_vent_radius,
@@ -33,7 +35,6 @@ from _cold_core_interface import (  # noqa: E402
     foam_cap_height,
     foam_cap_lid_height,
     forward_band_width,
-    gasket_thickness,
     head_pad_height,
     insert_length,
     insert_pocket_depth,
@@ -51,10 +52,11 @@ from _cold_core_interface import (  # noqa: E402
 )
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 from reservoir import insert_positions_for_side_plus_1  # noqa: E402
+from _foam_cap import cap_face_z, stack_floor_z  # noqa: E402
 
 from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E402
 
-# Every ruthex short this procedure presses, off the patterns that hold them.
+# Every ruthex insert this procedure presses, off the patterns that hold them.
 # The shell clamps a cap on each face; the top cap's deck-mount columns take one
 # each; each reservoir cap takes its own wall-top ring. Nothing else on this bench
 # is threaded — the electronics bay's inserts are the enclosure's `east_bosses`, and
@@ -120,9 +122,9 @@ def main():
         "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
         "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
         # ─── Cap pour (step 3) ────────────────────────────────────────
-        "CAP_H": f"{foam_cap_interior_height:.4g} mm",
+        "CAP_H": f"{foam_cap_interior_height - cap_shell_clearance - cap_lid_clearance:.4g} mm",
         # The top cup pours shallower by exactly the band its lid's solid plate stands in.
-        "CAP_H_TOP": f"{foam_cap_interior_height - head_pad_height:.4g} mm",
+        "CAP_H_TOP": f"{foam_cap_interior_height - head_pad_height - cap_shell_clearance - cap_lid_clearance:.4g} mm",
         "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
@@ -177,7 +179,7 @@ def main():
         "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
         # Finished stack: the shell plus a cap + gasket on each face. The lid
         # nests in the cap mouth, so it adds no height.
-        "CCORE_CAPPED_H": f"{foam_shell_outer_height + 2 * (foam_cap_height + gasket_thickness):.4g} mm",
+        "CCORE_CAPPED_H": f"{cap_face_z - stack_floor_z:.4g} mm",
         # ─── Carbonator reed levels and the bridge that sets them ─────
         # The two switching heights, and the two figures the paragraph explaining
         # them stands on: the bare channel a wrap leaves between turns, which is

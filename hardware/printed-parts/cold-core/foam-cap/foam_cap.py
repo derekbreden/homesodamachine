@@ -1,8 +1,6 @@
-"""Foam-cap stack — the three parts that close one end of the
-foam shell during the pour-in-place foam cure: the cap tray, the
-lid that sits atop the cap during pouring, and the TPU 90A gasket
-that compresses between the cap and the outer-shell mating face.
-Printed twice per build (one stack on each end of the shell)."""
+"""Foam-cap tray and pour lid at each end of the cold-core shell.
+Rigid seats retain their printed-face clearances; exterior foil tape
+seals the dry casing seams."""
 
 import itertools
 import cadquery as cq
@@ -31,16 +29,18 @@ import _foam_cap as _foam_cap_module
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
-    build_foam_cap_gasket,
     lid_cut_through_depth,
     lid_total_height,
     top_cap_height,
 )
-from _outer_shell import build_attachment_bosses
+from _outer_shell import build_attachment_bosses, rebate_casing_seals
 from _cold_core_interface import cap_conduit_links, cap_conduit_link_width
 from _cold_core_interface import (
     build_z_axis_hole_punch,
     attachment_xy_positions,
+    cap_shell_clearance,
+    cap_lid_clearance,
+    casing_seal_rebate,
     wall_and_floor_thickness,
     corner_round_radius,
     flute_depth,
@@ -96,8 +96,9 @@ from docgen import substitute_py_comments
 # The lid's own footprint, as area: the shell's rectangle less what its four corner rounds take
 # out of it. Every plate in this stack is cut to it, and the two lids' plates differ by nothing
 # else.
-footprint_area = (outer_shell_x_length * outer_shell_y_length
-                  - (4.0 - math.pi) * corner_round_radius ** 2)
+footprint_area = ((outer_shell_x_length - 2 * casing_seal_rebate)
+                  * (outer_shell_y_length - 2 * casing_seal_rebate)
+                  - (4.0 - math.pi) * (corner_round_radius - casing_seal_rebate) ** 2)
 # The pour hole and the two vents, as one area. Neither lid carries anything else through its
 # plate that the other does not, so this is the whole of what the two have in common there.
 lid_open_area = (math.pi * foam_cap_lid_pour_radius ** 2
@@ -177,7 +178,7 @@ def deck_boss_z_top(name):
     bosses beside it."""
     standoff = deck_mount_standoff(name)
     if standoff == 0.0:
-        return top_cap_height
+        return top_cap_height - cap_lid_clearance
     return top_cap_height + lid_total_height + standoff
 
 
@@ -448,14 +449,14 @@ def main():
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
             lid_total_height),
         lid_total_height)
-    gasket = build_foam_cap_gasket()
 
     # Each deck column is a full-section cylinder off the floor's cavity side, less
     # the blind bore at its top. They stand clear of each other and of the screw
     # bosses, so the pack adds without overlap and this arithmetic is exact.
     deck_column_volume = sum(
         len(deck_mount_xy(name)) * math.pi * (
-            deck_mount_boss_radius ** 2 * (deck_boss_z_top(name) - wall_and_floor_thickness)
+            deck_mount_boss_radius ** 2 * (deck_boss_z_top(name)
+                - wall_and_floor_thickness - cap_shell_clearance)
             - deck_mount_bore_radius ** 2 * deck_mount_bore_depth
         )
         for name in deck_mounts
@@ -474,8 +475,10 @@ def main():
     # columns mutually overlapping. Nothing here is asked to trust that: the assertion below
     # is what a third conduit would fail against.
     conduit_column_volume = (
-        _conduit_section_area() * (top_cap_height - wall_and_floor_thickness)
-        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2 * top_cap_height
+        _conduit_section_area() * (top_cap_height - cap_shell_clearance
+                                  - cap_lid_clearance - wall_and_floor_thickness)
+        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2
+        * (top_cap_height - cap_shell_clearance - cap_lid_clearance)
     )
     conduit_lid_hole_volume = (len(cap_conduits) * math.pi
                                * cap_conduit_bore_radius ** 2 * lid_total_height)
@@ -542,7 +545,8 @@ def main():
     # trimming both, and that section is BUILT rather than stated. So it is measured off the
     # builder the bottom lid stands it with, and everything on either side of it is closed form.
     plate_gain = ((footprint_area - lid_open_area) * head_pad_height
-                  - build_attachment_bosses(head_pad_height).val().Volume())
+                  - rebate_casing_seals(build_attachment_bosses(head_pad_height),
+                      ((0.0, head_pad_height),)).val().Volume())
     # The two cups differ by the deck columns and the conduits, read over the height they BOTH
     # stand: the top cup gives its mouth band to its lid, so the bottom one is trimmed by that
     # same band before the two are subtracted, and what is left on either side is one cup. The
@@ -564,7 +568,7 @@ def main():
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=-1.0)
         .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
-        .extrude(head_pad_height + 1.0)
+        .extrude(head_pad_height + cap_lid_clearance + 1.0)
         .unwrap()
     ).val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
@@ -629,28 +633,16 @@ def main():
             (cap_top, "foam-cap-top", _mat.C_CAP_TOP),
             (cap_bottom, "foam-cap-bottom", _mat.C_CAP_BOTTOM),
             (lid_top, "foam-cap-lid-top", _mat.C_CAP_LID_TOP),
-            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM),
-            (gasket, "foam-cap-gasket", _mat.C_SILICONE)):
+            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM)):
         export_assembly(one_body(shape, name, colour), str(_here / f"{name}.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
-    print("-> foam-cap-gasket.step")
 
-    # AND THE TWO CUPS' WALLS ARE FLUTED HERE, on the shell's own run — they stand on the same
-    # footprint, so the stack is one silhouette and the field crosses each seam without a step.
-    # THE TOP CAP INSTALLS SPUN a half turn about Z (`foam_assembly._spin`), which shifts its
-    # field by half the perimeter; on an even `flute_count` that is a whole number of pitches,
-    # so a field cut in the cap's own frame lands on the shell's grooves after the spin and
-    # neither piece has to be told about the other.
-    #   THE TWO LIDS TAKE NONE OF IT, so each one's edge is a smooth band of the silhouette —
-    # one `wall_and_floor_thickness` where the bottom lid closes the stack, and the whole
-    # [5.4 mm](LID_Z_H) of its plate where the top lid meets the crown. Neither is tall enough
-    # to carry the field: the fade runs over `flute_rise` off each of a band's own two faces, so
-    # a band reaches full depth only at twice that, and cut on the core's own run these two come
-    # back at 0.604 mm and 0.121 mm against the shell's [1.2 mm](FLUTE_D). What a band like this
-    # reads as is a reveal, which is what a seam wants.
+    # The cups have smooth recessed foil-seal lands. The common bed writer
+    # retains their exact mesh and the shell's source frame; the lands stand
+    # beyond the show-field proximity and receive no cosmetic flute cuts.
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
 
