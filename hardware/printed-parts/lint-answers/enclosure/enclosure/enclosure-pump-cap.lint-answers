@@ -1,15 +1,42 @@
-[ceiling] Flat transition from the fitted motor bore to the wider open terminal well. The cap prints crown-down; support is open to the bed and withdraws axially through the same Ø45 well before pump installation.
-alternatives: Extending the Ø45 opening through the complete motor bore removes its locating shoulder. A sloping transition changes the retained motor seat. The flat shoulder retains that fitted interface and receives supports through the open terminal well; its printed finish and support removal keep their own physical scope.
+[ceiling] Flat transition from the fitted motor bore to the wider open terminal well. The cap prints crown-down; Tree (auto)/Default support reaches the bed through the same Ø45 well before pump installation. The retained motor-seat geometry has its own fit evidence; the complete cap’s support finish and removal are unqualified.
+alternatives: Extending the Ø45 opening through the motor bore removes its locating shoulder. A sloping transition changes the retained seat. Keep the flat shoulder and remove support through the open terminal well.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=-52.225 y=44.859 z=278.925
 click: x=52.225 y=44.859 z=278.925
 
-[ceiling] Required flat lower boundary of the female connector seat and its lead slot. The cap prints crown-down, with the supported-face allowance on this machine-floor face. Supports have a 4.6 mm-deep open seat and leave through its aft mouth or the crown slot before the connector is installed. Ear plates, screws and inserts retain their separate mounting datums; this answer does not transfer the coupon's fit result to the full cap.
-alternatives: A ramp intruding into the seat changes the connector's required stadium clearance; ramping outward removes additional cap stock beside the lead route. An open slot through the floor removes the enclosure boundary beneath the connector. The flat seat keeps the specified body envelope and uses its accessible mouth/crown support path.
+[ceiling] Required flat lower boundary of the female connector body seat and lead slot at Z273.124. The cap prints crown-down and this face includes its supported-surface allowance. The 4.150 mm axial body cavity and adjoining crown/lead opening give Tree (auto)/Default support an aft-mouth and crown removal path before the connector is fitted. Ear plates and inserts keep their separate axial datums; the coupon does not establish this full-cap fit or support finish.
+alternatives: Ramping into the seat changes the purchased connector’s stadium clearance. Ramping outward cuts additional stock beside the lead route. Opening the floor removes the boundary below the connector and changes the seat. Retain the flat fitted envelope and its accessible support path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=0.000 y=74.705 z=276.124
+click: x=0.000 y=77.702 z=273.124
 
-[ceiling] Required routing floors of the two crown grooves, 4 mm wide and 3.5 mm into the cap's bed face. Each groove opens directly to the crown and joins an open motor-terminal well, so supports are removed through the bed-side opening before wiring. The groove defines routing space; assembled lead restraint and printed roof finish are separate qualifications.
-alternatives: A V-section with the same depth reduces the space for the two insulated leads; retaining that space requires a deeper or wider cut through the cap. Cutting through the cap removes the floor and its connection between the seat and terminal wells. The open flat-bottom grooves preserve the specified wire envelope and support access.
+[ceiling] Required routing floors of two crown grooves, 4 mm wide and 3.5 mm into the cap’s bed face. Each opens directly to the crown and joins an open motor-terminal well; Tree (auto)/Default supports leave through that bed-side opening before wiring. The floors preserve the specified routing volume and full 3 mm separation above the connector cavity. Actual deposition, lead restraint and support finish remain unqualified.
+alternatives: A V-section at the same depth reduces room for the two insulated leads. Retaining that volume with a slope needs a wider or deeper cut, spending the connector roof stock. Cutting the grooves through removes their floor. Keep the open flat-bottom routing envelope.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-18.313 y=63.689 z=280.674
-click: x=18.313 y=63.689 z=280.674
+click: x=-18.588 y=65.621 z=280.674
+click: x=18.588 y=65.621 z=280.674
+
+[thin] Numerical/tessellation boundary at the nominal 3 mm capture annuli. The actual native export contains Ø22.30 outer and Ø16.30 pocket cylinders, giving 3.000 mm radial stock. Extended analytic chords at all sixteen emitted pairs measure 3.000000–3.000104 mm; the printed mesh reports 2.999–3.000 mm within the 0.005 mm meshing tolerance. dock-lint-review.json binds every exact pair and native/STL hash. This diagnoses the nominal boundary; it does not establish printed dimensions or strength.
+alternatives: Increase the outer diameter or shrink the fitted flange pocket to move the nominal 3 mm section past the numerical ranking boundary. That changes the guard or flange fit without correcting a smaller designed section. Apply an explicit numerical/tessellation tolerance when distinguishing the threshold from an intentionally thin wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=70.957 y=77.263 z=186.540
+click: x=-33.493 y=77.263 z=186.540
+click: x=33.493 y=77.263 z=186.540
+click: x=11.207 y=77.263 z=186.540
+click: x=-93.243 y=77.263 z=186.540
+click: x=93.243 y=77.263 z=186.540
+click: x=-71.016 y=77.263 z=187.374
+click: x=-11.266 y=77.263 z=187.374
+click: x=-29.655 y=77.681 z=189.786
+click: x=29.655 y=77.681 z=189.786
+click: x=-74.131 y=77.681 z=187.879
+click: x=74.131 y=77.681 z=187.879
+click: x=-15.045 y=77.681 z=189.786
+click: x=15.045 y=77.681 z=189.786
+click: x=-88.160 y=77.681 z=191.623
+click: x=88.160 y=77.681 z=191.623
+
+[ledge] Required flat annular head bearings for the two M3×60 cap screws. Their Ø5.8 counterbores surround Ø3.3 through passages and seat at Z268.975, 15.199 mm below the crown. The cap prints crown-down; Tree (auto)/Default support and a driver approach through each open Ø5.8 counterbore before assembly. The full hardware/seat geometry is retained; cleanup and loaded performance remain unqualified.
+alternatives: Sloping the bearing removes flat contact under the screw head. A larger through hole loses its seat; moving the seat changes the M3×60 engagement and tip reserve. A closed top obstructs screw and driver access. Keep the flat annular bearing with its open counterbore.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=0.294 y=67.303 z=268.975
+click: x=-0.423 y=31.280 z=268.975

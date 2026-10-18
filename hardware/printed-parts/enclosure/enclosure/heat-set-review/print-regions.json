@@ -301,10 +301,10 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "1b043e08189cfeee39ee350406c4cba16c5ee9ada4ca2ea09244d86078f32f6e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "2a5a8c6a0585a761ee2c3952738ff74d6ea189cdec054bac7fb9777b3c2a4f3c",
     "hardware/manifold-layout/enclosure-box.json": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f"
@@ -315,8 +315,8 @@
       ".stl": "7e533a0a2ba46a8875993c3e15e8601e77d09e07d0ad876d1dfada0c6f71edeb"
     },
     "front-top": {
-      ".step": "83c45f665634e19a29501bab7894bee2c32c1e24fc5f0d3698f89321142dc279",
-      ".stl": "3ef88141410197caef8ef972a1ffe9bb9e8c8bd2f773f54148ac3ed49ddff9ac"
+      ".step": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
+      ".stl": "adffe46e1c34dff72b8e5a5c8754b3f22bedcfe8fd9a35c7faac466ae4986bb1"
     },
     "back-bottom": {
       ".step": "93a473bf05db2f8b43f5d411c29cdad5bb2ebcc133b10633b78488b99f285f10",
@@ -818,7 +818,7 @@
           14.85,
           82.64,
           99.836,
-          266.1256261237512,
+          263.1256261237512,
           284.42400000000004
         ],
         "sparse_infill_density": "100%",
@@ -828,7 +828,7 @@
           14.85,
           82.64,
           99.836,
-          266.1256261237512,
+          263.1256261237512,
           284.42400000000004
         ],
         "print_bounds_mm": [
@@ -836,7 +836,7 @@
           14.85,
           82.64,
           99.836,
-          105.8756261237512,
+          102.8756261237512,
           124.17400000000004
         ]
       },
@@ -872,117 +872,59 @@
       {
         "name": "Dock keeper guide 1/1, stop and wall root",
         "machine_bounds_mm": [
-          -97.35,
-          -91.35,
+          -98.5,
+          -88.6,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -97.35,
-          -91.35,
+          -98.5,
+          -88.6,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          -97.35,
-          -91.35,
+          -98.5,
+          -88.6,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
         ]
       },
       {
         "name": "Dock keeper guide 1/2, stop and wall root",
         "machine_bounds_mm": [
-          -72.85,
-          -66.85,
+          -75.6,
+          -65.69999999999999,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -72.85,
-          -66.85,
+          -75.6,
+          -65.69999999999999,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          -72.85,
-          -66.85,
+          -75.6,
+          -65.69999999999999,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
-        ]
-      },
-      {
-        "name": "Dock keeper guide 1/3, stop and wall root",
-        "machine_bounds_mm": [
-          -97.35,
-          -88.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -97.35,
-          -88.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          -97.35,
-          -88.6,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
-        ]
-      },
-      {
-        "name": "Dock keeper guide 1/4, stop and wall root",
-        "machine_bounds_mm": [
-          -75.6,
-          -66.85,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -75.6,
-          -66.85,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          -75.6,
-          -66.85,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
         ]
       },
       {
@@ -1017,117 +959,59 @@
       {
         "name": "Dock keeper guide 2/1, stop and wall root",
         "machine_bounds_mm": [
-          -37.6,
-          -31.6,
+          -38.75,
+          -28.85,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -37.6,
-          -31.6,
+          -38.75,
+          -28.85,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          -37.6,
-          -31.6,
+          -38.75,
+          -28.85,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
         ]
       },
       {
         "name": "Dock keeper guide 2/2, stop and wall root",
         "machine_bounds_mm": [
-          -13.100000000000001,
-          -7.100000000000001,
+          -15.850000000000001,
+          -5.950000000000003,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -13.100000000000001,
-          -7.100000000000001,
+          -15.850000000000001,
+          -5.950000000000003,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          -13.100000000000001,
-          -7.100000000000001,
+          -15.850000000000001,
+          -5.950000000000003,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
-        ]
-      },
-      {
-        "name": "Dock keeper guide 2/3, stop and wall root",
-        "machine_bounds_mm": [
-          -37.6,
-          -28.85,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -37.6,
-          -28.85,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          -37.6,
-          -28.85,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
-        ]
-      },
-      {
-        "name": "Dock keeper guide 2/4, stop and wall root",
-        "machine_bounds_mm": [
-          -15.850000000000001,
-          -7.100000000000001,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -15.850000000000001,
-          -7.100000000000001,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          -15.850000000000001,
-          -7.100000000000001,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
         ]
       },
       {
@@ -1162,117 +1046,59 @@
       {
         "name": "Dock keeper guide 3/1, stop and wall root",
         "machine_bounds_mm": [
-          7.100000000000001,
-          13.100000000000001,
+          5.950000000000003,
+          15.850000000000001,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          7.100000000000001,
-          13.100000000000001,
+          5.950000000000003,
+          15.850000000000001,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          7.100000000000001,
-          13.100000000000001,
+          5.950000000000003,
+          15.850000000000001,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
         ]
       },
       {
         "name": "Dock keeper guide 3/2, stop and wall root",
         "machine_bounds_mm": [
-          31.6,
-          37.6,
+          28.85,
+          38.75,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          31.6,
-          37.6,
+          28.85,
+          38.75,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          31.6,
-          37.6,
+          28.85,
+          38.75,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
-        ]
-      },
-      {
-        "name": "Dock keeper guide 3/3, stop and wall root",
-        "machine_bounds_mm": [
-          7.100000000000001,
-          15.850000000000001,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          7.100000000000001,
-          15.850000000000001,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          7.100000000000001,
-          15.850000000000001,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
-        ]
-      },
-      {
-        "name": "Dock keeper guide 3/4, stop and wall root",
-        "machine_bounds_mm": [
-          28.85,
-          37.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          28.85,
-          37.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          28.85,
-          37.6,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
         ]
       },
       {
@@ -1307,117 +1133,59 @@
       {
         "name": "Dock keeper guide 4/1, stop and wall root",
         "machine_bounds_mm": [
-          66.85,
-          72.85,
+          65.69999999999999,
+          75.6,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          66.85,
-          72.85,
+          65.69999999999999,
+          75.6,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          66.85,
-          72.85,
+          65.69999999999999,
+          75.6,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
         ]
       },
       {
         "name": "Dock keeper guide 4/2, stop and wall root",
         "machine_bounds_mm": [
-          91.35,
-          97.35,
+          88.6,
+          98.5,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          91.35,
-          97.35,
+          88.6,
+          98.5,
           82.515,
           96.836,
-          175.174,
+          171.824,
           194.674
         ],
         "print_bounds_mm": [
-          91.35,
-          97.35,
+          88.6,
+          98.5,
           82.515,
           96.836,
-          14.924000000000007,
+          11.574000000000012,
           34.42400000000001
-        ]
-      },
-      {
-        "name": "Dock keeper guide 4/3, stop and wall root",
-        "machine_bounds_mm": [
-          66.85,
-          75.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          66.85,
-          75.6,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          66.85,
-          75.6,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
-        ]
-      },
-      {
-        "name": "Dock keeper guide 4/4, stop and wall root",
-        "machine_bounds_mm": [
-          88.6,
-          97.35,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          88.6,
-          97.35,
-          82.515,
-          96.836,
-          171.824,
-          174.824
-        ],
-        "print_bounds_mm": [
-          88.6,
-          97.35,
-          82.515,
-          96.836,
-          11.574000000000012,
-          14.574000000000012
         ]
       },
       {
@@ -1427,7 +1195,7 @@
           -68.6,
           82.515,
           117.54000000000029,
-          164.924,
+          160.25,
           204.424
         ],
         "sparse_infill_density": "100%",
@@ -1437,7 +1205,7 @@
           -68.6,
           82.515,
           117.54000000000029,
-          164.924,
+          160.25,
           204.424
         ],
         "print_bounds_mm": [
@@ -1445,7 +1213,7 @@
           -68.6,
           82.515,
           117.54000000000029,
-          4.674000000000007,
+          0.0,
           44.17400000000001
         ]
       },
@@ -1456,7 +1224,7 @@
           -8.850000000000001,
           82.515,
           117.54,
-          164.924,
+          160.25,
           204.424
         ],
         "sparse_infill_density": "100%",
@@ -1466,7 +1234,7 @@
           -8.850000000000001,
           82.515,
           117.54,
-          164.924,
+          160.25,
           204.424
         ],
         "print_bounds_mm": [
@@ -1474,7 +1242,7 @@
           -8.850000000000001,
           82.515,
           117.54,
-          4.674000000000007,
+          0.0,
           44.17400000000001
         ]
       },
@@ -1485,7 +1253,7 @@
           35.85,
           82.515,
           117.54,
-          164.924,
+          160.25,
           204.424
         ],
         "sparse_infill_density": "100%",
@@ -1495,7 +1263,7 @@
           35.85,
           82.515,
           117.54,
-          164.924,
+          160.25,
           204.424
         ],
         "print_bounds_mm": [
@@ -1503,7 +1271,7 @@
           35.85,
           82.515,
           117.54,
-          4.674000000000007,
+          0.0,
           44.17400000000001
         ]
       },
@@ -1514,7 +1282,7 @@
           93.25,
           82.515,
           117.54000000000029,
-          164.924,
+          160.25,
           204.424
         ],
         "sparse_infill_density": "100%",
@@ -1524,7 +1292,7 @@
           93.25,
           82.515,
           117.54000000000029,
-          164.924,
+          160.25,
           204.424
         ],
         "print_bounds_mm": [
@@ -1532,7 +1300,7 @@
           93.25,
           82.515,
           117.54000000000029,
-          4.674000000000007,
+          0.0,
           44.17400000000001
         ]
       },
@@ -1543,7 +1311,7 @@
           -44.3,
           82.515,
           94.365,
-          173.649,
+          172.174,
           213.674
         ],
         "sparse_infill_density": "100%",
@@ -1553,7 +1321,7 @@
           -44.3,
           82.515,
           94.365,
-          173.649,
+          172.174,
           213.674
         ],
         "print_bounds_mm": [
@@ -1561,7 +1329,7 @@
           -44.3,
           82.515,
           94.365,
-          13.399000000000001,
+          11.924000000000007,
           53.42400000000001
         ]
       },
@@ -1572,7 +1340,7 @@
           60.14999999999999,
           82.515,
           94.365,
-          173.649,
+          172.174,
           213.674
         ],
         "sparse_infill_density": "100%",
@@ -1582,7 +1350,7 @@
           60.14999999999999,
           82.515,
           94.365,
-          173.649,
+          172.174,
           213.674
         ],
         "print_bounds_mm": [
@@ -1590,7 +1358,7 @@
           60.14999999999999,
           82.515,
           94.365,
-          13.399000000000001,
+          11.924000000000007,
           53.42400000000001
         ]
       },

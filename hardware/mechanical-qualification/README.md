@@ -368,10 +368,11 @@ The [cold-core cradle review](../printed-parts/cold-core/foam-cap/valve-cradle-n
 binds the cap lid's fixed-valve stations and conduit passage to matching native lid leaves
 in both cold-core models. It does not qualify printed lid fit or valve retention.
 The [manual mesh-interface review](../printed-parts/enclosure/pump-dock/lint-interface-review.json)
-records the scoped classifier limitations and unresolved inherited rear-interface,
-handhold-floor and marking details, with native/source correspondence and the
-completed bounded-memory back-bottom checker reading. These findings retain their
-individual scopes and do not qualify physical print quality or load capacity.
+records complete six-class readings of front-bottom, both rear shells and the revised
+cold-core lid. Exact classifier diagnoses, specified cosmetic contours and unresolved
+sensor, floor, rear-interface, warning and valve-fixture findings retain their
+individual native/source scopes. They do not qualify physical print quality,
+support cleanup or load capacity.
 The [pressure and retention review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)
 maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.

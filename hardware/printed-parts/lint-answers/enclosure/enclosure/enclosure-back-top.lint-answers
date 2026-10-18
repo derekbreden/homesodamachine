@@ -1,248 +1,314 @@
-[step] The ordinary port-chip backing plane Y465.15 retains 4 mm to its Y469.15 receiver floor. The jack lip uses its independent Y464.792 inner boundary and complete 3 mm finite lip; surrounding bare wall is Y465.3. Current native chip/jack stock and positive back-gap checks cover those exact interfaces, with no seating exemption.
-alternatives: Moving these bearing-stock boundaries outward spends required stock. Extending the whole wall to the deepest local plane changes unrelated pack clearance; retain the finite station-owned depths.
+[step] Unavoidable independent seating levels: the Y475.15 port-chip backing and Y474.79 keystone inner boundary differ by 0.36 mm. Each is the finite locating/bearing plane of its purchased interface. Exact native correspondence retains those identified seats; the parallel-plane comparison does not establish an unwanted skin between them.
+alternatives: A common plane requires reconciling the chip clamp stock and jack locating/retention envelope together. Moving either fitted seat merely to remove the reported level difference changes that interface.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-33.260 y=464.792 z=300.847
+click: x=-48.160 y=474.790 z=307.556
 
-[sliver] At X86.56 the nameplate changes from its complete 3.60 mm ordinary backing to the selected 2.14 mm east backing beside the PSU terminal. Current native full-footprint checks retain those depths and 1.020096 mm installed PSU clearance. The depth transition preserves these two explicit local requirements; it does not qualify printed load capacity.
-alternatives: Filling the east relief spends the 1 mm PSU margin. Tapering the ordinary body footprint below 3.6 mm changes its required backing. Moving the PSU or redesigning the plate is a different layout choice.
+[sliver] Wrong finite-strip diagnostic: these exact rows have zero plane normals and NaN widths, edge coordinates and lengths. They supply no finite strip measurement or geometry verdict. Other rear-interface findings remain separately unresolved.
+alternatives: Correct the degenerate-plane numerical case or inspect actual finite facets before selecting a geometry change. Do not derive a wall correction from undefined dimensions.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=86.560 y=464.920 z=275.953
+click: x=-97.787 y=481.079 z=288.376
+click: x=-97.787 y=481.079 z=289.626
+click: x=-97.787 y=481.079 z=290.625
+click: x=-97.787 y=481.079 z=291.625
+click: x=-97.787 y=481.079 z=292.375
+click: x=-105.543 y=475.868 z=351.875
 
-[sliver] The 1.4 mm upper and 1.3 mm lower projections are the purchased keystone module tang/latch keepers. The lower catch keeps its complete thickness with the supported-face shift; current native lip/cheek/root and exact swing-clearance checks retain the receptacle.
-alternatives: Removing/filling these projections changes snap engagement. Sloping their bearing faces changes the tang/latch capture geometry.
+[sliver] Outside the pump-dock change and unresolved: these port-chip rim, nameplate-depth, core-chain pocket and seam-return strips retain their exact finite native material under the recorded fixed-world or rear-station transform. Source/interface correspondence establishes scope, without accepting the strips or their deposition.
+alternatives: Reconcile each rim, relief or seam with its fitted body and mating contour to remove the narrow return while preserving hardware clearance and insertion. Those rear-interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=458.780 z=314.487
-click: x=-40.710 y=458.730 z=294.437
-
-[ledge] The 1.4 mm upper and 1.3 mm lower projections are the purchased keystone module tang/latch keepers. The lower catch keeps its complete thickness with the supported-face shift; current native lip/cheek/root and exact swing-clearance checks retain the receptacle.
-alternatives: Removing/filling these projections changes snap engagement. Sloping their bearing faces changes the tang/latch capture geometry.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-43.193 y=458.513 z=294.437
-
-[sliver] These recorded roof-side strip results have NaN dimensions/edge coordinates and zero plane normals. They remain unresolved classifier diagnostics, with no finite face or thin-section conclusion and no geometry pass.
-alternatives: Correct or independently inspect these exact numerical/facet cases before drawing a material conclusion; do not manufacture a wall change from undefined data.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-106.867 y=331.642 z=351.683
-click: x=106.867 y=331.642 z=351.683
-
-[sliver] This X−93.227477 sidewall spans Y411.51–412.51 and Z343–352. The cradle column ends Y411.51; the named body section ends 410.51 and its specified rectangular 2 mm assembly-plan allowance ends 412.51. The 1 mm exposed side is the final finite boundary of that assembly room.
-alternatives: Shortening the pocket or extending its column spends the specified aft assembly room. A full common ASSE rectangle removes unrelated stepped-plan ceiling/root material; a tiny diagonal changes the selected rectangular allowance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-93.227 y=412.010 z=347.500
-
-[ceiling] The Z195.05 flats are the lower screw-anchor insert-host caps on the ceiling-down quadrant. Current native source-bound pilot backing and the opposing 0.75 mm hub gap are retained. Tree (auto)/Default support can approach through the empty seam mouth; actual contact paths and cleanup remain unqualified.
-alternatives: A corbel enters front-top hub clearance. Cutting the cap to a slope spends blind-end stock; a continuous post through the open stack interval occupies frame/service space.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.625 y=209.975 z=195.050
-click: x=97.625 y=209.975 z=195.050
-
-[ceiling] These flats are the PRV chase's complete exterior crown Z214.35 and supported square mouth lower edge Z185.6. The vent preserves its 12 mm passage and 45° inner air roof; the crown closes the rib on the lip datum. Support must leave the empty crown/mouth region before the core and vent are installed. Geometric access does not establish easy removal.
-alternatives: Filling the mouth reduces discharge area. Changing the crown/mouth profile changes the specified rib or tube-target envelope; a new route or rib design needs its own clearance review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-94.625 y=323.800 z=214.350
-click: x=-92.250 y=323.800 z=185.600
-
-[ceiling] These finite faces belong to the wall-mounted tube-anchor rib/cavity profiles at Y282.0, Y310.26 and Y256.81. Their purchased body seats, two tie-channel end webs and open tie return determine the local profiles. The ribs cannot be filled across the tie path. Tree (auto)/Default support leaves the empty tie/seat mouths before fittings and ties are installed; cleanup remains unqualified.
-alternatives: Filling blocks the tie return or fitting seat. Removing a cap/column spends its complete end-web section; a full-height replacement post occupies the placed plumbing corridor.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-88.285 y=282.000 z=276.899
-click: x=-87.850 y=310.260 z=315.011
-click: x=-95.550 y=256.810 z=305.411
-click: x=-101.500 y=256.810 z=280.611
-
-[ceiling] These Z256.553 and Z291.217 flats are the supported ends of the nameplate and DATA body mouths. Their body ends retain the shared 0.15 mm static plus 0.25 mm supported-face allowance; body/wing nominal poses stay fixed. Support leaves through the empty rear-facing openings before plates are installed. Current native backing checks do not qualify physical cleanup.
-alternatives: Filling binds the body end. Tapering into the complete body mouth changes its fit or retaining perimeter; enlarging it changes the locating boundary.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=34.170 y=469.545 z=256.553
-click: x=-40.710 y=469.545 z=291.217
-
-[ceiling] These are the finite ends of the authored main-board/relay mounting-pad unions. The source keeps their component mounting planes and insert hosts, while candidate corbels are limited by the actual neighboring pin/blocker fields. Tree (auto)/Default supports the exposed ends before electronics installation; cleanup remains unqualified.
-alternatives: Adding an unrestricted corbel occupies the populated board/tail keepout. Shortening the pads changes insert-host/root geometry; replacing the layout requires a separate populated-board clearance check.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.375 y=338.300 z=259.400
-click: x=97.375 y=340.300 z=327.200
-click: x=97.375 y=338.800 z=327.200
-
-[ceiling] The ASSE anchor has a shared tie-return cavity under its V and a flat web over the tie span. Outside that span columns join the ceiling; inside it the loop requires open room. Support leaves from the shared cavity into the empty chain pocket before the chain and ties are installed; removal effort remains unqualified.
-alternatives: Filling or extending the columns through the tie span blocks the loop. Cutting the web away spends the required section between the tie channel and fitting seat.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-100.000 y=378.510 z=321.671
-click: x=-91.207 y=378.510 z=345.211
-
-[ceiling] These two flats belong to the C14 flange/tunnel passage. The flange pocket has 0.5 mm extra clearance per X/Z edge; the independent cord bore is 28.3 × 19.3 mm with 3 mm total extra X width. The specified outline, receptacle ears and fixed heat-set stations define their finite boundaries. Support leaves through the empty rear opening/tunnel before the inlet is screwed in; physical fit and cleanup of the wider opening remain unqualified.
-alternatives: Filling enters the inlet or flange insertion path. Sloping the fitted outline changes the seat or aperture; reducing the tunnel spends the insert-host/root geometry.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=467.175 z=326.311
-click: x=66.900 y=460.550 z=324.226
-
-[ceiling] These six Z-facing flats are the lower ends of the rear port-chip pockets. The chip outlines remain fixed, their backs retain 0.15 mm positive static air, and the supported lower ends receive their directional allowance. Current native backing checks retain full 4 mm ordinary and 3 mm CO2 stock. Support leaves through the open field before chips and fittings are installed.
-alternatives: Filling reduces the chip-end fit. Removing the edge changes the complete pocket outline or flange retention; changing fitting or chip positions is a different layout choice.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=470.225 z=257.194
-click: x=-78.070 y=470.225 z=257.194
-click: x=-40.710 y=470.225 z=324.381
-click: x=-78.070 y=470.225 z=324.381
-click: x=-3.350 y=470.225 z=324.591
-click: x=-78.070 y=470.225 z=291.217
-
-[ceiling] These flats bound the purchased keystone body/aperture and the complete 3 mm flat retaining lip. The receptacle keeps its 3 mm cheeks/root and exact authored 50° swing-ease opening. Current native finite lip/cheek/root and swing-void checks cover these features. Support leaves through the empty jack opening before installation; cleanup remains unqualified.
-alternatives: Filling blocks the body or swing path. Sloping away the flat lip changes its retention section. Expanding the whole pocket spends the prescribed surrounding stock.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=461.435 z=291.812
-click: x=-40.710 y=466.290 z=294.217
-
-[ceiling] These Z168.7 faces are the back Z-rail feet below the square catches. The current paired-face review retains 0.75 mm running air with both supported opposing faces and 0.25 mm at vertical guides. Support leaves through the open rail lanes before the halves are joined; cleanup remains unqualified.
-alternatives: Sloping the bearing changes lift capture. Filling the channel reduces travel clearance; removing the foot loses overlap with the catch.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=101.125 y=340.050 z=168.700
-click: x=-101.125 y=393.050 z=168.700
-click: x=-101.125 y=270.800 z=168.700
-
-[ceiling] The two Z347 flats are the upper screws' washer bearings inside 8 mm-deep inward-open head pockets. Current native integrity checks retain complete 3 mm floor annuli around the 5.6 mm passages. These are metal-bearing surfaces; no fictitious printed-mate clearance criterion is inferred. Tree (auto)/Default support has access through the roof and inboard opening before the frame is installed; cleanup remains unqualified.
-alternatives: Sloping removes the flat washer bearing. Filling blocks head entry; closing the inboard opening adds an unwanted cup wall. Moving the floor changes screw engagement and blind-tip geometry.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.450 y=208.900 z=347.000
-click: x=97.450 y=208.900 z=347.000
-
-[ceiling] These six flat roofs bridge the anchors' 3.5 mm tie slots. The cavity depth includes its directional supported-face allowance, with complete end webs preserving the fitting/tube seat. Support must leave through the empty tie passages before installing bodies and ties; physical removal remains unqualified.
-alternatives: Filling blocks the closed tie loop. Removing the roof opens or weakens the anchor. A sloped replacement must preserve the full strap-turn envelope rather than trim its corners.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-3.350 y=363.653 z=348.546
-click: x=-43.710 y=370.810 z=344.400
-click: x=-43.710 y=417.210 z=344.400
-click: x=32.650 y=329.153 z=346.861
-click: x=16.895 y=270.600 z=338.425
-click: x=55.075 y=406.653 z=342.286
-
-[slope] These two finite 48.013° faces bound the diamond with a 9 mm run and 10 mm rise used to press the nameplate outward for manual release. They are the opening ceiling, not an added corbel hung along the neighboring wall.
-alternatives: Filling the diamond blocks release access. A different opening changes the selected push area and roof geometry; a level foot is not part of this void.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.670 y=465.990 z=270.953
-click: x=29.670 y=465.990 z=270.953
-
-[ledge] These four finite corner faces terminate the horizontal wing receiving slots at their supported Z ends. The actual plate/wing poses, slot span and positive end clearances are retained by the current native labels review.
-alternatives: Filling reduces wing-end air. Removing the end/roof changes the retaining boundary; a chamfer must keep the whole wing envelope rather than erase an isolated corner.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-23.477 y=468.550 z=295.217
-click: x=-19.462 y=468.550 z=260.553
-click: x=-58.077 y=468.550 z=295.217
-click: x=87.802 y=468.550 z=260.553
-
-[ledge] These returns belong to the electronics D-stem/paired mounting profiles, including the recessed insert-entry sleeves and shared upper pad. The compact mounting footprints and populated pin/blocker clearances limit where a corbel can reach; the full insert host starts behind the recessed entry.
-alternatives: Filling an unrestricted wedge occupies the authored populated-board/tail keepout. Cutting the chord or sleeve changes mounting/insert-entry stock. A board-layout change needs its own exact populated clearance review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.000 y=324.467 z=260.400
-click: x=97.000 y=320.300 z=327.200
-
-[ledge] These sixteen 2 mm projection faces are the west/east Wago pockets' connector-specific end tabs. The center remains open for lever/wire access and the selected short-bridge lid profile.
-alternatives: Removing tabs loses end retention. Filling between them changes the selected open-center roof and its support treatment.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-101.400 y=315.067 z=254.600
-click: x=-101.400 y=321.767 z=254.600
-click: x=-101.400 y=331.317 z=254.600
-click: x=-101.400 y=338.017 z=254.600
-click: x=-101.400 y=295.117 z=254.700
-click: x=-101.400 y=309.217 z=254.700
-click: x=98.300 y=357.327 z=312.450
-click: x=98.300 y=364.027 z=312.450
-click: x=98.300 y=373.577 z=312.450
-click: x=98.300 y=380.277 z=312.450
-click: x=98.300 y=389.827 z=312.450
-click: x=98.300 y=396.527 z=312.450
-click: x=98.300 y=406.077 z=312.450
-click: x=98.300 y=412.777 z=312.450
-click: x=98.300 y=422.327 z=312.450
-click: x=98.300 y=429.027 z=312.450
-
-[sliver] Outside the C14 cord-access task: this port-chip rim strip remains an unresolved geometry finding. The local native comparison in assembly-fit-review/cord-access-measurements.json shows no material change at this location. That comparison establishes scope, not acceptability.
-alternatives: Broaden or reconcile the receiver rim with its backing while retaining the chip's seat and access. That is a separate receiver-interface correction, not a cord-bore width change.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-79.260 y=465.225 z=254.444
-
-[sliver] Outside the C14 cord-access task: these two seam-return strips remain unresolved geometry findings. The local native comparisons in assembly-fit-review/cord-access-measurements.json show unchanged material at both locations, without qualifying the strips.
-alternatives: Reconcile each return to a complete wall section and review its opposing slide and joint clearances. Filling the return without that mating review can occupy the slide path.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-79.260 y=475.225 z=254.444
+click: x=86.560 y=474.920 z=275.953
+click: x=-93.227 y=422.010 z=347.500
 click: x=-104.125 y=219.800 z=167.650
 click: x=104.125 y=219.800 z=167.650
 
-[slope] Outside the C14 cord-access task: this keystone pocket roof remains an unresolved underside finding. The local native comparison in assembly-fit-review/cord-access-measurements.json shows unchanged material here; it establishes no print-finish acceptance.
-alternatives: Reconcile the roof with a full-section wall or accessible support construction while preserving the complete purchased jack and latch swing. That requires a separate jack-interface review.
+[sliver] Unavoidable fitted catch projections: the 1.4 mm upper tang keeper and 1.3 mm lower latch keeper retain the purchased keystone module. Their full native profiles and actual swing/insertion clearances are identified in the receptacle review. This does not establish printed latch life or physical support cleanup.
+alternatives: Filling the keeper openings enters the module envelope. Removing or sloping the working projections changes tang/latch capture; a different retention arrangement requires a complete receptacle redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=463.174 z=322.573
+click: x=-40.710 y=468.730 z=294.437
+click: x=-40.710 y=468.780 z=314.487
 
-[thin] Outside the C14 cord-access task: these tube-anchor and keystone rim edges remain unresolved thin-feature findings. The local native comparisons in assembly-fit-review/cord-access-measurements.json show no material change at these locations. No thin-section exception or printability acceptance is claimed.
-alternatives: Reconcile the curved seat and jack rim intersections with complete 3 mm stock while retaining the fitting seat, tie return and jack swing envelopes. Those interface corrections need their own fit review; they are not supplied by widening the unrelated cord bore.
+[thin] Wrong material-thickness classification: these exact segments lie on native boundary planes at all five interior positions. Their 0.337/0.348/0.645 mm lengths run along retained mounting/roof surfaces rather than through material.
+alternatives: Reject boundary-tangent endpoint pairs before diagnosing thickness. A wall change at these exact surface segments does not address the invalid measurement.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-86.510 y=397.662 z=321.921
-click: x=-86.497 y=397.662 z=321.929
-click: x=-39.194 y=465.284 z=313.754
-click: x=-39.194 y=465.310 z=313.754
-click: x=-47.740 y=467.790 z=310.878
-click: x=-47.740 y=467.736 z=310.832
+click: x=96.188 y=338.800 z=343.331
+click: x=96.274 y=264.800 z=342.653
+click: x=13.884 y=475.300 z=342.399
 
-[step] Outside the pump-dock interface: the 0.360 mm port-field/DATA backing transition remains an unresolved geometry finding. The finite native window in pump-dock/lint-interface-review.json is identical to the pre-dock interface after its +7 mm Y station translation; the port-field, DATA and jack producers are unchanged. This establishes scope, not acceptance of the step.
-alternatives: Reconcile the adjoining backing planes into a continuous full-section transition while preserving the complete chip floor, independent jack lip and installed rear-hardware clearance. Review that rear interface directly before changing either plane.
+[thin] Wrong material-thickness classification: all five interior samples of this exact C14-region segment are outside both the native solid and final STL. Its 1.053 mm endpoint distance spans empty clearance rather than a material section.
+alternatives: Require material occupancy along a segment before classifying thickness. Filling this interval would alter the cord/receptacle clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-48.160 y=471.790 z=307.556
+click: x=95.435 y=470.437 z=319.258
 
-[sliver] Outside the pump-dock interface: the 1.460 mm nameplate backing transition remains unresolved. Its finite native window is identical to the pre-dock interface after the +7 mm Y station translation, as recorded in pump-dock/lint-interface-review.json. The unchanged nameplate producer retains this depth transition; it is not a consequence of the changed flute pitch.
-alternatives: Blend the ordinary and relieved backing into a complete section while retaining the plate fit and actual PSU clearance. A separate nameplate/PSU interface review must establish those bounds; the present answer does not accept the strip.
+[thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
+alternatives: Flattening or shallowing changes the retained visible contour. Widening lands changes closed-field spacing. Assess a finish change against the appearance evidence rather than choosing it from a thickness-only cutoff.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=86.560 y=471.920 z=275.953
+click: x=102.521 y=479.030 z=176.048
+click: x=-107.422 y=470.645 z=286.177
+click: x=-101.854 y=479.476 z=247.577
+click: x=107.305 y=471.439 z=345.382
+click: x=-104.500 y=308.248 z=256.482
+click: x=-104.500 y=338.242 z=262.560
+click: x=104.500 y=423.433 z=328.227
+click: x=104.500 y=433.480 z=327.573
+click: x=-104.500 y=213.052 z=265.820
+click: x=104.500 y=213.052 z=265.820
+click: x=106.301 y=213.053 z=172.559
+click: x=-104.500 y=268.252 z=288.231
+click: x=44.998 y=478.300 z=336.619
+click: x=-106.301 y=213.047 z=172.559
+click: x=104.500 y=403.477 z=322.460
+click: x=104.500 y=368.259 z=262.254
+click: x=104.500 y=368.259 z=295.254
+click: x=104.500 y=368.237 z=313.454
+click: x=104.500 y=383.445 z=329.370
+click: x=104.500 y=333.449 z=320.959
+click: x=104.500 y=333.473 z=258.879
+click: x=104.500 y=253.302 z=323.150
+click: x=104.500 y=253.302 z=256.700
+click: x=85.419 y=478.300 z=337.517
 
-[sliver] Outside the pump-dock interface: the 0.150 mm port-chip rim strip remains unresolved. Its finite native window and producing interface are unchanged from the pre-dock geometry after the +7 mm Y station translation, with zero material added or removed in pump-dock/lint-interface-review.json.
-alternatives: Reconcile the pocket rim and backing into a complete wall section while preserving the chip's full seat and insertion envelope. Filling or removing this strip requires that receiver-interface fit review; no thin-wall or print-finish acceptance is supplied here.
+[thin] Outside the pump-dock change and unresolved: these actual fine rear jack, port-chip, nameplate and C14-interface sections retain their native material in exact 4 mm windows at the explicit rear-plane transform. Their scope comparison does not accept local thickness, connector retention, deposition or service life.
+alternatives: Reconcile each receiver lip, body clearance and surrounding stock together if larger local sections are required, retaining purchased hardware and insertion paths. Those rear-interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-79.260 y=472.225 z=254.444
+click: x=-42.226 y=475.284 z=313.754
+click: x=-47.740 y=477.790 z=310.878
+click: x=-33.680 y=477.790 z=310.878
+click: x=-48.122 y=474.790 z=307.174
+click: x=-33.295 y=474.790 z=305.126
+click: x=-20.806 y=475.150 z=342.647
+click: x=-24.549 y=481.293 z=315.150
+click: x=86.592 y=481.294 z=261.077
+click: x=-56.872 y=481.298 z=312.680
+click: x=-47.878 y=468.080 z=292.192
+click: x=-47.850 y=468.080 z=314.865
+click: x=-58.427 y=481.021 z=325.062
+click: x=13.229 y=481.126 z=323.688
+click: x=-58.427 y=481.021 z=257.812
+click: x=-56.860 y=480.416 z=287.876
+click: x=51.976 y=481.152 z=325.312
+click: x=51.969 y=481.149 z=346.812
+click: x=-61.920 y=480.939 z=287.806
+click: x=-61.974 y=481.088 z=255.188
+click: x=-47.828 y=475.139 z=322.505
+click: x=-91.912 y=480.819 z=321.556
+click: x=-64.421 y=479.163 z=324.381
+click: x=-54.430 y=475.150 z=322.804
+click: x=-26.990 y=475.150 z=322.804
+click: x=-59.582 y=474.198 z=290.731
 
-[sliver] Unavoidable purchased-module capture face: this 1.4 mm projection is the upper keystone tang keeper. Its flat face provides the specified positive tang engagement; the projection is not a wall-thickness measurement. The actual source and finite native window match the pre-dock interface after the +7 mm Y station translation in pump-dock/lint-interface-review.json. Physical engagement and support cleanup remain unqualified.
-alternatives: Removing the projection loses tang capture. Filling the pocket prevents module insertion; sloping the flat catch changes the purchased module's retention contact and needs a redesigned receptacle.
+[thin] Outside the pump-dock change and unresolved: these actual electronics mounting and retained roof-return sections have identical finite native material at their recorded station transforms. This scope evidence does not accept their thickness, installed fastener retention, deposition or load capacity.
+alternatives: Reconcile the mounting sleeve/stem or roof return with its complete host while retaining populated-board, screw and seam clearance. Those electronics/roof-interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=465.780 z=314.487
+click: x=97.376 y=255.365 z=253.401
+click: x=97.376 y=333.365 z=253.401
+click: x=97.376 y=255.365 z=319.701
+click: x=96.480 y=255.493 z=260.630
+click: x=96.480 y=255.493 z=326.930
+click: x=97.375 y=330.800 z=322.966
+click: x=99.500 y=333.022 z=254.669
+click: x=99.500 y=255.006 z=254.672
+click: x=99.500 y=255.006 z=320.972
+click: x=105.233 y=208.890 z=354.951
+click: x=93.291 y=345.463 z=335.589
+click: x=97.292 y=269.465 z=329.064
+click: x=97.292 y=341.183 z=319.248
+click: x=97.292 y=354.183 z=319.248
+click: x=97.374 y=342.936 z=251.315
+click: x=97.374 y=355.936 z=251.315
+click: x=97.292 y=270.800 z=343.955
+click: x=97.292 y=336.800 z=330.955
+click: x=97.292 y=332.800 z=343.930
 
-[ceiling] Outside the pump-dock interface: the PRV chase crown remains an unresolved print-down roof finding. Its finite native window is identical to the pre-dock chase after the +7 mm Y station translation in pump-dock/lint-interface-review.json; _vent_chase is unchanged. No support-removal or discharge-path acceptance is inferred.
-alternatives: Reconcile the exterior crown into a supported section or a removable-support roof while preserving the complete vent passage and installed tube envelope. That chase review must assess the actual removal path before selecting a changed roof.
+[thin] Outside the pump-dock change and unresolved: these actual tube/meter-anchor, core-chain and retained roof-transition sections have identical native material in exact 4 mm windows at the recorded fixed-world or rear-station transform. Source identity and local correspondence establish scope and do not accept thickness, printed retention or load capacity.
+alternatives: Reconcile the seat, tie channel, anchor return or roof transition as a complete interface to increase its local ligament without filling the installed body or tie path. Those interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-94.625 y=330.800 z=214.350
+click: x=-86.510 y=369.358 z=321.921
+click: x=-86.656 y=407.662 z=321.921
+click: x=-83.990 y=458.510 z=348.685
+click: x=-71.575 y=459.010 z=348.363
+click: x=-55.655 y=382.535 z=344.400
+click: x=-55.655 y=428.935 z=344.400
+click: x=-31.765 y=379.085 z=344.400
+click: x=-31.765 y=425.485 z=344.400
+click: x=-56.468 y=378.847 z=343.000
+click: x=-30.952 y=382.772 z=343.000
+click: x=-30.952 y=429.172 z=343.000
+click: x=-56.468 y=425.247 z=343.000
+click: x=-13.694 y=384.880 z=344.446
+click: x=7.612 y=378.751 z=343.028
+click: x=7.612 y=368.638 z=343.333
+click: x=-91.626 y=322.335 z=316.137
+click: x=-105.233 y=208.890 z=354.951
+click: x=-86.684 y=408.299 z=319.976
+click: x=-13.694 y=378.751 z=343.028
+click: x=-13.694 y=368.638 z=343.333
+click: x=-101.250 y=268.533 z=282.714
+click: x=-98.500 y=264.696 z=282.054
+click: x=-98.500 y=268.924 z=282.054
+click: x=-101.250 y=265.394 z=282.952
+click: x=-90.378 y=394.298 z=343.772
+click: x=-92.894 y=373.062 z=345.163
 
-[ceiling] Outside the pump-dock interface: the nameplate body-mouth end remains an unresolved support detail. The source interface and finite native window are identical to the pre-dock mouth after its +7 mm Y station translation in pump-dock/lint-interface-review.json. This does not qualify full-part support removal or plate fit.
-alternatives: Review a supported or accessible roof construction against the complete plate body and wing insertion sweep. Filling the mouth or cutting away its locating end changes that interface and requires a new fit review.
+[thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm anchor, wall or insert-host sections. Native interiors are material and endpoint coordinates differ by exactly 3.000 mm along the section axis. Floating-point inclusion at the 3 mm reach does not establish a smaller design section or qualify printed/load performance.
+alternatives: Use an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal fitted section solely to change its rank has no dimensional basis.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=34.170 y=476.545 z=256.553
+click: x=-98.405 y=327.800 z=175.233
+click: x=-98.466 y=324.800 z=175.401
+click: x=-98.258 y=316.079 z=254.600
+click: x=-95.540 y=321.136 z=254.600
+click: x=-95.544 y=314.620 z=251.600
+click: x=-98.258 y=332.329 z=254.600
+click: x=-95.540 y=337.386 z=254.600
+click: x=-98.106 y=321.355 z=251.600
+click: x=-95.443 y=330.882 z=251.600
+click: x=-97.812 y=338.890 z=251.600
+click: x=-98.493 y=262.060 z=312.376
+click: x=-90.858 y=265.060 z=305.455
+click: x=-98.025 y=268.560 z=306.351
+click: x=-98.326 y=277.250 z=284.551
+click: x=-98.134 y=286.750 z=277.584
+click: x=-98.375 y=280.250 z=284.524
+click: x=-90.875 y=283.750 z=277.024
+click: x=-98.315 y=294.450 z=263.705
+click: x=-87.501 y=277.250 z=266.494
+click: x=-87.223 y=280.250 z=264.254
+click: x=-85.501 y=286.750 z=266.948
+click: x=-84.438 y=283.750 z=276.549
+click: x=-98.454 y=271.560 z=306.166
+click: x=-96.953 y=291.450 z=284.729
+click: x=-101.256 y=403.953 z=355.000
+click: x=-96.517 y=342.800 z=202.206
+click: x=-98.068 y=342.350 z=254.728
+click: x=-52.306 y=384.570 z=355.000
+click: x=-15.581 y=423.387 z=352.000
+click: x=-33.349 y=474.653 z=288.812
+click: x=-34.760 y=477.790 z=292.064
+click: x=-11.686 y=476.150 z=331.320
+click: x=12.145 y=274.586 z=338.572
+click: x=15.145 y=274.525 z=338.834
+click: x=18.645 y=286.581 z=341.632
+click: x=21.645 y=274.634 z=341.297
+click: x=50.325 y=410.443 z=342.648
+click: x=53.325 y=422.274 z=342.305
+click: x=98.106 y=368.521 z=309.450
+click: x=98.116 y=367.678 z=312.450
+click: x=98.116 y=374.378 z=312.450
+click: x=97.649 y=363.660 z=331.439
+click: x=95.594 y=373.615 z=309.450
+click: x=98.257 y=383.142 z=309.450
+click: x=98.116 y=383.928 z=312.450
+click: x=98.116 y=390.628 z=312.450
+click: x=95.249 y=400.806 z=309.450
+click: x=96.183 y=391.520 z=309.450
+click: x=98.116 y=400.178 z=312.450
+click: x=95.249 y=417.056 z=309.450
+click: x=96.183 y=407.770 z=309.450
+click: x=98.116 y=406.878 z=312.450
+click: x=56.825 y=411.011 z=342.623
+click: x=59.825 y=410.443 z=342.648
+click: x=98.116 y=416.428 z=312.450
+click: x=95.249 y=433.306 z=309.450
+click: x=96.183 y=424.020 z=309.450
+click: x=98.116 y=423.128 z=312.450
+click: x=98.116 y=432.678 z=312.450
+click: x=96.025 y=440.315 z=309.450
+click: x=98.116 y=439.378 z=312.450
+click: x=95.883 y=443.360 z=312.559
 
-[ceiling] Outside the pump-dock interface: this electronics mounting-pad end remains an unresolved supported-face detail. Its producer and finite native window are identical to the pre-dock pad after the +7 mm Y station translation in pump-dock/lint-interface-review.json. No support-cleanup or mounting-strength acceptance is claimed.
-alternatives: Reconcile the pad with a full-section corbel or accessible support construction after checking the populated board, its pins and adjacent mounting fields. Cutting or filling this end needs that electronics-mounting review.
+[slope] Outside the pump-dock change and unresolved: these nameplate relief and keystone roof junctions retain the native material in their exact finite windows after the rear-station transform. The slope findings remain open geometry issues; the correspondence establishes scope rather than accepting the wall/root transition.
+alternatives: Reconcile each roof/relief boundary with its supporting wall while retaining the complete purchased-module or plate envelope. Those rear-interface junction redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.375 y=345.300 z=259.400
+click: x=38.670 y=475.990 z=270.953
+click: x=29.670 y=475.990 z=270.953
+click: x=-40.710 y=473.174 z=322.573
 
-[slope] Unavoidable release-access boundary: these finite 48.013 degree faces bound the nameplate's 9 mm run and 10 mm rise diamond used to press the plate outward. The flagged faces are the access opening's ceiling. Their source and native windows match the pre-dock geometry after the +7 mm Y station translation in pump-dock/lint-interface-review.json; no print-finish acceptance is inferred.
-alternatives: Filling the opening with a level foot blocks the selected release access. Changing its roof requires a redesigned push opening and complete plate insertion/release review.
+[ledge] Outside the pump-dock change and unresolved: these retained plate-wing ends, electronics mounting profiles, Wago end tabs and keystone-latch return retain their exact finite native material at the recorded station transforms. This establishes scope and does not accept unsupported deposition, fragile projections or cleanup.
+alternatives: Reconcile each retaining end or mounting profile with its host and actual installed envelope. A corbel must retain wing, lever/wire, board-pin and jack insertion clearances; those interface redesigns are not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.670 y=472.990 z=270.953
-click: x=29.670 y=472.990 z=270.953
+click: x=97.000 y=330.300 z=327.200
+click: x=-23.477 y=478.550 z=295.217
+click: x=-19.462 y=478.550 z=260.553
+click: x=-58.077 y=478.550 z=295.217
+click: x=87.802 y=478.550 z=260.553
+click: x=97.000 y=334.467 z=260.400
+click: x=-101.400 y=315.733 z=254.600
+click: x=-101.400 y=331.983 z=254.600
+click: x=-101.400 y=309.883 z=254.700
+click: x=98.300 y=367.327 z=312.450
+click: x=98.300 y=374.027 z=312.450
+click: x=98.300 y=383.577 z=312.450
+click: x=98.300 y=390.277 z=312.450
+click: x=98.300 y=399.827 z=312.450
+click: x=98.300 y=406.527 z=312.450
+click: x=98.300 y=416.077 z=312.450
+click: x=98.300 y=422.777 z=312.450
+click: x=98.300 y=432.327 z=312.450
+click: x=98.300 y=439.027 z=312.450
+click: x=-101.400 y=321.767 z=254.600
+click: x=-101.400 y=338.017 z=254.600
+click: x=-101.400 y=295.117 z=254.700
+click: x=-43.193 y=468.513 z=294.437
 
-[slope] Outside the pump-dock interface: the keystone pocket roof remains unresolved. The producing functions and its finite native window are identical to the pre-dock jack after the +7 mm Y station translation in pump-dock/lint-interface-review.json. This establishes scope only, without accepting its underside or printed finish.
-alternatives: Reconcile the roof with a full-section wall or accessible support construction while preserving the entire purchased jack and latch swing. This needs a separate receptacle-interface review.
+[ceiling] Unavoidable PRV chase profile: these flats are the exterior crown and square mouth lower edge of the retained vent. The 12 mm passage and sloped inner air roof remain intact. Support can leave through the empty crown/mouth before core and vent installation; physical cleanup remains unqualified.
+alternatives: Filling reduces the vent passage. A different crown or mouth changes the rib/tube-target envelope and requires its own clearance review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=470.174 z=322.573
+click: x=-94.625 y=333.800 z=214.350
+click: x=-92.250 y=333.800 z=185.600
 
-[thin] Outside the pump-dock interface: these tube-anchor and keystone rim sections remain unresolved. Native samples lie inside material along each reported segment; these are not dismissed as mesh chords. Their producing functions and finite native windows are identical to pre-dock geometry after the +7 mm Y station translation in pump-dock/lint-interface-review.json. The enclosure-depth and flute-count changes add no material to or remove material from these windows.
-alternatives: Reconcile the curved seat and jack-rim intersections with complete sections while retaining the fitting seat, tie return, module insertion and latch swing envelopes. Those distinct fitting/jack interface corrections require their own fit review; no thin-section exception or physical acceptance is claimed.
+[ceiling] Unavoidable fitted plate ends: these nameplate and DATA body mouths retain the shared static and supported-face allowances at their complete lower outlines. Support leaves through the empty rear-facing mouths before plate installation; cleanup remains unqualified.
+alternatives: Filling reduces body-end clearance. Tapering removes part of the fitted perimeter; enlarging changes the locating boundary.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-86.510 y=366.358 z=321.921
-click: x=-86.497 y=366.358 z=321.929
-click: x=-42.226 y=472.284 z=313.754
-click: x=-42.226 y=472.310 z=313.754
-click: x=-47.740 y=474.790 z=310.878
-click: x=-47.740 y=474.736 z=310.832
+click: x=34.170 y=479.545 z=256.553
+click: x=-40.710 y=479.545 z=291.217
 
-[ledge] Outside the pump-dock interface: this electronics pad return remains an unresolved print-down ledge. Its source interface and finite native window match the pre-dock mounting field after the +7 mm Y station translation in pump-dock/lint-interface-review.json. This does not accept the ledge or establish support cleanup.
-alternatives: Reconcile the return with a full-section pad/corbel after checking the populated board and neighboring insert/pin envelopes. Filling or cutting the ledge without that mounting review can change its assembly clearance.
+[ceiling] Unavoidable screw/washer bearings: these screw-anchor caps and upper washer-bearing floors retain their current complete native host sections and positive mating gaps. Tree(auto)/Default support can leave through the empty seam, inward pockets and roof before assembly; actual cleanup remains unqualified.
+alternatives: Sloping tilts the washer or spends blind-end host stock. A corbel can enter neighboring block travel; a continuous post occupies frame/service room.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.000 y=327.300 z=327.200
+click: x=-97.625 y=209.975 z=195.050
+click: x=97.625 y=209.975 z=195.050
+click: x=-97.450 y=208.900 z=347.000
+click: x=97.450 y=208.900 z=347.000
 
-[ledge] Outside the pump-dock interface: these DATA and nameplate wing-slot ends remain unresolved support details. Their producers and finite native windows match the pre-dock receiver interfaces after the +7 mm Y station translation in pump-dock/lint-interface-review.json. No plate-release or support-removal acceptance is supplied.
-alternatives: Reconcile each end with an accessible supported profile while retaining the entire wing insertion/release sweep and positive locating boundary. Filling or removing the end requires a new receiver-interface fit review.
+[ceiling] Unavoidable square slide-capture profiles: these Z168.70 flats are the rear top feet beneath bottom catches at Z169.45, with the defined running and supported-face allowance. Support can leave the open channels before assembly; cleanup remains unqualified.
+alternatives: Sloping changes the capture bearing. Filling enters the slide path; cutting away the overlap loses retention.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-23.477 y=475.550 z=295.217
-click: x=-19.462 y=475.550 z=260.553
+click: x=101.125 y=345.050 z=168.700
+click: x=-101.125 y=403.050 z=168.700
+click: x=-101.125 y=275.800 z=168.700
+
+[ceiling] Unavoidable fitted jack/chip boundaries: these flats retain the complete purchased connector, chip-end and latch-passage profiles with their current positive clearances. Support can leave through empty rear openings before hardware placement. Native fit geometry does not qualify physical cleanup or retention.
+alternatives: Filling enters the hardware or latch path. Sloping or truncating spends the complete fitted outline; changing the module arrangement requires a separate receiver redesign.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=66.900 y=477.175 z=326.311
+click: x=66.900 y=470.550 z=324.226
+click: x=-40.710 y=480.225 z=257.194
+click: x=-78.070 y=480.225 z=257.194
+click: x=-40.710 y=480.225 z=324.381
+click: x=-78.070 y=480.225 z=324.381
+click: x=-3.350 y=480.225 z=324.591
+click: x=-78.070 y=480.225 z=291.217
+click: x=-40.710 y=471.435 z=291.812
+click: x=-40.710 y=476.290 z=294.217
+
+[ceiling] Unavoidable open tie/seat profiles: these flats close the retained tube, chain and meter anchor channels while their ends/root profiles locate the purchased bodies. The tie returns remain open for assembly and support withdrawal before tubing and fittings are installed. Physical support contacts, cleanup and loaded retention remain unqualified.
+alternatives: Filling blocks the tie return or installed body. Extending a root through the open span spends that assembly path; changing the seat or channel needs a complete anchor review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-87.850 y=320.260 z=315.011
+click: x=-100.000 y=388.510 z=321.671
+click: x=-95.550 y=266.810 z=305.411
+click: x=-101.500 y=266.810 z=280.611
+click: x=-91.207 y=388.510 z=345.211
+click: x=-3.350 y=373.653 z=348.546
+click: x=-43.710 y=380.810 z=344.400
+click: x=-43.710 y=427.210 z=344.400
+click: x=32.650 y=339.153 z=346.861
+click: x=16.895 y=280.600 z=338.425
+click: x=55.075 y=416.653 z=342.286
+click: x=-88.285 y=282.000 z=276.899
+
+[ceiling] Unavoidable populated-electronics mounting profiles: these finite pad ends retain their component mounting planes and insert hosts, with corbel reach limited by the actual pin/blocker fields. Support approaches through the empty interior before electronics installation. Physical cleanup remains unqualified.
+alternatives: An unrestricted corbel enters the populated-board/tail keepout. Shortening changes the insert host or mounting plane; a different layout needs its own full populated clearance review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=348.300 z=259.400
+click: x=97.375 y=348.800 z=327.200

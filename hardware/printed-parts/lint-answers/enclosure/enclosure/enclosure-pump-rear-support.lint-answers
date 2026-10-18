@@ -1,0 +1,68 @@
+[thin] Nominal structural-section threshold reading. These exact anchors lie on the source-defined Ø18/Ø12 support rings or 3.00 mm upright webs. The source-to-canonical STEP Boolean identity is exact; the current STL reports 2.999..3.000 mm at its faceted circular surfaces and nominal 3 mm planes. This explains tessellation/strict-threshold readings at the specified nominal wall, without accepting a thinner authored web. The material-thickness ranking remains visible.
+alternatives: Increasing the native dimensions to conceal sub-micron or one-micron mesh readings changes the nominal ring or web and its clearances. Finer tessellation changes mesh size and chord error, not the source section. An actually smaller native section would require a source correction.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step
+click: x=-90.557 y=95.147 z=183.096
+click: x=-87.738 y=95.147 z=184.122
+click: x=90.557 y=95.147 z=183.096
+click: x=87.738 y=95.147 z=184.122
+click: x=-13.893 y=95.147 z=183.096
+click: x=-16.712 y=95.147 z=184.122
+click: x=13.893 y=95.147 z=183.096
+click: x=16.712 y=95.147 z=184.122
+click: x=-84.100 y=96.733 z=194.948
+click: x=-83.435 y=96.733 z=192.024
+click: x=-20.350 y=96.733 z=194.948
+click: x=-21.015 y=96.733 z=192.024
+click: x=20.350 y=95.147 z=194.948
+click: x=21.015 y=95.147 z=192.024
+click: x=84.100 y=95.147 z=194.948
+click: x=83.435 y=95.147 z=192.024
+click: x=87.732 y=96.727 z=184.104
+click: x=90.547 y=96.727 z=183.070
+click: x=-87.732 y=96.727 z=184.104
+click: x=-90.547 y=96.727 z=183.070
+click: x=-26.735 y=95.153 z=182.079
+click: x=-28.930 y=95.153 z=180.035
+click: x=26.735 y=95.153 z=182.079
+click: x=28.930 y=95.153 z=180.035
+click: x=-88.850 y=94.411 z=203.566
+click: x=-85.850 y=94.411 z=203.566
+click: x=88.850 y=96.554 z=194.509
+click: x=85.850 y=96.554 z=194.509
+click: x=-75.350 y=96.554 z=194.509
+click: x=-78.350 y=96.554 z=194.509
+click: x=-29.100 y=94.411 z=203.566
+click: x=-26.100 y=94.411 z=203.566
+click: x=75.350 y=94.411 z=203.566
+click: x=78.350 y=94.411 z=203.566
+click: x=29.100 y=96.554 z=194.509
+click: x=26.100 y=96.554 z=194.509
+click: x=-15.600 y=96.554 z=194.509
+click: x=-18.600 y=96.554 z=194.509
+click: x=15.600 y=94.411 z=203.566
+click: x=18.600 y=94.411 z=203.566
+
+[ceiling] Build-direction classification mismatch. This frame prints on its broad fore Y face, with source +Y rotated to build +Z; it does not print in its installed source-Z direction. Each anchored face is vertical in that prescribed pose. The current-STL Y-normal audit finds zero ceiling, ledge, slope or sliver findings. The unmodified complete canonical lint retains all of these installed-Z findings, separately from the pose audit; neither reading qualifies printed fit or strength.
+alternatives: Printing the frame upright in its installed Z pose makes these overhang classifications relevant. Sloping or filling these vertical side profiles in the prescribed flat pose changes the ring openings and bridge geometry to address the wrong build direction. The manual linter currently accepts only source-Z sign, so the Y pose is documented explicitly.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step
+click: x=-52.225 y=95.940 z=203.924
+click: x=52.225 y=95.940 z=203.924
+click: x=0.000 y=95.940 z=203.924
+click: x=-82.100 y=95.940 z=203.924
+click: x=82.100 y=95.940 z=203.924
+click: x=-22.350 y=95.940 z=203.924
+click: x=22.350 y=95.940 z=203.924
+
+[ledge] Build-direction classification mismatch. This frame prints on its broad fore Y face, with source +Y rotated to build +Z; it does not print in its installed source-Z direction. Each anchored face is vertical in that prescribed pose. The current-STL Y-normal audit finds zero ceiling, ledge, slope or sliver findings. The unmodified complete canonical lint retains all of these installed-Z findings, separately from the pose audit; neither reading qualifies printed fit or strength.
+alternatives: Printing the frame upright in its installed Z pose makes these overhang classifications relevant. Sloping or filling these vertical side profiles in the prescribed flat pose changes the ring openings and bridge geometry to address the wrong build direction. The manual linter currently accepts only source-Z sign, so the Y pose is documented explicitly.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step
+click: x=75.364 y=96.465 z=192.174
+click: x=-75.378 y=96.465 z=192.174
+click: x=-88.836 y=96.465 z=192.174
+click: x=88.822 y=96.465 z=192.174
+click: x=15.614 y=96.465 z=192.174
+click: x=-15.628 y=96.465 z=192.174
+click: x=-29.086 y=96.465 z=192.174
+click: x=29.072 y=96.465 z=192.174
+click: x=-90.350 y=96.465 z=203.924
+click: x=89.600 y=96.465 z=203.924

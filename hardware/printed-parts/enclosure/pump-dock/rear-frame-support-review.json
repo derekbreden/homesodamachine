@@ -3,10 +3,10 @@
   "scope": "One-off native geometry review of the common rear cuff frame, broad magnet-column mounting roots and the continuous20mm keeper travel. Lock stacks and the frame shape are independent of the fluid support revisions. This establishes occupied geometry only; assembled stiffness, retention loads, printed fit and lifetime are unqualified.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
     "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
     "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
@@ -19,7 +19,7 @@
   "support_lock_z_from_port_mm": 22.5,
   "support_root_xz_mm": [
     15.85,
-    40.025
+    41.5
   ],
   "post_definition": {
     "width_basis": "Full magnet-host width, with at least3mm insert ligament",
@@ -28,7 +28,7 @@
       7.925
     ],
     "z_bounds_relative_to_port_mm": [
-      -12.525,
+      -14.0,
       27.5
     ],
     "y_bounds_relative_to_wall_fore_mm": [
@@ -125,7 +125,15 @@
         "gap_mm": 0.25,
         "overlap_mm3": 0.0
       }
-    ]
+    ],
+    "scope": "Retained original native reader of the root and fixed support interfaces. Its40.025mm root height is superseded by the current41.5mm construction; the current floor-reaching stock is separately bound below, without relabeling these original results.",
+    "native_reader_source_sha256": {
+      "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "2fe3e974bbc6b5a8b405866ec69ba9c710c16711b3c9653e5bb216c30f486feb",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+      "hardware/manifold-layout/enclosure_assembly.py": "70414a54ab78fb607c7a7d1c05cbd1bd684ce0b9a5ed4967e4f7e5b09dde7746",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725"
+    }
   },
   "continuous_keeper_and_metal_clearances": {
     "source_sha256": {
@@ -403,7 +411,7 @@
       "keeper_roof_minimum_gap_mm": 1.25,
       "keeper_lifted_bottom_to_guide_top_mm": 0.5
     },
-    "scope": "Adopted dry geometry and revised ramp against exact local wall and continuously occupied keeper20mm sweeps. All six nominal washers and heads are represented. No force, pressure or strength qualification is established."
+    "scope": "Retained original native reader at its recorded source hashes. Its unchanged frame/keeper/hardware definitions are carried by the selected AST identity; current guide/saddle travel is separately bound in current_dry_root_adoption."
   },
   "conditional_beam_screen": {
     "section_yz_mm": [
@@ -769,7 +777,7 @@
       "failed_checks": []
     }
   },
-  "source_binding_scope": "Native frame-root and continuous-keeper results retain their recorded reader hashes. Four current-source dry through-opening witnesses and the52-case hardware-access proof bind the keeper pilot openings. Rear-frame construction, pose and two blind pilots are unchanged by that dry opening. Exact exported geometry and the seat-ledger-only reader change are bound separately.",
+  "source_binding_scope": "Original native frame/root, continuous keeper and52-case hardware readers keep their source hashes and scope. Current floor-reaching roots and guide/saddle motion are separately bound through the linked production adoption record. Selected unchanged keeper/frame/lock AST and current canonical STEP/STL identity bind the frame itself.",
   "lock_stack": {
     "keeper": {
       "plate_mm": 3,
@@ -822,21 +830,68 @@
     ],
     "native_reader_source_sha256": {
       "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
-      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
       "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
       "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
-      "hardware/manifold-layout/enclosure_assembly.py": "70414a54ab78fb607c7a7d1c05cbd1bd684ce0b9a5ed4967e4f7e5b09dde7746",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
+      "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
       "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
       "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725"
     },
-    "reader_source_binding": {
-      "native_export_reader_source_sha256": "70414a54ab78fb607c7a7d1c05cbd1bd684ce0b9a5ed4967e4f7e5b09dde7746",
-      "current_source_sha256": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
-      "reverse_of_only_declared_seat_ledger_edits_recovers_native_reader_bytes": true,
-      "collet_plate_spec_ast_identical": true,
-      "scope": "The added seat ledger records the exact dock parts and retention objects already installed in the assembly. Cached-object reuse and the ledger call change no part construction, station, route or canonical auxiliary mesh. The export Boolean identity retains the source hashes recorded when it ran."
+    "scope": "Actual final-source/canonical STEP zero/zero Boolean identity and canonical STL validity; actual current STEP and STL are byte-identical to the retained frame lint/native reader. No assembled stiffness or physical retention rating."
+  },
+  "current_dry_root_adoption": {
+    "record": "fluid-geometry-review.json",
+    "record_sha256": "a4170953f77c1221210b89b5d5828051f63d1a575935b5a36ee51fe6fa992e42",
+    "root_xz_mm": [
+      15.85,
+      41.5
+    ],
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+      "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
+      "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
+      "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
+      "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+      "hardware/manifold-layout/_lines.py": "a7b1f0a5339287ea652ea663f55030d77c65f4bbe8957d02543a541a1e132278"
     },
-    "scope": "Exact native current-source versus canonical STEP Boolean identity and canonical STL mesh validity. Complete appliance closure and physical stiffness/retention remain separate."
+    "scope": "Current broad roots reach the named recess floor. Exact production-stock identity carries the local root/guide/saddle additions and continuous keeper-motion scope in the linked record. Frame shape, lock stations, metal stack and idealized beam comparison are unchanged."
+  },
+  "unchanged_interface_ast_binding": {
+    "scope": "Exact selected executable AST identity for unchanged keeper, rear-frame, keeper pilot and nominal hardware definition between the original canonical native-reader source and current dry-guide/saddle source. Wet module identity and final canonical meshes are separate bindings; no claim that fixed guides, saddle brackets, roots or jig are unchanged.",
+    "reference_sha256": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+    "current_sha256": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "functions": [
+      "box",
+      "ycyl",
+      "fused",
+      "support_lock_x",
+      "keeper",
+      "lock_cut",
+      "rear_support"
+    ],
+    "constants": [
+      "STATIONS",
+      "KEEPER_HALF_WIDTH",
+      "KEEPER_Z",
+      "LOCK_Z",
+      "LOCK_BORE_D",
+      "LOCK_INSERT_D",
+      "LOCK_INSERT_LENGTH",
+      "LOCK_RELIEF",
+      "LOCK_WASHER_OD",
+      "LOCK_WASHER_ID",
+      "LOCK_WASHER_T",
+      "SUPPORT_LOCK_Z",
+      "SUPPORT_POST_LIGAMENT",
+      "SUPPORT_SEAT_AIR",
+      "SUPPORT_BRIDGE_Z"
+    ],
+    "selected_ast_identical": true,
+    "selected_ast_sha256": "fe8973ce876b7a13b24ee824ba8e2dfe17fbc5b7f2fc3db641ca53df9b598c16",
+    "unchanged_receiver_source_sha256": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8"
   }
 }

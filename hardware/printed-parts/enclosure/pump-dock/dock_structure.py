@@ -12,6 +12,8 @@ import cadquery as cq
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == 'hardware')
 sys.path.insert(0, str(HW / 'reference' / 'tee-connector'))
+sys.path.insert(0, str(HW / 'printed-parts' / 'cadlib'))
+import fits
 import pump_receiver as receiver
 import tee_connector as tee
 import dock_retention as retention
@@ -29,7 +31,7 @@ LOCK_WASHER_OD = 7.0
 LOCK_WASHER_ID = 3.2
 LOCK_WASHER_T = .5
 GUIDE_INNER_X = 9.25
-GUIDE_OUTER_X = 15.25
+GUIDE_OUTER_X = 16.4
 GUIDE_Z = (-11.0, 8.5)
 RECESS_Z = (-14.0, 40.0)
 SUPPORT_LOCK_Z = 22.5
@@ -51,6 +53,15 @@ def fused(parts):
     return parts[0].fuse(*parts[1:]).clean()
 
 
+def _bed_corbel(x0, x1, y0, y1, top, bed):
+    """45-degree underside rising aft, clipped at the part's print bed."""
+    points=[cq.Vector(x0,y0,top-(y1-y0)),cq.Vector(x0,y1,top),
+            cq.Vector(x0,y0,top)]
+    wire=cq.Wire.makePolygon(points+[points[0]])
+    raw=cq.Solid.extrudeLinear(wire,[],cq.Vector(x1-x0,0,0))
+    return raw.intersect(box(x0,x1,y0,y1,bed,top+.1)).clean()
+
+
 def support_lock_x(plate):
     """Frame locks align with the two columns between the fluid ports."""
     return tuple(x for x, _ in retention.column_stations(plate['holes']))
@@ -69,7 +80,7 @@ def keeper(wall_fore_y=0.0, x=0.0, z=0.0):
 def wall_recess(plate):
     """Broad keeper access pocket with a 45-degree roof rising aft."""
     row = plate['holes'][0][1]
-    x0,x1=plate['x0']+6.25,plate['x1']-6.25
+    x0,x1=plate['x0']+6.0,plate['x1']-6.0
     y0,y1=plate['fore_y']+receiver.WALL_THICKNESS,plate['wall_aft_y']+.1
     roof=row+RECESS_Z[1]
     pocket=box(x0,x1,y0,y1,row+RECESS_Z[0],roof)
@@ -86,9 +97,9 @@ def guides(wall_fore_y,x,z,wall_aft_y=None):
     stocks=[]
     for side in (-1,1):
         a,b = sorted((x+side*12.25,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0],z+GUIDE_Z[1]))
+        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0]-.35,z+GUIDE_Z[1]))
         a,b = sorted((x+side*GUIDE_INNER_X,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,slot_back,rear,z+GUIDE_Z[0],z+GUIDE_Z[1]))
+        stocks.append(box(a,b,slot_back,rear,z+GUIDE_Z[0]-.35,z+GUIDE_Z[1]))
     # Stop under both uninterrupted plate wings; the U opening stays clear.
     for side in (-1,1):
         a,b=sorted((x+side*6.5,x+side*GUIDE_OUTER_X))
@@ -103,17 +114,22 @@ def lock_cut(wall_fore_y,x,z):
                 wall_fore_y-.1,face+.01)
 
 
-def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0):
+def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0,
+               print_bed_z=None):
     """Fixed open-aft cradle on the two measured run collars.
 
     Two ties at Z +/-13.5 capture fixed collar stock, away from all three
-    operating sleeves. Three-millimetre side webs and a lower floor join the
+    operating sleeves. The 4.25 mm side webs and a lower floor join the
     permanent wall and keeper guides. The outer two saddles stop at the
     enclosure's slide-channel plane and omit the rail-crossing side web.
     Tie heads clock fore of the saddle; their bands surround its two rails
     together with the tee's fixed collar.
     The branch passes through the centre of this saddle during straight
     factory insertion from the interior.
+    Each outboard saddle has an open outer side at branch-port height.
+    Both tie-band rails remain complete. The floor and side-arm undersides
+    rise at 45 degrees from the print bed. The lower collar's tie tunnel
+    passes through added side-arm corbel stock and leaves the rails intact.
     """
     near,aft=center_y-12.0,center_y-3.0
     radius=tee.BARREL_R+.25
@@ -125,14 +141,37 @@ def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0):
     for dz in (-13.5,13.5):
         stock=stock.cut(box(x-8,x+8,near-.1,aft+.1,
                             z+dz-1.75,z+dz+1.75))
+    if outer_side:
+        a,b=sorted((x,x+outer_side*20))
+        stock=stock.cut(box(a,b,near-.1,aft+.1,z-8.75,z+8.75))
     parts=[stock,box(x-13.5,x+13.5,wall_fore_y+receiver.WALL_THICKNESS,
                      center_y-9.0,z-end-3,z-end)]
+    if print_bed_z is not None:
+        y0,y1=wall_fore_y+receiver.WALL_THICKNESS,center_y-9.0
+        bottom=z-end-3
+        parts.append(_bed_corbel(x-13.5,x+13.5,y0,y1,bottom,print_bed_z))
+        # Continue the underside beneath the lower collar, retaining its
+        # complete vertical trunk opening for the tee and run tube.
+        corbel=_bed_corbel(x-13.5,x+13.5,center_y-9.0,aft,
+                           z-end,print_bed_z)
+        trunk=cq.Solid.makeCylinder(radius,6.2,
+                                    cq.Vector(x,center_y,z-end-6.1),
+                                    cq.Vector(0,0,1))
+        parts.append(corbel.cut(trunk))
     for side in (-1,1):
         if side==outer_side:
             continue
-        a,b=sorted((x+side*10.5,x+side*13.5))
+        a,b=sorted((x+side*9.25,x+side*13.5))
         parts.append(box(a,b,wall_fore_y+receiver.GROOVE_Y[1],aft,
-                         z-11,z+8.5))
+                         z-11.35,z+8.5))
+        if print_bed_z is not None:
+            corbel=_bed_corbel(a,b,wall_fore_y+receiver.GROOVE_Y[1],aft,
+                               z-11.35,print_bed_z)
+            # Open only the new corbel for the lower strap. The original
+            # fixed-collar rails and the full arm above remain unchanged.
+            tunnel=box(x-20,x+20,center_y-15.25,center_y-11.75,
+                       z-15.25,z-11.75)
+            parts.append(corbel.cut(tunnel))
     joined=fused(parts)
     if side_limits is not None:
         bounds=joined.BoundingBox()
@@ -150,14 +189,15 @@ def fixed_features(plate):
         stocks.extend((guides(fore,x,z,plate['wall_aft_y']),
                        tee_saddle(fore,x,z,center_y,
                                   side_limits=plate['tee_saddle_x_limits'],
-                                  outer_side=outer_side)))
+                                  outer_side=outer_side,
+                                  print_bed_z=plate['z0']+fits.supported_surface)))
         cuts.extend((receiver.receiver_wall_cut(fore,x,z),lock_cut(fore,x,z)))
     row=plate['holes'][0][1]
     face=fore+receiver.REAR_SUPPORT_Y[0]-SUPPORT_SEAT_AIR
     half=max(LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT,
              retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK)
     for x,z in retention.column_stations(plate['holes']):
-        bottom=retention.column_limits(z)[0]-retention.STRUCTURAL_STOCK
+        bottom=row+RECESS_Z[0]
         top=row+SUPPORT_LOCK_Z+LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT
         stocks.append(box(x-half,x+half,fore+receiver.WALL_THICKNESS,face,
                           bottom,top))
@@ -216,6 +256,6 @@ def tube_setting_jig(plate, cartridge_face_y):
     # The two magnet guards also project behind the retained cartridge plane.
     for x,z in retention.column_stations(plate['holes']):
         half=retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK+.25
-        end=cartridge_face_y+retention.MOVING_POLE_PROJECTION-retention.GUARD_POLE_PROUD+.25
+        end=cartridge_face_y+max(3.0,retention.MOVING_POLE_PROJECTION-retention.GUARD_POLE_PROUD+.25)
         body=body.cut(box(x-half,x+half,cartridge_face_y-.1,end,row-9,row+9))
     return body.clean()

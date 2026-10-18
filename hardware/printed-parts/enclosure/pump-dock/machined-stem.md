@@ -148,6 +148,11 @@ sweep of the upper guards. The recorded sections keep 14.00 mm
 uninterrupted outboard stock beside the cap lanes. BPT/tie, neighboring plumbing, printed capacity and
 lifetime remain outside those geometric results.
 
+The [manual mesh review](dock-lint-review.json) binds the complete current
+cap, cartridge and factory-tool lint readings. It identifies the nominal
+3 mm annulus/tool boundaries, required fitted bearings and supported floors,
+the gauge print poses, and the specific exterior-flute profile exceptions.
+
 Recreate the machining part and bench fixture explicitly:
 
 ```sh
