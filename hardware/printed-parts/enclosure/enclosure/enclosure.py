@@ -6446,7 +6446,9 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     bore under a full-width ceiling column; the upper main-board/relay field gets one low pad
     round its three clear stations; and relay 1's two vertical pairs each get one ceiling column.
     Their separate wedges are omitted so every underside is one flat supported face. All four
-    fuse before the bores are cut.
+    fuse before the bores are cut. Where one fill prints on another and overhangs its side by
+    less than `boss_ligament` — MH3's pad union under relay 1's aft column — a strip that
+    narrow is no support's to reach, so a 45° corbel in the free corner carries it.
 
     A PAIR OF HOLES ON ONE LINE IS ONE BAR (`east_boss_pairs`): the two stems and the run
     between them are one flat-topped box with two bores in it, on one corbel — the print-down
@@ -6491,6 +6493,7 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
                        if all(omit)
                        else _east_bar_support(roots[1], mine[i], mine[j], up))
             solid = solid.fuse(support)
+    here = []
     for _name, bounds, _replaced_corbels in fills:
         fx0, fx1, fy0, fy1, fz0, fz1 = bounds
         cy, cz = (fy0 + fy1) / 2.0, (fz0 + fz1) / 2.0
@@ -6505,6 +6508,19 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
                 f"east mounting fill z={fz0:g}..{fz1:g} crosses its piece band "
                 f"{z0:g}..{z1:g}")
         solid = solid.fuse(_ybox(fx0, fx1, fy0, fy1, fz0, fz1))
+        here.append(bounds)
+    for ax0, ax1, ay0, ay1, az0, az1 in here:
+        shelf = az1 if up < 0 else az0          # this fill's print-down face
+        for bx0, bx1, by0, by1, bz0, bz1 in here:
+            if (abs((bz0 if up < 0 else bz1) - shelf) > stated_bound_tol
+                    or abs(ax0 - bx0) > stated_bound_tol or abs(ax1 - bx1) > stated_bound_tol
+                    or max(ay0, by0) >= min(ay1, by1)):
+                continue                        # not printed straight on that fill
+            for end, side, inward in ((ay0, by0, 1.0), (ay1, by1, -1.0)):
+                step = inward * (side - end)
+                if stated_bound_tol < step < boss_ligament:
+                    solid = solid.fuse(_yz_prism(ax0, ax1, [
+                        (end, shelf), (side, shelf), (side, shelf - up * step)]))
     for k, station in enumerate(mine):
         sy, sz, tip = station[:3]
         stands = roots[1] - tip >= east_boss_min_stand - stated_bound_tol
