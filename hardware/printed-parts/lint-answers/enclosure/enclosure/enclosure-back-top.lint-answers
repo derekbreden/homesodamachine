@@ -75,19 +75,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-47.878 y=468.080 z=292.192
 click: x=-47.850 y=468.080 z=314.865
 
-[thin] Pending Derek's decision, reported: the vertical webs between the OVER pocket top (Z321.556) and the TAP pocket's supported bottom (Z324.381) are 2.824 mm, as is the DATA-mouth to SODA web; the webs below are 3.254 mm. Every station keeps its stated Z (4656e0515 set DATA and DRAIN at one height).
-alternatives: Move DATA, the keystone and OVER down 0.215 mm so the webs above and below are equal; both become 3.04 mm, but three stations move.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-91.912 y=480.819 z=321.556
-click: x=-64.421 y=479.163 z=324.381
-
-[thin] Pending Derek's decision, reported: the pad's 45° run-out (nameplate.apply) starts exactly at the DATA mouth's print-down edge, leaving 2.816/2.920 mm between the DATA floor edge and the point where the ramp meets the 0.15 mm land (2.73 mm at the nameplate's matching corner).
-alternatives: Start the run-out sqrt(2) x wall - FLOOR_STOCK = 0.64 mm further out; both corners reach 3.0 mm and the keystone ridge rises 0.32 mm.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.828 y=475.139 z=322.505
-click: x=-54.430 y=475.150 z=322.804
-click: x=-26.990 y=475.150 z=322.804
-
 [thin] Wrong material-thickness classification: a single sample with 0.0 mm2 of surface at the DATA pad's R5 corner, where 3.6 mm of pad stands with the wall behind it.
 alternatives: Ignore single zero-area samples at a round. Thickening the pad changes nothing here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -182,11 +169,6 @@ click: x=29.670 y=475.990 z=270.953
 alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=473.174 z=322.573
-
-[sliver] Pending Derek's decision, reported: the lower edge of the 0.15 mm port-field nut land (`_back_top_field_land`), exposed between the -X corner column and the west core hold.
-alternatives: Drop the land: port_clamp_stack = max(t, wall + PROUD + slip). At 6 mm stations it only adds the chip's back gap to the clamp stack.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-79.260 y=475.225 z=254.444
 
 [sliver] Required transition between two running fits: aft of the front tongue and its knuckles back-top's wall face stays at |X|104.5, one fit outside front-top's tongue; from the back rail's closed end it steps 0.75 mm in to the channel's standing wall, one slip outside the head.
 alternatives: Either face moved onto the other closes a running fit.
