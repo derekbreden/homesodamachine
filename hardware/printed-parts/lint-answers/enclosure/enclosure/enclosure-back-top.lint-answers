@@ -61,6 +61,7 @@ alternatives: Adding an unrestricted corbel occupies the populated board/tail ke
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=338.300 z=259.400
 click: x=97.375 y=340.300 z=327.200
+click: x=97.375 y=338.800 z=327.200
 
 [ceiling] The ASSE anchor has a shared tie-return cavity under its V and a flat web over the tie span. Outside that span columns join the ceiling; inside it the loop requires open room. Support leaves from the shared cavity into the empty chain pocket before the chain and ties are installed; removal effort remains unqualified.
 alternatives: Filling or extending the columns through the tie span blocks the loop. Cutting the web away spends the required section between the tie channel and fitting seat.
@@ -68,7 +69,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-100.000 y=378.510 z=321.671
 click: x=-91.207 y=378.510 z=345.211
 
-[ceiling] These two flats belong to the C14 flange/tunnel passage with 0.5 mm extra clearance per X/Z edge. The specified outline, receptacle ears and fixed heat-set stations define their finite boundaries. Support leaves through the empty rear opening/tunnel before the inlet is screwed in; physical fit and cleanup of this opening remain unqualified.
+[ceiling] These two flats belong to the C14 flange/tunnel passage. The flange pocket has 0.5 mm extra clearance per X/Z edge; the independent cord bore is 28.3 × 19.3 mm with 3 mm total extra X width. The specified outline, receptacle ears and fixed heat-set stations define their finite boundaries. Support leaves through the empty rear opening/tunnel before the inlet is screwed in; physical fit and cleanup of the wider opening remain unqualified.
 alternatives: Filling enters the inlet or flange insertion path. Sloping the fitted outline changes the seat or aperture; reducing the tunnel spends the insert-host/root geometry.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=66.900 y=467.175 z=326.311
@@ -152,3 +153,29 @@ click: x=98.300 y=406.077 z=312.450
 click: x=98.300 y=412.777 z=312.450
 click: x=98.300 y=422.327 z=312.450
 click: x=98.300 y=429.027 z=312.450
+
+[sliver] Outside the C14 cord-access task: this port-chip rim strip remains an unresolved geometry finding. The local native comparison in assembly-fit-review/cord-access-measurements.json shows no material change at this location. That comparison establishes scope, not acceptability.
+alternatives: Broaden or reconcile the receiver rim with its backing while retaining the chip's seat and access. That is a separate receiver-interface correction, not a cord-bore width change.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-79.260 y=465.225 z=254.444
+
+[sliver] Outside the C14 cord-access task: these two seam-return strips remain unresolved geometry findings. The local native comparisons in assembly-fit-review/cord-access-measurements.json show unchanged material at both locations, without qualifying the strips.
+alternatives: Reconcile each return to a complete wall section and review its opposing slide and joint clearances. Filling the return without that mating review can occupy the slide path.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.125 y=219.800 z=167.650
+click: x=104.125 y=219.800 z=167.650
+
+[slope] Outside the C14 cord-access task: this keystone pocket roof remains an unresolved underside finding. The local native comparison in assembly-fit-review/cord-access-measurements.json shows unchanged material here; it establishes no print-finish acceptance.
+alternatives: Reconcile the roof with a full-section wall or accessible support construction while preserving the complete purchased jack and latch swing. That requires a separate jack-interface review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=463.174 z=322.573
+
+[thin] Outside the C14 cord-access task: these tube-anchor and keystone rim edges remain unresolved thin-feature findings. The local native comparisons in assembly-fit-review/cord-access-measurements.json show no material change at these locations. No thin-section exception or printability acceptance is claimed.
+alternatives: Reconcile the curved seat and jack rim intersections with complete 3 mm stock while retaining the fitting seat, tie return and jack swing envelopes. Those interface corrections need their own fit review; they are not supplied by widening the unrelated cord bore.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-86.510 y=397.662 z=321.921
+click: x=-86.497 y=397.662 z=321.929
+click: x=-39.194 y=465.284 z=313.754
+click: x=-39.194 y=465.310 z=313.754
+click: x=-47.740 y=467.790 z=310.878
+click: x=-47.740 y=467.736 z=310.832
