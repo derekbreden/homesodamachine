@@ -7580,7 +7580,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:1adbef8fe78ba5adeff2ab461e002badb324e4ec8bd0b8f789f7afd4ee4e9dec",
+  "input_fingerprint": "sha256:094c95c4e33cd0037b98a81b8ed3892880d36e26edf19383ccb00a3ec5c91875",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -37107,7 +37107,7 @@
         "precision": "day",
         "value": "2026-09-19"
       },
-      "description": "uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 200 pc, 304 stainless steel — the DIN 125A size; general stock, with no role in the current build",
+      "description": "uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 200 pc, 304 stainless steel — the DIN 125A size; one under each of the four permanent pump-receiver keeper locks and two rear cuff-support M3×8 locks",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
