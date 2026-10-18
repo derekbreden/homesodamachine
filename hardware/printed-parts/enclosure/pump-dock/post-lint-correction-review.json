@@ -8,7 +8,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
     "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
     "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "2df6e74e27d6b1ced9aef6e5f117469b5f4a0319101913d84b1f73d6126db659",
     "hardware/manifold-layout/_lines.py": "a7b1f0a5339287ea652ea663f55030d77c65f4bbe8957d02543a541a1e132278"
   },
   "geometry": {
@@ -98,7 +98,7 @@
     },
     "tee_saddle": {
       "record": "fluid-geometry-review.json",
-      "record_sha256": "a4170953f77c1221210b89b5d5828051f63d1a575935b5a36ee51fe6fa992e42",
+      "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
       "clip_x_mm": [
         -93.25,
         93.25
@@ -405,12 +405,12 @@
   },
   "native_wall_and_motion": {
     "record": "fluid-geometry-review.json",
-    "record_sha256": "a4170953f77c1221210b89b5d5828051f63d1a575935b5a36ee51fe6fa992e42",
+    "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
     "scope": "Original wall/receiver/metal readers retain their source hashes. Current dry-stock production adoption binds continuous keeper motion, complete-snapshot added stock and conditional eight-strap routes without a new whole-appliance claim."
   },
   "rear_frame_support": {
     "record": "rear-frame-support-review.json",
-    "record_sha256": "fbd518e6f2399ee330cee7002dd54d880763a8e4fd64e35580762205691b974f",
+    "record_sha256": "9b37664c275a9df32262b184b5a01da6f688454c61ebb76d73828895ccc711bb",
     "scope": "Current frame/root geometry, actual washer/head clearance, continuous keeper envelopes and conditional one-outer-point-load beam screen. No PET-GF allowable or assembled-deflection claim."
   },
   "current_offline_native_tpu_preparation": {
@@ -638,7 +638,17 @@
   },
   "dry_structure_native_adoption": {
     "record": "fluid-geometry-review.json",
-    "record_sha256": "a4170953f77c1221210b89b5d5828051f63d1a575935b5a36ee51fe6fa992e42",
+    "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
     "scope": "One-off native production-helper adoption review of the current fixed guides, saddles, lower floor/arm corbels and broad support roots. Native geometry, exact continuous keeper occupancy and conditional tie routing are separate from printed fit, strength and support removal. The complete appliance owns final surrounding integration."
+  },
+  "source_binding_equivalence": {
+    "scope": "The current top-level source identity is bound through exact whole-module parsed-code and non-comment-token equality. Recorded native-reader source hashes, reference hashes, native artifacts and numerical findings retain their original identities. No geometry was regenerated or physically qualified for this documentation-only rebind.",
+    "source_path": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "native_reader_source_sha256": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "current_source_sha256": "2df6e74e27d6b1ced9aef6e5f117469b5f4a0319101913d84b1f73d6126db659",
+    "whole_module_AST_identical": true,
+    "whole_module_noncomment_tokens_identical": true,
+    "module_AST_sha256": "9a75dbf9e1a5ab681e9fba422f35a48616ad86d1f6c5f6d5677079e50a94e917",
+    "comment_scope": "Only the ENTRY_RELIEF_D numeric annotation changes; the countersink-mouth expression and every constructor are identical."
   }
 }

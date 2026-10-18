@@ -1,7 +1,7 @@
 {
   "scope": "Manual current cold-core valve-cradle geometry and actual exported-parent correspondence. Finite native comparisons retain the surrounding lid and its stationary reservoir-B fill passage. This is not a physical fit, deposition, support-removal, valve-retention or load-capacity qualification. No recurring runner, scorecard row or build gate is added.",
   "source_sha256": {
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "2df6e74e27d6b1ced9aef6e5f117469b5f4a0319101913d84b1f73d6126db659",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "2a5a8c6a0585a761ee2c3952738ff74d6ea189cdec054bac7fb9777b3c2a4f3c",
     "hardware/printed-parts/cold-core/_foam_cap.py": "0a25ac846ab86c4ad2cc4bb8b0d09671d9c809701ea930c52cfc0057901e349a",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "c842f91a5999f56e61842fef9efc6ead19ac3d7ee7fc6fb9c6c51ddc2ec64c8e",
@@ -172,5 +172,15 @@
     "Aggregate leaf comparisons read actual newly exported native leaves, not a rebuilt in-memory parent. Their expected pose is the production 180-degree spin and lid outer-face Z datum.",
     "The two fluted cap STL files remain byte-identical to their published inputs; the revised smooth top lid is owned as STEP with its matching viewer payload. Its post-publication mesh review is separate.",
     "The shared Beduan socket physical observations retain their recorded articles and processes. They do not accept this complete revised lid or its installed valve load path."
-  ]
+  ],
+  "source_binding_equivalence": {
+    "scope": "The current top-level source identity is bound through exact whole-module parsed-code and non-comment-token equality. Recorded native-reader source hashes, reference hashes, native artifacts and numerical findings retain their original identities. No geometry was regenerated or physically qualified for this documentation-only rebind.",
+    "source_path": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "native_reader_source_sha256": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "current_source_sha256": "2df6e74e27d6b1ced9aef6e5f117469b5f4a0319101913d84b1f73d6126db659",
+    "whole_module_AST_identical": true,
+    "whole_module_noncomment_tokens_identical": true,
+    "module_AST_sha256": "9a75dbf9e1a5ab681e9fba422f35a48616ad86d1f6c5f6d5677079e50a94e917",
+    "comment_scope": "Only the ENTRY_RELIEF_D numeric annotation changes; the countersink-mouth expression and every constructor are identical."
+  }
 }
