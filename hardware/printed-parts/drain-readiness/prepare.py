@@ -1,7 +1,10 @@
-"""Prepare and natively slice the dedicated DRAIN production print set.
+"""Prepare and natively slice the four identification plates: chips, collars and DATA.
 
-Usage: tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/prepare.py
+Usage: tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/prepare.py labels
 The output stays in .cache/prints/2026-10-07-drain. No printer job is submitted.
+Each plate's fine closing layers land a layer top on every face-up chip and DATA face
+and lettering top, read from the tessellated bodies; the localized PET-GF cooling of
+cadlib/petgf_cooling.py applies to both filament slots.
 """
 from __future__ import annotations
 
@@ -27,6 +30,8 @@ from _run_lock import acquire
 acquire(str(Path(__file__)))
 sys.path.insert(0, str(ROOT / "hardware/printed-parts/faucet"))
 import refresh_print_project as writer
+sys.path.insert(0, str(ROOT / "hardware/printed-parts/enclosure/trial-preparation"))
+from _derive import closing_schedule
 
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
@@ -36,7 +41,7 @@ def save(path, data):
     path.write_text(json.dumps(data, indent=2) + "\n")
 
 
-def slice_project(project, report=None):
+def slice_project(project):
     out = project.parent / "ready"
     out.mkdir(exist_ok=True)
     cmd = [SLICER, "--slice", "0", "--arrange", "0", "--orient", "0",
@@ -46,120 +51,15 @@ def slice_project(project, report=None):
         got = subprocess.run(cmd, cwd=out, stdout=stream, stderr=subprocess.STDOUT)
     if got.returncode:
         raise RuntimeError(f"Native slice failed ({got.returncode}): {out / 'slice.log'}")
-    if report:
-        audit = writer.slice_review(project, report, out)
-        save(project.parent / "native-review.json", audit)
-    else:
-        bounds = writer.object_toolpaths(out / "plate_1.gcode", out / "all-beads.gcode", None)
-        low, high = np.array(bounds["extrusion_bounds_xy_mm"])
-        margin = float(min(np.min(low - [25, 0]), np.min([325, 320] - high)))
-        assert margin >= 80, (project.name, margin)
-        save(project.parent / "native-review.json", {"full_bead_bounds": bounds,
-             "minimum_shared_bed_margin_mm": margin,
-             "native_archive_sha256": sha(out / (project.stem + ".gcode.3mf")),
-             "support_policy": "No supports; face-up chips and flat-face-down collars."})
+    bounds = writer.object_toolpaths(out / "plate_1.gcode", out / "all-beads.gcode", None)
+    low, high = np.array(bounds["extrusion_bounds_xy_mm"])
+    margin = float(min(np.min(low - [25, 0]), np.min([325, 320] - high)))
+    assert margin >= 80, (project.name, margin)
+    save(project.parent / "native-review.json", {"full_bead_bounds": bounds,
+         "minimum_shared_bed_margin_mm": margin,
+         "native_archive_sha256": sha(out / (project.stem + ".gcode.3mf")),
+         "support_policy": "No supports; face-up chips and flat-face-down collars."})
     print("Prepared", project, flush=True)
-
-
-def back_top():
-    source = HERE / "profiles/back-top-mark2.3mf"
-    part = ROOT / "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
-    p = JOB / "back-top-mark2/back-top-black-z004-mark2.3mf"
-    report = writer.refresh(source, p, parts=(("enclosure-back-top", part, 180.),),
-                            offsets=((0., 0.),), title="Three-row DRAIN rear wall; Mark2", plate_border=20)
-    with zipfile.ZipFile(p) as z:
-        members = {n: z.read(n) for n in z.namelist()}
-    row = report["parts"][0]
-    settings = json.loads(members[writer.SETTINGS_MEMBER])
-    # Retain the production profile's tree supports. The native footprint review
-    # checks their bed margin; a failed fit does not select normal supports.
-    # Complete insert hosts and roots receive solid infill. Ordinary stock
-    # retains two walls; the roof transition retains its local six-wall band.
-    settings["wall_loops"] = "2"
-    settings["detect_narrow_internal_solid_infill"] = "0"
-    settings["minimum_sparse_infill_area"] = "15"
-    settings["top_one_wall_type"] = "not apply"
-    members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
-    # Roof-down print, with a 90-degree bed yaw to center the full footprint.
-    transform = np.array(row["build_transform"][:9]).reshape(3, 3)
-    yaw = np.array([[0., 1., 0.], [-1., 0., 0.], [0., 0., 1.]])
-    transform = transform @ yaw
-    row["build_transform"][:9] = transform.reshape(-1).tolist()
-    model = ET.fromstring(members["3D/3dmodel.model"])
-    model.find(writer.qn("build"))[0].set("transform", " ".join(map(str, row["build_transform"])))
-    members["3D/3dmodel.model"] = writer.xml(model)
-    cfg = ET.fromstring(members["Metadata/model_settings.config"])
-    for item in cfg.findall("./assemble/assemble_item"):
-        if item.get("instance_id") == "0":
-            item.set("transform", " ".join(map(str, row["build_transform"])))
-    members["Metadata/model_settings.config"] = writer.xml(cfg)
-    # Preserve the supported exterior-transition rule from the production archive.
-    geometry = ET.fromstring(members[row["member"]])
-    vertices = np.array([[float(v.get(k)) for k in "xyz"] for v in geometry.findall(".//" + writer.qn("vertex"))])
-    world = vertices + row["source_center_mm"]
-    count = 0
-    for triangle in geometry.findall(".//" + writer.qn("triangle")):
-        face = world[[int(triangle.get(k)) for k in ("v1", "v2", "v3")]]
-        if np.min(face[:, 2]) >= 345.69 and (np.min(face[:, 0]) >= 100 or np.max(face[:, 0]) <= -100):
-            triangle.set("paint_supports", "8")
-            count += 1
-    members[row["member"]] = writer.xml(geometry)
-    with zipfile.ZipFile(source) as z:
-        members["Metadata/layer_config_ranges.xml"] = z.read("Metadata/layer_config_ranges.xml")
-    # Complete insert hosts, caps, seam ligaments and roots receive solid infill.
-    # Modifier bounds are in the same machine frame as the unmodified STL.
-    region_path = ROOT / "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json"
-    regions = json.loads(region_path.read_text())["pieces"]["back-top"]
-    components = model.find(".//" + writer.qn("components"))
-    owner = cfg.find("object")
-    relations = ET.fromstring(members["3D/_rels/3dmodel.model.rels"])
-    low, high = world.min(axis=0), world.max(axis=0)
-    modifiers = []
-    for index, region in enumerate(regions, 3):
-        bounds = np.array(region["machine_bounds_mm"]).reshape(3, 2)
-        bounds[:, 0] = np.maximum(bounds[:, 0], low + .001)
-        bounds[:, 1] = np.minimum(bounds[:, 1], high - .001)
-        assert np.all(bounds[:, 1] > bounds[:, 0]), region
-        box = trimesh.creation.box(extents=bounds[:, 1] - bounds[:, 0])
-        box.apply_translation(bounds.mean(axis=1) - row["source_center_mm"])
-        document = ET.Element(writer.qn("model"), unit="millimeter")
-        resources = ET.SubElement(document, writer.qn("resources"))
-        solid = ET.SubElement(resources, writer.qn("object"), id=str(index), type="model")
-        geom = ET.SubElement(solid, writer.qn("mesh"))
-        verts, tris = ET.SubElement(geom, writer.qn("vertices")), ET.SubElement(geom, writer.qn("triangles"))
-        for v in box.vertices:
-            ET.SubElement(verts, writer.qn("vertex"), **dict(zip("xyz", map(str, v))))
-        for f in box.faces:
-            ET.SubElement(tris, writer.qn("triangle"), **dict(zip(("v1", "v2", "v3"), map(str, f))))
-        member = f"3D/Objects/solid-host-{index}.model"
-        members[member] = writer.xml(document)
-        ET.SubElement(components, writer.qn("component"), objectid=str(index),
-                      transform="1 0 0 0 1 0 0 0 1 0 0 0", **{f"{{{writer.PROD}}}path": "/" + member})
-        part_cfg = ET.SubElement(owner, "part", id=str(index), subtype="modifier_part")
-        for k, value in {"name": region["name"], "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                         "sparse_infill_density": "100%", "sparse_infill_pattern": "zig-zag"}.items():
-            writer.metadata(part_cfg, k, value)
-        ET.SubElement(relations, f"{{{writer.REL}}}Relationship", Target="/" + member,
-                      Type=next(iter(relations)).get("Type"), Id=f"solid-host-{index}")
-        modifiers.append({**region, "applied_machine_bounds_mm": bounds.flatten().tolist()})
-    members["3D/3dmodel.model"] = writer.xml(model)
-    members["Metadata/model_settings.config"] = writer.xml(cfg)
-    members["3D/_rels/3dmodel.model.rels"] = writer.xml(relations).replace(b"ns0:", b"").replace(b"xmlns:ns0=", b"xmlns=")
-    writer.archive_write(p, members)
-    row["plate_translation_mm"] = row["build_transform"][9:]
-    row["rotation_z_degrees"] = 90.
-    placed = vertices @ transform + np.array(row["build_transform"][9:])
-    row["plate_bounds_mm"] = [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()]
-    report.update(project_sha256=sha(p),
-                  settings_sha256=hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest(),
-                  printer="Mark2", show_support_blocked_faces=count,
-                  solid_host_regions=modifiers, solid_host_region_source_sha256=sha(region_path),
-                  support_type=settings["support_type"],
-                  wall_loops=2, solid_host_wall_loops=None,
-                  detect_narrow_internal_solid_infill="0", top_one_wall_type="not apply",
-                  support_reason="Shared PET-GF tree support profile; the complete model/support/brim footprint requires its native 20 mm bed-margin review.")
-    save(p.with_suffix(".preparation.json"), report)
-    slice_project(p, report)
 
 
 def labels(label_colours=None):
@@ -201,7 +101,7 @@ def labels(label_colours=None):
                            "locked": "false", "bed_type": settings["curr_bed_type"],
                            "filament_map_mode": "Manual", "filament_maps": "1 2", "filament_volume_maps": "0 0"}.items():
             writer.metadata(plate, key, value)
-        details = []
+        details, tops, objects = [], [], []
         for station in stations:
             if station == "data":
                 shapes = [("chip", [s.rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
@@ -215,7 +115,7 @@ def labels(label_colours=None):
                 index = len(details)
                 bb = pair[0].BoundingBox()
                 shift = (-(bb.xmin + bb.xmax) / 2, -(bb.ymin + bb.ymax) / 2, 0)
-                children = []
+                children, heights = [], []
                 for label, shape, tool in zip(("body", "word"), pair, (body_tool, letter_tool)):
                     shape = shape.translate(shift)
                     vs, fs = shape.tessellate(.015, .05)
@@ -228,6 +128,7 @@ def labels(label_colours=None):
                         mesh.fix_normals(multibody=True)
                         assert abs(mesh.volume - volume) < .01
                     assert mesh.is_watertight and mesh.is_winding_consistent and mesh.volume > 0, (station, kind, label)
+                    heights.append((float(mesh.bounds[0][2]), float(mesh.bounds[1][2])))
                     stl = directory / "geometry" / f"{station}-{kind}-{label}.stl"
                     stl.parent.mkdir(parents=True, exist_ok=True)
                     mesh.export(stl)
@@ -257,24 +158,31 @@ def labels(label_colours=None):
                 instance = ET.SubElement(plate, "model_instance")
                 for key, value in {"object_id": oid, "instance_id": 0, "identify_id": 2901 + index}.items():
                     writer.metadata(instance, key, value)
-                # A multi-material prime tower requires one shared layer schedule.
-                # The wing-thick DATA face closes on the accepted 1.68 mm datum.
-                bands = ([("1.40", "1.68", "0.14"), ("1.92", "2.48", "0.08")] if colour == "black"
-                         else [("1.88", "2.0", "0.12")])
-                object_ranges = ET.SubElement(ranges, "object", id=str(index + 1))
-                for low, high, height in bands:
-                    band = ET.SubElement(object_ranges, "range", min_z=low, max_z=high)
-                    ET.SubElement(band, "option", opt_key="layer_height").text = height
+                floor = min(low for low, _ in heights)
+                if kind == "chip":
+                    tops.extend(round(high - floor, 4) for _, high in heights)
+                objects.append(index + 1)
                 details.append({"station": station, "kind": kind, "body_filament": body_tool,
-                                "word_filament": letter_tool, "position_xy_mm": position})
+                                "word_filament": letter_tool, "position_xy_mm": position,
+                                "face_up_tops_mm": [round(high - floor, 4) for _, high in heights] if kind == "chip" else None})
+        # A multi-material prime tower requires one shared layer schedule.
+        bands = closing_schedule(tops)
+        for number in objects:
+            object_ranges = ET.SubElement(ranges, "object", id=str(number))
+            for low, high, height in bands:
+                band = ET.SubElement(object_ranges, "range", min_z=f"{low:g}", max_z=f"{high:g}")
+                ET.SubElement(band, "option", opt_key="layer_height").text = f"{height:g}"
         members.update({"3D/3dmodel.model": writer.xml(model),
                         "Metadata/model_settings.config": writer.xml(cfg),
                         "Metadata/layer_config_ranges.xml": writer.xml(ranges),
                         writer.SETTINGS_MEMBER: json.dumps(settings, indent=2).encode(),
                         "_rels/.rels": b'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Target="/3D/3dmodel.model" Id="rel-1" Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel"/></Relationships>',
                         "[Content_Types].xml": b'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/><Default Extension="config" ContentType="application/octet-stream"/></Types>'})
+        cooling = writer.petgf_cooling.apply_members(members)
         writer.archive_write(p, members)
         save(directory / "preparation.json", {"project_sha256": sha(p), "parts": details,
+             "closing_layer_ranges_mm": bands, "face_up_tops_mm": sorted(set(tops)),
+             "cooling_changes": cooling,
              "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__), Path(data.__file__), Path(data.interface.__file__), Path(data.interface.nameplate.__file__), Path(data.interface.nameplate.dimensions.__file__), Path(__file__))},
              "extruder_offset": settings["extruder_offset"], "z_trim_mm": .04,
              "first_layer_mm": .20, "normal_layer_mm": .24})
@@ -283,13 +191,8 @@ def labels(label_colours=None):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("jobs", nargs="*", choices=("back-top", "labels"))
+    ap.add_argument("jobs", nargs="*", choices=("labels",))
     ap.add_argument("--label-colour", action="append", choices=("white", "blue", "red", "black"),
                     help="Prepare only the selected identification plate(s).")
     args = ap.parse_args()
-    actions = {"back-top": back_top, "labels": labels}
-    for name in args.jobs or actions:
-        if name == "labels":
-            labels(args.label_colour)
-        else:
-            actions[name]()
+    labels(args.label_colour)
