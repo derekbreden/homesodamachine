@@ -3,8 +3,8 @@ alternatives: Lowering the surrounding platform changes unrelated floor datums. 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-90.733 y=468.372 z=0.000
 
-[sliver] Outside the pump-dock change and unresolved: these finite strips belong to the retained integral disposal-warning outlines. The entire native warning field and wall match the identified reference after the actual rear-plane transform, with unchanged text/font/relief construction. This establishes scope and does not accept fine strokes, deposition or legibility.
-alternatives: Reconcile the font strokes and marking method as a complete warning. Widening individual strokes changes counters and fit; a separate or contrasting flush marking replaces the selected integral implementation. That marking redesign is not implemented here.
+[sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall, against the readable but quiet marking Derek asked for.
+alternatives: Rebuild the legend for the bead that draws it: open each outline by half of the 0.42 mm bead, keep neighbouring letters at least two beads (0.84 mm) apart, and rake every flank facing down the wall at 45° off the wall face. Derek decides whether 6.4 mm must hold on the raked face (H's face is 5.9 mm, so caps go to at least 7.0 mm), the tracking, or an engraved legend instead.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=58.339 y=481.599 z=48.948
 click: x=53.050 y=481.600 z=11.431
@@ -153,8 +153,8 @@ click: x=-40.005 y=481.597 z=12.412
 click: x=-62.330 y=481.600 z=49.929
 click: x=50.604 y=481.600 z=30.189
 
-[thin] Outside the pump-dock change and unresolved: these actual fine sections are in the retained integral warning strokes and their outlines. The complete native marking field is identical to the reference after the explicit rear-plane transform. This scope evidence does not accept these small sections as printable, durable or legible.
-alternatives: Reconcile the complete lettering and its method if larger local sections are required, retaining all specified warning content. No marking redesign or physical legibility qualification is performed here.
+[thin] Pending Derek's decision, reported: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. The 0.96-1.71 mm rows are the strokes themselves. Below one bead, and so defects: the K and X terminal tips (0.001-0.032 mm) and each R's 0.163 mm leg spur. The 0.200 mm rows are an export artifact: the flute cutter's zero-depth slab cuts every letter at Y481.7 and the union adds the letters back, leaving coincident tessellations; the export should clear those loose tops before one re-add. Letter gaps of 0.48-0.69 mm (LA, EX, RA, TI) are under two beads.
+alternatives: Rebuild the legend for the bead that draws it: open each outline by half of the 0.42 mm bead, keep neighbouring letters at least two beads (0.84 mm) apart, and rake every flank facing down the wall at 45° off the wall face. Derek decides whether 6.4 mm must hold on the raked face (H's face is 5.9 mm, so caps go to at least 7.0 mm), the tracking, or an engraved legend instead.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=45.292 y=481.499 z=45.698
 click: x=-23.414 y=481.599 z=45.698
@@ -280,21 +280,13 @@ click: x=104.500 y=213.029 z=91.847
 click: x=-104.500 y=213.003 z=138.333
 click: x=104.500 y=213.003 z=138.333
 
-[thin] Outside the pump-dock change and unresolved: these actual handhold edges, seam returns and rear entry transitions retain the native material in their exact 4 mm windows. Fixed seam interfaces use unchanged coordinates; the rear entry uses its explicit rear-plane transform. The new core-stop tail has its own separate 0.50 mm clearance proof. This correspondence does not accept these fine sections or lifting/load capacity.
-alternatives: Reconcile each retained floor seam, handhold return or rail-entry contour with its mate to increase local stock while retaining running clearance and the finger opening. Those interface redesigns are not implemented here.
+[thin] Pending Derek's decision, reported: the lower Y-stack head pocket in the handhold ceiling. The handhold's R6 additive print chamfer (`pocket_rim`) meets the Ø10.8 head and washer pocket, leaving a 1.06-1.56 mm lip (the 1.678 rows), and the flute fade meets the washer floor's corner at Z37.25 with 2.80 mm of backing. The 13.75 mm opening holds the head path, the pocket radius and the rim foot; the floor cannot drop below Z36.35 and keep 9.5 mm of insert engagement at the -0.8 mm screw-length allowance.
+alternatives: DIN 433 Ø9 washers in a Ø9.8 pocket (backing 3.15 mm, lip 1.7 mm), a named local allowance for the lower mouth as the upper mouth has, or a notch through the R6 rim.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-95.671 y=466.176 z=157.195
-click: x=95.671 y=466.176 z=157.195
 click: x=105.247 y=209.512 z=29.327
 click: x=-105.247 y=209.512 z=29.327
 click: x=-106.383 y=208.410 z=37.812
 click: x=106.405 y=208.411 z=37.688
-click: x=-91.100 y=200.150 z=29.269
-click: x=91.100 y=200.150 z=29.269
-click: x=-91.503 y=203.025 z=29.275
-click: x=91.503 y=203.025 z=29.275
-click: x=-98.415 y=203.069 z=29.315
-click: x=98.415 y=203.069 z=29.315
 
 [thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm core-receiver and anchor sections, with material at all five native interior samples. Endpoint coordinates differ by exactly 3.000 mm along their section axis. Floating-point inclusion at the 3 mm search reach does not establish a smaller design section or qualify printed dimensions and load capacity.
 alternatives: Use an explicit numerical tolerance at the requested section threshold. Enlarging a nominal fitted section solely to change its floating-point rank has no dimensional basis.
@@ -310,8 +302,8 @@ click: x=90.750 y=253.835 z=-0.013
 click: x=93.750 y=215.460 z=-0.157
 click: x=94.031 y=257.000 z=0.451
 
-[ledge] Outside the pump-dock change and unresolved: these print-down ledges are edges of the retained integral warning. Their anchors lie inside the complete native marking field whose correspondence is recorded in pump-dock/lint-interface-review.json. This establishes scope and does not accept support contacts, removal effort or finished legibility.
-alternatives: Reconcile the complete marking and its deposition method. Widening or removing individual edges changes the font and warning; a separate marking is a different implementation and is not introduced here.
+[ledge] Pending Derek's decision, reported: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. Each ledge is a stroke's 0.6 mm underside facing the bed, a shelf the raked legend removes.
+alternatives: Rebuild the legend for the bead that draws it: open each outline by half of the 0.42 mm bead, keep neighbouring letters at least two beads (0.84 mm) apart, and rake every flank facing down the wall at 45° off the wall face. Derek decides whether 6.4 mm must hold on the raked face (H's face is 5.9 mm, so caps go to at least 7.0 mm), the tracking, or an engraved legend instead.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-15.250 y=481.496 z=8.181
 click: x=38.479 y=481.633 z=26.939
