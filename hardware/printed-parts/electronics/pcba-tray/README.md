@@ -43,17 +43,24 @@ the 4.0 mm insert, following the
 [ruthex RX-series drawing](https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf).
 
 The PCB underside and every mounting hole are at Z = 0 in `pcba-board.step`.
-The through-hole component footprints continue to Z = −2 as a conservative
-tail envelope, with the four 7.2 × 7.2 mm boss footprints around MH1–MH4 kept
-open. In the appliance that envelope is seated nearest the +X wall,
-so the four wall bosses reach 2 mm farther inboard to the actual board underside;
-the wall is not allowed to occupy the solder-tail clearance simply because the
-fab visualization omits detailed clipped leads.
+Every part on the board is top-side, so the underside presents only through-hole
+solder joints and flush copper. The through-hole component footprints continue to
+Z = −2 as a conservative tail envelope, except within 8 mm of each mounting hole,
+where the model carries the board's own joints instead (`_hole_joints`): J1 pin 1
+stands 6.2 mm from MH2 to its pad edge, J7 pin 1 6.3 mm from MH3 and J11 pin 1
+5.5 mm from MH4, and MH1's nearest, a J14 shield leg, is 11.3 mm off. In the
+appliance that envelope is seated nearest the +X wall, so the four wall bosses
+reach 2 mm farther inboard to the actual board underside; the wall is not allowed
+to occupy the solder-tail clearance simply because the fab visualization omits
+detailed clipped leads.
 
-The appliance's Ø7 mm mounting sleeves at MH1, MH2 and MH4 fit inside those
-unchanged tail keepouts. MH3 seats on the rectangular pad it shares with the
-upper bar of relay #2, which the enclosure assembly reads clear of the whole
-envelope. Each short M3 insert starts 2.25 mm wallward of the board's mounting
+The appliance's mounting sleeves at MH1, MH2 and MH4 are sized off those joints:
+3 mm round the knurl entry at MH1, 2.25 mm at MH4 beside J11 pin 1, and 2 mm at
+MH2, where the sleeve meets relay #2's lower bar flush. MH3 seats on the
+rectangular pad it shares with the upper bar of relay #2, which the enclosure
+assembly reads clear of the whole envelope; its fore face stands 0.5 mm off J7
+pin 1, 2.6 mm from the knurl entry. Each short M3 insert starts 2.25 mm wallward
+of the board's mounting
 face, behind the tail zone and its 0.25 mm supported-face allowance. The complete
 Ø8 mm insert host starts at that recessed seat; a Ø5 mm entry admits the whole
 knurl. M3×8 through the 1.6 mm PCB reaches 4.15 mm into the 4 mm insert, with
