@@ -1,67 +1,389 @@
-[step] The Y80.012898 face above Z332.998205 is the aft wall of the 12 mm support-removal exit that continues the display-wing pocket outline. Its current pick at Z335.037 lies inside that short exit. The compared Y79.515 plane belongs to the pump bay below. The long removal extension joins the bay plane through a 45° transition below the short exit. The bounded source-negative proof retains the complete wing pocket and its 12 mm exits; physical support removal remains unqualified.
-alternatives: Moving the upper wall from Y80.012898 to Y79.515 clips a 0.497898 mm slice from the retained support passage. Enlarging the whole bay changes unrelated component clearances. The lower extension can share the bay boundary while the complete short exit remains open.
+[step] Specific positive body-stop interface: four flat 4 × 12 mm lands stand 0.250 mm fore of the fixed wall, ending exactly at the lower cartridge aft plane Y82.265. Their 48 mm² faces establish the cartridge pose and carry both insertion reaction and seating moments independently of magnet faces and TPU tip stops. body-stop-native-review.json reads all four actual final bearing faces, 3 mm integral root stock, positive overtravel reaction and cartridge/cap withdrawal.
+alternatives: Making the land flush leaves the cartridge without its positive stop across the required 0.250 mm body air. Advancing the whole wall to the bearing plane removes that running clearance through the cap and fluid interfaces. A separate shim or adjustable screw adds factory parts and another seating datum. The localized flat lands preserve the named lower-cradle contact planes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-64.775 y=80.013 z=335.037
+click: x=-100.000 y=82.265 z=223.925
 
-[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm pocket depth is the required difference between flank |X|98.5 and the yoke sweep |X|99.85, including its finite fore/aft and lower end planes. They are finite installation-envelope boundaries, not 1.35 mm enclosure walls.
-alternatives: Filling the recess intrudes into the yoke approach. Cutting the surrounding flank back to the recess plane removes unrelated rail and mounting material. Retain this finite fitting envelope.
+[step] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
+alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-99.175 y=163.152 z=253.100
-click: x=99.175 y=162.882 z=253.100
-click: x=-99.175 y=129.540 z=253.100
-click: x=99.175 y=129.540 z=253.100
-click: x=-99.175 y=146.346 z=235.811
-click: x=99.175 y=146.211 z=235.811
+click: x=-49.600 y=86.565 z=186.426
+click: x=49.600 y=86.565 z=186.426
+click: x=54.850 y=86.565 z=186.426
+click: x=-54.850 y=86.565 z=186.426
 
-[ceiling] The complete bay roof at Z284.674 preserves the pump cartridge withdrawal envelope under the display/ridge storey. Support is accessible through the empty front cartridge bay before assembly; current native floor/roof fit evidence does not qualify physical cleanup.
-alternatives: Filling under this roof enters cartridge travel; sloping it changes the prescribed full-width bay envelope and lintel section.
+[sliver] Specific mating guard recess: these 1.350 mm strips are the axial depth of its four cavity boundary faces, from Y82.515 to Y83.865. They admit the moving 1.350 mm projecting guard with 0.250 mm running air while leaving the pole 0.650 mm ahead of that guard. The closed recess end to the side-key front at Y86.865 retains the complete 3.000 mm fixed housing section; the narrow face width is the required engagement depth, not a 1.350 mm wall specification. The actual host/loading/swept-guard record is magnet-geometry.json.
+alternatives: A shallower recess stops the guard before the four body lands seat and before the poles meet. A deeper recess consumes the 3 mm housing before the cured side keys; widening it changes the retained radial guidance. Removing the moving guard exposes more magnet edge and changes its insertion protection. The specified recess retains this mating envelope, with physical fit and chipping qualification still open.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=42.257 z=284.674
+click: x=60.400 y=83.190 z=189.752
+click: x=-44.050 y=83.190 z=189.752
+click: x=-60.400 y=83.190 z=189.752
+click: x=44.050 y=83.190 z=189.752
+click: x=-52.225 y=83.190 z=206.105
+click: x=52.225 y=83.190 z=206.105
+click: x=-52.225 y=83.190 z=173.399
+click: x=52.225 y=83.190 z=173.399
 
-[ceiling] These Z272.5 flats close the upper Y-seam insert hosts above the existing tube corridor. Current native integrity evidence retains the complete source-declared pilot backing. Tree (auto)/Default support approaches from the empty interior; physical cleanup is unqualified.
-alternatives: A corbel below the block enters the tube corridor. Cutting upward into the host spends insert or blind-cap stock.
+[sliver] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
+alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=54.850 y=86.565 z=186.426
+click: x=-49.600 y=86.565 z=186.426
+click: x=-55.200 y=86.265 z=186.426
+click: x=55.200 y=86.265 z=186.426
+click: x=-49.250 y=86.265 z=186.426
+click: x=49.250 y=86.265 z=186.426
+click: x=-54.850 y=86.565 z=186.426
+click: x=49.600 y=86.565 z=186.426
+
+[sliver] Specific mating-stop perimeter: the 0.250 mm strip is the exposed fore projection of each 4 × 12 mm body-stop face across the cartridge/wall running gap. The current native review measures the complete 48 mm² reaction face and 3 mm root behind the wall at each station; 0.250 mm is the required stop offset, not a membrane thickness. These edges finish the four explicit lower-cradle seating planes.
+alternatives: Removing the projection loses positive seating across the body air. Enlarging its Y projection changes the closing pose and both magnet/contact datums. Extending the wall across the whole gap removes required cap/fluid clearance. A perimeter bevel changes the stated full rectangular contact area; it does not provide a thicker through-wall section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=98.000 y=82.390 z=223.925
+click: x=98.000 y=82.390 z=266.174
+click: x=-102.000 y=82.390 z=223.925
+click: x=-102.000 y=82.390 z=266.174
+click: x=-98.000 y=82.390 z=223.925
+click: x=-98.000 y=82.390 z=266.174
+click: x=102.000 y=82.390 z=223.925
+click: x=102.000 y=82.390 z=266.174
+click: x=-100.000 y=82.390 z=260.174
+click: x=100.000 y=82.390 z=260.174
+click: x=-100.000 y=82.390 z=217.925
+click: x=100.000 y=82.390 z=217.925
+click: x=-100.000 y=82.390 z=229.925
+click: x=100.000 y=82.390 z=229.925
+click: x=-100.000 y=82.390 z=272.174
+click: x=100.000 y=82.390 z=272.174
+
+[ledge] Specific mating-stop lower end: each 1.00 mm² horizontal face closes the 0.250 mm fore projection of a 4 × 12 mm flat reaction land. Its depth is fixed by the required cartridge/wall running gap and its fore edge by the lower-cradle seating plane. The full 48 mm² stop faces and 3 mm roots are measured in body-stop-native-review.json. Tree (auto)/Default support can approach through the empty bay before the cartridge is fitted; removal quality remains unqualified.
+alternatives: Bevelling through the fore edge reduces the full rectangular reaction face and changes its lower edge. Filling below that face extends the stop into a different cradle contact region. Removing the projection loses seating across the 0.250 mm air; advancing the entire wall removes the running clearance. Keep the four bounded flat contact lands.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-100.667 y=82.432 z=260.174
+click: x=99.333 y=82.432 z=260.174
+click: x=-100.667 y=82.432 z=217.925
+click: x=99.333 y=82.432 z=217.925
+
+[ceiling] Required flat loading/key closure above each SB443-IN stack. The full supplier block loads through the front mouth and descends along the rails; the Z202.8554 roof closes the cured fill’s upward escape path. Three millimetres of roof stock remain above that loading envelope. The rear-frame insert axes at Z208.674 need their own 3 mm surrounding stock; the overlapping pilot starts at Y89.115, within the loading cavity’s aft extent. Empty mouths open toward −Y for Tree (auto)/Default support removal before magnets and bedding are installed. Geometric access does not establish removal effort or printed finish.
+alternatives: A ramp into the present mouth obstructs the full drawing loading envelope. Raising a full-width 45° roof over the 9.85 mm keyed span adds 4.925 mm at its crest, taking it to Z207.7804 and into the rear-frame pilot’s lower envelope at Z206.674. Opening the roof removes the fill’s positive-Z closure. Moving the frame locks changes the frame/receiver mounting interface. The flat closure preserves both fitted envelopes.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-52.225 y=86.603 z=202.855
+click: x=52.225 y=86.603 z=202.855
+
+[ceiling] Specific moving-guard guide crown: the Z206.1054 flat is 0.250 mm above the complete moving guard’s top at Z205.8554. The 1.350 mm-deep receiving recess keeps the same running allowance along insertion while the moving pole remains 0.650 mm ahead of its guard. magnet-geometry.json binds the actual host, complete swept guard and bare-face seating. The empty mouth is open toward −Y for Tree (auto)/Default support removal before installation; finish and cleanup remain unqualified.
+alternatives: A ramp below this plane enters the moving guard’s swept envelope. Raising the crown into a ramp enlarges the designed running/tilt clearance toward the exposed magnet edges. Removing the guide crown gives up that upper guidance; changing both guard and recess changes the mating interface. Keep the uniform guide clearance and support its open crown.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-52.225 y=83.190 z=206.105
+click: x=52.225 y=83.190 z=206.105
+
+[sliver] Required purchased-body / insert-loading depth transition. These 0.850 mm face strips join the 4.30 mm-high body/ear stadium and the 2.60 mm-high knurl-loading stadium, each with the separate supported-face allowance, at body-cavity end Y86.790. The source retains 3.10 mm axial root allowance between body depth 4.15 and heat-set anchor 7.25. Exact native rejection witnesses show that extending the body cavity to the anchor removes both 3.10 mm material lines and opens cavity points only 1.427773 mm from the nominal Ø2.3 knurls, below the specified 3 mm root. The strip width is not a 0.850 mm through-wall allowance. Printed loading and screw retention remain separately unqualified.
+alternatives: A straight 45-degree reconciliation of the 0.85 mm profile-height change requires 0.85 mm additional axial run, leaving 2.25 mm to anchor 7.25; the current 3.10 mm stack has only 0.10 mm beyond its 3 mm minimum. Extending the complete body-height cavity loses the quantified root. Enlarging the loading aperture through the full ear width spends the ear bearing at depth 3.00. Moving inserts deeper changes the 8 mm screw stack and loading-tool access.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-6.442 y=86.790 z=277.499
+click: x=6.442 y=86.790 z=277.499
+
+[ceiling] Purchased connector body/ear seat roof. This closed ceiling follows the complete body envelope with slip and the separate supported-face allowance. The ear bearing remains at depth 3.00, the body cavity at depth 4.15 and the insert anchor at depth 7.25. Tree(auto)/Default support reaches it from the empty contact opening before hardware installation. Printed cleanup, fit and retention are unqualified; accessible support alone does not establish removal effort.
+alternatives: Sloping down into the source stadium consumes the purchased body clearance. A one-direction 45-degree rise over the 4.15 mm body depth consumes 4.15 of the current 6.75 mm to the crown, leaving 2.60 mm rather than the nominal 3 mm. A two-sided pitched relief could limit the rise to about 2.075 mm but would change the complete body-capture, insert-loading and adjoining lead-bore profiles; that alternative has not received an exact native or print review. Removing the roof opens the body seat through the retained crown.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=84.653 z=277.924
+
+[ceiling] Fixed-collar tie-routing and bearing windows. Each flat 3.50 mm-high band keeps the conditional 2.54 mm strap on the purchased fixed run collar at Z±13.5, with a consistent threading profile through the saddle rails. The original 3 mm end stock and both collar rails remain. The eight conditional strap/head envelopes have zero overlap with the current saddles. Thread ties before installing tees, and remove Tree(auto)/Default support while the openings are empty. Actual purchased tie-head fit, tension, retention and support-release effort remain unqualified.
+alternatives: Filling or sloping down reduces the specified strap opening. A full 45-degree upward roof across its 9 mm fore-aft depth consumes 9 mm of the 3 mm end stock; a two-sided roof needs a 4.5 mm central rise. Moving the strap band changes contact from the fixed collar to the adjacent operating sleeve or tube. A different roof and bearing profile must retain the fixed-collar band, full nominal stock and conditional loop route.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=22.350 y=113.040 z=201.424
+click: x=22.350 y=113.040 z=174.424
+click: x=-22.350 y=113.040 z=201.424
+click: x=-22.350 y=113.040 z=174.424
+click: x=-82.100 y=113.040 z=201.424
+click: x=82.100 y=113.040 z=201.424
+click: x=82.100 y=113.040 z=174.424
+click: x=-82.100 y=113.040 z=174.424
+
+[step] Required recessed fold-through TPU front lip. This Ø14.30 by 0.60 mm counterbore contains the receiver's Ø14.00 by 0.60 mm flexible lip flush within the permanent wall. Its Y83.115 floor and wall fore Y82.515 are separate fit planes. The next collar ramp starts 3 mm behind the floor, retaining the nominal rigid wall neck.
+alternatives: Removing the recess puts the lip 0.60 mm in front of the wall, exceeding the seated cartridge's 0.25 mm gap by 0.35 mm where the moving dry passage is only Ø7.75. Deepening the recess reduces the 3 mm neck before the collar ramp. Extending the larger bore through the wall changes cuff confinement and X/Z location.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-24.430 y=83.115 z=192.208
+
+[step] Separate rear-frame blind-pilot depth and recessed wall planes. The Ø4 mm pilot ends at Y89.115 because the frame seat at Y94.365 carries a 4.00 mm RX-M3S insert plus 1.25 mm relief. Its end retains 6.600 mm of solid to wall fore Y82.515. The reported 0.400 mm is an offset to the unrelated recessed wall face Y89.515, rather than a membrane or ordinary feature-join thickness. The M3×8 screw through the 3.15 mm frame and 0.50 mm washer projects 4.35 mm, leaving 0.90 mm at the blind end.
+alternatives: Aligning the pilot floor to the wall-recess plane shortens relief to 0.85 mm and nominal screw-tip room to 0.50 mm. A through pilot removes the blind end but is not required by this depth/stack. Neither alternative corrects a 0.40 mm material wall, because none exists.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-52.225 y=89.115 z=208.674
+
+[ceiling] Outboard branch passage below the upper fixed-collar tie rail. Each flat opening at Z194.924 leaves exactly 3.000 mm to the upper tie-window floor Z197.924. Current native lines at both stations contain the complete 3 mm section with all five interior samples IN. The conservative Ø16.5 branch-collar envelope clears a continuous 20 mm aft path with zero overlap and 0.50 mm Z room to this roof. This defines geometric branch passage and retained rail stock; purchased sleeve fit, extraction force and printed cleanup remain unqualified. Empty openings receive Tree(auto)/Default support before tee installation.
+alternatives: Raising a one-direction 45-degree roof across the 9 mm opening needs 9 mm of rise; a two-sided roof needs 4.5 mm, both exceeding the 3 mm bridge to the upper tie window. Lowering the roof consumes the 0.50 mm branch-envelope room. Opening through the upper rail removes that fixed-collar tie bearing and changes the supported loop. A different branch/tie profile must retain nominal stock and the measured collar route.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-87.675 y=113.040 z=194.924
+click: x=87.675 y=113.040 z=194.924
+
+[ledge] Flat lower tie-routing and bearing windows through the side-arm corbels. Their 3.5×3.5 mm openings continue the fixed-collar strap path, with 0.48 mm nominal height allowance on either side of the conditional 2.54 mm strap. The current arms are 4.25 mm wide; exact native lower-window material lines retain at least 4.85 mm and the roof joins the full arm above. All eight conditional strap/head routes are zero-overlap. Thread the straps and remove Tree(auto)/Default support while the windows are empty; actual purchased tie-head fit and physical release remain unqualified.
+alternatives: Filling or lowering the opening reduces the specified strap route. A pitched or arched enlargement is geometrically possible if it retains the flat strap-bearing stations, fixed-collar band, complete loop route and nominal 3 mm stock; it changes this selected square threading/bearing profile and must be checked at the rail and arm junctions. The existing flat profile is intentional, rather than a leftover corbel join.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-34.433 y=107.457 z=174.424
+click: x=33.017 y=106.373 z=174.424
+click: x=-71.433 y=106.373 z=174.424
+click: x=-10.267 y=106.373 z=174.424
+click: x=10.267 y=106.373 z=174.424
+click: x=70.017 y=106.373 z=174.424
+
+[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm depth is the authored difference between the flank at |X|98.5 and the yoke approach at |X|99.85, including finite fore/aft and lower end planes. The current native windows retain those fitting boundaries; this is no printed-fit or strength acceptance.
+alternatives: Filling the pocket enters the yoke approach. Cutting the entire flank to the pocket plane removes adjoining rail and mounting stock. Retain the finite purchased-part approach envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-99.175 y=166.152 z=253.100
+click: x=99.175 y=165.882 z=253.100
+click: x=-99.175 y=132.540 z=253.100
+click: x=99.175 y=132.540 z=253.100
+click: x=-99.175 y=149.346 z=235.811
+click: x=99.175 y=149.211 z=235.811
+
+[ceiling] The complete bay roof at Z284.674 preserves the full-width cartridge withdrawal envelope below the display/ridge storey. Support is accessible through the empty front bay before assembly. Its nominal opening is retained; physical support removal remains unqualified.
+alternatives: Filling beneath the roof enters cartridge travel. Sloping its full width changes the required bay opening and lintel section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=43.757 z=284.674
+
+[ceiling] The fore valve tray retains its flat lower edge at Z230.400 and current Y109.840 face centroid above the fixed dock. Its valve-post rooms and port channels retain the purchased valve insertion envelope. Support can be approached through the empty interior before dock plumbing and valves are installed; cleanup remains unqualified.
+alternatives: A full 45-degree corbel from Y114.440/Z230.400 toward wall aft Y96.836 reaches Z213.475 at the rear frame aft plane Y97.515, leaving only 0.051 mm above its Z213.424 top. Filling that space loses the required clearance; moving the tray changes four valve and link stations.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=109.840 z=230.400
+
+[ceiling] These Z272.500 flats close the upper Y-seam insert hosts above the existing tube corridor. The source-declared pilot and surrounding host remain inside the rechecked native windows. Support approaches through the open interior before assembly; physical cleanup remains unqualified.
+alternatives: A corbel below the block enters the tube corridor. Cutting upward spends the insert host or its blind cap.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-95.000 y=207.400 z=272.500
 click: x=95.000 y=207.400 z=272.500
 
-[ceiling] The Z195.8 roofs clear back-top lower hubs at Z195.05 by 0.75 mm, including running air and both supported opposing faces. The current native paired-face audit verifies this gap. Support leaves through the open corner before assembly; physical cleanup is unqualified.
-alternatives: An added corbel occupies hub travel. A cut above the roof spends the corner root that joins the insert stack to the rail storey.
+[ceiling] The Z195.800 roofs preserve the nominal 0.750 mm gap to the opposing back-top hubs at Z195.050, including the prescribed running and supported-face allowances. Their finite native windows are unchanged. Support leaves through the open corner before assembly; physical cleanup remains unqualified.
+alternatives: Filling below the roof enters hub travel. Cutting above the roof removes the corner root joining the insert stack to the rail storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.375 y=208.900 z=195.800
 click: x=101.375 y=208.900 z=195.800
 
-[ceiling] These Z307.4 flats are the front funnel-frame receivers' hooked bearing feet. The current native frame pair retains 0.50 mm at these supported moving faces and 0.25 mm at its vertical guides. Support is accessible through the empty frame opening; cleanup remains unqualified.
-alternatives: Sloping the caught face changes the lifting-retention profile. Filling under it reduces frame entry clearance; removing it loses capture.
+[ceiling] The manifold-B connector well retains its complete flat lid at Z261.400/Y180.000. It captures the connector across the pocket width; support approaches through the empty inboard pocket before connector installation. Printed fit and removal effort remain unqualified.
+alternatives: Removing the lid removes connector capture. Filling or sloping into the well enters the connector and open-lever envelope. Tabs require a different retention profile and support treatment.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=99.850 y=180.000 z=261.400
+
+[ceiling] These Z307.400 flats are the hooked bearing feet of the front funnel-frame receivers. They preserve the nominal supported moving-face and vertical-guide clearances of that captured frame. Support approaches through the empty frame opening; physical fit and cleanup remain unqualified.
+alternatives: Sloping the caught face changes its lifting-retention profile. Filling beneath it reduces frame entry clearance; removing it removes capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.125 y=155.116 z=307.400
 click: x=101.125 y=155.116 z=307.400
 
-[ledge] These two 2 mm projection faces are the manifold-A Wago well retention tabs. Their separated ends capture the connector while the center remains open for lever/wire access and the selected short-bridge roof profile.
-alternatives: Removing tabs loses end retention. Joining them changes this selected open-center lid and its support treatment.
+[ledge] These two 2 mm projection faces are the separated manifold-A Wago retention tabs at Z295.300. They retain the connector ends while leaving the center open for lever/wire access and the selected short roof profile. Physical retention and support cleanup remain unqualified.
+alternatives: Removing the tabs removes end retention. Joining their ends changes the open-center pocket, lever access and support treatment.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=98.300 y=187.383 z=295.300
 click: x=98.300 y=172.617 z=295.300
-click: x=98.300 y=186.717 z=295.300
 
-[step] Four 4 by 12 mm lands establish the cartridge closing plane at Y79.269. The surrounding wall is a separate clearance surface at Y79.515, not a bearing intended to be flush with these lands. The body-stop native review verifies the four specified contact areas and arrested overtravel.
-alternatives: Removing the 0.246 mm projection permits extra tube insertion and pogo compression before the frame stops. Advancing the complete wall makes the whole broad face a seating datum, requiring broad-face flatness instead of four defined bearing areas. Retain the specified bearing plane and surrounding clearance.
+[thin] Outside the pump-dock change and unresolved: these actual fine valve-seat, socket and port-channel sections retain the identified pre-dock native material. Both endpoints of every emitted segment are within a checked 4 mm native window on the current export. The fore and aft valve fixtures use their authored +15 mm and +10.5 mm Y transforms from that reference. This scope evidence does not accept local thickness, press retention, print quality or life.
+alternatives: Reconcile the socket, port channel and seat outline together to increase local ligaments while retaining the purchased valve envelope and insertion path. That valve-fixture redesign is not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-100.000 y=79.269 z=223.925
-click: x=100.000 y=79.269 z=223.925
-click: x=-100.000 y=79.269 z=266.174
-click: x=100.000 y=79.269 z=266.174
+click: x=-80.111 y=182.603 z=212.509
+click: x=-67.529 y=182.603 z=212.509
+click: x=67.529 y=182.603 z=212.509
+click: x=16.062 y=114.423 z=239.839
+click: x=-88.388 y=114.423 z=265.011
+click: x=88.388 y=114.423 z=265.011
+click: x=-28.638 y=114.423 z=265.011
+click: x=28.638 y=114.423 z=265.011
+click: x=-16.062 y=114.423 z=265.011
+click: x=-75.812 y=114.423 z=265.011
+click: x=75.812 y=114.423 z=265.011
+click: x=80.097 y=182.618 z=187.332
+click: x=28.632 y=182.613 z=178.335
+click: x=16.068 y=182.613 z=178.335
+click: x=-80.077 y=182.639 z=187.331
+click: x=67.563 y=182.639 z=187.331
+click: x=-67.563 y=182.639 z=187.331
+click: x=-88.346 y=114.379 z=239.839
+click: x=88.346 y=114.379 z=239.839
+click: x=-28.596 y=114.379 z=239.839
+click: x=-16.104 y=114.379 z=239.839
+click: x=28.596 y=114.379 z=239.839
+click: x=-75.854 y=114.379 z=239.839
+click: x=75.854 y=114.379 z=239.839
+click: x=16.104 y=114.379 z=265.011
+click: x=-28.602 y=182.645 z=178.334
+click: x=-16.098 y=182.645 z=178.334
+click: x=80.063 y=182.654 z=212.509
+click: x=-28.632 y=182.613 z=203.865
+click: x=-16.068 y=182.613 z=203.865
+click: x=16.098 y=182.645 z=203.866
+click: x=28.602 y=182.645 z=203.866
+click: x=-65.070 y=183.623 z=187.496
+click: x=-65.070 y=183.623 z=212.346
+click: x=82.570 y=183.623 z=187.496
+click: x=82.570 y=183.623 z=212.346
+click: x=-90.850 y=113.407 z=239.996
+click: x=-90.850 y=113.407 z=264.846
+click: x=-13.600 y=183.623 z=177.996
+click: x=-13.600 y=183.623 z=202.846
+click: x=31.100 y=183.623 z=177.996
+click: x=31.100 y=183.623 z=202.846
+click: x=-31.100 y=113.407 z=239.996
+click: x=-31.100 y=113.407 z=264.846
+click: x=13.600 y=113.407 z=239.996
+click: x=13.600 y=113.407 z=264.846
+click: x=73.350 y=113.407 z=239.996
+click: x=73.350 y=113.407 z=264.846
+click: x=-82.570 y=183.623 z=187.525
+click: x=-82.570 y=183.623 z=212.375
+click: x=65.070 y=183.623 z=187.525
+click: x=65.070 y=183.623 z=212.375
+click: x=90.850 y=113.407 z=240.025
+click: x=90.850 y=113.407 z=264.875
+click: x=-31.100 y=183.623 z=178.025
+click: x=-31.100 y=183.623 z=202.875
+click: x=13.600 y=183.623 z=178.025
+click: x=13.600 y=183.623 z=202.875
+click: x=-13.600 y=113.407 z=240.025
+click: x=-13.600 y=113.407 z=264.875
+click: x=31.100 y=113.407 z=240.025
+click: x=31.100 y=113.407 z=264.875
+click: x=-73.350 y=113.407 z=240.025
+click: x=-73.350 y=113.407 z=264.875
 
-[step] These faces bound the fixed magnet's groove-engaging rail. The 0.700 mm X step is intentional engagement into the purchased SB443-IN groove. Its rail tip must clear the maximum groove neck while overlapping the full-width magnet body. The native magnet review checks the complete drawing tolerance and loading route.
-alternatives: Making the rail-tip and cavity faces flush removes positive groove engagement. Moving the tip further inward enters the maximum supplier neck envelope. Moving it outward removes engagement. The two planes must remain distinct for this capture.
+[thin] Outside the pump-dock change and unresolved: these actual fine seam-to-roof transitions retain the identified pre-dock native material in exact 4 mm windows at unchanged coordinates. This local correspondence establishes scope and does not accept the thin transition or loaded behavior.
+alternatives: Reconcile the seam tongue and roof-opening contours together to remove the fine transition while preserving the sliding seam and installed frame clearance. That enclosure-joint redesign is not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-49.600 y=83.569 z=186.426
-click: x=49.600 y=83.569 z=186.426
+click: x=-104.250 y=200.029 z=299.301
+click: x=104.250 y=200.029 z=299.301
 
-[ceiling] The fore valve tray retains a flat lower edge above the fixed dock and rear support. Its lower datum and valve-port channels preserve the four purchased valve envelopes. Tree(auto)/Default support is accessible through the empty interior before receivers, rear support, tees and valves are installed; physical cleanup remains unqualified.
-alternatives: A full 45 degree corbel from Y111.44/Z230.4 to the wall at Y93.836 reaches Z213.475 at the rear support's Y94.515 aft edge, only 0.051 mm above its Z213.424 top, losing the required clearance. A solid foot occupies the fixed plumbing and support installation region. Raising the whole tray changes all four valve and link stations. Retain the fitted tray and remove its supports through the empty interior.
+[thin] Outside the pump-dock change and unresolved: these actual fine display-wing corner sections retain the immediate pre-dock display cutter and pose. The source-based finite cutter comparison and current exact 4 mm native-window correspondence identify this local construction. The older reference native window is not claimed identical. This is not a thickness, load or print-quality acceptance.
+alternatives: Reconcile the wing, support-exit corner and surrounding display-seat contour together to increase the local section while retaining the fitted display and support-removal path. That display-interface redesign is not implemented here.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=106.840 z=230.400
+click: x=-63.394 y=19.131 z=308.466
+click: x=63.397 y=19.131 z=308.470
 
-[ceiling] The manifold-B connector pocket has a complete flat retention lid at Z261.4. It captures the connector across its width. Tree(auto)/Default support leaves through the empty inboard pocket at Y180 before connector installation; printed fit and removal effort remain unqualified.
-alternatives: Removing the lid removes connector capture. Filling or sloping into it enters the connector and open-lever envelope. Replacing it with tabs requires a different retention profile and support treatment.
+[thin] Boundary-tangent classification, not a through-material section. All five interior positions at 10/25/50/75/90 percent along each exact current rounded segment classify ON the native boundary; none classifies inside the solid. Four lie on the X±98.5 valve-fixture boundary and two on the display interface. The reported separation follows a surface boundary and supplies no wall-thickness acceptance.
+alternatives: The reader needs an interior-material requirement before ranking tangent boundary pairs as thickness. Thickening geometry solely to move this surface tangent does not measure the surrounding section; use a section through actual interior material when assessing it.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.850 y=180.000 z=261.400
+click: x=98.500 y=182.240 z=180.828
+click: x=-98.500 y=182.240 z=180.828
+click: x=-98.500 y=191.885 z=181.149
+click: x=98.500 y=191.885 z=181.149
+click: x=62.650 y=19.320 z=305.372
+click: x=-62.650 y=19.320 z=305.372
+
+[thin] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
+alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-55.233 y=86.865 z=176.844
+click: x=-49.262 y=86.265 z=177.335
+click: x=49.217 y=86.865 z=176.844
+click: x=55.187 y=86.265 z=177.335
+
+[thin] Specific retained cosmetic-profile exception, outside the pump-dock change. These are real material chords in the finished fluted STL: all five current samples lie inside that closed mesh. The show field is 4.00 mm wide, 1.20 mm deep, with 5.00 mm fades and the actual 5.007346 mm pitch. It cuts a nominal 3 mm show wall to 1.8 mm on a full-depth plateau; oblique end/corner chords can be shorter. This answers the retained appearance profile only and does not claim a finished 3 mm minimum, structural capacity or print acceptance.
+alternatives: Reduce the cosmetic depth or add inward stock while preserving the adjoining fitted clearances. That show-wall/interface redesign is outside this dock implementation; the retained profile has no transferred load or lifetime qualification.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-105.400 y=10.269 z=289.850
+click: x=105.400 y=10.269 z=295.888
+click: x=97.995 y=5.294 z=290.006
+click: x=-97.155 y=5.172 z=292.884
+click: x=104.500 y=173.049 z=287.207
+click: x=-104.500 y=143.045 z=169.087
+click: x=104.500 y=143.045 z=169.087
+click: x=-103.750 y=163.068 z=316.523
+click: x=103.750 y=163.068 z=316.523
+click: x=-103.750 y=143.059 z=300.055
+click: x=-106.306 y=148.011 z=299.812
+click: x=-106.306 y=148.011 z=315.812
+click: x=106.306 y=148.011 z=315.688
+
+[thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
+alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-88.473 y=111.236 z=177.424
+click: x=-86.323 y=112.109 z=174.424
+click: x=-86.562 y=112.314 z=194.924
+click: x=-88.433 y=111.218 z=204.424
+click: x=-89.345 y=109.254 z=197.924
+click: x=-86.323 y=112.109 z=201.424
+click: x=-57.049 y=83.865 z=183.489
+click: x=-97.523 y=108.240 z=238.773
+click: x=-72.483 y=108.240 z=237.713
+click: x=-47.682 y=83.865 z=176.671
+click: x=-26.573 y=112.109 z=201.424
+click: x=-28.802 y=111.538 z=204.424
+click: x=-37.189 y=108.240 z=237.778
+click: x=37.825 y=105.240 z=240.103
+click: x=13.467 y=105.240 z=240.380
+click: x=-6.938 y=105.240 z=239.061
+click: x=-31.228 y=105.240 z=239.641
+click: x=-66.826 y=105.240 z=241.046
+click: x=-66.542 y=105.240 z=264.801
+click: x=-91.263 y=105.240 z=240.970
+click: x=-90.882 y=105.240 z=265.158
+click: x=-13.444 y=108.240 z=238.975
+click: x=-97.475 y=108.240 z=263.503
+click: x=-73.075 y=108.240 z=263.503
+click: x=-36.955 y=108.240 z=262.377
+click: x=-13.455 y=108.240 z=263.866
+click: x=-87.667 y=188.790 z=184.469
+click: x=-86.533 y=188.790 z=208.942
+click: x=-63.342 y=188.790 z=184.511
+click: x=-61.963 y=188.790 z=208.920
+click: x=-37.852 y=188.790 z=177.017
+click: x=-36.955 y=188.790 z=200.377
+click: x=64.076 y=191.790 z=213.901
+click: x=34.841 y=191.790 z=206.738
+click: x=13.422 y=191.790 z=202.970
+click: x=-6.787 y=191.790 z=203.099
+click: x=-31.200 y=191.790 z=202.733
+click: x=-58.536 y=191.790 z=211.376
+click: x=-58.302 y=191.790 z=186.849
+click: x=-82.649 y=191.790 z=212.734
+click: x=-82.764 y=191.790 z=186.686
+click: x=-13.444 y=188.790 z=176.975
+click: x=-13.444 y=188.790 z=201.825
+click: x=18.127 y=112.109 z=201.424
+click: x=15.898 y=111.538 z=204.424
+click: x=47.401 y=83.865 z=183.489
+click: x=6.705 y=108.240 z=239.818
+click: x=31.911 y=108.240 z=237.778
+click: x=56.768 y=83.865 z=176.671
+click: x=77.877 y=112.109 z=201.424
+click: x=75.648 y=111.538 z=204.424
+click: x=89.752 y=108.617 z=174.424
+click: x=82.126 y=109.417 z=177.424
+click: x=82.179 y=111.172 z=194.924
+click: x=82.100 y=108.885 z=197.924
+click: x=66.960 y=108.240 z=238.195
+click: x=91.717 y=108.240 z=237.713
+click: x=6.716 y=108.240 z=264.539
+click: x=-37.675 y=105.240 z=265.416
+click: x=-13.467 y=105.240 z=264.470
+click: x=6.938 y=105.240 z=265.789
+click: x=31.382 y=105.240 z=265.893
+click: x=66.826 y=105.240 z=263.804
+click: x=66.542 y=105.240 z=240.049
+click: x=91.263 y=105.240 z=263.880
+click: x=90.882 y=105.240 z=239.692
+click: x=31.462 y=108.240 z=263.354
+click: x=67.154 y=108.240 z=262.762
+click: x=86.151 y=101.208 z=298.129
+click: x=68.762 y=104.208 z=306.714
+click: x=92.153 y=108.240 z=262.150
+click: x=6.705 y=188.790 z=177.818
+click: x=6.705 y=188.790 z=202.668
+click: x=32.250 y=188.790 z=175.451
+click: x=32.979 y=188.790 z=199.779
+click: x=34.298 y=191.790 z=174.691
+click: x=11.104 y=191.790 z=174.707
+click: x=-9.283 y=191.790 z=174.682
+click: x=-34.584 y=191.790 z=174.719
+click: x=58.224 y=191.790 z=187.742
+click: x=82.764 y=191.790 z=187.584
+click: x=82.922 y=191.790 z=213.457
+click: x=59.898 y=188.790 z=184.511
+click: x=61.320 y=188.790 z=208.915
+click: x=84.373 y=188.790 z=184.469
+click: x=85.507 y=188.790 z=208.942
+click: x=98.132 y=172.650 z=231.161
+click: x=95.251 y=175.650 z=261.053
+click: x=97.892 y=184.350 z=231.378
+click: x=98.481 y=187.350 z=258.302
+click: x=98.125 y=168.950 z=265.258
+click: x=95.252 y=171.950 z=294.947
+click: x=98.358 y=191.050 z=295.170
+click: x=98.320 y=188.050 z=265.639
+click: x=98.408 y=173.612 z=298.300
+click: x=97.675 y=188.006 z=298.300

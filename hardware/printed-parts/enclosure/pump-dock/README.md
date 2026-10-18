@@ -203,6 +203,19 @@ column-centered locks, 3 mm post ligaments, keeper lift envelopes and local
 packing clearances. Its idealized outer-load beam comparison does not
 establish the assembled frame's stiffness or a PET-GF allowable.
 
+The complete [front-wall manufacturing reading](front-wall-lint-review.json),
+[cartridge and factory-tool reading](dock-lint-review.json) and
+[retained shell/interface reading](lint-interface-review.json) account for
+every emitted finding in all six manual reader classes. The local manufacturing
+review also contains the receiver, keeper, rear-support and tip-gauge readings.
+True inherited thin sections remain unresolved in valve fixtures, seam/display
+features and rear-shell details, including a 0.003 mm handhold-floor edge.
+The finished cosmetic flutes also contain real sections below 3 mm. These
+scope records accept none of those sections. Other findings are exact native
+boundary or air crossings, nominal 3 mm threshold readings, or arise from the
+reader's default Z build direction rather than a part's actual Y build direction.
+Their diagnoses apply only to the measured locations and documented poses.
+
 The retained pump-holder fit and manual TPU elbow fit support the fitted
 pump geometry and initial receiver bore choice. They do not establish the
 new dock's seal force, retention, compression set, cleaning performance or
@@ -221,3 +234,8 @@ actual isolated flavor circuit's operating and fault pressure envelope to
 set the wet test. Retain the measured force, pressure, temperature, fluid,
 cleaning exposure, cycle count and article hashes with the result; a short
 room-temperature water fit cannot establish unattended service life.
+The prepared pump's 12 mm internal stem engagement also needs actual assembly,
+free-rotation and pumping checks; the external pump model omits those internals.
+Customer withdrawal requires a demonstrated depressurization route for a failed
+or stalled pump. A timed motor command alone does not establish that the trapped
+flavor circuit has vented.
