@@ -1,0 +1,196 @@
+{
+  "audited_at": "2026-10-18T08:02:01.819765+00:00",
+  "scope": "Current source/STL, embedded staged meshes and staged print-preparation credential audit; no slicing, path QA repeat or printer contact",
+  "all_existing_source_bindings_match_current_files": true,
+  "bound_file_identity": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl": true,
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+    "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf": true,
+    "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": true
+  },
+  "geometry_identity": {
+    "current_canonical_stl_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+    "prepared_canonical_stl_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+    "canonical_stl_bytes_identical": true,
+    "project_geometry_input": "Canonical STL; receiver source module is a design-reference binding, not a second mesh input"
+  },
+  "project_archive_identity": {
+    "project": {
+      "file": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf",
+      "staged_sha256": "43de7c17e1c5003d19afb88f3797fb9e95a7578f6a3660a78ef94bc0b01f96b6",
+      "working_sha256": "43de7c17e1c5003d19afb88f3797fb9e95a7578f6a3660a78ef94bc0b01f96b6",
+      "bytes_match_original_preparation": true,
+      "normal_volume_count": 4,
+      "all_receivers_match_canonical_stl": true,
+      "receiver_meshes": [
+        {
+          "build_object_id": 11,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 7.962876321156196e-10,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            159.5,
+            142.0
+          ]
+        },
+        {
+          "build_object_id": 12,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 7.962876321156196e-10,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            195.5,
+            142.0
+          ]
+        },
+        {
+          "build_object_id": 13,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 7.962876321156196e-10,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            159.5,
+            178.0
+          ]
+        },
+        {
+          "build_object_id": 14,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 7.962876321156196e-10,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            195.5,
+            178.0
+          ]
+        }
+      ]
+    },
+    "archive": {
+      "file": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf",
+      "staged_sha256": "5350ba2b1ab329dd3ab829a3c2371f20e292f28e5cfc8e1f58cd162c9ffdc9c2",
+      "working_sha256": "5350ba2b1ab329dd3ab829a3c2371f20e292f28e5cfc8e1f58cd162c9ffdc9c2",
+      "bytes_match_original_preparation": true,
+      "normal_volume_count": 4,
+      "all_receivers_match_canonical_stl": true,
+      "receiver_meshes": [
+        {
+          "build_object_id": 3,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 1.930708873184391e-07,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            159.5,
+            142.0
+          ]
+        },
+        {
+          "build_object_id": 4,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 1.930708873184391e-07,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            195.5,
+            142.0
+          ]
+        },
+        {
+          "build_object_id": 5,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 1.930708873184391e-07,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            159.5,
+            178.0
+          ]
+        },
+        {
+          "build_object_id": 6,
+          "source_triangle_count": 12850,
+          "embedded_triangle_count": 12850,
+          "vertices_match_bijectively": true,
+          "triangle_connectivity_matches": true,
+          "maximum_vertex_difference_mm": 1.930708873184391e-07,
+          "matches_rotated_canonical_stl": true,
+          "plate_center_xy_mm": [
+            195.5,
+            178.0
+          ]
+        }
+      ]
+    }
+  },
+  "receiver_source": {
+    "current_sha256": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+    "bound_sha256": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+    "current_source_matches_bound": true,
+    "keeper_axial_stations_mm": [
+      7.0,
+      10.0
+    ],
+    "reference_keeper_axial_stations_mm": [
+      7.0,
+      9.85
+    ],
+    "retained_reference_snapshot": "input-snapshots/receiver-source-reference.py.txt",
+    "retained_reference_sha256": "f21d559880a4f1e84bea1f0a913dfd2fc7d93786b9bf0df499d1a07ca4ae43d2",
+    "executable_source_excluding_engineering_record_identical_to_reference": false,
+    "executable_source_excluding_engineering_record_and_KEEPER_Y_identical_to_reference": true,
+    "dry_datum_delta_matches_review": true,
+    "source_delta_scope": "engineering_record metadata and the dry KEEPERY assignment only. The retained reference has Y7.0..9.85; the current 3 mm keeper has Y7.0..10.0. All remaining executable AST, canonical wet STL bytes and eight embedded receiver meshes retain independent identity checks."
+  },
+  "staged_file_working_identity": {
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/audit_bindings.py": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/input-snapshots/receiver-source-reference.py.txt": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-slice-review.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/preparation.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/slice-command.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/slice-result.json": true,
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/source-bindings.json": true
+  },
+  "credential_audit": {
+    "staged_payloads_scanned": 44,
+    "known_local_private_printer_values_compared_in_memory": true,
+    "known_private_value_matches": [],
+    "nonempty_connection_or_credential_fields": [],
+    "passed": true,
+    "sensitive_values_recorded": false,
+    "printer_contacted": false
+  },
+  "reran_slicer": false,
+  "repeated_path_qa": false,
+  "committed": false
+}

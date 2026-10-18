@@ -189,7 +189,8 @@ import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
 import valve_tray as _vtray                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
-import tee_carrier as _tee_carrier                    # noqa: E402
+import dock_structure as _dock
+import pump_receiver as _receiver                    # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -270,8 +271,8 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #
 #     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
-    "wago-mana": (+1, 169.0, 280.0, "420"),
-    "wago-manb": (+1, 169.0, 246.0, "415"),
+    "wago-mana": (+1, 180.0, 280.0, "420"),
+    "wago-manb": (+1, 180.0, 246.0, "415"),
     "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
     "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
     "wago-sensors": (-1, 335.0, 270.0, "415"),
@@ -1217,64 +1218,36 @@ def pump_tray_plans(a=None, shell=None) -> dict:
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
-# --- the integral printed collet plate ---------------------------------------
-PLATE_T = 3.175
-PLATE_REST_GAP = ml.tee.CARRIER_AFT_COLLET_GAP
-PLATE_HOLE_D = 8.5
-COLLET_NOSE_R = ml.tee.COLLET_NOSE_R  # release rim remains an explicit unqualified tee datum
-TEE_WALL_BORE_SLIP = fits.running
-TEE_WALL_BODY_AIR = 1.454
-CARRIER_ASSEMBLY_STATE = "connected"  # the tees as the seated cartridge leaves them
-
-_stated.state(
-    "collet-plate-stops-nose", "The printed collet plate stops the release noses",
-    "the complete circular tube opening inside the release rim",
-    PLATE_HOLE_D / 2.0 < COLLET_NOSE_R,
-    "the circular tube opening reaches the release nose rim")
+# --- the fixed pump receiver wall -------------------------------------------
+# The retained fitted cradle fixes the receiver wall's fore plane. Upper wall
+# backing remains independent of the recessed seven-millimetre wet support.
+DOCK_FACE_GAP = 0.246
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
-    """The printed release section and collar bores on the four anchor-tee axes.
-
-    The outline is centered on the nominal tube plane; the hole row follows the manifold rise.
-    The release section shares its aft face with the collar wall and its top with the cap.
-    """
-    holes, faces = [], []
-    for t in sorted(ml.BARB_OF):
-        (px, py, pz), _axis = mcarry(ml.carrier_collet_port(t, ml.CARRIER_SQUEEZE))
-        holes.append((round(px, 6), round(pz, 6)))
-        faces.append(py)
-    hole_z = holes[0][1]
-    aft = faces[0]
-    z0 = _enc.z_seam
-    nominal_hole_z = hole_z + ml.CARRIER_DROP - _enc._interface.manifold_rise
-    x1 = _enc.interior_x()[1]
-    tee = ml.tee
-    stroke = PLATE_REST_GAP + tee.BRANCH_COLLET_TRAVEL
-    states = {
-        name: {"offset_y": round(offset, 6),
-               "tube_depth": None if depth is None else round(depth, 6),
-               "cartridge_offset_y": None if depth is None else round(offset - stroke, 6),
-               "tube_bottom_y": round(aft + tee.INSERTION + offset, 6),
-               "collet_depression": round(tee.carrier_collet_depression(offset), 6),
-               "plate_gap": round(max(0.0, offset - tee.BRANCH_COLLET_TRAVEL), 6)}
-        for name, (offset, depth) in ml.tee.CARRIER_STATES.items()
-    }
-    return {"holes": tuple(sorted(holes)),
-            "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
-            "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
-            "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
-            "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
-            "wall_aft_y": round(faces[0] - tee.BRANCH_COLLET_TRAVEL
-                                + tee.BRANCH_REACH - tee.HALF_W - TEE_WALL_BODY_AIR, 6),
-            "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
-            "rest_gap": PLATE_REST_GAP, "stroke": round(stroke, 6),
-            "tube_bottom_y": round(aft + tee.INSERTION, 6),
-            "seated_tube_bottom_y": round(aft + tee.INSERTION + stroke, 6),
-            "carrier_states": states,
-            "connected_release_travel": round(
-                states["connected"]["offset_y"] - states["release"]["offset_y"], 6),
-            "assembly_state": CARRIER_ASSEMBLY_STATE}
+    """Pump-dock declaration (the persisted Pack field retains its schema name)."""
+    holes, centers, branch_faces = [], [], []
+    for name in sorted(ml.BARB_OF):
+        (px, _py, pz), _axis = mcarry((ml.barb_station(name), (0., 0., 1.)))
+        holes.append((round(px,6), round(pz,6)))
+        point, axis = mcarry(ml.branch_port(name, ml.CARRIER_PARK))
+        centers.append(point[1] - axis[1]*ml.TEE_BRANCH)
+        branch_faces.append(mcarry(ml.carrier_collet_port(name, ml.CARRIER_PARK))[0][1])
+    holes = sorted(holes)
+    fore = round(_enc.pump_skirt_band_aft_y(tray_stations) + DOCK_FACE_GAP,6)
+    row = holes[0][1]
+    return {"holes": tuple(holes), "fore_y": fore, "aft_y": fore+3.175,
+            "wall_aft_y": fore+14.321,
+            "receiver_wall_aft_y": fore+_receiver.WALL_THICKNESS,
+            "x0": _enc.interior_x()[0], "x1": _enc.interior_x()[1],
+            "z0": _enc.z_seam, "z1": 218.85,
+            "hole_d": _receiver.WALL_BORE_D,
+            "seat_z": round(_enc.bay_floor_z(tray_stations)[1],6),
+            "fixed_tee_center_y": tuple(round(y,6) for y in centers),
+            "fixed_tee_mouth_y": tuple(round(y,6) for y in branch_faces),
+            "seated_tube_bottom_y": fore+_receiver.CUSTOMER_TIP_Y,
+            "tube_bottom_y": fore+_receiver.CUSTOMER_STOP_Y,
+            "assembly_state": "seated"}
 
 
 EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
@@ -1374,7 +1347,7 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
-# The collet plate is part of front-top's own solid.
+# The receiver bulkhead and fixed supports are integral with front-top.
 FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump, its two made-up chains, and the
@@ -4024,7 +3997,7 @@ def place_base(seated, names=()):
 #
 # This is the complete pack's depth datum. The pumps' fore/aft station within the pack is
 # `pump_station_lead`; the fitted cradle wells and clamp follow those head and boss stations.
-# The fixed tee deck remains on its release plane as that pump station changes.
+# The stationary tee deck uses its explicit aft placement independently of this fitted pump datum.
 PACK_Y = 14.48
 
 
@@ -4047,7 +4020,7 @@ def manifold_carry(lift: float):
 
 
 def posed_manifold(carrier_offset: float) -> list:
-    """Every manifold leaf in enclosure orientation at one shared tee offset."""
+    """Every fixed manifold leaf in enclosure orientation; offset retained for call compatibility."""
     return [
         (child.name,
          pose_manifold((child.obj.val() if hasattr(child.obj, "val") else child.obj).moved(
@@ -4057,10 +4030,8 @@ def posed_manifold(carrier_offset: float) -> list:
     ]
 
 
-# The lowest thing the pack has is the four spine hairpins: the fold turned them onto its own
-# underside and they hang past the pump-head faces, so THEY are what `PACK_CROWN` is measured
-# to and the pump faces stand off that plane by whatever is left. Being lowest is not carrying
-# anything — what holds this pack is the seat under each of its valves.
+# `WORLD_LIFT` preserves the fitted pump placement. Fixed hairpins hang below
+# their port axes; valve trays and tee saddles support the pack.
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
@@ -4100,14 +4071,10 @@ def build_pack() -> cq.Assembly:
     clamp, clamp_carry = build_fuse_clamp(comp_carry, fuse)
     a.add(clamp, name="fuse-clamp", color=C_CLAMP)
 
-    # The outer release hairpins define the pack's fixed vertical datum. The inner
-    # source limbs and their loops sit lower without changing the pump stations.
-    datum_posed = posed_manifold(ml.CARRIER_RELEASE)
-    lift = (PACK_CROWN + _enc._interface.manifold_rise - ml.CARRIER_DROP
-            - min(box(s).zmin for n, s, _c in datum_posed
-                  if n in ("tube-fluid-17", "tube-fluid-27")))
-    state_offset = ml.CARRIER_STATES[CARRIER_ASSEMBLY_STATE]
-    posed = posed_manifold(state_offset)
+    # Preserve the fitted pump/bracket station independently of fixed plumbing.
+    lift = ml.WORLD_LIFT
+    posed = posed_manifold(ml.CARRIER_PARK)
+    datum_posed = posed
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
@@ -4123,10 +4090,16 @@ def build_pack() -> cq.Assembly:
         # the placeholder with the tube itself.
         if name.startswith("stub-") and name[len("stub-"):] in _lines.authored():
             continue
+        if name in ("tube-fluid-11", "tube-fluid-12", "tube-fluid-21", "tube-fluid-22"):
+            joint = {"tube-fluid-11":"Y-C", "tube-fluid-12":"Y-D",
+                     "tube-fluid-21":"Y-F", "tube-fluid-22":"Y-G"}[name]
+            (x,tip,z), _ = mcarry((ml.customer_tip(joint),(0.,0.,1.)))
+            solid = _enc._stems.visible_stem(x,z,tip)
+            color = cq.Color(.92,.92,.89)
         a.add(solid, name=name, color=color)
         in_pack.append(name)
-    # The lowest released hairpins follow the lower of the tee and inner-valve
-    # elevations. The fixed valves bear in trays; the tees float on their tubes.
+    # Fixed hairpins follow the lower tee/inner-valve elevation. Valve trays
+    # and fixed tee saddles carry the stationary fittings.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
                 planes={"z0": PACK_CROWN + _enc._interface.manifold_rise
@@ -5292,7 +5265,7 @@ def build_pump_contacts(box):
     """The seated contact pair, `(male, female)`, each `(placed, carry)`."""
     plate, trays = box.pack.collet_plate, box.pack.pump_trays
     x, z = _enc.pump_contact_station(box)
-    fixed, rides = _enc.bay_back_y(plate), _enc.pump_cartridge_aft_y(trays, plate)
+    fixed, rides = _enc.pump_contact_faces(box)
     male = seat_body(_pogo.build_male(pin_reach=fixed - rides).val(), turns=POGO_MALE_TURNS,
                      seat="pump-contact-male", station=(POGO_FACE_DATUM, (x, fixed, z)))
     female = seat_body(_pogo.build_female().val(), turns=POGO_FEMALE_TURNS,
@@ -5317,7 +5290,7 @@ def _pump_contact_bound(contacts, pieces, box) -> Bound:
     (male, male_carry), (female, female_carry) = contacts
     plate, trays = box.pack.collet_plate, box.pack.pump_trays
     x, z = _enc.pump_contact_station(box)
-    fixed, rides = _enc.bay_back_y(plate), _enc.pump_cartridge_aft_y(trays, plate)
+    fixed, rides = _enc.pump_contact_faces(box)
     press = _pogo.PIN_PROUD - (fixed - rides)
     failures = []
 
@@ -5497,16 +5470,17 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
-    # The tee carrier seated through both front flanks, its troughs on the four tees, and its
-    # four return springs from their pockets in the tee wall to their bores in its columns.
     if box.pack.collet_plate:
-        carrier = _enc.tee_carrier(box.pack)
-        for name, part in _tee_carrier.parts(carrier).items():
-            a.add(part, name=name, color=M_PETGF_BLACK)
-        for name, spring in _tee_carrier.springs(carrier).items():
-            a.add(spring, name=name, color=M_STAINLESS)
-            record_seat(name, planes={"y0": carrier.spring_pocket_y[0],
-                                      "y1": carrier.spring_bore_y[1]}, got=spring.BoundingBox())
+        for name, part in _dock.parts(box.pack.collet_plate).items():
+            a.add(part, name=name,
+                  color=_receiver.COLOR if "keeper" not in name and "support" not in name else M_PETGF_BLACK)
+        from _materials import M_NICKEL_PLATE, M_EPOXY_BLACK
+        for side, features in _enc.pump_retention_features(box).items():
+            if side not in ("moving", "fixed"):
+                continue
+            for name, magnet in features["magnets"].items():
+                a.add(magnet, name=name, color=M_NICKEL_PLATE)
+            a.add(features["potting"], name=f"pump-dock-potting-{side}",color=M_EPOXY_BLACK)
     if contacts is not None:
         _pump_contact_bound(contacts, pieces, box)
     placed_solids = _solids(a)

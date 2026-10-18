@@ -165,7 +165,9 @@ def main():
             _box["inner"], _box["y_joint"], "back",
             _box["collet_plate"] if _box["pump_bay"] else None,
             _box["vent_chase"]):.4g} mm",
-        "PLATE_HOLES": f"{len(_plate['holes'])}",
+        "DOCK_RECEIVERS": f"{len(_plate['holes'])}",
+        "DOCK_LOCK_INSERTS": f"{len(_plate['holes']) + len(_enc._dock.SUPPORT_LOCK_X)}",
+        "SHELL_SHORT_INSERTS": f"{len(_box['east_bosses']) + len(_c14.panel_screws()) + len(_plate['holes']) + len(_enc._dock.SUPPORT_LOCK_X)}",
         # The STATED width — the bound itself and not a measurement of the box built to it, so
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",

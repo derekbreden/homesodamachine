@@ -1,6 +1,6 @@
 # Enclosure Mechanical Assembly
 
-The procedure for standing the machine's pack inside the printed enclosure and closing it around the pack: compressor bay on the floor, cold core behind it, the electronics bay against the +X wall, the four quadrants telescoped and pinned at the Y seam's corners, the dedicated 4 mm OVER bulkhead, the display let into the facet. This procedure does not fabricate fluid runs, but `enclosure-front-top` arrives with the fixed valve rows and moving tees prepared by [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 before its closing slide. Cabinet-spanning plumbing and all AC/DC wiring follow in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md). The output is the mechanical canvas everything else lands on.
+The procedure for standing the machine's pack inside the printed enclosure and closing it around the pack: compressor bay on the floor, cold core behind it, the electronics bay against the +X wall, the four quadrants telescoped and pinned at the Y seam's corners, the dedicated 4 mm OVER bulkhead, the display let into the facet. This procedure does not fabricate fluid runs, but `enclosure-front-top` arrives with the permanent pump receivers, locked keepers, rear support, fixed valve rows and tees prepared by [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 before its closing slide. Cabinet-spanning plumbing and all AC/DC wiring follow in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md). The output is the mechanical canvas everything else lands on.
 
 The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `enclosure-assembly.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
 
@@ -15,7 +15,7 @@ silicone-bearing measurements. It does not establish physical assembly force or 
 
 ## The box
 
-Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 466.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the `enclosure-pump-cartridge` and its top clamp: six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cartridge's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
+Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 473.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the `enclosure-pump-cartridge` and its top clamp: six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cartridge's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
 
 - **The Y seam is stated at [200](Y_SEAM).** The front pieces' +Y walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and a full-thickness, 45°-scarfed tongue inside the floor slab, so the floor stays flat where the cold core rides across it. At each ±X corner a stack of knuckles, alternating between the front and back pieces, is pinned and clamped by two vertical M5 screws: an [M5 × 150](LOWER_ROD) up from the handhold ceiling into an insert in back-top's hub over the Z seam, and an [M5 × 60](UPPER_ROD) down from back-top's roof into an insert in front-top's knuckle under the funnel frame. Four screws in all.
 - **The Z seam is one stated plane, both columns, at [160](Z_SEAM_FRONT)** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
@@ -28,7 +28,7 @@ Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-t
 
 In: the integrated refrigerant-loop assembly (output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) — cold core with wound coil + plumbed compressor + condenser/fan, charged and run-up-verified); the six printed enclosure pieces (the nameplate is not one of them — it goes on at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §3, after the machine is dry) ([`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/)); the eight bodies seated through the +Y wall of back-top (three umbilical PP1208E unions, the tap-water PP1208E, the C14 mains inlet, the CO2 neoFit ABU44, the 4 mm neoFit OVER and the RJ11 keystone) each with its own wall treatment, blue on the carbonated-water union per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the Waveshare 4.3B display; the bench-built unpowered electronics bay (output of [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)).
 
-Out: a complete mechanical chassis — compressor bay standing on the floor slab with the compressor bolted down to it, cold core seated in its rounded floor pocket behind it, packed off the +Y wall with the loop's two drawn legs crossing the lane in front of it, the electronics bay standing on the core's cap against the +X wall, the four quadrants telescoped and pinned at the Y seam's corners with every +Y wall body installed (`enclosure-back-top` last — see Open items 4), and the fixed release plate with the four tees journalled behind it across front-top's open pump bay. The OVER bulkhead is installed and the display is in its facet. Ready for the remaining work in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md).
+Out: a complete mechanical chassis — compressor bay standing on the floor slab with the compressor bolted down to it, cold core seated in its rounded floor pocket behind it, packed off the +Y wall with the loop's two drawn legs crossing the lane in front of it, the electronics bay standing on the core's cap against the +X wall, the four quadrants telescoped and pinned at the Y seam's corners with every +Y wall body installed (`enclosure-back-top` last — see Open items 4), and the four permanent TPU receivers retained in front-top's bay wall, with locked flat keepers, a rear cuff support and fixed commercial tees behind them. The OVER bulkhead is installed and the display is in its facet. Ready for the remaining work in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md).
 
 Not in scope: internal plumbing runs through the cabinet — the CO2 chain off the ABU44, the tap-water chain off its union, the flavor manifold and the three risers — see [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md); AC + DC + signal wiring runs — see [`wiring.md`](/hardware/assembly/wiring.md); installing the wound coil onto the carbonator (already done in [`cold-core.md`](/hardware/assembly/cold-core.md) step 1); refrigerant-loop integration (already done in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)); the nameplate's application, and seating the silicone funnel in the funnel opening — both happen at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here.
 
@@ -70,21 +70,24 @@ Remove loose support material before closing the two halves. The current
 bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
 results.
 
-Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four circular tube passages in front-top's fixed release plate. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four closed receiver bores, recessed collar seats, keeper guides and their lock hosts. Inspect the separate rear cuff-support bar and its two locks. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
-Front-top and the lower pump cradle each arrive with one RC62 enclosed during
-its owning print. Pair and label their attracting faces before printing, then
-inspect both finished covers. The rings act along the cartridge insertion axis
-at tube height; the purchased pogo magnets remain in the separate contact
-halves. Use each part's reviewed native insertion pause. The retention
-pair's seating force, heat exposure and cover performance remain unqualified.
+Front-top and the lower pump cradle carry six attracting SB443-IN pairs in their dry
+rail-and-keyed-bedding mounts. The twelve magnets are fitted after printing, with their
+actual bare pole faces set against the seated-frame gauge before the bedding cures.
+Keep attracting pole pairs identified through assembly and inspect all rails, keyed fill
+and exposed faces. Follow the
+[magnet mounting procedure](/hardware/printed-parts/enclosure/pump-dock/magnet-retention.md)
+for cleaning, setting, adhesive selection and cure. The contact pair retains its own
+separate factory magnets. Installed cartridge retention is established on the completed
+dock rather than inferred from an individual magnet's advertised pull.
 
 Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face.
 
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length (RX-M3x5.7) — two.** The two in the condenser fin's fingers on `enclosure-front-bottom`'s +X wall that the block's aft flanges are drawn down onto. Each bore takes the full-length body.
-- **Short (RX-M3Sx4.0) — nineteen.** The C14's two in the fore face of the +Y wall's inlet tunnel and the [17](EAST_BOSSES) +X wall bosses the electronics bay bolts to. The Z seams take no screw and no insert: their retention is the rails' own hooked heads. Every one of these is short because its own bore stops where it does — `bom.md` §13 names what each is spending that depth on.
+- **Short (RX-M3Sx4.0) — [25](SHELL_SHORT_INSERTS).** The C14's two in the fore face of the +Y wall's inlet tunnel, the [17](EAST_BOSSES) +X wall bosses the electronics bay bolts to, and [6](DOCK_LOCK_INSERTS) factory pump-dock locks: four receiver keepers and two rear cuff-support mounts. The Z seams take no screw and no insert: their retention is the rails' own hooked heads. Every one of these is short because its own bore stops where it does — `bom.md` §13 names what each is spending that depth on.
   The main board's four insert tops sit **2.25 mm behind their PCB mounting
   faces**. Their Ø7 entry sleeves occupy the unchanged tail-clearance footprints;
   the complete Ø8 brass hosts stand behind the tails. Install these before the
@@ -95,7 +98,7 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
   other electronics inserts seat on their actual mounting faces: the PSU takes
   M3 × 10 through its moulded ears and each relay M3 × 6 through its board, with
   each stack in `bom.md` §13.
-- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The insert's top sits 5 mm inside the mating face, 2 mm behind the ear plate's 3 mm bearing step. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
+- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed 0.127 mm; its ear datum is 3.127 mm and the insert's top 5.127 mm inside the printed face. The insert starts 2 mm behind the ear datum. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-top's two hubs over the Z seam, pressed into their undersides with the piece on its back, and front-top's two knuckles under the funnel frame, pressed from above. A second tip off the same T18 kit.
 
 The acquired VECO-T T18 assortment includes I/LB fine tips; the M2–M8 insert kit
@@ -104,13 +107,13 @@ insert through the Ø2.6 entry without bearing on its printed wall.
 
 Install each M1.4 insert before its connector is fitted. Hold the loose piece with
 the bore vertical. Use a spare insert and the existing calipers to set the cold
-tip/probe's insertion travel to 5.00 mm from the printed mating face; mark that
+tip/probe's insertion travel to 5.127 mm from the printed mating face; mark that
 travel on the probe. Heat and press straight through the clearance entry, stopping
-with the insert's top 5.00 mm below that face. Allow it to cool, then verify the
+with the insert's top 5.127 mm below that face. Allow it to cool, then verify the
 depth with the cold probe and calipers before seating the connector. Do not use
 the blind end or the connector's screw to force the depth. The coupon must show
-that this process seats a whole insert without melting the ear datum or raising
-the connector face beyond its ±0.05 mm criterion. The M1.4×8 screw engages the
+that this process seats a whole insert without melting the ear datum or moving
+the connector face more than ±0.05 mm from its designed 0.127 mm recess. The M1.4×8 screw engages the
 whole 4 mm body and leaves 0.5 mm before the pilot's blind end.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -176,17 +179,30 @@ Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 m
 
 **The gas sensor goes in before either body does.** The MQ-6 card lies ALONG the −X strip and drops straight down into the two grooved posts printed on the floor of it (`enclosure._west_cradle`), can facing WEST into its well in the flank and header facing EAST into the bay — down until the card lands on the shoulder at the foot of each groove, and there is no screw because the card has no hole. Do it with the front-bottom piece still open on the bench: once the compressor is down, the slot is a reach past a charged assembly for no reason. Its loom lands later, in [`wiring.md`](/hardware/assembly/wiring.md). **Card in the wrong way round is the one error this slot allows** — the can must go into the wall's well, with the four pins standing out into the open bay where the loom can reach them.
 
-**The flavour manifold arrives with `enclosure-front-top`.** Its eight fixed valves press into the two valve trays that piece carries — four seats per deck, wall to wall ([`printed-parts/enclosure/valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)). Y-C, Y-D, Y-F and Y-G float on their tubes, their branch collars in the tee wall's journals; four bowed stubs join them to fixed fore valves, and the tee-side ends of the four spine hairpins follow their motion. The crowns below remain clear of the pump-head faces and routed spans. Nothing on either crown may clamp a moving hairpin end or enter its release-to-park sweep.
+**The flavour manifold arrives with `enclosure-front-top`.** Its eight fixed valves
+press into the two valve trays, four seats per deck. Y-C, Y-D, Y-F and Y-G stand in
+fixed saddles behind the receiver wall. Their fore links and spine hairpins remain
+stationary relative to the wall during a pump change. Preserve their relaxed bend
+clearance over the compressor bay and keep all fixed collets accessible during bench
+assembly.
 
-### 4. Close the front column
+**The permanent pump receivers are installed before closing front-top.** Its
+[4](DOCK_RECEIVERS) closed wall bores and recessed collars locate the TPU in X/Z.
+A flat keeper per receiver captures Y and is locked with an M3×8 screw. Install the
+separate rear cuff-support bar after the receivers and keepers; slide its four bores
+forward over the rear cuffs and fasten its two M3×8 locks. No funnel or TPU flange
+passes through that support bar. The four fixed LLDPE tails join the rear sockets
+to commercial tee branches. The complete bench order is in
+[`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
 
-**The release plate and tee journals are fixed features of `enclosure-front-top`.** Inspect its [4](PLATE_HOLES) circular tube passages and the release faces around them; remove print residue from the passages before assembling the flavour manifold. The journals locate four tees in X and Z but leave Y free. At release the sleeves bear fully depressed against the plate; at connected, 2.00 mm aft, they stand fully extended with 0.5 mm of nose air. The release face and journals are passages through the continuous bay bulkhead, which joins the floor, roof and both walls. Two front-bottom feet carry its lower edge.
+After chassis closure, the prepared cartridge's four flanged stems enter their TPU
+funnels together. The rigid cartridge seats set final insertion; the tube tips keep
+their designed clearance from the internal shoulders. Neither commercial collets nor
+fixed plumbing moves during withdrawal.
 
-The front-top bench order is: bare tees inserted from aft into the tee wall's journals and moved to release; aft valves raised from the open underside and pressed into their sockets; fore valves and four bowed flex stubs. After the box closes, the pump cartridge's four tubes bottom at release with the cartridge 2.00 mm short of seating, and the cartridge seats through that final 2.00 mm.
+`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [102.2 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, permanent receiver wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The four spine hairpins travel with front-top during this chassis slide and remain fixed to its plumbing when it stops. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
 
-`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [102.2 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, release plate and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The four spine hairpins sweep over the compressor bay's crowns with the piece, and their tee-side ends retain their Y freedom when it stops. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
-
-The [physical collet observations](/hardware/reference/tee-connector/README.md#observed-push-connect-action) establish the connection action. The assembled unit’s dry connection cycle in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) checks release, reconnection and the moving tube links.
+The assembled dock's dry connection cycle in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) records simultaneous stub withdrawal and reinsertion, rigid seating and electrical continuity. Wet sealing, retention under pressure and endurance remain separate qualifications.
 
 The cold core stays **on its cart** through this step, tethered to the compressor bay by the two drawn refrigerant legs hanging out the open back. Keep the cart tracking the bench so neither leg is ever in tension; the core's own seating is §6's ride.
 
@@ -216,7 +232,7 @@ Confirm the main board's two exposed edges are clear to a hand and a plug, and t
 
 The box closes in two slides and four screws, and everything in the service bay is aboard before the first one moves.
 
-1. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, **slides FORE onto a bare `enclosure-back-bottom`** — entering aft of home, standing [237.5 mm](RAIL_TRAVEL_BACK) proud of the bottom piece's rear wall, to its assembled position at the stop blocks at the Y-seam end of their runs. Its broad shoulder and rail ends each have 0.25 mm of modeled allowance. Both flanks carry the same run: the rail passes straight through the PRV chase's station, which keeps out of the joint's own band for that storey. The tub under it is EMPTY, and that is the design and not a convenience: this piece's whole fore band sweeps the depth of the column on its way in, so nothing may stand in the tub yet — `z-slide-back-clear` is the card's reading of the travel. Everything the bay needs from this piece — the seven connection bodies, the electronics bay, the tap-water chain in its anchor, the meter under its ceiling — is already riding it.
+1. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, **slides FORE onto a bare `enclosure-back-bottom`** — entering aft of home, standing [244.5 mm](RAIL_TRAVEL_BACK) proud of the bottom piece's rear wall, to its assembled position at the stop blocks at the Y-seam end of their runs. Its broad shoulder and rail ends each have 0.25 mm of modeled allowance. Both flanks carry the same run: the rail passes straight through the PRV chase's station, which keeps out of the joint's own band for that storey. The tub under it is EMPTY, and that is the design and not a convenience: this piece's whole fore band sweeps the depth of the column on its way in, so nothing may stand in the tub yet — `z-slide-back-clear` is the card's reading of the travel. Everything the bay needs from this piece — the seven connection bodies, the electronics bay, the tap-water chain in its anchor, the meter under its ceiling — is already riding it.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's scarfed tongue closes inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor pocket is Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, leaving 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
@@ -252,13 +268,19 @@ The box closes in two slides and four screws, and everything in the service bay 
    [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Their feet are Z253.65,
    0.25 mm above the nominal cap crown.
 
-**Teardown uses the enclosure slides in reverse**, and its first move needs no cart: **the two upper screws alone free front-top**, with about 60 mm of roof access for their withdrawal. Front-top draws fore off its rails with the machine standing where it is, taking the valve trays, fixed release plate, tee journals and tees with it. All four out and the back assembly rides aft off the core — the whole bay open on the cart again — or, with the core out, front-top slides fore and back-top slides aft off their own columns. Pump-cartridge service does not require this teardown; it uses the front bay.
+**Teardown uses the enclosure slides in reverse**, and its first move needs no cart: **the two upper screws alone free front-top**, with about 60 mm of roof access for their withdrawal. Front-top draws fore off its rails with the machine standing where it is, taking the valve trays, permanent receiver assembly and fixed tees with it. All four out and the back assembly rides aft off the core — the whole bay open on the cart again — or, with the core out, front-top slides fore and back-top slides aft off their own columns. Pump-cartridge service does not require this teardown; it uses the front bay.
 
 With the box closed, confirm from inside: the four JG unions' cabinet-side collets, the ABU44's inboard collet and the C14's solder-tab pins are all exposed and reachable; the compressor's retained donor cover and factory-external electrical interface are reachable for the AC run arriving from the electronics bay; and **no customer-side tubing or cable has been routed through the rear connection bodies at this point.**
 
-**The release plate is part of front-top.** Confirm through the open bay that its [4](PLATE_HOLES) circular tube passages are clear and aligned with the four barb tees' branch collets.
+**The permanent receiver wall is part of front-top.** Confirm through the open bay that
+all [4](DOCK_RECEIVERS) TPU funnels are seated, the fixed support and keeper locks are
+home, and the mating surfaces are clear.
 
-The bay itself rides open. The pump cartridge goes in at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md): present all four tubes through the fixed plate; at release they bottom with the cartridge 2.00 mm short of seating. Push the cartridge through that final 2.00 mm to seat it with the tubes bottomed. For removal, the cartridge draws the tees fore until the fixed plate continuously holds the fully depressed sleeves while the tubes leave.
+The bay rides open during enclosure assembly. Connect the prepared cartridge only after
+the chassis is closed, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md):
+present the four straight flanged stems to the TPU funnels and push evenly onto the rigid
+seats. Withdrawal separates the magnets, electrical contact and four slip joints while
+the receiver assembly and commercial tees stay fixed.
 
 ### 7. Check the OVER bulkhead and vent route
 
@@ -293,7 +315,8 @@ Split its contact end back 20 mm, put individual heat-shrink sleeves on the cond
 and feed that free end forward through the bulkhead's lead bore into the empty pump bay.
 Solder to the male half in machine-X order: `AM2`, `AM1`, `BM2`, `BM1` from +X to −X.
 Insulate each joint, then draw the slack back through the bore. Seat the male half with
-its marked end at **−X** and both ear plates on the datum 3 mm inside the fore face.
+its marked end at **−X** and both ear plates on the datum 3 mm behind the connector
+contact face, or 3.127 mm behind the printed mounting face.
 Use a **hand-operated 1.3 mm hex driver** to seat **two M1.4 × 8** screws into
 the **two M1.4 × 4 × Ø2.3** inserts pressed at §1. Stop with the ear plates
 seated flat, without rotating the inserts or bending the ears. Powered torque
@@ -304,7 +327,7 @@ datums, the attracting orientation and the installed compression limits.
 
 Lay the local ribbon along the bulkhead's crown through the ridge-wall clip on front-top.
 Keep its labeled J13 end unplugged and secured to the same piece, clear of the rails,
-valves and moving tee links during the closing slides. Final cabinet routing and the J13
+valves and fixed tee links during the closing slides. Final cabinet routing and the J13
 connection belong to WR-04. The cartridge's leads remain in its cap; nothing on the
 cartridge enters this fixed-lead clip. Both connector halves are mounted before the
 unpowered cartridge seating and compression check at IP-05.
@@ -336,7 +359,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Condenser + fan closed on the compressor's +X tangent with the discharge joint made on that line, its fore flanges 3 mm into the front wall's two rails and its aft flanges each drawn down on an M3 × 8 into the +X wall fin's fingers, the block clear of the slab
 - Cold core seated in its rounded floor pocket behind the compressor bay, both front corners inside front-bottom's blocks and back-top's two brackets over the aft edge of its cap, no tension on the refrigerant lines, all [9](CAP_CONDUITS) cap conduits open on the lid
 - Four printed quadrants telescoped at the Y seam and slid home on both Z seams, the four corner screws driven and set — `enclosure-back-top` last, since it is the lid over the whole service bay
-- Fixed release plate carrying [4](PLATE_HOLES) forward-facing tube passages; Y-C/Y-D/Y-F/Y-G tied into the tee carrier plate's troughs, their branch collars in the tee wall's journals; four bowed flex stubs and four hairpin ends free to follow the tees; pump bay open for the cartridge connection in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
+- [4](DOCK_RECEIVERS) permanent TPU receivers captured by the closed bay wall, four locked flat keepers and the two-screw rear cuff support; Y-C/Y-D/Y-F/Y-G held in fixed saddles with stationary fore links and hairpins; pump bay open for the prepared flanged-stem cartridge in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
 - +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone recessed behind DATA in its keyed receptacle. No connection is cut in the front wall.
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - OVER bulkhead installed through its middle-row chip, with both 4 mm collets reachable
@@ -346,7 +369,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [108](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [127](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

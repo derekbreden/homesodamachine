@@ -1,0 +1,515 @@
+{
+  "dimensions": {
+    "magnet": "K&J SB443-IN",
+    "magnets_per_half": 6,
+    "columns_per_half": 2,
+    "rows_per_column": 3,
+    "column_axes_xz_mm": [
+      [
+        -52.224999999999994,
+        186.174
+      ],
+      [
+        52.224999999999994,
+        186.174
+      ]
+    ],
+    "nominal_bar_mm": [
+      6.35,
+      4.7625,
+      6.35
+    ],
+    "frame_faces_y_mm": [
+      79.269,
+      79.515
+    ],
+    "frame_gap_mm": 0.2459999999999951,
+    "bare_pole_plane_y_mm": 81.269,
+    "moving_pole_projection_mm": 2.0,
+    "fixed_pole_recess_mm": 1.7540000000000049,
+    "moving_guard_projection_mm": 1.8499999999999943,
+    "guard_running_air_mm": 0.25,
+    "common_drawing_groove_interval_mm": [
+      1.8541999999999998,
+      2.6923999999999997
+    ],
+    "rail_depth_interval_mm": [
+      1.95,
+      2.55
+    ],
+    "rail_to_worst_drawing_groove_air_mm": [
+      0.09580000000000011,
+      0.14239999999999975
+    ],
+    "rail_tip_to_maximum_groove_neck_air_mm": 0.11040000000000028,
+    "minimum_back_and_side_stock_mm": 3.0,
+    "assembly": "Post-print front loading, then mechanically keyed room-temperature potting against pole-setting gauges",
+    "magnet_pull_force_established": false,
+    "pogo_seats_changed": false,
+    "customer_adjustment": false
+  },
+  "checks": [
+    {
+      "check": "moving printable native volumes valid",
+      "passed": true,
+      "solids": 2,
+      "volume_mm3": 6001.4247622399935
+    },
+    {
+      "check": "pump-dock-SB443-moving-1-1 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-moving-1-2 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-moving-1-3 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-moving-2-1 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-moving-2-2 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-moving-2-3 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving setting gauge 1 body clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving setting gauge 2 body clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 worst-envelope bar1",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 worst-envelope bar2",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 worst-envelope bar3",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 entry 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 entry 1.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 entry 4.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 entry 8.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 3.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 6.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 10.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 15.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column1 descent 20.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 worst-envelope bar1",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 worst-envelope bar2",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 worst-envelope bar3",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 entry 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 entry 1.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 entry 4.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 entry 8.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 3.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 6.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 10.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 15.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving column2 descent 20.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving cured key native volumes valid",
+      "passed": true,
+      "solids": 2
+    },
+    {
+      "check": "moving keyed potting reacts Y -0.01",
+      "passed": true,
+      "overlap_mm3": 5.710195200002993
+    },
+    {
+      "check": "moving keyed potting reacts Y 0.01",
+      "passed": true,
+      "overlap_mm3": 2.224744000001129
+    },
+    {
+      "check": "moving cured key fits without native overlap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed printable native volumes valid",
+      "passed": true,
+      "solids": 2,
+      "volume_mm3": 6035.044650240003
+    },
+    {
+      "check": "pump-dock-SB443-fixed-1-1 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-fixed-1-2 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-fixed-1-3 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-fixed-2-1 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-fixed-2-2 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-dock-SB443-fixed-2-3 clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed setting gauge 1 body clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed setting gauge 2 body clearance",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 worst-envelope bar1",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 worst-envelope bar2",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 worst-envelope bar3",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 entry 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 entry 1.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 entry 4.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 entry 8.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 3.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 6.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 10.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 15.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column1 descent 20.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 worst-envelope bar1",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 worst-envelope bar2",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 worst-envelope bar3",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 entry 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 entry 1.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 entry 4.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 entry 8.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 3.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 6.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 10.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 15.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed column2 descent 20.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "fixed cured key native volumes valid",
+      "passed": true,
+      "solids": 2
+    },
+    {
+      "check": "fixed keyed potting reacts Y -0.01",
+      "passed": true,
+      "overlap_mm3": 2.22474400000113
+    },
+    {
+      "check": "fixed keyed potting reacts Y 0.01",
+      "passed": true,
+      "overlap_mm3": 5.710195200002923
+    },
+    {
+      "check": "fixed cured key fits without native overlap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "moving backing entirely within retained cradle stock",
+      "passed": true,
+      "added_to_fitted_well_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation -0.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation 0.25mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation 1.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation 2.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation 5.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "guard insertion separation 10.0mm",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "bare mate1",
+      "passed": true,
+      "plane_mm": 81.269
+    },
+    {
+      "check": "bare mate2",
+      "passed": true,
+      "plane_mm": 81.269
+    },
+    {
+      "check": "bare mate3",
+      "passed": true,
+      "plane_mm": 81.269
+    },
+    {
+      "check": "bare mate4",
+      "passed": true,
+      "plane_mm": 81.269
+    },
+    {
+      "check": "bare mate5",
+      "passed": true,
+      "plane_mm": 81.269
+    },
+    {
+      "check": "bare mate6",
+      "passed": true,
+      "plane_mm": 81.269
+    }
+  ],
+  "scope": "Native local shape, supplier dimensional envelope, load-path witness, and retained cradle-well preservation. No installed force or material lifetime result.",
+  "source_sha256": "45dbb1ba9dd8b1966cd294a010417cee5c9e8f4a975367105b37320c7642009a",
+  "retained_cartridge_sha256": "683231d48b0cd1f07a076ea87dab0dd135b554c9111956e45123017b07a2f7d6",
+  "check_count": 91,
+  "failed_count": 0
+}

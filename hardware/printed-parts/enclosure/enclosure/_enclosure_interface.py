@@ -17,7 +17,7 @@ wall = 3.0
 ceiling_skin = 3.0
 rear_seam_clear = 3.0
 # The rear inner face leaves the cold core 1.01 mm behind the full aft valve tray.
-rear_plane_y = 468.3
+rear_plane_y = 475.3
 co2_axis_drop = fits.supported_surface
 
 # The visible enclosure rounds. Broad body corners use twice the shoulder radius;

@@ -17,11 +17,14 @@ flowchart LR
   %% never reaches.
 
   %% [26](SEGMENT_COUNT) flavor segments. [3](BUTT_COUNT) are collet butted to collet and carry
-  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
-  %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
-  %% [2602.7 mm](FLUID_TOTAL) of 1/4" LLDPE over [61](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [442.9 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
-  %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The funnel's gravity
+  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest include four fixed fore S links,
+  %% four stationary hairpins and the source pair's two quarter-and-step turns. Reported tube lengths total
+  %% [2601.5 mm](FLUID_TOTAL) of 1/4" LLDPE over [69](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [446.8 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The stock total
+  %% counts the four complete receiver-to-tee tails and excludes machined pump stems.
+  %% Other mouth-to-mouth path lengths need their actual fitting insertions for cut blanks.
+  %% Add both actual fitting insertions to each fore S-link exposed path for its cut blank. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
 
@@ -135,10 +138,10 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D each sit on one of pump A's two barbs, taken by the branch, at the hinge — so
-  %% each tee's run lies across the head's face and IS the outboard half of a limb. fluid-9 and
-  %% fluid-17 are the two hairpins that cross the hinge: a quarter of R14, 31.4 mm of straight,
-  %% and a quarter back. Everything else along the limbs is butted.
+  %% Y-C and Y-D stand in fixed saddles behind pump A's two permanent TPU receivers.
+  %% Each prepared pump stem enters its receiver; a straight permanent tail joins the
+  %% receiver to the tee branch. fluid-9 and fluid-17 are stationary R14 hairpins,
+  %% and fluid-10 and fluid-13 are fixed R14 S links to the fore valves.
   VC -->|"fluid-9"| YC
   VE -->|"fluid-10<br/>bowed"| YC
   YC -->|"fluid-11"| PA
@@ -152,7 +155,7 @@ flowchart LR
   %% =========================
   %% Channel B — fluid-19 … fluid-28
   %% =========================
-  %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump B's barbs, fluid-19 and
+  %% Channel B mirrors channel A about x = 0. Y-F and Y-G stand behind pump B's receivers, fluid-19 and
   %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
@@ -202,7 +205,8 @@ flowchart LR
   %% Junction fittings. All six are PP0208E TEES: an in-line RUN, one straight lane through the
   %% fitting shared by two of its three ports, and a BRANCH, the leg that leaves that lane. Y-A
   %% and Y-B stand on a limb's own axis with their branches across the mirror plane; the other
-  %% four sit on a pump barb by the branch, putting their runs across the head's face. Neither
+  %% four connect by permanent receiver/tail joints to the pump stems, with their runs
+  %% across the head's face. Neither
   %% reservoir has one. fluid-topology.md "Junctions" carries where each port goes.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YF,YG tee;

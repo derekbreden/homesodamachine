@@ -1,0 +1,241 @@
+{
+  "review_date": "2026-10-18",
+  "scope": "One-off nominal CAD evidence for the fixed fluid pack, TPU receiver and retention geometry. Original native-review hashes and their scopes remain bound to the receiver/support results. Current construction and fixed-pack evidence are bound separately to pack-integration-review.json; external-route-review.json records the current source-authored routing check against the posed native obstacle snapshot. Regenerated whole-appliance closure is a separate result. No insertion force, pressure sealing, retained grip, food-contact or lifetime qualification is established.",
+  "source_sha256": {
+    "hardware/manifold-layout/manifold_layout.py": "683477fa5c7079646c7f1fd2804f69855a2cb2285db6b7a8c9825096cfd12867",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "ed2400c194ab6d4c8ff403ab7c86d5c4d848bfde26a49b28060266b76f8bf648",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168"
+  },
+  "fixed_pack": {
+    "leaves": 60,
+    "invalid": [],
+    "clashes": [],
+    "unanswered": [],
+    "source_turns": [
+      [
+        3,
+        0.0
+      ],
+      [
+        5,
+        0.0
+      ]
+    ],
+    "tail_lengths_mm": {
+      "Y-C": 18.17500000000001,
+      "Y-D": 18.17500000000001,
+      "Y-F": 18.17500000000001,
+      "Y-G": 18.17500000000001
+    },
+    "scope": "Native fixed-pack result at the source binding retained above. The current fore-valve row and fore-link geometry are recorded under current_fixed_pack."
+  },
+  "receiver": {
+    "valid_relaxed": true,
+    "valid_installed": true,
+    "single_solid_relaxed": 1,
+    "single_solid_installed": 1,
+    "relaxed_wall_overlap_mm3": 0.0,
+    "installed_wall_overlap_mm3": 0.0,
+    "installed_keeper_overlap_mm3": 0.0,
+    "installed_customer_tube_overlap_mm3": 0.0,
+    "installed_factory_tube_overlap_mm3": 0.0,
+    "keeper_overlap_at_Z_-0.25": 0.0,
+    "keeper_overlap_at_Z_0.25": 0.0,
+    "receiver_translated_fore_0_55_keeper_overlap_mm3": 4.170441545294281,
+    "receiver_translated_aft_0_05_keeper_overlap_mm3": 4.1704415452942065,
+    "capture_screen_scope": "The two translated positions establish geometric collar engagement against the clamped keeper. They do not establish permitted receiver travel, compression, extraction force or load capacity."
+  },
+  "construction": {
+    "fixed_tee_aft_shift_mm": 12.0,
+    "fore_valve_aft_shift_mm": 12.0,
+    "fore_valve_rise_mm": 10.0,
+    "aft_deck_aft_shift_mm": 7.0,
+    "preserved_world_lift_mm": 191.425,
+    "front_land_length_mm": 6.0,
+    "rear_land_length_mm": 6.0,
+    "customer_tip_from_cartridge_back_mm": 7.746,
+    "permanent_tail_stock_length_mm": 18.175,
+    "fore_link_developed_length_excluding_insertion_mm": 15.253069936402147,
+    "fore_valve_seat_world_z_mm": 252.425,
+    "evidence": "pack-integration-review.json, fixed_pack and placements",
+    "keeper_thickness_mm": 3.0,
+    "keeper_rear_assembly_room_mm": 0.35
+  },
+  "evidence_basis": [
+    "../../../reference/kamoer-kphm400/physical-fit.json",
+    "../../../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json",
+    "../../../reference/lldpe-tubes/README.md"
+  ],
+  "manufacturer_sources": {
+    "Kamoer": "https://m.media-amazon.com/images/I/914PeMOVWiL.pdf",
+    "Siraya": "https://siraya.tech/pages/siraya-tech-fibreheart-flex-tpu-85a-tds",
+    "Covestro": "https://solutions.covestro.com/nl/highlights/articles/theme/product-technology/mechanical-properties-tpu",
+    "KJ": "https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet"
+  },
+  "fixed_support": {
+    "scope": "Native fixed support, removable rear bar and original2.85mm keeper review at its retained source bindings. Current3mm keeper/current metal and continuous-motion coverage is separately recorded under current_keeper. This record does not qualify loads or printed fits.",
+    "fixed_stock_count": 10,
+    "fluid_pack_leaves": 60,
+    "bar_and_keeper_parts_valid": true,
+    "cut_fixed_stocks_valid": true,
+    "original_support_fluid_clashes": [],
+    "original_support_source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b9632964fdd13c3fb3d231d50f45acda4cb60c9d29a09d5c27273d695e449704",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "d0b85f4e6481e5628fad0bcb8074ad72954e2bab82e350f4979db67850bcea11",
+      "hardware/manifold-layout/manifold_layout.py": "4d715456e193338372ed008d49ab1fcfa444cad4b323ab8bee71280211d2a2ff"
+    },
+    "current_added_arm_fluid_clashes": [],
+    "current_added_arm_source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "f464bc1463573d8b64451a53115fd0e96b915b757fe00cbe3dfb3178476d6d57",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "d0b85f4e6481e5628fad0bcb8074ad72954e2bab82e350f4979db67850bcea11",
+      "hardware/manifold-layout/manifold_layout.py": "4d715456e193338372ed008d49ab1fcfa444cad4b323ab8bee71280211d2a2ff"
+    },
+    "arm_revision_coverage": "Per side the 3 mm arm moves from absolute local X11.25..14.25 to X12.25..15.25. Every added X14.25..15.25 strip is checked separately against the full pack; the removed inner strip cannot introduce an occupied-volume clash. The two support-post end extensions and all six current washer/head envelopes are separately checked. Remaining base stock is unchanged between the recorded source hashes.",
+    "bar_to_receivers_keepers_stocks_and_heads_clashes": [],
+    "keeper_lift_samples_mm": [
+      0,
+      0.1,
+      0.35,
+      1,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      20
+    ],
+    "keeper_lift_pose_count": 44,
+    "keeper_motion_clashes": [],
+    "nominal_clearances_mm": {
+      "keeper_floor": 0.35,
+      "raised_keeper_recess_roof": 1.25,
+      "support_post_to_bar_seat": 0.0,
+      "keeper_to_wall": 0.0,
+      "keeper_rear_to_groove": 0.5,
+      "head_to_ring_radial": 2.25,
+      "head_to_upright_x": 1.0,
+      "head_to_upper_bridge_z": 1.25,
+      "washer_to_upright_x": 0.25,
+      "washer_to_upper_bridge_z": 0.5
+    },
+    "tee_ties": "Eight owned 6-inch 18 lb narrow ties, two per tee, through the fixed collar saddle windows. The 3.0 mm outer and end ligaments are nominal stock, not a qualified tie load path.",
+    "clamped_stations_local_y_mm": {
+      "wet_wall_back": 7.0,
+      "keeper": [
+        7.0,
+        9.85
+      ],
+      "support_post_aft": 11.85,
+      "rear_support": [
+        11.85,
+        15.0
+      ]
+    },
+    "local_lock_hardware_envelope_count": 12,
+    "local_lock_hardware_clashes": [],
+    "local_wall_scope": "The local wall contains the broad rear recess, 7 mm wet section, matched receiver collars, lock pilots and the front \u00d822.5 guard counterbores through Y82.5. Full enclosure assembly is reviewed separately.",
+    "factory_lock_hardware": {
+      "screw": "M3 x8, six factory locks",
+      "washer": "Owned uxcell DIN125A M3 flat washer, OD7/ID3.2 x0.5 mm, B0F9KKJ22M; one per lock",
+      "keeper_clamp_stack_mm": 3.35,
+      "keeper_screw_projection_mm": 4.65,
+      "keeper_insert_engagement_mm": 4.0,
+      "keeper_nominal_tip_floor_allowance_mm": 0.6,
+      "rear_support_clamp_stack_mm": 3.65,
+      "rear_support_screw_projection_mm": 4.35,
+      "rear_support_insert_engagement_mm": 4.0,
+      "rear_support_nominal_tip_floor_allowance_mm": 0.9
+    },
+    "current_post_and_lock_hardware_fluid_pack_leaves": 60,
+    "current_added_post_strip_count": 2,
+    "current_factory_lock_hardware_envelope_count": 12,
+    "current_added_post_and_lock_hardware_fluid_clashes": [],
+    "current_post_and_lock_hardware_review_source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f21d559880a4f1e84bea1f0a913dfd2fc7d93786b9bf0df499d1a07ca4ae43d2",
+      "hardware/manifold-layout/manifold_layout.py": "4d715456e193338372ed008d49ab1fcfa444cad4b323ab8bee71280211d2a2ff"
+    },
+    "metadata_only_update_after_native_review": "Three keeper axial-station/clearance fields are added only inside pump_receiver.engineering_record. Removing exactly those lines reconstructs the native review's receiver source hash. All other reviewed source files retain their recorded hashes; TPU printable geometry and all checked assembly geometry are identical."
+  },
+  "documentation_source_binding": {
+    "scope": "Source comments and the posed_manifold docstring describe the stationary tee/receiver geometry and preserved fitted pump datum. No geometry or native review is rerun. Original native-review hashes and result scope remain unchanged.",
+    "identity_method": "Python AST equality with source locations omitted and leading docstring expressions removed from modules, classes and functions. Comments are excluded by parsing. This checks executable AST identity; intentional documentation and __doc__ text changes are outside that identity.",
+    "files": {
+      "hardware/manifold-layout/manifold_layout.py": {
+        "before_source_sha256": "4d715456e193338372ed008d49ab1fcfa444cad4b323ab8bee71280211d2a2ff",
+        "after_source_sha256": "683477fa5c7079646c7f1fd2804f69855a2cb2285db6b7a8c9825096cfd12867",
+        "executable_ast_sha256": "a2d3755886a28126e5d678d36e6b64fe37b5c073bf69f014106809a43ef7795a",
+        "executable_ast_identical": true
+      },
+      "hardware/manifold-layout/enclosure_assembly.py": {
+        "before_source_sha256": "699c19ef9345866980fe906af3093c80f28a9470ca1e09ad7fcecf7f65eca94a",
+        "after_source_sha256": "a945c92342acd07ba956abc22b037661f6161211edc69d90f179cd99e1854c1d",
+        "executable_ast_sha256": "b8eed96bfadc57ccfbb6dc842bd4a8450acfe98f668f41c8cde3a4db5472402f",
+        "executable_ast_identical": true
+      }
+    }
+  },
+  "source_binding_scope": "source_sha256 retains the source bindings of the original receiver/fixed-pack review. The original fixed-support native bindings and documentation-only AST identity records remain unchanged; current_fixed_pack and external_routes identify the subsequent scoped geometric results.",
+  "current_fixed_pack": {
+    "evidence": "pack-integration-review.json",
+    "scope": "Fresh local fixed manifold at fore rise10; no regenerated whole appliance or physical qualification is implied.",
+    "manifold_source_sha256": "2182d5788db552d37b0200c236007e549d808ee963a9f54b2f1ddae251f708c3",
+    "leaves": 60,
+    "all_solids_valid": true,
+    "clashes": [],
+    "unanswered": [],
+    "fore_valve_rise_mm": 10.0,
+    "fore_link_count": 4,
+    "fore_link_centerline_radius_mm": 14.0,
+    "fore_link_chord_mm": 15.25304890833305,
+    "fore_link_developed_length_excluding_insertion_mm": 15.253069936402147,
+    "fore_link_native_sweeps_valid": true
+  },
+  "external_routes": {
+    "evidence": "external-route-review.json",
+    "scope": "Seven actual source routes installed together against the full named native obstacle snapshot with the current fore-row and WAGO translations. Printed support/shell regeneration remains outside that local result.",
+    "route_ids": [
+      "fluid-4",
+      "fluid-14",
+      "fluid-16",
+      "fluid-18",
+      "fluid-24",
+      "fluid-26",
+      "fluid-28"
+    ],
+    "minimum_stock_centerline_radius_mm": 14.0,
+    "rear_return_centerline_radius_mm": 25.4,
+    "unconnected_clearance_floor_mm": 1.0,
+    "route_24_to_26_gap_mm": 4.064199511214373,
+    "route_28_to_drain_vent_gap_mm": 1.613729,
+    "new_exclusions_or_recurring_checks": false
+  },
+  "current_keeper": {
+    "evidence": "keeper-nominal3-review.json",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168"
+    },
+    "keeper_axial_station_mm": [
+      7.0,
+      10.0
+    ],
+    "keeper_wall_face_gap_mm": 0.0,
+    "keeper_rear_groove_room_mm": 0.35,
+    "sample_poses": 44,
+    "continuous_travel_mm": 20.0,
+    "continuous_envelopes": 4,
+    "static_keeper_and_metal_envelopes": 22,
+    "cached_appliance_leaves": 182,
+    "clashes": [],
+    "keeper_clamp_stack_mm": 3.5,
+    "keeper_screw_projection_mm": 4.5,
+    "keeper_insert_engagement_mm": 4.0,
+    "keeper_tip_floor_allowance_mm": 0.75,
+    "wet_geometry_changed": false,
+    "print_binding_evidence": "print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json",
+    "canonical_wet_stl_bytes_identical": true,
+    "embedded_receiver_meshes_identical": 8
+  }
+}
