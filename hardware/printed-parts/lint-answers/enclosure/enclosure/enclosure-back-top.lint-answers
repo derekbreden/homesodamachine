@@ -1,5 +1,5 @@
-[step] Unavoidable independent seating levels: the Y475.15 port-chip backing and Y474.79 keystone inner boundary differ by 0.36 mm. Each is the finite locating/bearing plane of its purchased interface. Exact native correspondence retains those identified seats; the parallel-plane comparison does not establish an unwanted skin between them.
-alternatives: A common plane requires reconciling the chip clamp stock and jack locating/retention envelope together. Moving either fitted seat merely to remove the reported level difference changes that interface.
+[step] Unavoidable independent seating levels: the Y475.30 wall face, which the five full-section bulkhead nuts bear on, and the Y474.79 back of the keystone's 3 mm lip, which the jack's shoulder locates against, differ by 0.51 mm. Each is the bearing or locating plane of its own purchased part, struck from the wall's section and the jack's face datum respectively.
+alternatives: A common plane moves either the nuts' clamp stack or the jack's lip depth, and each is fixed by its fitting.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-48.160 y=474.790 z=307.556
 
@@ -178,8 +178,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.670 y=475.990 z=270.953
 click: x=29.670 y=475.990 z=270.953
 
-[slope] Required keystone corbel turn-back: the strip between the corbel's side cheeks keeps the soda union's 3.50 mm receiver clearance; its lowest printed edge is a 14.95 mm bridge between the cheeks and both faces carry themselves.
-alternatives: Filling it enters the union clearance.
+[slope] Required keystone corbel turn-back: between the corbel's wall-grounded side cheeks the strip turns back at 45 degrees onto the DATA pad's run-out, keeping 1.0 mm off the soda union's clamp-nut envelope and 3.9 mm off the union itself; its lowest printed edge is a 15.56 mm bridge between the cheeks and both faces carry themselves.
+alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=473.174 z=322.573
 

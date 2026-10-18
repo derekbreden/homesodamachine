@@ -50,7 +50,8 @@ def jack_face_y(y_outer):
 def pad_runout(station,y_outer,*,up=-1):
     """Where the pad's 45-degree print-down run-out leaves its inboard face, as (y, z)."""
     _x,z=station
-    edge=z+TOP+nameplate.FACE_SLIP if up<0 else z-BOTTOM-nameplate.FACE_SLIP
+    lead=nameplate.FACE_SLIP+nameplate.RUNOUT_LEAD
+    edge=z+TOP+lead if up<0 else z-BOTTOM-lead
     return y_outer-POCKET_DEPTH-BACK_AIR-FLOOR_STOCK,edge
 
 
@@ -72,7 +73,7 @@ def apply(solid,station,y_outer,*,up=-1,supported=SUPPORTED_AIR):
     x,z=station
     solid=nameplate.apply(solid,Station(x,z+CENTER_Z),y_outer,up=up,
                           supported=supported,width=WIDTH,height=HEIGHT,wing_span=WING_SPAN,
-                          access=False)
+                          access=False,runout_lead=nameplate.RUNOUT_LEAD)
     mouth=port_chip.outline(WIDTH+2*FACE_AIR,TOP+FACE_AIR,BOTTOM+FACE_AIR,
                            POCKET_DEPTH+1+BACK_AIR,radius=CORNER_R+FACE_AIR)
     mouth=mouth.fuse(mouth.translate((0,0,up*supported)))
