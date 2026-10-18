@@ -30,6 +30,7 @@
     "DOCK_REAR_SUPPORT_LOCKS": "2",
     "DOCK_RECEIVERS": "4",
     "DOCK_STEMS": "4",
+    "DOCK_TPU_PLATE_G": "10.53",
     "END_CAPS": "2",
     "FAUCET_UNIONS": "2",
     "FLOOR_INSERTS": "4",
@@ -140,7 +141,7 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,471.76",
+    "BOM_GRAND": "$1,471.64",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$42.60",
     "BOM_SEC12": "$29.78",
@@ -152,7 +153,7 @@
     "BOM_SEC4": "$128.94",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$168.73",
+    "BOM_SEC7": "$168.61",
     "BOM_SEC8": "$246.54",
     "BOM_SEC9": "$72.01"
   }

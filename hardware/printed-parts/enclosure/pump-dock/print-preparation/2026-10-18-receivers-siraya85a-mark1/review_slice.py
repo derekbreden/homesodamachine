@@ -21,7 +21,8 @@ MODEL=('Outer wall','Inner wall','Overhang wall','Gap infill','Top surface','Int
 
 
 def bore(z):
-    return (4.5-1.45*z if z<1 else 3.05 if z<7 else 3.4 if z<8 else 2.15 if z<9 else 3.05)
+    return (4.5-1.45*z if z<1 else 3.05 if z<7 else 3.4 if z<7.625
+            else 3.4-(z-7.625) if z<8.525 else 2.5 if z<9 else 3.05)
 
 
 def shape(paths):
@@ -51,6 +52,7 @@ def bind_sources(prepared,native,report):
     comparisons={k:normalized(prepared.get(k))==normalized(native.get(k)) for k in keys}
     sources=(SOURCE,ROOT/'hardware/printed-parts/enclosure/pump-dock/pump_receiver.py',
              RECIPE,RECIPE_DIR/'physical-result.json',HERE/'prepare.py',Path(__file__),
+             HERE/readback['geometry_definition_snapshot'],
              HERE/readback['project'],HERE/readback['archive'],HERE/'native-bead-review.png')
     binding=dict(status='Offline native preparation for review; no printer contact or submission',
         source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
@@ -62,7 +64,7 @@ def bind_sources(prepared,native,report):
             nominal_rear_flange_underside_z_mm=10.35,
             last_interface_top_to_nominal_underside_gap_mm=10.35-max(report['support_interface_heights_mm']),
             keeper_groove_axial_opening_mm=3.35,
-            route='External six-branch trees and annular interface; segment the exterior interface and peel radially before wall assembly. No support occupies the fluid passage.',
+            route='External Tree(auto)/Default branches and annular interface; segment the exterior interface and peel radially before wall assembly. No support occupies the fluid passage.',
             physical_release_result=None),physical_acceptance=None)
     (HERE/'source-bindings.json').write_text(json.dumps(binding,indent=2)+'\n')
 
@@ -175,7 +177,7 @@ def main():
     for feat in SUPPORT:
         for r in by_feature[feat]:
             line=LineString(np.array(r['pts'])[:,:2])
-            rz=bore(max(0,r['z']-r['height']/2))
+            rz=max(bore(max(0,r['z']-r['height'])),bore(r['z']))
             for idx,(cx,cy) in centres.items():
                 gap=line.distance(Point(cx,cy))-r['width']/2-rz
                 min_support_clear=min(min_support_clear,gap)
@@ -255,6 +257,17 @@ def main():
                          full_circumferential_runs_range=[min(r['full_circumferential_wall_paths'] for r in rs),max(r['full_circumferential_wall_paths'] for r in rs)],
                          radial_ray_wall_roads_range=[min(n for r in rs for n in r['radial_ray_wall_roads']),max(n for r in rs for n in r['radial_ray_wall_roads'])],
                          maximum_loop_end_gap_mm=max(r['maximum_loop_end_gap_mm'] or 0 for r in rs))
+    waist=selected(8.525,9.)
+    waist_review=dict(z_window_mm=[8.525,9.],throat_d_mm=5.,
+        layers=sorted({r['layer'] for r in waist}),
+        layer_heights_mm=sorted({r['z_mm'] for r in waist}),
+        samples_per_object={idx:sum(r['object']==idx for r in waist) for idx in ids},
+        full_circumferential_runs_range=[min(r['full_circumferential_wall_paths'] for r in waist),max(r['full_circumferential_wall_paths'] for r in waist)],
+        innermost_full_circumferential_radius_range_mm=[min(min(r['radii_mm']) for r in waist),max(min(r['radii_mm']) for r in waist)],
+        each_layer_object_has_full_run_inside_factory_tail_radius=all(min(r['radii_mm'])<3.175 for r in waist),
+        radial_ray_wall_roads_range=[min(n for r in waist for n in r['radial_ray_wall_roads']),max(n for r in waist for n in r['radial_ray_wall_roads'])],
+        maximum_loop_end_gap_mm=max(r['maximum_loop_end_gap_mm'] or 0 for r in waist),
+        layer_object_paths=waist)
     settings_diff={k:dict(prepared=prepared.get(k),emitted=native.get(k)) for k in prepared.keys()|native.keys()
                    if prepared.get(k)!=native.get(k)}
     temperatures=sorted(set(re.findall(r'^M(?:104|109) [^\n]*S(\d+)',text,re.M)))
@@ -273,7 +286,7 @@ def main():
         support_layer_range=[min(support_per_layer),max(support_per_layer)],
         support_height_range_mm=[min(r['z'] for feat in SUPPORT for r in by_feature[feat]),max(r['z'] for feat in SUPPORT for r in by_feature[feat])],
         support_interface_heights_mm=sorted(set(r['z'] for r in by_feature['Support interface'])),
-        first_two_layer_bead_stack=stack,seal_wall_paths=lands,
+        first_two_layer_bead_stack=stack,seal_wall_paths=lands,factory_stop_waist_paths=waist_review,
         wall_path_layers=layer_data,bore_travels=dict(travel_counts),
         emitted_photo_trip_commands=text.count('M9711'),
         plate_z_trim_commands_mm=[float(x) for x in re.findall(r'^G29\.1 Z([-+.\d]+)',text,re.M)],
@@ -281,13 +294,14 @@ def main():
         scope='Commanded paths and bead envelopes only; support release, internal strands, dimensions, sealing and lifetime require the physical article.')
     (HERE/'native-slice-review.json').write_text(json.dumps(report,indent=2)+'\n')
 
-    fig,axes=plt.subplots(1,3,figsize=(15,5))
+    fig,axes=plt.subplots(1,4,figsize=(18,5))
     colors={'Support':'#a9acb2','Support interface':'#e09f3e','Brim':'#b9dfe4',
             'Outer wall':'#006d77','Inner wall':'#83c5be','Overhang wall':'#e29578',
             'Gap infill':'#bc6c25','Top surface':'#386641'}
     plots=[(axes[0],1,2301,'Layer 1: lip, brim and tree feet'),
            (axes[1],2,2301,'Layer 2: bead overlap'),
-           (axes[2],None,2301,'Exterior support projection')]
+           (axes[2],None,2301,'Exterior support projection'),
+           (axes[3],waist_review['layers'][len(waist_review['layers'])//2],2301,'Factory stop: native waist roads')]
     for ax,lay,idx,title in plots:
         cx,cy=centres[idx]
         rs=[r for r in by_obj[idx] if (r['layer']==lay if lay is not None else r['feature'] in SUPPORT)]
@@ -298,6 +312,9 @@ def main():
                 if r['feature'] in MODEL:
                     pts=np.array(r['pts']);ax.plot(pts[:,0]-cx,pts[:,1]-cy,color='#edc9af',alpha=.35,lw=2.5,zorder=0)
         for rad in (3.05,5.85,8.75):ax.add_patch(plt.Circle((0,0),rad,fill=False,color='#333',alpha=.25,lw=.6))
+        if ax is axes[3]:
+            for rad in (2.5,3.175):ax.add_patch(plt.Circle((0,0),rad,fill=False,color='#b00020',alpha=.65,lw=.8))
+            ax.set_xlim(-6.3,6.3);ax.set_ylim(-6.3,6.3)
         ax.set_aspect('equal');ax.set_title(title);ax.set_xlabel('mm from bore axis');ax.grid(alpha=.15)
     fig.tight_layout();fig.savefig(HERE/'native-bead-review.png',dpi=180);plt.close(fig)
     bind_sources(prepared,native,report)

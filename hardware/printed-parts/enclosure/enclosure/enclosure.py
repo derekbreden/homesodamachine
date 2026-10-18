@@ -1595,9 +1595,10 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 # A YYFKGCP 4-pin magnetic pogo pair (`reference/yyfkgcp-pogo-4p`) mates across the kiss
 # between the cartridge's flat back and the bay bulkhead. The FEMALE half, four flush pads
 # between two magnets, rides the cartridge in the clamp's aft face; the MALE half, four sprung
-# pins, stands opposite it in the bulkhead's fore face. Each face lies flush with the plane it is
-# let into, so the pins, `PIN_PROUD` out at rest, cross `cap_kiss` and are pressed by the rest of
-# their reach when the cartridge is home. Straight Y insertion is the pair's own mating axis: the
+# pins, stands opposite it in the bulkhead's fore face. Each contact face is recessed
+# `pump_contact_face_recess` into its host, making the contact gap the frame gap plus both
+# recesses. The pins cross that gap and compress through their remaining reach when the
+# cartridge is home. Straight Y insertion is the pair's own mating axis: the
 # pins meet their pads head-on and nothing sweeps across either face.
 #
 # THE STATION IS THE CLAMP'S CENTRE LANE, UNDER ITS CROWN. The lane between the two boss octagons
@@ -1608,9 +1609,9 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 #
 # EACH HALF BEARS ON ITS EAR PLATE. The mouth is the plate's whole outline, one `slip` round,
 # from the face to the plate's back, and that back is the datum: the plate lands on it and the
-# face lands flush. Behind it stands the body's own stadium, and behind that the lead passage
+# contact face lands at its specified recess. Behind it stands the body's own stadium, and the lead passage
 # takes the tails and their solder joints: the clamp's slot, and front-top's teardrop bore. Two
-# M1.4 × 5 SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the
+# M1.4 × 8 SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the
 # datum, each head on its ear inside the mouth. The roof is one bridge between the mouth's round
 # ends and takes the supported-surface allowance on the face that looks print-up.
 #
@@ -5770,6 +5771,12 @@ def _pump_cartridge_gross(box, halves_cache=None):
     return solid
 
 
+def pump_cap_body_x_span(pump_trays):
+    """The cap's two outer body planes, shared by its rear guard webs."""
+    return (min(cx - _tray.half_width() for cx, _cy, _cz in pump_trays),
+            max(cx + _tray.half_width() for cx, _cy, _cz in pump_trays))
+
+
 def _pump_clamp_gross(box, halves_cache=None):
     """One broad cap with fitted octagonal bosses and cylindrical motor openings.
 
@@ -5783,8 +5790,7 @@ def _pump_clamp_gross(box, halves_cache=None):
     crown = cap_crown_z(box)
     fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     aft = pump_cartridge_aft_y(trays, plate)
-    x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
-    x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
+    x0, x1 = pump_cap_body_x_span(trays)
     solid = _ybox(x0, x1, fore, aft, base, crown)
     for cx, cy, cz in trays:
         opening_y = cy + clamp_pump_y_shift
@@ -5836,11 +5842,15 @@ def _cap_screws(box):
 
 
 def pump_stem_features(box):
-    plate=box.pack.collet_plate
+    plate, trays = box.pack.collet_plate, box.pack.pump_trays
     return _stems.features(plate["holes"],
-        pump_cartridge_aft_y(box.pack.pump_trays,plate),
-        cap_split_z(box.pack.pump_trays), plate["seated_tube_bottom_y"],
-        cap_route_top_z=cap_crown_z(box))
+        pump_cartridge_aft_y(trays, plate),
+        cap_split_z(trays), plate["seated_tube_bottom_y"],
+        cap_route_top_z=cap_crown_z(box),
+        fixed_wall_back_y=bay_back_y(plate) + _receiver.COLLAR_RAMP_Y[0],
+        lower_guard_fore_y=min(cy + _tray.skirt_body_open_y_bounds[1]
+                              for _cx, cy, _cz in trays),
+        cap_web_x_bounds=pump_cap_body_x_span(trays))
 
 
 def pump_cartridge_body_stops(box):
@@ -6024,7 +6034,7 @@ def _pump_contact_cap_cuts(box):
     x, z = pump_contact_station(box)
     face, up = pump_contact_faces(box)[1], PIECE_PRINT_UP["pump-cap"]
     crown = cap_crown_z(box)
-    seat, bores = _pogo_seat(face, -1.0, x, z, up)
+    seat, bores = _pogo_seat(face, -1.0, x, z, up, deep=True)
     floor = z - (_pogo.BODY_W / 2.0 + fits.slip) + min(up, 0.0) * fits.supported_surface
     fore = face - (_pogo.BODY_T + pogo_lead_run)
     slot = _ybox(x - pogo_lead_half, x + pogo_lead_half, fore, face - _pogo.BODY_T + 0.01,
@@ -7331,6 +7341,26 @@ def vent_readings(pieces, box):
     return {}
 
 
+def _core_stop_handhold_air(inner, station, band_end_y):
+    """Running/support room where a complete stop crosses under the rear handhold.
+
+    The owning front piece keeps the full stop, including its tail beyond the Y seam.
+    That tail passes under the rear handhold's lowest knuckle. Its top uses the same
+    clearance as the existing front handhold backing, rather than touching the rear roof.
+    """
+    cx, cy, r = station
+    hand_y0, hand_y1 = _handhold_y()
+    ya, yb = max(band_end_y, hand_y0), min(cy, hand_y1)
+    if yb <= ya:
+        return None
+    side = 1.0 if cx > 0.0 else -1.0
+    wall_x = inner[1] if side > 0.0 else inner[0]
+    lap = cx - side * r
+    roof = _handhold_levels(inner)[1]
+    return _ybox(min(lap, wall_x), max(lap, wall_x), ya, yb,
+                 roof - _y_stack_gap(False, True), roof)
+
+
 def _core_stops(solid, inner, stations, y0, y1, z0, z1):
     """The cold core's two front corner blocks added to the slab whose Y column
     owns their forward bearing face.
@@ -7370,6 +7400,9 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.cut(_ybox(min(lap, cx), max(lap, cx), face, cy + 1.0,
                                 inner[4], tip + 1.0))
         solid = solid.cut(_zcyl(r + slip, cx, cy, inner[4], tip + 1.0))
+        tail_air = _core_stop_handhold_air(inner, (cx, cy, r), y1)
+        if tail_air is not None:
+            solid = solid.cut(tail_air)
     return solid
 
 
@@ -8841,7 +8874,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(magnet["stock"])
             for cutter in (*cuts[1:], magnet["cutter"],
                            _stems.fixed_wall_cutter(box.pack.collet_plate["holes"],
-                                                    bay_back_y(box.pack.collet_plate))):
+                               bay_back_y(box.pack.collet_plate),
+                               counterbore_back_y=bay_back_y(box.pack.collet_plate)
+                                                   + _receiver.COLLAR_RAMP_Y[0])):
                 piece = piece.cut(cutter)
             for stop in pump_cartridge_body_stops(box):
                 piece = piece.fuse(stop)

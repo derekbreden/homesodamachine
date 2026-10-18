@@ -364,6 +364,11 @@ and [external route review](../printed-parts/enclosure/pump-dock/external-route-
 record local native clearances at their bound source and obstacle geometry. The
 [core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
 records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
+The [manual mesh-interface review](../printed-parts/enclosure/pump-dock/lint-interface-review.json)
+records the scoped classifier limitations and unresolved inherited rear-interface,
+handhold-floor and marking details, with native/source correspondence and the
+completed bounded-memory back-bottom checker reading. These findings retain their
+individual scopes and do not qualify physical print quality or load capacity.
 The [pressure and retention review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)
 maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.

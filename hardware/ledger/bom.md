@@ -132,10 +132,10 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.307 | $32.71 <!--@printed--> |
-| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.479 | $11.99 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.304 | $32.63 <!--@printed--> |
+| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.477 | $11.94 <!--@printed--> |
 | Enclosure — pump receiver keepers (one set) | 4 | PET-GF | 0.009 | $0.22 <!--@printed--> |
-| Enclosure — pump receiver rear support | 1 | PET-GF | 0.011 | $0.28 <!--@printed--> |
+| Enclosure — pump receiver rear support | 1 | PET-GF | 0.011 | $0.29 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.530 | $38.28 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
@@ -152,9 +152,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.235 | $5.88 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.29 <!--@printed--> |
-| **Printed parts total** | | | **~7.31** | **[$168.73](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.30** | **[$168.61](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.28 kg / $157.22.
+By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.28 kg / $157.10.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -174,7 +174,7 @@ Soft seals and the [TPU 85A ASSE drain sleeve](/hardware/printed-parts/asse-drai
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Kamoer KPHM600-SW3B17 12V peristaltic pump](https://www.amazon.com/dp/B09MVPJXFJ) | paid price per Amazon 112-3347068 Aug 28, 2026 (Kamoer Fluid Tech Shanghai): 2 @ $39.62 + $5.74 tax = $84.98. Brush motor, 600 ml/min on a PharMed BPT tube 6.4 mm ID × 9.6 mm OD, 0.8 A at 12 V — the per-pump peak DC-5 already carries, on DRV8870 H-bridges rated 3.6 A ([`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)). Kamoer rates this head 380–600 ml/min and the `B##` suffix is a tube code on it, so the 50 mm square M3 bracket pattern and the top clamp collar that locates its boss are common to the series. Pump-motor leads end in male spade tabs that the DC-5 harness lands on with crimped female faston receptacles (§11). The [pump scan review](/hardware/reference/kamoer-kphm400/scan-review.md) supplies the fitted rigid envelope and outlet axes; the [assembled fit record](/hardware/reference/kamoer-kphm400/physical-fit.json) establishes firm retention with no reported vertical play for its identified scope. Smooth machined natural PP-H Polystone P flanged stems enter the flexible pump tube; their integral flanges transfer withdrawal load into the cartridge. Complete replacement pumps are supplied with these stems factory-fitted and secured. Their separate unpriced allowance is listed below. Pump-end retention, four-receiver sealing and repeated insertion/withdrawal remain complete-dock qualifications ([pump replacement](/hardware/service/pump-replacement.md)). | 2 | $42.49 | $84.98 <!--@pumps--> |
-| [Permanent TPU pump receiver](/hardware/printed-parts/enclosure/pump-dock/README.md) | Siraya Tech Flex TPU85A Clear, SKU ST3008; four permanent wall-supported couplers. The [native plate preparation](/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md) estimates 9.83 g including exterior supports and brim. Owned stock is recorded in purchases §13; the landed cost per kilogram and per-build allocation are not yet bound. Sealing and service life remain unqualified. | [4](DOCK_RECEIVERS) | Unpriced | Unpriced <!--@pumps--> |
+| [Permanent TPU pump receiver](/hardware/printed-parts/enclosure/pump-dock/README.md) | Siraya Tech Flex TPU85A Clear, SKU ST3008; four permanent wall-supported couplers. The [native plate preparation](/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md) estimates [10.53](DOCK_TPU_PLATE_G) g including exterior supports and brim. Owned stock is recorded in purchases §13; the landed cost per kilogram and per-build allocation are not yet bound. Sealing and service life remain unqualified. | [4](DOCK_RECEIVERS) | Unpriced | Unpriced <!--@pumps--> |
 | [Machined natural PP-H flanged pump stem](https://www.roechling.com/industrial/materials/thermoplastics/industrial-plastics/pp-h/polystone-p-homopolymer-natural-725241) | Röchling Polystone P homopolymer natural, grade 590980. Smooth 6.35 mm OD × 4.3 mm bore stem with an integral flange captured in the pump cradle outside the wet sealing region. Two are factory-fitted to each complete replacement pump. Required machined-part allowance; supplier and unit price are not yet bound. | [4](DOCK_STEMS) | Unpriced | Unpriced <!--@pumps--> |
 | [3M Scotch-Weld DP420 Off-White epoxy](https://www.3m.com/3M/en_US/p/d/b5005321028/) | Dry keyed magnet bedding. Mix base:accelerator 2:1 by volume per the [December 2025 TDS](https://multimedia.3m.com/mws/media/2365939O/3m-scotch-weld-epoxy-adhesive-dp420-off-white.pdf). The fixed mounts cure for 24 hours at 23 °C before the moving poles are match-set against them; the moving mounts then cure for another 24 hours before extraction or load. The mechanical keys transfer dock loads; 3M's typical adhesive properties do not qualify the PET-GF/magnet joint. Factory-consumable allocation and unit price are not yet bound. | 1 dock allocation | Unpriced | Unpriced <!--@pumps--> |
 | [K&J Magnetics SB443-IN stepped-block magnet](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet) | **Pump-cartridge retention.** Six attracting pairs, two columns per mating half, with exposed pole faces and positively retained dry mounts. The magnet rails and room-temperature epoxy bedding are set against the actual seating gauge during factory assembly. K&J 1604309, [purchases.md §9](/hardware/ledger/purchases.md): $70.54/50 = $1.4108/ea landed. Installed retention, face contact, bond retention and heat exposure require the assembled dock qualification. | [12](DOCK_MAGNETS) | $1.41 | [$16.93](DOCK_MAGNET_COST) <!--@pumps--> |
@@ -352,7 +352,7 @@ prices are bound.
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$168.73](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$168.61](BOM_SEC7) |
 | 8. Flavor subsystem | [$246.54](BOM_SEC8) |
 | 9. Dispensing | [$72.01](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -361,7 +361,7 @@ prices are bound.
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$23.54](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,471.76](BOM_GRAND)** |
+| **Total** | **[$1,471.64](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

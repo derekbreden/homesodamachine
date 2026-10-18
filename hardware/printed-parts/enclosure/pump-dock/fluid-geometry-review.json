@@ -237,5 +237,18 @@
     "print_binding_evidence": "print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json",
     "canonical_wet_stl_bytes_identical": true,
     "embedded_receiver_meshes_identical": 8
+  },
+  "post_lint_corrected_geometry": {
+    "record": "post-lint-correction-review.json",
+    "record_sha256": "3e17804ec7d8c5c26f31121c6ff155a744405e4eb4a83e4ebc52431e44338ed1",
+    "receiver_source_sha256": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
+    "dock_structure_source_sha256": "494c38cb5af5ae4ae56bf416a5de18ef66f6e3d0e1a590ad7401d0f5e256bb82",
+    "canonical_receiver_stl_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+    "scope": "Separate scoped local geometry, source-to-canonical receiver STEP identity and fresh actual native TPU slice evidence for the collar, tapered stop, rear-frame bridge, jig reliefs, saddle tie bands and sloping access-pocket roof. The original native-review source bindings above are retained unchanged."
+  },
+  "rear_frame_support": {
+    "record": "rear-frame-support-review.json",
+    "record_sha256": "79d28a232cdf34dfdf96272c3d9fc973f38696ab48b021de7457e07ca821e14e",
+    "scope": "Current-source local native frame/post geometry, continuous keeper bounds, magnet-host interfaces and conditional beam comparison. Complete-appliance closure is separate."
   }
 }

@@ -27,7 +27,7 @@ potting volumes and factory setting gauges share one interface definition.
 | Guard-to-fixed-recess running clearance | 0.250 mm |
 | Nominal magnet envelope | 6.350 × 6.350 × 4.7625 mm |
 | Slot width | 6.650 mm |
-| Rail depth from pole face | 1.950–2.550 mm |
+| Rail depth from pole face | 2.000–2.600 mm |
 | Rail tip distance from column centerline | 2.625 mm |
 | Backing and side stock beyond internal potting keys | 3.000 mm |
 
@@ -59,8 +59,10 @@ The [manufacturer drawing](https://www.kjmagnetics.com/resources/pdfs/SB443-IN.p
 specifies ±0.004 inch general three-decimal tolerances. The front band and
 groove height each have the larger explicit ±0.010 inch tolerance. Their
 common permitted groove interval, measured from a pole face, is
-1.8542–2.6924 mm. The 0.60 mm rail lies inside that interval, with 0.0958 mm
-front and 0.1424 mm rear allowance before print error. The rail tips have
+1.8542–2.6924 mm. The 0.60 mm rail lies inside that interval, with 0.1458 mm
+front and 0.0924 mm rear allowance before print error. Its moving fore edge
+is flush with the Y79.269 mm cartridge body plane, and the side-key cavities
+start directly at its 2.600 mm back edge. The rail tips have
 0.1104 mm clearance to the largest permitted groove neck. The cavity depth
 uses the drawing's maximum 4.8768 mm thickness and 0.20 mm rear allowance.
 
@@ -89,6 +91,15 @@ strong magnets. Keep all resin off the pole faces and out of the wet TPU
 parts.
 
 ## Factory assembly
+
+Print the setting gauges on their common flat backs. Their canonical files
+use the machine frame: rotate the moving gauge −90° about X and place its
+Y84.269 face on the bed; rotate the fixed gauge +90° about X and place its
+Y76.515 face on the bed. These poses build along machine −Y and +Y,
+respectively. The central rib, side feet and bridge all begin on that common
+back plane. A mesh-face review in [the geometry record](magnet-geometry.json)
+finds no horizontal underside above the bed in these poses. It does not
+establish printed step accuracy or surface finish.
 
 The parts print empty. Magnets enter after support removal; no magnet is
 heated by the PET-GF printing process. The front-loading mouth above each

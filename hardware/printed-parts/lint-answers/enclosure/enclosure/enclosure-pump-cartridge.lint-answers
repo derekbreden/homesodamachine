@@ -1,8 +1,37 @@
 [ceiling] Each flat pull roof is a hand-contact face at nominal Z272.194, including the 0.25 mm supported-face allowance. The added exterior transition joins this bearing without replacing it with a slope. Left support can exit toward -X and right support toward +X through the exposed mouths before pumps are installed. The current geometry requires a fresh native support-contact review and physical removal check.
+alternatives: Replacing the roof with a ramp changes the flat lifting contact and reduces finger room. Closing the recess removes the hand pull. The flat lifting surface retains its required shape and receives supports through the exposed side mouth; geometric access does not establish removal quality.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
 click: x=-98.479 y=42.132 z=272.194
 click: x=98.479 y=42.132 z=272.194
 
-[ceiling] This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/mark2-v6/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified.
+[step] Required side-groove engagement of the purchased SB443-IN blocks. Each rail projects 0.700 mm into the 6.650 mm slot, ending 2.625 mm from the column axis. The common full-tolerance groove neck leaves 0.1104 mm nominal radial air at the rail tips. This step is the magnet's positive capture interface; mechanically keyed cured fill takes up its actual groove allowance. magnet-geometry.json binds the supplier envelope, loading route and positive keyed retention. Printed fit and joint strength remain unqualified.
+alternatives: Removing the projection eliminates the groove's positive capture. Moving the tips inward reduces the worst-drawing neck clearance. Widening the slot reduces engagement or requires wider columns and their matching fixed-wall recesses. A separate screw cap would add retention parts and factory assembly operations. The present narrow interface is specific to the purchased grooved block.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
-click: x=0.000 y=76.481 z=196.179
+click: x=-49.600 y=78.969 z=186.426
+click: x=49.600 y=78.969 z=186.426
+click: x=-54.850 y=78.969 z=186.426
+click: x=54.850 y=78.969 z=186.426
+
+[sliver] Required SB443-IN groove rails, 0.600 mm in Y and 0.700 mm in X. The full supplier tolerance leaves a common Y groove interval only 0.8382 mm wide, from 1.8542 to 2.6924 mm behind the pole. The rail occupies 2.000–2.600 mm and joins the side-key cavity at its back face. The cured keyed fill is part of the joint and closes its axial and vertical loading allowances. This is a purchased-part retention exception to ordinary 3 mm walls, with no printed-strength claim.
+alternatives: A 3 mm rail cannot enter the supplier groove. Extending the rail toward either groove face consumes the recorded supplier clearance; widening its X projection consumes groove-neck clearance. Removing it leaves adhesion as the axial capture. A differently grooved block or a separate bolted retainer changes the purchased interface or adds assembly parts. The current rails retain their explicit fit and physical-qualification limits.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-49.600 y=78.969 z=186.426
+click: x=49.600 y=78.969 z=186.426
+click: x=-54.850 y=78.969 z=186.426
+click: x=54.850 y=78.969 z=186.426
+click: x=-55.200 y=78.669 z=186.426
+click: x=-49.250 y=78.669 z=186.426
+click: x=49.250 y=78.669 z=186.426
+click: x=55.200 y=78.669 z=186.426
+
+[ceiling] Flat closure above each front-loading magnet mouth and its cured side keys. The 3 mm roof preserves the full supplier block-loading headroom below the retained pump-skirt support band at Z206.674. It also closes the cured fill's positive-Z route. The empty mouth opens toward +Y, so automatic supports can leave through that opening before magnet installation. Access alone does not establish support removal or roof finish.
+alternatives: A ramp into the cavity obstructs the full-height loading envelope. Raising a 45° roof over the 9.85 mm key span carries its cavity crest above Z207.780, into the retained skirt-support band and its 3 mm aft stock. Opening the roof removes the fill's Z closure. The flat roof preserves both fitted interfaces and receives support through the empty loading mouth.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-52.225 y=78.656 z=202.855
+click: x=52.225 y=78.656 z=202.855
+
+[ceiling] Lower surface of each 1.850 mm proud magnet guard. The floor above it keeps 3 mm beneath the captured stack and cured keys, and the guard enters a matching fixed-wall recess with 0.250 mm running clearance. Its exposed +Y underside has an open support-removal route before magnet installation. Printed finish, removal and floor strength retain their physical scope.
+alternatives: Cutting a 45° underside inside the present envelope reduces its 3 mm floor to 1.15 mm at the proud edge. Adding a downward supporting wedge preserves that floor but requires a larger fixed-wall recess below the retained guard envelope. The flat floor keeps the defined capture stock and fitted recess; accessible supports retain the required shape.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-52.225 y=80.194 z=173.649
+click: x=52.225 y=80.194 z=173.649

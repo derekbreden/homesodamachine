@@ -40,11 +40,15 @@ FRONT_RELIEF_D = 6.8
 CUSTOMER_TIP_Y = 7.5
 CUSTOMER_STOP_Y = 8.0
 FACTORY_TIP_Y = 9.0
+CUSTOMER_TIP_END_D = 6.05
+THROAT_D = 5.00
+RELIEF_TAPER_START_Y = CUSTOMER_STOP_Y - (FRONT_RELIEF_D - CUSTOMER_TIP_END_D) / 2
+RELIEF_TAPER_END_Y = RELIEF_TAPER_START_Y + (FRONT_RELIEF_D - THROAT_D) / 2
 REAR_END_Y = 15.0
 REAR_SEAL_Y = (FACTORY_TIP_Y, REAR_END_Y)
 COLLAR_OD = 17.5
-COLLAR_RAMP_Y = (4.0, 6.9)
-FRONT_COLLAR_Y = (6.9, 7.0)
+COLLAR_RAMP_Y = (3.0, 5.9)
+FRONT_COLLAR_Y = (5.9, 7.0)
 GROOVE_Y = (7.0, 10.35)
 REAR_COLLAR_Y = (10.35, 11.85)
 KEEPER_SLOT_D = 12.4
@@ -95,8 +99,9 @@ def build_receiver(wall_fore_y=0.0, x=0.0, z=0.0, *, installed=False):
     bores = (_cone(FUNNEL_BORE_D, seal_d, 0.0, FRONT_SEAL_Y[0])
              .fuse(_cylinder(FUNNEL_BORE_D, -_EPS, 0.0))
              .fuse(_cylinder(seal_d, *FRONT_SEAL_Y))
-             .fuse(_cylinder(FRONT_RELIEF_D, FRONT_SEAL_Y[1], CUSTOMER_STOP_Y))
-             .fuse(_cylinder(TUBE_ID, CUSTOMER_STOP_Y, FACTORY_TIP_Y))
+             .fuse(_cylinder(FRONT_RELIEF_D, FRONT_SEAL_Y[1], RELIEF_TAPER_START_Y))
+             .fuse(_cone(FRONT_RELIEF_D, THROAT_D, RELIEF_TAPER_START_Y, RELIEF_TAPER_END_Y))
+             .fuse(_cylinder(THROAT_D, RELIEF_TAPER_END_Y, FACTORY_TIP_Y))
              .fuse(_cylinder(seal_d, *REAR_SEAL_Y))
              .fuse(_cylinder(seal_d, REAR_END_Y, REAR_END_Y + _EPS)))
     return _place(_outside(installed).cut(bores).clean(), wall_fore_y, x, z)
@@ -158,6 +163,14 @@ def engineering_record():
         "front_seal_bore_mm": SEAL_BORE_D,
         "front_seal_land_mm": FRONT_SEAL_Y[1] - FRONT_SEAL_Y[0],
         "rear_seal_land_mm": REAR_SEAL_Y[1] - REAR_SEAL_Y[0],
+        "front_lip_thickness_mm": FRONT_LIP_Y[1] - FRONT_LIP_Y[0],
+        "front_collar_ramp_y_mm": list(COLLAR_RAMP_Y),
+        "front_collar_flat_y_mm": list(FRONT_COLLAR_Y),
+        "front_collar_periphery_thickness_mm": FRONT_COLLAR_Y[1] - FRONT_COLLAR_Y[0],
+        "flow_throat_d_mm": THROAT_D,
+        "relief_taper_y_mm": [RELIEF_TAPER_START_Y, RELIEF_TAPER_END_Y],
+        "relief_taper_degrees_from_axis": 45.0,
+        "customer_stop_reference": "First nominal contact of the actual 6.05 mm tip end after 0.50 mm overtravel; the 0.30 mm axial stem lead reduces radius by 0.15 mm.",
         "relaxed_cuff_od_mm": BODY_OD,
         "wall_radial_room_mm": WALL_RADIAL_CLEARANCE,
         "keeper_radial_room_mm": KEEPER_RADIAL_CLEARANCE,

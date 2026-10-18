@@ -134,7 +134,8 @@ def main():
     staged_identity={}
     for rel in (x for x in staged_files if x):
         path=ROOT/rel;data=git_bytes(path)
-        staged_identity[rel]=sha(data)==sha(path.read_bytes())
+        if path!=HERE/'binding-audit.json':
+            staged_identity[rel]=sha(data)==sha(path.read_bytes())
         payloads=[(rel,data)]
         if path.suffix=='.3mf':
             with zipfile.ZipFile(io.BytesIO(data)) as z:
@@ -156,6 +157,8 @@ def main():
     current=receiver.read_bytes()
     reference_path=HERE/'input-snapshots/receiver-source-reference.py.txt'
     reference=reference_path.read_bytes()
+    geometry_reference_path=HERE/readback['geometry_definition_snapshot']
+    geometry_reference=geometry_reference_path.read_bytes()
     def without_record(data):
         tree=ast.parse(data)
         tree.body=[n for n in tree.body if not isinstance(n,ast.FunctionDef) or n.name!='engineering_record']
@@ -183,9 +186,20 @@ def main():
             **constants,retained_reference_snapshot=str(reference_path.relative_to(HERE)),retained_reference_sha256=sha(reference),
             executable_source_excluding_engineering_record_identical_to_reference=without_record(current)==without_record(reference),
             executable_source_excluding_engineering_record_and_KEEPER_Y_identical_to_reference=without_print_neutral_fields(current)==without_print_neutral_fields(reference),
+            current_geometry_snapshot=str(geometry_reference_path.relative_to(HERE)),
+            current_geometry_snapshot_sha256=sha(geometry_reference),
+            current_source_bytes_match_geometry_snapshot=current==geometry_reference,
+            executable_source_identical_to_current_native_preparation=without_record(current)==without_record(geometry_reference),
+            current_geometry_differs_from_original_reference=without_print_neutral_fields(current)!=without_print_neutral_fields(reference),
             dry_datum_delta_matches_review=constants['reference_keeper_axial_stations_mm']==[7.0,9.85] and constants['keeper_axial_stations_mm']==[7.0,10.0],
-            source_delta_scope='engineering_record metadata and the dry KEEPERY assignment only. The retained reference has Y7.0..9.85; the current 3 mm keeper has Y7.0..10.0. All remaining executable AST, canonical wet STL bytes and eight embedded receiver meshes retain independent identity checks.'),
+            source_delta_scope='The original reference is retained unchanged. The collar and internal taper are geometric changes and are not excluded as print-neutral. The fresh native preparation has its own exact source snapshot; its canonical STL and all eight embedded receiver meshes are checked independently.'),
+        native_preparation=dict(prepared_at=readback['prepared_at'],
+            slicer_exit_code=readback['slicer_exit_code'],
+            geometry_definition_snapshot_sha256=readback['geometry_definition_sha256'],
+            snapshot_matches_current_source=current==geometry_reference,
+            prepared_stl_matches_current=geometry['canonical_stl_bytes_identical']),
         staged_file_working_identity=staged_identity,
+        staged_identity_scope='Preparation inputs and results, excluding this audit report because it is written after the input audit. The report is staged separately after generation.',
         credential_audit=dict(staged_payloads_scanned=scanned_members,
             known_local_private_printer_values_compared_in_memory=private_checked,
             known_private_value_matches=value_matches,nonempty_connection_or_credential_fields=field_matches,
