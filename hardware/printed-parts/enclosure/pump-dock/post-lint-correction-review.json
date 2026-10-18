@@ -990,5 +990,75 @@
       }
     },
     "unchanged_auxiliary_constructor_binding": "continuous_floor_constructor_binding"
+  },
+  "manual_keeper_reader": {
+    "scope": "Post-publication complete unchanged --all manual lint of the actual final keeper, followed only by native probes of its two emitted nominal3mm sections. All six classes completed without top truncation. The pre-existing matching answer entry is strengthened with these exact current native readings; no source, mesh, graph or other-part retest occurred. Printed fit, friction and retention load remain unqualified.",
+    "canonical_step_sha256": "285375943e2f7714b7f853fa4ad4c5236abad702b804a88108b335241a7061a9",
+    "canonical_stl_sha256": "686523b432802ad7f4fc5998ee484828203688c53b1f5fe7d7dda6dbf47e85aa",
+    "geometry_lint_source_sha256": "40a5ba8474b785ffa6c4754f3be287f66b51c4ea910962870f1c2103cf5b27bb",
+    "diagnostic_wrapper_sha256": "fec018dc7db08cc099fbfd77b52dd2715c82b579c8aeb1058732e800a332d293",
+    "lint_log_sha256": "ad674a233f8ed624caa125704d5a55f344d7364c3efa7f29669c35eb3bb321ba",
+    "printed_facets": 1540,
+    "findings": 2,
+    "findings_by_class": {
+      "step": 0,
+      "sliver": 0,
+      "ceiling": 0,
+      "slope": 0,
+      "thin": 2,
+      "ledge": 0
+    },
+    "native_probes": [
+      {
+        "class_ordinal": 1,
+        "p_mm": [
+          -6.281,
+          7.0,
+          -0.348
+        ],
+        "q_mm": [
+          -6.281,
+          10.0,
+          -0.348
+        ],
+        "nominal_plate_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 2,
+        "p_mm": [
+          -11.549,
+          10.0,
+          -10.847
+        ],
+        "q_mm": [
+          -11.549,
+          7.0,
+          -10.847
+        ],
+        "nominal_plate_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      }
+    ],
+    "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-receiver-keeper.lint-answers",
+    "answer_file_sha256_at_reader": "78901381b87a634207a9d869453ce564eaef69a6e59755caec5f906a37c991b0",
+    "current_answer_file_sha256": "cca0d09504d1c77a1085d053ad0bcc0c8c5baaca354ea523d68e9a22fc9641dc",
+    "current_answer_anchors_match_complete_reader": true
   }
 }
