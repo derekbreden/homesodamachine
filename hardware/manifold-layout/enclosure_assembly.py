@@ -3411,8 +3411,8 @@ def wago_wells(row, cluster, over):
 def wall_mounts(*mounted, blockers=()):
     """The +X wall's boss plan as `(stations, fills)`.
 
-    `stations` are `(y, z, tip, web_tip, clear_bands[, span[, insert_setback]])`; `fills` are the few
-    individually reviewed rectangular unions among those stations, as
+    `stations` are `(y, z, tip, web_tip, clear_bands[, span[, insert_setback[, sleeve_r]]])`;
+    `fills` are the few individually reviewed rectangular unions among those stations, as
     `(name, (x0, x1, y0, y1, z0, z1), replaced_corbels)`.
 
     `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
@@ -3420,6 +3420,9 @@ def wall_mounts(*mounted, blockers=()):
     where the boss stands and `tip` is the plane its D-shaped stem reaches.
     The main board's insert starts behind its 2 mm solder-tail zone plus the
     supported-face allowance. Its component seat remains at the carried mounting plane.
+    The sleeve the board stands on across that zone is sized off the board's own solder joints
+    beside each hole (`pcba_tray._hole_joints`, `enclosure.east_sleeve_r`), and stops on the
+    Ø8 face of another body's boss rather than reach into it.
 
     A full-width 45 degree corbel is offered from that same plane to the wall, on the boss's
     print-down side. Every station on this wall is back-top's, so that side is read off
@@ -3455,11 +3458,13 @@ def wall_mounts(*mounted, blockers=()):
                 found.append((name, body, overlap.Volume()))
         return found
 
-    def profile(sy, sz, tip, span):
+    def profile(sy, sz, tip, span, rr=r):
         """The corbel a station or a bar may keep over `span`: `(web_tip, clear_bands, names)`,
-        the names being the bodies that set it back."""
+        the names being the bodies that set it back. `rr` is the radius of the D whose chord
+        carries the wedge: a main-board sleeve's, whose wedge and clear bands span its own
+        width rather than the Ø8 footprint's."""
         base = (sy, sz, tip, tip, (), span)
-        offered = _enc._east_boss_corbel(wall_x, base, up=up)
+        offered = _enc._east_boss_corbel(wall_x, base, up=up, r=rr)
         web_hits = hits(offered)
         if not web_hits:
             return tip, (), ()
@@ -3468,7 +3473,8 @@ def wall_mounts(*mounted, blockers=()):
         # occupy. The clearance is struck from the INTERSECTION, not the blocker's whole
         # bounding box: a board-wide representative pin field that only reaches one side of a
         # corner boss must not erase the other side.
-        clear_bands = [span]
+        width = (span[0] + (r - rr), span[1] - (r - rr))
+        clear_bands = [width]
         for _name, body, _volume in web_hits:
             overlap = offered.intersect(body)
             if overlap.Volume() <= 1e-6:
@@ -3485,28 +3491,46 @@ def wall_mounts(*mounted, blockers=()):
                 if cut_hi < band_hi - 1e-6:
                     next_bands.append((max(cut_hi, band_lo), band_hi))
             clear_bands = next_bands
-        wings, _dropped = _enc.east_boss_wings(span, clear_bands)
+        wings, _dropped = _enc.east_boss_wings(width, clear_bands)
         return web_tip, wings, tuple(name for name, _body, _volume in web_hits)
 
     raw = []
+    joints = []
     for owner, carry, holes in mounted:
         for hx, hy in holes:
             pos, _axis = carry(((hx, hy, 0.0), (0.0, 0.0, 1.0)))
             raw.append((owner, pos[1], pos[2], pos[0]))
+        if owner == "pcba":
+            # The board's own solder joints beside its holes, carried the way its holes are.
+            for jx, jy, jr in _pcba.board.joints:
+                pos, _axis = carry(((jx, jy, 0.0), (0.0, 0.0, 1.0)))
+                joints.append((pos[1], pos[2], jr))
     pairs = _enc.east_boss_pairs([(sy, sz, tip) for _owner, sy, sz, tip in raw])
     partner = {}
     for i, j in pairs:
         partner[i], partner[j] = j, i
     out = [None] * len(raw)
 
-    def keep(k, owner, ky, kz, tip, web_tip, bands, names, span=None):
+    def sleeve_r(ky, kz):
+        """A main-board sleeve's radius: one `wall` round its knurl entry, or what the board's
+        joints beside it leave (`enclosure.east_sleeve_r`), and no further than the Ø8 face of
+        another body's boss beside it, which the sleeve then shares."""
+        reach = _enc.east_knurl_entry_r + _enc.wall
+        for owner, oy, oz, _tip in raw:
+            dy, dz = abs(oy - ky), abs(oz - kz)
+            if owner != "pcba" and dy < reach + r and dz < reach + r:
+                reach = min(reach, max(dy, dz) - r)
+        return _enc.east_sleeve_r(ky, kz, joints, up, reach)
+
+    def keep(k, owner, ky, kz, tip, web_tip, bands, names, span=None, sleeve=None):
         setback = names != ()
         if owner == "pcba":
-            # The board's mounting sleeve clears the fixed tail witness. The complete
-            # manufacturer-sized brass host starts wallward of that occupied region.
+            # The board stands on a sleeve across its tail zone (`sleeve_r`); the complete
+            # manufacturer-sized brass host starts wallward of that zone.
             out[k] = (ky, kz, tip, web_tip, bands,
                       span if span is not None else (ky - r, ky + r),
-                      _pcba.pin_drop + _enc.fits.supported_surface)
+                      _pcba.pin_drop + _enc.fits.supported_surface,
+                      sleeve if sleeve is not None else sleeve_r(ky, kz))
         elif span is None:
             out[k] = (ky, kz, tip, web_tip, bands) if setback else (ky, kz, tip)
         else:
@@ -3515,8 +3539,9 @@ def wall_mounts(*mounted, blockers=()):
     for i, (owner, sy, sz, tip) in enumerate(raw):
         if i not in partner:
             span = (sy - r, sy + r)
-            web_tip, bands, names = profile(sy, sz, tip, span)
-            keep(i, owner, sy, sz, tip, web_tip, bands, names)
+            sleeve = sleeve_r(sy, sz) if owner == "pcba" else None
+            web_tip, bands, names = profile(sy, sz, tip, span, sleeve or r)
+            keep(i, owner, sy, sz, tip, web_tip, bands, names, sleeve=sleeve)
             continue
         j = partner[i]
         if j < i:
@@ -3601,11 +3626,18 @@ def wall_mounts(*mounted, blockers=()):
                            if abs(row[1] - aft_relay1_y) <= _enc.stated_bound_tol) - r
     # The pad's crown meets relay #1's aft column on its lower face.
     pad_top = max(max(row[2] + r for row in joined), aft_relay1_floor)
+    # ITS FORE FACE IS MH3'S SLEEVE: one `wall` round the knurl entry, or as far as the board's
+    # own solder joints in front of it leave, each `enclosure.east_boss_joint_air` off.
+    pad_floor = min(row[2] - r for row in joined)
+    pad_fore = prow[1] - _enc.east_knurl_entry_r - _enc.wall
+    for jy, jz, jr in joints:
+        if jy < prow[1] and pad_floor - jr < jz < pad_top + jr:
+            pad_fore = max(pad_fore, jy + jr + _enc.east_boss_joint_air)
     add_fill(
         "pcba/relay-2 upper pad union",
         (min(row[3] for row in joined), root_x,
-         min(row[1] - r for row in joined), max(row[1] + r for row in joined),
-         min(row[2] - r for row in joined), pad_top),
+         min([pad_fore] + [row[1] - r for row in joined[1:]]),
+         max(row[1] + r for row in joined), pad_floor, pad_top),
         tuple((row[1], row[2]) for row in joined),
     )
 
