@@ -5225,7 +5225,8 @@ from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):
-    """The collar and drain share the sliding frame's Y centre."""
+    """The collar and drain centre, which is the sliding frame's datum (`funnel_frame.center_y`)
+    and not the centre of its plan."""
     return ((box.inner[0] + box.inner[1]) / 2, _funnel_frame.center_y)
 
 
@@ -5502,7 +5503,12 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.pack_solids["funnel-frame"] = frame
     cx, cy = funnel_centre(box)
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
-    record_seat("funnel-frame", planes={"cx": cx, "cy": cy, "z0": floor},
+    # The frame is built in place round the collar's centre, and its plan is not centred there:
+    # its flat front stands one web ahead of the brim pocket and one running fit behind the
+    # display wall, and its rear runs on to half the frame's `depth`. The row names that front.
+    frame_front = _funnel_frame.roof_datums(box.inner, (cx, cy), _enc.funnel_seat_z(box.outer),
+                                            box.y_joint)["front"]
+    record_seat("funnel-frame", planes={"cx": cx, "y0": frame_front, "z0": floor},
                 got=frame.BoundingBox())
     # The drain joint under the frame's hole. `fluid-4` starts at the elbow's aft collet, so the
     # joint goes in before the run is drawn.
