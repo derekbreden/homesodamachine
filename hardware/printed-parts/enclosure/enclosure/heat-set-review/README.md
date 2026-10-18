@@ -45,19 +45,22 @@ specific to the access mouth.
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
-| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 5 mm inside mating face; M1.4×8 tip 0.5 mm before blind end |
+| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 5 mm behind the connector contact face, 5.127 mm behind the recessed seat's printed face; M1.4×8 tip 0.5 mm before blind end |
+| Six factory dock locks | M3 short, 4.0 mm | 5.25 mm | Four 3 mm keepers and one 3.15 mm rear support use M3×8 screws with 0.5 mm steel washers. Nominal thread projection is 4.50 / 4.35 mm, with 0.75 / 0.90 mm blind-tip room respectively |
 
 ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
 M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm is
 the starting fit. The [SPIROL FDM guidance](https://www.spirol.com/resources/white-papers/how-to-select-a-threaded-insert-for-your-3d-printed-assembly/)
 supplies the application rule of a solid host diameter at least 1.5 times the
 knurl diameter. The audit reports this separately from supplier compliance.
-The current pump-cap hosts retain at least 1.148 mm around the Ø2 pilot through
-the whole insert body; front-top has more. The Ø2.6 entry passes the whole knurl
+The bound insert audit reports at least 1.148 mm around the pump-cap's Ø2 pilot through
+the whole insert body, with more in front-top. The Ø2.6 entry passes the whole knurl
 through the 2 mm setback. Install and cold-check the depth before fitting the
 connector, following [enclosure assembly](../../../../assembly/enclosure-mechanical.md).
-The [current coupon](../contact-pair-coupon/README.md) carries this exact geometry;
-physical insertion and assembled contact compression remain unqualified.
+The [coupon](../contact-pair-coupon/README.md) retains its identified geometry and
+connector-fit acceptance. The [current mounting audit](../../../../reference/yyfkgcp-pogo-4p/mounting-audit.md)
+records the complete recessed seats and tolerance stack; installed insert retention,
+full-frame compression and electrical behavior remain physical qualifications.
 
 ## Native seam load paths
 
@@ -99,13 +102,25 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
-and its root, and Z hook/foot/stop roots. These modifiers change deposition
+and its root, and Z hook/foot/stop roots. The manual specification also covers all
+six factory dock-lock hosts, keeper guides, SB443 rail and bedding-key roots,
+rigid-stop bearings, stem-flange capture shoulders and recessed pogo hosts. It binds
+the six main pieces and the canonical keeper and rear-support STEP/STLs by hash,
+with source-coordinate boxes and their prescribed print-coordinate transforms.
+The keeper prints on its fore face; the rear support uses the same +Y-up pose.
+Plate X/Y nesting remains part of the native project.
+
+These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern
-and inherit the ordinary wall settings. General infill remains 15%; normal walls,
+and inherit the ordinary wall settings. The four small keepers and common rear
+support use six walls and 100% infill throughout their thin continuous load paths.
+General enclosure infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the
-interior solid. The [current RC62 jobs](../magnet-retention/queue.json) must include
-these regions and a fresh emitted-path review before submission.
+interior solid. Each production job requires these regions bound to its current
+mesh and a fresh emitted-path and support-removal review. The
+[RC62 archives](../magnet-retention/queue.json) retain their identified article
+scope; their print pauses do not apply to the post-print SB443 mounts.
 
 The corner stacks follow manufacturer insert geometry and carry the seam's load
 path on steel screws. They do not establish survival of a 4–6 inch drop.

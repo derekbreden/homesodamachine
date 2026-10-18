@@ -14,7 +14,7 @@ its underside, so it stands in the silhouette and the cavity's floor plane — t
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
 screws, two at each Y-seam corner, close the whole box.
-It measures [215 × 466.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures [215 × 473.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -149,10 +149,11 @@ ribs and has continuous support into the thicker block. This local thin-section
 allowance applies only to that access mouth.
 Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
 
-The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted stages to the current
-production exports: quadrant and frame faces, hardware stock, pump receiver, nameplate
-and DATA receivers, bulkhead rings, window covers, tee carrier, the 45° bedding edge,
-and the core's five external printed bodies. Every measured finite patch meets its
+The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted
+stages to its identified exports: quadrant and frame faces, hardware stock, pump-cartridge
+interfaces, nameplate and DATA receivers, bulkhead rings, window covers, tee carrier,
+the 45° bedding edge and the core's five external printed bodies. Its observations
+retain those source and artifact scopes and do not qualify the permanent TPU dock. Every measured finite patch meets its
 applicable static or running allowance, including the allowance for each supported face.
 The native tolerance is 0.00001 mm. The review retains exact witnesses, complete local
 stock checks and the standalone quadrant survey. The [cradle finish](cradle-finish-review.json)
@@ -312,7 +313,7 @@ outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
-[232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[240 mm](RAIL_RUN_BACK) and [228 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
@@ -562,6 +563,9 @@ from Z−0.35 under the core to Z253.65 above its cap crown. Its floor allowance
 0.25 mm running plus 0.10 mm at the cavity-floor transition. The remaining floor is
 5.65 mm thick. The floor, front blocks, rear seam band and cap brackets bound
 the nominal core envelope in all directions with the modeled allowance at their mating faces.
+The [core-stop native review](../pump-dock/core-stop-native-review.json) records the
+lower quadrants' bearing faces, supporting webs and pairwise closure against its
+bound Box and native pieces. It establishes nominal geometry, with no physical load qualification.
 
 **The core enters from ahead, and only from ahead.** The back column closes empty — its
 +Y wall cannot pass over a seated core — so the core rides in through the open Y-seam
@@ -601,12 +605,12 @@ list.
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [262](FLUTE_COUNT) grooves go round [1342 mm](FLUTE_PERIM) of
+**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1356 mm](FLUTE_PERIM) of
 plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
 flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
 station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [5.1221 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
-one straight line running the full height of both side walls — lands [0.27 mm](FLUTE_SEAM_MISS)
+on, [4.9853 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
+one straight line running the full height of both side walls — lands [1.8 mm](FLUTE_SEAM_MISS)
 off a groove's centre, in the shadow that is already there rather than on a land.
 **`flute-closes`** holds the pitch to the coupon's.
 
@@ -625,7 +629,7 @@ returns outboard of the cavity planes; those two actual surfaces are two open ra
 [358.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
-**x = 0** and the pitch remains [5.1221 mm](FLUTE_PITCH), so both ledges retain the machine's
+**x = 0** and the pitch remains [4.9853 mm](FLUTE_PITCH), so both ledges retain the machine's
 inside phase. Each real surface is open; its two ends are edges like any other and the field
 ramps to zero on them, as it does at both Z ends of the band, which keeps cutter caps off every
 mouth and window arris.
@@ -634,9 +638,9 @@ mouth and window arris.
 the rail in places the pump cartridge stands in front of, and a face another body beds
 against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every station, whether
 a berthed body stands between that face and the storey's mouth — the same question the show
-mask asks, asked of the other bodies — so the tee wall carries flutes only where the pump cartridge
-leaves it visible, and the plate's own bearing band is left plain. Nothing is listed: the
-lower cradle and top clamp are what the assembly stands there; the collet plate is part of front-top.
+mask asks, asked of the other bodies — so the bay wall carries flutes only where the pump cartridge
+leaves it visible, and its functional receiver/seating band is left plain. Nothing is listed: the
+lower cradle and top clamp are what the assembly stands there; the receiver wall is part of front-top.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -666,10 +670,10 @@ full depth, so nothing crosses a flute anywhere here and no edge it makes is one
 on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 
 **The mullion is the governing number, not the section behind the groove.** A slot takes its
-width out of the pitch, and what is left between two of them is [2.0221 mm](VENT_MULLION) at
-[5.1221 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+width out of the pitch, and what is left between two of them is [1.8853 mm](VENT_MULLION) at
+[4.9853 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
 profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
-[0.2821 mm](VENT_SPARE) and ceilings a slot down every groove at [3.3821 mm](VENT_CEILING). The
+[0.1453 mm](VENT_SPARE) and ceilings a slot down every groove at [3.2453 mm](VENT_CEILING). The
 two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
@@ -708,8 +712,8 @@ the crown of the can's sweep, square to both jambs. All
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
-[2.0221 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
-[54.4:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+[1.8853 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
+[58.3:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
 is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
 [3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
 pierced**, so every mullion and both jambs run into one plate of full section
@@ -728,13 +732,13 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [2.0221 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0221 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [1.8853 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [1.8853 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
-is [60.5 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
+is [62.2 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
 out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
-[2.0221 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
+[1.8853 mm](VENT_MEAS_MULLION) mullion, which is [13:1](VENT_ASPECT).
 
 **The air path is the donor's.** The condenser, its fan and shroud, and the compressor beside
 them stand in the donor ice maker's own arrangement
@@ -772,8 +776,8 @@ Y-normal closure faces approach head-on and use 0.15 mm static clearance. The ex
 0.25 mm rail-end gaps remain a local conservative fit.
 Sliding covers constrained motion that needs to move easily, including short
 spring-driven engagement. The [low-force rule](../clearance-audit.md) adds a working
-0.50 mm only to an identified gap requiring low actuation force. The tee-carrier
-trial uses 1.00 mm above and 0.25 mm below; the flat-wing nameplate uses static fits.
+0.50 mm only to an identified gap requiring low actuation force. The accepted tee-carrier
+trial records 1.00 mm above and 0.25 mm below for its identified article; the flat-wing nameplate uses static fits.
 A bore receives twice the base per-face allowance in its diameter; only its supported crown
 receives the extra 0.25 mm. Where a pocket's enclosing wall is 3 mm thick, its outer stock
 moves with the pocket or the mating part retreats. Printed bearing, locating, seating
@@ -848,16 +852,15 @@ own first layers. The audit records that root as model material.
 The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
 inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to the
 retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
-inset; each 0.24 mm layer advances at most 0.12 mm on that section. It applies to
-the tee carrier, enclosure hand-pocket upper rims, pump-cartridge hand-pocket
-upper rims, roof side edges.
+inset; each 0.24 mm layer advances at most 0.12 mm on that section. The enclosure applies it to hand-pocket upper rims, pump-cartridge hand-pocket
+upper rims and roof side edges.
 Flat lifting ceilings and mating planes keep their required dimensions.
 
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
 and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
-those transitions. **Inward/top show rounds retain 0.08 mm**, including the carrier's
-complete top R6. The [carrier physical record](../tee-carrier/physical-acceptance.json)
-qualifies the chamfer/taper's surface; sliding fit and the other parts' physical
+those transitions. **Inward/top show rounds retain 0.08 mm**. The
+[carrier physical record](../tee-carrier/physical-acceptance.json) includes its
+complete top R6 and qualifies the chamfer/taper's surface on that article; sliding fit and the other parts' physical
 surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including
 short support bodies without an interface label.
@@ -1031,7 +1034,7 @@ follows `c14_station_x`.
 
 **The pump-cartridge storey has no fixed front-top frame in its withdrawal span.** `_bay_cut`
 removes the complete exterior front-wall band, both rounded corners and both side skins from
-the bay floor through the lintel, then continues aft to the collet plate. The installed cradle
+the bay floor through the lintel, then continues aft to the permanent receiver wall. The installed cradle
 owns that same [215 mm](CRADLE_WIDE) exterior width. Its outline is vertical in Z: there is
 no 45° narrowing toward the sill. Only the two hand pockets interrupt that width. The cartridge has [0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of functional Z clearance
 above the sill and [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel; it has no cosmetic reveal or corresponding X/Y inset.
@@ -1365,8 +1368,8 @@ planes, and the front display-support columns have no section anywhere in this w
 The pump stations use a [3 mm](PUMP_STATION_DROP) downward world-Z datum. The stationary
 manifold, tees and tube passages stand 2 mm above the manifold's nominal datum. The pump
 reference's rear boss and motor axis stands 1 mm toward Y− from its head datum, and the
-clamp's fitted octagon and motor-can openings follow that rear-stack axis. The four short
-barb tubes connect each pump head to its fixed tee interface.
+clamp's fitted octagon and motor-can openings follow that rear-stack axis. Four smooth machined flanged stems connect the complete pumps to the permanent TPU
+receivers; fixed LLDPE tails join those receivers to the commercial tees.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, molded
 flange, head and tube fittings. The fitted head well leaves flat skirt lands on −Y and both X
@@ -1435,32 +1438,48 @@ bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET)
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
 
-The four barb tubes gripped in the anchor tees' branch collets retain the cartridge, with the
-[RC62 retention pair](magnet-retention/README.md) drawing it home at tube height, and the
-**collet plate** releases them: a 3.175 mm section
-printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully extended collet noses at nominal rest. Pull the cradle and
-the tubes draw the tees forward until their collet noses land on the printed release face;
-the collets open and the tubes pass back through the four plate passages. The fixed plate
-carries that reaction into the whole enclosure, which can be braced by a hand, foot, cupboard
-edge or its own weight. The plate is joined to the tee wall behind it.
+**Four permanent TPU receivers form the pump dock.** Each complete replacement pump
+carries two smooth machined PP-H Polystone P stems with integral retention flanges.
+The flanges seat in the cradle outside the wet sealing region and transfer axial
+withdrawal loads into its printed shoulders. The cap closes their upward escape.
+The customer's pump change does not cut, trim or transfer a stem.
 
-Each collet-release passage has an Ø8.5 mm circular bore. It passes the
-Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face
-catches the moving terminal ring. The [observed terminal face](/hardware/reference/jg-pp0208e-tee/terminal-bearing-review.json)
-supplies bearing stock around that aperture. The four tube-centre stations are independent of
-the bulkhead's outline and the cartridge's pull pockets.
+The stems enter [4](RECEIVER_COUNT) custom TPU funnels followed by
+Ø[6.1 mm](DOCK_SEAL_BORE), [6 mm](DOCK_LAND) straight sealing lands. The rigid wall
+locates the receivers in X/Z. Their recessed collars fit in the wall, and
+[4](KEEPER_COUNT) flat PET-GF keepers slide down the interior guides to capture Y.
+Each keeper is [3 mm](DOCK_KEEPER_T) thick with
+[0.35 mm](DOCK_KEEPER_RADIAL_AIR) nominal radial room around its receiver neck and
+one factory-only M3×8 lock screw and Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0
+insert. The keeper bears against the wall and retains 0.50 mm behind it in the
+TPU groove. A separate two-screw
+rear support frame has four cuff rings, narrow uprights and a high bridge that
+clears the keeper guides. Its mounting pads bear against the frame's fore face;
+each M3×8 screw uses the same washer. The
+support is installed after the receivers and keepers, before the rear tails and tees.
 
-**The tee travels and the valve stays seated.** The complete release travel is
-[2 mm](PLATE_STROKE): [0.5 mm](PLATE_REST_GAP) of nose air followed by
-[1.5 mm](SLEEVE_TRAVEL) of branch-sleeve depression, the PP0208E's measured branch stroke
-([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). At release
-the fully depressed sleeves bear directly on the fixed plate and all four tubes bottom
-10 mm beyond that face with the cartridge 2 mm short of seating. With the cartridge seated
-the tips bottom at the aft body stops, 11.50 mm beyond the extended sleeves. The complete
-assembly shows nominal connected rest. Only the small outermost branch rings move.
+Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
+set full insertion, with the stem tips
+[7.746 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
+Y[87.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
+A straight pull withdraws the four stems while every receiver, keeper, support,
+commercial tee and rear tube remains fixed. No commercial collet moves during a pump
+change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
+parts, native geometry review, factory setting fixtures and material selections.
+
+**Six exposed-face SB443-IN pairs retain the seated cartridge.**
+[12](DOCK_MAGNET_COUNT) magnets occupy two three-high columns per half. Grooved rails
+and mechanically keyed 3M DP420 Off-White bedding capture the blocks. The actual pole
+faces are gauged with those rigid stop lands seated before curing; nominal pocket
+clearance does not determine their final axial position. The
+[magnet record](../pump-dock/magnet-retention.md) describes that factory operation.
+Installed holding force, mount capacity and heat exposure remain physical
+qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
-[0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
+[0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
+fit keeps its recorded scope; machined-stem capture, TPU sealing and the complete
+magnetic dock require their own assembled physical results.
 
 **Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [15.75 mm](PULL_DEPTH)
 deep and [28 mm](PULL_RUN) long in Y, from z [177.43 mm](PULL_FLOOR_Z)
@@ -1477,26 +1496,30 @@ push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock for
 of the pocket and [23.14 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
-## Behind the tee wall
+## Fixed plumbing behind the receiver wall
 
-Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints nothing,
-and both flanks carry their full [9 mm](FRONT_TOP_FLANK) section through that room except where the
-[tee carrier](../tee-carrier/README.md) crosses it: one opening through each flank, aft from
-the tee wall's aft face, which also cuts front-bottom's seam rail under it. A post on each
-flank's inner face, at the opening's aft face, carries the window cover that closes the opening
-aft of the carrier. The four barb tees are tied into the carrier plate's troughs with their branch collars in the tee wall's
-journals; their bowed stubs, the
-hairpins and the aft valves stand in open room from the piece's mouth up to the fore valve
-tray, whose 45° root corbel reaches [5.604 mm](FORE_TRAY_OVERHANG) aft of the tee wall. The
-aft valves and coils rise from the loose piece's open underside and slide aft onto their
-mounting posts. The accepted Beduan socket fit is retained, with ties supplying positive
-retention.
+The four pump-side commercial tees stand in fixed saddles behind the receiver wall.
+Two 6-inch, 18 lb ties per tee, eight total, retain its fixed run-collar stock while
+leaving all three collets free. The permanent straight LLDPE tails join the rear TPU sockets to their tee
+branches. The fore links and spine hairpins hold stationary routes to the valves;
+no tube bend is used as a service-motion spring.
+
+Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
+The receiver keepers and rear support install from the open interior before the tee
+plumbing and valve rows close access. The aft valves and coils enter from the loose
+piece's underside and move onto their mounting posts. The Beduan socket fit retains
+its identified physical acceptance; ties supply retention. Factory assembly and the
+complete dock's physical qualification are specified in
+[`internal-plumbing.md`](../../../assembly/internal-plumbing.md) §3 and the
+[pump-dock record](../pump-dock/README.md).
 
 ## The full-width opening
 
 One opening spans the full cartridge width between the bay floor and lintel. Both
 rounded front corners and the exterior flanks belong to the removable cradle. Its
-straight aft face meets the bay bulkhead across the complete width.
+straight aft face follows the bay bulkhead across the complete width with
+[0.246 mm](CARTRIDGE_BULKHEAD_KISS) broad-face clearance. The dedicated outboard
+stop lands contact the lower cradle and establish the closing datum.
 
 The cradle's exterior stands plumb from its common bed plane to
 [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The fixed shell perimeter is recessed
@@ -1513,7 +1536,7 @@ relief also remains. The scanned rigid front-rim envelope keeps
 [4.595 mm](PUMP_BAY_FLOOR_STOCK) of stock above front-top's Z160.25 print bed and keeps one
 flat insertion/withdrawal lane. It runs into the full thickness of the bulkhead.
 
-Front-bottom's lip drops around the front and both flanks as far as the tee-wall datum.
+Front-bottom's lip drops around the front and both flanks as far as the receiver-wall backing datum.
 The floor crosses that run wall to wall.
 The remaining side lips and rails telescope along their complete working runs.
 
@@ -1526,15 +1549,16 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 ## The bay bulkhead
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
-cartridge-facing plane is Y [79.515 mm](BAY_BACK_Y); its complete thickness is
-[14.321 mm](BAY_BULKHEAD_T). The cradle and clamp share one flat back at y
+cartridge-facing plane is Y [79.515 mm](BAY_BACK_Y); its full backing depth is
+[14.321 mm](BAY_BULKHEAD_T), with the receiver-row interior recessed as described below. The cradle and clamp share one flat back at y
 [79.269 mm](PUMP_CARTRIDGE_AFT_Y), one [0.246 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
-Four passages carry the pump tubes through the bulkhead. Each smaller fore opening
-leaves the collet's release shoulder on its stated Y plane. The larger aft bore locates
-the tee collar in X and Z and leaves its Y stroke free. The Z-seam rail channels begin at
-the bulkhead's aft datum.
+The receiver row has a 7 mm wall section with four closed Ø12 mm bores and recessed
+front lips and rear collar seats. The interior access recess leaves flat keeper guides,
+their lock hosts, the fixed tee saddles and the separate rear cuff support. The full
+backing depth continues into the ridge/contact wall above. The Z-seam rail channels
+begin at the bulkhead's retained aft datum.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
 face. Its broad underside, fitted boss openings and motor bores close over both pumps.
@@ -1605,51 +1629,56 @@ flat roof takes support removable through the open side. The pump wells remain o
 octagons open upward through the underside. Each motor bore opens into a Ø45 mm terminal
 well through the crown. The annular transition has a straight support-removal path through
 that open well; each screw-head seat is accessible through its counterbore mouth on the
-crown. The current production slice records the supports at those contact regions.
+crown. Each native preparation must record its support contacts and removal paths at those regions.
 
 ## Cartridge contacts
 
 **The cartridge connects as it seats.** A
 [YYFKGCP 4-pin magnetic pogo pair](/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py)
-mates across the [0.246 mm](CARTRIDGE_BULKHEAD_KISS) kiss between the cartridge's flat back
-and the bay bulkhead. The female half, four flush pads between two magnets, is let into the
-clamp's aft face. The male half, four sprung pins, stands opposite it in the bulkhead's fore
-face. Both faces lie flush with their planes on one axis, on the centreline at z
+mates across a [0.5 mm](POGO_FACE_GAP) contact-face gap. The cartridge's flat back
+and bay bulkhead retain their [0.246 mm](CARTRIDGE_BULKHEAD_KISS) body clearance;
+each connector face is recessed [0.127 mm](POGO_FACE_RECESS) into its printed host.
+The female half, four flush pads between two magnets, is let into the clamp's aft
+face. The male half, four sprung pins, stands opposite it in the bulkhead's fore
+face. Both rows share one axis, on the centreline at z
 [278.524 mm](POGO_AXIS_Z). Straight Y insertion is the pair's mating axis, so each pin meets its
 pad head-on and nothing sweeps across either face. Seated, each pin is pressed
-[0.754 mm](POGO_PIN_PRESS) of its 1.10 mm stroke, leaving [0.346 mm](POGO_PIN_SPARE). Each
+[0.5 mm](POGO_PIN_PRESS) of its 1.10 mm stroke, leaving [0.6 mm](POGO_PIN_SPARE). Each
 contact is rated 12 V and 2 A.
 
 The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) covers
 the current exported seats, drawing tolerances and physical evidence. The purchased
-connector halves contain their own magnets. A separate
-[RC62 retention pair](magnet-retention/README.md) places one paused-in ring in the
-lower cartridge cradle and one in front-top, centered at X0, Z186.174 mm on the
-four tube axes. Its attraction acts in the seating direction, 92.350 mm below
-the pogo row. The native pocket, insertion sweep and stock checks retain the
-existing tube stops and pogo datums; installed seating force and heat exposure
-remain physical observations.
+connector halves contain their own magnets. The separate six-pair
+[SB443-IN dock array](../pump-dock/magnet-retention.md) acts at the four fluid-port
+row, with actual attracting faces set against the seated frame. Its retention does
+not establish pin compression or electrical continuity. The
+[RC62 ring-magnet print records](magnet-retention/README.md) retain their identified
+pocket, covering-layer and rattle scopes; they do not qualify the SB443-IN mounts.
 The nominal press is not a complete tolerance check: the seller's dimensions permit
-0.80–1.20 mm pin protrusion. The coupon's ±0.05 mm face criterion leaves only
-0.046 mm additional closing allowance at the nominal frame gap. Installed gap,
+0.80–1.20 mm pin protrusion. Applying ±0.05 mm face error per half about the
+recessed positions gives 0.200–0.800 mm compression and 0.300 mm additional
+closing allowance before full stroke. The accepted coupon's connector fit and
+mating/compression retain their identified geometry scope; they do not qualify
+the complete recessed seats or frame. Installed gap,
 magnetic retention and operating contact resistance have no reported physical result.
 
 Contacts pair by X: the two −X contacts serve the −X pump and the two +X contacts the +X pump.
-The pair attracts only in its matching orientation. Keep its plastic faces 0.25–0.30 mm
+The pair attracts only in its matching orientation. Keep its plastic faces 0.50 mm
 apart with equal measured nonconductive shims during local mating checks, mark the end of
 each half that will stand at −X, and seat both halves with that mark at −X.
 
 **Each half bears on its ear plate.** The seat's mouth is the plate's outline,
 [23.7 × 4.3 mm](POGO_MOUTH), cut from the face to the plate's back. That plane,
-[3 mm](POGO_DATUM_DEPTH) in, is the datum the plate lands on, so the face lands flush. The
+[3 mm](POGO_DATUM_DEPTH) behind the recessed connector face, is the datum the plate
+lands on, 3.127 mm behind the printed host face. The
 body's stadium continues behind it, and the tails and their solder joints stand in the lead
 passage behind that. Two M1.4 × 8 socket-head screws pass the
 ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
-[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 2 mm behind the ear datum, or 5 mm
-inside the mating face. A Ø2.6 mm passage admits the entire knurl through that
-setback. The full insert occupies depths 5–9 mm, the pilot ends at 10.5 mm, and
-the M1.4×8 tip ends at 10 mm. Each head stands [0.6 mm](POGO_HEAD_RECESS) under
-the face. Install the inserts before the half goes in, using the recessed-seat
+[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 2 mm behind the ear datum, or 5.127 mm
+inside the printed host face. A Ø2.6 mm passage admits the entire knurl through that
+setback. The full insert occupies depths 5.127–9.127 mm, the pilot ends at 10.627 mm,
+and the M1.4×8 tip ends at 10.127 mm. Each head stands
+[0.6 mm](POGO_HEAD_RECESS) behind the recessed connector face. Install the inserts before the half goes in, using the recessed-seat
 procedure in [enclosure assembly](../../../assembly/enclosure-mechanical.md).
 The supplier specifies the insert body, without a host-wall or hole-depth rule;
 Ø2.0 is the starting fit and requires physical coupon qualification.
@@ -1664,14 +1693,14 @@ carry the same allowance.
 its aft face, apex up, wide enough at the contact row for both outer tails and their solder
 joints. Its apex keeps [1.2 mm](POGO_LEAD_BORE_ROOF) of bulkhead under the crown, so its axis
 stands [2.098 mm](POGO_LEAD_DROP) below the pair's. It opens through the aft face above the fore
-valve tray's crown at z [274.45 mm](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
+valve tray's crown at z [no tray](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
 opens through the clamp's crown, which is the clamp's bed face, and one
 [4 × 3.5 mm](POGO_GROOVE) groove per pump carries that pump's pair along the crown into its
 terminal well. The crown keeps [3.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's [215 × 466.3 × 361 mm](BOX_SIZE)
+The machine display sits on a 30° plane within the enclosure's [215 × 473.3 × 361 mm](BOX_SIZE)
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;

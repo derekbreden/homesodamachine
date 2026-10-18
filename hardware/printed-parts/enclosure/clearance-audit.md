@@ -79,7 +79,7 @@ extra clearance rule. The 1.25 mm working target approximates that accepted gap;
 the accepted cover remains at 1.23 mm. See its
 [physical record](display-cover/physical-acceptance.json).
 
-Opposite-side clearances do not collapse into one allowance: the tee carrier's
+Opposite-side clearances do not collapse into one allowance: the identified tee-carrier trial's
 1.00 mm roof gap plus 0.25 mm floor gap gives 1.25 mm total vertical travel.
 Two rough faces of the same gap are distinct from two gaps on opposite sides of a part.
 
@@ -161,7 +161,7 @@ the nominal hardware envelopes used to size the CAD pockets.
 ## Verification
 
 The [native enclosure fit review](enclosure/y-seam-fit-review.json) binds nine targeted
-stages to the current production artifacts. It retains every measured finite planar
+stages to its identified artifacts. It retains every measured finite planar
 patch, its normal, print direction, required allowance and actual gap, together with
 complete local stock checks. The stages cover quadrants and frame, four M5 insert
 hosts and four washer floors,
@@ -174,11 +174,14 @@ geometric pocket surface, not loaded contact. Protected upper-body and hook/leaf
 the unchanged frame and actual silicone preserve the identified hook gaps, webs and upper
 bearing measurements. Earlier route readings remain conservative lower bounds under the
 measured cradle-subset chain; their original input and model scopes are retained.
-The unchanged physical tee carrier retains separate native stock/void and same-plane
+The identified physical tee carrier retains separate native stock/void and same-plane
 interpretations of its 18 ranked thickness pairs, without a whole-mesh thickness pass.
 The 35 insert-station readings
 and 14 finished-knuckle queries remain evidence for their original artifact hashes.
 The current stock-only stage does not refresh screw engagement or blind-tip reserve.
+Those records do not qualify the permanent pump dock; its wall bores, keeper and
+rear-support seats, flange captures and magnetic mounts have their own
+[engineering record](pump-dock/README.md).
 
 The [quadrant reading](mating-clearance-check.json) records the four current enclosure
 STEP hashes and its complete finite-patch and explicit-probe results. Its measured

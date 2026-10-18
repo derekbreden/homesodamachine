@@ -104,9 +104,9 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # collet-press/README.md — 0.4 nozzle, 0.24 layer, at least 6 walls and a
-    # dense core. Until its first committed slice, bill the specified core as
-    # solid; on this thin tool the result is its geometry.
+    # Small solid PET-GF: the collet press and the dock's keeper/support parts.
+    # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
+    # 100% infill. Bill their complete geometry until native production slices.
     "tool":  (2.70, 0.45, 1.00),
     # The bulkhead rings and their tube collars, two PET-GF spools to a plate: the
     # nameplate's saved profile, `nameplate/nameplate-001-petgf.3mf` — 0.4 nozzles,
@@ -150,6 +150,12 @@ PARTS = {
     "Enclosure — pump cartridge + clamp (one set)": [
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
+    ],
+    "Enclosure — pump receiver keepers (one set)": [
+        "enclosure/enclosure/enclosure-pump-receiver-keeper.step",
+    ] * 4,
+    "Enclosure — pump receiver rear support": [
+        "enclosure/enclosure/enclosure-pump-rear-support.step",
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
@@ -227,7 +233,10 @@ PARTS = {
 GROUP_OF = [
     ("Cold-core inner shell",       "bulk"),
     ("Cold-core foam cap",          "bulk"),
-    ("Enclosure —",                 "ext"),
+    ("Enclosure — front",           "ext"),
+    ("Enclosure — back",            "ext"),
+    ("Enclosure — pump cartridge",  "ext"),
+    ("Enclosure — pump receiver",   "tool"),
     ("Display cover plate",         "ext"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),

@@ -136,8 +136,7 @@ def enclosure_drift(root: Path = None) -> tuple:
             "solids", {})
     except (OSError, ValueError):
         held = {}
-    directories = ("hardware/printed-parts/enclosure/enclosure",
-                   "hardware/printed-parts/enclosure/tee-carrier")
+    directories = ("hardware/printed-parts/enclosure/enclosure",)
     current = {
         path.relative_to(root).as_posix(): path
         for rel_dir in directories

@@ -38,7 +38,8 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = _hw.parent
-for _p in (_hw / "scripts", _here.parent):
+for _p in (_hw / "scripts", _here.parent,
+           _hw / "printed-parts" / "enclosure" / "pump-dock"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import _boxes                                          # noqa: E402
@@ -48,6 +49,7 @@ import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
 import _gas_chain                                      # noqa: E402
 import _drain                                          # noqa: E402
+import dock_retention                                  # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 
@@ -219,6 +221,13 @@ CARB_SEGMENTS = (
 # in this table beside every other, because what fastens a valve is a printed seat under it and
 # not the sub-assembly it was arranged in. `derived_mounts` adds a row for each placed body this
 # table does not name, so the denominator is the whole machine.
+PUMP_DOCK_PORTS = {
+    "west-outer": ("tee-y-g", "fluid-22"),
+    "west-inner": ("tee-y-f", "fluid-21"),
+    "east-inner": ("tee-y-c", "fluid-11"),
+    "east-outer": ("tee-y-d", "fluid-12"),
+}
+
 MOUNTS = (
     # THE ONE BODY ON THE FLOOR THE SLAB FASTENS. Four posts stand on the front piece's slab
     # under the four holes in the compressor's own plate, each rising through its grommet's
@@ -404,18 +413,28 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
-    # THE FOUR PUMP-BARB TEES RIDE THE TEE CARRIER. Each sits half inset in a trough of the plate
-    # and two ties round its run roots close it there; its branch collar stands in the tee
-    # wall's journal.
-    ("tee-y-c", "enclosure-tee-carrier-plate", "tie-capture"),
-    ("tee-y-d", "enclosure-tee-carrier-plate", "tie-capture"),
-    ("tee-y-f", "enclosure-tee-carrier-plate", "tie-capture"),
-    ("tee-y-g", "enclosure-tee-carrier-plate", "tie-capture"),
-    # EACH RETURN SPRING RUNS FROM A POCKET IN FRONT-TOP'S TEE WALL TO A BLIND BORE IN A CARRIER
-    # COLUMN: the two pieces close on it between them.
-    *((f"tee-carrier-spring-{side}-{level}", ("enclosure-front-top", "enclosure-tee-carrier-plate"),
-       "gap-press")
-      for side in ("west", "east") for level in ("lower", "upper")),
+    # The wall locates each permanent TPU receiver in X/Z. Its flat locked keeper
+    # captures the receiver groove in Y.
+    *((f"pump-receiver-{port}",
+       ("enclosure-front-top", f"pump-receiver-keeper-{port}"), "wall-seat-and-keeper")
+      for port in PUMP_DOCK_PORTS),
+    *((f"pump-receiver-keeper-{port}", "enclosure-front-top", "guided-slide-M3-lock")
+      for port in PUMP_DOCK_PORTS),
+    ("pump-receiver-rear-support", "enclosure-front-top", "two-M3-lock"),
+    ("pump-dock-potting-moving", "enclosure-pump-cartridge", "keyed-potting"),
+    ("pump-dock-potting-fixed", "enclosure-front-top", "keyed-potting"),
+    # Exposed SB443-IN blocks have grooved rails and keyed dry epoxy bedding in each host.
+    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "keyed-rail-and-potting")
+      for side, host in (("moving", "enclosure-pump-cartridge"),
+                         ("fixed", "enclosure-front-top"))
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
+    # Fixed tee saddles in the bay wall carry the four pump-side commercial junctions.
+    ("tee-y-c", "enclosure-front-top", "tie-capture"),
+    ("tee-y-d", "enclosure-front-top", "tie-capture"),
+    ("tee-y-f", "enclosure-front-top", "tie-capture"),
+    ("tee-y-g", "enclosure-front-top", "tie-capture"),
+
 )
 
 
@@ -461,8 +480,8 @@ def derived_mounts() -> tuple:
     """One row for every placed body `MOUNTS` does not name.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
-    printed seats, the pump heads have their cartridge cradle and the four barb tees are tied to
-    the tee carrier. A remaining body no printed feature reaches is carried only
+    printed seats, the pump heads have their cartridge cradle and the four pump-side tees
+    have fixed bulkhead saddles. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -511,8 +530,8 @@ NEVER = {
 
 
 # Which fixed valve each tee reaches, and by which manifold construction. The two inner tees
-# derive their hold through face-to-face butts; the four pump-barb tees ride the tee carrier and
-# reach their fixed fore valves through explicit bowed flex stubs.
+# derive their hold through face-to-face butts; the four pump-side tees stand in fixed
+# bulkhead saddles and reach their fore valves through stationary links.
 TEE_LANDS = {
     "tee-y-a": ("valve-v-c", "butt"),
     "tee-y-b": ("valve-v-d", "butt"),
@@ -605,10 +624,32 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("funnel-cover", "funnel-frame"),
     ("funnel-cover", "enclosure-front-top"),
     ("funnel-cover", "enclosure-back-top"),
-    # A return spring's ends: one on its pocket's floor in the tee wall, one on its bore's floor.
-    *((f"tee-carrier-spring-{side}-{level}", host)
-      for side in ("west", "east") for level in ("lower", "upper")
-      for host in ("enclosure-front-top", "enclosure-tee-carrier-plate")),
+    # Bare attracting pole faces meet; adjacent blocks share a column stack.
+    *((f"pump-dock-potting-{side}", f"pump-dock-SB443-{side}-{column}-{row}")
+      for side in ("moving", "fixed")
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
+    *((f"pump-dock-SB443-moving-{column}-{row}", f"pump-dock-SB443-fixed-{column}-{row}")
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
+    *((f"pump-dock-SB443-{side}-{column}-{row}", f"pump-dock-SB443-{side}-{column}-{row + 1}")
+      for side in ("moving", "fixed")
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN)),
+    # Opposite-side adjacent rows share an edge on the common pole plane.
+    # These exact neighbor pairs skip only the distance floor, not volume clashes.
+    *((f"pump-dock-SB443-moving-{column}-{row}",
+       f"pump-dock-SB443-fixed-{column}-{row + offset}")
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)
+      for offset in (-1, 1)
+      if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
+    # Intentional near-contact interfaces of the permanent receiver assembly.
+    *((f"pump-receiver-{port}", f"pump-receiver-keeper-{port}")
+      for port in PUMP_DOCK_PORTS),
+    *((f"pump-receiver-{port}", tee) for port, (tee, _fluid) in PUMP_DOCK_PORTS.items()),
+    *((f"pump-receiver-{port}", "pump-receiver-rear-support") for port in PUMP_DOCK_PORTS),
+    *(("pump-receiver-rear-support", tee) for tee, _fluid in PUMP_DOCK_PORTS.values()),
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
@@ -696,7 +737,7 @@ TOUCHING_OK = {frozenset(p) for p in (
 
 
 # HOW A CONNECTION IS MADE. A length of tube between two placed bodies is one way and not the
-# only one: most of the flavour manifold is butted collet to collet, the hinge carries four
+# only one: most of the flavour manifold is butted collet to collet, the fold carries four
 # segments round a hairpin, the two source valves are reached by a quarter turn and the step off
 # it, and a leg of the refrigerant loop whose two bodies meet on one plane is made up across
 # that plane rather than drawn. A butt between two collets, or a joint whose two mouths are
@@ -711,7 +752,7 @@ TOUCHING_OK = {frozenset(p) for p in (
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
-    "bowed":     "made by a bowed flex stub",
+    "bowed":     "made by a stationary curved link",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
     "fold":      "made by the fold's hairpin",

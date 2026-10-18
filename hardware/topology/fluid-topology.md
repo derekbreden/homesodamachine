@@ -25,9 +25,9 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and the [6](TEE_COUNT) junction tees, over [2](PUMP_COUNT) pumps.
 
-**A limb is a lane.** Every valve is straight through and every junction's run takes two valve ports, so a limb is one line of valves and tees, front to back, on one column of X. The inner junctions meet their fixed neighbours face to face. The four tees over the pump barbs move together in a guided carrier, with a bowed flex stub between each moving run port and its fixed fore valve. A pump-barb tee puts its RUN across the head's face, so each pump hands out two lanes, 57 mm apart — an inner limb and an outer one, both on its own side of the mirror plane. Channel A stands east of that plane in the machine and channel B west.
+**A limb is a lane.** Every valve is straight through and every junction's run takes two valve ports, so a limb is one line of valves and tees, front to back, on one column of X. The inner junctions meet their fixed neighbours face to face. The four pump-side tees stand in fixed wall saddles. Stationary S links connect their run ports to the fore valves, and permanent TPU receivers connect their branches to the prepared pump stems. Each pump-side tee puts its RUN across the head's face, so each pump hands out two lanes, 57 mm apart — an inner limb and an outer one, both on its own side of the mirror plane. Channel A stands east of that plane in the machine and channel B west.
 
-**The pack is folded in two** about the hinge the four barb tees' front collets stand on. [8](UPPER_COUNT) bodies ride up onto the second deck and [8](LOWER_COUNT) stay on the first, and the four connections crossing the hinge each become a 180° hairpin. The fold turns every mouth that leaves the pack to face the back of the machine.
+**The pack occupies two fixed decks.** [8](UPPER_COUNT) bodies stand on the folded deck and [8](LOWER_COUNT) on the other. Four stationary 180° hairpins connect the rows to the pump-side tees. The arrangement turns every mouth that leaves the pack toward the back of the machine.
 
 Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
@@ -35,15 +35,22 @@ Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topo
 
 Six 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-F, Y-G** — and every one of them is a **PP0208E Tee** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y.
 
-**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or a valve and a pump barb.
+**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects the valves to a pump through its permanent receiver.
 
-Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-D, Y-F and Y-G float on their tubes; the fixed wall journals their branch collars in X and Z and leaves their Y free.
+Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-D, Y-F and Y-G are tied into fixed bulkhead saddles; their collets and rear tubing remain stationary during a pump change.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the printed collet plate, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb. One run port carries a constant-length hairpin whose lower end moves with the tee; the other reaches its fixed fore valve through a [17.251 mm](BOWED_EXPOSED) exposed bowed stub across a [15.251 mm](BOWED_GAP) sleeve-face gap. Y-C and Y-F take suction, Y-D and Y-G discharge.
+**Y-C, Y-D, Y-F and Y-G are the pump-side junctions.** Each BRANCH takes a
+permanent straight [18.175 mm](FIXED_TAIL_CUT) LLDPE tail from a wall-supported TPU
+receiver. The customer's prepared machined flanged stem enters the receiver's
+front land and separates there when the cartridge is withdrawn. The tee and its
+commercial collet stay fixed. One run port carries a stationary hairpin to the aft
+valve row; the other reaches its fore valve through a fixed R14 S link with
+[15.2531 mm](BOWED_EXPOSED) of exposed developed path. That figure excludes insertion
+inside either fitting. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
-Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
+Y-A's and Y-B's run ports are numbered from the source end down the limb. On a pump-side tee the branch takes the number nearest its pump connection — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
@@ -56,7 +63,23 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. On a b
 
 ## Tube Segments
 
-Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the enclosure assembly owes. A segment is face-to-face `butt`, a known `straight`, a carrier-side `bowed` link, a constant-length `fold` hairpin, a `turn` out of a deck plane, or a swept `drawn` run authored by [`_lines.py`](/hardware/manifold-layout/_lines.py). Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and [4](BOWED_COUNT) carry [17.251 mm](BOWED_EXPOSED) exposed across a [15.251 mm](BOWED_GAP) sleeve-face gap. The known cuts total [2375.5 mm](FLUID_TOTAL); that total deliberately excludes the four bowed blanks because the valve-side insertion depth remains a bench reading. A bare run of [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every construction, measured length and corner count.
+Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd).
+[`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor
+connection inventory. A segment is a face-to-face `butt`, a known `straight`, a fixed
+`bowed` S link, a `fold` hairpin, a `turn` out of a deck plane, or a swept `drawn` run.
+Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
+[4](BOWED_COUNT) use [15.2531 mm](BOWED_EXPOSED) exposed S links across
+[15.253 mm](BOWED_GAP) mouth-to-mouth chords. Make each S-link blank from its exposed
+path plus the actual insertion into both fittings; the valve-side insertion is a
+factory measurement. Reported tube lengths total [2601.5 mm](FLUID_TOTAL), including
+the four complete permanent receiver-to-tee tails and excluding the four S links.
+Other mouth-to-mouth path lengths need their actual fitting insertions when making
+the finished blanks; a butt joint needs tube through both fittings despite its
+zero exposed length.
+Machined pump stems and the continuous TPU fluid passages are separate components,
+not tube-stock cuts. A bare run of
+[`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every
+construction, known stock length and exposed path.
 
 Four of the seven conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
 
@@ -77,28 +100,28 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
-| 10 | V-E-O | Y-C-2 | Exposed bowed flex stub from the fixed valve to the moving barb tee; total cut blank TBD at the bench |
-| 11 | Y-C-3 | P-A-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
-| 12 | P-A-O | Y-D-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 13 | Y-D-2 | V-F-I | Exposed bowed flex stub from the moving barb tee to the fixed valve; total cut blank TBD at the bench |
+| 9 | V-C-O | Y-C-1 | Stationary 180° hairpin on the A1 limb's column |
+| 10 | V-E-O | Y-C-2 | Fixed R14 S link: exposed developed path plus actual insertion into the valve and fixed tee |
+| 11 | Y-C-3 | P-A-I | Fixed tee tail → permanent TPU receiver → prepared pump A suction stem; the stem/receiver slip joint separates for service |
+| 12 | P-A-O | Y-D-1 | Prepared pump A discharge stem → permanent TPU receiver → fixed tee tail; the stem/receiver slip joint separates for service |
+| 13 | Y-D-2 | V-F-I | Fixed R14 S link: exposed developed path plus actual insertion into the fixed tee and valve |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
-| 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
+| 17 | Y-D-3 | V-G-I | Stationary 180° hairpin on the A2 limb's column |
 | 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the +Y wall of back-top |
 
 ### Channel B
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
-| 20 | V-H-O | Y-F-2 | Exposed bowed flex stub from the fixed valve to the moving barb tee; total cut blank TBD at the bench |
-| 21 | Y-F-3 | P-B-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
-| 22 | P-B-O | Y-G-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 23 | Y-G-3 | V-I-I | Exposed bowed flex stub from the moving barb tee to the fixed valve; total cut blank TBD at the bench |
+| 19 | V-D-O | Y-F-1 | Stationary 180° hairpin on the B1 limb's column |
+| 20 | V-H-O | Y-F-2 | Fixed R14 S link: exposed developed path plus actual insertion into the valve and fixed tee |
+| 21 | Y-F-3 | P-B-I | Fixed tee tail → permanent TPU receiver → prepared pump B suction stem; the stem/receiver slip joint separates for service |
+| 22 | P-B-O | Y-G-1 | Prepared pump B discharge stem → permanent TPU receiver → fixed tee tail; the stem/receiver slip joint separates for service |
+| 23 | Y-G-3 | V-I-I | Fixed R14 S link: exposed developed path plus actual insertion into the fixed tee and valve |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
-| 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |
+| 27 | Y-G-2 | V-J-I | Stationary 180° hairpin on the B2 limb's column |
 | 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the +Y wall of back-top |
 
 ---

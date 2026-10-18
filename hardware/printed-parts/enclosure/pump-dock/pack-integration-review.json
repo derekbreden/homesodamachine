@@ -1,0 +1,121 @@
+{
+  "scope": "Local nominal fixed-manifold and nearby fixture placement review. The existing native appliance supplies stationary obstacles; the four fore valve bodies/coils and two WAGOs are translated to the selected current source datums. WAGO support stock is generated from the actual source function on a local wall segment. Full regenerated appliance closure is a separate result. This establishes no physical load, seal, venting or lifetime qualification.",
+  "source_sha256": {
+    "hardware/manifold-layout/manifold_layout.py": "2182d5788db552d37b0200c236007e549d808ee963a9f54b2f1ddae251f708c3",
+    "hardware/manifold-layout/enclosure_assembly.py": "c82b414da3456351aac5381d819afc2315afd7970484347e3e37f5641a1adcdc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "14baa7e02a449af7574a58d6e1063d0da2410a6118fd606d09534a6dee985649"
+  },
+  "native_obstacle_step_sha256": "62524a705a7961544c46c8067e55c56dd691363f055a02ebdd5404a2e1c31b99",
+  "fixed_pack": {
+    "scope": "Local fixed manifold native geometry at fore rise10; no full appliance regenerated and no physical qualification inferred.",
+    "fore_valve_rise_mm": 10.0,
+    "leaf_count": 60,
+    "all_solids_valid": true,
+    "clashes": [],
+    "unanswered": [],
+    "fore_links": [
+      {
+        "name": "fore-y-c",
+        "chord_mm": 15.25304890833305,
+        "exposed_length_mm": 15.253069936402147,
+        "native_length_mm": 15.253069936402147,
+        "native_sweep_valid": true
+      },
+      {
+        "name": "fore-y-d",
+        "chord_mm": 15.25304890833305,
+        "exposed_length_mm": 15.253069936402147,
+        "native_length_mm": 15.253069936402147,
+        "native_sweep_valid": true
+      },
+      {
+        "name": "fore-y-f",
+        "chord_mm": 15.25304890833305,
+        "exposed_length_mm": 15.253069936402147,
+        "native_length_mm": 15.253069936402147,
+        "native_sweep_valid": true
+      },
+      {
+        "name": "fore-y-g",
+        "chord_mm": 15.25304890833305,
+        "exposed_length_mm": 15.253069936402147,
+        "native_length_mm": 15.253069936402147,
+        "native_sweep_valid": true
+      }
+    ],
+    "manifold_source_sha256": "2182d5788db552d37b0200c236007e549d808ee963a9f54b2f1ddae251f708c3",
+    "elapsed_s": 13.864950832969043
+  },
+  "placements": {
+    "fore_valve_rise_mm": 10.0,
+    "wago_manifold_common_y_mm": 180.0,
+    "pump_tee_receiver_stations_changed": false
+  },
+  "coil_ve_cradle_gap_mm": 4.842698431345594,
+  "source_generated_wells": {
+    "valid": true,
+    "coil_vf_gap_mm": 6.29142615533266,
+    "support_geometry_changed_by_station_getter": true
+  },
+  "wago_open_lever_conservative_envelopes": [
+    {
+      "name": "wago-mana",
+      "centre_y_mm": 180,
+      "fully_open_conservative_box_mm": [
+        86.2,
+        165.25,
+        265.1,
+        104.5,
+        194.75,
+        294.9
+      ],
+      "neighbors_under_3_mm": [
+        {
+          "part": "coil-v-f",
+          "gap_mm": 1.710000000000008,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "name": "wago-manb",
+      "centre_y_mm": 180,
+      "fully_open_conservative_box_mm": [
+        85.9,
+        168.95000000000002,
+        231.0,
+        104.5,
+        184.2,
+        261.0
+      ],
+      "neighbors_under_3_mm": []
+    }
+  ],
+  "fore_valve_entry": {
+    "post_reach_mm": 5.2,
+    "additional_approach_allowance_mm": 0.5,
+    "samples": [
+      {
+        "travel_y_mm": 0.0,
+        "coil_to_new_wells_mm": 6.29142615533266,
+        "coil_to_wago_mana_mm": 8.560000000000002
+      },
+      {
+        "travel_y_mm": 2.6,
+        "coil_to_new_wells_mm": 3.7171542838341303,
+        "coil_to_wago_mana_mm": 5.960000000000008
+      },
+      {
+        "travel_y_mm": 5.2,
+        "coil_to_new_wells_mm": 1.1251565812948612,
+        "coil_to_wago_mana_mm": 3.3600000000000136
+      },
+      {
+        "travel_y_mm": 5.7,
+        "coil_to_new_wells_mm": 0.62928682029585,
+        "coil_to_wago_mana_mm": 2.8600000000000136
+      }
+    ],
+    "scope": "Native samples of the V-F coil against the source-generated support wells and installed WAGO; factory valves enter before downstream tubing closes access."
+  }
+}

@@ -7,11 +7,12 @@ assembly and its physical observations are indexed in
 the male half stays in front-top's bay bulkhead. Its four leads stay on the pump tabs
 when the cartridge is withdrawn.
 
-The lower cradle and front-top each contain one paused-in
-[RC62 retention ring](magnet-retention/README.md), centered at X0, Z186.174 mm
-on the four tube axes. Attraction acts along the tube insertion direction,
-92.350 mm below the pogo row. The guides and tube stops keep their seating datums;
-installed retention force and contact compression remain physical checks.
+The lower cradle and fixed receiver wall carry six attracting SB443-IN pairs in
+two three-high columns at the fluid-port row. The blocks are installed after
+printing and positively captured by grooved rails and keyed DP420 Off-White bedding.
+Their pole faces are match-set against the actual rigid cartridge stops before
+cure, following the [magnet procedure](../pump-dock/magnet-retention.md).
+Installed retention and contact compression remain physical qualifications.
 
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
 Derek confirms that the assembled holder retains both pumps firmly with no vertical
@@ -21,13 +22,21 @@ identify that accepted fit. The surrounding crown reaches the cartridge top at
 Z284.174 mm. Two Ø45 terminal wells leave both motor ends open. Two M3×60 screws seat
 in counterbores accessible from above.
 
-The cartridge uses the matching relieved enclosure floor. Its fitted lower wells
-match the retained printed input within 0.004 mm at the sampled triangles. The cap
-and cartridge share an aft face at Y79.269 mm, with a complete 3 mm skirt band and
-0.246 mm air to the collet plate. The retained holder check includes cap insertion,
-screw access, front-rim clearance, all four outlet axes and cartridge withdrawal.
-The measured tee branch travel is integrated; exact terminal-ring seam and diameter
-remain conservative clearance proxies in the native report.
+The cartridge uses the relieved enclosure floor. The cap and cartridge share an
+aft face at Y79.269 mm, with a complete 3 mm skirt band and 0.246 mm body clearance
+to the receiver wall. The contact faces are each recessed 0.127 mm, giving a
+0.500 mm nominal mating gap. The four prepared PP-H stems have integral flanges
+captured axially in the lower cradle; the cap closes their upward escape. Their
+tips enter permanent TPU receivers and finish 0.50 mm before the internal shoulders.
+Dedicated outboard rigid stop lands bear against the retained lower cradle to
+establish that position; the broad aft planes retain their stated clearance.
+
+The [fitted-well audit](/hardware/reference/kamoer-kphm400/fitted-well-audit/README.md)
+records its sampled 0.004 mm match to the retained printed input and its cap,
+screw-access, front-rim and outlet-axis scope. The
+[stem review](../pump-dock/stem-native-review.json) covers the added flange guards,
+cap installation and purchased-pump clearances. Neither native record extends
+the accepted holder fit to the complete fluid dock.
 
 ## Native evidence
 
@@ -52,13 +61,14 @@ the production seat orientation for local roof, fit and lead-passage observation
 Both parts use black PET-GF on the left 0.4 mm nozzle. The cartridge stands on its flat
 underside; the cap prints crown-down.
 
-The current lower cradle has its own single-object
-[paused native source](magnet-retention/pump-cartridge-pause.3mf) and
-[emitted-path check](magnet-retention/native-check.json). Insert its RC62 before
-the centered pocket closes. The cap's purchased pogo magnets need no insertion pause.
+The RC62 trial's [paused source](magnet-retention/pump-cartridge-pause.3mf) and
+[emitted-path check](magnet-retention/native-check.json) retain their identified
+ring-pocket scope. The current SB443-IN mounts follow the post-print loading and
+cure process linked above. The cap's purchased pogo magnets arrive inside the connector.
 
 The [support audit](pump-support-audit.md) names the actual support bodies and their
 removal lanes. Remove them before installing pumps or screws. The complete enclosure
 trial checks the raised crown with actual terminal connectors, pump seating, marked
-tube insertion depth, capture under a tug, four-collet release and spring return.
+stem tip positions, flange capture, simultaneous four-receiver insertion, fixed
+receiver/tee retention and straight cartridge withdrawal.
 Physical support-removal effort and operation remain observations of that trial.

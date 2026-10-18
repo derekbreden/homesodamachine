@@ -17,6 +17,7 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "faucet-shell"))
 sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
 sys.path.insert(0, str(_here.parent / "manifold-layout"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "enclosure" / "pump-dock"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -32,6 +33,7 @@ from reservoir import insert_positions_for_side_plus_1
 from faucet_shell import base_pod_centers
 
 import manifold_layout as ml
+import dock_retention
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
@@ -94,15 +96,10 @@ carbonator_ports = 4
 # Flavor reservoirs per appliance.
 reservoirs_per_build = 2
 
-# One inserted RC62 per vessel float, plus one in each half of the
-# enclosure's separate cartridge-retention pair.
+# One inserted RC62 per vessel float. Cartridge retention uses stepped block magnets.
 floats_per_build = 1 + reservoirs_per_build
-retention_magnet_parts = ("pump-cartridge", "front-top")
-assert set(retention_magnet_parts) <= set(_f.pieces), (
-    "the RC62 retention row requires both owning enclosure pieces")
-_enc._retention.station(_f.box["collet_plate"]["holes"])
-retention_magnets_per_build = len(retention_magnet_parts)
-rc62_per_build = floats_per_build + retention_magnets_per_build
+rc62_per_build = floats_per_build
+dock_magnets_per_build = 2 * len(dock_retention.stations(_f.box["collet_plate"]["holes"]))
 
 # Carbonator reeds (threshold-only). Per-reservoir count lives in
 # `_reed_channels.py`.
@@ -117,7 +114,8 @@ solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
 four_inch_ties_per_build = 24
-six_inch_ties_per_build = 7
+# Two fixed-collar ties on each of the four pump-side tees.
+six_inch_ties_per_build = 7 + 2 * len(_f.box["collet_plate"]["holes"])
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -152,8 +150,8 @@ pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # The placed pack turns no line on a fitting, so the BOM's one union-elbow row is the
 # funnel drain's (§8). `manifold_layout.JOINS` is empty — every valve is butted collet to
-# collet down its limb, every junction is a Tee, and each pump barb is taken by a
-# tee's branch, which is what puts that tee's run across the head's face.
+# collet down its limb and every junction is a Tee. The four pump paths pass through
+# permanent TPU receivers before reaching fixed tee branches.
 assert not ml.JOINS, (
     f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §8 buys "
     f"one, for the funnel drain — raise that row's count to cover these too")
@@ -277,6 +275,12 @@ display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
+# Each permanent receiver has one flat keeper and a factory-only M3×8 lock screw.
+dock_keepers_per_build = len(_f.box["collet_plate"]["holes"])
+dock_keeper_inserts_per_build = dock_keepers_per_build
+dock_keeper_screws_per_build = dock_keepers_per_build
+dock_rear_support_locks_per_build = len(_enc._dock.SUPPORT_LOCK_X)
+
 # The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
 # stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
 # declares, so this count is the donor's the way the shelf's is the pack's — a receptacle with a
@@ -310,12 +314,13 @@ enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 enclosure_seam_washers_per_build = enclosure_seam_rods_per_build
 
 # Every M3 × 8 in the build: the main board's four, the condenser's aft pair, the faucet
-# base and the C14 inlet. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
+# base, C14 inlet and permanent receiver keepers. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
 # seating face on the receptacle's rim, so an 8 leaves 2.9 mm in the 4 mm insert.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
-                  + touchflo_screws_per_build)
+                  + touchflo_screws_per_build + dock_keeper_screws_per_build
+                  + dock_rear_support_locks_per_build)
 
 # And every M3 x 10: the PSU's four and the ground-stack clamp's one.
 m3x10_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
@@ -388,6 +393,8 @@ m3_short_inserts_per_build = (
     + shelf_inserts_per_build
     + faucet_display_cover_inserts_per_build
     + c14_inserts_per_build
+    + dock_keeper_inserts_per_build
+    + dock_rear_support_locks_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
@@ -407,6 +414,8 @@ total_m3_screws_per_build = (
     + faucet_display_cover_screws_per_build
     + pump_cap_screws_per_build
     + c14_screws_per_build
+    + dock_keeper_screws_per_build
+    + dock_rear_support_locks_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
 
@@ -482,9 +491,10 @@ def main(*, only_bom=False):
         "RESERVOIRS": f"{reservoirs_per_build:.4g}",
         "RESERVOIR_CAP_COUNT": f"{reservoirs_per_build:.4g}",
         "AERO_FLOATS": f"{floats_per_build:.4g}",
-        "RETENTION_RC62": f"{retention_magnets_per_build:.4g}",
         "RC62_TOTAL": f"{rc62_per_build:.4g}",
         "RC62_COST": pack_line_cost(rc62_per_build, "88.28", 30),
+        "DOCK_MAGNETS": f"{dock_magnets_per_build:.4g}",
+        "DOCK_MAGNET_COST": pack_line_cost(dock_magnets_per_build, "70.54", 50),
         # Reeds.
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "CARB_REEDS": f"{reeds_per_carbonator:.4g}",
@@ -496,6 +506,7 @@ def main(*, only_bom=False):
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
+        "SIX_INCH_TIES_COST": pack_line_cost(six_inch_ties_per_build, "6.42", 100),
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
@@ -581,6 +592,15 @@ def main(*, only_bom=False):
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
         "SEAM_WASHERS_COST": pack_line_cost(enclosure_seam_washers_per_build, "7.23", 100),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
+        "DOCK_STEMS": f"{len(_f.box['collet_plate']['holes'])}",
+        "DOCK_RECEIVERS": f"{len(_f.box['collet_plate']['holes'])}",
+        "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
+        "DOCK_KEEPER_INSERTS": f"{dock_keeper_inserts_per_build:.4g}",
+        "DOCK_KEEPER_SCREWS": f"{dock_keeper_screws_per_build:.4g}",
+        "DOCK_REAR_SUPPORT_LOCKS": f"{dock_rear_support_locks_per_build:.4g}",
+        "DOCK_LOCK_WASHERS": f"{dock_keeper_screws_per_build + dock_rear_support_locks_per_build:.4g}",
+        "DOCK_LOCK_WASHERS_COST": pack_line_cost(
+            dock_keeper_screws_per_build + dock_rear_support_locks_per_build, "7.82", 200),
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
@@ -674,6 +694,8 @@ def main(*, only_bom=False):
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
+            "DOCK_LOCKS": f"{dock_keeper_screws_per_build + dock_rear_support_locks_per_build:.4g}",
+            "C14_SCREWS": f"{c14_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",

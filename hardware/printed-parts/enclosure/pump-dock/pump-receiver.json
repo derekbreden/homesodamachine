@@ -1,0 +1,93 @@
+{
+  "material": "Siraya Tech Flex TPU 85A Clear",
+  "wall_thickness_mm": 7.0,
+  "front_seal_bore_mm": 6.1,
+  "front_seal_land_mm": 6.0,
+  "rear_seal_land_mm": 6.0,
+  "relaxed_cuff_od_mm": 11.7,
+  "wall_radial_room_mm": 0.15000000000000036,
+  "keeper_radial_room_mm": 0.35000000000000053,
+  "keeper_thickness_mm": 3.0,
+  "keeper_axial_station_mm": [
+    7.0,
+    10.0
+  ],
+  "keeper_wall_face_gap_mm": 0.0,
+  "keeper_rear_groove_room_mm": 0.34999999999999964,
+  "tube_tip_clearance_to_stop_mm": 0.5,
+  "nominal_annular_area_expanded_od_mm": 11.832265210009451,
+  "local_wet_stations_mm": {
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "customer_tip": [
+      0.0,
+      7.5,
+      0.0
+    ],
+    "customer_stop": [
+      0.0,
+      8.0,
+      0.0
+    ],
+    "factory_tip": [
+      0.0,
+      9.0,
+      0.0
+    ],
+    "rear_mouth": [
+      0.0,
+      15.0,
+      0.0
+    ],
+    "front_seal": [
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        7.0,
+        0.0
+      ]
+    ],
+    "rear_seal": [
+      [
+        0.0,
+        9.0,
+        0.0
+      ],
+      [
+        0.0,
+        15.0,
+        0.0
+      ]
+    ]
+  },
+  "projected_od_load_cases": [
+    {
+      "pressure_psi": 10,
+      "per_port_n": 2.1835156793814026,
+      "two_ports_n": 4.367031358762805,
+      "four_ports_n": 8.73406271752561
+    },
+    {
+      "pressure_psi": 30,
+      "per_port_n": 6.550547038144208,
+      "two_ports_n": 13.101094076288415,
+      "four_ports_n": 26.20218815257683
+    },
+    {
+      "pressure_psi": 80,
+      "per_port_n": 17.46812543505122,
+      "two_ports_n": 34.93625087010244,
+      "four_ports_n": 69.87250174020488
+    }
+  ],
+  "scope": "Nominal geometry and separating-load cases; no physical seal, retention or lifetime rating.",
+  "print_orientation": "Funnel ring on bed; bore vertical; no support in fluid passage.",
+  "external_support": "Rear collar pump-facing flat underside only; remove before factory assembly."
+}

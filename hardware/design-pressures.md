@@ -21,9 +21,11 @@ belongs to the structure.
 
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own front opening. Pulling the cartridge draws four tees to a fixed release face. The fixed
-plate carries removal reaction into the whole enclosure, which can be
-braced by a hand, foot, cupboard edge or its own weight. `enclosure-front-top` stays on. Every other
+own front opening. Pulling the cartridge withdraws four prepared flanged stems from
+stationary TPU receivers. The rigid wall and locked flat keepers carry receiver reaction
+into the enclosure, while the stem flanges bear in the removable cradle. The enclosure
+can be braced by a hand, foot, cupboard edge or its own weight. The fixed commercial
+tees and rear plumbing stay put, and `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
 internet to customers in other states, and the returned unit comes back to Derek. Diagnosis
 of a returned unit is a teardown with factory tools — cutting included — not a repair.
@@ -40,11 +42,12 @@ destroyed is a part that comes out by being destroyed.
   comes onto it. This constrains the ORDER, not the grouping: a chain of butts installs in
   chain order, each body free as its own joint closes. What it forbids is fixing both ends
   first, and a body whose butts run on two axes being last in. The flavour manifold has three
-  interior butt joints; the four barb-tee-to-fore-valve links are exposed bowed flex stubs,
+  interior butt joints; the four pump-side-tee-to-fore-valve links are stationary curved paths,
   not butts ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **A moving quick-connect needs compliant tube at every moving end.** Y-C, Y-D, Y-F and Y-G
-  are journalled in X and Z and free in Y. Four bowed stubs flex between those tees and fixed
-  fore valves; the tee-side ends of four spine hairpins move with them.
+- **The pump dock separates at its permanent TPU receivers.** The wall contains each receiver
+  in X/Z and a flat interior keeper captures Y. Y-C, Y-D, Y-F and Y-G, their fore links and
+  their hairpins are fixed. Complete replacement pumps carry factory-fitted machined
+  flanged stems; the customer replaces no receiver or other dock component.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the Y seam's vertical screws prevent the reverse motion.
@@ -64,24 +67,19 @@ destroyed is a part that comes out by being destroyed.
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
   the sleeve pressed home. Each run sleeve travels 1.65 mm; the branch sleeve travels
-  1.50 mm. The fixed plate acts on the four branch sleeves and holds them fully depressed
-  at the fore stop. Nominal connected travel is 2.00 mm: 1.50 mm of sleeve travel and
-  0.50 mm of nose air. Release and squeeze share the fore stop. Tube projection bottoms at
-  nominal connected with the cartridge fully seated, 11.50 mm beyond each extended branch
-  face. At squeeze it bottoms 10.00 mm beyond each pressed face with the cartridge 2.00 mm
-  shy of seating.
-- **Exposed path length is not stock cut length.** Each of the four bowed flex stubs presents a
-  17.251 mm developed path between sleeve faces separated by 15.251 mm in height and 1.75 mm fore/aft
-  at squeeze. Its blank also includes the
-  insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
-  trial therefore owns the blank before production; no cut instruction may call that blank
-  17.251 mm.
-- **The collet action is physically established.** Derek's checks with a tube-tight collar
-  show easy extraction while the collet is continuously held, relocking after a small
-  separating tug, and insertion against spring-level collet tension. The fixed plate carries
-  the removal reaction. The observations are recorded in
-  [`tee-connector/`](/hardware/reference/tee-connector/README.md#observed-push-connect-action).
-  The assembled unit's dry cycle checks its release and flexible links.
+  1.50 mm. The permanent rear tails seat 11.50 mm beyond the extended branch faces;
+  the commercial collets operate only during factory assembly.
+- **Exposed path length is not stock cut length.** The four stationary fore links are
+  reported between their fitting mouths. Each blank also includes the actual insertion
+  at both fittings; the valve-side insertion is established while preparing the blank.
+  [`manifold-layout/`](/hardware/manifold-layout/README.md) and the assembly procedure
+  supply the current paths and cut instructions.
+- **The commercial collet action has its own physical evidence.** The
+  [`tee-connector observations`](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
+  establish extraction while depressed, relocking after a small separating tug and
+  insertion against spring-level collet tension on the identified fittings. They provide
+  no seal or endurance acceptance for the TPU dock. During its assembled dry cycle,
+  record simultaneous stem insertion and withdrawal, rigid seating and fixed-plumbing behavior.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.

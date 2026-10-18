@@ -1,0 +1,460 @@
+{
+  "review": "Lower-shell core-stop ownership and complete functional bearing geometry",
+  "scope": "Two lower quadrants built directly from the identified existing Box; remaining four native pieces read from snapshots. No placement, other-piece or assembly-graph generation.",
+  "source_sha256": "14baa7e02a449af7574a58d6e1063d0da2410a6118fd606d09534a6dee985649",
+  "review_script_sha256": "a554911609ba3c46c48582aa2a982344e140fc787b4312ea8054fa31f583eae1",
+  "box_sha256": "76eddffab27e719881c81ce51e301630399b5db0cbe054ad1d8e8a1ebb22e408",
+  "input_step_sha256": {
+    "front-bottom": "980bafd2d6d95415de47af5a9321dfb510dbfef196e62b069fcc26bdea202ed5",
+    "back-bottom": "e96467d6235439c03900c9f8959b20079522a05b63aef832f2c6d2a618c259a3",
+    "front-top": "fe0d06270092aae83b3ece7c44e9e0d15d1b7ec227cc73d581a72695e98455bb",
+    "back-top": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+    "pump-cartridge": "775637bda29a6ab3517feac4ff47a6082c7dc9e0c98b07bd7e9937afb9035b27",
+    "pump-cap": "fac7b993816d8640e72b44ca5a6de5e901a9734ffd1e4ed0cec87f90e45a44d0"
+  },
+  "initial_native_bottom_pair": {
+    "overlap_mm3": 198.37498211277273,
+    "bounds_mm": {
+      "x": [
+        -93.75,
+        93.75
+      ],
+      "y": [
+        200.15,
+        201.2999999
+      ],
+      "z": [
+        0.0,
+        28.75
+      ]
+    },
+    "regions": [
+      {
+        "overlap_mm3": 99.18749105638628,
+        "bounds_mm": {
+          "x": [
+            90.75,
+            93.75
+          ],
+          "y": [
+            200.15,
+            201.2999999
+          ],
+          "z": [
+            0.0,
+            28.75
+          ]
+        }
+      },
+      {
+        "overlap_mm3": 99.18749105638626,
+        "bounds_mm": {
+          "x": [
+            -93.75,
+            -90.75
+          ],
+          "y": [
+            200.15,
+            201.2999999
+          ],
+          "z": [
+            0.0,
+            28.75
+          ]
+        }
+      }
+    ]
+  },
+  "station_datums_mm": [
+    {
+      "x": -78.5000001156408,
+      "corner_axis_y": 201.29999989999993,
+      "radius": 12.0,
+      "forward_bearing_y": 189.04999989999993,
+      "web_fore_y": 183.04999989999993
+    },
+    {
+      "x": 78.5000001156408,
+      "corner_axis_y": 201.29999989999993,
+      "radius": 12.0,
+      "forward_bearing_y": 189.04999989999993,
+      "web_fore_y": 183.04999989999993
+    }
+  ],
+  "generated_scratch_parts": {
+    "front-bottom": {
+      "step_sha256": "34f99662dccc27c4ea82bbf6d7e6b3dc4f04ea26f023d4246ee304c94c56cba2",
+      "seconds": 45.20255795796402
+    },
+    "back-bottom": {
+      "step_sha256": "cd7d93fad8050cbfdea412078bb5c508d1f9dbef1e6866fbc76afd30aabfe880",
+      "seconds": 88.44222283299314
+    }
+  },
+  "functional_load_path": "Both full front corner stops and their 6 mm forward webs belong to the front-bottom slab, selected by their working forward bearing plane. Their rounded axes may extend aft across the Y seam. The front-bottom handhold backing is part of the same piece; back-bottom retains its own cleared handhold and mating joinery.",
+  "reconciliation": "The identified current native inputs contain the measured bottom-pair overlap. An earlier zero-overlap result does not establish clearance for these changed placement/export inputs. Current canonical assembly clearance requires rematerializing both affected lower quadrants and reading their actual exported pair.",
+  "limitations": "Native geometry establishes stock, modeled clearance and intended load path; it does not establish printed fit, support removal, strength or lifetime.",
+  "checks": [
+    {
+      "check": "corrected front-bottom: one valid solid",
+      "passed": true,
+      "solids": 1,
+      "bounds_mm": {
+        "x": [
+          -107.5000001,
+          107.50000010000001
+        ],
+        "y": [
+          4.999999899999996,
+          217.8
+        ],
+        "z": [
+          -6.000000100000138,
+          174.8
+        ]
+      },
+      "step_sha256": "34f99662dccc27c4ea82bbf6d7e6b3dc4f04ea26f023d4246ee304c94c56cba2",
+      "seconds": 45.20255795796402
+    },
+    {
+      "check": "corrected back-bottom: one valid solid",
+      "passed": true,
+      "solids": 1,
+      "bounds_mm": {
+        "x": [
+          -107.5000001,
+          107.5000001
+        ],
+        "y": [
+          200.14999989999964,
+          478.90000010000006
+        ],
+        "z": [
+          -6.000000100000084,
+          174.8
+        ]
+      },
+      "step_sha256": "cd7d93fad8050cbfdea412078bb5c508d1f9dbef1e6866fbc76afd30aabfe880",
+      "seconds": 88.44222283299314
+    },
+    {
+      "check": "corrected six-piece pair: front-bottom / back-bottom",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-bottom / front-top",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-bottom / back-top",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-bottom / pump-cartridge",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-bottom / pump-cap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-bottom / front-top",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-bottom / back-top",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-bottom / pump-cartridge",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-bottom / pump-cap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-top / back-top",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-top / pump-cartridge",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: front-top / pump-cap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-top / pump-cartridge",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: back-top / pump-cap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "corrected six-piece pair: pump-cartridge / pump-cap",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "core stop X-78.500: bearing face belongs to front-bottom only",
+      "passed": true,
+      "corner_axis_y_mm": 201.29999989999993,
+      "forward_bearing_y_mm": 189.04999989999993
+    },
+    {
+      "check": "core stop X-78.500: complete 6 mm forward web retained",
+      "passed": true,
+      "missing_web_mm3": 0.0,
+      "web_volume_mm3": 2880.0
+    },
+    {
+      "check": "core stop X-78.500: full flat bearing face retained",
+      "passed": true,
+      "bearing_area_mm2": 479.9999999999999
+    },
+    {
+      "check": "core stop X-78.500: complete rounded face outside corner-knuckle clearance",
+      "passed": true,
+      "expected_area_mm2": 755.6888363618647,
+      "present_area_mm2": 755.6888363618647,
+      "untrimmed_quarter_area_mm2": 769.6902001294994,
+      "required_knuckle_clearance_area_mm2": 14.001363767634757
+    },
+    {
+      "check": "core stop X+78.500: bearing face belongs to front-bottom only",
+      "passed": true,
+      "corner_axis_y_mm": 201.29999989999993,
+      "forward_bearing_y_mm": 189.04999989999993
+    },
+    {
+      "check": "core stop X+78.500: complete 6 mm forward web retained",
+      "passed": true,
+      "missing_web_mm3": 0.0,
+      "web_volume_mm3": 2880.0
+    },
+    {
+      "check": "core stop X+78.500: full flat bearing face retained",
+      "passed": true,
+      "bearing_area_mm2": 479.9999999999999
+    },
+    {
+      "check": "core stop X+78.500: complete rounded face outside corner-knuckle clearance",
+      "passed": true,
+      "expected_area_mm2": 755.6888363618646,
+      "present_area_mm2": 755.6888363618646,
+      "untrimmed_quarter_area_mm2": 769.6902001294994,
+      "required_knuckle_clearance_area_mm2": 14.00136376763487
+    },
+    {
+      "check": "source and native snapshot inputs stable during review",
+      "passed": true
+    }
+  ],
+  "check_count": 26,
+  "failed_checks": [],
+  "retained_prior_box_scope": {
+    "path": "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/enclosure-box.json",
+    "sha256": "c5f93c19401a7a956494bd07a7c6e01c9c69719e7b793ecbb2d35b122f0399df",
+    "core_stops": [
+      [
+        -78.50000000697483,
+        194.29999999999993,
+        12.0
+      ],
+      [
+        78.50000000697483,
+        194.29999999999993,
+        12.0
+      ]
+    ],
+    "y_joint": 200.0,
+    "note": "The recorded prior corner axes are Y194.30, on the front side of the same Y200 seam; current axes are Y201.30. Ownership by round center therefore selects a different quadrant for these input scopes."
+  },
+  "rounded_face_corner_clearance": {
+    "source": "_y_stacks cuts _y_knuckle_air for the opposite Y half",
+    "per_stop_trim_mm2": 14.0013637676,
+    "trim_bounds_absolute_x_mm": [
+      90.6808252215,
+      90.7500001156
+    ],
+    "trim_bounds_y_mm": [
+      200.0,
+      201.2999999
+    ],
+    "trim_bounds_z_mm": [
+      29.25,
+      40.0
+    ],
+    "scope": "Required modeled clearance for the back-bottom corner knuckle; complete 40 mm-high flat bearing faces and 6 mm forward webs remain."
+  },
+  "native_complete_appliance_neighbor_review": {
+    "scope": "Newly restored front-bottom core-stop stock against neighboring named leaves from the actual exported complete appliance STEP; no assembly generation",
+    "appliance_step_sha256": "62524a705a7961544c46c8067e55c56dd691363f055a02ebdd5404a2e1c31b99",
+    "appliance_sha256_stable": true,
+    "added_stock_mm3": 14219.551146865184,
+    "neighbors": [
+      {
+        "body": "cold-core/foam-shell",
+        "overlap_mm3": 0.0,
+        "minimum_gap_mm": 0.2500000421790163
+      },
+      {
+        "body": "cold-core/foam-cap-bottom",
+        "overlap_mm3": 0.0,
+        "minimum_gap_mm": 0.25000009999999406
+      },
+      {
+        "body": "cold-core/foam-cap-lid-bottom",
+        "overlap_mm3": 0.0,
+        "minimum_gap_mm": 0.25000007108950806
+      },
+      {
+        "body": "cold-core/line-reservoir-a",
+        "overlap_mm3": 0.0,
+        "minimum_gap_mm": 3.8897218061383456
+      },
+      {
+        "body": "cold-core/line-reservoir-b",
+        "overlap_mm3": 0.0,
+        "minimum_gap_mm": 3.8897218105946285
+      }
+    ]
+  },
+  "final_box_export_review": {
+    "scope": "Direct read of final canonical lower native parts and current declared Box. No candidate fusion, part construction, Box derivation or graph write.",
+    "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_core_stops.py --final-export --record-key final_box_export_review --box hardware/manifold-layout/enclosure-box.json",
+    "prior_scoped_record_sha256_before_append": "12a104ce3abffe636bf302a599836a54e7da7876ad0674856c42425017e4172d",
+    "source_sha256": "14baa7e02a449af7574a58d6e1063d0da2410a6118fd606d09534a6dee985649",
+    "review_script_sha256": "cf462a0ab24125b5793fb7f77760fc1e7863b846c97f6cccbec76141415b3e41",
+    "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "input_step_sha256": {
+      "front-bottom": "d6b4eb9389eabb819ff4d3dd3dad8b107a81334da82ed4ea102d529508e5aa51",
+      "back-bottom": "1b468f760457f2364c00db78b42e3585807868c48fa64d28ec5683c37ed16116",
+      "front-top": "76b861cbb6d321a7f2f48d978129f9ab298baa8eda40055d8eada70373607f56",
+      "back-top": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+      "pump-cartridge": "775637bda29a6ab3517feac4ff47a6082c7dc9e0c98b07bd7e9937afb9035b27",
+      "pump-cap": "fac7b993816d8640e72b44ca5a6de5e901a9734ffd1e4ed0cec87f90e45a44d0"
+    },
+    "station_datums_mm": [
+      {
+        "x": -78.5000001156408,
+        "corner_axis_y": 201.29999989999993,
+        "forward_bearing_y": 189.04999989999993,
+        "radius": 12.0,
+        "rise": 40.0,
+        "forward_web": 6.0
+      },
+      {
+        "x": 78.5000001156408,
+        "corner_axis_y": 201.29999989999993,
+        "forward_bearing_y": 189.04999989999993,
+        "radius": 12.0,
+        "rise": 40.0,
+        "forward_web": 6.0
+      }
+    ],
+    "checks": [
+      {
+        "check": "actual exported front-bottom: one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "actual exported back-bottom: one valid solid",
+        "passed": true,
+        "solids": 1
+      },
+      {
+        "check": "actual exported lower-shell pair is clear",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "exported stop X-78.500: bearing station belongs to front column",
+        "passed": true,
+        "forward_bearing_y_mm": 189.04999989999993
+      },
+      {
+        "check": "exported stop X-78.500: full forward web",
+        "passed": true,
+        "missing_web_mm3": 0.0,
+        "web_volume_mm3": 2880.0,
+        "web_depth_mm": 6.0,
+        "stop_height_mm": 40.0
+      },
+      {
+        "check": "exported stop X-78.500: full integral 3 mm floor root",
+        "passed": true,
+        "missing_root_mm3": 0.0,
+        "root_stock_mm3": 216.0
+      },
+      {
+        "check": "exported stop X-78.500: full flat bearing face",
+        "passed": true,
+        "bearing_area_mm2": 479.9999999999999
+      },
+      {
+        "check": "exported stop X-78.500: full rounded face outside required knuckle air",
+        "passed": true,
+        "present_area_mm2": 755.6888363618647,
+        "expected_area_mm2": 755.6888363618647,
+        "required_knuckle_clearance_area_mm2": 14.001363767634757
+      },
+      {
+        "check": "exported stop X+78.500: bearing station belongs to front column",
+        "passed": true,
+        "forward_bearing_y_mm": 189.04999989999993
+      },
+      {
+        "check": "exported stop X+78.500: full forward web",
+        "passed": true,
+        "missing_web_mm3": 0.0,
+        "web_volume_mm3": 2880.0,
+        "web_depth_mm": 6.0,
+        "stop_height_mm": 40.0
+      },
+      {
+        "check": "exported stop X+78.500: full integral 3 mm floor root",
+        "passed": true,
+        "missing_root_mm3": 0.0,
+        "root_stock_mm3": 216.0
+      },
+      {
+        "check": "exported stop X+78.500: full flat bearing face",
+        "passed": true,
+        "bearing_area_mm2": 479.9999999999999
+      },
+      {
+        "check": "exported stop X+78.500: full rounded face outside required knuckle air",
+        "passed": true,
+        "present_area_mm2": 755.6888363618646,
+        "expected_area_mm2": 755.6888363618646,
+        "required_knuckle_clearance_area_mm2": 14.00136376763487
+      },
+      {
+        "check": "identified source, Box and six native exports stayed stable",
+        "passed": true
+      }
+    ],
+    "check_count": 14,
+    "failed_checks": [],
+    "limitations": "Geometry/contact/root stock and lower-pair clearance only. Earlier scoped analytical and physical limitations remain unchanged; complete appliance review is separate."
+  }
+}

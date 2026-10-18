@@ -143,7 +143,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "yyfkgcp-pogo-4p"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "tee-carrier"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-dock"))
 from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
@@ -165,12 +165,14 @@ import yyfkgcp_pogo_4p as _pogo
 import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
-import tee_carrier as _tee_carrier
+import dock_structure as _dock
+import pump_receiver as _receiver
+import stub_grip as _stems
 import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
 import _grip_interface
-import _cartridge_retention as _retention
+import dock_retention as _retention
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
@@ -273,7 +275,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # Both are struck at THIS pitch from a datum on the same x = 0, so their phase remains the
 # machine's phase inside as it is outside. `flute_rails` is where the box says which runs it
 # has, and `flute_skin.py` reads nothing else about either of them.
-flute_count = 262
+flute_count = 272
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
 flute_depth = _interface.flute_depth
@@ -965,18 +967,6 @@ def front_top_flank_face():
     return (ix0 + grown, ix1 - grown)
 
 
-def tee_carrier(pack):
-    """The tee carrier on the collet plate's four tees, flush with both of front-top's flanks.
-    Its tie slots are the zip tie's cavity, and the strap across its back is the tie's stock.
-    Its flank openings rise to the root of the fore valve tray's corbel on the tee wall."""
-    plate = pack.collet_plate
-    return _tee_carrier.Carrier.on(
-        plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
-        tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t,
-        roof_z=min(tray_corbel_roots(pack.valve_trays, plate["wall_aft_y"])),
-        flank_root_z=front_top_flank_root_z(), show_edge_r=_interface.show_edge_r)
-
-
 def front_top_flank_root_z():
     """Where front-top's grown flank face begins: its underside rises at 45° off the seam rim at
     the box's interior face to the face (`_front_top_flank_bedding_cut`)."""
@@ -1511,13 +1501,11 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle keeps its nominal bed while the receiver floor retreats by
 # `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
-# A centred RC62 pair pulls the
-# lower cradle toward the bulkhead on the tubes' own insertion axis. Four
-# barb tubes gripped in the anchor tees' branch collets retain the fluid connections, and the collet plate
-# (`_tee_wall`) is the release — pull the pump cartridge and the tees
-# come with it until their collets press the plate, the tubes come free, and the pumps are
-# in your hand. Pushing it home threads the four tubes back through the plate's holes into
-# the same collets, the cradle's own aft face landing on the plate's.
+# Six matched SB443-IN pairs pull the lower cradle toward the bulkhead on
+# the stems' insertion axis. Prepared pumps carry machined flanged stems;
+# the lower cradle catches their flanges and the cap closes their Z route.
+# Four permanent TPU receivers carry radial seals. Pulling the complete
+# cartridge withdraws only the stems; the receivers and commercial tees stay.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it. The floor begins at front-top's actual bed, above the nominal
@@ -1527,10 +1515,10 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
-# THE COLLET PLATE IS THE RELEASE SECTION OF ONE CONTINUOUS BULKHEAD. Its flat fore
-# face meets the cartridge's flat back. Four stepped passages carry the tubes and tee
-# collars, and the release shoulders remain on their own Y datum. The bulkhead joins
-# the bay floor, lintel and both flanks; front-bottom supports its two lower ends.
+# THE CLOSED RECEIVER WALL LOCATES THE TPU IN X/Z. Flat keepers slide down
+# its interior face and capture the receiver grooves in Y. A removable
+# support bar backs the four permanent rear cuffs. The wall joins the bay
+# floor, lintel and both flanks; front-bottom supports its two lower ends.
 #
 # The full-width opening extends from the show face to this bulkhead. The cartridge's
 # front, rounded corners and flanks share the enclosure silhouette. Its hand pockets,
@@ -1551,6 +1539,11 @@ pump_bay_side_air = fits.running      # pump-body air inside each cavity throat 
 # withdrawal.
 cap_kiss = fits.running               # preferred plate air, cradle and clamp alike
 cap_kiss_station_allowance = 0.01      # one least-significant place of the measured 30.11 mm skirt datum
+# Broad integral lands on the fixed wall bear on retained outboard cradle
+# stock. Their fore faces set the cartridge's Y datum across the body air.
+pump_body_stop_width = 4.0
+pump_body_stop_height = 12.0
+pump_body_stop_edge_inset = 7.5
 # Front-bottom's two bearing lands under the pump-bay bulkhead.
 plate_foot_reach = 10.0
 plate_foot_y = 20.0
@@ -1786,10 +1779,9 @@ def documented(box):
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
-#   collet_plate  the integral printed release face, as the dict
-#                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
-#                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
-#                 per hole. Its release shoulder is cut into the bay bulkhead.
+#   collet_plate  the fixed receiver-wall interface, retaining its assembly schema name:
+#                 wall Y datums, X/Z extent, four receiver axes and fixed tee stations,
+#                 as `enclosure_assembly.collet_plate_spec` derives from the pump pack.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
@@ -5505,9 +5497,9 @@ def pump_cartridge_figures(box):
         "PLATE_FOOT_COND_AIR": f"{foot_air:.4g} mm",
         "BAY_BACK_Y": f"{bay_back_y(plate):.6g} mm",
         "BAY_BULKHEAD_T": f"{plate['wall_aft_y'] - bay_back_y(plate):.6g} mm",
-        "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
-        "PLATE_REST_GAP": f"{plate['rest_gap']:.4g} mm",
-        "SLEEVE_TRAVEL": f"{(plate['stroke'] - plate['rest_gap']):.4g} mm",
+        "PLATE_STROKE": "0 mm",
+        "PLATE_REST_GAP": "0 mm",
+        "SLEEVE_TRAVEL": "0 mm",
         **pump_contact_figures(box),
     }
 
@@ -5518,7 +5510,8 @@ def pump_contact_figures(box):
     if not (box.pump_bay and trays and plate):
         return {}
     _x, z = pump_contact_station(box)
-    kiss = bay_back_y(plate) - pump_cartridge_aft_y(trays, plate)
+    fixed, moving = pump_contact_faces(box)
+    kiss = fixed - moving
     press = _pogo.PIN_PROUD - kiss
     w = _pogo.BODY_W + 2.0 * fits.slip
     groove_w, groove_d = pogo_groove
@@ -5528,6 +5521,8 @@ def pump_contact_figures(box):
     floor = _lead_bore_floor(box)
     return {
         "POGO_AXIS_Z": f"{z:.6g} mm",
+        "POGO_FACE_GAP": f"{kiss:.4g} mm",
+        "POGO_FACE_RECESS": f"{pump_contact_face_recess:.4g} mm",
         "POGO_CROWN_SKIN": f"{pogo_crown_skin:.4g} mm",
         "POGO_PIN_PRESS": f"{press:.4g} mm",
         "POGO_PIN_SPARE": f"{_pogo.STROKE - press:.4g} mm",
@@ -5615,19 +5610,14 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
 
 def _tee_wall(inner, y_joint, plate, bay):
-    """One bay bulkhead from floor to lintel, joined to both flanks.
+    """Closed receiver wall, with a flat recessed interior assembly face.
 
-    Each circular tube passage retains a full flat annular release bearing. The larger aft journal clears the
-    tee collar and leaves the collet's release shoulder on the stated Y plane.
+    The upper bulkhead retains its contact and display backing. The lower
+    access pocket leaves a seven-millimetre supported receiver wall.
     """
     slab = _ybox(inner[0], inner[1], bay_back_y(plate),
                   plate["wall_aft_y"], z_seam, bay[2])
-    for hx, hz in plate["holes"]:
-        slab = slab.cut(_ycyl(
-            plate["hole_d"] / 2.0, hx, hz,
-            bay_back_y(plate) - 1.0, plate["aft_y"] + 1.0))
-        slab = slab.cut(_tee_bore(plate, hx, hz))
-    return slab
+    return slab.cut(_dock.wall_recess(plate))
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
@@ -5693,17 +5683,6 @@ def _teardrop_y(r, x, z, y0, y1, up=1.0):
         _xz_prism(y0, y1, [(x - half, tangent), (x + half, tangent), (x, apex)]))
 
 
-def _tee_bore(plate, hx, hz):
-    """The tee journal begins exactly at the collet's release-bearing plane.
-
-    Its fore termination leaves the full release shoulder in the bulkhead. Only
-    the open aft end overruns the wall for a clean through cut.
-    """
-    return _teardrop_y(
-        plate["bore_r"], hx, hz,
-        plate["aft_y"],
-        plate["wall_aft_y"] + 1.0)
-
 
 def _unified(solid):
     """One printed piece, with its coincident-plane seams merged.
@@ -5736,7 +5715,11 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(box)[1]:
         solid = solid.cut(bore)
-    solid = solid.cut(pump_retention_pocket(box, "pump-cartridge"))
+    grips = pump_stem_features(box)
+    solid = solid.cut(grips["cap_clearance"])
+    solid = solid.fuse(grips["cradle_stock"]).cut(grips["cradle_cutter"])
+    magnet = pump_retention_features(box)["moving"]
+    solid = solid.fuse(magnet["stock"]).cut(magnet["cutter"])
     return _unified(_round_cradle_pull_rims(solid, box))
 
 
@@ -5852,23 +5835,55 @@ def _cap_screws(box):
     return clear, sets
 
 
-def pump_retention_station(box):
-    """One magnetic pair centred between the tubes, at their common height."""
-    return _retention.station(box.pack.collet_plate["holes"])
+def pump_stem_features(box):
+    plate=box.pack.collet_plate
+    return _stems.features(plate["holes"],
+        pump_cartridge_aft_y(box.pack.pump_trays,plate),
+        cap_split_z(box.pack.pump_trays), plate["seated_tube_bottom_y"],
+        cap_route_top_z=cap_crown_z(box))
 
 
-def pump_retention_face(box, name):
-    if PIECE_PRINT_UP[name] != 1.0:
-        raise ValueError("The RC62 mouth requires this part's upright production orientation")
-    if name == "pump-cartridge":
-        return pump_cartridge_aft_y(box.pack.pump_trays, box.pack.collet_plate), -1.0
-    if name == "front-top":
-        return bay_back_y(box.pack.collet_plate), 1.0
-    raise ValueError(f"No separate RC62 retention magnet in {name}")
+def pump_cartridge_body_stops(box):
+    """Four fixed-wall bearing lands setting Y on the lower cradle itself.
+
+    Two heights at both outboard edges define the seating plane clear of the
+    cap lanes, stem guards and magnet columns. Each land spans the actual
+    body-plane gap and embeds a complete wall section in the fixed bulkhead.
+    The magnet faces are gauged after the cradle reaches these bearing faces.
+    """
+    trays, plate = box.pack.pump_trays, box.pack.collet_plate
+    aft = pump_cartridge_aft_y(trays, plate)
+    fore = bay_back_y(plate)
+    x = _cap_x_span(box.pump_bay)[1] - pump_body_stop_edge_inset
+    zs = (cap_split_z(trays) + wall,
+          cap_crown_z(box) - 2.0 * pump_body_stop_height)
+    return tuple(_ybox(sx * x - pump_body_stop_width / 2.0,
+                       sx * x + pump_body_stop_width / 2.0,
+                       aft, fore + wall, z, z + pump_body_stop_height)
+                 for sx in (-1.0, 1.0) for z in zs)
 
 
-def pump_retention_pocket(box, name):
-    return _retention.pocket(pump_retention_station(box), *pump_retention_face(box, name))
+def pump_retention_features(box):
+    return _retention.features(
+        box.pack.collet_plate["holes"],
+        pump_cartridge_aft_y(box.pack.pump_trays, box.pack.collet_plate),
+        bay_back_y(box.pack.collet_plate))
+
+
+def pump_dock_figures(box):
+    plate = box.pack.collet_plate
+    back = pump_cartridge_aft_y(box.pack.pump_trays, plate)
+    return {
+        "RECEIVER_COUNT": str(len(plate["holes"])),
+        "KEEPER_COUNT": str(len(plate["holes"])),
+        "DOCK_TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
+        "DOCK_TIP_FROM_BACK": f"{plate['seated_tube_bottom_y']-back:.6g} mm",
+        "DOCK_LAND": f"{_receiver.FRONT_SEAL_Y[1]-_receiver.FRONT_SEAL_Y[0]:.4g} mm",
+        "DOCK_SEAL_BORE": f"{_receiver.SEAL_BORE_D:.4g} mm",
+        "DOCK_MAGNET_COUNT": str(2*len(_retention.stations(plate["holes"]))),
+        "DOCK_KEEPER_T": f"{_receiver.KEEPER_THICKNESS:.4g} mm",
+        "DOCK_KEEPER_RADIAL_AIR": f"{_receiver.KEEPER_RADIAL_CLEARANCE:.4g} mm",
+    }
 
 
 def pump_contact_station(box):
@@ -5952,6 +5967,22 @@ def _lead_bore_floor(box):
     return max(tops) if tops else None
 
 
+pump_contact_face_recess = 0.127
+
+
+def pump_contact_faces(box):
+    """Mating plastic faces, recessed equally from the cartridge body stops.
+
+    A 0.500 mm face gap leaves 0.2–0.8 mm pin compression over the purchased
+    0.8–1.2 mm projection range and a ±0.05 mm allowance at either seat.
+    The body and magnetic pole datums remain independent of this recess.
+    """
+    plate, trays = box.pack.collet_plate, box.pack.pump_trays
+    recess = pump_contact_face_recess
+    return (bay_back_y(plate) + recess,
+            pump_cartridge_aft_y(trays, plate) - recess)
+
+
 def _pump_contact_fixed_cuts(box):
     """The male half's seat in the bay bulkhead's fore face, its two insert bores, and the lead
     bore from the body's back to the bulkhead's aft face, teardropped for front-top's print and
@@ -5959,7 +5990,7 @@ def _pump_contact_fixed_cuts(box):
     cavity reaches the inserts' anchor plane, so both knurl entries open into the lead bore."""
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
-    face, up = bay_back_y(plate), PIECE_PRINT_UP["front-top"]
+    face, up = pump_contact_faces(box)[0], PIECE_PRINT_UP["front-top"]
     axis, wall = pump_contact_lead_axis_z(box), plate["wall_aft_y"]
     reach = max(math.hypot(cx, z - axis) for cx in _pogo.contact_xs())
     need = reach + _pogo.TAIL_D / 2.0 + pogo_joint + pogo_lead_air
@@ -5991,7 +6022,7 @@ def _pump_contact_cap_cuts(box):
     terminal well."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     x, z = pump_contact_station(box)
-    face, up = pump_cartridge_aft_y(trays, plate), PIECE_PRINT_UP["pump-cap"]
+    face, up = pump_contact_faces(box)[1], PIECE_PRINT_UP["pump-cap"]
     crown = cap_crown_z(box)
     seat, bores = _pogo_seat(face, -1.0, x, z, up)
     floor = z - (_pogo.BODY_W / 2.0 + fits.slip) + min(up, 0.0) * fits.supported_surface
@@ -6024,6 +6055,7 @@ def build_pump_cap(box, halves_cache=None):
         solid = solid.cut(bore)
     for cutter in _pump_contact_cap_cuts(box):
         solid = solid.cut(cutter)
+    solid = solid.fuse(pump_stem_features(box)["cap_stock"])
     return _unified(solid)
 
 
@@ -7300,8 +7332,8 @@ def vent_readings(pieces, box):
 
 
 def _core_stops(solid, inner, stations, y0, y1, z0, z1):
-    """The cold core's two front corner blocks added to a PIECE, for the stations whose plan
-    point the piece owns and whose slab it holds.
+    """The cold core's two front corner blocks added to the slab whose Y column
+    owns their forward bearing face.
 
     Each station is `(cx, cy, r)`: the centre of the core's own corner round and that round's
     radius. Everything else the block is comes off those three and the box's own faces — it runs
@@ -7315,17 +7347,19 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
 
     Its underside is the slab and its outboard face the wall, so it comes out of the print as a
     corner bracket in one piece with both faces it stands on — the card slot's own form, on the
-    body that needs no slot. The band test is `_floor_bosses`': the Y column selects the station
-    and only a piece reaching the floor grows one."""
+    body that needs no slot. The Y band selects the functional forward bearing face;
+    the corner round's axis may lie across the seam. Only a piece reaching the
+    floor grows one complete block and its web."""
     if z0 > inner[4] + 1e-6:
         return solid                       # a top piece has no slab to stand one on
     for cx, cy, r in stations:
-        if not (y0 <= cy <= y1):
+        slip = core_stop_slip / 2.0
+        face = cy - r - slip
+        if not (y0 <= face <= y1):
             continue
         side = 1.0 if cx > 0.0 else -1.0
-        slip = core_stop_slip / 2.0
         wall_x = inner[1] if side > 0 else inner[0]
-        lap, face = cx - side * r, cy - r - slip
+        lap = cx - side * r
         tip = inner[4] + core_stop_rise
         solid = solid.fuse(_ybox(min(lap, wall_x), max(lap, wall_x),
                                  face - core_stop_web, cy, inner[4], tip))
@@ -8578,8 +8612,6 @@ def _seam_fit_reliefs(piece, box, y_side, z_side):
     core_pocket = _core_fit_pocket(box)
     if core_pocket is not None:
         piece = piece.cut(core_pocket)
-    if y_side == "front" and box.pack.collet_plate:
-        piece = piece.cut(_tee_carrier.cover_clearance(tee_carrier(box.pack)))
     x0, x1, y0, y1, z0, z1 = box.outer
     if y_side == "back":
         piece = piece.intersect(_ybox(x0 - 1.0, x1 + 1.0,
@@ -8802,7 +8834,17 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if box.pack.collet_plate:
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
-            piece = piece.cut(pump_retention_pocket(box, "front-top"))
+            stocks, cuts = _dock.fixed_features(box.pack.collet_plate)
+            for stock in stocks:
+                piece = piece.fuse(stock)
+            magnet = pump_retention_features(box)["fixed"]
+            piece = piece.fuse(magnet["stock"])
+            for cutter in (*cuts[1:], magnet["cutter"],
+                           _stems.fixed_wall_cutter(box.pack.collet_plate["holes"],
+                                                    bay_back_y(box.pack.collet_plate))):
+                piece = piece.cut(cutter)
+            for stop in pump_cartridge_body_stops(box):
+                piece = piece.fuse(stop)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
@@ -8897,16 +8939,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
     if z_side == "bottom":
         piece = _handholds(piece, inner, y_joint, y_side)
-    if y_side == "front" and plate:
-        # The tee carrier's way in and its slide, through both flanks and the seam rail on them,
-        # and the pockets its springs' fore ends stand in, teardropped for the mouth-down print.
-        carrier = tee_carrier(box.pack)
-        piece = piece.cut(_tee_carrier.opening(carrier))
-        for x, z, y0, y1, r in _tee_carrier.spring_pockets(carrier):
-            piece = piece.cut(_teardrop_y(r, x, z, y0, y1, up=print_up(y_side, z_side)))
-        if z_side == "top":
-            # The window covers' posts, on the flanks' inner faces at the windows' aft faces.
-            piece = piece.fuse(*_tee_carrier.posts(carrier))
     if y_side == "back" and z_side == "bottom":
         piece = piece.fuse(*disposal_letters(outer).Solids())
     # Final structural joinery: no later fuse fills a stack fit or bore. The bottom
@@ -9500,6 +9532,11 @@ def build_pieces(box):
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
+    if box.pack.collet_plate:
+        from _materials import M_PETGF_BLACK
+        for name, part in _dock.parts(box.pack.collet_plate).items():
+            color = _receiver.COLOR if name.startswith("pump-receiver-") and "keeper" not in name and "support" not in name else M_PETGF_BLACK
+            assy.add(part, name=name, color=color)
     return pieces, assy
 
 
@@ -9526,11 +9563,29 @@ def _piece_mesh(solid):
 
 
 def _collet_plate_body(plate):
-    """The collet plate's unperforated envelope for the flute shadow mask.
-
-    The plate is printed into front-top. Its envelope marks the tee wall behind it as
-    a bearing face, keeping that band out of the show-surface flutes."""
+    """Fixed receiver-wall bearing envelope, excluded from show-surface flutes."""
     return _xz_prism(plate["fore_y"], plate["aft_y"], plate_outline(plate))
+
+
+def export_pump_dock(box):
+    """Write the real receiver, flat keepers, support bar and factory tool."""
+    import flute_payload
+    from _materials import M_PETGF_BLACK
+    gauges = pump_retention_features(box)
+    for stem, shape, color in (
+        ("enclosure-pump-receiver", _receiver.build_receiver(), _receiver.COLOR),
+        ("enclosure-pump-receiver-keeper", _dock.keeper(), M_PETGF_BLACK),
+        ("enclosure-pump-rear-support", _dock.rear_support(box.pack.collet_plate), M_PETGF_BLACK),
+        ("enclosure-pump-tube-setting-jig", _dock.tube_setting_jig(
+            box.pack.collet_plate, pump_cartridge_aft_y(
+                box.pack.pump_trays, box.pack.collet_plate)), M_PETGF_BLACK),
+        ("enclosure-pump-magnet-gauge-moving", gauges["moving"]["setting_gauges"][0], M_PETGF_BLACK),
+        ("enclosure-pump-magnet-gauge-fixed", gauges["fixed"]["setting_gauges"][0], M_PETGF_BLACK)):
+        step = _here.parent / (stem + ".step")
+        stl = step.with_suffix(".stl")
+        export_assembly(one_body(shape, stem, color), str(step))
+        _piece_mesh(shape).export(str(stl))
+        flute_payload.cut(step, stl)
 
 
 def _export_pieces(pieces, assy):
@@ -9595,6 +9650,8 @@ def _export_pieces(pieces, assy):
                 f"{written.is_watertight}, over {len(written.faces)} facets")
         print(f"-> enclosure-{name}.stl  ({len(mesh.faces)} facets, "
               f"{'watertight' if mesh.is_watertight else 'NOT WATERTIGHT'})")
+    if box.pack.collet_plate:
+        export_pump_dock(box)
     export_assembly(assy, str(_here.parent / "enclosure.step"))
     print("-> enclosure.step (assembled pieces)")
     if refused:
@@ -9933,6 +9990,7 @@ def main():
             if box.pack.collet_plate else "no station"),
         **disposal_figures(bo),
         **pump_cartridge_figures(box),
+        **pump_dock_figures(box),
     }
     substitute_py_comments(
         Path(__file__),

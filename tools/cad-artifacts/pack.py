@@ -65,6 +65,7 @@ TAG = "cad-artifacts"
 
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
+    "hardware/printed-parts/enclosure/tee-carrier",  # retained physical articles
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
     "hardware/quickstart",                 # retired owner document and local studies
@@ -164,7 +165,7 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/zone-c/funnel",
     "hardware/printed-parts/zone-c/funnel-cover",
     "hardware/printed-parts/enclosure/enclosure",
-    "hardware/printed-parts/enclosure/tee-carrier",
+    "hardware/printed-parts/enclosure/pump-dock",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",
@@ -223,7 +224,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/zone-c/funnel",
     "hardware/printed-parts/zone-c/funnel-cover",
     "hardware/printed-parts/enclosure/enclosure",
-    "hardware/printed-parts/enclosure/tee-carrier",
+    "hardware/printed-parts/enclosure/pump-dock",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",

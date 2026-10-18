@@ -1,35 +1,346 @@
 {
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
+  "use": "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.",
+  "coordinate_frames": {
+    "front-bottom": "Source STEP/STL coordinates in the appliance frame",
+    "front-top": "Source STEP/STL coordinates in the appliance frame",
+    "back-bottom": "Source STEP/STL coordinates in the appliance frame",
+    "back-top": "Source STEP/STL coordinates in the appliance frame",
+    "pump-cartridge": "Source STEP/STL coordinates in the appliance frame",
+    "pump-cap": "Source STEP/STL coordinates in the appliance frame",
+    "pump-receiver-keeper": "Canonical keeper source frame, receiver axis X0/Z0 and wall fore Y0",
+    "pump-rear-support": "Source STEP/STL coordinates in the appliance frame"
+  },
+  "print_poses": {
+    "front-bottom": {
+      "up_axis_in_source": [
+        0,
+        0,
+        1.0
+      ],
+      "bed_face": "Z minus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1.0,
+          6.0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "front-top": {
+      "up_axis_in_source": [
+        0,
+        0,
+        1.0
+      ],
+      "bed_face": "Z minus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1.0,
+          -160.25
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "back-bottom": {
+      "up_axis_in_source": [
+        0,
+        0,
+        1.0
+      ],
+      "bed_face": "Z minus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1.0,
+          6.0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "back-top": {
+      "up_axis_in_source": [
+        0,
+        0,
+        -1.0
+      ],
+      "bed_face": "Z plus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1.0,
+          355.0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "pump-cartridge": {
+      "up_axis_in_source": [
+        0,
+        0,
+        1.0
+      ],
+      "bed_face": "Z minus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1.0,
+          -165.19500732421875
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "pump-cap": {
+      "up_axis_in_source": [
+        0,
+        0,
+        -1.0
+      ],
+      "bed_face": "Z plus",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          -1.0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1.0,
+          284.17401123046875
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "pump-receiver-keeper": {
+      "up_axis_in_source": [
+        0,
+        1,
+        0
+      ],
+      "bed_face": "fore Y face",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          -7.0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "pump-rear-support": {
+      "up_axis_in_source": [
+        0,
+        1,
+        0
+      ],
+      "bed_face": "fore Y face",
+      "source_to_print_mm": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          -91.36499786376953
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    }
+  },
+  "part_process_overrides": {
+    "pump-receiver-keeper": {
+      "wall_loops": "6",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "purpose": "The thin continuous keeper/support section is the structural load path. Its named regions identify interfaces; this complete small part uses solid deposition."
+    },
+    "pump-rear-support": {
+      "wall_loops": "6",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "purpose": "The thin continuous keeper/support section is the structural load path. Its named regions identify interfaces; this complete small part uses solid deposition."
+    }
+  },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "b2ff3cdb9f3f37e76c8bf7990de630350a12004acea8b840ed63f6718192f962",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6e9b45a2fa9bdc0cf020ce4005b5fc01b547a6982c9d57512a43df70c3048c9",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "5722f63e6290b97073cad9595bae92bc17dbc830166d907df4d25c9df067ebfe"
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "62ada0d36514a7853eae77150fb49de1c386760b4d6c1f163e91da21e4c6657a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "14baa7e02a449af7574a58d6e1063d0da2410a6118fd606d09534a6dee985649",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "d34d183015864210df2eab6c4a20f4c05f792999f2ac0d8dfc043936d895a83a",
+    "hardware/manifold-layout/enclosure-box.json": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "d075b843805cc790801caa0a4090e9ffb9c6bfeb98ff50c3415d51d1f98c5168",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "694c4100d9f89ad7570192c28d9d9777671acf9a0dbe39755087868b6045e5c5",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "45dbb1ba9dd8b1966cd294a010417cee5c9e8f4a975367105b37320c7642009a",
+    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "feac781e9f30c34a97bd9f8819ad8e1c5f3da2e9e0a0bdfa1516aee0d73e530d"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "510c9d63755233baf36c647481cde560a533813291c0ed2f78b846b046442eb7",
-      ".stl": "3bfb2fb9d909c1c61eb03768e2eef935bfe4c489f4551e701f17d3e873f432ee"
+      ".step": "d6b4eb9389eabb819ff4d3dd3dad8b107a81334da82ed4ea102d529508e5aa51",
+      ".stl": "982d98963ca47fa662496dd5aa1e207c30184a04d2b659ae4ff154aab0a4416e"
     },
     "front-top": {
-      ".step": "d803bd4b12f25cc9e8ea3bbd8c50732d3892e15bfb2e5e68e1abba9b36f8eba5",
-      ".stl": "b892d025e3ed93b57f7f8654741971e88862ad029c9494364c2dc3c0e458bdc5"
+      ".step": "76b861cbb6d321a7f2f48d978129f9ab298baa8eda40055d8eada70373607f56",
+      ".stl": "371bfac0920626de5d17d5cc9700bb54582f87d4288d11a7eac2409cbc0cef9c"
     },
     "back-bottom": {
-      ".step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-      ".stl": "6cf46b76fa43e69df67bae0ac00f452cb67539d0d7b77081d6b77941ab41ecfd"
+      ".step": "1b468f760457f2364c00db78b42e3585807868c48fa64d28ec5683c37ed16116",
+      ".stl": "dba32322626021bcb1d7ed9984f159e05963db384c359f5c1d609c1e43db1be1"
     },
     "back-top": {
-      ".step": "0471d0ef640c8a856924202fb6361d080a66678acb21f5c3111bc5c500bd374b",
-      ".stl": "647ea1fe9af492a2f9a4b5f22a2c2c319201290bef63994f95b36216b4c92701"
+      ".step": "91edf8dd69da9777ad5c55c1f6a6ff585ee356036b41e42e05ce97e08a4f58e8",
+      ".stl": "8c06e6407ff5a8a3d2e6e6a4ab45af8861e9328bef81b14177fc1b7811ad4b9c"
     },
     "pump-cartridge": {
-      ".step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
-      ".stl": "a1a5a97280662e7d2f0a9394a8fbff6547c56a636a1d92be7657ceb57a8fbd14"
+      ".step": "775637bda29a6ab3517feac4ff47a6082c7dc9e0c98b07bd7e9937afb9035b27",
+      ".stl": "ab3eb0a2929d33959ec84601ff977a20206d7fcaf1369bcf9327b95d9d4af319"
     },
     "pump-cap": {
-      ".step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-      ".stl": "f203266270189d1faff853fd66749bbc1a53c0cd3a4824292a313d26936d1e16"
+      ".step": "fac7b993816d8640e72b44ca5a6de5e901a9734ffd1e4ed0cec87f90e45a44d0",
+      ".stl": "fd5494b1dca7f8e02cfdbd87c0472b91f07dcab6987b9b127af2b94d402e42b1"
+    },
+    "pump-receiver-keeper": {
+      ".step": "0c08968198b63f56be81fac28ba80edabec7d382562aa9fd503b38e9dc2210ea",
+      ".stl": "686523b432802ad7f4fc5998ee484828203688c53b1f5fe7d7dda6dbf47e85aa"
+    },
+    "pump-rear-support": {
+      ".step": "9c6a547c420cf2684a7b2f44de75964a0487507ee68df6ef238d710bc06a38b8",
+      ".stl": "f9cdc96928515c989e21f7008e52e46bc03c0f3842759dcb87c98a903ee9fecb"
     }
   },
   "pieces": {
@@ -45,7 +356,23 @@
           101.65
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.75,
+          197.0,
+          217.8,
+          66.2,
+          101.65
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.75,
+          197.0,
+          217.8,
+          72.2,
+          107.65
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root +1/138.6",
@@ -58,7 +385,23 @@
           174.69644660940673
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.75,
+          197.0,
+          217.8,
+          138.60000000000002,
+          174.69644660940673
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.75,
+          197.0,
+          217.8,
+          144.60000000000002,
+          180.69644660940673
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/66.2",
@@ -71,7 +414,23 @@
           101.65
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.75,
+          107.5,
+          197.0,
+          217.8,
+          66.2,
+          101.65
+        ],
+        "print_bounds_mm": [
+          90.75,
+          107.5,
+          197.0,
+          217.8,
+          72.2,
+          107.65
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/138.6",
@@ -84,7 +443,23 @@
           174.69644660940673
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.75,
+          107.5,
+          197.0,
+          217.8,
+          138.60000000000002,
+          174.69644660940673
+        ],
+        "print_bounds_mm": [
+          90.75,
+          107.5,
+          197.0,
+          217.8,
+          144.60000000000002,
+          180.69644660940673
+        ]
       },
       {
         "name": "Z rail, end stop and wall root -1",
@@ -97,7 +472,23 @@
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          157.0,
+          174.8000030517578
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          163.0,
+          180.8000030517578
+        ]
       },
       {
         "name": "Z rail, end stop and wall root +1",
@@ -110,7 +501,23 @@
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          157.0,
+          174.8000030517578
+        ],
+        "print_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          163.0,
+          180.8000030517578
+        ]
       },
       {
         "name": "Compressor post and floor -54.6/25.5",
@@ -123,7 +530,23 @@
           14.6
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          19.7,
+          31.3,
+          -6.0,
+          14.6
+        ],
+        "print_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          19.7,
+          31.3,
+          0.0,
+          20.6
+        ]
       },
       {
         "name": "Compressor post and floor -54.6/156.5",
@@ -136,7 +559,23 @@
           14.6
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          150.7,
+          162.3,
+          -6.0,
+          14.6
+        ],
+        "print_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          150.7,
+          162.3,
+          0.0,
+          20.6
+        ]
       },
       {
         "name": "Compressor post and floor 12.4/25.5",
@@ -149,7 +588,23 @@
           14.6
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          6.600000000000001,
+          18.200000000000003,
+          19.7,
+          31.3,
+          -6.0,
+          14.6
+        ],
+        "print_bounds_mm": [
+          6.600000000000001,
+          18.200000000000003,
+          19.7,
+          31.3,
+          0.0,
+          20.6
+        ]
       },
       {
         "name": "Compressor post and floor 12.4/156.5",
@@ -162,7 +617,23 @@
           14.6
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          6.599999999999994,
+          18.199999999999996,
+          150.7,
+          162.3,
+          -6.0,
+          14.6
+        ],
+        "print_bounds_mm": [
+          6.599999999999994,
+          18.199999999999996,
+          150.7,
+          162.3,
+          0.0,
+          20.6
+        ]
       },
       {
         "name": "Condenser host and supporting finger 70.5/153",
@@ -175,7 +646,23 @@
           8.999999999999998
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          -6.0,
+          8.999999999999998
+        ],
+        "print_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          0.0,
+          14.999999999999998
+        ]
       },
       {
         "name": "Condenser host and supporting finger 70.5/153",
@@ -188,7 +675,23 @@
           145.59999999999994
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          -6.0,
+          145.59999999999994
+        ],
+        "print_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          0.0,
+          151.59999999999994
+        ]
       }
     ],
     "front-top": [
@@ -203,7 +706,23 @@
           299.65
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -91.5,
+          197.0,
+          217.8,
+          272.5,
+          299.65
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -91.5,
+          197.0,
+          217.8,
+          112.25,
+          139.39999999999998
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/272.5",
@@ -216,7 +735,23 @@
           299.65
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          91.5,
+          107.5,
+          197.0,
+          217.8,
+          272.5,
+          299.65
+        ],
+        "print_bounds_mm": [
+          91.5,
+          107.5,
+          197.0,
+          217.8,
+          112.25,
+          139.39999999999998
+        ]
       },
       {
         "name": "Z rail, end stop and wall root -1",
@@ -229,7 +764,23 @@
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          160.25,
+          177.8
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          0.0,
+          17.55000000000001
+        ]
       },
       {
         "name": "Z rail, end stop and wall root +1",
@@ -242,20 +793,864 @@
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          160.25,
+          177.8
+        ],
+        "print_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          0.0,
+          17.55000000000001
+        ]
       },
       {
         "name": "Both pogo insert hosts, entry steps and blind caps",
         "machine_bounds_mm": [
-          -15.0,
-          15.0,
-          79.515,
-          93.015,
-          275.7740001,
-          281.2740001
+          -14.85,
+          14.85,
+          79.642,
+          93.142,
+          273.1240000000001,
+          283.92400000000004
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -14.85,
+          14.85,
+          79.642,
+          93.142,
+          273.1240000000001,
+          283.92400000000004
+        ],
+        "print_bounds_mm": [
+          -14.85,
+          14.85,
+          79.642,
+          93.142,
+          112.87400000000008,
+          123.67400000000004
+        ]
+      },
+      {
+        "name": "Dock keeper lock 1, complete host and wall root",
+        "machine_bounds_mm": [
+          -87.1,
+          -77.1,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -87.1,
+          -77.1,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "print_bounds_mm": [
+          -87.1,
+          -77.1,
+          79.515,
+          86.515,
+          34.92400000000001,
+          44.92400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 1/1, stop and wall root",
+        "machine_bounds_mm": [
+          -97.35,
+          -91.35,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -97.35,
+          -91.35,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          -97.35,
+          -91.35,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 1/2, stop and wall root",
+        "machine_bounds_mm": [
+          -72.85,
+          -66.85,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -72.85,
+          -66.85,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          -72.85,
+          -66.85,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 1/3, stop and wall root",
+        "machine_bounds_mm": [
+          -97.35,
+          -88.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -97.35,
+          -88.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          -97.35,
+          -88.6,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper guide 1/4, stop and wall root",
+        "machine_bounds_mm": [
+          -75.6,
+          -66.85,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -75.6,
+          -66.85,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          -75.6,
+          -66.85,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper lock 2, complete host and wall root",
+        "machine_bounds_mm": [
+          -27.35,
+          -17.35,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -27.35,
+          -17.35,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "print_bounds_mm": [
+          -27.35,
+          -17.35,
+          79.515,
+          86.515,
+          34.92400000000001,
+          44.92400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 2/1, stop and wall root",
+        "machine_bounds_mm": [
+          -37.6,
+          -31.6,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -37.6,
+          -31.6,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          -37.6,
+          -31.6,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 2/2, stop and wall root",
+        "machine_bounds_mm": [
+          -13.100000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -13.100000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          -13.100000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 2/3, stop and wall root",
+        "machine_bounds_mm": [
+          -37.6,
+          -28.85,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -37.6,
+          -28.85,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          -37.6,
+          -28.85,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper guide 2/4, stop and wall root",
+        "machine_bounds_mm": [
+          -15.850000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -15.850000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          -15.850000000000001,
+          -7.100000000000001,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper lock 3, complete host and wall root",
+        "machine_bounds_mm": [
+          17.35,
+          27.35,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          17.35,
+          27.35,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "print_bounds_mm": [
+          17.35,
+          27.35,
+          79.515,
+          86.515,
+          34.92400000000001,
+          44.92400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 3/1, stop and wall root",
+        "machine_bounds_mm": [
+          7.100000000000001,
+          13.100000000000001,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          7.100000000000001,
+          13.100000000000001,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          7.100000000000001,
+          13.100000000000001,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 3/2, stop and wall root",
+        "machine_bounds_mm": [
+          31.6,
+          37.6,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          31.6,
+          37.6,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          31.6,
+          37.6,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 3/3, stop and wall root",
+        "machine_bounds_mm": [
+          7.100000000000001,
+          15.850000000000001,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          7.100000000000001,
+          15.850000000000001,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          7.100000000000001,
+          15.850000000000001,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper guide 3/4, stop and wall root",
+        "machine_bounds_mm": [
+          28.85,
+          37.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          28.85,
+          37.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          28.85,
+          37.6,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper lock 4, complete host and wall root",
+        "machine_bounds_mm": [
+          77.1,
+          87.1,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          77.1,
+          87.1,
+          79.515,
+          86.515,
+          195.174,
+          205.174
+        ],
+        "print_bounds_mm": [
+          77.1,
+          87.1,
+          79.515,
+          86.515,
+          34.92400000000001,
+          44.92400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 4/1, stop and wall root",
+        "machine_bounds_mm": [
+          66.85,
+          72.85,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          66.85,
+          72.85,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          66.85,
+          72.85,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 4/2, stop and wall root",
+        "machine_bounds_mm": [
+          91.35,
+          97.35,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          91.35,
+          97.35,
+          79.515,
+          92.865,
+          175.174,
+          194.674
+        ],
+        "print_bounds_mm": [
+          91.35,
+          97.35,
+          79.515,
+          92.865,
+          14.924000000000007,
+          34.42400000000001
+        ]
+      },
+      {
+        "name": "Dock keeper guide 4/3, stop and wall root",
+        "machine_bounds_mm": [
+          66.85,
+          75.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          66.85,
+          75.6,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          66.85,
+          75.6,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock keeper guide 4/4, stop and wall root",
+        "machine_bounds_mm": [
+          88.6,
+          97.35,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          88.6,
+          97.35,
+          79.515,
+          92.865,
+          171.824,
+          174.824
+        ],
+        "print_bounds_mm": [
+          88.6,
+          97.35,
+          79.515,
+          92.865,
+          11.574000000000012,
+          14.574000000000012
+        ]
+      },
+      {
+        "name": "Dock rear-support lock -6, complete post and wall root",
+        "machine_bounds_mm": [
+          -10.0,
+          -2.0,
+          79.515,
+          91.365,
+          204.674,
+          212.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -10.0,
+          -2.0,
+          79.515,
+          91.365,
+          204.674,
+          212.674
+        ],
+        "print_bounds_mm": [
+          -10.0,
+          -2.0,
+          79.515,
+          91.365,
+          44.42400000000001,
+          52.42400000000001
+        ]
+      },
+      {
+        "name": "Dock rear-support lock 6, complete post and wall root",
+        "machine_bounds_mm": [
+          2.0,
+          10.0,
+          79.515,
+          91.365,
+          204.674,
+          212.674
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          2.0,
+          10.0,
+          79.515,
+          91.365,
+          204.674,
+          212.674
+        ],
+        "print_bounds_mm": [
+          2.0,
+          10.0,
+          79.515,
+          91.365,
+          44.42400000000001,
+          52.42400000000001
+        ]
+      },
+      {
+        "name": "SB443 column 1, rails, keyed bedding walls and host root",
+        "machine_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          79.515,
+          92.34580000000001,
+          173.649,
+          205.85539999999997
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          79.515,
+          92.34580000000001,
+          173.649,
+          205.85539999999997
+        ],
+        "print_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          79.515,
+          92.34580000000001,
+          13.399000000000001,
+          45.605399999999975
+        ]
+      },
+      {
+        "name": "SB443 column 2, rails, keyed bedding walls and host root",
+        "machine_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          79.515,
+          92.34580000000001,
+          173.649,
+          205.85539999999997
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          79.515,
+          92.34580000000001,
+          173.649,
+          205.85539999999997
+        ],
+        "print_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          79.515,
+          92.34580000000001,
+          13.399000000000001,
+          45.605399999999975
+        ]
+      },
+      {
+        "name": "Rigid cartridge stop 1 and wall root",
+        "machine_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          214.925,
+          232.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          214.925,
+          232.925
+        ],
+        "print_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          54.67500000000001,
+          72.67500000000001
+        ]
+      },
+      {
+        "name": "Rigid cartridge stop 2 and wall root",
+        "machine_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "print_bounds_mm": [
+          -105.0,
+          -95.0,
+          79.269,
+          85.515,
+          96.92400000000004,
+          114.92400000000004
+        ]
+      },
+      {
+        "name": "Rigid cartridge stop 3 and wall root",
+        "machine_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          214.925,
+          232.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          214.925,
+          232.925
+        ],
+        "print_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          54.67500000000001,
+          72.67500000000001
+        ]
+      },
+      {
+        "name": "Rigid cartridge stop 4 and wall root",
+        "machine_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "print_bounds_mm": [
+          95.0,
+          105.0,
+          79.269,
+          85.515,
+          96.92400000000004,
+          114.92400000000004
+        ]
       }
     ],
     "back-bottom": [
@@ -270,7 +1665,23 @@
           65.7
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.75,
+          200.14999389648438,
+          219.81,
+          29.25,
+          65.7
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.75,
+          200.14999389648438,
+          219.81,
+          35.25,
+          71.7
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root +1/102.15",
@@ -283,7 +1694,23 @@
           138.10000000000002
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.75,
+          200.14999389648438,
+          219.81,
+          102.15,
+          138.10000000000002
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.75,
+          200.14999389648438,
+          219.81,
+          108.15,
+          144.10000000000002
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/29.25",
@@ -296,7 +1723,23 @@
           65.7
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.75,
+          107.5,
+          200.14999389648438,
+          219.81,
+          29.25,
+          65.7
+        ],
+        "print_bounds_mm": [
+          90.75,
+          107.5,
+          200.14999389648438,
+          219.81,
+          35.25,
+          71.7
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/102.15",
@@ -309,7 +1752,23 @@
           138.10000000000002
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.75,
+          107.5,
+          200.14999389648438,
+          219.81,
+          102.15,
+          138.10000000000002
+        ],
+        "print_bounds_mm": [
+          90.75,
+          107.5,
+          200.14999389648438,
+          219.81,
+          108.15,
+          144.10000000000002
+        ]
       },
       {
         "name": "Z rail, end stop and wall root -1",
@@ -317,12 +1776,28 @@
           -107.5,
           -90.0,
           200.0,
-          471.3,
+          478.3,
           157.0,
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.0,
+          200.14999389648438,
+          478.3,
+          157.0,
+          174.8000030517578
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.0,
+          200.14999389648438,
+          478.3,
+          163.0,
+          180.8000030517578
+        ]
       },
       {
         "name": "Z rail, end stop and wall root +1",
@@ -330,12 +1805,28 @@
           90.0,
           107.5,
           200.0,
-          471.3,
+          478.3,
           157.0,
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.0,
+          107.5,
+          200.14999389648438,
+          478.3,
+          157.0,
+          174.8000030517578
+        ],
+        "print_bounds_mm": [
+          90.0,
+          107.5,
+          200.14999389648438,
+          478.3,
+          163.0,
+          180.8000030517578
+        ]
       }
     ],
     "back-top": [
@@ -350,7 +1841,23 @@
           195.05
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.75,
+          200.14999389648438,
+          219.81,
+          175.05,
+          195.05
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.75,
+          -219.81,
+          -200.14999389648438,
+          159.95,
+          179.95
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root +1/299.9",
@@ -363,7 +1870,23 @@
           355.0
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -91.5,
+          200.14999389648438,
+          219.81,
+          299.9,
+          355.0
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -91.5,
+          -219.81,
+          -200.14999389648438,
+          0.0,
+          55.10000000000002
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/175.05",
@@ -376,7 +1899,23 @@
           195.05
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.75,
+          107.5,
+          200.14999389648438,
+          219.81,
+          175.05,
+          195.05
+        ],
+        "print_bounds_mm": [
+          90.75,
+          107.5,
+          -219.81,
+          -200.14999389648438,
+          159.95,
+          179.95
+        ]
       },
       {
         "name": "Y seam knuckle and its wall root -1/299.9",
@@ -389,7 +1928,23 @@
           355.0
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          91.5,
+          107.5,
+          200.14999389648438,
+          219.81,
+          299.9,
+          355.0
+        ],
+        "print_bounds_mm": [
+          91.5,
+          107.5,
+          -219.81,
+          -200.14999389648438,
+          0.0,
+          55.10000000000002
+        ]
       },
       {
         "name": "Z rail, end stop and wall root -1",
@@ -397,12 +1952,28 @@
           -107.5,
           -90.0,
           200.0,
-          471.3,
+          478.3,
           157.0,
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -90.0,
+          200.14999389648438,
+          478.29998779296875,
+          160.25,
+          177.8
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -90.0,
+          -478.29998779296875,
+          -200.14999389648438,
+          177.2,
+          194.75
+        ]
       },
       {
         "name": "Z rail, end stop and wall root +1",
@@ -410,259 +1981,579 @@
           90.0,
           107.5,
           200.0,
-          471.3,
+          478.3,
           157.0,
           177.8
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          90.0,
+          107.5,
+          200.14999389648438,
+          478.29998779296875,
+          160.25,
+          177.8
+        ],
+        "print_bounds_mm": [
+          90.0,
+          107.5,
+          -478.29998779296875,
+          -200.14999389648438,
+          177.2,
+          194.75
+        ]
       },
       {
-        "name": "Electronics host and wall root 361.3/262.9",
+        "name": "Electronics host and wall root 363.3/262.9",
         "machine_bounds_mm": [
           98.25,
           107.5,
-          357.3,
-          365.3,
+          359.3,
+          367.3,
           258.65,
           266.9
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.25,
+          107.5,
+          359.3,
+          367.3,
+          258.65,
+          266.9
+        ],
+        "print_bounds_mm": [
+          98.25,
+          107.5,
+          -367.3,
+          -359.3,
+          88.10000000000002,
+          96.35000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 459.3/262.9",
+        "name": "Electronics host and wall root 461.3/262.9",
         "machine_bounds_mm": [
           98.25,
           107.5,
-          455.3,
-          463.3,
+          457.3,
+          465.3,
           258.65,
           266.9
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.25,
+          107.5,
+          457.3,
+          465.3,
+          258.65,
+          266.9
+        ],
+        "print_bounds_mm": [
+          98.25,
+          107.5,
+          -465.3,
+          -457.3,
+          88.10000000000002,
+          96.35000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 361.3/295.9",
+        "name": "Electronics host and wall root 363.3/295.9",
         "machine_bounds_mm": [
           98.25,
           107.5,
-          357.3,
-          365.3,
+          359.3,
+          367.3,
           291.65,
           299.9
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.25,
+          107.5,
+          359.3,
+          367.3,
+          291.65,
+          299.9
+        ],
+        "print_bounds_mm": [
+          98.25,
+          107.5,
+          -367.3,
+          -359.3,
+          55.10000000000002,
+          63.35000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 459.3/295.9",
+        "name": "Electronics host and wall root 461.3/295.9",
         "machine_bounds_mm": [
           98.25,
           107.5,
-          455.3,
-          463.3,
+          457.3,
+          465.3,
           291.65,
           299.9
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.25,
+          107.5,
+          457.3,
+          465.3,
+          291.65,
+          299.9
+        ],
+        "print_bounds_mm": [
+          98.25,
+          107.5,
+          -465.3,
+          -457.3,
+          55.10000000000002,
+          63.35000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 245.3/256.9",
+        "name": "Electronics host and wall root 252.3/256.9",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          241.3,
-          249.3,
+          248.3,
+          256.3,
           250.65000000000003,
           260.90000000000003
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          248.3,
+          256.3,
+          250.65000000000003,
+          260.90000000000003
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -256.3,
+          -248.3,
+          94.09999999999997,
+          104.34999999999997
+        ]
       },
       {
-        "name": "Electronics host and wall root 323.3/256.9",
+        "name": "Electronics host and wall root 330.3/256.9",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          319.3,
-          327.3,
+          326.3,
+          334.3,
           250.65000000000003,
           260.90000000000003
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          326.3,
+          334.3,
+          250.65000000000003,
+          260.90000000000003
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -334.3,
+          -326.3,
+          94.09999999999997,
+          104.34999999999997
+        ]
       },
       {
-        "name": "Electronics host and wall root 323.3/323.2",
+        "name": "Electronics host and wall root 330.3/323.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          319.3,
-          327.3,
+          326.3,
+          334.3,
           316.95,
           327.2
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          326.3,
+          334.3,
+          316.95,
+          327.2
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -334.3,
+          -326.3,
+          27.80000000000001,
+          38.05000000000001
+        ]
       },
       {
-        "name": "Electronics host and wall root 245.3/323.2",
+        "name": "Electronics host and wall root 252.3/323.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          241.3,
-          249.3,
+          248.3,
+          256.3,
           316.95,
           327.2
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          248.3,
+          256.3,
+          316.95,
+          327.2
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -256.3,
+          -248.3,
+          27.80000000000001,
+          38.05000000000001
+        ]
       },
       {
-        "name": "Electronics host and wall root 347.8/321.4",
+        "name": "Electronics host and wall root 351.8/321.4",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          343.8,
-          351.8,
+          347.8,
+          355.8,
           315.15,
           325.4
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          347.8,
+          355.8,
+          315.15,
+          325.4
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -355.8,
+          -347.8,
+          29.600000000000023,
+          39.85000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 334.8/321.4",
+        "name": "Electronics host and wall root 338.8/321.4",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          330.8,
-          338.8,
+          334.8,
+          342.8,
           315.15,
           325.4
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          334.8,
+          342.8,
+          315.15,
+          325.4
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -342.8,
+          -334.8,
+          29.600000000000023,
+          39.85000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 347.8/255.4",
+        "name": "Electronics host and wall root 351.8/255.4",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          343.8,
-          351.8,
+          347.8,
+          355.8,
           249.14999999999998,
           259.4
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          347.8,
+          355.8,
+          249.14999999999998,
+          259.4
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -355.8,
+          -347.8,
+          95.60000000000002,
+          105.85000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 334.8/255.4",
+        "name": "Electronics host and wall root 338.8/255.4",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          330.8,
-          338.8,
+          334.8,
+          342.8,
           249.14999999999998,
           259.4
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          334.8,
+          342.8,
+          249.14999999999998,
+          259.4
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -342.8,
+          -334.8,
+          95.60000000000002,
+          105.85000000000002
+        ]
       },
       {
-        "name": "Electronics host and wall root 324.8/331.2",
+        "name": "Electronics host and wall root 331.8/331.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          320.8,
-          328.8,
+          327.8,
+          335.8,
           324.95000000000005,
           335.20000000000005
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          327.8,
+          335.8,
+          324.95000000000005,
+          335.20000000000005
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -335.8,
+          -327.8,
+          19.799999999999955,
+          30.049999999999955
+        ]
       },
       {
-        "name": "Electronics host and wall root 324.8/344.2",
+        "name": "Electronics host and wall root 331.8/344.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          320.8,
-          328.8,
+          327.8,
+          335.8,
           337.95000000000005,
           348.20000000000005
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          327.8,
+          335.8,
+          337.95000000000005,
+          348.20000000000005
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -335.8,
+          -327.8,
+          6.7999999999999545,
+          17.049999999999955
+        ]
       },
       {
-        "name": "Electronics host and wall root 258.8/331.2",
+        "name": "Electronics host and wall root 265.8/331.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          254.8,
-          262.8,
+          261.8,
+          269.8,
           324.95000000000005,
           335.20000000000005
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          261.8,
+          269.8,
+          324.95000000000005,
+          335.20000000000005
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -269.8,
+          -261.8,
+          19.799999999999955,
+          30.049999999999955
+        ]
       },
       {
-        "name": "Electronics host and wall root 258.8/344.2",
+        "name": "Electronics host and wall root 265.8/344.2",
         "machine_bounds_mm": [
           96.25,
           107.5,
-          254.8,
-          262.8,
+          261.8,
+          269.8,
           337.95000000000005,
           348.20000000000005
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          96.25,
+          107.5,
+          261.8,
+          269.8,
+          337.95000000000005,
+          348.20000000000005
+        ],
+        "print_bounds_mm": [
+          96.25,
+          107.5,
+          -269.8,
+          -261.8,
+          6.7999999999999545,
+          17.049999999999955
+        ]
       },
       {
-        "name": "Electronics host and wall root 338.8/338.044",
+        "name": "Electronics host and wall root 345.8/338.044",
         "machine_bounds_mm": [
           92.25,
           107.5,
-          334.80000010000003,
-          342.80000010000003,
+          341.80000010000003,
+          349.80000010000003,
           327.7942287340604,
           342.0442287340604
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          92.25,
+          107.5,
+          341.80000010000003,
+          349.80000010000003,
+          327.7942287340604,
+          342.0442287340604
+        ],
+        "print_bounds_mm": [
+          92.25,
+          107.5,
+          -349.80000010000003,
+          -341.80000010000003,
+          12.955771265939575,
+          27.205771265939575
+        ]
       },
       {
         "name": "C14 host and wall 46.9",
         "machine_bounds_mm": [
           41.900000000000006,
           51.900000000000006,
-          463.05,
-          471.3,
+          470.05,
+          478.3,
           331.2105808375568,
           341.2105808375568
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          41.900000000000006,
+          51.900000000000006,
+          470.05,
+          478.29998779296875,
+          331.2105808375568,
+          341.2105808375568
+        ],
+        "print_bounds_mm": [
+          41.900000000000006,
+          51.900000000000006,
+          -478.29998779296875,
+          -470.05,
+          13.78941916244321,
+          23.78941916244321
+        ]
       },
       {
         "name": "C14 host and wall 86.9",
         "machine_bounds_mm": [
           81.9,
           91.9,
-          463.05,
-          471.3,
+          470.05,
+          478.3,
           331.2105808375568,
           341.2105808375568
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          81.9,
+          91.9,
+          470.05,
+          478.29998779296875,
+          331.2105808375568,
+          341.2105808375568
+        ],
+        "print_bounds_mm": [
+          81.9,
+          91.9,
+          -478.29998779296875,
+          -470.05,
+          13.78941916244321,
+          23.78941916244321
+        ]
       }
     ],
     "pump-cartridge": [
@@ -677,7 +2568,23 @@
           214.925
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -25.475,
+          25.475,
+          22.7575,
+          32.7575,
+          165.19500732421875,
+          214.925
+        ],
+        "print_bounds_mm": [
+          -25.475,
+          25.475,
+          22.7575,
+          32.7575,
+          0.0,
+          49.72999267578126
+        ]
       },
       {
         "name": "Clamp insert and complete spine root 63.7575",
@@ -690,22 +2597,725 @@
           214.925
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -25.475,
+          25.475,
+          58.7575,
+          68.7575,
+          165.19500732421875,
+          214.925
+        ],
+        "print_bounds_mm": [
+          -25.475,
+          25.475,
+          58.7575,
+          68.7575,
+          0.0,
+          49.72999267578126
+        ]
+      },
+      {
+        "name": "SB443 column 1, rails, keyed bedding walls and host root",
+        "machine_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          70.1922,
+          81.119,
+          173.649,
+          205.85539999999997
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          70.1922,
+          81.119,
+          173.649,
+          205.85539999999997
+        ],
+        "print_bounds_mm": [
+          -60.14999999999999,
+          -44.3,
+          70.1922,
+          81.119,
+          8.453992675781251,
+          40.660392675781225
+        ]
+      },
+      {
+        "name": "SB443 column 2, rails, keyed bedding walls and host root",
+        "machine_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          70.1922,
+          81.119,
+          173.649,
+          205.85539999999997
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          70.1922,
+          81.119,
+          173.649,
+          205.85539999999997
+        ],
+        "print_bounds_mm": [
+          44.3,
+          60.14999999999999,
+          70.1922,
+          81.119,
+          8.453992675781251,
+          40.660392675781225
+        ]
+      },
+      {
+        "name": "Rigid stop 1 opposing bearing and cradle root",
+        "machine_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          214.925,
+          232.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          214.925,
+          232.925
+        ],
+        "print_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          49.72999267578126,
+          67.72999267578126
+        ]
+      },
+      {
+        "name": "Rigid stop 2 opposing bearing and cradle root",
+        "machine_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "print_bounds_mm": [
+          -105.0,
+          -95.0,
+          73.269,
+          79.269,
+          91.97899267578129,
+          109.97899267578129
+        ]
+      },
+      {
+        "name": "Rigid stop 3 opposing bearing and cradle root",
+        "machine_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          214.925,
+          232.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          214.925,
+          232.925
+        ],
+        "print_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          49.72999267578126,
+          67.72999267578126
+        ]
+      },
+      {
+        "name": "Rigid stop 4 opposing bearing and cradle root",
+        "machine_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          257.17400000000004,
+          275.17400000000004
+        ],
+        "print_bounds_mm": [
+          95.0,
+          105.0,
+          73.269,
+          79.269,
+          91.97899267578129,
+          109.97899267578129
+        ]
+      },
+      {
+        "name": "Stem flange capture 1, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          -93.1,
+          -71.1,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -93.1,
+          -71.1,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "print_bounds_mm": [
+          -93.1,
+          -71.1,
+          70.1,
+          82.25,
+          6.978992675781257,
+          20.978992675781257
+        ]
+      },
+      {
+        "name": "Stem flange capture 2, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          -33.35,
+          -11.350000000000001,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -33.35,
+          -11.350000000000001,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "print_bounds_mm": [
+          -33.35,
+          -11.350000000000001,
+          70.1,
+          82.25,
+          6.978992675781257,
+          20.978992675781257
+        ]
+      },
+      {
+        "name": "Stem flange capture 3, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          11.350000000000001,
+          33.35,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          11.350000000000001,
+          33.35,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "print_bounds_mm": [
+          11.350000000000001,
+          33.35,
+          70.1,
+          82.25,
+          6.978992675781257,
+          20.978992675781257
+        ]
+      },
+      {
+        "name": "Stem flange capture 4, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          71.1,
+          93.1,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          71.1,
+          93.1,
+          70.1,
+          82.25,
+          172.174,
+          186.174
+        ],
+        "print_bounds_mm": [
+          71.1,
+          93.1,
+          70.1,
+          82.25,
+          6.978992675781257,
+          20.978992675781257
+        ]
       }
     ],
     "pump-cap": [
       {
         "name": "Both pogo insert hosts, entry steps and blind caps",
         "machine_bounds_mm": [
-          -15.0,
-          15.0,
-          65.769,
-          79.269,
-          275.7740001,
-          281.2740001
+          -14.85,
+          14.85,
+          65.64200000000001,
+          79.14200000000001,
+          273.1240000000001,
+          283.92400000000004
         ],
         "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -14.85,
+          14.85,
+          65.64200000000001,
+          79.14200000000001,
+          273.1240000000001,
+          283.92400000000004
+        ],
+        "print_bounds_mm": [
+          -14.85,
+          14.85,
+          -79.14200000000001,
+          -65.64200000000001,
+          0.250011230468715,
+          11.05001123046867
+        ]
+      },
+      {
+        "name": "Stem flange capture 1, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          -93.09715872396139,
+          -71.1028412760386,
+          70.1,
+          82.25,
+          186.42399999999998,
+          220.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -93.09715872396139,
+          -71.1028412760386,
+          70.1,
+          82.25,
+          186.42399999999998,
+          220.925
+        ],
+        "print_bounds_mm": [
+          -93.09715872396139,
+          -71.1028412760386,
+          -82.25,
+          -70.1,
+          63.24901123046874,
+          97.75001123046877
+        ]
+      },
+      {
+        "name": "Stem flange capture 2, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          -33.347158723961385,
+          -11.352841276038616,
+          70.1,
+          82.25,
+          186.424,
+          220.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -33.347158723961385,
+          -11.352841276038616,
+          70.1,
+          82.25,
+          186.424,
+          220.925
+        ],
+        "print_bounds_mm": [
+          -33.347158723961385,
+          -11.352841276038616,
+          -82.25,
+          -70.1,
+          63.24901123046874,
+          97.75001123046874
+        ]
+      },
+      {
+        "name": "Stem flange capture 3, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          11.352841276038616,
+          33.347158723961385,
+          70.1,
+          82.25,
+          186.424,
+          220.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          11.352841276038616,
+          33.347158723961385,
+          70.1,
+          82.25,
+          186.424,
+          220.925
+        ],
+        "print_bounds_mm": [
+          11.352841276038616,
+          33.347158723961385,
+          -82.25,
+          -70.1,
+          63.24901123046874,
+          97.75001123046874
+        ]
+      },
+      {
+        "name": "Stem flange capture 4, shoulders, guard and native root",
+        "machine_bounds_mm": [
+          71.1028412760386,
+          93.09715872396139,
+          70.1,
+          82.25,
+          186.42399999999998,
+          220.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          71.1028412760386,
+          93.09715872396139,
+          70.1,
+          82.25,
+          186.42399999999998,
+          220.925
+        ],
+        "print_bounds_mm": [
+          71.1028412760386,
+          93.09715872396139,
+          -82.25,
+          -70.1,
+          63.24901123046874,
+          97.75001123046877
+        ]
+      }
+    ],
+    "pump-receiver-keeper": [
+      {
+        "name": "Lock tab and bridge root",
+        "machine_bounds_mm": [
+          -6.5,
+          6.5,
+          7.0,
+          10.0,
+          7.5,
+          20.5
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -6.5,
+          6.5,
+          7.0,
+          10.0,
+          7.5,
+          18.75
+        ],
+        "print_bounds_mm": [
+          -6.5,
+          6.5,
+          -18.75,
+          -7.5,
+          0.0,
+          3.0
+        ]
+      },
+      {
+        "name": "Receiver-groove bearing wing -1",
+        "machine_bounds_mm": [
+          -12.0,
+          -6.2,
+          7.0,
+          10.0,
+          -11.0,
+          9.2
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -12.0,
+          -6.2,
+          7.0,
+          10.0,
+          -11.0,
+          9.2
+        ],
+        "print_bounds_mm": [
+          -12.0,
+          -6.2,
+          -9.2,
+          11.0,
+          0.0,
+          3.0
+        ]
+      },
+      {
+        "name": "Receiver-groove bearing wing +1",
+        "machine_bounds_mm": [
+          6.2,
+          12.0,
+          7.0,
+          10.0,
+          -11.0,
+          9.2
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          6.2,
+          12.0,
+          7.0,
+          10.0,
+          -11.0,
+          9.2
+        ],
+        "print_bounds_mm": [
+          6.2,
+          12.0,
+          -9.2,
+          11.0,
+          0.0,
+          3.0
+        ]
+      },
+      {
+        "name": "Bridge above receiver groove",
+        "machine_bounds_mm": [
+          -12.0,
+          12.0,
+          7.0,
+          10.0,
+          6.2,
+          9.2
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -12.0,
+          12.0,
+          7.0,
+          10.0,
+          6.2,
+          9.2
+        ],
+        "print_bounds_mm": [
+          -12.0,
+          12.0,
+          -9.2,
+          -6.2,
+          0.0,
+          3.0
+        ]
+      }
+    ],
+    "pump-rear-support": [
+      {
+        "name": "High bridge, both lock bearings and upright roots",
+        "machine_bounds_mm": [
+          -91.1,
+          91.1,
+          91.365,
+          94.515,
+          202.174,
+          213.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -91.0999984741211,
+          91.0999984741211,
+          91.365,
+          94.51499938964844,
+          202.174,
+          213.1739959716797
+        ],
+        "print_bounds_mm": [
+          -91.0999984741211,
+          91.0999984741211,
+          -213.1739959716797,
+          -202.174,
+          2.1362304636340923e-06,
+          3.1500015258789062
+        ]
+      },
+      {
+        "name": "Rear cuff ring 1 and upright roots",
+        "machine_bounds_mm": [
+          -91.1,
+          -73.1,
+          91.365,
+          94.515,
+          177.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -91.0999984741211,
+          -73.1,
+          91.365,
+          94.51499938964844,
+          177.17469787597656,
+          205.174
+        ],
+        "print_bounds_mm": [
+          -91.0999984741211,
+          -73.1,
+          -205.174,
+          -177.17469787597656,
+          2.1362304636340923e-06,
+          3.1500015258789062
+        ]
+      },
+      {
+        "name": "Rear cuff ring 2 and upright roots",
+        "machine_bounds_mm": [
+          -31.35,
+          -13.350000000000001,
+          91.365,
+          94.515,
+          177.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -31.35,
+          -13.350000000000001,
+          91.365,
+          94.51499938964844,
+          177.17469787597656,
+          205.174
+        ],
+        "print_bounds_mm": [
+          -31.35,
+          -13.350000000000001,
+          -205.174,
+          -177.17469787597656,
+          2.1362304636340923e-06,
+          3.1500015258789062
+        ]
+      },
+      {
+        "name": "Rear cuff ring 3 and upright roots",
+        "machine_bounds_mm": [
+          13.350000000000001,
+          31.35,
+          91.365,
+          94.515,
+          177.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          13.350000000000001,
+          31.35,
+          91.365,
+          94.51499938964844,
+          177.17469787597656,
+          205.174
+        ],
+        "print_bounds_mm": [
+          13.350000000000001,
+          31.35,
+          -205.174,
+          -177.17469787597656,
+          2.1362304636340923e-06,
+          3.1500015258789062
+        ]
+      },
+      {
+        "name": "Rear cuff ring 4 and upright roots",
+        "machine_bounds_mm": [
+          73.1,
+          91.1,
+          91.365,
+          94.515,
+          177.174,
+          205.174
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          73.1,
+          91.0999984741211,
+          91.365,
+          94.51499938964844,
+          177.17469787597656,
+          205.174
+        ],
+        "print_bounds_mm": [
+          73.1,
+          91.0999984741211,
+          -205.174,
+          -177.17469787597656,
+          2.1362304636340923e-06,
+          3.1500015258789062
+        ]
       }
     ]
   }

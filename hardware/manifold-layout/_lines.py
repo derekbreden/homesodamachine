@@ -674,7 +674,7 @@ def _fluid_2(F):
 # before the U is level and the U only falls, so nothing on the line stands above the elbow.
 
 # The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
-FLUID_4_CROSS_Y = 282.0
+FLUID_4_CROSS_Y = 288.0
 
 
 def _fluid_4(F):
@@ -786,7 +786,10 @@ GATE_STUB_CLEAR = 4.0
 # fences above are on the leg, so both are read from there too, and `bend-radius` is what reports
 # the climb's quarter when the leg is short of the first one.
 GATE_B_JOG_LEG = 19.9
-GATE_B_DRAIN_RETURN_RISE = 7.5
+GATE_B_DRAIN_RETURN_RISE = 3.5
+GATE_B_RETURN_WEST = 16.5
+GATE_B_RETURN_HOLD_Y = 402.0
+GATE_B_UNION_JOIN_Y = 448.5
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is
 # THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
@@ -807,9 +810,9 @@ GATE_A_LOW_LEAN_RUN = 22.0
 # The west lane is outside the reservoir-B fill column and the discharge chain.
 # Its return begins behind the pump discharge, below the discharge hose.
 GATE_A_WEST_X = -76.5
-GATE_A_RETURN_START_Y = 320.0
+GATE_A_RETURN_START_Y = 345.0
 GATE_A_UNION_JOIN_Y = 375.0
-GATE_A_UNION_LEVEL_RUN = 10.0
+GATE_A_UNION_LEVEL_RUN = 16.0
 GATE_A_RISE_RUN = 20.0
 
 
@@ -859,7 +862,7 @@ def _gate_climb_under_cruise(F) -> float:
 def _fluid_28(F, solids):
     """Flavor B retains the front support and follows its raised west return.
 
-    The return rises 7.5 mm, passes 13 mm west of the rear union's column and
+    The return rises 3.5 mm, passes 16.5 mm west of the rear union's column and
     reaches its collet on-axis. The rear return corners hold R25.4.
     """
     gate = F["valve-v-j"].at("outlet")
@@ -871,9 +874,9 @@ def _fluid_28(F, solids):
         (tin[0], gate[1] + GATE_B_JOG_LEG, climb),          # the one jog, onto the union's column
         (tin[0], 302.0, climb),
         (tin[0], 340.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0] - 13.0, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0] - 13.0, 408.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0], 440.0, tin[2]),
+        (tin[0] - GATE_B_RETURN_WEST, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
+        (tin[0] - GATE_B_RETURN_WEST, GATE_B_RETURN_HOLD_Y, climb + GATE_B_DRAIN_RETURN_RISE),
+        (tin[0], GATE_B_UNION_JOIN_Y, tin[2]),
         "bulkhead-flavor-b.tube-in",
         kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,
                             3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
@@ -934,6 +937,10 @@ def _fluid_18(F, solids):
 RESERVOIR_CRUISE = TUBE_BEND
 RESERVOIR_B_CRUISE = TUBE_BEND - 0.6
 RESERVOIR_B_GATE_LEAN_DEG = 2.9
+# B's draw crown passes below the fill crossing, then rises toward its gate.
+# The separate gate lead seats the complete R14 approach below the funnel frame.
+RESERVOIR_B_DRAW_DROP = 8.9
+RESERVOIR_B_DRAW_GATE_LEAD = 15.3
 # The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
 #
 # THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
@@ -965,7 +972,7 @@ FILL_A_GATE_LEAN_DEG = 2.9
 # plus this air apart at the fill line's lane plane, rather than making either established end
 # storey carry the other's valve lift.
 FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 16.3
+FILL_A_DRAW_GATE_LEAD = 16.6
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
@@ -1105,20 +1112,20 @@ def _fluid_24(F):
 def _fluid_26(F):
     """fluid-26 — the draw conduit on reservoir B's cap to the channel-B draw gate.
 
-    The reverse journey of `fluid-24` and a shorter one, because the draw's conduit stands at the
-    head of the +Y band on the FORWARD strip rather than over the pocket. The lean crosses between
-    two descents on the same strip — `water-5` into `water-in` one column west, `fluid-2` a
-    storey above — and holds the cruise plane between them."""
+    The draw crown stands below the fill crossing. Its long lean then rises toward the
+    gate's full-radius lead, between the tap-water descent and the source feed above.
+    Both turns remain below the funnel frame."""
     bore = F["foam-assembly"].at("reservoir-b")
     gate = F["valve-v-h"].at("inlet")
-    cruise = gate[2] + RESERVOIR_B_CRUISE
-    lean = RESERVOIR_B_CRUISE * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
+    draw_z = gate[2] + RESERVOIR_B_CRUISE - RESERVOIR_B_DRAW_DROP
+    gate_z = gate[2] + RESERVOIR_B_DRAW_GATE_LEAD
+    lean = RESERVOIR_B_DRAW_GATE_LEAD * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
     dx, dy = bore[0] - gate[0], bore[1] - gate[1]
     reach = math.hypot(dx, dy)
     return R.bent(
         "fluid-26", "foam-assembly.reservoir-b",
-        (bore[0], bore[1], cruise),             # up off the bore onto the cruise plane
-        (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, cruise),
+        (bore[0], bore[1], draw_z),             # lower crown clears the fill crossing
+        (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, gate_z),
         "valve-v-h.inlet",                      # shallow approach into the gate's collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
         note="reservoir B draw: the cap's draw conduit → V-H-I, up off the bore and one lean "

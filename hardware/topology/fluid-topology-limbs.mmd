@@ -1,6 +1,6 @@
 flowchart LR
 
-  %% The valve manifold grouped by PHYSICAL CARRIER — the condensed view: valves and junctions
+  %% The valve manifold grouped by PHYSICAL LANE — the condensed view: valves and junctions
   %% only, sources, pumps, reservoirs and the faucet omitted. The complete chart, every endpoint
   %% present and every edge labelled with its route ID, is fluid-topology-manifold.mmd.
 
@@ -13,10 +13,11 @@ flowchart LR
 
   %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
   %% ports, so a limb is one line of valves and tees butted collet to collet, front to back, on
-  %% one column of X. A tee dropped on a pump barb by its BRANCH puts its RUN across the head's
-  %% face, so each pump hands out two of these lanes, 57 mm apart.
+  %% one column of X. A fixed pump-side tee connects its BRANCH through a permanent TPU
+  %% receiver to its prepared pump stem. Its RUN lies across the head's face, giving
+  %% each pump two of these lanes, 57 mm apart.
 
-  %% THE PACK IS FOLDED IN TWO about the hinge the four barb tees' front collets stand on.
+  %% THE PACK OCCUPIES TWO FIXED DECKS connected by four stationary hairpins.
   %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
   %% [8](LOWER_COUNT) stay on the first. The four connections crossing the hinge each become a
   %% 180° hairpin.

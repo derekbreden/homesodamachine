@@ -1,0 +1,132 @@
+{
+  "review_date": "2026-10-18",
+  "status": "Engineering assessment and proposed one-off physical qualification; no measurements performed by this record and no recurring check added.",
+  "selected_candidate": "Six SB443-IN mating pairs in two three-high columns at the actual pump-port row. Bare pole faces match-set against the seated frame; the complete installed array remains physically unqualified.",
+  "decision": "Retain the six-pair candidate for its approved packaging and straight manual service operation. Qualify it against the reachable single-channel pressure cases and measure removal effort. The all-four-port overload is retained separately; it is not substituted for the actual operating topology.",
+  "geometry_basis": {
+    "external_seal_diameter_mm": 6.35,
+    "effective_conservative_projected_area_per_port_mm2": 31.669217443593606,
+    "force_per_port_per_psi_N": 0.21835156793814026,
+    "equation": "Sum of positive gauge pressures times pi times external seal diameter squared divided by four. This uses the external sealing diameter, without subtracting the tube bore. No analytical credit is taken for unmeasured TPU friction or connector magnets.",
+    "pump_port_pitch_mm": 59.75,
+    "magnet_column": "Each three-pair column is centered between one pump's two fluid ports. The complete cradle and opposite column share load according to actual frame stiffness and seating; equal sharing is not assumed.",
+    "fixed_pack_and_keeper_geometry": "fluid-geometry-review.json",
+    "magnet_capture_geometry": "magnet-geometry.json"
+  },
+  "operating_source_basis": {
+    "canonical_valve_modes": "../../../topology/fluid-topology.md",
+    "plan_implementation": "../../../../firmware/lib/machine_policy/machine_policy.cpp",
+    "plan_limits_and_clean_timing": "../../../../firmware/lib/machine_policy/machine_policy.h",
+    "clean_state_machine": "../../../../firmware/src_appliance/machine.cpp",
+    "single_channel_enforcement": "machineCleanBegin refuses a cycle while ST_CLEANING or otherwise non-idle. One cleanChannel is stored for the full cycle; canonicalPlan selects either A/C/F or A/D/I for water fill with no flavor pump enabled. Clean flush selects one channel's reservoir draw and faucet outlet with that pump enabled.",
+    "time_limits": "Default water fill is 90 seconds, ending earlier on the full reed. The end stops the pump if active, waits the 250 ms settle, then closes the whole valve state. These limits bound commanded exposure duration, not maximum pressure or release of a blocked trapped volume.",
+    "idle_pump": "The recorded KPHM600 head passes flow in both directions while stopped. It is not a pressure-isolation valve.",
+    "needle_valve": "The V-A feed needle valve throttles flowing water into a vented reservoir. The original discussion expects less than 10 psi while this path flows. No pressure trace is recorded here. The needle does not limit a blocked path's eventual static pressure.",
+    "manufacturer": "https://m.media-amazon.com/images/I/914PeMOVWiL.pdf",
+    "manufacturer_limit": "The actual KPHM600 data sheet gives no maximum pressure rating. Its >=1000 hour tubing reference test is 420 rpm continuous operation with 20 C pure water without pressure, until the pump tube cracks. Neither 80 nor 110 psi is a KPHM600 system rating."
+  },
+  "pressure_cases": [
+    {
+      "case": "Flowing single-channel clean water fill",
+      "class": "Canonical operation; pressure expectation needs measurement",
+      "path_A": "Tap -> needle -> V-A -> V-C -> idle P-A -> V-F -> vented reservoir A",
+      "path_B": "Tap -> needle -> V-A -> V-D -> idle P-B -> V-I -> vented reservoir B",
+      "pressure_context": "Less than 10 psi was the flowing design context. At a hypothetical positive 10 psi on both active-channel ports the upper-area load is 4.367 N. The other channel is isolated by its NC valves.",
+      "example_force_N": 4.367031358762805
+    },
+    {
+      "case": "Blocked clean water return on one selected channel",
+      "class": "Reachable single downstream blockage/failed return valve during a canonical water fill",
+      "path": "V-A and the selected V-C or V-D remain open; the selected V-F/V-I or return tube fails to pass flow. The idle head connects the two pump ports, so both can approach supply static pressure despite the needle. The unselected channel remains isolated.",
+      "screen_pressure_each_port_psi": 80,
+      "positive_ports": 2,
+      "hydraulic_separation_N": 34.93625087010244,
+      "force_line": "Centered between that pump's two ports at their Z row, offset from the overall cradle center. Test A and B separately; a symmetric four-port pull cannot replace these asymmetric load cases.",
+      "limit": "80 psi is a provisional supply-pressure screen, not a verified maximum of the installed feed. Valve closing can trap fault pressure; the 90 second command limit and needle are not pressure relief."
+    },
+    {
+      "case": "One powered pump with blocked outlet",
+      "class": "Reachable single downstream blockage during dispense, flush, funnel fill or air purge",
+      "path": "The selected pump runs from its reservoir or open funnel; the commanded faucet/return route is blocked or its outlet valve fails closed. The other pump and tap inlet are not commanded on.",
+      "exploration_discharge_screen_psi": 110,
+      "outlet_only_force_at_screen_N": 24.01867247319543,
+      "limit": "Actual KPHM600 deadhead pressure, transient peaks and inlet pressure are unmeasured. 110 psi is a prior exploration screen, not this pump's published pressure rating; it must not be presented as an established operating ceiling."
+    },
+    {
+      "case": "Stored pressure on both isolated channels",
+      "class": "Compound or sequential fault accumulation",
+      "path": "For example, an unselected select valve leaks into its closed return path while the selected channel's return is also blocked, or separate blocked clean fills leave both channels pressurized. No canonical water-fill state opens both channel selects.",
+      "pressure_each_port_psi": 80,
+      "positive_ports": 4,
+      "hydraulic_separation_N": 69.87250174020488
+    },
+    {
+      "case": "Two suction ports at positive 80 psi and two discharge ports at 110 psi",
+      "class": "All-four-port compound overload screen, not a canonical operating mode",
+      "path": "Requires noncanonical powered/pressurized paths across both pumps, additional failures or retained unequal fault pressures. A canonical clean fill runs no pump and selects only one channel; a canonical powered operation closes V-A and selects one pump.",
+      "hydraulic_separation_N": 82.9735958164933,
+      "per_pump_hydraulic_N": 41.48679790824665,
+      "per_pump_torque_about_midport_Nm": 0.1956975927645582,
+      "limit": "The 82.974 N sum remains a useful overload comparison. It is not normal load, a pressure rating, or proof that 110 psi is a physical upper bound."
+    }
+  ],
+  "retention_assessment": {
+    "manufacturer_source": "https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet",
+    "supplier_steel_case1_lbf": 3.42,
+    "six_times_steel_arithmetic_N": 91.27750754514545,
+    "scope": "Case 1 is one magnet on a thick steel plate. Multiplying that value by six does not establish this six-pair array's force, gap sensitivity, alternating-pole coupling, temperature behavior, key strength or one-sided peeling load. The Case 3 graph was not accessible in this review. No installed margin is claimed.",
+    "required_net_hold": "The installed net magnetic retention, including actual pogo-spring reaction, must exceed the reachable hydraulic force with a chosen engineering reserve at every relevant seated gap and temperature. Dry static TPU friction receives no credit because it changes with wetting, surface finish, dwell and cycling.",
+    "provisional_initial_screen_factor": 1.5,
+    "provisional_initial_screen_basis": "An engineering reserve for the bounded single-channel 80 psi comparison, not a regulatory factor, pressure rating or lifetime derating.",
+    "single_channel_screen_target_N": 52.40437630515366,
+    "compound_overload_comparison_N": 82.9735958164933,
+    "compound_1_5x_comparison_only_N": 124.46039372473996,
+    "handling": "Increasing magnet force raises initial straight manual extraction before adding four wet seal reactions. Keep the actual two-pump cradle and user grip in the dry/wet force assessment; a bare magnet coupon cannot settle the ship decision."
+  },
+  "qualification_plan": {
+    "purpose": "Decide whether the six-pair assembly fully seats, retains against the reachable single-channel blocked-fill case and permits the intended pump swap without adjustment or receiver replacement. These observations precede any pressure/lifetime claim.",
+    "article": "Complete actual fixed bay and lower cartridge/cap, six matched pairs with selected keyed DP420 cure, recessed pogo pair, four manufactured PP-H stems, production TPU receivers, keepers/rear bar and 18.175 mm fixed LLDPE tails/tees. Record CAD/STL/slice hashes, print recipe and orientation, filament drying, actual stem dimensions/finish, magnet lot/poles/cure, temperature and fluid.",
+    "owned_tools": "BEAMNOVA hydrostatic pump; SENCTRL 0-200 psi glycerin gauge; KOOTANS 1/2 to 1/4 NPT nipple; metal NPT plugs; NEIKO caliper; Smart Weigh 2000 g x0.1 g scale; photo/video. Inventory sources are hardware/ledger/tools.md and purchases.md. This record requests no purchase and starts no test.",
+    "tool_limits": "The documented scale cannot directly measure 53-125 N. It can weigh separate ballast portions below 2 kg whose masses are summed for a static deadweight pull. The 0-200 psi gauge can screen static 80 psi holds but cannot establish fast pump transients or accurate low-pressure dynamics. No calibrated force gauge or high-bandwidth flavor pressure sensor is documented as owned.",
+    "dry_load_fixture": "Rigidly support the complete fixed bay with machine -Y extraction vertical downward. Use a close-fitting load yoke on the lower cartridge that bears at the two stem/flange stations of one pump and applies its resultant along machine -Y at the port row; the upper cap remains fastened and the pogo pair remains installed. Omit the four stems from this dry magnetic measurement so no TPU friction contributes. Use a rated load sling and supported water ballast vessel, with a slack catch that does not carry load before separation. Fixture anchorage, yoke bearing and sling capacity must be identified before a run; no such load fixture is asserted to be already built.",
+    "dry_procedure": [
+      "Verify all six pole contacts, rigid seating and actual pogo compression on the completed cured frame. Record the four cartridge-to-frame Y reference readings before load.",
+      "Weigh ballast/container/yoke portions separately within the 2 kg scale capacity and sum their masses. An applied ballast mass of at least 5.345 kg supplies 52.4165 N at standard gravity; cartridge self-weight in the extraction direction adds a conservative load. Avoid a lever or pulley unless its force ratio/loss is separately calibrated.",
+      "Increase the resultant slowly at pump A's paired-port midpoint to at least 52.4165 N, hold 30 minutes, then remove it. Repeat at pump B. Record the largest applied load with no separation; a breakaway reading also includes frame motion and must be tied to this installed article.",
+      "Pass this initial screen only if neither load unseats the cartridge, no reference reading shows >=0.10 mm Y movement, every pole/body seat/pogo contact returns to its baseline, and no magnet key, rail, flange or keeper moves or is damaged. A passing lower-bound load is not the breakaway force or a qualified 80 psi rating."
+    ],
+    "wet_fixture": "Use an isolated water-filled flavor/dock article with rated temporary NPT/PTC adapters, gauge tee and metal closure. Do not connect the carbonator or pressurize a vented printed reservoir. The closure replaces the selected reservoir-return tube beyond the dock, so both selected-channel receiver joints and the actual idle pump remain in the pressure path. Identify every temporary fitting and its applicable pressure/temperature limit before selecting a setpoint.",
+    "wet_procedure": [
+      "Fit actual PP-H stems and fixed tails to their datums. Record simultaneous insertion and withdrawal, complete rigid seating, actual pogo compression, and initial dry reference readings at all four ports. Use no customer lubricant, receiver adjustment or retightening.",
+      "With the actual wet stems installed, use the same summed-mass deadweight method with a yoke centered between both pump columns to bracket straight breakaway force in no more than 0.25 kg (2.452 N) increments, within the identified fixture capacity. Record initial and final fully seated insertion effort and removal load, plus ordinary manual withdrawal using the intended customer grip and brace. Repeat after the 20 swaps; numerical force alone does not establish comfortable handling.",
+      "Fill and bleed the isolated fixture with water. Increase pressure in steps on the selected channel only; after settling, screen the proposed 80 psi blocked-fill case for 30 minutes. Repeat the other channel. This exposure is a bounded development trial on an unqualified pump/dock, not reliance on a pump pressure rating.",
+      "Use separate dry witness papers at the front seal, TPU printed body, rear seal and BPT/stem interface. Observe cradle Y reference and all insertion witness marks. Stop on wetting, resolvable settled gauge loss, cartridge movement, body ballooning, mark movement, clamp damage or tube distortion.",
+      "Initial screen acceptance is no visible wetting or resolvable settled pressure loss, no >=0.10 mm cartridge Y movement, no insertion-mark slip at 0.5 mm observation resolution, and no damage or lost seating. The detection limits are not allowable service slip.",
+      "Leave the assembly fitted and water-filled for 24 hours, perform 20 complete straight pump swaps with the actual prepared replacement parts, and repeat the channel holds without receiver or fastener adjustment. Record first/last insertion and extraction behavior, key/rail condition, seal surfaces and all witness marks. This screens initial relaxation and early service damage only.",
+      "Characterize each canonical powered flow state and blocked-outlet case on a controlled isolated article before selecting its own pressure target. The owned dial gauge supplies steady readings only; a fast peak-pressure claim requires suitable instrumentation. A 110 psi receiver-only development hold can be separately selected after checking the fixture limits, but it does not supply the missing KPHM600 rating."
+    ],
+    "failed_pump_service_vent": {
+      "purpose": "Determine whether each external port can depressurize through the commanded dry-mode valves independently of rotor passage. This is an isolated one-off qualification addition, not a customer fallback, firmware change or venting claim.",
+      "purchased_valve_primary_source": "https://www.amazon.com/dp/B07NWCQJK9",
+      "source_scope": "The purchased Beduan seller/manufacturer description specifies the body flow arrow and warns that reversed installation can compromise normally closed sealing. It does not establish energized reverse-flow capability, reverse differential capacity, backpressure limits or a vent-down time. The published working range begins at 0.02 MPa; behavior near atmospheric pressure is therefore not established by that range. Bind any trial to the actual received valve markings and lot because listing image ratings differ.",
+      "commanded_paths": {
+        "A_inlet": "Pump inlet -> Y-C -> V-C outlet to inlet -> source crossbar -> V-B outlet to inlet -> dry open funnel. This independent positive-pressure vent path requires reverse flow through energized V-C and V-B.",
+        "B_inlet": "Pump inlet -> Y-F -> V-D outlet to inlet -> source crossbar -> V-B outlet to inlet -> dry open funnel. This independent positive-pressure vent path requires reverse flow through energized V-D and V-B.",
+        "A_discharge": "Pump outlet -> Y-D -> energized V-F -> vented reservoir A during AirPurgeInA, or energized V-G -> open flavor faucet during AirPurgeThroughA.",
+        "B_discharge": "Pump outlet -> Y-G -> energized V-I -> vented reservoir B during AirPurgeInB, or energized V-J -> open flavor faucet during AirPurgeThroughB."
+      },
+      "canonical_masks": "Dry selects B/C/F with pump A, then B/C/G with pump A, then B/D/I with pump B, then B/D/J with pump B. Nominal step times are 20, 30, 20 and 30 seconds; normal step termination stops the pump, leaves the current valves commanded for 250 ms, then closes all valves.",
+      "firmware_constraint": "pumpDrive checks PWM attachment, not physical rotation or fluid movement. A disconnected or stalled pump can therefore complete timed steps. If PWM attachment fails, airStepBegin calls airParked immediately, closing all valves without the normal vent dwell. Neither elapsed time nor a successful PWM command establishes both ports depressurized.",
+      "fixture": "Reuse the isolated water-filled pressure article and owned dial gauge. Disconnect and separately cap the two pump-side paths so there is no connection through a pump, receiver pair or rotor. Test each external port separately using the actual installed valves and an unobstructed dry funnel, vented reservoir and open faucet as applicable. Identify every temporary adapter and its rating before selecting a pressure; do not connect the carbonator or pressurize a reservoir.",
+      "procedure": [
+        "For A and B separately, charge only one isolated external port to a bounded measured initial positive pressure, close the hydrostatic source, then command the exact applicable existing dry-mode valve state. Opening must be tested against pre-existing pressure, rather than only charging after a valve has opened. Record initial pressure, gauge trace and discharge location; repeat the other port with no rotor passage available.",
+        "Cover the selected high-pressure service screen and the low-pressure tail to atmosphere. Use the actual 20/30 second exposures and 250 ms settle interval, then record pressure after all valves close and after power removal. Repeat on the actual installed valve lot with the relevant fluids and temperature; the supplier's flow arrow alone settles neither reverse blocking nor reverse venting.",
+        "Record the dial gauge's vented zero, graduation and readable resolution before and after each run. Passing this initial screen requires the tested port to reach its vented reference within that resolution before valve closure, with no resolvable rebound afterward and no fixture leak supplying an alternate vent path. The 0-200 psi dial gauge cannot establish absolute zero or an accurate low-pressure release bound; obtain appropriate low-pressure instrumentation before making a residual-pressure service claim.",
+        "Separately capture actual valve outputs during a controlled failed-PWM-start bench case, including the immediate park behavior. Do not substitute a stalled motor with accepted PWM for a rejected PWM attachment. This plan does not execute fault injection or alter firmware; the current immediate-close branch cannot be described as an assured timed vent."
+      ],
+      "decision": "A per-port pressure result changes the service vent claim only for its tested state, valve lot, pressure range and timing. A reverse-flow failure, residual pressure, rebound, unbounded low-pressure reading or immediate PWM-start park leaves independent failed-pump depressurization unqualified. Keep customer service text conditional on pumps rotating and moving fluid; select no customer fallback from topology or elapsed time alone."
+    },
+    "lifetime_follow_on": "Bind actual flowing and blocked pressures, maximum cabinet/fluid temperature, concentrate/cleaning exposure, duty and intended pump-swap count before setting the durability trial. Use the assembled permanent receivers for that trial and repeat their seal/retention measurements without adjustment. The existing accepted hand fit and 24 hour/20 cycle screen do not establish lifetime, sanitation or finished food-contact suitability.",
+    "decision_after_observation": "Failure to reach rigid seating changes funnel/land/guide geometry or insertion support. Seal/body wetting identifies seal interference or printing-process work. Receiver/tail movement changes its positive support. Magnetic unseating changes the actual pressure envelope/retention design; a numerical supplier-steel multiplier is not a correction. Excessive removal effort changes force distribution or the user extraction mechanism. Preserve the six-pair candidate until these installed measurements justify a change."
+  }
+}

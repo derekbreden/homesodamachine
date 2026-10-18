@@ -1,0 +1,935 @@
+{
+  "dimensions": {
+    "part": "One-piece machined R\u00f6chling Polystone P homopolymer natural PP stem, grade 590980",
+    "quantity": 4,
+    "stem_od_mm": 6.35,
+    "flow_id_mm": 4.3,
+    "flange_od_mm": 16.0,
+    "flange_thickness_mm": 2.5,
+    "flange_center_y_mm": 77.5,
+    "tip_y_mm": 87.015,
+    "smooth_seal_land_y_mm": [
+      80.515,
+      86.515
+    ],
+    "tail_engagement_mm": 12.0,
+    "bpt_end_y_mm": 76.1,
+    "barb_od_mm": 6.9,
+    "flange_root_radius_mm": 0.4,
+    "factory_tie_center_y_mm": 74.5,
+    "factory_tie_width_mm": 2.54,
+    "tie_band_clearance_d_mm": 12.1,
+    "factory_tie_head_clock": "+Z into the cap's relieved channel",
+    "flange_pocket_y_mm": [
+      76.1,
+      78.9
+    ],
+    "cradle_fore_shoulder_mm": 3.0,
+    "cradle_aft_shoulder_mm": 3.35,
+    "moving_guard_od_mm": 22.0,
+    "moving_guard_aft_y_mm": 82.25,
+    "fixed_wall_counterbore_d_mm": 22.5,
+    "fixed_wall_counterbore_back_y_mm": 82.5,
+    "upper_guard_flange_axial_air_mm": 0.35,
+    "cap_z_stop_clearance_mm": 0.25,
+    "conservative_80psi_axial_force_per_stem_N": 17.46812543505122,
+    "conservative_lower_half_bearing_area_mm2": 20.227929698301278,
+    "nominal_80psi_bearing_MPa": 0.8635646700175242,
+    "conservative_front_shoulder_bearing_area_mm2": 43.03589236336318,
+    "nominal_80psi_front_shoulder_bearing_MPa": 0.40589667079662983,
+    "nominal_80psi_flange_root_shear_MPa": 0.3502536704929344,
+    "conservative_80psi_flange_root_radial_strip_bending_MPa": 7.4107203341140675,
+    "normal_10psi_bearing_MPa": 0.10794558375219053,
+    "axial_load_path": "Stem flange directly into fore/aft cradle shoulders; cap closes Z assembly route",
+    "customer_additional_step": false,
+    "wet_part_fff": false,
+    "requires_physical_qualification": [
+      "Machined stock food-contact declaration and finish",
+      "BPT engagement/barb/casing fit and factory clamp",
+      "Local cradle shoulders and upper guard",
+      "Full seal insertion, pressure and repeated pump swaps"
+    ]
+  },
+  "checks": [
+    {
+      "check": "cradle native validity",
+      "pass_": true,
+      "solids": 4
+    },
+    {
+      "check": "cap native validity",
+      "pass_": true,
+      "solids": 4
+    },
+    {
+      "check": "cap cradle clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 one valid native part",
+      "pass_": true
+    },
+    {
+      "check": "stem0 cradle native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 cap native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 0",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 1",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 5",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 10",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 20",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 pump lowering 40",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 cradle Y reaction -0.2",
+      "pass_": true,
+      "mm3": 3.023586579539155
+    },
+    {
+      "check": "stem0 cap not first Y reaction -0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 cradle Y reaction 0.2",
+      "pass_": true,
+      "mm3": 1.0113964849150014
+    },
+    {
+      "check": "stem0 cap not first Y reaction 0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem0 cap closes Z",
+      "pass_": true,
+      "mm3": 4.147190055227107
+    },
+    {
+      "check": "stem1 one valid native part",
+      "pass_": true
+    },
+    {
+      "check": "stem1 cradle native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 cap native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 0",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 1",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 5",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 10",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 20",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 pump lowering 40",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 cradle Y reaction -0.2",
+      "pass_": true,
+      "mm3": 3.023586579539153
+    },
+    {
+      "check": "stem1 cap not first Y reaction -0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 cradle Y reaction 0.2",
+      "pass_": true,
+      "mm3": 1.011396484915005
+    },
+    {
+      "check": "stem1 cap not first Y reaction 0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem1 cap closes Z",
+      "pass_": true,
+      "mm3": 4.147190055227082
+    },
+    {
+      "check": "stem2 one valid native part",
+      "pass_": true
+    },
+    {
+      "check": "stem2 cradle native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 cap native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 0",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 1",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 5",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 10",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 20",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 pump lowering 40",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 cradle Y reaction -0.2",
+      "pass_": true,
+      "mm3": 3.0235865795391534
+    },
+    {
+      "check": "stem2 cap not first Y reaction -0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 cradle Y reaction 0.2",
+      "pass_": true,
+      "mm3": 1.0113964849150046
+    },
+    {
+      "check": "stem2 cap not first Y reaction 0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem2 cap closes Z",
+      "pass_": true,
+      "mm3": 4.147190055227078
+    },
+    {
+      "check": "stem3 one valid native part",
+      "pass_": true
+    },
+    {
+      "check": "stem3 cradle native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 cap native clear",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 0",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 1",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 5",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 10",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 20",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 pump lowering 40",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 cradle Y reaction -0.2",
+      "pass_": true,
+      "mm3": 3.0235865795391543
+    },
+    {
+      "check": "stem3 cap not first Y reaction -0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 cradle Y reaction 0.2",
+      "pass_": true,
+      "mm3": 1.0113964849150014
+    },
+    {
+      "check": "stem3 cap not first Y reaction 0.2",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "stem3 cap closes Z",
+      "pass_": true,
+      "mm3": 4.147190055227114
+    },
+    {
+      "check": "cap installation lift0",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "cap installation lift1",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "cap installation lift5",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "cap installation lift10",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "cap installation lift20",
+      "pass_": true,
+      "mm3": 0.0
+    },
+    {
+      "check": "cap installation lift40",
+      "pass_": true,
+      "mm3": 0.0
+    }
+  ],
+  "scope": "Local native geometry, prepared stem/cap installation, cradle-only first axial reaction, cap vertical capture, purchased pump head/boss/motor and installed TPU clearance. Exported-cradle cap lane review binds its input STEP hashes and corrected native candidate, including continuous new-guard sweep and complete cap lifts through 110 mm. Printed capacity, BPT joint, wet seal and lifetime remain physical qualifications.",
+  "module_sha256": "feac781e9f30c34a97bd9f8819ad8e1c5f3da2e9e0a0bdfa1516aee0d73e530d",
+  "purchased_pump_and_installed_receiver_review": {
+    "module_sha256": "feac781e9f30c34a97bd9f8819ad8e1c5f3da2e9e0a0bdfa1516aee0d73e530d",
+    "reference_step_sha256": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
+    "rows": [
+      {
+        "pump": "pump-a",
+        "reference": "head",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-a",
+        "reference": "head",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-a",
+        "reference": "boss",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-a",
+        "reference": "boss",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-a",
+        "reference": "motor",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-a",
+        "reference": "motor",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "head",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "head",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "boss",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "boss",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "motor",
+        "added_part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "pump": "pump-b",
+        "reference": "motor",
+        "added_part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "setting fixture",
+        "valid": true,
+        "solids": 1,
+        "stem_overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": -82.1,
+        "part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": -82.1,
+        "part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": -22.35,
+        "part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": -22.35,
+        "part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": 22.35,
+        "part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": 22.35,
+        "part": "cap",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": 82.1,
+        "part": "cradle",
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "installed TPU under guard",
+        "x": 82.1,
+        "part": "cap",
+        "overlap_mm3": 0.0
+      }
+    ]
+  },
+  "integrated_cap_route_review": {
+    "module_sha256": "feac781e9f30c34a97bd9f8819ad8e1c5f3da2e9e0a0bdfa1516aee0d73e530d",
+    "basis": "Previously exported canonical cradle with current full-height cap_clearance subtracted; cap unchanged",
+    "checks": [
+      {
+        "check": "corrected cradle one valid solid",
+        "passed": true,
+        "solids": 1,
+        "removed_stock_mm3": 3927.64648674999
+      },
+      {
+        "check": "all stock below bracket datum retained",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "central screw load-path stock retained",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 0 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 1 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 5 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 10 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 20 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 25 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 30 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 35 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 40 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 50 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 60 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 80 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 100 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "complete cap lift 110 mm",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "port 1: continuous upper-guard/web swept envelope",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "port 1: lower axial catch -0.20",
+        "passed": true,
+        "overlap_mm3": 3.0408047680475447
+      },
+      {
+        "check": "port 1: lower axial catch +0.20",
+        "passed": true,
+        "overlap_mm3": 1.0220219687028265
+      },
+      {
+        "check": "port 2: continuous upper-guard/web swept envelope",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "port 2: lower axial catch -0.20",
+        "passed": true,
+        "overlap_mm3": 3.04080476804755
+      },
+      {
+        "check": "port 2: lower axial catch +0.20",
+        "passed": true,
+        "overlap_mm3": 1.0220219687028262
+      },
+      {
+        "check": "port 3: continuous upper-guard/web swept envelope",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "port 3: lower axial catch -0.20",
+        "passed": true,
+        "overlap_mm3": 3.0408047680470833
+      },
+      {
+        "check": "port 3: lower axial catch +0.20",
+        "passed": true,
+        "overlap_mm3": 1.0220219687028265
+      },
+      {
+        "check": "port 4: continuous upper-guard/web swept envelope",
+        "passed": true,
+        "overlap_mm3": 0.0
+      },
+      {
+        "check": "port 4: lower axial catch -0.20",
+        "passed": true,
+        "overlap_mm3": 3.04080476804702
+      },
+      {
+        "check": "port 4: lower axial catch +0.20",
+        "passed": true,
+        "overlap_mm3": 1.0220219687028265
+      },
+      {
+        "check": "outboard rail section x-1 y73.1 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y76.269 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y79.0 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y73.1 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y76.269 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y79.0 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y73.1 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y76.269 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y79.0 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y73.1 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y76.269 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x-1 y79.0 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            -107.5,
+            -93.35,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y73.1 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y76.269 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y79.0 z220",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y73.1 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y76.269 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y79.0 z240",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y73.1 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y76.269 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y79.0 z260",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y73.1 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y76.269 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      },
+      {
+        "check": "outboard rail section x+1 y79.0 z282",
+        "passed": true,
+        "native_x_intervals_mm": [
+          [
+            93.35,
+            107.5,
+            14.150000000000006
+          ]
+        ]
+      }
+    ],
+    "canonical_input_step_sha256": {
+      "pump-cartridge": "41575d094429e04ccaaf17f7d4424809b31299ff74f804d4b4a26f1979ec7bea",
+      "pump-cap": "7fa2da08ce2e3a2a44f4a22b345117281d3fd00723204c37847b5ae982fced19"
+    },
+    "corrected_candidate_step_sha256": "854d790064a5a380c8816c9931a5bba95a7d21aa1c60192570774fa1780ec838",
+    "cap_route_top_z_mm": 284.174,
+    "web_top_z_mm": 217.925,
+    "added_cut_stock_z_min_mm": 218.025,
+    "added_cut_stock_mm3": 3927.64648674999
+  }
+}

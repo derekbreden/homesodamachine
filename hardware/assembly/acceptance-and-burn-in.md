@@ -38,17 +38,37 @@ Tooling (bench, shared across all units — not per-build consumed): the test-ri
 
 ### 1. Pre-test inspection + connect bench rig
 
-Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. Both pump brackets bear in the lower cradle behind the cartridge face, the top clamp is screwed down and their DC-5 spade pairs are on the motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The contact pair's male half sits flush in the bay bulkhead with both screws home; the fixed J13-side 4P ribbon lies flat in the ridge wall's +X cable clip and drops through the bulkhead's lead bore, and the cartridge's four leads lie in the clamp's crown grooves.
+Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. Both pump brackets bear in the lower cradle behind the cartridge face, the top clamp is screwed down and their DC-5 spade pairs are on the motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The contact pair's male half sits in its 0.127 mm recessed bay-bulkhead seat with both screws home; the fixed J13-side 4P ribbon lies flat in the ridge wall's +X cable clip and drops through the bulkhead's lead bore, and the cartridge's four leads lie in the clamp's crown grooves.
 
-Cycle the pump connection dry before attaching either bench supply. Brace the enclosure and pull the cartridge straight forward. The four tees must follow it through the [2 mm](PLATE_STROKE) stroke until their collet noses land on the plate. The plate takes up the [0.5 mm](PLATE_REST_GAP) nose gap and depresses the sleeves through their measured [1.5 mm](SLEEVE_TRAVEL) branch stroke. It then holds all four sleeves continuously while the tubes withdraw. Watch the four bowed tee-to-valve stubs and four tee-side hairpin ends throughout: none may kink, scrape, go taut or pull a fixed valve from its tray. Draw the cartridge fully; the contact pair parts as it leaves. With the cartridge out, check continuity from J13 to each of the male half's four pins and that no pin is shorted to its neighbour or to the bulkhead's two screws. Verify the male half stays screwed flush in the bulkhead and the +X clip keeps the J13 half against the ridge wall. Present the four tubes through the plate until they reach their measured 10 mm bottoms at release; verify the cartridge is still [2 mm](PLATE_STROKE) short of seating. Push the cartridge through its final [2 mm](PLATE_STROKE). Its tubes must reach the aft body stops with fully extended sleeves and [0.5 mm](PLATE_REST_GAP) of nose air. The cartridge face should finish flush, but flushness alone is not proof of four connections; gently tug all four connections to prove their grip. With the cartridge seated, check continuity from each J13 contact to its pump tab, `AM2`/`AM1` to pump A on +X and `BM2`/`BM1` to pump B, and that neither motor pair reads open.
+Cycle the pump dock dry before attaching either bench supply. Brace the enclosure and
+withdraw the cartridge straight along its floor. All four prepared flanged stems must
+slide out together while the TPU receivers, their locked keepers, rear support and all
+commercial tees stay fixed. Confirm that the electrical contact pair parts with the
+cartridge and that its fixed half and +X cable clip remain in place. Inspect all four
+socket entrances and tube tips for cuts, displaced TPU, loose material or scoring.
 
-The [physical collet observations](/hardware/reference/tee-connector/README.md#observed-push-connect-action) establish the push-connect action. This dry cycle records the assembled unit’s guided motion, retention, empty return and flexible-link behavior.
+With power removed and the cartridge out, check continuity from J13 to each fixed contact
+and confirm no contact is shorted to its neighbor or to a mounting screw. Reinsert the
+cartridge evenly, guiding the four straight tips into the TPU funnels until the rigid
+seats meet and the front perimeter is flush. The magnets must hold that position without
+receiver displacement or visible tube bending. A magnetic snap alone is not a seating
+check. Confirm continuity from each J13 contact to the correct pump tab: `AM2`/`AM1` to
+pump A on +X and `BM2`/`BM1` to pump B. Record the completed insertion/withdrawal cycle
+and repeat it if any part was reseated or corrected. Wet sealing and retention under
+pressure are checked with the completed flavor paths, separately from this dry cycle.
 
 Connect the test-rig water source to the +Y wall's PP1208E 1/4" JG QC inlet, pushing the 1/4" LLDPE home into the collet. Connect the 4 mm OVER umbilical and position its dedicated faucet outlet over the test sink. Confirm the full vent route is open, seated and clear per [ASSE drain assembly](/hardware/assembly/asse-drain.md). Make up this unit's primary regulator, the Taprite 3741 that ships with it. Unscrew its 1/4" flare outlet fitting with ball check (Taprite 5436A) from the body's 1/4" NPT outlet port and keep it with the bench spares. Thread a gray PI010822S into that port with thread sealant, made up as WR1105 IN is ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)). Cut the unit's ~12 in red 1/4" LLDPE tether square, push one end fully into the PI010822S and tug-check it: the two stay together from here to the customer. Seat one nylon washer in the CGA-320 nut, start the nut on the test-rig cylinder by hand and nip it with a wrench. Push the tether's free end home into the ABU44 bulkhead — same +Y wall as the water and umbilical connections, on the umbilical row's own storey one column east of the blue-ringed union — with the collet fully seated.
 
 **Set the primary to [75 PSI](CO2_PRIMARY_SET). It ships at this setting, and the customer never adjusts it.** Loosen the jam nut on the slotted adjusting screw and back the screw out until it turns freely. Open the cylinder valve. Turn the screw in a quarter turn at a time until the upper 160 PSI gauge settles at [75 PSI](CO2_PRIMARY_SET) [± 5 PSI](CO2_PRIMARY_TOL) with no gas flowing; the secondary then feeds the nominal [43.5 PSI](CO2_CENTERLINE). Come up to 75 from below: if the needle passes it, back the screw out, close the cylinder valve and open the faucet until the gauge falls under 75, then reopen the valve and come up again. Hold the screw and tighten the jam nut against the bonnet. Close the cylinder valve, open the faucet until the gauge falls, reopen the valve and confirm the needle settles back at 75. Draw one paint-pen line across the screw end, the jam nut and the bonnet, so any later turn shows. Record the setting in the unit's log. A trial at another feed uses a bench regulator and is a separate test, not the qualification. Record the initial charging, air removal and conditioning sequence so carbonation comparisons use the same CO2 headspace condition. Do not yet open the water-side test-rig valve. Place the [12 oz](GLASS_OZ) target glass on the bench under the faucet position (the faucet itself is on its under-counter mount; the bench can take the chassis with the faucet temporarily oriented over a catch tray or with a stub line into the same target glass — bench-rig detail at Derek's discretion).
 
-**Pass:** the plate releases all four tubes, and all four grip again at connected with the cartridge seated; the contact pair parts and mates with the cartridge, J13 reaches all four pump tabs with the cartridge seated, and the male half and cable clip stay put; all eight flexible ends move without damage; all bench-rig connections are leak-free at the +Y wall against the now-pressurized CO2 line, water side still off; the dedicated faucet OVER outlet is open over the test sink; the pump cartridge face is flush. **Fail:** a tube that will not grip after full seating, a connector or fixed lead that moves instead of unlatching, any damaged flexible link, any audible CO2 hiss at the ABU44 bulkhead or any back-of-rig joint — correct the fault and repeat the dry cycle before continuing.
+**Pass:** all four tube ends separate and reenter together; the cartridge closes on its
+rigid seats; the receivers, keepers, rear support, commercial tees, fixed electrical half
+and cable clip stay put; all four J13-to-pump connections are continuous and correctly
+mapped; the dedicated faucet OVER outlet is open over the test sink; and no bench gas
+connection leaks. **Fail:** damaged or displaced TPU, a bent or caught stem, incomplete
+seating, a loose magnetic mount, a displaced fixed contact or lead, incorrect continuity,
+or a leaking rig connection. Correct the specific fault and repeat the dry cycle before
+continuing.
 
 ### 2. Power on + interlock check
 
@@ -93,6 +113,13 @@ Then run **three successive [12 oz](GLASS_OZ) pours** at the intended home-use c
 Re-fill the carbonator using the refill queued by the falling low-level crossing; let it finish at the rising high-level crossing. A fully drained vessel may have both reeds open, so use the commissioned first-fill control from step 3 when no refill is queued. Place the graduated cylinder under the faucet. Set the bench-acceptance UI to "Channel A, metered ratio test" — firmware will run a fixed-duration carbonated water dispense alongside a peristaltic-pump A pulse train sized to the documented [1:20](RATIO) ratio.
 
 Run the metered dispense (target [~250 mL](METERED_WATER) water + [~12.5 mL](METERED_FLAVOR) flavor A concentrate, totalling [~262.5 mL](METERED_TOTAL)). The graduated cylinder receives the mixed product; the carbonator low-reed will likely assert mid-pour and queue a refill which firmware will defer until the dispense window closes.
+
+During flow and the following closed-valve hold, inspect both pump-end joints, both
+sides of the TPU receivers and the fixed tails. No seepage, air ingress visible in the
+clear receiver, receiver migration or cartridge movement off its seats is acceptable.
+Apply the same inspection to channel B in step 7. The dock's separate pressure and
+endurance qualification sets the operating envelope; a clean dispense alone does not
+establish that envelope.
 
 Measure: total volume in the graduated cylinder, and (if refractometer available) °Brix of the mixed dispense. Compute actual ratio against the [1:20](RATIO) target. Tasting is allowed but not the pass criterion; the volume and the refractometer reading are.
 
@@ -164,7 +191,7 @@ Confirm before releasing the unit: no water audible on a gentle tilt, both reser
 A unit that has passed acceptance and burn-in:
 
 - Carbonator first-water-fill completed without leak
-- Pump connection cycled dry through connected → release → connected; all four tubes released and reconnected, the contact pair parted and mated with the cartridge without disturbing the male half or the +X cable clip, J13-to-tab continuity confirmed seated, and all four bowed stubs plus four moving hairpin ends remained clear and undamaged
+- Pump dock cycled dry through seated → withdrawn → seated; four flanged stems separated and reentered together, permanent receivers/keepers/rear support and tees stayed fixed, the electrical pair parted and mated without disturbing its fixed half or cable clip, and J13-to-tab continuity was confirmed with the cartridge on its rigid seats
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet OVER outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin

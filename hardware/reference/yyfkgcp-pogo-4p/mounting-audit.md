@@ -3,11 +3,13 @@
 The current mechanism uses one [YYFKGCP four-pin pair with ears](https://www.amazon.com/dp/B0GCBNTBT8?th=1).
 The female pad half mounts in the pump cap's aft face; the male spring-pin half mounts in
 front-top's bay bulkhead. Each purchased half contains two magnets. The printed parts
-provide screw-fastened seats and lead passages. A separate
-[RC62 retention pair](../../printed-parts/enclosure/enclosure/magnet-retention/README.md)
-is embedded in the lower cartridge cradle and front-top at tube height, below
-the pogo row. Each of those two prints pauses for insertion of one ring; the
-pump cap contains only its purchased connector magnets.
+provide recessed screw-fastened seats and lead passages. A separate
+[six-pair SB443-IN array](../../printed-parts/enclosure/pump-dock/magnet-retention.md)
+retains the lower cartridge cradle against the fixed receiver wall at the fluid-port
+row, below the pogo row. Grooved rails and mechanically keyed, room-cured DP420
+Off-White bedding capture those post-print-loaded blocks. Their pole faces are
+gauged against the actual seated frame before cure. The pump cap contains its
+purchased connector magnets.
 
 The [native audit](mounting-audit.json) reads the current exports and the production placement
 functions. It checks all four nominal pin/pad stations, spring travel, clearances to both
@@ -34,7 +36,7 @@ hand; there is no qualified powered torque for the M1.4 joint.
 The acquired FX-888D and VECO-T T18 I/LB fine tips provide the insertion-tool
 candidates. The M2–M8 heat-set kit does not cover M1.4. Cold-check the selected
 tip through the Ø2.6 entry, with no printed-wall contact, and calibrate the
-insert-top depth to 5.00 mm before heating, as specified in
+insert-top depth to 5.127 mm from the printed host face before heating, as specified in
 [enclosure assembly](../../assembly/enclosure-mechanical.md). The existing
 coupon checks both insert installation and connector face position.
 
@@ -64,13 +66,17 @@ printed test piece on 2026-10-04. That result is accepted in the
 [physical record](physical-observations.json); the report is qualitative and
 belongs to the printed test piece.
 
-The cartridge tubes bottom in the tee bodies at full seat. The flat cap and bulkhead planes
-have 0.246 mm nominal separation. Both connector ear plates bear on steps 3.00 mm behind
-their printed faces. Two M1.4×8 screws per half clamp each 1.00 mm ear plate onto that datum.
-Each M1.4×4 insert starts 2.00 mm behind the datum, 5.00 mm inside the mating face,
-and occupies depths 5.00–9.00 mm. The Ø2.00 pilot ends at 10.50 mm; the screw tip
-ends at 10.00 mm, leaving 0.50 mm clearance with complete insert engagement.
-The Ø2.60 entry passes the whole knurl. Screw heads finish 0.60 mm behind the mating faces. The insert fit and
+The dedicated outboard PET-GF stop lands seat against the retained lower cradle
+to set full insertion. The four prepared stems enter
+permanent TPU receivers and finish 0.50 mm before their internal shoulders. The flat
+cap and bulkhead planes have 0.246 mm nominal separation. Each connector face is
+recessed 0.127 mm, giving a 0.500 mm nominal contact-face gap. Both connector ear
+plates bear 3.00 mm behind their connector faces, 3.127 mm behind the printed host
+faces. Two M1.4×8 screws per half clamp each 1.00 mm ear plate onto that datum.
+Each M1.4×4 insert starts 2.00 mm behind the datum, 5.127 mm inside the printed face,
+and occupies depths 5.127–9.127 mm. The Ø2.00 pilot ends at 10.627 mm; the screw tip
+ends at 10.127 mm, leaving 0.50 mm clearance with complete insert engagement.
+The Ø2.60 entry passes the whole knurl. Screw heads finish 0.60 mm behind the connector faces. The insert fit and
 printed fastening capacity have no reported physical result.
 
 The [Prime listing](https://www.amazon.com/dp/B0GCBNTBT8?th=1), checked on 2026-10-03,
@@ -78,16 +84,18 @@ shows 5.00±0.15 mm male tip height over the back of a 4.00 mm body. Its general
 is ±0.05 mm. Independent extremes therefore permit 0.80–1.20 mm unloaded pin protrusion.
 The drawing specifies 1.10 mm total stroke and cautions against overcompression.
 
-The [coupon criterion](../../printed-parts/enclosure/enclosure/contact-pair-coupon/README.md)
-allows ±0.05 mm installed face error per half. Including drawing extremes gives
-0.454–1.054 mm compression at the nominal frame position. The upper extreme leaves only
-0.046 mm for additional closing error. This is a conditional drawing calculation. The
+Use ±0.05 mm installed face error per half about the specified recess, matching the
+position budget in the [coupon criterion](../../printed-parts/enclosure/enclosure/contact-pair-coupon/README.md).
+Including drawing extremes gives 0.200–0.800 mm compression at the nominal frame
+position. The upper extreme leaves 0.300 mm for additional closing error before
+full stroke. This is a conditional drawing calculation; the accepted coupon keeps
+its own seat geometry and does not qualify the complete recessed seats. The
 complete printed frame's position error, contact tilt and delivered component dimensions
 are unmeasured. The controlling installed quantity for each pin is its unloaded protrusion
 minus its assembled plastic-face gap, greater than zero and less than 1.10 mm. Face
-flushness alone does not establish that condition.
+position alone does not establish that condition.
 
-For a local unpowered mating check, two equal nonconductive shims measured at 0.25–0.30 mm
+For a local unpowered mating check, two equal nonconductive shims measured at 0.50 mm
 keep the housings parallel, clear of maximum stroke, with all drawing-extreme pins reaching
 their pads. Place them beside the contact row without covering pins or magnets. Closing
 the plastic faces to zero gap can overcompress a maximum-drawing pin.
@@ -100,8 +108,9 @@ both contact rows keep the same conductor order. Face-on drawings have opposite 
 directions when installed; copying their left-to-right labels independently can reverse
 the contact order. The [DC-5 schedule](../../wiring/ac-wiring-schedule.md) defines the mapping.
 
-The cartridge floor and fitted wells carry weight and locate the pumps. The tube stops set
-full insertion; the collets capture the four tubes. The connector's magnets pull its two
+The cartridge floor and fitted wells carry weight and locate the pumps. Its rigid
+stop lands set full insertion; the four prepared flanged stems remain captured
+in the cradle and enter the stationary TPU receivers. The connector's magnets pull its two
 halves together against the four pogo springs, and their force reaches the printed parts
 through the connector bodies, ear plates, screws and inserts. They have no specified pull
 force at the installed gap and do not establish whole-cartridge retention or vibration
@@ -109,12 +118,12 @@ reliability. The seller's 45±10 gf spring figure applies at its stated working 
 there is no force curve for this installed compression. Its 30 mΩ figure and 10,000-cycle
 claim are connector specifications, not results for the assembled machine.
 
-The separate RC62 pair attracts along Y at X0, Z186.174 mm, on the four tube axes.
-Its nominal attracting-face separation is 2.646 mm through the two 1.20 mm covers
-and frame gap. Its load path enters the cradle and fixed bulkhead at tube height.
-The [retention geometry check](../../printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json)
-does not establish its installed pull, cover strength or ability to overcome the
-tube insertion force and pogo springs. The existing seating stops and the
+The separate SB443-IN array attracts along Y in two three-high columns per half,
+between the four receiver axes. Its load path enters the cradle and fixed wall
+through the grooved rails and mechanically keyed bedding. The
+[retention geometry record](../../printed-parts/enclosure/pump-dock/magnet-geometry.json)
+does not establish installed pull, printed-mount strength or the force required
+to seat all four fluid joints and pogo springs. The rigid seating faces and the
 compression limits above remain controlling.
 
 Remove appliance power before cartridge insertion or withdrawal. Straight withdrawal
@@ -131,14 +140,14 @@ The [H2C coupon record](../../printed-parts/enclosure/enclosure/contact-pair-cou
 binds an unsupported local trial to a completed task. The founder's
 [physical report](physical-observations.json) accepts connector fit and
 mating/compression in the printed test piece; no roof measurement is reported. Its longest bridge paths are about 23 mm; the documented clearance
-measurement addresses roof sag. The [current full front-top review](../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+measurement addresses roof sag. The [identified v17 full front-top review](../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 contains supported functional seats with removal routes through the empty bay. Its recipe
 is separate from the unsupported coupon trial and retains its frozen geometry.
-The [RC62 front-top source](../../printed-parts/enclosure/enclosure/magnet-retention/front-top-pause.3mf)
-has its own current mesh, one insertion pause and a locally blocked pocket roof.
-The lower cradle has the matching paused source. Insert each retention ring during
-its owning print; clear the accessible supports before threaded inserts, connectors
-or pumps are installed.
+The [RC62 print records](../../printed-parts/enclosure/enclosure/magnet-retention/README.md)
+retain their identified ring pockets, covering layers and physical observations.
+The current SB443-IN array is installed after printing under its
+[factory mounting procedure](../../printed-parts/enclosure/pump-dock/magnet-retention.md).
+Clear the accessible supports before threaded inserts, connectors or pumps are installed.
 
 The [physical record](physical-observations.json) accepts the founder's
 successful connector fit and mating/compression check in the printed test piece.

@@ -1,20 +1,36 @@
 # Full enclosure print readiness
 
 The complete enclosure trial prints the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom) and the separate parts that go into them: the tee carrier plate and its
-two window covers, the pump cartridge and cap, the machine display cover and the two G Ganen
-cold-core mounting parts.
+back-top, back-bottom) and their separate parts: the pump cartridge and cap, four permanent
+TPU dock receivers, four flat interior keepers and the common rear cuff support, the machine display cover and the two
+G Ganen cold-core mounting parts. The fixed commercial tees mount behind the receiver wall.
+The front flanks are continuous across the fixed dock room.
+
+The four TPU receivers have a completed
+[native plate preparation](pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
+using Siraya Tech Flex TPU85A Clear on the retained Mark1/right 0.6 mm Engineering
+Plate recipe. Its emitted-path review covers all four parts, exterior support and
+bore exclusion; the slicer estimates 2 h 7 min and 9.83 g including support/brim.
+The archive is prepared for review and has not been sent to a printer. Internal
+strands, support cleanup, seal fit and physical behavior remain unassessed on these receivers.
+The remaining PET-GF dock parts require their own native slices. The complete pump
+dock requires assembled physical qualification.
+Its socket bores, flexible entrance funnels, keeper seating, rear cuff support, machined-stem flange capture, fixed tee support, positive
+SB443-IN magnet capture and rigid cartridge stops belong to that qualification. The
+[pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
+[connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
+retain their identified scopes; neither establishes receiver sealing or retention under pressure.
 
 Every reviewed print archive, the printer and settings it is sliced for, the geometry it binds
 by hash and its support-removal review are in the
 [slice reviews](tee-readiness/full-enclosure-print/native-slice-reviews/README.md). What
 printed, when and on which machine is in the [print log](enclosure/print-log.md).
 
-Derek's print request is the go and the plate-clear: send the named reviewed archive with the
+Derek's PET-GF print request is the go and the plate-clear: send the named reviewed archive with the
 black PET-GF mapping. There is no print order. A productive print keeps running while checks
 proceed; a concretely defective one is cancelled and replaced.
 
-New jobs use the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left 0.4 mm
+New PET-GF jobs use the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left 0.4 mm
 nozzle and `auto_brim`. H2C uses +0.18 mm requested trim (+0.16 mm emitted for Textured PEI);
 Mark2 uses +0.04 mm (+0.02 mm emitted). Both configured printable areas are 325 × 320 mm, with
 at least 15 mm model border. Use a 0.20 mm first bed layer and 0.24 mm layers on
@@ -31,9 +47,16 @@ the Y seam's interlocking blocks and their roots, Z hooks and end stops, and the
 complete insert hosts and blind caps. The general 15% infill recipe does not
 establish solid material in those regions. Each fresh native review must verify
 their actual placement and emitted deposition as well as the show surfaces.
-The separate [RC62 jobs](enclosure/magnet-retention/queue.json) bind their own
-revised geometry and local settings; only a passing emitted-path record supports
-submission.
+The manual specification also identifies the six dock-lock hosts, keeper guides,
+magnet rails and bedding keys, rigid-stop roots, stem-flange shoulders and recessed
+pogo hosts in their source and prescribed print coordinates. Print the four small
+keepers and common rear support with six walls and 100% infill. Those settings and
+modifier boxes still require binding to each production native project and emitted
+path review; they do not establish support removal or physical load capacity.
+Each pump-dock job binds the current magnetic mounts and seating faces to its native
+geometry. The [RC62 print jobs](enclosure/magnet-retention/queue.json) are evidence for
+their identified ring-magnet articles; their pauses and covering layers do not qualify
+the exposed-face SB443-IN mounts.
 
 The show transitions print without support contacts. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
@@ -48,7 +71,7 @@ not require fine layers. The cartridge's genuine lower inward/top rim retains
 its 0.08 mm span. Each new native revision binds the frozen mesh, local wall
 bands, required support paths and complete dense fastener hosts. The
 [C3 hand-fit selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
-sets the production X/Y pocket; the closed roof keeps independent Z headroom.
+records the X/Y fit of its RC62 ring-magnet articles and retains that scope.
 
 Measure each retained inward/top curve's print-Z span on the STEP, then run
 `hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
@@ -118,7 +141,9 @@ the v9 support review supplies no load-capacity or drop result.
 | Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [current fit review](enclosure/y-seam-fit-review.json) records the production exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
 | Tee-carrier visible rounds | The additive bottom chamfer/taper is physically accepted. It uses a 0.20 mm first layer, 0.24 mm bottom/body, 0.08 mm top R6, six walls in the lower 6.1 mm, and saved wall-first order, speeds and 15% overlap. No supports. Sliding is accepted with 1.00 mm above and 0.25 mm below against the existing front-top, with less tilt reported. Spring return and other parts remain separate checks. [Surface record](tee-carrier/physical-acceptance.json); [sliding-fit record](tee-carrier/low-force-trial/physical-acceptance.json). |
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. This holder result does not qualify the cap's pogo connector. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
-| Pump cartridge magnetic contacts | The YYFKGCP halves mount in pump-cap and front-top seats. Current exported seats and nominal mating pass the [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md). A separate [RC62 pair](enclosure/magnet-retention/README.md) has one paused-in ring in the lower cradle and one in front-top, centered on the tube axes. The [selected C3 open-pocket hand fit](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) sets 19.05 mm X and 3.175 mm Y in both production pockets. The closed Z span is 19.53 mm, with 0.48 mm nominal headroom and 0.38 mm at maximum specified diameter. The completed v4 lower-cradle print's rattle and first covering-layer result retain their [bound scope](enclosure/magnet-retention/v4/physical-result.json). The [H2C C3/V69 front-top first over-magnet layer](enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json) has accepted appearance with two photos. Finished roof behavior, rattle and the Mark2 cradle’s covering layer remain separate observations. Full-assembly seating force and heat exposure remain unmeasured. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04. Numerical full-enclosure compression, insert retention, continuity, magnetic retention, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
+| Pump cartridge electrical contacts | The YYFKGCP halves mount in pump-cap and front-top seats, each recessed 0.127 mm for a 0.500 mm nominal contact-face gap. The [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) records its identified exports, nominal mating and conditional 0.200–0.800 mm compression range. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04; that result retains its own seat geometry. Full-enclosure compression, insert retention, continuity, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
+| RC62 ring-magnet print articles | The [C3 open-pocket selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json), [v4 lower-cradle result](enclosure/magnet-retention/v4/physical-result.json) and [H2C C3/V69 covering-layer acceptance](enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json) retain their recorded ring-pocket fit, rattle and first-layer scopes. They establish no SB443-IN mount fit, force, heat exposure or endurance. |
+| Permanent TPU pump dock and SB443-IN retention | The wall locates each receiver in X/Z, its flat interior keeper captures Y, and the bolted rear support backs the factory cuff. The complete dock's insertion/withdrawal force, positive magnet capture, retention under pressure, sealing, cleanability and repeated service cycles remain physical qualifications. The fixed receivers are not customer consumables. |
 | Beduan sockets | The [upright hand-fit selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) sets V69 / Ø6.90 mm for production sockets. V70 / Ø7.00 mm is the conditional alternate for a valve or print orientation that does not fit V69 well. The shared seat retains its exterior envelope and zip-tie passages. The earlier Ø7.2 coupon's easy-insertion and positive tie-retention result retains its [bound scope](../fixtures/valve-socket-fit/physical-acceptance.json). Installed tie access, retention force and endurance remain full-assembly observations. |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
@@ -127,7 +152,7 @@ the v9 support review supplies no load-capacity or drop result.
 | C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
 | G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
 
-## Tee and release face
+## Fixed tee support
 
 The registered tee envelope uses a conservative Ø16.5 fixed collar and Ø17.0 journal,
 leaving 0.25 mm radial running air. Derek's run span is 42.5 mm extended / 39.2 mm pressed,
@@ -136,15 +161,18 @@ with **1.5 mm travel**; only the small outermost ring moves. The branch face sta
 22.35 / 20.85 mm use the nominal Ø16.3 back-collar datum. The conservative clearance
 envelope is a separate dimension. [Measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json).
 
-The Ø8.5 circular release aperture retains annular bearing against the observed terminal
-face. The [terminal-bearing review](../../reference/jg-pp0208e-tee/terminal-bearing-review.json)
-supports the full trial without another ring scan or caliper reading. Simultaneous contact,
-release and relocking of all four actual rings remain physical checks.
+The four pump-side tees sit in open-aft rigid saddles and are retained by two
+six-inch ties per tee around their fixed collars. Their branch collets retain the
+permanent straight factory tails. The flat keepers retain the TPU receivers in the
+wall; customer pump withdrawal does not actuate the commercial collets.
+Actual tie access, collar bearing, fixed-plumbing support and simultaneous stem
+insertion and withdrawal remain full-assembly observations.
 
 ## What the trial establishes
 
-The complete printed assembly establishes valve tie installation; four-tube insertion,
-capture, release and relocking; pump mounting, connectors and primed operation; and shell
+The complete printed assembly establishes valve and fixed-tee tie installation;
+simultaneous four-stem insertion and withdrawal; permanent-receiver capture and
+sealing; pump mounting, connectors and primed operation; and shell
 closure. G Ganen screw/washer seating and rubber compression, DIGITEN arrow orientation, and
 actual made-up gas-fitting fit are direct assembly observations. They do not require another
 scan or a separate coupon before the trial. Production LLDPE routes retain nominal ¼-inch and

@@ -59,13 +59,15 @@ def main():
         if not passed:
             raise ValueError(rows[-1])
     plate, trays = box.pack.collet_plate, box.pack.pump_trays
-    gap = e.bay_back_y(plate) - e.pump_cartridge_aft_y(trays, plate)
+    frame_gap = e.bay_back_y(plate) - e.pump_cartridge_aft_y(trays, plate)
+    fixed_face, moving_face = e.pump_contact_faces(box)
+    gap = fixed_face - moving_face
     press = e._pogo.PIN_PROUD - gap
     protrusion_error = OVERALL_TIP_HEIGHT_TOL + BODY_DEPTH_TOL
     stack_error = protrusion_error + 2 * FACE_FLUSH_TOL
     limits = [press - stack_error, press + stack_error]
     passed = 0 < limits[0] and limits[1] < e._pogo.STROKE
-    rows.append({"check": "drawing extremes and coupon face criterion at nominal frame gap",
+    rows.append({"check": "drawing extremes and face-position criterion at nominal recessed seats",
                  "pass": passed, "compression_range_mm": limits})
     if not passed:
         raise ValueError(rows[-1])
@@ -75,32 +77,37 @@ def main():
               ROOT / "hardware/printed-parts/cadlib/fits.py",
               ROOT / "hardware/scripts/_box_spec.py"]
     report = {
-        "scope": "Current exported seats and nominal connector placement; drawing tolerance analysis at the nominal frame gap. No physical fit, magnetic retention, installed gap or endurance result.",
+        "scope": "Current exported recessed seats and nominal connector placement; drawing tolerance analysis at their nominal face gap. No physical fit, magnetic retention, installed gap or endurance result.",
         "geometry_checks_pass": all(row["pass"] for row in rows),
         "checks": rows,
         "construction": {"connector": "YYFKGCP B0GCBNTBT8, 4-pin with ears",
                          "magnet_housings": "Two factory-contained magnets per purchased half",
                          "female_location": "Pump-cap aft face",
                          "male_location": "Front-top bay bulkhead fore face",
-                         "separate_print_in_retention_magnets": True,
-                         "retention_pair_location": "One RC62 in lower cartridge cradle and one in front-top, centered on the tube axes",
-                         "retention_record": "../../printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json",
-                         "magnet_insertion_pause_required": True,
-                         "paused_parts": ["pump-cartridge", "front-top"]},
+                         "closing_datum": "Dedicated outboard PET-GF stop lands on the fixed wall bearing against retained lower-cradle stock; broad aft planes retain their nominal clearance",
+                         "separate_retention_magnets": "Twelve SB443-IN blocks, six attracting pairs in two three-high columns per half",
+                         "retention_pair_location": "Lower cartridge cradle and fixed receiver wall, centered between each pump's port axes",
+                         "retention_mount": "Post-print loaded grooved rails and mechanically keyed DP420 Off-White bedding, gauged against actual rigid seating faces",
+                         "retention_record": "../../printed-parts/enclosure/pump-dock/magnet-retention.md",
+                         "magnet_insertion_pause_required": False},
         "drawing_source": "https://www.amazon.com/dp/B0GCBNTBT8?th=1",
         "drawing_observed_local_date": "2026-10-03",
         "prime_listing_verified": True,
-        "dimensions_mm": {"nominal_frame_gap": gap,
+        "dimensions_mm": {"nominal_frame_gap": frame_gap,
+                          "nominal_contact_face_gap": gap,
+                          "fixed_contact_face_y": fixed_face,
+                          "moving_contact_face_y": moving_face,
+                          "recess_each_face": (gap - frame_gap) / 2,
                           "nominal_pin_compression": press,
                           "stated_stroke": e._pogo.STROKE,
                           "male_overall_tip_height_tolerance": OVERALL_TIP_HEIGHT_TOL,
                           "body_depth_general_tolerance": BODY_DEPTH_TOL,
                           "conservative_pin_protrusion_range": [e._pogo.PIN_PROUD - protrusion_error,
                                                                 e._pogo.PIN_PROUD + protrusion_error],
-                          "coupon_face_flush_tolerance_each": FACE_FLUSH_TOL,
-                          "compression_range_at_nominal_frame_gap": limits,
+                          "face_position_tolerance_each": FACE_FLUSH_TOL,
+                          "compression_range_at_nominal_recessed_seats": limits,
                           "additional_closing_error_before_maximum_stroke": e._pogo.STROKE - limits[1],
-                          "face_gap_range_at_nominal_frame_gap": [gap - 2 * FACE_FLUSH_TOL,
+                          "face_gap_range_at_nominal_recessed_seats": [gap - 2 * FACE_FLUSH_TOL,
                                                                   gap + 2 * FACE_FLUSH_TOL]},
         "assembly_limits": {"minimum_face_gap_for_maximum_drawing_pin_without_overstroke_mm":
                             e._pogo.PIN_PROUD + protrusion_error - e._pogo.STROKE,

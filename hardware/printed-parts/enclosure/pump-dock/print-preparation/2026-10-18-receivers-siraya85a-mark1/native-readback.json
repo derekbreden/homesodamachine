@@ -1,0 +1,281 @@
+{
+  "status": "Offline print preparation; no printer contacted or started",
+  "prepared_at": "2026-10-18T06:38:40.029276+00:00",
+  "parts": [
+    {
+      "name": "permanent-pump-receiver-1",
+      "object_id": 11,
+      "identify_id": 2301,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_center_mm": [
+        0,
+        0,
+        0
+      ],
+      "plate_translation_mm": [
+        159.5,
+        142.0,
+        0
+      ],
+      "build_transform": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        159.5,
+        142.0,
+        0
+      ],
+      "source_rotation_rows": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "member": "3D/Objects/permanent_pump_receiver.model"
+    },
+    {
+      "name": "permanent-pump-receiver-2",
+      "object_id": 12,
+      "identify_id": 2302,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_center_mm": [
+        0,
+        0,
+        0
+      ],
+      "plate_translation_mm": [
+        195.5,
+        142.0,
+        0
+      ],
+      "build_transform": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        195.5,
+        142.0,
+        0
+      ],
+      "source_rotation_rows": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "member": "3D/Objects/permanent_pump_receiver.model"
+    },
+    {
+      "name": "permanent-pump-receiver-3",
+      "object_id": 13,
+      "identify_id": 2303,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_center_mm": [
+        0,
+        0,
+        0
+      ],
+      "plate_translation_mm": [
+        159.5,
+        178.0,
+        0
+      ],
+      "build_transform": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        159.5,
+        178.0,
+        0
+      ],
+      "source_rotation_rows": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "member": "3D/Objects/permanent_pump_receiver.model"
+    },
+    {
+      "name": "permanent-pump-receiver-4",
+      "object_id": 14,
+      "identify_id": 2304,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+      "source_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+      "source_center_mm": [
+        0,
+        0,
+        0
+      ],
+      "plate_translation_mm": [
+        195.5,
+        178.0,
+        0
+      ],
+      "build_transform": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        195.5,
+        178.0,
+        0
+      ],
+      "source_rotation_rows": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "member": "3D/Objects/permanent_pump_receiver.model"
+    }
+  ],
+  "source_recipe": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+  "source_recipe_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
+  "source_geometry_sha256": "0e77807361cee8ce3330f080fad7e8e6e633e1f7ef3593525b0854694bdfbab8",
+  "project": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf",
+  "project_sha256": "43de7c17e1c5003d19afb88f3797fb9e95a7578f6a3660a78ef94bc0b01f96b6",
+  "settings_changes": {
+    "enable_support": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "flush_into_support": {
+      "source": "1",
+      "prepared": "0"
+    },
+    "print_settings_id": {
+      "source": "One compact Siraya85A Clear elbow overhang10 Engineering Plate zero Z trim Mark1",
+      "prepared": "Four permanent pump receivers Siraya85A right06 Mark1"
+    },
+    "reduce_crossing_wall": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "seam_position": {
+      "source": "aligned",
+      "prepared": "nearest"
+    },
+    "support_filament": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "support_interface_filament": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "time_lapse_gcode": {
+      "source": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "prepared": ""
+    },
+    "top_one_wall_type": {
+      "source": "all top",
+      "prepared": "not apply"
+    }
+  },
+  "rotation": "Source +Y bore rotated +90 degrees about X to print +Z; front lip at Z0",
+  "normal_volume_count": 4,
+  "bore_support_blocker_count": 4,
+  "bore_support_exclusion": {
+    "radius_mm": 4.65,
+    "z_mm": [
+      -0.1,
+      15.1
+    ],
+    "reason": "Keep all supports outside the fluid passage and both sealing lands; exterior Tree(auto)/Default decisions remain active"
+  },
+  "print_mesh_bounds_mm": [
+    [
+      -8.75,
+      -8.75,
+      0.0
+    ],
+    [
+      8.75,
+      8.75,
+      15.0
+    ]
+  ],
+  "per_part_cad_volume_mm3": 1586.3509294376029,
+  "material": "Siraya Tech Flex TPU85A Clear; SKU ST3008",
+  "inherited_physical_scope": "Accepted single-elbow exterior quality; internal stringing reported. No receiver acceptance.",
+  "slicer_exit_code": 0,
+  "archive": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf",
+  "archive_sha256": "5350ba2b1ab329dd3ab829a3c2371f20e292f28e5cfc8e1f58cd162c9ffdc9c2",
+  "gcode_sha256": "243fac1b6d01e79fa44b0bd530608c2c6e6c9d504afe3bb2f9e10c709a532274",
+  "gcode_md5_matches": true,
+  "emitted_recipe_matches_prepared": false,
+  "cache_run": ".cache/pump-dock-engineering/receiver-slice/native-gpv5slo5",
+  "estimated_seconds": 7628.25,
+  "estimated_filament_g": 9.833386421203613,
+  "slicer_warning": ""
+}

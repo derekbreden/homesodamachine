@@ -725,9 +725,9 @@ def deck_lid_hole_radius(name):
 # into its plate with 3 mm blind floors; V-K meets the suction chain's port plane.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 # The cap installs with its +X opposite world +Y. The fixed flavour valves' mounting
-# centres stay on world Y256.710 while the core follows the rear enclosure plane.
+# centres stand on world Y263.710 while the core follows the rear enclosure plane.
 cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length / 2.0
-                         - 256.710)
+                         - 263.710)
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 92.270,  65.050), 0.0, 3.6500),

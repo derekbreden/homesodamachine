@@ -1,5 +1,5 @@
 {
-  "scope": "Current exported seats and nominal connector placement; drawing tolerance analysis at the nominal frame gap. No physical fit, magnetic retention, installed gap or endurance result.",
+  "scope": "Current exported recessed seats and nominal connector placement; drawing tolerance analysis at their nominal face gap. No physical fit, magnetic retention, installed gap or endurance result.",
   "geometry_checks_pass": true,
   "checks": [
     {
@@ -9,7 +9,7 @@
         "id": "pump-contacts-mate",
         "label": "The cartridge's contact pair mates as it seats: every pin on its pad, pressed within its travel, and the rest-length pins land only in the female's seat",
         "ok": true,
-        "value": "4 pins within 0 mm of their pads; 0.754 of 1.1 mm pressed; rest pins / clamp 0.000000; male / front-top 0.000000; female / clamp 0.000000 mm\u00b3",
+        "value": "4 pins within 0 mm of their pads; 0.500 of 1.1 mm pressed; rest pins / clamp 0.000000; male / front-top 0.000000; female / clamp 0.000000 mm\u00b3",
         "target": "pins on pads; 0 < press \u2264 stroke; 0 mm\u00b3 against the clamp and the bulkhead",
         "detail": [],
         "kind": "gate"
@@ -50,11 +50,11 @@
       ]
     },
     {
-      "check": "drawing extremes and coupon face criterion at nominal frame gap",
+      "check": "drawing extremes and face-position criterion at nominal recessed seats",
       "pass": true,
       "compression_range_mm": [
-        0.45400000000000484,
-        1.054000000000005
+        0.20000000000001417,
+        0.8000000000000143
       ]
     }
   ],
@@ -63,21 +63,23 @@
     "magnet_housings": "Two factory-contained magnets per purchased half",
     "female_location": "Pump-cap aft face",
     "male_location": "Front-top bay bulkhead fore face",
-    "separate_print_in_retention_magnets": true,
-    "retention_pair_location": "One RC62 in lower cartridge cradle and one in front-top, centered on the tube axes",
-    "retention_record": "../../printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json",
-    "magnet_insertion_pause_required": true,
-    "paused_parts": [
-      "pump-cartridge",
-      "front-top"
-    ]
+    "closing_datum": "Dedicated outboard PET-GF stop lands on the fixed wall bearing against retained lower-cradle stock; broad aft planes retain their nominal clearance",
+    "separate_retention_magnets": "Twelve SB443-IN blocks, six attracting pairs in two three-high columns per half",
+    "retention_pair_location": "Lower cartridge cradle and fixed receiver wall, centered between each pump's port axes",
+    "retention_mount": "Post-print loaded grooved rails and mechanically keyed DP420 Off-White bedding, gauged against actual rigid seating faces",
+    "retention_record": "../../printed-parts/enclosure/pump-dock/magnet-retention.md",
+    "magnet_insertion_pause_required": false
   },
   "drawing_source": "https://www.amazon.com/dp/B0GCBNTBT8?th=1",
   "drawing_observed_local_date": "2026-10-03",
   "prime_listing_verified": true,
   "dimensions_mm": {
     "nominal_frame_gap": 0.2459999999999951,
-    "nominal_pin_compression": 0.7540000000000049,
+    "nominal_contact_face_gap": 0.4999999999999858,
+    "fixed_contact_face_y": 79.642,
+    "moving_contact_face_y": 79.14200000000001,
+    "recess_each_face": 0.12699999999999534,
+    "nominal_pin_compression": 0.5000000000000142,
     "stated_stroke": 1.1,
     "male_overall_tip_height_tolerance": 0.15,
     "body_depth_general_tolerance": 0.05,
@@ -85,15 +87,15 @@
       0.8,
       1.2
     ],
-    "coupon_face_flush_tolerance_each": 0.05,
-    "compression_range_at_nominal_frame_gap": [
-      0.45400000000000484,
-      1.054000000000005
+    "face_position_tolerance_each": 0.05,
+    "compression_range_at_nominal_recessed_seats": [
+      0.20000000000001417,
+      0.8000000000000143
     ],
-    "additional_closing_error_before_maximum_stroke": 0.045999999999995156,
-    "face_gap_range_at_nominal_frame_gap": [
-      0.1459999999999951,
-      0.3459999999999951
+    "additional_closing_error_before_maximum_stroke": 0.29999999999998583,
+    "face_gap_range_at_nominal_recessed_seats": [
+      0.3999999999999858,
+      0.5999999999999858
     ]
   },
   "assembly_limits": {
@@ -106,18 +108,18 @@
     "whole_cartridge_retention_verified": false
   },
   "source_sha256": {
-    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "694e9ad0f50cd7b781265fbbce4b03b47177d8cc838afee45eb982a9ef83ab98",
-    "hardware/manifold-layout/enclosure-box.json": "41115290ab65595cce1bfb4537851aaf8abf0331b4ae21917cff0d14fadfb79f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "95a9a0e8dd40d20bfaa2554f7c440858f42db434dda97c2bedb28e49098a8488",
-    "hardware/manifold-layout/enclosure_assembly.py": "97bb3e66438bdb6e503a3a600a776649a18a2f3adda96f12a6593f002c592fdd",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "0b2b226ebfb59ffbf150e516c3a2b076309e171c016170a6c2f33481c7d34152",
+    "hardware/manifold-layout/enclosure-box.json": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "14baa7e02a449af7574a58d6e1063d0da2410a6118fd606d09534a6dee985649",
+    "hardware/manifold-layout/enclosure_assembly.py": "c82b414da3456351aac5381d819afc2315afd7970484347e3e37f5641a1adcdc",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
-    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
-    "hardware/scripts/_box_spec.py": "6d3fb6a178e443956d87c18a77e143181776b8b79d0f480ed8727b96ea35e1fe"
+    "hardware/printed-parts/cadlib/fits.py": "573b51faf3948e5750db1ab580c9f3035d7063a43815c4eaf505b40092ad83a0",
+    "hardware/scripts/_box_spec.py": "ad960841cd9c780fde4e95f7db640d583e9b27db47d0ffdfa9613b5820ef02a3"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "1502b8b5e89214bb98c32bdc1b0cfaa32f88359629fd671c8adbc57d0135c7c5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "c8b3f3c5251a888233760f9683a2fb664b695dec5ef87e75082a13796a7dc7ee",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "ba8aca0ec1d84dd15c14d8db9c488ce7536160312f601d81492a2f6db0f4a1ec"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "76b861cbb6d321a7f2f48d978129f9ab298baa8eda40055d8eada70373607f56",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fac7b993816d8640e72b44ca5a6de5e901a9734ffd1e4ed0cec87f90e45a44d0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "775637bda29a6ab3517feac4ff47a6082c7dc9e0c98b07bd7e9937afb9035b27"
   },
   "physical_record": "physical-observations.json"
 }
