@@ -106,8 +106,8 @@ def take_skin_off_the_floor(cup, z0, z1):
 def build_attachment_bosses(height, oversize=0.0):
     """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at each station in
     `attachment_stations`, extruded to `height` and trimmed flush to the rounded footprint.
-    Shared by the outer shell and the foam-cap stack — every mating part's boss cross-section
-    is identical.
+    Shared by the outer shell and the foam-cap stack; lid pads and their
+    receiving pockets apply their own growth to this base section.
 
     `oversize` grows the section in the plane by that much on every free side.
     A cap's mouth-end relief is the lid pad it receives, one slip oversize; the
