@@ -29,10 +29,10 @@ pump joint.
 | Flange | Ø16.00 × 2.50 mm |
 | Flange root | R0.40 mm, both sides |
 | Forward tip | 0.30 ±0.03 mm axial lead; Ø6.05 ±0.03 mm at its end |
-| Working sealing land | Machine Y80.515–86.515 mm; Ra ≤0.8 µm, free of tool marks, burrs and axial scratches |
+| Working sealing land | Machine Y83.515–89.515 mm; Ra ≤0.8 µm, free of tool marks, burrs and axial scratches |
 | Low rear barbs | Two Ø6.90 mm peaks, with R0.10 mm back-edge blends |
 | Nominal rear engagement | 12.00 mm behind the prepared BPT end |
-| Tip | Machine Y87.015 mm |
+| Tip | Machine Y90.015 mm |
 | Flange | Machine Y76.25–78.75 mm, center Y77.50 mm |
 | Prepared BPT end | Machine Y76.10 mm |
 | Factory tie | 2.54 mm wide, centered at Y74.50 mm, head toward +Z |
@@ -40,6 +40,12 @@ pump joint.
 These are design machining callouts. Supplier stock properties do not
 establish the machined finish, the rear-barb fit or the resulting assembled
 pressure capacity. The machined part is not an FFF wet component.
+
+The 12 mm rear engagement ends at machine Y64.10 mm. The retained pump
+reference and scan review cover external fit and exclude hidden tube bends
+and roller clearances. No internal straight-tail record establishes that
+engagement. Prepared-pump BPT fit, free rotation and pumping behavior with
+the machined tail remain unqualified.
 
 ## Load path and assembly
 
@@ -51,9 +57,14 @@ and hydraulic separation reactions directly into the cradle. The fore
 shoulder starts on the retained head-well aft plane, Y72.887 mm, and has
 3.213 mm axial stock to its pocket. The integrated caller supplies that
 plane from `cy + pump_tray.skirt_body_open_y_bounds[1]`. The aft shoulder
-has 3.35 mm to the guard's end at Y82.25 mm.
+has 3.365 mm to the cartridge's aft plane at Y82.265 mm. A straight Ø7.75 mm
+dry passage clears the stem and its R0.40 flange root between that pocket
+and the cartridge back. Its radius includes the full root radius, the
+0.15 mm pocket-center float and another 0.15 mm radial air, so the broad
+flat flange face supplies the first axial reaction after the 0.15 mm pocket
+clearance.
 
-The cap carries rear upper arches and straight, 3.00 mm-deep webs joining its
+The cap carries rear upper arches and straight, 5.996 mm-deep webs joining its
 existing filled body. Every arch and web starts at Y76.269 mm, 0.300 mm
 behind the actual reference head's Y75.969 mm aft extent, so they clear the
 seated heads throughout a straight cap lift. This named case clearance has
@@ -61,21 +72,19 @@ no printed fit result. The arches have open fore faces and 0.35 mm aft
 clearance to the stem flanges; the lower cradle encounters axial travel first.
 The webs finish within the cap body's own X planes. The two outer webs
 are 11.175 mm wide, and the two inner webs are 12.100 mm wide; each keeps
-the complete 3.000 mm Y section into the cap body.
+the complete 5.996 mm Y section into the cap body.
 Closing the cap blocks vertical flange escape without clamping the smooth
-stem. Its aft upper halves retain the TPU backing. The cap's straight lift path
+stem. Both capture halves end flush at the cartridge back. The cap's straight lift path
 is cut through the complete modified cartridge exit lane to the cradle's
 crown at Z284.174 mm. The integrated feature call supplies
 `cap_route_top_z=cap_crown_z(box)`; the guard webs retain their own lower
 joining height.
 
-Each moving guard enters a Ø22.80 mm counterbore in the fixed wall, ending
-at the receiver flare start, Y82.515 mm, with 0.265 mm to the guard's end.
-Its Ø14.3 entrance clears the flexible TPU lip; its Ø12.0
-section supports the receiver body through Y82.25 mm. The remaining fixed
-wall contains the receiver in X/Z. The cartridge's body stops retain their
-existing positions, independent of the machined stem tip and the TPU's
-annular stop.
+The permanent wall starts at Y82.515 mm, 0.250 mm behind the cartridge
+back, and supports the TPU directly around its funnel and sealing body.
+Its closed bore locates the receiver in X/Z; the flat interior keeper
+blocks its Y assembly route. The four outboard body stops set cartridge
+insertion independently of the stem tip and the TPU's internal stop.
 
 The actual outlet identification distinguishes the local molded casing
 from the entire pump head's bounding box. Native scan sections identify an
@@ -96,18 +105,20 @@ shoulder gives:
 
 | Screen | Nominal result at 80 psi |
 | --- | ---: |
-| Aft bearing area, outside the Ø14.3 opening | 20.23 mm² |
-| Aft mean bearing stress | 0.864 MPa |
+| Aft bearing area, outside the Ø7.75 passage | 76.94 mm² |
+| Aft mean bearing stress | 0.227 MPa |
 | Fore bearing area backed through 3.213 mm, outside the Ø12.1 tie passage | 43.04 mm² |
 | Fore mean bearing stress | 0.406 MPa |
 | Mean flange-root axial shear | 0.350 MPa |
-| Radial-strip flange-root bending, load assigned to the lower semicircle | 7.41 MPa |
+| Radial-strip flange-root bending, load assigned to the lower semicircle | 5.05 MPa |
 
 The bending screen treats the flange as radial strips fixed at the stem,
 loaded over its outer bearing annulus. It does not resolve the root fillet,
 circumferential plate action, creep, print anisotropy or individual contact
-peaks. At 10 psi the nominal aft bearing and strip-bending stresses are
-0.108 and 0.926 MPa. These calculations explain the load path and dimensions;
+peaks. The table uses centered nominal geometry; the native fit review
+separately bounds the full 0.15 mm pocket float and first flat-face contact.
+At 10 psi the nominal aft bearing and strip-bending stresses are
+0.0284 and 0.631 MPa. These calculations explain the load path and dimensions;
 they are not a lifetime, seal or system-pressure rating.
 
 ## Factory fixture and review
@@ -119,7 +130,7 @@ and provides a flat annular tip stop. Its
 The fork spans the full 24 mm base width and has 3 mm fore and aft cheeks.
 Its fore cheek supports the plain shank beyond the last barb; the aft cheek's
 Ø8.65 mm opening clears the working sealing surface. The Ø16.30 mm flange
-pocket remains at Y76.15–78.85 mm and the tip stop at Y87.015 mm. Measure
+pocket is at Y76.15–78.85 mm and the tip stop at Y90.015 mm. Measure
 the actual tip-to-flange datum before using the fixture to prepare pump
 units. The finished stem itself establishes that distance by machining.
 
@@ -142,3 +153,6 @@ Recreate the machining part and bench fixture explicitly:
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/stub_grip.py
 ```
+
+The producer reads the current declared Box for the prepared tip and capture
+datums. Materialize that declaration before recreating these factory files.

@@ -71,7 +71,7 @@ Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube 
 [4](BOWED_COUNT) use [15.2531 mm](BOWED_EXPOSED) exposed S links across
 [15.253 mm](BOWED_GAP) mouth-to-mouth chords. Make each S-link blank from its exposed
 path plus the actual insertion into both fittings; the valve-side insertion is a
-factory measurement. Reported tube lengths total [2601.5 mm](FLUID_TOTAL), including
+factory measurement. Reported tube lengths total [2601.4 mm](FLUID_TOTAL), including
 the four complete permanent receiver-to-tee tails and excluding the four S links.
 Other mouth-to-mouth path lengths need their actual fitting insertions when making
 the finished blanks; a butt joint needs tube through both fittings despite its

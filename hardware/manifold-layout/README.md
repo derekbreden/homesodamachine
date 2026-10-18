@@ -63,8 +63,8 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 The four connections across the fold — fluid-9, 17, 19 and 27 — are stationary
 180° hairpins with two quarter circles and a tangent straight between them. Both
 ends meet their fixed collets on their own axes. The radius is R[14](SPINE_R), with
-[75.93](SPINE_LEN) mm for each inner hairpin and
-[77.55](OUTER_SPINE_LEN) mm for each outer one. Their geometry comes from the fixed
+[76.43](SPINE_LEN) mm for each inner hairpin and
+[78.04](OUTER_SPINE_LEN) mm for each outer one. Their geometry comes from the fixed
 tee and valve stations; pump service does not flex these paths.
 
 V-G and V-J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
@@ -176,17 +176,17 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [166](ENV_Y) × [279](ENV_Z) mm — [9.14](ENV_L) L of bounding box over the
+[198](ENV_X) × [166](ENV_Y) × [282](ENV_Z) mm — [9.26](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [166](REACH_Y) × [293](REACH_Z).
+[198](REACH_X) × [166](REACH_Y) × [296](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
 `BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck authoring placement
 span. The pump station retains its fitted [3](PUMP_DROP) mm downward world-Z datum.
-Four smooth prepared stems project [9.85](BARB_TUBE_LEN) mm from the modeled free
+Four smooth prepared stems project [12.85](BARB_TUBE_LEN) mm from the modeled free
 BPT tube plane. Their production setting uses the cartridge's actual flat aft
 face: all four tips lie 7.746 mm aft of it, at machine Y87.015 mm.
 

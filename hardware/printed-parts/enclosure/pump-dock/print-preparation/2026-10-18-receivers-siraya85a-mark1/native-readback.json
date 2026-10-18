@@ -1,13 +1,13 @@
 {
   "status": "Offline print preparation; no printer contacted or started",
-  "prepared_at": "2026-10-18T09:24:43.995544+00:00",
+  "prepared_at": "2026-10-18T11:46:30.419377+00:00",
   "parts": [
     {
       "name": "permanent-pump-receiver-1",
       "object_id": 11,
       "identify_id": 2301,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+      "source_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
       "source_center_mm": [
         0,
         0,
@@ -56,7 +56,7 @@
       "object_id": 12,
       "identify_id": 2302,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+      "source_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
       "source_center_mm": [
         0,
         0,
@@ -105,7 +105,7 @@
       "object_id": 13,
       "identify_id": 2303,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+      "source_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
       "source_center_mm": [
         0,
         0,
@@ -154,7 +154,7 @@
       "object_id": 14,
       "identify_id": 2304,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
-      "source_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+      "source_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
       "source_center_mm": [
         0,
         0,
@@ -201,11 +201,11 @@
   ],
   "source_recipe": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
   "source_recipe_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
-  "source_geometry_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
+  "source_geometry_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
   "project": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf",
   "geometry_definition_snapshot": "input-snapshots/receiver-source-current-geometry.py.txt",
-  "geometry_definition_sha256": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-  "project_sha256": "f53860b0d7b3a7972dda1381c2345fec6da3f9f3df0ffe814febca9c002f1f2c",
+  "geometry_definition_sha256": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+  "project_sha256": "1720edd479fe65afe275270d57eb61a229349f60ef9735fd5b787015a879b5ea",
   "settings_changes": {
     "enable_support": {
       "source": "0",
@@ -267,17 +267,17 @@
       15.0
     ]
   ],
-  "per_part_cad_volume_mm3": 1713.3760466371461,
+  "per_part_cad_volume_mm3": 1676.1473863192348,
   "material": "Siraya Tech Flex TPU85A Clear; SKU ST3008",
   "inherited_physical_scope": "Accepted single-elbow exterior quality; internal stringing reported. No receiver acceptance.",
   "slicer_exit_code": 0,
   "archive": "2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf",
-  "archive_sha256": "aa44b0bb0110fa5fad1e6a04dc2d860e2176fc62a7d5ff4a8870220f4f64ba8e",
-  "gcode_sha256": "e1dc702db950a662b3dabe0e1d3f3da67b82a7c881d1df5592e85bd7124b628b",
+  "archive_sha256": "acf3b2f04f78778a93d27d336fd79bcf390956749795665215240cced69d2444",
+  "gcode_sha256": "8c1ee1896d37d89d6b2eaa18c3fce354138eb3ef2b3a68d62fcd8879d5fd453f",
   "gcode_md5_matches": true,
   "emitted_recipe_matches_prepared": false,
-  "cache_run": ".cache/pump-dock-engineering/receiver-slice/native-tj9_geve",
-  "estimated_seconds": 8037.21826171875,
-  "estimated_filament_g": 10.529314041137695,
+  "cache_run": ".cache/pump-dock-engineering/receiver-slice/native-kxk4d44b",
+  "estimated_seconds": 7930.5830078125,
+  "estimated_filament_g": 10.363808631896973,
   "slicer_warning": ""
 }

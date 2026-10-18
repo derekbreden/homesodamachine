@@ -436,7 +436,7 @@ CROSS_RISE = 4.5
 # so it cannot be struck so near the branch that the fall has no room to turn; and the leg out of
 # it runs the channel to the crossing, which is what the run is in the strip FOR.
 CHANNEL_ENTRY_Y = _CORE_FRONT_Y + 44.0
-CROSS_LIFT_X = 20.0
+CROSS_LIFT_X = 24.0
 CROSS_APPROACH_Y = 164.0
 
 
@@ -674,7 +674,7 @@ def _fluid_2(F):
 # before the U is level and the U only falls, so nothing on the line stands above the elbow.
 
 # The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
-FLUID_4_CROSS_Y = 288.0
+FLUID_4_CROSS_Y = 289.0
 
 
 def _fluid_4(F):
@@ -788,7 +788,7 @@ GATE_STUB_CLEAR = 4.0
 GATE_B_JOG_LEG = 19.9
 GATE_B_DRAIN_RETURN_RISE = 3.5
 GATE_B_RETURN_WEST = 16.5
-GATE_B_RETURN_HOLD_Y = 402.0
+GATE_B_RETURN_HOLD_Y = 412.0
 GATE_B_UNION_JOIN_Y = 448.5
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is

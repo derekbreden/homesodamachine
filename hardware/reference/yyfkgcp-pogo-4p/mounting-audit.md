@@ -35,10 +35,11 @@ hand; there is no qualified powered torque for the M1.4 joint.
 
 The acquired FX-888D and VECO-T T18 I/LB fine tips provide the insertion-tool
 candidates. The M2–M8 heat-set kit does not cover M1.4. Cold-check the selected
-tip through the Ø2.6 entry, with no printed-wall contact, and calibrate the
-insert-top depth to 5.127 mm from the printed host face before heating, as specified in
+tip through the 2.6 mm wide loading stadium, with no printed-wall contact, and calibrate the
+insert-top depth to 7.375 mm from the printed host face before heating, as specified in
 [enclosure assembly](../../assembly/enclosure-mechanical.md). The existing
-coupon checks both insert installation and connector face position.
+coupon retains its recorded seat geometry and connector-fit acceptance. Its result
+does not establish the deeper current installation or the actual T18 tool profile/cold fit.
 
 ## Current protection
 
@@ -69,14 +70,14 @@ belongs to the printed test piece.
 The dedicated outboard PET-GF stop lands seat against the retained lower cradle
 to set full insertion. The four prepared stems enter
 permanent TPU receivers and finish 0.50 mm before their internal shoulders. The flat
-cap and bulkhead planes have 0.246 mm nominal separation. Each connector face is
-recessed 0.127 mm, giving a 0.500 mm nominal contact-face gap. Both connector ear
-plates bear 3.00 mm behind their connector faces, 3.127 mm behind the printed host
+cap and bulkhead planes have 0.250 mm nominal separation. Each connector face is
+recessed 0.125 mm, giving a 0.500 mm nominal contact-face gap. Both connector ear
+plates bear 3.00 mm behind their connector faces, 3.125 mm behind the printed host
 faces. Two M1.4×8 screws per half clamp each 1.00 mm ear plate onto that datum.
-Each M1.4×4 insert starts 2.00 mm behind the datum, 5.127 mm inside the printed face,
-and occupies depths 5.127–9.127 mm. The Ø2.00 pilot ends at 10.627 mm; the screw tip
-ends at 10.127 mm, leaving 0.50 mm clearance with complete insert engagement.
-The Ø2.60 entry passes the whole knurl. Screw heads finish 0.60 mm behind the connector faces. The insert fit and
+Each M1.4×4 insert starts 4.25 mm behind the datum, 7.375 mm inside the printed face,
+and occupies depths 7.375–11.375 mm. The Ø2.00 pilot ends at 12.875 mm; the screw tip
+ends at 10.125 mm, leaving 2.750 mm clearance and 2.750 mm thread engagement in the 4 mm insert.
+The 2.60 mm wide loading stadium passes the whole knurl. Screw heads finish 0.60 mm behind the connector faces. The insert fit and
 printed fastening capacity have no reported physical result.
 
 The [Prime listing](https://www.amazon.com/dp/B0GCBNTBT8?th=1), checked on 2026-10-03,

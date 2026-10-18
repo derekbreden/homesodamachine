@@ -1612,28 +1612,28 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 # contact face lands at its specified recess. Behind it stands the body's own stadium, and the lead passage
 # takes the tails and their solder joints: the clamp's slot, and front-top's teardrop bore. Two
 # M1.4 × 8 SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the
-# datum, each head on its ear inside the mouth. The roof is one bridge between the mouth's round
+# datum through an open loading passage, each head on its ear inside the mouth. The roof is one bridge between the mouth's round
 # ends and takes the supported-surface allowance on the face that looks print-up.
 #
-# FRONT-TOP'S LEAD BORE IS ONE TEARDROP FROM THE BODY'S BACK. It is struck wide enough at the
+# FRONT-TOP'S LEAD BORE JOINS THE BODY CAVITY AT THE EAR-BACK DATUM. It is struck wide enough at the
 # contact row to take both outer tails and their joints, and its apex keeps `pogo_lead_skin`
 # under the bulkhead's crown, which behind the ridge wall is open air, so its axis stands below
 # the pair's. The fore valve tray stands on the bulkhead's aft face below the bore's axis: the
 # bore opens through that face above the tray's crown and ends on it below.
-pogo_crown_skin = 3.5        # clamp stock between the crown and the seat's mouth
 pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
 pogo_heatset_len = 4.0
-pogo_heatset_setback = 2.0   # anchor wholly behind the connector's body and slip, 4.15 mm in
-pogo_heatset_relief = 1.5    # pilot past the insert; also 0.5 mm beyond the M1.4×8 tip
+pogo_heatset_setback = 4.25  # anchor 7.25 mm behind contact face, past the body cavity
+pogo_heatset_relief = 1.5    # pilot beyond the complete four-millimetre insert
 pogo_screw_len = 8.0
 pogo_head = (2.74, 1.4)      # Kozelo B0DFYKBQ2S, (diameter, height)
 pogo_insert_entry_dia = 2.3 + 2.0 * fits.slip  # clear insertion pass for the complete knurl
 pogo_lead_half = 5.5         # the clamp's lead slot either side of the axis: the outer joints
 pogo_lead_run = 5.0          # the clamp's lead slot behind the body, where the leads turn up
 pogo_groove = (4.0, 3.5)     # a crown groove, (width, depth): two 22 AWG leads side by side
+pogo_crown_skin = pogo_groove[1] + wall  # complete wall between body cavity and wire grooves
 pogo_joint = 0.5             # a solder joint's growth round its Ø0.7 tail
 pogo_lead_air = 0.2          # the lead bore's air round the outer joints
-pogo_lead_skin = 1.2         # bulkhead kept over the lead bore's apex, under its crown
+pogo_lead_skin = wall        # full bulkhead stock over the teardrop bore apex
 pogo_lead_r = 5.5            # the bulkhead's lead bore, teardropped for front-top's print
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
@@ -5632,13 +5632,16 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     face = _funnel_frame_part.roof_datums(
         inner, funnel, funnel_seat_z(outer), y_seam)['front'] - slide_slip
     t = face - fore
-    # The tee bulkhead ends just before the wall's cavity face. Grow that
-    # 1.37 mm over a 45-degree foot, then carry one plane to the roof.
-    root = min(face, plate["wall_aft_y"])
-    rise = face - root
-    slab = _yz_prism(inner[0], inner[1], [
-        (fore, foot), (root, foot), (face, foot + rise),
-        (face, outer[5]), (fore, outer[5])])
+    # Join the actual bulkhead back to the frame's fixed cavity face at 45
+    # degrees. A deeper bulkhead narrows upward; a shallower one grows toward
+    # the frame. Both feet remain supported by the complete bulkhead below.
+    root = plate["wall_aft_y"]
+    rise = abs(face - root)
+    section = [(fore, foot), (root, foot)]
+    if rise > 1e-9:
+        section.append((face, foot + rise))
+    section.extend(((face, outer[5]), (fore, outer[5])))
+    slab = _yz_prism(inner[0], inner[1], section)
     slab = slab.intersect(_rounded_outer(outer))
     loom = _ridge_loom_station(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
@@ -5847,10 +5850,11 @@ def pump_stem_features(box):
         pump_cartridge_aft_y(trays, plate),
         cap_split_z(trays), plate["seated_tube_bottom_y"],
         cap_route_top_z=cap_crown_z(box),
-        fixed_wall_back_y=bay_back_y(plate) + _receiver.COLLAR_RAMP_Y[0],
         lower_guard_fore_y=min(cy + _tray.skirt_body_open_y_bounds[1]
                               for _cx, cy, _cz in trays),
-        cap_web_x_bounds=pump_cap_body_x_span(trays))
+        cap_web_x_bounds=pump_cap_body_x_span(trays),
+        cap_arch_fore_y=max(cy + _tray.skirt_open_y_max
+                            for _cx, cy, _cz in trays))
 
 
 def pump_cartridge_body_stops(box):
@@ -5910,18 +5914,15 @@ def _y_stadium(length, width, x, z, y0, y1):
             .extrude(-(hi - lo)).val().translate((0.0, lo, 0.0)))
 
 
-def _pogo_seat(face_y, into, x, z, up, deep=False):
+def _pogo_seat(face_y, into, x, z, up):
     """One half's seat let into the face at `face_y`, struck `into` (±1 along Y) from it: the
     cutter, then the two insert bores.
 
-    The ear datum retains its own dimension. Each insert starts two millimetres behind that
-    datum, wholly past the connector's body and slip. A slipped knurl-sized entry reaches the
-    anchor and opens toward the body cavity so no thin web serves as an insertion guide. The
-    body cavity takes the body's own depth with slip; `deep` runs it back to the anchor plane, so
-    the entries open into it over their whole depth and leave no web against a lead passage
-    behind the body. The pilot retains the full insert in the rear stock. `up` assigns the
-    supported-face allowance; the separate factory depth gauge reads the recessed anchor from the
-    mating face.
+    The ear plate bears on its own datum. Behind it, one knurl-sized loading
+    stadium joins both entries and opens into the body and lead clearances.
+    The body cavity follows the purchased envelope with slip; the deeper
+    inserts retain complete surrounding stock and blind caps. `up` assigns
+    the supported-face allowance. Factory depth is read from the printed face.
     """
     s = fits.slip
     w = _pogo.BODY_W + 2.0 * s
@@ -5941,19 +5942,22 @@ def _pogo_seat(face_y, into, x, z, up, deep=False):
     def at(d0, d1):
         return face_y + into * d0, face_y + into * d1
 
-    cavity = anchor + 0.01 if deep else _pogo.BODY_T + s
+    cavity = _pogo.BODY_T + s
     seat = (_y_stadium(_pogo.EAR_L + 2.0 * s, w, x, z, *at(-1.0, back))
             .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, cavity))))
     bores = [
         _supported_cut(_y_stadium(
             2.0 * pogo_insert_entry_dia, pogo_insert_entry_dia,
             x + ex - math.copysign(pogo_insert_entry_dia / 2.0, ex), z,
-            *at(back - 0.01, anchor + 0.01)), up).fuse(
+            *at(back - 0.01, anchor)), up).fuse(
             _supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
                                  *at(anchor - 0.01,
                                      anchor + pogo_heatset_len + pogo_heatset_relief)), up))
         for ex in _pogo.ear_xs()]
-    return _supported_cut(seat, up), bores
+    load_length = 2 * (max(abs(ex) for ex in _pogo.ear_xs()) + pogo_insert_entry_dia / 2)
+    load = _supported_cut(_y_stadium(load_length, pogo_insert_entry_dia,
+                           x, z, *at(back - .01, anchor)), up)
+    return _supported_cut(seat, up).fuse(load).clean(), bores
 
 
 def pump_contact_lead_axis_z(box):
@@ -5977,7 +5981,7 @@ def _lead_bore_floor(box):
     return max(tops) if tops else None
 
 
-pump_contact_face_recess = 0.127
+pump_contact_face_recess = 0.125
 
 
 def pump_contact_faces(box):
@@ -5993,26 +5997,39 @@ def pump_contact_faces(box):
             pump_cartridge_aft_y(trays, plate) - recess)
 
 
+def _pump_contact_fixed_stock(box):
+    """Broad rear backing for the male seat's complete insert roots and blind caps."""
+    x, z = pump_contact_station(box)
+    axis = pump_contact_lead_axis_z(box)
+    half = max(abs(v) for v in _pogo.ear_xs()) + pogo_insert_entry_dia / 2 + wall
+    bottom = min(z - pogo_insert_entry_dia / 2 - wall,
+                 axis - pogo_lead_r - wall)
+    back = box.pack.collet_plate["wall_aft_y"]
+    return _ybox(x - half, x + half, back, back + wall, bottom, box.pump_bay[2])
+
+
 def _pump_contact_fixed_cuts(box):
-    """The male half's seat in the bay bulkhead's fore face, its two insert bores, and the lead
-    bore from the body's back to the bulkhead's aft face, teardropped for front-top's print and
-    wide enough at the contact row for the tails and their joints. The seat runs deep: its body
-    cavity reaches the inserts' anchor plane, so both knurl entries open into the lead bore."""
+    """Male seat, joined insert-loading passage and teardrop lead bore.
+
+    The lead opening overlaps the body cavity from the ear-back datum. Its
+    rear opening crosses the complete integral backing pad.
+    """
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
     face, up = pump_contact_faces(box)[0], PIECE_PRINT_UP["front-top"]
-    axis, wall = pump_contact_lead_axis_z(box), plate["wall_aft_y"]
+    axis, wall_back = pump_contact_lead_axis_z(box), plate["wall_aft_y"]
     reach = max(math.hypot(cx, z - axis) for cx in _pogo.contact_xs())
     need = reach + _pogo.TAIL_D / 2.0 + pogo_joint + pogo_lead_air
     if need > pogo_lead_r:
         raise ValueError(
             f"the lead bore's Ø{2.0 * pogo_lead_r:g} on its axis at z {axis:.3f} reaches the outer "
             f"contact's joint at {reach:.3f} mm and needs {need:.3f}: it no longer takes the tails")
-    seat, bores = _pogo_seat(face, 1.0, x, z, up, deep=True)
-    lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.BODY_T, wall + 1.0, up=up)
+    seat, bores = _pogo_seat(face, 1.0, x, z, up)
+    lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.ear_back() - .01,
+                       wall_back + wall + 1.0, up=up)
     floor = _lead_bore_floor(box)
     if floor is not None and floor > axis - pogo_lead_r:
-        lead = lead.cut(_ybox(x - pogo_lead_r - 1.0, x + pogo_lead_r + 1.0, wall, wall + 2.0,
+        lead = lead.cut(_ybox(x - pogo_lead_r - 1.0, x + pogo_lead_r + 1.0, wall_back, wall_back + wall + 2.0,
                               axis - pogo_lead_r - 1.0, floor))
     return [seat, *bores, lead]
 
@@ -6034,10 +6051,10 @@ def _pump_contact_cap_cuts(box):
     x, z = pump_contact_station(box)
     face, up = pump_contact_faces(box)[1], PIECE_PRINT_UP["pump-cap"]
     crown = cap_crown_z(box)
-    seat, bores = _pogo_seat(face, -1.0, x, z, up, deep=True)
+    seat, bores = _pogo_seat(face, -1.0, x, z, up)
     floor = z - (_pogo.BODY_W / 2.0 + fits.slip) + min(up, 0.0) * fits.supported_surface
     fore = face - (_pogo.BODY_T + pogo_lead_run)
-    slot = _ybox(x - pogo_lead_half, x + pogo_lead_half, fore, face - _pogo.BODY_T + 0.01,
+    slot = _ybox(x - pogo_lead_half, x + pogo_lead_half, fore, face - _pogo.ear_back() + 0.01,
                  floor, crown + 1.0)
     groove_w, groove_d = pogo_groove
     grooves = []
@@ -8865,6 +8882,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                                    box.pack.collet_plate))
         # And the contact pair's fixed half, let into the bulkhead face the bay ends on.
         if box.pack.collet_plate:
+            piece = piece.fuse(_pump_contact_fixed_stock(box))
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
             stocks, cuts = _dock.fixed_features(box.pack.collet_plate)
@@ -8872,11 +8890,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                 piece = piece.fuse(stock)
             magnet = pump_retention_features(box)["fixed"]
             piece = piece.fuse(magnet["stock"])
-            for cutter in (*cuts[1:], magnet["cutter"],
-                           _stems.fixed_wall_cutter(box.pack.collet_plate["holes"],
-                               bay_back_y(box.pack.collet_plate),
-                               counterbore_back_y=bay_back_y(box.pack.collet_plate)
-                                                   + _receiver.COLLAR_RAMP_Y[0])):
+            for cutter in (*cuts[1:], magnet["cutter"]):
                 piece = piece.cut(cutter)
             for stop in pump_cartridge_body_stops(box):
                 piece = piece.fuse(stop)
@@ -9040,7 +9054,7 @@ def _report_ridge_roof(half, box):
               - p.zDir * (display_facet_thickness + display_pcb_cut_through))
     backing = wall_y - corner.y
     foot = box.pump_bay[2]
-    flat_root = foot + wall_y - box.pack.collet_plate['wall_aft_y']
+    flat_root = foot + abs(wall_y - box.pack.collet_plate['wall_aft_y'])
     loom = _ridge_loom_station(outer, box.pack.collet_plate, box.pump_bay)
     clip_end = lower_x1 - pump_lead_clip_edge_land
     clip_z = max(flat_root, loom[2] - _cable_clip.seat_top())

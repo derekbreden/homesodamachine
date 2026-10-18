@@ -1,5 +1,5 @@
 {
-  "scope": "Manual review of first-published pump-dock lint interfaces. Finite native geometry correspondence identifies inherited rear-interface findings; it does not accept their geometry, printability or load capacity. The two front-bottom classifier diagnoses are limited to the emitted anchors/segments. No part generation, assembly graph write or recurring check.",
+  "scope": "Manual pump-dock mesh-interface reviews, each bound to its identified publication/native inputs. Finite correspondence identifies inherited interfaces and does not accept their geometry, printability or load capacity. Classifier diagnoses apply only to exact emitted anchors/segments. No part generation, assembly graph write or recurring check.",
   "baseline_commit": "b5b7f1e6c",
   "rear_interface_source_correspondence": {
     "pre_dock_commit": "b5b7f1e6c",
@@ -934,5 +934,1102 @@
         "reported_peak_resident_mb": 341.77024
       }
     ]
+  },
+  "corrected_front_bottom_reading": {
+    "scope": "Full --all six-class reading of the corrected live front-bottom export. Every emitted row was reviewed. Cosmetics, actual material, invalid thickness segments and unresolved inherited interfaces have separate dispositions; an answer is not a physical acceptance.",
+    "source_commit": "2203954ac5e12d3d2435f2cd1de2fd35f92fd267",
+    "checker_sha256": "40a5ba8474b785ffa6c4754f3be287f66b51c4ea910962870f1c2103cf5b27bb",
+    "input_stl_sha256": "4d05af5667700988d5af782feb0a54fb7e58b8d3d99dbed00ff9e27eb62c32f2",
+    "input_step_sha256": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa",
+    "full_log_sha256": "dda6c1cb8f004314f5f5f3d85f7444510e7d0b6de31f8a8b059fdaef19e6d95f",
+    "facets": 274712,
+    "classes": [
+      "step",
+      "sliver",
+      "ceiling",
+      "slope",
+      "thin",
+      "ledge"
+    ],
+    "failed_classes": [],
+    "emitted_rows_by_class": {
+      "step": 0,
+      "sliver": 0,
+      "ceiling": 8,
+      "slope": 1,
+      "thin": 221,
+      "ledge": 0
+    },
+    "rows_reviewed": 230,
+    "header_counting": "The header states221 findings plus9 separately answered unranked rows. Ranked thin rows remain in place; one thin row carried an answer at run time. The complete emitted census is230 rows.",
+    "reported_peak_resident_mb": 764.5,
+    "phase_seconds": {
+      "plane_map": 9.0,
+      "find_steps": 0.4,
+      "find_slivers": 1.5,
+      "find_ceilings": 0.1,
+      "find_slopes": 0.1,
+      "surface_samples": 0.2,
+      "material_thickness": 9.6,
+      "thin_places": 2.3,
+      "find_thin_total": 12.2,
+      "find_ledges": 1.7
+    },
+    "topology": {
+      "scope": "Read-only vertex-weld topology diagnosis. merge_vertices only identifies coincident STL vertices; no repair, sampling change or export.",
+      "stl_sha256": "4d05af5667700988d5af782feb0a54fb7e58b8d3d99dbed00ff9e27eb62c32f2",
+      "unmerged_STL_load": {
+        "vertices": 824136,
+        "facets": 274712,
+        "watertight": false,
+        "winding_consistent": true
+      },
+      "coincident_vertices_merged": {
+        "vertices": 137004,
+        "facets": 274712,
+        "watertight": true,
+        "winding_consistent": true,
+        "unique_edges": 412068,
+        "edges_incident_to_one_face": 0,
+        "edges_incident_to_more_than_two_faces": 0,
+        "non_two_face_edge_bounds_mm": null
+      },
+      "native_step": {
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "native_diagnostics_scope": "All221 thin segments were classified at10/25/50/75/90percent. The source STEP is smooth before cosmetic fluting: its classification is used for rail/host/floor geometry and never as finished-flute thickness evidence. Native lines on a boundary are not through-material measurements.",
+    "mesh_diagnostics": {
+      "scope": "All221 emitted thin segments sampled at the same five positions in the exact fluted mesh, in batches of8queries. Unmerged STL topology initially reports false watertightness; coincident-vertex welding confirms closed manifold topology without changing triangles. Containment is diagnostic, not a strength or deposition result.",
+      "all_five_inside": 215,
+      "not_all_inside": 6,
+      "thin_ordinals_not_all_inside": [
+        1,
+        2,
+        3,
+        9,
+        198,
+        199
+      ],
+      "stl_sha256": "4d05af5667700988d5af782feb0a54fb7e58b8d3d99dbed00ff9e27eb62c32f2"
+    },
+    "dispositions": {
+      "specific_cosmetic_flute_profile": {
+        "rows": 187,
+        "thin_ordinals": [
+          [
+            5,
+            8
+          ],
+          [
+            11,
+            193
+          ]
+        ],
+        "actual_short_chords": true,
+        "flute_width_mm": 4.0,
+        "flute_depth_mm": 1.2,
+        "fade_mm": 5.0,
+        "current_pitch_mm": 4.9852875870814515,
+        "coupon_pitch_mm": 5.0,
+        "profile_source": "hardware/printed-parts/cadlib/reeding.py:groove",
+        "physical_scope_record": "hardware/printed-parts/cadlib/flute-evidence/README.md",
+        "coupon_source_commit": "c14bb2fff9282e0915e301fbc9ec1557bf97e31c",
+        "coupon_source_path": "hardware/printed-parts/enclosure/texture-corner/",
+        "limits": "The coupon fixes the shared groove profile/depth/fade and the photographs establish appearance scope. The272-groove current field is not treated as inherited or physically accepted. Its exact new deposition, surface quality and load capacity remain unqualified. This exception is specific to the authored cosmetic contour, not a generic backed-stock waiver."
+      },
+      "invalid_material_segments": {
+        "rows": 8,
+        "air_crossing": [
+          {
+            "ordinal": 1,
+            "p": [
+              -94.345,
+              93.694,
+              160.0
+            ],
+            "q": [
+              -94.048,
+              94.086,
+              159.702
+            ],
+            "segment_length_mm": 0.5750452156135168,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT"
+            ],
+            "native_common_edge_length_mm": 0.20830719545182994
+          },
+          {
+            "ordinal": 2,
+            "p": [
+              94.402,
+              93.701,
+              160.0
+            ],
+            "q": [
+              94.076,
+              94.086,
+              159.674
+            ],
+            "segment_length_mm": 0.6006471509963272,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT"
+            ],
+            "native_common_edge_length_mm": 0.21061653346624562
+          },
+          {
+            "ordinal": 198,
+            "p": [
+              88.753,
+              16.839,
+              15.65
+            ],
+            "q": [
+              90.108,
+              18.224,
+              13.874
+            ],
+            "segment_length_mm": 2.6283884796582133,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT"
+            ],
+            "native_common_edge_length_mm": 0.3082489202161081
+          },
+          {
+            "ordinal": 199,
+            "p": [
+              88.753,
+              16.839,
+              152.25
+            ],
+            "q": [
+              90.043,
+              18.0,
+              150.25
+            ],
+            "segment_length_mm": 2.6480220920528628,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT",
+              "TopAbs_OUT"
+            ],
+            "native_common_edge_length_mm": 0.367210643256258
+          }
+        ],
+        "boundary_tangent": [
+          {
+            "ordinal": 3,
+            "p": [
+              97.121,
+              18.398,
+              8.352
+            ],
+            "q": [
+              97.5,
+              18.0,
+              8.75
+            ],
+            "segment_length_mm": 0.6785639247705431,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON"
+            ],
+            "native_common_edge_length_mm": 0.6785639247705431
+          },
+          {
+            "ordinal": 4,
+            "p": [
+              97.121,
+              18.398,
+              144.952
+            ],
+            "q": [
+              97.5,
+              18.0,
+              145.35
+            ],
+            "segment_length_mm": 0.678563924770541,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON"
+            ],
+            "native_common_edge_length_mm": 0.678563924770541
+          },
+          {
+            "ordinal": 9,
+            "p": [
+              93.682,
+              18.417,
+              150.667
+            ],
+            "q": [
+              94.25,
+              18.0,
+              150.25
+            ],
+            "segment_length_mm": 0.8187808009473599,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON"
+            ],
+            "native_common_edge_length_mm": 0.8187808009473598
+          },
+          {
+            "ordinal": 10,
+            "p": [
+              93.714,
+              18.485,
+              14.135
+            ],
+            "q": [
+              94.25,
+              18.0,
+              13.65
+            ],
+            "segment_length_mm": 0.8704860711119968,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON",
+              "TopAbs_ON"
+            ],
+            "native_common_edge_length_mm": 0.8704860711119968
+          }
+        ],
+        "limits": "These invalid through-section diagnoses do not qualify other finite faces."
+      },
+      "nominal_threshold_boundary": {
+        "rows": 10,
+        "segments": [
+          {
+            "ordinal": 212,
+            "p": [
+              -82.65,
+              40.653,
+              3.528
+            ],
+            "q": [
+              -85.65,
+              40.653,
+              3.528
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 213,
+            "p": [
+              -82.65,
+              66.11,
+              3.086
+            ],
+            "q": [
+              -85.65,
+              66.11,
+              3.086
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 214,
+            "p": [
+              -98.111,
+              174.0,
+              0.018
+            ],
+            "q": [
+              -98.111,
+              171.0,
+              0.018
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 215,
+            "p": [
+              -93.831,
+              171.0,
+              22.967
+            ],
+            "q": [
+              -93.831,
+              174.0,
+              22.967
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 216,
+            "p": [
+              -90.75,
+              181.494,
+              29.198
+            ],
+            "q": [
+              -93.75,
+              181.494,
+              29.198
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 217,
+            "p": [
+              -93.75,
+              201.558,
+              0.046
+            ],
+            "q": [
+              -90.75,
+              201.558,
+              0.046
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 218,
+            "p": [
+              90.75,
+              174.289,
+              0.1
+            ],
+            "q": [
+              93.75,
+              174.289,
+              0.1
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 219,
+            "p": [
+              93.75,
+              174.262,
+              0.361
+            ],
+            "q": [
+              90.75,
+              174.262,
+              0.361
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 220,
+            "p": [
+              98.171,
+              171.0,
+              23.162
+            ],
+            "q": [
+              98.171,
+              174.0,
+              23.162
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          },
+          {
+            "ordinal": 221,
+            "p": [
+              93.75,
+              201.419,
+              23.754
+            ],
+            "q": [
+              90.75,
+              201.419,
+              23.754
+            ],
+            "segment_length_mm": 3.0,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 3.0
+          }
+        ],
+        "limits": "Nominal and native common length3.000mm; classification at the floating3mm reach is not a smaller design section or a load result."
+      },
+      "fitted_insert_annuli": {
+        "rows": 10,
+        "M3_condenser": {
+          "thin_ordinals": [
+            194,
+            195
+          ],
+          "native_section_mm": 2.0,
+          "manufacturer_pilot_mm": 4.0,
+          "manufacturer_minimum_surrounding_wall_mm": 1.6
+        },
+        "M5_compressor": {
+          "thin_ordinals": [
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211
+          ],
+          "nominal_sleeve_od_mm": 12.0,
+          "pilot_mm": 6.4,
+          "nominal_radial_section_mm": 2.8,
+          "manufacturer_minimum_surrounding_wall_mm": 2.6
+        },
+        "manufacturer_table": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",
+        "existing_host_record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md",
+        "limits": "Dimensional host guidance only; installed insert retention, finger/compressor loads and vibration lifetime remain unqualified."
+      },
+      "inherited_unresolved": {
+        "rows": 6,
+        "MQ6_cheeks": [
+          {
+            "ordinal": 200,
+            "p": [
+              -87.732,
+              38.05,
+              22.653
+            ],
+            "q": [
+              -87.732,
+              35.3,
+              22.653
+            ],
+            "segment_length_mm": 2.75,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.75
+          },
+          {
+            "ordinal": 201,
+            "p": [
+              -85.737,
+              35.3,
+              17.919
+            ],
+            "q": [
+              -85.737,
+              38.05,
+              17.919
+            ],
+            "segment_length_mm": 2.75,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.75
+          },
+          {
+            "ordinal": 202,
+            "p": [
+              -86.03,
+              70.55,
+              3.309
+            ],
+            "q": [
+              -86.03,
+              73.3,
+              3.309
+            ],
+            "segment_length_mm": 2.75,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.75
+          },
+          {
+            "ordinal": 203,
+            "p": [
+              -87.609,
+              73.3,
+              3.943
+            ],
+            "q": [
+              -87.609,
+              70.55,
+              3.943
+            ],
+            "segment_length_mm": 2.75,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.75
+          }
+        ],
+        "scarf_nose": [
+          {
+            "ordinal": 196,
+            "p": [
+              90.4,
+              214.524,
+              -0.35
+            ],
+            "q": [
+              90.4,
+              214.55,
+              -2.896
+            ],
+            "segment_length_mm": 2.5461327538052685,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.5461327538052685
+          },
+          {
+            "ordinal": 197,
+            "p": [
+              90.601,
+              214.524,
+              -2.923
+            ],
+            "q": [
+              90.601,
+              214.524,
+              -0.35
+            ],
+            "segment_length_mm": 2.573,
+            "segment_native_states_10_25_50_75_90_percent": [
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN",
+              "TopAbs_IN"
+            ],
+            "native_common_edge_length_mm": 2.572446609400009
+          }
+        ],
+        "limits": "These actual sections remain unresolved outside the pump-dock implementation. Their answers identify scope, not acceptance or a strength/printability waiver."
+      },
+      "retained_functional_ceilings": {
+        "rows": 8,
+        "scope": "Four screw-bearing ends, two handhold lifting faces and two rail catches retain their individual functional-interface/support-removal answers."
+      },
+      "invalid_slope_locator": {
+        "rows": 1,
+        "click_mm": [
+          0.0,
+          87.881,
+          140.225
+        ],
+        "distance_to_native_mm": 73.881,
+        "scope": "Only the off-solid bounding-box locator is answered; the finite faces of the merged plane group are not qualified."
+      }
+    },
+    "retained_interface_correspondence": {
+      "scope": "Native finite8mm cube correspondence of16 exact emitted condenser/MQ6/compressor-host segments against the frozen pre-pump-dock publication. These unchanged windows do not qualify strength or printability. Cosmetic flutes and new core stops are excluded.",
+      "baseline_commit": "292c861941587f9f15afb07885e38705c1f2845c",
+      "baseline_step_sha256": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
+      "current_step_sha256": "322e1718f261de1628baaceb6f4f958f680e867975eccb7a910a581f1a0614fa",
+      "source_function_AST_unchanged_from_b5b7f1e6c": {
+        "_floor_bosses": true,
+        "_west_cradle": true,
+        "_cond_mount": true,
+        "_cond_mount_corbel": true
+      },
+      "windows": [
+        {
+          "ordinal": 194,
+          "p": [
+            70.504,
+            149.0,
+            137.366
+          ],
+          "q": [
+            70.5,
+            151.0,
+            137.366
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 195,
+          "p": [
+            70.497,
+            151.0,
+            7.875
+          ],
+          "q": [
+            70.497,
+            149.0,
+            7.875
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 196,
+          "p": [
+            90.4,
+            214.524,
+            -0.35
+          ],
+          "q": [
+            90.4,
+            214.55,
+            -2.896
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 13.29300018578957,
+          "added_mm3": 0.0,
+          "same_local_material": false
+        },
+        {
+          "ordinal": 197,
+          "p": [
+            90.601,
+            214.524,
+            -2.923
+          ],
+          "q": [
+            90.601,
+            214.524,
+            -0.35
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 12.64131895716919,
+          "added_mm3": 0.0,
+          "same_local_material": false
+        },
+        {
+          "ordinal": 200,
+          "p": [
+            -87.732,
+            38.05,
+            22.653
+          ],
+          "q": [
+            -87.732,
+            35.3,
+            22.653
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 201,
+          "p": [
+            -85.737,
+            35.3,
+            17.919
+          ],
+          "q": [
+            -85.737,
+            38.05,
+            17.919
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 202,
+          "p": [
+            -86.03,
+            70.55,
+            3.309
+          ],
+          "q": [
+            -86.03,
+            73.3,
+            3.309
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 203,
+          "p": [
+            -87.609,
+            73.3,
+            3.943
+          ],
+          "q": [
+            -87.609,
+            70.55,
+            3.943
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 204,
+          "p": [
+            12.064,
+            150.51,
+            7.3
+          ],
+          "q": [
+            12.238,
+            153.304,
+            7.3
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 205,
+          "p": [
+            -54.936,
+            150.51,
+            7.3
+          ],
+          "q": [
+            -54.762,
+            153.304,
+            7.3
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 206,
+          "p": [
+            12.237,
+            159.696,
+            13.55
+          ],
+          "q": [
+            12.062,
+            162.49,
+            13.55
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 207,
+          "p": [
+            -54.437,
+            153.304,
+            5.15
+          ],
+          "q": [
+            -54.262,
+            150.51,
+            5.15
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 208,
+          "p": [
+            -59.405,
+            21.907,
+            7.3
+          ],
+          "q": [
+            -57.152,
+            23.57,
+            7.3
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 209,
+          "p": [
+            -57.153,
+            23.571,
+            5.15
+          ],
+          "q": [
+            -59.406,
+            21.908,
+            5.15
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 210,
+          "p": [
+            15.367,
+            20.286,
+            7.3
+          ],
+          "q": [
+            13.998,
+            22.728,
+            7.3
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        },
+        {
+          "ordinal": 211,
+          "p": [
+            13.997,
+            28.273,
+            5.15
+          ],
+          "q": [
+            15.366,
+            30.715,
+            5.15
+          ],
+          "native_window_side_mm": 8.0,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_local_material": true
+        }
+      ]
+    },
+    "immediate_pre_dock_scarf_construction": {
+      "scope": "Read-only finite scarf-nose construction from the actual unchanged source helpers and old/current authored Box inputs. This isolates the emitted Z\u22120.35 top and raked underside without rebuilding a quadrant. The corner movement affects the far upstream entry; both pocket plans fully cover this finite nose window. No material or load qualification.",
+      "baseline_commit": "b5b7f1e6c",
+      "source_functions_AST_equal": {
+        "_floor_scarf": true,
+        "_handhold_backing_end": true,
+        "_core_fit_pocket": true
+      },
+      "inputs": {
+        "inner": {
+          "old": [
+            -104.5,
+            104.5,
+            14.0,
+            468.3,
+            0.0,
+            352.0
+          ],
+          "current": [
+            -104.5,
+            104.5,
+            14.0,
+            475.3,
+            0.0,
+            352.0
+          ]
+        },
+        "y_joint": {
+          "old": 200.0,
+          "current": 200.0
+        },
+        "core_stops": {
+          "old": [
+            [
+              -78.5000001156408,
+              194.29999989999993,
+              12.0
+            ],
+            [
+              78.5000001156408,
+              194.29999989999993,
+              12.0
+            ]
+          ],
+          "current": [
+            [
+              -78.5000001156408,
+              201.29999989999993,
+              12.0
+            ],
+            [
+              78.5000001156408,
+              201.29999989999993,
+              12.0
+            ]
+          ]
+        },
+        "core_holds": {
+          "old": [
+            [
+              -65.6,
+              -56.6,
+              465.3,
+              253.4
+            ],
+            [
+              56.6,
+              65.6,
+              465.3,
+              253.4
+            ]
+          ],
+          "current": [
+            [
+              -65.6,
+              -56.6,
+              472.3,
+              253.4
+            ],
+            [
+              56.6,
+              65.6,
+              472.3,
+              253.4
+            ]
+          ]
+        }
+      },
+      "window_mm": [
+        90.2,
+        90.7,
+        214.3,
+        214.55,
+        -3.2,
+        0.1
+      ],
+      "native_material_removed_mm3": 0.0,
+      "native_material_added_mm3": 0.0,
+      "old_local_volume_mm3": 0.33393082617584036,
+      "current_local_volume_mm3": 0.33393082617584036,
+      "nominal_tip_section_mm": 2.5464466094067233
+    },
+    "source_bindings_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "f3f053f5189cf238af0829a56e3a52359923893ed33a368ece827fc4589a8bdd",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "d34d183015864210df2eab6c4a20f4c05f792999f2ac0d8dfc043936d895a83a",
+      "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+      "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+      "hardware/printed-parts/cadlib/flute-evidence/README.md": "be3a95a8556b9b9f064b9a5b2a253822d89d141c778e200afa3f4ad2a81dc594"
+    },
+    "source_bindings_scope": "Exact committed source bytes at identified corrected publication2203954ac; subsequent in-flight source changes do not rewrite this completed reading."
   }
 }

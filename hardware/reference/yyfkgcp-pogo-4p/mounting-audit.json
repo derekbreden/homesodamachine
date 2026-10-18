@@ -53,8 +53,8 @@
       "check": "drawing extremes and face-position criterion at nominal recessed seats",
       "pass": true,
       "compression_range_mm": [
-        0.20000000000001417,
-        0.8000000000000143
+        0.19999999999999996,
+        0.8
       ]
     }
   ],
@@ -74,12 +74,12 @@
   "drawing_observed_local_date": "2026-10-03",
   "prime_listing_verified": true,
   "dimensions_mm": {
-    "nominal_frame_gap": 0.2459999999999951,
-    "nominal_contact_face_gap": 0.4999999999999858,
-    "fixed_contact_face_y": 79.642,
-    "moving_contact_face_y": 79.14200000000001,
-    "recess_each_face": 0.12699999999999534,
-    "nominal_pin_compression": 0.5000000000000142,
+    "nominal_frame_gap": 0.25,
+    "nominal_contact_face_gap": 0.5,
+    "fixed_contact_face_y": 82.64,
+    "moving_contact_face_y": 82.14,
+    "recess_each_face": 0.125,
+    "nominal_pin_compression": 0.5,
     "stated_stroke": 1.1,
     "male_overall_tip_height_tolerance": 0.15,
     "body_depth_general_tolerance": 0.05,
@@ -89,13 +89,13 @@
     ],
     "face_position_tolerance_each": 0.05,
     "compression_range_at_nominal_recessed_seats": [
-      0.20000000000001417,
-      0.8000000000000143
+      0.19999999999999996,
+      0.8
     ],
-    "additional_closing_error_before_maximum_stroke": 0.29999999999998583,
+    "additional_closing_error_before_maximum_stroke": 0.30000000000000004,
     "face_gap_range_at_nominal_recessed_seats": [
-      0.3999999999999858,
-      0.5999999999999858
+      0.4,
+      0.6
     ]
   },
   "assembly_limits": {
@@ -107,19 +107,33 @@
     "installed_contact_resistance_verified": false,
     "whole_cartridge_retention_verified": false
   },
+  "nominal_fastener_stack_mm": {
+    "datum": "Depth into either printed host from its mating face; contact-face depths omit the recess.",
+    "ear_bearing_from_contact_face": 3.0,
+    "ear_bearing_from_printed_host": 3.125,
+    "insert_top_from_contact_face": 7.25,
+    "insert_top_from_printed_host": 7.375,
+    "insert_end_from_printed_host": 11.375,
+    "pilot_end_from_printed_host": 12.875,
+    "screw_tip_from_printed_host": 10.125,
+    "screw_thread_engagement": 2.75,
+    "screw_tip_to_blind_end": 2.75,
+    "loading_stadium_width": 2.5999999999999996,
+    "tool_profile_or_physical_fit_qualified": false
+  },
   "source_sha256": {
-    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "0b2b226ebfb59ffbf150e516c3a2b076309e171c016170a6c2f33481c7d34152",
-    "hardware/manifold-layout/enclosure-box.json": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "f3f053f5189cf238af0829a56e3a52359923893ed33a368ece827fc4589a8bdd",
-    "hardware/manifold-layout/enclosure_assembly.py": "c82b414da3456351aac5381d819afc2315afd7970484347e3e37f5641a1adcdc",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "998df0304e0291009a6c5695239a9079a323fb5e706358a250032921ff42ddd1",
+    "hardware/manifold-layout/enclosure-box.json": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+    "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
     "hardware/printed-parts/cadlib/fits.py": "573b51faf3948e5750db1ab580c9f3035d7063a43815c4eaf505b40092ad83a0",
     "hardware/scripts/_box_spec.py": "ad960841cd9c780fde4e95f7db640d583e9b27db47d0ffdfa9613b5820ef02a3"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "b73c43b33a8941e6ac9d268fd3e9ddb432ec719981d31683fd7c4e0b4761e36f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "3a5cda11f8460477cdf3a6ea66e9b13b1322e912359f06bf1285c5852a6086a1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "339c84bb21c4f29fdc14f20b28914af177792b1aa8a4d27e829633d13ef27540"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "83c45f665634e19a29501bab7894bee2c32c1e24fc5f0d3698f89321142dc279",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063"
   },
   "physical_record": "physical-observations.json"
 }
