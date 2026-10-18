@@ -7,6 +7,7 @@ cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports.""
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
+    casing_seal_rebate,
     attachment_stations,
     outer_shell_wall,
     wall_and_floor_thickness,
@@ -20,6 +21,26 @@ from _cold_core_interface import (
     insert_pocket_depth,
     make_box,
 )
+
+
+def rebate_casing_seals(solid, bands):
+    """Smooth foil-seal lands within the fixed outside envelope.
+
+    The 0.30 mm recess leaves 2.90 mm of the 3.20 mm casing wall and at
+    least 1.69 mm from each 4 mm pilot to the rounded outside wall.
+    Internal faces, screw axes and the cap/lid bearing planes stay fixed.
+    """
+    for z0, z1 in bands:
+        keep = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+                .rect(outer_shell_x_length - 2 * casing_seal_rebate,
+                      outer_shell_y_length - 2 * casing_seal_rebate)
+                .extrude(z1 - z0).edges("|Z")
+                .fillet(corner_round_radius - casing_seal_rebate))
+        outside = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+                   .rect(outer_shell_x_length + 2, outer_shell_y_length + 2)
+                   .extrude(z1 - z0))
+        solid = solid.cut(outside.cut(keep).unwrap())
+    return solid
 
 
 def _rounded_footprint(height):

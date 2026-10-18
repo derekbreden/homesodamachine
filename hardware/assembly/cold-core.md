@@ -2,13 +2,13 @@
 
 The procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator, its wound evaporator coil, two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PET-GF shell stack.
 
-Foam-pour geometry, shell architecture, copper-slot cover cross-sections, and TPU-gasket seam analysis: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
+Foam-pour geometry, shell architecture, copper-slot cover cross-sections, and dry casing seam seals: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 
 ## Scope
 
-In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2 — all PET-GF; copper-slot cover × 2 and reservoir × 2 — PETG); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 20 and ruthex M3 inserts × 20 for the cap clamps, plus four deck-mount inserts.
+In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)), with the water-inlet jet fit and full root fusion qualified and recorded per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2 — all PET-GF; copper-slot cover × 2 and reservoir × 2 — PETG); reservoir TPU gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 20 and ruthex M3 inserts × 20 for the cap clamps, plus four deck-mount inserts.
 
-Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the plug face.
+Out: a fully foam-poured cold core, capped with exterior foil-sealed dry joints, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the plug face.
 
 Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics bay, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
@@ -20,15 +20,15 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 |---|---|---|
 | Carbonator | Output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) | Hydro-tested + passivated |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~[15.92 ft](CUT_FT) per carbonator for coil wrap + tie-in stubs ([1/3](ROLL_SHARE) of 50 ft roll per build) — ACQUIRED |
-| 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-carbonator thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
+| 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-carbonator thermal interface and dry casing-seal bands; about 21.1 ft per build — ACQUIRED |
 | DS18B20 TO-92 (carbonator, family 0x28) + DS18S20 TO-92 (coil, family 0x10) 1-wire sensors | B0FKG3HT9Q / DigiKey DS18S20+-ND | Two bare TO-92 temperature sensors, leads heat-shrunk; potted into the foam against their metal surfaces. Distinct 1-wire family codes let firmware tell them apart deterministically (no per-unit ID map) — see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 — ON-ORDER |
 | MDSR-7-10-15 reed switch × 2 (carbonator level) | Littelfuse / Mouser 934-MDSR-710-15 | Mounted on the carbonator wall under the foil at the register azimuth; same stock as the reservoirs' eight ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)) — ACQUIRED |
 | Carbonator reed bridge (printed PETG) | [`/hardware/printed-parts/cold-core/reed-bridge/`](/hardware/printed-parts/cold-core/reed-bridge/) | Print, 1 per carbonator — holds both reeds on the wall and carries the coil over them |
 | Reed-bridge setting gauge (printed PETG) | Same | Print, reusable across builds like the coil mandrel — hangs on the tube's bottom rim, marks the bridge height |
 | Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
 | Foam-shell (printed PET-GF) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm tungsten carbide nozzle on the left hotend — slice the `.stl`, not the `.step` |
-| Foam cap × 2 + foam cap lid × 2 (printed PET-GF) | Same | Print, same plate figures as the shell; the two caps carry the show skin, so slice their `.stl` |
-| TPU 90A gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) | Print |
+| Foam cap × 2 + foam cap lid × 2 (printed PET-GF) | Same | Print, same plate figures as the shell; slice the caps’ `.stl` with their smooth foil-seal lands |
+| Reservoir TPU gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print; one wet lid seal per reservoir |
 | Copper-slot cover × 2 (printed PETG) | [`/hardware/printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/) | Print — one each for west and port, identical geometry |
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 20 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
@@ -71,7 +71,7 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 
 ### 3. Cap foam pour (top and bottom)
 
-Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above — [16 mm](CAP_H) of pour at the bottom end and [12.6 mm](CAP_H_TOP) at the top, where the lid's own plate stands in the last head pad of the cup's wall. **Bolt the cap and its lid down onto the shell's top face** — [10](CAP_FACE_SCREWS) M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and the cap and lid contain no clamp threads. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back all ten screws out.
+Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above — [15.7 mm](CAP_H) of pour at the bottom end and [12.3 mm](CAP_H_TOP) at the top, where the lid's own plate stands in the last head pad of the cup's wall. **Bolt the cap and its lid down onto the shell's top face** — [10](CAP_FACE_SCREWS) M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. Mask the exterior cap/lid joint with removable tape before pouring; the 0.15 mm rigid-fit gap is not a liquid-foam seal. Keep the pour and vent openings clear. The screws are the pour clamp; expanding foam lifts an unclamped lid, and the cap and lid contain no clamp threads. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back all ten screws out.
 
 The **bottom lid** carries a pad at each of the [10](CAP_FACE_SCREWS) screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
 
@@ -151,9 +151,9 @@ The pour encapsulates both temperature probes and their leads against the cold m
 With all three pours cured:
 
 - Drop the pre-soldered reed columns into the still-open reed channels, one per ±X side, from above. Lead each column's 5P ribbon straight up its own channel and out through the cap's reed conduit over that mouth — [reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)](REED_CONDUIT_XY) in the shell's frame. The cable leaves the core on the lid, alongside the seven fluid conduits, with slack for the lever nut it lands in. **This is done before the cap goes on**, and nothing about it is potted
-- TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the [10](CAP_FACE_SCREWS) screw positions
-- Top cap (foam-filled, trimmed from step 3) seated over the gasket **rotated 180° about Z**, which is what carries its deck-mount columns and its lid's valve cradles to the positions they hold in the machine — the screw pattern is 180°-symmetric, so it bolts up either way, and neither of those patterns is, so either one tells you which is right. [10](CAP_FACE_SCREWS) M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
-- Second gasket + bottom cap (mouth-down) onto the body's underside, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
+- Top cap (foam-filled, trimmed from step 3) seated with its dry printed-face allowance **rotated 180° about Z**, which is what carries its deck-mount columns and its lid's valve cradles to the positions they hold in the machine — the screw pattern is 180°-symmetric, so it bolts up either way, and neither of those patterns is, so either one tells you which is right. [10](CAP_FACE_SCREWS) M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
+- Bottom cap (mouth-down) onto the body's underside with its dry printed-face allowance, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
+- Seal the dry exterior cap/shell and cap/lid seams with 3M 425 foil tape per [Dry casing seams](/hardware/printed-parts/cold-core/foam-shell/README.md#dry-casing-seams). Use one band per assembled end on its 0.30 mm recessed smooth lands, with at most two foil layers at the 25 mm end overlap. Burnish around the corners and keep all bearing faces, mounting seats and openings clear. The cup provides 0.15 mm static room at each rigid seat; the foil is outside the mechanical stack.
 
 ## Warm-side check valves
 
@@ -177,8 +177,8 @@ A finished cold core:
 - All seven cap conduits carrying their lines; water and flavor fill above the liquid, and each draw leaves at its lowest point
 - The carbonated-water outlet crossing the carbonator support ring at the ring's own 225° slot, with all four bearing segments whole
 - Reed columns dropped into the reed channels, their cables up those same channels and out the cap's two reed conduits — the −X wall carries the two lane slots and nothing else
-- Both foam caps seated over their TPU gaskets, [10](CAP_FACE_SCREWS) M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
-- External envelope ~[283 mm](SHELL_OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
+- Both foam caps secured at their dry seats, [10](CAP_FACE_SCREWS) M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
+- External envelope ~[283 mm](SHELL_OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and the complete envelope includes both cups and lids
 
 ## Open items
 

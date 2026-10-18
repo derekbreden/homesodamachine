@@ -182,7 +182,7 @@ across-coordinate is arc length, which does not know the corner is there.
 
 #### The show skin
 
-Every standing wall of the cup is fluted — half-round grooves
+The shell wall between its two smooth seal bands is fluted — half-round grooves
 [4.986 mm](FSHELL_FLUTE_PITCH) apart and [1.2 mm](FSHELL_FLUTE_DEPTH) deep, the box's own
 field at the box's own figures (`cadlib/flute_skin.py`). What it buys is not ornament. The
 groove field lays its own highlight and shadow across the surface at a spacing finer, and in
@@ -204,9 +204,8 @@ where it does not, that is an edge, whatever made it.
 perimeter exactly**, which is what sets the pitch: a stated pitch would leave a remainder, and
 the remainder has to land somewhere. The count is EVEN, and two separate things buy that. The
 footprint has two mirror planes, and a datum on the middle of the −X wall gives one of them
-free — an even count gives the other. And the top cap installs spun a half turn about Z, which
-shifts its field by half the perimeter: a whole number of pitches only on an even count, and
-half a pitch otherwise, which would land every groove of the cap on a land of the shell.
+free — an even count gives the other. The shell
+therefore presents the same groove alignment after a half turn about Z.
 
 **The stock comes out of the pour, not off the envelope.** A groove must have a whole
 [2 mm](FSHELL_WALL_T) standing behind it, so a wall that carries flutes is
@@ -219,10 +218,8 @@ crossings through printed walls and caps. The floor takes none of it and
 stays [2 mm](FSHELL_WALL_T): it lies flat, so it carries no flutes, and every height in the
 core is measured off its top face.
 
-Both caps carry the same field on the same run, so the stack reads as one silhouette with
-seams across it rather than as three parts. The two lids do not: each is a plate one wall
-thick, so its edge is a 2 mm band — a groove there would leave 0.8 mm behind it, and the ramp
-could not develop in 2 mm anyway. That band reads as a reveal, which is what a seam wants.
+The caps and lid edges are smooth, recessed seal lands. One foil band at each end covers
+the shell/cap and cap/lid seams within the retained exterior outline; see §Dry casing seams.
 
 **Every boss stands hard against the wall it leans on, and the station names which
 wall that is** — never the sign of its own coordinates, which for a boss centred on a
@@ -258,8 +255,8 @@ cables, each up the channel its own column stands in. See Penetrations.
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a cup matching the outer shell's footprint,
-printed twice — [16 mm](CAP_H) of pour at the bottom end and
-[12.6 mm](CAP_H_TOP) at the top, whose lid takes the band its wall
+printed twice — [15.7 mm](CAP_H) of pour at the bottom end and
+[12.3 mm](CAP_H_TOP) at the top, whose lid takes the band its wall
 would have stood in. The top cap opens +Z (mouth up); the bottom cap
 is the same cup built mouth-down so its open ceiling faces −Z. Each seats with its floor against the shell's end face and
 its open mouth + lid pointing outward — the lid is the outermost
@@ -285,26 +282,57 @@ corners, four at the mid-points of the long edges (two to each ±Y wall, offset 
 passes a clearance hole for an M3 cap screw all the way through the part.
 See "Cap-to-outer-shell joinery" below.
 
-### foam_cap_gasket
+### Dry casing seams
 
-A TPU 90A gasket, printed twice — one between each cap and its
-mating face on the outer_shell. Outer envelope matches the cap's
-footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
-features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
-a boss-shaped pad at each of the [10](FACE_SCREWS) screw positions**, the pads using the
-same ⌀[8 mm](BOSS_D) boss + teardrop-web shape as the cap and shell above
-and below. The pads carry the screw clamp force across the full boss
-footprint; the perimeter ring seals along the wall sections away from the
-bosses.
+The shell and foam-filled caps enclose insulation. Their seams carry no
+liquid or operating pressure; the reservoirs and carbonator have their own
+wet closures. Both foam pours cure before the caps are assembled onto the
+body. The dry casing has no TPU cap gasket.
+
+Each cap-to-shell seat and cap-to-lid seat has 0.15 mm static clearance.
+The cup's mating faces retreat into the cup while its floor grows inward
+by the same amount, retaining a complete 2 mm floor. The shell, lid faces,
+deck hardware and complete 253.4 mm stack retain their construction datums.
+The 253.4 mm figure is the nominal CAD envelope; screw clamping may take up
+the four 0.15 mm seating allowances, making the physical core shorter.
+The bottom lid's pad ends and top cap's flush deck columns have the same
+axial allowance; their radial fits retain their own dimensions.
+
+The cups and lids carry smooth perimeter lands recessed 0.30 mm. The
+shell has matching lands for 13 mm at each end. The wall remains 2.90 mm
+there; the full-depth flutes continue on the shell between the lands.
+The four rounded-corner screw stations stand 0.25 mm inward along Y from
+the flat-wall station line; the shell, cups and lids share this pattern.
+Each corner pilot retains at least 1.69 mm radial wall through its depth.
+Two 0.12 mm foil layers fit within the recess, preserving the core's
+original outside envelope and its enclosure clearances.
+
+Seal each assembled end with one continuous band of the already-owned
+**3M 425 aluminum foil tape**, covering both its cap/shell and cap/lid
+joints. Trim the 50.8 mm stock to the land, ending at the lid's outside
+edge without folding onto its flat bearing face. Apply to clean, dry parts
+at room temperature. Press around the rounded corners and burnish the
+edges; overlap the band's ends by 25 mm. Use at most two foil layers, with
+no patches stacked over that overlap. Keep mounting seats, screw recesses
+and functional openings clear. The smooth land must have continuous
+adhesive contact, without wrinkles or air channels. This local seam seal
+is not a complete cold-core vapor-barrier or lifetime qualification.
+
+[3M's technical data](https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf)
+identifies low moisture-vapor transmission and seam-sealing use. This is
+the material basis for the dry joint. The
+[native closure review](../foam-cap/dry-closure-review.json) records the
+rigid seats, complete floor stock, screw reach and unchanged stack planes.
+Reservoir gaskets retain their separate wetted-seal function and accepted
+physical evidence.
 
 ## Cap-to-outer-shell joinery
 
 Each cap (top and bottom) is fastened to the outer_shell with **[10](FACE_SCREWS)
 M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
 oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
-threading into **[10](FACE_SCREWS) ruthex M3 short heat-set inserts**
-([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
-spec as in `faucet-shell`; per-build insert counts in
+threading into **[10](FACE_SCREWS) ruthex RX-M3x5.7 full-length heat-set inserts**
+([B08BCRZZS3](https://www.amazon.com/dp/B08BCRZZS3); per-build insert counts in
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
 corresponding face of the outer_shell. **[20](STACK_INSERTS) inserts and
 [20](STACK_INSERTS) screws total per outer_shell:** [10](FACE_SCREWS) on the top face
@@ -315,7 +343,7 @@ Each screw engages a heat-set insert in the outer_shell with a small relief
 below the insert for tip clearance. See `_foam_cap.py` and
 `_cold_core_interface.py` for the values that set the screw length.
 
-Insert pocket: Ø 4.0 mm × [8 mm](INSERT_DEPTH) deep (insert
+Insert pocket: Ø 4.0 mm × [10.5 mm](INSERT_DEPTH) deep (insert
 engagement + tip-relief), drilled in from each face.
 
 ### The head sits in the lid
@@ -329,9 +357,9 @@ head and the boss section it bears on. The outer face is a plane: the bottom
 cap's is what the whole core stands on.
 
 From under the head an M3 × [25](CAP_SCREW_LEN) crosses the land, the continuous
-pad-and-column section, and the gasket, reaching [6.4 mm](CAP_SCREW_REACH) past the
+pad-and-column section and dry-seat allowances, reaching [8.4 mm](CAP_SCREW_REACH) past the
 shell's face — the whole [5.7 mm](INSERT_LEN) of the insert, with
-[1.6 mm](TIP_CLEAR) of pocket under the tip. `_cold_core_interface.py` asserts
+[2.1 mm](TIP_CLEAR) of nominal pocket under the tip. `_cold_core_interface.py` asserts
 both ends of that.
 
 ## Penetrations
@@ -541,7 +569,7 @@ for the middle and end-tab cross-sections.
 Each plug end that abuts a tube has a **⌀[6.65 mm](PLUG_ARCH_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
 without crushing it. Both plugs arch at the bottom only and end flat at the shell
-rim beneath the cap and gasket. Small gaps around the copper and the rounded slot
+rim beneath the cap. Small gaps around the copper and the rounded slot
 bottom fill during the foam pour.
 
 A column's last plug reaches the wall top with that flat face, so nothing is left
@@ -652,12 +680,10 @@ the masks and trim any external foam flush.
 ### Final assembly (after the body foam pour has cured)
 
 Drop the pre-soldered reed columns into the still-open reed channels,
-then seat a TPU gasket + the foam-filled top cap onto the body's top edge
-with [10](FACE_SCREWS) M3 × 25 SHCS into the top-face inserts, and a second gasket +
-the bottom cap (mouth-down) under the body with [10](FACE_SCREWS) more into the
-bottom-face
-inserts. See the screw / insert spec under "Cap-to-outer-shell joinery"
-above.
+then seat the foam-filled top cap onto the body's top edge with
+[10](FACE_SCREWS) M3 × 25 SHCS into the top-face inserts, and the bottom cap
+(mouth-down) under the body with [10](FACE_SCREWS) more into the bottom-face
+inserts. Apply the exterior seam tape as specified under "Dry casing seams".
 
 ## Coincident-wall principle
 
@@ -693,7 +719,7 @@ PET-GF15 prints off the `Polymaker PET-GF @BBL H2C` slot, whose temperatures,
 flow and fan are its own ([Filament](#filament) below).
 
 Plate contents (when slicing): `foam-shell` alone; the two `foam-cap`s + their
-two lids on a second plate; the TPU gaskets on their own TPU plate. **The two
+two lids on a second plate. **The two
 copper plugs are not on the shell's plate** — they are PETG
 ([bom.md §7](/hardware/ledger/bom.md)) and go on the small-PETG plate with the
 drip pan, the PRV shroud, the reed bridge and the fuse clamp
@@ -744,11 +770,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1263443.054 mm³](FSHELL_VOLUME) |
+| volume | [1257889.328 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.508 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.978988, 0.207718, 91.236178) mm](CENTROID) |
+| centroid | [(0.977470, 0.208635, 91.173647) mm](CENTROID) |
 
 Quick reproduction:
 

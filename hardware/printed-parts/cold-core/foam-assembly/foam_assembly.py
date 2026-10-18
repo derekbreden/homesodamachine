@@ -13,9 +13,9 @@ Coordinate frame is the foam shell's (Z+ up, floor on z=0):
   * foam-shell spans z = 0 .. 213.4 — floor closed at the bottom, open at
     the top where the body foam is poured.
   * top cap (mouth-up) seats on the shell's top: its floor lands on the
-    shell's top edge, open mouth + lid pointing up (most +Z).
+    shell's top edge with a 0.15 mm dry clearance, open mouth + lid pointing up (most +Z).
   * bottom cap (mouth-DOWN) seats under the shell: its floor lands up
-    against the shell's bottom face, open mouth + lid pointing down — the
+    toward the shell's bottom face with 0.15 mm clearance, open mouth + lid pointing down — the
     lid is the most-negative-Z layer in the whole stack.
 
 The top cap and its lid install rotated 180° about Z. They carry the
@@ -35,7 +35,7 @@ _report() proves all of it: the CO2 line's bore runs clear end to end, each
 cap conduit runs clear through the top cap and its lid while the bottom
 stack stands solid on the same line, a thin vertical probe at each screw
 position passes clear through every cap and lid, and no two solids overlap
-(mating faces touch at zero volume).
+(the dry cap joints have 0.15 mm static clearance).
 
 THE LINES INSIDE ARE DRAWN HERE TOO. `_internal_routes` carries every fluid
 run from the fitting it lands on to the conduit it leaves by; this script is
@@ -62,6 +62,8 @@ from _cadq_export import export_assembly, import_step
 from _cold_core_interface import (
     cap_side_anchors,
     attachment_xy_positions,
+    cap_shell_clearance,
+    foam_cap_height,
     cap_anchors,
     cap_conduits,
     cap_conduit_axis,
@@ -204,10 +206,11 @@ def build():
     # The TOP lid is solid to its full height and its cup is a head pad shorter
     # for it (`_foam_cap.top_cap_height`), so the plate's own underside is what
     # meets the rim — it is placed by that face, off the cup's floor.
-    cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
+    cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")),
+                       zmin=shell_bb.zmax + cap_shell_clearance)
     lid_top = _place_z(
         _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),
-        zmin=cap_top.BoundingBox().zmin + top_cap_height,
+        zmin=shell_bb.zmax + top_cap_height,
     )
 
     # Bottom cap (mouth-down): floor (its zmax face) lands up against the
@@ -215,10 +218,11 @@ def build():
     # Its plate seats on the mouth rim and its head pads sink one head_pad_height
     # past it, into the relief the cup's boss columns leave there — so it is placed
     # by the pads' far end, one pad short of the rim.
-    cap_bottom = _place_z(_load(CAP_DIR / "foam-cap-bottom.step"), zmax=shell_bb.zmin)
+    cap_bottom = _place_z(_load(CAP_DIR / "foam-cap-bottom.step"),
+                          zmax=shell_bb.zmin - cap_shell_clearance)
     lid_bottom = _place_z(
         _load(CAP_DIR / "foam-cap-lid-bottom.step"),
-        zmax=cap_bottom.BoundingBox().zmin + head_pad_height,
+        zmax=shell_bb.zmin - foam_cap_height + head_pad_height,
     )
 
     placed = {

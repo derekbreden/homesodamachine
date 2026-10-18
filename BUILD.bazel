@@ -3471,8 +3471,6 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
-        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
@@ -3487,16 +3485,14 @@ set -e
 O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json)
 O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step)
 O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl)
-O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step)
-O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
-O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh)
-O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
-O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
-O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
-O12=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
+O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
+O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
+O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3516,16 +3512,14 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORK
 cp hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O2
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step $$O3
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh $$O4
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O5
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh $$O6
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O7
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O8
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O9
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O10
-cp hardware/printed-parts/cold-core/_foam_cap.py $$O11
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O12
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O3
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh $$O4
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O5
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O6
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O7
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O8
+cp hardware/printed-parts/cold-core/_foam_cap.py $$O9
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O10
 """,
 )
 
@@ -10138,8 +10132,6 @@ genrule(
     srcs = [
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",

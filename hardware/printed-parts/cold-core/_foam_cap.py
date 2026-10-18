@@ -1,6 +1,6 @@
-"""Foam cap stack: a cup at each end of the shell (the foam pour tray), the lid that closes its
-mouth during the pour, and the TPU 90A gasket that rings the cup's mating edge against the
-outer shell's face. The two ends are the same cup and the same plate divided differently — the
+"""Foam cap stack: a cup at each end of the shell (the foam pour tray) and its pour lid.
+Rigid seats have their printed-face allowances; exterior foil tape seals the dry seams.
+The two ends are the same cup and the same plate divided differently — the
 top lid is solid to its full height and its cup one head pad shorter for it."""
 
 import math
@@ -26,16 +26,17 @@ from _cold_core_interface import (
     foam_cap_lid_pour_xy,
     foam_cap_lid_vent_xy,
     attachment_xy_positions,
+    cap_shell_clearance,
+    cap_lid_clearance,
     screw_clearance_radius,
     head_cbore_radius,
     head_cbore_depth,
     head_pad_height,
     head_pad_slip,
     foam_cap_lid_height,
-    gasket_thickness,
-    gasket_strip_width,
 )
-from _outer_shell import build_attachment_bosses, take_skin_off_the_floor
+from _outer_shell import (build_attachment_bosses, take_skin_off_the_floor,
+                          rebate_casing_seals)
 
 # A lid stands one wall of plate over a head pad's own height, and the two ends of the stack
 # reach it differently. The BOTTOM lid is that plate with a pad at each attachment station. The
@@ -181,29 +182,40 @@ def build_foam_cap(open_down=False):
         .edges("|Z")
         .fillet(corner_round_radius)
         .faces("<Z" if open_down else ">Z")
-        # The cap's wall carries the same show skin as the shell it stacks on, so it stands on
-        # the same section (`outer_shell_wall`) and its pour tray gives up the difference.
+        # A full casing section backs the recessed exterior seal land.
         .shell(-outer_shell_wall)
     )
     # The cap's floor takes none of the skin's stock either, and it is at whichever end the
     # cup is not open on — the mouth-down cap carries its floor on top.
     cap = take_skin_off_the_floor(
         cap,
-        *((height - outer_shell_wall, height - wall_and_floor_thickness)
-          if open_down else (wall_and_floor_thickness, outer_shell_wall)))
+        *((height - outer_shell_wall,
+           height - wall_and_floor_thickness - cap_shell_clearance)
+          if open_down else
+          (wall_and_floor_thickness + cap_shell_clearance, outer_shell_wall)))
     # Same ⌀ boss + teardrop webs as the outer shell.
     cap = cap.union(build_attachment_bosses(height))
     if open_down:
         # The mouth-end relief: the bottom lid's pad section, one slip larger all round,
         # standing on the mouth at z=0 because that is the material side of a mouth-down cup.
-        cap = cap.cut(build_attachment_bosses(head_pad_height, oversize=head_pad_slip))
+        cap = cap.cut(build_attachment_bosses(
+            head_pad_height + cap_lid_clearance, oversize=head_pad_slip))
     else:
         cap = cap.union(build_conduit_columns(height))
     # Screw clearance passes the full cap height, floor through to mating edge.
     cap = cap.cut(attachment_clearances_extrude(height))
     if not open_down:
         cap = cap.cut(build_conduit_bores(height, overshoot=wall_and_floor_thickness))
-    return cap.unwrap()
+    # Keep the shell, lid and all mounted hardware on their construction datums.
+    # Both dry seats retreat into this cup. The floor's inward face grows by
+    # the same shell allowance, retaining its complete 2 mm section.
+    z0 = cap_lid_clearance if open_down else cap_shell_clearance
+    z1 = height - (cap_shell_clearance if open_down else cap_lid_clearance)
+    envelope = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+                .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
+                .extrude(z1 - z0))
+    cap = cap.intersect(envelope)
+    return rebate_casing_seals(cap, ((0.0, height),)).unwrap()
 
 
 def build_foam_cap_lid(open_down=False):
@@ -273,35 +285,4 @@ def build_foam_cap_lid(open_down=False):
     if not open_down:
         lid = lid.cut(build_conduit_bores(lid_cut_through_depth))
         lid = lid.cut(build_conduit_entry_reliefs(lid_total_height - wall_and_floor_thickness))
-    return lid.unwrap()
-
-
-def build_foam_cap_gasket():
-    """TPU 90A gasket between foam_cap mating edge and outer_shell mating
-    face. Rounded-corner perimeter ring matching the shell's rounded outer
-    wall, ring width uniform through the corner, + a boss-shaped pad
-    (same boss + teardrop-web shape as the shell/cap) at each of the 6 screw
-    positions. Printed twice."""
-    outer = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_y_length)
-        .extrude(gasket_thickness)
-        .edges("|Z")
-        .fillet(corner_round_radius)
-    )
-    inner = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .rect(
-            outer_shell_x_length - 2 * gasket_strip_width,
-            outer_shell_y_length - 2 * gasket_strip_width,
-        )
-        .extrude(gasket_thickness)
-        .edges("|Z")
-        .fillet(corner_round_radius - gasket_strip_width)
-    )
-    gasket = outer.cut(inner)
-    pads = build_attachment_bosses(gasket_thickness)
-    holes = attachment_clearances_extrude(gasket_thickness)
-    return gasket.union(pads).cut(holes).unwrap()
+    return rebate_casing_seals(lid, ((0.0, lid_total_height),)).unwrap()
