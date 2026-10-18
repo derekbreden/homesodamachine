@@ -22,10 +22,10 @@ SB443-IN magnet capture and rigid cartridge stops belong to that qualification. 
 retain their identified scopes; neither establishes receiver sealing or retention under pressure.
 
 The [manual mesh-interface review](pump-dock/lint-interface-review.json) records
-two front-bottom classifier limitations and separately scoped unresolved rear-interface,
-handhold-floor and raised-warning details. Its native/source correspondence and
-completed checker reading establish the recorded geometry scope; physical print
-quality, cleanup and load capacity remain unqualified.
+the exact air/boundary classifier diagnoses, specific cosmetic flute contours and
+unresolved sensor, floor, rear-interface, warning and lid-fixture sections. Its full
+six-class readings and native/source correspondence establish their geometry scope;
+physical print quality, cleanup and load capacity remain unqualified.
 
 Every reviewed print archive, the printer and settings it is sliced for, the geometry it binds
 by hash and its support-removal review are in the

@@ -1,30 +1,276 @@
-[ceiling] These Z66.2 and Z138.6 flats are the complete ends of front-bottom lower screw-bearing blocks. The current finite mating audit includes their opposing faces and positive running/support gaps; no seating exemption applies. Tree (auto)/Default support has access through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
-alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening the end spends the required bearing and insert-host length.
+[thin] Wrong material-thickness classification: these two exact segments cross the authored 0.25 mm open interval between Y96.836 and Y97.086. Native and actual fluted-STL samples leave material in each reported direction. The 0.575/0.601 mm endpoint distances are not continuous wall sections.
+alternatives: Require material occupancy along the segment before classifying thickness. Filling this interval would remove the sliding clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-94.345 y=96.694 z=160.000
+click: x=93.758 y=97.437 z=159.992
+
+[thin] Wrong material-thickness classification: these exact segments lie on the retained 45-degree rail-entry boundary planes at all five native sample positions. Their 0.679/0.819/0.870 mm distances run across a face rather than through material.
+alternatives: Reject boundary-tangent endpoint pairs before diagnosing a wall section. A thickness change at these segments would change the entry taper without addressing the invalid measurement.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=97.121 y=18.398 z=8.352
+click: x=97.121 y=18.398 z=144.952
+click: x=93.682 y=18.417 z=150.667
+click: x=93.714 y=18.485 z=14.135
+
+[thin] Wrong material-thickness classification: these rounded rail-entry corner segments cross air before reaching a neighboring face. Native and actual fluted-STL quarter, midpoint and later samples are outside material. The 2.629/2.648 mm endpoint distances do not measure continuous material.
+alternatives: Require continuous material along the segment or retain its separate occupied intervals. Filling the opening would change the rail-entry and corner clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=88.753 y=16.839 z=15.650
+click: x=88.753 y=16.839 z=152.250
+
+[thin] Specific cosmetic-flute profile exception: these are true short chords across the authored exterior groove/land contour and entry fade. Five interior samples of every listed segment lie in the actual final fluted STL. The shared profile is 4 mm wide and 1.2 mm deep, with a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner coupon and full-front photographs in cadlib/flute-evidence/README.md establish their profile and appearance scopes. This is a specific exterior-texture allowance, with no 3 mm finished-wall, exact current-field deposition, surface-quality or load-capacity acceptance.
+alternatives: Flattening or shallowing changes the retained visible profile. Widening the lands changes the closed field spacing. Assess a finish change against the appearance evidence; a thickness-only cutoff cannot choose that contour.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=105.430 y=10.266 z=154.567
+click: x=-105.430 y=10.266 z=38.938
+click: x=-97.192 y=5.123 z=39.027
+click: x=97.192 y=5.123 z=154.473
+click: x=-107.499 y=70.248 z=39.295
+click: x=107.499 y=140.652 z=39.276
+click: x=107.481 y=70.220 z=137.491
+click: x=-107.499 y=80.249 z=39.242
+click: x=-107.481 y=140.680 z=137.802
+click: x=107.499 y=130.652 z=39.242
+click: x=-107.475 y=70.209 z=62.277
+click: x=107.474 y=140.690 z=61.855
+click: x=107.479 y=80.221 z=138.394
+click: x=-107.499 y=90.249 z=39.209
+click: x=-107.479 y=130.679 z=138.394
+click: x=-107.472 y=80.211 z=61.055
+click: x=107.499 y=120.652 z=39.194
+click: x=-106.708 y=71.350 z=139.102
+click: x=-106.707 y=71.350 z=110.602
+click: x=106.706 y=71.350 z=89.898
+click: x=107.471 y=130.689 z=61.055
+click: x=106.705 y=71.350 z=61.398
+click: x=106.704 y=71.350 z=53.602
+click: x=107.478 y=90.222 z=138.947
+click: x=106.708 y=139.546 z=139.102
+click: x=106.706 y=139.546 z=110.602
+click: x=-106.706 y=139.546 z=89.898
+click: x=-106.704 y=139.546 z=61.398
+click: x=-106.704 y=139.546 z=53.602
+click: x=-107.477 y=120.678 z=139.210
+click: x=-107.499 y=100.249 z=39.179
+click: x=-107.468 y=90.209 z=62.226
+click: x=107.499 y=110.652 z=39.164
+click: x=-106.706 y=81.365 z=139.102
+click: x=-106.705 y=81.365 z=110.602
+click: x=107.467 y=120.690 z=61.839
+click: x=106.705 y=81.365 z=89.898
+click: x=106.703 y=81.365 z=61.398
+click: x=107.476 y=100.223 z=139.464
+click: x=106.703 y=81.365 z=53.602
+click: x=106.706 y=129.531 z=139.102
+click: x=106.705 y=129.531 z=110.602
+click: x=-107.444 y=130.726 z=110.631
+click: x=-106.703 y=129.531 z=61.398
+click: x=-106.702 y=129.531 z=53.602
+click: x=-107.473 y=110.680 z=137.883
+click: x=-107.499 y=110.249 z=39.150
+click: x=-107.466 y=100.211 z=61.465
+click: x=107.439 y=90.173 z=110.176
+click: x=107.465 y=110.689 z=61.102
+click: x=-106.704 y=91.380 z=139.102
+click: x=107.499 y=100.652 z=39.136
+click: x=-106.703 y=91.380 z=110.602
+click: x=106.701 y=91.380 z=61.398
+click: x=106.701 y=91.380 z=53.602
+click: x=-107.438 y=120.726 z=110.903
+click: x=107.473 y=110.221 z=138.409
+click: x=106.704 y=119.516 z=139.102
+click: x=106.702 y=119.516 z=110.602
+click: x=-106.700 y=119.516 z=61.398
+click: x=-107.472 y=100.679 z=138.409
+click: x=-107.461 y=110.209 z=62.550
+click: x=-107.499 y=120.249 z=39.110
+click: x=107.432 y=100.172 z=109.750
+click: x=107.461 y=100.691 z=62.182
+click: x=-106.700 y=101.394 z=110.602
+click: x=-107.431 y=110.727 z=110.460
+click: x=106.700 y=109.502 z=110.602
+click: x=107.498 y=60.652 z=39.041
+click: x=-107.466 y=60.679 z=138.648
+click: x=-107.497 y=50.652 z=138.396
+click: x=107.454 y=60.689 z=61.176
+click: x=-107.496 y=50.653 z=109.911
+click: x=107.493 y=50.656 z=119.083
+click: x=107.496 y=50.653 z=90.314
+click: x=-107.494 y=50.655 z=81.398
+click: x=107.497 y=50.652 z=61.799
+click: x=107.498 y=50.652 z=39.295
+click: x=-107.488 y=50.660 z=53.164
+click: x=-107.408 y=60.727 z=110.189
+click: x=-107.497 y=40.652 z=138.396
+click: x=-107.496 y=40.653 z=109.911
+click: x=107.493 y=40.656 z=119.083
+click: x=107.496 y=40.653 z=90.320
+click: x=-107.494 y=40.655 z=81.685
+click: x=107.497 y=40.652 z=62.097
+click: x=107.498 y=40.652 z=39.295
+click: x=107.462 y=35.021 z=138.000
+click: x=107.396 y=60.738 z=89.636
+click: x=-107.450 y=35.011 z=61.478
+click: x=107.497 y=45.048 z=138.396
+click: x=107.496 y=45.047 z=109.911
+click: x=-107.493 y=45.045 z=119.083
+click: x=106.688 y=59.428 z=139.102
+click: x=-107.496 y=45.047 z=90.019
+click: x=107.494 y=45.045 z=81.397
+click: x=-107.497 y=45.048 z=61.537
+click: x=-107.498 y=45.048 z=39.295
+click: x=-106.684 y=59.428 z=61.398
+click: x=107.488 y=45.041 z=53.236
+click: x=107.403 y=34.975 z=110.999
+click: x=107.497 y=55.048 z=138.396
+click: x=107.496 y=55.047 z=110.476
+click: x=-107.492 y=55.045 z=118.526
+click: x=-107.496 y=55.047 z=90.013
+click: x=107.493 y=55.045 z=81.397
+click: x=-107.497 y=55.048 z=61.530
+click: x=-107.498 y=55.048 z=39.295
+click: x=-107.386 y=34.961 z=90.729
+click: x=107.488 y=55.041 z=53.236
+click: x=-106.664 y=59.428 z=32.911
+click: x=-106.692 y=36.299 z=139.102
+click: x=106.689 y=36.299 z=61.398
+click: x=107.497 y=65.048 z=138.396
+click: x=107.496 y=65.047 z=110.483
+click: x=-107.492 y=65.045 z=119.084
+click: x=-107.495 y=65.047 z=90.610
+click: x=107.493 y=65.045 z=81.397
+click: x=-107.497 y=65.048 z=61.524
+click: x=106.684 y=36.299 z=52.096
+click: x=107.487 y=65.041 z=53.236
+click: x=107.497 y=145.852 z=81.426
+click: x=-107.495 y=145.853 z=80.013
+click: x=107.497 y=145.852 z=39.295
+click: x=-107.457 y=145.880 z=137.491
+click: x=107.465 y=145.875 z=89.863
+click: x=107.497 y=75.048 z=138.396
+click: x=107.496 y=75.047 z=109.911
+click: x=-107.492 y=75.045 z=118.514
+click: x=-107.495 y=75.047 z=90.000
+click: x=107.493 y=75.045 z=81.970
+click: x=-107.497 y=75.048 z=61.517
+click: x=-107.497 y=75.048 z=39.295
+click: x=107.487 y=75.041 z=53.236
+click: x=-107.497 y=135.852 z=138.396
+click: x=-107.496 y=135.853 z=109.911
+click: x=-107.493 y=135.855 z=81.397
+click: x=107.497 y=135.852 z=39.295
+click: x=107.486 y=135.860 z=91.153
+click: x=107.491 y=135.857 z=62.622
+click: x=-107.488 y=135.858 z=53.551
+click: x=107.476 y=135.867 z=119.730
+click: x=-107.391 y=145.927 z=110.330
+click: x=107.497 y=85.048 z=138.982
+click: x=107.496 y=85.047 z=109.911
+click: x=-107.492 y=85.045 z=119.084
+click: x=-107.495 y=85.047 z=90.610
+click: x=107.493 y=85.045 z=81.397
+click: x=-107.497 y=85.048 z=62.097
+click: x=-107.497 y=85.048 z=39.295
+click: x=107.488 y=85.042 z=53.295
+click: x=-107.497 y=125.852 z=138.396
+click: x=-107.496 y=125.853 z=110.168
+click: x=107.492 y=125.856 z=118.505
+click: x=107.495 y=125.853 z=89.991
+click: x=-107.493 y=125.855 z=81.652
+click: x=107.497 y=125.852 z=39.295
+click: x=107.490 y=125.857 z=62.622
+click: x=-107.487 y=125.858 z=53.295
+click: x=107.359 y=145.950 z=117.988
+click: x=-107.341 y=145.962 z=33.173
+click: x=107.497 y=95.048 z=138.396
+click: x=107.496 y=95.047 z=109.911
+click: x=-107.492 y=95.045 z=118.501
+click: x=-107.495 y=95.047 z=89.987
+click: x=107.493 y=95.045 z=81.983
+click: x=-107.497 y=95.048 z=61.504
+click: x=-107.497 y=95.048 z=39.295
+click: x=107.487 y=95.042 z=53.295
+click: x=-107.497 y=115.852 z=138.396
+click: x=-107.496 y=115.853 z=109.911
+click: x=107.492 y=115.856 z=118.499
+click: x=107.495 y=115.853 z=89.985
+click: x=-107.493 y=115.855 z=81.645
+click: x=107.497 y=115.852 z=61.502
+click: x=107.497 y=115.852 z=39.295
+click: x=-107.487 y=115.858 z=53.538
+click: x=107.497 y=105.048 z=138.396
+click: x=107.496 y=105.047 z=109.911
+click: x=-107.491 y=105.045 z=118.494
+click: x=-107.495 y=105.047 z=90.610
+click: x=107.493 y=105.045 z=81.397
+click: x=-107.497 y=105.048 z=61.498
+click: x=-107.497 y=105.048 z=39.295
+click: x=107.487 y=105.042 z=53.876
+click: x=-106.689 y=106.402 z=36.847
+click: x=-107.487 y=65.858 z=53.345
+
+[thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm MQ-6 post or core-stop sections. Their native interiors are material and their endpoint coordinate differences are exactly 3.000 mm. Floating-point ranking immediately below the 3 mm search reach does not establish a smaller design section. Printed dimensions and loaded behavior remain unqualified.
+alternatives: Use an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal 3 mm fitted section merely to change its floating-point rank has no dimensional basis.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-90.750 y=183.819 z=29.237
+click: x=-93.750 y=204.484 z=0.479
+click: x=90.750 y=174.418 z=0.585
+click: x=93.750 y=204.499 z=14.456
+click: x=-82.650 y=40.653 z=3.528
+click: x=-82.650 y=66.110 z=3.086
+click: x=-98.111 y=174.000 z=0.018
+click: x=-93.831 y=171.000 z=22.967
+click: x=93.750 y=174.262 z=0.361
+click: x=98.171 y=171.000 z=23.162
+
+[thin] Specific fitted M3 insert-host interface: these condenser-finger samples span 2.000 mm from the purchased insert pilot to the outer finger boundary. The Ruthex RX-series table specifies a 4.0 mm pilot and 1.6 mm minimum surrounding wall for RX-M3x5.7. This retained local section meets that dimensional guidance; native correspondence identifies the pre-dock interface. It does not qualify installed pullout or finger load capacity.
+alternatives: A larger host changes the donor-flange and driver-approach envelope. Keep the manufacturer-compatible pilot and host while qualifying actual insert retention and loaded finger performance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=70.504 y=149.000 z=137.366
+click: x=70.497 y=151.000 z=7.875
+
+[thin] Specific fitted M5 insert-host interface: these compressor-post samples span the nominal 2.800 mm radial annulus between the 12 mm donor-grommet sleeve and its 6.4 mm pilot. The Ruthex RX-series table specifies 2.6 mm minimum surrounding wall for RX-M5x9.5. The retained native host meets that dimensional guidance; this is not an installed pullout, vibration-life or grommet-performance qualification.
+alternatives: Enlarging the 12 mm sleeve changes its fit through the donor grommet. Retain that fitted sleeve and manufacturer-compatible annulus; qualify the installed assembly separately.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=12.064 y=150.510 z=7.300
+click: x=-54.936 y=150.510 z=7.300
+click: x=12.237 y=159.696 z=13.550
+click: x=-54.437 y=153.304 z=5.150
+click: x=-59.405 y=21.907 z=7.300
+click: x=-57.153 y=23.571 z=5.150
+click: x=15.367 y=20.286 z=7.300
+click: x=13.997 y=28.273 z=5.150
+
+[thin] Outside the pump-dock change and unresolved: these actual 2.750 mm MQ-6 locating cheeks retain the pre-dock card-cradle source and finite native material. The scope comparison does not accept their thickness, deposition or loaded behavior.
+alternatives: Reconcile the card groove and outer post together to increase the cheek while preserving the purchased card, sensor can and header approach. That card-mount redesign is not implemented here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-87.732 y=38.050 z=22.653
+click: x=-85.737 y=35.300 z=17.919
+click: x=-86.030 y=70.550 z=3.309
+click: x=-87.609 y=73.300 z=3.943
+
+[thin] Outside the pump-dock change and unresolved: these floor-scarf nose segments retain actual 2.547/2.573 mm sections after the core-floor running allowance. Immediate pre-dock source construction and the current finite nose window have equal material. This scope answer does not accept the tapered joint, print quality or load capacity.
+alternatives: Reconcile the scarf nose and opposing rear-floor relief together to increase the terminal section while retaining the square end and core-floor running gap. That floor-joint redesign is not implemented here.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=90.400 y=214.527 z=-0.350
+click: x=90.601 y=214.524 z=-2.923
+
+[ceiling] Unavoidable flat bearing interfaces: these Z66.2/Z138.6 flats are the complete lower ends of the front screw-bearing blocks. Their current paired native interfaces retain positive running/support clearance. Tree(auto)/Default support can leave through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
+alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening spends the defined screw-bearing and insert-host length.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-97.500 y=207.400 z=66.200
 click: x=97.500 y=207.400 z=66.200
 click: x=-97.500 y=207.400 z=138.600
 click: x=97.500 y=207.400 z=138.600
 
-[ceiling] The Z29.25 handhold ceilings are flat finger bearings with the shared R6 end profile and 12 mm roof section. Tree (auto)/Default supports can leave through the open handhold and seam before assembly. Full-part surface finish, cleanup, finger comfort and loaded lifting are unqualified.
-alternatives: Sloping changes the lifting surface and finger opening; filling below the roof obstructs entry. Retain the specified flat lifting profile.
+[ceiling] Unavoidable lifting interfaces: these Z29.25 handhold ceilings retain the flat finger bearings, shared R6 ends and 12 mm roof sections. Support can leave through the open handhold and seam before assembly. Actual cleanup, bare-surface comfort and loaded lifting remain unqualified.
+alternatives: Sloping changes the finger bearing and opening. Filling below the roof blocks upward entry. Retain the specified working profile and assess its support contacts in the production slice.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-99.479 y=190.000 z=29.250
 click: x=99.479 y=190.000 z=29.250
 
-[ceiling] Unavoidable flat capture interface: the Z169.2 faces are the front Z-rail square catches. Their opposing feet retain 0.50 mm running/supported clearance in the current native paired-face review. The flat overlap resists lifting after that play is taken up. Tree (auto)/Default supports approach through the open rail lane before assembly; removal effort is unqualified.
-alternatives: A sloped catch introduces camming. Filling the lane enters foot travel; cutting away the overlap loses capture.
+[ceiling] Unavoidable square capture interfaces: these Z169.2 flats are the front rail catches. Their opposing feet retain the native 0.50 mm running/support allowance. The flat overlap resists lifting after that play is taken up. Support can leave the open rail lane before assembly; removal effort remains unqualified.
+alternatives: Sloping introduces a camming bearing. Filling the lane enters foot travel; removing the overlap loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.875 y=142.668 z=169.200
-click: x=100.875 y=142.668 z=169.200
-
-[slope] Wrong diagnostic location: this merged coplanar group's projected bounding-box midpoint is 73.881 mm from the actual native solid. It is not a finite underside at the emitted click. This answer applies only to that invalid locator; it does not qualify the group's individual finite faces.
-alternatives: Split the plane group into connected finite patches and choose a point on an actual facet before diagnosing or changing its wall connection. Cutting material at the emitted click would cut empty space.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=0.000 y=87.881 z=140.225
-
-[thin] Wrong material-thickness classification: the measured segment crosses the 0.25 mm open interval between the plate foot ending at Y93.836 and the Z-rail starting at Y94.086. Native solid classification is OUT at the segment midpoint and its last quarter; the reported 0.575 mm is not a continuous material section.
-alternatives: Require segment occupancy or exact solid intersection before calling a nearby opposing face material thickness. Filling this interval would remove the authored sliding clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-94.345 y=93.694 z=160.000
-click: x=-94.048 y=94.086 z=159.702
+click: x=-100.875 y=144.168 z=169.200
+click: x=100.875 y=144.168 z=169.200

@@ -3038,9 +3038,9 @@ def display_storey_cavities(box):
 
     ONE CAVITY, WALL TO WALL AND FRONT WALL TO RIDGE WALL, UNDER ONE CEILING. Each runs from the
     skirt's flex lane out to `display_storey_side_wall` inside the side wall's flute valleys, and
-    from the front wall back to the plane of the pump bay's aft wall (the collet plate's fore
-    face), which it rises in straight to the ceiling, and opens into the bay across its whole
-    floor. Its ceiling is the catch plane, a flat parallel to the display `CATCH` below its face,
+    from the front wall to one structural wall fore of the bay bulkhead, retaining a continuous
+    rear shoulder beside the display exits. It opens into the bay across its floor.
+    Its ceiling is the catch plane, a flat parallel to the display `CATCH` below its face,
     so each skirt's catch is that ceiling where the slot comes through it and the lip hangs into
     the cavity."""
     if not (box.pump_bay and box.pack.collet_plate):
@@ -3052,7 +3052,7 @@ def display_storey_cavities(box):
     def below_catch(y, z):
         return (y - o.y) * n.y + (z - o.z) * n.z + 10.02
 
-    y0, y1 = inner[2], bay_back_y(box.pack.collet_plate)
+    y0, y1 = inner[2], bay_back_y(box.pack.collet_plate) - wall
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
     section, ring = [], [(y0, z0), (y1, z0), (y1, z1), (y0, z1)]
     for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
@@ -5998,14 +5998,17 @@ def pump_contact_faces(box):
 
 
 def _pump_contact_fixed_stock(box):
-    """Broad rear backing for the male seat's complete insert roots and blind caps."""
+    """Broad insert-root backing with a 45-degree underside into the wall."""
     x, z = pump_contact_station(box)
     axis = pump_contact_lead_axis_z(box)
     half = max(abs(v) for v in _pogo.ear_xs()) + pogo_insert_entry_dia / 2 + wall
     bottom = min(z - pogo_insert_entry_dia / 2 - wall,
                  axis - pogo_lead_r - wall)
     back = box.pack.collet_plate["wall_aft_y"]
-    return _ybox(x - half, x + half, back, back + wall, bottom, box.pump_bay[2])
+    pad = _ybox(x - half, x + half, back, back + wall, bottom, box.pump_bay[2])
+    corbel = _yz_prism(x - half, x + half,
+                      [(back, bottom - wall), (back + wall, bottom), (back, bottom)])
+    return pad.fuse(corbel).clean()
 
 
 def _pump_contact_fixed_cuts(box):

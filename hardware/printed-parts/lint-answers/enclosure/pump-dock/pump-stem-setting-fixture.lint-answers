@@ -1,0 +1,10 @@
+[thin] Numerical threshold boundary at the complete nominal 3 mm setting-tool sections. All seven emitted pairs recover 3.000 mm in the actual native export: fore/aft fork cheeks, tip-stop plate and base. The source-defined fixture is identical to that export, and dock-lint-review.json binds every pair and STL/STEP hash. This tool holds a bare machined stem before BPT fitting; printed setting accuracy remains unqualified.
+alternatives: Adding stock solely to move an exact 3 mm cheek, stop or base past numerical ranking changes the bench tool without correcting a smaller nominal section. Use an explicit numerical tolerance at that boundary and measure the actual tip-to-flange register before factory use.
+file: hardware/printed-parts/enclosure/pump-dock/pump-stem-setting-fixture.step
+click: x=-4.776 y=-4.350 z=8.015
+click: x=-3.970 y=4.350 z=8.393
+click: x=-5.176 y=1.350 z=6.989
+click: x=-3.288 y=-1.350 z=8.880
+click: x=-2.347 y=15.515 z=9.615
+click: x=8.888 y=12.201 z=0.000
+click: x=-4.636 y=-4.663 z=0.000
