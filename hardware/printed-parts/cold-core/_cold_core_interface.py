@@ -949,10 +949,13 @@ co2_cap_x = 1.5
 # no such tie: the run is already on the lane by then, and a jog ALONG a lane costs it nothing.
 # So the ring reads this column and the appliance reads the bore's, and neither is the other's.
 water_outlet_climb_x = -48.5
-# The lower climb clears the inlet copper tail; above it the tube leans gently toward the
-# centre to clear reservoir B's upper corner, keeping the stock bend radius at each turn.
-water_outlet_upper_climb_x = -47.0
-water_outlet_drift_z = (80.0, 140.0)
+# The lower climb clears the inlet copper tail. Once over the tail's lead — it runs at
+# `evap_tail_low_z`, and both lines are 1/4" OD, so one OD and a 2 mm foam hug clear it —
+# the tube drifts along the coil standoff to the column where its climb and its lean out to
+# the lane stand clear of reservoir B's −Y centerward pocket corner, so that pocket's wall is
+# opened only by B's own draw. Every turn keeps the stock bend radius.
+water_outlet_upper_climb_x = -35.0
+water_outlet_drift_z = (evap_tail_low_z + lldpe_tube_od + 2.0, 140.0)
 # THE TWO REED CABLES LEAVE BY THE LID, each up the channel its own column stands in. A reed
 # channel is a cavity open from the shell's floor to its top face (`_reed_channels`), so the
 # cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.

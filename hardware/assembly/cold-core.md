@@ -133,7 +133,9 @@ All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm
 ### 6. Body foam pour
 
 The passive tube passages are Ø[7.5 mm](TUBE_HOLE_D), leaving 0.5 mm radial
-air around the measured 6.5 mm tube. Before pouring, mask the gaps around
+air around the measured 6.5 mm tube. The two reservoir-pocket crossings carry
+that passage square through their 2 mm wall, so they open wider across the
+turn each draw makes there. Before pouring, mask the gaps around
 the installed tubes at both reservoir-pocket crossings and outer exits with
 removable tape on the dry side. Keep tube mouths, collets and reed channels
 open. The faucet and organizer keep their separately specified gripping fits.
