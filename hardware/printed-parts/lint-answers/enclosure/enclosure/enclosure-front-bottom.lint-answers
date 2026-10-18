@@ -249,12 +249,6 @@ click: x=-85.737 y=35.300 z=17.919
 click: x=-86.030 y=70.550 z=3.309
 click: x=-87.609 y=73.300 z=3.943
 
-[thin] Outside the pump-dock change and unresolved: these floor-scarf nose segments retain actual 2.547/2.573 mm sections after the core-floor running allowance. Immediate pre-dock source construction and the current finite nose window have equal material. This scope answer does not accept the tapered joint, print quality or load capacity.
-alternatives: Reconcile the scarf nose and opposing rear-floor relief together to increase the terminal section while retaining the square end and core-floor running gap. That floor-joint redesign is not implemented here.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=90.400 y=214.527 z=-0.350
-click: x=90.601 y=214.524 z=-2.923
-
 [ceiling] Unavoidable flat bearing interfaces: these Z66.2/Z138.6 flats are the complete lower ends of the front screw-bearing blocks. Their current paired native interfaces retain positive running/support clearance. Tree(auto)/Default support can leave through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
 alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening spends the defined screw-bearing and insert-host length.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step

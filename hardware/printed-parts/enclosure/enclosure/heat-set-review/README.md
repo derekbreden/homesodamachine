@@ -91,7 +91,7 @@ variation and deflection determine which blocks bear first. Equal load sharing i
 unestablished. The audit reads every block's whole native section, its length along the
 screw and its ligament fore and aft of the clearance hole. These are geometric quantities,
 not a measured shear or bearing capacity. Edge-first bending that opens the bottom seam
-loads the lower screws. The floor scarf has no tensile interlock,
+loads the lower screws. The floor tongue has no tensile interlock,
 and the joined tops do not establish a compression flange under that bending mode.
 
 The Z hooks have 4.5 mm arms and 5 mm overlap over their 6 mm feet. Every sliding
