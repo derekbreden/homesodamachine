@@ -45,8 +45,9 @@ specific to the access mouth.
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
-| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 5 mm behind the connector contact face, 5.127 mm behind the recessed seat's printed face; M1.4×8 tip 0.5 mm before blind end |
-| Six factory dock locks | M3 short, 4.0 mm | 5.25 mm | Four 3 mm keepers and one 3.15 mm rear support use M3×8 screws with 0.5 mm steel washers. Nominal thread projection is 4.50 / 4.35 mm, with 0.75 / 0.90 mm blind-tip room respectively |
+| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the connector contact face, 7.375 mm behind the recessed seat's printed face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
+| Four factory keeper locks | M3 short, 4.0 mm | Through the 7 mm wall | The 3 mm keepers use M3×8 screws with 0.5 mm steel washers. Each insert seats flush on the interior wall face. Nominal thread projection is 4.50 mm, engaging the full insert and leaving 2.75 mm to the seated moving cartridge |
+| Two factory rear-support locks | M3 short, 4.0 mm | 5.25 mm blind | The 3.15 mm rear support uses M3×8 screws with 0.5 mm steel washers. Nominal thread projection is 4.35 mm, with 0.90 mm blind-tip room |
 
 ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
 M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm is
@@ -54,8 +55,8 @@ the starting fit. The [SPIROL FDM guidance](https://www.spirol.com/resources/whi
 supplies the application rule of a solid host diameter at least 1.5 times the
 knurl diameter. The audit reports this separately from supplier compliance.
 The bound insert audit reports at least 1.148 mm around the pump-cap's Ø2 pilot through
-the whole insert body, with more in front-top. The Ø2.6 entry passes the whole knurl
-through the 2 mm setback. Install and cold-check the depth before fitting the
+the whole insert body, with more in front-top. The 2.6 mm wide loading stadium passes the whole knurl
+through the 4.25 mm ear-to-anchor setback. Install and cold-check the depth before fitting the
 connector, following [enclosure assembly](../../../../assembly/enclosure-mechanical.md).
 The [coupon](../contact-pair-coupon/README.md) retains its identified geometry and
 connector-fit acceptance. The [current mounting audit](../../../../reference/yyfkgcp-pogo-4p/mounting-audit.md)

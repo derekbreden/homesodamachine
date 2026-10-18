@@ -117,6 +117,7 @@ def main():
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.6g} mm",
         "TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
         "TIP_FROM_CARTRIDGE": f"{plate['seated_tube_bottom_y'] - _enc.pump_cartridge_aft_y(f.box['pump_trays'], plate):.6g} mm",
+        "DOCK_BODY_GAP": f"{_enc.bay_back_y(plate) - _enc.pump_cartridge_aft_y(f.box['pump_trays'], plate):.4g} mm",
         "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box['inner'], plate))}",
         "CAP_SCREW_LEN": f"{_enc.cap_screw_len:.4g}",
     }

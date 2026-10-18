@@ -15,7 +15,7 @@ silicone-bearing measurements. It does not establish physical assembly force or 
 
 ## The box
 
-Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 473.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the `enclosure-pump-cartridge` and its top clamp: six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cartridge's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
+Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 476.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the `enclosure-pump-cartridge` and its top clamp: six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cartridge's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
 
 - **The Y seam is stated at [200](Y_SEAM).** The front pieces' +Y walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and a full-thickness, 45°-scarfed tongue inside the floor slab, so the floor stays flat where the cold core rides across it. At each ±X corner a stack of knuckles, alternating between the front and back pieces, is pinned and clamped by two vertical M5 screws: an [M5 × 150](LOWER_ROD) up from the handhold ceiling into an insert in back-top's hub over the Z seam, and an [M5 × 60](UPPER_ROD) down from back-top's roof into an insert in front-top's knuckle under the funnel frame. Four screws in all.
 - **The Z seam is one stated plane, both columns, at [160](Z_SEAM_FRONT)** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
@@ -98,23 +98,22 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
   other electronics inserts seat on their actual mounting faces: the PSU takes
   M3 × 10 through its moulded ears and each relay M3 × 6 through its board, with
   each stack in `bom.md` §13.
-- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed 0.127 mm; its ear datum is 3.127 mm and the insert's top 5.127 mm inside the printed face. The insert starts 2 mm behind the ear datum. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
+- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed [0.125 mm](POGO_FACE_RECESS); its ear datum is [3.125 mm](POGO_EAR_HOST_DEPTH) and the insert's top [7.375 mm](POGO_INSERT_HOST_DEPTH) inside the printed face. The insert starts [4.25 mm](POGO_INSERT_SETBACK) behind the ear datum. The 2.6 mm wide loading stadium admits the whole Ø2.3 knurl; the Ø2.0 pilot continues 5.5 mm from the insert-top datum. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-top's two hubs over the Z seam, pressed into their undersides with the piece on its back, and front-top's two knuckles under the funnel frame, pressed from above. A second tip off the same T18 kit.
 
 The acquired VECO-T T18 assortment includes I/LB fine tips; the M2–M8 insert kit
 does not provide an M1.4 tip. Cold-check that the selected fine tip reaches the
-insert through the Ø2.6 entry without bearing on its printed wall.
+insert through the 2.6 mm loading passage without bearing on its printed wall. The modeled knurl clearance does not establish the actual T18 tip profile or cold fit.
 
 Install each M1.4 insert before its connector is fitted. Hold the loose piece with
 the bore vertical. Use a spare insert and the existing calipers to set the cold
-tip/probe's insertion travel to 5.127 mm from the printed mating face; mark that
+tip/probe's insertion travel to [7.375 mm](POGO_INSERT_HOST_DEPTH) from the printed mating face; mark that
 travel on the probe. Heat and press straight through the clearance entry, stopping
-with the insert's top 5.127 mm below that face. Allow it to cool, then verify the
+with the insert's top [7.375 mm](POGO_INSERT_HOST_DEPTH) below that face. Allow it to cool, then verify the
 depth with the cold probe and calipers before seating the connector. Do not use
-the blind end or the connector's screw to force the depth. The coupon must show
-that this process seats a whole insert without melting the ear datum or moving
-the connector face more than ±0.05 mm from its designed 0.127 mm recess. The M1.4×8 screw engages the
-whole 4 mm body and leaves 0.5 mm before the pilot's blind end.
+the blind end or the connector's screw to force the depth. The current installation must seat a whole insert without melting the ear datum or moving
+the connector face more than ±0.05 mm from its designed [0.125 mm](POGO_FACE_RECESS) recess. The M1.4×8 screw engages
+[2.75 mm](POGO_THREAD_ENGAGEMENT) of its 4 mm body and leaves [2.75 mm](POGO_SCREW_TIP_AIR) before the pilot's blind end. Existing coupon acceptance retains its identified seat geometry; the deeper current installation and actual tool fit remain unqualified.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
 checks the complete host walls, blind relief, caps, entry paths and every corner-stack knuckle.
@@ -200,7 +199,7 @@ funnels together. The rigid cartridge seats set final insertion; the tube tips k
 their designed clearance from the internal shoulders. Neither commercial collets nor
 fixed plumbing moves during withdrawal.
 
-`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [102.2 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, permanent receiver wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The four spine hairpins travel with front-top during this chassis slide and remain fixed to its plumbing when it stops. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
+`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [99.16 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, permanent receiver wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The four spine hairpins travel with front-top during this chassis slide and remain fixed to its plumbing when it stops. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
 
 The assembled dock's dry connection cycle in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) records simultaneous stub withdrawal and reinsertion, rigid seating and electrical continuity. Wet sealing, retention under pressure and endurance remain separate qualifications.
 
@@ -232,7 +231,7 @@ Confirm the main board's two exposed edges are clear to a hand and a plug, and t
 
 The box closes in two slides and four screws, and everything in the service bay is aboard before the first one moves.
 
-1. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, **slides FORE onto a bare `enclosure-back-bottom`** — entering aft of home, standing [244.5 mm](RAIL_TRAVEL_BACK) proud of the bottom piece's rear wall, to its assembled position at the stop blocks at the Y-seam end of their runs. Its broad shoulder and rail ends each have 0.25 mm of modeled allowance. Both flanks carry the same run: the rail passes straight through the PRV chase's station, which keeps out of the joint's own band for that storey. The tub under it is EMPTY, and that is the design and not a convenience: this piece's whole fore band sweeps the depth of the column on its way in, so nothing may stand in the tub yet — `z-slide-back-clear` is the card's reading of the travel. Everything the bay needs from this piece — the seven connection bodies, the electronics bay, the tap-water chain in its anchor, the meter under its ceiling — is already riding it.
+1. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, **slides FORE onto a bare `enclosure-back-bottom`** — entering aft of home, standing [247.5 mm](RAIL_TRAVEL_BACK) proud of the bottom piece's rear wall, to its assembled position at the stop blocks at the Y-seam end of their runs. Its broad shoulder and rail ends each have 0.25 mm of modeled allowance. Both flanks carry the same run: the rail passes straight through the PRV chase's station, which keeps out of the joint's own band for that storey. The tub under it is EMPTY, and that is the design and not a convenience: this piece's whole fore band sweeps the depth of the column on its way in, so nothing may stand in the tub yet — `z-slide-back-clear` is the card's reading of the travel. Everything the bay needs from this piece — the seven connection bodies, the electronics bay, the tap-water chain in its anchor, the meter under its ceiling — is already riding it.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's scarfed tongue closes inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor pocket is Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, leaving 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
@@ -316,12 +315,13 @@ and feed that free end forward through the bulkhead's lead bore into the empty p
 Solder to the male half in machine-X order: `AM2`, `AM1`, `BM2`, `BM1` from +X to −X.
 Insulate each joint, then draw the slack back through the bore. Seat the male half with
 its marked end at **−X** and both ear plates on the datum 3 mm behind the connector
-contact face, or 3.127 mm behind the printed mounting face.
+contact face, or [3.125 mm](POGO_EAR_HOST_DEPTH) behind the printed mounting face.
 Use a **hand-operated 1.3 mm hex driver** to seat **two M1.4 × 8** screws into
 the **two M1.4 × 4 × Ø2.3** inserts pressed at §1. Stop with the ear plates
 seated flat, without rotating the inserts or bending the ears. Powered torque
-settings are not qualified for this joint;
-the 1 mm ears and 2 mm setback leave 5 mm nominal threaded reach, including the full 4 mm insert and 0.5 mm blind-end clearance. The
+settings are not qualified for this joint. The 1 mm ears and
+[4.25 mm](POGO_INSERT_SETBACK) setback give [2.75 mm](POGO_THREAD_ENGAGEMENT)
+nominal thread engagement and [2.75 mm](POGO_SCREW_TIP_AIR) blind-end clearance. The
 [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
 datums, the attracting orientation and the installed compression limits.
 

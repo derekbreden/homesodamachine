@@ -10,7 +10,7 @@ stringing; it supplies no receiver acceptance.
 The [editable project](2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf)
 and [native sliced archive](2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf)
 are prepared for review. No printer was contacted, submitted to or started.
-Bambu Studio estimates **2 h 14 min / 10.53 g**, with **124 layers** and no
+Bambu Studio estimates **2 h 12 min / 10.36 g**, with **124 layers** and no
 slicer warning. The archive contains unprocessed native G-code.
 
 | Setting | Prepared value |
@@ -47,6 +47,9 @@ actual widths, arcs, features, object labels and travels:
 | Separation between complete bead projections | At least 2.22 mm; first-layer actual minimum 2.59 mm |
 | Front and rear sealing lands | At least four complete circumferential runs on every sampled layer; wider collar sections have up to nine |
 | Factory-stop waist | Five complete circumferential runs in each of four layers on all four receivers |
+| Outer mounting ramp | Complete circumferential roads on all 19 ramp layers per receiver; outermost road centerlines entirely backed by prior model beads |
+| Ramp bead area overlapping previous layer | 73.79–96.43% for the outermost road |
+| Mounting-collar rim | Nine complete circumferential roads on each of nine layers through the 1.1 mm axial rim |
 | Support in wet bores | None; minimum support-bead clearance to the bore through the full bead height 2.69 mm |
 | Second-layer model centerlines | Entirely backed by first-layer model beads on all four receivers |
 | Second-layer bead area overlapping first layer | 93.84%; the funnel adds the inward-growing strip |
@@ -60,6 +63,11 @@ radially from the 3.35 mm keeper groove. Support release, groove finish and
 the receiver's flexibility during that operation have no physical result.
 No support-removal tool needs to enter a sealing bore.
 
+The 51.58° outer mounting ramp has no automatic support interfaces below
+its front rim in this native slice. Its outermost road centerlines remain
+over previous-layer model beads; this reading establishes commanded support
+geometry, without measuring printed adhesion or collar strength.
+
 The Ø5.00 mm throat's 0.475 mm axial waist appears in layers 71–74, at
 Z8.60, Z8.72, Z8.84 and Z8.96 mm. Every layer/object sample has five complete
 circumferential roads with zero loop-end gap. The innermost road's mean
@@ -67,7 +75,7 @@ radius is 2.804–2.808 mm, inside the factory tail's nominal 3.175 mm radius.
 These are commanded paths, without a measured printed stop or bearing result.
 
 The native travel review records projected bore crossings longer than
-0.3 mm on twenty-six next-layer returns. These commanded paths retain exposure
+0.3 mm on thirty next-layer returns. These commanded paths retain exposure
 to internal strands. Wall paths and bore-support exclusion do not establish
 a strand-free passage. Inspect and clear the actual fluid passage before
 factory assembly; receiver dimensions, seal holding and lifetime remain

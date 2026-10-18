@@ -104,12 +104,12 @@ FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
 OUTER_AFT_X = 73.82  # valve axes retain the seam-rail running room
 # Stationary pump-tee authoring datum, before its explicit aft shift.
 CARRIER_DATUM_SHIFT = -1.75
-FIXED_TEE_AFT_SHIFT = 12.0
-FORE_DECK_AFT_SHIFT = 12.0
-AFT_DECK_AFT_SHIFT = 7.0
+FIXED_TEE_AFT_SHIFT = 15.0
+FORE_DECK_AFT_SHIFT = 15.0
+AFT_DECK_AFT_SHIFT = 10.5
 # Existing world lift is independent of the fixed routing's lowest surface.
 WORLD_LIFT = 191.425
-CUSTOMER_STUB_PROJECTION = 9.851
+CUSTOMER_STUB_PROJECTION = 12.851
 CUSTOMER_TIP_TO_FACTORY_TIP = 1.5
 # Reference span preserving the fitted pump/skirt datum. The fixed tee and
 # receiver stations are located separately.

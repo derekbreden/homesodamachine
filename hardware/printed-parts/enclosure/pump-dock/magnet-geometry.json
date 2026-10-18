@@ -20,26 +20,27 @@
       6.35
     ],
     "frame_faces_y_mm": [
-      79.269,
-      79.515
+      82.265,
+      82.515
     ],
-    "frame_gap_mm": 0.2459999999999951,
-    "bare_pole_plane_y_mm": 81.269,
+    "frame_gap_mm": 0.25,
+    "bare_pole_plane_y_mm": 84.265,
     "moving_pole_projection_mm": 2.0,
-    "fixed_pole_recess_mm": 1.7540000000000049,
-    "moving_guard_projection_mm": 1.8499999999999943,
+    "fixed_pole_recess_mm": 1.75,
+    "moving_guard_projection_mm": 1.3499999999999943,
     "guard_running_air_mm": 0.25,
     "common_drawing_groove_interval_mm": [
       1.8541999999999998,
       2.6923999999999997
     ],
     "rail_depth_interval_mm": [
-      1.95,
-      2.55
+      2.0,
+      2.6
     ],
+    "key_cavity_front_depth_mm": 2.6,
     "rail_to_worst_drawing_groove_air_mm": [
-      0.09580000000000011,
-      0.14239999999999975
+      0.14580000000000015,
+      0.0923999999999997
     ],
     "rail_tip_to_maximum_groove_neck_air_mm": 0.11040000000000028,
     "minimum_back_and_side_stock_mm": 3.0,
@@ -50,10 +51,15 @@
   },
   "checks": [
     {
+      "check": "moving final host retains the complete source-defined stock around its cavity",
+      "passed": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
       "check": "moving printable native volumes valid",
       "passed": true,
-      "solids": 2,
-      "volume_mm3": 6001.4247622399935
+      "solids": 1,
+      "volume_mm3": 619697.599478579
     },
     {
       "check": "pump-dock-SB443-moving-1-1 clearance",
@@ -233,12 +239,12 @@
     {
       "check": "moving keyed potting reacts Y -0.01",
       "passed": true,
-      "overlap_mm3": 5.710195200002993
+      "overlap_mm3": 5.7101952000022
     },
     {
       "check": "moving keyed potting reacts Y 0.01",
       "passed": true,
-      "overlap_mm3": 2.224744000001129
+      "overlap_mm3": 2.2247440000011345
     },
     {
       "check": "moving cured key fits without native overlap",
@@ -246,10 +252,15 @@
       "overlap_mm3": 0.0
     },
     {
+      "check": "fixed final host retains the complete source-defined stock around its cavity",
+      "passed": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
       "check": "fixed printable native volumes valid",
       "passed": true,
-      "solids": 2,
-      "volume_mm3": 6035.044650240003
+      "solids": 1,
+      "volume_mm3": 1300350.7263575492
     },
     {
       "check": "pump-dock-SB443-fixed-1-1 clearance",
@@ -429,22 +440,17 @@
     {
       "check": "fixed keyed potting reacts Y -0.01",
       "passed": true,
-      "overlap_mm3": 2.22474400000113
+      "overlap_mm3": 2.224744000001135
     },
     {
       "check": "fixed keyed potting reacts Y 0.01",
       "passed": true,
-      "overlap_mm3": 5.710195200002923
+      "overlap_mm3": 5.71019520000219
     },
     {
       "check": "fixed cured key fits without native overlap",
       "passed": true,
       "overlap_mm3": 0.0
-    },
-    {
-      "check": "moving backing entirely within retained cradle stock",
-      "passed": true,
-      "added_to_fitted_well_mm3": 0.0
     },
     {
       "check": "guard insertion separation -0.0mm",
@@ -479,717 +485,171 @@
     {
       "check": "bare mate1",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
     },
     {
       "check": "bare mate2",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
     },
     {
       "check": "bare mate3",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
     },
     {
       "check": "bare mate4",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
     },
     {
       "check": "bare mate5",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
     },
     {
       "check": "bare mate6",
       "passed": true,
-      "plane_mm": 81.269
+      "plane_mm": 84.265
+    },
+    {
+      "check": "moving rail front flush with cartridge body",
+      "passed": true
+    },
+    {
+      "check": "key cavity begins at rail back without offset",
+      "passed": true
+    },
+    {
+      "check": "source, declared Box and actual native hosts stayed stable",
+      "passed": true
     }
   ],
-  "scope": "Native local shape, supplier dimensional envelope, load-path witness, and retained cradle-well preservation. No installed force or material lifetime result.",
-  "source_sha256": "45dbb1ba9dd8b1966cd294a010417cee5c9e8f4a975367105b37320c7642009a",
-  "retained_cartridge_sha256": "683231d48b0cd1f07a076ea87dab0dd135b554c9111956e45123017b07a2f7d6",
-  "check_count": 91,
-  "failed_count": 0,
-  "post_publication_rail_key_alignment_review": {
-    "scope": "Post-publication rail/key alignment: native local stocks, full supplier envelope, loading and positive keyed capture. Column stock function is unchanged; no filled-stock subtraction against the already-cut live cradle is used. No installed force or lifetime claim.",
-    "source_sha256": "1698e622f202d508f685a41ded07f50e663ee385038ba5fd29d782964910c28c",
-    "check_count": 92,
-    "failed_count": 0,
-    "dimensions": {
-      "magnet": "K&J SB443-IN",
-      "magnets_per_half": 6,
-      "columns_per_half": 2,
-      "rows_per_column": 3,
-      "column_axes_xz_mm": [
-        [
-          -52.224999999999994,
-          186.174
-        ],
-        [
-          52.224999999999994,
-          186.174
-        ]
-      ],
-      "nominal_bar_mm": [
-        6.35,
-        4.7625,
-        6.35
-      ],
-      "frame_faces_y_mm": [
-        79.269,
-        79.515
-      ],
-      "frame_gap_mm": 0.2459999999999951,
-      "bare_pole_plane_y_mm": 81.269,
-      "moving_pole_projection_mm": 2.0,
-      "fixed_pole_recess_mm": 1.7540000000000049,
-      "moving_guard_projection_mm": 1.8499999999999943,
-      "guard_running_air_mm": 0.25,
-      "common_drawing_groove_interval_mm": [
-        1.8541999999999998,
-        2.6923999999999997
-      ],
-      "rail_depth_interval_mm": [
-        2.0,
-        2.6
-      ],
-      "key_cavity_front_depth_mm": 2.6,
-      "rail_to_worst_drawing_groove_air_mm": [
-        0.14580000000000015,
-        0.0923999999999997
-      ],
-      "rail_tip_to_maximum_groove_neck_air_mm": 0.11040000000000028,
-      "minimum_back_and_side_stock_mm": 3.0,
-      "assembly": "Post-print front loading, then mechanically keyed room-temperature potting against pole-setting gauges",
-      "magnet_pull_force_established": false,
-      "pogo_seats_changed": false,
-      "customer_adjustment": false
-    },
-    "checks": [
-      {
-        "check": "moving printable native volumes valid",
-        "passed": true,
-        "solids": 2,
-        "volume_mm3": 5993.038714239989
-      },
-      {
-        "check": "pump-dock-SB443-moving-1-1 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-moving-1-2 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-moving-1-3 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-moving-2-1 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-moving-2-2 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-moving-2-3 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving setting gauge 1 body clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving setting gauge 2 body clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 worst-envelope bar1",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 worst-envelope bar2",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 worst-envelope bar3",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 entry 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 entry 1.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 entry 4.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 entry 8.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 3.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 6.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 10.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 15.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column1 descent 20.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 worst-envelope bar1",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 worst-envelope bar2",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 worst-envelope bar3",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 entry 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 entry 1.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 entry 4.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 entry 8.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 3.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 6.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 10.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 15.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving column2 descent 20.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "moving cured key native volumes valid",
-        "passed": true,
-        "solids": 2
-      },
-      {
-        "check": "moving keyed potting reacts Y -0.01",
-        "passed": true,
-        "overlap_mm3": 5.710195200002931
-      },
-      {
-        "check": "moving keyed potting reacts Y 0.01",
-        "passed": true,
-        "overlap_mm3": 2.224744000001135
-      },
-      {
-        "check": "moving cured key fits without native overlap",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed printable native volumes valid",
-        "passed": true,
-        "solids": 2,
-        "volume_mm3": 6026.658602239999
-      },
-      {
-        "check": "pump-dock-SB443-fixed-1-1 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-fixed-1-2 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-fixed-1-3 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-fixed-2-1 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-fixed-2-2 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "pump-dock-SB443-fixed-2-3 clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed setting gauge 1 body clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed setting gauge 2 body clearance",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 worst-envelope bar1",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 worst-envelope bar2",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 worst-envelope bar3",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 entry 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 entry 1.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 entry 4.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 entry 8.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 3.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 6.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 10.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 15.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column1 descent 20.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 worst-envelope bar1",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 worst-envelope bar2",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 worst-envelope bar3",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 entry 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 entry 1.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 entry 4.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 entry 8.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 3.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 6.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 10.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 15.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed column2 descent 20.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "fixed cured key native volumes valid",
-        "passed": true,
-        "solids": 2
-      },
-      {
-        "check": "fixed keyed potting reacts Y -0.01",
-        "passed": true,
-        "overlap_mm3": 2.2247440000011314
-      },
-      {
-        "check": "fixed keyed potting reacts Y 0.01",
-        "passed": true,
-        "overlap_mm3": 5.710195200002923
-      },
-      {
-        "check": "fixed cured key fits without native overlap",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation -0.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation 0.25mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation 1.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation 2.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation 5.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "guard insertion separation 10.0mm",
-        "passed": true,
-        "overlap_mm3": 0.0
-      },
-      {
-        "check": "bare mate1",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "bare mate2",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "bare mate3",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "bare mate4",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "bare mate5",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "bare mate6",
-        "passed": true,
-        "plane_mm": 81.269
-      },
-      {
-        "check": "moving rail front flush with cartridge body",
-        "passed": true
-      },
-      {
-        "check": "key cavity begins at rail back without offset",
-        "passed": true
-      }
-    ],
-    "manual_script_sha256": "572ae5c1eb14f4b1f06106923bcca77f4f7e58f64c02ccb8a444f8db77574ea3",
-    "column_stock_function_ast_sha256": "76e9333eff5b0a8abda12d10a744dfef5c007410c271b298d34454d93d4b3d51",
-    "column_stock_function_matches_published": true,
-    "fitted_stock_scope": "The stock-generating function is unchanged from the published version. The local native review checks rails, key cavities and supplier loading; no subtraction of filled stock from a live cartridge that already contains the finished cavities is interpreted as fitted-stock loss.",
-    "changes_mm": {
-      "rail_depth_from_pole": [
-        2.0,
-        2.6
-      ],
-      "key_cavity_front_depth": 2.6,
-      "moving_rail_fore_y": 79.269,
-      "moving_body_aft_y": 79.269
-    },
-    "limitations": [
-      "These supplier-envelope/native capture checks do not establish printed rail strength, cured-key strength, installed magnetic pull, removal effort or lifetime."
-    ]
+  "check_count": 95,
+  "failed_checks": [],
+  "scope": "Current declared dock interface and direct canonical native hosts: full supplier envelope/loading, complete column stock, pole faces, keyed retention and guard travel. No material strength or lifetime inference.",
+  "source_sha256": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
+  "box_sha256": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
+  "input_step_sha256": {
+    "moving": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063",
+    "fixed": "83c45f665634e19a29501bab7894bee2c32c1e24fc5f0d3698f89321142dc279"
   },
-  "factory_gauge_build_pose_review": {
-    "scope": "STL face orientation for the factory gauges only; not a slice or physical acceptance. Canonical geometry remains in the machine frame. Rotate and bed the stated common flat backs for printing.",
-    "source_sha256": "1698e622f202d508f685a41ded07f50e663ee385038ba5fd29d782964910c28c",
-    "rows": [
+  "manufacturer_drawing": "https://www.kjmagnetics.com/resources/pdfs/SB443-IN.pdf",
+  "physical_limits": [
+    "Supplier envelope and nominal keyed capture do not establish printed fit/rail strength, cured-key strength, installed magnetic pull or customer removal effort.",
+    "Pole-setting gauge accuracy, exposed-edge chipping, angled insertion and repeated dock service remain physical qualification."
+  ],
+  "factory_gauges": {
+    "scope": "Direct canonical STEP equality and actual STL pose/parallel-plane review. This establishes nominal geometry and numerical 3 mm lint boundary only; no printed dimensional accuracy, surface finish or support-removal claim.",
+    "source_sha256": {
+      "enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+      "dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57"
+    },
+    "box_sha256": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
+    "tools": [
       {
         "side": "moving",
-        "input_stl_sha256": "b8ce9aee87f38e4e84f8befb7f3434e35e99866e62d696c15e3917090977e4d5",
-        "rotation_degrees_about_X": -90,
-        "build_direction_in_machine_frame": "-Y",
-        "bed_face_machine_y_mm": 84.269,
-        "print_bounds_after_bedding_mm": [
-          [
-            -64.4000015258789,
-            176.6490020751953,
-            0.0
-          ],
-          [
-            -40.04999923706055,
-            209.8553924560547,
-            5.0
-          ]
+        "input_step_sha256": "a717f32092f9627cdc83275f1e40add1556cbcf131e92022b00de1d621e8adb2",
+        "input_stl_sha256": "6071709250386e0ef46f32b37a314ecea24add1f1ed8ea9b61512b5a4a03985c",
+        "one_valid_solid": true,
+        "source_symmetric_difference_mm3": 0.0,
+        "print_build_axis_in_machine": [
+          0.0,
+          -1.0,
+          0.0
         ],
-        "negative_Z_horizontal_facets_above_bed": 0,
-        "all_horizontal_undersides_on_bed": true,
-        "facets": 44,
-        "bed_contact_area_mm2": 435.5266914367676
-      },
-      {
-        "side": "fixed",
-        "input_stl_sha256": "1d3151fdb7e3607a8a267b349de659c2facfc04b099aace4b41dd836161866cd",
-        "rotation_degrees_about_X": 90,
-        "build_direction_in_machine_frame": "+Y",
-        "bed_face_machine_y_mm": 76.515,
-        "print_bounds_after_bedding_mm": [
-          [
-            -64.4000015258789,
-            -209.8553924560547,
-            0.0
-          ],
-          [
-            -40.04999923706055,
-            -176.6490020751953,
-            4.753997802734375
-          ]
-        ],
-        "negative_Z_horizontal_facets_above_bed": 0,
-        "all_horizontal_undersides_on_bed": true,
-        "facets": 52,
-        "bed_contact_area_mm2": 435.5266914367676
-      }
-    ],
-    "limitations": [
-      "No slicer paths, printed gauge accuracy, surface finish or physical stiffness were measured."
-    ]
-  },
-  "gauge_three_mm_boundary_review": {
-    "scope": "Exact native/STL flat-gauge widths at initial post-publication 3.000 mm thin findings. The reported sub-threshold boundary is numerical; these are complete nominal 3 mm sections, not a thinner-section exception. Print poses are separately recorded.",
-    "rows": [
-      {
-        "part": "moving",
-        "input_step_sha256": "0227dcede762090fa055c1248a2b22d41d91808cd27f049085a1fa1ea018c23b",
-        "input_stl_sha256": "b8ce9aee87f38e4e84f8befb7f3434e35e99866e62d696c15e3917090977e4d5",
-        "widths": [
+        "machine_back_plane_y_mm": 87.26499938964844,
+        "rotate_about_X_degrees": -90,
+        "horizontal_underside_triangles_above_bed": 0,
+        "exact_nominal_3mm_sections": [
           {
             "feature": "Y central rib",
-            "native_parallel_plane_mm": [
-              81.269,
-              84.269
+            "native_parallel_planes_mm": [
+              84.265,
+              87.265
             ],
             "native_width_mm": 3.0,
             "native_face_areas_mm2": [
               181.23839999999996,
               435.5268000000004
             ],
-            "stl_parallel_plane_mm": [
-              81.26899719238281,
-              84.26899719238281
+            "stl_parallel_planes_mm": [
+              84.26499938964844,
+              87.26499938964844
             ],
-            "stl_width_mm": 3.0,
-            "meets_nominal_3mm": true
+            "stl_width_mm": 3.0
           },
           {
             "feature": "Z bridge",
-            "native_parallel_plane_mm": [
-              206.8554,
-              209.8554
+            "native_parallel_planes_mm": [
+              206.85539999999997,
+              209.85539999999997
             ],
             "native_width_mm": 3.0,
             "native_face_areas_mm2": [
               73.75,
               121.75000000000004
             ],
-            "stl_parallel_plane_mm": [
+            "stl_parallel_planes_mm": [
               206.8553924560547,
               209.8553924560547
             ],
-            "stl_width_mm": 3.0,
-            "meets_nominal_3mm": true
+            "stl_width_mm": 3.0
           },
           {
             "feature": "X side foot",
-            "native_parallel_plane_mm": [
-              -64.4,
-              -61.4
+            "native_parallel_planes_mm": [
+              -64.39999999999999,
+              -61.39999999999999
             ],
-            "native_width_mm": 3.000000000000007,
+            "native_width_mm": 3.0,
             "native_face_areas_mm2": [
               166.032,
               151.03199999999998
             ],
-            "stl_parallel_plane_mm": [
+            "stl_parallel_planes_mm": [
               -64.4000015258789,
               -61.400001525878906
             ],
-            "stl_width_mm": 3.0,
-            "meets_nominal_3mm": true
+            "stl_width_mm": 3.0
           }
         ]
       },
       {
-        "part": "fixed",
-        "input_step_sha256": "22a5935011a641816e251c6c536ffa30507f2cea5fd89adf086db13201d156ec",
-        "input_stl_sha256": "1d3151fdb7e3607a8a267b349de659c2facfc04b099aace4b41dd836161866cd",
-        "widths": [
+        "side": "fixed",
+        "input_step_sha256": "6125b89c235fbae25cc34b0496243b784ca268ee3601ace76d80304bf40c6cc8",
+        "input_stl_sha256": "7129737b26cc4c8c4f2244f0668b92f6dd2fd2bcc677de86d986011f38ed2117",
+        "one_valid_solid": true,
+        "source_symmetric_difference_mm3": 0.0,
+        "print_build_axis_in_machine": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "machine_back_plane_y_mm": 79.51499938964844,
+        "rotate_about_X_degrees": 90,
+        "horizontal_underside_triangles_above_bed": 0,
+        "exact_nominal_3mm_sections": [
           {
             "feature": "Y tool plate",
-            "native_parallel_plane_mm": [
-              76.515,
-              79.515
+            "native_parallel_planes_mm": [
+              79.515,
+              82.515
             ],
             "native_width_mm": 3.0,
             "native_face_areas_mm2": [
               435.5268000000004,
               318.1980000000003
             ],
-            "stl_parallel_plane_mm": [
-              76.51499938964844,
-              79.51499938964844
+            "stl_parallel_planes_mm": [
+              79.51499938964844,
+              82.51499938964844
             ],
-            "stl_width_mm": 3.0,
-            "meets_nominal_3mm": true
+            "stl_width_mm": 3.0
           }
         ]
       }
-    ]
+    ],
+    "passed": true
   }
 }

@@ -14,7 +14,7 @@ its underside, so it stands in the silhouette and the cavity's floor plane — t
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
 screws, two at each Y-seam corner, close the whole box.
-It measures [215 × 473.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures [215 × 476.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -312,8 +312,8 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
-[240 mm](RAIL_RUN_BACK) and [228 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+along both whole runs** — [94 mm](RAIL_RUN_FRONT) per flank on the front column,
+[242 mm](RAIL_RUN_BACK) and [230 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
@@ -605,12 +605,12 @@ list.
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1356 mm](FLUTE_PERIM) of
+**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1362 mm](FLUTE_PERIM) of
 plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
 flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
 station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [4.9853 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
-one straight line running the full height of both side walls — lands [1.8 mm](FLUTE_SEAM_MISS)
+on, [5.0073 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
+one straight line running the full height of both side walls — lands [1.9 mm](FLUTE_SEAM_MISS)
 off a groove's centre, in the shadow that is already there rather than on a land.
 **`flute-closes`** holds the pitch to the coupon's.
 
@@ -626,10 +626,10 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[358.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
+[364.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
-**x = 0** and the pitch remains [4.9853 mm](FLUTE_PITCH), so both ledges retain the machine's
+**x = 0** and the pitch remains [5.0073 mm](FLUTE_PITCH), so both ledges retain the machine's
 inside phase. Each real surface is open; its two ends are edges like any other and the field
 ramps to zero on them, as it does at both Z ends of the band, which keeps cutter caps off every
 mouth and window arris.
@@ -670,10 +670,10 @@ full depth, so nothing crosses a flute anywhere here and no edge it makes is one
 on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 
 **The mullion is the governing number, not the section behind the groove.** A slot takes its
-width out of the pitch, and what is left between two of them is [1.8853 mm](VENT_MULLION) at
-[4.9853 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+width out of the pitch, and what is left between two of them is [1.9073 mm](VENT_MULLION) at
+[5.0073 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
 profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
-[0.1453 mm](VENT_SPARE) and ceilings a slot down every groove at [3.2453 mm](VENT_CEILING). The
+[0.1673 mm](VENT_SPARE) and ceilings a slot down every groove at [3.2673 mm](VENT_CEILING). The
 two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
@@ -712,8 +712,8 @@ the crown of the can's sweep, square to both jambs. All
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
-[1.8853 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
-[58.3:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+[1.9073 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
+[57.7:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
 is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
 [3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
 pierced**, so every mullion and both jambs run into one plate of full section
@@ -732,13 +732,13 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [1.8853 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [1.8853 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [1.9073 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [1.9073 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
-is [62.2 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
+is [61.9 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
 out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
-[1.8853 mm](VENT_MEAS_MULLION) mullion, which is [13:1](VENT_ASPECT).
+[1.9073 mm](VENT_MEAS_MULLION) mullion, which is [12.8:1](VENT_ASPECT).
 
 **The air path is the donor's.** The condenser, its fan and shroud, and the compressor beside
 them stand in the donor ice maker's own arrangement
@@ -1390,10 +1390,10 @@ tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
 at y [76.269 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 [0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
 [3.382 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
-that opening the cradle keeps [3 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
+that opening the cradle keeps [5.996 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
 [3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [79.269 mm](PUMP_SKIRT_UPPER_BAND_AFT),
-and ends on the cartridge's flat back at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
-less its [0.246 mm](CARTRIDGE_BULKHEAD_KISS) clearance, the plane the clamp ends on too.
+and ends on the cartridge's flat back at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
+less its [0.25 mm](CARTRIDGE_BULKHEAD_KISS) clearance, the plane the clamp ends on too.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [174.4 mm](CLAMP_SPAN) across and [67.249 mm](CLAMP_RISE) high. Its bridge underside
@@ -1430,10 +1430,10 @@ y [49.936 mm](CAP_TUBE_START_Y). Its circular lower half is
 centered on the casing axis and a straight [13.25 mm](CAP_TUBE_OPEN) shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at the bulkhead face, y [79.515 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
+at the bulkhead face, y [82.515 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
 aft faces beside these openings.
 
-The pump outlet planes stand [2.351 mm](PUMP_OUTLET_BULKHEAD_AIR) fore of the
+The pump outlet planes stand [5.351 mm](PUMP_OUTLET_BULKHEAD_AIR) fore of the
 bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET) offset and
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
@@ -1460,8 +1460,8 @@ support is installed after the receivers and keepers, before the rear tails and 
 
 Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
 set full insertion, with the stem tips
-[7.746 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
-Y[87.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
+[7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
+Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
 A straight pull withdraws the four stems while every receiver, keeper, support,
 commercial tee and rear tube remains fixed. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
@@ -1476,8 +1476,8 @@ clearance does not determine their final axial position. The
 Installed holding force, mount capacity and heat exposure remain physical
 qualifications rather than advertised-array calculations.
 
-The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
-[0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
+The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
+[0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
 fit keeps its recorded scope; machined-stem capture, TPU sealing and the complete
 magnetic dock require their own assembled physical results.
 
@@ -1490,10 +1490,10 @@ perimeter has [6 mm](PULL_EDGE_R) rounds, leaving [6.23 mm](PULL_RIM_FLOOR_LIGAM
 at the lower rim and [5.98 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
 The rim's roll and corner blends follow the top shoulder and lower handholds;
 the flutes taper into the same broad smooth edge.
-The fore face at y [28.13 mm](PULL_LEDGE)
-carries cartridge extraction; the aft face at y [56.13 mm](PULL_AFT_LEDGE) takes the thumb's
-push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock fore
-of the pocket and [23.14 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
+The fore face at y [29.63 mm](PULL_LEDGE)
+carries cartridge extraction; the aft face at y [57.63 mm](PULL_AFT_LEDGE) takes the thumb's
+push during insertion. The cradle keeps [24.63 mm](PULL_FORE_STOCK) of stock fore
+of the pocket and [24.63 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
 ## Fixed plumbing behind the receiver wall
@@ -1518,7 +1518,7 @@ complete dock's physical qualification are specified in
 One opening spans the full cartridge width between the bay floor and lintel. Both
 rounded front corners and the exterior flanks belong to the removable cradle. Its
 straight aft face follows the bay bulkhead across the complete width with
-[0.246 mm](CARTRIDGE_BULKHEAD_KISS) broad-face clearance. The dedicated outboard
+[0.25 mm](CARTRIDGE_BULKHEAD_KISS) broad-face clearance. The dedicated outboard
 stop lands contact the lower cradle and establish the closing datum.
 
 The cradle's exterior stands plumb from its common bed plane to
@@ -1549,9 +1549,9 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 ## The bay bulkhead
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
-cartridge-facing plane is Y [79.515 mm](BAY_BACK_Y); its full backing depth is
+cartridge-facing plane is Y [82.515 mm](BAY_BACK_Y); its full backing depth is
 [14.321 mm](BAY_BULKHEAD_T), with the receiver-row interior recessed as described below. The cradle and clamp share one flat back at y
-[79.269 mm](PUMP_CARTRIDGE_AFT_Y), one [0.246 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
+[82.265 mm](PUMP_CARTRIDGE_AFT_Y), one [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
 The receiver row has a 7 mm wall section with four closed Ø12 mm bores and recessed
@@ -1608,7 +1608,7 @@ not identify the cap's complete contact path.
 
 The octagonal openings locate the rear bosses in plan and clock. Their vertical path keeps
 [5.609 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of the cap and
-[7.91 mm](CLAMP_AFT_WALL) behind each octagon.
+[10.91 mm](CLAMP_AFT_WALL) behind each octagon.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads sit in counterbores in the crown,
 reached from above with the same 2.5 mm key as every other M3 in the box. Their full-length
@@ -1636,12 +1636,12 @@ crown. Each native preparation must record its support contacts and removal path
 **The cartridge connects as it seats.** A
 [YYFKGCP 4-pin magnetic pogo pair](/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py)
 mates across a [0.5 mm](POGO_FACE_GAP) contact-face gap. The cartridge's flat back
-and bay bulkhead retain their [0.246 mm](CARTRIDGE_BULKHEAD_KISS) body clearance;
-each connector face is recessed [0.127 mm](POGO_FACE_RECESS) into its printed host.
+and bay bulkhead retain their [0.25 mm](CARTRIDGE_BULKHEAD_KISS) body clearance;
+each connector face is recessed [0.125 mm](POGO_FACE_RECESS) into its printed host.
 The female half, four flush pads between two magnets, is let into the clamp's aft
 face. The male half, four sprung pins, stands opposite it in the bulkhead's fore
 face. Both rows share one axis, on the centreline at z
-[278.524 mm](POGO_AXIS_Z). Straight Y insertion is the pair's mating axis, so each pin meets its
+[275.524 mm](POGO_AXIS_Z). Straight Y insertion is the pair's mating axis, so each pin meets its
 pad head-on and nothing sweeps across either face. Seated, each pin is pressed
 [0.5 mm](POGO_PIN_PRESS) of its 1.10 mm stroke, leaving [0.6 mm](POGO_PIN_SPARE). Each
 contact is rated 12 V and 2 A.
@@ -1670,14 +1670,14 @@ each half that will stand at −X, and seat both halves with that mark at −X.
 **Each half bears on its ear plate.** The seat's mouth is the plate's outline,
 [23.7 × 4.3 mm](POGO_MOUTH), cut from the face to the plate's back. That plane,
 [3 mm](POGO_DATUM_DEPTH) behind the recessed connector face, is the datum the plate
-lands on, 3.127 mm behind the printed host face. The
+lands on, 3.125 mm behind the printed host face. The
 body's stadium continues behind it, and the tails and their solder joints stand in the lead
 passage behind that. Two M1.4 × 8 socket-head screws pass the
 ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
-[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 2 mm behind the ear datum, or 5.127 mm
-inside the printed host face. A Ø2.6 mm passage admits the entire knurl through that
-setback. The full insert occupies depths 5.127–9.127 mm, the pilot ends at 10.627 mm,
-and the M1.4×8 tip ends at 10.127 mm. Each head stands
+[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 4.25 mm behind the ear datum, or 7.375 mm
+inside the printed host face. A 2.6 mm wide loading stadium admits the entire knurl through that
+setback. The full insert occupies depths 7.375–11.375 mm, the pilot ends at 12.875 mm,
+and the M1.4×8 tip ends at 10.125 mm, giving 2.75 mm thread engagement and blind-tip room. Each head stands
 [0.6 mm](POGO_HEAD_RECESS) behind the recessed connector face. Install the inserts before the half goes in, using the recessed-seat
 procedure in [enclosure assembly](../../../assembly/enclosure-mechanical.md).
 The supplier specifies the insert body, without a host-wall or hole-depth rule;
@@ -1691,16 +1691,16 @@ carry the same allowance.
 **The leads leave by the routes each print allows.** Behind the male, one
 [Ø11 mm](POGO_LEAD_BORE) teardrop bore starts at the body's back and runs through the bulkhead to
 its aft face, apex up, wide enough at the contact row for both outer tails and their solder
-joints. Its apex keeps [1.2 mm](POGO_LEAD_BORE_ROOF) of bulkhead under the crown, so its axis
-stands [2.098 mm](POGO_LEAD_DROP) below the pair's. It opens through the aft face above the fore
+joints. Its apex keeps [3 mm](POGO_LEAD_BORE_ROOF) of bulkhead under the crown, so its axis
+stands [0.8984 mm](POGO_LEAD_DROP) below the pair's. It opens through the aft face above the fore
 valve tray's crown at z [no tray](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
 opens through the clamp's crown, which is the clamp's bed face, and one
 [4 × 3.5 mm](POGO_GROOVE) groove per pump carries that pump's pair along the crown into its
-terminal well. The crown keeps [3.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.
+terminal well. The crown keeps [6.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's [215 × 473.3 × 361 mm](BOX_SIZE)
+The machine display sits on a 30° plane within the enclosure's [215 × 476.3 × 361 mm](BOX_SIZE)
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;

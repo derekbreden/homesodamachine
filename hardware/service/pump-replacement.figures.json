@@ -5,13 +5,14 @@
     "CAP_SCREW_LEN": "60",
     "CAP_VALVES": "3",
     "CART_PUMPS": "2",
+    "DOCK_BODY_GAP": "0.25 mm",
     "JOINT_COUNT": "4",
     "KEEPERS": "4",
     "RECEIVERS": "4",
-    "TIP_FROM_CARTRIDGE": "7.746 mm",
-    "TIP_Y": "87.015 mm",
+    "TIP_FROM_CARTRIDGE": "7.75 mm",
+    "TIP_Y": "90.015 mm",
     "TRAY_VALVES": "8",
     "TUBE_OD": "6.35 mm",
-    "TUBE_PROJECTION": "9.851 mm"
+    "TUBE_PROJECTION": "12.851 mm"
   }
 }

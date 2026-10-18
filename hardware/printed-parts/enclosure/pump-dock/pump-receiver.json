@@ -6,9 +6,11 @@
   "rear_seal_land_mm": 6.0,
   "front_lip_thickness_mm": 0.6,
   "front_collar_ramp_y_mm": [
-    3.0,
+    3.6,
     5.9
   ],
+  "wall_neck_axial_stock_mm": 3.0,
+  "front_collar_ramp_degrees_from_axis": 51.58194465517801,
   "front_collar_flat_y_mm": [
     5.9,
     7.0
@@ -106,5 +108,5 @@
   ],
   "scope": "Nominal geometry and separating-load cases; no physical seal, retention or lifetime rating.",
   "print_orientation": "Funnel ring on bed; bore vertical; no support in fluid passage.",
-  "external_support": "Rear collar pump-facing flat underside only; remove before factory assembly."
+  "external_support": "Tree(auto)/Default on the outside mounting ramp and rear collar; remove before factory assembly. No fluid-bore supports."
 }

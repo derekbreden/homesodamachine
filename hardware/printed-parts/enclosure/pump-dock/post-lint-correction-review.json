@@ -1,10 +1,136 @@
 {
-  "scope": "Current receiver, retention-frame, jig, saddle and keeper-pocket manufacturing geometry. Exact native tip-contact and local clearance results, source bindings and actual offline native TPU preparation are scoped separately. Complete-appliance closure and physical qualification remain separate results.",
+  "scope": "Adopted receiver, keeper, rear frame, jig, fixed guides/saddles and keeper-pocket manufacturing geometry. Native tip contact, local installed clearances, exact canonical source identity and actual offline native TPU command paths have separate scopes. Complete-appliance closure and physical qualification are separate results.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "494c38cb5af5ae4ae56bf416a5de18ef66f6e3d0e1a590ad7401d0f5e256bb82",
-    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "1fa2e13d761c76aeb9a95df710e20beb90bb47b4a80a5ce7678cebc4c39685a2",
-    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "1698e622f202d508f685a41ded07f50e663ee385038ba5fd29d782964910c28c"
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
+    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+    "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
+    "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "hardware/manifold-layout/_lines.py": "a7b1f0a5339287ea652ea663f55030d77c65f4bbe8957d02543a541a1e132278"
+  },
+  "geometry": {
+    "wall_and_cartridge": {
+      "wall_fore_y_mm": 82.515,
+      "wet_wall_aft_y_mm": 89.515,
+      "cartridge_aft_y_mm": 82.265,
+      "body_gap_mm": 0.25,
+      "customer_tip_y_mm": 90.015,
+      "customer_tip_from_cartridge_back_mm": 7.75,
+      "front_lip_recess_mm": 0.6,
+      "fixed_wall_front_neck_axial_mm": 3.0,
+      "dry_aft_stem_passage_d_mm": 7.75,
+      "fixed_moving_guard_counterbore": false
+    },
+    "front_collar": {
+      "ramp_y_mm": [
+        3.6,
+        5.9
+      ],
+      "degrees_from_axis": 51.58194465517801,
+      "flat_y_mm": [
+        5.9,
+        7.0
+      ],
+      "outer_rim_axial_stock_mm": 1.1,
+      "front_flexible_lip_mm": 0.6
+    },
+    "internal_relief": {
+      "taper_y_mm": [
+        7.625,
+        8.525
+      ],
+      "taper_diameters_mm": [
+        6.8,
+        5.0
+      ],
+      "degrees_from_axis": 45.0,
+      "factory_stop_y_mm": 9.0,
+      "minimum_axial_stop_stock_mm": 0.475,
+      "factory_tail_nominal_radial_bearing_mm": 0.675,
+      "factory_tail_min_od6_32_radial_bearing_mm": 0.66,
+      "nominal_annular_contact_area_mm2": 12.0342633586574,
+      "annular_area_fraction_of4_3_throat": 0.7018206801786326,
+      "process_basis": "Actual offline native preparation at 0.12 mm normal layers, 0.20 mm first layer, 0.62 mm nominal walls and a 0.6 mm nozzle. Every receiver has five complete circumferential roads on each of the four waist layers; support-bead paths remain outside the wet bore.",
+      "manufacturing_limit": "Nominal first contact uses the actual 0.30 mm axial / 0.15 mm radial lead ending at 6.05 mm OD. With the declared 6.05 +/-0.03 mm tip-OD target, geometric contact travel is 0.500 +/-0.015 mm before receiver-print and assembled-tip-position variation. No physical dimensional or force rating is inferred."
+    },
+    "keeper": {
+      "y_mm": [
+        7.0,
+        10.0
+      ],
+      "groove_y_mm": [
+        7.0,
+        10.35
+      ],
+      "thickness_mm": 3.0,
+      "rear_axial_room_mm": 0.35,
+      "wall_face_gap_mm": 0.0,
+      "pilot_d_mm": 4.0,
+      "pilot_type": "Through the dry7mm wall"
+    },
+    "rear_frame": {
+      "bridge_z_relative_to_ports_mm": [
+        17.75,
+        27.25
+      ],
+      "hole_ligament_mm": 3.0,
+      "support_lock_x_mm": [
+        -52.225,
+        52.225
+      ],
+      "support_root_xz_mm": [
+        15.85,
+        40.025
+      ],
+      "insert_pilot_d_mm": 4.0,
+      "rear_pilot_depth_mm": 5.25,
+      "root_scope": "Broad full-width roots merge with the fixed magnet hosts to the frame bearing plane; no load capacity is inferred."
+    },
+    "jig": {
+      "stem_channels": "Four ordinary open stem channels; moving guard ends flush with the cartridge back",
+      "aft_tip_backstop_mm": 3.0,
+      "tip_from_cartridge_back_mm": 7.75,
+      "magnet_guard_reliefs": 2
+    },
+    "tee_saddle": {
+      "record": "fluid-geometry-review.json",
+      "record_sha256": "153641097e84769bb503fd9ef611409d20bcb0214d29fb442f93a8ca251861f6",
+      "clip_x_mm": [
+        -93.25,
+        93.25
+      ],
+      "tie_band_x_relative_mm": [
+        -8.0,
+        8.0
+      ],
+      "tie_z_relative_mm": [
+        -13.5,
+        13.5
+      ],
+      "minimum_outer_slot_stock_mm": 3.15,
+      "minimum_outer_round_stock_mm": 3.1970131397065726,
+      "arm_x_mm": 3.0,
+      "floor_z_mm": 3.0,
+      "floor_front_wall_y_lap_mm": 3.0,
+      "scope": "Fixed tees sit0.25mm off the native saddle. Eight fore-clocked conditional tie envelopes clear the current fixed pack; actual purchased tie dimensions, tension and service access remain physical qualifications."
+    },
+    "pocket_roof": {
+      "start_yz_mm": [
+        89.515,
+        226.174
+      ],
+      "tool_end_yz_mm": [
+        96.936,
+        233.595
+      ],
+      "slope_y_to_z": 1.0,
+      "continuous_keeper_lift_mm": 20.0,
+      "keeper_roof_air_mm": 1.25,
+      "wet_wall_mm": 7.0
+    }
   },
   "native_actual_tip_contact": {
     "taper_y_mm": [
@@ -33,122 +159,270 @@
         "travel_mm": 0.55,
         "overlap_mm3": 0.04751658888552268
       }
-    ]
-  },
-  "native_rear_frame_hardware": {
-    "bridge_z": [
-      17.75,
-      27.25
     ],
-    "checks": [
-      {
-        "name": "support-washer--52.225",
-        "overlap_mm3": 0.0,
-        "gap_mm": 0.0
-      },
-      {
-        "name": "support-head--52.225",
-        "overlap_mm3": 0.0,
-        "gap_mm": 0.5
-      },
-      {
-        "name": "support-washer-52.225",
-        "overlap_mm3": 0.0,
-        "gap_mm": 0.0
-      },
-      {
-        "name": "support-head-52.225",
-        "overlap_mm3": 0.0,
-        "gap_mm": 0.5
-      },
-      {
-        "name": "keeper-washer--82.1",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.3729530217745924
-      },
-      {
-        "name": "keeper-head--82.1",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.0
-      },
-      {
-        "name": "keeper-washer--22.35",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.3729530217745924
-      },
-      {
-        "name": "keeper-head--22.35",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.0
-      },
-      {
-        "name": "keeper-washer-22.35",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.3729530217745924
-      },
-      {
-        "name": "keeper-head-22.35",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.0
-      },
-      {
-        "name": "keeper-washer-82.1",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.3729530217745924
-      },
-      {
-        "name": "keeper-head-82.1",
-        "overlap_mm3": 0.0,
-        "gap_mm": 1.0
-      }
-    ]
+    "scope": "Retained local native receiver/actual machined-tip contact calculation. The identical front tip expression and unchanged local internal taper/stop carry this result; the extended smooth shaft, dry cartridge passages and fixture are outside the comparison."
   },
-  "native_local_solids": {
-    "validity": {
-      "receiver-relaxed": {
-        "valid": true,
-        "solids": 1
+  "machined_stem_geometry_binding": {
+    "current_stub_grip_sha256": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+    "reference_git_commit": "37f8a17e8bc62623b88b607132285888fdea29a7",
+    "selected_functions": [
+      "_ycyl",
+      "flanged_stem"
+    ],
+    "selected_constants": [
+      "BARB_OD",
+      "BPT_END_Y",
+      "FLANGE_OD",
+      "FLANGE_T",
+      "FLANGE_Y",
+      "FLOW_ID",
+      "STEM_OD",
+      "TAIL_ENGAGEMENT"
+    ],
+    "raw_selected_ast_identical": false,
+    "current_named_flange_root_r_mm": 0.4,
+    "normalization": "Only the Name FLANGE_ROOT_R is replaced with its declared literal0.40. All other selected executable AST nodes and dimensions remain in the comparison.",
+    "selected_ast_identical_after_named_constant_resolution": true,
+    "resolved_selected_ast_sha256": "0707854e9a1b00b7ee0e28cfbec4ca13bd75c386300d1ebc6ef313cca7007e79",
+    "geometry_scope": "The local front tip cone and machining expressions retain their geometry. tip_y places the customer tip atY90.015, lengthening the smooth main stem by3mm. This comparison does not claim unchanged cartridge guards, dry passages, fixtures or whole stem STL/STEP. The retained0.50mm local tip-contact calculation is independent of that smooth main-shaft extension."
+  },
+  "canonical_auxiliary_source_identity": {
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd",
+      "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
+      "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+      "hardware/manifold-layout/enclosure_assembly.py": "70414a54ab78fb607c7a7d1c05cbd1bd684ce0b9a5ed4967e4f7e5b09dde7746",
+      "hardware/manifold-layout/manifold_layout.py": "28b71411b73fc0a36ebf812b3464befc7a630779f757c7046574ba0e72efa266",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725"
+    },
+    "box_sha256": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
+    "plate": {
+      "holes": [
+        [
+          -82.1,
+          186.174
+        ],
+        [
+          -22.35,
+          186.174
+        ],
+        [
+          22.35,
+          186.174
+        ],
+        [
+          82.1,
+          186.174
+        ]
+      ],
+      "fore_y": 82.515,
+      "aft_y": 85.69,
+      "wall_aft_y": 96.836,
+      "receiver_wall_aft_y": 89.515,
+      "x0": -104.5,
+      "x1": 104.5,
+      "z0": 160.0,
+      "z1": 218.85,
+      "hole_d": 12.0,
+      "seat_z": 165.195,
+      "fixed_tee_center_y": [
+        120.54,
+        120.54,
+        120.54,
+        120.54
+      ],
+      "fixed_tee_mouth_y": [
+        98.19,
+        98.19,
+        98.19,
+        98.19
+      ],
+      "tee_saddle_x_limits": [
+        -93.25,
+        93.25
+      ],
+      "seated_tube_bottom_y": 90.015,
+      "tube_bottom_y": 90.515,
+      "assembly_state": "seated"
+    },
+    "cartridge_aft_y_mm": 82.265,
+    "exports": {
+      "enclosure-pump-receiver": {
+        "step_sha256": "f2343a4ae2b01ce1569e7ca5a3a7ae9dd1da57c695052ce7c410aeb36532bd1c",
+        "stl_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
+        "source_valid": true,
+        "source_solids": 1,
+        "canonical_step_valid": true,
+        "canonical_step_solids": 1,
+        "source_volume_mm3": 1676.3933716630718,
+        "canonical_step_volume_mm3": 1676.393371663087,
+        "source_minus_step_mm3": 0.0,
+        "step_minus_source_mm3": 0.0,
+        "stl_facets": 13606,
+        "stl_watertight": true,
+        "stl_winding_consistent": true,
+        "stl_body_count": 1,
+        "stl_volume_mm3": 1676.1473863192348,
+        "stl_bounds_mm": [
+          [
+            -8.75,
+            0.0,
+            -8.75
+          ],
+          [
+            8.75,
+            15.0,
+            8.75
+          ]
+        ]
       },
-      "receiver-installed": {
-        "valid": true,
-        "solids": 1
+      "enclosure-pump-receiver-keeper": {
+        "step_sha256": "285375943e2f7714b7f853fa4ad4c5236abad702b804a88108b335241a7061a9",
+        "stl_sha256": "686523b432802ad7f4fc5998ee484828203688c53b1f5fe7d7dda6dbf47e85aa",
+        "source_valid": true,
+        "source_solids": 1,
+        "canonical_step_valid": true,
+        "canonical_step_solids": 1,
+        "source_volume_mm3": 1522.7923850891561,
+        "canonical_step_volume_mm3": 1522.792385089176,
+        "source_minus_step_mm3": 0.0,
+        "step_minus_source_mm3": 0.0,
+        "stl_facets": 1540,
+        "stl_watertight": true,
+        "stl_winding_consistent": true,
+        "stl_body_count": 1,
+        "stl_volume_mm3": 1522.8141550948976,
+        "stl_bounds_mm": [
+          [
+            -12.0,
+            7.0,
+            -11.0
+          ],
+          [
+            12.0,
+            10.0,
+            18.75
+          ]
+        ]
       },
-      "rear-support": {
-        "valid": true,
-        "solids": 1
+      "enclosure-pump-rear-support": {
+        "step_sha256": "fb0825ac95a7fb86bcb4f4afeba83d767633c88b36835503d10459ca3525444d",
+        "stl_sha256": "c85ccac5ddaa5e439d54375b81a2ca6068ae1431805ee4bbc0a24bf42b6312ff",
+        "source_valid": true,
+        "source_solids": 1,
+        "canonical_step_valid": true,
+        "canonical_step_solids": 1,
+        "source_volume_mm3": 7968.256754192353,
+        "canonical_step_volume_mm3": 7968.256754192598,
+        "source_minus_step_mm3": 0.0,
+        "step_minus_source_mm3": 0.0,
+        "stl_facets": 9748,
+        "stl_watertight": true,
+        "stl_winding_consistent": true,
+        "stl_body_count": 1,
+        "stl_volume_mm3": 7968.127979765896,
+        "stl_bounds_mm": [
+          [
+            -91.0999984741211,
+            94.36499786376953,
+            177.17469787597656
+          ],
+          [
+            91.0999984741211,
+            97.51499938964844,
+            213.4239959716797
+          ]
+        ]
       },
-      "setting-jig": {
-        "valid": true,
-        "solids": 1
-      },
-      "wall-recess": {
-        "valid": true,
-        "solids": 1
+      "enclosure-pump-tube-setting-jig": {
+        "step_sha256": "e556fb7a0fa88d7d3a1921f95a21f569e29cdd3dbfc73e63b219cd309350c615",
+        "stl_sha256": "55910be322090ddfa862a3fac94870d6420f91efff261ebf87a574b1d1ab9786",
+        "source_valid": true,
+        "source_solids": 1,
+        "canonical_step_valid": true,
+        "canonical_step_solids": 1,
+        "source_volume_mm3": 27824.77009489965,
+        "canonical_step_volume_mm3": 27824.770094899613,
+        "source_minus_step_mm3": 0.0,
+        "step_minus_source_mm3": 0.0,
+        "stl_facets": 2108,
+        "stl_watertight": true,
+        "stl_winding_consistent": true,
+        "stl_body_count": 1,
+        "stl_volume_mm3": 27824.83273788444,
+        "stl_bounds_mm": [
+          [
+            -90.0999984741211,
+            82.26499938964844,
+            178.1739959716797
+          ],
+          [
+            90.0999984741211,
+            93.01499938964844,
+            194.1739959716797
+          ]
+        ]
       }
     },
-    "installed_receiver_wall_overlap_mm3": 0.0,
-    "receiver_wall_overlap_scope": "The source-matched collar/recess and 7 mm wet wall have no native receiver overlap. The dry guard counterbore only removes additional stock around that unchanged interface. Complete printed front-top/appliance closure is separate."
+    "scope": "Exact native current-source versus canonical STEP Boolean identity for the four exported aux parts, plus actual canonical-STL watertightness/winding/body-count reading. Hashes identify the released files. No CAD exports, graph writes, geometry lint, printer action or physical fit/load claim."
   },
-  "limits": "Geometry and commanded-path evidence do not establish insertion forces, material stress/creep, seal pressure capacity, support release, cleaning or lifetime.",
-  "source_binding_scope": "Current full-file hashes identify the design. The machined-stem AST identity below carries the unchanged stem-tip contact result across unrelated dry-guard changes. The frame review binds current native bar/post shapes to its local checks. Canonical export and actual native TPU-preparation hashes have their own results.",
-  "canonical_receiver_source_check": {
-    "receiver_source_sha256": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-    "canonical_step_sha256": "a7ae9940531e95f6d2943de70f387c4b4f3f81dbae387039977a3f09434f1902",
-    "canonical_stl_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
-    "source_volume_mm3": 1713.6558021272995,
-    "canonical_step_volume_mm3": 1713.6558021272874,
-    "source_minus_canonical_step_mm3": 0.0,
-    "canonical_step_minus_source_mm3": 0.0
+  "reader_source_binding": {
+    "native_export_reader_source_sha256": "70414a54ab78fb607c7a7d1c05cbd1bd684ce0b9a5ed4967e4f7e5b09dde7746",
+    "current_source_sha256": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
+    "reverse_of_only_declared_seat_ledger_edits_recovers_native_reader_bytes": true,
+    "collet_plate_spec_ast_identical": true,
+    "scope": "The added seat ledger records the exact dock parts and retention objects already installed in the assembly. Cached-object reuse and the ledger call change no part construction, station, route or canonical auxiliary mesh. The export Boolean identity retains the source hashes recorded when it ran."
+  },
+  "native_wall_and_motion": {
+    "record": "fluid-geometry-review.json",
+    "record_sha256": "153641097e84769bb503fd9ef611409d20bcb0214d29fb442f93a8ca251861f6",
+    "scope": "Current adopted wall neck, guide/saddle/root stock and continuously occupied20mm keeper envelopes; separately bound keeper through-pilot and52-case metal/source-cap proof. No static clamp or lifetime rating."
+  },
+  "rear_frame_support": {
+    "record": "rear-frame-support-review.json",
+    "record_sha256": "ae0fc5e7b15c52dea7298a8ca5255ee3ae8b04b483a0bc95caae9df3fd7df982",
+    "scope": "Current frame/root geometry, actual washer/head clearance, continuous keeper envelopes and conditional one-outer-point-load beam screen. No PET-GF allowable or assembled-deflection claim."
   },
   "current_offline_native_tpu_preparation": {
-    "prepared_at": "2026-10-18T09:24:43.995544+00:00",
+    "prepared_at": "2026-10-18T11:46:30.419377+00:00",
     "slicer_exit_code": 0,
-    "canonical_stl_sha256": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
-    "geometry_snapshot_sha256": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-    "archive_sha256": "aa44b0bb0110fa5fad1e6a04dc2d860e2176fc62a7d5ff4a8870220f4f64ba8e",
-    "gcode_sha256": "e1dc702db950a662b3dabe0e1d3f3da67b82a7c881d1df5592e85bd7124b628b",
+    "canonical_stl_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
+    "geometry_snapshot_sha256": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+    "project_sha256": "1720edd479fe65afe275270d57eb61a229349f60ef9735fd5b787015a879b5ea",
+    "archive_sha256": "acf3b2f04f78778a93d27d336fd79bcf390956749795665215240cced69d2444",
+    "gcode_sha256": "8c1ee1896d37d89d6b2eaa18c3fce354138eb3ef2b3a68d62fcd8879d5fd453f",
     "slicer_warning": "",
     "layers": 124,
+    "estimated_seconds": 7930.5830078125,
+    "estimated_filament_g": 10.363808631896973,
+    "seal_land_paths": {
+      "front_seal": {
+        "layer_object_samples": 200,
+        "full_circumferential_runs_range": [
+          4,
+          9
+        ],
+        "radial_ray_wall_roads_range": [
+          4,
+          9
+        ],
+        "maximum_loop_end_gap_mm": 0
+      },
+      "rear_seal": {
+        "layer_object_samples": 200,
+        "full_circumferential_runs_range": [
+          4,
+          9
+        ],
+        "radial_ray_wall_roads_range": [
+          4,
+          9
+        ],
+        "maximum_loop_end_gap_mm": 0
+      }
+    },
     "factory_stop_waist": {
       "z_window_mm": [
         8.525,
@@ -178,8 +452,8 @@
         5
       ],
       "innermost_full_circumferential_radius_range_mm": [
-        2.803698927603923,
-        2.8081707626206813
+        2.8036923816303996,
+        2.8081578881816354
       ],
       "each_layer_object_has_full_run_inside_factory_tail_radius": true,
       "radial_ray_wall_roads_range": [
@@ -188,167 +462,95 @@
       ],
       "maximum_loop_end_gap_mm": 0
     },
-    "support_bead_wet_bore_hits": [],
-    "minimum_support_bead_to_full_height_wet_bore_mm": 2.696960764420602,
-    "critical_native_settings_preserved": true,
-    "staged_embedded_receiver_meshes_match_current_canonical": true,
-    "credential_audit_passed": true,
-    "source_and_result_hashes": {
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/preparation.json": "2154adaf71d3327f5f3d32f4716978942cf14f4ddf9239d6fe027abc0b0cf719",
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json": "ed1dd03a652e466f2ecc8951edfe220f59aac827d1f71a380232d7c30f978297",
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-slice-review.json": "e2234a05434a3fce1bf6a53e263c20961b6ae988531f180aa433166222fdcffa",
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/source-bindings.json": "cab8cc76e877e2863717c7474d40005814a9a1a9df6e969c28681ce75936ed10",
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json": "b109a6625efd5072a00c03a95234430086640ef102e2e1eebcfeecad8cf2f1e3",
-      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": "c6ea5f21a889bbd5cec6fd2bbe43f47dd45f4ef24240d71ad0075c7f0570b60c"
-    },
-    "scope": "Fresh actual offline Bambu preparation, slicing and emitted-path review of the corrected wet geometry. Original source snapshot and prior local native records retain their scopes. No printer contact, physical stop measurement, support-release result, seal force, pressure capacity or lifetime qualification."
-  },
-  "machined_stem_geometry_binding": {
-    "path": "hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
-    "current_source_sha256": "1fa2e13d761c76aeb9a95df710e20beb90bb47b4a80a5ce7678cebc4c39685a2",
-    "reference_commit": "e30a39168c8409a753907f4711ae5df9636f86ee",
-    "functions": [
-      "_ycyl",
-      "flanged_stem"
-    ],
-    "constants": {
-      "STEM_OD": 6.35,
-      "FLOW_ID": 4.3,
-      "FLANGE_OD": 16.0,
-      "FLANGE_T": 2.5,
-      "FLANGE_Y": 77.5,
-      "BPT_END_Y": 76.1,
-      "TAIL_ENGAGEMENT": 12.0,
-      "BARB_OD": 6.9
-    },
-    "selected_ast_sha256": "0707854e9a1b00b7ee0e28cfbec4ca13bd75c386300d1ebc6ef313cca7007e79",
-    "selected_ast_identical_to_reference": true,
-    "scope": "Exact AST identity of the machined stem, its cylinder helper and all eight defining constants. The native tip-contact result uses this unchanged geometry and the current receiver. Dry guard, cartridge arch, fixture and metadata are outside this comparison; no guard-OD identity is asserted.",
-    "tip_contact_native_result_recomputed": false
-  },
-  "geometry": {
-    "front_collar": {
+    "mounting_collar_paths": {
       "ramp_y_mm": [
-        3.0,
+        3.6,
         5.9
       ],
-      "flat_y_mm": [
+      "ramp_degrees_from_axis": 51.58194465517801,
+      "ramp_layer_object_samples": 76,
+      "ramp_samples_without_closed_circumferential_road": [],
+      "outermost_road_previous_model_area_fraction_range": [
+        0.7378793093367856,
+        0.9642500261874123
+      ],
+      "maximum_outermost_road_centerline_outside_previous_model_mm": 0.0,
+      "rim_y_mm": [
         5.9,
         7.0
       ],
-      "outer_rim_axial_stock_mm": 1.1,
-      "front_flexible_lip_mm": 0.6
-    },
-    "internal_relief": {
-      "taper_y_mm": [
-        7.625,
-        8.525
+      "rim_axial_stock_mm": 1.1,
+      "rim_layers": [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
       ],
-      "taper_diameters_mm": [
+      "rim_layer_heights_mm": [
+        5.96,
+        6.08,
+        6.2,
+        6.32,
+        6.44,
+        6.56,
+        6.68,
         6.8,
-        5.0
+        6.92
       ],
-      "degrees_from_axis": 45.0,
-      "factory_stop_y_mm": 9.0,
-      "minimum_axial_stop_stock_mm": 0.475,
-      "factory_tail_nominal_radial_bearing_mm": 0.675,
-      "factory_tail_min_od6_32_radial_bearing_mm": 0.66,
-      "nominal_annular_contact_area_mm2": 12.0342633586574,
-      "annular_area_fraction_of4_3_throat": 0.7018206801786326,
-      "process_basis": "Actual offline native preparation at 0.12 mm normal layers, 0.20 mm first layer, 0.62 mm nominal walls and a 0.6 mm nozzle. Every receiver has five complete circumferential roads on each of the four waist layers; support-bead paths remain outside the wet bore.",
-      "manufacturing_limit": "Nominal first contact uses the actual 0.30 mm axial / 0.15 mm radial lead ending at 6.05 mm OD. With the declared 6.05 +/-0.03 mm tip-OD target, geometric contact travel is 0.500 +/-0.015 mm before receiver-print and assembled-tip-position variation. No physical dimensional or force rating is inferred."
+      "rim_full_circumferential_runs_range": [
+        9,
+        9
+      ],
+      "rim_maximum_loop_end_gap_mm": 0,
+      "scope": "Actual commanded outer circumferential-road projections against the preceding model layer only. Automatic support is audited separately. Bead overlap and continuous rim paths do not establish adhesion, printed strength, support release or dimensional fit."
     },
-    "rear_frame": {
-      "bridge_z_relative_to_ports_mm": [
-        17.75,
-        27.25
+    "support_access": {
+      "native_top_interface_z_mm": [
+        10.04,
+        10.16
       ],
-      "m3_hole_ligament_mm": 3.0,
-      "support_lock_x_mm": [
-        -52.225,
-        52.225
+      "front_mounting_ramp_y_mm": [
+        3.6,
+        5.9
       ],
-      "post_section_xz_mm": [
-        10.0,
-        10.0
-      ],
-      "insert_pilot_d_mm": 4.0,
-      "post_ligament_mm": 3.0
+      "front_mounting_ramp_degrees_from_axis": 51.58194465517801,
+      "automatic_interface_heights_below_front_rim_mm": [],
+      "nominal_rear_flange_underside_z_mm": 10.35,
+      "last_interface_top_to_nominal_underside_gap_mm": 0.1899999999999995,
+      "keeper_groove_axial_opening_mm": 3.35,
+      "route": "External Tree(auto)/Default branches and annular interface; segment the exterior interface and peel radially before wall assembly. No support occupies the fluid passage.",
+      "physical_release_result": null
     },
-    "jig": {
-      "fore_guard_relief": "Four open rectangular 22.80 mm-wide, full-height cuts through Y82.5; 0.25 mm radial room per side around the 22.30 mm dry guards",
-      "aft_tip_backstop_mm": 3.0,
-      "tip_from_cartridge_back_mm": 7.746,
-      "guard_od_mm": 22.3,
-      "fore_guard_relief_width_mm": 22.8
+    "support_bead_wet_bore_hits": [],
+    "minimum_support_bead_to_full_height_wet_bore_mm": 2.696960534538074,
+    "bore_crossing_travel_counts": {
+      "within_object": 0,
+      "between_objects_same_layer": 0,
+      "next_layer": 30
     },
-    "tee_saddle": {
-      "tie_bands_x_relative_mm": [
-        -10.5,
-        10.5
-      ],
-      "tie_bands_z_centers_mm": [
-        -13.5,
-        13.5
-      ],
-      "band_height_mm": 3.5,
-      "outer_rails_mm": 3.0,
-      "end_stock_mm": 3.0,
-      "sleeve_access": "Bands remain on fixed run collars; loops capture the tee and outer rails. Physical tie retention is unqualified."
+    "critical_native_settings_preserved": true,
+    "native_gcode_checksum_valid": true,
+    "staged_embedded_receiver_meshes_match_current_canonical": true,
+    "credential_audit_passed": true,
+    "source_and_result_sha256": {
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/preparation.json": "d1bb7bd385e8a463821932a7684a332be34a412f159291b527e401489e8c5d84",
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json": "8d9dc55570e0caa49ee756fb37e739a44de537db2e6f1bdf01b534a1c68067f6",
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-slice-review.json": "64eefd9ec38f0166d1bf514cf0cda28c60664e2d4a4f80e79fdbae9e80529ad5",
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/source-bindings.json": "80a13a9d1f2881e97d0faa6562f19de5ae92ec353e30e287a445c23c4d4bd768",
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/binding-audit.json": "7fefe4f016fe14b346241d565904deadec0f315869a3bae2e4f8eee94b7fd0a4",
+      "print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": "f514189c29a32d5dbc2462659abcd81567f7898ea6ab10a3e8d575406863828a"
     },
-    "pocket_roof": {
-      "start_yz_mm": [
-        86.515,
-        226.174
-      ],
-      "tool_end_yz_mm": [
-        93.936,
-        233.595
-      ],
-      "keeper_lift_mm": 20.0,
-      "wet_wall_mm": 7.0,
-      "fore_tray_near_y_mm": 102.24
-    }
+    "scope": "Actual current canonical-STL four-copy offline preparation, native slicing, emitted-path/width/arc/bead review, source snapshot and staged eight-mesh/credential audit. No printer contact, physical support-release result, stop measurement, sealing-force, pressure, adhesion or lifetime qualification."
   },
-  "canonical_exports": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step": "e61fa2e1de2ecdc5febbcc04b528acdaa5d451a67df89cf14e49ea5467d447e5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step": "0c08968198b63f56be81fac28ba80edabec7d382562aa9fd503b38e9dc2210ea",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl": "686523b432802ad7f4fc5998ee484828203688c53b1f5fe7d7dda6dbf47e85aa",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step": "2785f1a6393a5969eeb8ee34f7e63115412f32729b77d7b6ccd27d3964bb1fe5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl": "c9316ee1811928a0761e80c04e7864687e90f0c662b945ea0612fc6416dbba05",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": "84b31a421b07530e3e95887eecb4367dd6f76708353b2e8de750ccd93baa5889",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "6984d04a327da55748e69c3b906b0770a35f0e7f1c58ba40965ee981dd523fcc"
-  },
-  "rear_frame_support": {
-    "record": "rear-frame-support-review.json",
-    "record_sha256": "79d28a232cdf34dfdf96272c3d9fc973f38696ab48b021de7457e07ca821e14e",
-    "scope": "Current-source native frame/post geometry, conservative keeper sweeps, current magnet cavity/host interfaces and conditional single-outer-load beam screen. No total frame stiffness or material allowable is inferred."
-  },
-  "current_dry_native_exports": {
-    "enclosure-pump-rear-support": {
-      "step_sha256": "2785f1a6393a5969eeb8ee34f7e63115412f32729b77d7b6ccd27d3964bb1fe5",
-      "stl_sha256": "c9316ee1811928a0761e80c04e7864687e90f0c662b945ea0612fc6416dbba05",
-      "source_shape_valid": true,
-      "source_solid_count": 1,
-      "exported_shape_valid": true,
-      "exported_solid_count": 1,
-      "source_volume_mm3": 7968.256754192353,
-      "exported_volume_mm3": 7968.256754192598,
-      "source_minus_export_mm3": 0.0,
-      "export_minus_source_mm3": 0.0
-    },
-    "enclosure-pump-tube-setting-jig": {
-      "step_sha256": "84b31a421b07530e3e95887eecb4367dd6f76708353b2e8de750ccd93baa5889",
-      "stl_sha256": "6984d04a327da55748e69c3b906b0770a35f0e7f1c58ba40965ee981dd523fcc",
-      "source_shape_valid": true,
-      "source_solid_count": 1,
-      "exported_shape_valid": true,
-      "exported_solid_count": 1,
-      "source_volume_mm3": 24162.129674641506,
-      "exported_volume_mm3": 24162.129674641503,
-      "source_minus_export_mm3": 0.0,
-      "export_minus_source_mm3": 0.0
-    }
-  }
+  "limits": [
+    "The0.6mm fold-through TPU front lip and1.1mm mounting-collar rim have named assembly functions; their flexibility and installed retention are unqualified.",
+    "Native command-path continuity and bead overlap do not establish printed layer adhesion or support removal.",
+    "Thirty next-layer travels cross projected wet bores; inspect and clear actual internal strands before factory assembly.",
+    "Geometry does not establish insertion/extraction forces, hydraulic holding, TPU compression set, PP creep, cleaning or finished wet-part food-contact suitability."
+  ]
 }

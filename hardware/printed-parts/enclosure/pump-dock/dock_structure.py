@@ -14,7 +14,6 @@ HW = next(p for p in HERE.parents if p.name == 'hardware')
 sys.path.insert(0, str(HW / 'reference' / 'tee-connector'))
 import pump_receiver as receiver
 import tee_connector as tee
-import stub_grip as stems
 import dock_retention as retention
 
 STATIONS = ('west-outer', 'west-inner', 'east-inner', 'east-outer')
@@ -80,65 +79,89 @@ def wall_recess(plate):
     return pocket.fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(x1-x0,0,0))).clean()
 
 
-def guides(wall_fore_y,x,z):
+def guides(wall_fore_y,x,z,wall_aft_y=None):
     back = wall_fore_y+receiver.WALL_THICKNESS
     slot_back = wall_fore_y+receiver.GROOVE_Y[1]
+    rear = slot_back+3 if wall_aft_y is None else wall_aft_y
     stocks=[]
     for side in (-1,1):
         a,b = sorted((x+side*12.25,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,back,slot_back+3,z+GUIDE_Z[0],z+GUIDE_Z[1]))
+        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0],z+GUIDE_Z[1]))
         a,b = sorted((x+side*GUIDE_INNER_X,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,slot_back,slot_back+3,z+GUIDE_Z[0],z+GUIDE_Z[1]))
+        stocks.append(box(a,b,slot_back,rear,z+GUIDE_Z[0],z+GUIDE_Z[1]))
     # Stop under both uninterrupted plate wings; the U opening stays clear.
     for side in (-1,1):
         a,b=sorted((x+side*6.5,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,back,slot_back+3,z+GUIDE_Z[0]-3.35,z+GUIDE_Z[0]-.35))
+        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0]-3.35,z+GUIDE_Z[0]-.35))
     return fused(stocks)
 
 
 def lock_cut(wall_fore_y,x,z):
+    """Dry through-pilot for the keeper's full-length short M3 insert."""
     face=wall_fore_y+receiver.WALL_THICKNESS
     return ycyl(LOCK_INSERT_D/2,x,z+LOCK_Z,
-                face-LOCK_INSERT_LENGTH-LOCK_RELIEF,face+.01)
+                wall_fore_y-.1,face+.01)
 
 
-def tee_saddle(wall_fore_y, x, z, center_y):
+def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0):
     """Fixed open-aft cradle on the two measured run collars.
 
     Two ties at Z +/-13.5 capture fixed collar stock, away from all three
-    operating sleeves. Side webs join the permanent wall and keeper guides.
+    operating sleeves. Three-millimetre side webs and a lower floor join the
+    permanent wall and keeper guides. The outer two saddles stop at the
+    enclosure's slide-channel plane and omit the rail-crossing side web.
+    Tie heads clock fore of the saddle; their bands surround its two rails
+    together with the tee's fixed collar.
     The branch passes through the centre of this saddle during straight
     factory insertion from the interior.
     """
-    near=center_y-11.5
-    stock=box(x-13.5,x+13.5,near,center_y,z-18.25,z+18.25)
-    trunk=cq.Solid.makeCylinder(8.5,36.7,cq.Vector(x,center_y,z-18.35),cq.Vector(0,0,1))
-    stock=stock.cut(trunk).cut(ycyl(8.5,x,z,near-.1,center_y+.1))
+    near,aft=center_y-12.0,center_y-3.0
+    radius=tee.BARREL_R+.25
+    end=tee.RUN_FIXED_END-.25
+    stock=box(x-13.5,x+13.5,near,aft,z-end,z+end)
+    trunk=cq.Solid.makeCylinder(radius,2*(end+.1),
+                                cq.Vector(x,center_y,z-end-.1),cq.Vector(0,0,1))
+    stock=stock.cut(trunk).cut(ycyl(radius,x,z,near-.1,aft+.1))
     for dz in (-13.5,13.5):
-        stock=stock.cut(box(x-10.5,x+10.5,near-.1,center_y+.1,
+        stock=stock.cut(box(x-8,x+8,near-.1,aft+.1,
                             z+dz-1.75,z+dz+1.75))
-    parts=[stock]
+    parts=[stock,box(x-13.5,x+13.5,wall_fore_y+receiver.WALL_THICKNESS,
+                     center_y-9.0,z-end-3,z-end)]
     for side in (-1,1):
-        a,b=sorted((x+side*12.25,x+side*15.25))
-        parts.append(box(a,b,wall_fore_y+receiver.WALL_THICKNESS,center_y,
+        if side==outer_side:
+            continue
+        a,b=sorted((x+side*10.5,x+side*13.5))
+        parts.append(box(a,b,wall_fore_y+receiver.GROOVE_Y[1],aft,
                          z-11,z+8.5))
-    return fused(parts)
+    joined=fused(parts)
+    if side_limits is not None:
+        bounds=joined.BoundingBox()
+        joined=joined.intersect(box(*side_limits,bounds.ymin-1,bounds.ymax+1,
+                                    bounds.zmin-1,bounds.zmax+1)).clean()
+    return joined
 
 
 def fixed_features(plate):
     fore=plate['fore_y']
     stocks=[]
     cuts=[wall_recess(plate)]
-    for (x,z),center_y in zip(plate['holes'],plate['fixed_tee_center_y']):
-        stocks.extend((guides(fore,x,z),tee_saddle(fore,x,z,center_y)))
+    for index,((x,z),center_y) in enumerate(zip(plate['holes'],plate['fixed_tee_center_y'])):
+        outer_side=-1 if index==0 else 1 if index==len(plate['holes'])-1 else 0
+        stocks.extend((guides(fore,x,z,plate['wall_aft_y']),
+                       tee_saddle(fore,x,z,center_y,
+                                  side_limits=plate['tee_saddle_x_limits'],
+                                  outer_side=outer_side)))
         cuts.extend((receiver.receiver_wall_cut(fore,x,z),lock_cut(fore,x,z)))
     row=plate['holes'][0][1]
     face=fore+receiver.REAR_SUPPORT_Y[0]-SUPPORT_SEAT_AIR
-    half=LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT
-    for x in support_lock_x(plate):
+    half=max(LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT,
+             retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK)
+    for x,z in retention.column_stations(plate['holes']):
+        bottom=retention.column_limits(z)[0]-retention.STRUCTURAL_STOCK
+        top=row+SUPPORT_LOCK_Z+LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT
         stocks.append(box(x-half,x+half,fore+receiver.WALL_THICKNESS,face,
-                          row+SUPPORT_LOCK_Z-half,row+SUPPORT_LOCK_Z+half))
-        cuts.append(ycyl(2,x,row+SUPPORT_LOCK_Z,
+                          bottom,top))
+        cuts.append(ycyl(LOCK_INSERT_D/2,x,row+SUPPORT_LOCK_Z,
                          face-LOCK_INSERT_LENGTH-LOCK_RELIEF,face+.01))
     return stocks,cuts
 
@@ -190,10 +213,6 @@ def tube_setting_jig(plate, cartridge_face_y):
         bore=ycyl(3.5,x,z,cartridge_face_y-.1,tip)
         opening=box(x-3.5,x+3.5,cartridge_face_y-.1,tip,z,row+8.1)
         body=body.cut(bore.fuse(opening))
-        guard_half=stems.GUARD_OD/2+.25
-        body=body.cut(box(x-guard_half,x+guard_half,
-                          cartridge_face_y-.1,stems.GUARD_AFT_Y+.25,
-                          row-8.1,row+8.1))
     # The two magnet guards also project behind the retained cartridge plane.
     for x,z in retention.column_stations(plate['holes']):
         half=retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK+.25

@@ -48,7 +48,7 @@ across its axis. Neither keepers nor receivers move during a pump change.
 
 The socket entrances are TPU funnels leading to tight straight sealing lands. Dedicated
 outboard rigid stop lands on the receiver wall bear against the lower cradle to
-establish its final position, while the broad aft faces retain 0.246 mm clearance. The prepared stem tips enter
+establish its final position, while the broad aft faces retain [0.25 mm](DOCK_BODY_GAP) clearance. The prepared stem tips enter
 the sockets together. The magnets hold that seated position; the TPU receiver is not
 a cartridge stop. A straight pull parts the magnets, contact pair and four slip joints
 without moving the fixed tees or operating their collets.
@@ -142,9 +142,9 @@ Verify that the cradle, with its cap seated, captures the flange axially and clo
 its upward escape. The flange bearing supplies the cartridge-withdrawal load path.
 
 Use the printed setting jig against the cartridge's flat rear seating face to verify
-all four free tips at [7.746 mm](TIP_FROM_CARTRIDGE) aft of that face. This is enclosure
-Y[87.015 mm](TIP_Y) when seated; the modeled flexible-tube start-to-tip projection is
-[9.851 mm](TUBE_PROJECTION). Check the flange seats, smooth wet surfaces, clean bores,
+all four free tips at [7.75 mm](TIP_FROM_CARTRIDGE) aft of that face. This is enclosure
+Y[90.015 mm](TIP_Y) when seated; the modeled flexible-tube start-to-tip projection is
+[12.851 mm](TUBE_PROJECTION). Check the flange seats, smooth wet surfaces, clean bores,
 pump-end sealing and all four tip positions before supplying the replacement set.
 The customer receives the complete prepared pumps and does not machine, cut, trim
 or transfer the stems.

@@ -23,16 +23,14 @@ FLANGE_T = 2.50
 FLANGE_Y = 77.50
 FLANGE_AXIAL_AIR = 0.15
 FLANGE_RADIAL_AIR = 0.15
+FLANGE_ROOT_R = 0.40
 STRUCTURAL_Y = 3.0
 STEM_PASS_D = 6.65
+AFT_STEM_PASS_D = STEM_PASS_D + 2 * FLANGE_ROOT_R + 2 * FLANGE_RADIAL_AIR
 BPT_END_Y = 76.10
 TAIL_ENGAGEMENT = 12.0
 BARB_OD = 6.90
 GUARD_OD = FLANGE_OD + 2 * FLANGE_RADIAL_AIR + 2 * STRUCTURAL_Y
-GUARD_AFT_Y = 82.25
-GUARD_FRONT_BORE_D = 14.30
-GUARD_BODY_BORE_D = 12.00
-GUARD_LIP_END_Y = 80.115
 TIE_PASS_D = 12.10
 TIE_CENTER_Y = 74.50
 TIE_WIDTH = 2.54
@@ -91,7 +89,7 @@ def flanged_stem(x, z, tip_y, *, flange_y=FLANGE_Y, flange_t=FLANGE_T,
                      abs(e.Center().y - (flange_y + flange_t / 2))) < 1e-6]
     if len(roots) != 2:
         raise ValueError("The machined stem has two flange-root circles")
-    body = body.fillet(0.40, roots)
+    body = body.fillet(FLANGE_ROOT_R, roots)
     barb_ends = tuple(tail + offset + 2.15 for offset in (2.0, 6.0))
     barb_edges = [e for e in body.Edges() if e.geomType() == "CIRCLE"
                   and abs(e.radius() - BARB_OD / 2) < 1e-6
@@ -110,12 +108,6 @@ def visible_stem(x, z, tip_y, **kwargs):
     return full.intersect(_box(x - 20, x + 20, bpt_end, tip_y + 1,
                                 z - 20, z + 20)).clean()
 
-
-def fixed_wall_cutter(holes, fixed_face_y, *, counterbore_back_y):
-    """Counterbores end at the receiver flare start supplied by the caller."""
-    return _fused(_ycyl(GUARD_OD + 2 * CAP_SIDE_AIR, x, z,
-                        fixed_face_y - .1, counterbore_back_y)
-                  for x, z in holes)
 
 
 def setting_fixture(tip_y, *, flange_y=FLANGE_Y, flange_t=FLANGE_T,
@@ -145,11 +137,11 @@ def setting_fixture(tip_y, *, flange_y=FLANGE_Y, flange_t=FLANGE_T,
 
 def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
              flange_y=FLANGE_Y, flange_t=FLANGE_T, bpt_end_y=BPT_END_Y,
-             cap_route_top_z=None, fixed_wall_back_y=None,
-             lower_guard_fore_y=None, cap_web_x_bounds=None):
+             cap_route_top_z=None,
+             lower_guard_fore_y=None, cap_web_x_bounds=None, cap_arch_fore_y):
     """Fuse cradle/cap stock after pump-well cuts, then subtract each cutter.
 
-    The guard projects into the fixed wall's local counterbore. The lower
+    The capture ends flush with the cartridge body. The lower
     flange pocket opens upward for prepared pump installation. The cap's feet
     close that Z route, with generous Y clearance to the flange so they do not
     become the axial retention shoulder. Cap fingers join the existing cap at
@@ -159,7 +151,8 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
     `lower_guard_fore_y` is the retained head-well aft plane. The lower
     shoulders join that plane while retaining at least their structural depth.
     `cap_web_x_bounds` is the cap body's actual span, so the rear webs meet
-    its sides without projecting narrow ledges beyond the cap.
+    its sides without projecting narrow ledges beyond the cap. `cap_arch_fore_y`
+    is the retained head-well aft plane, independent of the cartridge back.
     """
     holes = tuple(tuple(map(float, h)) for h in holes)
     if len(holes) != 4:
@@ -168,7 +161,7 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
     fore = min(bearing_fore, float(lower_guard_fore_y)) if lower_guard_fore_y is not None else bearing_fore
     pocket_fore = flange_y - flange_t / 2 - FLANGE_AXIAL_AIR
     pocket_aft = flange_y + flange_t / 2 + FLANGE_AXIAL_AIR
-    if min(pocket_fore - fore, GUARD_AFT_Y - pocket_aft) < STRUCTURAL_Y - 1e-9:
+    if min(pocket_fore - fore, cartridge_aft_y - pocket_aft) < STRUCTURAL_Y - 1e-9:
         raise ValueError("The flange pocket needs both fore and aft cradle shoulders")
     stocks, cuts, cap_stocks, cap_cuts, stems = [], [], [], [], {}
     # The accepted cap's body starts 2 mm above its bracket datum. Continue
@@ -176,9 +169,9 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
     top = float(cap_split_z) + 3.0
     route_top = max(top, float(cap_route_top_z) if cap_route_top_z is not None else top)
     for number, (x, z) in enumerate(holes, start=1):
-        full_stock = _ycyl(GUARD_OD, x, z, fore, GUARD_AFT_Y)
+        full_stock = _ycyl(GUARD_OD, x, z, fore, cartridge_aft_y)
         stock = full_stock.intersect(_box(x - 20, x + 20, fore - 1,
-                                          GUARD_AFT_Y + 1, z - 20, z))
+                                          cartridge_aft_y + 1, z - 20, z))
         # Both flange faces bear directly on the cradle. The tube opening is
         # relieved outside that pocket so its smooth OD is never clamped.
         # A continuous bore reaches both flange pockets without leaving an
@@ -186,21 +179,18 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
         front_pass = _ycyl(TIE_PASS_D, x, z, fore - .1, pocket_fore)
         pocket = _ycyl(FLANGE_OD + 2 * FLANGE_RADIAL_AIR,
                        x, z, pocket_fore, pocket_aft)
-        front_guard = _ycyl(GUARD_FRONT_BORE_D, x, z, pocket_aft,
-                            GUARD_LIP_END_Y)
-        body_guard = _ycyl(GUARD_BODY_BORE_D, x, z, GUARD_LIP_END_Y,
-                           GUARD_AFT_Y + .1)
-        cut = front_pass.fuse(pocket, front_guard, body_guard).clean()
+        dry_pass = _ycyl(AFT_STEM_PASS_D, x, z, pocket_aft, cartridge_aft_y + .1)
+        cut = front_pass.fuse(pocket, dry_pass).clean()
         stocks.append(stock)
         cuts.append(cut)
 
         # The rear-only upper arch closes Z escape. It stays behind the whole
         # molded head so the cap lifts without carrying the seated pumps.
         # Its aft pocket clearance leaves the first Y reaction on the cradle.
-        upper_fore = cartridge_aft_y - STRUCTURAL_Y
-        upper = _ycyl(GUARD_OD, x, z, upper_fore, GUARD_AFT_Y).intersect(_box(x - 20, x + 20, upper_fore - 1,
-                                          GUARD_AFT_Y + 1, z + CAP_Z_AIR, z + 20))
-        upper_cut = front_pass.fuse(front_guard, body_guard,
+        upper_fore = float(cap_arch_fore_y)
+        upper = _ycyl(GUARD_OD, x, z, upper_fore, cartridge_aft_y).intersect(_box(x - 20, x + 20, upper_fore - 1,
+                                          cartridge_aft_y + 1, z + CAP_Z_AIR, z + 20))
+        upper_cut = front_pass.fuse(dry_pass,
             _ycyl(FLANGE_OD + 2 * FLANGE_RADIAL_AIR, x, z,
                    flange_y - flange_t / 2 - CAP_FLANGE_AXIAL_AIR,
                    flange_y + flange_t / 2 + CAP_FLANGE_AXIAL_AIR),
@@ -209,16 +199,14 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
                  TIE_CENTER_Y + TIE_WIDTH / 2 + .3,
                  z, z + 12)).clean()
         upper = upper.cut(upper_cut).clean()
-        # The broad web remains within the old cartridge aft plane. Projecting
-        # stock above the guard would strike the fixed wall over its recess.
-        # The actual head reaches Y75.969. The full 3 mm rear band starts at
-        # Y76.269, keeping 0.300 mm nominal Y air throughout cap translation.
+        # The web ends flush with the cartridge back. Its fore plane follows
+        # the retained head well, keeping 0.300 mm nominal Y air to the actual
+        # reference head throughout cap translation.
         # This is a fitted-case interface, not a qualified printed clearance.
         # Bury the complete web width inside the guard's circular crown. The
         # shared foot then has no overhanging strips at its two lower corners.
         web_bottom = z + math.sqrt((GUARD_OD / 2) ** 2 - (TIE_PASS_D / 2) ** 2) - .5
-        skirt_clear_z = cap_split_z - 9.0
-        rear_band_y = cartridge_aft_y - STRUCTURAL_Y
+        rear_band_y = upper_fore
         web = (cq.Workplane("YZ", origin=(x - TIE_PASS_D / 2, 0, 0))
                .polyline([(rear_band_y, web_bottom), (cartridge_aft_y, web_bottom),
                           (cartridge_aft_y, top), (rear_band_y, top)])
@@ -232,7 +220,7 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
         cap_cuts.append(_box(x - STOCK_HALF_X - CAP_SIDE_AIR,
                              x + STOCK_HALF_X + CAP_SIDE_AIR,
                              bearing_fore - CAP_SIDE_AIR, cartridge_aft_y + .1,
-                             z + CAP_Z_AIR / 2, route_top + .1))
+                             z, route_top + .1))
         stems[f"pump-dock-machined-stem-{number}"] = flanged_stem(
             x, z, tip_y, flange_y=flange_y, flange_t=flange_t, bpt_end_y=bpt_end_y)
     return {"cradle_stock": _fused(stocks), "cradle_cutter": _fused(cuts),
@@ -241,24 +229,26 @@ def features(holes, cartridge_aft_y, cap_split_z, tip_y, *,
             "dimensions": dimensions(holes, cartridge_aft_y, cap_split_z, tip_y,
                                        flange_y=flange_y, flange_t=flange_t,
                                        bpt_end_y=bpt_end_y,
-                                       fixed_wall_back_y=fixed_wall_back_y,
                                        lower_guard_fore_y=lower_guard_fore_y,
-                                       cap_web_x_bounds=cap_web_x_bounds)}
+                                       cap_web_x_bounds=cap_web_x_bounds,
+                                       cap_arch_fore_y=cap_arch_fore_y)}
 
 def dimensions(holes, cartridge_aft_y, cap_split_z, tip_y, *,
                flange_y=FLANGE_Y, flange_t=FLANGE_T, bpt_end_y=BPT_END_Y,
-               fixed_wall_back_y=None, lower_guard_fore_y=None,
-               cap_web_x_bounds=None):
+               lower_guard_fore_y=None, cap_web_x_bounds=None,
+               cap_arch_fore_y=None):
+    from pump_receiver import CUSTOMER_TIP_Y, FRONT_SEAL_Y
+
     # Conservative joint separation force uses the external sealing diameter,
     # not the smaller internal flow bore.
     psi = 6894.757293168 / 1_000_000
     force = 80.0 * psi * math.pi * STEM_OD ** 2 / 4
     # Open U pocket: the straight mouth leaves a lower annulus plus two short
     # upper side shoulders. Count only the lower half for a conservative area.
-    bearing = math.pi / 2 * ((FLANGE_OD / 2) ** 2 - (GUARD_FRONT_BORE_D / 2) ** 2)
+    bearing = math.pi / 2 * ((FLANGE_OD / 2) ** 2 - (AFT_STEM_PASS_D / 2) ** 2)
     front_bearing = math.pi / 2 * ((FLANGE_OD / 2) ** 2 - (TIE_PASS_D / 2) ** 2)
-    mean_r = 2 / 3 * ((FLANGE_OD / 2) ** 3 - (GUARD_FRONT_BORE_D / 2) ** 3) / (
-        (FLANGE_OD / 2) ** 2 - (GUARD_FRONT_BORE_D / 2) ** 2)
+    mean_r = 2 / 3 * ((FLANGE_OD / 2) ** 3 - (AFT_STEM_PASS_D / 2) ** 3) / (
+        (FLANGE_OD / 2) ** 2 - (AFT_STEM_PASS_D / 2) ** 2)
     # Conservative radial-strip screen: the reaction is carried by the lower
     # half of the flange root. Fillet stress concentration is not resolved.
     flange_bend = force * (mean_r - STEM_OD / 2) / (
@@ -272,11 +262,11 @@ def dimensions(holes, cartridge_aft_y, cap_split_z, tip_y, *,
             "tip_end_diameter_tolerance_mm": .03,
             "tip_lead_axial_length_mm": .30,
             "tip_lead_axial_length_tolerance_mm": .03,
-            "smooth_seal_land_y_mm": [80.515, 86.515],
+            "smooth_seal_land_y_mm": [tip_y - CUSTOMER_TIP_Y + y for y in FRONT_SEAL_Y],
             "tail_engagement_mm": TAIL_ENGAGEMENT,
             "bpt_end_y_mm": bpt_end_y,
             "barb_od_mm": BARB_OD,
-            "flange_root_radius_mm": .4,
+            "flange_root_radius_mm": FLANGE_ROOT_R,
             "factory_tie_center_y_mm": TIE_CENTER_Y,
             "factory_tie_width_mm": TIE_WIDTH,
             "tie_band_clearance_d_mm": TIE_PASS_D,
@@ -290,18 +280,15 @@ def dimensions(holes, cartridge_aft_y, cap_split_z, tip_y, *,
                     lower_guard_fore_y,
                     flange_y - flange_t / 2 - FLANGE_AXIAL_AIR - STRUCTURAL_Y)),
             "cradle_fore_shoulder_start_rule": "Retained body-well aft plane supplied by enclosure integration; minimum structural depth retained",
-            "cradle_aft_shoulder_mm": GUARD_AFT_Y - flange_y - flange_t / 2 - FLANGE_AXIAL_AIR,
+            "cradle_aft_shoulder_mm": cartridge_aft_y - flange_y - flange_t / 2 - FLANGE_AXIAL_AIR,
             "moving_guard_od_mm": GUARD_OD,
             "minimum_flange_pocket_radial_stock_mm": (GUARD_OD - FLANGE_OD) / 2 - FLANGE_RADIAL_AIR,
-            "moving_guard_aft_y_mm": GUARD_AFT_Y,
-            "fixed_wall_counterbore_d_mm": GUARD_OD + 2 * CAP_SIDE_AIR,
-            "fixed_wall_counterbore_back_y_mm": fixed_wall_back_y,
-            "fixed_wall_guard_end_air_mm": (None if fixed_wall_back_y is None
-                                             else fixed_wall_back_y - GUARD_AFT_Y),
-            "fixed_wall_counterbore_end_rule": "Receiver fore plane plus collar-ramp start, supplied by enclosure integration",
-            "upper_guard_fore_y_mm": cartridge_aft_y - STRUCTURAL_Y,
+            "moving_guard_aft_y_mm": cartridge_aft_y,
+            "aft_dry_stem_passage_d_mm": AFT_STEM_PASS_D,
+            "upper_guard_fore_y_mm": cap_arch_fore_y,
             "upper_guard_fore_axial_shoulder": False,
-            "upper_guard_rear_web_thickness_mm": STRUCTURAL_Y,
+            "upper_guard_rear_web_thickness_mm": (None if cap_arch_fore_y is None
+                                                  else cartridge_aft_y - cap_arch_fore_y),
             "upper_guard_web_x_bounds_mm": cap_web_x_bounds,
             "upper_guard_flange_aft_axial_air_mm": CAP_FLANGE_AXIAL_AIR,
             "cap_z_stop_clearance_mm": CAP_Z_AIR,
@@ -324,13 +311,24 @@ def dimensions(holes, cartridge_aft_y, cap_split_z, tip_y, *,
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=Path(__file__).resolve().parent)
-    parser.add_argument("--tip-y", type=float, default=87.015)
+    parser.add_argument("--tip-y", type=float,
+                        help="Override the prepared-stem tip datum from the current declared Box")
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     hardware = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
     sys.path.insert(0, str(hardware / "scripts"))
     from _cadq_export import export_assembly
     from _material_base import one_body
+    # The machining and factory-tool records share the persisted production
+    # declaration. This producer runs after the Box declaration is materialized.
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "enclosure"))
+    import enclosure as e
+    import _box_spec
+    box, _ = _box_spec.read(e.Box, e.Bound, (e.Pack, e.PortField, e.Nameplate),
+                           path=hardware / "manifold-layout/enclosure-box.json")
+    plate, trays = box.pack.collet_plate, box.pack.pump_trays
+    if args.tip_y is None:
+        args.tip_y = plate["seated_tube_bottom_y"]
 
     # The machined master has its flange centre at local Y0. Full rear barbs
     # are present here and absent from the installed assembly's exposed part.
@@ -338,9 +336,13 @@ def main():
     export_assembly(one_body(shape, "pump-dock-machined-stem",
                             cq.Color(.94, .94, .89)),
                     str(args.out / "pump-stem-machining.step"))
-    from pump_receiver import CUSTOMER_TIP_Y, COLLAR_RAMP_Y
-    record = dimensions(((0, 0),), 79.269, 214.925, args.tip_y,
-                        fixed_wall_back_y=args.tip_y - CUSTOMER_TIP_Y + COLLAR_RAMP_Y[0])
+    record = dimensions(plate["holes"], e.pump_cartridge_aft_y(trays, plate),
+                        e.cap_split_z(trays), args.tip_y,
+                        lower_guard_fore_y=min(cy + e._tray.skirt_body_open_y_bounds[1]
+                                               for _cx, cy, _cz in trays),
+                        cap_web_x_bounds=e.pump_cap_body_x_span(trays),
+                        cap_arch_fore_y=max(cy + e._tray.skirt_open_y_max
+                                            for _cx, cy, _cz in trays))
     record.update({"manufacturing_axis": "+Y, flange centre at local Y0",
                    "local_front_tip_y_mm": args.tip_y - FLANGE_Y,
                    "local_rear_tip_y_mm": BPT_END_Y - TAIL_ENGAGEMENT - FLANGE_Y,

@@ -9,7 +9,7 @@ The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
 pressure holding and endurance are unqualified on this geometry. Printing
 with the bore vertical keeps both sealing lands accessible and support-free;
-the rear collar's nonwetted flat underside needs removable external support.
+the outside mounting ramp and rear collar allow removable external supports.
 """
 from pathlib import Path
 import argparse
@@ -47,7 +47,7 @@ RELIEF_TAPER_END_Y = RELIEF_TAPER_START_Y + (FRONT_RELIEF_D - THROAT_D) / 2
 REAR_END_Y = 15.0
 REAR_SEAL_Y = (FACTORY_TIP_Y, REAR_END_Y)
 COLLAR_OD = 17.5
-COLLAR_RAMP_Y = (3.0, 5.9)
+COLLAR_RAMP_Y = (3.6, 5.9)
 FRONT_COLLAR_Y = (5.9, 7.0)
 GROOVE_Y = (7.0, 10.35)
 REAR_COLLAR_Y = (10.35, 11.85)
@@ -165,6 +165,9 @@ def engineering_record():
         "rear_seal_land_mm": REAR_SEAL_Y[1] - REAR_SEAL_Y[0],
         "front_lip_thickness_mm": FRONT_LIP_Y[1] - FRONT_LIP_Y[0],
         "front_collar_ramp_y_mm": list(COLLAR_RAMP_Y),
+        "wall_neck_axial_stock_mm": COLLAR_RAMP_Y[0] - FRONT_LIP_Y[1],
+        "front_collar_ramp_degrees_from_axis": math.degrees(math.atan(
+            (COLLAR_OD - BODY_OD) / 2 / (COLLAR_RAMP_Y[1] - COLLAR_RAMP_Y[0]))),
         "front_collar_flat_y_mm": list(FRONT_COLLAR_Y),
         "front_collar_periphery_thickness_mm": FRONT_COLLAR_Y[1] - FRONT_COLLAR_Y[0],
         "flow_throat_d_mm": THROAT_D,
@@ -189,7 +192,7 @@ def engineering_record():
             for psi in (10, 30, 80)],
         "scope": "Nominal geometry and separating-load cases; no physical seal, retention or lifetime rating.",
         "print_orientation": "Funnel ring on bed; bore vertical; no support in fluid passage.",
-        "external_support": "Rear collar pump-facing flat underside only; remove before factory assembly.",
+        "external_support": "Tree(auto)/Default on the outside mounting ramp and rear collar; remove before factory assembly. No fluid-bore supports.",
     }
 
 

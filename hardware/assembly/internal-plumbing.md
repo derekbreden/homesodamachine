@@ -112,7 +112,7 @@ Fit segment **water-7** between the pump's **east-facing suction barb** and the 
 
 The flavor manifold draws its tap water off the split's **forward run collet**. **Set the flow regulator into the rib over the split's** — the same seat pattern, bored for the barrel between the regulator's hub and its inlet collet, on the same face and the same column, so the two stand one over the other with the knurled adjuster level and facing east where a hand comes in over the cold core's cap. Thread its **4" zip tie** through the channel behind the bore and leave it lying open before the regulator goes in, the same as the split's below it — barrel and rib make a [65.1 mm](FLOWREG_LOOP) loop, inside the ~69 mm a 4" closes. Close it round the barrel and the rib's own back together and flush-cut it. Segment **`fluid-1`** is the hairpin between the two mouths: both face forward off the pair's own column, so the run leaves one, turns through 180° in the room ahead of them and comes back into the other — two stock quarter-turns with no straight anywhere in it. Bend it on a former or off the reel's own set; a hairpin pinched by hand kinks at the crown.
 
-From the regulator's outlet, segment **`fluid-2`** runs aft, turns east and crosses the lane **level, on the outlet's own storey** — `water-2` comes down that same lane from the chain overhead and passes beneath it, and a run that has spent no height yet is the one that clears it — then comes forward and down the strip west of the nozzle-A line in one leg, and leans east into V-A's inlet. Its current 0.712 mm pump clearance is below the 1 mm target; resolve that clearance before assembly. Four corners ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) tube segments 1 and 2). No 3/8" barb tee, no reducers — the split is already 1/4".
+From the regulator's outlet, segment **`fluid-2`** runs aft, turns east and crosses the lane **level, on the outlet's own storey** — `water-2` comes down that same lane from the chain overhead and passes beneath it, and a run that has spent no height yet is the one that clears it — then comes forward and down the strip west of the nozzle-A line in one leg, and leans east into V-A's inlet. Keep this approach clear of the pump and neighboring lines. Four corners ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) tube segments 1 and 2). No 3/8" barb tee, no reducers — the split is already 1/4".
 
 The Multiplex atmospheric vent connects to the dedicated 4 mm OVER circuit. Fit the [printed TPU sleeve](/hardware/printed-parts/asse-drain-adapter/README.md) directly over the vent barb and marked 4 mm tube end, with one four-inch tie on each joint, per [ASSE drain assembly](/hardware/assembly/asse-drain.md). Route the internal white return through two R25 bends into the black ABU44M-E bulkhead. Its open discharge is at the faucet, near the gooseneck joint and over the bowl. Keep that outlet and the complete vent route unobstructed; confirm marked insertion, sleeve retention and bend clearance on the made-up hardware. The sleeve remains an unprinted fit candidate.
 
@@ -150,7 +150,8 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    the insert and start one M3×8 screw with its Ø7 × 0.5 mm DIN 125A washer by hand,
    then seat the screw with the keeper bearing against the wall. The lower stops
    retain running clearance; do not force the keeper downward to reach them. Install the RX-M3Sx4.0 inserts in the empty
-   wall before fitting TPU. Confirm that all four keepers are locked, each funnel has
+   wall before fitting TPU, flush on its interior face in the four Ø4 mm through pilots.
+   The two rear-support pilots remain blind. Confirm that all four keepers are locked, each funnel has
    recovered, and each receiver remains captured when pushed and pulled along Y. The wall locates X/Z; the
    keeper must slide without pinching the TPU neck. Do this before downstream plumbing
    closes access to the keeper.
@@ -198,7 +199,7 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    this same factory preparation.
 
 5. **Fit the electrical contact and clamp.** Install the cap's two M1.4 inserts with
-   their tops 5.127 mm inside its aft printed face, 2 mm behind the recessed ear-bearing datum, using
+   their tops [7.375 mm](POGO_INSERT_HOST_DEPTH) inside its aft printed face, [4.25 mm](POGO_INSERT_SETBACK) behind the recessed ear-bearing datum, using
    the recessed-seat procedure in
    [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Solder four
    ~100 mm 22 AWG leads to the female contact half and mount it in the cap with its marked
@@ -216,7 +217,7 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    disconnected, slide the cartridge on its floor and present all four tube ends squarely
    to the TPU funnels. Push evenly until the stop lands seat on the lower cradle and the cartridge finishes
    flush. Confirm that every receiver remains seated, every tube enters straight and the
-   pogo pair reaches its designed compression. The broad aft planes retain 0.246 mm
+   pogo pair reaches its designed compression. The broad aft planes retain [0.25 mm](DOCK_BODY_GAP)
    clearance; the stop lands establish closure. Withdraw and reinsert straight to confirm
    that the four slip joints separate together while the tees, receiver tails and keeper
    remain fixed. Magnetic attraction alone does not establish full seating or sealing.
