@@ -3,7 +3,7 @@
   "scope": "One-off native geometry review of the common rear cuff frame, broad magnet-column mounting roots and the continuous20mm keeper travel. Lock stacks and the frame shape are independent of the fluid support revisions. This establishes occupied geometry only; assembled stiffness, retention loads, printed fit and lifetime are unqualified.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
@@ -842,14 +842,14 @@
   },
   "current_dry_root_adoption": {
     "record": "fluid-geometry-review.json",
-    "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
+    "record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e",
     "root_xz_mm": [
       15.85,
       41.5
     ],
     "source_sha256": {
       "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
-      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+      "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
       "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
       "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
@@ -903,5 +903,29 @@
     "whole_module_noncomment_tokens_identical": true,
     "module_AST_sha256": "9a75dbf9e1a5ab681e9fba422f35a48616ad86d1f6c5f6d5677079e50a94e917",
     "comment_scope": "Only the ENTRY_RELIEF_D numeric annotation changes; the countersink-mouth expression and every constructor are identical."
+  },
+  "continuous_floor_constructor_binding": {
+    "scope": "Exact full-module executable AST comparison excluding only tee_saddle. The current change is restricted to the continuous lower corbel inside that function. All keeper, rear-frame, lock, hardware, jig, guides, roots, declared constants and imported receiver references retain identical executable AST. This is an unchanged-constructor binding, not a current floor/neighbor or physical-fit result.",
+    "reference_git_commit": "115bae6eeec8fe688da256dd4851f1599c62ac2f",
+    "reference_source_sha256": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "current_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "only_excluded_function": "tee_saddle",
+    "all_other_module_ast_identical": true,
+    "all_other_module_ast_sha256": "4764ad458fa3794e0a6f9f7067d1e16cec529536582aea30a3089dc8bd330246"
+  },
+  "current_artifact_binding": {
+    "scope": "Current-artifact byte binding only, after the parent-owned canonical export. No native geometry query, linter, rebuild, graph write or physical qualification ran for this binding. The exact exported front-top delta is the separately recorded parent native result. Original auxiliary native-reader hashes and CCI full-AST/token equivalence remain unchanged.",
+    "dock_structure_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "frame": {
+      "step_sha256": "fb0825ac95a7fb86bcb4f4afeba83d767633c88b36835503d10459ca3525444d",
+      "stl_sha256": "c85ccac5ddaa5e439d54375b81a2ca6068ae1431805ee4bbc0a24bf42b6312ff",
+      "step_and_stl_bytes_identical_to_retained_native_reader": true
+    },
+    "front_top": {
+      "step_sha256": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+      "stl_sha256": "27fa82f52622ca515e3c371e3d0ed2b2cc1c2f44d47b3ff5b34c511fe6632fcc"
+    },
+    "native_root_geometry_record": "fluid-geometry-review.json",
+    "native_root_geometry_record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e"
   }
 }

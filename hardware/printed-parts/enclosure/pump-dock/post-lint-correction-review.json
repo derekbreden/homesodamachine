@@ -2,7 +2,7 @@
   "scope": "Adopted receiver, keeper, rear frame, jig, fixed guides/saddles and keeper-pocket manufacturing geometry. Native tip contact, local installed clearances, exact canonical source identity and actual offline native TPU command paths have separate scopes. Complete-appliance closure and physical qualification are separate results.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
@@ -98,7 +98,7 @@
     },
     "tee_saddle": {
       "record": "fluid-geometry-review.json",
-      "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
+      "record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e",
       "clip_x_mm": [
         -93.25,
         93.25
@@ -116,17 +116,9 @@
       "arm_x_mm": 4.25,
       "floor_z_mm": 3.0,
       "floor_front_wall_y_lap_mm": 3.0,
-      "scope": "Current clipped fixed saddles retain their collar rails and exact nativeR8.5trunk opening. Floor, under-ring and arm undersides rise45degrees;3.5x3.5mm tunnels only cut added brace stock. Conditional eight tie/head routes are zero-overlap. Actual purchased tie fit, tension and removal effort remain physical qualifications.",
+      "scope": "Current clipped saddles retain the fixed collar rails andR8.5vertical trunk opening. One45degree floor underside continues from the wall to the aft saddle edge, clipped to the actual bed; the side-arm corbels retain their addition-only3.5x3.5mm routing tunnels. Eight conditional tie/head routes and continuous20mm keeper motion are clear. Actual tie fit, tension, support cleanup and load remain unqualified.",
       "underside_degrees": 45.0,
       "print_bed_z_mm": 160.25,
-      "under_ring_corbel_y_from_tee_mm": [
-        -9.0,
-        -3.0
-      ],
-      "under_ring_corbel_z_from_port_mm": [
-        -24.25,
-        -18.25
-      ],
       "lower_tie_tunnel_y_from_tee_mm": [
         -15.25,
         -11.75
@@ -135,7 +127,13 @@
         -15.25,
         -11.75
       ],
-      "minimum_tunnel_lower_stock_mm": 4.85
+      "minimum_tunnel_lower_stock_mm": 4.85,
+      "continuous_floor_corbel_y_mm": [
+        89.515,
+        117.54
+      ],
+      "continuous_floor_crest_z_mm": 167.924,
+      "continuous_floor_trunk_radius_mm": 8.5
     },
     "pocket_roof": {
       "start_yz_mm": [
@@ -405,12 +403,12 @@
   },
   "native_wall_and_motion": {
     "record": "fluid-geometry-review.json",
-    "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
+    "record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e",
     "scope": "Original wall/receiver/metal readers retain their source hashes. Current dry-stock production adoption binds continuous keeper motion, complete-snapshot added stock and conditional eight-strap routes without a new whole-appliance claim."
   },
   "rear_frame_support": {
     "record": "rear-frame-support-review.json",
-    "record_sha256": "9b37664c275a9df32262b184b5a01da6f688454c61ebb76d73828895ccc711bb",
+    "record_sha256": "4ef23536454970219895f834e2cf3d083cd3a3e9fa0bc0cb7a61e6fa0398b333",
     "scope": "Current frame/root geometry, actual washer/head clearance, continuous keeper envelopes and conditional one-outer-point-load beam screen. No PET-GF allowable or assembled-deflection claim."
   },
   "current_offline_native_tpu_preparation": {
@@ -638,7 +636,7 @@
   },
   "dry_structure_native_adoption": {
     "record": "fluid-geometry-review.json",
-    "record_sha256": "bcdc963907e50ba83171544326fe1f987b46c06407bbd13a7c9d6dc1f9fe0ea3",
+    "record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e",
     "scope": "One-off native production-helper adoption review of the current fixed guides, saddles, lower floor/arm corbels and broad support roots. Native geometry, exact continuous keeper occupancy and conditional tie routing are separate from printed fit, strength and support removal. The complete appliance owns final surrounding integration."
   },
   "source_binding_equivalence": {
@@ -650,5 +648,347 @@
     "whole_module_noncomment_tokens_identical": true,
     "module_AST_sha256": "9a75dbf9e1a5ab681e9fba422f35a48616ad86d1f6c5f6d5677079e50a94e917",
     "comment_scope": "Only the ENTRY_RELIEF_D numeric annotation changes; the countersink-mouth expression and every constructor are identical."
+  },
+  "manual_factory_jig_reader": {
+    "scope": "Post-publication unchanged diagnostic --all manual reader of the actual corrected canonical jig. All classes completed; the four fore-relief sliver findings are absent. Every remaining section is native-queried. No linter changes, source or graph mutation, or printed calibration claim.",
+    "canonical_stl_sha256": "bca34532108fa8a4eff5f8b7f3093ab7f747c78554f56a3bf85234aa08eb55c1",
+    "canonical_step_sha256": "b01043016b30f6ac3064548e3f1757aa0e8f87d33a218ea57d63b1a7273831d7",
+    "lint_log_sha256": "2aacd350a52592edd268ef7051f43c6784817cf0b695f6d0fa45c175d918d2d7",
+    "facets": 2108,
+    "findings": 8,
+    "findings_by_class": {
+      "step": 0,
+      "sliver": 0,
+      "ceiling": 0,
+      "slope": 0,
+      "thin": 8,
+      "ledge": 0
+    },
+    "native_nominal_backstop_probes": [
+      {
+        "class_ordinal": 1,
+        "p_mm": [
+          -24.064,
+          93.015,
+          183.668
+        ],
+        "q_mm": [
+          -24.064,
+          90.015,
+          183.668
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 2,
+        "p_mm": [
+          19.238,
+          93.015,
+          187.533
+        ],
+        "q_mm": [
+          19.238,
+          90.015,
+          187.533
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 3,
+        "p_mm": [
+          78.607,
+          93.015,
+          192.794
+        ],
+        "q_mm": [
+          78.607,
+          90.015,
+          192.794
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 4,
+        "p_mm": [
+          -78.602,
+          93.015,
+          187.427
+        ],
+        "q_mm": [
+          -78.602,
+          90.015,
+          187.427
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 5,
+        "p_mm": [
+          79.918,
+          90.015,
+          183.438
+        ],
+        "q_mm": [
+          79.918,
+          93.015,
+          183.438
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 6,
+        "p_mm": [
+          20.101,
+          90.015,
+          183.493
+        ],
+        "q_mm": [
+          20.101,
+          93.015,
+          183.493
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 7,
+        "p_mm": [
+          -24.599,
+          90.015,
+          183.493
+        ],
+        "q_mm": [
+          -24.599,
+          93.015,
+          183.493
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      },
+      {
+        "class_ordinal": 8,
+        "p_mm": [
+          -84.282,
+          90.015,
+          183.438
+        ],
+        "q_mm": [
+          -84.282,
+          93.015,
+          183.438
+        ],
+        "nominal_backstop_mm": 3.0,
+        "point_pair_length_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ]
+      }
+    ],
+    "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-tube-setting-jig.lint-answers",
+    "answer_file_sha256": "61a9c49e21abe60c77b8d2768b2477131f16b5f0e6b8b1bba8187b1fc8ec9bc2",
+    "current_artifact_link": {
+      "step_sha256": "b01043016b30f6ac3064548e3f1757aa0e8f87d33a218ea57d63b1a7273831d7",
+      "stl_sha256": "bca34532108fa8a4eff5f8b7f3093ab7f747c78554f56a3bf85234aa08eb55c1",
+      "step_and_stl_bytes_identical_to_completed_reader": true,
+      "reader_log_sha256": "2aacd350a52592edd268ef7051f43c6784817cf0b695f6d0fa45c175d918d2d7",
+      "reader_answer_sha256": "61a9c49e21abe60c77b8d2768b2477131f16b5f0e6b8b1bba8187b1fc8ec9bc2",
+      "scope": "Exact completed2108-facet/8nominal-threshold full-reader files; the current exported jig is byte-identical. No second lint or native probe was run."
+    }
+  },
+  "continuous_floor_constructor_binding": {
+    "scope": "Exact full-module executable AST comparison excluding only tee_saddle. The current change is restricted to the continuous lower corbel inside that function. All keeper, rear-frame, lock, hardware, jig, guides, roots, declared constants and imported receiver references retain identical executable AST. This is an unchanged-constructor binding, not a current floor/neighbor or physical-fit result.",
+    "reference_git_commit": "115bae6eeec8fe688da256dd4851f1599c62ac2f",
+    "reference_source_sha256": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
+    "current_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "only_excluded_function": "tee_saddle",
+    "all_other_module_ast_identical": true,
+    "all_other_module_ast_sha256": "4764ad458fa3794e0a6f9f7067d1e16cec529536582aea30a3089dc8bd330246"
+  },
+  "continuous_floor_native_review": {
+    "record": "fluid-geometry-review.json",
+    "record_sha256": "d43cb8331d8569b0349ea950d943fed61ba3067502a9c661346266297386fb0e",
+    "scope": "One-off current production native continuous45degree saddle underside. Original3mm floor stock andR8.5trunk opening are retained. All added stock is checked against the243-leaf identified whole-appliance snapshot, complete20mm keeper occupancy and all8conditional strap/head envelopes. The normal section at each former Y111.54 boundary is8.485281mm. No canonical exporter, graph or linter was changed; printed fit, support removal and structural performance remain unqualified."
+  },
+  "functional_outboard_branch_roofs": {
+    "scope": "Current production native outboard branch-opening roofs preserve exact3mm stock to the upper tie-window floors. The conservative \u00d816.5 branch collar clears a continuous20mm aft route. These local occupied-geometry bounds do not qualify complete-tee removal force, actual sleeve fit, printed cleanup or loads.",
+    "source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "receiver_source_sha256": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+    "branch_envelope_radius_mm": 8.25,
+    "branch_collar_source_band_mm": [
+      13.8,
+      17.5
+    ],
+    "branch_aft_travel_mm": 20.0,
+    "rows": [
+      {
+        "station": 0,
+        "roof_z_mm": 194.924,
+        "upper_tie_window_floor_z_mm": 197.924,
+        "roof_stock_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ],
+        "branch_sweep_overlap_mm3": 0.0,
+        "branch_collar_z_air_to_roof_mm": 0.5,
+        "straight45_degree_rise_over9mm_opening_retains_roof_stock_mm": -6.0,
+        "two_sided45_degree_rise_over9mm_retains_roof_stock_mm": -1.5,
+        "probe_p_mm": [
+          -87.6,
+          113.04,
+          194.924
+        ],
+        "probe_q_mm": [
+          -87.6,
+          113.04,
+          197.924
+        ]
+      },
+      {
+        "station": 3,
+        "roof_z_mm": 194.924,
+        "upper_tie_window_floor_z_mm": 197.924,
+        "roof_stock_mm": 3.0,
+        "native_material_line_mm": 3.0,
+        "native_fraction_states": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ],
+        "branch_sweep_overlap_mm3": 0.0,
+        "branch_collar_z_air_to_roof_mm": 0.5,
+        "straight45_degree_rise_over9mm_opening_retains_roof_stock_mm": -6.0,
+        "two_sided45_degree_rise_over9mm_retains_roof_stock_mm": -1.5,
+        "probe_p_mm": [
+          87.6,
+          113.04,
+          194.924
+        ],
+        "probe_q_mm": [
+          87.6,
+          113.04,
+          197.924
+        ]
+      }
+    ]
+  },
+  "current_artifact_binding": {
+    "scope": "Current-artifact byte binding only, after the parent-owned canonical export. No native geometry query, linter, rebuild, graph write or physical qualification ran for this binding. The exact exported front-top delta is the separately recorded parent native result. Original auxiliary native-reader hashes and CCI full-AST/token equivalence remain unchanged.",
+    "dock_structure_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
+    "front_top": {
+      "step_sha256": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+      "stl_sha256": "27fa82f52622ca515e3c371e3d0ed2b2cc1c2f44d47b3ff5b34c511fe6632fcc"
+    },
+    "front_top_native_delta": {
+      "scope": "Exact actual exported native front-top difference after the continuous saddle underside correction. Only additive stock below the retained interfaces is present. No test or acceptance result is inferred for printed strength or lifetime.",
+      "reference_step_sha256": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
+      "current_step_sha256": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
+      "added_mm3": 983.622600000002,
+      "removed_mm3": 0,
+      "added_bounds_mm": {
+        "xmin": -93.25,
+        "xmax": 93.25,
+        "ymin": 106.866,
+        "ymax": 111.54,
+        "zmin": 160.25,
+        "zmax": 164.924
+      },
+      "seconds": 8.28428833297221
+    },
+    "auxiliary_canonical_files": {
+      "enclosure-pump-receiver": {
+        "step_sha256": "f2343a4ae2b01ce1569e7ca5a3a7ae9dd1da57c695052ce7c410aeb36532bd1c",
+        "stl_sha256": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
+        "step_and_stl_bytes_identical_to_retained_native_reader": true
+      },
+      "enclosure-pump-receiver-keeper": {
+        "step_sha256": "285375943e2f7714b7f853fa4ad4c5236abad702b804a88108b335241a7061a9",
+        "stl_sha256": "686523b432802ad7f4fc5998ee484828203688c53b1f5fe7d7dda6dbf47e85aa",
+        "step_and_stl_bytes_identical_to_retained_native_reader": true
+      },
+      "enclosure-pump-rear-support": {
+        "step_sha256": "fb0825ac95a7fb86bcb4f4afeba83d767633c88b36835503d10459ca3525444d",
+        "stl_sha256": "c85ccac5ddaa5e439d54375b81a2ca6068ae1431805ee4bbc0a24bf42b6312ff",
+        "step_and_stl_bytes_identical_to_retained_native_reader": true
+      },
+      "enclosure-pump-tube-setting-jig": {
+        "step_sha256": "b01043016b30f6ac3064548e3f1757aa0e8f87d33a218ea57d63b1a7273831d7",
+        "stl_sha256": "bca34532108fa8a4eff5f8b7f3093ab7f747c78554f56a3bf85234aa08eb55c1",
+        "step_and_stl_bytes_identical_to_retained_native_reader": true
+      }
+    },
+    "unchanged_auxiliary_constructor_binding": "continuous_floor_constructor_binding"
   }
 }
