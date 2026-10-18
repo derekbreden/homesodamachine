@@ -13,35 +13,37 @@ potting volumes and factory setting gauges share one interface definition.
 
 | Quantity | Nominal geometry |
 | --- | ---: |
-| Cartridge body aft plane | Y79.269 mm |
-| Fixed bay-wall fore plane | Y79.515 mm |
-| Body-plane separation away from bearing lands | 0.246 mm |
+| Cartridge body aft plane | Y82.265 mm |
+| Fixed bay-wall fore plane | Y82.515 mm |
+| Body-plane separation away from bearing lands | 0.250 mm |
 | Four integral fixed-wall bearing lands | 4.000 × 12.000 mm each |
 | Bearing-land X centers | −100.000, 100.000 mm |
 | Bearing-land Z centers | 223.925, 266.174 mm |
-| Bearing-land fore / embedded aft planes | Y79.269 / Y82.515 mm |
-| Bare magnet contact plane | Y81.269 mm |
+| Bearing-land fore / embedded aft planes | Y82.265 / Y85.515 mm |
+| Bare magnet contact plane | Y84.265 mm |
 | Moving magnet projection beyond cartridge body | 2.000 mm |
-| Fixed magnet recess behind bay-wall face | 1.754 mm |
-| Moving PET-GF guard projection | 1.850 mm |
+| Fixed magnet recess behind bay-wall face | 1.750 mm |
+| Moving PET-GF guard projection | 1.350 mm |
+| Exposed pole ahead of moving guard | 0.650 mm |
 | Guard-to-fixed-recess running clearance | 0.250 mm |
 | Nominal magnet envelope | 6.350 × 6.350 × 4.7625 mm |
 | Slot width | 6.650 mm |
 | Rail depth from pole face | 2.000–2.600 mm |
 | Rail tip distance from column centerline | 2.625 mm |
 | Backing and side stock beyond internal potting keys | 3.000 mm |
+| Fixed housing from guard-recess end to side-key front | 3.000 mm |
 
 The moving guard enters a matching recess in the fixed wall. The surrounding
-cartridge and bay body planes retain their existing seating datums. Moving the
-magnet contact plane into the fixed wall leaves the required backing within
-the cartridge's accepted fitted stock. The local fixed-wall back pads extend
-to Y89.3458 mm. Their width is 15.85 mm per column, clear of the two adjacent
+cartridge and bay body planes define the 0.250 mm body air. The moving
+column backing stands inside the lower cartridge body, clear of its fitted
+pump wells. The local fixed-wall back pads extend
+to Y92.3418 mm. Their width is 15.85 mm per column, clear of the two adjacent
 receiver axes; receiver-keeper webs and assembly paths must also clear these
 pads.
 
 Four broad, integral PET-GF lands project across the body air at the retained
 outboard lower-cradle edges. Their coplanar fore faces bear directly on its
-aft face at Y79.269 mm. Each land embeds 3.000 mm into the continuous fixed
+aft face at Y82.265 mm. Each land embeds 3.000 mm into the continuous fixed
 wall; two heights at both X edges establish the rigid seating plane and carry
 seating moments. They lie outside the cap lanes and above the stem guards.
 The [bounded native review](body-stop-native-review.json) binds their source,
@@ -61,7 +63,7 @@ groove height each have the larger explicit ±0.010 inch tolerance. Their
 common permitted groove interval, measured from a pole face, is
 1.8542–2.6924 mm. The 0.60 mm rail lies inside that interval, with 0.1458 mm
 front and 0.0924 mm rear allowance before print error. Its moving fore edge
-is flush with the Y79.269 mm cartridge body plane, and the side-key cavities
+is flush with the Y82.265 mm cartridge body plane, and the side-key cavities
 start directly at its 2.600 mm back edge. The rail tips have
 0.1104 mm clearance to the largest permitted groove neck. The cavity depth
 uses the drawing's maximum 4.8768 mm thickness and 0.20 mm rear allowance.
@@ -94,8 +96,8 @@ parts.
 
 Print the setting gauges on their common flat backs. Their canonical files
 use the machine frame: rotate the moving gauge −90° about X and place its
-Y84.269 face on the bed; rotate the fixed gauge +90° about X and place its
-Y76.515 face on the bed. These poses build along machine −Y and +Y,
+Y87.265 face on the bed; rotate the fixed gauge +90° about X and place its
+Y79.515 face on the bed. These poses build along machine −Y and +Y,
 respectively. The central rib, side feet and bridge all begin on that common
 back plane. A mesh-face review in [the geometry record](magnet-geometry.json)
 finds no horizontal underside above the bed in these poses. It does not
@@ -136,14 +138,18 @@ and headroom accommodate the drawing's full three-block height stack.
 
 The receiver keeper, magnet keys and fixed fluid connections remain assembled
 during a customer's pump swap. None is a customer adjustment or consumable.
+The prepared stem tips lead the pole plane by 5.750 mm, so the wall-supported
+funnels guide the fluid axes before the poles meet. The 0.650 mm exposed
+magnet edges still require inspection for chipping and angled insertion in
+the installed qualification article.
 
 ## Evidence and physical scope
 
 The local native review covers both mating stocks and cutouts, the full
 supplier size/common-groove envelope, front loading and downward installation,
 factory-gauge clearance, guard insertion and nominal bare-face contact. The
-moving stock behind its body plane lies entirely inside the retained
-cartridge's fitted stock. Translating each nominal cured key by 0.01 mm along
+moving stock behind its body plane lies inside the cartridge's body.
+Translating each nominal cured key by 0.01 mm along
 either Y direction encounters printed material, establishing the intended
 geometric capture rather than a friction-only pocket. The complete assembly
 must still establish neighboring keeper and plumbing clearances.

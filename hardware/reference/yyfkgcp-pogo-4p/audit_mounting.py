@@ -66,6 +66,10 @@ def main():
     protrusion_error = OVERALL_TIP_HEIGHT_TOL + BODY_DEPTH_TOL
     stack_error = protrusion_error + 2 * FACE_FLUSH_TOL
     limits = [press - stack_error, press + stack_error]
+    ear_depth = e._pogo.ear_back()
+    anchor_depth = ear_depth + e.pogo_heatset_setback
+    screw_tip_depth = e._pogo.EAR_FACE + e.pogo_screw_len
+    recess = e.pump_contact_face_recess
     passed = 0 < limits[0] and limits[1] < e._pogo.STROKE
     rows.append({"check": "drawing extremes and face-position criterion at nominal recessed seats",
                  "pass": passed, "compression_range_mm": limits})
@@ -118,6 +122,20 @@ def main():
                             "magnetic_pull_at_installed_gap_specified": False,
                             "installed_contact_resistance_verified": False,
                             "whole_cartridge_retention_verified": False},
+        "nominal_fastener_stack_mm": {
+            "datum": "Depth into either printed host from its mating face; contact-face depths omit the recess.",
+            "ear_bearing_from_contact_face": ear_depth,
+            "ear_bearing_from_printed_host": ear_depth + recess,
+            "insert_top_from_contact_face": anchor_depth,
+            "insert_top_from_printed_host": anchor_depth + recess,
+            "insert_end_from_printed_host": anchor_depth + e.pogo_heatset_len + recess,
+            "pilot_end_from_printed_host": anchor_depth + e.pogo_heatset_len + e.pogo_heatset_relief + recess,
+            "screw_tip_from_printed_host": screw_tip_depth + recess,
+            "screw_thread_engagement": max(0.0, min(e.pogo_heatset_len, screw_tip_depth - anchor_depth)),
+            "screw_tip_to_blind_end": anchor_depth + e.pogo_heatset_len + e.pogo_heatset_relief - screw_tip_depth,
+            "loading_stadium_width": e.pogo_insert_entry_dia,
+            "tool_profile_or_physical_fit_qualified": False,
+        },
         "source_sha256": {str(path.relative_to(ROOT)): sha(path) for path in inputs},
         "artifact_sha256": {str(path.relative_to(ROOT)): sha(path) for path in paths.values()},
         "physical_record": "physical-observations.json",

@@ -1,0 +1,176 @@
+{
+  "scope": "Manual current cold-core valve-cradle geometry and actual exported-parent correspondence. Finite native comparisons retain the surrounding lid and its stationary reservoir-B fill passage. This is not a physical fit, deposition, support-removal, valve-retention or load-capacity qualification. No recurring runner, scorecard row or build gate is added.",
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "366667fb315fc6ed6a32d2676c016395c24d2685791cabeae9e1fbcc3cee7725",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "2a5a8c6a0585a761ee2c3952738ff74d6ea189cdec054bac7fb9777b3c2a4f3c",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "0a25ac846ab86c4ad2cc4bb8b0d09671d9c809701ea930c52cfc0057901e349a",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "c842f91a5999f56e61842fef9efc6ead19ac3d7ee7fc6fb9c6c51ddc2ec64c8e",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "4cf0d7fefa46bc9ecf7d0c4d61d235feb70f7e9ad0b5b8ddb56c249ba04b50c9",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "a36dfef89dd7e8f7e8f186271670a2bbd3690473d53d754a921461a761cda8a2",
+    "hardware/cold-core-layout/cold_core_assembly.py": "1aed5d6de875fe6f8fd36205ff297f46d5774ab84a7de6dfb808b276d80cea3b"
+  },
+  "artifacts": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
+      "step_sha256": "2c5ccef5ea5e176030791f578554edf3fd4c09d79c6966172d84254bccd3dc4f",
+      "payload_sha256": "28909d7bc6c1555660d6ec8cabecc83427c8eaefc6a78cccd3c2f56bbcc95f72",
+      "payload_source_sha256": "2c5ccef5ea5e176030791f578554edf3fd4c09d79c6966172d84254bccd3dc4f",
+      "payload_matches_step": true,
+      "payload_mesh_entries": 1,
+      "cap_lid_named_entries": [
+        "foam-cap-lid-top"
+      ]
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "step_sha256": "c9d67de13d568b32fc8906279d7b8173df5afb3073ff35156c17d2055fab0a3e",
+      "payload_sha256": "693f2fca6b39affade42520223afe40559fba744970e1c2b620ee31a9cbcfd44",
+      "payload_source_sha256": "c9d67de13d568b32fc8906279d7b8173df5afb3073ff35156c17d2055fab0a3e",
+      "payload_matches_step": true,
+      "payload_mesh_entries": 5,
+      "cap_lid_named_entries": [
+        "foam-cap-lid-top"
+      ]
+    },
+    "hardware/cold-core-layout/cold-core-assembly.step": {
+      "step_sha256": "d6db460c7300f20034da3f5f90676c281ffd61aaa14f089d1149ff650fc92513",
+      "payload_sha256": "142e7f8febdf9cd1b08a5ad0e4728b3637ef3dc2b5174321668e493e22e9d7c6",
+      "payload_source_sha256": "d6db460c7300f20034da3f5f90676c281ffd61aaa14f089d1149ff650fc92513",
+      "payload_matches_step": true,
+      "payload_mesh_entries": 65,
+      "cap_lid_named_entries": [
+        "foam-cap-lid-top"
+      ]
+    }
+  },
+  "lid": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 294771.50310283195,
+    "frame": "cap authoring frame; outer plate face Z5.4 mm",
+    "source_valve_mounting_target_world_y_mm": 267.21,
+    "cradle_stations": {
+      "valve-v-a": {
+        "centre_xy_mm": [
+          66.59,
+          24.27
+        ],
+        "yaw_degrees": 0.0,
+        "seat_from_plate_face_mm": -1.4
+      },
+      "valve-v-b": {
+        "centre_xy_mm": [
+          66.59,
+          -22.35
+        ],
+        "yaw_degrees": 0.0,
+        "seat_from_plate_face_mm": -1.4
+      }
+    }
+  },
+  "native_reference": {
+    "publication_source": "2203954ac5e12d3d2435f2cd1de2fd35f92fd267",
+    "lid_step_sha256": "5890626547d923cebf0303120d87a80c4b3535293926711a7b470d6805f009f0",
+    "scope": "Reference used only for the finite -0.5 mm local-X station and unchanged surrounding-lid comparisons. The B plinth is re-cut against its fixed conduit passage; rigid translation and invariant lid volume are not assumed."
+  },
+  "checks": [
+    {
+      "id": "lid-valid-single-solid",
+      "pass": true
+    },
+    {
+      "id": "material-outside-valve-cradle-windows",
+      "pass": true,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0,
+      "equal_within_boolean_tolerance": true
+    },
+    {
+      "id": "valve-a-local-station",
+      "pass": true,
+      "name": "valve-v-a",
+      "local_translation_mm": [
+        -0.5,
+        0.0,
+        0.0
+      ],
+      "current_cradle_centre_mm": [
+        66.59000000000003,
+        24.27
+      ],
+      "footprint_margin_mm": 0.75,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0,
+      "equal_within_boolean_tolerance": true
+    },
+    {
+      "id": "valve-b-stationary-conduit-reconciliation",
+      "pass": true,
+      "name": "valve-v-b",
+      "local_translation_mm": [
+        -0.5,
+        0.0,
+        0.0
+      ],
+      "current_cradle_centre_mm": [
+        66.59000000000003,
+        -22.35
+      ],
+      "footprint_margin_mm": 0.75,
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 1.653461196333871,
+      "equal_within_boolean_tolerance": false,
+      "stationary_conduit": "reservoir-b-fill",
+      "fixed_conduit_centre_mm": [
+        90.5,
+        -43.5
+      ],
+      "plinth_passage_radius_mm": 6.312571253013435,
+      "outside_fixed_and_translated_conduit_lanes": {
+        "material_removed_mm3": 0.0,
+        "material_added_mm3": 0.0,
+        "equal_within_boolean_tolerance": true
+      },
+      "native_plinth_material_in_required_conduit_passage_mm3": 0.0,
+      "disposition": "The source re-cuts the stationary conduit passage after moving the plinth. This local window is not a rigid translation; all residual differences are confined to the old/current conduit lanes and the current required plinth passage is empty."
+    },
+    {
+      "id": "foam-envelope-actual-lid-leaf",
+      "pass": true,
+      "leaf": "foam-cap-lid-top",
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0,
+      "equal_within_boolean_tolerance": true
+    },
+    {
+      "id": "standalone-cold-core-actual-lid-leaf",
+      "pass": true,
+      "leaf": "foam-cap-lid-top",
+      "material_removed_mm3": 0.0,
+      "material_added_mm3": 0.0,
+      "equal_within_boolean_tolerance": true
+    },
+    {
+      "id": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step-payload-descent",
+      "pass": true
+    },
+    {
+      "id": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step-payload-descent",
+      "pass": true
+    },
+    {
+      "id": "hardware/cold-core-layout/cold-core-assembly.step-payload-descent",
+      "pass": true
+    },
+    {
+      "id": "plinth-anchor-separation",
+      "pass": true,
+      "intersections": []
+    }
+  ],
+  "all_checks_pass": true,
+  "evidence_limits": [
+    "The source-derived valve target is checked against the complete placed appliance separately; this record does not substitute for that construction.",
+    "Aggregate leaf comparisons read actual newly exported native leaves, not a rebuilt in-memory parent. Their expected pose is the production 180-degree spin and lid outer-face Z datum.",
+    "The two fluted cap STL files remain byte-identical to their published inputs; the revised smooth top lid is owned as STEP with its matching viewer payload. Its post-publication mesh review is separate.",
+    "The shared Beduan socket physical observations retain their recorded articles and processes. They do not accept this complete revised lid or its installed valve load path."
+  ]
+}

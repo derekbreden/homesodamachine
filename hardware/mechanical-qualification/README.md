@@ -364,6 +364,9 @@ and [external route review](../printed-parts/enclosure/pump-dock/external-route-
 record local native clearances at their bound source and obstacle geometry. The
 [core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
 records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
+The [cold-core cradle review](../printed-parts/cold-core/foam-cap/valve-cradle-native-review.json)
+binds the cap lid's fixed-valve stations and conduit passage to matching native lid leaves
+in both cold-core models. It does not qualify printed lid fit or valve retention.
 The [manual mesh-interface review](../printed-parts/enclosure/pump-dock/lint-interface-review.json)
 records the scoped classifier limitations and unresolved inherited rear-interface,
 handhold-floor and marking details, with native/source correspondence and the
@@ -405,8 +408,8 @@ accepts the founder's successful connector fit and mating/compression check in t
 identified test piece, reported 2026-10-04. Insert retention and electrical continuity
 have no reported result.
 
-The current seats recess both connector faces 0.127 mm, giving a 0.500 mm nominal
-contact-face gap across the 0.246 mm printed-frame gap. The drawing's conservative
+The current seats recess both connector faces 0.125 mm, giving a 0.500 mm nominal
+contact-face gap across the 0.250 mm printed-frame gap. The drawing's conservative
 pin protrusion is 0.80–1.20 mm. Applying ±0.05 mm installed face error per half
 about the recessed positions gives 0.200–0.800 mm compression, leaving 0.300 mm
 additional closing allowance before the stated 1.10 mm stroke. This conditional

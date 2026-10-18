@@ -22,14 +22,20 @@ connect through narrow uprights to a high bridge, clearing the keeper
 heads and tee branches. Its two mounting posts meet the frame's fore face,
 so tightening the screws does not drive the support into the TPU flange.
 The locks lie on the two magnet-column axes, X±52.225 mm, between each
-pump's fluid ports. The 10 mm square posts retain 3 mm stock around their
-Ø4 mm insert pilots.
+pump's fluid ports. The 15.85 mm wide mounting roots share the magnet
+columns' full width and meet the frame on one flat plane. They extend
+40.025 mm vertically, with at least 3 mm stock around their Ø4 mm insert
+pilots and the magnet cavities.
+The four keeper pilots pass through the dry wall; the two frame pilots are
+blind. The keeper screws retain full 4 mm insert engagement and end 2.5 mm
+behind the wall's fore face.
 
 Each receiver has a 9 mm funnel mouth, a 6 mm long Ø6.10 mm front seal land,
 a short relieved transition and a 6 mm rear seal land. The sealing surface
 is continuous TPU. The front retaining collar has a 1.1 mm outer rim and a
-45-degree ramp inside the wall; the 0.6 mm front lip remains flexible for
-factory insertion. The front land receives the smooth Ø6.35 mm machined
+51.58-degree ramp inside the wall, leaving a 3 mm axial PET-GF neck behind
+the front lip recess. The 0.6 mm front lip remains flexible for factory
+insertion. The front land receives the smooth Ø6.35 mm machined
 stem; the permanent rear land receives an 18.175 mm LLDPE tail entering a
 commercial PP0208E tee. The nominal customer tip has 0.50 mm of travel before
 its actual Ø6.05 mm end first contacts the inward 45-degree relief taper.
@@ -43,7 +49,7 @@ insertion; the four tube ends do not have to compress against a common bottom.
 Four integral 4 × 12 mm PET-GF stop lands meet the lower cradle at two
 heights on its outboard edges. Their 192 mm² total bearing and 3 mm wall
 backing establish the closing plane, while the remaining broad cartridge
-face retains 0.246 mm clearance from the wall. The magnets are match-set
+face retains 0.250 mm clearance from the wall. The magnets are match-set
 after these rigid lands seat. The [body-stop review](body-stop-native-review.json)
 checks contact, overtravel restraint and the cartridge/cap service paths.
 
@@ -51,10 +57,12 @@ The lower cartridge positively catches each stem's Ø16 × 2.5 mm flange
 in both Y directions. Its cap blocks the vertical installation route.
 The flexible pump tubing therefore does not carry the stem's insertion
 reaction as an unsupported axial column. Split Ø22.30 mm guards retain
-3.00 mm radial stock around their Ø16.30 mm flange pockets, back the front
-of each receiver and enter Ø22.80 mm counterbores in the fixed wall.
-The tip projects 7.746 mm beyond the cartridge's flat aft plane; the guard
-extends only to Y82.25 mm. See the [machined stem definition](machined-stem.md)
+3.00 mm radial stock around their Ø16.30 mm flange pockets and end flush
+with the cartridge's Y82.265 mm aft plane. Their dry Ø7.75 mm passages
+clear the stems and their flange-root rounds; the closed fixed wall supports
+the TPU receivers.
+The tip projects 7.750 mm beyond the cartridge back to Y90.015 mm.
+See the [machined stem definition](machined-stem.md)
 for material, surface finish, factory preparation and load screens.
 
 Six attracting SB443-IN pairs occupy two columns between the fluid ports.
@@ -63,15 +71,19 @@ The magnets load after printing and are captured by thin groove rails and
 keyed DP420 Off-White bedding. The [magnet process](magnet-retention.md)
 defines polarity, dimensional tolerances, setting and cure. Published pull
 to steel is not an installed retention rating. Electrical contact faces
-are recessed 0.127 mm into each carrier, giving a nominal 0.500 mm face gap
-independently of the 0.246 mm body gap.
+are recessed 0.125 mm into each carrier, giving a nominal 0.500 mm face gap
+independently of the 0.250 mm body gap.
 
 ## Fixed plumbing and enclosure
 
 The four pump-side tees stand in integral open-aft saddles behind the wall.
 Two owned six-inch, 18 lb ties secure each tee's fixed run collars. Open
-central tie bands retain 3 mm outer rails and end stock; 3 mm side webs join
-each saddle to the wall. The two run-end collets remain exposed. The fore
+central tie bands retain at least 3.15 mm side stock. Three-millimetre
+side webs and lower floor brackets join the saddles to the wall. The outer
+two supports stop at the slide-channel planes and use their inboard webs;
+the inner supports have both webs. Clock the tie heads fore of the saddles,
+clear of the coils, and keep both straps on the fixed run collars. The two
+run-end collets remain exposed. The fore
 branch collet has about 0.733 mm clearance to the rear frame and needs the
 tee clear of that frame for access.
 The four short tails are straight and stationary. The pump-side valve
@@ -85,9 +97,9 @@ The Ø6.35 mm tail passes through the frame's Ø12 mm ring; receivers,
 keepers and frame stay installed. This defines the geometric removal
 route without a qualified extraction-force or service-life result.
 
-The tees stand at Y117.54 mm. The fore valve tray plane is Y106.24 mm with
-seats at Z252.425 mm; the aft deck's tray plane is Y184.29 mm. The enclosure's rear
-plane is Y475.3 mm. Pump mounting and front cartridge datums are independent
+The tees stand at Y120.54 mm. The fore valve tray plane is Y109.24 mm with
+seats at Z252.425 mm; the aft deck's tray plane is Y187.79 mm. The enclosure's rear
+plane is Y478.3 mm. Pump mounting and front cartridge datums are independent
 of these plumbing stations. The enclosure has closed side walls at the pump
 bay and contains no tee carrier, release springs or side window covers. The
 keeper access pocket has a 45-degree roof rising aft, preserving its full
@@ -115,8 +127,9 @@ keeper access pocket has a 45-degree roof rising aft, preserving its full
    ties. Drop them into the lower cradle with each flange in its upward-open
    pocket, connect the four pump terminals and close the cap. The assembled
    four-tip gauge registers the cartridge back and checks simultaneous tip
-   position. Four open rectangular fore reliefs clear the moving guards; the
-   aft tip backstop is 3 mm thick. Calibrate its actual 7.746 mm datum before
+   position. Its ordinary open stem channels meet the flush cartridge back;
+   two fore reliefs clear the projecting magnet guards. The aft tip backstop
+   is 3 mm thick. Calibrate its actual 7.750 mm datum before
    using it as a factory measurement fixture; printed nominal dimensions
    alone do not establish it.
 5. Assemble the electrical contacts on their recessed ear datums. Follow the
@@ -143,8 +156,8 @@ keeper access pocket has a 45-degree roof rising aft, preserving its full
 | Stem setting fixture, factory tool | PET-GF; [STEP](pump-stem-setting-fixture.step) and [STL](pump-stem-setting-fixture.stl) |
 
 The receiver prints with its bore vertical. Its sealing lands receive no
-support contacts; the exposed underside of its nonwetted rear flange needs
-removable external support. Keepers and the rear bar print flat on their
+support contacts; the outside mounting ramp and rear flange allow removable
+external Tree(auto)/Default support. Keepers and the rear bar print flat on their
 broad Y faces. PET-GF parts follow the shared 0.20 mm first layer / 0.24 mm
 body and Tree(auto)/Default support policy. The four-receiver
 [native TPU preparation](print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
@@ -175,7 +188,7 @@ results. Local source hashes identify their scope.
 
 The [local manufacturing review](post-lint-correction-review.json) records
 the collar and internal taper, rear-frame ligaments and metal clearances,
-open jig reliefs, saddle tie bands and sloping keeper-pocket roof. Its local
+open stem channels, saddle tie bands and sloping keeper-pocket roof. Its local
 native results have separate bindings from the complete appliance and
 native TPU slice.
 

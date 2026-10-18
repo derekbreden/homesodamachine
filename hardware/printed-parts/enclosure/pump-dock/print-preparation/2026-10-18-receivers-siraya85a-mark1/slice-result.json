@@ -1,38 +1,38 @@
 {
   "error_string": "Success.",
-  "export_time": 5580,
+  "export_time": 2342,
   "layer_height": 0.11999999731779099,
   "plate_index": 0,
-  "prepare_time": 202,
+  "prepare_time": 72,
   "return_code": 0,
   "sliced_plates": [
     {
       "feature_type_times": {
         "Custom": 345.0193786621094,
         "Flush": 15.0,
-        "Inner wall": 2362.651123046875,
-        "Outer wall": 3060.758056640625,
-        "Overhang wall": 76.06780242919922,
-        "Support": 1389.498291015625,
-        "Support interface": 29.90872573852539,
-        "Travel": 767.0928955078125,
-        "Undefined": 757.8749389648438
+        "Inner wall": 2276.234375,
+        "Outer wall": 3047.49462890625,
+        "Overhang wall": 76.06851196289062,
+        "Support": 1389.5406494140625,
+        "Support interface": 29.90888214111328,
+        "Travel": 760.186767578125,
+        "Undefined": 750.9688110351562
       },
       "filament_change_times": 0,
       "filaments": [
         {
           "filament_id": "",
           "id": 1,
-          "main_used_g": 10.529314041137695,
-          "total_used_g": 10.529314041137695
+          "main_used_g": 10.363808631896973,
+          "total_used_g": 10.363808631896973
         }
       ],
-      "generate_support_material_time": 1870,
+      "generate_support_material_time": 269,
       "id": 1,
-      "infill_time": 63,
+      "infill_time": 16,
       "layer_filament_change": 0,
-      "main_predication": 7671.4169921875,
-      "make_perimeters_time": 433,
+      "main_predication": 7564.78173828125,
+      "make_perimeters_time": 150,
       "obj_cached_cnt": 0,
       "objects": [
         {
@@ -46,7 +46,7 @@
           },
           "id": 5,
           "name": "Permanent pump receiver 1",
-          "triangle_count": 13858
+          "triangle_count": 13606
         },
         {
           "bbox": {
@@ -59,7 +59,7 @@
           },
           "id": 9,
           "name": "Permanent pump receiver 2",
-          "triangle_count": 13858
+          "triangle_count": 13606
         },
         {
           "bbox": {
@@ -72,7 +72,7 @@
           },
           "id": 13,
           "name": "Permanent pump receiver 3",
-          "triangle_count": 13858
+          "triangle_count": 13606
         },
         {
           "bbox": {
@@ -85,13 +85,13 @@
           },
           "id": 17,
           "name": "Permanent pump receiver 4",
-          "triangle_count": 13858
+          "triangle_count": 13606
         }
       ],
-      "sliced_time": 11336,
-      "sliced_time_with_cache": 8603,
-      "total_predication": 8037.21826171875,
-      "triangle_count": 55432,
+      "sliced_time": 2069,
+      "sliced_time_with_cache": 1558,
+      "total_predication": 7930.5830078125,
+      "triangle_count": 54424,
       "warning_message": ""
     }
   ],

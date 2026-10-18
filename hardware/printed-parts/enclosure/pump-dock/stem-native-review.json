@@ -2,21 +2,25 @@
   "review": "Current production flanged stem capture and pump service geometry",
   "scope": "Direct read of final canonical STEP parts and declared Box, plus source-defined bearing/clearance witnesses. No production export, Box derivation, assembly graph or printer operation. Sampled motions and continuous separating planes have their stated distinct scopes.",
   "source_sha256": {
-    "stub_grip.py": "1fa2e13d761c76aeb9a95df710e20beb90bb47b4a80a5ce7678cebc4c39685a2",
-    "enclosure.py": "f3f053f5189cf238af0829a56e3a52359923893ed33a368ece827fc4589a8bdd",
-    "pump_receiver.py": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-    "pump_tray.py": "f999466b1e4f0125815aea462111715e2cf32e52dd809f806734f8aaf90c25e3"
+    "stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+    "enclosure.py": "cbcb46d69ecdd02d518384b4be2f0f6798a88676215f983ba4b083f907b1c4d4",
+    "pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+    "pump_tray.py": "f999466b1e4f0125815aea462111715e2cf32e52dd809f806734f8aaf90c25e3",
+    "dock_structure.py": "99a3c3feaf25617f8e5cbffd4cf5cef93708b9cc8e4cb1dd157dfa048ffd78bd"
   },
-  "box_sha256": "06e7a66ae72ffd79bba157fdb8468cee36bd4e8663f55bb5822e5364550cc7b5",
+  "box_sha256": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
   "input_step_sha256": {
-    "pump-cartridge": "339c84bb21c4f29fdc14f20b28914af177792b1aa8a4d27e829633d13ef27540",
-    "pump-cap": "3a5cda11f8460477cdf3a6ea66e9b13b1322e912359f06bf1285c5852a6086a1",
-    "front-top": "b73c43b33a8941e6ac9d268fd3e9ddb432ec719981d31683fd7c4e0b4761e36f"
+    "pump-cartridge": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063",
+    "pump-cap": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
+    "front-top": "83c45f665634e19a29501bab7894bee2c32c1e24fc5f0d3698f89321142dc279",
+    "machining-master": "6de1c52b310340194ce7e3465dea21a33bbf3f9e39f70397eb1f4868505e7b99",
+    "stem-setting-fixture": "f5743a8b68c49e99b24c3ea57b059917caa521912f3c99fe7de1ff21c5a8ca03"
   },
   "input_stl_sha256": {
-    "pump-cartridge": "6b3c56d3e3d6f8c7e79cd8a5cee06a39a342260d870caccdc267a68c48ea3441",
-    "pump-cap": "884befc7fd293bf76ce9727c8dec5843b4100b57068954905c8dcb8e7622d5b5",
-    "front-top": "01813f55c260322953fda765b3227c78f75e0f0f1ec28c5b3fef6631a55eb58a"
+    "pump-cartridge": "79b5acf77994b484591f291db2f678779b1d9c374e55e077ebfc8e228214195e",
+    "pump-cap": "52b338cbf2ea9ec82a6e3a3e84da8bd6faa7190ba4b3f0da389ef65bd0843621",
+    "front-top": "3ef88141410197caef8ef972a1ffe9bb9e8c8bd2f773f54148ac3ed49ddff9ac",
+    "stem-setting-fixture": "ce7de559ffe6767ce952fa4f00994908d3e1411a3cfcfaed1bf82e38aad6b8fc"
   },
   "purchased_pump_reference_step_sha256": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
   "dimensions": {
@@ -27,14 +31,14 @@
     "flange_od_mm": 16.0,
     "flange_thickness_mm": 2.5,
     "flange_center_y_mm": 77.5,
-    "tip_y_mm": 87.015,
+    "tip_y_mm": 90.015,
     "tip_end_diameter_mm": 6.05,
     "tip_end_diameter_tolerance_mm": 0.03,
     "tip_lead_axial_length_mm": 0.3,
     "tip_lead_axial_length_tolerance_mm": 0.03,
     "smooth_seal_land_y_mm": [
-      80.515,
-      86.515
+      83.515,
+      89.515
     ],
     "tail_engagement_mm": 12.0,
     "bpt_end_y_mm": 76.1,
@@ -52,17 +56,14 @@
     "cradle_fore_shoulder_start_y_mm": 72.887,
     "cradle_fore_shoulder_mm": 3.212999999999994,
     "cradle_fore_shoulder_start_rule": "Retained body-well aft plane supplied by enclosure integration; minimum structural depth retained",
-    "cradle_aft_shoulder_mm": 3.35,
+    "cradle_aft_shoulder_mm": 3.3650000000000007,
     "moving_guard_od_mm": 22.3,
     "minimum_flange_pocket_radial_stock_mm": 3.0000000000000004,
-    "moving_guard_aft_y_mm": 82.25,
-    "fixed_wall_counterbore_d_mm": 22.8,
-    "fixed_wall_counterbore_back_y_mm": 82.515,
-    "fixed_wall_guard_end_air_mm": 0.26500000000000057,
-    "fixed_wall_counterbore_end_rule": "Receiver fore plane plus collar-ramp start, supplied by enclosure integration",
+    "moving_guard_aft_y_mm": 82.265,
+    "aft_dry_stem_passage_d_mm": 7.75,
     "upper_guard_fore_y_mm": 76.269,
     "upper_guard_fore_axial_shoulder": false,
-    "upper_guard_rear_web_thickness_mm": 3.0,
+    "upper_guard_rear_web_thickness_mm": 5.995999999999995,
     "upper_guard_web_x_bounds_mm": [
       -87.225,
       87.225
@@ -70,13 +71,13 @@
     "upper_guard_flange_aft_axial_air_mm": 0.35,
     "cap_z_stop_clearance_mm": 0.25,
     "conservative_80psi_axial_force_per_stem_N": 17.46812543505122,
-    "conservative_lower_half_bearing_area_mm2": 20.227929698301278,
-    "nominal_80psi_bearing_MPa": 0.8635646700175242,
+    "conservative_lower_half_bearing_area_mm2": 76.94447632034377,
+    "nominal_80psi_bearing_MPa": 0.22702247478202314,
     "conservative_front_shoulder_bearing_area_mm2": 43.03589236336318,
     "nominal_80psi_front_shoulder_bearing_MPa": 0.40589667079662983,
     "nominal_80psi_flange_root_shear_MPa": 0.3502536704929344,
-    "conservative_80psi_flange_root_radial_strip_bending_MPa": 7.4107203341140675,
-    "normal_10psi_bearing_MPa": 0.10794558375219053,
+    "conservative_80psi_flange_root_radial_strip_bending_MPa": 5.045864983543474,
+    "normal_10psi_bearing_MPa": 0.028377809347752893,
     "axial_load_path": "Stem flange directly into fore/aft cradle shoulders; cap closes Z assembly route",
     "customer_additional_step": false,
     "wet_part_fff": false,
@@ -87,7 +88,7 @@
       "Full seal insertion, pressure and repeated pump swaps"
     ]
   },
-  "load_path": "PP-H stem flange bears directly on both lower-cradle Y shoulders; rear upper arches close positive Z escape and back the receiver front. No axial reaction depends on a loose friction clamp.",
+  "load_path": "PP-H stem flange bears directly on both lower-cradle Y shoulders; rear upper arches close positive Z escape; the permanent wall supports the TPU receiver. No axial reaction depends on a loose friction clamp.",
   "checks": [
     {
       "check": "Canonical cartridge and cap are each one valid native solid",
@@ -103,10 +104,10 @@
       "missing_mm3": 0.0,
       "fore_plane_y_mm": 72.887,
       "fore_shoulder_mm": 3.212999999999994,
-      "aft_shoulder_mm": 3.35
+      "aft_shoulder_mm": 3.3650000000000007
     },
     {
-      "check": "Complete source-defined rear upper arches, clipped webs and TPU backing survived final cuts",
+      "check": "Complete source-defined rear upper arches and clipped webs survived final cuts",
       "passed": true,
       "missing_mm3": 0.0,
       "arch_fore_y_mm": 76.269,
@@ -195,13 +196,13 @@
         {
           "port": 1,
           "shift_y_mm": -0.2,
-          "lower_overlap_mm3": 2.1690128066771437,
+          "lower_overlap_mm3": 2.151794618167932,
           "cap_overlap_mm3": 0.0
         },
         {
           "port": 1,
           "shift_y_mm": 0.2,
-          "lower_overlap_mm3": 1.022021968702905,
+          "lower_overlap_mm3": 3.8472238160168537,
           "cap_overlap_mm3": 0.0
         },
         {
@@ -212,13 +213,13 @@
         {
           "port": 2,
           "shift_y_mm": -0.2,
-          "lower_overlap_mm3": 2.1690128066771406,
+          "lower_overlap_mm3": 2.151794618167934,
           "cap_overlap_mm3": 0.0
         },
         {
           "port": 2,
           "shift_y_mm": 0.2,
-          "lower_overlap_mm3": 1.0220219687029044,
+          "lower_overlap_mm3": 3.847223816016914,
           "cap_overlap_mm3": 0.0
         },
         {
@@ -229,13 +230,13 @@
         {
           "port": 3,
           "shift_y_mm": -0.2,
-          "lower_overlap_mm3": 2.1690128066759464,
+          "lower_overlap_mm3": 2.1517946181678735,
           "cap_overlap_mm3": 0.0
         },
         {
           "port": 3,
           "shift_y_mm": 0.2,
-          "lower_overlap_mm3": 1.022021968702782,
+          "lower_overlap_mm3": 3.847223816016914,
           "cap_overlap_mm3": 0.0
         },
         {
@@ -246,13 +247,13 @@
         {
           "port": 4,
           "shift_y_mm": -0.2,
-          "lower_overlap_mm3": 2.169012806675822,
+          "lower_overlap_mm3": 2.1517946181678727,
           "cap_overlap_mm3": 0.0
         },
         {
           "port": 4,
           "shift_y_mm": 0.2,
-          "lower_overlap_mm3": 1.0220219687027798,
+          "lower_overlap_mm3": 3.847223816016913,
           "cap_overlap_mm3": 0.0
         },
         {
@@ -298,31 +299,31 @@
       "scope": "Clearance envelopes only; purchased tie-head dimensions are unmeasured"
     },
     {
-      "check": "Every rear web retains its complete 3 mm Y section and joins the actual cap body",
+      "check": "Every rear web retains its complete declared Y section and joins the actual cap body",
       "passed": true,
       "witnesses": [
         {
           "port": 1,
           "width_x_mm": 11.174999999999997,
-          "thickness_y_mm": 3.0,
+          "thickness_y_mm": 5.995999999999995,
           "missing_mm3": 0.0
         },
         {
           "port": 2,
           "width_x_mm": 12.100000000000001,
-          "thickness_y_mm": 3.0,
+          "thickness_y_mm": 5.995999999999995,
           "missing_mm3": 0.0
         },
         {
           "port": 3,
           "width_x_mm": 12.100000000000001,
-          "thickness_y_mm": 3.0,
+          "thickness_y_mm": 5.995999999999995,
           "missing_mm3": 0.0
         },
         {
           "port": 4,
           "width_x_mm": 11.174999999999997,
-          "thickness_y_mm": 3.0,
+          "thickness_y_mm": 5.995999999999995,
           "missing_mm3": 0.0
         }
       ]
@@ -1002,7 +1003,7 @@
       "witnesses": [
         {
           "side": -1,
-          "y_mm": 73.1,
+          "y_mm": 72.987,
           "z_mm": 220,
           "interval_lengths_mm": [
             14.0
@@ -1026,7 +1027,15 @@
         },
         {
           "side": -1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 220,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": -1,
+          "y_mm": 72.987,
           "z_mm": 240,
           "interval_lengths_mm": [
             14.0
@@ -1050,7 +1059,15 @@
         },
         {
           "side": -1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 240,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": -1,
+          "y_mm": 72.987,
           "z_mm": 260,
           "interval_lengths_mm": [
             14.0
@@ -1074,7 +1091,15 @@
         },
         {
           "side": -1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 260,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": -1,
+          "y_mm": 72.987,
           "z_mm": 282,
           "interval_lengths_mm": [
             14.0
@@ -1097,8 +1122,16 @@
           ]
         },
         {
+          "side": -1,
+          "y_mm": 82.165,
+          "z_mm": 282,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
           "side": 1,
-          "y_mm": 73.1,
+          "y_mm": 72.987,
           "z_mm": 220,
           "interval_lengths_mm": [
             14.0
@@ -1122,7 +1155,15 @@
         },
         {
           "side": 1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 220,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": 1,
+          "y_mm": 72.987,
           "z_mm": 240,
           "interval_lengths_mm": [
             14.0
@@ -1146,7 +1187,15 @@
         },
         {
           "side": 1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 240,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": 1,
+          "y_mm": 72.987,
           "z_mm": 260,
           "interval_lengths_mm": [
             14.0
@@ -1170,7 +1219,15 @@
         },
         {
           "side": 1,
-          "y_mm": 73.1,
+          "y_mm": 82.165,
+          "z_mm": 260,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": 1,
+          "y_mm": 72.987,
           "z_mm": 282,
           "interval_lengths_mm": [
             14.0
@@ -1187,6 +1244,14 @@
         {
           "side": 1,
           "y_mm": 79,
+          "z_mm": 282,
+          "interval_lengths_mm": [
+            14.0
+          ]
+        },
+        {
+          "side": 1,
+          "y_mm": 82.165,
           "z_mm": 282,
           "interval_lengths_mm": [
             14.0
@@ -1195,7 +1260,7 @@
       ]
     },
     {
-      "check": "Final deep moving seat, both insert routes and all wire clearances are fully open",
+      "check": "Final moving seat, joined insert loading passage and wire clearances are fully open",
       "passed": true,
       "witnesses": [
         {
@@ -1223,85 +1288,393 @@
           "blocked_mm3": 0.0
         }
       ],
-      "ear_bearing_y_mm": 76.14200000000001,
-      "insert_top_y_mm": 74.14200000000001
+      "ear_bearing_y_mm": 79.14,
+      "insert_top_y_mm": 74.89
     },
     {
-      "check": "Final fixed wall retains complete matching counterbores",
+      "check": "Both lower Y reactions begin on complete flat flange shoulders after the specified axial clearance",
       "passed": true,
-      "blocked_mm3": 0.0,
-      "counterbore_d_mm": 22.8,
-      "back_y_mm": 82.515,
-      "guard_end_air_mm": 0.26500000000000057
-    },
-    {
-      "check": "Final dry retention integration preserves machining and factory fixture geometry",
-      "passed": true,
-      "function_identity": [
+      "flange_root_radius_mm": 0.4,
+      "witnesses": [
         {
-          "function": "flanged_stem",
-          "unchanged": true
+          "port": 1,
+          "direction_y": -1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 43.03589236336318,
+          "actual_first_bearing_area_mm2": 43.03589236295501
         },
         {
-          "function": "visible_stem",
-          "unchanged": true
+          "port": 1,
+          "direction_y": 1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 76.94447632034377,
+          "actual_first_bearing_area_mm2": 76.9444763196154
         },
         {
-          "function": "setting_fixture",
-          "unchanged": true
+          "port": 2,
+          "direction_y": -1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 43.03589236336318,
+          "actual_first_bearing_area_mm2": 43.03589236295504
+        },
+        {
+          "port": 2,
+          "direction_y": 1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 76.94447632034377,
+          "actual_first_bearing_area_mm2": 76.94447631961661
+        },
+        {
+          "port": 3,
+          "direction_y": -1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 43.03589236336318,
+          "actual_first_bearing_area_mm2": 43.035892362953845
+        },
+        {
+          "port": 3,
+          "direction_y": 1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 76.94447632034377,
+          "actual_first_bearing_area_mm2": 76.94447631961661
+        },
+        {
+          "port": 4,
+          "direction_y": -1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 43.03589236336318,
+          "actual_first_bearing_area_mm2": 43.0358923629538
+        },
+        {
+          "port": 4,
+          "direction_y": 1,
+          "precontact_mm3": 0.0,
+          "expected_flat_bearing_area_mm2": 76.94447632034377,
+          "actual_first_bearing_area_mm2": 76.9444763196166
         }
       ]
+    },
+    {
+      "check": "All aft passages are one straight dry bore with no annular nose bands",
+      "passed": true,
+      "diameter_mm": 7.75,
+      "witnesses": [
+        {
+          "port": 1,
+          "cradle_overlap_mm3": 0.0,
+          "cap_overlap_mm3": 0.0
+        },
+        {
+          "port": 2,
+          "cradle_overlap_mm3": 0.0,
+          "cap_overlap_mm3": 0.0
+        },
+        {
+          "port": 3,
+          "cradle_overlap_mm3": 0.0,
+          "cap_overlap_mm3": 0.0
+        },
+        {
+          "port": 4,
+          "cradle_overlap_mm3": 0.0,
+          "cap_overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "All four complete lower aft flange shoulders retain at least 3 mm axial stock",
+      "passed": true,
+      "witnesses": [
+        {
+          "port": 1,
+          "depth_y_mm": 3.364999999999995,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 2,
+          "depth_y_mm": 3.364999999999995,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 3,
+          "depth_y_mm": 3.364999999999995,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 4,
+          "depth_y_mm": 3.364999999999995,
+          "missing_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "Permanent wall retains all four complete 3 mm necks outside the plain receiver bores",
+      "passed": true,
+      "witnesses": [
+        {
+          "port": 1,
+          "depth_y_mm": 3.0,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 2,
+          "depth_y_mm": 3.0,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 3,
+          "depth_y_mm": 3.0,
+          "missing_mm3": 0.0
+        },
+        {
+          "port": 4,
+          "depth_y_mm": 3.0,
+          "missing_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "Derived body gap and exposed stem length match the current fixed wall",
+      "passed": true,
+      "body_gap_mm": 0.25,
+      "exposed_stem_mm": 7.75
+    },
+    {
+      "check": "Final machining-master exactly matches its current source at the declared tip",
+      "passed": true,
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "check": "Final stem-setting-fixture exactly matches its current source at the declared tip",
+      "passed": true,
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "check": "fixed: all final contact clearances are open",
+      "passed": true,
+      "witnesses": [
+        {
+          "cutter": 0,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 1,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 2,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 3,
+          "blocked_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "fixed: complete nominal connector body clears",
+      "passed": true
+    },
+    {
+      "check": "fixed ear X-9.732: complete bearing footprint/backing",
+      "passed": true,
+      "area_mm2": 3.57751153596959
+    },
+    {
+      "check": "fixed ear X+9.732: complete bearing footprint/backing",
+      "passed": true,
+      "area_mm2": 3.5775115359702006
+    },
+    {
+      "check": "fixed insert X-10.22: complete 3 mm envelope stock",
+      "passed": true
+    },
+    {
+      "check": "fixed insert X-10.22: complete 3 mm blind cap",
+      "passed": true
+    },
+    {
+      "check": "fixed insert X-10.22: full knurl entry to recessed anchor",
+      "passed": true,
+      "printed_host_depth_mm": 7.375
+    },
+    {
+      "check": "fixed screw X-10.22: complete nominal head/shank clearance",
+      "passed": true,
+      "engagement_mm": 2.75,
+      "pilot_bottom_reserve_mm": 2.75
+    },
+    {
+      "check": "fixed insert X+10.22: complete 3 mm envelope stock",
+      "passed": true
+    },
+    {
+      "check": "fixed insert X+10.22: complete 3 mm blind cap",
+      "passed": true
+    },
+    {
+      "check": "fixed insert X+10.22: full knurl entry to recessed anchor",
+      "passed": true,
+      "printed_host_depth_mm": 7.375
+    },
+    {
+      "check": "fixed screw X+10.22: complete nominal head/shank clearance",
+      "passed": true,
+      "engagement_mm": 2.75,
+      "pilot_bottom_reserve_mm": 2.75
+    },
+    {
+      "check": "moving: all final contact clearances are open",
+      "passed": true,
+      "witnesses": [
+        {
+          "cutter": 0,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 1,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 2,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 3,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 4,
+          "blocked_mm3": 0.0
+        },
+        {
+          "cutter": 5,
+          "blocked_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "moving: complete nominal connector body clears",
+      "passed": true
+    },
+    {
+      "check": "moving ear X-9.732: complete bearing footprint/backing",
+      "passed": true,
+      "area_mm2": 3.5775115359695917
+    },
+    {
+      "check": "moving ear X+9.732: complete bearing footprint/backing",
+      "passed": true,
+      "area_mm2": 3.5775115359702006
+    },
+    {
+      "check": "moving insert X-10.22: complete 3 mm envelope stock",
+      "passed": true
+    },
+    {
+      "check": "moving insert X-10.22: complete 3 mm blind cap",
+      "passed": true
+    },
+    {
+      "check": "moving insert X-10.22: full knurl entry to recessed anchor",
+      "passed": true,
+      "printed_host_depth_mm": 7.375
+    },
+    {
+      "check": "moving screw X-10.22: complete nominal head/shank clearance",
+      "passed": true,
+      "engagement_mm": 2.75,
+      "pilot_bottom_reserve_mm": 2.75
+    },
+    {
+      "check": "moving insert X+10.22: complete 3 mm envelope stock",
+      "passed": true
+    },
+    {
+      "check": "moving insert X+10.22: complete 3 mm blind cap",
+      "passed": true
+    },
+    {
+      "check": "moving insert X+10.22: full knurl entry to recessed anchor",
+      "passed": true,
+      "printed_host_depth_mm": 7.375
+    },
+    {
+      "check": "moving screw X+10.22: complete nominal head/shank clearance",
+      "passed": true,
+      "engagement_mm": 2.75,
+      "pilot_bottom_reserve_mm": 2.75
+    },
+    {
+      "check": "Complete male-seat rear backing survives all final cuts",
+      "passed": true
+    },
+    {
+      "check": "Final contact row retains its 3 mm wire-floor and lead-apex roofs",
+      "passed": true,
+      "row_z_mm": 275.52400000000006,
+      "recess_each_mm": 0.125,
+      "contact_face_gap_mm": 0.5
+    },
+    {
+      "check": "Four keeper pilots remain fully through with complete 3 mm radial stock and clear retained lock metal",
+      "passed": true,
+      "witnesses": [
+        {
+          "port": 1,
+          "pilot_blocked_mm3": 0.0,
+          "missing_3mm_radial_stock_mm3": 0.0,
+          "metal_cap_overlap_mm3": 0.0,
+          "continuous_cap_lift_Y_air_mm": 2.75,
+          "screw_tip_behind_wall_fore_mm": 2.5
+        },
+        {
+          "port": 2,
+          "pilot_blocked_mm3": 0.0,
+          "missing_3mm_radial_stock_mm3": 0.0,
+          "metal_cap_overlap_mm3": 0.0,
+          "continuous_cap_lift_Y_air_mm": 2.75,
+          "screw_tip_behind_wall_fore_mm": 2.5
+        },
+        {
+          "port": 3,
+          "pilot_blocked_mm3": 0.0,
+          "missing_3mm_radial_stock_mm3": 0.0,
+          "metal_cap_overlap_mm3": 0.0,
+          "continuous_cap_lift_Y_air_mm": 2.75,
+          "screw_tip_behind_wall_fore_mm": 2.5
+        },
+        {
+          "port": 4,
+          "pilot_blocked_mm3": 0.0,
+          "missing_3mm_radial_stock_mm3": 0.0,
+          "metal_cap_overlap_mm3": 0.0,
+          "continuous_cap_lift_Y_air_mm": 2.75,
+          "screw_tip_behind_wall_fore_mm": 2.5
+        }
+      ]
+    },
+    {
+      "check": "Actual fully open dry bores retain fitting air around the maximum root at full circular pocket float",
+      "passed": true,
+      "envelope_budget": {
+        "maximum_flange_root_radius_mm": 3.5749999999999997,
+        "full_pocket_center_float_mm": 0.15,
+        "plain_shank_radial_fit_air_mm": 0.15000000000000036,
+        "aft_dry_pass_radius_mm": 3.875,
+        "radial_air_after_complete_root_and_pocket_float_mm": 0.15000000000000016
+      },
+      "scope": "Circular-envelope containment holds for any transverse direction; source-defined openings were measured directly in all four actual exported captures. Machining/print deviations are not measured."
     },
     {
       "check": "Identified canonical parts, source files and declared Box remained stable throughout this review",
       "passed": true
-    },
-    {
-      "check": "Both complete source-defined ear bearing footprints and their backing survive in the final cap",
-      "passed": true,
-      "ear_datum_y_mm": 76.14200000000001,
-      "witnesses": [
-        {
-          "side": "negative X",
-          "expected_contact_area_mm2": 3.5775115359697343,
-          "actual_contact_area_mm2": 3.5775115359697343,
-          "missing_backing_mm3": 0.0
-        },
-        {
-          "side": "positive X",
-          "expected_contact_area_mm2": 3.5775115359697383,
-          "actual_contact_area_mm2": 3.5775115359697383,
-          "missing_backing_mm3": 0.0
-        }
-      ]
-    },
-    {
-      "check": "Both complete four-millimetre insert-root intervals retain the source-defined material around the pilot",
-      "passed": true,
-      "witnesses": [
-        {
-          "insert_x_mm": -10.22,
-          "root_y_interval_mm": [
-            70.14200000000001,
-            74.14200000000001
-          ],
-          "expected_material_mm3": 2.572729465597218,
-          "missing_mm3": 0.0
-        },
-        {
-          "insert_x_mm": 10.22,
-          "root_y_interval_mm": [
-            70.14200000000001,
-            74.14200000000001
-          ],
-          "expected_material_mm3": 2.5727294655959754,
-          "missing_mm3": 0.0
-        }
-      ]
     }
   ],
-  "check_count": 23,
-  "native_query_count": 209,
+  "check_count": 54,
+  "native_query_count": 289,
   "failed_checks": [],
   "physical_evidence_references": [
     "hardware/reference/kamoer-kphm400/scan-review.md",
@@ -1312,7 +1685,9 @@
     "The native reference model is the retained fitted pump geometry, not independent measurement of every delivered casing or tube.",
     "The 0.300 mm head/arch Y separation and other printed fits have no physical result for this full dock.",
     "BPT/tie-band and clocked tie-head clearance envelopes do not establish the delivered tie-head size, clamp force or joint lifetime.",
+    "No retained internal pump tube-path record establishes the 12 mm rigid-tail insertion before a bend or roller; prepared-pump fit, free rotation and pumping behavior remain unqualified.",
     "Machined food-contact stock documentation, seal finish, factory BPT joint, printed strength, wet pressure/temperature behavior, support removal and repeated pump swaps remain in their separate physical qualification scope.",
+    "The \u00d82.3 geometric insertion envelope does not establish a cold fit of the unmeasured owned T18 I/LB profile at the recessed anchor.",
     "Hydraulic stress calculations are geometric load screens; they are not a service-pressure or lifetime rating."
   ]
 }

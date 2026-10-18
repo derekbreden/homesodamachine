@@ -56,26 +56,40 @@ def dock_regions(box, region):
     dock, receiver = e._dock, e._receiver
     fore = plate['fore_y']
     row = plate['holes'][0][1]
+    # Production emits a guide/saddle pair per port, then the frame-lock roots.
+    # Reuse those shapes so their rail clipping and wall-plane dispatch stay exact.
+    fixed_stocks = dock.fixed_features(plate)[0]
+    station_stocks = fixed_stocks[:2*len(plate['holes'])]
 
-    # Four keeper insert bores sit in the original seven-millimetre wall.
+    # Four keeper insert bores pass through the seven-millimetre wall.
     host_r = dock.LOCK_INSERT_D / 2.0 + e.wall
-    for number, (x, z) in enumerate(plate['holes'], start=1):
+    for number, ((x, z), guide) in enumerate(
+            zip(plate['holes'], station_stocks[::2]), start=1):
         lock_z = z + dock.LOCK_Z
         region('front-top', f'Dock keeper lock {number}, complete host and wall root',
                [x-host_r, x+host_r, fore, fore+receiver.WALL_THICKNESS,
                 lock_z-host_r, lock_z+host_r])
-        for side, shape in enumerate(dock.guides(fore, x, z).Solids(), start=1):
+        for side, shape in enumerate(guide.Solids(), start=1):
             b = shape_bounds(shape)
             b[2] = fore
             region('front-top', f'Dock keeper guide {number}/{side}, stop and wall root', b)
 
-    # fixed_features appends the two posts in the plate-derived lock-station order.
+    # Each permanent tee transfers its collar/tie load through the saddle's
+    # bracket and arms into the bulkhead. Bound the production construction,
+    # then carry its whole footprint through the wall to its fore face.
+    for number, saddle in enumerate(station_stocks[1::2], start=1):
+        b = shape_bounds(saddle)
+        b[2] = min(fore, b[2])
+        region('front-top',
+               f'Fixed tee saddle {number}, collar seats, tie bands, arms and wall root', b)
+
+    # fixed_features appends both roots in the plate-derived lock-station order.
     support_x = dock.support_lock_x(plate)
-    posts = dock.fixed_features(plate)[0][-len(support_x):]
-    for x, shape in zip(support_x, posts):
+    hosts = fixed_stocks[-len(support_x):]
+    for x, shape in zip(support_x, hosts):
         b = shape_bounds(shape)
         b[2] = fore
-        region('front-top', f'Dock rear-support lock {x:g}, complete post and wall root', b)
+        region('front-top', f'Dock rear-support lock {x:g}, complete host and wall root', b)
 
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
@@ -189,8 +203,14 @@ def main():
         back=face+sgn*(e._pogo.ear_back()+e.pogo_heatset_setback+
                        e.pogo_heatset_len+e.pogo_heatset_relief+e.wall)
         ya,yc=sorted((face,back))
-        region(name,'Both pogo insert hosts, entry steps and blind caps',
-               [x-host_x,x+host_x,ya,yc,z-host_z,z+host_z])
+        bounds = [x-host_x,x+host_x,ya,yc,z-host_z,z+host_z]
+        if name == 'front-top':
+            pad = shape_bounds(e._pump_contact_fixed_stock(box))
+            bounds = [value for axis in range(3) for value in (
+                min(bounds[2*axis], pad[2*axis]),
+                max(bounds[2*axis+1], pad[2*axis+1]))]
+        region(name,'Both pogo insert hosts, loading passages and blind caps',
+               bounds)
     dock_regions(box, region)
     poses = {}
     for name, rows in pieces.items():

@@ -61,6 +61,9 @@ def bind_sources(prepared,native,report):
         all_critical_native_settings_preserved=all(comparisons.values()),
         native_gcode_checksum_valid=readback['gcode_md5_matches'],
         support_access=dict(native_top_interface_z_mm=report['support_interface_heights_mm'],
+            front_mounting_ramp_y_mm=[3.6,5.9],
+            front_mounting_ramp_degrees_from_axis=51.58194465517801,
+            automatic_interface_heights_below_front_rim_mm=[z for z in report['support_interface_heights_mm'] if z<5.9],
             nominal_rear_flange_underside_z_mm=10.35,
             last_interface_top_to_nominal_underside_gap_mm=10.35-max(report['support_interface_heights_mm']),
             keeper_groove_axial_opening_mm=3.35,
@@ -268,6 +271,47 @@ def main():
         radial_ray_wall_roads_range=[min(n for r in waist for n in r['radial_ray_wall_roads']),max(n for r in waist for n in r['radial_ray_wall_roads'])],
         maximum_loop_end_gap_mm=max(r['maximum_loop_end_gap_mm'] or 0 for r in waist),
         layer_object_paths=waist)
+    ramp_stack=[]
+    for idx in ids:
+        cx,cy=centres[idx]
+        for sample in selected(3.6,5.9):
+            if sample['object']!=idx:
+                continue
+            layer_no=sample['layer']
+            closed=[]
+            for path in by[(layer_no,idx)]:
+                if path['feature'] not in ('Outer wall','Inner wall','Overhang wall'):
+                    continue
+                points=np.array(path['pts'])[:,:2]-np.array([cx,cy])
+                theta=np.unwrap(np.arctan2(points[:,1],points[:,0]))
+                if abs(theta[-1]-theta[0])>=2*math.pi-.04:
+                    closed.append((float(np.linalg.norm(points,axis=1).mean()),path))
+            row=dict(object=idx,layer=layer_no,z_mm=sample['z_mm'],
+                     closed_circumferential_paths=len(closed))
+            if closed:
+                radius,path=max(closed,key=lambda item:item[0])
+                previous=shape([r for r in by[(layer_no-1,idx)] if r['feature'] in MODEL])
+                bead=shape([path])
+                line=LineString(np.array(path['pts'])[:,:2])
+                row.update(outermost_full_road_radius_mm=radius,
+                           native_bead_width_mm=path['width'],
+                           outermost_road_area_on_previous_model_fraction=bead.intersection(previous).area/bead.area,
+                           outermost_road_centerline_outside_previous_model_mm=line.difference(previous).length)
+            ramp_stack.append(row)
+    complete_ramp=[r for r in ramp_stack if 'outermost_road_area_on_previous_model_fraction' in r]
+    rim=selected(5.9,7.)
+    collar_review=dict(ramp_y_mm=[3.6,5.9],ramp_degrees_from_axis=51.58194465517801,
+        ramp_layer_object_samples=len(ramp_stack),
+        ramp_samples_without_closed_circumferential_road=[r for r in ramp_stack if not r['closed_circumferential_paths']],
+        outermost_road_previous_model_area_fraction_range=[min(r['outermost_road_area_on_previous_model_fraction'] for r in complete_ramp),max(r['outermost_road_area_on_previous_model_fraction'] for r in complete_ramp)],
+        maximum_outermost_road_centerline_outside_previous_model_mm=max(r['outermost_road_centerline_outside_previous_model_mm'] for r in complete_ramp),
+        ramp_layer_object_paths=ramp_stack,
+        rim_y_mm=[5.9,7.],rim_axial_stock_mm=1.1,
+        rim_layers=sorted({r['layer'] for r in rim}),
+        rim_layer_heights_mm=sorted({r['z_mm'] for r in rim}),
+        rim_full_circumferential_runs_range=[min(r['full_circumferential_wall_paths'] for r in rim),max(r['full_circumferential_wall_paths'] for r in rim)],
+        rim_maximum_loop_end_gap_mm=max(r['maximum_loop_end_gap_mm'] or 0 for r in rim),
+        scope='Actual commanded outer circumferential-road projections against the preceding model layer only. Automatic support is audited separately. Bead overlap and continuous rim paths do not establish adhesion, printed strength, support release or dimensional fit.')
     settings_diff={k:dict(prepared=prepared.get(k),emitted=native.get(k)) for k in prepared.keys()|native.keys()
                    if prepared.get(k)!=native.get(k)}
     temperatures=sorted(set(re.findall(r'^M(?:104|109) [^\n]*S(\d+)',text,re.M)))
@@ -287,6 +331,7 @@ def main():
         support_height_range_mm=[min(r['z'] for feat in SUPPORT for r in by_feature[feat]),max(r['z'] for feat in SUPPORT for r in by_feature[feat])],
         support_interface_heights_mm=sorted(set(r['z'] for r in by_feature['Support interface'])),
         first_two_layer_bead_stack=stack,seal_wall_paths=lands,factory_stop_waist_paths=waist_review,
+        front_mounting_collar_paths=collar_review,
         wall_path_layers=layer_data,bore_travels=dict(travel_counts),
         emitted_photo_trip_commands=text.count('M9711'),
         plate_z_trim_commands_mm=[float(x) for x in re.findall(r'^G29\.1 Z([-+.\d]+)',text,re.M)],

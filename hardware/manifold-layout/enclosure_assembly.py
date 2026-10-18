@@ -449,6 +449,60 @@ def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=
     return SEATS[name]
 
 
+def record_pump_dock_seats(box_spec, dock_parts, retention):
+    """World-authored dock parts on wall/port and bare-pole construction datums."""
+    plate = box_spec.pack.collet_plate
+    fore = plate['fore_y']
+    # The assembly's installed receiver uses the production conserved-annulus
+    # envelope. Its axis still lands on the wall bore, and its lip starts on it.
+    growth = _receiver.TUBE_OD ** 2 - _receiver.SEAL_BORE_D ** 2
+    receiver_radius = math.sqrt(max(_receiver.BODY_OD, _receiver.FRONT_LIP_OD,
+                                    _receiver.COLLAR_OD) ** 2 + growth) / 2.0
+    for suffix, (x, z) in zip(_dock.STATIONS, plate['holes']):
+        name = f'pump-receiver-{suffix}'
+        record_seat(name, planes={'cx': x,
+                                 'y0': fore + _receiver.FRONT_LIP_Y[0],
+                                 'z0': z - receiver_radius},
+                    got=box(dock_parts[name]))
+        name = f'pump-receiver-keeper-{suffix}'
+        record_seat(name, planes={'cx': x,
+                                 'y0': fore + _receiver.KEEPER_Y[0],
+                                 'z0': z + _dock.KEEPER_Z[0]},
+                    got=box(dock_parts[name]))
+    # The frame's lower boundary is its four circular cuff supports. Their
+    # specified 3 mm ring stock is the enclosure's nominal structural wall.
+    name = 'pump-receiver-rear-support'
+    record_seat(name, planes={
+        'cx': (plate['holes'][0][0] + plate['holes'][-1][0]) / 2.0,
+        'y0': fore + _receiver.REAR_SUPPORT_Y[0],
+        'z0': min(z for _x, z in plate['holes']) - _receiver.WALL_BORE_D / 2.0 - _enc.wall},
+        got=box(dock_parts[name]))
+    interface = retention['interface']
+    magnet_spec = _enc._retention
+    columns = magnet_spec.column_stations(plate['holes'])
+    for side in ('moving', 'fixed'):
+        features = retention[side]
+        for column, (x, z) in enumerate(columns, start=1):
+            for row in range(magnet_spec.ROWS_PER_COLUMN):
+                mz = z + (row - (magnet_spec.ROWS_PER_COLUMN - 1) / 2.0) * magnet_spec.BAR
+                name = f'pump-dock-SB443-{side}-{column}-{row + 1}'
+                # The gauged bare pole is y1 on the moving half and y0 on
+                # the fixed half. The nominal purchased bar sets the other faces.
+                pole_face = 'y1' if side == 'moving' else 'y0'
+                record_seat(name, planes={'cx': x, pole_face: interface.pole_y,
+                                         'z0': mz - magnet_spec.BAR / 2.0},
+                            got=box(features['magnets'][name]))
+        y0, _y1 = interface.yspan(side,
+            magnet_spec.GROOVE_FRONT - magnet_spec.GROOVE_TOLERANCE,
+            magnet_spec.DRAWING_THICKNESS_MAX + magnet_spec.BACK_AIR)
+        name = f'pump-dock-potting-{side}'
+        record_seat(name, planes={
+            'cx': (min(x for x, _z in columns) + max(x for x, _z in columns)) / 2.0,
+            'y0': y0,
+            'z0': min(magnet_spec.column_limits(z)[0] for _x, z in columns)},
+            got=box(features['potting']))
+
+
 def note_room(name, what, want, got):
     """Record where a derived pose fell against a band its construction states.
 
@@ -1219,9 +1273,9 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 # --- the fixed pump receiver wall -------------------------------------------
-# The retained fitted cradle fixes the receiver wall's fore plane. Upper wall
+# The fixed wall stands behind the stem flange's complete aft bearing. Upper
 # backing remains independent of the recessed seven-millimetre wet support.
-DOCK_FACE_GAP = 0.246
+DOCK_WALL_FROM_SKIRT_BAND = 3.246
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
@@ -1234,7 +1288,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
         centers.append(point[1] - axis[1]*ml.TEE_BRANCH)
         branch_faces.append(mcarry(ml.carrier_collet_port(name, ml.CARRIER_PARK))[0][1])
     holes = sorted(holes)
-    fore = round(_enc.pump_skirt_band_aft_y(tray_stations) + DOCK_FACE_GAP,6)
+    fore = round(_enc.pump_skirt_band_aft_y(tray_stations) + DOCK_WALL_FROM_SKIRT_BAND,6)
     row = holes[0][1]
     return {"holes": tuple(holes), "fore_y": fore, "aft_y": fore+3.175,
             "wall_aft_y": fore+14.321,
@@ -1245,6 +1299,8 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1],6),
             "fixed_tee_center_y": tuple(round(y,6) for y in centers),
             "fixed_tee_mouth_y": tuple(round(y,6) for y in branch_faces),
+            "tee_saddle_x_limits": tuple(_enc._rail_channel_span(x,sign,"front")[2]
+                                         for x,sign in zip(_enc.interior_x(),(1.,-1.))),
             "seated_tube_bottom_y": fore+_receiver.CUSTOMER_TIP_Y,
             "tube_bottom_y": fore+_receiver.CUSTOMER_STOP_Y,
             "assembly_state": "seated"}
@@ -5471,16 +5527,19 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     if box.pack.collet_plate:
-        for name, part in _dock.parts(box.pack.collet_plate).items():
+        dock_parts = _dock.parts(box.pack.collet_plate)
+        retention = _enc.pump_retention_features(box)
+        for name, part in dock_parts.items():
             a.add(part, name=name,
                   color=_receiver.COLOR if "keeper" not in name and "support" not in name else M_PETGF_BLACK)
         from _materials import M_NICKEL_PLATE, M_EPOXY_BLACK
-        for side, features in _enc.pump_retention_features(box).items():
+        for side, features in retention.items():
             if side not in ("moving", "fixed"):
                 continue
             for name, magnet in features["magnets"].items():
                 a.add(magnet, name=name, color=M_NICKEL_PLATE)
             a.add(features["potting"], name=f"pump-dock-potting-{side}",color=M_EPOXY_BLACK)
+        record_pump_dock_seats(box, dock_parts, retention)
     if contacts is not None:
         _pump_contact_bound(contacts, pieces, box)
     placed_solids = _solids(a)

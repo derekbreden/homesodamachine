@@ -1,19 +1,19 @@
 {
   "status": "Offline native preparation for review; no printer contact or submission",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl": "b07bc0414ac797b15f20523d17a34a6393771eff790dcbdd2942e9f086afb3b3",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl": "f656c6987ff55a12cf8a62ccdb9b64b11368e224fc04f23d6241eaec3672ee8b",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
     "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
     "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json": "8cdb37a3e797b7b96d404ae6ea6930229d26a8861ec5a3f0ad8f3f70beed9450",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py": "3ae3b8302e4fdd5e28bf3a2d5f3488b895ac11bb483c36a98ca530f3eb47db7e",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "2d1ebfd085570d33cb40ca4830258ddbfd50f39e2beac951d6df076c56df966a",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/input-snapshots/receiver-source-current-geometry.py.txt": "fb4cca477d0fc26c6635a0b1b67b5449f7e58799fe8ddd08338bb4c126018008",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf": "f53860b0d7b3a7972dda1381c2345fec6da3f9f3df0ffe814febca9c002f1f2c",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf": "aa44b0bb0110fa5fad1e6a04dc2d860e2176fc62a7d5ff4a8870220f4f64ba8e",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": "c6ea5f21a889bbd5cec6fd2bbe43f47dd45f4ef24240d71ad0075c7f0570b60c"
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5",
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/input-snapshots/receiver-source-current-geometry.py.txt": "b7f724c3b2bab6640485fa170734512bab56e794e658443f26f66a1ce454acc8",
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf": "1720edd479fe65afe275270d57eb61a229349f60ef9735fd5b787015a879b5ea",
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf": "acf3b2f04f78778a93d27d336fd79bcf390956749795665215240cced69d2444",
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-bead-review.png": "f514189c29a32d5dbc2462659abcd81567f7898ea6ab10a3e8d575406863828a"
   },
   "source_stl_matches_preparation": true,
-  "gcode_sha256": "e1dc702db950a662b3dabe0e1d3f3da67b82a7c881d1df5592e85bd7124b628b",
+  "gcode_sha256": "8c1ee1896d37d89d6b2eaa18c3fce354138eb3ef2b3a68d62fcd8879d5fd453f",
   "critical_native_settings_preserved": {
     "machine_start_gcode": true,
     "machine_end_gcode": true,
@@ -56,6 +56,12 @@
       10.04,
       10.16
     ],
+    "front_mounting_ramp_y_mm": [
+      3.6,
+      5.9
+    ],
+    "front_mounting_ramp_degrees_from_axis": 51.58194465517801,
+    "automatic_interface_heights_below_front_rim_mm": [],
     "nominal_rear_flange_underside_z_mm": 10.35,
     "last_interface_top_to_nominal_underside_gap_mm": 0.1899999999999995,
     "keeper_groove_axial_opening_mm": 3.35,

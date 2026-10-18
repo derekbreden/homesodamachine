@@ -1,8 +1,7 @@
 """Manual review of lower-shell core-stop ownership using an existing Box.
 
 The snapshot mode builds only two lower quadrants in scratch. The final-export
-mode only reads actual parts and an existing Box, appending its results without
-changing earlier evidence. Neither derives Box, constructs the assembly graph,
+mode only reads actual parts and an existing Box, writing its current bounded review. Neither derives Box, constructs the assembly graph,
 regenerates other parts, or joins a recurring check path.
 """
 from __future__ import annotations
@@ -35,11 +34,6 @@ def bounds(shape):
 
 
 def final_export_review(args, enc, box_spec):
-    original_bytes = args.output.read_bytes()
-    record = json.loads(original_bytes)
-    original_items = dict(record)
-    if args.record_key in record:
-        raise ValueError("This review scope already exists; preserve it")
     box, _bounds = box_spec.read(
         enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate), path=args.box)
     box_sha = sha(args.box)
@@ -136,11 +130,10 @@ def final_export_review(args, enc, box_spec):
     check("identified source, Box and six native exports stayed stable",
           source_sha == sha(Path(enc.__file__)) and box_sha == sha(args.box)
           and all(input_hashes[n] == sha(p) for n, p in paths.items()))
-    record[args.record_key] = {
+    record = {
         "scope": "Direct read of final canonical lower native parts and current declared Box, including both stop-tail/rear-handhold mate clearances. No candidate fusion, part construction, Box derivation or graph write.",
         "manual_command": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/review_core_stops.py --final-export"
-                          + f" --record-key {args.record_key} --box hardware/manifold-layout/enclosure-box.json",
-        "prior_scoped_record_sha256_before_append": hashlib.sha256(original_bytes).hexdigest(),
+                          + " --box hardware/manifold-layout/enclosure-box.json",
         "source_sha256": source_sha,
         "review_script_sha256": sha(Path(__file__)),
         "box_sha256": box_sha,
@@ -149,12 +142,10 @@ def final_export_review(args, enc, box_spec):
         "checks": checks,
         "check_count": len(checks),
         "failed_checks": [r["check"] for r in checks if not r["passed"]],
-        "limitations": "Geometry/contact/root stock and lower-pair clearance only. Earlier scoped analytical and physical limitations remain unchanged; complete appliance review is separate.",
+        "limitations": "Geometry/contact/root stock and lower-pair clearance only; complete appliance and physical qualification remain separate.",
     }
-    if any(record[key] != value for key, value in original_items.items()):
-        raise ValueError("Earlier scoped evidence must remain unchanged")
     args.output.write_text(json.dumps(record, indent=2)+"\n")
-    result = record[args.record_key]
+    result = record
     print(json.dumps(dict(check_count=len(checks), failed_checks=result["failed_checks"])), flush=True)
     return bool(result["failed_checks"])
 

@@ -168,6 +168,12 @@ def main():
         "DOCK_RECEIVERS": f"{len(_plate['holes'])}",
         "DOCK_LOCK_INSERTS": f"{len(_plate['holes']) + len(_enc._dock.support_lock_x(_plate))}",
         "SHELL_SHORT_INSERTS": f"{len(_box['east_bosses']) + len(_c14.panel_screws()) + len(_plate['holes']) + len(_enc._dock.support_lock_x(_plate))}",
+        "POGO_FACE_RECESS": f"{_enc.pump_contact_face_recess:.4g} mm",
+        "POGO_EAR_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pump_contact_face_recess:.4g} mm",
+        "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g} mm",
+        "POGO_INSERT_SETBACK": f"{_enc.pogo_heatset_setback:.4g} mm",
+        "POGO_THREAD_ENGAGEMENT": f"{min(_enc.pogo_heatset_len, _enc._pogo.EAR_FACE + _enc.pogo_screw_len - _enc._pogo.ear_back() - _enc.pogo_heatset_setback):.4g} mm",
+        "POGO_SCREW_TIP_AIR": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pogo_heatset_len + _enc.pogo_heatset_relief - _enc._pogo.EAR_FACE - _enc.pogo_screw_len:.4g} mm",
         # The STATED width — the bound itself and not a measurement of the box built to it, so
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
