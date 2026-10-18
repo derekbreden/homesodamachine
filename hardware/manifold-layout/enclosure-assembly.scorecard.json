@@ -11,12 +11,12 @@
    ],
    "max": [
     107.5,
-    478.9,
+    481.9,
     355.0
    ],
    "mm": [
     215.0,
-    473.9,
+    476.9,
     361.0
    ]
   },
@@ -30,12 +30,12 @@
    ],
    "max": [
     107.5,
-    563.0,
+    566.0,
     358.0
    ],
    "mm": [
     215.0,
-    558.0,
+    561.0,
     364.0
    ]
   }
@@ -198,6 +198,7 @@
     "fluid-14 \u2014 funnel-frame: 1.173 mm",
     "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "fluid-14 \u2014 valve-v-a: 1.305 mm",
+    "fluid-4 \u2014 coil-v-b: 1.307 mm",
     "fluid-18 \u2014 enclosure-back-top: 1.308 mm",
     "water-3 \u2014 enclosure-front-top: 1.325 mm",
     "water-3 \u2014 enclosure-back-top: 1.325 mm",
@@ -218,8 +219,7 @@
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
     "water-7 \u2014 fluid-14: 1.375 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
-    "water-3 \u2014 fluid-18: 1.421 mm",
-    "water-3 \u2014 tee-y-a: 1.438 mm",
+    "water-3 \u2014 fluid-18: 1.422 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
     "water-2 \u2014 fluid-1: 1.528 mm",
     "bulkhead-drain \u2014 bulkhead-ring-drain-word: 1.568 mm",
@@ -227,16 +227,16 @@
     "water-5 \u2014 fluid-18: 1.589 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
-    "fluid-28 \u2014 tube-drain-vent: 1.615 mm",
     "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "water-7 \u2014 co2-2: 1.739 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
-    "fluid-18 \u2014 g-ganen-pump: 1.763 mm",
+    "fluid-18 \u2014 g-ganen-pump: 1.842 mm",
     "pump-receiver-keeper-west-outer \u2014 pump-receiver-rear-support: 1.850 mm",
     "pump-receiver-keeper-west-inner \u2014 pump-receiver-rear-support: 1.850 mm",
     "pump-receiver-keeper-east-inner \u2014 pump-receiver-rear-support: 1.850 mm",
     "pump-receiver-keeper-east-outer \u2014 pump-receiver-rear-support: 1.850 mm",
+    "fluid-28 \u2014 tube-drain-vent: 1.867 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
     "carb-1 \u2014 suction-chain: 1.911 mm",
     "fluid-28 \u2014 water-split: 1.965 mm"
@@ -261,10 +261,10 @@
    "value": "4/4 clear",
    "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
    "detail": [
-    "`ground-stack ceiling column` x 92.250..98.500, y 341.800..349.800, z 342.044..348.000",
-    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 326.300..355.800, z 317.400..327.200",
-    "`relay-1 y=265.8 ceiling column` x 96.250..98.500, y 261.800..269.800, z 327.200..348.000",
-    "`relay-1 y=331.8 ceiling column` x 96.250..98.500, y 327.800..335.800, z 327.200..348.000"
+    "`ground-stack ceiling column` x 92.250..98.500, y 344.800..352.800, z 342.044..348.000",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 329.300..358.800, z 317.400..327.200",
+    "`relay-1 y=268.8 ceiling column` x 96.250..98.500, y 264.800..272.800, z 327.200..348.000",
+    "`relay-1 y=334.8 ceiling column` x 96.250..98.500, y 330.800..338.800, z 327.200..348.000"
    ],
    "active": true
   },
@@ -545,7 +545,7 @@
    "label": "The removable funnel has a retained drain tube",
    "kind": "goal",
    "status": "pass",
-   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 204.0 mm to V-B",
+   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 202.5 mm to V-B",
    "target": "a fixed tube through the frame connected to V-B",
    "detail": [
     "The cradle's snap and the plug's push-on seal on the stub are not physically qualified; `zone-c/funnel/cradle-trial` tests the snap."
@@ -570,14 +570,14 @@
    "value": "41 print-down slope(s): 24 under a body, 7 within 1 mm of one, 2 in a kept room, 8 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
-    "enclosure-back-top: a 45\u00b0 face at x 86.56..92.88 y 472.30..472.65 z 251.60..251.95: a column of 13 mm\u00b3 rising 103.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=89.699 y=472.475 z=251.778\nclick: x=89.699 y=472.475 z=251.778",
-    "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 259.06..262.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.560 z=309.411\nclick: x=-94.500 y=260.560 z=309.411",
-    "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 265.56..268.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=267.060 z=309.411\nclick: x=-94.500 y=267.060 z=309.411",
-    "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 460.30..472.15 z 261.65..293.25: a column of 1187 mm\u00b3 rising 29.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.192 y=466.026 z=276.918\nclick: x=-61.192 y=466.026 z=276.918",
-    "enclosure-back-top: a 45\u00b0 face at x -30.23..-20.36 y 471.19..472.15 z 321.56..322.52: a column of 182 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-25.385 y=471.667 z=322.033\nclick: x=-25.385 y=471.667 z=322.033",
-    "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.19 y 471.19..472.15 z 321.56..322.52: a column of 87 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.035 y=471.667 z=322.033\nclick: x=-56.035 y=471.667 z=322.033",
-    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 319.01..322.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=320.510 z=317.361\nclick: x=-92.850 y=320.510 z=317.361",
-    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.51..315.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=314.010 z=317.361\nclick: x=-92.850 y=314.010 z=317.361"
+    "enclosure-back-top: a 45\u00b0 face at x 86.56..92.88 y 475.30..475.65 z 251.60..251.95: a column of 13 mm\u00b3 rising 103.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=89.699 y=475.475 z=251.778\nclick: x=89.699 y=475.475 z=251.778",
+    "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 262.06..265.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=263.560 z=309.411\nclick: x=-94.500 y=263.560 z=309.411",
+    "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 268.56..271.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=270.060 z=309.411\nclick: x=-94.500 y=270.060 z=309.411",
+    "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 463.30..475.15 z 261.65..293.25: a column of 1187 mm\u00b3 rising 29.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.192 y=469.026 z=276.918\nclick: x=-61.192 y=469.026 z=276.918",
+    "enclosure-back-top: a 45\u00b0 face at x -30.23..-20.36 y 474.19..475.15 z 321.56..322.52: a column of 182 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-25.385 y=474.667 z=322.033\nclick: x=-25.385 y=474.667 z=322.033",
+    "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.19 y 474.19..475.15 z 321.56..322.52: a column of 87 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.035 y=474.667 z=322.033\nclick: x=-56.035 y=474.667 z=322.033",
+    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 322.01..325.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=323.510 z=317.361\nclick: x=-92.850 y=323.510 z=317.361",
+    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 315.51..318.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=317.010 z=317.361\nclick: x=-92.850 y=317.010 z=317.361"
    ],
    "active": false
   },
@@ -686,7 +686,7 @@
    "label": "The reeded field closes on the box at the coupon's own pitch",
    "kind": "gate",
    "status": "pass",
-   "value": "272 grooves round 1356.00 mm, 4.9853 mm centres",
+   "value": "272 grooves round 1362.00 mm, 5.0073 mm centres",
    "target": "within 0.15 mm of the coupon's 5",
    "detail": [],
    "active": true
@@ -727,7 +727,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "collar x -82.50..82.50, y 105.71..223.39",
-   "target": "frame x -89.50..89.50, y 101.00..472.30",
+   "target": "frame x -89.50..89.50, y 101.00..475.30",
    "detail": [],
    "active": true
   },
@@ -789,34 +789,11 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "101/126 stated",
+   "value": "124/126 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "data-ring: no seat states where it stands",
     "data-ring-word: no seat states where it stands",
-    "pump-dock-SB443-fixed-1-1: no seat states where it stands",
-    "pump-dock-SB443-fixed-1-2: no seat states where it stands",
-    "pump-dock-SB443-fixed-1-3: no seat states where it stands",
-    "pump-dock-SB443-fixed-2-1: no seat states where it stands",
-    "pump-dock-SB443-fixed-2-2: no seat states where it stands",
-    "pump-dock-SB443-fixed-2-3: no seat states where it stands",
-    "pump-dock-SB443-moving-1-1: no seat states where it stands",
-    "pump-dock-SB443-moving-1-2: no seat states where it stands",
-    "pump-dock-SB443-moving-1-3: no seat states where it stands",
-    "pump-dock-SB443-moving-2-1: no seat states where it stands",
-    "pump-dock-SB443-moving-2-2: no seat states where it stands",
-    "pump-dock-SB443-moving-2-3: no seat states where it stands",
-    "pump-dock-potting-fixed: no seat states where it stands",
-    "pump-dock-potting-moving: no seat states where it stands",
-    "pump-receiver-east-inner: no seat states where it stands",
-    "pump-receiver-east-outer: no seat states where it stands",
-    "pump-receiver-keeper-east-inner: no seat states where it stands",
-    "pump-receiver-keeper-east-outer: no seat states where it stands",
-    "pump-receiver-keeper-west-inner: no seat states where it stands",
-    "pump-receiver-keeper-west-outer: no seat states where it stands",
-    "pump-receiver-rear-support: no seat states where it stands",
-    "pump-receiver-west-inner: no seat states where it stands",
-    "pump-receiver-west-outer: no seat states where it stands",
     "funnel-frame: cy was asked for 164.5500 and reads 165.5750 \u2014 1.02e+00 mm off"
    ],
    "active": false
@@ -870,10 +847,10 @@
    "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-4: 204.0 mm unheld, 4.0 over",
+    "fluid-4: 202.5 mm unheld, 2.5 over",
     "carb-1: 147.5 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
-    "fluid-28: 178.6 mm, held at its anchor",
+    "fluid-28: 182.2 mm, held at its anchor",
     "fluid-18: 363.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. The low cap post grips the fore crossing (`_cold_core_interface.cap_side_anchors`). The remaining line follows the west flank, turns below the pump discharge hose and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false
