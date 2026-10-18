@@ -119,8 +119,8 @@ click: x=97.292 y=270.800 z=343.955
 click: x=97.292 y=336.800 z=330.955
 click: x=97.292 y=332.800 z=343.930
 
-[thin] Pending Derek's decision, reported: the upper Y-stack screw mouth's outboard rim. The Ø10.8 head and washer recess on the |X|98 axis stands 1.81-1.83 mm inside the roof's R6 side round and its additive print chamfer over the mouth's top 2.4 mm, and 3 mm below that. Each input is named: the Ø10 DIN 125 washer, front-top's M5 insert host in a 13 mm knuckle that stops outboard of the funnel cover, and the fixed exterior.
-alternatives: Move the upper rods at least 1.2 mm inboard and deepen the upper knuckles to at least 13.5 mm, which brings the knuckle face 1.5 mm from the funnel brim and moves the frame's rear narrowing.
+[thin] Specific cosmetic-flute profile exception: the upper Y-stack screw mouth's outboard rim is the fluted flank skin. The Ø10.8 head and DIN 125 washer recess on the |X|98 axis stands 1.81-1.83 mm inside the roof's R6 side round and its additive print chamfer over the mouth's top 2.4 mm, and 3 mm below that; the skin outside it is the show field the cosmetic-flute answers on every enclosure piece take. The washer, front-top's M5 insert host in its 13 mm knuckle and the fixed exterior set the recess and the skin.
+alternatives: A 3 mm rim needs the upper rods at least 1.2 mm inboard and 13.5 mm knuckles, which brings the knuckle face 1.5 mm from the funnel brim and moves the frame's rear narrowing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=105.233 y=208.890 z=354.951
 click: x=-105.233 y=208.890 z=354.951
@@ -174,7 +174,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.000 y=334.467 z=260.400
 
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
-alternatives: 45° slot ends would change the accepted receiver; that is Derek's call.
+alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-23.477 y=478.550 z=295.217
 click: x=-19.462 y=478.550 z=260.553
