@@ -1,4 +1,5 @@
 """Accepted face-up nameplate wings and receiver, in the plate X/Y/Z frame."""
+import math
 import sys
 from pathlib import Path
 
@@ -28,6 +29,10 @@ TIP_AIR = FACE_X_AIR + fits.slip
 END_AIR = fits.slip
 SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
+# A production pad keeps its full floor stock this far past the mouth's print-down edge
+# before its 45-degree run-out, so the corner between pocket floor and run-out keeps one
+# 3 mm wall: (FLOOR_STOCK + RUNOUT_LEAD) / sqrt(2) = 3.
+RUNOUT_LEAD = 3.0 * math.sqrt(2.0) - FLOOR_STOCK
 ENTRY_BEVEL_WIDTH = 1.10
 ENTRY_BEVEL_DEPTH = .40
 # The installed PSU terminal corner needs 1 mm behind the east wing's backing.
@@ -57,7 +62,8 @@ def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
 
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
-          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None, access=True):
+          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None, access=True,
+          runout_lead=0.0):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -71,9 +77,9 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     floor = y_outer-THICK
     shift = (station.x,floor,station.z)
     pw, ph = width+2*FACE_SLIP, height+2*FACE_SLIP
-    # Keep the full floor section behind the body before its print-down run-out.
-    # The opposite end retains its two-millimetre margin.
-    runout_margin = max(2.0, FLOOR_STOCK)
+    # Keep the full floor section behind the body, and `runout_lead` past its print-down
+    # edge, before the run-out. The opposite end retains its two-millimetre margin.
+    runout_margin = max(2.0, FLOOR_STOCK + runout_lead)
     # On a base wall the east end runs square into its hidden relief
     # (`production_backing`); a corner round there leaves only a sliver.
     rounds = '|Z' if wall_face is None else '|Z and <X'
