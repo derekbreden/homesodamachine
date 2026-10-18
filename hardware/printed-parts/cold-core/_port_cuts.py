@@ -6,9 +6,11 @@ that line's own CORRIDOR: the run swept at the project's ⌀[7.5](PORT_HOLE_DIAM
 standard where it crosses shell material, rather than a circle the line has to hold a
 straight through (`cut_line_corridors`). The loose passage is the same either way —
 it is radial to the tube's own path — and what a corner costs stops being the hole's
-shape. Reservoir A's opening is in its pocket's −Y wall, onto the port lane; reservoir
-B's is in its +Y wall, onto the west lane; and the CO2's is the port lane run the other
-way, its line coming DOWN from the cap into a bore that runs the whole reach in.
+shape. Through a bag pocket's flat ±Y wall the opening is that corridor carried square
+through the wall (`pocket_wall_shadows`), so both faces meet every jamb at a right angle.
+Reservoir A's opening is in its pocket's −Y wall, onto the port lane; reservoir B's is in
+its +Y wall, onto the west lane; and the CO2's is the port lane run the other way, its
+line coming DOWN from the cap into a bore that runs the whole reach in.
 
 The carbonated-water outlet has no opening here at all. It crosses the carbonator support
 ring at one of the ring's own slots, on the column it CLIMBS — `water_outlet_climb_x`,
@@ -22,6 +24,7 @@ base, and what the slots carry is made up on that base's own picks.
 """
 
 import math
+import cadquery as cq
 import fits
 
 from _cold_core_interface import (
@@ -31,6 +34,8 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     bag_pocket_width,
     bag_pocket_y_inner_max,
+    bag_pocket_far_inner_x,
+    bag_pocket_corner_inner_radius,
     outer_shell_x_length,
     reservoir_bulkhead_port_x,
     water_outlet_climb_x,
@@ -207,6 +212,50 @@ def pocket_wall_slab(y_sign):
     ).val()
 
 
+def pocket_wall_shadows(tool):
+    """Each place `tool` passes through a bag pocket's flat ±Y wall, as `(opening, region)`.
+
+    A draw is already in its stock arc where it crosses its wall. The opening is the
+    corridor's own section on each face, carried along the wall's normal through the wall
+    and fused: both faces meet every jamb at a right angle, the floor and crown keep the
+    corridor's heights, and the whole ⌀[7.5](PORT_HOLE_DIAMETER) corridor still passes.
+    `region` is the box the opening replaces the corridor in, so no swept face is left on
+    the wall."""
+    from _reservoir_pocket_walls import centerward_corner_x
+
+    run = (centerward_corner_x, bag_pocket_far_inner_x - bag_pocket_corner_inner_radius)
+    t = tool.BoundingBox()
+    found = []
+    for y_sign in (-1, 1):
+        faces = (y_sign * bag_pocket_y_inner_max, y_sign * bag_pocket_width / 2.0)
+        slab = pocket_wall_slab(y_sign).BoundingBox()
+        if t.ymax < slab.ymin or t.ymin > slab.ymax:
+            continue
+        for x_sign in (-1, 1):
+            x0, x1 = sorted(x_sign * x for x in run)
+            if t.xmax < x0 or t.xmin > x1:
+                continue
+            crossing = tool.intersect(make_box((x0, x1), (slab.ymin, slab.ymax),
+                                               (slab.zmin, slab.zmax)).val())
+            if crossing.Volume() <= 1e-6:
+                continue
+            c = crossing.BoundingBox()
+            if c.ymin > min(faces) or c.ymax < max(faces):
+                continue                         # meets the wall without passing through it
+            opening = None
+            for y in faces:
+                plane = cq.Face.makePlane(100.0, 100.0, cq.Vector(c.center.x, y, c.center.z),
+                                          cq.Vector(0.0, 1.0, 0.0))
+                for face in crossing.intersect(plane).Faces():
+                    prism = cq.Solid.extrudeLinear(
+                        face.outerWire(), face.innerWires(),
+                        cq.Vector(0.0, slab.ylen, 0.0)).translate((0.0, slab.ymin - y, 0.0))
+                    opening = prism if opening is None else opening.fuse(prism)
+            region = make_box((c.xmin, c.xmax), (slab.ymin, slab.ymax), (c.zmin, c.zmax))
+            found.append((opening, region.val()))
+    return found
+
+
 def cut_line_corridors(foam_shell, gives_way):
     """Every internal line's opening through the shell, cut as that line's own CORRIDOR
     (`_internal_routes.route_corridor`) and not as a straight bore.
@@ -220,6 +269,10 @@ def cut_line_corridors(foam_shell, gives_way):
     corner. Cut as the corridor, what a corner costs is what the band leaves — and the tube
     crosses with the shell's ⌀[7.5](PORT_HOLE_DIAMETER) clearance round a
     `lldpe_tube_od` line. Mask the clearance during the foam pour.
+
+    THROUGH A BAG POCKET'S FLAT ±Y WALL the opening is `pocket_wall_shadows`: the draw is
+    already in its stock arc there, and that crossing carried square through the wall keeps
+    every jamb at a right angle on both faces with the whole corridor inside it.
 
     `gives_way` IS THE WHOLE FENCE ON THIS, and it is a list of bodies rather than a region:
     each corridor is met with them and the shell is cut by what comes back, so a line opens
@@ -241,9 +294,14 @@ def cut_line_corridors(foam_shell, gives_way):
         # Sequential subtraction is the same union of cutters, without fusing
         # two nearly coincident swept pipes along their entire route first.
         for tool in (corridor, corridor.translate((0, 0, fits.supported_surface))):
+            square = pocket_wall_shadows(tool)
+            for _opening, region in square:
+                tool = tool.cut(region)
             box = tool.BoundingBox()
             for body in gives_way:
                 solid = body.val() if hasattr(body, "val") else body
+                for opening, _region in square:
+                    foam_shell = foam_shell.cut(opening.intersect(solid))
                 b = solid.BoundingBox()
                 if (box.xmax < b.xmin or box.xmin > b.xmax or box.ymax < b.ymin
                         or box.ymin > b.ymax or box.zmax < b.zmin or box.zmin > b.zmax):
