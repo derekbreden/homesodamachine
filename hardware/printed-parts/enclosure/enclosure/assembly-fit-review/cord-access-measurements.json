@@ -1,0 +1,124 @@
+{
+  "reported_date": "2026-10-17",
+  "scope": "Manual exported STEP and print-STL measurements for the centered C14 cord-access width; physical plug fit is unmeasured.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "0dcbb999cf9fa527275b9de0a4124e8167dda0a3369e6d0f72a3534f26470cc2",
+    "hardware/manifold-layout/enclosure-box.json": "3d32793355e91f768f8ef217bb3f7cf6502d3aef36a4c04943599e54e27c2f6f"
+  },
+  "baseline_sha256": {
+    "enclosure-back-top.step": "63ec80861a5abf44802da9bdb39ed0695613dde9567036d7b35ad166c76fc6c4",
+    "enclosure-back-top.stl": "7d7733bd30f9ecf13f334849bf14dd7e9f3b3e8644066bd30671c9ad9671d0cb"
+  },
+  "output_sha256": {
+    "enclosure-back-top.step": "f7a1abe2608b9abec8bd8c7c8f0ca4cf232a15ad00a6fb57a197628610d4cacf",
+    "enclosure-back-top.stl": "1014a4019ab4cd1e9924dee064c513c3d6d66bec8003a5b61cd10704715e5f13",
+    "enclosure-back-top.step.mesh": "830856a7d12b24bb928d2a6d572fd3c2a998b4ab252379d8299313c1eea837b6"
+  },
+  "nominal_cord_access_mm": {
+    "center_x": 66.9,
+    "center_z": 336.2105808375568,
+    "width_x": 28.3,
+    "height_z": 19.3,
+    "corner_radius": 1.5,
+    "extra_total_x": 3.0,
+    "extra_per_x_edge": 1.5
+  },
+  "retained_mounting": {
+    "flange_profile_width": 49.77,
+    "flange_profile_height": 22.17,
+    "flange_profile_slip_per_edge": 0.65,
+    "pocket_depth": 5.0,
+    "seating_plane_y": 463.05,
+    "screw_stations_xz": [
+      [
+        46.900000000000006,
+        336.2105808375568
+      ],
+      [
+        86.9,
+        336.2105808375568
+      ]
+    ],
+    "tunnel_half_extents_xz": [
+      28.535,
+      15.65
+    ]
+  },
+  "nearest_bore_to_heatset_ligament_x_mm": 3.8499999999999996,
+  "baseline_print_stl_sections": {
+    "flange_pocket_y460": {
+      "x_mm": 51.06976679721793,
+      "z_mm": 23.720001220703125,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        25.53488301713923,
+        25.5348837800787,
+        11.735006320646335,
+        11.98499490005679
+      ]
+    },
+    "cord_bore_y469": {
+      "x_mm": 25.300003051757812,
+      "z_mm": 19.550018310546882,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        12.650003051757809,
+        12.650000000000006,
+        9.650014865568242,
+        9.900003444978642
+      ]
+    }
+  },
+  "current_print_stl_sections": {
+    "flange_pocket_y460": {
+      "x_mm": 51.06976679721793,
+      "z_mm": 23.720001220703125,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        25.53488301713923,
+        25.5348837800787,
+        11.735006320646335,
+        11.98499490005679
+      ]
+    },
+    "cord_bore_y469": {
+      "x_mm": 28.300003051757812,
+      "z_mm": 19.550018310546896,
+      "half_spans_xplus_xminus_zplus_zminus_mm": [
+        14.150003051757809,
+        14.150000000000006,
+        9.650014865568137,
+        9.90000344497876
+      ]
+    }
+  },
+  "local_step_comparison": {
+    "region_bounds_mm": [
+      [
+        34,
+        442,
+        313
+      ],
+      [
+        100,
+        474,
+        355
+      ]
+    ],
+    "material_removed_mm3": 483.8625000000003,
+    "material_added_mm3": 0.0,
+    "removed_material_bounds_mm": [
+      [
+        52.75,
+        463.05,
+        326.31058083755
+      ],
+      [
+        81.05,
+        471.3,
+        345.86058083755
+      ]
+    ],
+    "removed_material_outside_cord_opening_mm3": 0.0
+  },
+  "exported_step_valid": true,
+  "exported_step_solid_count": 1,
+  "limits": "Nominal geometry and deposited-mesh dimensions establish no hand fit, insertion force, bridge quality or service-life result."
+}
