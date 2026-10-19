@@ -1,5 +1,11 @@
 # TPU pump elbow and installed layout study
 
+The elbow studied here is the production
+[diaphragm pump elbow](../../hardware/printed-parts/diaphragm-pump-sleeve/README.md):
+the assembly places one on each G Ganen barb and runs `water-7` and `water-6` to
+them on 1/4" LLDPE ([internal plumbing](../../hardware/assembly/internal-plumbing.md) §2).
+The 715 mL funnel and the relocations it needs remain a proposal.
+
 **Status: single Siraya elbow exterior accepted; internal stringing reported.
 The deposited-path Siraya pair is submitted, with its physical result pending.**
 Mark1 accepted [task 1344414329](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
@@ -368,5 +374,5 @@ HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python future/pump-elbow-exploration/fina
 ```
 
 The snapshot and intermediate B-reps are local working data under
-`.cache/pump-elbow-exploration/`. This proposal is separate from the production
-assembly and its physical acceptance records. Its scripts run on request.
+`.cache/pump-elbow-exploration/`. The funnel proposal is separate from the
+production assembly and its physical acceptance records. Its scripts run on request.

@@ -53,14 +53,16 @@ The [drain clearance record](../manifold-layout/drain-clearance-check.json)
 supplies nominal placement evidence for the expanded sleeve and two R25 bends.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
-The [diaphragm pump sleeve](../printed-parts/diaphragm-pump-sleeve/README.md)
-is an unprinted TPU 95A fit candidate: a 90° elbow joining either scanned pump
-barb to 1/4 in LLDPE under two hose clamps, printed as a V with its bores at
-45°. Its barb socket is sized against the scanned crests; the assembly still
-carries the pump hoses and fitting chains. Socket fit, clamp retention,
-pressure holding and lifetime are unmeasured.
+The [diaphragm pump elbow](../printed-parts/diaphragm-pump-sleeve/README.md)
+is the Siraya Tech Flex TPU 85A Clear elbow the assembly places on both G Ganen
+barbs: a 90° turn from either scanned barb to 1/4 in LLDPE under two clamp bands,
+printed as a V on its flat foot. Its geometry is the compact elbow below; the
+identified Bambu TPU 85A article's manual fit and the Siraya single's exterior
+acceptance belong to their own prints. Siraya fit on the pump, clamp retention,
+pressure holding, relaxation and lifetime are unmeasured; its README states the
+pressure screen.
 
-The separate [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
+The [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
 records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
 The identified one-object Mark1 trial requests a 10 mm/s outer wall, with full part
 cooling, Engineering Plate and zero user Z trim. Its

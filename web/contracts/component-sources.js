@@ -96,6 +96,9 @@ export const ALIASES = {
   "bulkhead-ring-water": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
   "bulkhead-ring-water-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
   "psu": "reference/meanwell-irm90/meanwell-irm90.step",
+  // Both elbows on the G Ganen's barbs are the one printed part.
+  "pump-elbow-discharge": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
+  "pump-elbow-suction": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
   "pump-a-boss": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-head": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-motor": "reference/kamoer-kphm400/kamoer-kphm400.step",
@@ -110,7 +113,6 @@ export const ALIASES = {
   "reservoir-b-cap": "printed-parts/cold-core/reservoir/reservoir-cap-left.step",
   "shell_base": "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
   "shell_tip": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
-  "suction-chain": "reference/seaflo-suction-chain/seaflo-suction-chain.step",
   "tee-y-a": "reference/tee-connector/tee-connector.step",
   "tee-y-b": "reference/tee-connector/tee-connector.step",
   "tee-y-c": "reference/tee-connector/tee-connector.step",

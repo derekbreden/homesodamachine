@@ -1,24 +1,21 @@
 {
   "/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
-    "BAND_AIR": "0.35",
+    "BAND_AIR": "1",
     "BARB_BORE": "9.00",
     "BARB_DEPTH": "11",
     "BARB_OD": "14.6",
     "BARB_OD_INSTALLED": "15.41",
-    "BEND_R": "14",
     "CLAMP_BAND": "9",
     "CREST": "10.26",
     "CREST_STRETCH": "14",
-    "FOOT_LENGTH": "11.7",
-    "FOOT_WIDTH": "6.55",
+    "FOOT_AREA": "88.9",
     "INTERFERENCE": "0.25",
     "MIN_WALL": "2.80",
+    "NECK": "6.5",
     "PASSAGE": "4.40",
-    "PAST_TIP": "10.12",
     "PRINT_HEIGHT": "22.2",
     "ROOT": "10.26",
-    "STRAIGHT_AXIS": "31.51",
-    "TUBE_AXIS": "4.27",
+    "TUBE_AXIS": "4.92",
     "TUBE_BORE": "6.10",
     "TUBE_DEPTH": "15",
     "TUBE_MOUTH": "18.5",
@@ -26,6 +23,6 @@
     "TUBE_OD_INSTALLED": "11.83",
     "TUBE_STOP": "3.5",
     "VALLEY": "9.23",
-    "VOLUME": "3.191"
+    "VOLUME": "3.432"
   }
 }

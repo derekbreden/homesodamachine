@@ -1,4 +1,4 @@
-"""Native clearance of both pump hoses and their adjacent reservoir fill route.
+"""Native clearance of both pump-elbow tubes and their adjacent reservoir fill route.
 
 Regenerate only these three routes from source. Other routes and bodies come
 from the explicitly supplied retained native capture. No production export runs.
@@ -28,7 +28,8 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def owned_source():
     names={'_water_6','_water_7','_fluid_14','_fill_a_lane_y','_fill_a_cap_z','_fill_a_turn_y',
-           'FILL_A_HOSE_DROP','FILL_A_HOSE_FALL_RUN','HOSE_BEND','BARB_SKEW','TUBE_BEND',
+           'FILL_A_HOSE_DROP','FILL_A_HOSE_FALL_RUN','ELBOW_CUFF_D','SUCTION_LEAD',
+           'DISCHARGE_LEAD','TUBE_BEND',
            'FILL_A_VALVE_DROP','FILL_A_VALVE_RETURN_RUN','FILL_A_BEARING_LEAD',
            'FILL_A_LANE_Z','FILL_A_GATE_LEAD','FILL_A_LANE_RUN','FILL_A_FALL_RUN','LANE_CLEAR'}
     source=Path(lines.__file__).read_text();tree=ast.parse(source)
@@ -85,7 +86,7 @@ def run(pack, neighbors, output, native_out):
             print(r.id,name,distance,volume,'PASS' if passed else 'FAIL',flush=True)
         exit_skew=routing.leg_skew(r.pts[0],r.pts[1],frames[r.frm.split('.')[0]].normal(r.frm.split('.')[1]))
         entry_skew=routing.leg_skew(r.pts[-2],r.pts[-1],tuple(-x for x in frames[r.to.split('.')[0]].normal(r.to.split('.')[1])))
-        minimum=lines.TUBE_BEND if r.id=='fluid-14' else lines.HOSE_BEND
+        minimum=lines.TUBE_BEND
         reports.append({'id':r.id,'waypoints_mm':r.pts,'radii_mm':r.radii,'minimum_radius_mm':r.tightest,
                         'required_radius_mm':minimum,'exit_skew_degrees':exit_skew,'entry_skew_degrees':entry_skew,
                         'native_valid':tube.isValid(),'neighbors':checks,

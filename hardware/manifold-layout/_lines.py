@@ -52,7 +52,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "compressor",
            _hw / "reference" / "condenser-block",
            _hw / "reference" / "g-ganen-pump" / "installation",
-           _hw / "reference" / "seaflo-suction-chain",
+           _hw / "printed-parts" / "diaphragm-pump-sleeve",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
@@ -71,7 +71,7 @@ import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
 import g_ganen_installation as _pump                         # noqa: E402
-import seaflo_suction_chain as _suct                   # noqa: E402
+import diaphragm_pump_sleeve as _pump_elbow            # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
@@ -101,15 +101,16 @@ def _ea_cap(name):
     import enclosure_assembly
     return enclosure_assembly.cap_conduit(name)
 
-# The 3/8" reinforced PVC's own floor, and the coarsest stock on the machine: a corner it cannot
-# hold is a corner nothing drawn here can.
-HOSE_BEND = R.stock_min("water", _suct.HOSE_OD)
 # The 1/4" LLDPE's, which every fitting on the water side hands over on.
 TUBE_BEND = R.stock_min("water", _split.TUBE_D)
-# How far off its own axis a hose may leave a BARB and still run unbent. A barb is a taper the
-# hose stretches over and a clamp closes on, not a collet gripping a tube all round, so it takes
-# a good deal more than `R.COLLET_SKEW`. Seeded, not ratified.
-BARB_SKEW = 14.0
+# What a pump elbow stands about its barb's own axis: the clamped cuff, band and all. A lane
+# that passes a barb holds this off its axis, the way it would a hose.
+ELBOW_CUFF_D = _pump_elbow.BARB_OD_INSTALLED + 2.0 * _pump_elbow.BAND_T
+# The straights each pump-water run plants off its mouths, so both R14 corners seat between
+# them: the suction elbow's leg to V-K's outlet, and the discharge elbow's leg to the check's
+# inlet collet.
+SUCTION_LEAD = (22.0, 15.0)
+DISCHARGE_LEAD = (9.0, TUBE_BEND)
 # 1/4" soft ACR copper, the stock the sealed loop is cut from.
 CU_OD = 6.35
 # The straight each copper mouth takes before its first corner, so the arcs seat in the middle
@@ -145,11 +146,11 @@ STATIONS = {
                    "refrig-discharge": (lambda: _comp.stations()["refrig-discharge"], CU_OD)},
     "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD),
                       "refrig-inlet": (lambda: _cond.stations()["refrig-inlet"], CU_OD)},
-    "g-ganen-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
-                    "discharge": (_pump.discharge, _suct.HOSE_OD)},
-    "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
-                      "tube-port": (_suct.tube_port, _suct.TUBE_D)},
-    "discharge-chain": {"barb-tip": (_dis.barb_tip, _dis.HOSE_OD),
+    "g-ganen-pump": {"suction": (_pump.suction, ELBOW_CUFF_D),
+                    "discharge": (_pump.discharge, ELBOW_CUFF_D)},
+    "pump-elbow-suction": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
+    "pump-elbow-discharge": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
+    "discharge-chain": {"inlet": (_dis.inlet, _dis.TUBE_D),
                         "tube-port": (_dis.tube_port, _dis.TUBE_D)},
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
@@ -259,9 +260,9 @@ def build_runs(placed, carries):
         runs.append(_refrig_1(F))
     if {"condenser+fan", "foam-assembly"} <= set(F):
         runs.append(_refrig_2(F))
-    if {"g-ganen-pump", "suction-chain"} <= set(F):
+    if {"vk-solenoid", "pump-elbow-suction"} <= set(F):
         runs.append(_water_7(F))
-    if {"g-ganen-pump", "discharge-chain"} <= set(F):
+    if {"pump-elbow-discharge", "discharge-chain"} <= set(F):
         runs.append(_water_6(F))
     if {"discharge-chain", "foam-assembly"} <= set(F):
         runs.append(_water_5(F))
@@ -578,24 +579,27 @@ def _water_2(F):
 
 
 def _water_7(F):
-    """Braided suction hose from the measured G Ganen barb to its anchored chain.
+    """water-7 — V-K's outlet to the suction elbow's tube socket.
 
-    Both leads follow the measured barb axes. The chain-side lead leaves the
-    shared middle leg enough length for both full-radius arcs.
-    """
+    V-K fires aft and the elbow's leg looks forward at it, a storey up and a column west, so
+    the tube leaves the collet on its own axis, crosses that offset in one lean and enters the
+    socket on the leg's own axis. `SUCTION_LEAD` plants the two straights the corners seat
+    between."""
     return R.bent(
-        "water-7", "g-ganen-pump.suction", "suction-chain.barb-tip",
-        kind="water", bend=HOSE_BEND, skew=BARB_SKEW,
-        lead=(HOSE_BEND, HOSE_BEND - 0.5),
-        note="carb water: G Ganen suction barb → suction chain, 3/8 inch braided PVC, two clamps")
+        "water-7", "vk-solenoid.outlet", "pump-elbow-suction.tube",
+        kind="water", bend=TUBE_BEND, lead=SUCTION_LEAD,
+        note="carb water: V-K outlet → the G Ganen's suction elbow, one lean up and west")
 
 
 def _water_6(F):
-    """Braided discharge hose between independently measured, placed barb axes."""
+    """water-6 — the discharge elbow's tube socket to the check chain's inlet collet.
+
+    The elbow's leg points forward and down under the gravity drain's route; the chain lies
+    a column west on the cap's plane, inlet aft. `DISCHARGE_LEAD` plants the two straights."""
     return R.bent(
-        "water-6", "g-ganen-pump.discharge", "discharge-chain.barb-tip",
-        kind="water", bend=HOSE_BEND, skew=BARB_SKEW, lead=HOSE_BEND,
-        note="carb water: G Ganen discharge barb → discharge chain, 3/8 inch braided PVC, two clamps")
+        "water-6", "pump-elbow-discharge.tube", "discharge-chain.inlet",
+        kind="water", bend=TUBE_BEND, lead=DISCHARGE_LEAD,
+        note="carb water: the G Ganen's discharge elbow → the check chain's inlet collet")
 
 
 def _water_5(F):
@@ -810,7 +814,8 @@ GATE_A_POST_STRAIGHT_AIR = 1.0
 GATE_A_POST_EXIT = 7.0
 GATE_A_LOW_LEAN_RUN = 22.0
 # The west lane is outside the reservoir-B fill column and the discharge chain.
-# Its return begins behind the pump discharge, below the discharge hose.
+# Its return begins behind the pump's discharge elbow and crosses the pump's west-rear foot,
+# whose rubber pad stands on the cap's outer face; nothing of the pump stands over that leg.
 GATE_A_WEST_X = -76.5
 GATE_A_RETURN_START_Y = 345.0
 GATE_A_UNION_JOIN_Y = 375.0
@@ -892,7 +897,8 @@ def _fluid_18(F, solids):
 
     The complete post bears on a straight tube ahead of the cap valves. The west leg
     passes outside the fill column and discharge chain, then turns in behind the
-    discharge hose and rises onto the rear union's axis.
+    discharge elbow, holds `LANE_CLEAR` over the pump's west-rear foot and rises onto the
+    rear union's axis.
     """
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
@@ -901,8 +907,8 @@ def _fluid_18(F, solids):
               + GATE_A_POST_STRAIGHT_AIR)
     post_exit_x = anchor_x - GATE_A_POST_EXIT
     fore_z = cross_z - GATE_A_FORE_DROP
-    low_z = (F["g-ganen-pump"].at("discharge")[2]
-             - (_suct.HOSE_OD + _split.TUBE_D) / 2.0 - LANE_CLEAR)
+    low_z = (F["foam-assembly"].at("reservoir-a")[2] + _pump.observed_pad_upper_z()
+             + _split.TUBE_D / 2.0 + LANE_CLEAR)
     rise_y = GATE_A_UNION_JOIN_Y + GATE_A_UNION_LEVEL_RUN
     return R.bent(
         "fluid-18", "valve-v-g.outlet",
@@ -920,7 +926,7 @@ def _fluid_18(F, solids):
                             4: TUBE_BEND, 5: TUBE_BEND,
                             6: 25.4, 7: 25.4, 8: 25.4, 9: 25.4},
         note="flavor A: V-G-O → rear union, through the low fore cap post, "
-             "aft along the west flank and below the pump discharge hose")
+             "aft along the west flank and over the pump's west-rear foot")
 
 
 # --- the four reservoir lines, gate to reservoir and reservoir to gate --------
@@ -990,9 +996,9 @@ FILL_A_LANE_RUN = TUBE_BEND
 # How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
 # what reaches the cap's plane is the fall plus those two arcs.
 FILL_A_FALL_RUN = 6.0
-# After the complete cap bearing, a shallow descent clears the suction hose
-# while both hoses leave their measured barb axes. The rear fill approach keeps
-# the cap anchor's storey; neither printed anchor nor conduit moves.
+# After the complete cap bearing, a shallow descent passes under the suction elbow and the
+# tube leaving it. The rear fill approach keeps the cap anchor's storey; neither printed anchor
+# nor conduit moves.
 FILL_A_HOSE_DROP = 1.25
 FILL_A_HOSE_FALL_RUN = 20.0
 # The valve-side leg passes below the wide part of V-A, then returns to the
@@ -1017,9 +1023,9 @@ def _fill_a_cap_z(F) -> float:
 def _fill_a_turn_y(F) -> float:
     """Where it leaves the cap's plane for the bore's own column — aft of the tap-water riser.
 
-    `water-7` crosses this lane on the pump's suction barb in 3/8" braided, the fattest stock the
-    machine carries. The run holds the lane past that hose and leans east only behind it."""
-    return F["g-ganen-pump"].at("suction")[1] + (_suct.HOSE_OD + _split.TUBE_D) / 2.0 + LANE_CLEAR
+    The suction elbow's clamped cuff stands over this lane on the pump's suction barb. The run
+    holds the lane past that cuff and leans east only behind it."""
+    return F["g-ganen-pump"].at("suction")[1] + (ELBOW_CUFF_D + _split.TUBE_D) / 2.0 + LANE_CLEAR
 
 
 def _fluid_14(F, solids):
@@ -1027,8 +1033,8 @@ def _fluid_14(F, solids):
 
     Rise off V-F, cross above fluid-16, then fall into the round-body gap between V-A and V-K.
     The valve-side leg passes below V-A and returns to its anchor's height before the
-    complete cap bearing. It descends gently under the suction hose, leaves that lane
-    aft of the hose and returns to the anchor's storey on the fill-bore approach. Both
+    complete cap bearing. It descends gently under the suction elbow's tube, leaves that
+    lane aft of the elbow and returns to the anchor's storey on the fill-bore approach. Both
     the route and its rib share one placement declaration."""
     gate = F["valve-v-f"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-a-fill")
@@ -1043,7 +1049,7 @@ def _fluid_14(F, solids):
                  - _cc.cap_anchors["fluid-14"].centre[0])
     valve_return = bearing_y - _cc.cap_anchor_len / 2.0 - FILL_A_BEARING_LEAD
     valve_under = cap - FILL_A_VALVE_DROP
-    hose_fall_end = F["g-ganen-pump"].at("suction")[1] - 2.0 * HOSE_BEND
+    hose_fall_end = F["pump-elbow-suction"].at("tube")[1] - TUBE_BEND
     hose_fall_start = hose_fall_end - FILL_A_HOSE_FALL_RUN
     hose_under = cap - FILL_A_HOSE_DROP
     return R.bent(
@@ -1056,14 +1062,14 @@ def _fluid_14(F, solids):
         (lane_x, valve_return - FILL_A_VALVE_RETURN_RUN, valve_under),
         (lane_x, valve_return, cap),                       # recover before the full cap bearing
         (lane_x, hose_fall_start, cap),                    # complete straight bearing over the bracket
-        (lane_x, hose_fall_end, hose_under),               # shallow descent beneath the suction hose
-        (lane_x, _fill_a_turn_y(F), hose_under),            # hold low until aft of the braided hose
+        (lane_x, hose_fall_end, hose_under),               # shallow descent beneath the suction tube
+        (lane_x, _fill_a_turn_y(F), hose_under),            # hold low until aft of the elbow's cuff
         (bore[0], bore[1], cap),                            # one lean east onto the bore's column
         "foam-assembly.reservoir-a-fill",                   # and straight down the strip into it
         kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
         note="reservoir A fill: V-F-O → the fill bore in its own cap, over `fluid-16`'s lean and "
              "straight down onto the cap, then the whole way aft in the lane V-K and V-A leave "
-             "to the bore's own column behind the suction hose")
+             "to the bore's own column behind the suction elbow")
 
 
 def _fluid_16(F):

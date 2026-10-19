@@ -42,6 +42,7 @@ import _facts  # noqa: E402  — the placed pack and its runs, off the last buil
 import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this doc watches
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
 import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
+import diaphragm_pump_sleeve as _pump_elbow  # noqa: E402  — likewise, the elbow on each barb
 import wr1110_regulator as _wr1110  # noqa: E402  — the barrel the box bores a rib for
 import digiten_flow_sensor as _digiten  # noqa: E402  — the arm its two anchors bore for
 import pump_tray as _tray  # noqa: E402  — the plate each Kamoer's head lies on
@@ -50,18 +51,10 @@ from docgen import substitute_md  # noqa: E402
 
 
 def main():
-    # The two pump-port stubs are cut to the runs the placed pack draws, so the length
-    # a bench cuts is read off the run and not rounded beside it. `_cards_ip` states the
-    # same two lengths on IP-02 off the same runs at the same precision — one cut under
-    # one figure, so card and procedure cannot send a bench to two different lengths.
+    # The two tubes at the pump's elbows are cut to the runs the placed pack draws, so the
+    # length a bench cuts is read off the run and not rounded beside it.
     _f = _facts.read()
     _runs = {r.id: r for r in _f.runs}
-    for _rid in ("water-6", "water-7"):
-        if _runs[_rid].bend != _lines.HOSE_BEND:
-            raise ValueError(
-                f"`{_rid}` is drawn on a {_runs[_rid].bend} mm bend and the procedure quotes "
-                f"the 3/8\" reinforced PVC's {_lines.HOSE_BEND} mm for both pump-port stubs — "
-                f"either they go back on one stock or the doc reads them out apiece.")
 
     # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
     # and the seats the pack actually bored: each anchored BODY answers with its own.
@@ -92,16 +85,14 @@ def main():
         # `CAP_FLUID_LINES`.
         "CAP_FLUID_LINES": f"{len(cap_fluid_conduits)}",
         "CAP_CONDUIT_D": f"{2 * cap_conduit_bore_radius:.4g} mm",
-        # The two pump-port stubs, and the corner the stock they are cut from holds.
-        # The bend radius is the reinforced PVC's own floor as `_lines` reads it off
-        # the stock table — the figure every water run on that hose is drawn to — so
-        # the parts table and the bench step quote what the runs were actually drawn
-        # with rather than a spec copied alongside them.
-        "SUCTION_STUB_LEN": f"{_runs['water-7'].length:.0f} mm",
-        "DISCHARGE_STUB_LEN": f"{_runs['water-6'].length:.0f} mm",
-        "PVC_BEND_R": f"{_lines.HOSE_BEND:.4g} mm",
+        # The two tubes at the pump's elbows: what each run leaves exposed, the depth each
+        # elbow's tube socket swallows, and the clocking the discharge elbow takes on its barb.
+        "SUCTION_TUBE_LEN": f"{_runs['water-7'].length:.0f} mm",
+        "DISCHARGE_TUBE_LEN": f"{_runs['water-6'].length:.0f} mm",
+        "ELBOW_TUBE_DEPTH": f"{_pump_elbow.TUBE_DEPTH:g} mm",
+        "ELBOW_DIP": f"{_ea.DISCHARGE_ELBOW_DIP:g}°",
         # The discharge chain's made-up length, off the module that draws it: every NPT
-        # joint in it is modeled at its engagement, so `LENGTH` is barb tip to collet
+        # joint in it is modeled at its engagement, so `LENGTH` is inlet mouth to outlet
         # mouth on the stack the bench actually screws together.
         "DISCHARGE_CHAIN_LEN": f"{_dis.LENGTH:.4g} mm",
         # The valve and purchased-tee census comes from the placed layout; the
