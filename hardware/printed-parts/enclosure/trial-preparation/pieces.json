@@ -82,10 +82,10 @@
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
-              "enabled": false,
+              "enabled": true,
               "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
               "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
-              "reason": "Disabled: no physical record reports roughness at this edge. printed-parts/AGENTS.md follows reported rough overhang edges with removable fin walls; the accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
             }
           ]
         }
@@ -175,10 +175,10 @@
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
-              "enabled": false,
+              "enabled": true,
               "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
               "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
-              "reason": "Disabled: no physical record reports roughness at this edge. printed-parts/AGENTS.md follows reported rough overhang edges with removable fin walls; the accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
             }
           ]
         }

@@ -50,7 +50,7 @@ yaw that leaves it the most room.
 | Piece | Printer | Read from the mesh | Recipe changes |
 | --- | --- | --- | --- |
 | `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers | Support XY 0.50 mm |
-| `front-bottom`, `back-bottom` | Mark1, Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling | — |
+| `front-bottom`, `back-bottom` | Mark1, Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
 | `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth |
 | `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; cap crown-down | — |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
@@ -84,8 +84,8 @@ measured extent leaves its range, stops the preparation and reports what was fou
   cavity depth is a window. `blockers` puts a support blocker in each window.
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
-  ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). The handhold lifting edges declare
-  them disabled.
+  ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). Both bottoms carry them along the
+  handhold lifting edges.
 
 ## Review
 
