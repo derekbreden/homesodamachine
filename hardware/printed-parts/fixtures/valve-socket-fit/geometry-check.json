@@ -39,7 +39,7 @@
   "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
   "source_sha256": {
     "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "1856481c1189e2c8608c74d2944091d0178f6700224e67100d9ee17cd15bbbb3",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "a3bfa08030793952b0706e5d306992571a994fb61ce68400c868de81d874f718",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "f5f9a69224ddb30ee40b3c2690d71df8c0737c1ab28df28574a2e76102b6b9f7",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "1d42315f3372ea20287b866eee01f4e19ce3c73301a7c898950dc89b6ee24d55",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "2418a64173e70901898e98c472ddff83e79a3e4c58bda8953d8d8b9f370b6a72",
     "hardware/printed-parts/cadlib/fits.py": "4eeb51739fa00db85e20a1a4a0d1021e76e1ca3bb2d6fdddef299eb6e2f5acc3"
@@ -51,13 +51,13 @@
     "valve_tray.build_port_channel": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e"
   },
   "artifacts": {
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "a9671d57568f8270a184ad50211305f427b28417686da6feb2878e0accb9e2ff",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "080eb787775d2653b34cb728323dc8432df2d86a6babdc319fb471eb02cd120f",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "a1d71875e2ca89e9f2f1b012fe3945f60f034703d5dafec670a2078f45f9e033"
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "ce99fb9c09f4d88db17124a6a040604151cebef8569daf4fac006b10d452f9b9",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "10a3bbf3395d21d9b5fe35aeabb3edc76591a527000ea40b050b090cb71871d7",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "874fcae0b8d5c3c6f0307372f664155ca1318bf2cf7a253e4f03d01ce507fa08"
   },
   "mesh_watertight": true,
   "mesh_bodies": 1,
-  "triangles": 2232,
+  "triangles": 2220,
   "nominal_radial_clearance_mm": 0.0,
   "retention_qualified": false,
   "physical_readings_required": [

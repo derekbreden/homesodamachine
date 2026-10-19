@@ -63,7 +63,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Be
 
 ### 2. Press ruthex inserts into the outer shell
 
-[10](CAP_FACE_SCREWS) ruthex M3 heat-set inserts pressed into the top face of the outer_shell, [10](CAP_FACE_SCREWS) into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [2.3 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
+[10](CAP_FACE_SCREWS) ruthex M3 heat-set inserts pressed into the top face of the outer_shell, [10](CAP_FACE_SCREWS) into the bottom face — the **full-length** RX-M3x5.7. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) pocket, [5.7 mm](INSERT_LEN) of body with [4.8 mm](INSERT_RELIEF) of relief below it. Soldering iron tip on the insert; press straight down until flush.
 
 These twenty shell inserts supply the cap-clamp threads — the cap and the lid both carry clearance holes — so they also clamp each lid for its pour at step 3, and must be in before it. The four deck-mount inserts belong to the top cap's columns.
 
@@ -86,7 +86,7 @@ The G Ganen's four identical rubber feet have nominal 7 mm pads and slide indepe
 Each valve cradle is a broad rectangular plinth with four blind sockets
 ([`valve-seat/`](/hardware/printed-parts/valve-seat/)). The valve presses into the sockets and
 its round body rests on the plinth beside an open port channel. A vertical edge passage
-clears the reservoir-B fill conduit. The pour hole has [16.62 mm](POUR_CRADLE_GAP) of land to
+clears the reservoir-B fill conduit. The pour hole has [16.13 mm](POUR_CRADLE_GAP) of land to
 the nearest plinth; trim the cured foam to the plate. Keep the caps labeled — the top one
 also goes on rotated 180° at step 7. Geometry detail at
 [`foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).

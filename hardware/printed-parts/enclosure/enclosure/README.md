@@ -213,7 +213,7 @@ base. Its H capitals are [6.5 mm](DISPOSAL_CAP_HEIGHT) high, and the letters are
 The generator measures every warning letter's outline against the 6.4 mm minimum.
 
 The wall stays flat beneath the text and its [5 mm](DISPOSAL_MARGIN) margin, over a
-[181.0 mm](DISPOSAL_FIELD_WIDTH) by [63.8 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
+[194.8 mm](DISPOSAL_FIELD_WIDTH) by [63.0 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
 flutes fade into this smooth area. It is the wall's own surface, without a border or a
 separate carrier. The raised text is fused into the STEP body and retained on the printable
 STL and viewer payload after the mesh flute cut.
