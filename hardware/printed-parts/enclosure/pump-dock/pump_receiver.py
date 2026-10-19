@@ -184,7 +184,7 @@ def _geometry(*,installed=False,junction=None,mount_side=1):
         end=stop+d*plumbing.SEAL_LAND
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
-                       cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,_EPS,cq.Vector(*port["point"]),d))
+                       cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,BRANCH_OD,cq.Vector(*port["point"]),d))
     lower=junction["lower_flow_segments"][0]
     blend_edges=[e for e in void.Edges() if e.geomType()=="BSPLINE"
                  and e.BoundingBox().ymax>lower["end_mm"][1]+1.2
