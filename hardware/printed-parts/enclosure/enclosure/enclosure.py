@@ -1477,6 +1477,7 @@ z_rise = 14.8
 # plane through a slot instead of meeting it edge-on in a zero-thickness line.
 hook_arm = 4.5  # complete arm fits the existing channel with its 0.5 mm running clearance
 dock_key_rail_relief = 0.26
+dock_key_rail_ramp = 3.0
 dock_key_rail_margin = 1.25
 rail_stop_len = 4.0          # closed-end zone along Y; block retains this less slide_slip
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
@@ -4059,7 +4060,7 @@ def _dock_key_rail_cuts(plate, sx, back, z0, z1):
     """Clear outer return heads from the rail arm's nonbearing back face.
 
     The local retreat retains4.24mm of arm. Its sliding face and the caught
-    head underside keep their full source section; short plan ramps join
+    head underside keep their full source section; 3 mm plan ramps join
     the relieved back to the nominal arm outside the key's clearance window.
     """
     for x, _z in plate['holes']:
@@ -4074,10 +4075,10 @@ def _dock_key_rail_cuts(plate, sx, back, z0, z1):
         y0, y1 = bounds.ymin - dock_key_rail_margin, bounds.ymax + dock_key_rail_margin
         retreat = back - sx * dock_key_rail_relief
         interior = back + sx
-        yield _xy_prism(z0, z1, ((interior, y0-dock_key_rail_relief),
-            (back, y0-dock_key_rail_relief), (retreat, y0),
-            (retreat, y1), (back, y1+dock_key_rail_relief),
-            (interior, y1+dock_key_rail_relief)))
+        yield _xy_prism(z0, z1, ((interior, y0-dock_key_rail_ramp),
+            (back, y0-dock_key_rail_ramp), (retreat, y0),
+            (retreat, y1), (back, y1+dock_key_rail_ramp),
+            (interior, y1+dock_key_rail_ramp)))
 
 
 def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):

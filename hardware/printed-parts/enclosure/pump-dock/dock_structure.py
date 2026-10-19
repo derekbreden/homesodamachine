@@ -317,10 +317,12 @@ def fixed_features(plate):
                        _bed_corbel(fx-5,fx+5,root,fy,fz-5,plate['z0']+fits.supported_surface)))
         for index,(ax,ay,az) in enumerate((front,aft)):
             py0,py1=(ay,ay+fits.running) if index==0 else (ay-fits.running,ay)
-            stocks.append(box(ax-5,ax+5,py0,py1,az-5,az+LOCK_INSERT_D/2*2**.5+3))
+            bottom=(plate['fixture_print_bed_z']+fits.running
+                    if index==1 and abs(x)<50 else az-5)
+            stocks.append(box(ax-5,ax+5,py0,py1,bottom,az+LOCK_INSERT_D/2*2**.5+3))
             #45degree underside of each small supported axial bearing land.
             yroot,yedge=(ay,py1) if index==0 else (ay,py0)
-            vv=[cq.Vector(ax-5,yroot,az-5-fits.running),cq.Vector(ax-5,yedge,az-5),cq.Vector(ax-5,yroot,az-5)]
+            vv=[cq.Vector(ax-5,yroot,bottom-fits.running),cq.Vector(ax-5,yedge,bottom),cq.Vector(ax-5,yroot,bottom)]
             wire=cq.Wire.makePolygon(vv+[vv[0]])
             stocks.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(10,0,0)))
             a,b=(ay-LOCK_INSERT_LENGTH-FIXTURE_LOCK_RELIEF,ay+fits.running+.01) if index==0 else (ay-fits.running-.01,ay+LOCK_INSERT_LENGTH+FIXTURE_LOCK_RELIEF)
