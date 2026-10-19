@@ -268,8 +268,11 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         p = inst["mesh"].print_vertices
         footprints.append(tuple((p[:, :2].max(axis=0) - p[:, :2].min(axis=0)).tolist()))
     placements = layout(footprints, usable_low, usable_high, piece.get("spacing_mm", 12.0), piece.get("yaw_degrees", "auto"))
+    offset = piece.get("plate_offset_mm", {}).get("value", [0.0, 0.0])
+    placements = [(yaw, cx + offset[0], cy + offset[1]) for yaw, cx, cy in placements]
     border = piece.get("plate_border_mm", 20.0) if border is None else border
-    brim = 0.0 if settings.get("brim_type") == "no_brim" else float(settings.get("brim_width", 5)) + 0.5
+    # auto_brim sizes each volume group's brim while slicing; review.py reads the emitted envelope.
+    brim = float(settings.get("brim_width", 5)) + 0.5 if settings.get("brim_type") in ("outer_only", "outer_and_inner") else 0.0
 
     records = []
     for inst, (yaw, cx, cy) in zip(instances, placements):
@@ -338,7 +341,10 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                         plate.add_part(obj, "Tie channel support exclusion", vertices, faces, subtype="support_blocker")
             if f["kind"] == "edge_fins":
                 for fin in f["fins"]:
-                    for kind, box_key in (("normal_part", "box_print_mm"), ("support_blocker", "blocker_print_mm")):
+                    boxes = [("normal_part", "box_print_mm"), ("support_blocker", "blocker_print_mm")]
+                    if "foot_print_mm" in fin:
+                        boxes.append(("normal_part", "foot_print_mm"))
+                    for kind, box_key in boxes:
                         low_b, high_b = fin[box_key]
                         corners = np.array([[x, y, z] for x in (low_b[0], high_b[0]) for y in (low_b[1], high_b[1]) for z in (low_b[2], high_b[2])])
                         local = mesh.print_to_local(corners)
@@ -401,7 +407,7 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         "settings_sha256": hashlib.sha256((json.dumps(settings, indent=2) + "\n").encode()).hexdigest(),
         "settings_changes": changes, "profile_changes": profile["changes"],
         "usable_plate_mm": [usable_low.tolist(), usable_high.tolist()], "plate_border_mm": border,
-        "brim_allowance_mm": brim, "objects": records,
+        "brim_allowance_mm": brim, "plate_offset_mm": piece.get("plate_offset_mm"), "objects": records,
         "show_faces": relative(directory / "show-faces.npz"),
         "spec": relative(SPEC_PATH), "spec_sha256": _mesh.sha256(SPEC_PATH),
         "tool_sha256": {relative(p): _mesh.sha256(p) for p in sorted(HERE.glob("*.py"))},

@@ -39,15 +39,19 @@ support and interface. The solid-host modifiers come from
 [`print-regions.json`](../enclosure/heat-set-review/print-regions.json) and set 100% zig-zag
 infill only. A piece with regions stops when that record binds other STL/STEP digests;
 `heat-set-review/print_regions.py` writes it from the current geometry under the CAD lock.
-The model footprint, with the brim, keeps the plate border (20 mm on unseasoned plates,
+The model, support and brim beads keep the plate border (20 mm on unseasoned plates,
 [`tools/bambu-printers.md`](../../../../tools/bambu-printers.md)); a single part takes the
-yaw that leaves it the most room.
+yaw that leaves it the most room and sits centered, or at its declared `plate_offset_mm`
+where its emitted envelope is lopsided. `auto_brim` sizes each volume group's brim while
+slicing, so the review reads the emitted envelope; the footprint precheck adds a brim only
+for fixed-width brim types.
 
 | Piece | Printer | Read from the mesh | Recipe changes |
 | --- | --- | --- | --- |
 | `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers | Support XY 0.50 mm |
-| `front-bottom`, `back-bottom` | Mark1, Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth |
+| `front-bottom` | Mark1 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
+| `back-bottom` | Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset X −5.1, Y +18.8 mm |
+| `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
 | `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; cap crown-down | — |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2 | Magnet gauges on their flat backs ([magnet process](../pump-dock/magnet-retention.md)); tip gauge and stem fixture as exported | — |
@@ -81,7 +85,9 @@ measured extent leaves its range, stops the preparation and reports what was fou
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
   ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). Both bottoms carry them along the
-  handhold lifting edges.
+  handhold lifting edges. `foot_outboard_mm`, `foot_inboard_mm` and `foot_height_mm` stand
+  each fin on a flat foot of the same removable part, its own bed anchor; back-bottom's
+  fins have feet.
 
 ## Review
 

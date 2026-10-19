@@ -93,6 +93,10 @@
     },
     "back-top": {
       "printer": "Mark2",
+      "plate_offset_mm": {
+        "value": [-5.4, 0.0],
+        "reason": "With the footprint centered, tree trunks under the rear face root up to 11.6 mm past it while the seam end's beads stay within 0.9 mm of it: emitted bead envelope X 26.05-309.70 mm (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers that envelope, 20.6 mm from both bed edges. Back-top only."
+      },
       "settings": {
         "max_bridge_length": {
           "value": "50",
@@ -151,6 +155,10 @@
     },
     "back-bottom": {
       "printer": "Mark2",
+      "plate_offset_mm": {
+        "value": [-5.1, 18.8],
+        "reason": "With the footprint centered, tree trunks under the seam-end knuckles' undersides root 10.3 mm past the seam end and the trunk under the Z169.4 side ledge roots 37.6 mm off the -X flank (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers the emitted bead envelope: 20.8 and 21.4 mm from the X edges, 30.8 and 33.7 mm from the Y edges. Back-bottom only."
+      },
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
@@ -178,7 +186,8 @@
               "enabled": true,
               "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
               "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
-              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+              "foot_outboard_mm": 5.0, "foot_inboard_mm": 4.0, "foot_height_mm": 0.44,
+              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json. Each fin stands on a 0.44 mm foot, 5 mm outboard and 4 mm inboard of it, as its bed anchor: auto_brim gave each bare 0.9 x 22 x 35 mm fin a 15-17 mm brim, which left back-bottom's bead envelope 18.3 mm from the X edges; on feet the slice emits no brim (2026-10-19 Mark2 slice). The inboard foot stops 6.6 mm short of the recess's inner wall. Back-bottom only."
             }
           ]
         }
