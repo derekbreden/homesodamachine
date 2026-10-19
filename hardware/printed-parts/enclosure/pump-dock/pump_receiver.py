@@ -68,6 +68,7 @@ KEY_BASE_Z = -3.0
 KEY_SHOULDER_Z = 0.0
 KEY_TOP_Z = 3.0
 WEB_HALF_WIDTH = 7.0
+WEB_RIM_MARGIN = 1.5
 MATERIAL = "Siraya Tech Flex TPU 85A Clear"
 # Clear stock, rather than the black Bambu 90A gasket stock.
 COLOR = cq.Color(.92, .92, .90, .60)
@@ -170,11 +171,14 @@ def crotch_web(junction=None):
     _,dy,dz=axis.toTuple();length=(dy*dy+dz*dz)**.5;dy,dz=dy/length,dz/length
     aft=uy+r
     front=REAR_COLLAR_Y[1]-.5
+    # At the collar's back face the web's corners stand well inside its round rim.
+    back=REAR_COLLAR_Y[1];rim=((COLLAR_OD/2)**2-WEB_HALF_WIDTH**2)**.5-WEB_RIM_MARGIN
+    top=rim-(back-front)*(uz-rim)/(uy-back)
     _,ay,az=junction['lower_flow_segments'][0]['end_mm']
     beyond=r
     outline=[(aft,uz),(aft,mouth.z-(aft-mouth.y)*dy/dz-beyond),
              (mouth.y-dz*r+dy*beyond,mouth.z+dy*r+dz*beyond),(ay,az),
-             (front,az),(front,COLLAR_OD/2-.75),(uy,uz)]
+             (front,az),(front,top),(uy,uz)]
     vertices=[cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline]
     wire=cq.Wire.makePolygon(vertices+[vertices[0]])
     web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
