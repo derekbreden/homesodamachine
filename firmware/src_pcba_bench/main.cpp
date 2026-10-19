@@ -81,9 +81,11 @@ static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip
 // bridge has two states: IN1 high drives OUT1/OUT2 one direction, IN1 low coasts.
 // PWM on IN1 is therefore fast-decay, and a parked (input) IN1 coasts the motor on
 // the DRV8870's own input pull-down — which is what makes a brownout reset safe.
-// ISEN sits on GND with no sense resistor, so the chip's current limit never trips:
-// the motor sees the 12 V rail through the bridge, and a Kamoer KPHM600 draws
-// ~0.8 A peak there.
+// A Kamoer KPHM600 draws ~0.8 A running. ISEN returns through a 0.2 ohm sense
+// resistor (R28 / R29), so a start or a jam is held at ~1.65 A: past it the driver
+// brakes for 25 us and drives again, at any duty. Batch-1 and batch-2 boards ground
+// ISEN, so there the motor sees the 12 V rail through the bridge up to the driver's
+// 3.7-6.4 A overcurrent shutdown.
 static const int PIN_PUMP_A = 17;        // U11.IN1 -> OUT1/OUT2 -> J13.AM1 / J13.AM2
 static const int PIN_PUMP_B = 4;         // U12.IN1 -> OUT1/OUT2 -> J13.BM1 / J13.BM2
 static const int PUMP_PWM_HZ   = 20000;  // above hearing — every sound in the room is mechanical

@@ -138,8 +138,10 @@ PWM is 20 kHz, above hearing — every sound the pump makes is mechanical. `IN2`
 GND plane, so `IN1` high drives and `IN1` low coasts, one direction only; polarity at the
 connector sets which way the head turns and either way is a pass. A brownout reset stops
 the motor: the pin reverts to an input, which the DRV8870's own input pull-down coasts.
-`ISEN` sits on GND with no sense resistor, so the chip's current limit never trips and the
-motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM600.
+A KPHM600 runs at ~0.8 A. `ISEN` returns through a 0.2 Ω sense resistor (R28 / R29), so a
+start or a jam is held at ~1.65 A: past it the driver brakes for 25 µs and drives again, at
+any duty. Batch-1 and batch-2 boards ground `ISEN`, and there the motor sees the 12 V rail
+through the bridge up to the driver's 3.7–6.4 A overcurrent shutdown.
 
 ## The J9 link
 

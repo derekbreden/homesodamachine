@@ -7,8 +7,9 @@
  * the pads are pin-1-west/horizontal exactly like the generic footprint — so this is belt-and-
  * suspenders: zero exceptions to reason about.) The imported silk is dropped; parts.tsx'
  * Cap/Res helper draws the shared symmetric two-line mark + upright ref-des. The pads + courtyard
- * are kept (the courtyard feeds footprint-audit's body model). Three JLCPCB lands cover every
- * value: res 0603 (±0.753), cap 0805 (±1.000), cap 0603 (±0.700).
+ * are kept (the courtyard feeds footprint-audit's body model). Six JLCPCB lands cover every
+ * value: res 0603 (±0.753), cap 0805 (±1.000), cap 0603 (±0.700), res 0402 (±0.433), cap 0402
+ * (±0.480), and the 1206 current-sense land (±1.479).
  */
 
 // deduped land patterns (a fresh <footprint> per call — never share one JSX node across parts)
@@ -49,6 +50,15 @@ const CAP_0402 = () => (
     <smtpad portHints={["pin1"]} pcbX="-0.48mm" pcbY="0mm" width="0.56mm" height="0.6mm" shape="rect" />
     <smtpad portHints={["pin2"]} pcbX="0.48mm" pcbY="0mm" width="0.56mm" height="0.6mm" shape="rect" />
     <courtyardoutline outline={[{"x":-1.02,"y":0.78},{"x":1.02,"y":0.78},{"x":1.02,"y":-0.78},{"x":-1.02,"y":-0.78},{"x":-1.02,"y":0.78}]} />
+  </footprint>
+)
+// 1206 current-sense land (Milliohm HoLRT1206-1W, C5127778) — R28/R29, the DRV8870 ISEN sense
+// resistors. Its own wide pads (1.21 × 1.70 at ±1.479), as `tsci import C5127778` transcribes them.
+const RES_1206 = () => (
+  <footprint>
+    <smtpad portHints={["pin1"]} pcbX="-1.478788mm" pcbY="0mm" width="1.207516mm" height="1.7010126mm" shape="rect" />
+    <smtpad portHints={["pin2"]} pcbX="1.478788mm" pcbY="0mm" width="1.207516mm" height="1.7010126mm" shape="rect" />
+    <courtyardoutline outline={[{"x":-2.5614000000000487,"y":1.3167999999999438},{"x":2.561399999999935,"y":1.3167999999999438},{"x":2.561399999999935,"y":-1.3421999999999343},{"x":-2.5614000000000487,"y":-1.3421999999999343},{"x":-2.5614000000000487,"y":1.3167999999999438}]} />
   </footprint>
 )
 
@@ -162,6 +172,12 @@ const CAD: Record<string, any> = {
     pcbRotationOffset: 0,
     modelOriginPosition: { x: 0, y: -0.000012700000070253736, z: -0.25 },
   },
+  C5127778: { // 0.2Ω 1W 1206 current sense (Milliohm HoLRT1206) — its own EasyEDA body
+    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C5127778.obj?uuid=da5f078ee43c429f91838a456f48f0a8",
+    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C5127778.step?uuid=da5f078ee43c429f91838a456f48f0a8",
+    pcbRotationOffset: 0,
+    modelOriginPosition: { x: 0, y: 0, z: 0 },
+  },
 }
 
 const LAND: Record<string, () => any> = {
@@ -183,6 +199,7 @@ const LAND: Record<string, () => any> = {
   C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown + R24 interlock B-node pulldown
   C17168: RES_0402,   // 0Ω (UNI-ROYAL 0402WGF0000) — R25 DOUT-polarity invert-select link
   C1525: CAP_0402,    // 0.1µF (Samsung CL05B104KO5NNNC) — C23 interlock VCC decoupler
+  C5127778: RES_1206, // 0.2Ω 1W (Milliohm HoLRT1206-1W-200mR-1%) — R28/R29 DRV8870 ISEN sense
 }
 
 export const passiveImport = (jlcpcb: string): { footprint: () => any; cadModel: any } => ({

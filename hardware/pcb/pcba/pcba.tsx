@@ -211,10 +211,18 @@ const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPin
 const J5El = <Jst name="J5" x={-41.95} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
 // Pump H-bridges, framed for the IN-bus routing below. J13 sits centred over the driver
-// pair (U11+4.25 / U12-2.75); the VM caps flank each driver at ∓1.5/+1.75.
-const U11El = <Drv8870 name="U11" x={-16.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
-const U12El = <Drv8870 name="U12" x={-9.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
+// pair (U11+4.25 / U12-2.75); the bulk VM caps flank each driver. Each ISEN returns through its
+// own 0.2 Ω sense resistor (R28 / R29) lying across the band between the driver's north pads and
+// J13's base; the drivers stand far enough south for the resistor's 2.66 mm courtyard to fit it.
+// Pin1 sits on the ISEN pad's own column, its pad centred between the OUT2 and OUT1 risers that
+// flank ISEN, so the tie is one straight run north; the OUT1 riser passes under the body between
+// the pads, and pin2 (GND) stitches to the plane beyond it. The ref-des sits east of each driver.
+const U11El = <Drv8870 name="U11" x={-16.5} y={21.35} rot={0} lx={3.3} />  // ref-des east, between U11 and U12
+const U12El = <Drv8870 name="U12" x={-9.5} y={21.35} rot={0} lx={3.3} />  // ref-des east, between U12 and C19
 const U11f = frame(U11El), U12f = frame(U12El)
+const R28El = <Res name="R28" resistance="0.2" footprint="1206" jlcpcb="C5127778" x={-15.656212} y={26.85} rot={0} side="W" />  // pin1 on U11.ISEN's column
+const R29El = <Res name="R29" resistance="0.2" footprint="1206" jlcpcb="C5127778" x={-8.656212} y={26.85} rot={0} side="W" />   // pin1 on U12.ISEN's column
+const R28f = frame(R28El), R29f = frame(R29El)
 // Firmware status-LED resistors, framed for the GPIO-feed routing below.
 const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-14.75} rot={0} side="N" />
 const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-17.25} rot={0} side="N" />
@@ -288,14 +296,14 @@ const R13f = frame(R13El), R14f = frame(R14El)
 // closing on its hub barrel, pin2 stitching to the 3V3 plane. R19 stands VERTICAL (rot 270,
 // pin1 NORTH) on U11's west flank above C17 — east of the col -21.7 SDA/SCL risers, under
 // J6's south face; R20 HORIZONTAL (rot 180, pin1 EAST) in the band under J8's bay (y≈26.2:
-// U12's courtyard fences everything south, J8's body everything north of ~28.5).
+// R29's courtyard fences it west, C3's east, J8's body everything north of ~28.5).
 const U2El = <Mcp23017 name="U2" x={-31.4} y={20.25} addr="0x20" rot={180} />
 const U3El = <Mcp23017 name="U3" x={-7.2} y={-20.15} addr="0x21" rot={0} />
 const U2f = frame(U2El), U3f = frame(U3El)
 const J8El = <Jst name="J8" x={1.3} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
 const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
 const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-20.7} y={26.67} rot={270} side="W" />
-const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-4.8} y={26.2} rot={180} side="N" />
+const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-4.4} y={26.2} rot={180} side="N" />
 const R19f = frame(R19El), R20f = frame(R20El)
 
 // ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
@@ -357,8 +365,11 @@ export const decoupling: DecouplingRule[] = [
 // audit.ts checks the routed width against this). Each such trace carries an explicit `thickness`
 // below so the router lays it wide instead of the 0.2mm floor it gives every logic line. The power
 // RAILS need no entry: V12/V5/GND are poured planes picked up at the barrel. What does:
-//   pump motors (U11/U12.OUT → J13) — ~0.8A peak (Kamoer KPHM600-SW). Routed 0.4mm, want ≥0.3mm
+//   pump motors (U11/U12.OUT → J13) — 0.8A running (Kamoer KPHM600-SW). Routed 0.4mm, want ≥0.3mm
 //     (IPC-2221 rule of thumb for ~0.8A at ~10°C rise on 1oz; more on inner 0.5oz — kept short).
+//     A start or a jam rides the driver's current regulation, ≤1.81A, which 0.4mm carries at ~25°C.
+//   pump returns (U11/U12.ISEN → R28/R29) — the same motor current into the sense resistor, on a
+//     0.5mm stub just inside the 0.57mm ISEN pad. Want ≥0.3mm, as the motor lines.
 //   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the TBD62083 DMOS array, so ≤0.5A/channel.
 //     Routed 0.3mm, want ≥0.25mm.
 //   J10 inlet series → the pass FET (J10.V12 → Q4.D) — the 12V segment that isn't a pour: the whole
@@ -370,6 +381,8 @@ export const decoupling: DecouplingRule[] = [
 export const ampacity: AmpacityRule[] = [
   { pin: "U11.OUT", minWidthMm: 0.3, role: "pump A motor (~0.8A)" },
   { pin: "U12.OUT", minWidthMm: 0.3, role: "pump B motor (~0.8A)" },
+  { pin: "U11.ISEN", minWidthMm: 0.3, role: "pump A return into R28 (~0.8A)" },
+  { pin: "U12.ISEN", minWidthMm: 0.3, role: "pump B return into R29 (~0.8A)" },
   { pin: "U4.OUT", minWidthMm: 0.25, role: "MANIFOLD A valves (ULN, ≤0.5A)" },
   { pin: "U5.OUT", minWidthMm: 0.25, role: "MANIFOLD B valves + fan (ULN, ≤0.5A)" },
   { pin: "Q4.D", minWidthMm: 1.5, role: "12V inlet pass-FET series copper — J10.V12→Q4.D (~3.3A board peak)" },
@@ -436,18 +449,25 @@ export default () => (
         pump (Kamoer KPHM600-SW, 12V brushed DC, 0.8A at full speed per its rating — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
-        ISEN->GND, VREF->3V3, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM decoupling per chip.
+        ISEN->R28/R29 (0.2 ohm)->GND, VREF->3V3, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM decoupling per chip.
+        CURRENT: the sense resistor sets the driver's current regulation at VREF / (10 x R_ISEN) =
+        1.65 A (1.54-1.81 A over the data sheet's 9.4-10.4 ISEN gain, the LDO's +/-2% and the
+        resistor's 1%). Past it the bridge brakes for 25 us and drives again, so a jammed or starting
+        head holds there — under the 2 A of each cartridge pogo contact the motor current crosses, and
+        twice the 0.8 A it runs at. R28/R29 dissipate 0.65 W at the 1.81 A ceiling, on a 1 W part.
         DRIVE: the dosing pumps run ONE direction (dispense), so this is single-direction fast-decay
         drive: IN2 tied to GND, only IN1 PWM'd from the ESP. That halves the IN bus to one trace per
         pump and frees IO16/IO18. The head seals nothing at rest — a parked KPHM600 passes flow both
         ways, and the manifold's NC solenoids hold every line (fluid-topology.md) — so direction buys
         operations, not sealing: reverse fill and suck-back at the gooseneck are what IN2->IO16/IO18 is for. */}
     {U11El}
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="W" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U11's GND pad */}
+    {R28El}
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={21.35} rot={90} side="W" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={15.95} rot={180} side="N" />{/* nudged S so the N ref-des clears U11's GND pad */}
     {U12El}
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-5.4} y={22.75} rot={90} side="W" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U12's GND pad */}
+    {R29El}
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-4.4} y={21.35} rot={90} side="E" />{/* E of U12's ref-des, its own E toward C3 */}
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={15.95} rot={180} side="N" />{/* nudged S so the N ref-des clears U12's GND pad */}
     {U2El}
     {U3El}
     {U4El}
@@ -946,9 +966,10 @@ export default () => (
 
     {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Single-direction drive:
         IN2 -> GND plane (auto-stitched, no route), only IN1 carries PWM from a WROOM north pin.
-        OUT1/OUT2 to the PUMPS connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND,
-        VREF to 3V3; VM decoupled by C17/C18 (U11) and C19/C20 (U12). With IN2 grounded, IO16/IO18
-        (and IO5) are free GPIO. */}
+        OUT1/OUT2 to the PUMPS connector. VM off 12V; GND + thermal PAD to the plane; ISEN straight
+        north into its sense resistor (R28 / R29), whose far pad stitches to GND; VREF to 3V3; VM
+        decoupled by C17/C18 (U11) and C19/C20 (U12). With IN2 grounded, IO16/IO18 (and IO5) are
+        free GPIO. */}
     <trace from=".U11 > .IN2" to="net.GND" />
     {/* IO17 pump-A PWM — middle lane of the north-edge comb: exit IO17's pad NORTH on the bottom to
         y13 (above the pad-shadow band), east, then north into U11.IN1. */}
@@ -961,11 +982,13 @@ export default () => (
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
-    <trace from=".U11 > .ISEN" to="net.GND" />
+    <trace from="U11.ISEN" to="R28.pin1" thickness="0.5mm" pcbPathRelativeTo="board" pcbPath={route("U11.ISEN", "R28.pin1")} />
+    <trace from=".R28 > .pin2" to="net.GND" />
     <trace from=".U11 > .VREF" to="net.V3V3" />
     {/* Pump OUT comb — the four 0.4mm motor lines fan north-east into J13, whose label order
         already matches the pads' W→E order, so the rows just descend eastward (pitch 0.7) and
-        every riser/drop pair stays y-disjoint. */}
+        every riser/drop pair stays y-disjoint. Each OUT1 riser passes under its driver's sense
+        resistor, between the pads. */}
     <trace from="U11.OUT2" to="J13.AM2" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
         "U11.OUT2",
         J13f.row("AM2", -1.15),
@@ -996,7 +1019,8 @@ export default () => (
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
-    <trace from=".U12 > .ISEN" to="net.GND" />
+    <trace from="U12.ISEN" to="R29.pin1" thickness="0.5mm" pcbPathRelativeTo="board" pcbPath={route("U12.ISEN", "R29.pin1")} />
+    <trace from=".R29 > .pin2" to="net.GND" />
     <trace from=".U12 > .VREF" to="net.V3V3" />
     <trace from="U12.OUT2" to="J13.BM2" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
         "U12.OUT2",

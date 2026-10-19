@@ -43,22 +43,31 @@ does not establish the deeper current installation or the actual T18 tool profil
 
 ## Current protection
 
-Each purchased contact is specified for 2 A at 12 V. The pump's ~0.8 A normal
-current does not establish startup or jam current. In the current
-[PCB source](../../pcb/pcba/pcba.tsx), U11/U12 ISEN connect directly to ground
-and VREF connects to 3V3. Texas Instruments' [DRV8870 data sheet, §§7.4.2 and
-7.3.5.2](https://www.ti.com/lit/ds/symlink/drv8870.pdf) identifies this as PWM
-without adjustable current regulation; the driver's overcurrent protection is
-not a 2 A contact limit. The 12 V supply can source 6.7 A for the appliance and
-does not provide a per-contact bound.
+Each purchased contact is specified for 2 A at 12 V and carries one pump's whole
+motor current; the four contacts are four separate H-bridge conductors, not
+paralleled. In the [PCB source](../../pcb/pcba/pcba.tsx), each DRV8870's ISEN pin
+returns to ground through its own 0.2 Ω ±1 % sense resistor (R28 on U11, R29 on U12;
+1 W, ±50 ppm/°C, [`C5127778`](../../pcb/pcba/jlcpcb-parts.md)), and VREF connects to
+3V3. Texas Instruments' [DRV8870 data sheet, §7.3.3 and
+§6.5](https://www.ti.com/lit/ds/symlink/drv8870.pdf) sets the trip at
+VREF / (A_V × R_ISEN): 1.65 A nominal, 1.54–1.81 A across the ISEN gain A_V of
+9.4–10.4, the AMS1117's ±2 % on 3V3 and the resistor's ±1 %. At the trip the bridge
+brakes on both low-side switches for 25 µs and drives again, so a starting or jammed
+pump is held there, and the current circulating through the brake keeps the contacts
+at the trip current. The appliance drives each pump at full duty, a static input that
+§7.4.3 regulates the same way. Boards from the first two JLCPCB batches ground ISEN;
+their bound is the driver's 3.7–6.4 A overcurrent protection.
 
-Contact-current protection is open. A complete implementation needs a current
-limit whose worst-case threshold and transient response stay within the
-connector's supported current envelope while allowing the pump to start, or a
-connector with documented capacity for the actual motor current. No startup,
-jam-current or installed contact-resistance result is recorded. The routing
-and motor-pair mapping remain four separate H-bridge conductors; contacts are
-not paralleled. The service joint is mated and parted with appliance power removed.
+A primed head starts against the trip current, about twice the ~0.8 A it runs at.
+No start under it is recorded, and a head that does not start delivers no flavor.
+The observation is one start on a board of this revision, with the cartridge seated,
+the channel primed, and the pump and its syrup at the coldest the cabinet is expected
+to hold them: hold Prime on the machine display and film the head with a phone, sound
+on. The motor sounds as soon as its bridge drives, turning or not. It passes when the
+head turns at its steady rate within 1 s of that first sound. A head that hums without
+turning, or is still gathering speed at 1 s, means the trip is too low for it. No
+jam-current or installed contact-resistance result is recorded.
+The service joint is mated and parted with appliance power removed.
 
 ## Seating and dimensional allowance
 

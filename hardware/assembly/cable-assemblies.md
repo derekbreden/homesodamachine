@@ -169,9 +169,10 @@ first mated by hand, since the magnets admit only the attracting orientation.
 
 Continuity-test J13 to each pump tab with the cartridge seated, verify no adjacent short, and
 verify J13 net-to-tab polarity. Each contact is rated 2 A at 12 V; the pump's stated normal current is ~0.8 A.
-The current PCB grounds each DRV8870 ISEN pin, disabling adjustable current
-regulation. Startup and jam current are not bounded by the 2 A contact rating;
-see [current protection](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection).
+Each DRV8870's ISEN returns through a 0.2 Ω sense resistor, which holds startup and
+jam current at 1.54–1.81 A; batch-1 and batch-2 boards ground ISEN and are bounded
+only by the driver's 3.7–6.4 A overcurrent protection
+([current protection](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection)).
 The pair is a dead-circuit service joint: remove appliance power before drawing
 or seating the cartridge.
 

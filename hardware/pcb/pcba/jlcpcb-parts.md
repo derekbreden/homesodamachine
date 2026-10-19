@@ -47,6 +47,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U9 — 5V→3V3 LDO | AMS1117-3.3, fixed 3.3 V LDO | SOT-223 | C6186 | Basic | 1,843,633 (2026-07-02) | $0.1979 |
 | U10 — 12V→5V buck | K7805-2000R3, 2 A non-isolated switcher | SIP-3 (THT) | C18212380 | Extended | 3,218 (2026-08-03) | — |
 | U11, U12 — pump H-bridges | DRV8870DDAR, single H-bridge, 45 V / 3.6 A, 565 mΩ | HSOP-8-EP (PowerPAD) | C86590 | Extended | 34,907 (2026-07-02) | $0.41 |
+| R28, R29 — U11/U12 ISEN current sense | 0.2 Ω ±1%, 1 W, ±50 ppm/°C current-sense (Milliohm HoLRT1206-1W-200mR-1%) | 1206 | C5127778 | Extended | 53,840 (2026-10-19) | $0.0903 |
 | C13/C15/C17/C19 — buck/LDO/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
 | C14, C16 — 3V3 LDO / 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
 | C18/C20 — driver VM HF | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
@@ -276,13 +277,13 @@ nearest copper is the V12 pour edge — below JLCPCB's ideal 1 mm fiducial keep-
 DFM tradeoff, since the island floods x[−31.75, 16.5] and leaves no clear east-corner laminate, and
 it stays well clear of the board's 0.14 mm copper floor. FID3 (−59.5, −34.8) SW sits on open west
 laminate near MH4. The native fiducial emits a paste aperture on each dot — harmless on a
-no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (367/367).
+no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (371/371).
 
 ## Stock risk & designated second-sources
 
 Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
-board carries **30 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
-apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
+board carries **31 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+apiece, ~$90–95 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
 assembly order. **Every Extended part has a documented same-footprint, same-pinout fallback below, so an
 out-of-stock code is a BOM swap, never a board respin.** The genuinely shallow / single-source parts
 carry a *specific* designated alternate (first table); the deep commodity types carry a *type* alternate
@@ -307,6 +308,7 @@ point-in-time — re-check the week of ordering.
 |---|---|---|---|
 | U2/U3 — MCP23017 I²C GPIO | `C47023` | SOIC-28-300mil | Another MCP23017 (SOIC-28-300mil, same pinout) — Microchip + wide stock. **Not** the MCP23S17 (SPI variant — different function on the same land). |
 | U11/U12 — DRV8870 H-bridge | `C86590` | HSOP-8-EP (PowerPAD) | Deep (~35k). Same-MPN is the clean swap; TI **DRV8871DDAR** shares the HSOP-8-EP land + family pinout — verify the pin map before substituting. |
+| R28/R29 — 0.2 Ω ISEN sense | `C5127778` | 1206, 1.21 × 1.70 mm pads at ±1.48 | Another 0.2 Ω ±1 % 1206 current-sense part rated **1 W** — RESI MFCR1206FR200QHR (`C42460613`, ±50 ppm, ~14k), Milliohm HoYH1206-1W (`C2932839`, ~24k) or Walter STE1206M1W0R200F (`C2840871`, ±50 ppm, ~3.8k); all three import this same land (2026-10-19). **Not** a 0.25–0.5 W thick-film 1206: at the 1.81 A trip ceiling the part dissipates 0.65 W. The value is load-bearing — it sets the trip current under the 2 A pogo contacts. |
 | U10 — K7805-2000R3 buck | `C18212380` | SIP-3 (THT) | SIP-3 switcher, Vin/GND/Vout pinout — Mornsun K78xx-2000R3 family or Recom R-78E5.0-1.0 (same SIP-3 land); match ≥ the 5 V-rail load. Verify pin order (some SIP-3 regs differ). |
 | U14 — USBLC6-2SC6 USB ESD | `C2687116` | SOT-23-6 | Industry-standard USB ESD array; pin-identical parts (ST/UMW/clones) on the same SOT-23-6 land. ~100k stock. |
 | J14 — USB-C receptacle | `C165948` | SMD 16P + THT shield tabs | `TYPE-C-31-M-12` is the de-facto-standard 16P USB-C land; pin-identical receptacles from many vendors. ~126k stock. |
