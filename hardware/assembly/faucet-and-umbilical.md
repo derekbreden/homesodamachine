@@ -105,6 +105,8 @@ The design length sums a measured half and an assumed half:
 
 The umbilical installs at this length, uncut: a nominal kitchen loops the reach in the cabinet, and that loop is the service loop that brings the +Y wall of back-top to the cabinet face ([`/marketing/install-envelope.md`](/marketing/install-envelope.md)). A second cut, taking the wall end down to the cabinet's own length, belongs to the cold kit's guide and not to the install — so do not cut tight here.
 
+Dress that loop so its lowest point hangs below the +Y wall's bulkhead row and signal jack. Condensate that runs down the cold tube's foam then drips from the loop's low point onto the cabinet floor instead of following the bundle to the jack.
+
 Cut one continuous white neoFlo LLDPE4M-WHITE 4 mm drain run to [1871](DRAIN_CUT) mm, including the supplied cabinet and service reach. Feed it between the flavors through the rear plate/gasket passage and shell, with the ribbon flat behind the bundle. The lower bundle sits toward the steel channel's open side and eases back to the centered neck arrangement inside the base. Below the counter use R25 bends around the two flavor unions and gather it against the opposite side of the cold-line foam under the common braid. With the tip separate, set the square drain end at its terminal datum, leaving the 3 mm mouth clearance empty; keep its bore clear of other tubes. Keep the supplied run long enough for the cabinet service reach and R25 bends. [ASSE drain assembly](/hardware/assembly/asse-drain.md) gives the fitting and routing sequence.
 
 ### 2. Assemble the faucet; preload the mount hardware
