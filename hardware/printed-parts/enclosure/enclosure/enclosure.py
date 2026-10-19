@@ -4192,12 +4192,23 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
             # head (`_rail_channel_span`), while this piece's grown flank begins on the rim at
             # `x_in`, so the shell over the notch would be one `wall`. The foot's outer edge
             # runs on up to the flank's 45° bedding and meets it on its own line, from the
-            # run's open end to one running fit short of the lower stack's front knuckle.
+            # run's open end to one running fit short of the lower stack's front knuckle,
+            # thinning back to the flank's interior face over its last `wall` in plan: the
+            # end is then one face a `wall` long rather than a strip as narrow as the stock.
             x_open = _rail_channel_span(x_in, sx, col)[0]
             rim = zj + z_rise
-            out = out.fuse(_xz_prism(y0, y_joint - y_stack_front_root - fits.running, [
-                (x_root, zj), (x_open, zj), (x_open, rim + abs(x_in - x_open)),
-                (x_in, rim), (x_root, rim)]))
+            y_end = y_joint - y_stack_front_root - fits.running
+            run = abs(x_in - x_open)
+            sy_end = 1.0 if y_end > y0 else -1.0
+            out_x = 1.0 if x_in > x_open else -1.0
+            stock = _xz_prism(y0, y_end, [
+                (x_root, zj), (x_open, zj), (x_open, rim + run),
+                (x_in, rim), (x_root, rim)])
+            over = wall * (1.0 + 0.5 / run)
+            stock = stock.cut(_xy_prism(zj - 1.0, rim + run + 1.0, [
+                (x_open - out_x * 0.5, y_end - sy_end * over), (x_in, y_end),
+                (x_in, y_end + sy_end * 0.5), (x_open - out_x * 0.5, y_end + sy_end * 0.5)]))
+            out = out.fuse(stock)
     return out
 
 
