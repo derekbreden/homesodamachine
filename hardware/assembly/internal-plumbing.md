@@ -293,7 +293,7 @@ A finished internally-plumbed appliance:
 - Pump stems 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its rigid stop lands; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
 - All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` off the two floor bulkheads at the bottom of each wet V
 - Three risers landing on the three PP1208E umbilical bulkheads on the +Y wall on one row (blue LLDPE on the blue-ringed bulkhead for carbonated water; black LLDPE on the two flavor bulkheads)
-- Carbonated-water riser insulated with CARGEN nitrile-rubber pipe foam in segments from the cold-core exit to the inboard face of the blue-ringed bulkhead, bare only along `carb-1`'s rib
+- Carbonated-water riser insulated with CARGEN nitrile-rubber pipe foam in segments from the cold-core exit to the inboard face of the blue-ringed bulkhead, bare only along `carb-1`'s rib; the DIGITEN flow meter, its union and the tube tails at both are wrapped in the same foam, slit over the meter body and its cable, with every seam closed by 3M 425 foil tape
 - Every NPT joint PTFE-taped and torqued past hand-tight, no thread tape past half-engagement
 - Every PTC joint square-cut and tug-tested
 - Every elbow clamp hand-tight with its band flush at its mouth — four on the two pump elbows; snug the two vent-sleeve ties without ovalizing the 4 mm tube
