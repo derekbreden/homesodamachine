@@ -233,3 +233,8 @@ click: x=50.200 y=276.125 z=339.022
 alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=463.334 z=322.840
+
+[step] Wrong step classification: the two planes are facets of one face, the 45° strip that runs from back-top's Y465.30 bulkhead-row wall face along x −20.18..13.65 at Z321, which the solid carries as a single B-spline surface of 38.46 mm² rather than as a plane. Its facets' plane offsets scatter by up to 0.06 mm, and the comparison groups them as two planes 0.043 mm apart; no edge separates them. Reported to Derek.
+alternatives: Group facets by the B-rep face they came from before comparing planes, so one face cannot read as two. Drawing the strip as an exact plane removes the scatter; the feature that makes it a B-spline is not yet identified.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-3.262 y=465.378 z=321.095
