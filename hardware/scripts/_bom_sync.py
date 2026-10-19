@@ -112,8 +112,8 @@ solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
 four_inch_ties_per_build = 23
-# Meter, water-pump chains, regulator, check and flavor-A cap post.
-six_inch_ties_per_build = 7
+# Meter, water check chain, regulator, CO2 check and flavor-A cap post.
+six_inch_ties_per_build = 6
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -477,13 +477,8 @@ body_tie_loops = {n: _enc.tube_anchor_tie_loop(r) for n, r in _body_seats.items(
 # The flavour tap's two barrels are quoted separately: each loop follows its
 # body's own seat radius through SPLIT_LOOP and FLOWREG_LOOP below.
 # AND THE COLD CORE'S CAP CARRIES THE OTHER FAMILY, on its own wall and its own fastener.
-# `_cold_core_interface` owns both hulls; the two chain ribs are one section, and the two side
-# posts are not — a post's loop clears its own crown, which stands a wall proud of the pipe.
-_chain_loops = {n: f"{cap_anchor_tie_loop(n):.3g}" for n in ("discharge-chain", "suction-chain")}
-if len(set(_chain_loops.values())) != 1:
-    raise ValueError(
-        f"the cap's two chain ribs close {_chain_loops} and bom.md §11 quotes one figure for "
-        f"both. Either they go back on one section or the row reads them apiece.")
+# `_cold_core_interface` owns both hulls; the chain rib is one section, and the two side posts
+# are not — a post's loop clears its own crown, which stands a wall proud of the pipe.
 chain_tie_loop = cap_anchor_tie_loop("discharge-chain")
 
 

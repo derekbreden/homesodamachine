@@ -55,9 +55,10 @@ against the actual stepped rear fitting, tubes and shell. The rear +Y foot has
 **1.2745 mm** clearance to the flavor-A union. The pump's cap-bearing datum,
 rigid-body placement and sliding-foot positions are separate inputs.
 
-Both pump fitting chains retain their cap anchors. The pan retains its
-core-relative withdrawal station. The pump hoses and adjacent reservoir-A fill
-route follow the measured port axes and current pump placement.
+The discharge check chain retains its cap anchor. The pan retains its
+core-relative withdrawal station. The printed elbows on both barbs, their tubes
+and the adjacent reservoir-A fill route follow the measured port axes and current
+pump placement.
 
 ## Native interfaces and checks
 
@@ -75,14 +76,15 @@ volumes fill hidden cavities and are not material, mass or strength models.
 Run the bounded mount check from the repository root:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py --skip-hoses --output hardware/reference/g-ganen-pump/installation/corrected-mount-check.json
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py --skip-routes --output hardware/reference/g-ganen-pump/installation/corrected-mount-check.json
 ```
 
 It builds the current cap and lid in memory and checks screw-axis alignment,
 rail-end placement, rigid clearance, insert reach, blind floor stock and screw
-passage. The complete native assembly additionally checks the updated hoses,
-reservoir fill route and surrounding components. Physical washer fit, loaded
-rubber behavior and hose retention remain full-assembly observations.
+passage. The complete native assembly additionally checks the elbows' tube
+routes, reservoir fill route and surrounding components. Physical washer fit,
+loaded rubber behavior, elbow fit and clamp retention remain full-assembly
+observations.
 
 The printed consumers are `foam-cap-top` and `foam-cap-lid-top`; their producer
 feeds `foam-assembly`, `cold-core-assembly`, the enclosure Box and the complete

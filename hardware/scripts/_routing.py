@@ -549,8 +549,6 @@ STOCKS = (
           "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""),
     Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
           "2×OD — a lever bender's smallest common former (BEND_RATIO)"),
-    Stock("3/8\" braided PVC", 15.10, 15.9, ("water",),
-          "neoPure PVCR-0610 datasheet minimum"),
 )
 
 
@@ -585,8 +583,8 @@ class Spool:
     alpha: float = 1.0
     #: How the stock takes the light, the same channel `_materials.FINISHES` carries for every
     #: other substance on this machine — 0 a mirror, 1 fully diffuse. Extruded LLDPE is
-    #: semi-gloss with a waxy sheen; the reinforced PVC over a barb is glossier for being wet-
-    #: looking; copper is the one spool here that is a metal and it takes `M_COPPER`'s figure.
+    #: semi-gloss with a waxy sheen; copper is the one spool here that is a metal and it takes
+    #: `M_COPPER`'s figure.
     #: A tube is as much a body in the picture as a printed part is, and was drawn at the
     #: viewer's default until these were stated.
     roughness: float = 0.35
@@ -604,8 +602,6 @@ SPOOLS = {
                  _rear.port_colors["co2"], "CO2"),
     "black": Spool("neoFlo black 1/4\" LLDPE (LLDPE4-BLACK)",
                    _rear.port_colors["flavor"], "flavor"),
-    "clear": Spool("neoPure reinforced clear PVC 3/8\" ID (PVCR-0610)", (206, 214, 218),
-                   "nothing", alpha=0.6, roughness=0.30),
     # THE ONE SPOOL THAT IS A METAL, and the one whose figures are already stated elsewhere:
     # this is `_materials.M_COPPER`'s stock, and the triple above is its triple for the same
     # reason — a coil and the tube brazed to it are one thing.
@@ -613,19 +609,15 @@ SPOOLS = {
                     roughness=0.30, metalness=1.0),
 }
 
-# Which spool a run is cut off. Its connection id gives it for all but five:
+# Which spool a run is cut off. Its connection id gives it for all but three:
 #
 #   `fluid-1/2/3` are the flavour circuit's tap-water leg — the split's branch, the regulator
 #   that throttles it, and V-A's outlet into Y-A. `fluid-3` is the last of them; everything
 #   downstream of Y-A has met the funnel's syrup.
 #
-#   `water-6/7` are the SeaFlo's two stubs, 3/8" reinforced PVC over a moulded barb under a
-#   clamp.
-#
 # The cold core's own potted routes carry their own names and name their spools in
 # `foam_assembly.ROUTE_SPOOLS`.
-SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white",
-            "water-6": "clear", "water-7": "clear"}
+SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white"}
 _BY_PREFIX = {"water": "white", "fluid": "black", "co2": "red", "carb": "blue",
               "refrig": "copper"}
 

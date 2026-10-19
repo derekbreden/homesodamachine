@@ -137,13 +137,13 @@ recorded scope.
 | HSM-000161 — Pump cartridge assembly | Both complete prepared pumps with four machined PP-H flanged stems, lower cradle, top clamp, female contact half, moving motor leads and Fastons, six SB443-IN magnets with keyed bedding, and mounting hardware. The fixed male half, four permanent TPU receivers, four locked keepers, rear cuff support, fixed tails, tees and mating magnet array stay in the appliance. The customer replaces complete prepared pumps under the cap; the dock retains its physical qualification scope. | [Cartridge build](../assembly/internal-plumbing.md), [service boundary](../service/pump-replacement.md) |
 | HSM-000004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float and welded guide rod. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
 | HSM-000087 — ASSE 1022 water-fitting assembly | Backflow preventer and four inlet/outlet fittings, between its two tube collets and bare atmospheric vent. The vent sleeve, return tube and mounting hardware belong to the machine. | [Fitting assembly](../reference/asse1022-assembly/README.md) |
-| HSM-000045 — Water-pump suction fitting assembly | MAACFLOW barb adapter and PP450822E, between barb tip and tube collet. | [Water-path assembly](../assembly/internal-plumbing.md) |
-| HSM-000058 — Water-pump discharge fitting assembly | MAACFLOW barb adapter, GASHER check valve and PP450822E, between barb tip and tube collet. Hose and installation hardware belong to the machine. | [Water-path assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/gasher-check-valve/README.md) |
+| HSM-000058 — Water-pump discharge check fitting assembly | PP010822E, GASHER check valve and PP450822E, between its two tube collets. Tubes, the pump's elbows and installation hardware belong to the machine. | [Water-path assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/gasher-check-valve/README.md) |
 
 The KPHM600-SW3B17 pump's fitted representation lives in the `kamoer-kphm400`
-reference directory. The two water-pump fitting models live in `seaflo-*`
-directories and are installed with the G Ganen water pump. Manufacturer identity
-and current assembly descriptions are stated independently of those model paths.
+reference directory. The water-pump check fitting model lives in the
+`seaflo-discharge-chain` directory and is installed with the G Ganen water pump.
+Manufacturer identity and current assembly descriptions are stated independently
+of those model paths.
 The WR1105 secondary regulator uses the scanned WR1110 exterior representation;
 its [fit and representation scope](../reference/wr1110-regulator/README.md) remains
 attached to the material record.

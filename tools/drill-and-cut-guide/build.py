@@ -92,6 +92,10 @@ RESERVOIR_ROD = marked_number(SOURCES[3], "RESERVOIR_ROD_LEN")
 FU = {name: marked_number("hardware/assembly/faucet-and-umbilical.md", name)
       for name in ["BLUE_CUT", "FLAVOR_CUT", "SODA_FAUCET_CUT", "WHITE_A_CUT", "WHITE_B_CUT",
                    "BLACK_A_CUT", "BLACK_B_CUT", "FOAM_LENGTH", "FOAM_BARE_TOP", "COLLAR_SLEEVE_TAIL"]}
+IP = {name: marked_number(SOURCES[8], name)
+      for name in ["SUCTION_TUBE_LEN", "DISCHARGE_TUBE_LEN", "ELBOW_TUBE_DEPTH"]}
+SUCTION_TUBE, DISCHARGE_TUBE, ELBOW_DEPTH = (IP["SUCTION_TUBE_LEN"], IP["DISCHARGE_TUBE_LEN"],
+                                             IP["ELBOW_TUBE_DEPTH"])
 N = 28
 
 
@@ -594,26 +598,30 @@ def internal_art(a):
     a.label("exposed route + BOTH insertions",251,286,11,BLUE,align="center")
 
 
-def pvc_art(a):
-    a.rect(53,97,79,51,STEEL)
-    for xx in [112,124,136]:
-        a.shape([(xx,107),(xx+13,97),(xx+13,148),(xx,138)],STEEL)
-    a.rect(360,97,82,51,STEEL)
-    for xx in [330,343,356]:
-        a.shape([(xx,97),(xx+13,107),(xx+13,138),(xx,148)],STEEL)
-    a.shape([(123,101),(330,101),(349,108),(349,137),(330,144),(123,144)],ICE,BLUE)
-    for xx in range(132,337,16):
-        a.line(xx,103,xx+15,141,BLUE,.5)
-        a.line(xx,141,xx+15,103,BLUE,.5)
-    for xx in [152,318]:
-        a.rect(xx-7,94,14,57,STEEL)
-        a.rect(xx-9,80,18,14,INK)
-    a.dim(123,204,348,204)
-    a.label("cut blank includes both barb grips",237,230,12,BLUE,align="center")
-    a.label("SAE #6 clamp",251,48,12,BLUE,align="center")
-    a.arrow(234,59,158,89,BLUE)
-    a.arrow(270,59,321,89,BLUE)
-    a.label("water-6 / water-7: 3/8-inch ID reinforced PVC",251,278,11,BLUE,align="center")
+def elbow_art(a):
+    a.rect(40,18,104,36,STEEL)
+    a.label("pump head",92,12,10,INK,align="center")
+    a.rect(78,54,28,78,STEEL)
+    for yy in [70,94]:
+        a.shape([(78,yy),(72,yy+12),(112,yy+12),(106,yy)],STEEL)
+    a.shape([(62,84),(122,84),(122,128),(262,128),(262,170),(62,170)],ICE,BLUE)
+    a.rect(58,84,68,24,STEEL)
+    a.rect(232,124,24,50,STEEL)
+    a.rect(176,139,300,20,PAPER,INK)
+    a.line(176,139,262,139,INK,.8,[3,3])
+    a.line(176,159,262,159,INK,.8,[3,3])
+    a.line(262,133,262,165,ORANGE,2.5)
+    a.dim(176,196,262,196)
+    a.label(f"{ELBOW_DEPTH:g} mm in the socket, to its shelf",219,216,11,BLUE,align="center")
+    a.label("printed TPU 85A elbow",300,98,11,BLUE)
+    a.arrow(298,94,204,128,BLUE)
+    a.label("clamp band flush with each mouth",300,62,11,BLUE)
+    a.arrow(298,58,128,92,BLUE)
+    a.arrow(352,66,250,122,BLUE)
+    a.label("mark at the mouth",300,246,11,ORANGE)
+    a.arrow(298,240,264,170,ORANGE)
+    a.label(f"water-7 ~{SUCTION_TUBE:g} mm / water-6 ~{DISCHARGE_TUBE:g} mm exposed, 1/4-inch white LLDPE",
+            251,278,11,BLUE,align="center")
 
 
 def soft_art(a):
@@ -701,7 +709,7 @@ def contents(c):
           ("09-10","Three float rods","Blank lengths, square ends and register fit"),
           ("11-17","Water-inlet jet","Fit, handling blank, clamping, drill, slice, section"),
           ("18-19","Copper + metal tubing","Rotator shoe, clean tube and purge-link cuts"),
-          ("20-25","Fluid tubing + coverings","Square cuts, faucet, internal routes, PVC, braid"),
+          ("20-25","Fluid tubing + coverings","Square cuts, faucet, internal routes, elbow tubes, braid"),
           ("26-27","Wire + weld cleanup","Ribbon stock, branches and attached filler wire"),
           ("28","Keep the source at hand","Current procedures and companion guides")]
     yy=165
@@ -901,12 +909,12 @@ def build():
                "Include both received-fitting insertions even at zero exposed span. Keep the PRV vent mouth flush with the shell flank, its relief chase clear, and every finished end square."],
               "NO FORCED ROUTE", "Keep stock bend radii and collet axes. Resolve the documented fluid-2 clearance before assembly; a shorter cut is not a clearance repair. Tug-test each seated end.",
               "hardware/assembly/internal-plumbing.md | all tube routes")
-    draw_page(c,24,"Fit the PVC hose blanks","The pump hoses need their exposed turn plus the grip over both actual barbs.",pvc_art,
-              "Water-6 discharge and water-7 suction are reinforced 3/8-inch ID PVC, each with two SAE #6 clamps.",
-              ["Measure the received pump and adapter barb engagements. Add them to the actual exposed route; the generated ~49 mm / ~48 mm paths are <b>not complete hose cuts</b>.",
-               "Cut square, slide on both clamps, then seat the hose on both barbs. Preserve at least the documented <b>15.9 mm bend radius</b> and check an open bore.",
-               "Cut the separate clear-PVC ASSE vent stub to its placed overhang so it drips bare to the pan. Cut the LLDPE funnel drain stub to <b>25.79 mm</b>."],
-              "FIT EACH HOSE FAMILY", "Pump hose is reinforced PVC; ASSE vent is a separate 1/4-inch-ID clear PVC stub. The vent remains open to atmosphere and is not connected to a drain.",
+    draw_page(c,24,"Cut the pump elbow tubes","Each tube runs into a printed elbow's socket; the cut is the exposed route plus both grips.",elbow_art,
+              "Water-7 suction and water-6 discharge are 1/4-inch white LLDPE into the printed TPU elbows on the G Ganen's barbs.",
+              [f"Add V-K's or the check chain's collet grip and the elbow's <b>{ELBOW_DEPTH:g} mm</b> socket to each exposed route; the generated ~{SUCTION_TUBE:g} mm / ~{DISCHARGE_TUBE:g} mm paths are <b>not complete cuts</b>.",
+               f"Square-cut and mark <b>{ELBOW_DEPTH:g} mm</b> from the elbow end. Push in until the tube stops on the shelf with the mark at the mouth, then close the band flush with the mouth.",
+               "Square-cut the ASSE vent's 4 mm tube and mark its sleeve insertion. Cut the LLDPE funnel drain stub to <b>25.79 mm</b>."],
+              "FIT EACH SOCKET", "The pump elbows take LLDPE in a printed socket under a clamp band; the ASSE vent's 4 mm tube takes its printed sleeve under ties. Neither end is a hose over a barb.",
               "hardware/assembly/internal-plumbing.md | step 2")
     draw_page(c,25,"Cut coverings on the bundle","Foam butts tightly. Expanded braid takes up length, so measure it fitted.",soft_art,
               "The standard umbilical uses five foam/braid segments; internal soda risers use one continuous insulation piece per actual run.",

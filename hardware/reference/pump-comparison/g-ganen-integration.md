@@ -32,11 +32,11 @@ contains the cap-frame mounting axes and current native checks.
 | `enclosure_assembly.build_water_pump` | Places the explicit bearing datum on the cap lid; uses the rigid motor rear and installed rear clearance for fore/aft position, then checks pan and rear-fitting lanes. |
 | `enclosure_assembly.pump_mount_rows` | Transforms every selected screw axis into the cap frame and compares it with the printed column. |
 | `_cold_core_interface.deck_mounts['g-ganen-pump']` | Four explicit cap stations, nominal pad/washer stack, M3 × 20 screw and blind-bore reserve; `_foam_cap` produces columns and lid passages. |
-| `build_suction_chain`, `build_discharge_chain`, `build_vk` | Retain the chains' cap anchor seats and the V-K connection. They are independent of the movable feet. |
+| `build_pump_elbows`, `build_discharge_chain`, `build_vk` | Seat a printed elbow on each measured barb tip and axis, the check chain on its cap anchor and V-K on its cap cradle. The chain and V-K are independent of the movable feet. |
 | `pan_front_y`, `build_pan`, `pump_west_face` | Use the actual placed discharge/casting envelope and the pan's own clearance span; preserve pan landing and withdrawal. |
-| `_lines._water_6`, `_lines._water_7` | Connect the measured discharge/suction tips to their chains with reinforced-PVC hoses, axial leads and R15.9 bends. |
+| `_lines._water_6`, `_lines._water_7` | Connect the elbows' tube sockets to the check chain and to V-K on 1/4" LLDPE, with axial leads and R14 bends. |
 | `_lines` other routes and `_scorecard` | Use the current `g-ganen-pump` body/ports, native neighbor clearance, port leads, bend limits and exact cap contact classification. |
-| `_tube_export` | Uses per-port exterior profile lengths as geometric insertion allowances; actual hose insertion and retention remain assembly observations. |
+| `_tube_export` | Uses each elbow's 15 mm tube socket as its end grip; actual elbow insertion and retention remain assembly observations. |
 | `_bom_sync`, assembly instructions and cards | Carry the selected pump identity and four current mount screws consistently. |
 
 The casing envelope intentionally fills its reentrant rail/cradle cavities.
