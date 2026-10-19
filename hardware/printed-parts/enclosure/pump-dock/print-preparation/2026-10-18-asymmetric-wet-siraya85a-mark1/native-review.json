@@ -5,7 +5,7 @@
   "bindings": {
     "source_sha256_at_preparation": {
       "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
       "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
       "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
       "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -68,15 +68,15 @@
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.218315124511719,
-      "estimated_seconds": 6705.654296875,
-      "native_slice_wall_seconds": 2.260212124994723,
-      "project_sha256": "d2b4a3384dcc9a590eedc322b33adb2a48f50447d863ea82a767d17a742d7e23",
-      "archive_sha256": "24b84ddfe28c7463863ac7ac63cbc4b61b348c1d34b3ceb5e846ead782a826e5",
-      "gcode_sha256": "9c65f768bb0b47c0cb33d64f1bf2a48d78c0bec601f662f260f8d9964bfb2020",
+      "estimated_filament_g": 8.21574878692627,
+      "estimated_seconds": 6705.83447265625,
+      "native_slice_wall_seconds": 2.6004836249994696,
+      "project_sha256": "3b3f9d39cf958eda563190d7a9f626c6f06ae1eadf690b5af7b55481df6ac1ca",
+      "archive_sha256": "dc1a7d59ca22d83acaa40b2e4544feb012de84af96f1b11c43e1e8e150aa88fc",
+      "gcode_sha256": "9282d43c125b3eb065c09dc367e2e4c27e7f0349bab4ebde2b5ba01820130a57",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "bf029948a6d09240c81de8a286275eeb3d7f567f67618c3d59d137770c29c8bc",
-      "wet_void_stl_sha256": "c2772bccadf6a5a872cf6b54c6bd0a2411326480e5de69da8fdf0369d34dbe0f",
+      "body_stl_sha256": "6b0b5f9550f61da205f9d3b476c51b7a6d2363290d485062c822482a87f64461",
+      "wet_void_stl_sha256": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
         "machine_end_gcode": true,
@@ -149,7 +149,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -272,13 +272,13 @@
         144.57223107797205
       ],
       "editable_project": "plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf",
-      "project_bytes": 361196,
-      "wet_shadow_blocker_stl_sha256": "6079a7ec85b44386a1798713b345bb8d94d95bf386e029c87aaa30d110eac5ad",
+      "project_bytes": 361028,
+      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
       "native_positive_extrusion_feature_runs": {
         "Support": 958,
         "Brim": 11,
-        "Inner wall": 30073,
-        "Outer wall": 3344,
+        "Inner wall": 30100,
+        "Outer wall": 3357,
         "Internal solid infill": 409,
         "Sparse infill": 55,
         "Floating vertical shell": 3,
@@ -308,9 +308,9 @@
         "first_layer_brim_projected_bead_area_mm2": 207.1168010007103,
         "first_layer_model_to_brim_gap_mm": 0.0649635698383163,
         "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 140.33168115072817,
-        "second_layer_overlap_with_first_model_mm2": 136.12388605178177,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.230375369457,
+        "second_layer_model_projected_bead_area_mm2": 140.33170764881652,
+        "second_layer_overlap_with_first_model_mm2": 136.1239125498701,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.23040186754534,
         "second_layer_outside_all_first_layer_beads_mm2": 3.101305781271175,
         "second_layer_model_bounds_build_mm": [
           170.389514,
@@ -331,11 +331,11 @@
       "nonextruding_travel": {
         "wet_mesh_watertight": true,
         "layer_count": 232,
-        "nonextruding_transition_count": 4396,
-        "nozzle_segments_reviewed": 210566,
-        "potential_chords_reviewed": 210557,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 189,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 718,
+        "nonextruding_transition_count": 4400,
+        "nozzle_segments_reviewed": 210199,
+        "potential_chords_reviewed": 210190,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 190,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 734,
         "maximum_potential_chord_wet_length_mm": 20.2245502960979
       },
       "lower_stop": {
@@ -353,7 +353,7 @@
             "model_layer_z_mm": 6.68,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27121,
+                "gcode_line": 27169,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 18.428200200914375,
@@ -382,7 +382,7 @@
             "model_layer_z_mm": 6.8,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27627,
+                "gcode_line": 27675,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 21.396145918948946,
@@ -405,7 +405,7 @@
                 ]
               },
               {
-                "gcode_line": 27660,
+                "gcode_line": 27708,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 17.679938781120224,
@@ -434,7 +434,7 @@
             "model_layer_z_mm": 6.92,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28170,
+                "gcode_line": 28218,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 20.6419399488103,
@@ -457,7 +457,7 @@
                 ]
               },
               {
-                "gcode_line": 28204,
+                "gcode_line": 28252,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.919560011318712,
@@ -486,7 +486,7 @@
             "model_layer_z_mm": 7.04,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28605,
+                "gcode_line": 28653,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.888144199927826,
@@ -509,7 +509,7 @@
                 ]
               },
               {
-                "gcode_line": 28633,
+                "gcode_line": 28681,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.17115311591277,
@@ -538,7 +538,7 @@
             "model_layer_z_mm": 7.16,
             "paths_in_emission_order": [
               {
-                "gcode_line": 29075,
+                "gcode_line": 29123,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.117857182975037,
@@ -561,7 +561,7 @@
                 ]
               },
               {
-                "gcode_line": 29107,
+                "gcode_line": 29155,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.40153442318754,
@@ -590,7 +590,7 @@
             "model_layer_z_mm": 7.28,
             "paths_in_emission_order": [
               {
-                "gcode_line": 29498,
+                "gcode_line": 29546,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.114325241021298,
@@ -613,7 +613,7 @@
                 ]
               },
               {
-                "gcode_line": 29531,
+                "gcode_line": 29579,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.399304580905062,
@@ -649,15 +649,15 @@
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.10962963104248,
-      "estimated_seconds": 6666.9580078125,
-      "native_slice_wall_seconds": 2.3372831250017043,
-      "project_sha256": "481d2be26ec8cda03e89a926e245116a9e5c2a7e6c7e7ea1e19b0442f3091d85",
-      "archive_sha256": "4c67e1c511ea6778d9c66caae85541aa99d298431513565fc8b9f693925ed889",
-      "gcode_sha256": "be15dc2cb3239601f91c7b7e41ff00f7eddfe260454681a88a45d916fbc08b59",
+      "estimated_filament_g": 8.106680870056152,
+      "estimated_seconds": 6662.9287109375,
+      "native_slice_wall_seconds": 2.4806993330003024,
+      "project_sha256": "bb344e168a1255507fbe9c14d81bb4e37b1d7a822500e78b7e9e3d2c97bf06ac",
+      "archive_sha256": "63c362ca6cd4ec79272aece4b21b2536ac3224bd0c340567d2ee7420b7e8e681",
+      "gcode_sha256": "77b93700e33ab3579020951bfbf3803a6bdcae5f0b7364d2bb3b294c84f9b86b",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "b70bd28614d251169a2b7241fa15feb741e6532901e87a149f978386eb99bd06",
-      "wet_void_stl_sha256": "36622d621bce9dd91632e0e0efa3a15bbbf34763571c64aecc0e0aeab72b5c62",
+      "body_stl_sha256": "d4b01472fe2dff1f347ad1628e9c1a2b28ff0a37906edc3b60ab81d2c5bced65",
+      "wet_void_stl_sha256": "1479e8ad5f1e037eabc04a2570de2663856a3d800a744c0fe8ded471552912ca",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
         "machine_end_gcode": true,
@@ -730,7 +730,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -853,13 +853,13 @@
         144.67287477005783
       ],
       "editable_project": "plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf",
-      "project_bytes": 417083,
-      "wet_shadow_blocker_stl_sha256": "133f4e577ce8fbed9f4eda567cb443b490256350b48b76687dca235f6b8d8a6e",
+      "project_bytes": 416901,
+      "wet_shadow_blocker_stl_sha256": "2835fb117f0643753215316c27da3b871006eaf066dcf335c7f6112e6d7f6c36",
       "native_positive_extrusion_feature_runs": {
         "Support": 864,
         "Brim": 8,
-        "Inner wall": 29863,
-        "Outer wall": 3702,
+        "Inner wall": 29851,
+        "Outer wall": 3692,
         "Internal solid infill": 379,
         "Sparse infill": 55,
         "Floating vertical shell": 1,
@@ -886,14 +886,14 @@
       },
       "first_second_layer": {
         "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 135.0433763167731,
+        "first_layer_model_projected_bead_area_mm2": 135.04392252793764,
         "first_layer_brim_projected_bead_area_mm2": 245.67471352729646,
         "first_layer_model_to_brim_gap_mm": 0.06657526886147151,
         "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 139.0031360374322,
-        "second_layer_overlap_with_first_model_mm2": 134.5277249354414,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.64530214582163,
-        "second_layer_outside_all_first_layer_beads_mm2": 3.3578338916102943,
+        "second_layer_model_projected_bead_area_mm2": 139.00305388919395,
+        "second_layer_overlap_with_first_model_mm2": 134.5281969757434,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.64577418612367,
+        "second_layer_outside_all_first_layer_beads_mm2": 3.357279703070306,
         "second_layer_model_bounds_build_mm": [
           171.53329160213542,
           146.96015349730777,
@@ -905,19 +905,19 @@
         "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
       },
       "usable_bed_bead_margins_mm": {
-        "left": 137.12756432866325,
-        "front": 136.126925,
-        "right": 138.64192500000001,
-        "rear": 139.41792500000003
+        "left": 137.12757432866323,
+        "front": 136.12693499999997,
+        "right": 138.641935,
+        "rear": 139.417935
       },
       "nonextruding_travel": {
         "wet_mesh_watertight": true,
         "layer_count": 232,
-        "nonextruding_transition_count": 4332,
-        "nozzle_segments_reviewed": 196661,
-        "potential_chords_reviewed": 196652,
+        "nonextruding_transition_count": 4328,
+        "nozzle_segments_reviewed": 197159,
+        "potential_chords_reviewed": 197148,
         "transitions_with_nozzle_wet_crossing_over_point1_mm": 179,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 685,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 691,
         "maximum_potential_chord_wet_length_mm": 19.615390234674386
       },
       "lower_stop": {
@@ -935,7 +935,7 @@
             "model_layer_z_mm": 6.68,
             "paths_in_emission_order": [
               {
-                "gcode_line": 26359,
+                "gcode_line": 26368,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 18.425917982039763,
@@ -964,7 +964,7 @@
             "model_layer_z_mm": 6.8,
             "paths_in_emission_order": [
               {
-                "gcode_line": 26827,
+                "gcode_line": 26836,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 21.398302815184266,
@@ -987,7 +987,7 @@
                 ]
               },
               {
-                "gcode_line": 26859,
+                "gcode_line": 26868,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 17.681055218038043,
@@ -1016,7 +1016,7 @@
             "model_layer_z_mm": 6.92,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27343,
+                "gcode_line": 27352,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 20.64349402589313,
@@ -1039,7 +1039,7 @@
                 ]
               },
               {
-                "gcode_line": 27380,
+                "gcode_line": 27389,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.924446976738444,
@@ -1068,7 +1068,7 @@
             "model_layer_z_mm": 7.04,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27777,
+                "gcode_line": 27786,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.884395841018183,
@@ -1091,7 +1091,7 @@
                 ]
               },
               {
-                "gcode_line": 27812,
+                "gcode_line": 27821,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.171861989921695,
@@ -1120,7 +1120,7 @@
             "model_layer_z_mm": 7.16,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28215,
+                "gcode_line": 28224,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.11858271924744,
@@ -1143,7 +1143,7 @@
                 ]
               },
               {
-                "gcode_line": 28254,
+                "gcode_line": 28263,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.399041552710653,
@@ -1172,7 +1172,7 @@
             "model_layer_z_mm": 7.28,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28629,
+                "gcode_line": 28638,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.11849478159696,
@@ -1195,7 +1195,7 @@
                 ]
               },
               {
-                "gcode_line": 28667,
+                "gcode_line": 28676,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.400148741500935,
@@ -1231,15 +1231,15 @@
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.218315124511719,
-      "estimated_seconds": 6705.654296875,
-      "native_slice_wall_seconds": 2.253168249997543,
-      "project_sha256": "2938323c15fde1e91e476bb19847b47c76177eb003e0487f4e798c9f252dbb4c",
-      "archive_sha256": "f422fc00bb8550acd5faaddfd78d1245da8b8653019513bb849f371e51596423",
-      "gcode_sha256": "f7929ea81ccba6f7694708654f4e003209c484362bd5d59218bf78f5c9ed1c8b",
+      "estimated_filament_g": 8.21574878692627,
+      "estimated_seconds": 6705.83447265625,
+      "native_slice_wall_seconds": 2.4360955000001923,
+      "project_sha256": "859b582a714101bf2260599576dc0a0b4d860412f06d76aa63b604435fc49b2c",
+      "archive_sha256": "c26c69c6fda384d219fbd7b428e7c9cebffb4fe9cdc8ebd711fcc1f0d2c24670",
+      "gcode_sha256": "84ba05c72233ffeca038c59787e60d21b3658c2bc8126dbddc52f1fb2ceb394b",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "bf029948a6d09240c81de8a286275eeb3d7f567f67618c3d59d137770c29c8bc",
-      "wet_void_stl_sha256": "c2772bccadf6a5a872cf6b54c6bd0a2411326480e5de69da8fdf0369d34dbe0f",
+      "body_stl_sha256": "6b0b5f9550f61da205f9d3b476c51b7a6d2363290d485062c822482a87f64461",
+      "wet_void_stl_sha256": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
         "machine_end_gcode": true,
@@ -1312,7 +1312,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -1435,13 +1435,13 @@
         144.57223107797205
       ],
       "editable_project": "plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf",
-      "project_bytes": 361193,
-      "wet_shadow_blocker_stl_sha256": "6079a7ec85b44386a1798713b345bb8d94d95bf386e029c87aaa30d110eac5ad",
+      "project_bytes": 361026,
+      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
       "native_positive_extrusion_feature_runs": {
         "Support": 958,
         "Brim": 11,
-        "Inner wall": 30073,
-        "Outer wall": 3344,
+        "Inner wall": 30100,
+        "Outer wall": 3357,
         "Internal solid infill": 409,
         "Sparse infill": 55,
         "Floating vertical shell": 3,
@@ -1471,9 +1471,9 @@
         "first_layer_brim_projected_bead_area_mm2": 207.1168010007103,
         "first_layer_model_to_brim_gap_mm": 0.0649635698383163,
         "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 140.33168115072817,
-        "second_layer_overlap_with_first_model_mm2": 136.12388605178177,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.230375369457,
+        "second_layer_model_projected_bead_area_mm2": 140.33170764881652,
+        "second_layer_overlap_with_first_model_mm2": 136.1239125498701,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.23040186754534,
         "second_layer_outside_all_first_layer_beads_mm2": 3.101305781271175,
         "second_layer_model_bounds_build_mm": [
           170.389514,
@@ -1494,11 +1494,11 @@
       "nonextruding_travel": {
         "wet_mesh_watertight": true,
         "layer_count": 232,
-        "nonextruding_transition_count": 4396,
-        "nozzle_segments_reviewed": 210566,
-        "potential_chords_reviewed": 210557,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 189,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 718,
+        "nonextruding_transition_count": 4400,
+        "nozzle_segments_reviewed": 210199,
+        "potential_chords_reviewed": 210190,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 190,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 734,
         "maximum_potential_chord_wet_length_mm": 20.2245502960979
       },
       "lower_stop": {
@@ -1516,7 +1516,7 @@
             "model_layer_z_mm": 6.68,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27121,
+                "gcode_line": 27169,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 18.428200200914375,
@@ -1545,7 +1545,7 @@
             "model_layer_z_mm": 6.8,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27627,
+                "gcode_line": 27675,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 21.396145918948946,
@@ -1568,7 +1568,7 @@
                 ]
               },
               {
-                "gcode_line": 27660,
+                "gcode_line": 27708,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 17.679938781120224,
@@ -1597,7 +1597,7 @@
             "model_layer_z_mm": 6.92,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28170,
+                "gcode_line": 28218,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 20.6419399488103,
@@ -1620,7 +1620,7 @@
                 ]
               },
               {
-                "gcode_line": 28204,
+                "gcode_line": 28252,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.919560011318712,
@@ -1649,7 +1649,7 @@
             "model_layer_z_mm": 7.04,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28605,
+                "gcode_line": 28653,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.888144199927826,
@@ -1672,7 +1672,7 @@
                 ]
               },
               {
-                "gcode_line": 28633,
+                "gcode_line": 28681,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.17115311591277,
@@ -1701,7 +1701,7 @@
             "model_layer_z_mm": 7.16,
             "paths_in_emission_order": [
               {
-                "gcode_line": 29075,
+                "gcode_line": 29123,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.117857182975037,
@@ -1724,7 +1724,7 @@
                 ]
               },
               {
-                "gcode_line": 29107,
+                "gcode_line": 29155,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.40153442318754,
@@ -1753,7 +1753,7 @@
             "model_layer_z_mm": 7.28,
             "paths_in_emission_order": [
               {
-                "gcode_line": 29498,
+                "gcode_line": 29546,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.114325241021298,
@@ -1776,7 +1776,7 @@
                 ]
               },
               {
-                "gcode_line": 29531,
+                "gcode_line": 29579,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.399304580905062,
@@ -1812,15 +1812,15 @@
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.110859870910645,
-      "estimated_seconds": 6670.060546875,
-      "native_slice_wall_seconds": 3.164621999996598,
-      "project_sha256": "88c86dbd5af4a88e70bcf89fc3c8054b8c4ce73b2a9a48f71b3ff7aabadfe686",
-      "archive_sha256": "6fdff7ab9b182a9a96949cafb614d1f9cebf5ca6022d38787a6b5e5bc2cdca71",
-      "gcode_sha256": "6e2aac0738b09756b2eecf8b1d265b881fa69ffa58d2afdad85accf9da8d7e45",
+      "estimated_filament_g": 8.108253479003906,
+      "estimated_seconds": 6670.927734375,
+      "native_slice_wall_seconds": 3.4606178750000254,
+      "project_sha256": "f9a27e683bba160b295c9cfd60f17cabe9d09494f217aa59b1270d460bc20a8e",
+      "archive_sha256": "bb9bf9f4a5682fc8c7b7d179302af5598c7f7a064ce9568c73c0cf87219a1c9a",
+      "gcode_sha256": "c27ef51d1ccc6f0cb1aeff92d1318038dd78018a94b62b85c52d1500be454a7d",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "3c57e61e3ab92a627ef6754a02596af85fc0b88c781c963bfdc6326354eb800c",
-      "wet_void_stl_sha256": "903ed11cc9b495a33edaa0327ee466c7fb1a790ddc156e2d592f01560393aa29",
+      "body_stl_sha256": "091aecbcb10bcf6c8763a6367e73cae15ea2c8e871abbab8388693c8b34d691c",
+      "wet_void_stl_sha256": "ac84b566027b8f56768197fb13c53b6e8e8135950edcf5799ffaa0464f0afb74",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
         "machine_end_gcode": true,
@@ -1893,7 +1893,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -2016,13 +2016,13 @@
         144.67287477005783
       ],
       "editable_project": "plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf",
-      "project_bytes": 418514,
-      "wet_shadow_blocker_stl_sha256": "d99f7f343ab086062c18157ba2af6e1cb7686c778e9e13ff6e38735bf9a53ab7",
+      "project_bytes": 418350,
+      "wet_shadow_blocker_stl_sha256": "a904a19011bcac4270efe9f686f4571924fc6f947659a1c1173887a31d19dac5",
       "native_positive_extrusion_feature_runs": {
         "Support": 848,
         "Brim": 7,
-        "Inner wall": 29653,
-        "Outer wall": 3722,
+        "Inner wall": 29731,
+        "Outer wall": 3696,
         "Internal solid infill": 414,
         "Sparse infill": 54,
         "Floating vertical shell": 1,
@@ -2049,13 +2049,13 @@
       },
       "first_second_layer": {
         "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 135.06877687491996,
+        "first_layer_model_projected_bead_area_mm2": 135.06877687492,
         "first_layer_brim_projected_bead_area_mm2": 237.73079804348112,
         "first_layer_model_to_brim_gap_mm": 0.06983615407786552,
         "first_layer_model_brim_overlap_mm2": 0.0,
         "second_layer_model_projected_bead_area_mm2": 139.13138294947436,
-        "second_layer_overlap_with_first_model_mm2": 134.6289378975115,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.74651529879498,
+        "second_layer_overlap_with_first_model_mm2": 134.62893789751146,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.74651529879495,
         "second_layer_outside_all_first_layer_beads_mm2": 3.384867650679564,
         "second_layer_model_bounds_build_mm": [
           168.538104,
@@ -2076,12 +2076,12 @@
       "nonextruding_travel": {
         "wet_mesh_watertight": true,
         "layer_count": 232,
-        "nonextruding_transition_count": 4295,
-        "nozzle_segments_reviewed": 194887,
-        "potential_chords_reviewed": 194879,
+        "nonextruding_transition_count": 4302,
+        "nozzle_segments_reviewed": 195404,
+        "potential_chords_reviewed": 195396,
         "transitions_with_nozzle_wet_crossing_over_point1_mm": 179,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 703,
-        "maximum_potential_chord_wet_length_mm": 20.25086055210704
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 715,
+        "maximum_potential_chord_wet_length_mm": 20.293022675839566
       },
       "lower_stop": {
         "lower_mouth_print_z_mm": 1.000000082740371e-07,
@@ -2098,7 +2098,7 @@
             "model_layer_z_mm": 6.68,
             "paths_in_emission_order": [
               {
-                "gcode_line": 26204,
+                "gcode_line": 26207,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 18.42681912941612,
@@ -2127,7 +2127,7 @@
             "model_layer_z_mm": 6.8,
             "paths_in_emission_order": [
               {
-                "gcode_line": 26664,
+                "gcode_line": 26668,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 21.3986024540225,
@@ -2150,7 +2150,7 @@
                 ]
               },
               {
-                "gcode_line": 26698,
+                "gcode_line": 26702,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 17.681918030411445,
@@ -2179,7 +2179,7 @@
             "model_layer_z_mm": 6.92,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27112,
+                "gcode_line": 27116,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 20.644264912713734,
@@ -2202,7 +2202,7 @@
                 ]
               },
               {
-                "gcode_line": 27148,
+                "gcode_line": 27152,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.926856989278726,
@@ -2231,7 +2231,7 @@
             "model_layer_z_mm": 7.04,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27547,
+                "gcode_line": 27551,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.888664299361107,
@@ -2254,7 +2254,7 @@
                 ]
               },
               {
-                "gcode_line": 27582,
+                "gcode_line": 27586,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 16.1737222749956,
@@ -2283,7 +2283,7 @@
             "model_layer_z_mm": 7.16,
             "paths_in_emission_order": [
               {
-                "gcode_line": 27968,
+                "gcode_line": 27972,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.11608414161766,
@@ -2306,7 +2306,7 @@
                 ]
               },
               {
-                "gcode_line": 28003,
+                "gcode_line": 28007,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.398067321374285,
@@ -2335,7 +2335,7 @@
             "model_layer_z_mm": 7.28,
             "paths_in_emission_order": [
               {
-                "gcode_line": 28399,
+                "gcode_line": 28403,
                 "feature": "Inner wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 19.114417852478105,
@@ -2358,7 +2358,7 @@
                 ]
               },
               {
-                "gcode_line": 28434,
+                "gcode_line": 28438,
                 "feature": "Outer wall",
                 "width_mm": 0.619992,
                 "path_length_mm": 15.39736528627372,
@@ -2396,9 +2396,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 5.662359237670898,
       "estimated_seconds": 5765.71728515625,
-      "native_slice_wall_seconds": 1.9549180419999175,
-      "project_sha256": "addeb7add7bff9e8e0c073af1799073ab17921d67798d4f7fd213cbb1d894a66",
-      "archive_sha256": "2b81ce3164931b49fb610297a7c00a3f97784ab6806d88f0e444c16c1da218aa",
+      "native_slice_wall_seconds": 2.0290717919997405,
+      "project_sha256": "522a1b26016b85bd44fe1fbebb23cc2be616c700b13d46270873f92926a6a7ef",
+      "archive_sha256": "7722e2b42924a70d33601b1f0f24a19f50147825c1c1eb757efd1ebd99c33291",
       "gcode_sha256": "d6a0e31d109daef6aa2fa1dae08705cbb390b99edcee92b7c7ba086ef0657f39",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
@@ -2475,7 +2475,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -2667,9 +2667,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 6.661800861358643,
       "estimated_seconds": 6890.248046875,
-      "native_slice_wall_seconds": 2.198491291004757,
-      "project_sha256": "8a7002c2ac9a2f75c146b431ca2fd149e19927040b6bc47fec89acba73762291",
-      "archive_sha256": "846ee72353ae915b67a84b165f3cb00643705c5badd18aad5478bc071ef72ca5",
+      "native_slice_wall_seconds": 2.403203500000018,
+      "project_sha256": "4eed202209a57549d63d7d3685d2205a9fe92d5116d10cf2ed301f5bdb49cf97",
+      "archive_sha256": "84c707d73e74d776f1fc3af47b7b5793d6313dd1a67aa0ac79be2dd7f7747d33",
       "gcode_sha256": "42ad6d30d6139b540556126a1d1dd31f17e3ddb0e654ace72c627278dd4ef6d1",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9bd38e21d6672004d349746f96057fa7ec08a0a833d6cd9139fafedcb0d2baad",
@@ -2746,7 +2746,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -2938,9 +2938,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 5.662359237670898,
       "estimated_seconds": 5765.71728515625,
-      "native_slice_wall_seconds": 1.9557054589968175,
-      "project_sha256": "aac5f6cf6404d04208b07c39b6aa293ca7bfc2bcb224baeaa4a8ff8395d77375",
-      "archive_sha256": "10a94f46e508afcb26cc9ee59b9428d4ab337f27c6a6c5e85f1b265e47c1d75f",
+      "native_slice_wall_seconds": 2.02821374999985,
+      "project_sha256": "7973ce248043394141b8d5fd532a1b8248c608d3d979aa31f82114cbf22b35e6",
+      "archive_sha256": "a3a51957c6fab57a0071d5206ff4766b2344065a920edd1ebb8ce8ea833595f8",
       "gcode_sha256": "73661eb287ee620d49527db44b1e44e7db6821998cf307bb413aad4d297b1ec9",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
@@ -3017,7 +3017,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -3209,9 +3209,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 6.663750171661377,
       "estimated_seconds": 6891.4833984375,
-      "native_slice_wall_seconds": 2.136447709002823,
-      "project_sha256": "81036516d6622907fd333e2e0d4ee82bb309e8f3fb15e277d3886c3ac8448a88",
-      "archive_sha256": "db62a1e53598dd3606359619b0f43e6f052d3ac02e10dd26f6af9287aa12d7ef",
+      "native_slice_wall_seconds": 2.486806333000459,
+      "project_sha256": "8df9f4430a6cacac25288e0577e6b68bd0483627c54c174746a85194b9e949a2",
+      "archive_sha256": "ece7ca130861c3eb4d28a9e49b88e4a3f49de42532b272139c9e4b4a41e2522a",
       "gcode_sha256": "879fa3f5c096a91a52ada332a8b8a6e21b74a19650d49ea8c758683bab1fbf1b",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
@@ -3288,7 +3288,7 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
         "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
@@ -3476,9 +3476,9 @@
     }
   },
   "totals": {
-    "editable_project_bytes": 3189074,
-    "native_estimated_filament_g": 57.30738925933838,
-    "native_estimated_seconds": 52061.4931640625
+    "editable_project_bytes": 3188393,
+    "native_estimated_filament_g": 57.296701431274414,
+    "native_estimated_seconds": 52058.69140625
   },
   "physical_evidence": [
     {
