@@ -328,8 +328,9 @@ def tube_setting_jig(plate, cartridge_face_y):
         bore=ycyl(3.5,x,z,cartridge_face_y-.1,tip)
         opening=box(x-3.5,x+3.5,cartridge_face_y-.1,tip,z,row+8.1)
         body=body.cut(bore.fuse(opening))
-    # The two moving pole columns stand proud of the cartridge back to the wall face.
+    # The two moving pole columns stand proud of the cartridge back to the wall face. Each
+    # clears in one full-height groove 3 mm deep, so its walls are stock and not strips.
     for x,z in retention.column_stations(plate['holes']):
         half=retention.SLOT_HALF+1.0
-        body=body.cut(box(x-half,x+half,cartridge_face_y-.1,plate['fore_y']+.75,row-9,row+9))
+        body=body.cut(box(x-half,x+half,cartridge_face_y-.1,cartridge_face_y+3,row-9,row+9))
     return body.clean()

@@ -2,7 +2,8 @@
 
 Each pump's load line carries one column of four attracting pairs, centred
 between that pump's two fluid ports. Each column sits in one plain pocket in
-each mating part, open only at the mating face. The fixed pocket is as deep
+each mating part, open only at the mating face and roofed by one 45-degree
+ridge, so neither part prints a flat ceiling over it. The fixed pocket is as deep
 as the thinnest block the drawing allows: each fixed block bottoms on its
 floor and stands flush with the bay wall face or just proud of it. The
 moving blocks are set against those poles with the cartridge seated on its
@@ -59,6 +60,13 @@ def _box(x0, x1, y0, y1, z0, z1):
 
 def _span(a, b):
     return min(a, b), max(a, b)
+
+
+def _ridge(x, half, y0, y1, z):
+    """A 45-degree roof along Y: its eaves `half` either side of `x` at `z`, its ridge over `x`."""
+    wire = cq.Wire.makePolygon([cq.Vector(x - half, y0, z), cq.Vector(x + half, y0, z),
+                                cq.Vector(x, y0, z + half)], close=True)
+    return cq.Solid.extrudeLinear(cq.Face.makeFromWires(wire), cq.Vector(0.0, y1 - y0, 0.0))
 
 
 def _fused(shapes):
@@ -147,20 +155,30 @@ def column_limits(z):
 
 
 def pocket(i, side, x, z):
-    """One plain rectangular pocket per column, open only at the owning part's face."""
+    """One plain pocket per column, open only at the owning part's face.
+
+    Its roof is a 45-degree ridge standing on both side walls, so the part prints
+    it without a flat ceiling over the stack."""
     bottom, top = column_limits(z)
     mouth = i.face(side) - i.into(side) * 0.1
     y0, y1 = _span(mouth, i.floor(side))
-    return _box(x - SLOT_HALF, x + SLOT_HALF, y0, y1, bottom, top)
+    return (_box(x - SLOT_HALF, x + SLOT_HALF, y0, y1, bottom, top)
+            .fuse(_ridge(x, SLOT_HALF, y0, y1, top)).clean())
 
 
-def column_stock(i, side, x, z):
-    """Solid stock with the nominal 3 mm wall behind and around the pocket."""
+def column_stock(i, side, x, z, back_y=None):
+    """Solid stock with the nominal 3 mm wall behind and around the pocket.
+
+    Given `back_y`, a plane of the owning part further back than that wall, the stock runs
+    to it: one block flush with that plane, never a step just proud of a thinner wall."""
     bottom, top = column_limits(z)
     half = SLOT_HALF + STRUCTURAL_STOCK
-    y0, y1 = _span(i.face(side), i.floor(side) + i.into(side) * STRUCTURAL_STOCK)
+    back = i.floor(side) + i.into(side) * STRUCTURAL_STOCK
+    if back_y is not None and i.into(side) * (back_y - back) > 0:
+        back = back_y
+    y0, y1 = _span(i.face(side), back)
     return _box(x - half, x + half, y0, y1,
-                bottom - STRUCTURAL_STOCK, top + STRUCTURAL_STOCK)
+                bottom - STRUCTURAL_STOCK, top + SLOT_HALF + STRUCTURAL_STOCK)
 
 
 def magnet(i, side, x, z):
@@ -176,9 +194,10 @@ def magnet(i, side, x, z):
     return body.clean()
 
 
-def features(holes, moving_face_y, fixed_face_y):
+def features(holes, moving_face_y, fixed_face_y, fixed_back_y=None):
     """Production integration API: fuse `stock`, then subtract `cutter`, per side.
 
+    `fixed_back_y` is the fixed wall's aft plane the fixed stock runs back to.
     `magnets` are named reference solids, not printed geometry. `potting` is
     the nominal cured bedding, deliberately separate from PET-GF.
     """
@@ -186,8 +205,9 @@ def features(holes, moving_face_y, fixed_face_y):
     out = {"interface": i, "dimensions": dimensions(i)}
     for side in ("moving", "fixed"):
         stocks, cutters, magnets, fills = [], [], {}, []
+        back_y = fixed_back_y if side == "fixed" else None
         for col, (x, z) in enumerate(column_stations(i.holes), start=1):
-            stocks.append(column_stock(i, side, x, z))
+            stocks.append(column_stock(i, side, x, z, back_y))
             cavity = pocket(i, side, x, z)
             cutters.append(cavity)
             bars = []
@@ -217,6 +237,7 @@ def dimensions(i):
             "moving_pole_proud_of_cartridge_mm": [i.frame_gap - FIXED_PROUD_MAX, i.frame_gap],
             "pocket_width_mm": 2 * SLOT_HALF,
             "pocket_height_mm": top - bottom,
+            "pocket_ridge_rise_mm": SLOT_HALF,
             "fixed_pocket_depth_mm": i.fixed_floor_y - i.fixed_face_y,
             "moving_pocket_depth_mm": i.moving_face_y - i.moving_floor_y,
             "drawing_maximum_side_air_mm": SIDE_AIR,

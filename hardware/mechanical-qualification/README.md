@@ -380,7 +380,7 @@ maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.
 The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
 describes eight attracting SB443-IN pairs, one four-high column on each pump's own
-line, bonded bare-faced in one plain pocket per column in each part. These are geometry
+line, bonded bare-faced in one 45°-roofed pocket per column in each part. These are geometry
 and design-basis records. They establish no accepted seal, assembled retaining force,
 bond capacity, cleanability or service life. The stub clamp's pull-out, tip location
 and pump-end joint also remain physical qualifications of this assembly.

@@ -19,4 +19,4 @@ click: x=18.588 y=65.621 z=280.674
 alternatives: Sloping the bearing removes flat contact under the screw head. A larger through hole loses its seat; moving the seat changes the M3×60 engagement and tip reserve. A closed top obstructs screw and driver access. Keep the flat annular bearing with its open counterbore.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=0.294 y=67.303 z=268.975
-click: x=-0.423 y=31.280 z=268.975
+click: x=0.038 y=31.324 z=268.975
