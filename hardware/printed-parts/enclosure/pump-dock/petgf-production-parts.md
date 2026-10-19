@@ -1,6 +1,6 @@
 # PET-GF pump-dock production parts
 
-The twelve station-specific parts use six walls and 100% object infill. Their manufacturing STLs already contain the flat print pose; `turns=x:0` preserves it. Each command prepares one station using the shared [`petgf.3mf`](../petgf.3mf) recipe. These are manual preparation commands; they do not start a printer. Native placement, emitted supports and the existing preparation review establish whether each three-part station fits its plate.
+The twelve station-specific parts use six walls and 100% object infill. Their manufacturing STLs already contain the flat print pose; `turns=x:0` preserves it. Each command prepares one station using the shared [`petgf.3mf`](../../petgf.3mf) recipe. These are manual preparation commands; they do not start a printer. Native placement, emitted supports and the existing preparation review establish whether each three-part station fits its plate.
 
 The recipe uses 0.20 mm first layers and 0.24 mm body layers, ordinary and auxiliary cooling at zero, and localized overhang/bridge cooling at 70% above the 50% unsupported threshold. The rigid PET-GF parts do not flex during assembly; local strain belongs to the TPU keys.
 

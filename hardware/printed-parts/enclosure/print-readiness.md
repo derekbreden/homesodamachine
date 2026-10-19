@@ -1,25 +1,27 @@
 # Full enclosure print readiness
 
 The complete enclosure trial prints the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom) and their separate parts: the pump cartridge and cap, four permanent
-TPU dock receivers, four flat interior keepers and the common rear cuff support, the machine display cover and the two
-G Ganen cold-core mounting parts. The fixed commercial tees mount behind the receiver wall.
-The front flanks are continuous across the fixed dock room.
+back-top, back-bottom), pump cartridge and cap, machine display cover and the two
+G Ganen cold-core mounting parts. Its permanent pump dock has four asymmetric TPU
+junctions, four compound TPU returns, four interior keepers, four rigid cradles and
+four closing covers. The front flanks are continuous across the fixed dock room.
 
-The four TPU receivers have a completed
-[native plate preparation](pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
-using Siraya Tech Flex TPU85A Clear on the retained Mark1/right 0.6 mm Engineering
-Plate recipe. Its emitted-path review covers all four parts, exterior support and
-bore exclusion; the slicer estimates 2 h 14 min and 10.53 g including support/brim.
-The archive is prepared for review and has not been sent to a printer. Internal
-strands, support cleanup, seal fit and physical behavior remain unassessed on these receivers.
-The remaining PET-GF dock parts require their own native slices. The complete pump
-dock requires assembled physical qualification.
-Its socket bores, flexible entrance funnels, keeper seating, rear cuff support, machined-stem flange capture, fixed tee support, positive
-SB443-IN magnet capture and rigid cartridge stops belong to that qualification. The
-[pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
+The [eight one-object native wet preparations](pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/README.md)
+use Siraya Tech Flex TPU85A Clear on the retained Mark1/right 0.6 mm Engineering
+Plate recipe. All eight editable projects have native slices and emitted-path
+reviews; their estimates total 15.833 machine hours and 61.094 g including support
+and brim. No job has been sent to a printer. The
+[archived four-straight-receiver preparation](pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
+retains its identified geometry and multi-object plate scope.
+The twelve current PET-GF dock pieces require their own production native
+preparations, using the [exact part handoff](pump-dock/petgf-production-parts.md).
+The complete dock requires assembled physical qualification: seal fit, flexible
+funnel insertion, socket-stop restraint, keeper and closing-cover retention,
+machined-stem flange capture, SB443-IN mounts and rigid cartridge stops.
+The [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
 [connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
-retain their identified scopes; neither establishes receiver sealing or retention under pressure.
+retain their identified scopes; neither establishes the current wet seals or
+retention under pressure.
 
 The [manual mesh-interface review](pump-dock/lint-interface-review.json) records
 the exact air/boundary classifier diagnoses, specific cosmetic flute contours and
