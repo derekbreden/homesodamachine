@@ -3,7 +3,7 @@ alternatives: Lowering the surrounding platform changes unrelated floor datums. 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-90.733 y=468.372 z=0.000
 
-[sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall, against the readable but quiet marking Derek asked for.
+[sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall.
 alternatives: The raked legend keeps these 0.6 mm flanks; 3 mm strokes would need letters about 15 mm tall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=58.339 y=481.599 z=48.948
@@ -153,104 +153,6 @@ click: x=-40.005 y=481.597 z=12.412
 click: x=-62.330 y=481.600 z=49.929
 click: x=50.604 y=481.600 z=30.189
 
-[thin] Pending Derek's decision on the legend's size, reported: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked, 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. The 0.96-1.71 mm rows are the strokes. The K and X tips (0.001-0.032 mm), each R's 0.163 mm spur, letter gaps of 0.48-0.69 mm and the stroke undersides facing the bed need the legend rebuilt for the bead: outlines opened by half a bead, 0.84 mm tracking, 45° raked undersides. Raked, a letter's flat face is 0.65 mm shorter than its outline, so 6.4 mm on the face needs 7.1 mm caps; at that size no layout fits today's 181.0 x 63.8 mm plain field (seven lines are needed, and 'FEDERAL OR LOCAL REGULATIONS.' alone is 177.0 mm against 171 mm), and the smallest compliant field is 178.2-187.0 x 77.6 mm inside the wall's 191 mm flat. The 0.200 mm rows are double letter tops in the exported mesh; the export clears them (`_disposal_clear_loose`) before it adds the letters back once.
-alternatives: Grow the warning's field to about 187 x 77.6 mm and build the raked legend at 7.1 mm caps with one added line break, or keep today's size and the outline-height reading of the requirement.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=45.292 y=481.499 z=45.698
-click: x=-23.414 y=481.599 z=45.698
-click: x=-17.764 y=481.599 z=52.198
-click: x=-23.269 y=481.595 z=52.198
-click: x=45.472 y=481.585 z=52.198
-click: x=-17.688 y=481.486 z=45.698
-click: x=-6.335 y=481.496 z=8.181
-click: x=51.356 y=481.497 z=17.560
-click: x=11.738 y=481.494 z=8.181
-click: x=-19.368 y=481.491 z=17.560
-click: x=-28.394 y=481.489 z=8.181
-click: x=23.285 y=481.485 z=17.560
-click: x=-35.943 y=481.798 z=36.487
-click: x=-10.349 y=481.798 z=36.487
-click: x=-8.585 y=481.798 z=45.866
-click: x=60.658 y=481.798 z=45.866
-click: x=13.495 y=481.799 z=45.866
-click: x=52.998 y=481.753 z=27.108
-click: x=-74.435 y=481.700 z=10.157
-click: x=-61.346 y=481.700 z=8.542
-click: x=-77.915 y=481.700 z=17.928
-click: x=-73.079 y=481.700 z=27.325
-click: x=-72.429 y=481.700 z=33.343
-click: x=-65.533 y=481.700 z=18.656
-click: x=-60.091 y=481.700 z=27.481
-click: x=-57.118 y=481.700 z=47.604
-click: x=-27.833 y=481.700 z=14.094
-click: x=-46.330 y=481.700 z=30.662
-click: x=-40.375 y=481.700 z=31.234
-click: x=-37.762 y=481.700 z=17.775
-click: x=-30.117 y=481.700 z=17.547
-click: x=-15.592 y=481.700 z=12.870
-click: x=-5.753 y=481.700 z=14.094
-click: x=-18.804 y=481.700 z=23.473
-click: x=-22.410 y=481.700 z=38.861
-click: x=-3.033 y=481.700 z=38.953
-click: x=-47.780 y=481.700 z=47.899
-click: x=-35.358 y=481.700 z=42.232
-click: x=-28.605 y=481.700 z=48.485
-click: x=-13.601 y=481.700 z=56.983
-click: x=-8.000 y=481.700 z=51.611
-click: x=-1.917 y=481.700 z=47.604
-click: x=12.309 y=481.700 z=14.094
-click: x=2.723 y=481.700 z=17.896
-click: x=1.684 y=481.700 z=22.260
-click: x=12.437 y=481.700 z=36.225
-click: x=23.838 y=481.700 z=23.473
-click: x=26.871 y=481.700 z=31.415
-click: x=26.435 y=481.700 z=36.705
-click: x=33.154 y=481.700 z=8.566
-click: x=33.807 y=481.700 z=14.586
-click: x=30.215 y=481.700 z=18.780
-click: x=27.663 y=481.700 z=27.530
-click: x=47.626 y=481.700 z=27.381
-click: x=51.933 y=481.700 z=23.473
-click: x=46.601 y=481.700 z=36.223
-click: x=53.582 y=481.700 z=32.853
-click: x=53.530 y=481.700 z=38.294
-click: x=2.488 y=481.700 z=55.300
-click: x=6.736 y=481.700 z=57.163
-click: x=14.080 y=481.700 z=51.611
-click: x=15.048 y=481.700 z=55.723
-click: x=14.310 y=481.700 z=59.553
-click: x=36.507 y=481.700 z=46.917
-click: x=52.812 y=481.700 z=46.059
-click: x=65.058 y=481.700 z=17.992
-click: x=60.918 y=481.700 z=27.159
-click: x=61.242 y=481.700 z=51.611
-click: x=49.391 y=481.900 z=37.846
-click: x=14.439 y=481.375 z=28.459
-click: x=-57.525 y=481.429 z=38.354
-click: x=-16.418 y=481.400 z=29.841
-click: x=-84.283 y=481.450 z=29.779
-click: x=72.748 y=481.553 z=10.906
-click: x=-45.989 y=481.600 z=39.473
-click: x=-41.546 y=481.476 z=36.319
-click: x=-51.268 y=481.550 z=26.939
-click: x=43.926 y=481.817 z=32.358
-click: x=42.791 y=481.883 z=13.597
-click: x=83.561 y=481.407 z=32.357
-click: x=-63.538 y=481.337 z=32.624
-click: x=59.333 y=481.532 z=13.608
-click: x=45.526 y=481.484 z=12.261
-click: x=-66.031 y=481.587 z=45.698
-click: x=58.833 y=481.850 z=39.567
-click: x=-69.132 y=481.850 z=11.429
-click: x=83.829 y=481.450 z=27.668
-click: x=18.312 y=481.600 z=21.387
-click: x=-54.851 y=481.649 z=18.423
-click: x=-1.182 y=481.750 z=55.835
-click: x=5.371 y=481.875 z=60.577
-click: x=-35.993 y=481.881 z=13.416
-click: x=-20.078 y=481.333 z=55.893
-click: x=-41.271 y=481.531 z=9.254
-
 [thin] Wrong material-thickness classification: this exact warning segment crosses empty space. All five native interior samples are outside material; the actual STL leaves material after its first interior sample. Its 0.200 mm endpoint distance is not a continuous material section.
 alternatives: Require continuous material occupancy before classifying thickness. Filling this opening would alter a letter outline.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
@@ -280,12 +182,6 @@ click: x=104.500 y=213.029 z=91.847
 click: x=-104.500 y=213.003 z=138.333
 click: x=104.500 y=213.003 z=138.333
 
-[thin] Specific washer-locating rim: where the handhold's R6 additive print chamfer (`pocket_rim`) meets the lower Y-stack head pocket it leaves a 1.06-1.56 mm rim round the Ø10.8 recess. The DIN 125 M5 washer, Ø10 for its bearing area on PET-GF, bears on the pocket's floor, which keeps its full section; the rim only locates the washer and carries nothing. The recess's size is the washer's, its axis is fixed by the head passing the handhold's 3 mm inner wall, and the R6 edge is the handhold's finish.
-alternatives: A smaller washer reduces the bearing area on the printed floor; a notch through the R6 rim breaks the finger edge.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=105.247 y=209.512 z=29.327
-click: x=-105.247 y=209.512 z=29.327
-
 [thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm core-receiver and anchor sections, with material at all five native interior samples. Endpoint coordinates differ by exactly 3.000 mm along their section axis. Floating-point inclusion at the 3 mm search reach does not establish a smaller design section or qualify printed dimensions and load capacity.
 alternatives: Use an explicit numerical tolerance at the requested section threshold. Enlarging a nominal fitted section solely to change its floating-point rank has no dimensional basis.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
@@ -299,131 +195,6 @@ click: x=-98.125 y=342.800 z=138.106
 click: x=90.750 y=253.835 z=-0.013
 click: x=93.750 y=215.460 z=-0.157
 click: x=94.031 y=257.000 z=0.451
-
-[ledge] Pending Derek's decision on the legend's size, reported: each ledge is a stroke's 0.6 mm underside facing the bed on the integral disposal warning. The 45° raked legend removes them, and at the 6.4 mm face it keeps it needs a 77.6 mm tall field instead of today's 63.8 mm (see the warning's thin entry).
-alternatives: Grow the field and build the raked legend at 7.1 mm caps, or keep today's size.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-15.250 y=481.496 z=8.181
-click: x=38.479 y=481.633 z=26.939
-click: x=-53.976 y=481.567 z=36.319
-click: x=-67.584 y=481.566 z=17.560
-click: x=-58.975 y=481.432 z=45.698
-click: x=-36.586 y=481.496 z=8.181
-click: x=53.649 y=481.496 z=8.181
-click: x=58.656 y=481.430 z=8.181
-click: x=-15.378 y=481.430 z=55.077
-click: x=51.215 y=481.431 z=8.181
-click: x=46.075 y=481.497 z=8.181
-click: x=11.956 y=481.581 z=26.939
-click: x=-77.840 y=481.500 z=22.124
-click: x=45.653 y=481.500 z=40.883
-click: x=-46.994 y=481.433 z=50.262
-click: x=-61.192 y=481.498 z=12.745
-click: x=57.972 y=481.633 z=26.939
-click: x=48.639 y=481.496 z=8.181
-click: x=56.212 y=481.497 z=8.181
-click: x=56.118 y=481.432 z=17.560
-click: x=65.464 y=481.432 z=45.698
-click: x=-14.661 y=481.498 z=17.560
-click: x=-1.550 y=481.430 z=8.181
-click: x=16.437 y=481.498 z=8.181
-click: x=-23.644 y=481.499 z=8.181
-click: x=-31.528 y=481.433 z=22.032
-click: x=-65.428 y=481.498 z=45.698
-click: x=50.396 y=481.499 z=45.698
-click: x=-80.204 y=481.432 z=17.560
-click: x=-14.235 y=481.633 z=26.939
-click: x=-76.138 y=481.430 z=8.181
-click: x=-42.327 y=481.633 z=26.939
-click: x=-7.986 y=481.500 z=8.181
-click: x=59.012 y=481.432 z=45.698
-click: x=26.238 y=481.499 z=45.698
-click: x=-49.384 y=481.432 z=45.698
-click: x=80.149 y=481.498 z=17.560
-click: x=-44.703 y=481.633 z=36.319
-click: x=-60.492 y=481.633 z=31.274
-click: x=73.467 y=481.633 z=31.274
-click: x=-58.303 y=481.433 z=36.319
-click: x=-5.800 y=481.430 z=55.077
-click: x=-62.844 y=481.448 z=45.698
-click: x=76.205 y=481.497 z=8.181
-click: x=3.992 y=481.496 z=8.181
-click: x=-71.764 y=481.432 z=17.560
-click: x=4.150 y=481.448 z=26.939
-click: x=-1.893 y=481.447 z=55.077
-click: x=-54.112 y=481.499 z=17.560
-click: x=-40.591 y=481.496 z=8.181
-click: x=14.930 y=481.429 z=59.412
-click: x=-44.605 y=481.496 z=8.181
-click: x=84.653 y=481.581 z=26.939
-click: x=-62.456 y=481.500 z=26.939
-click: x=12.959 y=481.499 z=55.077
-click: x=0.292 y=481.447 z=17.560
-click: x=50.076 y=481.498 z=17.560
-click: x=44.001 y=481.496 z=8.181
-click: x=65.562 y=481.444 z=8.181
-click: x=-29.785 y=481.496 z=8.181
-click: x=-66.684 y=481.633 z=26.939
-click: x=-33.948 y=481.448 z=26.939
-click: x=80.320 y=481.567 z=26.939
-click: x=8.314 y=481.498 z=55.077
-click: x=-4.325 y=481.499 z=17.560
-click: x=45.297 y=481.498 z=17.560
-click: x=-50.516 y=481.581 z=17.560
-click: x=60.812 y=481.496 z=8.181
-click: x=39.356 y=481.496 z=8.181
-click: x=-34.430 y=481.496 z=8.181
-click: x=53.987 y=481.567 z=26.939
-click: x=52.041 y=481.433 z=17.560
-click: x=12.643 y=481.700 z=8.181
-click: x=-27.642 y=481.500 z=8.181
-click: x=-18.693 y=481.499 z=17.560
-click: x=61.382 y=481.499 z=45.698
-click: x=14.195 y=481.432 z=45.698
-click: x=-5.616 y=481.496 z=8.181
-click: x=-13.665 y=481.499 z=10.584
-click: x=-18.444 y=481.499 z=45.698
-click: x=2.279 y=481.500 z=32.288
-click: x=-55.861 y=481.433 z=22.909
-click: x=-52.491 y=481.500 z=22.909
-click: x=-3.601 y=481.499 z=60.426
-click: x=-43.118 y=481.500 z=13.530
-click: x=-0.097 y=481.496 z=60.426
-click: x=-31.858 y=481.500 z=28.275
-click: x=-64.976 y=481.633 z=28.275
-click: x=82.028 y=481.500 z=28.275
-click: x=-48.289 y=481.433 z=18.896
-click: x=-32.164 y=481.446 z=9.517
-click: x=63.167 y=481.497 z=9.517
-click: x=41.621 y=481.447 z=9.517
-click: x=78.127 y=481.433 z=20.285
-click: x=24.153 y=481.446 z=48.423
-click: x=1.823 y=481.500 z=10.906
-click: x=74.054 y=481.498 z=10.906
-click: x=-82.948 y=481.567 z=29.779
-click: x=-22.738 y=481.633 z=29.779
-click: x=72.419 y=481.500 z=20.400
-click: x=-23.509 y=481.500 z=20.400
-click: x=22.741 y=481.498 z=11.021
-click: x=7.723 y=481.498 z=11.021
-click: x=-66.077 y=481.498 z=11.021
-click: x=77.848 y=481.500 z=22.909
-click: x=73.860 y=481.432 z=13.530
-click: x=-83.043 y=481.633 z=32.288
-click: x=22.175 y=481.633 z=32.288
-click: x=72.270 y=481.500 z=22.909
-click: x=59.741 y=481.433 z=22.909
-click: x=7.612 y=481.498 z=13.530
-click: x=-77.753 y=481.448 z=26.939
-click: x=28.848 y=481.429 z=8.181
-click: x=69.024 y=481.496 z=8.181
-click: x=-82.211 y=481.567 z=26.939
-click: x=72.880 y=481.499 z=17.560
-click: x=60.257 y=481.432 z=17.560
-click: x=23.279 y=481.430 z=8.181
-click: x=8.128 y=481.429 z=8.181
-click: x=-19.471 y=481.432 z=8.181
-click: x=-65.552 y=481.430 z=8.181
 
 [ceiling] Unavoidable square capture interfaces: these Z169.45 flats are the rear rail catches above mating feet at Z168.70. They retain 0.25 mm running air plus the two supported-face allowances. The square overlap resists lifting without a ramp. Tree(auto)/Default support can leave through the empty slide channels; physical cleanup and loaded behavior remain unqualified.
 alternatives: Sloping introduces a camming bearing. Filling blocks the mating foot; removing overlap loses capture.
