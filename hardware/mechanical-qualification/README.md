@@ -7,6 +7,13 @@ or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
 2026-10-04 against the generators, saved print projects and linked physical records.
 
+The [October 18 prototype observation](../printed-parts/enclosure/lillium-prototype-2026-10-18/physical-observation.json)
+records Derek's report that the new prototype is connected and serving soda with
+assembly fit workarounds. Two privately retained photographs show its temporary
+countertop arrangement. Exact installed articles, revised-part fit and complete
+cutover acceptance remain unspecified by this record; the linked part evidence
+retains its scope.
+
 The [prototype assembly-clearance review](../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
 records the October 17 C14 height and cold-core blind-insertion feedback.
 It binds the C14 measurement to the October 10 Mark1 article and retains the
