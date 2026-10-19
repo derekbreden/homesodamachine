@@ -5916,10 +5916,10 @@ def pump_cartridge_body_stops(box):
 
 
 def pump_retention_features(box):
+    plate = box.pack.collet_plate
     return _retention.features(
-        box.pack.collet_plate["holes"],
-        pump_cartridge_aft_y(box.pack.pump_trays, box.pack.collet_plate),
-        bay_back_y(box.pack.collet_plate))
+        plate["holes"], pump_cartridge_aft_y(box.pack.pump_trays, plate),
+        bay_back_y(plate), plate["wall_aft_y"])
 
 
 def pump_dock_figures(box):

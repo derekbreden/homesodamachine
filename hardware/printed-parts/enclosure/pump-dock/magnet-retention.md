@@ -21,22 +21,25 @@ bedding volumes share one interface definition.
 | Bearing-land X centers | −100.000, 100.000 mm |
 | Bearing-land Z centers | 223.925, 266.174 mm |
 | Nominal magnet envelope | 6.350 × 6.350 × 4.7625 mm |
-| Pocket, each column and part | 6.652 wide × 26.006 mm high |
+| Pocket, each column and part | 6.652 wide × 26.006 mm high, under a 45° ridge rising 3.326 mm |
 | Fixed pocket depth, the drawing's thinnest block | 4.674 mm |
 | Fixed pole proud of the wall face | 0–0.203 mm |
 | Moving pocket depth behind the cartridge back | 5.080 mm |
 | Moving pole proud of the cartridge back | 0.047–0.250 mm |
 | Bedding behind each moving block | 0.250–0.656 mm |
 | Bedding front, behind the pole face | 1.346 mm |
-| Backing and side stock around each pocket | 3.000 mm |
+| Backing and side stock around each pocket | at least 3.000 mm |
 
-Each pocket is one plain rectangular opening in solid stock, open only at
-its part's mating face. A drawing-maximum block keeps 0.10 mm of air on each
-side and at the ends of the four-block stack. The fixed pockets sit in local
-back pads behind the 7 mm bay wall, 12.65 mm wide and reaching Y90.189 mm,
-clear of the receiver keepers and their upward removal routes. The moving
-pockets stand inside the cartridge's solid body behind its back face, with
-4.3 mm of stock to the pump head well.
+Each pocket is one opening in solid stock, open only at its part's mating
+face: rectangular up to a 45° ridge roof that stands on both side walls, so
+neither part prints a flat ceiling over the stack. A drawing-maximum block
+keeps 0.10 mm of air on each side and at the ends of the four-block stack;
+the bedding fills that air and the ridge over the top block. Each fixed
+pocket sits in one solid block, 12.65 mm wide, that stands on the bay wall's
+lower frame and runs back to its Y96.836 mm aft face, clear of the receiver
+keepers and their upward removal routes. The moving pockets stand inside the
+cartridge's solid body behind its back face, with 4.3 mm of stock to the pump
+head well.
 
 Four broad, integral PET-GF lands project across the body air at the retained
 outboard lower-cradle edges. Their coplanar fore faces bear directly on its
