@@ -154,3 +154,11 @@ click: x=97.675 y=177.006 z=298.300
 alternatives: A 45-degree corbel from the wall to the plate's far edge roots at Z220.475, 2.05–5.05 mm inside the keepers' route. A 45-degree cut through the plate's lower aft corner opens the four valve port channels. A flat floor needs support across the whole 5.7 mm strip. Moving the tray moves its four valves and their links.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=93.415 z=227.225
+
+[thin] The lint is wrong at its strict 3 mm threshold: these are the four nominal 3 mm blind caps behind the round M1.4 pilots. Each Ø2 pilot ends flat at Y95.390 and the contact stock's aft face stands at Y98.390; native chords through each cap along its pilot axis measure 3.000000 mm. The heat-set audit holds each cap closed behind its pilot.
+alternatives: A cap thicker than nominal carries the contact stock 3 mm or more past the frame's Y96.836 plane, which also turns that stock's 1.554 mm step strips into whole faces, but moves the stock toward the fore tray's valves that the fixed contact-stock review clears; that change is raised with Derek, not made here. A shorter pilot spends the 1.5 mm relief beyond the insert.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-11.159 y=95.390 z=275.866
+click: x=-11.060 y=98.390 z=275.039
+click: x=9.281 y=95.390 z=275.866
+click: x=9.866 y=98.390 z=275.368
