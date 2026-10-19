@@ -1,6 +1,6 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
-    "BOX_TEES": "6",
+    "BOX_TEES": "2",
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "60",
     "CAP_VALVES": "3",
@@ -9,6 +9,7 @@
     "JOINT_COUNT": "4",
     "KEEPERS": "4",
     "RECEIVERS": "4",
+    "RETURNS": "4",
     "TIP_FROM_CARTRIDGE": "7.75 mm",
     "TIP_Y": "90.015 mm",
     "TRAY_VALVES": "8",
