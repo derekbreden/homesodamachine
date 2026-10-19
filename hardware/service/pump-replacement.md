@@ -3,7 +3,7 @@
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
 The customer replaces complete prepared pumps: each replacement has two smooth, machined natural PP-H Polystone P flanged stems
 already fitted and secured in its pump tubing. The fixed TPU junctions, compound
-returns, flat keepers, dry cradles and closing covers, and magnetic mounts remain installed
+returns, flat keepers, the return block and magnetic mounts remain installed
 during pump changes.
 No enclosure quadrant comes off for a pump change.
 
@@ -26,7 +26,7 @@ properties do not follow from the CAD fit.
 | [2](CART_PUMPS) complete pumps, their prepared flanged stems and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) locked flat interior keepers |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
 | The cartridge's positively retained SB443-IN magnets | Their positively retained mates in front-top |
-| | [4](RETURNS) permanent compound TPU returns, their interlocking dry cradles and closing covers, and the [2](BOX_TEES) commercial source tees |
+| | [4](RETURNS) permanent compound TPU returns, the one return block they snap into, and the [2](BOX_TEES) commercial source tees |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
 | | All stationary straight junction-to-valve and return links, other tubing, the funnel, display and cold core |
 
@@ -36,9 +36,9 @@ Each keeper is locked in its wall guides at the factory by one M3×8 screw with 
 Ø7 × 0.5 mm DIN 125A washer. The screw enters from the empty pump bay through
 the recessed wall opening and threads into an RX-M3Sx4.0 insert in the keeper's
 local 5 mm boss. These locks stay installed during a customer pump change.
-The junction's rear keys prevent rotation. The return's broad flexible keys interlock
-with its PET-GF cradle and closing cover. The straight junction-to-return link is captured
-between supported socket stops and held against bowing by its dry guide. The keeper
+The junction's rear keys prevent rotation. Each return snaps into its channel in the
+PET-GF return block. The straight junction-to-return link is captured between the two
+fixed socket stops. The keeper
 has running clearance around the neck and does not position the junction across its
 axis. These permanent parts stay seated during a pump change.
 
@@ -160,7 +160,7 @@ or transfer the stems.
 - Both Faston pairs are connected and all four leads remain below the crown.
 - All four straight stems enter seated TPU receivers together; the cartridge is
   flush against its rigid seats and the contact pair is engaged.
-- Junction funnels, all four locked keepers, compound returns, dry cradles and covers,
+- Junction funnels, all four locked keepers, compound returns, the return block
   and magnetic mounts remain fixed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.

@@ -182,10 +182,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [171](ENV_Y) × [272](ENV_Z) mm — [9.21](ENV_L) L of bounding box over the
+[198](ENV_X) × [173](ENV_Y) × [272](ENV_Z) mm — [9.27](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [171](REACH_Y) × [286](REACH_Z).
+[198](REACH_X) × [173](REACH_Y) × [286](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

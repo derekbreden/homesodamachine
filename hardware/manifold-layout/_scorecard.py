@@ -427,19 +427,13 @@ MOUNTS = (
     # The wall locates each permanent TPU receiver in X/Z. Its flat locked keeper
     # captures the receiver groove in Y.
     *((f"pump-receiver-{port}",
-       ("enclosure-front-top", f"pump-receiver-keeper-{port}",
-        f"pump-return-cradle-{port}"), "wall-seat-keeper-and-socket-seat")
+       ("enclosure-front-top", f"pump-receiver-keeper-{port}"), "wall-seat-and-keeper")
       for port in PUMP_DOCK_PORTS),
     *((f"pump-receiver-keeper-{port}", "enclosure-front-top", "guided-slide-M3-lock")
       for port in PUMP_DOCK_PORTS),
-    *((f"pump-return-{port}",
-       (f"pump-return-cradle-{port}", f"pump-return-cover-{port}"),
-       "TPU-keys-and-socket-seats") for port in PUMP_DOCK_PORTS),
-    *((f"pump-return-cradle-{port}", "enclosure-front-top", "two-M3-anchors")
-      for port in PUMP_DOCK_PORTS),
-    *((f"pump-return-cover-{port}",
-       (f"pump-return-{port}", f"pump-return-cradle-{port}"), "TPU-heads-and-shared-cover-base-locks")
-      for port in PUMP_DOCK_PORTS),
+    # Each return snaps into its channel in the one return block.
+    *((f"pump-return-{port}", "pump-return-block", "snap-seat") for port in PUMP_DOCK_PORTS),
+    ("pump-return-block", "enclosure-front-top", "three-M3-into-tray-foot"),
     ("pump-dock-potting-moving", "enclosure-pump-cartridge", "keyed-potting"),
     ("pump-dock-potting-fixed", "enclosure-front-top", "keyed-potting"),
     # Exposed SB443-IN blocks have grooved rails and keyed dry epoxy bedding in each host.
@@ -495,7 +489,7 @@ def derived_mounts() -> tuple:
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
     printed seats, the pump heads have their cartridge cradle and the permanent TPU
-    junctions/returns have wall seats and dry fixtures. A remaining body no printed feature reaches is carried only
+    junctions/returns have wall seats and the return block. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -650,16 +644,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     # Intentional near-contact interfaces of the permanent receiver assembly.
     *((f"pump-receiver-{port}", f"pump-receiver-keeper-{port}")
       for port in PUMP_DOCK_PORTS),
-    # The rigid fixtures close on these exact socket/guide/key interfaces.
-    # Their source fit allowances replace the unrelated-body distance floor;
-    # pack-closes continues to measure every volume overlap.
-    *((f"{part}-{port}", f"{host}-{port}")
-      for port in PUMP_DOCK_PORTS
-      for part, host in (("pump-receiver", "pump-return-cradle"),
-                         ("pump-receiver", "pump-return-cover"),
-                         ("pump-return", "pump-return-cradle"),
-                         ("pump-return", "pump-return-cover"),
-                         ("pump-return-cradle", "pump-return-cover"))),
+    # Each return seats in its block channel with only the seat air between.
+    *((f"pump-return-{port}", "pump-return-block") for port in PUMP_DOCK_PORTS),
+    # The block bears on the front-top's bed plane under the tray foot.
+    ("pump-return-block", "enclosure-front-top"),
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
