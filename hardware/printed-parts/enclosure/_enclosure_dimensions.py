@@ -108,8 +108,8 @@ MANIFOLD_W = _MANIFOLD.xmax - _MANIFOLD.xmin
 MANIFOLD_D = _MANIFOLD.ymax - _MANIFOLD.ymin
 MANIFOLD_H = _MANIFOLD.zmax - _MANIFOLD.zmin
 MANIFOLD_TOP = _MANIFOLD.zmax
-# What the pack actually sets down on is the four spine hairpins, so the pump-head faces
-# stand off the crown by whatever the arcs under them reach.
+# Pump-head clearance is read from the placed heads above the compressor bay.
+# The fixed junctions and returns are held by the receiver wall and dry fixtures.
 PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - COMP_BAY_TOP
 DECK_SEP = _ml.DECK_SEP                         # the two valve decks, deck to deck
 # The pack overhangs the core's front face, and what it clears there is the core's own crown.

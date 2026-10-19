@@ -190,7 +190,7 @@ assembly.
 A flat keeper per receiver captures Y and is locked with an M3×8 screw. Install the
 valve rows before fitting the compound returns. Assemble the free TPU returns over
 their two straight tube ends, then close their side-opening PET-GF cradles with
-flat covers. The cradles back the socket stops and close the tube's bow escape.
+their closing covers. The dry fixtures back the socket stops and close the tube's bow escape.
 Each cradle and cover share two M3×12 washer-equipped locks into their rigid hosts.
 The complete bench order is in
 [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
@@ -360,7 +360,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Condenser + fan closed on the compressor's +X tangent with the discharge joint made on that line, its fore flanges 3 mm into the front wall's two rails and its aft flanges each drawn down on an M3 × 8 into the +X wall fin's fingers, the block clear of the slab
 - Cold core seated in its rounded floor pocket behind the compressor bay, both front corners inside front-bottom's blocks and back-top's two brackets over the aft edge of its cap, no tension on the refrigerant lines, all [9](CAP_CONDUITS) cap conduits open on the lid
 - Four printed quadrants telescoped at the Y seam and slid home on both Z seams, the four corner screws driven and set — `enclosure-back-top` last, since it is the lid over the whole service bay
-- [4](DOCK_RECEIVERS) permanent TPU receivers captured by the closed bay wall, four locked flat keepers; Y-C/Y-D/Y-F/Y-G form the printed junctions, with straight upper links and four compound TPU returns held in dry cradles with flat covers; pump bay open for the prepared flanged-stem cartridge in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
+- [4](DOCK_RECEIVERS) permanent TPU receivers captured by the closed bay wall, four locked flat keepers; Y-C/Y-D/Y-F/Y-G form the printed junctions, with straight upper links and four compound TPU returns held in dry cradles with closing covers; pump bay open for the prepared flanged-stem cartridge in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
 - +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone recessed behind DATA in its keyed receptacle. No connection is cut in the front wall.
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - OVER bulkhead installed through its middle-row chip, with both 4 mm collets reachable
