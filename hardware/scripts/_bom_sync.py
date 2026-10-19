@@ -275,9 +275,9 @@ pump_cap_screws_per_build = pump_cap_inserts_per_build
 dock_keepers_per_build = len(_f.box["collet_plate"]["holes"])
 dock_keeper_inserts_per_build = dock_keepers_per_build
 dock_keeper_screws_per_build = dock_keepers_per_build
-dock_keeper_screw_projection = (8.0 - _enc._receiver.KEEPER_THICKNESS
-    - _enc._dock.LOCK_WASHER_T
-    - (_enc._receiver.KEEPER_Y[0] - _enc._receiver.WALL_THICKNESS))
+dock_keeper_screw_projection = (8.0 + _enc._dock.KEEPER_COUNTERBORE_DEPTH
+    - _enc._dock.LOCK_WASHER_T - _enc._receiver.KEEPER_Y[0])
+dock_keeper_tip_air = _enc._dock.KEEPER_BOSS_THICKNESS - dock_keeper_screw_projection
 dock_fixture_locks_per_build = sum(
     len(_enc._dock.fixture_anchors(_f.box['collet_plate'], x))
     for x, _z in _f.box['collet_plate']['holes'])
@@ -651,9 +651,11 @@ def main(*, only_bom=False):
         "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g}",
         "POGO_THREAD_ENGAGEMENT": f"{max(0.0, min(_enc.pogo_heatset_len, _enc._pogo.EAR_FACE + _enc.pogo_screw_len - _enc._pogo.ear_back() - _enc.pogo_heatset_setback)):.4g}",
         "POGO_SCREW_TIP_AIR": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pogo_heatset_len + _enc.pogo_heatset_relief - _enc._pogo.EAR_FACE - _enc.pogo_screw_len:.4g}",
-        "DOCK_KEEPER_PILOT_DEPTH": f"{_enc._receiver.WALL_THICKNESS:.4g}",
+        "DOCK_KEEPER_PILOT_DEPTH": f"{_enc._dock.KEEPER_BOSS_THICKNESS:.4g}",
         "DOCK_KEEPER_THREAD": f"{dock_keeper_screw_projection:.4g}",
-        "DOCK_KEEPER_MOVING_AIR": f"{_enc._receiver.WALL_THICKNESS - dock_keeper_screw_projection + _enc.bay_back_y(_f.box['collet_plate']) - _enc.pump_cartridge_aft_y(_f.box['pump_trays'], _f.box['collet_plate']):.4g}",
+        "DOCK_KEEPER_TIP_AIR": f"{dock_keeper_tip_air:.4g}",
+        "DOCK_KEEPER_WALL_BACKING": f"{_enc._receiver.WALL_THICKNESS - _enc._dock.KEEPER_COUNTERBORE_DEPTH:.4g}",
+        "DOCK_KEEPER_HEAD_RECESS": f"{_enc._dock.KEEPER_COUNTERBORE_DEPTH - _enc._dock.LOCK_WASHER_T - 3.0:.4g}",
         "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",

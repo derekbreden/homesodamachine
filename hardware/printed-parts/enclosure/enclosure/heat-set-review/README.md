@@ -46,7 +46,7 @@ specific to the access mouth.
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 | Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the connector contact face, 7.375 mm behind the recessed seat's printed face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
-| Four factory keeper locks | M3 short, 4.0 mm | Through the 7 mm wall and raised bearing land | The 3 mm keepers use M3×8 screws with 0.5 mm steel washers. Each insert seats flush on its 0.15 mm raised land. The screw projects 4.50 mm past that entry, or 4.35 mm forward of the original interior wall plane, engaging the full insert and leaving 2.90 mm to the seated moving cartridge |
+| Four factory keeper locks | M3 short, 4.0 mm | Through the 5 mm keeper boss | Front-driven M3×8 screws and 0.5 mm washers sit in 3.75 mm deep crowned wall recesses. The head is recessed 0.25 mm; 3.25 mm of wall backs the washer. Each keeper boss has 3 mm radial material around the knurl. The screw reaches 4.10 mm past the insert entry, engaging the full 4 mm insert and ending 0.90 mm before the boss back |
 | Eight shared cradle/cover locks | M3 short, 4.0 mm | 5.75 mm below the nominal host plane; 6.00 mm from the raised entry | M3×12 screws pass through the 3 mm cover tab, 0.15 mm supported inter-tab gap, 3 mm base tab and 0.5 mm washer. The insert entry is on the 0.25 mm raised host land. The tip projects 5.35 mm past that entry, or 5.10 mm below the nominal host plane, with 0.65 mm blind-tip room |
 
 ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
