@@ -1,10 +1,10 @@
 {
   "/hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
-    "CHANNEL_DEPTH": "2.75",
-    "CHANNEL_DIA": "17.2",
-    "CHANNEL_FLOOR": "6.45",
+    "CHANNEL_DEPTH": "2.25",
+    "CHANNEL_DIA": "16.2",
+    "CHANNEL_FLOOR": "6.95",
     "PORT_DROP": "1.75",
-    "PORT_SLIP": "1",
+    "PORT_SLIP": "0.5",
     "SOCKET_DEPTH": "6.2",
     "SOCKET_DIA": "6.9",
     "SOCKET_FLOOR": "3",
@@ -15,15 +15,15 @@
     "TRAY_GRIP": "5.200",
     "TRAY_H": "44.05/53.55",
     "TRAY_MARGIN": "3",
-    "TRAY_PORT_SLIP": "1",
+    "TRAY_PORT_SLIP": "0.5",
     "TRAY_POST": "5.2",
     "TRAY_REACH": "19.025",
     "TRAY_SEAT": "-5.2",
     "TRAY_SEATS": "4",
     "TRAY_T": "9.2",
-    "TRAY_VOL": "170.89",
+    "TRAY_VOL": "173.48",
     "TRAY_W": "209",
-    "TRAY_WEB": "1.404",
-    "TRAY_WEB_PCT": "334"
+    "TRAY_WEB": "1.904",
+    "TRAY_WEB_PCT": "453"
   }
 }

@@ -5,7 +5,7 @@
     "PLINTH_CORNER": "3",
     "PLINTH_DEPTH": "38.05",
     "PLINTH_WIDTH": "37.6",
-    "PORT_CLEARANCE": "1.000 mm",
+    "PORT_CLEARANCE": "0.500 mm",
     "PORT_DIA": "15.2",
     "POST_DIA": "6.9",
     "SEAT_TOP_Z": "5.2",
