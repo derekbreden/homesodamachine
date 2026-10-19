@@ -4124,7 +4124,7 @@ def posed_manifold(carrier_offset: float) -> list:
 
 # `WORLD_LIFT` preserves the fitted pump placement. The valve trays and
 # stationary plumbing fixtures support the pack at its original stations.
-PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
+PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
 def build_pack() -> cq.Assembly:
@@ -4166,14 +4166,10 @@ def build_pack() -> cq.Assembly:
     # Preserve the fitted pump/bracket station independently of fixed plumbing.
     lift = ml.WORLD_LIFT
     posed = posed_manifold(ml.CARRIER_PARK)
-    datum_posed = posed
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
     stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c) for n, s, c in posed]
-    datum_stood = [
-        (n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c) for n, s, c in datum_posed
-    ]
     in_pack = []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
@@ -4190,12 +4186,13 @@ def build_pack() -> cq.Assembly:
             color = cq.Color(.92,.92,.89)
         a.add(solid, name=name, color=color)
         in_pack.append(name)
-    # The fixed return links and valve trays retain the original port stations.
+    # The pump head's front plane locates the whole manifold independently of
+    # the lowest fixed tube or return. Read that face from the placed head.
+    pump_head = next(s for n, s, _c in stood if n == 'pump-a-head')
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
-                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise
-                        - max(ml.CARRIER_DROP, ml.INNER_LIMB_DROP)},
-                got=_whole([s for _n, s, _c in datum_stood]),
+                planes={"z0": lift + PUMP_FACE_Z},
+                got=box(pump_head),
                 members=tuple(in_pack))
     # THE TWO VALVE TRAYS' STATIONS, on the planes the fold left the manifold's eight non-cap
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
