@@ -39,7 +39,8 @@ import _native  # noqa: E402
 WORD = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 SUPPORT = {"Support", "Support interface", "Support transition"}
 MODEL = {"Outer wall", "Inner wall", "Overhang wall", "Bottom surface", "Top surface",
-         "Internal solid infill", "Sparse infill", "Bridge", "Gap infill", "Internal Bridge"}
+         "Internal solid infill", "Sparse infill", "Bridge", "Gap infill", "Internal Bridge",
+         "Floating vertical shell"}
 WALLS = {"Outer wall", "Inner wall", "Overhang wall"}
 
 
@@ -488,10 +489,17 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
             hits = [t for t in list(wanted) if mid - height / 2 < t <= mid + height / 2]
             if not hits:
                 continue
+            # Tree supports print on their own layer heights between the objects' layers; a sample
+            # waits for a layer on which its object prints.
+            printed = {o for *_, f, o in roads if f in MODEL}
             sections = {}
             for target in hits:
+                waiting = []
                 for row in wanted.pop(target):
                     oid = row["object"]
+                    if oid not in printed:
+                        waiting.append(row)
+                        continue
                     (x0, y0, _), (x1, y1, _) = row["plate_bounds_mm"]
                     if oid not in sections:
                         sections[oid] = _mesh.section_polygons(meshes[oid], mid)
@@ -499,9 +507,6 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
                     if stock.area <= 0.05:
                         continue
                     own = [(a, b, c, d, w) for a, b, c, d, w, f, o in roads if o == oid and f in MODEL]
-                    if not own:
-                        row["samples"].append({"print_z_mm": z, "coverage": 0.0, "stock_mm2": stock.area})
-                        continue
                     lines = np.array([LineString([(a, b), (c, d)]) for a, b, c, d, _ in own], dtype=object)
                     widths = np.array([w for *_, w in own])
                     tree = STRtree(lines)
@@ -509,6 +514,8 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
                     beads = union_all(buffer(lines[index], widths[index] / 2, quad_segs=4)) if len(index) else None
                     coverage = stock.intersection(beads).area / stock.area if beads is not None else 0.0
                     row["samples"].append({"print_z_mm": z, "coverage": coverage, "stock_mm2": stock.area})
+                if waiting:
+                    wanted[target] = waiting
             if not wanted:
                 break
     handle.close()
