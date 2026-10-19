@@ -2,23 +2,31 @@
 
 Coordinates share the enclosure frame. The receiver module owns the wet
 geometry; this module owns flat keepers, their guides, factory locks and
-stationary tee saddles. No customer operation reaches these parts.
+side-opening fixed-return cradles. No customer operation reaches these parts.
 """
 from pathlib import Path
 import sys
+import json
+import math
+from functools import lru_cache
 
 import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == 'hardware')
-sys.path.insert(0, str(HW / 'reference' / 'tee-connector'))
 sys.path.insert(0, str(HW / 'printed-parts' / 'cadlib'))
 import fits
 import pump_receiver as receiver
-import tee_connector as tee
 import dock_retention as retention
+import fixed_returns as plumbing
+import pump_return as returned
+sys.path.insert(0,str(HERE.parent/"valve-tray"))
+import valve_tray
 
 STATIONS = ('west-outer', 'west-inner', 'east-inner', 'east-outer')
+FIXTURE_FORE_ANCHOR_INBOARD=16.0
+FIXTURE_AFT_ANCHOR_INBOARD=16.0
+FIXTURE_AFT_LOCK_ABOVE_BED=6.75
 KEEPER_HALF_WIDTH = 12.0
 KEEPER_Z = (-11.0, 18.75)
 KEEPER_LIFT = 20.0
@@ -27,6 +35,18 @@ LOCK_BORE_D = 3.5
 LOCK_INSERT_D = 4.0
 LOCK_INSERT_LENGTH = 4.0
 LOCK_RELIEF = 1.25
+FIXTURE_LOCK_RELIEF = 1.75
+FIXTURE_COVER_SPACER = .15
+FIXTURE_TAB_THICK = 3.0
+FIXTURE_SCREW_LENGTH = 12.0
+FIXTURE_ANCHOR_BELOW = 7.0 + 3.0 + fits.slip
+FACTORY_DRIVER_SHAFT_LENGTH = 100.0
+FACTORY_DRIVER_HANDLE_LENGTH = 104.0
+FACTORY_DRIVER_HANDLE_D = 23.0
+FACTORY_DRIVER_ACCESS_D = 4.5
+FACTORY_DRIVER_APPROACH = 20.0
+FACTORY_DRIVER_PITCH = 15.0
+FACTORY_DRIVER_SOCKET_ENGAGEMENT = 1.5
 LOCK_WASHER_OD = 7.0
 LOCK_WASHER_ID = 3.2
 LOCK_WASHER_T = .5
@@ -34,10 +54,6 @@ GUIDE_INNER_X = 9.25
 GUIDE_OUTER_X = 16.4
 GUIDE_Z = (-11.0, 8.5)
 RECESS_Z = (-14.0, 40.0)
-SUPPORT_LOCK_Z = 22.5
-SUPPORT_POST_LIGAMENT = 3.0
-SUPPORT_SEAT_AIR = 0.0
-SUPPORT_BRIDGE_Z = (17.75, 27.25)
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -48,9 +64,20 @@ def ycyl(radius, x, z, y0, y1):
     return cq.Solid.makeCylinder(radius,y1-y0,cq.Vector(x,y0,z),cq.Vector(0,1,0))
 
 
+def ycrown(radius,x,z,y0,y1,*,toward_x=0):
+    """Full round screw/insert room with a tangent45degree print crown."""
+    a=radius/2**.5
+    if toward_x:
+        points=[(x+toward_x*a,z-a),(x+toward_x*a,z+a),(x+toward_x*radius*2**.5,z)]
+    else:points=[(x-a,z+a),(x+a,z+a),(x,z+radius*2**.5)]
+    vertices=[cq.Vector(px,y0,pz) for px,pz in points]
+    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+    return ycyl(radius,x,z,y0,y1).fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,y1-y0,0))).clean()
+
+
 def fused(parts):
     parts = tuple(parts)
-    return parts[0].fuse(*parts[1:]).clean()
+    return (parts[0].fuse(*parts[1:]) if len(parts)>1 else parts[0]).clean()
 
 
 def _bed_corbel(x0, x1, y0, y1, top, bed):
@@ -62,19 +89,21 @@ def _bed_corbel(x0, x1, y0, y1, top, bed):
     return raw.intersect(box(x0,x1,y0,y1,bed,top+.1)).clean()
 
 
-def support_lock_x(plate):
-    """Frame locks align with the two columns between the fluid ports."""
-    return tuple(x for x, _ in retention.column_stations(plate['holes']))
+
+def keeper(wall_fore_y=0.,x=0.,z=0.,*,side=1,clamped=True):
+    """Flat axial keeper; its unclamped insertion pose has0.25mm fore air."""
+    y0,y1=(wall_fore_y+y for y in receiver.KEEPER_Y)
+    slab=box(x-12,x+12,y0,y1,z-11,z+18.75)
+    a,b=sorted((x+side*12,x+side*13.5))
+    slab=slab.fuse(box(a,b,y0,y1,z+8.75,z+18.75))
+    r=receiver.KEEPER_SLOT_D/2
+    notch=ycyl(r,x,z,y0-.1,y1+.1).fuse(box(x-r,x+r,y0-.1,y1+.1,z-11.1,z))
+    result=slab.cut(notch).cut(ycyl(LOCK_BORE_D/2,x+side*8.5,z+LOCK_Z,y0-.1,y1+.1)).clean()
+    return result if clamped else result.translate((0,fits.sliding_extra,0))
 
 
-def keeper(wall_fore_y=0.0, x=0.0, z=0.0):
-    y0,y1 = (wall_fore_y+y for y in receiver.KEEPER_Y)
-    slab = box(x-KEEPER_HALF_WIDTH,x+KEEPER_HALF_WIDTH,y0,y1,
-               z+KEEPER_Z[0],z+KEEPER_Z[1])
-    r = receiver.KEEPER_SLOT_D/2
-    notch = ycyl(r,x,z,y0-.1,y1+.1).fuse(
-        box(x-r,x+r,y0-.1,y1+.1,z+KEEPER_Z[0]-.1,z))
-    return slab.cut(notch).cut(ycyl(LOCK_BORE_D/2,x,z+LOCK_Z,y0-.1,y1+.1)).clean()
+def keeper_side(x):
+    return 1 if x<-50 or 0<x<50 else -1
 
 
 def wall_recess(plate):
@@ -114,124 +143,482 @@ def lock_cut(wall_fore_y,x,z):
                 wall_fore_y-.1,face+.01)
 
 
-def tee_saddle(wall_fore_y, x, z, center_y, *, side_limits=None, outer_side=0,
-               print_bed_z=None):
-    """Fixed open-aft cradle on the two measured run collars.
 
-    Two ties at Z +/-13.5 capture fixed collar stock, away from all three
-    operating sleeves. The 4.25 mm side webs and a lower floor join the
-    permanent wall and keeper guides. The outer two saddles stop at the
-    enclosure's slide-channel plane and omit the rail-crossing side web.
-    Tie heads clock fore of the saddle; their bands surround its two rails
-    together with the tee's fixed collar.
-    The branch passes through the centre of this saddle during straight
-    factory insertion from the interior.
-    Each outboard saddle has an open outer side at branch-port height.
-    Both tie-band rails remain complete. The floor and side-arm undersides
-    rise at 45 degrees from the print bed. The lower collar's tie tunnel
-    passes through added side-arm corbel stock and leaves the rails intact.
+def _house_wire(w,u,v,side=1,air=.25):
+    # Offset roof by normal clearance; bottom and vertical flanks carry the
+    # ordinary axis allowance. This is a rigid-to-rigid throat, not TPU squeeze.
+    top=returned.KEY_NECK_TOP+air*2**.5
+    a=returned.KEY_NECK_U+air
+    shoulder=top-a
+    pts=[(-a,returned.KEY_NECK_BOTTOM-air),(a,returned.KEY_NECK_BOTTOM-air),
+         (a,shoulder),(0,top),(-a,shoulder)]
+    vertices=[cq.Vector(side*w,u+y,v+z) for y,z in pts]
+    return cq.Wire.makePolygon(vertices+[vertices[0]])
+
+
+def _key_seat_cut(wall_fore_y,x,z):
+    pieces=[]
+    for sign in (-1,1):
+        cx=x+sign*(receiver.KEY_ROOT_X+receiver.KEY_OUTER_X)/2
+        half=3.+fits.running
+        top=z+receiver.KEY_TOP_Z+fits.running*2**.5
+        pts=[(cx-half,z+receiver.KEY_BASE_Z-fits.running),(cx+half,z+receiver.KEY_BASE_Z-fits.running),
+             (cx+half,top-half),(cx,top),(cx-half,top-half)]
+        y0=wall_fore_y+receiver.REAR_COLLAR_Y[0]-.01
+        y1=wall_fore_y+receiver.REAR_COLLAR_Y[1]+3
+        wire=cq.Wire.makePolygon([cq.Vector(a,y0,b) for a,b in pts]+[cq.Vector(pts[0][0],y0,pts[0][1])])
+        pieces.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,y1-y0,0)))
+    return fused(pieces)
+
+
+def mount_side(x):
+    """Outward mounting heads leave the appliance centre clear."""
+    return 1 if x>0 else -1
+
+
+def _anchor_x(layout,y,w):
+    origin,n,h=returned.frame(layout)
+    return origin.x+(w-n.y*(y-origin.y))/n.x
+
+
+def _tray_anchor(plate,x):
+    layout=plumbing.layouts(plate)[str(x)]['return']
+    station=min(plate['valve_trays'],key=lambda row:abs(row[0]-layout['target']['point'][1]))
+    plane,sign,seats=station
+    face=plane-sign*valve_tray.SEAT
+    near=min(face,face-sign*valve_tray.THICK)
+    return (_anchor_x(layout,near,-FIXTURE_AFT_ANCHOR_INBOARD*mount_side(x)),near,plate['fixture_print_bed_z']+FIXTURE_AFT_LOCK_ABOVE_BED)
+
+
+def fixture_anchors(plate,x):
+    layout=plumbing.layouts(plate)[str(x)]['return']
+    y=plate['wall_aft_y'];row=dict(plate['holes'])[x]
+    return ((_anchor_x(layout,y,-FIXTURE_FORE_ANCHOR_INBOARD*mount_side(x)),y,row-19.),_tray_anchor(plate,x))
+
+
+def key_approach_cut(shape,guide_back_y):
+    """Exact straight+Y sweep of the fitted key until it clears the guides."""
+    travel=max(0.,guide_back_y-shape.BoundingBox().ymin+fits.running)
+    pieces=[shape]
+    if travel:
+        for face in shape.Faces():
+            if face.normalAt().y>1e-7:
+                pieces.append(cq.Solid.extrudeLinear(face.outerWire(),face.innerWires(),cq.Vector(0,travel,0)))
+    return fused(pieces)
+
+
+def factory_driver_axes(plate,x):
+    """Wiha26305 ball-end factory approach, with the front-top loose.
+
+    The fore lock approaches from aft and below. The aft lock approaches
+    from fore and above; a small handed yaw clears the keeper, magnet and
+    opposite front-insert stock. The20mm coaxial entry keeps the full handle
+    outside the mounted wet group. These are tool-room declarations, not a
+    measured hand-clearance or tightening-torque qualification.
     """
-    near,aft=center_y-12.0,center_y-3.0
-    radius=tee.BARREL_R+.25
-    end=tee.RUN_FIXED_END-.25
-    stock=box(x-13.5,x+13.5,near,aft,z-end,z+end)
-    trunk=cq.Solid.makeCylinder(radius,2*(end+.1),
-                                cq.Vector(x,center_y,z-end-.1),cq.Vector(0,0,1))
-    stock=stock.cut(trunk).cut(ycyl(radius,x,z,near-.1,aft+.1))
-    for dz in (-13.5,13.5):
-        stock=stock.cut(box(x-8,x+8,near-.1,aft+.1,
-                            z+dz-1.75,z+dz+1.75))
-    if outer_side:
-        a,b=sorted((x,x+outer_side*20))
-        stock=stock.cut(box(a,b,near-.1,aft+.1,z-8.75,z+8.75))
-    parts=[stock,box(x-13.5,x+13.5,wall_fore_y+receiver.WALL_THICKNESS,
-                     center_y-9.0,z-end-3,z-end)]
-    if print_bed_z is not None:
-        corbel=_bed_corbel(x-13.5,x+13.5,
-                           wall_fore_y+receiver.WALL_THICKNESS,aft,
-                           z-end,print_bed_z)
-        trunk=cq.Solid.makeCylinder(radius,z-end-print_bed_z+.2,
-                                    cq.Vector(x,center_y,print_bed_z-.1),
-                                    cq.Vector(0,0,1))
-        parts.append(corbel.cut(trunk))
-    for side in (-1,1):
-        if side==outer_side:
-            continue
-        a,b=sorted((x+side*9.25,x+side*13.5))
-        parts.append(box(a,b,wall_fore_y+receiver.GROOVE_Y[1],aft,
-                         z-11.35,z+8.5))
-        if print_bed_z is not None:
-            corbel=_bed_corbel(a,b,wall_fore_y+receiver.GROOVE_Y[1],aft,
-                               z-11.35,print_bed_z)
-            # Open only the new corbel for the lower strap. The original
-            # fixed-collar rails and the full arm above remain unchanged.
-            tunnel=box(x-20,x+20,center_y-15.25,center_y-11.75,
-                       z-15.25,z-11.75)
-            parts.append(corbel.cut(tunnel))
-    joined=fused(parts)
-    if side_limits is not None:
-        bounds=joined.BoundingBox()
-        joined=joined.intersect(box(*side_limits,bounds.ymin-1,bounds.ymax+1,
-                                    bounds.zmin-1,bounds.zmax+1)).clean()
-    return joined
+    pitch=math.radians(FACTORY_DRIVER_PITCH);side=mount_side(x);out=[]
+    stack=fits.running+2*FIXTURE_TAB_THICK+FIXTURE_COVER_SPACER+LOCK_WASHER_T+3.0
+    for index,(ax,ay,az) in enumerate(fixture_anchors(plate,x)):
+        sign=1 if index==0 else -1
+        tip=(ax,ay+sign*(stack-FACTORY_DRIVER_SOCKET_ENGAGEMENT),az)
+        if index==0:axis=(0.,math.cos(pitch),-math.sin(pitch));yaw=0.
+        else:
+            yaw=4.5 if abs(x)>50 else -5.0;y=math.radians(yaw)
+            axis=(side*math.sin(y)*math.cos(pitch),-math.cos(y)*math.cos(pitch),math.sin(pitch))
+        out.append({'index':index,'tip':tip,'axis':axis,'pitch_deg':FACTORY_DRIVER_PITCH,
+                    'yaw_outboard_deg':yaw,'shaft_mm':FACTORY_DRIVER_SHAFT_LENGTH,
+                    'axial_approach_mm':FACTORY_DRIVER_APPROACH})
+    return tuple(out)
+
+
+def _driver_lane(declaration,build,point_transform=None):
+    tip=cq.Vector(*declaration['tip']);axis=cq.Vector(*declaration['axis'])
+    start=tip-axis*.2
+    end=tip+axis*(FACTORY_DRIVER_SHAFT_LENGTH+FACTORY_DRIVER_APPROACH+.2)
+    if point_transform is not None:
+        start=cq.Vector(*point_transform(start.toTuple()));end=cq.Vector(*point_transform(end.toTuple()))
+    return _axis_crown(FACTORY_DRIVER_ACCESS_D/2,start.toTuple(),end.toTuple(),build)
 
 
 def fixed_features(plate):
-    fore=plate['fore_y']
-    stocks=[]
-    cuts=[wall_recess(plate)]
-    for index,((x,z),center_y) in enumerate(zip(plate['holes'],plate['fixed_tee_center_y'])):
-        outer_side=-1 if index==0 else 1 if index==len(plate['holes'])-1 else 0
-        stocks.extend((guides(fore,x,z,plate['wall_aft_y']),
-                       tee_saddle(fore,x,z,center_y,
-                                  side_limits=plate['tee_saddle_x_limits'],
-                                  outer_side=outer_side,
-                                  print_bed_z=plate['z0']+fits.supported_surface)))
-        cuts.extend((receiver.receiver_wall_cut(fore,x,z),lock_cut(fore,x,z)))
-    row=plate['holes'][0][1]
-    face=fore+receiver.REAR_SUPPORT_Y[0]-SUPPORT_SEAT_AIR
-    half=max(LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT,
-             retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK)
-    for x,z in retention.column_stations(plate['holes']):
-        bottom=row+RECESS_Z[0]
-        top=row+SUPPORT_LOCK_Z+LOCK_INSERT_D/2+SUPPORT_POST_LIGAMENT
-        stocks.append(box(x-half,x+half,fore+receiver.WALL_THICKNESS,face,
-                          bottom,top))
-        cuts.append(ycyl(LOCK_INSERT_D/2,x,row+SUPPORT_LOCK_Z,
-                         face-LOCK_INSERT_LENGTH-LOCK_RELIEF,face+.01))
+    """Wall seats/flat keepers plus permanent anchors for the loose cradles."""
+    fore=plate['fore_y'];stocks=[];cuts=[wall_recess(plate)]
+    for x,z in plate['holes']:
+        side=keeper_side(x)
+        stocks.append(guides(fore,x,z,plate['wall_aft_y']))
+        stocks.append(ycyl(4.,x+side*8.5,z+LOCK_Z,fore+receiver.WALL_THICKNESS,fore+receiver.KEEPER_Y[0]))
+        cuts.extend((receiver.receiver_wall_cut(fore,x,z),
+                     ycrown(LOCK_INSERT_D/2,x+side*8.5,z+LOCK_Z,fore-.1,fore+receiver.KEEPER_Y[0]+.01),
+                     _key_seat_cut(fore,x,z)))
+        declared=plumbing.layouts(plate)[str(x)]
+        layout=declared['return'];origin,n,h=returned.frame(layout)
+        for point in receiver.mount_stations(declared['junction']):
+            center=returned._point(point,origin,n,h)
+            build=receiver.print_build_direction(declared['junction'])
+            bd=(build.dot(n),build.dot(h),build.z)
+            key=returned.to_world(returned.button(center,mount_side(x),clearance=fits.slip,build_direction=bd),layout)
+            cuts.append(key_approach_cut(key,plate['wall_aft_y']))
+        front,aft=fixture_anchors(plate,x)
+        fx,fy,fz=front
+        root=fore+receiver.WALL_THICKNESS
+        stocks.extend((box(fx-5,fx+5,root,fy,fz-5,fz+LOCK_INSERT_D/2*2**.5+3),
+                       _bed_corbel(fx-5,fx+5,root,fy,fz-5,plate['z0']+fits.supported_surface)))
+        for index,(ax,ay,az) in enumerate((front,aft)):
+            py0,py1=(ay,ay+fits.running) if index==0 else (ay-fits.running,ay)
+            stocks.append(box(ax-4,ax+4,py0,py1,az-4,az+4))
+            #45degree underside of each small supported axial bearing land.
+            yroot,yedge=(ay,py1) if index==0 else (ay,py0)
+            vv=[cq.Vector(ax-4,yroot,az-4-fits.running),cq.Vector(ax-4,yedge,az-4),cq.Vector(ax-4,yroot,az-4)]
+            wire=cq.Wire.makePolygon(vv+[vv[0]])
+            stocks.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(8,0,0)))
+            a,b=(ay-LOCK_INSERT_LENGTH-FIXTURE_LOCK_RELIEF,ay+fits.running+.01) if index==0 else (ay-fits.running-.01,ay+LOCK_INSERT_LENGTH+FIXTURE_LOCK_RELIEF)
+            cuts.append(ycrown(LOCK_INSERT_D/2,ax,az,a,b))
+        # Continue the existing valve port channel down the tray foot. The
+        # occupied exterior heel has the same fixed outlet axis and must not
+        # bear on the tray; this is an open-to-bed relief, not a blind pocket.
+        outlet=layout["output"]["point"]
+        cuts.append(cq.Solid.makeCylinder(valve_tray._valve.port_radius+valve_tray.PORT_SLIP,
+                    outlet[2]+3.0-plate["fixture_print_bed_z"],
+                    cq.Vector(outlet[0],outlet[1],plate["fixture_print_bed_z"]-.01),cq.Vector(0,0,1)))
+        for driver in factory_driver_axes(plate,x):cuts.append(_driver_lane(driver,(0,0,1)))
     return stocks,cuts
 
 
-def parts(plate, *, installed=True):
-    out={}
-    for name,(x,z) in zip(STATIONS,plate['holes']):
-        out['pump-receiver-'+name]=receiver.build_receiver(plate['fore_y'],x,z,installed=installed)
-        out['pump-receiver-keeper-'+name]=keeper(plate['fore_y'],x,z)
-    out['pump-receiver-rear-support']=rear_support(plate)
+def _local_point(point,layout):
+    origin,n,h=returned.frame(layout)
+    return returned._point(point,origin,n,h)
+
+
+def _profile_extrude(points,w0,w1):
+    vertices=[cq.Vector(w0,u,v) for u,v in points]
+    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+    return cq.Solid.extrudeLinear(wire,[],cq.Vector(w1-w0,0,0))
+
+
+def _capsule(a,b,r,w0,w1):
+    # A planar capsule extruded on the flat print normal; no enclosed roof.
+    av=cq.Vector(0,a[1],a[2]);bv=cq.Vector(0,b[1],b[2]);d=bv-av
+    length=d.Length;t=d.normalized();n=cq.Vector(1,0,0).cross(t)*r
+    points=[(av+n).toTuple()[1:],(bv+n).toTuple()[1:],(bv-n).toTuple()[1:],(av-n).toTuple()[1:]]
+    plate=_profile_extrude(points,w0,w1)
+    for q in (a,b):plate=plate.fuse(cq.Solid.makeCylinder(r,w1-w0,cq.Vector(w0,q[1],q[2]),cq.Vector(1,0,0)))
+    return plate.clean()
+
+
+def _open_cut(cylinder,layout,wmax):
+    # Project only the intended pocket to the open side. The3mm cover closes
+    # this opening after the supported wet group has been assembled.
+    face=cylinder.intersect(cq.Face.makePlane(300,300,cq.Vector(0,0,0),cq.Vector(1,0,0)))
+    out=cylinder
+    for f in face.Faces():
+        out=out.fuse(cq.Solid.extrudeLinear(f.outerWire(),f.innerWires(),cq.Vector(wmax,0,0)))
     return out
 
 
-def rear_support(plate):
-    """One removable four-hole bar supports the permanent factory sockets.
+def _to_local(shape,layout,side):
+    origin,n,h=returned.frame(layout)
+    angle=-__import__('math').degrees(__import__('math').atan2(n.y,n.x))
+    shape=shape.translate(origin*-1).rotate((0,0,0),(0,0,1),angle)
+    return shape if side>0 else shape.mirror('YZ')
 
-    It installs after the receiver flanges and flat keepers, before tails and
-    tees. No retaining flange has to pass through this closed support.
+
+def _axis_crown(radius,start,end,build):
+    """Round clearance and a tangent45degree roof in its actual print frame."""
+    a=cq.Vector(*start);b=cq.Vector(*end);axis=(b-a).normalized()
+    build=cq.Vector(*build).normalized()
+    crown=(build-axis*axis.dot(build)).normalized()
+    across=axis.cross(crown).normalized();r=radius/2**.5
+    vertices=[a+across*r+crown*r,a-across*r+crown*r,a+crown*radius*2**.5]
+    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+    return cq.Solid.makeCylinder(radius,(b-a).Length,a,axis).fuse(
+        cq.Solid.extrudeLinear(wire,[],b-a))
+
+
+def _extrude_profile(profile,w0,w1):
+    section=profile.intersect(cq.Face.makePlane(500,500,cq.Vector(.5,0,0),cq.Vector(1,0,0)))
+    return fused(cq.Solid.extrudeLinear(f.outerWire(),[],cq.Vector(w1-w0,0,0)).translate((w0-.5,0,0)) for f in section.Faces())
+
+
+def _arm_static_pocket(arm,air):
+    """Parallel static allowance around the arm's constant-Z silhouette.
+
+    The polygon offset keeps its45degree print roof parallel. The pocket
+    opens on the same flat back as the base; no buried support ceiling is
+    introduced. Hard spacer lands are restored after the complementary cut.
     """
-    row=plate['holes'][0][1]
-    y0,y1=(plate['fore_y']+y for y in receiver.REAR_SUPPORT_Y)
-    span=receiver.WALL_BORE_D/2+3
-    pieces=[box(plate['holes'][0][0]-span,plate['holes'][-1][0]+span,
-                y0,y1,row+SUPPORT_BRIDGE_Z[0],row+SUPPORT_BRIDGE_Z[1])]
-    for x,z in plate['holes']:
-        pieces.append(ycyl(span,x,z,y0,y1).cut(
-            receiver.rear_support_cut(plate['fore_y'],x,z)))
-        for side in (-1,1):
-            a,b=sorted((x+side*3.75,x+side*6.75))
-            pieces.append(box(a,b,y0,y1,z+6,z+27))
-    stock=fused(pieces)
-    for x in support_lock_x(plate):
-        stock=stock.cut(ycyl(LOCK_BORE_D/2,x,row+SUPPORT_LOCK_Z,y0-.1,y1+.1))
-    return stock.clean()
+    bounds=arm.BoundingBox();level=(bounds.zmin+bounds.zmax)/2
+    section=arm.intersect(cq.Face.makePlane(500,500,cq.Vector(0,0,level),cq.Vector(0,0,1)))
+    pieces=[]
+    for face in section.Faces():
+        wires=face.outerWire().offset2D(air,kind='intersection')
+        for wire in wires:
+            pieces.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,0,bounds.zlen+2*air)).translate((0,0,bounds.zmin-air-level)))
+    return fused(pieces)
+
+
+def _terminal_clearance(plate,layout,side,build):
+    """Open terminal pockets with45degree roofs in the dry print frame.
+
+    The aft valves' spades face the diagonal guide. Their reference width
+    defines each pocket; the central closed guide remains intact. Loading
+    edges retain running air and the terminal tip has static seating air.
+    """
+    valve=valve_tray._valve
+    plane,sign,seats=min(plate['valve_trays'],
+        key=lambda row:abs(row[0]-layout['target']['point'][1]))
+    sx,sz=min(seats,key=lambda q:abs(q[0]-layout['target']['point'][0]))
+    y=plane+sign*valve.spade_z_center
+    pieces=[]
+    for hand in (-1,1):
+        x=sx+hand*valve.spade_x_spacing/2
+        keepout=box(x-valve.spade_width/2-fits.running,
+                    x+valve.spade_width/2+fits.running,
+                    y-valve.spade_thickness/2-fits.running,
+                    y+valve.spade_thickness/2+fits.running,
+                    sz-valve.coil_face_y-valve.spade_length-fits.slip,
+                    sz-valve.coil_face_y+fits.slip)
+        bounds=_to_local(keepout,layout,side).BoundingBox()
+        lo,hi=bounds.xmin,bounds.xmax;u0,u1=bounds.ymin,bounds.ymax
+        half=(u1-u0)/2;mid=(u1+u0)/2
+        if build>0:
+            points=[(lo,u0),(hi,u0),(hi+half,mid),(hi,u1),(lo,u1)]
+        else:
+            points=[(lo,u0),(hi,u0),(hi,u1),(lo,u1),(lo-half,mid)]
+        vertices=[cq.Vector(w,u,bounds.zmin) for w,u in points]
+        wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+        pieces.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,0,500-bounds.zmin)))
+    return fused(pieces)
+
+
+def _return_fixture(plate,x):
+    """Two host bolts close a flat-backed cradle and its outside3mm cover.
+
+    The cover is outside the complete occupied wet body. Four substantial
+    TPU heads bear directly on its throat surrounds. Both integral cover
+    arms share the two M3x12 host locks with the cradle, closing the escape
+    path of the body and cover as a group. Every arm clearance is crowned
+    in that part's actual print normal; the straight link has a closed guide.
+    """
+    item=plumbing.layouts(plate)[str(x)];layout=item['return'];local=returned.local_layout(layout)
+    side=mount_side(x);origin,n,h=returned.frame(layout)
+    def lp(point):
+        w,u,v=_local_point(point,layout)
+        return (side*w,u,v)
+    points={key:lp(item['junction'][key]['point']) for key in ('lower','upper')}
+    stops={key:lp(item['junction'][key]['tube_stop']) for key in ('lower','upper')}
+    jm,js=points['lower'],stops['lower']
+    im,istop=local['input']['point'],local['input']['tube_stop']
+    om,ostop=local['output']['point'],local['output']['tube_stop']
+    centers=tuple(lp(p) for p in receiver.mount_stations(item['junction']))+returned.mount_stations(local)
+    front,aft=fixture_anchors(plate,x)
+    w0=-max(FIXTURE_FORE_ANCHOR_INBOARD,FIXTURE_AFT_ANCHOR_INBOARD)-5.5*abs(n.x)-4.*abs(n.y)
+    surface=returned.BASE_FRONT_W;cover_fore=returned.COVER_FRONT_W;back=returned.COVER_BACK_W
+    cuff_r=plumbing.OCCUPIED_CUFF_OD/2+fits.running
+    guide_r=plumbing.TUBE_OD/2+fits.running
+    # One constant outside profile is shared by the base and flat cover.
+    # Both parts use the flatWface as their manufacturing bed. The base
+    # pockets open toward its opposite face.
+    profiles=[_capsule(js,istop,6.45,0,1),_capsule(istop,ostop,9.20,0,1),
+              _capsule(js,stops['upper'],9.20,0,1),_capsule(jm,im,guide_r+3,0,1)]
+    cuffs=[]
+    for start,end in ((js,jm),(stops['upper'],points['upper']),(istop,im),(ostop,om)):
+        aa=cq.Vector(*start);bb=cq.Vector(*end);d=(bb-aa).normalized()
+        across=cq.Vector(0,-d.z,d.y).normalized()*(cuff_r+3)
+        lo=aa-d*3;hi=bb+d*3
+        profiles.append(_profile_extrude([(q.y,q.z) for q in (lo+across,hi+across,hi-across,lo-across)],0,1))
+        cuffs.append((aa-d*3.01,bb+d*3.01))
+    frame_top=returned.KEY_NECK_TOP+3.25
+    for _,u,v in centers:profiles.append(box(0,1,u-10.5,u+10.5,v-10,v+frame_top))
+    for anchor,from_point in ((front,js),(aft,ostop)):
+        ax,ay,az=anchor;ap=lp(anchor)
+        profiles.extend((_capsule(from_point,ap,5,0,1),box(0,1,ap[1]-6,ap[1]+6,ap[2]-FIXTURE_ANCHOR_BELOW,ap[2]+7)))
+    profile=fused(profiles)
+    base=_extrude_profile(profile,w0,surface)
+    cover=_extrude_profile(profile,cover_fore,back)
+    aft_face=aft[1]
+    host_window=_to_local(box(-220,220,plate['wall_aft_y']+fits.running,
+                             aft_face-fits.running,0,400),layout,side)
+    base=base.intersect(host_window);cover=cover.intersect(host_window)
+    # The body is already linked before this open cradle and cover are
+    # installed. Only local TPU head deformation is needed at closure.
+    a=cq.Vector(*jm);b=cq.Vector(*im);d=(b-a).normalized()
+    guide=cq.Solid.makeCylinder(guide_r,(b-a).Length+.02,a-d*.01,d)
+    pockets=[guide]
+    for aa,bb in cuffs:pockets.append(cq.Solid.makeCylinder(cuff_r,(bb-aa).Length,aa,(bb-aa).normalized()))
+    base=base.cut(_open_cut(fused(pockets),layout,back+.02))
+    return_bare=returned.geometry(layout,installed=True,mount_side=1)['bare_envelope']
+    jbody=receiver.receiver_envelope(plate['fore_y'],x,dict(plate['holes'])[x],installed=True,junction=item['junction'],include_mounts=False)
+    bare=return_bare.fuse(_to_local(jbody,layout,side))
+    base=base.cut(_open_cut(bare,layout,back+.02))
+    # A small solid inward boss closes the diagonal guide between the cuff
+    # mouths. It starts after the full cuff radius, retaining real clearance.
+    span=(b-a).Length;reserve=cuff_r+.05
+    ga=a+d*reserve;gb=b-d*reserve
+    if span>2*reserve:
+        cover=cover.fuse(_capsule(ga.toTuple(),gb.toTuple(),guide_r,
+                         surface+fits.slip,cover_fore+.01))
+    # Cover arms cross in front of the aft cuff, then return to the inboard
+    # lock. A45degree growing silhouette supports the return leg as the
+    # cover builds inward from its flat outer face.
+    cover_arms=[];tab_bearing=[]
+    target=layout['target']['point'];port_r=valve_tray._valve.port_radius+valve_tray.PORT_SLIP
+    for index,(ax,ay,az) in enumerate((front,aft)):
+        sign=1 if index==0 else -1
+        tab0,tab1=sorted((ay+sign*fits.running,ay+sign*(fits.running+3)))
+        # Full3mm base tab, backed by its broad constant outside profile.
+        base=base.fuse(_to_local(box(ax-5.5,ax+5.5,tab0,tab1,az-FIXTURE_ANCHOR_BELOW,az+7),layout,side))
+        face=ay+sign*(fits.running+3)
+        c0,c1=sorted((face+sign*FIXTURE_COVER_SPACER,face+sign*(FIXTURE_COVER_SPACER+3)))
+        if index==0:
+            arm_world=box(ax-6.5 if side>0 else ax-50,ax+50 if side>0 else ax+6.5,c0,c1,az-7,az+7)
+            arm=_to_local(arm_world,layout,side)
+        else:
+            cross_y=target[1]-port_r-3
+            # In local print coordinates the far edge grows at45degrees.
+            cross0=lp((ax,cross_y,az))[1];cross1=lp((ax,cross_y+3,az))[1]
+            # The shared lock bears on a world-Y plane, including clocked
+            # outer hands. Extend the raw silhouette through that plane,
+            # then trim to it; a constant-U end is not the bearing datum.
+            end_u=max((c1-origin.y-side*w*n.y)/h.y for w in (w0,back))+.01
+            ap=lp((ax,ay,az));u0=min(cross0,cross1);u1=max(cross0,cross1)
+            poly=[(back,u0),(back,u1),(back-(end_u-u1),end_u),(w0,end_u),(w0,u0)]
+            # The arm starts3mm below the Ø3.5 hole, above the occupied
+            # heel. The upper rail extends7mm above the lock axis.
+            lower=LOCK_BORE_D/2+3.0
+            vertices=[cq.Vector(w,u,ap[2]-lower) for w,u in poly]
+            wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+            arm=cq.Solid.extrudeLinear(wire,[],cq.Vector(0,0,lower+7))
+            arm=arm.intersect(_to_local(box(-220,220,-50,c1,0,400),layout,side))
+        arm=arm.intersect(host_window).intersect(box(w0,back,-350,350,-350,350))
+        cover_arms.append(arm)
+        # A broad integral0.15mm land fixes the shared two-plate bearing
+        # pose. Its width is supported by the3mm tab, not a flexible fin.
+        p0,p1=sorted((face,face+sign*FIXTURE_COVER_SPACER))
+        tab_bearing.append(_to_local(box(ax-4,ax+4,p0,p1,az-4,az+4),layout,side))
+        # The thin axial land begins with a steep supported ramp at its
+        # inboard print-leading edge, rather than a0.15mm free ledge.
+        lead=ax-side*4;run=2*FIXTURE_COVER_SPACER
+        vv=[cq.Vector(lead-side*run,face,az-4),
+            cq.Vector(lead,face+sign*FIXTURE_COVER_SPACER,az-4),
+            cq.Vector(lead,face,az-4)]
+        ww=cq.Wire.makePolygon(vv+[vv[0]])
+        tab_bearing.append(_to_local(cq.Solid.extrudeLinear(ww,[],cq.Vector(0,0,8)),layout,side))
+    base=base.fuse(*tab_bearing)
+    cover=cover.fuse(*cover_arms)
+    # The complete growing arm needs a complementary base pocket, beyond
+    # the small shared-lock slots. Both mating roofs remain45degrees.
+    base=base.cut(fused(_arm_static_pocket(arm,fits.slip) for arm in cover_arms)).fuse(*tab_bearing)
+    # Every arm clears the complete occupied sockets with a45degree roof in
+    # the cover's build direction. The circular6mm wet lands are untouched.
+    for aa,bb in cuffs:cover=cover.cut(_axis_crown(cuff_r,aa.toTuple(),bb.toTuple(),(-1,0,0)))
+    # The existing purchased-valve channel continues through both dry parts.
+    # Its unchanged axis and radius clear the actual collet and tray foot.
+    out=layout['output']['point'];outlocal=lp(out)
+    valve_lo=(outlocal[0],outlocal[1],outlocal[2]+2-fits.running)
+    valve_hi=(outlocal[0],outlocal[1],350.)
+    for_cover=_axis_crown(port_r,valve_lo,valve_hi,(-1,0,0))
+    for_base=_axis_crown(port_r,valve_lo,valve_hi,(1,0,0))
+    cover=cover.cut(for_cover);base=base.cut(for_base)
+    # Complete house throats, with intentional0.10mm TPU flank squeeze.
+    # Their outer surrounds retain the heads' broad bearing faces.
+    jb=receiver.print_build_direction(item['junction'])
+    junction_build=(side*jb.dot(n),jb.dot(h),jb.z)
+    for index,(_,u,v) in enumerate(centers):
+        bd=junction_build if index<2 else (0.,-2**-.5,2**-.5)
+        cut=returned.button_neck((0,u,v),1,installed=True,clearance=.01,build_direction=bd)
+        # The cover arm can reach inward beyond the wet key's root. Open
+        # its house passage through that entire arm rather than ending a
+        # blind cutter at the wet root and creating a print ceiling.
+        house=_house_wire(w0-.1,u,v,air=-returned.KEY_SEAT_SQUEEZE+.01)
+        cover=cover.cut(cq.Solid.extrudeLinear(house,[],cq.Vector(back-w0+.2,0,0)))
+        base=base.cut(cut)
+    # The two shared bolts clamp the base and cover to explicit hard lands.
+    # Stepped metal pockets leave both3mm tabs and expose washer bearings.
+    for index,(ax,ay,az) in enumerate((front,aft)):
+        sign=1 if index==0 else -1
+        cface=ay+sign*(fits.running+3+FIXTURE_COVER_SPACER+3)
+        for part_name,build in (('base',(1,0,0)),('cover',(-1,0,0))):
+            shape=base if part_name=='base' else cover
+            lo,hi=sorted((ay-sign*.05,cface+sign*.05))
+            shape=shape.cut(_axis_crown(LOCK_BORE_D/2,lp((ax,lo,az)),lp((ax,hi,az)),build))
+            for radius,start,end in ((LOCK_WASHER_OD/2+fits.slip,0,LOCK_WASHER_T+fits.slip),
+                                     (2.75+fits.slip,LOCK_WASHER_T-.01,LOCK_WASHER_T+3+fits.slip)):
+                y0,y1=sorted((cface+sign*start,cface+sign*end))
+                shape=shape.cut(_axis_crown(radius,lp((ax,y0,az)),lp((ax,y1,az)),build))
+            if part_name=='base':base=shape
+            else:cover=shape
+    # Cut the selected ball-end driver axes through all fixtures, including
+    # the small
+    # opposite-inner crossing, with each part's own45degree print crown.
+    for station_x,_ in plate['holes']:
+        for driver in factory_driver_axes(plate,station_x):
+            base=base.cut(_driver_lane(driver,(1,0,0),lp))
+            cover=cover.cut(_driver_lane(driver,(-1,0,0),lp))
+    base=base.cut(_terminal_clearance(plate,layout,side,1))
+    cover=cover.cut(_terminal_clearance(plate,layout,side,-1))
+    # The common host bolts retain the cover and close the wet group's
+    # outward escape path.
+    base=base.clean();cover=cover.clean()
+    world_base=returned.to_world(base if side>0 else base.mirror('YZ'),layout)
+    world_cover=returned.to_world(cover if side>0 else cover.mirror('YZ'),layout)
+    local_base=base if side>0 else base.mirror('YZ')
+    local_cover=cover if side>0 else cover.mirror('YZ')
+    return {'cradle':world_base,'cover':world_cover,'local_cradle':local_base,
+            'local_cover':local_cover,'layout':layout,'mount_side':side,
+            'anchors':(front,aft),'key_centers_local':centers,
+            'stop_centers_local':(js,stops['upper'],istop,ostop),
+            'cover_w_mm':(cover_fore,back),'key_frame_top_offset_mm':frame_top,
+            'factory_lock':{'screw_length_mm':FIXTURE_SCREW_LENGTH,'insert_depth_mm':LOCK_INSERT_LENGTH+FIXTURE_LOCK_RELIEF,
+                            'cover_spacer_mm':FIXTURE_COVER_SPACER,'driver_model':'Wiha26305',
+                            'drivers':factory_driver_axes(plate,x)}}
+
+
+@lru_cache(maxsize=16)
+def _cached_fixture(declaration,x):
+    return _return_fixture(json.loads(declaration),x)
+
+
+def return_fixture(plate,x):
+    return _cached_fixture(json.dumps(plate,sort_keys=True),x)
+
+
+def parts(plate,*,installed=True):
+    out={};declared=plumbing.layouts(plate)
+    for name,(x,z) in zip(STATIONS,plate['holes']):
+        data=declared[str(x)]
+        out['pump-receiver-'+name]=receiver.build_receiver(plate['fore_y'],x,z,installed=installed,junction=data['junction'])
+        out['pump-receiver-keeper-'+name]=keeper(plate['fore_y'],x,z,side=keeper_side(x))
+        out['pump-return-'+name]=returned.build_return(data['return'],installed=installed)
+        fixture=return_fixture(plate,x)
+        out['pump-return-cradle-'+name]=fixture['cradle']
+        out['pump-return-cover-'+name]=fixture['cover']
+    return out
+
+
+def part_color(name):
+    return receiver.COLOR if name.startswith('pump-receiver-') and not name.startswith('pump-receiver-keeper-') or name.startswith('pump-return-') and not name.startswith(('pump-return-cradle-','pump-return-cover-')) else cq.Color(.16,.16,.16)
+
+
+def _on_x_face(shape,*,cover=False,mount_side=1):
+    angle=(90 if cover else -90)*mount_side
+    posed=shape.rotate((0,0,0),(0,1,0),angle)
+    return posed.translate((0,0,-posed.BoundingBox().zmin))
+
+
+def manufacturing_parts(plate):
+    out={};declared=plumbing.layouts(plate)
+    for name,(x,z) in zip(STATIONS,plate['holes']):
+        data=declared[str(x)];local=receiver._local_junction(data['junction'],(x,plate['fore_y'],z))
+        wet=receiver.print_solid(junction=local,mount_side=mount_side(x))
+        keep=keeper(0,0,0,side=keeper_side(x)).rotate((0,0,0),(1,0,0),90)
+        keep=keep.translate((0,0,-keep.BoundingBox().zmin))
+        fixture=return_fixture(plate,x)
+        rows={'pump-receiver-'+name:wet,'pump-receiver-keeper-'+name:keep,
+              'pump-return-'+name:returned.print_solid(data['return'],mount_side=fixture['mount_side']),
+              'pump-return-cradle-'+name:_on_x_face(fixture['local_cradle'],mount_side=fixture['mount_side']),
+              'pump-return-cover-'+name:_on_x_face(fixture['local_cover'],cover=True,mount_side=fixture['mount_side'])}
+        for part,shape in rows.items():out['enclosure-'+part]={'shape':shape,'color':part_color(part)}
+    return out
 
 
 def tube_setting_jig(plate, cartridge_face_y):

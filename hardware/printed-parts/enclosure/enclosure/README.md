@@ -1451,19 +1451,26 @@ locates the receivers in X/Z. Their recessed collars fit in the wall, and
 Each keeper is [3 mm](DOCK_KEEPER_T) thick with
 [0.35 mm](DOCK_KEEPER_RADIAL_AIR) nominal radial room around its receiver neck and
 one factory-only M3×8 lock screw and Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0
-insert. The keeper bears against the wall and retains 0.50 mm behind it in the
-TPU groove. A separate two-screw
-rear support frame has four cuff rings, narrow uprights and a high bridge that
-clears the keeper guides. Its mounting pads bear against the frame's fore face;
-each M3×8 screw uses the same washer. The
-support is installed after the receivers and keepers, before the rear tails and tees.
+insert. The keeper seats against a broad integral wall land with 0.15 mm clearance
+over the remaining wall face. Each receiver is a complete asymmetric Y with
+90° between its pump inlet and upper branch, with a nominal 135° lower branch.
+Its upper link is straight. A one-piece compound TPU return supplies the lower
+45° and 90° turns, with straight LLDPE between the junction and return and a
+short straight tail into the original aft valve station.
+
+Each junction/return pair has its own side-opening PET-GF cradle and flat cover.
+Broad TPU keys beside all four fixed socket stops retain both wet bodies and
+the cover against the rigid cradle; the PET-GF does not flex for assembly.
+The cradle closes the straight tube's side guide and locks to the wall and
+aft tray with two M3×8 screws and the same washers. All permanent plumbing is
+assembled on loose front-top before that piece joins the compressor half.
 
 Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
 set full insertion, with the stem tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
-A straight pull withdraws the four stems while every receiver, keeper, support,
-commercial tee and rear tube remains fixed. No commercial collet moves during a pump
+A straight pull withdraws the four stems while every junction, keeper, return,
+cradle and fixed tube remains in place. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, factory setting fixtures and material selections.
 
@@ -1498,15 +1505,19 @@ faces to the cartridge body. The top clamp has no separate grip.
 
 ## Fixed plumbing behind the receiver wall
 
-The four pump-side commercial tees stand in fixed saddles behind the receiver wall.
-Two 6-inch, 18 lb ties per tee, eight total, retain its fixed run-collar stock while
-leaving all three collets free. The permanent straight LLDPE tails join the rear TPU sockets to their tee
-branches. The fore links and spine hairpins hold stationary routes to the valves;
-no tube bend is used as a service-motion spring.
+Four permanent TPU junctions combine the pump-facing funnel, tight inlet land
+and two branches in one printed wet body. The inlet and upper outlet are at
+90 degrees; the lower outlet points 45 degrees aft from downward. The upper
+LLDPE link runs straight to its original valve port. Each lower outlet joins
+one permanent printed return containing a 45-degree turn, a straight passage
+and a 90-degree turn. Two straight LLDPE links connect that body to the junction
+and the original aft valve port.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
-The receiver keepers and rear support install from the open interior before the tee
-plumbing and valve rows close access. The aft valves and coils enter from the loose
+The flat receiver keepers, socket backing and tube capture install from the
+open interior before the valve rows close access. TPU mounting features
+interlock with PET-GF fixtures; the fixed socket stops and closed tube guides
+locate the short links against axial motion and bowing. The aft valves and coils enter from the loose
 piece's underside and move onto their mounting posts. The Beduan socket fit retains
 its identified physical acceptance; ties supply retention. Factory assembly and the
 complete dock's physical qualification are specified in
@@ -1556,7 +1567,7 @@ plane.
 
 The receiver row has a 7 mm wall section with four closed Ø12 mm bores and recessed
 front lips and rear collar seats. The interior access recess leaves flat keeper guides,
-their lock hosts, the fixed tee saddles and the separate rear cuff support. The full
+their lock hosts and the fixed socket mounting fixtures. The full
 backing depth continues into the ridge/contact wall above. The Z-seam rail channels
 begin at the bulkhead's retained aft datum.
 

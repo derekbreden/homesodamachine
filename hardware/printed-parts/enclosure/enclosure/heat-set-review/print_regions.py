@@ -34,11 +34,11 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    if piece in ('pump-receiver-keeper', 'pump-rear-support'):
-        low_y = float(mesh_bounds[0][1])
-        return dict(up_axis_in_source=[0, 1, 0], bed_face='fore Y face',
-                    source_to_print_mm=[[1, 0, 0, 0], [0, 0, -1, 0],
-                                        [0, 1, 0, -low_y], [0, 0, 0, 1]])
+    if piece.startswith(('pump-receiver-', 'pump-return-')):
+        return dict(up_axis_in_source=[0, 0, 1],
+                    bed_face='Manufacturing export is already bedded in print pose',
+                    source_to_print_mm=[[1, 0, 0, 0], [0, 1, 0, 0],
+                                        [0, 0, 1, 0], [0, 0, 0, 1]])
     sign = -1.0 if piece == 'pump-cap' else (
         1.0 if piece == 'pump-cartridge' else e.print_up(*piece.split('-')))
     offset = -float(mesh_bounds[0][2]) if sign > 0 else float(mesh_bounds[1][2])
@@ -48,48 +48,58 @@ def print_pose(piece, mesh_bounds):
                                     [0, 0, sign, offset], [0, 0, 0, 1]])
 
 
-def dock_regions(box, region):
-    """Local load paths from the production feature interfaces, without adding stock."""
+def dock_piece_names(dock):
+    return tuple(f'{part}-{station}' for station in dock.STATIONS
+                 for part in ('pump-receiver', 'pump-return',
+                              'pump-receiver-keeper', 'pump-return-cradle',
+                              'pump-return-cover'))
+
+
+def dock_regions(box, region, wet_review):
+    """Load paths from final source interfaces and posed, cut wet-key material."""
     plate = box.pack.collet_plate
     if not plate:
         return
     dock, receiver = e._dock, e._receiver
     fore = plate['fore_y']
-    row = plate['holes'][0][1]
-    # Production emits a guide/saddle pair per port, then the frame-lock roots.
-    # Reuse those shapes so their rail clipping and wall-plane dispatch stay exact.
-    fixed_stocks = dock.fixed_features(plate)[0]
-    station_stocks = fixed_stocks[:2*len(plate['holes'])]
-
-    # Four keeper insert bores pass through the seven-millimetre wall.
+    # The keeper's screw is offset from the receiver axis. Both its actual
+    # raised bearing land and the full through-pilot belong inside this host.
     host_r = dock.LOCK_INSERT_D / 2.0 + e.wall
-    for number, ((x, z), guide) in enumerate(
-            zip(plate['holes'], station_stocks[::2]), start=1):
+    for number, (x, z) in enumerate(plate['holes'], start=1):
+        lock_x = x + dock.keeper_side(x) * 8.5
         lock_z = z + dock.LOCK_Z
-        region('front-top', f'Dock keeper lock {number}, complete host and wall root',
-               [x-host_r, x+host_r, fore, fore+receiver.WALL_THICKNESS,
-                lock_z-host_r, lock_z+host_r])
+        region('front-top', f'Dock keeper lock {number}, complete host, bearing land and wall root',
+               [lock_x-host_r, lock_x+host_r, fore,
+                fore+receiver.KEEPER_Y[0], lock_z-host_r,
+                lock_z+dock.LOCK_INSERT_D/2.0*2**.5+e.wall])
+        guide = dock.guides(fore, x, z, plate['wall_aft_y'])
         for side, shape in enumerate(guide.Solids(), start=1):
             b = shape_bounds(shape)
             b[2] = fore
             region('front-top', f'Dock keeper guide {number}/{side}, stop and wall root', b)
 
-    # Each permanent tee transfers its collar/tie load through the saddle's
-    # bracket and arms into the bulkhead. Bound the production construction,
-    # then carry its whole footprint through the wall to its fore face.
-    for number, saddle in enumerate(station_stocks[1::2], start=1):
-        b = shape_bounds(saddle)
-        b[2] = min(fore, b[2])
-        region('front-top',
-               f'Fixed tee saddle {number}, collar seats, tie bands, arms and wall root', b)
-
-    # fixed_features appends both roots in the plate-derived lock-station order.
-    support_x = dock.support_lock_x(plate)
-    hosts = fixed_stocks[-len(support_x):]
-    for x, shape in zip(support_x, hosts):
-        b = shape_bounds(shape)
-        b[2] = fore
-        region('front-top', f'Dock rear-support lock {x:g}, complete host and wall root', b)
+        # The two source-declared fixture anchors seat on integral axial lands.
+        # Front hosts continue through the bulkhead. Aft hosts carry their
+        # local tray foot through the plate into the appropriate flank root.
+        for index, (ax, ay, az) in enumerate(dock.fixture_anchors(plate, x)):
+            half = host_r
+            top = az + dock.LOCK_INSERT_D/2.0*2**.5 + e.wall
+            if index == 0:
+                b = [ax-half, ax+half, fore, ay+dock.fits.running,
+                     az-host_r, top]
+            else:
+                plane, sign, seats = min(plate['valve_trays'],
+                                        key=lambda row: abs(row[0]-ay))
+                face = plane-sign*dock.valve_tray.SEAT
+                near, far = sorted((face, face-sign*dock.valve_tray.THICK))
+                side = 0 if x < 0 else 1
+                root_floor = dock.valve_tray.wall_root_floors(seats)[side]
+                xa, xb = ((box.inner[0], ax+half) if x < 0
+                          else (ax-half, box.inner[1]))
+                b = [xa, xb, near-dock.fits.running, far,
+                     box.splits[0]+e.fits.supported_surface,
+                     max(top, root_floor+e.wall)]
+            region('front-top', f'Return fixture {number}/{index+1}, insert, axial land and native host root', b)
 
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
@@ -119,40 +129,55 @@ def dock_regions(box, region):
                 -e.wall if piece == 'pump-cartridge' else e.wall)
             region(piece, f'Stem flange capture {number}, shoulders, guard and native root', b)
 
-    # The keeper's tab, U wings and upper bridge carry its lock and receiver groove.
-    y0, y1 = receiver.KEEPER_Y
-    r = receiver.KEEPER_SLOT_D / 2.0
-    tab_r = dock.LOCK_WASHER_OD / 2.0 + e.wall
-    region('pump-receiver-keeper', 'Lock tab and bridge root',
-           [-tab_r, tab_r, y0, y1, dock.LOCK_Z-tab_r, dock.LOCK_Z+tab_r])
-    for side in (-1, 1):
-        xa, xb = sorted((side*r, side*dock.KEEPER_HALF_WIDTH))
-        region('pump-receiver-keeper', f'Receiver-groove bearing wing {side:+d}',
-               [xa, xb, y0, y1, dock.KEEPER_Z[0], r+e.wall])
-    region('pump-receiver-keeper', 'Bridge above receiver groove',
-           [-dock.KEEPER_HALF_WIDTH, dock.KEEPER_HALF_WIDTH, y0, y1, r, r+e.wall])
+    # These twelve small structural parts are exported already in print pose.
+    # Their whole-object100%/six-wall recipe covers the complete throats,
+    # closed tube guides, head-bearing plates, anchor arms and backing roots.
+    for station in dock.STATIONS:
+        for part in ('pump-receiver-keeper', 'pump-return-cradle', 'pump-return-cover'):
+            name = f'{part}-{station}'
+            solid = e.cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val()
+            region(name, 'Complete structural part, bearings, fastener tabs and connected roots',
+                   shape_bounds(solid))
 
-    # The separate cuff-support frame retains its source world-coordinate export.
-    y0, y1 = (fore+y for y in receiver.REAR_SUPPORT_Y)
-    ring_r = receiver.WALL_BORE_D / 2.0 + e.wall
-    support = dock.rear_support(plate)
-    b = shape_bounds(support)
-    # Its top is the actual bridge; its root starts one washer-radius below the locks.
-    bridge_z = row+dock.SUPPORT_LOCK_Z-dock.LOCK_WASHER_OD/2.0-e.wall
-    region('pump-rear-support', 'High bridge, both lock bearings and upright roots',
-           [b[0], b[1], y0, y1, bridge_z, b[5]])
-    for number, (x, z) in enumerate(plate['holes'], start=1):
-        region('pump-rear-support', f'Rear cuff ring {number} and upright roots',
-               [x-ring_r, x+ring_r, y0, y1, z-ring_r, bridge_z+e.wall])
+    # The offline wet preparer already holds each actual key intersected with
+    # the final cut wet body. Its saved native descriptors avoid rebuilding all
+    # eight expensive bodies merely to recover their exact bedding transform.
+    # This is a manual metadata input, not a new normal producer or gate.
+    parts = wet_review['parts']
+    for station in dock.STATIONS:
+        for part in ('pump-receiver', 'pump-return'):
+            name = f'{part}-{station}'
+            record = parts[f'enclosure-{name}']
+            # Slice-time identities remain in source_sha256. A current map
+            # may accompany an explicit unchanged-input rebind in the review.
+            bindings = record.get('current_source_sha256', record['source_sha256'])
+            for path, digest in bindings.items():
+                if hashlib.sha256((ROOT/path).read_bytes()).hexdigest() != digest:
+                    raise ValueError(f'{name}: wet-key descriptor has a stale source: {path}')
+            for key in record['key_regions']:
+                region(name, f'TPU mounting key {key["index"]}, actual cut material and connected root',
+                       key['bounds_print_mm'],
+                       material_volume_mm3=key['volume_mm3'],
+                       region_stl_sha256=key['stl_sha256'])
+            if part == 'pump-receiver':
+                # The separate rear-flange ears carry wall clocking loads.
+                # Their full collar connection stays inside this source box.
+                b = [-receiver.KEY_OUTER_X, receiver.KEY_OUTER_X,
+                     receiver.REAR_COLLAR_Y[0], receiver.REAR_COLLAR_Y[1],
+                     -receiver.COLLAR_OD/2, receiver.COLLAR_OD/2]
+                region(name, 'Rear flange, clocking ears and their complete collar root',
+                       transformed_bounds(b, record['source_to_print_mm']))
 
 
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
-    pieces = {name: [] for name in (*e.PIECE_COLORS, 'pump-receiver-keeper',
-                                   'pump-rear-support')}
-    def region(piece, name, bounds):
+    wet_path = ENC.parent/'pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json'
+    wet_review = json.loads(wet_path.read_text())
+    pieces = {name: [] for name in (*e.PIECE_COLORS, *dock_piece_names(e._dock))}
+    def region(piece, name, bounds, **evidence):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
-                                 sparse_infill_density='100%', sparse_infill_pattern='zig-zag'))
+                                 sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
+                                 **evidence))
     lower, upper = e.y_stack(box.inner)
     for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
         for rows, depth in ((lower, e.y_stack_low_depth), (upper, e.y_stack_high_depth)):
@@ -211,7 +236,7 @@ def main():
                 max(bounds[2*axis+1], pad[2*axis+1]))]
         region(name,'Both pogo insert hosts, loading passages and blind caps',
                bounds)
-    dock_regions(box, region)
+    dock_regions(box, region, wet_review)
     poses = {}
     for name, rows in pieces.items():
         mesh = trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False)
@@ -225,15 +250,19 @@ def main():
                 clipped, poses[name]['source_to_print_mm'])
     paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
            Path(e._dock.__file__),Path(e._receiver.__file__),
-           Path(e._retention.__file__),Path(e._stems.__file__)]
+           Path(e._retention.__file__),Path(e._stems.__file__),
+           Path(e._dock.returned.__file__),Path(e._dock.plumbing.__file__),
+           ROOT/'hardware/printed-parts/petgf.3mf',wet_path]
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
-                coordinate_frames={name: ('Canonical keeper source frame, receiver axis X0/Z0 and wall fore Y0' if name=='pump-receiver-keeper' else 'Source STEP/STL coordinates in the appliance frame') for name in pieces},
+                coordinate_frames={name: ('Canonical manufacturing STEP/STL, already bedded in print pose'
+                                         if name.startswith(('pump-receiver-', 'pump-return-'))
+                                         else 'Source STEP/STL coordinates in the appliance frame') for name in pieces},
                 print_poses=poses,
                 part_process_overrides={name: dict(wall_loops='6', sparse_infill_density='100%',
                     sparse_infill_pattern='zig-zag',
-                    purpose='The thin continuous keeper/support section is the structural load path. Its named regions identify interfaces; this complete small part uses solid deposition.')
-                    for name in ('pump-receiver-keeper', 'pump-rear-support')},
+                    purpose='The complete rigid keeper/cradle/cover section carries the head bearings, closed tube guide and fastener load paths. Whole-object solid deposition includes every named interface.')
+                    for name in pieces if name.startswith(('pump-receiver-keeper-', 'pump-return-cradle-', 'pump-return-cover-'))},
                 source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)

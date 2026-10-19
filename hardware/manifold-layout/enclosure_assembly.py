@@ -6,7 +6,7 @@ Four bodies, mated face to face with nothing between them:
     compressor          its shell's +X tangent against
     condenser+fan       turned onto it, off the floor on its own mount, and the pair yawed as
                         one by `BASE_YAW`
-    manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
+    manifold-layout     above their crown, located by the valve trays and pump dock
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the bodies ahead of it end at
 
@@ -57,13 +57,12 @@ its pump-head front face down. Its own +Z — the axis its two valve decks stack
 +Y, so the decks stand aft of the pumps rather than over them, and every mouth that faced the
 back now faces up.
 
-The storey it stands at is `PACK_CROWN`, a plane the machine states. What lands on that plane
-is the fold's four spine hairpins — the lowest thing the pack has, put on its own underside at
-the AFT end under the valve decks — so they are what the lift is measured to and the pump faces
-stand clear of it by what they reach. THEY CARRY NOTHING. What holds this pack is a printed
-seat under each of its ten valves, eight in the valve trays and three in the cap's own
-cradles; its six tees and both pump heads hang on the tube between those valves, and the
-`mounted` axis carries a row apiece for them.
+`PACK_CROWN` locates the manifold above the refrigeration base. Eight flavor valves stand in
+the two valve trays and two stand on the cold core's cap. The cap also carries the separate
+water-fill valve. The pump cartridge supports both pump heads. Each permanent TPU junction
+locates in the receiver wall and its flat keeper; a rigid cradle and cover capture its socket
+stops and the corresponding fixed TPU return. The two purchased tees butt onto held valves.
+The `mounted` axis records these load paths.
 
 Run it
 ------
@@ -449,34 +448,69 @@ def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=
     return SEATS[name]
 
 
+def _dock_face_witness(solid, point, normal):
+    """Read a construction witness off the nearest parallel native plane."""
+    vertex = cq.Vertex.makeVertex(*point)
+    direction = cq.Vector(*normal).normalized()
+    reads = []
+    for face in solid.Faces():
+        if face.geomType() != 'PLANE' or abs(face.normalAt().dot(direction)) < 1 - 1e-7:
+            continue
+        distance = _BRepDist(vertex.wrapped, face.wrapped)
+        distance.Perform()
+        hit = distance.PointOnShape2(1)
+        reads.append((distance.Value(), (hit.X(), hit.Y(), hit.Z())))
+    return min(reads, key=lambda row: row[0])[1]
+
+
+def record_fixed_return_seats(plate, dock_parts):
+    """The twelve world-authored return/fixture parts on their own datums."""
+    declared = _dock.plumbing.layouts(plate)
+    returned = _dock.returned
+    for suffix, (x, _z) in zip(_dock.STATIONS, plate['holes']):
+        layout = declared[str(x)]['return']
+        origin, normal, along = returned.frame(layout)
+        side = _dock.mount_side(x)
+        # A point in the actual output cuff's annular end face, between its
+        # seal and occupied outer radii. Another cuff may stand higher.
+        radial = (_dock.plumbing.TUBE_OD + _dock.plumbing.OCCUPIED_CUFF_OD) / 4
+        point = (cq.Vector(*layout['output']['point']) + normal * radial).toTuple()
+        name = f'pump-return-{suffix}'
+        record_seat(name, station=point,
+                    got=_dock_face_witness(dock_parts[name], point, layout['output']['axis']))
+        # The cradle's wall-facing tab bears on the declared front anchor
+        # plane. The witness lies outside the screw crown, inside the11mm tab.
+        ax, ay, az = _dock.fixture_anchors(plate, x)[0]
+        point = (ax - side * 3.5, ay + _dock.fits.running, az)
+        name = f'pump-return-cradle-{suffix}'
+        record_seat(name, station=point,
+                    got=_dock_face_witness(dock_parts[name], point, (0, -1, 0)))
+        # The cover's front shared-lock tab seats its washer on this exact
+        # source plane. Use material in the bearing annulus, outside the
+        # crowned screw bore, rather than a whole-part bounding-box extreme.
+        face = (ay + _dock.fits.running + 2 * _dock.FIXTURE_TAB_THICK
+                + _dock.FIXTURE_COVER_SPACER)
+        point = (ax - side * 3.0, face, az)
+        name = f'pump-return-cover-{suffix}'
+        record_seat(name, station=point,
+                    got=_dock_face_witness(dock_parts[name], point, (0, 1, 0)))
+
+
 def record_pump_dock_seats(box_spec, dock_parts, retention):
     """World-authored dock parts on wall/port and bare-pole construction datums."""
     plate = box_spec.pack.collet_plate
     fore = plate['fore_y']
-    # The assembly's installed receiver uses the production conserved-annulus
-    # envelope. Its axis still lands on the wall bore, and its lip starts on it.
-    growth = _receiver.TUBE_OD ** 2 - _receiver.SEAL_BORE_D ** 2
-    receiver_radius = math.sqrt(max(_receiver.BODY_OD, _receiver.FRONT_LIP_OD,
-                                    _receiver.COLLAR_OD) ** 2 + growth) / 2.0
+    # The asymmetric branches do not have a symmetric bounding box. The
+    # unchanged pump-facing lip locates each receiver on the wall's fore face.
     for suffix, (x, z) in zip(_dock.STATIONS, plate['holes']):
         name = f'pump-receiver-{suffix}'
-        record_seat(name, planes={'cx': x,
-                                 'y0': fore + _receiver.FRONT_LIP_Y[0],
-                                 'z0': z - receiver_radius},
+        record_seat(name, planes={'y0': fore + _receiver.FRONT_LIP_Y[0]},
                     got=box(dock_parts[name]))
         name = f'pump-receiver-keeper-{suffix}'
-        record_seat(name, planes={'cx': x,
-                                 'y0': fore + _receiver.KEEPER_Y[0],
+        record_seat(name, planes={'y0': fore + _receiver.KEEPER_Y[0],
                                  'z0': z + _dock.KEEPER_Z[0]},
                     got=box(dock_parts[name]))
-    # The frame's lower boundary is its four circular cuff supports. Their
-    # specified 3 mm ring stock is the enclosure's nominal structural wall.
-    name = 'pump-receiver-rear-support'
-    record_seat(name, planes={
-        'cx': (plate['holes'][0][0] + plate['holes'][-1][0]) / 2.0,
-        'y0': fore + _receiver.REAR_SUPPORT_Y[0],
-        'z0': min(z for _x, z in plate['holes']) - _receiver.WALL_BORE_D / 2.0 - _enc.wall},
-        got=box(dock_parts[name]))
+    record_fixed_return_seats(plate, dock_parts)
     interface = retention['interface']
     magnet_spec = _enc._retention
     columns = magnet_spec.column_stations(plate['holes'])
@@ -1273,22 +1307,24 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 # --- the fixed pump receiver wall -------------------------------------------
-# The fixed wall stands behind the stem flange's complete aft bearing. Upper
-# backing remains independent of the recessed seven-millimetre wet support.
-DOCK_WALL_FROM_SKIRT_BAND = 3.246
+# The fixed wall stands behind the stem flange's complete aft bearing. The
+# fitted pump tips and original valve ports locate the permanent wet parts.
 
 
-def collet_plate_spec(mcarry, tray_stations) -> dict:
+def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
     """Pump-dock declaration (the persisted Pack field retains its schema name)."""
-    holes, centers, branch_faces = [], [], []
+    holes, upper_ports, return_ports = [], {}, {}
     for name in sorted(ml.BARB_OF):
         (px, _py, pz), _axis = mcarry((ml.barb_station(name), (0., 0., 1.)))
-        holes.append((round(px,6), round(pz,6)))
-        point, axis = mcarry(ml.branch_port(name, ml.CARRIER_PARK))
-        centers.append(point[1] - axis[1]*ml.TEE_BRANCH)
-        branch_faces.append(mcarry(ml.carrier_collet_port(name, ml.CARRIER_PARK))[0][1])
+        x = round(px, 6)
+        holes.append((x, round(pz, 6)))
+        upper_valve, return_valve = ml.PUMP_VALVES[name]
+        for ports, valve, end in ((upper_ports, upper_valve, 'front'),
+                                  (return_ports, return_valve, 'back')):
+            point, axis = mcarry((ml.port(valve, end), ml.port_axis(valve, end)))
+            ports[str(x)] = {'point': tuple(point), 'axis': tuple(axis)}
     holes = sorted(holes)
-    fore = round(_enc.pump_skirt_band_aft_y(tray_stations) + DOCK_WALL_FROM_SKIRT_BAND,6)
+    fore = round(ml.pump_wall_fore_y(), 6)
     row = holes[0][1]
     return {"holes": tuple(holes), "fore_y": fore, "aft_y": fore+3.175,
             "wall_aft_y": fore+14.321,
@@ -1297,10 +1333,9 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "z0": _enc.z_seam, "z1": 218.85,
             "hole_d": _receiver.WALL_BORE_D,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1],6),
-            "fixed_tee_center_y": tuple(round(y,6) for y in centers),
-            "fixed_tee_mouth_y": tuple(round(y,6) for y in branch_faces),
-            "tee_saddle_x_limits": tuple(_enc._rail_channel_span(x,sign,"front")[2]
-                                         for x,sign in zip(_enc.interior_x(),(1.,-1.))),
+            "upper_ports": upper_ports, "return_ports": return_ports,
+            "valve_trays": tuple(valve_trays),
+            "fixture_print_bed_z": _enc.z_seam + _enc.slide_slip,
             "seated_tube_bottom_y": fore+_receiver.CUSTOMER_TIP_Y,
             "tube_bottom_y": fore+_receiver.CUSTOMER_STOP_Y,
             "assembly_state": "seated"}
@@ -1399,12 +1434,13 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 
 
 # What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
-# and the tee wall on the bench (`internal-plumbing.md` §3), so the piece arrives
+# and the receiver wall on the bench (`internal-plumbing.md` §3), so the piece arrives
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
 # The receiver bulkhead and fixed supports are integral with front-top.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-",
+                "pump-receiver-", "pump-return-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump, its two made-up chains, and the
 # three cap-cradled valves with their coils and port stubs. They sweep with the core,
@@ -4082,12 +4118,12 @@ def posed_manifold(carrier_offset: float) -> list:
          pose_manifold((child.obj.val() if hasattr(child.obj, "val") else child.obj).moved(
              cq.Location(child.loc.wrapped.Transformation()))),
          child.color)
-        for child in ml.build_assembly(carrier_offset).children
+        for child in ml.build_assembly(carrier_offset, include_fixed_wet=False).children
     ]
 
 
-# `WORLD_LIFT` preserves the fitted pump placement. Fixed hairpins hang below
-# their port axes; valve trays and tee saddles support the pack.
+# `WORLD_LIFT` preserves the fitted pump placement. The valve trays and
+# stationary plumbing fixtures support the pack at its original stations.
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
@@ -4154,8 +4190,7 @@ def build_pack() -> cq.Assembly:
             color = cq.Color(.92,.92,.89)
         a.add(solid, name=name, color=color)
         in_pack.append(name)
-    # Fixed hairpins follow the lower tee/inner-valve elevation. Valve trays
-    # and fixed tee saddles carry the stationary fittings.
+    # The fixed return links and valve trays retain the original port stations.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
                 planes={"z0": PACK_CROWN + _enc._interface.manifold_rise
@@ -4170,7 +4205,7 @@ def build_pack() -> cq.Assembly:
     # AND THE TWO PUMP STATIONS, on the faces the fold left each Kamoer's head standing its boss
     # off. Read straight off the pack the same way; the lower cradle and top clamp consume them.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
-    a.collet_plate = collet_plate_spec(mcarry, a.pump_trays)
+    a.collet_plate = collet_plate_spec(mcarry, a.pump_trays, a.valve_trays)
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
     # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the
@@ -5530,8 +5565,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         dock_parts = _dock.parts(box.pack.collet_plate)
         retention = _enc.pump_retention_features(box)
         for name, part in dock_parts.items():
-            a.add(part, name=name,
-                  color=_receiver.COLOR if "keeper" not in name and "support" not in name else M_PETGF_BLACK)
+            a.add(part, name=name, color=_dock.part_color(name))
         from _materials import M_NICKEL_PLATE, M_EPOXY_BLACK
         for side, features in retention.items():
             if side not in ("moving", "fixed"):
@@ -5626,10 +5660,10 @@ def report(a: cq.Assembly, clashes=None) -> None:
           f"gap {hi - lo:.2f}")
     crown = max(sh.zmax, co.zmax)
     pump_face = min(box(s).zmin for n, s in placed if n.endswith("-head"))
-    print(f"  base crown       z {crown:.2f}   spine hairpins       z {pack.zmin:.2f}   "
+    print(f"  base crown       z {crown:.2f}   manifold low face    z {pack.zmin:.2f}   "
           f"gap {pack.zmin - crown:.2f}")
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
-          f"crown — that band is what the hairpins reach, and they are aft of the pumps")
+          f"crown; the valve trays, receiver wall and dry fixtures support the manifold")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
@@ -5654,8 +5688,8 @@ def report(a: cq.Assembly, clashes=None) -> None:
         print(f"  {len(over)} pack bodies overhang the core by up to {reach:.2f} mm, "
               f"clearing its crown by {floor - fo.zmax:.2f}: "
               + ", ".join(sorted(n for n, _b in over)))
-    # Which base envelope lies below each lowest hairpin. This is a placement reading only: the
-    # hairpins carry no weight; the fixed valve trays hold the pack.
+    # Which base envelope lies below each lowest tube. The valve trays and
+    # dry fixtures carry the manifold, independently of the routed tubing.
     for n, s in sorted(placed):
         if not n.startswith("tube-fluid-"):
             continue

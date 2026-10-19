@@ -58,10 +58,12 @@ the Y seam's interlocking blocks and their roots, Z hooks and end stops, and the
 complete insert hosts and blind caps. The general 15% infill recipe does not
 establish solid material in those regions. Each fresh native review must verify
 their actual placement and emitted deposition as well as the show surfaces.
-The manual specification also identifies the six dock-lock hosts, keeper guides,
-magnet rails and bedding keys, rigid-stop roots, stem-flange shoulders and recessed
-pogo hosts in their source and prescribed print coordinates. Print the four small
-keepers and common rear support with six walls and 100% infill. Those settings and
+The manual specification also identifies the twelve dock-lock hosts, keeper guides,
+magnet rails and bedding keys, rigid-stop roots, stem-flange shoulders, recessed
+pogo hosts and the actual cut TPU mounting keys. Print the four station-specific
+keepers, four cradles and four covers with six walls and 100% infill. Their
+manufacturing exports already contain the print pose. Four M3×8 locks retain the
+keepers; eight shared M3×12 locks fasten the cradles and covers. Those settings and
 modifier boxes still require binding to each production native project and emitted
 path review; they do not establish support removal or physical load capacity.
 Each pump-dock job binds the current magnetic mounts and seating faces to its native
@@ -154,7 +156,7 @@ the v9 support review supplies no load-capacity or drop result.
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. This holder result does not qualify the cap's pogo connector. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Pump cartridge electrical contacts | The YYFKGCP halves mount in pump-cap and front-top seats, each recessed 0.125 mm for a 0.500 mm nominal contact-face gap. The [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) records its identified exports, nominal mating and conditional 0.200–0.800 mm compression range. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04; that result retains its own seat geometry. Full-enclosure compression, insert retention, continuity, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
 | RC62 ring-magnet print articles | The [C3 open-pocket selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json), [v4 lower-cradle result](enclosure/magnet-retention/v4/physical-result.json) and [H2C C3/V69 covering-layer acceptance](enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json) retain their recorded ring-pocket fit, rattle and first-layer scopes. They establish no SB443-IN mount fit, force, heat exposure or endurance. |
-| Permanent TPU pump dock and SB443-IN retention | The wall locates each receiver in X/Z, its flat interior keeper captures Y, and the bolted rear support backs the factory cuff. The complete dock's insertion/withdrawal force, positive magnet capture, retention under pressure, sealing, cleanability and repeated service cycles remain physical qualifications. The fixed receivers are not customer consumables. |
+| Permanent TPU pump dock and SB443-IN retention | The wall locates each asymmetric junction in X/Z and its flat interior keeper captures Y. Each rigid cradle and bolted cover support the four junction/return socket-stop locations and capture the TPU keys around straight tube links. The complete dock's insertion/withdrawal force, magnet capture, pressure retention, sealing, cleanability and repeated service cycles remain physical qualifications. The permanent wet parts and fixtures remain installed during customer pump replacement. |
 | Beduan sockets | The [upright hand-fit selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) sets V69 / Ø6.90 mm for production sockets. V70 / Ø7.00 mm is the conditional alternate for a valve or print orientation that does not fit V69 well. The shared seat retains its exterior envelope and zip-tie passages. The earlier Ø7.2 coupon's easy-insertion and positive tie-retention result retains its [bound scope](../fixtures/valve-socket-fit/physical-acceptance.json). Installed tie access, retention force and endurance remain full-assembly observations. |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
@@ -163,25 +165,26 @@ the v9 support review supplies no load-capacity or drop result.
 | C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
 | G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
 
-## Fixed tee support
+## Permanent junction and return support
 
-The registered tee envelope uses a conservative Ø16.5 fixed collar and Ø17.0 journal,
-leaving 0.25 mm radial running air. Derek's run span is 42.5 mm extended / 39.2 mm pressed,
-with 1.65 mm travel per run end. The branch measures **30.5 mm extended / 29.0 mm pressed**,
-with **1.5 mm travel**; only the small outermost ring moves. The branch face stations
-22.35 / 20.85 mm use the nominal Ø16.3 back-collar datum. The conservative clearance
-envelope is a separate dimension. [Measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json).
+Four asymmetric TPU junctions connect through straight links and four fixed TPU
+returns. The wall and flat keepers locate the junctions; the twelve rigid PET-GF
+keepers, cradles and covers retain the permanent wet assembly. Each cover shares
+its cradle's two M3×12 locks, so the retained wet body and cover cannot leave the
+bolted base together. Tube-end stops and the closed diagonal guides constrain
+withdrawal and bowing. Assembly clearance, loaded stop movement and permanent
+seal life remain properties of the complete built article.
 
-The four pump-side tees sit in open-aft rigid saddles and are retained by two
-six-inch ties per tee around their fixed collars. Their branch collets retain the
-permanent straight factory tails. The flat keepers retain the TPU receivers in the
-wall; customer pump withdrawal does not actuate the commercial collets.
-Actual tie access, collar bearing, fixed-plumbing support and simultaneous stem
-insertion and withdrawal remain full-assembly observations.
+The two purchased PP0208E tees form the source crossbar. Their registered envelope
+uses a conservative Ø16.5 fixed collar and Ø17.0 journal. The received-part
+[run and branch measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json)
+retain their commercial-fitting scope. Customer pump withdrawal does not actuate
+those collets. See the [permanent dock](pump-dock/README.md) for its station-specific
+manufacturing outputs, fixture load paths and assembly order.
 
 ## What the trial establishes
 
-The complete printed assembly establishes valve and fixed-tee tie installation;
+The complete printed assembly establishes valve and permanent wet-fixture installation;
 simultaneous four-stem insertion and withdrawal; permanent-receiver capture and
 sealing; pump mounting, connectors and primed operation; and shell
 closure. G Ganen screw/washer seating and rubber compression, DIGITEN arrow orientation, and
