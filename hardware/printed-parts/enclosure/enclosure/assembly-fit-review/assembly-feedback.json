@@ -69,7 +69,8 @@
     "black": "https://www.amazon.com/dp/B0FK5HH8H1",
     "white": "https://www.amazon.com/dp/B0FK5G1Q1J",
     "per_25_ft_spool_usd_before_tax": 11.99,
-    "purchased": false,
+    "purchased": true,
+    "purchase_record": "hardware/ledger/purchases.md",
     "stranded_runs": "C14 solder-tab pigtails, SJOOW compressor cord, pump lead, protective-earth bonds and JST/Faston/removable-display harnesses."
   },
   "other_agent_review": {
