@@ -6,8 +6,9 @@ that line's own CORRIDOR: the run swept at the project's ⌀[7.5](PORT_HOLE_DIAM
 standard where it crosses shell material, rather than a circle the line has to hold a
 straight through (`cut_line_corridors`). The loose passage is the same either way —
 it is radial to the tube's own path — and what a corner costs stops being the hole's
-shape. Through a bag pocket's flat ±Y wall the opening is that corridor carried square
-through the wall (`pocket_wall_shadows`), so both faces meet every jamb at a right angle.
+shape. Through a bag pocket's flat ±Y wall the opening is the rectangle bounding that
+corridor's crossing, cut square through the wall (`pocket_wall_shadows`), so both faces meet
+every jamb at a right angle.
 Reservoir A's opening is in its pocket's −Y wall, onto the port lane; reservoir B's is in
 its +Y wall, onto the west lane; and the CO2's is the port lane run the other way, its
 line coming DOWN from the cap into a bore that runs the whole reach in.
@@ -24,7 +25,6 @@ base, and what the slots carry is made up on that base's own picks.
 """
 
 import math
-import cadquery as cq
 import fits
 
 from _cold_core_interface import (
@@ -216,11 +216,12 @@ def pocket_wall_shadows(tool):
     """Each place `tool` passes through a bag pocket's flat ±Y wall, as `(opening, region)`.
 
     A draw is already in its stock arc where it crosses its wall. The opening is the
-    corridor's own section on each face, carried along the wall's normal through the wall
-    and fused: both faces meet every jamb at a right angle, the floor and crown keep the
-    corridor's heights, and the whole ⌀[7.5](PORT_HOLE_DIAMETER) corridor still passes.
-    `region` is the box the opening replaces the corridor in, so no swept face is left on
-    the wall."""
+    rectangle that bounds the corridor's whole crossing, cut along the wall's normal through
+    the wall: both faces meet every jamb at a right angle, the floor and crown keep the
+    corridor's heights, the x span is the corridor's own span across the wall, and the whole
+    ⌀[7.5](PORT_HOLE_DIAMETER) corridor passes inside it. Its faces are all planes, so the
+    shell's cuts after it keep merging coplanar faces cleanly. `region` is the same box: the
+    corridor is replaced inside it, so no swept face is left on the wall."""
     from _reservoir_pocket_walls import centerward_corner_x
 
     run = (centerward_corner_x, bag_pocket_far_inner_x - bag_pocket_corner_inner_radius)
@@ -242,17 +243,8 @@ def pocket_wall_shadows(tool):
             c = crossing.BoundingBox()
             if c.ymin > min(faces) or c.ymax < max(faces):
                 continue                         # meets the wall without passing through it
-            opening = None
-            for y in faces:
-                plane = cq.Face.makePlane(100.0, 100.0, cq.Vector(c.center.x, y, c.center.z),
-                                          cq.Vector(0.0, 1.0, 0.0))
-                for face in crossing.intersect(plane).Faces():
-                    prism = cq.Solid.extrudeLinear(
-                        face.outerWire(), face.innerWires(),
-                        cq.Vector(0.0, slab.ylen, 0.0)).translate((0.0, slab.ymin - y, 0.0))
-                    opening = prism if opening is None else opening.fuse(prism)
-            region = make_box((c.xmin, c.xmax), (slab.ymin, slab.ymax), (c.zmin, c.zmax))
-            found.append((opening, region.val()))
+            region = make_box((c.xmin, c.xmax), (slab.ymin, slab.ymax), (c.zmin, c.zmax)).val()
+            found.append((region, region))
     return found
 
 
@@ -271,8 +263,8 @@ def cut_line_corridors(foam_shell, gives_way):
     `lldpe_tube_od` line. Mask the clearance during the foam pour.
 
     THROUGH A BAG POCKET'S FLAT ±Y WALL the opening is `pocket_wall_shadows`: the draw is
-    already in its stock arc there, and that crossing carried square through the wall keeps
-    every jamb at a right angle on both faces with the whole corridor inside it.
+    already in its stock arc there, and the rectangle bounding that crossing, cut square through
+    the wall, keeps every jamb at a right angle on both faces with the whole corridor inside it.
 
     `gives_way` IS THE WHOLE FENCE ON THIS, and it is a list of bodies rather than a region:
     each corridor is met with them and the shell is cut by what comes back, so a line opens
