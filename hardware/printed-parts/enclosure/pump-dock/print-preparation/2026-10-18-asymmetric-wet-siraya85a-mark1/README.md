@@ -35,15 +35,15 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 
 | Editable project | Native filament (g) | Native time (h:mm:ss) |
 | --- | ---: | ---: |
-| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.111 | 1:51:10 |
+| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.108 | 1:51:11 |
 | [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.664 | 1:54:51 |
-| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.218 | 1:51:46 |
+| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.216 | 1:51:46 |
 | [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:06 |
-| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.218 | 1:51:46 |
+| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.216 | 1:51:46 |
 | [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:06 |
-| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.110 | 1:51:07 |
+| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.107 | 1:51:03 |
 | [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.662 | 1:54:50 |
-| **All eight** | **57.307** | **14:27:41** |
+| **All eight** | **57.297** | **14:27:39** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and
 project hashes are in the [native review](native-review.json). They do not include

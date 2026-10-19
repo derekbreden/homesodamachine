@@ -18,7 +18,7 @@ The front flanks are continuous across the fixed dock room.
 The [eight one-object native wet preparations](pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/README.md)
 use Siraya Tech Flex TPU85A Clear on the retained Mark1/right 0.6 mm Engineering
 Plate recipe. All eight editable projects have native slices and emitted-path
-reviews; their estimates total 14.462 machine hours and 57.307 g including support
+reviews; their estimates total 14.461 machine hours and 57.297 g including support
 and brim. No job has been sent to a printer. The
 [archived four-straight-receiver preparation](pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/README.md)
 retains its identified geometry and multi-object plate scope.
