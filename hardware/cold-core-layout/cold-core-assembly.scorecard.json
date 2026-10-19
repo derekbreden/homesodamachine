@@ -59,7 +59,7 @@
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
    "status": "pass",
-   "value": "19/19 corners at stock",
+   "value": "20/20 corners at stock",
    "target": "14.00 mm",
    "detail": [],
    "active": true
@@ -212,7 +212,7 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 316.23,
+   "length": 318.1,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
@@ -257,10 +257,16 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
+    },
+    {
+     "at": 7,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.323
+    "detour": 1.331
    }
   },
   {

@@ -61,7 +61,7 @@
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 2.911",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 4.198",
-    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 9.922",
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 10.137",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "funnel-drain-union: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 17.360",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 21.725",
@@ -286,7 +286,7 @@
    "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
    "detail": [
     "`ground-stack ceiling column` x 92.250..98.500, y 334.800..342.800, z 342.044..348.000",
-    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 319.300..348.800, z 317.400..327.200",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 318.200..348.800, z 317.400..327.200",
     "`relay-1 y=258.8 ceiling column` x 96.250..98.500, y 254.800..262.800, z 327.200..348.000",
     "`relay-1 y=324.8 ceiling column` x 96.250..98.500, y 320.800..328.800, z 327.200..348.000"
    ],
@@ -591,15 +591,13 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "41 print-down slope(s): 24 under a body, 7 within 1 mm of one, 2 in a kept room, 8 could be columns",
+   "value": "38 print-down slope(s): 24 under a body, 6 within 1 mm of one, 2 in a kept room, 6 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
-    "enclosure-back-top: a 45\u00b0 face at x 86.56..92.88 y 465.30..465.65 z 251.60..251.95: a column of 13 mm\u00b3 rising 103.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=89.699 y=465.475 z=251.778\nclick: x=89.699 y=465.475 z=251.778",
+    "enclosure-back-top: a 45\u00b0 face at x 96.25..98.50 y 240.55..250.05 z 327.95..330.20: a column of 147 mm\u00b3 rising 12.8 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=97.375 y=245.300 z=329.071\nclick: x=97.375 y=245.300 z=329.071",
+    "enclosure-back-top: a 45\u00b0 face at x 87.67..92.88 y 465.30..465.65 z 251.60..251.95: a column of 69 mm\u00b3 rising 48.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=90.340 y=465.472 z=251.776\nclick: x=90.340 y=465.472 z=251.776",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 258.56..261.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.060 z=309.411\nclick: x=-94.500 y=260.060 z=309.411",
-    "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 453.30..465.15 z 261.65..293.25: a column of 1187 mm\u00b3 rising 29.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.192 y=459.026 z=276.918\nclick: x=-61.192 y=459.026 z=276.918",
-    "enclosure-back-top: a 45\u00b0 face at x -30.23..-20.36 y 464.19..465.15 z 321.56..322.52: a column of 182 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-25.385 y=464.667 z=322.033\nclick: x=-25.385 y=464.667 z=322.033",
-    "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.19 y 464.19..465.15 z 321.56..322.52: a column of 87 mm\u00b3 rising 26.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.035 y=464.667 z=322.033\nclick: x=-56.035 y=464.667 z=322.033",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.01..315.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=313.510 z=317.361\nclick: x=-92.850 y=313.510 z=317.361",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361"
    ],
@@ -756,6 +754,36 @@
    "active": true
   },
   {
+   "id": "connected-pieces",
+   "label": "Each printed enclosure piece is one valid connected solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6 connected pieces",
+   "target": "one valid solid per printed piece",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
+   "kind": "gate",
+   "status": "pass",
+   "value": "walls inside `outer`; disposal letters raised 0.6 mm",
+   "target": "only the disposal letters extend past the box's exterior",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "handholds",
    "label": "Both handholds open through the floor and keep their lifting sections and inner walls",
    "kind": "gate",
@@ -817,8 +845,7 @@
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "data-ring: no seat states where it stands",
-    "data-ring-word: no seat states where it stands",
-    "funnel-frame: cy was asked for 164.5500 and reads 165.5750 \u2014 1.02e+00 mm off"
+    "data-ring-word: no seat states where it stands"
    ],
    "active": false
   },
