@@ -111,7 +111,7 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-four_inch_ties_per_build = 24
+four_inch_ties_per_build = 23
 # Meter, water-pump chains, regulator, check and flavor-A cap post.
 six_inch_ties_per_build = 7
 
@@ -448,8 +448,10 @@ vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 # reaches `wall`, and both are the box's own three millimetres.
 digiten_tie_loop = _enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP)
 # EVERY RIB HOLDING A RUN IS BORED FOR THE ONE STOCK, which is why the row quotes one figure for
-# all of them rather than reading them apiece.
-_run_seats = {round(station[3], 6) for station in _f.pack["tube_anchors"]}
+# all of them rather than reading them apiece. A rib an anchor cap closes takes no tie, so it
+# quotes no loop (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`).
+_run_seats = {round(station[3], 6) for station in _f.pack["tube_anchors"]
+              if tuple(station[5:6]) != ("cap",)}
 if len(_run_seats) != 1:
     raise ValueError(
         f"the box's run anchors are bored at {sorted(_run_seats)} and bom.md §11 quotes one loop "
@@ -529,7 +531,7 @@ def main(*, only_bom=False):
         # names `_cold_core_interface` and `_internal_plumbing_sync` write elsewhere, so
         # `docgen.lint` holds this row against those pages rather than letting the two drift.
         "DIGITEN_LOOP": f"{digiten_tie_loop:.3g} mm",
-        "CARB_1_LOOP": f"{run_tie_loop:.3g} mm",
+        "TUBE_RIB_LOOP": f"{run_tie_loop:.3g} mm",
         "WATER_3_POST_LOOP": f"{cap_side_anchor_tie_loop('water-3'):.3g} mm",
         "FLUID_18_POST_LOOP": f"{cap_side_anchor_tie_loop('fluid-18'):.3g} mm",
         "SPLIT_LOOP": f"{body_tie_loops['water-split']:.3g} mm",

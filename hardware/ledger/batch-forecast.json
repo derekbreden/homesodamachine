@@ -3680,7 +3680,7 @@
       "bomLines": [
         219
       ],
-      "perUnit": 24.0,
+      "perUnit": 23.0,
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3696,7 +3696,7 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0BC1VH4XB",
       "inventory": {
-        "onHand": 176.0,
+        "onHand": 177.0,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
@@ -3706,7 +3706,7 @@
             "line": 431
           }
         ],
-        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 24 is deducted for development; the remaining stock is uncounted and marked *."
+        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 23 is deducted for development; the remaining stock is uncounted and marked *."
       }
     },
     {

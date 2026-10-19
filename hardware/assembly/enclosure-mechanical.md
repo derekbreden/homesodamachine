@@ -121,7 +121,7 @@ Use locally solid deposition through these hosts and their roots as specified in
 that review. Installed fit, pullout and assembled drop performance remain physical
 qualification items.
 
-**Back-top is populated inverted on the bench, ceiling down.** Its ceiling is its own slab, and every anchor under it — the flow meter's two, the carb, CO2 and regulator ribs — is an upward-opening cradle with the piece on its back: the body drops in, the zip tie goes round, and the piece comes upright with everything riding it.
+**Back-top is populated inverted on the bench, ceiling down.** Its ceiling is its own slab, and every anchor under it — the flow meter's two, the carb, CO2 and regulator ribs — is an upward-opening cradle with the piece on its back: the body drops in, the zip tie goes round (on the carb rib, the [anchor cap](/hardware/printed-parts/enclosure/anchor-cap/README.md) presses on instead), and the piece comes upright with everything riding it.
 
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
 

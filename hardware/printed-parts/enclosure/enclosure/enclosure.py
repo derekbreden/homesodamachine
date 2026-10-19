@@ -174,6 +174,7 @@ import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
 import _grip_interface
+import _anchor_cap_interface as _anchor_cap
 import dock_retention as _retention
 
 # Shell parameters.
@@ -5054,8 +5055,9 @@ def _ceiling_tie_reliefs(box, lane):
             pockets.append(_ybox(x_axis - reach, x_axis + reach,
                                  mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0,
                                  face - 1.0, roof))
-    for mid, u, n, seat_r, *_stand in (box.pack.tube_anchors or ()):
-        if tuple(int(round(c)) for c in n) != (0, 0, 1):
+    for station in (box.pack.tube_anchors or ()):
+        mid, u, n, seat_r = station[:4]
+        if tuple(int(round(c)) for c in n) != (0, 0, 1) or anchor_capped(station):
             continue
         origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
         band = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
@@ -5064,6 +5066,29 @@ def _ceiling_tie_reliefs(box, lane):
                                    crown + tie_t + tie_cav_buffer, 0.0,
                                    min(lane - mid[2], crown + tube_anchor_cavity_depth
                                        + fits.supported_surface)))
+    return pockets
+
+
+def _ceiling_cap_reliefs(box, lane):
+    """The wing room over each capped anchor whose ceiling stands inside the wings' reach: a
+    slot beside each flank as wide as a wing and the spread its lip makes passing the flank,
+    from the ceiling's face to `HEADROOM` over the wing tops (`_anchor_cap_interface.wing_room`).
+    The rib is fused afterwards and its flanks run on up the slots' inner walls, so a lip rides
+    one plane from the rib's foot to its window. A ceiling that clears the wings gives up
+    nothing."""
+    face = back_top_ceiling_face()
+    pockets = []
+    for station in (box.pack.tube_anchors or ()):
+        if not anchor_capped(station):
+            continue
+        mid, u, n = station[:3]
+        if mid[2] + _anchor_cap.SLOT_TOP > lane:
+            raise ValueError(
+                f"_ceiling_cap_reliefs: the anchor cap at ({mid[0]:.2f}, {mid[1]:.2f}, "
+                f"{mid[2]:.2f}) needs its wing room to z {mid[2] + _anchor_cap.SLOT_TOP:.2f}, past "
+                f"the lane at {lane:.2f} and into the ceiling's skin. Route the tube further off "
+                f"the ceiling, or close this anchor with a zip tie.")
+        pockets.extend(_anchor_cap.wing_room(_anchor_cap.Frame(mid, u, n), face - mid[2]))
     return pockets
 
 
@@ -5138,7 +5163,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
         if roof <= face + stated_bound_tol:
             continue
         stock = stock.cut(_ybox(x0, x1, y0, y1, face - 1.0, roof))
-    for pocket in _ceiling_tie_reliefs(box, lane):
+    for pocket in _ceiling_tie_reliefs(box, lane) + _ceiling_cap_reliefs(box, lane):
         stock = stock.cut(pocket)
     channel = _ceiling_tie_channel_relief(box, lane)
     if channel is not None:
@@ -7662,15 +7687,17 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     carb-1 tube in its rib      [39.7 mm](LOOP_CARB_1)
+#     fluid-28 tube in its rib    [39.7 mm](LOOP_TUBE_RIB)
 #     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
 #     WR1110 barrel in its rib    [83.2 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
 #
 # A 4" tie closes about 69 mm of loop and takes the tube rib; the meter and regulator take the
-# 6", which closes about 110. The ASSE barrel takes the 8", and an 8" tie is a 50 lb
-# tie at 0.19" where the rest are 18 lb at 0.1" — so that anchor's cavity, alone on this box, is
-# cut to the wider zip tie. Every other cavity here takes the same 0.1" section at any length.
+# 6", which closes about 110. The carbonated-water rib under back-top's ceiling takes no tie at
+# all: an anchor cap closes it (`_capped_anchor`). The ASSE barrel takes the 8", and an 8" tie is
+# a 50 lb tie at 0.19" where the rest are 18 lb at 0.1" — so that anchor's cavity, alone on this
+# box, is cut to the wider zip tie. Every other cavity here takes the same 0.1" section at any
+# length.
 tie_w = 2.5           # the 18 lb zip tie, across its width — 0.1"
 tie_wide_w = 4.826    # and the 50 lb zip tie's — 0.19"
 tie_t = 1.0           # both, through the thickness
@@ -8443,7 +8470,11 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
 
     THE ZIP TIE CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
-    the bore, and the bore is what says where the tube is."""
+    the bore, and the bore is what says where the tube is.
+
+    A STATION AN ANCHOR CAP CLOSES TAKES NONE OF THE TIE'S ROOM (`anchor_capped`). Its rib is one
+    solid post with a catch window in each flank (`_capped_anchor`), and the cap is the other
+    half of the pipe."""
     if not stations:
         return solid
     for station in stations:
@@ -8456,6 +8487,9 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
                 f"one of the box's six faces, and that face is what its rib stops on.")
         sign = 1.0 if face % 2 else -1.0
         b_face = (roots[face] - mid[face // 2]) * sign      # the face this piece presents
+        if anchor_capped(station):
+            solid = _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up)
+            continue
         b_lane = (lane[face] - mid[face // 2]) * sign       # and the box's own, at or outboard of it
         reach = seat_r + wall              # the lip's outer edge
         b_crown = seat_r + wall            # one `wall` over the bore's own crown
@@ -8548,6 +8582,49 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             seat = _supported_cut(seat, up)
         rib = rib.cut(seat)
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
+    return solid
+
+
+def anchor_capped(station):
+    """Whether an anchor station is closed by an anchor cap rather than a zip tie: its sixth
+    entry, carried from the site's stated closure by `enclosure_assembly.stand_anchors`."""
+    return len(station) > 5 and station[5] == "cap"
+
+
+def _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up):
+    """The rib an anchor cap closes (`_anchor_cap_interface`): the tie rib's half pipe as one
+    solid post from the face it roots on to the axis plane, a catch window in each flank, and
+    no room for a tie anywhere.
+
+    THE CAP IS CUT FOR ONE SEAT AND ONE BED. Its section is struck for the 1/4" tube, so a
+    station seating anything else raises. Its windows' bearing faces print as bridges only on a
+    rib that stands up off its piece's bed, rooted on the face the piece prints on, so a rib
+    rooted anywhere else raises too. Where the ceiling stands inside the wings' reach it has
+    already given them their room (`_ceiling_cap_reliefs`), and the windows are cut once the
+    rib is fused, through rib and ceiling alike.
+
+    A piece that owns only part of the rib builds none of it, like every other station here."""
+    mid, u, n, seat_r = station[:4]
+    frame = _anchor_cap.Frame(mid, u, n)
+    half = _anchor_cap.RIB_LEN / 2.0
+    span = [frame.point(a, b, s) for s in (-half, half) for b in (0.0, b_face)
+            for a in (-_anchor_cap.RIB_R, _anchor_cap.RIB_R)]
+    if not (y0 <= min(p[1] for p in span) and max(p[1] for p in span) <= y1
+            and z0 <= min(p[2] for p in span) and max(p[2] for p in span) <= z1):
+        return solid
+    if abs(seat_r - _anchor_cap.SEAT_R) > 1e-6:
+        raise ValueError(
+            f"_capped_anchor: the anchor at ({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f}) seats "
+            f"r {seat_r:.3f} and the anchor cap is cut for the 1/4\" tube's {_anchor_cap.SEAT_R:.3f}. "
+            f"Close it with a zip tie, or cut a cap for its seat.")
+    if n[2] * up > -1.0 + 1e-6:
+        raise ValueError(
+            f"_capped_anchor: the anchor at ({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f}) roots on "
+            f"{tuple(n)}, which is not the face its piece prints on; its windows' bearing faces "
+            f"would print as overhangs. Close it with a zip tie.")
+    solid = solid.fuse(_anchor_cap.rib(frame, b_face).clean())
+    for window in _anchor_cap.windows(frame):
+        solid = solid.cut(window)
     return solid
 
 
@@ -9984,12 +10061,14 @@ def main():
     _report_split(pieces, core)
 
     bo = box.outer
-    # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
-    # holding a RUN is bored for the one stock; the ribs holding a BODY are bored for whatever
-    # section that body offers, so the radii are as many as the pack has kinds of seat. The
-    # smallest is the runs' own and the largest is the widest body's, and a zip tie cut to the
-    # largest closes on every one of them — which is what the table quotes.
-    seats = sorted({round(s[3], 6) for s in (box.pack.tube_anchors or ())})
+    # The loops this box's ribs close, read off the seats the pack actually bored for a zip tie;
+    # a capped rib takes no tie. Every rib holding a RUN is bored for the one stock; the ribs
+    # holding a BODY are bored for whatever section that body offers, so the radii are as many
+    # as the pack has kinds of seat. The smallest is the runs' own and the largest is the widest
+    # body's, and a zip tie cut to the largest closes on every one of them — which is what the
+    # table quotes.
+    seats = sorted({round(s[3], 6) for s in (box.pack.tube_anchors or ())
+                    if not anchor_capped(s)})
     if not seats:
         raise ValueError(
             "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "
@@ -10060,7 +10139,15 @@ def main():
         "RAIL_RUN_FRONT": f"{_borne(front_runs[0]):.0f} mm",
         "RAIL_RUN_BACK": f"{back_len[-1]:.0f} mm",
         "RAIL_RUN_BACK_W": f"{back_len[0]:.0f} mm",
-        "LOOP_CARB_1": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
+        "LOOP_TUBE_RIB": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
+        "CAP_RIB_LEN": f"{_anchor_cap.RIB_LEN:.4g} mm",
+        "CAP_WINDOW_LEN": f"{_anchor_cap.WINDOW_LEN:.4g} mm",
+        "CAP_WINDOW_DEPTH": f"{_anchor_cap.WINDOW_DEPTH:.4g} mm",
+        "CAP_WINDOW_B0": f"{_anchor_cap.WINDOW_B0:.3g} mm",
+        "CAP_WINDOW_B1": f"{_anchor_cap.WINDOW_B1:.4g} mm",
+        "CAP_RIB_CHAMFER": f"{_anchor_cap.RIB_CHAMFER:g} mm",
+        "CAP_WING_TOP": f"{_anchor_cap.WING_TOP:g} mm",
+        "CAP_HEADROOM": f"{_anchor_cap.HEADROOM:g} mm",
         "LOOP_WR1110": f"{tube_anchor_tie_loop(seats[-1]):.3g} mm",
         "LOOP_DIGITEN": f"{tube_anchor_tie_loop(meter[2]):.3g} mm",
         "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),

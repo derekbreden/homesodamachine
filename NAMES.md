@@ -75,7 +75,7 @@ they became.
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
 | **boss** | material round a socket that a part fastens into — a post, or a plate one socket thick | |
 | **barbed lip** | the catch on a telescoping seam's lip that holds the seam shut against pulling apart, so the joint resists separation along its own axis rather than leaving that to the screws crossing it | snap, snap-fit lip, detent, catch |
-| **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
+| **anchor** | a printed feature a body seats in and a zip tie or an anchor cap closes over | anchor point |
 | **zip tie** | the fastener that closes over an anchor | strap |
 | **cable clip** | the printed wall-integrated S-channel that routes and strain-relieves a cable; its embedment sets how far it stands proud | cable organizer, cord clip |
 | **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
@@ -104,6 +104,7 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | Name | Point at | Not |
 | --- | --- | --- |
 | **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
+| **anchor cap** | the printed half pipe pressed on over a tube in its anchor, its two wings' lips catching a window in each of the rib's flanks, closing the anchor in place of a zip tie | tube clip, snap cap, saddle |
 | **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier, each hung on a post of front-top's | cosmetic hole covering plate |
 | **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |
 | **Industrial** | the faucet style with simple cylinders and crisp, pronounced shoulders | Stepped |
