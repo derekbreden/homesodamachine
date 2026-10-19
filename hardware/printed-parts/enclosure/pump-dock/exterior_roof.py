@@ -91,8 +91,8 @@ def selfsupport_exterior_cap(arc_segment,radius=2.15,*,print_angle=-45.,blend=.8
         f=1.
         # A tiny outward allowance covers accepted sub-section interpolation.
         shift=cq.Vector(0,0,crown_air*f)
-        tri=[pm+cq.Vector(-tangent_overlap,0,-tangent_overlap)+shift,
-             pp+cq.Vector(tangent_overlap,0,-tangent_overlap)+shift,apex+shift]
+        tri=[pm+cq.Vector(-tangent_overlap,0,-2*tangent_overlap)+shift,
+             pp+cq.Vector(tangent_overlap,0,-2*tangent_overlap)+shift,apex+shift]
         row={'y':y,'support':[hp,hm],'tri':tri,'top':top,'fade':f}
         cache[y]=row;return row
     # Avoid the exact swept end faces while finding the fade endpoint crown.

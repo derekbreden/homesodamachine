@@ -112,6 +112,38 @@ def button_neck(center,side,*,installed=False,clearance=0.,build_direction=(0.,-
     return _button_support(shank,center,side,build_direction,installed=installed)
 
 
+def _head_supported_sides(head,center,side,build_direction,*,installed=False,clearance=0.):
+    """Clip lower head wings to45degree faces rooted on the actual shank.
+
+    The shank, head back station and pull-through lead remain separate. The
+    two planes open upward in the print frame; their roots are the shank's
+    exact intersection with the existing underside at the head back.
+    """
+    build=cq.Vector(*build_direction).normalized();escape=cq.Vector(side,0,0)
+    b=cq.Vector(0,build.y,build.z).normalized();t=cq.Vector(0,b.z,-b.y)
+    air=(-KEY_SEAT_SQUEEZE if installed else 0.)+clearance
+    a=KEY_NECK_U+air;top=KEY_NECK_TOP+air*2**.5
+    poly=[(-a,KEY_NECK_BOTTOM-air),(a,KEY_NECK_BOTTOM-air),(a,top-a),(0,top),(-a,top-a)]
+    c=build.dot(escape);h=(1-c*c)**.5
+    normal=build*(h+c)-escape
+    hub=cq.Vector(0,center[1],center[2]);q=hub+escape*KEY_ROOT_W
+    level=normal.dot(q)-h*6.
+    if installed:level+=KEY_SEAT_SQUEEZE*normal.Length
+    floor=(level-normal.dot(hub+escape*KEY_BACK_W))/normal.dot(b)
+    ends=[]
+    for p0,p1 in zip(poly,poly[1:]+poly[:1]):
+        aa=cq.Vector(0,*p0);bb=cq.Vector(0,*p1);ba=aa.dot(b);bv=bb.dot(b)
+        if (ba-floor)*(bv-floor)<=0 and abs(bv-ba)>1e-9:
+            ends.append((aa+(bb-aa)*((floor-ba)/(bv-ba))).dot(t))
+    # A0.20mm inward overlap leaves a finite join to the complete shank.
+    lo,hi=min(ends)+.20,max(ends)-.20
+    for inward,rhs in ((b+t,floor+lo),(b-t,floor-hi)):
+        origin=hub+inward*(rhs/inward.Length**2)
+        keep=cq.Workplane(cq.Plane(origin=origin,xDir=escape,normal=inward)).box(400,400,400,centered=(True,True,False)).val()
+        head=head.intersect(keep)
+    return head.clean()
+
+
 def button(center,side,*,installed=False,clearance=0.,build_direction=(0.,-2**-.5,2**-.5)):
     """A local pull-through head with a45degree print-supported underside."""
     _,u,v=center
@@ -119,6 +151,7 @@ def button(center,side,*,installed=False,clearance=0.,build_direction=(0.,-2**-.
     back=[(-6-clearance,-7-clearance),(6+clearance,-7-clearance),(6+clearance,KEY_HEAD_TOP+clearance),(-6-clearance,KEY_HEAD_TOP+clearance)]
     tip=[(-4.5-clearance,-5.5-clearance),(4.5+clearance,-5.5-clearance),(4.5+clearance,KEY_TIP_TOP+clearance),(-4.5-clearance,KEY_TIP_TOP+clearance)]
     head=cq.Solid.makeLoft([_profile(KEY_BACK_W-clearance,u,v,back,side),_profile(KEY_FRONT_W+clearance,u,v,tip,side)],True)
+    head=_head_supported_sides(head,center,side,build_direction,installed=installed,clearance=clearance)
     return _button_support(shank.fuse(head),center,side,build_direction,installed=installed)
 
 
@@ -135,16 +168,6 @@ def _geometry(layout,*,installed=False,mount_side=-1):
     seal=plumbing.TUBE_OD if installed else SEAL_BORE_D
     od=math.sqrt(BODY_OD**2+plumbing.TUBE_OD**2-SEAL_BORE_D**2) if installed else BODY_OD
     outer=_sweep(od,local['flow_segments'])
-    # A6mm-wide inner cheek fills the tiny intrados notch. Its lower chord
-    # stays buried in the round sweep; it adds no underside ledge or stock
-    # beneath the horizontal return near the condenser.
-    for segment in (local['flow_segments'][1],local['flow_segments'][3]):
-        start=cq.Vector(*segment['start_mm']);end=cq.Vector(*segment['end_mm'])
-        t=cq.Vector(*segment['start_tangent'])
-        center=start+cq.Vector(0,-t.z,t.y)*segment['radius_mm']
-        pts=[cq.Vector(-3,p.y,p.z) for p in (center,start,end)]
-        wire=cq.Wire.makePolygon(pts+[pts[0]])
-        outer=outer.fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(6,0,0)))
     void=_sweep(plumbing.TUBE_ID,local['flow_segments'])
     void=void.fuse(cached_flow_cap(local['flow_segments'][3],plumbing.TUBE_ID/2))
     for port in ('input','output'):

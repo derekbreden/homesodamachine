@@ -64,6 +64,7 @@ GUIDE_INNER_X = 9.25
 GUIDE_OUTER_X = 16.4
 GUIDE_Z = (-11.0, 8.5)
 RECESS_Z = (-14.0, 40.0)
+KEY_FLOOR_BED_TOE = 1.5
 
 
 def box(x0, x1, y0, y1, z0, z1):
@@ -173,8 +174,12 @@ def _key_seat_cut(wall_fore_y,x,z):
         cx=x+sign*(receiver.KEY_ROOT_X+receiver.KEY_OUTER_X)/2
         half=3.+fits.running
         top=z+receiver.KEY_TOP_Z+fits.running*2**.5
+        # End the crown at the guide's open inner face. An apex centred on
+        # the ear leaves a triangular skin beside that face.
+        apex=x+sign*GUIDE_INNER_X
+        roof=top+abs(cx-apex)
         pts=[(cx-half,z+receiver.KEY_BASE_Z-fits.running),(cx+half,z+receiver.KEY_BASE_Z-fits.running),
-             (cx+half,top-half),(cx,top),(cx-half,top-half)]
+             (cx+half,top-half),(apex,roof),(cx-half,top-half)]
         y0=wall_fore_y+receiver.REAR_COLLAR_Y[0]-.01
         y1=wall_fore_y+receiver.REAR_COLLAR_Y[1]+3
         wire=cq.Wire.makePolygon([cq.Vector(a,y0,b) for a,b in pts]+[cq.Vector(pts[0][0],y0,pts[0][1])])
@@ -256,6 +261,33 @@ def _driver_lane(declaration,build,point_transform=None):
     return _axis_crown(FACTORY_DRIVER_ACCESS_D/2,start.toTuple(),end.toTuple(),build)
 
 
+def _guard_driver_join(plate,x):
+    """Open the outer driver roof into the adjacent magnet guard mouth."""
+    declaration=factory_driver_axes(plate,x)[1]
+    tip=cq.Vector(*declaration['tip']);axis=cq.Vector(*declaration['axis'])
+    side=mount_side(x);build=cq.Vector(0,0,1)
+    crown=(build-axis*axis.dot(build)).normalized()
+    across=axis.cross(crown).normalized()
+    if across.x*side<0:across=across*-1
+    radius=FACTORY_DRIVER_ACCESS_D/2
+    tangent=tip+(across+crown)*(radius/2**.5)
+    peak=tip+crown*radius*2**.5
+    normal=(peak-tangent).cross(axis).normalized()
+    if normal.z<0:normal=normal*-1
+    interface=retention.interface(plate['holes'],plate['fore_y']-fits.running,plate['fore_y'])
+    column=next(q for q in retention.column_stations(plate['holes']) if q[0]*x>0)
+    guard=retention.guard_clearance(interface,*column).BoundingBox()
+    edge=guard.xmax if side>0 else guard.xmin
+    inner=edge-side*fits.running
+    center=tip.x+axis.x*((guard.ymin-tip.y)/axis.y)
+    xmin,xmax=sorted((inner,center+side*radius))
+    window=box(xmin,xmax,plate['fore_y']-.01,guard.ymax,0,350)
+    origin=normal*normal.dot(tangent)
+    below=cq.Workplane(cq.Plane(origin=origin,xDir=axis,normal=-normal)).box(
+        500,500,500,centered=(True,True,False)).val()
+    return window.intersect(below).clean()
+
+
 def fixed_features(plate):
     """Wall seats/flat keepers plus permanent anchors for the loose cradles."""
     fore=plate['fore_y'];stocks=[];cuts=[wall_recess(plate)]
@@ -285,12 +317,12 @@ def fixed_features(plate):
                        _bed_corbel(fx-5,fx+5,root,fy,fz-5,plate['z0']+fits.supported_surface)))
         for index,(ax,ay,az) in enumerate((front,aft)):
             py0,py1=(ay,ay+fits.running) if index==0 else (ay-fits.running,ay)
-            stocks.append(box(ax-4,ax+4,py0,py1,az-4,az+4))
+            stocks.append(box(ax-5,ax+5,py0,py1,az-5,az+LOCK_INSERT_D/2*2**.5+3))
             #45degree underside of each small supported axial bearing land.
             yroot,yedge=(ay,py1) if index==0 else (ay,py0)
-            vv=[cq.Vector(ax-4,yroot,az-4-fits.running),cq.Vector(ax-4,yedge,az-4),cq.Vector(ax-4,yroot,az-4)]
+            vv=[cq.Vector(ax-5,yroot,az-5-fits.running),cq.Vector(ax-5,yedge,az-5),cq.Vector(ax-5,yroot,az-5)]
             wire=cq.Wire.makePolygon(vv+[vv[0]])
-            stocks.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(8,0,0)))
+            stocks.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(10,0,0)))
             a,b=(ay-LOCK_INSERT_LENGTH-FIXTURE_LOCK_RELIEF,ay+fits.running+.01) if index==0 else (ay-fits.running-.01,ay+LOCK_INSERT_LENGTH+FIXTURE_LOCK_RELIEF)
             cuts.append(ycrown(LOCK_INSERT_D/2,ax,az,a,b))
         # Continue the existing valve port channel down the tray foot. The
@@ -301,6 +333,7 @@ def fixed_features(plate):
                     outlet[2]+3.0-plate["fixture_print_bed_z"],
                     cq.Vector(outlet[0],outlet[1],plate["fixture_print_bed_z"]-.01),cq.Vector(0,0,1)))
         for driver in factory_driver_axes(plate,x):cuts.append(_driver_lane(driver,(0,0,1)))
+        if abs(x)>50:cuts.append(_guard_driver_join(plate,x))
     return stocks,cuts
 
 
@@ -484,10 +517,12 @@ def _key_underside_floor(center,axis,build_direction=(0.,-2**-.5,2**-.5)):
 
     The static take-up is fits.slip along the socket axis. The45degree
     plane grows away from the key during the cover's outward parking stroke.
+    Its print-bed end has a finite1.5mm section; the retained inclined
+    contact grows into the full three-mm cover.
     """
     _,u,v=center
     wire=_house_wire(returned.COVER_FRONT_W,u,v,
-                     air=-returned.KEY_SEAT_SQUEEZE+.02)
+                     air=-returned.KEY_SEAT_SQUEEZE+.01)
     house=cq.Solid.extrudeLinear(wire,[],
               cq.Vector(returned.COVER_BACK_W-returned.COVER_FRONT_W,0,0))
     build=cq.Vector(*build_direction).normalized();escape=cq.Vector(1,0,0)
@@ -501,7 +536,12 @@ def _key_underside_floor(center,axis,build_direction=(0.,-2**-.5,2**-.5)):
     if tangent.Length<1e-6:tangent=cq.Vector(0,0,1).cross(normal)
     below=cq.Workplane(cq.Plane(origin=origin,xDir=tangent,normal=-normal)).box(
              400,400,400,centered=(True,True,False)).val()
-    return house.intersect(below).clean()
+    uv=cq.Vector(0,normal.y,normal.z)
+    end_level=level+returned.COVER_BACK_W-KEY_FLOOR_BED_TOE
+    end_origin=uv*(end_level/uv.Length**2)
+    finite_end=cq.Workplane(cq.Plane(origin=end_origin,xDir=(1,0,0),normal=-uv)).box(
+        400,400,400,centered=(True,True,False)).val()
+    return house.intersect(below).intersect(finite_end).clean()
 
 def _diagonal_link_guide(base,cover,layout,junction,jbody,side):
     """A four-mm channel band confines the straight link during service."""
