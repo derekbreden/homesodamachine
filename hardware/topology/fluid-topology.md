@@ -25,7 +25,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 [4](LIMB_COUNT) limbs connect the [10](LIMB_VALVES) valves, [6](TEE_COUNT) three-port junctions and [2](PUMP_COUNT) pumps. The junctions comprise [2](PURCHASED_TEE_COUNT) purchased tees and [4](TPU_JUNCTION_COUNT) permanent printed TPU junctions.
 
-**A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. At the pump wall, each permanent TPU junction receives a prepared pump stem, connects upward to its fore valve through a straight LLDPE link and sends its lower arm aft at 45°. A fixed printed return connects that arm to the aft valve through two straight links.
+**A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. At the pump wall, each permanent TPU junction receives a prepared pump's LLDPE stub, connects upward to its fore valve through a straight LLDPE link and sends its lower arm aft at 45°. A fixed printed return connects that arm to the aft valve through two straight links.
 
 **The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. Four compound TPU returns contain the lower changes of direction. Their straight LLDPE links do not make those bends. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
 
@@ -41,8 +41,8 @@ Y-A and Y-B inherit location from their fixed face-to-face valve joints. The clo
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the pump-side junctions.** The prepared machined
-flanged stem enters the TPU funnel and its 6 mm front sealing land. That slip
+**Y-C, Y-D, Y-F and Y-G are the pump-side junctions.** The prepared pump's
+LLDPE stub enters the TPU funnel and its 6 mm front sealing land. That slip
 joint separates when the pump cartridge is withdrawn. The upper port has a
 straight [14.501 mm](UPPER_LINK_EXPOSED) exposed link to its fore valve. The lower
 port has a straight link to a fixed TPU return and a second straight link from

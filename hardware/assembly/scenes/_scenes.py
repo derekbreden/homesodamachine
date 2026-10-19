@@ -196,10 +196,10 @@ SCENES = (
         note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
-             "and takes two screws. The prepared stems' flanges seat in the cradle and the "
-             "cap closes their upward escape. Six positively retained SB443-IN magnet pairs "
-             "hold the installed cartridge against its rigid seats; the four short stems "
-             "enter permanent TPU receivers in the bay wall.",
+             "and takes two screws. Each pump head clamps its two short LLDPE stubs, which "
+             "pass the cradle's open tube passages. Eight bonded SB443-IN magnet pairs, one "
+             "column on each pump's line, hold the installed cartridge against its rigid "
+             "seats; the four stubs enter permanent TPU receivers in the bay wall.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -382,7 +382,7 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # Prepared stems ride the cartridge; all twelve straight pump links stay on
+    # Prepared pump stubs ride the cartridge; all twelve straight pump links stay on
     # front-top with their permanent junctions and returns.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:

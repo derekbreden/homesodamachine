@@ -30,7 +30,7 @@ outside this review.
 | Compressor posts, vertical rebound | 4.5 kg × deceleration | Grommet top flange → washer → M5 screw → RX-M5x9.5 pull-out | 276 N per insert at 25 g, 552 N at 50 g | Adequate to about 50 g on an assumed 1 kN insert pull-out; drop acceptance is the evidence |
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
 | M1.4 connector inserts | Connector magnets plus four 0.44 N springs | Ear plate → two M1.4×8 → M1.4×4 inserts per half | Under 10 N per half | Adequate; installation access is the open item ([mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md)) |
-| Cartridge magnetic capture vs blocked-fill pressure | 34.9 N on one pump's port pair at 80 psi ([pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)) | Six SB443-IN pairs in two three-pair columns, one column on that pump's line | 46 N for the one column at the catalogue steel rating: 1.3; 91 N if both columns share: 2.6 | Dock-adjacent; physical qualification already planned there |
+| Cartridge magnetic capture vs blocked-fill pressure | 34.9 N on one pump's port pair at 80 psi ([pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)) | Eight SB443-IN pairs, one four-pair column on each pump's own line, bare poles bonded to meet across the body air | 60.9 N for that pump's column alone at the catalogue steel rating: 1.74, over the 1.5 screen | Adequate on its own line; physical qualification planned at the dock |
 | Pogo contact current | Pump start and jam current, held at the trip | DRV8870 current regulation through the 0.2 Ω sense resistor on each ISEN (R28, R29) | 1.54–1.81 A against 2 A: 1.10 at the ceiling; 1.65 A nominal, about twice the 0.8 A running current | Adequate in the board source; the start under the trip needs a physical observation; see below |
 
 ## Y-seam head recesses
@@ -94,11 +94,13 @@ within 1 s of its command
 
 The [pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json) sets
 the reachable single-channel case at 80 psi on one pump's two ports: 34.9 N, with a 1.5× screen at
-52.4 N. That load acts on the line of one pump's three-pair column. If only that column holds it,
-the catalogue steel rating gives 46 N, 1.3 times the load and under the screen. If the cartridge
-spreads it to both columns, 91 N, 2.6 times. Magnet-to-magnet pull at contact is not in the repo,
-and K&J's steel rating is the only recorded figure. The cartridge's stiffness between the two
-columns decides between the two answers. The dock's planned wet qualification measures this.
+52.4 N. That load acts on the line of one pump's four-pair column. The column alone gives 60.9 N
+at the catalogue steel rating, 1.74 times the load and over the screen; no sharing with the far
+column is credited. The rigid lands stand above the tube row, so even a rigid cartridge tips about
+the far column's outboard edge, and that column would add only about 8 N. A surface-charge model
+of the actual alternating column gives 84 N with its bare poles in contact and 54 N with 0.5 mm
+between them ([magnet record](../printed-parts/enclosure/pump-dock/magnet-retention.md)). The
+dock's planned dry and wet qualification measures the installed hold.
 
 ## Evidence limits
 

@@ -106,7 +106,7 @@ def dock_regions(box, region):
         for number, shape in enumerate(retention[side]['stock'].Solids(), start=1):
             b = shape_bounds(shape)
             b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
-            region(piece, f'SB443 column {number}, rails, keyed bedding walls and host root', b)
+            region(piece, f'SB443 column {number}, bonded pocket walls and host root', b)
 
     aft = e.pump_cartridge_aft_y(box.pack.pump_trays, plate)
     for number, shape in enumerate(e.pump_cartridge_body_stops(box), start=1):
@@ -119,15 +119,6 @@ def dock_regions(box, region):
         region('front-top', f'Rigid cartridge stop {number} and wall root', b)
         region('pump-cartridge', f'Rigid stop {number} opposing bearing and cradle root',
                [b[0], b[1], aft-2*e.wall, aft, b[4], b[5]])
-
-    stems = e.pump_stem_features(box)
-    for key, piece in (('cradle_stock', 'pump-cartridge'), ('cap_stock', 'pump-cap')):
-        for number, shape in enumerate(stems[key].Solids(), start=1):
-            b = shape_bounds(shape)
-            b[2] -= e.wall
-            b[4 if piece == 'pump-cartridge' else 5] += (
-                -e.wall if piece == 'pump-cartridge' else e.wall)
-            region(piece, f'Stem flange capture {number}, shoulders, guard and native root', b)
 
     # The keepers and the return block are exported already in print pose.
     # Their whole-object 100%/six-wall recipe covers every seat, lip and boss.
@@ -227,7 +218,7 @@ def main():
                 clipped, poses[name]['source_to_print_mm'])
     paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
            Path(e._dock.__file__),Path(e._receiver.__file__),
-           Path(e._retention.__file__),Path(e._stems.__file__),
+           Path(e._retention.__file__),
            Path(e._dock.returned.__file__),Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',

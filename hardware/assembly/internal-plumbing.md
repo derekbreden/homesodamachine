@@ -196,18 +196,14 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    Printed-part recovery and seal performance remain
    subject to the pump-dock's physical qualification.
 
-4. **Build and prepare the Kamoer cartridge.** Lower both complete pumps into their
-   fitted wells with the flexible outlets facing +Y. Verify the bare machined natural
-   PP-H Polystone P stems' flange-to-tip datum in the stem setting fixture, then remove
-   them and fit their tails into the BPT tubing. Use calipers to place each BPT end
-   0.15 mm fore of the flange's fore face and its
-   2.54 mm nylon tie center 1.75 mm fore of that same face. These are Y76.10 mm
-   and Y74.50 mm respectively;
-   the tie band occupies Y73.23–75.77 mm and its head faces +Z in the open channel.
-   Seat each Ø16 × 2.5 mm integral flange in its cradle capture outside the wet seal,
-   with its fore/aft faces at Y76.25/78.75 mm. Verify the free tips to the [prepared-pump datum](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps)
-   using the printed setting jig against the cartridge's flat rear seating face. Retain
-   the exposed stems straight and verify all four tip positions, flange seating and
+4. **Build and prepare the Kamoer cartridge.** Pull Kamoer's barbed connectors out of
+   both pumps' tube ends and push a 26 mm stub of black 1/4" LLDPE into each BPT end
+   under the loosened pump-head housing. Lower both complete pumps into their fitted
+   wells with the stubs facing +Y through the cradle's open tube passages. Set the
+   free tips to the [prepared-pump datum](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps)
+   with the printed tube setting jig against the cartridge's flat rear seating face,
+   then tighten each housing so it clamps the tube around its stubs. Keep the exposed
+   stubs straight and verify all four tip positions, a firm hand pull on each stub and
    pump-end sealing before closing the clamp. The customer's replacement pumps receive
    this same factory preparation.
 
@@ -225,8 +221,8 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    `AM2`, `AM1`, `BM2`, `BM1` from +X to −X. Crimp their female Faston receptacles and
    connect them to the marked motor tabs. Keep all leads below the crown.
 
-6. **Verify the closed dock after chassis assembly.** Inspect the positive magnet
-   captures, exposed attracting faces and dedicated outboard rigid stop lands. With power
+6. **Verify the closed dock after chassis assembly.** Inspect the bonded magnet
+   columns, exposed attracting faces and dedicated outboard rigid stop lands. With power
    disconnected, slide the cartridge on its floor and present all four tube ends squarely
    to the TPU funnels. Push evenly until the stop lands seat on the lower cradle and the cartridge finishes
    flush. Confirm that every receiver remains seated, every tube enters straight and the
@@ -277,7 +273,7 @@ A finished internally-plumbed appliance:
 - Water path closed dry from the +Y wall's PP1208E 1/4" JG QC bulkhead — its inboard collet butted to the ASSE chain's inlet — through the PP010822E + GAGIRA 316L SS reducing coupling, the Multiplex 19-0897 ASSE 1022 backflow preventer, the PI4512F6S + PP061208W outlet stack, `water-2` to the PP0208E water split, `water-3` to V-K, `water-7` to the clamped suction elbow on the G Ganen pump, `water-6` from the clamped discharge elbow to the made-up PP010822E + GASHER + PP450822E chain, and `water-5` onto the `water-in` cap conduit
 - Multiplex atmospheric vent through the black adapter stack and 4 mm OVER bulkhead to the dedicated faucet outlet over the sink bowl
 - Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and four locked flat keepers, four compound TPU returns retained in PET-GF fixtures, and straight captured pump links, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
-- Pump stems 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its rigid stop lands; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
+- Pump stubs 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its rigid stop lands; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
 - All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` off the two floor bulkheads at the bottom of each wet V
 - Three risers landing on the three PP1208E umbilical bulkheads on the +Y wall on one row (blue LLDPE on the blue-ringed bulkhead for carbonated water; black LLDPE on the two flavor bulkheads)
 - Carbonated-water riser insulated with CARGEN nitrile-rubber pipe foam in segments from the cold-core exit to the inboard face of the blue-ringed bulkhead, bare only along `carb-1`'s rib; the DIGITEN flow meter, its union and the tube tails at both are wrapped in the same foam, slit over the meter body and its cable, with every seam closed by 3M 425 foil tape

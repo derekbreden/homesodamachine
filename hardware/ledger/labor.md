@@ -162,7 +162,7 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 | Route the seven cold-core penetrations; stack the copper plugs | [cold-core](/hardware/assembly/cold-core.md) | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 10 |
 | Water path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — fixed valves and tees, permanent junctions and returns, prepared pumps and channels | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | [10](SOLENOIDS) fixed valves total. Seat each junction, straight upper link and fore valve as a group, then lock the four flat keepers. Fit the aft valves, straight lower links and four compound TPU returns; bring the return block up under all four and drive its three screws. Fit the prepared pump stems into their cradle captures. This assembly time is an unmeasured allowance | 15 |
+| Flavor manifold — fixed valves and tees, permanent junctions and returns, prepared pumps and channels | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | [10](SOLENOIDS) fixed valves total. Seat each junction, straight upper link and fore valve as a group, then lock the four flat keepers. Fit the aft valves, straight lower links and four compound TPU returns; bring the return block up under all four and drive its three screws. Fit the prepared pumps' LLDPE stubs and set their tips with the tube setting jig. This assembly time is an unmeasured allowance | 15 |
 | Risers to the umbilical bulkheads | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 5 |
 | Witness and tidy every joint | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |
@@ -240,7 +240,7 @@ The target is 10 hours attended per unit. The current estimate is [11 h 5 m](LAB
 
 ## Not counted here
 
-- **Pump-dock manufacturing allowances** — the machined PP stems and gauged DP420 magnet bedding are required production operations. Their supplier pricing and attended preparation time are unmeasured and excluded from these totals. The fixed and moving adhesive mounts each require a 24-hour unattended cure at 23 °C, in sequence; the ≥48-hour fixture window belongs in the production schedule.
+- **Pump-dock manufacturing allowances** — the pump stub preparation and the DP420 magnet bedding are required production operations. Their attended time is unmeasured and excluded from these totals. The fixed and moving bonded mounts each require a 24-hour unattended cure at 23 °C, in sequence; the ≥48-hour window belongs in the production schedule.
 - **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.

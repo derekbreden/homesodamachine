@@ -51,8 +51,8 @@ Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.03](MT_KG_PET
 | Body foam — pour to trimmable | In the part | Cure time is an **open item** in [cold-core.md](/hardware/assembly/cold-core.md); 4 h is a placeholder for a 2 lb pour foam, not a datasheet figure | 4.0 |
 | Cap foams — pour to trimmable, both caps | In the part | Same open item; the two caps pour together | 4.0 |
 | PRV-shroud caulk — full cure | Bench shelf | ≥24 h for 100 % RTV, but the subassembly is built ahead and shelves indefinitely — off the critical path | 24.0 |
-| Fixed SB443 mounts — full DP420 cure | Pole-setting fixture / bench shelf | Fixed poles set with the actual gauge; 24 h at 23 °C before match-setting the moving mates ([magnet process](/hardware/printed-parts/enclosure/pump-dock/magnet-retention.md)) | 24.0 |
-| Moving SB443 mounts — full DP420 cure | Seated cartridge / fixed-wall fixture | Begins after the fixed mounts fully cure; another 24 h at 23 °C before extraction or load. At least 48 h from first mix across the two holds | 24.0 |
+| Fixed SB443 mounts — full DP420 cure | Loose front-top on the bench | Fixed blocks bottomed in their pockets; 24 h at 23 °C before the moving mates are set against them ([magnet process](/hardware/printed-parts/enclosure/pump-dock/magnet-retention.md)) | 24.0 |
+| Moving SB443 mounts — full DP420 cure | Cartridge seated on its four lands | Begins after the fixed mounts fully cure; another 24 h at 23 °C before extraction or load. At least 48 h from first mix across the two holds | 24.0 |
 | **Curing and baking** | | | **[89.0](MT_H_CURE)** |
 
 ## 3. Soaking and holding
@@ -101,7 +101,7 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 | Finish and pack | 1.0 | |
 | **Turnaround** | **[127.6](MT_H_TURN)** | **[5.3](MT_DAYS_TURN) days** |
 
-The two magnet cures require a planned sequence: set the fixed poles, cure 24 h, match-set the moving poles against the cured fixed mounts, then cure a further 24 h before extracting or loading the cartridge. Their ≥48 h window can overlap other work only when the required printed parts and fixtures are ready early enough. The turnaround table does not allocate a start for that sequence, so its total is a lower bound until that schedule is established. Machined-stem preparation and the small TPU seals have unmeasured production durations. The eight permanent TPU parts contribute their actual native estimates; plate handling and physical print yield remain unmeasured.
+The two magnet cures require a planned sequence: bond the fixed blocks, cure 24 h, bond the moving blocks against the cured fixed mounts with the cartridge seated, then cure a further 24 h before extracting or loading the cartridge. Their ≥48 h window can overlap other work only when the required printed parts are ready early enough. The turnaround table does not allocate a start for that sequence, so its total is a lower bound until that schedule is established. Pump stub preparation and the small TPU seals have unmeasured production durations. The eight permanent TPU parts contribute their actual native estimates; plate handling and physical print yield remain unmeasured.
 
 Runs in parallel with the print when started early enough: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
@@ -125,7 +125,7 @@ A second unit behind the first does not cost another [5.3](MT_DAYS_TURN) days �
    shop runs — but neither is held either, and a name that says printable reads as though it were. The faucet's saved [print project](/hardware/printed-parts/faucet/faucet-petgf.md) names
    its 0.4 mm nozzle, 0.42 mm outer wall and 0.45 mm inner wall lines.
 4. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
-5. **Dock production schedule.** The two 24 h DP420 fixture holds are sequential. Their overlap with printing and assembly must be scheduled before treating the modeled turnaround as a complete elapsed-time promise. Stem machining and attended magnet preparation remain unmeasured. The eight permanent TPU parts have source-bound native estimates; their plate handling and physical yield are not established.
+5. **Dock production schedule.** The two 24 h DP420 holds are sequential. Their overlap with printing and assembly must be scheduled before treating the modeled turnaround as a complete elapsed-time promise. Pump stub preparation and attended magnet bonding remain unmeasured. The eight permanent TPU parts have source-bound native estimates; their plate handling and physical yield are not established.
 6. **ASA Aero production duration.** The current float has 0.20 mm more upper pocket clearance than the identified v1 slice. Its native v2 duration and the elapsed pause for each of the [3](MT_FLOAT_QTY) inserted magnets are unmeasured. The v1 contribution is a provisional allowance, not an accepted production recipe or a completed-job timing.
 
 ## Sources

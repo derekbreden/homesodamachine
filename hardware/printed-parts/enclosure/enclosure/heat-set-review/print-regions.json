@@ -703,14 +703,13 @@
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "8d726703da52058d533fbdd292d60f163251f0228c59c1809d270fc197a278a8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "673f2b24bea6c15ac59e42b1490516a6e8769ae265f9f60d12e695c0b4d90b38",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "9f5dd18cb2f59da5c0c50863e88ef22c5bb6894421a2e900f589853e0a3a510c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80be0fbfbb48a2416768a4096aa38c7929dae42c0e016d64f30a49b30c7aed95",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ddd8937ee6f6bb4ae567204c36f242f14cbbbf3d9f64656ae5f04f607004479f",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
-    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
-    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "f1c2a327833ea24c9dfa4e2681ae4fdc34d121c721bc74ce2c29de3f7fb9e3a4",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "fae405a39979c764fedd164cf7a0f5994a8bfd7b23149049f96e0d3ca1eefd6f",
     "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
@@ -721,8 +720,8 @@
       ".stl": "6a01061944e97cdf1ed46af95add3e4a6638a47f17f83884a421fd5b74eec432"
     },
     "front-top": {
-      ".step": "1c27b2a911067b35879b2bc30be03ad483bcd618413a58717fdc9e94d589c7e7",
-      ".stl": "60893e0df47a11c8138f83b4e6ed588c3352c7478c8e22cc689dffff3f01f5a2"
+      ".step": "fe07856724ff5d4a0cec5247b8b02d3fdfdb9ddbf4dd9cdef412734ebb3f49a7",
+      ".stl": "85560190cca9080ca8ac22f5a4f81b46848a2cf908772e812da8744e98db7c5e"
     },
     "back-bottom": {
       ".step": "8b1820fe8f80256f3d5e3f7675af1f7aa6bcdec640cdd7c3222f4f65ee9ba2af",
@@ -733,16 +732,16 @@
       ".stl": "96305fd3ba110c27eda5056b0c23b5c2ce42bfa7747a59c9a0dfc33e986a34bb"
     },
     "pump-cartridge": {
-      ".step": "9bfe3ca33a40e038b383923479c0fd8d53d4b1c2c228c5461301ca5a555a7e07",
-      ".stl": "fd0d768a01c08d929aa162e7bbf3f130f57baf2a15c68695095e19dca0720e9f"
+      ".step": "fac29e87b3c2fa566603a180830cad516a934b8076de7dccfc345b88c58eeec9",
+      ".stl": "39042564ea9140010e42c08d71b00c7e4dd29c41885efc8541fc59f9e2228867"
     },
     "pump-cap": {
-      ".step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
-      ".stl": "52b338cbf2ea9ec82a6e3a3e84da8bd6faa7190ba4b3f0da389ef65bd0843621"
+      ".step": "7e937b7a5224e674f831a6d7042010a6c4458ec9fda7d7222ee3eeb1bbee87ba",
+      ".stl": "349df67dca16140955485af81fa209b94cd71d8e72cead165781c7dbca4009df"
     },
     "pump-receiver-west-outer": {
-      ".step": "a7a32089e4ef6322d5bb7946ea0711d2e401185fa74ba5c2aaf7ab3a3da4a882",
-      ".stl": "23d61d273ce2677bfdfaf1d2499b02c476d62d68783bee4d0b16f2a72713f1a2"
+      ".step": "8b4aacf5e1bfb466e54fcc6be6df698a12068300aecb3b9c9cc3f09ecd83e84e",
+      ".stl": "03b3382c9e692b9d2ab0fa83279669fff0d63536d8c7defa54f75569df582531"
     },
     "pump-return-west-outer": {
       ".step": "119f34f103a49d93d0ae2543fdf7acf8734e27f21d2fc58b0b5bbc533a6c0615",
@@ -753,8 +752,8 @@
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-receiver-west-inner": {
-      ".step": "d28ae0f30b8be9d8f787e5dd3a1512f1e802f5e1677340e3b1d9751640e69354",
-      ".stl": "240cb8d99d3d680f05904c6cdb5e3405c1289706677577a88ba57a3f0b2b4395"
+      ".step": "5b2706a47819b76df52fe1d0fab42f2eb163126f5beac54497ce3f3cc97712cf",
+      ".stl": "46cc34a4c2c7082f997ecdcc16ae93e10c063122c2cc35d6b8ea98b814b96009"
     },
     "pump-return-west-inner": {
       ".step": "29135c490deb2e55eff39518b5f82280f9a9b80e697303bd898909cbdfe17263",
@@ -765,8 +764,8 @@
       ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
     },
     "pump-receiver-east-inner": {
-      ".step": "0f44b13c8269f3cb7cb3577a9d76e236cb3d0b3cbda422c706e8a58dd4ffb839",
-      ".stl": "240cb8d99d3d680f05904c6cdb5e3405c1289706677577a88ba57a3f0b2b4395"
+      ".step": "6e4aa3a14b9c405839a1d967b7efe3ee52d1cdb50ece675ee0998cbe6853d8a1",
+      ".stl": "46cc34a4c2c7082f997ecdcc16ae93e10c063122c2cc35d6b8ea98b814b96009"
     },
     "pump-return-east-inner": {
       ".step": "411e72d81962acfa58a8eb900e3871776fd805e7c1d4b5cfc078520d2d11b2af",
@@ -777,8 +776,8 @@
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-receiver-east-outer": {
-      ".step": "511c41aba8e57d2433bf8b7f7f6d77424f5cf255ef1c88464cd46c78b8905ac6",
-      ".stl": "fc0ec4fd1220de5afc8231f80297292cd48766acb1e7a5a62e6a7edbf1bc5dc1"
+      ".step": "403820f9e4c819d1996c8fec9165434b3ae1f42ebf9760888eb28706a420b47b",
+      ".stl": "bfff4a97c209c047475ace39b44b0572f9a07266600e398e8e0914348b01cf5e"
     },
     "pump-return-east-outer": {
       ".step": "3138f31e5b488dd1eca96e99aa3a3aea3ac11b3caed6990a762a2d925456d33d",
@@ -1726,61 +1725,61 @@
         ]
       },
       {
-        "name": "SB443 column 1, rails, keyed bedding walls and host root",
+        "name": "SB443 column 1, bonded pocket walls and host root",
         "machine_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
+          -58.550799999999995,
+          -45.89919999999999,
           82.515,
-          95.3418,
-          173.649,
-          205.85539999999997
+          93.1886,
+          170.1708,
+          202.1772
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
+          -58.550799999999995,
+          -45.89919999999999,
           82.515,
-          95.3418,
-          173.649,
-          205.85539999999997
+          93.1886,
+          170.1708,
+          202.1772
         ],
         "print_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
+          -58.550799999999995,
+          -45.89919999999999,
           82.515,
-          95.3418,
-          13.399000000000001,
-          45.605399999999975
+          93.1886,
+          9.920800000000014,
+          41.9272
         ]
       },
       {
-        "name": "SB443 column 2, rails, keyed bedding walls and host root",
+        "name": "SB443 column 2, bonded pocket walls and host root",
         "machine_bounds_mm": [
-          44.3,
-          60.14999999999999,
+          45.89919999999999,
+          58.550799999999995,
           82.515,
-          95.3418,
-          173.649,
-          205.85539999999997
+          93.1886,
+          170.1708,
+          202.1772
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          44.3,
-          60.14999999999999,
+          45.89919999999999,
+          58.550799999999995,
           82.515,
-          95.3418,
-          173.649,
-          205.85539999999997
+          93.1886,
+          170.1708,
+          202.1772
         ],
         "print_bounds_mm": [
-          44.3,
-          60.14999999999999,
+          45.89919999999999,
+          58.550799999999995,
           82.515,
-          95.3418,
-          13.399000000000001,
-          45.605399999999975
+          93.1886,
+          9.920800000000014,
+          41.9272
         ]
       },
       {
@@ -2863,61 +2862,61 @@
         ]
       },
       {
-        "name": "SB443 column 1, rails, keyed bedding walls and host root",
+        "name": "SB443 column 1, bonded pocket walls and host root",
         "machine_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
-          73.1882,
-          83.615,
-          173.649,
-          205.85539999999997
+          -58.550799999999995,
+          -45.89919999999999,
+          71.185,
+          82.265,
+          170.1708,
+          202.1772
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
-          73.1882,
-          83.61499786376953,
-          173.649,
-          205.85539999999997
+          -58.550799999999995,
+          -45.89919999999999,
+          71.185,
+          82.26499938964844,
+          170.1708,
+          202.1772
         ],
         "print_bounds_mm": [
-          -60.14999999999999,
-          -44.3,
-          73.1882,
-          83.61499786376953,
-          8.453992675781251,
-          40.660392675781225
+          -58.550799999999995,
+          -45.89919999999999,
+          71.185,
+          82.26499938964844,
+          4.975792675781264,
+          36.98219267578125
         ]
       },
       {
-        "name": "SB443 column 2, rails, keyed bedding walls and host root",
+        "name": "SB443 column 2, bonded pocket walls and host root",
         "machine_bounds_mm": [
-          44.3,
-          60.14999999999999,
-          73.1882,
-          83.615,
-          173.649,
-          205.85539999999997
+          45.89919999999999,
+          58.550799999999995,
+          71.185,
+          82.265,
+          170.1708,
+          202.1772
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          44.3,
-          60.14999999999999,
-          73.1882,
-          83.61499786376953,
-          173.649,
-          205.85539999999997
+          45.89919999999999,
+          58.550799999999995,
+          71.185,
+          82.26499938964844,
+          170.1708,
+          202.1772
         ],
         "print_bounds_mm": [
-          44.3,
-          60.14999999999999,
-          73.1882,
-          83.61499786376953,
-          8.453992675781251,
-          40.660392675781225
+          45.89919999999999,
+          58.550799999999995,
+          71.185,
+          82.26499938964844,
+          4.975792675781264,
+          36.98219267578125
         ]
       },
       {
@@ -2936,7 +2935,7 @@
           -105.0,
           -95.0,
           76.265,
-          82.265,
+          82.26499938964844,
           214.925,
           232.925
         ],
@@ -2944,7 +2943,7 @@
           -105.0,
           -95.0,
           76.265,
-          82.265,
+          82.26499938964844,
           49.72999267578126,
           67.72999267578126
         ]
@@ -2965,7 +2964,7 @@
           -105.0,
           -95.0,
           76.265,
-          82.265,
+          82.26499938964844,
           257.17400000000004,
           275.17400000000004
         ],
@@ -2973,7 +2972,7 @@
           -105.0,
           -95.0,
           76.265,
-          82.265,
+          82.26499938964844,
           91.97899267578129,
           109.97899267578129
         ]
@@ -2994,7 +2993,7 @@
           95.0,
           105.0,
           76.265,
-          82.265,
+          82.26499938964844,
           214.925,
           232.925
         ],
@@ -3002,7 +3001,7 @@
           95.0,
           105.0,
           76.265,
-          82.265,
+          82.26499938964844,
           49.72999267578126,
           67.72999267578126
         ]
@@ -3023,7 +3022,7 @@
           95.0,
           105.0,
           76.265,
-          82.265,
+          82.26499938964844,
           257.17400000000004,
           275.17400000000004
         ],
@@ -3031,125 +3030,9 @@
           95.0,
           105.0,
           76.265,
-          82.265,
+          82.26499938964844,
           91.97899267578129,
           109.97899267578129
-        ]
-      },
-      {
-        "name": "Stem flange capture 1, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          -93.25,
-          -70.94999999999999,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -93.25,
-          -70.94999999999999,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "print_bounds_mm": [
-          -93.25,
-          -70.94999999999999,
-          69.887,
-          82.265,
-          6.828992675781251,
-          20.978992675781257
-        ]
-      },
-      {
-        "name": "Stem flange capture 2, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          -33.5,
-          -11.200000000000001,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -33.5,
-          -11.200000000000001,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "print_bounds_mm": [
-          -33.5,
-          -11.200000000000001,
-          69.887,
-          82.265,
-          6.828992675781251,
-          20.978992675781257
-        ]
-      },
-      {
-        "name": "Stem flange capture 3, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          11.200000000000001,
-          33.5,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          11.200000000000001,
-          33.5,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "print_bounds_mm": [
-          11.200000000000001,
-          33.5,
-          69.887,
-          82.265,
-          6.828992675781251,
-          20.978992675781257
-        ]
-      },
-      {
-        "name": "Stem flange capture 4, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          70.94999999999999,
-          93.25,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          70.94999999999999,
-          93.25,
-          69.887,
-          82.265,
-          172.024,
-          186.174
-        ],
-        "print_bounds_mm": [
-          70.94999999999999,
-          93.25,
-          69.887,
-          82.265,
-          6.828992675781251,
-          20.978992675781257
         ]
       }
     ],
@@ -3181,122 +3064,6 @@
           -66.39,
           3.250011230468715,
           14.05001123046867
-        ]
-      },
-      {
-        "name": "Stem flange capture 1, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          -93.24719695708298,
-          -70.95280304291701,
-          73.269,
-          82.265,
-          186.424,
-          220.925
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -93.24719695708298,
-          -70.95280304291701,
-          73.269,
-          82.26499938964844,
-          186.424,
-          220.925
-        ],
-        "print_bounds_mm": [
-          -93.24719695708298,
-          -70.95280304291701,
-          -82.26499938964844,
-          -73.269,
-          63.24901123046874,
-          97.75001123046874
-        ]
-      },
-      {
-        "name": "Stem flange capture 2, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          -33.49719695708298,
-          -11.202803042917022,
-          73.269,
-          82.265,
-          186.424,
-          220.925
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -33.49719695708298,
-          -11.202803042917022,
-          73.269,
-          82.26499938964844,
-          186.424,
-          220.925
-        ],
-        "print_bounds_mm": [
-          -33.49719695708298,
-          -11.202803042917022,
-          -82.26499938964844,
-          -73.269,
-          63.24901123046874,
-          97.75001123046874
-        ]
-      },
-      {
-        "name": "Stem flange capture 3, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          11.202803042917022,
-          33.49719695708298,
-          73.269,
-          82.265,
-          186.424,
-          220.925
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          11.202803042917022,
-          33.49719695708298,
-          73.269,
-          82.26499938964844,
-          186.424,
-          220.925
-        ],
-        "print_bounds_mm": [
-          11.202803042917022,
-          33.49719695708298,
-          -82.26499938964844,
-          -73.269,
-          63.24901123046874,
-          97.75001123046874
-        ]
-      },
-      {
-        "name": "Stem flange capture 4, shoulders, guard and native root",
-        "machine_bounds_mm": [
-          70.95280304291701,
-          93.24719695708298,
-          73.269,
-          82.265,
-          186.424,
-          220.925
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          70.95280304291701,
-          93.24719695708298,
-          73.269,
-          82.26499938964844,
-          186.424,
-          220.925
-        ],
-        "print_bounds_mm": [
-          70.95280304291701,
-          93.24719695708298,
-          -82.26499938964844,
-          -73.269,
-          63.24901123046874,
-          97.75001123046874
         ]
       }
     ],

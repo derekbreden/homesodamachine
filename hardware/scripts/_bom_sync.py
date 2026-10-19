@@ -599,7 +599,7 @@ def main(*, only_bom=False):
         "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "12.07", 5),
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
-        "DOCK_STEMS": f"{len(_f.box['collet_plate']['holes'])}",
+        "DOCK_STUBS": f"{len(_f.box['collet_plate']['holes'])}",
         "DOCK_RECEIVERS": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
         "DOCK_JUNCTION_FEED_G": f"{dock_junction_feed_g:.2f}",

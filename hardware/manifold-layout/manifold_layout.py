@@ -3,7 +3,7 @@
 The four wall junctions feed straight upper links and fixed compound TPU
 returns. Each lower return takes two straight LLDPE links; opposed supported
 stops capture the junction link, and the purchased valve collet anchors the
-short valve link. Pump replacement withdraws only the prepared pump stems.
+short valve link. Pump replacement withdraws only the prepared pump stubs.
 
 Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
 enclosure +Y. The pump station retains its fitted physical datum. The fore
@@ -669,7 +669,7 @@ def authoring_shape(shape):
 
 
 def pump_wall_fore_y():
-    """The fixed wall derived from the prepared stem's fitted tip station."""
+    """The fixed wall derived from the prepared stub's fitted tip station."""
     tip = enclosure_point(customer_tip(next(iter(sorted(PUMP_JUNCTIONS)))))
     return tip[1] - _receiver.CUSTOMER_TIP_Y
 
