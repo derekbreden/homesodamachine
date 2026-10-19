@@ -135,8 +135,9 @@ def _head_supported_sides(head,center,side,build_direction,*,installed=False,cle
         aa=cq.Vector(0,*p0);bb=cq.Vector(0,*p1);ba=aa.dot(b);bv=bb.dot(b)
         if (ba-floor)*(bv-floor)<=0 and abs(bv-ba)>1e-9:
             ends.append((aa+(bb-aa)*((floor-ba)/(bv-ba))).dot(t))
-    # A0.20mm inward overlap leaves a finite join to the complete shank.
-    lo,hi=min(ends)+.20,max(ends)-.20
+    # Start both supported sides on the actual shank projection. The broad
+    # shared back face supplies the join without exposed shank-corner tips.
+    lo,hi=min(ends),max(ends)
     for inward,rhs in ((b+t,floor+lo),(b-t,floor-hi)):
         origin=hub+inward*(rhs/inward.Length**2)
         keep=cq.Workplane(cq.Plane(origin=origin,xDir=escape,normal=inward)).box(400,400,400,centered=(True,True,False)).val()
