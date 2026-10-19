@@ -706,12 +706,12 @@
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "8d726703da52058d533fbdd292d60f163251f0228c59c1809d270fc197a278a8",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3f17e1506177145ea5903d2aac4c7f4ea1606959ca5613ea6017785c26180071",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
+    "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ddd8937ee6f6bb4ae567204c36f242f14cbbbf3d9f64656ae5f04f607004479f",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "a9276cb1105a880900f53ec2cb33875c23091095b6b476dc9f62988aff29c6c9",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
-    "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f15386f1bbd86f9c764e9738b1420ca2af990acd68ed9bcfbee2fb68b24d70e2",
+    "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
   },
@@ -741,48 +741,48 @@
       ".stl": "52b338cbf2ea9ec82a6e3a3e84da8bd6faa7190ba4b3f0da389ef65bd0843621"
     },
     "pump-receiver-west-outer": {
-      ".step": "2dce5d02d91245337eaf04d93663f96c3337ba4926fddeff79616611175bc4d2",
-      ".stl": "2f89cad501e77beb4e79014fea7ceea6634a05b46c51cbe2648e81b2a26ec64b"
+      ".step": "a7a32089e4ef6322d5bb7946ea0711d2e401185fa74ba5c2aaf7ab3a3da4a882",
+      ".stl": "23d61d273ce2677bfdfaf1d2499b02c476d62d68783bee4d0b16f2a72713f1a2"
     },
     "pump-return-west-outer": {
-      ".step": "5453134a89af923ee69f4062236be2dda50213b5ade694d8ef2cbdccbac92780",
-      ".stl": "a6cbad20ecadac19debcacbe8f645ee3b5bc134e72876d1d2d88e718bd62d72c"
+      ".step": "119f34f103a49d93d0ae2543fdf7acf8734e27f21d2fc58b0b5bbc533a6c0615",
+      ".stl": "7a5eec67e29604925c7dabaa4d30a01c55765edbb8e2d4f177778d8b8280d992"
     },
     "pump-receiver-keeper-west-outer": {
       ".step": "8781b3c16ea992766ff7ea7df5b3412072992705c0e0d5dd3896f7568b4c0370",
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-receiver-west-inner": {
-      ".step": "8ab9ee208258d9b2b14d8628e69447e436b18e19c885cd7c4b7c69dc467e12b2",
-      ".stl": "64a392572a654112eb1273dc1a0a9601f4f0234da07f72a10b219cd4acf2326e"
+      ".step": "d28ae0f30b8be9d8f787e5dd3a1512f1e802f5e1677340e3b1d9751640e69354",
+      ".stl": "240cb8d99d3d680f05904c6cdb5e3405c1289706677577a88ba57a3f0b2b4395"
     },
     "pump-return-west-inner": {
-      ".step": "d07f6bf75257cee377fdbd3760988e0f814a08e9210c1c79aaf192b1f720f0c9",
-      ".stl": "d534319226a734e30b3531ab49782197393061f1e82f8f40a7806fba4d2c35c2"
+      ".step": "29135c490deb2e55eff39518b5f82280f9a9b80e697303bd898909cbdfe17263",
+      ".stl": "fd87d60cebb26a01da5f7b1927d775063bc9d3b7fe3177571910989b0ae04a29"
     },
     "pump-receiver-keeper-west-inner": {
       ".step": "b301c2f7fe601e0bfe9b85a7945d14e0c0d58d2c4881a0e696c16c48a0e27a3d",
       ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
     },
     "pump-receiver-east-inner": {
-      ".step": "00e98a6062d1f3d3506da2eec53720b746af1f4e7e16343283c5bf3c0000aea9",
-      ".stl": "64a392572a654112eb1273dc1a0a9601f4f0234da07f72a10b219cd4acf2326e"
+      ".step": "0f44b13c8269f3cb7cb3577a9d76e236cb3d0b3cbda422c706e8a58dd4ffb839",
+      ".stl": "240cb8d99d3d680f05904c6cdb5e3405c1289706677577a88ba57a3f0b2b4395"
     },
     "pump-return-east-inner": {
-      ".step": "b56f48713aef1a0746303874c6db48643ba4c47c4a861b976ab687bd20b473c9",
-      ".stl": "d534319226a734e30b3531ab49782197393061f1e82f8f40a7806fba4d2c35c2"
+      ".step": "411e72d81962acfa58a8eb900e3871776fd805e7c1d4b5cfc078520d2d11b2af",
+      ".stl": "fd87d60cebb26a01da5f7b1927d775063bc9d3b7fe3177571910989b0ae04a29"
     },
     "pump-receiver-keeper-east-inner": {
       ".step": "67771d36c4e5f4a852cd25146eae66a2a8e299dc1d6edc592129eb333faaba67",
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-receiver-east-outer": {
-      ".step": "5dcf057d4fd4694a8a8654137f1b044e93e236f7598fed728bb9b0b42eace3a6",
-      ".stl": "9170d6b4a1db8ed855c550ab8222df14077b4d5b8c7ecfd35f40dc5e5c4b8927"
+      ".step": "511c41aba8e57d2433bf8b7f7f6d77424f5cf255ef1c88464cd46c78b8905ac6",
+      ".stl": "fc0ec4fd1220de5afc8231f80297292cd48766acb1e7a5a62e6a7edbf1bc5dc1"
     },
     "pump-return-east-outer": {
-      ".step": "55323d445cf77bd6e2c9e397d2d4ccac7785bcd97e993b2f33191c6ccac2bc6f",
-      ".stl": "70b9b5a9a5c91bc134eeb4c654530ea4c57f324c4a7578b7e6082fea4bfd1337"
+      ".step": "3138f31e5b488dd1eca96e99aa3a3aea3ac11b3caed6990a762a2d925456d33d",
+      ".stl": "9967ed3bcb55c4ab331bff1cc052bfc360c51740cb051ead3eb85a1fe3d45384"
     },
     "pump-receiver-keeper-east-outer": {
       ".step": "0e1a70efb698eef5a8d53047c682dffef0ec09fa94054f49bd05fd1a162e6a5e",
