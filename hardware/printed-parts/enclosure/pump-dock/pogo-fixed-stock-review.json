@@ -1,0 +1,96 @@
+{
+  "scope": "Current fixed-pogo backing. Whole-part nominal native review with the placed purchased valves, complete insert/lead backing and self-supporting stock faces. These results do not establish printed strength, physical fit, tooling ergonomics or lifetime.",
+  "source": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "sha256": "fc4819d3e41440c0d85a3f6895e553e9d8c5d4171a55d99dba313d536489b477",
+    "function": "_pump_contact_fixed_stock",
+    "reviewed_construction_ast_matches_production_after_identifier_normalization": true
+  },
+  "whole_part_native": {
+    "review_input_canonical_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "review_input_sha256": "1d3f179b0eeee9257453562882ca03ec440dffcc07c1bf95f68fc14765cd36a4",
+    "reviewed_complete_part_sha256": "e06607ff3ca32b774a3441bcdc9867db44f3a94e454c0c5ab15e540311d113c0",
+    "construction": "The exact reviewed canonical front-top receives the source-defined backing replacement. Existing receiver/valve-tray stock beneath the replaced feature is restored; the production contact cuts are reapplied.",
+    "valid": true,
+    "solid_count": 1,
+    "purchased_valve_and_coil_sets": 8,
+    "positive_volume_overlap_mm3": {
+      "valve-V-C": 0.0,
+      "coil-V-C": 0.0,
+      "valve-V-D": 0.0,
+      "coil-V-D": 0.0,
+      "valve-V-E": 0.0,
+      "coil-V-E": 0.0,
+      "valve-V-F": 0.0,
+      "coil-V-F": 0.0,
+      "valve-V-G": 0.0,
+      "coil-V-G": 0.0,
+      "valve-V-H": 0.0,
+      "coil-V-H": 0.0,
+      "valve-V-I": 0.0,
+      "coil-V-I": 0.0,
+      "valve-V-J": 0.0,
+      "coil-V-J": 0.0
+    },
+    "intentional_contact_scope": "The complete front-top retains the valve trays and their fitted bearing/post contacts. Their zero minimum gap is independent of the noncontact pogo-stock clearance."
+  },
+  "noncontact_stock_native_clearance": [
+    {
+      "name": "valve-V-E",
+      "gap_mm": 1.2000000000000117,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "coil-V-E",
+      "gap_mm": 21.85022883175368,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "valve-V-H",
+      "gap_mm": 1.1999999999999948,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "coil-V-H",
+      "gap_mm": 21.85022883175368,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "retained_structural_stock": {
+    "pilot_envelope_description": "Full circular pilot with its0.25mm supported-face allowance,3mm surrounding stock and3mm axial blind cap.",
+    "pilots": [
+      {
+        "x": -10.22,
+        "pilot_start_y": 89.89,
+        "pilot_end_y": 95.39,
+        "required_end_cap_y": 98.39,
+        "required_volume_mm3": 424.23225229831536,
+        "missing_mm3": 0.0
+      },
+      {
+        "x": 10.22,
+        "pilot_start_y": 89.89,
+        "pilot_end_y": 95.39,
+        "required_end_cap_y": 98.39,
+        "required_volume_mm3": 424.23225229831536,
+        "missing_mm3": 0.0
+      }
+    ],
+    "lower_lead_bore_radial_wall_mm": 3.0,
+    "lower_lead_shell_missing_mm3": 0.0
+  },
+  "print_geometry": {
+    "pose": "enclosure-front-top production +Z",
+    "new_stock_valid": true,
+    "new_stock_solids": 1,
+    "new_stock_native_faces_below45_degrees": [],
+    "face_read_scope": "All planar normals are exact; curved faces use native normals sampled at tessellation centroids. The current whole shell has other separately scoped print features."
+  },
+  "unchanged_datums": [
+    "Box dimensions and serialized plate stations",
+    "fixed and moving contact faces, including0.500mm nominal contact gap",
+    "insert and screw stations",
+    "five wet modules and eight wet preparation projects"
+  ],
+  "final_canonical_binding": "The parent canonical producer materializes this exact source helper; its final artifact digest is recorded by the complete dock integration review."
+}

@@ -6028,17 +6028,31 @@ def pump_contact_faces(box):
 
 
 def _pump_contact_fixed_stock(box):
-    """Broad insert-root backing with a 45-degree underside into the wall."""
+    """Insert and lead backing with supported undersides clear of the valves."""
     x, z = pump_contact_station(box)
     axis = pump_contact_lead_axis_z(box)
     half = max(abs(v) for v in _pogo.ear_xs()) + pogo_insert_entry_dia / 2 + wall
-    bottom = min(z - pogo_insert_entry_dia / 2 - wall,
-                 axis - pogo_lead_r - wall)
-    back = box.pack.collet_plate["wall_aft_y"]
-    pad = _ybox(x - half, x + half, back, back + wall, bottom, box.pump_bay[2])
-    corbel = _yz_prism(x - half, x + half,
-                      [(back, bottom - wall), (back + wall, bottom), (back, bottom)])
-    return pad.fuse(corbel).clean()
+    root = box.pack.collet_plate["wall_aft_y"]
+    face = pump_contact_faces(box)[0]
+    back = max(root, face + _pogo.ear_back() + pogo_heatset_setback
+               + pogo_heatset_len + pogo_heatset_relief + wall)
+    depth = back - root
+    insert_floor = z - pogo_heatset_dia / 2 - wall
+    pad = _ybox(x - half, x + half, root, back, insert_floor, box.pump_bay[2])
+    pad = pad.fuse(_yz_prism(x - half, x + half,
+                   [(root, insert_floor - depth), (back, insert_floor),
+                    (root, insert_floor)]))
+    radius = pogo_lead_r + wall
+    tangent = radius / 2**.5
+    low = axis - radius * 2**.5
+    lead = _ycyl(radius, x, axis, root, back).fuse(_xz_prism(root, back,
+               [(x - tangent, axis - tangent), (x, low),
+                (x + tangent, axis - tangent)]))
+    web = _ybox(x - pogo_lead_r, x + pogo_lead_r,
+                root, back, low, insert_floor)
+    web = web.fuse(_yz_prism(x - pogo_lead_r, x + pogo_lead_r,
+                  [(root, low - depth), (back, low), (root, low)]))
+    return pad.fuse(lead, web).clean()
 
 
 def _pump_contact_fixed_cuts(box):
