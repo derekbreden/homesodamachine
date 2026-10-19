@@ -94,7 +94,7 @@ class Seg:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
-      `pump-dock`— a prepared pump stem sealing in a permanent TPU junction.
+      `pump-dock`— a prepared pump's LLDPE stub sealing in a permanent TPU junction.
       `printed-return` — two straight LLDPE links and a fixed printed TPU return;
                    the reported tube length excludes its printed passage.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
@@ -109,7 +109,7 @@ class Seg:
     id: str
     ends: tuple           # one or two anchor names; one means the far end is not placed
     made: str
-    length: float = None  # reported LLDPE path; prepared stems and TPU passages are separate
+    length: float = None  # reported LLDPE path; prepared pump stubs and TPU passages are separate
     corners: int = 0
     developed: float = None  # exposed centreline where it is known but cut length is not
 
@@ -601,7 +601,7 @@ def rewrite_linkstyles(lines: list[str], edges: list[Edge]) -> list[str]:
 
 
 def manifold_variables(segs: dict) -> dict:
-    """Reported LLDPE paths, excluding machined stems and printed passages."""
+    """Reported LLDPE paths, excluding prepared pump stubs and printed passages."""
     fluid = [s for k, s in segs.items() if k.startswith("fluid-")]
     cut = [s for s in fluid if s.length]
     longest = max(cut, key=lambda s: s.length)
@@ -717,7 +717,7 @@ def main() -> int:
               f"{' → '.join(s.ends)}")
     print(f"  {'REPORTED':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm over "
           f"{len(fluid)} segments; add actual fitting insertions to mouth-to-mouth paths; "
-          "machined stems and TPU passages excluded")
+          "prepared pump stubs and TPU passages excluded")
     print(f"  limbs {limb_vars['LIMB_COUNT']}, valves {limb_vars['LIMB_VALVES']}, "
           f"junctions {limb_vars['TEE_COUNT']}, pumps {limb_vars['PUMP_COUNT']} "
           f"({limb_vars['UPPER_COUNT']} upper-deck bodies, {limb_vars['LOWER_COUNT']} lower)")

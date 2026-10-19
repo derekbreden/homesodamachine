@@ -1400,8 +1400,8 @@ planes, and the front display-support columns have no section anywhere in this w
 The pump stations use a [3 mm](PUMP_STATION_DROP) downward world-Z datum. The stationary
 manifold, tees and tube passages stand 2 mm above the manifold's nominal datum. The pump
 reference's rear boss and motor axis stands 1 mm toward Y− from its head datum, and the
-clamp's fitted octagon and motor-can openings follow that rear-stack axis. Four smooth machined flanged stems connect the complete pumps to the permanent TPU
-receivers; fixed LLDPE tails join those receivers to the commercial tees.
+clamp's fitted octagon and motor-can openings follow that rear-stack axis. Four straight LLDPE stubs, clamped in the pump heads, connect the complete pumps to the
+permanent TPU receivers.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, molded
 flange, head and tube fittings. The fitted head well leaves flat skirt lands on −Y and both X
@@ -1471,12 +1471,12 @@ stands one flute depth ahead of the pump-pocket datum. The pump wells and their 
 the complete flavour pack's common station.
 
 **Four permanent TPU receivers form the pump dock.** Each complete replacement pump
-carries two smooth machined PP-H Polystone P stems with integral retention flanges.
-The flanges seat in the cradle outside the wet sealing region and transfer axial
-withdrawal loads into its printed shoulders. The cap closes their upward escape.
-The customer's pump change does not cut, trim or transfer a stem.
+carries two straight stubs of 1/4" LLDPE in its tube ends, clamped by the pump head's
+own housing, which carries their axial loads into the rigid head. The stubs pass the
+cradle's open tube passages. The customer's pump change does not cut, trim or
+transfer a stub.
 
-The stems enter [4](RECEIVER_COUNT) custom TPU funnels followed by
+The stubs enter [4](RECEIVER_COUNT) custom TPU funnels followed by
 Ø[6.1 mm](DOCK_SEAL_BORE), [6 mm](DOCK_LAND) straight sealing lands. The rigid wall
 locates the receivers in X/Z. Their recessed collars fit in the wall, and
 [4](KEEPER_COUNT) flat PET-GF keepers slide down the interior guides to capture Y.
@@ -1496,27 +1496,29 @@ hold the block's top face to the aft tray foot. All permanent plumbing is
 assembled on loose front-top before that piece joins the compressor half.
 
 Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
-set full insertion, with the stem tips
+set full insertion, with the stub tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
-A straight pull withdraws the four stems while every junction, keeper, return,
+A straight pull withdraws the four stubs while every junction, keeper, return,
 the return block and every fixed tube remain in place. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
-parts, native geometry review, factory setting fixtures and material selections.
+parts, native geometry review, tube setting jig and material selections.
 
-**Six exposed-face SB443-IN pairs retain the seated cartridge.**
-[12](DOCK_MAGNET_COUNT) magnets occupy two three-high columns per half. Grooved rails
-and mechanically keyed 3M DP420 Off-White bedding capture the blocks. The actual pole
-faces are gauged with those rigid stop lands seated before curing; nominal pocket
-clearance does not determine their final axial position. The
-[magnet record](../pump-dock/magnet-retention.md) describes that factory operation.
+**Bare-pole SB443-IN pairs retain the seated cartridge.**
+[16](DOCK_MAGNET_COUNT) magnets stand in one [4](DOCK_MAGNET_ROWS)-high column on each
+pump's own load line in each half. Each column is bonded with 3M DP420 Off-White in one
+plain pocket per part; each block's side grooves key it into the cured bedding. The
+fixed blocks bottom in their pockets, and the moving blocks cure against them with the
+rigid stop lands seated, so nominal pocket clearance does not determine their final
+axial position. The [magnet record](../pump-dock/magnet-retention.md) describes that
+factory operation.
 Installed holding force, mount capacity and heat exposure remain physical
 qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
-fit keeps its recorded scope; machined-stem capture, TPU sealing and the complete
-magnetic dock require their own assembled physical results.
+fit keeps its recorded scope; the stub clamp, TPU sealing and the complete magnetic
+dock require their own assembled physical results.
 
 **Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [15.75 mm](PULL_DEPTH)
 deep and [28 mm](PULL_RUN) long in Y, from z [177.43 mm](PULL_FLOOR_Z)
@@ -1689,9 +1691,9 @@ contact is rated 12 V and 2 A.
 
 The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) covers
 the current exported seats, drawing tolerances and physical evidence. The purchased
-connector halves contain their own magnets. The separate six-pair
+connector halves contain their own magnets. The separate eight-pair
 [SB443-IN dock array](../pump-dock/magnet-retention.md) acts at the four fluid-port
-row, with actual attracting faces set against the seated frame. Its retention does
+row, with its moving faces bonded against the fixed ones in the seated frame. Its retention does
 not establish pin compression or electrical continuity. The
 [RC62 ring-magnet print records](magnet-retention/README.md) retain their identified
 pocket, covering-layer and rattle scopes; they do not qualify the SB443-IN mounts.

@@ -169,7 +169,6 @@ import valve_tray as _valve_tray
 import pump_tray as _tray
 import dock_structure as _dock
 import pump_receiver as _receiver
-import stub_grip as _stems
 import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
@@ -1506,11 +1505,11 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle keeps its nominal bed while the receiver floor retreats by
 # `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
-# Six matched SB443-IN pairs pull the lower cradle toward the bulkhead on
-# the stems' insertion axis. Prepared pumps carry machined flanged stems;
-# the lower cradle catches their flanges and the cap closes their Z route.
+# Eight bonded SB443-IN pairs pull the lower cradle toward the bulkhead,
+# four on each pump's own port line. Each prepared pump's head clamps its
+# two straight LLDPE stubs; the stubs pass the cradle's open tube passages.
 # Four permanent TPU receivers carry radial seals. Pulling the complete
-# cartridge withdraws only the stems; the receivers and commercial tees stay.
+# cartridge withdraws only the stubs; the receivers and commercial tees stay.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it. The floor begins at front-top's actual bed, above the nominal
@@ -5774,9 +5773,6 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(box)[1]:
         solid = solid.cut(bore)
-    grips = pump_stem_features(box)
-    solid = solid.cut(grips["cap_clearance"])
-    solid = solid.fuse(grips["cradle_stock"]).cut(grips["cradle_cutter"])
     magnet = pump_retention_features(box)["moving"]
     solid = solid.fuse(magnet["stock"]).cut(magnet["cutter"])
     return _unified(_round_cradle_pull_rims(solid, box))
@@ -5830,7 +5826,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
 
 
 def pump_cap_body_x_span(pump_trays):
-    """The cap's two outer body planes, shared by its rear guard webs."""
+    """The cap's two outer body planes."""
     return (min(cx - _tray.half_width() for cx, _cy, _cz in pump_trays),
             max(cx + _tray.half_width() for cx, _cy, _cz in pump_trays))
 
@@ -5899,26 +5895,13 @@ def _cap_screws(box):
     return clear, sets
 
 
-def pump_stem_features(box):
-    plate, trays = box.pack.collet_plate, box.pack.pump_trays
-    return _stems.features(plate["holes"],
-        pump_cartridge_aft_y(trays, plate),
-        cap_split_z(trays), plate["seated_tube_bottom_y"],
-        cap_route_top_z=cap_crown_z(box),
-        lower_guard_fore_y=min(cy + _tray.skirt_body_open_y_bounds[1]
-                              for _cx, cy, _cz in trays),
-        cap_web_x_bounds=pump_cap_body_x_span(trays),
-        cap_arch_fore_y=max(cy + _tray.skirt_open_y_max
-                            for _cx, cy, _cz in trays))
-
-
 def pump_cartridge_body_stops(box):
     """Four fixed-wall bearing lands setting Y on the lower cradle itself.
 
     Two heights at both outboard edges define the seating plane clear of the
-    cap lanes, stem guards and magnet columns. Each land spans the actual
-    body-plane gap and embeds a complete wall section in the fixed bulkhead.
-    The magnet faces are gauged after the cradle reaches these bearing faces.
+    tube passages and magnet columns. Each land spans the actual body-plane
+    gap and embeds a complete wall section in the fixed bulkhead. The moving
+    poles are set against their fixed mates with the cradle on these faces.
     """
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     aft = pump_cartridge_aft_y(trays, plate)
@@ -5950,6 +5933,7 @@ def pump_dock_figures(box):
         "DOCK_LAND": f"{_receiver.FRONT_SEAL_Y[1]-_receiver.FRONT_SEAL_Y[0]:.4g} mm",
         "DOCK_SEAL_BORE": f"{_receiver.SEAL_BORE_D:.4g} mm",
         "DOCK_MAGNET_COUNT": str(2*len(_retention.stations(plate["holes"]))),
+        "DOCK_MAGNET_ROWS": str(_retention.ROWS_PER_COLUMN),
         "DOCK_KEEPER_T": f"{_receiver.KEEPER_THICKNESS:.4g} mm",
         "DOCK_KEEPER_RADIAL_AIR": f"{_receiver.KEEPER_RADIAL_CLEARANCE:.4g} mm",
     }
@@ -5977,7 +5961,9 @@ def _pogo_seat(face_y, into, x, z, up):
     stadium joins both entries and opens into the body and lead clearances.
     The body cavity follows the purchased envelope with slip; the deeper
     inserts retain complete surrounding stock and blind caps. `up` assigns
-    the supported-face allowance. Factory depth is read from the printed face.
+    the supported-face allowance to the seat and loading passages. Each Ø2
+    pilot is the insert's round lead hole, so the knurl has stock to melt
+    into all round it. Factory depth is read from the printed face.
     """
     s = fits.slip
     w = _pogo.BODY_W + 2.0 * s
@@ -6005,9 +5991,8 @@ def _pogo_seat(face_y, into, x, z, up):
             2.0 * pogo_insert_entry_dia, pogo_insert_entry_dia,
             x + ex - math.copysign(pogo_insert_entry_dia / 2.0, ex), z,
             *at(back - 0.01, anchor)), up).fuse(
-            _supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
-                                 *at(anchor - 0.01,
-                                     anchor + pogo_heatset_len + pogo_heatset_relief)), up))
+            _ycyl(pogo_heatset_dia / 2.0, x + ex, z,
+                  *at(anchor - 0.01, anchor + pogo_heatset_len + pogo_heatset_relief)))
         for ex in _pogo.ear_xs()]
     load_length = 2 * (max(abs(ex) for ex in _pogo.ear_xs()) + pogo_insert_entry_dia / 2)
     load = _supported_cut(_y_stadium(load_length, pogo_insert_entry_dia,
@@ -6151,7 +6136,6 @@ def build_pump_cap(box, halves_cache=None):
         solid = solid.cut(bore)
     for cutter in _pump_contact_cap_cuts(box):
         solid = solid.cut(cutter)
-    solid = solid.fuse(pump_stem_features(box)["cap_stock"])
     return _unified(solid)
 
 
@@ -9871,14 +9855,11 @@ def export_pump_dock(box):
     """Write station-specific wet parts, dry captures and factory tools."""
     import flute_payload
     from _materials import M_PETGF_BLACK
-    gauges = pump_retention_features(box)
     products = _dock.manufacturing_parts(box.pack.collet_plate)
     tools = (
         ("enclosure-pump-tube-setting-jig", _dock.tube_setting_jig(
             box.pack.collet_plate, pump_cartridge_aft_y(
-                box.pack.pump_trays, box.pack.collet_plate)), M_PETGF_BLACK),
-        ("enclosure-pump-magnet-gauge-moving", gauges["moving"]["setting_gauges"][0], M_PETGF_BLACK),
-        ("enclosure-pump-magnet-gauge-fixed", gauges["fixed"]["setting_gauges"][0], M_PETGF_BLACK))
+                box.pack.pump_trays, box.pack.collet_plate)), M_PETGF_BLACK),)
     products.update({stem: {"shape": shape, "color": color} for stem, shape, color in tools})
     for stem, product in products.items():
         shape, color = product["shape"], product["color"]

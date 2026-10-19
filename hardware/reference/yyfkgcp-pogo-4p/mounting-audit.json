@@ -64,9 +64,9 @@
     "female_location": "Pump-cap aft face",
     "male_location": "Front-top bay bulkhead fore face",
     "closing_datum": "Dedicated outboard PET-GF stop lands on the fixed wall bearing against retained lower-cradle stock; broad aft planes retain their nominal clearance",
-    "separate_retention_magnets": "Twelve SB443-IN blocks, six attracting pairs in two three-high columns per half",
+    "separate_retention_magnets": "Sixteen SB443-IN blocks, eight attracting pairs in one four-high column per pump on each half",
     "retention_pair_location": "Lower cartridge cradle and fixed receiver wall, centered between each pump's port axes",
-    "retention_mount": "Post-print loaded grooved rails and mechanically keyed DP420 Off-White bedding, gauged against actual rigid seating faces",
+    "retention_mount": "Post-print DP420 Off-White bedding in one plain pocket per column; moving poles cured against the fixed poles on the seated frame",
     "retention_record": "../../printed-parts/enclosure/pump-dock/magnet-retention.md",
     "magnet_insertion_pause_required": false
   },
@@ -122,54 +122,18 @@
     "tool_profile_or_physical_fit_qualified": false
   },
   "source_sha256": {
-    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "998df0304e0291009a6c5695239a9079a323fb5e706358a250032921ff42ddd1",
-    "hardware/manifold-layout/enclosure-box.json": "2980b26314b18d1f1bce1b2e2a66c09e886318c9197eb51239a78a98b684ece6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b250f92f4191410fd6fc57bcb1cd81d81fafab1e3206e4fd7e3120baa018d286",
-    "hardware/manifold-layout/enclosure_assembly.py": "f4c1bacb83a6826c3e739b8ade682f2dd9318a596763cbb4b22851922838beaa",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "f535e5b7ec3ce01f07b3c154a533155e0e21f17d9a043145c2a58625261d25ce",
+    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80be0fbfbb48a2416768a4096aa38c7929dae42c0e016d64f30a49b30c7aed95",
+    "hardware/manifold-layout/enclosure_assembly.py": "f635aaf61d55edf1b67842fac3386e9084d6572e554b472b1b2502e5ccb47213",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
     "hardware/printed-parts/cadlib/fits.py": "573b51faf3948e5750db1ab580c9f3035d7063a43815c4eaf505b40092ad83a0",
-    "hardware/scripts/_box_spec.py": "ad960841cd9c780fde4e95f7db640d583e9b27db47d0ffdfa9613b5820ef02a3"
+    "hardware/scripts/_box_spec.py": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fe07856724ff5d4a0cec5247b8b02d3fdfdb9ddbf4dd9cdef412734ebb3f49a7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "7e937b7a5224e674f831a6d7042010a6c4458ec9fda7d7222ee3eeb1bbee87ba",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "fac29e87b3c2fa566603a180830cad516a934b8076de7dccfc345b88c58eeec9"
   },
-  "physical_record": "physical-observations.json",
-  "native_reader_artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "f96b697f8c6d24fa2ee8ccbe283c1080df6fe7395bf8fee1b29f8299458e6920",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cbebb74ca6f0da194f89da146c6a8f1d14fe4095df7dafad5d85e1840053c063"
-  },
-  "current_artifact_binding": {
-    "scope": "The seven recorded checks are retained without rerunning the unchanged distant seats. Every recorded source input, including complete owning enclosure/contact and placement constructors, is byte-identical. Moving cap/cartridge native bodies are byte-identical. The fixed native body carries only the separately reviewed additive lower-corbel change below the complete contact hosts and passages.",
-    "recorded_checks": 7,
-    "all_recorded_source_inputs_identical": true,
-    "owning_constructor_AST_identical": true,
-    "reference_fixed_native_sha256": "8cd26fe9a7557a45a20a13bc2cebcc19d6f06305305025f69d602f4c926ca219",
-    "current_fixed_native_sha256": "8490cb9d2a4bafd8ba85211785b55bd0389d2d93ee4a4298cf40661ea25e32f4",
-    "changed_source_path": "hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
-    "reference_changed_source_sha256": "67ee163bfc97f52228ef30d1bfd72f910f00ad6caa697f2bb6705025abc9f285",
-    "current_changed_source_sha256": "c80fc968617a1b07727618c3b86a785288f1cd4216cb9d2819138c97d78253f9",
-    "changed_source_function": "tee_saddle",
-    "all_other_executable_AST_identical": true,
-    "change_additive_only": true,
-    "complete_change_z_bounds_mm": [
-      160.25,
-      164.924
-    ],
-    "native_export_added_mm3": 983.622600000002,
-    "native_export_removed_mm3": 0,
-    "actual_added_stock_bounds_mm": {
-      "xmin": -93.25,
-      "xmax": 93.25,
-      "ymin": 106.866,
-      "ymax": 111.54,
-      "zmin": 160.25,
-      "zmax": 164.924
-    },
-    "complete_contact_host_min_z_mm": 263.1256261237512,
-    "separation_mm": 98.2016261237512,
-    "limits": "No current physical fit, tool access, contact resistance, printed gap, load capacity or endurance qualification is inferred."
-  }
+  "physical_record": "physical-observations.json"
 }

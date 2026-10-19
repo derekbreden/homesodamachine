@@ -7,11 +7,12 @@ assembly and its physical observations are indexed in
 the male half stays in front-top's bay bulkhead. Its four leads stay on the pump tabs
 when the cartridge is withdrawn.
 
-The lower cradle and fixed receiver wall carry six attracting SB443-IN pairs in
-two three-high columns at the fluid-port row. The blocks are installed after
-printing and positively captured by grooved rails and keyed DP420 Off-White bedding.
-Their pole faces are match-set against the actual rigid cartridge stops before
-cure, following the [magnet procedure](../pump-dock/magnet-retention.md).
+The lower cradle and fixed receiver wall carry eight attracting SB443-IN pairs,
+one four-high column on each pump's own load line at the fluid-port row. The
+blocks are installed after printing and bonded with DP420 Off-White in one plain
+pocket per column in each part. The moving poles cure against the bottomed fixed
+poles with the cartridge on its rigid stops, following the
+[magnet procedure](../pump-dock/magnet-retention.md).
 Installed retention and contact compression remain physical qualifications.
 
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
@@ -25,18 +26,16 @@ in counterbores accessible from above.
 The cartridge uses the relieved enclosure floor. The cap and cartridge share an
 aft face at Y79.269 mm, with a complete 3 mm skirt band and 0.246 mm body clearance
 to the receiver wall. The contact faces are each recessed 0.127 mm, giving a
-0.500 mm nominal mating gap. The four prepared PP-H stems have integral flanges
-captured axially in the lower cradle; the cap closes their upward escape. Their
-tips enter permanent TPU receivers and finish 0.50 mm before the internal shoulders.
+0.500 mm nominal mating gap. The four prepared LLDPE stubs are clamped in the pump
+heads and pass the lower cradle's open tube passages. Their tips enter permanent TPU
+receivers and finish 0.50 mm before the internal shoulders.
 Dedicated outboard rigid stop lands bear against the retained lower cradle to
 establish that position; the broad aft planes retain their stated clearance.
 
 The [fitted-well audit](/hardware/reference/kamoer-kphm400/fitted-well-audit/README.md)
 records its sampled 0.004 mm match to the retained printed input and its cap,
-screw-access, front-rim and outlet-axis scope. The
-[stem review](../pump-dock/stem-native-review.json) covers the added flange guards,
-cap installation and purchased-pump clearances. Neither native record extends
-the accepted holder fit to the complete fluid dock.
+screw-access, front-rim and outlet-axis scope. It does not extend the accepted
+holder fit to the complete fluid dock.
 
 ## Native evidence
 
@@ -63,12 +62,12 @@ underside; the cap prints crown-down.
 
 The RC62 trial's [paused source](magnet-retention/pump-cartridge-pause.3mf) and
 [emitted-path check](magnet-retention/native-check.json) retain their identified
-ring-pocket scope. The current SB443-IN mounts follow the post-print loading and
-cure process linked above. The cap's purchased pogo magnets arrive inside the connector.
+ring-pocket scope. The current SB443-IN mounts follow the post-print bonding
+process linked above. The cap's purchased pogo magnets arrive inside the connector.
 
 The [support audit](pump-support-audit.md) names the actual support bodies and their
 removal lanes. Remove them before installing pumps or screws. The complete enclosure
 trial checks the raised crown with actual terminal connectors, pump seating, marked
-stem tip positions, flange capture, simultaneous four-receiver insertion, fixed
+stub tip positions, stub clamping, simultaneous four-receiver insertion, fixed
 receiver/tee retention and straight cartridge withdrawal.
 Physical support-removal effort and operation remain observations of that trial.

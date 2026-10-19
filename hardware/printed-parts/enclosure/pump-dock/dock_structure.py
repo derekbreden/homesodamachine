@@ -328,9 +328,8 @@ def tube_setting_jig(plate, cartridge_face_y):
         bore=ycyl(3.5,x,z,cartridge_face_y-.1,tip)
         opening=box(x-3.5,x+3.5,cartridge_face_y-.1,tip,z,row+8.1)
         body=body.cut(bore.fuse(opening))
-    # The two magnet guards also project behind the retained cartridge plane.
+    # The two moving pole columns stand proud of the cartridge back to the wall face.
     for x,z in retention.column_stations(plate['holes']):
-        half=retention.SLOT_HALF+retention.SIDE_KEY+retention.STRUCTURAL_STOCK+.25
-        end=cartridge_face_y+max(3.0,retention.MOVING_POLE_PROJECTION-retention.GUARD_POLE_PROUD+.25)
-        body=body.cut(box(x-half,x+half,cartridge_face_y-.1,end,row-9,row+9))
+        half=retention.SLOT_HALF+1.0
+        body=body.cut(box(x-half,x+half,cartridge_face_y-.1,plate['fore_y']+.75,row-9,row+9))
     return body.clean()

@@ -54,7 +54,7 @@ for fixed-width brim types.
 | `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
 | `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; cap crown-down | — |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
-| `factory-tools` | Mark2 | Magnet gauges on their flat backs ([magnet process](../pump-dock/magnet-retention.md)); tip gauge and stem fixture as exported | — |
+| `factory-tools` | Mark2 | Tube tip setting jig as exported | — |
 | `dock-petgf` | Mark1 | Four keepers and the return block, manufacturing exports already in print pose; the block lies on its top face | Six walls, 100% zig-zag per part |
 | `labels` | Mark2 | [`../../drain-readiness/prepare.py`](../../drain-readiness/prepare.py) `labels`, under the CAD lock: closing layers on each face-up chip and DATA face and lettering top | — |
 

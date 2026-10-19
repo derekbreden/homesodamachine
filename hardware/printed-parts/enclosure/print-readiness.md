@@ -26,7 +26,7 @@ The five current PET-GF dock pieces require their own production native
 preparations, using the [exact part handoff](pump-dock/petgf-production-parts.md).
 The complete dock requires assembled physical qualification: seal fit, flexible
 funnel insertion, socket-stop restraint, keeper and closing-cover retention,
-machined-stem flange capture, SB443-IN mounts and rigid cartridge stops.
+the pump heads' stub clamps, the bonded SB443-IN columns and rigid cartridge stops.
 The [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
 [connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
 retain their identified scopes; neither establishes the current wet seals or
@@ -70,7 +70,7 @@ complete insert hosts and blind caps. The general 15% infill recipe does not
 establish solid material in those regions. Each fresh native review must verify
 their actual placement and emitted deposition as well as the show surfaces.
 The manual specification also identifies the seven dock-lock hosts, keeper guides,
-magnet rails and bedding keys, rigid-stop roots, stem-flange shoulders, recessed
+magnet column pockets, rigid-stop roots, recessed
 pogo hosts and the whole return block. Print the four station-specific
 keepers and the return block with six walls and 100% infill, all on one plate. Their manufacturing exports already contain the print pose. Four
 M3×8 locks retain the keepers; three M3×12 locks hold the return block. Those settings and
@@ -79,7 +79,7 @@ path review; they do not establish support removal or physical load capacity.
 Each pump-dock job binds the current magnetic mounts and seating faces to its native
 geometry. The [RC62 print jobs](enclosure/magnet-retention/queue.json) are evidence for
 their identified ring-magnet articles; their pauses and covering layers do not qualify
-the exposed-face SB443-IN mounts.
+the bonded bare-face SB443-IN columns.
 
 The show transitions print without support contacts. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
@@ -208,7 +208,7 @@ unmeasured does not by itself supply a task or test for the founder.
 | Complete assembly | Close the current [assembly feedback](enclosure/assembly-fit-review/README.md) against the populated machine: cord and driver access, valve and tube installation, pump feet and washers, routing, lid/deck stations, funnel frame and all four closing quadrants. A nominal CAD gap is not complete assembly acceptance. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters. |
 | Cold-core moisture boundary | The warm-side closure is the foil bands on the dry casing seams ([seam review](../cold-core/foam-cap/seam-moisture-review.json)) plus, at final assembly, a 3M 425 foil collar pressed from each conduit's tube or cable onto the lid face round its annulus, the same at both copper exits, a foil patch over each cap-screw head pocket and over any cap foam left showing ([cold core](../../assembly/cold-core.md#7-final-assembly)). It needs no printed sealing land; its effect on condensation inside the core is unmeasured. |
 | Condensate and refill water | The [traced water paths](../../concerns.md#running) put no mains part under any drip. Condensate is answered by insulating the meter, union and tails and by the umbilical's drip loop. Roof runoff, overpour and a drain-seal leak enter through the funnel frame's perimeter gaps and fall on the 12 V manifold junctions, the compressor's top and the cold core's lid; how that perimeter is sealed is Derek's decision (gasket, lapped surround or hidden gutter; the lap is recommended), and it changes front-top and the funnel frame. Floor water needs feet under the slab, a purchase. |
-| Loads, retention and electrical contacts | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, cartridge seats, six-pair magnetic capture, four wet joints and pogo contacts for actual operating, handling and customer replacement conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, repeated tube/stem restraint, holding/removal force, electrical continuity, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md), [pressure/retention assessment](pump-dock/pressure-retention-review.json) and [contact audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) identify the current basis and limits. Coupon fit, magnet catalogue pull and saved infill settings retain their specific scopes. |
+| Loads, retention and electrical contacts | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, cartridge seats, eight-pair magnetic capture, four wet joints and pogo contacts for actual operating, handling and customer replacement conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, repeated tube/stub restraint, holding/removal force, electrical continuity, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md), [pressure/retention assessment](pump-dock/pressure-retention-review.json) and [contact audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) identify the current basis and limits. Coupon fit, magnet catalogue pull and saved infill settings retain their specific scopes. |
 | Finished appliance function | Close the relevant material, cleaning, fluid, electrical, control and commissioning work in [concerns](../../concerns.md) and [acceptance and burn-in](../../assembly/acceptance-and-burn-in.md). Any resolution that changes a printed part, access, load path or manufacturing process belongs in this print's design review. The current Lillium-fed soda observation retains its complete stated scope. |
 
 Known design and manufacturing problems are addressed before releasing the affected

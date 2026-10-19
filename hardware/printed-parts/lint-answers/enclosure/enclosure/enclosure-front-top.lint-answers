@@ -3,38 +3,6 @@ alternatives: Making the land flush leaves the cartridge without its positive st
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-100.000 y=82.265 z=223.925
 
-[step] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
-alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-49.600 y=86.565 z=186.426
-click: x=49.600 y=86.565 z=186.426
-click: x=54.850 y=86.565 z=186.426
-click: x=-54.850 y=86.565 z=186.426
-
-[sliver] Specific mating guard recess: these 1.350 mm strips are the axial depth of its four cavity boundary faces, from Y82.515 to Y83.865. They admit the moving 1.350 mm projecting guard with 0.250 mm running air while leaving the pole 0.650 mm ahead of that guard. The closed recess end to the side-key front at Y86.865 retains the complete 3.000 mm fixed housing section; the narrow face width is the required engagement depth, not a 1.350 mm wall specification. The actual host/loading/swept-guard record is magnet-geometry.json.
-alternatives: A shallower recess stops the guard before the four body lands seat and before the poles meet. A deeper recess consumes the 3 mm housing before the cured side keys; widening it changes the retained radial guidance. Removing the moving guard exposes more magnet edge and changes its insertion protection. The specified recess retains this mating envelope, with physical fit and chipping qualification still open.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=60.400 y=83.190 z=189.752
-click: x=-44.050 y=83.190 z=189.752
-click: x=-60.400 y=83.190 z=189.752
-click: x=44.050 y=83.190 z=189.752
-click: x=-52.225 y=83.190 z=206.105
-click: x=52.225 y=83.190 z=206.105
-click: x=-52.225 y=83.190 z=173.399
-click: x=52.225 y=83.190 z=173.399
-
-[sliver] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
-alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=54.850 y=86.565 z=186.426
-click: x=-49.600 y=86.565 z=186.426
-click: x=-55.200 y=86.265 z=186.426
-click: x=55.200 y=86.265 z=186.426
-click: x=-49.250 y=86.265 z=186.426
-click: x=49.250 y=86.265 z=186.426
-click: x=-54.850 y=86.565 z=186.426
-click: x=49.600 y=86.565 z=186.426
-
 [sliver] Specific mating-stop perimeter: the 0.250 mm strip is the exposed fore projection of each 4 × 12 mm body-stop face across the cartridge/wall running gap. The current native review measures the complete 48 mm² reaction face and 3 mm root behind the wall at each station; 0.250 mm is the required stop offset, not a membrane thickness. These edges finish the four explicit lower-cradle seating planes.
 alternatives: Removing the projection loses positive seating across the body air. Enlarging its Y projection changes the closing pose and both magnet/contact datums. Extending the wall across the whole gap removes required cap/fluid clearance. A perimeter bevel changes the stated full rectangular contact area; it does not provide a thicker through-wall section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -62,18 +30,6 @@ click: x=-100.667 y=82.432 z=260.174
 click: x=99.333 y=82.432 z=260.174
 click: x=-100.667 y=82.432 z=217.925
 click: x=99.333 y=82.432 z=217.925
-
-[ceiling] Required flat loading/key closure above each SB443-IN stack. The full supplier block loads through the front mouth and descends along the rails; the Z202.8554 roof closes the cured fill’s upward escape path. Three millimetres of roof stock remain above that loading envelope. The rear-frame insert axes at Z208.674 need their own 3 mm surrounding stock; the overlapping pilot starts at Y89.115, within the loading cavity’s aft extent. Empty mouths open toward −Y for Tree (auto)/Default support removal before magnets and bedding are installed. Geometric access does not establish removal effort or printed finish.
-alternatives: A ramp into the present mouth obstructs the full drawing loading envelope. Raising a full-width 45° roof over the 9.85 mm keyed span adds 4.925 mm at its crest, taking it to Z207.7804 and into the rear-frame pilot’s lower envelope at Z206.674. Opening the roof removes the fill’s positive-Z closure. Moving the frame locks changes the frame/receiver mounting interface. The flat closure preserves both fitted envelopes.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-52.225 y=86.603 z=202.855
-click: x=52.225 y=86.603 z=202.855
-
-[ceiling] Specific moving-guard guide crown: the Z206.1054 flat is 0.250 mm above the complete moving guard’s top at Z205.8554. The 1.350 mm-deep receiving recess keeps the same running allowance along insertion while the moving pole remains 0.650 mm ahead of its guard. magnet-geometry.json binds the actual host, complete swept guard and bare-face seating. The empty mouth is open toward −Y for Tree (auto)/Default support removal before installation; finish and cleanup remain unqualified.
-alternatives: A ramp below this plane enters the moving guard’s swept envelope. Raising the crown into a ramp enlarges the designed running/tilt clearance toward the exposed magnet edges. Removing the guide crown gives up that upper guidance; changing both guard and recess changes the mating interface. Keep the uniform guide clearance and support its open crown.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-52.225 y=83.190 z=206.105
-click: x=52.225 y=83.190 z=206.105
 
 [sliver] Required purchased-body / insert-loading depth transition. These 0.850 mm face strips join the 4.30 mm-high body/ear stadium and the 2.60 mm-high knurl-loading stadium, each with the separate supported-face allowance, at body-cavity end Y86.790. The source retains 3.10 mm axial root allowance between body depth 4.15 and heat-set anchor 7.25. Exact native rejection witnesses show that extending the body cavity to the anchor removes both 3.10 mm material lines and opens cavity points only 1.427773 mm from the nominal Ø2.3 knurls, below the specified 3 mm root. The strip width is not a 0.850 mm through-wall allowance. Printed loading and screw retention remain separately unqualified.
 alternatives: A straight 45-degree reconciliation of the 0.85 mm profile-height change requires 0.85 mm additional axial run, leaving 2.25 mm to anchor 7.25; the current 3.10 mm stack has only 0.10 mm beyond its 3 mm minimum. Extending the complete body-height cavity loses the quantified root. Enlarging the loading aperture through the full ear width spends the ear bearing at depth 3.00. Moving inserts deeper changes the 8 mm screw stack and loading-tool access.
@@ -153,14 +109,6 @@ click: x=98.500 y=171.739 z=180.832
 click: x=-98.500 y=171.739 z=180.832
 click: x=62.650 y=19.320 z=305.372
 click: x=-62.650 y=19.320 z=305.372
-
-[thin] Required SB443-IN groove-capture interface: the rail projects 0.700 mm into the 6.650 mm slot and is 0.600 mm along Y. The supplier full-tolerance common groove is only 0.8382 mm wide (1.8542–2.6924 behind the bare pole); the rail occupies 2.000–2.600 mm, and its tips leave 0.1104 mm against the largest groove neck. Mechanically keyed DP420 bedding fills the actual axial groove allowance. magnet-geometry.json binds complete supplier loading, bare-face position and positive keyed capture in this actual exported host. Printed rail/key strength and repeated removal remain unqualified.
-alternatives: A 3 mm rail cannot enter this purchased groove. Extending it along Y consumes the recorded supplier groove clearance; increasing its X projection consumes the worst-neck air. Removing it leaves adhesion as the axial restraint. A different magnet or separate bolted retainer changes the purchased interface or adds factory parts and operations.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-55.233 y=86.865 z=176.844
-click: x=-49.262 y=86.265 z=177.335
-click: x=49.217 y=86.865 z=176.844
-click: x=55.187 y=86.265 z=177.335
 
 [thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
 alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.
