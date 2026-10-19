@@ -93,12 +93,6 @@ click: x=97.292 y=270.800 z=343.955
 click: x=97.292 y=336.800 z=330.955
 click: x=97.292 y=332.800 z=343.930
 
-[thin] Specific cosmetic-flute profile exception: the upper Y-stack screw mouth's outboard rim is the fluted flank skin. The Ø10.8 head and DIN 125 washer recess on the |X|98 axis stands 1.81-1.83 mm inside the roof's R6 side round and its additive print chamfer over the mouth's top 2.4 mm, and 3 mm below that; the skin outside it is the show field the cosmetic-flute answers on every enclosure piece take. The washer, front-top's M5 insert host in its 13 mm knuckle and the fixed exterior set the recess and the skin.
-alternatives: A 3 mm rim needs the upper rods at least 1.2 mm inboard and 13.5 mm knuckles, which brings the knuckle face 1.5 mm from the funnel brim and moves the frame's rear narrowing.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=105.233 y=208.890 z=354.951
-click: x=-105.233 y=208.890 z=354.951
-
 [thin] Specific required partition, with a classifier minimum: each row's 1.445 mm minimum pairs the meter anchor's rib crown (Z344.4) inside the tie band with the slab underside (Z343) past the band's end, a corner pair. The real section in the cluster is the 1.95 mm slab between each zip tie's channel and the flow meter's pocket (Y382.56-384.51 and 423.51-425.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
 alternatives: A 3 mm partition needs a positive axial stop holding the meter within about 0.9 mm, e.g. the inner end webs carried over the neck with a lead-in, so the pocket can give up the room; a narrower tie channel or a shifted band thins the collar's end webs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
