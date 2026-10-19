@@ -132,12 +132,12 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.302 | $32.57 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.246 | $31.18 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.496 | $12.42 <!--@printed--> |
 | Enclosure — pump receiver keepers (one set) | 4 | PET-GF | 0.010 | $0.26 <!--@printed--> |
-| Enclosure — pump return fixtures (one set) | 4 cradles + 4 covers | PET-GF | 0.228 | $5.71 <!--@printed--> |
+| Enclosure — pump return fixtures (one set) | 4 cradles + 4 covers | PET-GF | 0.228 | $5.72 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.544 | $38.63 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.497 | $37.45 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Anchor cap — one per capped tube anchor | 1 | PET-GF | 0.002 | $0.06 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.012 | $0.30 <!--@printed--> |
@@ -153,9 +153,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.235 | $5.88 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.29 <!--@printed--> |
-| **Printed parts total** | | | **~7.54** | **[$171.94](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.44** | **[$171.94](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.51 kg / $162.99.
+By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.41 kg / $160.44.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
