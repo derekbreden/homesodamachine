@@ -704,9 +704,9 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "8d726703da52058d533fbdd292d60f163251f0228c59c1809d270fc197a278a8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ae05369adcf571107cfc1cfe4a2ab727b5170f12e14f5e99efa4f9c5b5ebb403",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3f17e1506177145ea5903d2aac4c7f4ea1606959ca5613ea6017785c26180071",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ddd8937ee6f6bb4ae567204c36f242f14cbbbf3d9f64656ae5f04f607004479f",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "a9276cb1105a880900f53ec2cb33875c23091095b6b476dc9f62988aff29c6c9",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
@@ -721,16 +721,16 @@
       ".stl": "6a01061944e97cdf1ed46af95add3e4a6638a47f17f83884a421fd5b74eec432"
     },
     "front-top": {
-      ".step": "6a179544e9064205572473e1440414c65272b783c794e69d556b968455868a52",
-      ".stl": "52216117157e07f4015d5bbcf1787ed37b99fdc96ff9b2d7e923aa3dc1fddaa2"
+      ".step": "1365b09a863573400d6226cc98f4f0fd67d3f347a49be22f37ecfaa7ee3c75d8",
+      ".stl": "d8f5526d9eaf99160555072468c690336899adaec2b70fa9f8f6f9ad592aa2a6"
     },
     "back-bottom": {
-      ".step": "153003a931fd1cf69227e826a8f9ff4c9bfd3d7e6ec864b794906df3381ce30e",
-      ".stl": "bfc5d42961dc8bbc804638a220edc8d4fd82aa64d15e1bc6401e73316ef54852"
+      ".step": "8b1820fe8f80256f3d5e3f7675af1f7aa6bcdec640cdd7c3222f4f65ee9ba2af",
+      ".stl": "95cf0937d5db809d34f608b2762f20d511599440cf6af1fbd26362c5315ac2f2"
     },
     "back-top": {
-      ".step": "9bcdb8c9d6de8fe42048eab751ba7633ce1ccd1f7a983d524252319cf3d238c7",
-      ".stl": "a068dcfae5d7e0523dd8e9458df4a7b24e9882e0396a7cc15feaed803c64beb4"
+      ".step": "44df4b7e048d380424a442a7dcb64a9316e94e6c31c481e05d998b58f70983f0",
+      ".stl": "96305fd3ba110c27eda5056b0c23b5c2ce42bfa7747a59c9a0dfc33e986a34bb"
     },
     "pump-cartridge": {
       ".step": "9bfe3ca33a40e038b383923479c0fd8d53d4b1c2c228c5461301ca5a555a7e07",
