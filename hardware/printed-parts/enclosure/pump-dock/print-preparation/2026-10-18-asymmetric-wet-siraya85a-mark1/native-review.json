@@ -18,7 +18,7 @@
       "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
       "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
       "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-      "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+      "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
       "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
     },
     "source_input_equivalence": [
@@ -26,7 +26,7 @@
         "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
         "source_path": "hardware/manifold-layout/enclosure-box.json",
         "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-        "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
         "full_decoded_plate_input_identical": true,
         "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -637,7 +637,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -645,7 +645,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -1030,7 +1030,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -1038,7 +1038,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -1581,7 +1581,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -1589,7 +1589,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -1974,7 +1974,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -1982,7 +1982,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -2525,7 +2525,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -2533,7 +2533,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -2918,7 +2918,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -2926,7 +2926,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -3467,7 +3467,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -3475,7 +3475,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
@@ -3860,7 +3860,7 @@
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
         "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
-        "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
       },
       "source_input_equivalence": [
@@ -3868,7 +3868,7 @@
           "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
           "source_path": "hardware/manifold-layout/enclosure-box.json",
           "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-          "current_source_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
           "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
           "full_decoded_plate_input_identical": true,
           "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"

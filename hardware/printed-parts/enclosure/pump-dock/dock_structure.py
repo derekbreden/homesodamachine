@@ -47,6 +47,7 @@ FIXTURE_TAB_THICK = 3.0
 FIXTURE_SCREW_LENGTH = 12.0
 FIXTURE_ANCHOR_BELOW = 7.0 + 3.0 + fits.running
 FIXTURE_COVER_ENTRY = returned.KEY_FRONT_W-returned.COVER_FRONT_W+fits.running
+FIXTURE_HARDWARE_AIR = 1.10
 FIXTURE_RECEIVER_APPROACH = 50.0
 FIXTURE_RETURN_LIFT = plumbing.SEAL_LAND+plumbing.ENTRY_LEAD
 FACTORY_DRIVER_SHAFT_LENGTH = 100.0
@@ -375,13 +376,15 @@ def _arm_static_pocket(arm,air):
     return fused(pieces)
 
 
-def _terminal_clearance(plate,layout,side,build):
+def _terminal_clearance(plate,layout,side,build,*,air=None):
     """Open terminal pockets with45degree roofs in the dry print frame.
 
     The aft valves' spades face the diagonal guide. Their reference width
     defines each pocket; the central closed guide remains intact. Loading
     edges retain running air and the terminal tip has static seating air.
     """
+    side_air=fits.running if air is None else air
+    tip_air=fits.slip if air is None else air
     valve=valve_tray._valve
     plane,sign,seats=min(plate['valve_trays'],
         key=lambda row:abs(row[0]-layout['target']['point'][1]))
@@ -390,12 +393,12 @@ def _terminal_clearance(plate,layout,side,build):
     pieces=[]
     for hand in (-1,1):
         x=sx+hand*valve.spade_x_spacing/2
-        keepout=box(x-valve.spade_width/2-fits.running,
-                    x+valve.spade_width/2+fits.running,
-                    y-valve.spade_thickness/2-fits.running,
-                    y+valve.spade_thickness/2+fits.running,
-                    sz-valve.coil_face_y-valve.spade_length-fits.slip,
-                    sz-valve.coil_face_y+fits.slip)
+        keepout=box(x-valve.spade_width/2-side_air,
+                    x+valve.spade_width/2+side_air,
+                    y-valve.spade_thickness/2-side_air,
+                    y+valve.spade_thickness/2+side_air,
+                    sz-valve.coil_face_y-valve.spade_length-tip_air,
+                    sz-valve.coil_face_y+tip_air)
         bounds=_to_local(keepout,layout,side).BoundingBox()
         lo,hi=bounds.xmin,bounds.xmax;u0,u1=bounds.ymin,bounds.ymax
         half=(u1-u0)/2;mid=(u1+u0)/2
@@ -643,6 +646,37 @@ def _factory_loading_fit(base,cover,plate,x,item,layout,side,centers,cuffs,arms,
         'finger_front_W_mm':finger_w}
 
 
+def _purchased_hardware_cuts(plate, x):
+    """Clear purchased hardware without changing socket or lock datums.
+
+    The existing full-motion port rooms retain running clearance. A short
+    static lead adds installed collet air, preserving the remote washer land."""
+    layout = plumbing.layouts(plate)[str(x)]['return']
+    side = mount_side(x)
+    def lp(point):
+        w, u, v = _local_point(point, layout)
+        return (side * w, u, v)
+    base = [_terminal_clearance(plate, layout, side, 1, air=FIXTURE_HARDWARE_AIR)]
+    cover = [_terminal_clearance(plate, layout, side, -1, air=FIXTURE_HARDWARE_AIR)]
+    if abs(x) < 50:
+        valve = valve_tray._valve
+        plane, sign, seats = min(plate['valve_trays'], key=lambda row: abs(row[0] - layout['target']['point'][1]))
+        sx, sz = min(seats, key=lambda q: abs(q[0] - layout['target']['point'][0]))
+        top = sz - max(valve.cap_depth_y / 2, valve.corner_inset_y + valve.upper_corner_radius) - FIXTURE_HARDWARE_AIR
+        near = plane - valve.body_top_z - FIXTURE_HARDWARE_AIR
+        cap = _to_local(box(-220, 220, near, plane + FIXTURE_HARDWARE_AIR, top, 350), layout, side)
+        base.append(cap)
+        cover.append(cap)
+    out = lp(layout['output']['point'])
+    target = lp(layout['target']['point'])
+    radius = max(valve_tray._valve.collet_ear_radius, valve_tray._valve.collet_clip_radius, valve_tray._valve.collet_radius) + FIXTURE_HARDWARE_AIR
+    low = (out[0], out[1], target[2] - FIXTURE_HARDWARE_AIR)
+    high = (out[0], out[1], target[2] + 0.01)
+    lead = _axis_crown(radius, low, high, (-1, 0, 0))
+    base.append(_axis_crown(radius, low, high, (1, 0, 0)))
+    cover.append(lead)
+    return (fused(base), fused(cover))
+
 def _return_fixture(plate,x):
     """Two host bolts close a flat-backed cradle and its outside3mm cover.
 
@@ -815,6 +849,8 @@ def _return_fixture(plate,x):
     base=base.cut(_terminal_clearance(plate,layout,side,1))
     cover=cover.cut(_terminal_clearance(plate,layout,side,-1))
     base,cover,loading_record=_factory_loading_fit(base,cover,plate,x,item,layout,side,centers,cuffs,cover_arms,return_bare,jbody,profile,host_window)
+    hardware_base,hardware_cover=_purchased_hardware_cuts(plate,x)
+    base=base.cut(hardware_base);cover=cover.cut(hardware_cover)
     base=base.clean();cover=cover.clean()
     world_base=returned.to_world(base if side>0 else base.mirror('YZ'),layout)
     world_cover=returned.to_world(cover if side>0 else cover.mirror('YZ'),layout)

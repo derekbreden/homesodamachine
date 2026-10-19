@@ -674,7 +674,7 @@ def _fluid_2(F):
 # before the U is level and the U only falls, so nothing on the line stands above the elbow.
 
 # The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
-FLUID_4_CROSS_Y = 289.0
+FLUID_4_CROSS_Y = 282.0
 
 
 def _fluid_4(F):
@@ -973,7 +973,7 @@ FILL_A_GATE_LEAN_DEG = 2.9
 # plus this air apart at the fill line's lane plane, rather than making either established end
 # storey carry the other's valve lift.
 FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 16.6
+FILL_A_DRAW_GATE_LEAD = 16.3
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
