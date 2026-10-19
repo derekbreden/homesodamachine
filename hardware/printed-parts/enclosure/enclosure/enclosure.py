@@ -6059,7 +6059,8 @@ def _pump_contact_fixed_cuts(box):
     """Male seat, joined insert-loading passage and teardrop lead bore.
 
     The lead opening overlaps the body cavity from the ear-back datum. Its
-    rear opening crosses the complete integral backing pad.
+    rear opening crosses the complete integral backing pad and central tray
+    top with the same supported roof profile.
     """
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
@@ -6074,10 +6075,6 @@ def _pump_contact_fixed_cuts(box):
     seat, bores = _pogo_seat(face, 1.0, x, z, up)
     lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.ear_back() - .01,
                        wall_back + wall + 1.0, up=up)
-    floor = _lead_bore_floor(box)
-    if floor is not None and floor > axis - pogo_lead_r:
-        lead = lead.cut(_ybox(x - pogo_lead_r - 1.0, x + pogo_lead_r + 1.0, wall_back, wall_back + wall + 2.0,
-                              axis - pogo_lead_r - 1.0, floor))
     return [seat, *bores, lead]
 
 
