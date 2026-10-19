@@ -323,7 +323,6 @@ enclosure_seam_rods_per_build = 2 * len(_seam_rods)
 enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "lower")
 enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "upper")
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
-enclosure_seam_washers_per_build = enclosure_seam_rods_per_build
 
 # Every M3 × 8 in the build: the main board's four, the condenser's aft pair, the faucet
 # base, C14 inlet and permanent receiver keepers. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
@@ -597,10 +596,8 @@ def main(*, only_bom=False):
         "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
         "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
         "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-        "SEAM_WASHERS": f"{enclosure_seam_washers_per_build:.4g}",
         "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "12.07", 5),
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
-        "SEAM_WASHERS_COST": pack_line_cost(enclosure_seam_washers_per_build, "7.23", 100),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_STEMS": f"{len(_f.box['collet_plate']['holes'])}",
         "DOCK_RECEIVERS": f"{len(ml.PUMP_JUNCTIONS)}",
@@ -704,7 +701,6 @@ def main(*, only_bom=False):
             "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
             "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
             "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-            "SEAM_WASHERS": f"{enclosure_seam_washers_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
             "FOAM_FACE_SCREWS": f"{inserts_per_foam_cap_face:.4g}",
