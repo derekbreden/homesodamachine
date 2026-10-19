@@ -24,7 +24,7 @@
     "DOCK_FIXTURE_PILOT_DEPTH": "5.75",
     "DOCK_FIXTURE_THREAD": "4",
     "DOCK_FIXTURE_TIP_AIR": "1.75",
-    "DOCK_JUNCTION_FEED_G": "32.66",
+    "DOCK_JUNCTION_FEED_G": "32.65",
     "DOCK_KEEPER_HEAD_RECESS": "0.25",
     "DOCK_KEEPER_INSERTS": "4",
     "DOCK_KEEPER_PILOT_DEPTH": "5",
@@ -34,12 +34,12 @@
     "DOCK_KEEPER_WALL_BACKING": "3.25",
     "DOCK_LOCK_WASHERS": "4",
     "DOCK_LOCK_WASHERS_COST": "$0.16",
-    "DOCK_MAGNETS": "12",
-    "DOCK_MAGNET_COST": "$16.93",
+    "DOCK_MAGNETS": "16",
+    "DOCK_MAGNET_COST": "$22.57",
     "DOCK_RECEIVERS": "4",
     "DOCK_RETURNS": "4",
     "DOCK_RETURN_FEED_G": "24.65",
-    "DOCK_STEMS": "4",
+    "DOCK_STUBS": "4",
     "END_CAPS": "2",
     "FAUCET_UNIONS": "2",
     "FLOOR_INSERTS": "4",
@@ -156,7 +156,7 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,452.21",
+    "BOM_GRAND": "$1,457.85",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$42.01",
     "BOM_SEC12": "$29.78",
@@ -169,7 +169,7 @@
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$18.64",
     "BOM_SEC7": "$169.84",
-    "BOM_SEC8": "$238.01",
+    "BOM_SEC8": "$243.65",
     "BOM_SEC9": "$72.01"
   }
 }

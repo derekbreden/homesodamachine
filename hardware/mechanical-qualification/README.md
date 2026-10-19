@@ -355,10 +355,9 @@ The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) defines f
 permanent Siraya Tech Flex TPU 85A receivers in closed PET-GF wall bores. The wall
 locates X/Z; four locked flat keepers capture Y, and a separate two-screw frame supports
 the rear cuffs. Fixed LLDPE tails connect the rear sockets to stationary commercial
-tees. Factory-prepared complete pumps carry smooth machined natural PP-H Polystone P flanged
-stems. Their integral flanges transfer axial withdrawal load into the cradle while
-the cap closes upward escape. The customer replaces complete pumps and leaves the
-receiver assembly installed.
+tees. Factory-prepared complete pumps carry two straight 1/4" LLDPE stubs each, clamped
+by the pump head's own housing, which carries their axial load into the head. The
+customer replaces complete pumps and leaves the receiver assembly installed.
 
 The [fluid geometry review](../printed-parts/enclosure/pump-dock/fluid-geometry-review.json)
 records the source-derived sealing lands, tube stations, nominal occupied envelopes
@@ -380,11 +379,11 @@ The [pressure and retention review](../printed-parts/enclosure/pump-dock/pressur
 maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.
 The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
-describes six attracting SB443-IN pairs with exposed faces, grooved rails and keyed,
-room-cured bedding. These are geometry and design-basis records. They establish no
-accepted seal, assembled retaining force, adhesive capacity, cleanability or service
-life. The machined stem's fit, flange bearing, tip location and pump-end joint also
-remain physical qualifications of this assembly.
+describes eight attracting SB443-IN pairs, one four-high column on each pump's own
+line, bonded bare-faced in one plain pocket per column in each part. These are geometry
+and design-basis records. They establish no accepted seal, assembled retaining force,
+bond capacity, cleanability or service life. The stub clamp's pull-out, tip location
+and pump-end joint also remain physical qualifications of this assembly.
 
 The [Bambu TPU elbow fit](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
 and [Siraya exterior result](../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)

@@ -434,10 +434,11 @@ MOUNTS = (
     # Each return snaps into its channel in the one return block.
     *((f"pump-return-{port}", "pump-return-block", "snap-seat") for port in PUMP_DOCK_PORTS),
     ("pump-return-block", "enclosure-front-top", "three-M3-into-tray-foot"),
-    ("pump-dock-potting-moving", "enclosure-pump-cartridge", "keyed-potting"),
-    ("pump-dock-potting-fixed", "enclosure-front-top", "keyed-potting"),
-    # Exposed SB443-IN blocks have grooved rails and keyed dry epoxy bedding in each host.
-    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "keyed-rail-and-potting")
+    ("pump-dock-potting-moving", "enclosure-pump-cartridge", "bonded-pocket"),
+    ("pump-dock-potting-fixed", "enclosure-front-top", "bonded-pocket"),
+    # Exposed SB443-IN blocks are bonded in one plain pocket per column; their side
+    # grooves key each block into the cured bedding.
+    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "grooves-in-bonded-pocket")
       for side, host in (("moving", "enclosure-pump-cartridge"),
                          ("fixed", "enclosure-front-top"))
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
@@ -750,7 +751,7 @@ TOUCHING_OK = {frozenset(p) for p in (
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
-    "pump-dock": "made by a prepared pump stem in a permanent TPU junction",
+    "pump-dock": "made by a prepared pump's LLDPE stub in a permanent TPU junction",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
     "printed-return": "made by a fixed TPU return and two straight links",

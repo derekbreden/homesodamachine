@@ -1,18 +1,18 @@
 {
-  "generated_utc": "2026-10-16T04:18:24.471733+00:00",
-  "scope": "Full installed insert envelopes and finished-knuckle containment in unchanged native STEP solids.35 insert-station readings retain their exact original audit/report provenance;14 final finished-knuckle queries use the explicit supplement. Supported-face allowance is included. No printed fit, pullout, torque, transport or drop qualification.",
+  "generated_utc": "2026-10-19T22:03:51.179766+00:00",
+  "scope": "Full installed insert envelopes in retained native STEP solids; supported-face clearance is included. No printed fit, pullout, torque, transport or drop qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cdbe722109d48ed0c4f713aac1231605302e1d3c06c30a0808f0f0caee780b6a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80be0fbfbb48a2416768a4096aa38c7929dae42c0e016d64f30a49b30c7aed95",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc"
+    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e"
   },
   "native_step_sha256": {
-    "back-bottom": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-    "back-top": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-    "front-bottom": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-    "front-top": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-    "pump-cap": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-    "pump-cartridge": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9"
+    "back-bottom": "8b1820fe8f80256f3d5e3f7675af1f7aa6bcdec640cdd7c3222f4f65ee9ba2af",
+    "back-top": "44df4b7e048d380424a442a7dcb64a9316e94e6c31c481e05d998b58f70983f0",
+    "front-bottom": "34a615c3a9c33742a4bf225d3649a1e56e74fdef2f56278376ed2beb8d08cdc9",
+    "front-top": "fe07856724ff5d4a0cec5247b8b02d3fdfdb9ddbf4dd9cdef412734ebb3f49a7",
+    "pump-cap": "7e937b7a5224e674f831a6d7042010a6c4458ec9fda7d7222ee3eeb1bbee87ba",
+    "pump-cartridge": "fac29e87b3c2fa566603a180830cad516a934b8076de7dccfc345b88c58eeec9"
   },
   "inputs_unchanged": true,
   "stations": [
@@ -31,21 +31,21 @@
       ],
       "pilot_mm": 6.4,
       "insert_length_mm": 9.5,
-      "pocket_depth_mm": 13.699999999999989,
+      "pocket_depth_mm": 14.699999999999989,
       "minimum_wall_mm": 2.6,
       "supported": false,
       "screw_length_mm": 150.0,
       "screw_length_tolerance_mm": 0.8,
       "printed_clearance_diameter_mm": 5.6,
-      "nominal_thread_reach_mm": 11.199999999999989,
-      "minimum_thread_reach_mm": 10.399999999999988,
+      "nominal_thread_reach_mm": 12.199999999999989,
+      "minimum_thread_reach_mm": 11.399999999999988,
       "nominal_thread_engagement_mm": 9.5,
       "minimum_thread_engagement_mm": 9.5,
       "nominal_blind_tip_clearance_mm": 2.5,
       "minimum_blind_tip_clearance_mm": 1.7,
       "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 4.199999999999989,
+      "blind_relief_mm": 5.199999999999989,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -65,7 +65,7 @@
       "piece": "front-top",
       "family": "Y-seam stack",
       "seat_mm": [
-        -98.0,
+        -97.5,
         208.9,
         299.65
       ],
@@ -76,25 +76,25 @@
       ],
       "pilot_mm": 6.4,
       "insert_length_mm": 9.5,
-      "pocket_depth_mm": 14.149999999999977,
+      "pocket_depth_mm": 15.149999999999977,
       "minimum_wall_mm": 2.6,
       "supported": false,
       "screw_length_mm": 60.0,
       "screw_length_tolerance_mm": 0.8,
       "printed_clearance_diameter_mm": 5.6,
-      "nominal_thread_reach_mm": 11.649999999999977,
-      "minimum_thread_reach_mm": 10.849999999999977,
+      "nominal_thread_reach_mm": 12.649999999999977,
+      "minimum_thread_reach_mm": 11.849999999999977,
       "nominal_thread_engagement_mm": 9.5,
       "minimum_thread_engagement_mm": 9.5,
       "nominal_blind_tip_clearance_mm": 2.5,
       "minimum_blind_tip_clearance_mm": 1.7,
       "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 4.649999999999977,
+      "blind_relief_mm": 5.649999999999977,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        3.04883,
-        3.05225
+        2.79932,
+        2.80273
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -121,21 +121,21 @@
       ],
       "pilot_mm": 6.4,
       "insert_length_mm": 9.5,
-      "pocket_depth_mm": 13.699999999999989,
+      "pocket_depth_mm": 14.699999999999989,
       "minimum_wall_mm": 2.6,
       "supported": false,
       "screw_length_mm": 150.0,
       "screw_length_tolerance_mm": 0.8,
       "printed_clearance_diameter_mm": 5.6,
-      "nominal_thread_reach_mm": 11.199999999999989,
-      "minimum_thread_reach_mm": 10.399999999999988,
+      "nominal_thread_reach_mm": 12.199999999999989,
+      "minimum_thread_reach_mm": 11.399999999999988,
       "nominal_thread_engagement_mm": 9.5,
       "minimum_thread_engagement_mm": 9.5,
       "nominal_blind_tip_clearance_mm": 2.5,
       "minimum_blind_tip_clearance_mm": 1.7,
       "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 4.199999999999989,
+      "blind_relief_mm": 5.199999999999989,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -155,7 +155,7 @@
       "piece": "front-top",
       "family": "Y-seam stack",
       "seat_mm": [
-        98.0,
+        97.5,
         208.9,
         299.65
       ],
@@ -166,25 +166,25 @@
       ],
       "pilot_mm": 6.4,
       "insert_length_mm": 9.5,
-      "pocket_depth_mm": 14.149999999999977,
+      "pocket_depth_mm": 15.149999999999977,
       "minimum_wall_mm": 2.6,
       "supported": false,
       "screw_length_mm": 60.0,
       "screw_length_tolerance_mm": 0.8,
       "printed_clearance_diameter_mm": 5.6,
-      "nominal_thread_reach_mm": 11.649999999999977,
-      "minimum_thread_reach_mm": 10.849999999999977,
+      "nominal_thread_reach_mm": 12.649999999999977,
+      "minimum_thread_reach_mm": 11.849999999999977,
       "nominal_thread_engagement_mm": 9.5,
       "minimum_thread_engagement_mm": 9.5,
       "nominal_blind_tip_clearance_mm": 2.5,
       "minimum_blind_tip_clearance_mm": 1.7,
       "screw_reach_pass": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 4.649999999999977,
+      "blind_relief_mm": 5.649999999999977,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        3.04883,
-        3.05225
+        2.79932,
+        2.80273
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -201,7 +201,7 @@
       "family": "electronics",
       "seat_mm": [
         98.5,
-        361.3,
+        356.3,
         262.9
       ],
       "into": [
@@ -236,7 +236,7 @@
       "family": "electronics",
       "seat_mm": [
         98.5,
-        459.3,
+        454.3,
         262.9
       ],
       "into": [
@@ -246,11 +246,11 @@
       ],
       "pilot_mm": 4.0,
       "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.832159566199238,
+      "pocket_depth_mm": 6.0,
       "minimum_wall_mm": 1.6,
       "supported": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.8321595661992376,
+      "blind_relief_mm": 2.0,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -271,7 +271,7 @@
       "family": "electronics",
       "seat_mm": [
         98.5,
-        361.3,
+        356.3,
         295.9
       ],
       "into": [
@@ -306,7 +306,7 @@
       "family": "electronics",
       "seat_mm": [
         98.5,
-        459.3,
+        454.3,
         295.9
       ],
       "into": [
@@ -316,11 +316,11 @@
       ],
       "pilot_mm": 4.0,
       "insert_length_mm": 4.0,
-      "pocket_depth_mm": 5.832159566199238,
+      "pocket_depth_mm": 6.0,
       "minimum_wall_mm": 1.6,
       "supported": true,
       "blocked_pocket_mm3": 0.0,
-      "blind_relief_mm": 1.8321595661992376,
+      "blind_relief_mm": 2.0,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
         3.49658,
@@ -517,7 +517,7 @@
       "family": "electronics",
       "seat_mm": [
         96.25,
-        347.8,
+        344.8,
         321.4
       ],
       "into": [
@@ -534,8 +534,8 @@
       "blind_relief_mm": 2.25,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.99951,
-        2.00293
+        1.75,
+        1.75342
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -552,7 +552,7 @@
       "family": "electronics",
       "seat_mm": [
         96.25,
-        334.8,
+        331.8,
         321.4
       ],
       "into": [
@@ -569,8 +569,8 @@
       "blind_relief_mm": 2.25,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.99951,
-        2.00293
+        1.75,
+        1.75342
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -587,7 +587,7 @@
       "family": "electronics",
       "seat_mm": [
         96.25,
-        347.8,
+        344.8,
         255.39999999999998
       ],
       "into": [
@@ -622,7 +622,7 @@
       "family": "electronics",
       "seat_mm": [
         96.25,
-        334.8,
+        331.8,
         255.39999999999998
       ],
       "into": [
@@ -744,8 +744,8 @@
       "blind_relief_mm": 2.25,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.99951,
-        2.00293
+        1.75,
+        1.75342
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -814,8 +814,8 @@
       "blind_relief_mm": 2.25,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.99951,
-        2.00293
+        1.75,
+        1.75342
       ],
       "stock_rule_pass": true,
       "stock_rule": "ruthex RX table minimum wall from recommended pilot",
@@ -1042,7 +1042,7 @@
       "family": "pump clamp",
       "seat_mm": [
         0,
-        27.7575,
+        29.2575,
         214.925
       ],
       "into": [
@@ -1077,7 +1077,7 @@
       "family": "pump clamp",
       "seat_mm": [
         0,
-        63.7575,
+        65.2575,
         214.925
       ],
       "into": [
@@ -1182,8 +1182,8 @@
       "family": "pogo",
       "seat_mm": [
         -10.22,
-        84.515,
-        278.5240001
+        89.89,
+        275.52400000000006
       ],
       "into": [
         0,
@@ -1194,7 +1194,7 @@
       "insert_length_mm": 4.0,
       "pocket_depth_mm": 5.5,
       "minimum_wall_mm": 0.7249999999999999,
-      "supported": true,
+      "supported": false,
       "blocked_pocket_mm3": 0.0,
       "blind_relief_mm": 1.5,
       "missing_required_stock_mm3": 0.0,
@@ -1219,8 +1219,8 @@
       "family": "pogo",
       "seat_mm": [
         10.22,
-        84.515,
-        278.5240001
+        89.89,
+        275.52400000000006
       ],
       "into": [
         0,
@@ -1231,7 +1231,7 @@
       "insert_length_mm": 4.0,
       "pocket_depth_mm": 5.5,
       "minimum_wall_mm": 0.7249999999999999,
-      "supported": true,
+      "supported": false,
       "blocked_pocket_mm3": 0.0,
       "blind_relief_mm": 1.5,
       "missing_required_stock_mm3": 0.0,
@@ -1256,8 +1256,8 @@
       "family": "pogo",
       "seat_mm": [
         -10.22,
-        74.269,
-        278.5240001
+        74.89,
+        275.52400000000006
       ],
       "into": [
         0,
@@ -1268,13 +1268,13 @@
       "insert_length_mm": 4.0,
       "pocket_depth_mm": 5.5,
       "minimum_wall_mm": 0.7249999999999999,
-      "supported": true,
+      "supported": false,
       "blocked_pocket_mm3": 0.0,
       "blind_relief_mm": 1.5,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.14844,
-        1.15186
+        3.49658,
+        3.5
       ],
       "stock_rule_pass": true,
       "stock_rule": "SPIROL general FDM boss \u22651.5\u00d7 knurl OD; ZWMSSLL publishes no host-wall minimum",
@@ -1293,8 +1293,8 @@
       "family": "pogo",
       "seat_mm": [
         10.22,
-        74.269,
-        278.5240001
+        74.89,
+        275.52400000000006
       ],
       "into": [
         0,
@@ -1305,13 +1305,13 @@
       "insert_length_mm": 4.0,
       "pocket_depth_mm": 5.5,
       "minimum_wall_mm": 0.7249999999999999,
-      "supported": true,
+      "supported": false,
       "blocked_pocket_mm3": 0.0,
       "blind_relief_mm": 1.5,
       "missing_required_stock_mm3": 0.0,
       "minimum_full_depth_wall_mm_interval": [
-        1.14844,
-        1.15186
+        3.49658,
+        3.5
       ],
       "stock_rule_pass": true,
       "stock_rule": "SPIROL general FDM boss \u22651.5\u00d7 knurl OD; ZWMSSLL publishes no host-wall minimum",
@@ -1344,14 +1344,26 @@
         0.5
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 8281.34127847012,
-      "authored_final_cut_volume_mm3": 82.23537132912861,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "front-bottom",
+      "z_mm": [
+        66.2,
+        101.65
       ],
-      "pass": true
+      "rod_axis_mm": [
+        -98.25,
+        208.9
+      ],
+      "bearing_length_mm": 35.45,
+      "gaps_mm": [
+        0.5,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "west",
@@ -1370,14 +1382,83 @@
         0.5
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 8979.49801877103,
-      "authored_final_cut_volume_mm3": 79.53937500000211,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "front-bottom",
+      "z_mm": [
+        138.60000000000002,
+        174.69644660940673
       ],
-      "pass": true
+      "rod_axis_mm": [
+        -98.25,
+        208.9
+      ],
+      "bearing_length_mm": 36.09644660940671,
+      "gaps_mm": [
+        0.5,
+        0.3535533905932738
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "back-top",
+      "z_mm": [
+        175.05,
+        195.05
+      ],
+      "rod_axis_mm": [
+        -98.25,
+        208.9
+      ],
+      "bearing_length_mm": 20.0,
+      "gaps_mm": [
+        0.3535533905932738,
+        0.75
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "front-top",
+      "z_mm": [
+        272.5,
+        299.65
+      ],
+      "rod_axis_mm": [
+        -97.5,
+        208.9
+      ],
+      "bearing_length_mm": 27.149999999999977,
+      "gaps_mm": [
+        0.0,
+        0.25
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "west",
+      "piece": "back-top",
+      "z_mm": [
+        299.9,
+        355.0
+      ],
+      "rod_axis_mm": [
+        -97.5,
+        208.9
+      ],
+      "bearing_length_mm": 55.10000000000002,
+      "gaps_mm": [
+        0.25,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
@@ -1396,14 +1477,26 @@
         0.5
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 8281.34127212919,
-      "authored_final_cut_volume_mm3": 82.23537767006201,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "front-bottom",
+      "z_mm": [
+        66.2,
+        101.65
       ],
-      "pass": true
+      "rod_axis_mm": [
+        98.25,
+        208.9
+      ],
+      "bearing_length_mm": 35.45,
+      "gaps_mm": [
+        0.5,
+        0.5
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
@@ -1422,192 +1515,7 @@
         0.5
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 8979.49801877103,
-      "authored_final_cut_volume_mm3": 79.53937500000211,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "west",
-      "piece": "back-top",
-      "z_mm": [
-        175.05,
-        195.05
-      ],
-      "rod_axis_mm": [
-        -98.25,
-        208.9
-      ],
-      "bearing_length_mm": 20.0,
-      "gaps_mm": [
-        0.3535533905932738,
-        0.75
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 5047.422249813197,
-      "authored_final_cut_volume_mm3": 44.25000000000091,
-      "final_operations": [
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "west",
-      "piece": "back-top",
-      "z_mm": [
-        299.9,
-        355.0
-      ],
-      "rod_axis_mm": [
-        -98.0,
-        208.9
-      ],
-      "bearing_length_mm": 55.10000000000002,
-      "gaps_mm": [
-        0.25,
-        0.0
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 12300.680613631186,
-      "authored_final_cut_volume_mm3": 115.69722825825193,
-      "final_operations": [
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "east",
-      "piece": "back-top",
-      "z_mm": [
-        175.05,
-        195.05
-      ],
-      "rod_axis_mm": [
-        98.25,
-        208.9
-      ],
-      "bearing_length_mm": 20.0,
-      "gaps_mm": [
-        0.3535533905932738,
-        0.75
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 5047.422249813195,
-      "authored_final_cut_volume_mm3": 44.25000000000273,
-      "final_operations": [
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "east",
-      "piece": "back-top",
-      "z_mm": [
-        299.9,
-        355.0
-      ],
-      "rod_axis_mm": [
-        98.0,
-        208.9
-      ],
-      "bearing_length_mm": 55.10000000000002,
-      "gaps_mm": [
-        0.25,
-        0.0
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 12300.680613631188,
-      "authored_final_cut_volume_mm3": 115.69722825825374,
-      "final_operations": [
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "west",
-      "piece": "front-bottom",
-      "z_mm": [
-        66.2,
-        101.65
-      ],
-      "rod_axis_mm": [
-        -98.25,
-        208.9
-      ],
-      "bearing_length_mm": 35.45,
-      "gaps_mm": [
-        0.5,
-        0.5
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 9081.223436973103,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "west",
-      "piece": "front-bottom",
-      "z_mm": [
-        138.60000000000002,
-        174.69644660940673
-      ],
-      "rod_axis_mm": [
-        -98.25,
-        208.9
-      ],
-      "bearing_length_mm": 36.09644660940671,
-      "gaps_mm": [
-        0.5,
-        0.3535533905932738
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 9246.823609049154,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
-    },
-    {
-      "side": "east",
-      "piece": "front-bottom",
-      "z_mm": [
-        66.2,
-        101.65
-      ],
-      "rod_axis_mm": [
-        98.25,
-        208.9
-      ],
-      "bearing_length_mm": 35.45,
-      "gaps_mm": [
-        0.5,
-        0.5
-      ],
-      "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 9081.223436973103,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
@@ -1626,39 +1534,26 @@
         0.3535533905932738
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 9246.823609049152,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_finish_handholds",
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
-      "side": "west",
-      "piece": "front-top",
+      "side": "east",
+      "piece": "back-top",
       "z_mm": [
-        272.5,
-        299.65
+        175.05,
+        195.05
       ],
       "rod_axis_mm": [
-        -98.0,
+        98.25,
         208.9
       ],
-      "bearing_length_mm": 27.149999999999977,
+      "bearing_length_mm": 20.0,
       "gaps_mm": [
-        0.0,
-        0.25
+        0.3535533905932738,
+        0.75
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 6405.600790865451,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_seam_fit_reliefs"
-      ],
-      "pass": true
+      "missing_knuckle_stock_mm3": 0.0
     },
     {
       "side": "east",
@@ -1668,7 +1563,7 @@
         299.65
       ],
       "rod_axis_mm": [
-        98.0,
+        97.5,
         208.9
       ],
       "bearing_length_mm": 27.149999999999977,
@@ -1677,924 +1572,31 @@
         0.25
       ],
       "ligament_fore_and_aft_mm": 6.1000000000000005,
-      "missing_knuckle_stock_mm3": 0,
-      "expected_finished_knuckle_volume_mm3": 6405.600790865453,
-      "authored_final_cut_volume_mm3": 0.0,
-      "final_operations": [
-        "_seam_fit_reliefs"
+      "missing_knuckle_stock_mm3": 0.0
+    },
+    {
+      "side": "east",
+      "piece": "back-top",
+      "z_mm": [
+        299.9,
+        355.0
       ],
-      "pass": true
+      "rod_axis_mm": [
+        97.5,
+        208.9
+      ],
+      "bearing_length_mm": 55.10000000000002,
+      "gaps_mm": [
+        0.25,
+        0.0
+      ],
+      "ligament_fore_and_aft_mm": 6.1000000000000005,
+      "missing_knuckle_stock_mm3": 0.0
     }
   ],
   "sources": {
     "ruthex": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",
     "spirol": "https://www.spirol.com/resources/white-papers/how-to-select-a-threaded-insert-for-your-3d-printed-assembly/"
   },
-  "status": "pass",
-  "measurement_provenance": {
-    "insert_stations": {
-      "count": 35,
-      "original_report": {
-        "original_path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json",
-        "sha256": "139394fa64c072a749b5ecccc7285c1a3e40a753edebfca7b93491430dd94a10",
-        "frozen_path": ".cache/enclosure-accessory-clearance/final-native/inputs/heat-set-report-raw-knuckles-139394fa64c072a749b5ecccc7285c1a3e40a753edebfca7b93491430dd94a10.json"
-      },
-      "original_audit": {
-        "original_path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py",
-        "sha256": "9f4da179ddf6bfbf86f69fb6dc804683439dfef0191ac3051a7dbb3ac8f44043",
-        "frozen_path": ".cache/enclosure-accessory-clearance/final-native/inputs/heat-set-audit-original-9f4da179ddf6bfbf86f69fb6dc804683439dfef0191ac3051a7dbb3ac8f44043.py"
-      },
-      "native_step_sha256": {
-        "back-bottom": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-        "back-top": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-        "front-bottom": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-        "front-top": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-        "pump-cap": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-        "pump-cartridge": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9"
-      },
-      "original_station_code_ast_matches_corrected": true,
-      "measurements_rerun": false
-    },
-    "finished_knuckles": {
-      "count": 14,
-      "supplement_path": ".cache/enclosure-accessory-clearance/final-native/heat-set-finished-knuckles.json",
-      "supplement_sha256": "2d90749ceaa0fc3da3fc661eff48ee24230d70355c8cd1186b0ceebaadab930c",
-      "corrected_audit": {
-        "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py",
-        "sha256": "e7824cf098bebf62f77cf4a7d60bc3b5116ddba05d2489f3985e13f77cf9b3ec",
-        "unchanged_35_station_prefix_ast": true
-      },
-      "driver": {
-        "path": ".cache/enclosure-accessory-clearance/finished_knuckle_supplement.py",
-        "sha256": "060ef51c7e32b498f2b6746f17ad357a70af779ba88e78ec11a04ff9dc866d32"
-      },
-      "method": "Expected knuckle minus bores, then the production _finish_handholds for bottoms and _seam_fit_reliefs for every piece; test the complete remaining solid against the matching final native part."
-    }
-  },
-  "current_applicability": {
-    "status": "pass",
-    "scope": "Original35 station readings and original14 finished-knuckle results retain their exact original native/source bindings above. Current FT applicability is established by actual removed-only native delta, unchanged complete query envelopes for all four FT insert stations, and two fresh current FT finished-knuckle containment queries. The other31 insert hosts and12 knuckles retain byte-identical native inputs. No35-station measurement was repeated.",
-    "retained_report": {
-      "path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json",
-      "sha256": "0734aa67d5cc569f52ebc93d698c44c08d57ee44499b5597b46c94af723e6f5f"
-    },
-    "proof_reference": {
-      "path": ".cache/enclosure-accessory-clearance/final-native/ft-local-finish-transfer.json",
-      "sha256": "b2546edf898d4598268b34c321716a335df90a5f2cf5b1bddd6fb6a14bc7e87c"
-    },
-    "proof": {
-      "scope": "One-time current-native FT5.0\u21925.1 mm chamfer continuation. Exact native difference and named unchanged query regions; no whole-machine or general fit certification.",
-      "source_input_sha256": {
-        ".cache/enclosure-accessory-clearance/ft_local_finish_proof.py": "c4bce56c58a72388abc17126493d8c731e5ed4fd83a839278246e33da6ecdece",
-        ".cache/enclosure-accessory-clearance/final-native/inputs/front-top-e50b9b0628ede61c.step": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-        ".cache/enclosure-accessory-clearance/fluid1-ft/tube-fluid-1.step": "320763671e34341da247622940e2b9a559e8572ff3ac4bfc200adba4ce9c1292",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/enclosure.py": "5677f4ef85b917db7a31ae3c80b77877280d9c72bf55904b74f673a3dc528f6a",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json": "0734aa67d5cc569f52ebc93d698c44c08d57ee44499b5597b46c94af723e6f5f",
-        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
-        "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py": "e7824cf098bebf62f77cf4a7d60bc3b5116ddba05d2489f3985e13f77cf9b3ec",
-        "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/pump.json": "72e5ea7b36d64f8de8044d09f64da954e6a2d5f35eaa979317e9ca1a7ca582fc",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/windows.json": "40fd30a309422b2ee12ea4999d55fe11f96b89a58b50a625801b9e74d6b44be1",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/carrier.json": "0025c310da2114043475bda67c57afabf63c4afe5aa805c00cc2858e81afe2b0",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/bedding.json": "955f2f97812b866c461c68d8f725ee6c7dde7b8e27557961e737e1fa88266584",
-        ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/external-core.json": "f30f0e82ef66deba0ef7b840b67d797ff6c44c6dc0d6a67cee8103ff969a5c4d"
-      },
-      "checks": [
-        {
-          "name": "only production source change is mirrored5.0\u21925.1 chamfer",
-          "pass": true,
-          "measured": {
-            "changed_top_level_ast_nodes": 1,
-            "current_chamfer_mm": 5.1
-          },
-          "criterion": "Exactly one changed assignment; every other enclosure source AST node identical."
-        },
-        {
-          "name": "current FT valid single solid",
-          "pass": true,
-          "measured": {
-            "valid": true,
-            "solid_count": 1,
-            "bounds_world_mm": [
-              -107.50000010000001,
-              4.999999899999999,
-              160.2499999,
-              107.5000001,
-              217.8000001,
-              355.0000001038191
-            ]
-          },
-          "criterion": "Valid single native solid."
-        },
-        {
-          "name": "native change is removed-only inside both named chamfers",
-          "pass": true,
-          "measured": {
-            "old_native_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "new_native_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "old_native_path": ".cache/enclosure-accessory-clearance/final-native/inputs/front-top-e50b9b0628ede61c.step",
-            "new_native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-            "added_mm3": 0,
-            "removed_mm3": 27.421500000000286,
-            "removed_outside_allowed_boxes_mm3": 0,
-            "allowed_boxes_world_mm": [
-              [
-                -96.60001,
-                212.69998999999999,
-                272.49999,
-                -91.49999,
-                217.80001000000001,
-                299.65000999999995
-              ],
-              [
-                91.49999,
-                212.69998999999999,
-                272.49999,
-                96.60001,
-                217.80001000000001,
-                299.65000999999995
-              ]
-            ],
-            "removed_bounds_world_mm": [
-              -96.60000000000001,
-              212.7,
-              272.5,
-              96.60000000000001,
-              217.8,
-              299.65
-            ],
-            "old_bounds_world_mm": [
-              -107.50000010000001,
-              4.999999899999999,
-              160.2499999,
-              107.5000001,
-              217.8000001,
-              355.0000001038191
-            ],
-            "new_bounds_world_mm": [
-              -107.50000010000001,
-              4.999999899999999,
-              160.2499999,
-              107.5000001,
-              217.8000001,
-              355.0000001038191
-            ]
-          },
-          "criterion": "Added volume and removal outside the two source-derived prisms each\u22641e-5mm\u00b3."
-        },
-        {
-          "name": "complete exterior and actual bed bounds unchanged",
-          "pass": true,
-          "measured": {
-            "maximum_bounds_change_mm": 0.0
-          },
-          "criterion": "All six actual native bounds unchanged within1e-5mm."
-        },
-        {
-          "name": "actual held fluid1 versus final FT named room",
-          "pass": true,
-          "measured": {
-            "held_tube_path": ".cache/enclosure-accessory-clearance/fluid1-ft/tube-fluid-1.step",
-            "held_tube_sha256": "320763671e34341da247622940e2b9a559e8572ff3ac4bfc200adba4ce9c1292",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "minimum_gap_mm": 1.034848983448495,
-            "required_mm": 1.0,
-            "closest_solutions": [
-              {
-                "tube_point_mm": [
-                  -90.61062488185985,
-                  213.2290787444016,
-                  294.01058083755
-                ],
-                "front_top_point_mm": [
-                  -91.5,
-                  212.7,
-                  294.01058083755
-                ],
-                "front_top_support_type": "TopAbs_ShapeEnum.TopAbs_EDGE"
-              }
-            ],
-            "pass": true
-          },
-          "criterion": "Native minimum distance\u22651mm within1e-5mm; exact held tube, no rebuilt route."
-        },
-        {
-          "name": "pump unchanged native witness region",
-          "pass": true,
-          "measured": {
-            "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/pump.json",
-            "measured_stage_sha256": "72e5ea7b36d64f8de8044d09f64da954e6a2d5f35eaa979317e9ca1a7ca582fc",
-            "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "unchanged_region_bounds_world_mm": [
-              -110,
-              4,
-              159,
-              110,
-              85,
-              356
-            ],
-            "removed_in_region_mm3": 0,
-            "added_in_region_mm3": 0,
-            "retained_ft_witness_point_count": 6,
-            "all_retained_ft_witness_points_inside_region": true,
-            "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-            "pass": true
-          },
-          "criterion": "No added/removed native volume in the complete named query region; original finite witness points lie inside it."
-        },
-        {
-          "name": "windows unchanged native witness region",
-          "pass": true,
-          "measured": {
-            "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/windows.json",
-            "measured_stage_sha256": "40fd30a309422b2ee12ea4999d55fe11f96b89a58b50a625801b9e74d6b44be1",
-            "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "unchanged_region_bounds_world_mm": [
-              -110,
-              120,
-              159,
-              110,
-              160,
-              230
-            ],
-            "removed_in_region_mm3": 0,
-            "added_in_region_mm3": 0,
-            "retained_ft_witness_point_count": 20,
-            "all_retained_ft_witness_points_inside_region": true,
-            "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-            "pass": true
-          },
-          "criterion": "No added/removed native volume in the complete named query region; original finite witness points lie inside it."
-        },
-        {
-          "name": "carrier unchanged native witness region",
-          "pass": true,
-          "measured": {
-            "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/carrier.json",
-            "measured_stage_sha256": "0025c310da2114043475bda67c57afabf63c4afe5aa805c00cc2858e81afe2b0",
-            "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "unchanged_region_bounds_world_mm": [
-              -110,
-              85,
-              159,
-              110,
-              115,
-              230
-            ],
-            "removed_in_region_mm3": 0,
-            "added_in_region_mm3": 0,
-            "retained_ft_witness_point_count": 16,
-            "all_retained_ft_witness_points_inside_region": true,
-            "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-            "pass": true
-          },
-          "criterion": "No added/removed native volume in the complete named query region; original finite witness points lie inside it."
-        },
-        {
-          "name": "bedding unchanged native witness region",
-          "pass": true,
-          "measured": {
-            "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/bedding.json",
-            "measured_stage_sha256": "955f2f97812b866c461c68d8f725ee6c7dde7b8e27557961e737e1fa88266584",
-            "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "unchanged_region_bounds_world_mm": [
-              -110,
-              190,
-              159,
-              110,
-              220,
-              180
-            ],
-            "removed_in_region_mm3": 0,
-            "added_in_region_mm3": 0,
-            "retained_ft_witness_point_count": 4,
-            "all_retained_ft_witness_points_inside_region": true,
-            "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-            "pass": true
-          },
-          "criterion": "No added/removed native volume in the complete named query region; original finite witness points lie inside it."
-        },
-        {
-          "name": "external-core unchanged native witness region",
-          "pass": true,
-          "measured": {
-            "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/external-core.json",
-            "measured_stage_sha256": "f30f0e82ef66deba0ef7b840b67d797ff6c44c6dc0d6a67cee8103ff969a5c4d",
-            "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-            "unchanged_region_bounds_world_mm": [
-              -110,
-              175,
-              -7,
-              110,
-              472,
-              270
-            ],
-            "removed_in_region_mm3": 0,
-            "added_in_region_mm3": 0,
-            "retained_ft_witness_point_count": 16,
-            "all_retained_ft_witness_points_inside_region": true,
-            "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-            "pass": true
-          },
-          "criterion": "No added/removed native volume in the complete named query region; original finite witness points lie inside it."
-        },
-        {
-          "name": "unchanged FT insert probe envelope 1",
-          "pass": true,
-          "measured": {
-            "original_station_index": 1,
-            "family": "Y-seam stack",
-            "seat_mm": [
-              -98.0,
-              208.9,
-              299.65
-            ],
-            "maximum_probe_radius_mm": 6.7,
-            "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-            "envelope_bounds_world_mm": [
-              -104.7,
-              202.20000000000002,
-              285.23,
-              -91.3,
-              215.6,
-              299.65
-            ],
-            "removed_in_envelope_mm3": 0,
-            "added_in_envelope_mm3": 0,
-            "pass": true
-          },
-          "criterion": "Actual native delta absent from an envelope containing every original station query."
-        },
-        {
-          "name": "unchanged FT insert probe envelope 3",
-          "pass": true,
-          "measured": {
-            "original_station_index": 3,
-            "family": "Y-seam stack",
-            "seat_mm": [
-              98.0,
-              208.9,
-              299.65
-            ],
-            "maximum_probe_radius_mm": 6.7,
-            "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-            "envelope_bounds_world_mm": [
-              91.3,
-              202.20000000000002,
-              285.23,
-              104.7,
-              215.6,
-              299.65
-            ],
-            "removed_in_envelope_mm3": 0,
-            "added_in_envelope_mm3": 0,
-            "pass": true
-          },
-          "criterion": "Actual native delta absent from an envelope containing every original station query."
-        },
-        {
-          "name": "unchanged FT insert probe envelope 31",
-          "pass": true,
-          "measured": {
-            "original_station_index": 31,
-            "family": "pogo",
-            "seat_mm": [
-              -10.22,
-              84.515,
-              278.5240001
-            ],
-            "maximum_probe_radius_mm": 4.5,
-            "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-            "envelope_bounds_world_mm": [
-              -14.72,
-              82.515,
-              274.0240001,
-              -5.720000000000001,
-              90.285,
-              283.2740001
-            ],
-            "removed_in_envelope_mm3": 0,
-            "added_in_envelope_mm3": 0,
-            "pass": true
-          },
-          "criterion": "Actual native delta absent from an envelope containing every original station query."
-        },
-        {
-          "name": "unchanged FT insert probe envelope 32",
-          "pass": true,
-          "measured": {
-            "original_station_index": 32,
-            "family": "pogo",
-            "seat_mm": [
-              10.22,
-              84.515,
-              278.5240001
-            ],
-            "maximum_probe_radius_mm": 4.5,
-            "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-            "envelope_bounds_world_mm": [
-              5.720000000000001,
-              82.515,
-              274.0240001,
-              14.72,
-              90.285,
-              283.2740001
-            ],
-            "removed_in_envelope_mm3": 0,
-            "added_in_envelope_mm3": 0,
-            "pass": true
-          },
-          "criterion": "Actual native delta absent from an envelope containing every original station query."
-        },
-        {
-          "name": "all four FT insert stations explicitly covered",
-          "pass": true,
-          "measured": {
-            "covered_station_indices": [
-              1,
-              3,
-              31,
-              32
-            ]
-          },
-          "criterion": "Two upper M5 seam inserts and two pogo stations; other31 host native hashes unchanged."
-        },
-        {
-          "name": "west current finished FT upper knuckle",
-          "pass": true,
-          "measured": {
-            "side": "west",
-            "piece": "front-top",
-            "z_mm": [
-              272.5,
-              299.65
-            ],
-            "rod_axis_mm": [
-              -98.0,
-              208.9
-            ],
-            "bearing_length_mm": 27.149999999999977,
-            "gaps_mm": [
-              0.0,
-              0.25
-            ],
-            "ligament_fore_and_aft_mm": 6.1000000000000005,
-            "missing_knuckle_stock_mm3": 0,
-            "expected_finished_knuckle_volume_mm3": 6391.8900408654545,
-            "authored_final_cut_volume_mm3": 0.0,
-            "final_operations": [
-              "_seam_fit_reliefs"
-            ],
-            "pass": true,
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c"
-          },
-          "criterion": "Current authored5.1mm knuckle minus actual bores and final fit reliefs fully contained; missing\u22641e-5mm\u00b3."
-        },
-        {
-          "name": "east current finished FT upper knuckle",
-          "pass": true,
-          "measured": {
-            "side": "east",
-            "piece": "front-top",
-            "z_mm": [
-              272.5,
-              299.65
-            ],
-            "rod_axis_mm": [
-              98.0,
-              208.9
-            ],
-            "bearing_length_mm": 27.149999999999977,
-            "gaps_mm": [
-              0.0,
-              0.25
-            ],
-            "ligament_fore_and_aft_mm": 6.1000000000000005,
-            "missing_knuckle_stock_mm3": 0,
-            "expected_finished_knuckle_volume_mm3": 6391.890040865451,
-            "authored_final_cut_volume_mm3": 0.0,
-            "final_operations": [
-              "_seam_fit_reliefs"
-            ],
-            "pass": true,
-            "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c"
-          },
-          "criterion": "Current authored5.1mm knuckle minus actual bores and final fit reliefs fully contained; missing\u22641e-5mm\u00b3."
-        },
-        {
-          "name": "all bound inputs unchanged during native continuation",
-          "pass": true,
-          "measured": {
-            "before": {
-              ".cache/enclosure-accessory-clearance/ft_local_finish_proof.py": "c4bce56c58a72388abc17126493d8c731e5ed4fd83a839278246e33da6ecdece",
-              ".cache/enclosure-accessory-clearance/final-native/inputs/front-top-e50b9b0628ede61c.step": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-              ".cache/enclosure-accessory-clearance/fluid1-ft/tube-fluid-1.step": "320763671e34341da247622940e2b9a559e8572ff3ac4bfc200adba4ce9c1292",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/enclosure.py": "5677f4ef85b917db7a31ae3c80b77877280d9c72bf55904b74f673a3dc528f6a",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json": "0734aa67d5cc569f52ebc93d698c44c08d57ee44499b5597b46c94af723e6f5f",
-              "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
-              "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py": "e7824cf098bebf62f77cf4a7d60bc3b5116ddba05d2489f3985e13f77cf9b3ec",
-              "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/pump.json": "72e5ea7b36d64f8de8044d09f64da954e6a2d5f35eaa979317e9ca1a7ca582fc",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/windows.json": "40fd30a309422b2ee12ea4999d55fe11f96b89a58b50a625801b9e74d6b44be1",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/carrier.json": "0025c310da2114043475bda67c57afabf63c4afe5aa805c00cc2858e81afe2b0",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/bedding.json": "955f2f97812b866c461c68d8f725ee6c7dde7b8e27557961e737e1fa88266584",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/external-core.json": "f30f0e82ef66deba0ef7b840b67d797ff6c44c6dc0d6a67cee8103ff969a5c4d"
-            },
-            "after": {
-              ".cache/enclosure-accessory-clearance/ft_local_finish_proof.py": "c4bce56c58a72388abc17126493d8c731e5ed4fd83a839278246e33da6ecdece",
-              ".cache/enclosure-accessory-clearance/final-native/inputs/front-top-e50b9b0628ede61c.step": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-              ".cache/enclosure-accessory-clearance/fluid1-ft/tube-fluid-1.step": "320763671e34341da247622940e2b9a559e8572ff3ac4bfc200adba4ce9c1292",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/enclosure.py": "5677f4ef85b917db7a31ae3c80b77877280d9c72bf55904b74f673a3dc528f6a",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json": "0734aa67d5cc569f52ebc93d698c44c08d57ee44499b5597b46c94af723e6f5f",
-              "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
-              "hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py": "e7824cf098bebf62f77cf4a7d60bc3b5116ddba05d2489f3985e13f77cf9b3ec",
-              "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9",
-              "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/pump.json": "72e5ea7b36d64f8de8044d09f64da954e6a2d5f35eaa979317e9ca1a7ca582fc",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/windows.json": "40fd30a309422b2ee12ea4999d55fe11f96b89a58b50a625801b9e74d6b44be1",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/carrier.json": "0025c310da2114043475bda67c57afabf63c4afe5aa805c00cc2858e81afe2b0",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/bedding.json": "955f2f97812b866c461c68d8f725ee6c7dde7b8e27557961e737e1fa88266584",
-              ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/external-core.json": "f30f0e82ef66deba0ef7b840b67d797ff6c44c6dc0d6a67cee8103ff969a5c4d"
-            }
-          },
-          "criterion": "Every bound native/source/reference input hash remains exact."
-        }
-      ],
-      "status": "pass",
-      "length_tolerance_mm": 1e-05,
-      "volume_tolerance_mm3": 1e-05,
-      "elapsed_seconds": 13.862325791007606,
-      "native_delta": {
-        "old_native_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-        "new_native_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-        "old_native_path": ".cache/enclosure-accessory-clearance/final-native/inputs/front-top-e50b9b0628ede61c.step",
-        "new_native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        "added_mm3": 0,
-        "removed_mm3": 27.421500000000286,
-        "removed_outside_allowed_boxes_mm3": 0,
-        "allowed_boxes_world_mm": [
-          [
-            -96.60001,
-            212.69998999999999,
-            272.49999,
-            -91.49999,
-            217.80001000000001,
-            299.65000999999995
-          ],
-          [
-            91.49999,
-            212.69998999999999,
-            272.49999,
-            96.60001,
-            217.80001000000001,
-            299.65000999999995
-          ]
-        ],
-        "removed_bounds_world_mm": [
-          -96.60000000000001,
-          212.7,
-          272.5,
-          96.60000000000001,
-          217.8,
-          299.65
-        ],
-        "old_bounds_world_mm": [
-          -107.50000010000001,
-          4.999999899999999,
-          160.2499999,
-          107.5000001,
-          217.8000001,
-          355.0000001038191
-        ],
-        "new_bounds_world_mm": [
-          -107.50000010000001,
-          4.999999899999999,
-          160.2499999,
-          107.5000001,
-          217.8000001,
-          355.0000001038191
-        ]
-      },
-      "fluid1_pair": {
-        "held_tube_path": ".cache/enclosure-accessory-clearance/fluid1-ft/tube-fluid-1.step",
-        "held_tube_sha256": "320763671e34341da247622940e2b9a559e8572ff3ac4bfc200adba4ce9c1292",
-        "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-        "minimum_gap_mm": 1.034848983448495,
-        "required_mm": 1.0,
-        "closest_solutions": [
-          {
-            "tube_point_mm": [
-              -90.61062488185985,
-              213.2290787444016,
-              294.01058083755
-            ],
-            "front_top_point_mm": [
-              -91.5,
-              212.7,
-              294.01058083755
-            ],
-            "front_top_support_type": "TopAbs_ShapeEnum.TopAbs_EDGE"
-          }
-        ],
-        "pass": true
-      },
-      "stage_transfers": {
-        "pump": {
-          "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/pump.json",
-          "measured_stage_sha256": "72e5ea7b36d64f8de8044d09f64da954e6a2d5f35eaa979317e9ca1a7ca582fc",
-          "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-          "unchanged_region_bounds_world_mm": [
-            -110,
-            4,
-            159,
-            110,
-            85,
-            356
-          ],
-          "removed_in_region_mm3": 0,
-          "added_in_region_mm3": 0,
-          "retained_ft_witness_point_count": 6,
-          "all_retained_ft_witness_points_inside_region": true,
-          "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-          "pass": true
-        },
-        "windows": {
-          "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/windows.json",
-          "measured_stage_sha256": "40fd30a309422b2ee12ea4999d55fe11f96b89a58b50a625801b9e74d6b44be1",
-          "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-          "unchanged_region_bounds_world_mm": [
-            -110,
-            120,
-            159,
-            110,
-            160,
-            230
-          ],
-          "removed_in_region_mm3": 0,
-          "added_in_region_mm3": 0,
-          "retained_ft_witness_point_count": 20,
-          "all_retained_ft_witness_points_inside_region": true,
-          "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-          "pass": true
-        },
-        "carrier": {
-          "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/carrier.json",
-          "measured_stage_sha256": "0025c310da2114043475bda67c57afabf63c4afe5aa805c00cc2858e81afe2b0",
-          "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-          "unchanged_region_bounds_world_mm": [
-            -110,
-            85,
-            159,
-            110,
-            115,
-            230
-          ],
-          "removed_in_region_mm3": 0,
-          "added_in_region_mm3": 0,
-          "retained_ft_witness_point_count": 16,
-          "all_retained_ft_witness_points_inside_region": true,
-          "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-          "pass": true
-        },
-        "bedding": {
-          "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/bedding.json",
-          "measured_stage_sha256": "955f2f97812b866c461c68d8f725ee6c7dde7b8e27557961e737e1fa88266584",
-          "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-          "unchanged_region_bounds_world_mm": [
-            -110,
-            190,
-            159,
-            110,
-            220,
-            180
-          ],
-          "removed_in_region_mm3": 0,
-          "added_in_region_mm3": 0,
-          "retained_ft_witness_point_count": 4,
-          "all_retained_ft_witness_points_inside_region": true,
-          "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-          "pass": true
-        },
-        "external-core": {
-          "measured_stage_path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/.cache/enclosure-accessory-clearance/final-native/external-core.json",
-          "measured_stage_sha256": "f30f0e82ef66deba0ef7b840b67d797ff6c44c6dc0d6a67cee8103ff969a5c4d",
-          "measured_front_top_sha256": "e50b9b0628ede61cc51281ccea193ea8a98adb0407a55bbf000d476082992d32",
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-          "unchanged_region_bounds_world_mm": [
-            -110,
-            175,
-            -7,
-            110,
-            472,
-            270
-          ],
-          "removed_in_region_mm3": 0,
-          "added_in_region_mm3": 0,
-          "retained_ft_witness_point_count": 16,
-          "all_retained_ft_witness_points_inside_region": true,
-          "scope": "Exact original measured rows, face indices and native input hashes are retained. This current-native delta proof transfers only the named unchanged query region; no rerun is claimed.",
-          "pass": true
-        }
-      },
-      "insert_probe_transfers": [
-        {
-          "original_station_index": 1,
-          "family": "Y-seam stack",
-          "seat_mm": [
-            -98.0,
-            208.9,
-            299.65
-          ],
-          "maximum_probe_radius_mm": 6.7,
-          "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-          "envelope_bounds_world_mm": [
-            -104.7,
-            202.20000000000002,
-            285.23,
-            -91.3,
-            215.6,
-            299.65
-          ],
-          "removed_in_envelope_mm3": 0,
-          "added_in_envelope_mm3": 0,
-          "pass": true
-        },
-        {
-          "original_station_index": 3,
-          "family": "Y-seam stack",
-          "seat_mm": [
-            98.0,
-            208.9,
-            299.65
-          ],
-          "maximum_probe_radius_mm": 6.7,
-          "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-          "envelope_bounds_world_mm": [
-            91.3,
-            202.20000000000002,
-            285.23,
-            104.7,
-            215.6,
-            299.65
-          ],
-          "removed_in_envelope_mm3": 0,
-          "added_in_envelope_mm3": 0,
-          "pass": true
-        },
-        {
-          "original_station_index": 31,
-          "family": "pogo",
-          "seat_mm": [
-            -10.22,
-            84.515,
-            278.5240001
-          ],
-          "maximum_probe_radius_mm": 4.5,
-          "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-          "envelope_bounds_world_mm": [
-            -14.72,
-            82.515,
-            274.0240001,
-            -5.720000000000001,
-            90.285,
-            283.2740001
-          ],
-          "removed_in_envelope_mm3": 0,
-          "added_in_envelope_mm3": 0,
-          "pass": true
-        },
-        {
-          "original_station_index": 32,
-          "family": "pogo",
-          "seat_mm": [
-            10.22,
-            84.515,
-            278.5240001
-          ],
-          "maximum_probe_radius_mm": 4.5,
-          "probe_extent_includes": "All wall-search radii through3.5mm, open full-depth pilot, whole-knurl entry and blind-cap quarter-millimetre probe; supported crown shift included.",
-          "envelope_bounds_world_mm": [
-            5.720000000000001,
-            82.515,
-            274.0240001,
-            14.72,
-            90.285,
-            283.2740001
-          ],
-          "removed_in_envelope_mm3": 0,
-          "added_in_envelope_mm3": 0,
-          "pass": true
-        }
-      ],
-      "finished_ft_knuckles": [
-        {
-          "side": "west",
-          "piece": "front-top",
-          "z_mm": [
-            272.5,
-            299.65
-          ],
-          "rod_axis_mm": [
-            -98.0,
-            208.9
-          ],
-          "bearing_length_mm": 27.149999999999977,
-          "gaps_mm": [
-            0.0,
-            0.25
-          ],
-          "ligament_fore_and_aft_mm": 6.1000000000000005,
-          "missing_knuckle_stock_mm3": 0,
-          "expected_finished_knuckle_volume_mm3": 6391.8900408654545,
-          "authored_final_cut_volume_mm3": 0.0,
-          "final_operations": [
-            "_seam_fit_reliefs"
-          ],
-          "pass": true,
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c"
-        },
-        {
-          "side": "east",
-          "piece": "front-top",
-          "z_mm": [
-            272.5,
-            299.65
-          ],
-          "rod_axis_mm": [
-            98.0,
-            208.9
-          ],
-          "bearing_length_mm": 27.149999999999977,
-          "gaps_mm": [
-            0.0,
-            0.25
-          ],
-          "ligament_fore_and_aft_mm": 6.1000000000000005,
-          "missing_knuckle_stock_mm3": 0,
-          "expected_finished_knuckle_volume_mm3": 6391.890040865451,
-          "authored_final_cut_volume_mm3": 0.0,
-          "final_operations": [
-            "_seam_fit_reliefs"
-          ],
-          "pass": true,
-          "current_front_top_sha256": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c"
-        }
-      ],
-      "retained_insert_report": {
-        "path": ".cache/enclosure-accessory-clearance/pre-fluid1-local-fix/files/hardware/printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json",
-        "sha256": "0734aa67d5cc569f52ebc93d698c44c08d57ee44499b5597b46c94af723e6f5f",
-        "original_station_count": 35,
-        "new_insert_station_measurements": 0,
-        "old_finished_knuckle_count": 14,
-        "new_finished_knuckle_queries": 2,
-        "retained_other_knuckle_rows": 12
-      },
-      "inputs_unchanged": true
-    },
-    "current_native_step_sha256": {
-      "back-bottom": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
-      "back-top": "058f38a72ac8b5dc80b159ae156251f98b79c5f745b21c43730042161201b903",
-      "front-bottom": "3fd9ec5496486dc5ee8e805c4cec998e9dfd14c80f2b155c42315bccfe1b9a79",
-      "front-top": "a054a32d98fcb971a8bdf1443fbb6d40d1ab34dfed819fc86e89e3bb6fd8707c",
-      "pump-cap": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
-      "pump-cartridge": "8e933be757945cfaa15c61d2213a03951a564563d777f717cfad2491478510d9"
-    },
-    "current_source_sha256": {
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d86f85c3c291fef1f25a599c0f7eb139ea093c05f34b55819a68e309eb442df",
-      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-      "hardware/manifold-layout/enclosure-box.json": "a20104d3e5e3365dce0c3a4484f74de427a1394edf3d6c85dcd70f66df9456dc"
-    },
-    "original_insert_measurements_repeated": false,
-    "new_finished_ft_knuckle_queries": 2,
-    "current_knuckle_coverage": {
-      "retained_unchanged_host_rows": 12,
-      "fresh_front_top_rows": 2
-    }
-  }
+  "status": "pass"
 }

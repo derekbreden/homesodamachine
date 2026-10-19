@@ -323,8 +323,6 @@ def linear(color) -> tuple:
 PETGF_BLACK_PARTS = {
     *(f"enclosure-{name}" for name in WALL_COLORS),
     "enclosure-pump-tube-setting-jig",
-    "enclosure-pump-magnet-gauge-moving", "enclosure-pump-magnet-gauge-fixed",
-    "pump-stem-setting-fixture",
     *(prefix+"pump-receiver-keeper-"+station
       for prefix in ("", "enclosure-")
       for station in ("west-outer", "west-inner", "east-inner", "east-outer")),

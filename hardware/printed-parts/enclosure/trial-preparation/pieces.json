@@ -243,12 +243,7 @@
       "printer": "Mark2",
       "spacing_mm": 15,
       "parts": [
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl",
-         "pose": {"turns": [["x", -90]]}},
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-fixed.stl",
-         "pose": {"turns": [["x", 90]]}},
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"},
-        {"stl": "hardware/printed-parts/enclosure/pump-dock/pump-stem-setting-fixture.stl"}
+        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"}
       ]
     },
     "dock-petgf": {

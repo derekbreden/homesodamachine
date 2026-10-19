@@ -1,14 +1,14 @@
 # Pump replacement
 
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
-The customer replaces complete prepared pumps: each replacement has two smooth, machined natural PP-H Polystone P flanged stems
-already fitted and secured in its pump tubing. The fixed TPU junctions, compound
+The customer replaces complete prepared pumps: each replacement has two straight 1/4" LLDPE stubs
+already fitted in its pump tubing and clamped there by the pump head's own housing. The fixed TPU junctions, compound
 returns, flat keepers, the return block and magnetic mounts remain installed
 during pump changes.
 No enclosure quadrant comes off for a pump change.
 
 [4](JOINT_COUNT) flavor joints separate when the cartridge is pulled straight forward.
-Each smooth Ø[6.35 mm](TUBE_OD) stem slides out of a stationary TPU socket. The four
+Each smooth Ø[6.35 mm](TUBE_OD) stub slides out of a stationary TPU socket. The four
 printed junctions remain connected to their upper and lower valve paths behind the
 receiver wall. Water, CO2 and carbonated-water
 connections stay closed, so the carbonator remains connected and charged.
@@ -23,9 +23,9 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their prepared flanged stems and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) locked flat interior keepers |
+| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) locked flat interior keepers |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
-| The cartridge's positively retained SB443-IN magnets | Their positively retained mates in front-top |
+| The cartridge's eight bonded SB443-IN magnets | Their eight bonded mates in front-top |
 | | [4](RETURNS) permanent compound TPU returns, the one return block they snap into, and the [2](BOX_TEES) commercial source tees |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
 | | All stationary straight junction-to-valve and return links, other tubing, the funnel, display and cold core |
@@ -46,14 +46,14 @@ axis. These permanent parts stay seated during a pump change.
 
 | Joint | Cartridge end | Staying end | Air-purge states |
 |---|---|---|---|
-| `fluid-11` | pump A suction stem | TPU junction Y-C inlet | 1 and 2 |
-| `fluid-12` | pump A discharge stem | TPU junction Y-D inlet | 1 and 2 |
-| `fluid-21` | pump B suction stem | TPU junction Y-F inlet | 3 and 4 |
-| `fluid-22` | pump B discharge stem | TPU junction Y-G inlet | 3 and 4 |
+| `fluid-11` | pump A suction stub | TPU junction Y-C inlet | 1 and 2 |
+| `fluid-12` | pump A discharge stub | TPU junction Y-D inlet | 1 and 2 |
+| `fluid-21` | pump B suction stub | TPU junction Y-F inlet | 3 and 4 |
+| `fluid-22` | pump B discharge stub | TPU junction Y-G inlet | 3 and 4 |
 
 The socket entrances are TPU funnels leading to tight straight sealing lands. Dedicated
 outboard rigid stop lands on the receiver wall bear against the lower cradle to
-establish its final position, while the broad aft faces retain [0.25 mm](DOCK_BODY_GAP) clearance. The prepared stem tips enter
+establish its final position, while the broad aft faces retain [0.25 mm](DOCK_BODY_GAP) clearance. The prepared stub tips enter
 the sockets together. The magnets hold that seated position; the TPU receiver is not
 a cartridge stop. A straight pull parts the magnets, contact pair and four slip joints
 without moving the permanent junctions, returns or their straight tube links.
@@ -109,19 +109,18 @@ service state; the topology and Dry timer do not establish them.
 4. **Replace the complete pumps.** Pull each Faston receptacle by its insulated body,
    then remove the [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) clamp screws. Lift the clamp with
    its contact half and leads together, then lift out the pumps. Lower the prepared
-   replacements onto the cradle's skirt lands, with all four straight stems facing
-   aft and each integral flange seated in its cradle capture. Lower the clamp over both bosses and tighten the screws evenly until the clamp
+   replacements onto the cradle's skirt lands, with all four straight stubs facing
+   aft through the cradle's open tube passages. Lower the clamp over both bosses and tighten the screws evenly until the clamp
    seats. If it will not sit flat, lift and reseat the pumps. Do not use screw force to
-   correct alignment. The clamp closes the stem flanges' upward escape; the cradle
-   captures their axial load. Confirm firm pump retention and seated flanges.
+   correct alignment. Confirm firm pump retention and that no stub touches the cradle.
 
 5. **Reconnect and seat.** Reconnect the Faston pairs to the marked motor tabs: the
    +X crown-groove pair serves pump A and the −X pair serves pump B. Return the leads to
    their grooves below the clamp crown. With power still disconnected, set the cartridge
-   on its bay floor and present all four stem tips to the TPU funnels. Push squarely and
+   on its bay floor and present all four stub tips to the TPU funnels. Push squarely and
    evenly until the rigid stop lands seat and the front face finishes flush. Do not
    count a magnetic snap as full seating: check the complete perimeter, receiver lips
-   and electrical contact engagement. The stems must remain straight and the receivers
+   and electrical contact engagement. The stubs must remain straight and the receivers
    must remain seated when the cartridge is gently pulled against its retention.
 
 6. **Re-prime and observe.** Restore power and prime each channel through the funnel-fill
@@ -131,34 +130,29 @@ service state; the topology and Dry timer do not establish them.
 
 ## Factory preparation of replacement pumps
 
-Prepare each pump with the specified BPT tube around the rotor and two smooth,
-machined natural PP-H Polystone P tube stems fitted into its ends. Each stem has a 6.35 mm OD,
-4.3 mm bore and integral retention flange. The smooth wet portion enters the TPU;
-the flange seats in the cradle outside that sealing region. Verify each bare stem's
-flange-to-tip datum in its [setting fixture](/hardware/printed-parts/enclosure/pump-dock/machined-stem.md#factory-fixture-and-review),
-then remove it and fit its tail into the BPT. Use calipers to set the BPT end
-0.15 mm fore of the flange's fore face, and the
-existing 2.54 mm nylon tie center 1.75 mm fore of that same face, toward the pump.
-The tie center is 1.60 mm fore of the BPT cut end. These are enclosure Y76.10 mm
-and Y74.50 mm respectively; the tie occupies
-Y73.23–75.77 mm. Keep its head toward +Z in the open channel. The stem flange has
-Ø16 mm outside diameter and a 2.5 mm section, with fore/aft faces at Y76.25/78.75 mm.
-Verify that the cradle, with its cap seated, captures the flange axially and closes
-its upward escape. The flange bearing supplies the cartridge-withdrawal load path.
+Prepare each pump with the specified BPT tube around the rotor. Pull Kamoer's two
+barbed connectors out of the tube ends. Cut two 26 mm stubs from the machine's black
+1/4" LLDPE with a square, burr-free cut, and ease each outer edge so the stub enters
+the TPU funnel without scoring it. Loosen the pump head's housing, push one stub into
+each BPT end and snug the housing.
 
-Use the printed setting jig against the cartridge's flat rear seating face to verify
-all four free tips at [7.75 mm](TIP_FROM_CARTRIDGE) aft of that face. This is enclosure
-Y[90.015 mm](TIP_Y) when seated; the modeled flexible-tube start-to-tip projection is
-[12.851 mm](TUBE_PROJECTION). Check the flange seats, smooth wet surfaces, clean bores,
+Seat both pumps in the cartridge under the closed cap, set the printed tube setting
+jig on the cartridge's flat rear seating face and slide each stub until its tip meets
+its jig stop: all four free tips at [7.75 mm](TIP_FROM_CARTRIDGE) aft of that face, enclosure
+Y[90.015 mm](TIP_Y) when seated, and [12.851 mm](TUBE_PROJECTION) beyond the pump's
+outlet face. On the reference pump, whose BPT ends 13.9 mm short of the tip, that leaves
+about 12 mm of each stub inside the tube. Tighten the housing fully so it clamps the
+tube around both stubs, recheck all four tips against the jig, then pull each stub
+firmly by hand and confirm it does not slip. Check smooth wet surfaces, clean bores,
 pump-end sealing and all four tip positions before supplying the replacement set.
-The customer receives the complete prepared pumps and does not machine, cut, trim
-or transfer the stems.
+The customer receives the complete prepared pumps and does not cut, trim or transfer
+the stubs.
 
 ## Output condition
 
 - Both complete pumps sit firmly on their cradle lands under the seated clamp.
 - Both Faston pairs are connected and all four leads remain below the crown.
-- All four straight stems enter seated TPU receivers together; the cartridge is
+- All four straight stubs enter seated TPU receivers together; the cartridge is
   flush against its rigid seats and the contact pair is engaged.
 - Junction funnels, all four locked keepers, compound returns, the return block
   and magnetic mounts remain fixed in the appliance.

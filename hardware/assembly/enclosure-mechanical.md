@@ -72,13 +72,14 @@ results.
 
 Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four closed receiver bores, recessed collar seats, keeper guides and their lock hosts. Inspect the return block's four slots and seats, its three counterbores and the aft tray foot's three insert bosses. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
-Front-top and the lower pump cradle carry six attracting SB443-IN pairs in their dry
-rail-and-keyed-bedding mounts. The twelve magnets are fitted after printing, with their
-actual bare pole faces set against the seated-frame gauge before the bedding cures.
-Keep attracting pole pairs identified through assembly and inspect all rails, keyed fill
+Front-top and the lower pump cradle carry eight attracting SB443-IN pairs, one
+four-high column on each pump's line, each column bonded in one plain pocket per part.
+The sixteen magnets are fitted after printing: the fixed blocks bottom in their pockets,
+and the moving blocks cure against their fixed mates with the cartridge seated on its
+lands. Keep attracting pole pairs identified through assembly and inspect the bedding
 and exposed faces. Follow the
 [magnet mounting procedure](/hardware/printed-parts/enclosure/pump-dock/magnet-retention.md)
-for cleaning, setting, adhesive selection and cure. The contact pair retains its own
+for cleaning, bonding and cure. The contact pair retains its own
 separate factory magnets. Installed cartridge retention is established on the completed
 dock rather than inferred from an individual magnet's advertised pull.
 
@@ -195,7 +196,7 @@ aft tray foot.
 The complete bench order is in
 [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
 
-After chassis closure, the prepared cartridge's four flanged stems enter their TPU
+After chassis closure, the prepared cartridge's four LLDPE stubs enter their TPU
 funnels together. The rigid cartridge seats set final insertion; the tube tips keep
 their designed clearance from the internal shoulders. Neither commercial collets nor
 fixed plumbing moves during withdrawal.
@@ -272,7 +273,7 @@ home, and the mating surfaces are clear.
 
 The bay rides open during enclosure assembly. Connect the prepared cartridge only after
 the chassis is closed, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md):
-present the four straight flanged stems to the TPU funnels and push evenly onto the rigid
+present the four straight stubs to the TPU funnels and push evenly onto the rigid
 seats. Withdrawal separates the magnets, electrical contact and four slip joints while
 the junctions, returns and return block stay fixed.
 
@@ -354,7 +355,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Condenser + fan closed on the compressor's +X tangent with the discharge joint made on that line, its fore flanges 3 mm into the front wall's two rails and its aft flanges each drawn down on an M3 × 8 into the +X wall fin's fingers, the block clear of the slab
 - Cold core seated in its rounded floor pocket behind the compressor bay, both front corners inside front-bottom's blocks and back-top's two brackets over the aft edge of its cap, no tension on the refrigerant lines, all [9](CAP_CONDUITS) cap conduits open on the lid
 - Four printed quadrants telescoped at the Y seam and slid home on both Z seams, the four corner screws driven and set — `enclosure-back-top` last, since it is the lid over the whole service bay
-- [4](DOCK_RECEIVERS) permanent TPU receivers captured by the closed bay wall, four locked flat keepers; Y-C/Y-D/Y-F/Y-G form the printed junctions, with straight upper links and four compound TPU returns held in dry cradles with closing covers; pump bay open for the prepared flanged-stem cartridge in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
+- [4](DOCK_RECEIVERS) permanent TPU receivers captured by the closed bay wall, four locked flat keepers; Y-C/Y-D/Y-F/Y-G form the printed junctions, with straight upper links and four compound TPU returns seated in the one return block; pump bay open for the prepared stub cartridge in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
 - +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone recessed behind DATA in its keyed receptacle. No connection is cut in the front wall.
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - OVER bulkhead installed through its middle-row chip, with both 4 mm collets reachable

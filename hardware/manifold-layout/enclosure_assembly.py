@@ -508,17 +508,16 @@ def record_pump_dock_seats(box_spec, dock_parts, retention):
         features = retention[side]
         for column, (x, z) in enumerate(columns, start=1):
             for row in range(magnet_spec.ROWS_PER_COLUMN):
-                mz = z + (row - (magnet_spec.ROWS_PER_COLUMN - 1) / 2.0) * magnet_spec.BAR
+                mz = magnet_spec.row_z(z, row)
                 name = f'pump-dock-SB443-{side}-{column}-{row + 1}'
-                # The gauged bare pole is y1 on the moving half and y0 on
-                # the fixed half. The nominal purchased bar sets the other faces.
+                # The bare pole is y1 on the moving half and y0 on the fixed
+                # half, both on the nominal pole plane. The bar sets the rest.
                 pole_face = 'y1' if side == 'moving' else 'y0'
                 record_seat(name, planes={'cx': x, pole_face: interface.pole_y,
                                          'z0': mz - magnet_spec.BAR / 2.0},
                             got=box(features['magnets'][name]))
-        y0, _y1 = interface.yspan(side,
-            magnet_spec.GROOVE_FRONT - magnet_spec.GROOVE_TOLERANCE,
-            magnet_spec.DRAWING_THICKNESS_MAX + magnet_spec.BACK_AIR)
+        y0 = min(interface.pole_y + interface.into(side) * magnet_spec.BEDDING_FRONT,
+                 interface.floor(side))
         name = f'pump-dock-potting-{side}'
         record_seat(name, planes={
             'cx': (min(x for x, _z in columns) + max(x for x, _z in columns)) / 2.0,
@@ -1296,8 +1295,8 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 # --- the fixed pump receiver wall -------------------------------------------
-# The fixed wall stands behind the stem flange's complete aft bearing. The
-# fitted pump tips and original valve ports locate the permanent wet parts.
+# The fixed wall stands behind the cartridge back by the body air. The fitted
+# pump tips and original valve ports locate the permanent wet parts.
 
 
 def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
@@ -4287,12 +4286,6 @@ def build_pack() -> cq.Assembly:
         # the placeholder with the tube itself.
         if name.startswith("stub-") and name[len("stub-"):] in _lines.authored():
             continue
-        if name in ("tube-fluid-11", "tube-fluid-12", "tube-fluid-21", "tube-fluid-22"):
-            joint = {"tube-fluid-11":"Y-C", "tube-fluid-12":"Y-D",
-                     "tube-fluid-21":"Y-F", "tube-fluid-22":"Y-G"}[name]
-            (x,tip,z), _ = mcarry((ml.customer_tip(joint),(0.,0.,1.)))
-            solid = _enc._stems.visible_stem(x,z,tip)
-            color = cq.Color(.92,.92,.89)
         a.add(solid, name=name, color=color)
         in_pack.append(name)
     # The pump head's front plane locates the whole manifold independently of

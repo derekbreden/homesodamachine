@@ -1,15 +1,15 @@
 # Manifold layout
 
 The ten flavor valves, both KPHM600 pumps and [2](TEE_COUNT) purchased source tees form the
-flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pump stems
-through the enclosure wall. Each junction has one straight upper link and one lower link to
+flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pumps' LLDPE
+stubs through the enclosure wall. Each junction has one straight upper link and one lower link to
 a fixed printed return. Each return contains its directional changes, so both of its LLDPE
 connections are straight.
 
 [`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased
-hardware, prepared-stem spans, LLDPE members and eight printed wet bodies. The
-[complete enclosure assembly](enclosure_assembly.py) adds the manufactured flanged stems,
-flat keepers and PET-GF supports from the
+hardware, the pump stubs, LLDPE members and eight printed wet bodies. The
+[complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, return block
+and magnet columns from the
 [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
 
 The connections follow [`fluid-topology.md`](/hardware/topology/fluid-topology.md).
@@ -26,7 +26,7 @@ from them. There are no reservoir junctions or segments 15/25.
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | 4 × TPU junction | Permanent wall-mounted pump receivers with an upward outlet and an aft/downward 45° outlet. Six-millimetre sealing lands and the pump funnel share one printed wet body. |
 | 4 × TPU return | One permanent compound return per lower port. R[6](SPINE_R) internal turns and a horizontal passage join two straight tube links. |
-| [17](TUBE_COUNT2) × LLDPE cut | [12](STRAIGHT_LLDPE_COUNT) straight pump-junction links, two formed source links and three fully swallowed butt-joint blanks. Pump stems are separate machined PP-H parts supplied on prepared replacement pumps. |
+| [17](TUBE_COUNT2) × LLDPE cut | [12](STRAIGHT_LLDPE_COUNT) straight pump-junction links, two formed source links and three fully swallowed butt-joint blanks. The four 26 mm pump stubs are cut from the same LLDPE and supplied in prepared replacement pumps. |
 
 ## Frame
 
@@ -162,7 +162,7 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 ## How each connection is made
 
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) topology segments are collet butts, with no tube
-exposed between the faces. Four prepared PP-H pump stems enter the permanent wall junctions.
+exposed between the faces. Four prepared LLDPE pump stubs enter the permanent wall junctions.
 The [4](FORE_STUB_COUNT) upper links to V-E/F/H/I are straight and have
 [14.501](FORE_STUB_EXPOSED) mm exposed. Four lower connections each have two straight LLDPE
 members and one fixed printed return. Add the actual insertion depths for finished blanks;
@@ -192,18 +192,18 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 
 `BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck authoring placement
 span. The pump station retains its fitted [3](PUMP_DROP) mm downward world-Z datum.
-Four smooth prepared stems project [12.85](BARB_TUBE_LEN) mm from the modeled free BPT
+Four straight LLDPE stubs project [12.85](BARB_TUBE_LEN) mm from the modeled free BPT
 tube plane. Their production setting references the cartridge's actual flat aft face: all
 four tips lie 7.750 mm aft of that face at machine Y90.015 mm.
 
-Both pumps ride out on the cartridge. Integral stem flanges transfer insertion and withdrawal
-reactions into the lower cradle; the cap closes upward escape. The stems enter TPU funnels
-and six-millimetre tight lands. The wall locates each permanent junction in X/Z and a flat
-interior keeper captures Y. Stem tips remain 0.50 mm short of their stops with the cartridge
-on its outboard stop lands. Broad cartridge and wall planes have 0.250 mm clearance.
+Both pumps ride out on the cartridge. Each pump head's own housing clamps its two stubs and
+carries their insertion and withdrawal reactions into the head, which the cradle and cap
+hold. The stubs enter TPU funnels and six-millimetre tight lands. The wall locates each
+permanent junction in X/Z and a flat interior keeper captures Y. Stub tips remain 0.50 mm
+short of their stops with the cartridge on its outboard stop lands. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the flanged stems, flat keepers, fixed return
-fixtures and positive SB443-IN mounts. Customers replace complete
+The complete enclosure assembly supplies the flat keepers, the return block and the bonded
+SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 
 ## Standing it on the compressor bay

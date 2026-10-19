@@ -41,7 +41,7 @@ Tooling (bench, shared across all units — not per-build consumed): the test-ri
 Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. Both pump brackets bear in the lower cradle behind the cartridge face, the top clamp is screwed down and their DC-5 spade pairs are on the motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The contact pair's male half sits in its 0.125 mm recessed bay-bulkhead seat with both screws home; the fixed J13-side 4P ribbon lies flat in the ridge wall's +X cable clip and drops through the bulkhead's lead bore, and the cartridge's four leads lie in the clamp's crown grooves.
 
 Cycle the pump dock dry before attaching either bench supply. Brace the enclosure and
-withdraw the cartridge straight along its floor. All four prepared flanged stems must
+withdraw the cartridge straight along its floor. All four prepared LLDPE stubs must
 slide out together while the TPU receivers, their locked keepers, four fixed TPU returns and dry captures stay fixed. Confirm that the electrical contact pair parts with the
 cartridge and that its fixed half and +X cable clip remain in place. Inspect all four
 socket entrances and tube tips for cuts, displaced TPU, loose material or scoring.
@@ -64,7 +64,7 @@ Connect the test-rig water source to the +Y wall's PP1208E 1/4" JG QC inlet, pus
 rigid seats; the junctions, keepers, returns, dry captures, fixed electrical half
 and cable clip stay put; all four J13-to-pump connections are continuous and correctly
 mapped; the dedicated faucet OVER outlet is open over the test sink; and no bench gas
-connection leaks. **Fail:** damaged or displaced TPU, a bent or caught stem, incomplete
+connection leaks. **Fail:** damaged or displaced TPU, a bent, caught or slipped stub, incomplete
 seating, a loose magnetic mount, a displaced fixed contact or lead, incorrect continuity,
 or a leaking rig connection. Correct the specific fault and repeat the dry cycle before
 continuing.
@@ -190,7 +190,7 @@ Confirm before releasing the unit: no water audible on a gentle tilt, both reser
 A unit that has passed acceptance and burn-in:
 
 - Carbonator first-water-fill completed without leak
-- Pump dock cycled dry through seated → withdrawn → seated; four flanged stems separated and reentered together, permanent junctions/keepers/returns and dry captures stayed fixed, the electrical pair parted and mated without disturbing its fixed half or cable clip, and J13-to-tab continuity was confirmed with the cartridge on its rigid seats
+- Pump dock cycled dry through seated → withdrawn → seated; four LLDPE stubs separated and reentered together, permanent junctions/keepers/returns and dry captures stayed fixed, the electrical pair parted and mated without disturbing its fixed half or cable clip, and J13-to-tab continuity was confirmed with the cartridge on its rigid seats
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet OVER outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin

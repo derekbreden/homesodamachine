@@ -21,9 +21,9 @@ belongs to the structure.
 
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own front opening. Pulling the cartridge withdraws four prepared flanged stems from
+own front opening. Pulling the cartridge withdraws four short LLDPE stubs from
 stationary TPU receivers. The rigid wall and locked flat keepers carry receiver reaction
-into the enclosure, while the stem flanges bear in the removable cradle. The enclosure
+into the enclosure, while each pump head's own housing clamps its stubs. The enclosure
 can be braced by a hand, foot, cupboard edge or its own weight. The fixed commercial
 tees and rear plumbing stay put, and `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
@@ -46,8 +46,8 @@ destroyed is a part that comes out by being destroyed.
   not butts ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
 - **The pump dock separates at its permanent TPU receivers.** The wall contains each receiver
   in X/Z and a flat interior keeper captures Y. Y-C, Y-D, Y-F and Y-G, their fore links and
-  their hairpins are fixed. Complete replacement pumps carry factory-fitted machined
-  flanged stems; the customer replaces no receiver or other dock component.
+  their hairpins are fixed. Complete replacement pumps carry factory-fitted LLDPE
+  stubs; the customer replaces no receiver or other dock component.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the Y seam's vertical screws prevent the reverse motion.

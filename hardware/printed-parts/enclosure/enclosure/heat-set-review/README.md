@@ -3,10 +3,9 @@
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cartridge precisely and can be handled without its joints opening.
 The [native audit](geometry-check.json) records 35 insert stations and 14 finished
-knuckles for its exact source and native input hashes. Its front-top continuation
-retains that same artifact scope. It reads complete installed insert envelopes, open pilots,
-blind relief, closed stock, insertion access and the Y seam's knuckles. Source and
-STEP hashes are checked before and after the run. These are geometry results;
+knuckles for its exact source and native input hashes. It reads complete installed insert
+envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
+knuckles. Source and STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
 qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
 identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
@@ -40,7 +39,7 @@ The outboard rims at the R6 rolls are in
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
-| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the connector contact face, 7.375 mm behind the recessed seat's printed face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
+| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the recessed connector face, 7.375 mm inside the printed host face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
 | Four factory keeper locks | M3 short, 4.0 mm | Through the 5 mm keeper boss | Front-driven M3×8 screws and 0.5 mm washers sit in 3.75 mm deep crowned wall recesses. The head is recessed 0.25 mm; 3.25 mm of wall backs the washer. Each keeper boss has 3 mm radial material around the knurl. The screw reaches 4.10 mm past the insert entry, engaging the full 4 mm insert and ending 0.90 mm before the boss back |
 | Eight shared cradle/cover locks | M3 short, 4.0 mm | 5.75 mm below the nominal host plane; 6.00 mm from the raised entry | M3×12 screws pass through the 3 mm cover tab, 0.15 mm supported inter-tab gap, 3 mm base tab and 0.5 mm washer. The insert entry is on the 0.25 mm raised host land. The tip projects 5.35 mm past that entry, or 5.10 mm below the nominal host plane, with 0.65 mm blind-tip room |
 
@@ -49,8 +48,8 @@ M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm
 the starting fit. The [SPIROL FDM guidance](https://www.spirol.com/resources/white-papers/how-to-select-a-threaded-insert-for-your-3d-printed-assembly/)
 supplies the application rule of a solid host diameter at least 1.5 times the
 knurl diameter. The audit reports this separately from supplier compliance.
-The bound insert audit reports at least 1.148 mm around the pump-cap's Ø2 pilot through
-the whole insert body, with more in front-top. The 2.6 mm wide loading stadium passes the whole knurl
+The bound insert audit finds solid host at least 3.5 mm out from each round Ø2 pilot, the
+furthest it searches, through the whole insert body in both the pump-cap and front-top. The 2.6 mm wide loading stadium passes the whole knurl
 through the 4.25 mm ear-to-anchor setback. Install and cold-check the depth before fitting the
 connector, following [enclosure assembly](../../../../assembly/enclosure-mechanical.md).
 The [coupon](../contact-pair-coupon/README.md) retains its identified geometry and

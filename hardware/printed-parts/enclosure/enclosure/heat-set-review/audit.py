@@ -82,11 +82,10 @@ for x,z in box.pack.c14:
     add('back-top','C14',(x,fore,z),(0,1,0),e.heatset_dia,e.heatset_len,
         e.heatset_depth,1.6,True)
 x,z=e.pump_contact_station(box)
-for piece,face,sgn in (('front-top',e.bay_back_y(box.pack.collet_plate),1),
-    ('pump-cap',e.pump_cartridge_aft_y(box.pack.pump_trays,box.pack.collet_plate),-1)):
+for piece,face,sgn in zip(('front-top','pump-cap'),e.pump_contact_faces(box),(1,-1)):
     for ex in e._pogo.ear_xs():
         add(piece,'pogo',(x+ex,face+sgn*(e._pogo.ear_back()+e.pogo_heatset_setback),z),(0,sgn,0),
-            e.pogo_heatset_dia,e.pogo_heatset_len,e.pogo_heatset_len+e.pogo_heatset_relief,(1.5*2.3-e.pogo_heatset_dia)/2.0,True)
+            e.pogo_heatset_dia,e.pogo_heatset_len,e.pogo_heatset_len+e.pogo_heatset_relief,(1.5*2.3-e.pogo_heatset_dia)/2.0)
 
 shapes={}
 for piece in sorted(e.PIECE_COLORS):

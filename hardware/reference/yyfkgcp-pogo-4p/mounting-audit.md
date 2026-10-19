@@ -4,11 +4,11 @@ The current mechanism uses one [YYFKGCP four-pin pair with ears](https://www.ama
 The female pad half mounts in the pump cap's aft face; the male spring-pin half mounts in
 front-top's bay bulkhead. Each purchased half contains two magnets. The printed parts
 provide recessed screw-fastened seats and lead passages. A separate
-[six-pair SB443-IN array](../../printed-parts/enclosure/pump-dock/magnet-retention.md)
+[eight-pair SB443-IN array](../../printed-parts/enclosure/pump-dock/magnet-retention.md)
 retains the lower cartridge cradle against the fixed receiver wall at the fluid-port
-row, below the pogo row. Grooved rails and mechanically keyed, room-cured DP420
-Off-White bedding capture those post-print-loaded blocks. Their pole faces are
-gauged against the actual seated frame before cure. The pump cap contains its
+row, below the pogo row. Room-cured DP420 Off-White bedding holds those
+post-print-loaded blocks in one plain pocket per column; the moving poles cure
+against the fixed poles with the frame seated. The pump cap contains its
 purchased connector magnets.
 
 The [native audit](mounting-audit.json) reads the current exports and the production placement
@@ -77,7 +77,7 @@ printed test piece on 2026-10-04. That result is accepted in the
 belongs to the printed test piece.
 
 The dedicated outboard PET-GF stop lands seat against the retained lower cradle
-to set full insertion. The four prepared stems enter
+to set full insertion. The four prepared LLDPE stubs enter
 permanent TPU receivers and finish 0.50 mm before their internal shoulders. The flat
 cap and bulkhead planes have 0.250 mm nominal separation. Each connector face is
 recessed 0.125 mm, giving a 0.500 mm nominal contact-face gap. Both connector ear
@@ -119,8 +119,8 @@ directions when installed; copying their left-to-right labels independently can 
 the contact order. The [DC-5 schedule](../../wiring/ac-wiring-schedule.md) defines the mapping.
 
 The cartridge floor and fitted wells carry weight and locate the pumps. Its rigid
-stop lands set full insertion; the four prepared flanged stems remain captured
-in the cradle and enter the stationary TPU receivers. The connector's magnets pull its two
+stop lands set full insertion; the four LLDPE stubs, clamped in the pump heads,
+enter the stationary TPU receivers. The connector's magnets pull its two
 halves together against the four pogo springs, and their force reaches the printed parts
 through the connector bodies, ear plates, screws and inserts. They have no specified pull
 force at the installed gap and do not establish whole-cartridge retention or vibration
@@ -128,10 +128,10 @@ reliability. The seller's 45±10 gf spring figure applies at its stated working 
 there is no force curve for this installed compression. Its 30 mΩ figure and 10,000-cycle
 claim are connector specifications, not results for the assembled machine.
 
-The separate SB443-IN array attracts along Y in two three-high columns per half,
-between the four receiver axes. Its load path enters the cradle and fixed wall
-through the grooved rails and mechanically keyed bedding. The
-[retention geometry record](../../printed-parts/enclosure/pump-dock/magnet-geometry.json)
+The separate SB443-IN array attracts along Y in one four-high column per pump on each
+half, between each pump's two receiver axes. Its load path enters the cradle and fixed
+wall through the cured bedding in each plain pocket. The
+[retention geometry module](../../printed-parts/enclosure/pump-dock/dock_retention.py)
 does not establish installed pull, printed-mount strength or the force required
 to seat all four fluid joints and pogo springs. The rigid seating faces and the
 compression limits above remain controlling.
