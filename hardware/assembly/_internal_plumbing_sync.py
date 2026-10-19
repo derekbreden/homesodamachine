@@ -64,13 +64,7 @@ def main():
                 f"either they go back on one stock or the doc reads them out apiece.")
 
     # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
-    # and the seats the pack actually bored. Every rib holding a RUN is bored for the one stock,
-    # so the runs answer with one figure and each anchored BODY with its own.
-    _run_seats = {round(s[3], 6) for s in _f.pack["tube_anchors"]}
-    if len(_run_seats) != 1:
-        raise ValueError(
-            f"the box's run anchors are bored at {sorted(_run_seats)}. This procedure quotes one "
-            f"loop for all of them, so either they go back on one stock or it reads them apiece.")
+    # and the seats the pack actually bored: each anchored BODY answers with its own.
     # A BODY'S SEAT IS ITS OWN REFERENCE MODULE'S SECTION, taken by name off the table
     # `check_body_seated` grades the built pieces against — the same route `_bom_sync` takes, so
     # this page and the ledger's rows cannot read one barrel two ways. What the pack bored is held
@@ -131,7 +125,6 @@ def main():
         "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['wr1110']):.3g} mm",
         "SPLIT_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['water-split']):.3g} mm",
         "FLOWREG_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['flow-regulator']):.3g} mm",
-        "CARB_1_LOOP": f"{_enc.tube_anchor_tie_loop(next(iter(_run_seats))):.3g} mm",
         # And the meter's, on the seat `enclosure_assembly.digiten_anchors` strikes: the
         # fixed collar's own radius and the slip its bore stands off it by. A flow-meter anchor
         # reaches `flow_meter_anchor_wall` off that axis where a rib reaches `wall`, and

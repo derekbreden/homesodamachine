@@ -1293,7 +1293,9 @@ One pattern wherever a wall comes near enough to reach something round
 `seat_r`, and the zip tie's channel behind it. The stations in
 `enclosure_assembly.TUBE_ANCHOR_SITES` hold lengths of tube and those in
 `enclosure_assembly.BODY_ANCHOR_SITES` hold fittings — the same rib either way, since what the
-builder is handed is an axis, a direction along it and a radius.
+builder is handed is an axis, a direction along it and a radius. What closes each tube site is
+stated in `enclosure_assembly.TUBE_ANCHOR_CLOSURES`: a zip tie, as described here, or an
+anchor cap (below).
 
 **The arc stops on the body's own axis plane and the rib carries one `wall` past
 it**, so each lip is a flat strip rather than a feather — the anchors' bargain,
@@ -1349,8 +1351,6 @@ share one axis 0.25 mm below the other rear ports. The CO₂ chip reaches the co
 **The zip tie is the load path here**, the same bargain the flow-meter anchors make: a
 seat that opens downward carries nothing. Barrel and rib make an [83.2 mm](LOOP_WR1110)
 loop, past what a 4" tie closes, so this one takes the 6".
-`enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
-itself, and `check_tube_seated` reads the three run anchors the same way.
 
 **The downstream gas check has a separate ceiling cradle**, east and forward of the
 regulator, with its flow arrow pointing aft. The seat closes on the check's round metal
@@ -1363,6 +1363,31 @@ owns the assembly sequence. The fitting envelopes and received-part cradle fit r
 physical qualification items. The nominal routes run from the inlet to WR1110, turn
 forward from its outlet into the check inlet, then return from the check through the
 east lane to the cold core.
+
+**An anchor cap closes `carb-1`'s rib, and that rib takes no zip tie** (`_capped_anchor`,
+`_anchor_cap_interface`). It is the same half pipe at `seat_r` with flat lips one `wall` past
+the axis plane, built as one solid post [20.6 mm](CAP_RIB_LEN) long with nothing cut for a
+tie. Each flank carries a catch window: a closed pocket [14.6 mm](CAP_WINDOW_LEN) long between
+the rib's two end webs, [1.6 mm](CAP_WINDOW_DEPTH) deep, from [6.92 mm](CAP_WINDOW_B0) to
+[10.19 mm](CAP_WINDOW_B1) over the axis plane. Back-top prints ceiling-down, so each window's
+bearing face, the side nearest the tube, prints as a bridge web to web. The rib's two outer
+bottom edges carry a [0.8 mm](CAP_RIB_CHAMFER) chamfer the cap's lips ride onto. The
+[anchor cap](../anchor-cap/README.md) presses on over the tube, and its lips drop into the
+windows.
+
+The cap's wings reach [10.3 mm](CAP_WING_TOP) over the axis plane. Where the ceiling's face
+stands inside [0.6 mm](CAP_HEADROOM) of that, the ceiling gives each wing a slot as wide as the
+wing and the spread its lip makes (`_ceiling_cap_reliefs`), and the rib's flank runs on up the
+slot's inner wall. Over `carb-1` the slab's face stands that far off, and the ceiling gives up
+nothing.
+
+The rib stands at the head of `carb-1`'s climb, its near end one `wall` past the corner the run
+climbs into (`enclosure_assembly.tube_anchor_midpoint`): `co2-1`'s U runs beside the middle of
+the crossing inside the cap's wings, and at the head of the climb the cap stands clear of it.
+
+The cap is cut for the 1/4" seat, and it closes only a rib rooted on the face its piece prints
+on. Its rib also has to stand on its leg's straight; `co2-2`'s straight is shorter than that
+between its two bends, so that crossing takes a zip tie.
 
 ## The pump cartridge and its bay
 
@@ -1856,8 +1881,8 @@ check adapters and the gasher's crown open as one channel. Gasher's singleton cr
 keeps its plan and is exactly one 3 mm wall deep; every other local pocket between zero and
 3 mm deep is a producer error. The C14's ceiling pocket is its canonical slipped flange profile
 continued along the insertion run, so the pocket and the flange seat are one outline.
-The flow meter's two anchors and every rib rooted on
-the ceiling — the carb-1 and co2-2 ribs and the regulator's — get the room their zip tie's
+The flow meter's two anchors and every rib a zip tie closes on
+the ceiling — the co2-2 rib and the regulator's — get the room their zip tie's
 loop comes down: over the tie band alone, the rib's reach plus the tie's thickness and its
 routing air either side, from the axis plane up to the channel's roof and no deeper
 (`_ceiling_tie_reliefs`); the rib is fused back afterwards and stands up off the bed with
