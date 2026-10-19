@@ -1,6 +1,13 @@
 # Lillium cutover
 
-The printed enclosure goes under the sink fed by the Lillium: two flavors, two pumps, the
+The new prototype is connected and serving soda, per Derek's
+[October 18 report](/hardware/printed-parts/enclosure/lillium-prototype-2026-10-18/physical-observation.json).
+The photographs show a temporary countertop arrangement with exposed pump heads and
+external tubing. Fit issues require assembly workarounds; the next milestone is to
+resolve those issues and button up this working prototype. The report does not
+identify installed revisions or establish complete cutover acceptance.
+
+The intended under-sink build is fed by the Lillium: two flavors, two pumps, the
 white faucet, the machine display, and the flow meter that starts each pour. The Lillium makes
 the cold carbonated water; this build adds no carbonator, refrigeration, CO2 or tap-water feed.
 
@@ -12,7 +19,9 @@ and V-B and the funnel onto the dip-tube line; nothing inside front-top changes.
 own filtered tap-water outlet ([plumbing](/docs/plumbing.md#water-supply)) can feed V-A then.
 
 The build follows the machine's own procedures. Each step below names the procedure and says
-what this build does differently.
+what this build does differently. The parts list and steps specify that build; the
+October 18 observation does not establish completion of individual steps or identify
+every part used in the working assembly.
 
 ## In and out
 

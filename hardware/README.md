@@ -6,7 +6,19 @@ This page is the design narrative and the map. The narrative describes the machi
 
 ## The soda machine
 
-The soda machine is an integrated under-counter unit. It packs the carbonator, its refrigeration loop, both flavor reservoirs, the pumps and valves, and the electronics into one enclosure behind a single 120 VAC cord, with the tap-water inlet at the rear and the CO2 cylinder standing beside the machine on a short tether. The prototype under the counter has proven the dispense path — two flavors of Pepsi-made concentrate injected into cold carbonated water, press the lever and soda comes out. What this build adds is the cold carbonated water itself: the machine carbonates and refrigerates its own. What stays above the counter is a faucet and a small display; the rest is under the sink.
+The soda machine is an integrated under-counter unit. It packs the carbonator, its refrigeration loop, both flavor reservoirs, the pumps and valves, and the electronics into one enclosure behind a single 120 VAC cord, with the tap-water inlet at the rear and the CO2 cylinder standing beside the machine on a short tether. The integrated machine carbonates and refrigerates its own water. What stays above the counter is a faucet and a small display; the rest is under the sink.
+
+The dispense path has been proven on the under-counter prototype: two flavors of
+Pepsi-made concentrate injected into cold carbonated water, press the lever and soda
+comes out.
+
+The [Lillium-fed dispense-side prototype](/hardware/assembly/lillium-cutover.md) uses
+an external carbonator for cold carbonated water. Derek's
+[October 18 observation](/hardware/printed-parts/enclosure/lillium-prototype-2026-10-18/physical-observation.json)
+reports the new prototype connected and serving soda. The photographs show a temporary
+countertop setup. Fit issues require assembly workarounds; fitting and buttoning up
+this working prototype is the next milestone. Installed revisions, both-flavor
+operation and complete cutover acceptance are not established by that observation.
 
 This is the **thin** machine: tall and narrow, built around one bound. The cold core is turned a quarter turn so its short axis runs across the cabinet, and nothing else in the machine is as wide, so nothing else sets the width. What the turn buys is a column of height above and ahead of the core. The space it is built for is in [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
