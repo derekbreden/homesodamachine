@@ -7580,7 +7580,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:094c95c4e33cd0037b98a81b8ed3892880d36e26edf19383ccb00a3ec5c91875",
+  "input_fingerprint": "sha256:f24e656893c35224be4842827aa07d58b5ce0f944309a2f48675d15152f73d17",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -17199,7 +17199,7 @@
         "precision": "day",
         "value": "2026-09-03"
       },
-      "description": "ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set — the appliance's default M3 insert, 44 of the 74 M3 stations per build (bom.md §13); same ⌀4.6 knurl and ⌀4.0 hole as the short RX-M3Sx4.0 and differing only in body length, so it drops into every pocket already bored deeper than 5.7 mm",
+      "description": "ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set — the appliance's default M3 insert, 40 of the 74 M3 stations per build (bom.md §13); same ⌀4.6 knurl and ⌀4.0 hole as the short RX-M3Sx4.0 and differing only in body length, so it drops into every pocket already bored deeper than 5.7 mm",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -17390,7 +17390,7 @@
         "precision": "day",
         "value": "2026-09-20"
       },
-      "description": "uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — the tee-carrier return pair (bom.md §8), two per build. Two packs, $5.19 ea + $0.76 NE tax",
+      "description": "uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — spare stock, with no role in the current build. Two packs, $5.19 ea + $0.76 NE tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -37107,7 +37107,7 @@
         "precision": "day",
         "value": "2026-09-19"
       },
-      "description": "uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 200 pc, 304 stainless steel — the DIN 125A size; one under each of the four permanent pump-receiver keeper locks and two rear cuff-support M3×8 locks",
+      "description": "uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 200 pc, 304 stainless steel — the DIN 125A size; one under each of the four permanent pump-receiver keeper M3×8 locks and eight shared cradle/cover M3×12 locks",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -46182,7 +46182,7 @@
         "precision": "day",
         "value": "2026-09-18"
       },
-      "description": "uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — the softer rate on the same carrier seat, and the dimensional match to the Lee LCM060C12M the seats are cut to (inventory.md, Diagnostic). $8.89 + $0.64 NE tax",
+      "description": "uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — spare stock, with no role in the current build; dimensional match to the Lee LCM060C12M (inventory.md, Diagnostic). $8.89 + $0.64 NE tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
