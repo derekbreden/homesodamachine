@@ -15,14 +15,12 @@ from functools import lru_cache
 import json
 from pathlib import Path
 import argparse
-import json
 import math
 import sys
 
 import cadquery as cq
 import fixed_returns as plumbing
-import pump_return as returned
-from flow_roof import cached_flow_cap
+from flow_roof import teardrop_sweep
 
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
@@ -69,6 +67,7 @@ KEY_OUTER_X = 12.5
 KEY_BASE_Z = -3.0
 KEY_SHOULDER_Z = 0.0
 KEY_TOP_Z = 3.0
+WEB_HALF_WIDTH = 7.0
 MATERIAL = "Siraya Tech Flex TPU 85A Clear"
 # Clear stock, rather than the black Bambu 90A gasket stock.
 COLOR = cq.Color(.92, .92, .90, .60)
@@ -155,7 +154,38 @@ def anti_rotation_keys():
     return parts[0].fuse(parts[1])
 
 
-def _geometry(*,installed=False,junction=None,mount_side=1):
+def crotch_web(junction=None):
+    """Flat-sided TPU between the two branches, in the branch plane.
+
+    It runs from inside the rear collar to the upper socket's stop height and
+    back to the upper cuff's aft tangent, then down that vertical face to the
+    lower mouth plane, the print bed. Both sealing cuffs stay round beyond
+    their stops.
+    """
+    junction=junction or _default_junction()
+    r=BRANCH_OD/2
+    upper,lower=junction['upper'],junction['lower']
+    _,uy,uz=upper['tube_stop']
+    mouth=cq.Vector(*lower['point']);axis=cq.Vector(*lower['axis']).normalized()
+    _,dy,dz=axis.toTuple();length=(dy*dy+dz*dz)**.5;dy,dz=dy/length,dz/length
+    aft=uy+r
+    front=REAR_COLLAR_Y[1]-.5
+    _,ay,az=junction['lower_flow_segments'][0]['end_mm']
+    beyond=r
+    outline=[(aft,uz),(aft,mouth.z-(aft-mouth.y)*dy/dz-beyond),
+             (mouth.y-dz*r+dy*beyond,mouth.z+dy*r+dz*beyond),(ay,az),
+             (front,az),(front,COLLAR_OD/2-.75),(uy,uz)]
+    vertices=[cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline]
+    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+    web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
+    # The foot is the actual lower mouth plane, clocked or not.
+    across=axis.cross(cq.Vector(0,0,1)).normalized()
+    behind=cq.Workplane(cq.Plane(origin=mouth,xDir=across,normal=axis*-1)).box(
+        400,400,400,centered=(True,True,False)).val()
+    return web.intersect(behind)
+
+
+def _geometry(*,installed=False,junction=None):
     """Local wet solid, occupied envelope and cavity from shared port datums."""
     junction=junction or _default_junction()
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
@@ -191,64 +221,41 @@ def _geometry(*,installed=False,junction=None,mount_side=1):
                  and e.BoundingBox().zmin>lower["end_mm"][2]/2-.04
                  and e.BoundingBox().zmax<0]
     void=void.fillet(FORK_BLEND_R,blend_edges).clean()
-    # Build the roof in the actual lower-mouth-flat print frame. A clocked
-    # outer junction first yaws its terminal's horizontal tangent onto+Y.
-    zrot,xrot=print_rotations(junction)
-    arc=junction["upper_flow_segments"][0]
-    def rz(v):
-        a=math.radians(zrot);return (v[0]*math.cos(a)-v[1]*math.sin(a),v[0]*math.sin(a)+v[1]*math.cos(a),v[2])
-    rotated={k:rz(v) if k in ("start_mm","midpoint_mm","end_mm","start_tangent","end_tangent") else v for k,v in arc.items()}
-    roof=cached_flow_cap(rotated,TUBE_ID/2,print_angle=xrot).rotate((0,0,0),(0,0,1),-zrot)
-    void=void.fuse(roof).clean()
-    # Broad keys retain the two supported sockets; the lower key's aft shift
-    # is parallel to its actual print bed, leaving the lower rim seated.
-    bare=outer.clean()
-    lower=junction['lower'];target=junction['return_target']
-    local_return=plumbing.return_layout(lower['point'],lower['axis'],target)
-    origin,n,h=returned.frame(local_return)
-    build=print_build_direction(junction)
-    local_build=(build.dot(n),build.dot(h),build.z)
-    keys=[]
-    for point in mount_stations(junction):
-        center=returned._point(point,origin,n,h)
-        key=returned.to_world(returned.button(center,mount_side,installed=installed,build_direction=local_build),local_return)
-        keys.append(key);outer=outer.fuse(key)
+    # The upper turn's passage roof points up in the lower-mouth-flat print
+    # frame. A clocked outer junction tilts that frame a few degrees out of the
+    # branch plane, so its flanks stand at 40 degrees.
+    void=void.fuse(teardrop_sweep(junction["upper_flow_segments"][0],TUBE_ID/2,inward=True,flank=40.)).clean()
+    # Solid TPU fills the crotch between the two branches, flat-sided and as
+    # wide as the rear collar allows inside the keeper guides. It carries the
+    # upper socket's separating load into the body. Its aft face stands on the
+    # upper cuff's aft side; in the lower-mouth-flat print pose that face is
+    # the 45-degree gusset under the upper cuff and its foot is the bed plane.
+    outer=outer.fuse(crotch_web(junction)).clean()
     neck_od=math.sqrt(BODY_OD**2+growth)
     ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
     outer=outer.cut(ring).clean()
-    return {"body":outer.cut(void).clean(),"envelope":outer,"bare_envelope":bare,"void":void,
-            "junction":junction,"occupied_od":od,"keys":tuple(keys)}
-
-
-def mount_stations(junction):
-    """Aft lower key keeps its socket-stop build height and a broad cuff root."""
-    target=junction['return_target'];port=junction['lower']
-    layout=plumbing.return_layout(port['point'],port['axis'],target)
-    _,n,h=returned.frame(layout)
-    build=print_build_direction(junction)
-    move=(cq.Vector(*port['point'])-cq.Vector(*port['tube_stop'])).dot(h)
-    shift=h*move+cq.Vector(0,0,-build.dot(h)/build.z*move)
-    return ((cq.Vector(*port['tube_stop'])+shift).toTuple(),tuple(junction['upper']['tube_stop']))
+    return {"body":outer.cut(void).clean(),"envelope":outer,"void":void,
+            "junction":junction,"occupied_od":od}
 
 
 @lru_cache(maxsize=24)
-def _cached_geometry(declaration,installed,mount_side):
-    return _geometry(installed=installed,junction=json.loads(declaration),mount_side=mount_side)
+def _cached_geometry(declaration,installed):
+    return _geometry(installed=installed,junction=json.loads(declaration))
 
 
-def geometry(*,installed=False,junction=None,mount_side=1):
+def geometry(*,installed=False,junction=None):
     declaration=json.dumps(junction or _default_junction(),sort_keys=True)
-    return _cached_geometry(declaration,installed,mount_side)
+    return _cached_geometry(declaration,installed)
 
 
-def build_receiver(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None,mount_side=None):
+def build_receiver(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None):
     local=_local_junction(junction,(x,wall_fore_y,z))
-    return _place(geometry(installed=installed,junction=local,mount_side=(1 if x>=0 else -1) if mount_side is None else mount_side)["body"],wall_fore_y,x,z)
+    return _place(geometry(installed=installed,junction=local)["body"],wall_fore_y,x,z)
 
 
-def receiver_envelope(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None,mount_side=None,include_mounts=True):
+def receiver_envelope(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None):
     local=_local_junction(junction,(x,wall_fore_y,z))
-    return _place(geometry(installed=installed,junction=local,mount_side=(1 if x>=0 else -1) if mount_side is None else mount_side)["envelope" if include_mounts else "bare_envelope"],wall_fore_y,x,z)
+    return _place(geometry(installed=installed,junction=local)["envelope"],wall_fore_y,x,z)
 
 
 def receiver_wall_cut(wall_fore_y=0.0, x=0.0, z=0.0):
@@ -287,10 +294,10 @@ def print_build_direction(junction=None):
     return cq.Vector(math.sin(tilt)*math.sin(yaw),math.sin(tilt)*math.cos(yaw),math.cos(tilt))
 
 
-def print_solid(*,junction=None,mount_side=1):
+def print_solid(*,junction=None):
     """Actual lower mouth normal points down, giving a flat sealing rim bed."""
     zrot,xrot=print_rotations(junction)
-    solid=geometry(junction=junction,mount_side=mount_side)['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
+    solid=geometry(junction=junction)['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
     return solid.translate((0,0,-solid.BoundingBox().zmin))
 
 
@@ -301,6 +308,7 @@ def engineering_record():
             "branch_entry_radial_mm":ENTRY_RADIAL,"branch_mouth_radial_stock_mm":BRANCH_OD/2-SEAL_BORE_D/2-ENTRY_RADIAL,
             "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
             "rear_flange_y_mm":REAR_COLLAR_Y,"anti_rotation_key_x_mm":[KEY_ROOT_X,KEY_OUTER_X],
+            "crotch_web_half_width_mm":WEB_HALF_WIDTH,
             "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,
             "keeper_wall_face_gap_mm":KEEPER_Y[0]-WALL_THICKNESS,"keeper_rear_groove_room_mm":GROOVE_Y[1]-KEEPER_Y[1],
             "lower_socket_stop_bore_mm":LOWER_STOP_BORE_D,"lower_socket_stop_radial_mm":(SEAL_BORE_D-LOWER_STOP_BORE_D)/2,

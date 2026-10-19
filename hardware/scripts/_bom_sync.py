@@ -278,15 +278,13 @@ dock_keeper_screws_per_build = dock_keepers_per_build
 dock_keeper_screw_projection = (8.0 + _enc._dock.KEEPER_COUNTERBORE_DEPTH
     - _enc._dock.LOCK_WASHER_T - _enc._receiver.KEEPER_Y[0])
 dock_keeper_tip_air = _enc._dock.KEEPER_BOSS_THICKNESS - dock_keeper_screw_projection
-dock_fixture_locks_per_build = sum(
-    len(_enc._dock.fixture_anchors(_f.box['collet_plate'], x))
-    for x, _z in _f.box['collet_plate']['holes'])
-dock_fixture_screw_projection = (_enc._dock.FIXTURE_SCREW_LENGTH
-    - 2 * _enc._dock.FIXTURE_TAB_THICK
-    - _enc._dock.FIXTURE_COVER_SPACER - _enc._dock.fits.running
-    - _enc._dock.LOCK_WASHER_T)
+# The one return block hangs on three vertical M3×12 screws driven up from its
+# counterbores into short inserts in the tray foot's bosses. Each head bears
+# on its counterbore floor; the thread engages the whole insert.
+dock_fixture_locks_per_build = len(_enc._dock.block_screws(_f.box['collet_plate']))
+dock_fixture_screw_projection = _enc._dock.BLOCK_SCREW_ENGAGEMENT
 dock_fixture_pilot_depth = (_enc._dock.LOCK_INSERT_LENGTH
-    + _enc._dock.FIXTURE_LOCK_RELIEF)
+    + _enc._dock.BLOCK_INSERT_RELIEF)
 _dock_native = json.loads((_here.parent / 'printed-parts/enclosure/pump-dock'
     / 'print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1'
     / 'native-review.json').read_text())['parts']
@@ -614,13 +612,10 @@ def main(*, only_bom=False):
         "DOCK_KEEPER_SCREWS": f"{dock_keeper_screws_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
         "DOCK_FIXTURE_THREAD": f"{dock_fixture_screw_projection:.4g}",
-        "DOCK_FIXTURE_ENTRY_THREAD": f"{dock_fixture_screw_projection + _enc._dock.fits.running:.4g}",
         "DOCK_FIXTURE_PILOT_DEPTH": f"{dock_fixture_pilot_depth:.4g}",
-        "DOCK_FIXTURE_ENTRY_DEPTH": f"{dock_fixture_pilot_depth + _enc._dock.fits.running:.4g}",
         "DOCK_FIXTURE_TIP_AIR": f"{dock_fixture_pilot_depth - dock_fixture_screw_projection:.4g}",
-        "DOCK_LOCK_WASHERS": f"{dock_keeper_screws_per_build + dock_fixture_locks_per_build:.4g}",
-        "DOCK_LOCK_WASHERS_COST": pack_line_cost(
-            dock_keeper_screws_per_build + dock_fixture_locks_per_build, "7.82", 200),
+        "DOCK_LOCK_WASHERS": f"{dock_keeper_screws_per_build:.4g}",
+        "DOCK_LOCK_WASHERS_COST": pack_line_cost(dock_keeper_screws_per_build, "7.82", 200),
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",

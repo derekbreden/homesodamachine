@@ -1486,9 +1486,6 @@ z_rise = 14.8
 # ledge plane (`rim + wall` — the seam cap's top and the sill), so the roof leaves that
 # plane through a slot instead of meeting it edge-on in a zero-thickness line.
 hook_arm = 4.5  # complete arm fits the existing channel with its 0.5 mm running clearance
-dock_key_rail_relief = 0.26
-dock_key_rail_ramp = 3.0
-dock_key_rail_margin = 1.25
 rail_stop_len = 4.0          # closed-end zone along Y; block retains this less slide_slip
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
@@ -4096,31 +4093,6 @@ def rail_catch_air(col):
     return slide_slip + supported_faces * fits.supported_surface
 
 
-def _dock_key_rail_cuts(plate, sx, back, z0, z1):
-    """Clear outer return heads from the rail arm's nonbearing back face.
-
-    The local retreat retains4.24mm of arm. Its sliding face and the caught
-    head underside keep their full source section; 3 mm plan ramps join
-    the relieved back to the nominal arm outside the key's clearance window.
-    """
-    for x, _z in plate['holes']:
-        if abs(x) < 50 or x * sx >= 0:
-            continue
-        layout = _dock.plumbing.layouts(plate)[str(x)]['return']
-        local = _dock.returned.local_layout(layout)
-        center = _dock.returned.mount_stations(local)[0]
-        key = _dock.returned.to_world(
-            _dock.returned.button(center, _dock.mount_side(x), installed=True), layout)
-        bounds = key.BoundingBox()
-        y0, y1 = bounds.ymin - dock_key_rail_margin, bounds.ymax + dock_key_rail_margin
-        retreat = back - sx * dock_key_rail_relief
-        interior = back + sx
-        yield _xy_prism(z0, z1, ((interior, y0-dock_key_rail_ramp),
-            (back, y0-dock_key_rail_ramp), (retreat, y0),
-            (retreat, y1), (back, y1+dock_key_rail_ramp),
-            (interior, y1+dock_key_rail_ramp)))
-
-
 def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     """The BOTTOM piece's whole share of its Z seam above the mouth: the hooked
     rails — an ARM standing on the mouth down each straight run, its HEAD stepping
@@ -4179,9 +4151,6 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         yb0, yb1 = sorted((y1 - sy * (rail_stop_len - slide_slip), y1))
         block = _ybox(min(x_hk, x_h1), max(x_hk, x_h1), yb0, yb1, zj, rim)
         piece = arm.fuse(block)
-        if col == 'front' and plate:
-            for cut in _dock_key_rail_cuts(plate, sx, x_h1, zj-rail_flare_drop-1., rim+1.):
-                piece = piece.cut(cut)
         out = piece if out is None else out.fuse(piece)
     return out
 

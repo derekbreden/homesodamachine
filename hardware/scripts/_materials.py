@@ -325,10 +325,10 @@ PETGF_BLACK_PARTS = {
     "enclosure-pump-tube-setting-jig",
     "enclosure-pump-magnet-gauge-moving", "enclosure-pump-magnet-gauge-fixed",
     "pump-stem-setting-fixture",
-    *(prefix+part+"-"+station
+    *(prefix+"pump-receiver-keeper-"+station
       for prefix in ("", "enclosure-")
-      for part in ("pump-receiver-keeper", "pump-return-cradle", "pump-return-cover")
       for station in ("west-outer", "west-inner", "east-inner", "east-outer")),
+    "pump-return-block", "enclosure-pump-return-block",
     "display-cover", "funnel-frame", "elbow-cradle",
     "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
     "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",

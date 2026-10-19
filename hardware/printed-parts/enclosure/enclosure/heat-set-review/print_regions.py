@@ -49,14 +49,27 @@ def print_pose(piece, mesh_bounds):
 
 
 def dock_piece_names(dock):
-    return tuple(f'{part}-{station}' for station in dock.STATIONS
-                 for part in ('pump-receiver', 'pump-return',
-                              'pump-receiver-keeper', 'pump-return-cradle',
-                              'pump-return-cover'))
+    return (*(f'{part}-{station}' for station in dock.STATIONS
+              for part in ('pump-receiver', 'pump-return', 'pump-receiver-keeper')),
+            'pump-return-block')
 
 
-def dock_regions(box, region, wet_review):
-    """Load paths from final source interfaces and posed, cut wet-key material."""
+def _junction_print_bounds(dock, receiver, plate, station, bounds):
+    """A local junction box carried into that junction's manufacturing pose."""
+    x, z = dict(zip(dock.STATIONS, plate['holes']))[station]
+    junction = receiver._local_junction(
+        dock.plumbing.layouts(plate)[str(x)]['junction'], (x, plate['fore_y'], z))
+    zrot, xrot = receiver.print_rotations(junction)
+    corners = e.cq.Solid.makeBox(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4],
+                                 e.cq.Vector(bounds[0], bounds[2], bounds[4]))
+    posed = corners.rotate((0, 0, 0), (0, 0, 1), zrot).rotate((0, 0, 0), (1, 0, 0), xrot)
+    floor = receiver.print_solid(junction=junction).BoundingBox().zmin
+    b = posed.BoundingBox()
+    return [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin-floor, b.zmax-floor]
+
+
+def dock_regions(box, region):
+    """Load paths from final source interfaces."""
     plate = box.pack.collet_plate
     if not plate:
         return
@@ -65,7 +78,6 @@ def dock_regions(box, region, wet_review):
     # The keeper screw enters from the empty pump bay. Its washer backing and
     # raised land belong to the fixed wall; the insert boss belongs to the
     # separately printed keeper and is covered by its whole-part region below.
-    host_r = dock.LOCK_INSERT_D / 2.0 + e.wall
     for number, (x, z) in enumerate(plate['holes'], start=1):
         lock_x = x + dock.keeper_side(x) * 8.5
         lock_z = z + dock.LOCK_Z
@@ -80,28 +92,14 @@ def dock_regions(box, region, wet_review):
             b[2] = fore
             region('front-top', f'Dock keeper guide {number}/{side}, stop and wall root', b)
 
-        # The two source-declared fixture anchors seat on integral axial lands.
-        # Front hosts continue through the bulkhead. Aft hosts carry their
-        # local tray foot through the plate into the appropriate flank root.
-        for index, (ax, ay, az) in enumerate(dock.fixture_anchors(plate, x)):
-            half = host_r
-            top = az + dock.LOCK_INSERT_D/2.0*2**.5 + e.wall
-            if index == 0:
-                b = [ax-half, ax+half, fore, ay+dock.fits.running,
-                     az-host_r, top]
-            else:
-                plane, sign, seats = min(plate['valve_trays'],
-                                        key=lambda row: abs(row[0]-ay))
-                face = plane-sign*dock.valve_tray.SEAT
-                near, far = sorted((face, face-sign*dock.valve_tray.THICK))
-                side = 0 if x < 0 else 1
-                root_floor = dock.valve_tray.wall_root_floors(seats)[side]
-                xa, xb = ((box.inner[0], ax+half) if x < 0
-                          else (ax-half, box.inner[1]))
-                b = [xa, xb, min(ay, near)-dock.fits.running, far,
-                     box.splits[0]+e.fits.supported_surface,
-                     max(top, root_floor+e.wall)]
-            region('front-top', f'Return fixture {number}/{index+1}, insert, axial land and native host root', b)
+    # The return block's three screws: each insert in a tray-foot boss.
+    bed = plate['fixture_print_bed_z']
+    _row, (tray_front, tray_back) = dock.aft_tray(plate)
+    for number, (x, y) in enumerate(dock.block_screws(plate), start=1):
+        half = dock.BLOCK_BOSS_HALF
+        region('front-top', f'Return block insert {number}, tray-foot boss and tray root',
+               [x-half, x+half, tray_front-dock.BLOCK_BOSS_DEPTH, tray_back,
+                bed, bed+dock.BLOCK_BOSS_HEIGHT+e.wall])
 
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
@@ -131,50 +129,27 @@ def dock_regions(box, region, wet_review):
                 -e.wall if piece == 'pump-cartridge' else e.wall)
             region(piece, f'Stem flange capture {number}, shoulders, guard and native root', b)
 
-    # These twelve small structural parts are exported already in print pose.
-    # Their whole-object100%/six-wall recipe covers the complete throats,
-    # closed tube guides, head-bearing plates, anchor arms and backing roots.
+    # The keepers and the return block are exported already in print pose.
+    # Their whole-object 100%/six-wall recipe covers every seat, lip and boss.
+    solid = e.cq.importers.importStep(str(ENC/'enclosure-pump-return-block.step')).val()
+    region('pump-return-block', 'Complete block, four channel seats and lips, three screw columns',
+           shape_bounds(solid))
     for station in dock.STATIONS:
-        for part in ('pump-receiver-keeper', 'pump-return-cradle', 'pump-return-cover'):
-            name = f'{part}-{station}'
-            solid = e.cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val()
-            region(name, 'Complete structural part, bearings, fastener tabs and connected roots',
-                   shape_bounds(solid))
-
-    # The offline wet preparer already holds each actual key intersected with
-    # the final cut wet body. Its saved native descriptors avoid rebuilding all
-    # eight expensive bodies merely to recover their exact bedding transform.
-    # This is a manual metadata input, not a new normal producer or gate.
-    parts = wet_review['parts']
-    for station in dock.STATIONS:
-        for part in ('pump-receiver', 'pump-return'):
-            name = f'{part}-{station}'
-            record = parts[f'enclosure-{name}']
-            # Slice-time identities remain in source_sha256. A current map
-            # may accompany an explicit unchanged-input rebind in the review.
-            bindings = record.get('current_source_sha256', record['source_sha256'])
-            for path, digest in bindings.items():
-                if hashlib.sha256((ROOT/path).read_bytes()).hexdigest() != digest:
-                    raise ValueError(f'{name}: wet-key descriptor has a stale source: {path}')
-            for key in record['key_regions']:
-                region(name, f'TPU mounting key {key["index"]}, actual cut material and connected root',
-                       key['bounds_print_mm'],
-                       material_volume_mm3=key['volume_mm3'],
-                       region_stl_sha256=key['stl_sha256'])
-            if part == 'pump-receiver':
-                # The separate rear-flange ears carry wall clocking loads.
-                # Their full collar connection stays inside this source box.
-                b = [-receiver.KEY_OUTER_X, receiver.KEY_OUTER_X,
-                     receiver.REAR_COLLAR_Y[0], receiver.REAR_COLLAR_Y[1],
-                     -receiver.COLLAR_OD/2, receiver.COLLAR_OD/2]
-                region(name, 'Rear flange, clocking ears and their complete collar root',
-                       transformed_bounds(b, record['source_to_print_mm']))
+        name = f'pump-receiver-keeper-{station}'
+        solid = e.cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val()
+        region(name, 'Complete keeper, bearing slab, insert boss and connected roots',
+               shape_bounds(solid))
+        # The separate rear-flange ears carry wall clocking loads.
+        # Their full collar connection stays inside this source box.
+        b = [-receiver.KEY_OUTER_X, receiver.KEY_OUTER_X,
+             receiver.REAR_COLLAR_Y[0], receiver.REAR_COLLAR_Y[1],
+             -receiver.COLLAR_OD/2, receiver.COLLAR_OD/2]
+        region(f'pump-receiver-{station}', 'Rear flange, clocking ears and their complete collar root',
+               _junction_print_bounds(dock, receiver, plate, station, b))
 
 
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
-    wet_path = ENC.parent/'pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json'
-    wet_review = json.loads(wet_path.read_text())
     pieces = {name: [] for name in (*e.PIECE_COLORS, *dock_piece_names(e._dock))}
     def region(piece, name, bounds, **evidence):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
@@ -238,7 +213,7 @@ def main():
                 max(bounds[2*axis+1], pad[2*axis+1]))]
         region(name,'Both pogo insert hosts, loading passages and blind caps',
                bounds)
-    dock_regions(box, region, wet_review)
+    dock_regions(box, region)
     poses = {}
     for name, rows in pieces.items():
         mesh = trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False)
@@ -254,7 +229,7 @@ def main():
            Path(e._dock.__file__),Path(e._receiver.__file__),
            Path(e._retention.__file__),Path(e._stems.__file__),
            Path(e._dock.returned.__file__),Path(e._dock.plumbing.__file__),
-           ROOT/'hardware/printed-parts/petgf.3mf',wet_path]
+           ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: ('Canonical manufacturing STEP/STL, already bedded in print pose'
@@ -263,8 +238,8 @@ def main():
                 print_poses=poses,
                 part_process_overrides={name: dict(wall_loops='6', sparse_infill_density='100%',
                     sparse_infill_pattern='zig-zag',
-                    purpose='The complete rigid keeper/cradle/cover section carries the head bearings, closed tube guide and fastener load paths. Whole-object solid deposition includes every named interface.')
-                    for name in pieces if name.startswith(('pump-receiver-keeper-', 'pump-return-cradle-', 'pump-return-cover-'))},
+                    purpose='The keepers and the return block are solid structural parts: groove bearings, channel seats and lips, inserts and screw columns. Whole-object solid deposition includes every named interface.')
+                    for name in pieces if name.startswith('pump-receiver-keeper-') or name == 'pump-return-block'},
                 source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)

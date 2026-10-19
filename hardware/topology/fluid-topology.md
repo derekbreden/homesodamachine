@@ -37,7 +37,7 @@ The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**.
 
 **Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects the valves to a pump through its permanent receiver.
 
-Y-A and Y-B inherit location from their fixed face-to-face valve joints. The closed PET-GF wall locates Y-C, Y-D, Y-F and Y-G in X/Z; a flat interior keeper captures each junction in Y. Their branch supports and return fixtures remain stationary during a pump change.
+Y-A and Y-B inherit location from their fixed face-to-face valve joints. The closed PET-GF wall locates Y-C, Y-D, Y-F and Y-G in X/Z; a flat interior keeper captures each junction in Y. Their returns and the return block they snap into remain stationary during a pump change.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
@@ -46,8 +46,9 @@ flanged stem enters the TPU funnel and its 6 mm front sealing land. That slip
 joint separates when the pump cartridge is withdrawn. The upper port has a
 straight [14.501 mm](UPPER_LINK_EXPOSED) exposed link to its fore valve. The lower
 port has a straight link to a fixed TPU return and a second straight link from
-the return to its aft valve. Opposing supported socket stops capture the first
-link; the purchased valve's collet anchors the second. Factory cuts and assembly
+the return to its aft valve. The fixed socket stops of the junction and the return,
+seated in the return block, capture the first link; the purchased valve's collet anchors
+the second. Factory cuts and assembly
 follow the [dock procedure](/hardware/printed-parts/enclosure/pump-dock/README.md).
 Y-C and Y-F take suction; Y-D and Y-G discharge.
 
