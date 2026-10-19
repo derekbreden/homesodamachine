@@ -2,15 +2,7 @@
 alternatives: Require material occupancy along the segment before classifying thickness. Filling this interval would remove the sliding clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-94.345 y=96.694 z=160.000
-click: x=93.758 y=97.437 z=159.992
-
-[thin] Wrong material-thickness classification: these exact segments lie on the retained 45-degree rail-entry boundary planes at all five native sample positions. Their 0.679/0.819/0.870 mm distances run across a face rather than through material.
-alternatives: Reject boundary-tangent endpoint pairs before diagnosing a wall section. A thickness change at these segments would change the entry taper without addressing the invalid measurement.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=97.121 y=18.398 z=8.352
-click: x=97.121 y=18.398 z=144.952
-click: x=93.682 y=18.417 z=150.667
-click: x=93.714 y=18.485 z=14.135
+click: x=94.402 y=96.701 z=160.000
 
 [thin] Wrong material-thickness classification: these rounded rail-entry corner segments cross air before reaching a neighboring face. Native and actual fluted-STL quarter, midpoint and later samples are outside material. The 2.629/2.648 mm endpoint distances do not measure continuous material.
 alternatives: Require continuous material along the segment or retain its separate occupied intervals. Filling the opening would change the rail-entry and corner clearance.

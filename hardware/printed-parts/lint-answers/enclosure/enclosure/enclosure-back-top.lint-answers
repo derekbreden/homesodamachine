@@ -1,23 +1,8 @@
-[step] Unavoidable independent seating levels: the Y465.30 wall face, which the five full-section bulkhead nuts bear on, and the Y464.79 back of the keystone's 3 mm lip, which the jack's shoulder locates against, differ by 0.51 mm. Each is the bearing or locating plane of its own purchased part, struck from the wall's section and the jack's face datum respectively.
-alternatives: A common plane moves either the nuts' clamp stack or the jack's lip depth, and each is fixed by its fitting.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-48.160 y=464.790 z=307.341
-
 [sliver] Unavoidable fitted catch projections: the 1.4 mm upper tang keeper and 1.3 mm lower latch keeper retain the purchased keystone module. Their full native profiles and actual swing/insertion clearances are identified in the receptacle review. This does not establish printed latch life or physical support cleanup.
 alternatives: Filling the keeper openings enters the module envelope. Removing or sloping the working projections changes tang/latch capture; a different retention arrangement requires a complete receptacle redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=458.730 z=294.222
 click: x=-40.710 y=458.780 z=314.272
-
-[thin] Wrong material-thickness classification: these exact segments lie on native boundary planes at all five interior positions. Their 0.337/0.348/0.645 mm lengths run along retained mounting/roof surfaces rather than through material.
-alternatives: Reject boundary-tangent endpoint pairs before diagnosing thickness. A wall change at these exact surface segments does not address the invalid measurement.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=96.188 y=328.800 z=343.331
-
-[thin] Wrong material-thickness classification: all five interior samples of this exact C14-region segment are outside both the native solid and final STL. Its 1.053 mm endpoint distance spans empty clearance rather than a material section.
-alternatives: Require material occupancy along a segment before classifying thickness. Filling this interval would alter the cord/receptacle clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=95.435 y=460.437 z=319.258
 
 [thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
 alternatives: Flattening or shallowing changes the retained visible contour. Widening lands changes closed-field spacing. Assess a finish change against the appearance evidence rather than choosing it from a thickness-only cutoff.
