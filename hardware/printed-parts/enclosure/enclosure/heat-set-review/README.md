@@ -11,7 +11,7 @@ installed fit, pullout, torque, transport and drop performance require physical
 qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
 identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
 records current PET-GF-to-PET-GF gaps and complete local stock at the four M5 insert
-hosts and four washer floors. The 35 station readings, 14 knuckle queries, screw
+hosts and four head floors. The 35 station readings, 14 knuckle queries, screw
 engagement and blind-tip reserve retain the insert audit's recorded artifact scope.
 
 ## Supplier constraints and screw stacks
@@ -24,18 +24,13 @@ pilot has at least 1 mm beyond the installed insert; the enclosure's screw stack
 also checks full seam-insert engagement and at least 0.5 mm beyond the longest specified
 screw tip. The seam screws carry a ±0.8 mm length allowance.
 
-Each screw head and flat washer sit in an inboard-open U-shaped access recess.
-Both complete washer-bearing annuli retain 3 mm of stock below their floors.
-Each pocket is 8 mm deep; the lower floor is Z37.25 and the upper floor is Z347.
-Nominal head and washer poses retain the 2 mm head recess. Each steel washer
-bears directly on its printed floor.
-The lower entry has a 0.35 mm bevel; its head seat and washer floor stay flat.
+Each screw head sits in an inboard-open U-shaped access recess and bears directly on
+its printed floor. Both complete head-bearing annuli retain 3 mm of stock below their
+floors. Each pocket is Ø9 × 8 mm; the lower floor is Z37.25 and the upper floor is Z347,
+with the head faces 3 mm inside the ceiling and roof.
 The upper mouth continues inward into the funnel opening above the frame.
-The upper recess's roof-edge mouth has the named local thin-section allowance in
-[the enclosure specification](../README.md#seams--corner-stacks): the exterior taper
-leaves a 1.81 mm minimum horizontal outboard rim width over its top 2.38 mm,
-reaching at least 3 mm below Z352.6164 with 3.5 mm fore and aft ribs. This scope is
-specific to the access mouth.
+The outboard rims at the R6 rolls are in
+[the enclosure specification](../README.md#seams--corner-stacks).
 
 | Station | Body | Pilot depth | Nominal host / screw stack |
 | --- | --- | --- | --- |
@@ -79,7 +74,6 @@ This gives 0.25 mm measured normal to the adjacent 45° front-top rail bedding.
 Front-top's upper insert mouth is Z299.65, 0.25 mm below back-top's Z299.9 block.
 Every PET-GF-to-PET-GF block face requires its applicable static or running and supported-face
 allowances, including the faces loaded when the screws seat.
-One Ø10 × 1 mm flat washer bears directly under each head.
 Clearance holes print at Ø5.6 mm. The audit reports nominal and minimum thread
 engagement and tip clearance with the ±0.8 mm screw-length allowance.
 
