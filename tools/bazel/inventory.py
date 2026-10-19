@@ -229,6 +229,11 @@ IMPLICIT_SOLIDS = {
     ),
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+    ) + tuple(
+        f"hardware/printed-parts/enclosure/enclosure/enclosure-pump-{part}-{station}.{suffix}"
+        for part in ("receiver", "receiver-keeper", "return", "return-cradle", "return-cover")
+        for station in ("west-outer", "west-inner", "east-inner", "east-outer")
+        for suffix in ("step", "stl", "step.mesh")
     ),
     # THE TWO NATIVE LIDS OF THE CAP STACK. Their directory also holds two STL-backed cups;
     # bundling is by directory, so both lids' payloads ship beside them. `_cadq_export`

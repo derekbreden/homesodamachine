@@ -1,19 +1,20 @@
 # Manifold layout
 
-The ten flavor valves, both KPHM600 pumps and the [6](TEE_COUNT) junctions between them, placed
-with nothing else in the box — no enclosure, no tray, no reservoir, no gooseneck, no funnel, no
-carbonator. The connections are
-[`topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)'s, with one difference:
-each reservoir carries TWO MOUTHS of its own — the draw on the bulkhead at the bottom of its
-wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and
-neither channel has a reservoir junction. Segments 15 and 25 do not exist; 14 and 24 are the
-fills, 16 and 26 the draws. Free here: where every body stands, how it is turned, and which of a junction's
-three ports takes its run.
+The ten flavor valves, both KPHM600 pumps and [2](TEE_COUNT) purchased source tees form the
+flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pump stems
+through the enclosure wall. Each junction has one straight upper link and one lower link to
+a fixed printed return. Each return contains its directional changes, so both of its LLDPE
+connections are straight.
 
-Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`. Two decks of valves over the pumps, the upper one folded onto the lower
-about the layout's fold line. The valve rows and pump-side tees are fixed in the enclosure;
-the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md) supplies the
-TPU receivers, keepers and prepared machined stems.
+[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased
+hardware, prepared-stem spans, LLDPE members and eight printed wet bodies. The
+[complete enclosure assembly](enclosure_assembly.py) adds the manufactured flanged stems,
+flat keepers and PET-GF supports from the
+[permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
+
+The connections follow [`fluid-topology.md`](/hardware/topology/fluid-topology.md).
+Each reservoir has separate fill and draw mouths; segments 14/24 fill them and 16/26 draw
+from them. There are no reservoir junctions or segments 15/25.
 
 ## The bodies, and the figures that set the packing
 
@@ -21,27 +22,29 @@ TPU receivers, keepers and prepared machined stems.
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59.5](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.05](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
-| [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
+| [2](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [8](TUBE_COUNT2) × tube | Four permanent straight 1/4" OD LLDPE receiver-to-tee tails and [4](FORE_STUB_COUNT) fixed fore S links. The four pump stems are machined PP-H components, supplied on the prepared pumps. |
+| 4 × TPU junction | Permanent wall-mounted pump receivers with an upward outlet and an aft/downward 45° outlet. Six-millimetre sealing lands and the pump funnel share one printed wet body. |
+| 4 × TPU return | One permanent compound return per lower port. R[6](SPINE_R) internal turns and a horizontal passage join two straight tube links. |
+| [17](TUBE_COUNT2) × LLDPE cut | [12](STRAIGHT_LLDPE_COUNT) straight pump-junction links, two formed source links and three fully swallowed butt-joint blanks. Pump stems are separate machined PP-H parts supplied on prepared replacement pumps. |
 
 ## Frame
 
 X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
 depth; the two flavour mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor. The unshifted authoring deck references are z
-[90.81](DECK_Z) and [151.76](UPPER_Z); the fixed fore and aft groups carry the explicit
-offsets described below.
+[90.81](DECK_Z) and [151.76](UPPER_Z); the fore and aft groups occupy their mounting planes independently of the pump stems.
 
 ## Four limbs, folded in two
 
-A fixed pump-side tee takes its prepared pump stem through a permanent TPU receiver
-and straight tail on its BRANCH. Its RUN lies across the head's face, giving each pump
-two parallel lanes [59.75](BARB_PITCH2) mm apart.
-Every valve is straight through and every junction's run takes two valve ports, so a lane is
-one line of valves and tees, front to back. Three interior pairs are butted collet to collet;
-the four pump-side tees meet V-E/F/H/I through stationary fore S links. Their branch
-axes align with the prepared pump stems and permanent receivers.
+Each pump has two permanent wall junctions on its measured [59.75](BARB_PITCH2) mm port
+pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. The outer lower
+outlets are clocked slightly about the inlet axis to align their straight links with the
+inboard return valves. The upper outlets align with the fore valve ports.
+
+The logical Y-C/D/F/G names identify these printed junctions. Y-A/B identify the two purchased
+source tees. The lane diagram describes connectivity and the valve placement construction;
+printed returns join the connections crossing its fold line.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
@@ -58,29 +61,32 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 [151.76](UPPER_Z2). The two inner limbs leave
 [10.45](INNER_GAP) mm between their valve bodies across the mirror plane.
 
-## The fold
+## The fixed lower returns
 
-The four connections across the fold — fluid-9, 17, 19 and 27 — are stationary
-180° hairpins with two quarter circles and a tangent straight between them. Both
-ends meet their fixed collets on their own axes. The radius is R[14](SPINE_R), with
-[76.43](SPINE_LEN) mm for each inner hairpin and
-[78.04](OUTER_SPINE_LEN) mm for each outer one. Their geometry comes from the fixed
-tee and valve stations; pump service does not flex these paths.
+Fluid-9, 17, 19 and 27 each use one permanently mounted TPU return and two straight LLDPE
+links. The return contains an approximately 45° entry turn, a horizontal flow passage and a
+90° upward turn, all with R[6](SPINE_R) internal flow radius. The printed-body radius describes
+the fluid passage, not a bend imposed on LLDPE.
 
-V-G and V-J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
-lean between the two axes. The valves' tray sockets and external tube routes follow their
-placed ports; the tees keep their pump alignment.
+The inner links have 33.282 mm exposed between junction and return; the outer links have
+20.169 mm. Each return's upper mouth stands 2 mm below its purchased valve's collet face.
+The two LLDPE members therefore total [35.28](SPINE_LEN) mm exposed at each inner port and
+[22.17](OUTER_SPINE_LEN) mm at each outer port. The finished blanks also include the socket
+and valve insertion lengths.
 
-**The radius and the deck separation are two different numbers.** Any 180° that ends on both
-collet axes will join them, and that family is one parameter wide: the semicircle is only the
-member with no middle chord in it, and it is the worst to pick, because what the pack pays for
-a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
-starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
+The junction-to-return link is captured between two supported bottoming shoulders. Its
+nominal insertion is 6.5 mm at each end, including the 0.5 mm entrance lead. Factory cutting
+references the actual mounted stop span; total axial play, including the complete assembled
+and loaded tolerance budget, is limited to 0.5 mm to retain at least 5.5 mm of either 6 mm
+sealing land. The PET-GF channel constrains bowing. The short return-to-valve link is anchored
+by the valve's commercial collet. These are geometric retention provisions; pressure holding,
+assembly force and endurance remain physical qualification limits.
 
-The authoring fold uses [60.95](DECK_SEP) mm separation. The fixed tee, fore-valve
-and aft-valve groups also carry their explicit offsets in `manifold_layout.py`.
-The [native fluid review](/hardware/printed-parts/enclosure/pump-dock/fluid-geometry-review.json)
-records the occupied pack, keeper access and valve insertion routes.
+V-G/J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump ports. The outer return planes
+follow those port axes. The authoring deck separation is [60.95](DECK_SEP) mm. The
+[shared layout module](/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py) derives the
+junction mouths, return paths, socket stops and straight tube spans from the supplied wall
+and actual valve ports.
 
 ## The quarter turns
 
@@ -146,28 +152,28 @@ only the length of the step is solved for. V-A takes [1.92](STEP_SPREAD) mm of t
 s = [40.02](STEP_STRAIGHT_A) mm, [48.83](STEP_LEN_A) mm of tube. V-A retains this
 outboard offset.
 
-**Y-C, Y-D, Y-F and Y-G** receive the four permanent receiver tails along the
-prepared pump stems' axes, branch down in this authoring frame. **Y-A and Y-B** stand on the
-inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
-face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER
-RESERVOIR HAS A JUNCTION**: each carries two mouths of its own, so every one of the four gate
-collets is a mouth of this study and leaves on its own axis, and every junction left in the pack
-joins two VALVES rather than a valve and a reservoir.
+**Y-C, Y-D, Y-F and Y-G** are permanent printed wall junctions receiving the prepared
+pump stems. **Y-A and Y-B** are purchased source tees on the inner limbs, with branches
+meeting face to face across the mirror plane — [0.00](CROSSBAR) mm exposed between them.
+The four reservoir gate collets are external mouths of this study.
 
 Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF) mm.
 
 ## How each connection is made
 
-[3](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
-are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[4](STRAIGHT_COUNT) pump branches contain a prepared machined stem, permanent TPU
-receiver and 18.175 mm straight LLDPE tail. The [4](FORE_STUB_COUNT) connections from
-those fixed tees to V-E/F/H/I have [15.2531](FORE_STUB_EXPOSED) mm exposed R14 S paths.
-Add the actual insertion inside each fitting for their finished blanks.
-[4](SPINE_COUNT) are the fold's stationary 180° turns and
-[2](QUARTER_COUNT2) are the source quarter turns above. The hairpin and source
-routes contain [14](CORNER_COUNT) formed corners at the stock's
-[14](MIN_BEND) mm minimum radius; each fore S link adds two reverse arcs.
+[3](BUTT_COUNT) of the [17](SEGMENT_COUNT) topology segments are collet butts, with no tube
+exposed between the faces. Four prepared PP-H pump stems enter the permanent wall junctions.
+The [4](FORE_STUB_COUNT) upper links to V-E/F/H/I are straight and have
+[14.501](FORE_STUB_EXPOSED) mm exposed. Four lower connections each have two straight LLDPE
+members and one fixed printed return. Add the actual insertion depths for finished blanks;
+the purchased valve's hidden insertion stop is not specified by its exterior model.
+
+The two source quarter turns and their steps retain [6](CORNER_COUNT) formed LLDPE corners.
+Their R[14](MIN_BEND) geometry uses the user’s reported initial-flow observation.
+The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
+publishes a 25.4 mm bend radius for this 1/4-inch OD, 0.170-inch ID LLDPE stock. The R14 bench
+observation does not establish pressure or lifetime performance outside that published basis.
+The pump-junction upper and lower links impose no formed bend on LLDPE.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (funnel), V-G-O (flavor A) and
@@ -176,33 +182,28 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [166](ENV_Y) × [282](ENV_Z) mm — [9.26](ENV_L) L of bounding box over the
+[198](ENV_X) × [171](ENV_Y) × [272](ENV_Z) mm — [9.21](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [166](REACH_Y) × [296](REACH_Z).
+[198](REACH_X) × [171](REACH_Y) × [286](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
 `BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck authoring placement
 span. The pump station retains its fitted [3](PUMP_DROP) mm downward world-Z datum.
-Four smooth prepared stems project [12.85](BARB_TUBE_LEN) mm from the modeled free
-BPT tube plane. Their production setting uses the cartridge's actual flat aft
-face: all four tips lie 7.746 mm aft of it, at machine Y87.015 mm.
+Four smooth prepared stems project [12.85](BARB_TUBE_LEN) mm from the modeled free BPT
+tube plane. Their production setting references the cartridge's actual flat aft face: all
+four tips lie 7.750 mm aft of that face at machine Y90.015 mm.
 
-Both pumps ride out on the cartridge. Their integral stem flanges transfer
-insertion and withdrawal reactions into the lower cradle, while the cap closes
-upward escape. The four stems enter the TPU funnels and six-millimetre tight lands.
-A rigid wall locates each receiver in X/Z and one flat interior keeper captures Y.
-The receiver remains in the wall when the cartridge is withdrawn; its permanent
-18.175 mm rear tail and commercial tee stay fixed. The stem tips remain 0.50 mm
-short of the receiver shoulders with the cartridge on its dedicated outboard stop
-lands. The broad cartridge and wall planes retain 0.246 mm clearance.
+Both pumps ride out on the cartridge. Integral stem flanges transfer insertion and withdrawal
+reactions into the lower cradle; the cap closes upward escape. The stems enter TPU funnels
+and six-millimetre tight lands. The wall locates each permanent junction in X/Z and a flat
+interior keeper captures Y. Stem tips remain 0.50 mm short of their stops with the cartridge
+on its outboard stop lands. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The standalone study draws the four short pump-axis spans and permanent tails.
-The [complete enclosure assembly](enclosure_assembly.py) supplies the manufactured
-flanged-stem geometry, installed TPU envelopes, flat keepers, rear cuff support,
-fixed tee saddles and positive SB443-IN mounts. The customer changes complete
+The complete enclosure assembly supplies the flanged stems, flat keepers, fixed return
+fixtures and positive SB443-IN mounts. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 
 ## Standing it on the compressor bay
@@ -210,8 +211,8 @@ prepared pumps using the [service procedure](/hardware/service/pump-replacement.
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
 read from the fixed manifold's occupied envelope above the pair's crown.
-The eight fixed valves bear in front-top's two trays and the four pump-side tees
-stand in its integral saddles. The cold core is not one of the pair — it
+The eight deck valves bear in front-top's two trays. The permanent pump junctions and lower
+returns have separate PET-GF fixtures. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.
 

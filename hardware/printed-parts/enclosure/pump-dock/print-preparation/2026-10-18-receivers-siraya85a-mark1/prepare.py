@@ -1,7 +1,10 @@
-"""Prepare and natively slice four permanent TPU receivers; no printer action.
+"""Archived four-straight-receiver preparation; no printer action.
 
 Uses the retained Siraya single-elbow process and material recipe. Receiver
-geometry comes only from the canonical STL, rotated so its +Y bore is +Z.
+geometry uses the archive's straight-receiver source name and +Y-to-+Z pose.
+This script does not prepare the current asymmetric junctions, fixed returns
+or twenty-part dock; those wet parts use individual manufacturing poses and
+one object per plate.
 """
 
 from datetime import datetime, timezone

@@ -46,8 +46,8 @@ specific to the access mouth.
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 | Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the connector contact face, 7.375 mm behind the recessed seat's printed face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
-| Four factory keeper locks | M3 short, 4.0 mm | Through the 7 mm wall | The 3 mm keepers use M3×8 screws with 0.5 mm steel washers. Each insert seats flush on the interior wall face. Nominal thread projection is 4.50 mm, engaging the full insert and leaving 2.75 mm to the seated moving cartridge |
-| Two factory rear-support locks | M3 short, 4.0 mm | 5.25 mm blind | The 3.15 mm rear support uses M3×8 screws with 0.5 mm steel washers. Nominal thread projection is 4.35 mm, with 0.90 mm blind-tip room |
+| Four factory keeper locks | M3 short, 4.0 mm | Through the 7 mm wall and raised bearing land | The 3 mm keepers use M3×8 screws with 0.5 mm steel washers. Each insert seats flush on its 0.15 mm raised land. The screw projects 4.50 mm past that entry, or 4.35 mm forward of the original interior wall plane, engaging the full insert and leaving 2.90 mm to the seated moving cartridge |
+| Eight shared cradle/cover locks | M3 short, 4.0 mm | 5.75 mm below the nominal host plane; 6.00 mm from the raised entry | M3×12 screws pass through the 3 mm cover tab, 0.15 mm supported inter-tab gap, 3 mm base tab and 0.5 mm washer. The insert entry is on the 0.25 mm raised host land. The tip projects 5.35 mm past that entry, or 5.10 mm below the nominal host plane, with 0.65 mm blind-tip room |
 
 ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
 M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm is
@@ -104,17 +104,19 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
 and its root, and Z hook/foot/stop roots. The manual specification also covers all
-six factory dock-lock hosts, keeper guides, SB443 rail and bedding-key roots,
-rigid-stop bearings, stem-flange capture shoulders and recessed pogo hosts. It binds
-the six main pieces and the canonical keeper and rear-support STEP/STLs by hash,
-with source-coordinate boxes and their prescribed print-coordinate transforms.
-The keeper prints on its fore face; the rear support uses the same +Y-up pose.
-Plate X/Y nesting remains part of the native project.
+twelve factory dock-lock hosts, keeper guides, SB443 rail and bedding-key roots,
+rigid-stop bearings, stem-flange capture shoulders, recessed pogo hosts and the
+actual cut TPU mounting keys. It binds the six main pieces and twenty
+station-specific dock STEP/STLs by hash. The dock manufacturing exports already
+contain their print poses; the main pieces retain their prescribed source-to-print
+transforms. Plate X/Y nesting remains part of the native project.
 
 These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern
-and inherit the ordinary wall settings. The four small keepers and common rear
-support use six walls and 100% infill throughout their thin continuous load paths.
+and inherit the ordinary wall settings. The four station-specific keepers, four
+cradles and four covers use six walls and 100% infill throughout their connected
+load paths. The manual wet preparation records solid deposition through the
+actual keys under its retained Siraya recipe.
 General enclosure infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the

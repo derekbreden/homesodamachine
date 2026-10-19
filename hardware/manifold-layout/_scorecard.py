@@ -33,6 +33,7 @@ import math
 import re
 import sys
 from dataclasses import dataclass, field
+from functools import cache
 from pathlib import Path
 
 _here = Path(__file__).resolve()
@@ -72,12 +73,13 @@ ROOM_TOL = 1e-6
 TUBE_PREFIXES = ("tube-", "turn-", "step-", "stub-")
 
 
+@cache
 def pack_bodies() -> frozenset:
     """The flavour manifold's own bodies, by the name they go into the assembly under.
 
     Read off `manifold_layout`'s own assembly rather than retyped, so a body the pack gains
-    arrives with it. Its solids are built and cached by the time this is asked, so a second ask
-    for the arrangement costs nothing."""
+    arrives with it. This name census is immutable within one source execution; mounting
+    lookups reuse it without reconstructing the eight wet solids."""
     import manifold_layout as ml
     return frozenset(c.name for c in ml.build_assembly().children
                      if not c.name.startswith(TUBE_PREFIXES))
@@ -222,10 +224,10 @@ CARB_SEGMENTS = (
 # not the sub-assembly it was arranged in. `derived_mounts` adds a row for each placed body this
 # table does not name, so the denominator is the whole machine.
 PUMP_DOCK_PORTS = {
-    "west-outer": ("tee-y-g", "fluid-22"),
-    "west-inner": ("tee-y-f", "fluid-21"),
-    "east-inner": ("tee-y-c", "fluid-11"),
-    "east-outer": ("tee-y-d", "fluid-12"),
+    "west-outer": ("Y-G", "fluid-22"),
+    "west-inner": ("Y-F", "fluid-21"),
+    "east-inner": ("Y-C", "fluid-11"),
+    "east-outer": ("Y-D", "fluid-12"),
 }
 
 MOUNTS = (
@@ -416,11 +418,19 @@ MOUNTS = (
     # The wall locates each permanent TPU receiver in X/Z. Its flat locked keeper
     # captures the receiver groove in Y.
     *((f"pump-receiver-{port}",
-       ("enclosure-front-top", f"pump-receiver-keeper-{port}"), "wall-seat-and-keeper")
+       ("enclosure-front-top", f"pump-receiver-keeper-{port}",
+        f"pump-return-cradle-{port}"), "wall-seat-keeper-and-socket-seat")
       for port in PUMP_DOCK_PORTS),
     *((f"pump-receiver-keeper-{port}", "enclosure-front-top", "guided-slide-M3-lock")
       for port in PUMP_DOCK_PORTS),
-    ("pump-receiver-rear-support", "enclosure-front-top", "two-M3-lock"),
+    *((f"pump-return-{port}",
+       (f"pump-return-cradle-{port}", f"pump-return-cover-{port}"),
+       "TPU-keys-and-socket-seats") for port in PUMP_DOCK_PORTS),
+    *((f"pump-return-cradle-{port}", "enclosure-front-top", "two-M3-anchors")
+      for port in PUMP_DOCK_PORTS),
+    *((f"pump-return-cover-{port}",
+       (f"pump-return-{port}", f"pump-return-cradle-{port}"), "TPU-heads-and-shared-cover-base-locks")
+      for port in PUMP_DOCK_PORTS),
     ("pump-dock-potting-moving", "enclosure-pump-cartridge", "keyed-potting"),
     ("pump-dock-potting-fixed", "enclosure-front-top", "keyed-potting"),
     # Exposed SB443-IN blocks have grooved rails and keyed dry epoxy bedding in each host.
@@ -429,12 +439,6 @@ MOUNTS = (
                          ("fixed", "enclosure-front-top"))
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
-    # Fixed tee saddles in the bay wall carry the four pump-side commercial junctions.
-    ("tee-y-c", "enclosure-front-top", "tie-capture"),
-    ("tee-y-d", "enclosure-front-top", "tie-capture"),
-    ("tee-y-f", "enclosure-front-top", "tie-capture"),
-    ("tee-y-g", "enclosure-front-top", "tie-capture"),
-
 )
 
 
@@ -480,8 +484,8 @@ def derived_mounts() -> tuple:
     """One row for every placed body `MOUNTS` does not name.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
-    printed seats, the pump heads have their cartridge cradle and the four pump-side tees
-    have fixed bulkhead saddles. A remaining body no printed feature reaches is carried only
+    printed seats, the pump heads have their cartridge cradle and the permanent TPU
+    junctions/returns have wall seats and dry fixtures. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -521,7 +525,7 @@ NEVER = {
         "four holes carry the floor's posts and the grommets, and every printed feature in "
         "reach of the clamp stands on the cabinet side of them.",
     # THE TWO INNER Y-TEES butt valves in fixed printed seats. They need no second printed
-    # mount. `tees_land_held` still reads all six fluid constructions back from `SEGMENTS`.
+    # mount. `tees_land_held` reads their butt constructions back from `SEGMENTS`.
     **{tee: (f"Its collets make up onto {valve.upper()[len('VALVE-'):]}'s, face to face on one "
              f"stub with no tube between them, and that valve stands in four printed sockets — "
              f"so what holds this tee is the seat under the valve it butts.")
@@ -529,16 +533,10 @@ NEVER = {
 }
 
 
-# Which fixed valve each tee reaches, and by which manifold construction. The two inner tees
-# derive their hold through face-to-face butts; the four pump-side tees stand in fixed
-# bulkhead saddles and reach their fore valves through stationary links.
+# Which held valve each purchased tee reaches through its face-to-face butt.
 TEE_LANDS = {
     "tee-y-a": ("valve-v-c", "butt"),
     "tee-y-b": ("valve-v-d", "butt"),
-    "tee-y-c": ("valve-v-e", "fore-y-c"),
-    "tee-y-d": ("valve-v-f", "fore-y-d"),
-    "tee-y-f": ("valve-v-h", "fore-y-f"),
-    "tee-y-g": ("valve-v-i", "fore-y-g"),
 }
 
 
@@ -647,9 +645,16 @@ TOUCHING_OK = {frozenset(p) for p in (
     # Intentional near-contact interfaces of the permanent receiver assembly.
     *((f"pump-receiver-{port}", f"pump-receiver-keeper-{port}")
       for port in PUMP_DOCK_PORTS),
-    *((f"pump-receiver-{port}", tee) for port, (tee, _fluid) in PUMP_DOCK_PORTS.items()),
-    *((f"pump-receiver-{port}", "pump-receiver-rear-support") for port in PUMP_DOCK_PORTS),
-    *(("pump-receiver-rear-support", tee) for tee, _fluid in PUMP_DOCK_PORTS.values()),
+    # The rigid fixtures close on these exact socket/guide/key interfaces.
+    # Their source fit allowances replace the unrelated-body distance floor;
+    # pack-closes continues to measure every volume overlap.
+    *((f"{part}-{port}", f"{host}-{port}")
+      for port in PUMP_DOCK_PORTS
+      for part, host in (("pump-receiver", "pump-return-cradle"),
+                         ("pump-receiver", "pump-return-cover"),
+                         ("pump-return", "pump-return-cradle"),
+                         ("pump-return", "pump-return-cover"),
+                         ("pump-return-cradle", "pump-return-cover"))),
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
@@ -737,9 +742,9 @@ TOUCHING_OK = {frozenset(p) for p in (
 
 
 # HOW A CONNECTION IS MADE. A length of tube between two placed bodies is one way and not the
-# only one: most of the flavour manifold is butted collet to collet, the fold carries four
-# segments round a hairpin, the two source valves are reached by a quarter turn and the step off
-# it, and a leg of the refrigerant loop whose two bodies meet on one plane is made up across
+# only one: the fixed pump links use printed wet junctions and returns, the two source valves
+# are reached by a quarter turn and the step off it, and a leg of the refrigerant loop whose
+# two bodies meet on one plane is made up across
 # that plane rather than drawn. A butt between two collets, or a joint whose two mouths are
 # ONE POINT READ TWICE, is MORE
 # finished than a tube — there is nothing left to draw — so every one of these counts as made,
@@ -752,10 +757,10 @@ TOUCHING_OK = {frozenset(p) for p in (
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
-    "bowed":     "made by a stationary curved link",
+    "pump-dock": "made by a prepared pump stem in a permanent TPU junction",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
-    "fold":      "made by the fold's hairpin",
+    "printed-return": "made by a fixed TPU return and two straight links",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
 }
@@ -765,14 +770,15 @@ UNMADE = "not drawn"
 def made_of(how: str) -> str:
     """One `manifold_layout.SEGMENTS` row's own `how` column, as one of `MADE_AS`'s names.
 
-    Not a second classification: `SEGMENTS` already says how the pack makes each of its interior
-    connections, and this only renames the two entries whose column word describes the CARRIER
-    rather than the joint — a `spine` is the fold's hairpin, and a lane's key is the lane's."""
+    `SEGMENTS` supplies the construction. Its compatibility names for the lower
+    and fore paths map to the fixed printed return and straight link labels."""
     import manifold_layout as ml
     if how == "spine":
-        return "fold"
+        return "printed-return"
+    if how in ml.BARB_OF:
+        return "pump-dock"
     if how in ml.FORE_STUBS:
-        return "bowed"
+        return "straight"
     if how in ("turn", "butt"):
         return how
     # A lane's own straight. `manifold_layout.build_assembly` draws a solid for one only past
@@ -1206,8 +1212,8 @@ def part_clearances(a, runs=()) -> list[tuple]:
     The box IS in the run pass: a run passing a wall owes it the same millimetre it owes
     anything else, except for a declared anchor (`anchored_pairs`).
 
-    NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
-    own hairpins and reports its own inner gap; this module seats it as one thing, so what is
+    NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack with its
+    fixed junctions, returns and links and reports its own inner gap; this module seats it as one thing, so what is
     measured here is how it stands off everything else. A run reaching in from outside is not
     such a pair, and is held to the floor against every body in the pack."""
     bodies, _tubes, _pieces = _split_placed(a)
@@ -1402,7 +1408,7 @@ def _routed(conns) -> Check:
     ONE NUMBER, WITH THE BREAKDOWN UNDER IT. A reader takes `routed` as how much is left to
     route, so what it counts has to be every connection the machine already carries fluid
     through, not only the ones drawn as tube — and the detail then has to say which is which, so
-    "still to route" can be told from "made by the fold" without opening the pack."""
+    "still to route" can be told from a printed return without opening the pack."""
     done = [c for c in conns if c.routed]
     missing = [c for c in conns if not c.routed]
     by_kind: dict = {}
@@ -1414,8 +1420,8 @@ def _routed(conns) -> Check:
         by_how[c.made] = by_how.get(c.made, 0) + 1
     detail = [
         "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one "
-        "of the pack's own constructions — a butt between two collets, the fold's hairpin, a "
-        "quarter turn and the step off it — or a joint made up across a plane two bodies already "
+        "of the pack's own constructions — a butt between two collets, a fixed TPU return with "
+        "straight links, a permanent pump dock, or a quarter turn and the step off it — or a joint made up across a plane two bodies already "
         "share",
         ", ".join(f"{h} {n}" for h, n in sorted(by_how.items(), key=lambda kv: (-kv[1], kv[0])))
         + f" — {len(missing)} still to route",
