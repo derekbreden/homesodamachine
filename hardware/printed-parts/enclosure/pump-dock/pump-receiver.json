@@ -3,110 +3,43 @@
   "wall_thickness_mm": 7.0,
   "front_seal_bore_mm": 6.1,
   "front_seal_land_mm": 6.0,
-  "rear_seal_land_mm": 6.0,
-  "front_lip_thickness_mm": 0.6,
-  "front_collar_ramp_y_mm": [
-    3.6,
-    5.9
+  "branch_seal_land_mm": 6.0,
+  "branch_entry_axial_mm": 0.5,
+  "branch_entry_radial_mm": 0.25,
+  "branch_mouth_radial_stock_mm": 2.5600000000000005,
+  "relaxed_cuff_od_mm": 11.7,
+  "occupied_cuff_od_mm": 11.832265210009451,
+  "rear_flange_y_mm": [
+    10.35,
+    13.35
   ],
-  "wall_neck_axial_stock_mm": 3.0,
-  "front_collar_ramp_degrees_from_axis": 51.58194465517801,
-  "front_collar_flat_y_mm": [
-    5.9,
-    7.0
+  "anti_rotation_key_x_mm": [
+    6.5,
+    12.5
   ],
-  "front_collar_periphery_thickness_mm": 1.0999999999999996,
+  "crotch_web_half_width_mm": 7.0,
+  "groove_y_mm": [
+    7.0,
+    10.35
+  ],
+  "keeper_y_mm": [
+    7.15,
+    10.15
+  ],
+  "keeper_wall_face_gap_mm": 0.15000000000000036,
+  "keeper_rear_groove_room_mm": 0.1999999999999993,
+  "lower_socket_stop_bore_mm": 5.5,
+  "lower_socket_stop_radial_mm": 0.2999999999999998,
+  "lower_socket_stop_taper_mm": 0.6000000000000001,
+  "installed_tip_stop_contact_area_mm2": 7.910923000820796,
+  "fork_blend_radius_mm": 0.6,
+  "customer_tip_clearance_mm": 0.5,
   "flow_throat_d_mm": 5.0,
   "relief_taper_y_mm": [
-    7.625,
-    8.525
+    7.775,
+    8.675
   ],
-  "relief_taper_degrees_from_axis": 45.0,
-  "customer_stop_reference": "First nominal contact of the actual 6.05 mm tip end after 0.50 mm overtravel; the 0.30 mm axial stem lead reduces radius by 0.15 mm.",
-  "relaxed_cuff_od_mm": 11.7,
-  "wall_radial_room_mm": 0.15000000000000036,
-  "keeper_radial_room_mm": 0.35000000000000053,
-  "keeper_thickness_mm": 3.0,
-  "keeper_axial_station_mm": [
-    7.0,
-    10.0
-  ],
-  "keeper_wall_face_gap_mm": 0.0,
-  "keeper_rear_groove_room_mm": 0.34999999999999964,
-  "tube_tip_clearance_to_stop_mm": 0.5,
-  "nominal_annular_area_expanded_od_mm": 11.832265210009451,
-  "local_wet_stations_mm": {
-    "axis": [
-      0.0,
-      1.0,
-      0.0
-    ],
-    "customer_tip": [
-      0.0,
-      7.5,
-      0.0
-    ],
-    "customer_stop": [
-      0.0,
-      8.0,
-      0.0
-    ],
-    "factory_tip": [
-      0.0,
-      9.0,
-      0.0
-    ],
-    "rear_mouth": [
-      0.0,
-      15.0,
-      0.0
-    ],
-    "front_seal": [
-      [
-        0.0,
-        1.0,
-        0.0
-      ],
-      [
-        0.0,
-        7.0,
-        0.0
-      ]
-    ],
-    "rear_seal": [
-      [
-        0.0,
-        9.0,
-        0.0
-      ],
-      [
-        0.0,
-        15.0,
-        0.0
-      ]
-    ]
-  },
-  "projected_od_load_cases": [
-    {
-      "pressure_psi": 10,
-      "per_port_n": 2.1835156793814026,
-      "two_ports_n": 4.367031358762805,
-      "four_ports_n": 8.73406271752561
-    },
-    {
-      "pressure_psi": 30,
-      "per_port_n": 6.550547038144208,
-      "two_ports_n": 13.101094076288415,
-      "four_ports_n": 26.20218815257683
-    },
-    {
-      "pressure_psi": 80,
-      "per_port_n": 17.46812543505122,
-      "two_ports_n": 34.93625087010244,
-      "four_ports_n": 69.87250174020488
-    }
-  ],
-  "scope": "Nominal geometry and separating-load cases; no physical seal, retention or lifetime rating.",
-  "print_orientation": "Funnel ring on bed; bore vertical; no support in fluid passage.",
-  "external_support": "Tree(auto)/Default on the outside mounting ramp and rear collar; remove before factory assembly. No fluid-bore supports."
+  "print_orientation": "Yaw the actual lower outward axis onto+Y, then rotate it onto\u2212Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+  "physical_reference": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+  "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."
 }
