@@ -104,6 +104,9 @@ _THIN_SPACING = 0.7
 #: Facets whose normals are at least 120° apart face each other across material, so a knife
 #: edge sharper than 60° reads as thin toward its tip.
 _THIN_OPPOSITE = -0.5
+#: `thin` measures to a far facet only where it lies behind the sample by this share of the
+#: distance, about 6°: a corner in the sample's own plane is along the surface, not across it.
+_THIN_BEHIND = 0.1
 #: `thin` bins sample normals over this many directions to search each cone apart.
 _THIN_DIRECTIONS = 32
 #: `thin` samples this close, in one thickness band, are one place.
@@ -380,7 +383,9 @@ def find_steps(planes):
     Two groups whose boxes meet are tried island against island, the widest
     met footprint is the finding, and the click is a point of the smaller
     island's own facets nearest the centre of what met — a facet holds the
-    click, never the air between two faces.
+    click, never the air between two faces. An island inside another's box
+    but more than `_STEP_MAX_MM` from its facets in the plane, a face standing
+    in a ring's hole apart from its rim, does not meet it.
     """
     neighbours = _neighbour_arrays(planes)
     islands = {}
@@ -412,6 +417,8 @@ def find_steps(planes):
                 at = _on_facets(small, lo, hi)
                 if at is None:
                     continue  # the boxes met; the facets did not
+                if _footprint_gap(ia, ib) > _STEP_MAX_MM:
+                    continue  # a face standing in another's hole, apart from its rim
                 w = hi - lo
                 minor, major = float(w.min()), float(w.max())
                 p = small.u * at[0] + small.v * at[1] + small.n * small.o
@@ -455,6 +462,20 @@ def _met_islands(aa, bb):
     order = np.argsort(-np.concatenate(widths), kind="stable")
     return [(aa[i], bb[j], np.maximum(a_lo[i], b_lo[j]),
              np.minimum(a_hi[i], b_hi[j])) for i, j in pairs[order]]
+
+
+def _footprint_gap(a, b):
+    """The in-plane distance between two same-normal islands' own facets: 0 where their
+    footprints overlap or touch, as a boss's top does the wall it stands out of."""
+    from shapely import union_all
+    from shapely.geometry import Polygon
+
+    def footprint(p):
+        tri = p.mesh.triangles[p.f]
+        uv = np.stack([tri @ p.u, tri @ p.v], axis=-1)
+        twice = np.abs(np.cross(uv[:, 1] - uv[:, 0], uv[:, 2] - uv[:, 0]))
+        return union_all([Polygon(t) for t in uv[twice > 1e-12]])
+    return float(footprint(a).distance(footprint(b)))
 
 
 def _on_facets(p, lo, hi):
@@ -761,8 +782,10 @@ def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
     finely tessellated far wall the samples nearest a point are seldom that facet's. A candidate
     counts when its facet faces back at least 120° from the sample's and each surface lies
     behind the other — material between them, not air, which is what tells a 0.3 mm wall from a
-    0.3 mm slot. The distance is to the facet itself, so a large facet sampled `_THIN_SPACING`
-    apart still measures to the point straight across.
+    0.3 mm slot. The far facet lies behind the sample by `_THIN_BEHIND` of the distance at least:
+    a facet corner in the sample's own plane, where one face meets another at a notch, measures
+    along the surface rather than across any material. The distance is to the facet itself, so
+    a large facet sampled `_THIN_SPACING` apart still measures to the point straight across.
 
     Candidates are searched per direction: the samples are binned by normal over
     `_THIN_DIRECTIONS` directions, and a sample looks only among samples whose normals lie in the
@@ -837,10 +860,10 @@ def _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet):
             row, other, p, ni = row[keep], other[keep], p[keep], ni[keep]
             q = closest_point(mesh.triangles[facet[other]], p)
             gap = p - q
-            across = ((np.einsum("ij,ij->i", gap, ni) >= -1e-9)
+            length = np.linalg.norm(gap, axis=1)
+            across = ((np.einsum("ij,ij->i", gap, ni) >= _THIN_BEHIND * length - 1e-9)
                       & (np.einsum("ij,ij->i", gap, n[other]) <= 1e-9))
-            row, q = row[across], q[across]
-            length = np.linalg.norm(gap[across], axis=1)
+            row, q, length = row[across], q[across], length[across]
             if len(row):
                 order = np.lexsort((length, row))
                 first = order[np.r_[True, row[order][1:] != row[order][:-1]]]
