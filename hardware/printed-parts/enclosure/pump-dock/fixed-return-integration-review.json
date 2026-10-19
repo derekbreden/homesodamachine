@@ -1,0 +1,952 @@
+{
+  "review_date": "2026-10-18",
+  "scope": "Manual source-bound fit, socket-load-path and manufacturing geometry review. Installed native solids, sampled rigid assembly poses, source-derived continuous loading bounds and offline emitted paths have separate scopes. No physical acceptance or new recurring check is introduced.",
+  "construction": {
+    "installed_parts": 20,
+    "counts": {
+      "TPU_asymmetric_junctions": 4,
+      "TPU_compound_returns": 4,
+      "PETGF_flat_keepers": 4,
+      "PETGF_cradles": 4,
+      "PETGF_closing_covers": 4
+    },
+    "locks": {
+      "keeper_M3x8": 4,
+      "shared_cradle_cover_M3x12": 8,
+      "RX_M3Sx4_inserts": 12,
+      "washers_OD7_T0p5": 12
+    },
+    "customer_service": "Only complete prepared pumps are replaced; wet fittings, tube links, keepers, fixtures and magnets remain seated.",
+    "enclosure_outer_bounds_mm": [
+      -107.5,
+      107.5,
+      5.0,
+      471.3,
+      -6.0,
+      355.0
+    ],
+    "enclosure_dimensions_mm": [
+      215.0,
+      466.3,
+      361.0
+    ],
+    "rear_inner_plane_y_mm": 468.3,
+    "envelope_scope": "Decoded current enclosure-box dimensions. This local review is not an all-appliance clearance or shipping qualification."
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "21e6952b68f866e6ca345b96672082fc577554beb9956a58083bd2ec71597bf4",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+    "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+    "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+    "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
+    "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f"
+  },
+  "box_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+  "checked_installed_native_parts_sha256": {
+    "west-outer/junction": "c33a151c5b0bba784563a5db8f67f745b3a89bd6c946c2fc1358c7e7e3b549a5",
+    "west-outer/return": "ef2de88a8021240571dee72e0d8853c3fedd76613df0c0fd46456cda3e3b86c7",
+    "west-outer/keeper": "1a2610b4b4e30901f54f7235493096e6277597a2ce5ab663f414da81b65b7fee",
+    "west-outer/cradle": "fad062229161f909dca7363ded7ec108988db3fc02d58bed153faba9fb7cf355",
+    "west-outer/cover": "a5b88d79443e8b54e8b46f72b789a0f31583e2d31ca12b83409c62de854b2fb5",
+    "west-inner/junction": "098c8fa2b3f444b18d95a3ca987c93f0f95a80ebcb134ef9e09904f0239ce68a",
+    "west-inner/return": "1177d362ad233ecaba4c4b26444e43f337c68420dcf409ac8c8351e5dad87d63",
+    "west-inner/keeper": "f9147ce0b608384bb8123ada521f5766b4ee1e2266333b2fd9edcaf44949b7ae",
+    "west-inner/cradle": "10897a1f957925f7b7be373d6ce60e664bc4a9a8f9bb6edc455eb26e6615e50a",
+    "west-inner/cover": "a3b83939e31d98895228bab05f16229afb4dacfbf7e35f90032f83f1d0024ad1",
+    "east-inner/junction": "d718e6224448cd25d5ee46580306a1c33e51e40e8d2b24504f3f2c57779e7f84",
+    "east-inner/return": "b34ffad241c2e6f3b2f0a73e99c6927e912b1488eff0bf846d37ce744993e0b3",
+    "east-inner/keeper": "d04af6925eb52163f96c7e33f046e23bdbebb2fa70a126453f043fd9d7acaf27",
+    "east-inner/cradle": "1763d1f387ec240f573147e04d0d79ef78fa19ecdc3c049a10b34770e4c183d9",
+    "east-inner/cover": "3a047c6a9e4a6ec3123d60dbf85f3aade9c6d2ce8cd510ac611ee3101f320607",
+    "east-outer/junction": "c9ed021567b19267df856b9843ea337d5510a09fbba7ba2bcc121bf4e3be3c51",
+    "east-outer/return": "a7558d4e7d96dac737e6cfe1e7eeeda2372261ec68ae589cfcdb9a7ef4c6c013",
+    "east-outer/keeper": "805b04b654faa4113a32fc7b084c62a06b6a32660adba0c5495765f52401d124",
+    "east-outer/cradle": "b69130ed61aad304fa5e114f5b59e1b2bc213a0f8f7e7e90ab0d2893b73c3520",
+    "east-outer/cover": "44e69e095e5fc929884319fdeb6bbf06207ec6316513c97cf7c8d432d29d5454"
+  },
+  "installed_fit": {
+    "valid_single_solid_parts": 20,
+    "part_or_obstacle_overlap_count": 0,
+    "metal_stack_overlap_count": 0,
+    "driver_path_overlap_count": 0,
+    "obstacles": "Production-order fixed wall/guides/trays/floor/stops, all 8 purchased pump-link valves/coils, all 20 actual dock parts including neighbors/keepers, fixed magnets and potting. Separate retained-envelope and whole-appliance checks keep their own scope.",
+    "socket_key_reactions": [
+      {
+        "station": "west-outer",
+        "keys": [
+          {
+            "index": 1,
+            "socket": "junction/lower",
+            "underside_ledge_contact_mm2": 42.76652573933043,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 2.9132205857764193,
+            "complete_3mm_axial_backing_patch_mm2": 39.85517487446256,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 4.194543656337732,
+                "intersection_at_0p25_mm3": 7.194488317000587,
+                "projected_increment_mm2": 29.999446606628553
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 0.00042712761046050205,
+                "intersection_at_0p25_mm3": 3.0073870957580398,
+                "projected_increment_mm2": 30.06959968147579
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.17496246590945,
+            "conservative_complete_3mm_head_patch_mm2": 72.83943670550883,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.5517829293229343
+          },
+          {
+            "index": 2,
+            "socket": "junction/upper",
+            "underside_ledge_contact_mm2": 42.8778735757753,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.8778735757753,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1235189499418814,
+                "projected_increment_mm2": 21.235189499418812
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.8819496357664334,
+                "intersection_at_0p25_mm3": 4.988449966572159,
+                "projected_increment_mm2": 21.065003308057257
+              }
+            ],
+            "head_to_cover_bearing_mm2": 88.20260207149917,
+            "conservative_complete_3mm_head_patch_mm2": 88.0677474599664,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.055652671628952946
+          },
+          {
+            "index": 3,
+            "socket": "return/input",
+            "underside_ledge_contact_mm2": 42.5749208275601,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.5749208275601,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0300316107896261,
+                "intersection_at_0p25_mm3": 3.0522699096023853,
+                "projected_increment_mm2": 30.222382988127592
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 4.180283978684557,
+                "intersection_at_0p25_mm3": 7.169979097477102,
+                "projected_increment_mm2": 29.89695118792545
+              }
+            ],
+            "head_to_cover_bearing_mm2": 73.47966938959868,
+            "conservative_complete_3mm_head_patch_mm2": 73.47966938959868,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 4,
+            "socket": "return/output",
+            "underside_ledge_contact_mm2": 42.702908011959586,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.702908011959586,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.129068712406938,
+                "projected_increment_mm2": 21.29068712406938
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.889507973467158,
+                "intersection_at_0p25_mm3": 5.001659014069867,
+                "projected_increment_mm2": 21.121510406027088
+              }
+            ],
+            "head_to_cover_bearing_mm2": 72.25331365164924,
+            "conservative_complete_3mm_head_patch_mm2": 56.783819318069035,
+            "missing_from_ideal_3mm_head_columns_mm3": 10.974319887274914
+          }
+        ]
+      },
+      {
+        "station": "west-inner",
+        "keys": [
+          {
+            "index": 1,
+            "socket": "junction/lower",
+            "underside_ledge_contact_mm2": 42.575942907521096,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.575942907521096,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 4.167053543765821,
+                "intersection_at_0p25_mm3": 7.148423886085869,
+                "projected_increment_mm2": 29.81370342320048
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 0.029768090321113994,
+                "intersection_at_0p25_mm3": 3.0518957955899126,
+                "projected_increment_mm2": 30.221277052687984
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.34210253053908,
+            "conservative_complete_3mm_head_patch_mm2": 74.34210253053908,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 2,
+            "socket": "junction/upper",
+            "underside_ledge_contact_mm2": 42.70290801175695,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.70290801175695,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1290687122709855,
+                "projected_increment_mm2": 21.290687122709855
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.889507973297955,
+                "intersection_at_0p25_mm3": 5.001659013903405,
+                "projected_increment_mm2": 21.121510406054494
+              }
+            ],
+            "head_to_cover_bearing_mm2": 86.80080372338035,
+            "conservative_complete_3mm_head_patch_mm2": 86.80080372338035,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 3,
+            "socket": "return/input",
+            "underside_ledge_contact_mm2": 42.57594290748018,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.57594290748018,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.02976809031898611,
+                "intersection_at_0p25_mm3": 3.051895794967435,
+                "projected_increment_mm2": 30.221277046484484
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 4.167053543617264,
+                "intersection_at_0p25_mm3": 7.148423885916994,
+                "projected_increment_mm2": 29.8137034229973
+              }
+            ],
+            "head_to_cover_bearing_mm2": 73.49256587045716,
+            "conservative_complete_3mm_head_patch_mm2": 73.49256587045716,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 4,
+            "socket": "return/output",
+            "underside_ledge_contact_mm2": 42.70290801170498,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.70290801170498,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1290687114058704,
+                "projected_increment_mm2": 21.290687114058702
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.889507973352977,
+                "intersection_at_0p25_mm3": 5.0016590139564014,
+                "projected_increment_mm2": 21.121510406034243
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.2421025307178,
+            "conservative_complete_3mm_head_patch_mm2": 57.43364717507247,
+            "missing_from_ideal_3mm_head_columns_mm3": 12.026732012944704
+          }
+        ]
+      },
+      {
+        "station": "east-inner",
+        "keys": [
+          {
+            "index": 1,
+            "socket": "junction/lower",
+            "underside_ledge_contact_mm2": 42.57594290752637,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.57594290752637,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 4.167053544543944,
+                "intersection_at_0p25_mm3": 7.148423886829763,
+                "projected_increment_mm2": 29.813703422858183
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 0.029768090318007645,
+                "intersection_at_0p25_mm3": 3.0518957929895096,
+                "projected_increment_mm2": 30.22127702671502
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.34210253057884,
+            "conservative_complete_3mm_head_patch_mm2": 74.34210253057884,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 2,
+            "socket": "junction/upper",
+            "underside_ledge_contact_mm2": 42.70290801188159,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.70290801188159,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.129068710675001,
+                "projected_increment_mm2": 21.290687106750006
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.88950797358963,
+                "intersection_at_0p25_mm3": 5.001659014186324,
+                "projected_increment_mm2": 21.12151040596694
+              }
+            ],
+            "head_to_cover_bearing_mm2": 86.80080372342596,
+            "conservative_complete_3mm_head_patch_mm2": 86.80080372342596,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 3,
+            "socket": "return/input",
+            "underside_ledge_contact_mm2": 42.57594290746614,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.57594290746614,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.029768090318505254,
+                "intersection_at_0p25_mm3": 3.0518957939898126,
+                "projected_increment_mm2": 30.221277036713072
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 4.167053544136787,
+                "intersection_at_0p25_mm3": 7.148423886417872,
+                "projected_increment_mm2": 29.813703422810843
+              }
+            ],
+            "head_to_cover_bearing_mm2": 73.49256587049712,
+            "conservative_complete_3mm_head_patch_mm2": 73.49256587049712,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 4,
+            "socket": "return/output",
+            "underside_ledge_contact_mm2": 42.702908011902366,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.702908011902366,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1290687095189327,
+                "projected_increment_mm2": 21.290687095189327
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.8895079735539295,
+                "intersection_at_0p25_mm3": 5.001659014151545,
+                "projected_increment_mm2": 21.121510405976153
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.24210253075762,
+            "conservative_complete_3mm_head_patch_mm2": 57.43364717503271,
+            "missing_from_ideal_3mm_head_columns_mm3": 12.026732012955643
+          }
+        ]
+      },
+      {
+        "station": "east-outer",
+        "keys": [
+          {
+            "index": 1,
+            "socket": "junction/lower",
+            "underside_ledge_contact_mm2": 42.76652573997073,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 2.9132205854538573,
+            "complete_3mm_axial_backing_patch_mm2": 39.85517487446256,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 4.1945436579585005,
+                "intersection_at_0p25_mm3": 7.19448831857989,
+                "projected_increment_mm2": 29.999446606213898
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 0.00042712761003210493,
+                "intersection_at_0p25_mm3": 3.0073870937163165,
+                "projected_increment_mm2": 30.069599661062842
+              }
+            ],
+            "head_to_cover_bearing_mm2": 74.17496246620927,
+            "conservative_complete_3mm_head_patch_mm2": 72.83943670580567,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.551782929370499
+          },
+          {
+            "index": 2,
+            "socket": "junction/upper",
+            "underside_ledge_contact_mm2": 42.87787357578796,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.87787357578796,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1235189471415885,
+                "projected_increment_mm2": 21.235189471415882
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.881949635890473,
+                "intersection_at_0p25_mm3": 4.988449966690735,
+                "projected_increment_mm2": 21.065003308002616
+              }
+            ],
+            "head_to_cover_bearing_mm2": 88.20260207178627,
+            "conservative_complete_3mm_head_patch_mm2": 88.06774746025431,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.05565267162870788
+          },
+          {
+            "index": 3,
+            "socket": "return/input",
+            "underside_ledge_contact_mm2": 42.574920827760636,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.574920827760636,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.030031610784938198,
+                "intersection_at_0p25_mm3": 3.0522699088651177,
+                "projected_increment_mm2": 30.222382980801793
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 4.18028397915433,
+                "intersection_at_0p25_mm3": 7.169979097937266,
+                "projected_increment_mm2": 29.896951187829355
+              }
+            ],
+            "head_to_cover_bearing_mm2": 73.47966938985783,
+            "conservative_complete_3mm_head_patch_mm2": 73.47966938985783,
+            "missing_from_ideal_3mm_head_columns_mm3": 0.0
+          },
+          {
+            "index": 4,
+            "socket": "return/output",
+            "underside_ledge_contact_mm2": 42.702908011858725,
+            "axial_ledge_air_mm": 0.15,
+            "missing_from_3mm_axial_backing_mm3": 0.0,
+            "complete_3mm_axial_backing_patch_mm2": 42.702908011858725,
+            "signed_socket_axis_reaction": [
+              {
+                "sign": -1,
+                "intersection_at_0p15_mm3": 0.0,
+                "intersection_at_0p25_mm3": 2.1290687103935935,
+                "projected_increment_mm2": 21.290687103935934
+              },
+              {
+                "sign": 1,
+                "intersection_at_0p15_mm3": 2.8895079734260674,
+                "intersection_at_0p25_mm3": 5.001659014027836,
+                "projected_increment_mm2": 21.121510406017684
+              }
+            ],
+            "head_to_cover_bearing_mm2": 72.25331365191678,
+            "conservative_complete_3mm_head_patch_mm2": 56.78381931783976,
+            "missing_from_ideal_3mm_head_columns_mm3": 10.974319887302933
+          }
+        ]
+      }
+    ],
+    "shared_lock_seats": [
+      {
+        "station": "west-outer",
+        "lock": "fore",
+        "anchor_mm": [
+          -65.70559382043214,
+          96.836,
+          167.174
+        ],
+        "washer_contact_mm2": 28.20616438025833,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 53.06443624919779,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "west-outer",
+        "lock": "aft",
+        "anchor_mm": [
+          -57.04070813984046,
+          172.09,
+          167.0
+        ],
+        "washer_contact_mm2": 19.18597995238966,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 50.327003685333956,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "west-inner",
+        "lock": "fore",
+        "anchor_mm": [
+          -6.350000000000001,
+          96.836,
+          167.174
+        ],
+        "washer_contact_mm2": 28.206164380258326,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 53.064436249196525,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "west-inner",
+        "lock": "aft",
+        "anchor_mm": [
+          -6.350000000000001,
+          163.34,
+          167.0
+        ],
+        "washer_contact_mm2": 28.20616438026405,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 52.23196887871683,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "east-inner",
+        "lock": "fore",
+        "anchor_mm": [
+          6.350000000000001,
+          96.836,
+          167.174
+        ],
+        "washer_contact_mm2": 28.206164380268348,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 53.06443624920207,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "east-inner",
+        "lock": "aft",
+        "anchor_mm": [
+          6.350000000000001,
+          163.34,
+          167.0
+        ],
+        "washer_contact_mm2": 28.206164380268344,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 52.23196887880237,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "east-outer",
+        "lock": "fore",
+        "anchor_mm": [
+          65.70559382043214,
+          96.836,
+          167.174
+        ],
+        "washer_contact_mm2": 28.206164380268376,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 53.06443624919601,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      },
+      {
+        "station": "east-outer",
+        "lock": "aft",
+        "anchor_mm": [
+          57.04070813984046,
+          172.09,
+          167.0
+        ],
+        "washer_contact_mm2": 19.185979952423075,
+        "missing_3mm_washer_backing_mm3": 0.0,
+        "base_cover_hard_land_contact_mm2": 50.32700368532776,
+        "missing_3mm_blind_end_stock_mm3": 0.0
+      }
+    ],
+    "washer_support": {
+      "fore_and_inner_aft": "28.206 mm² standard annulus after the intentional crowned 3.5 mm shaft opening; all actual contact has complete 3 mm backing.",
+      "inner_aft_native_head_support_mm2": 13.479948816561732,
+      "inner_aft_extra_missing_head_land_mm2": 0.0,
+      "inner_aft_axis_inside_support_hull_mm": 3.49998908279539,
+      "outer_aft": {
+        "contact_area_mm2": 19.18597995238966,
+        "centroid_offset_xz_mm": [
+          0.7890974810316607,
+          0.18058346882079945
+        ],
+        "axis_inside_support_hull_mm": 2.167449957259529,
+        "supported_head_annulus_mm2": 11.43464646273248,
+        "head_support_after_intentional_hole_mm2": 13.47994881655877,
+        "scope": "Balanced partial washer land with full 3 mm beneath the actual patch. The head footprint is partly unsupported; no full-annulus, torque or clamp-strength claim."
+      }
+    }
+  },
+  "signed_diagonal_clearance_budget": {
+    "axis_convention": "a is junction-lower outward axis; return-input axis is exactly-a. Separation moves junction-a and return+a. Junction-floor take-up in+a shortens the span.",
+    "nominal_tube_play_mm": 0.15,
+    "return_separating_floor_take_up_mm": 0.15,
+    "rows": [
+      {
+        "station": "west-outer",
+        "junction_separating_roof_gap_mm": 0.010000219734063068,
+        "maximum_geometric_stop_span_growth_mm": 0.16000021973406306,
+        "total_with_nominal_tube_play_mm": 0.31000021973406305,
+        "remaining_to_0p50_mm": 0.18999978026593695
+      },
+      {
+        "station": "west-inner",
+        "junction_separating_roof_gap_mm": 0.009999999997343134,
+        "maximum_geometric_stop_span_growth_mm": 0.15999999999734313,
+        "total_with_nominal_tube_play_mm": 0.3099999999973431,
+        "remaining_to_0p50_mm": 0.19000000000265688
+      },
+      {
+        "station": "east-inner",
+        "junction_separating_roof_gap_mm": 0.009999999997343134,
+        "maximum_geometric_stop_span_growth_mm": 0.15999999999734313,
+        "total_with_nominal_tube_play_mm": 0.3099999999973431,
+        "remaining_to_0p50_mm": 0.19000000000265688
+      },
+      {
+        "station": "east-outer",
+        "junction_separating_roof_gap_mm": 0.010000219734221338,
+        "maximum_geometric_stop_span_growth_mm": 0.16000021973422132,
+        "total_with_nominal_tube_play_mm": 0.3100002197342213,
+        "remaining_to_0p50_mm": 0.18999978026577868
+      }
+    ],
+    "limit": "The remaining 0.190 mm must contain manufacturing variation, temperature and loaded TPU movement. It is not a measured deformation allowance or lifetime result. At 0.50 mm total clearance at least 5.50 mm seal engagement remains."
+  },
+  "factory_assembly": {
+    "order": [
+      "Seat aft valves/coils while front-top is loose.",
+      "Bench-assemble empty cradle/cover pairs, park covers 6.25 mm in their local outward coordinate and raise pairs through the underside.",
+      "Load each connected fore-valve/upper-link/junction group toward-Y.",
+      "Slide keepers down and tighten front-driven screws with cartridge absent.",
+      "Raise free returns 6.5 mm onto the actual short valve tails through open cradles.",
+      "Close covers, locally fold the TPU heads and fit shared M3×12 locks."
+    ],
+    "finite_pose_reading": {
+      "coherent_rigid_pose_count": 92,
+      "stage_counts": {
+        "paired_raise": 32,
+        "foregroup_loading": 24,
+        "return_raise": 16,
+        "cover_closing": 20
+      },
+      "observed_intersections": 0,
+      "final_source_closure_pose_count": 20,
+      "final_source_closure_intersections": 0,
+      "scope": "The coherent 92-pose reading covers paired raises, fore-group loading, return raises and closure. Final changed-stock checks include the actual current 20 closure poses, open loading envelopes and source halfspaces at the forward inner host. Own wet closure uses bare bodies; local TPU heads are folded separately. These are not 92 continuous or physical assembly proofs."
+    },
+    "continuous_bounds": "Source primitive loading bounds contain the complete 50 mm fore-group stroke and 6.5 mm return lift. Analytical cuff/port sweeps and arm silhouettes define complementary 6.25 mm closure and 26 mm empty-pair bench-entry pockets. Parked fingers begin beyond key shanks; final inner host/base Y/Z halfspaces preserve underside entry. Finite samples alone establish none of those continuous bounds.",
+    "shared_driver": {
+      "primary_source": "https://wiha.com/tools/screwdrivers/mechanic-s-screwdrivers/softfinish/hexagon-socket/screwdriver-softfinish/26305",
+      "model": "Wiha26305",
+      "blade_length_mm": 100,
+      "conservative_blade_diameter_mm": 3.3,
+      "handle_diameter_mm": 23,
+      "total_length_mm": 204,
+      "continuous_axial_approach_mm": 20,
+      "fore_pitch_deg": -15,
+      "aft_pitch_deg": 15,
+      "outer_aft_yaw": "4.5 deg outboard",
+      "inner_aft_yaw": "5 deg inboard",
+      "scope": "Complete declared blade/handle approach, all 8 stacks and actual neighboring parts clear with front-top loose/cartridge absent. Not a measured on-hand tool, hand-clearance, tightening-torque or physical assembly result."
+    },
+    "front_keeper": {
+      "native_valid_single_solid_count": 4,
+      "sampled_lift_stations_mm": [
+        0,
+        5,
+        10,
+        15,
+        20
+      ],
+      "lift_intersections": 0,
+      "front_blade_or_handle_intersections": 0,
+      "minimum_boss_guide_gap_mm": 0.2509008277936274,
+      "full3mm_radial_insert_stock_missing_mm3": 0.0,
+      "metal_datum_local_y_mm": {
+        "head_front": 0.25,
+        "head_back": 3.25,
+        "washer_back": 3.75,
+        "screw_tip": 11.25,
+        "insert_front": 7.15,
+        "insert_back": 11.15,
+        "boss_back": 12.15,
+        "thread_reach": 4.1,
+        "boss_tip_air": 0.9,
+        "wall_backing": 3.25
+      },
+      "cartridge_scope": "Native cartridge-back correspondence and sampled 0–100 mm withdrawal clear. Final whole-appliance geometry/publication is a separate reading; no physical fit acceptance."
+    }
+  },
+  "manufacturing": {
+    "PETGF_recipe": "../../petgf.3mf",
+    "PETGF_recipe_sha256": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
+    "PETGF_handoff": "petgf-production-parts.md",
+    "PETGF_process": "Twelve manufacturing meshes are already in print pose; identity turns, six walls and 100% object infill, 0.20 mm first and 0.24 mm body layers. Shared localized cooling uses ordinary and auxiliary fans at 0%, qualifying bridge/overhang cooling at 70% with the 50% unsupported-width threshold. No printer launch.",
+    "native_print_face_rows": [
+      {
+        "station": "west-outer",
+        "kind": "cradle",
+        "input_sha256": "fad062229161f909dca7363ded7ec108988db3fc02d58bed153faba9fb7cf355",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 1868.8903524668838,
+        "under45_face_count": 0
+      },
+      {
+        "station": "west-outer",
+        "kind": "cover",
+        "input_sha256": "a5b88d79443e8b54e8b46f72b789a0f31583e2d31ca12b83409c62de854b2fb5",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 1958.2507852707408,
+        "under45_face_count": 0
+      },
+      {
+        "station": "west-inner",
+        "kind": "cradle",
+        "input_sha256": "10897a1f957925f7b7be373d6ce60e664bc4a9a8f9bb6edc455eb26e6615e50a",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 2,
+        "bed_area_mm2": 2020.096243555156,
+        "under45_face_count": 0
+      },
+      {
+        "station": "west-inner",
+        "kind": "cover",
+        "input_sha256": "a3b83939e31d98895228bab05f16229afb4dacfbf7e35f90032f83f1d0024ad1",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 2199.253211133604,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-inner",
+        "kind": "cradle",
+        "input_sha256": "1763d1f387ec240f573147e04d0d79ef78fa19ecdc3c049a10b34770e4c183d9",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 2,
+        "bed_area_mm2": 2020.096243555446,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-inner",
+        "kind": "cover",
+        "input_sha256": "3a047c6a9e4a6ec3123d60dbf85f3aade9c6d2ce8cd510ac611ee3101f320607",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 2199.253210892298,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-outer",
+        "kind": "cradle",
+        "input_sha256": "b69130ed61aad304fa5e114f5b59e1b2bc213a0f8f7e7e90ab0d2893b73c3520",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 1868.8903524671925,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-outer",
+        "kind": "cover",
+        "input_sha256": "44e69e095e5fc929884319fdeb6bbf06207ec6316513c97cf7c8d432d29d5454",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 1958.2507852507706,
+        "under45_face_count": 0
+      },
+      {
+        "station": "west-outer",
+        "kind": "keeper",
+        "input_sha256": "1a2610b4b4e30901f54f7235493096e6277597a2ce5ab663f414da81b65b7fee",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 544.1522185836272,
+        "under45_face_count": 0
+      },
+      {
+        "station": "west-inner",
+        "kind": "keeper",
+        "input_sha256": "f9147ce0b608384bb8123ada521f5766b4ee1e2266333b2fd9edcaf44949b7ae",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 544.1522185836293,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-inner",
+        "kind": "keeper",
+        "input_sha256": "d04af6925eb52163f96c7e33f046e23bdbebb2fa70a126453f043fd9d7acaf27",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 544.1522185836271,
+        "under45_face_count": 0
+      },
+      {
+        "station": "east-outer",
+        "kind": "keeper",
+        "input_sha256": "805b04b654faa4113a32fc7b084c62a06b6a32660adba0c5495765f52401d124",
+        "valid": true,
+        "solids": 1,
+        "bed_components": 1,
+        "bed_area_mm2": 544.1522185836294,
+        "under45_face_count": 0
+      }
+    ],
+    "native_face_scope": "All planar faces read exactly; curved native normals sampled at tessellation centroids, bed 0.002 mm excluded. No native downward faces below 45 degrees were found. Each inner cradle begins on two bed components joined above by the same solid. This is not emitted bead adhesion/removal or physical print acceptance.",
+    "wet_native_review": "print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
+    "wet_native_review_sha256": "f6a53884f0744707a454e4caa54ce2a076ad095786677c0b225556ff136934db",
+    "wet_native_totals": {
+      "editable_project_bytes": 4448120,
+      "native_estimated_filament_g": 61.094282150268555,
+      "native_estimated_seconds": 56999.8984375
+    },
+    "wet_scope": "Eight editable one-object native Siraya Tech Flex TPU85A Clear projects; actual support/travel/key-deposition readings and native estimates. No printer contacted or physical result."
+  },
+  "named_sections": {
+    "outer_junction_lower_ledge": "42.7665 mm² total contact; conservative 39.8552 mm² full 3 mm axial backing. The remaining throat-edge taper is not assigned uniform 3 mm thickness.",
+    "output_head_corner": "The valve-port clearance leaves a named 2–3 mm corner while retaining the separately reported complete 3 mm head-bearing patch.",
+    "aft_backstrip": "Broad 2.90 mm section beside sliding-arm pocket; hard lock tabs retain 3 mm beneath actual bearing patches."
+  },
+  "limits": [
+    "No seal, pressure, extraction-force, repeated-swap, cleaning, food-contact, physical key recovery or lifetime acceptance exists for this complete dock.",
+    "Geometry/settings do not establish PETGF capacity, TPU creep, seal recovery or bore cleanliness. The remaining tolerance budget is not a measured load allowance.",
+    "See pressure-retention-review.json for actual single-channel pressure paths and failed-pump vent limits. TimedDry/PWM success does not establish both ports depressurized."
+  ],
+  "canonical_manufacturing_artifacts_sha256": {
+    "enclosure-pump-receiver-west-outer": {
+      ".step": "4be9bd213f39818f246817928e2e96340f80a6a052a2e3cebb94fdb4b1efbd8b",
+      ".stl": "29cc18d363ea9836e18dd638cb678bea60ad8e1b311d1c41c09b401954cd0477"
+    },
+    "enclosure-pump-return-west-outer": {
+      ".step": "4ffbfa94938647f0124930a98c96774fa4b45294c671c82c75757b7030208d48",
+      ".stl": "f126c9784880c2aeddebdbacfcf79525ee15241905e7b57301d809d90aa399f3"
+    },
+    "enclosure-pump-receiver-keeper-west-outer": {
+      ".step": "8781b3c16ea992766ff7ea7df5b3412072992705c0e0d5dd3896f7568b4c0370",
+      ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
+    },
+    "enclosure-pump-return-cradle-west-outer": {
+      ".step": "543d825a8343981c74d4b48d9428811b24212c9e0b6e9393b1199271bc198e74",
+      ".stl": "3d7857291b795f9cca3bde1f11b6be9c35b595d8f1041518308858a2fbd03fd5"
+    },
+    "enclosure-pump-return-cover-west-outer": {
+      ".step": "e0c57f05056311fab56dc553dd6da679adb8fb0354c10e8c52cc1ff4153d761a",
+      ".stl": "7d1135aadf873a63aaeabfbb426aaf55fc847ad592a03f3cc58e12262ebeaf05"
+    },
+    "enclosure-pump-receiver-west-inner": {
+      ".step": "00ef197f2db195f214ce5ca116e0b429f2fb866ea80932edbb5ddb33800efba0",
+      ".stl": "2b36897188c56ecd324b0cdecfd9c159f559ff7eb43cd229e22fa8206d7d5e2b"
+    },
+    "enclosure-pump-return-west-inner": {
+      ".step": "dd8a572a3ad3aa0d4c8756727776f4c1a45f81549882993254ae4026e1e07936",
+      ".stl": "dedbcd581f58b92f9ea1fa4d9d141623175e0d721ffb8748d05990e4d2aad3f0"
+    },
+    "enclosure-pump-receiver-keeper-west-inner": {
+      ".step": "642b3655d027550ba8b4e65db6cffc3870d352515559c7fb7cdde912ae155ace",
+      ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
+    },
+    "enclosure-pump-return-cradle-west-inner": {
+      ".step": "96109f87ffbfa288f1fd701e012b8ef1719b110887440b1742adfcd75cd8be32",
+      ".stl": "cd890c40debca1d6ccf96dcd097a5c2c4363744cd7f713989dd4b9f421305bea"
+    },
+    "enclosure-pump-return-cover-west-inner": {
+      ".step": "ab0511c37e1a69929072b377706ba6b9e44bf56a5b663999525296b67268ed1f",
+      ".stl": "9d0a476bcf3daaabfd83e59bdaafa6f9c797b849682fb4feb501e6d836617913"
+    },
+    "enclosure-pump-receiver-east-inner": {
+      ".step": "6cedf1d311422f335bb3b1dde2dbb9329fbddb033afe49208343a39c75eb8cc4",
+      ".stl": "25245cc919152d1b29f602449e7f01de4fb8a73ca1cc4e792565a0fe31c0bd46"
+    },
+    "enclosure-pump-return-east-inner": {
+      ".step": "77265572065a23e8022766b7c0f2d64bbffd600d7c964743db1a8d511722b0e1",
+      ".stl": "c41d1cdf9b10ff7ecf2927ac3f014ef930ceebb01a1ea0c8b3f9b7342fad737a"
+    },
+    "enclosure-pump-receiver-keeper-east-inner": {
+      ".step": "b810cd5b94ffda6a7cc34046e36da69af1f059347c803a5e3965748203445e40",
+      ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
+    },
+    "enclosure-pump-return-cradle-east-inner": {
+      ".step": "1628f4f786805dc697a7668d0b1b14891b030ea622d34c96bb025159f866f7d2",
+      ".stl": "cb09da79a406d2009a0397431444a1687fa76209cb84514eebdb72f13a8f63d7"
+    },
+    "enclosure-pump-return-cover-east-inner": {
+      ".step": "5570f949c2da868ad9daff3d40d434b551da966530719c0083f6bcd41c0d3087",
+      ".stl": "af332199fde288da36b42f48a00e9e75f51eda033b16618cf96f176628729b41"
+    },
+    "enclosure-pump-receiver-east-outer": {
+      ".step": "648e505f23657f9decc58b6da99d54da052a90a7b820f643ba6a6227ef9381ae",
+      ".stl": "a4dded0fe20234ba0db02bfad014f0eed488375bd9239acd9f8a37cc275f4fd8"
+    },
+    "enclosure-pump-return-east-outer": {
+      ".step": "c1ce071314af0379eb57330c65ad905edc079627698b4d5fe25eae3edc37a89e",
+      ".stl": "b2511f43208bf36497dd6b2a971fbe671e6bfb61cd4de9cd4931511cf212cbf0"
+    },
+    "enclosure-pump-receiver-keeper-east-outer": {
+      ".step": "9572d208fccfc8fdeb2c1014428c41d3b82e16c8f70e9dac14dd0722ee5b5aa5",
+      ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
+    },
+    "enclosure-pump-return-cradle-east-outer": {
+      ".step": "38342bcbda2f609f43a3aff2ea91b7a8a68798ce6ff320c4e31ea5b575f77bc6",
+      ".stl": "642800dde31a6455cf550b64f83621208773202e427f459aa764603d3d8c1c57"
+    },
+    "enclosure-pump-return-cover-east-outer": {
+      ".step": "23e2f56502071e45e89632131e5d9c6cc1aef4e1b997fe2ca146ff827ed7f905",
+      ".stl": "e4d51065c743acba184e91db3731c598e219a60b2b338b5e3e7474a6ca72499d"
+    }
+  },
+  "canonical_export_scope": "Twenty current station-specific manufacturing STEP/STLs in their authored print poses, generated from the bound source. Native installed proof outputs above retain their own coordinate frames and identities."
+}

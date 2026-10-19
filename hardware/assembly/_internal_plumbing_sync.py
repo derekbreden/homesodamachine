@@ -110,9 +110,8 @@ def main():
         # joint in it is modeled at its engagement, so `LENGTH` is barb tip to collet
         # mouth on the stack the bench actually screws together.
         "DISCHARGE_CHAIN_LEN": f"{_dis.LENGTH:.4g} mm",
-        # The manifold's census, off the layout that stands the bodies. The procedure
-        # lays out one valve and one tee per station, so these are the same two counts
-        # `_cards_ip` puts on IP-03 — a station added to the topology moves both.
+        # The valve and purchased-tee census comes from the placed layout; the
+        # permanent printed junctions and returns have their separate dock count.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{len(_ml.PURCHASED_TEES)}",
         "DOCK_FORE_LINK": f"{_ml.FORE_STUB_EXPOSED:.6g} mm",
