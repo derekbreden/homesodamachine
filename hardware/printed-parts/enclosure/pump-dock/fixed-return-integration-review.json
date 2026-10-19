@@ -43,7 +43,7 @@
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f"
   },
-  "box_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+  "box_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
   "checked_installed_native_parts_sha256": {
     "west-outer/junction": "c33a151c5b0bba784563a5db8f67f745b3a89bd6c946c2fc1358c7e7e3b549a5",
     "west-outer/return": "ef2de88a8021240571dee72e0d8853c3fedd76613df0c0fd46456cda3e3b86c7",
@@ -848,13 +848,15 @@
     ],
     "native_face_scope": "All planar faces read exactly; curved native normals sampled at tessellation centroids, bed 0.002 mm excluded. No native downward faces below 45 degrees were found. Each inner cradle begins on two bed components joined above by the same solid. This is not emitted bead adhesion/removal or physical print acceptance.",
     "wet_native_review": "print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
-    "wet_native_review_sha256": "f6a53884f0744707a454e4caa54ce2a076ad095786677c0b225556ff136934db",
+    "wet_native_review_sha256": "1956cc2892c57f7b1409238ab1ba9fedb128e3af98f521ba6941362d9b9838ef",
     "wet_native_totals": {
       "editable_project_bytes": 4448120,
       "native_estimated_filament_g": 61.094282150268555,
       "native_estimated_seconds": 56999.8984375
     },
-    "wet_scope": "Eight editable one-object native Siraya Tech Flex TPU85A Clear projects; actual support/travel/key-deposition readings and native estimates. No printer contacted or physical result."
+    "wet_scope": "Eight editable one-object native Siraya Tech Flex TPU85A Clear projects; actual support/travel/key-deposition readings and native estimates. No printer contacted or physical result.",
+    "manual_print_regions": "../enclosure/heat-set-review/print-regions.json",
+    "manual_print_regions_sha256": "daf3f681fd2afd9ee0a758112caa5136e45b29797075c1145e42b35a75d3fd7f"
   },
   "named_sections": {
     "outer_junction_lower_ledge": "42.7665 mm² total contact; conservative 39.8552 mm² full 3 mm axial backing. The remaining throat-edge taper is not assigned uniform 3 mm thickness.",
@@ -948,5 +950,62 @@
       ".stl": "e4d51065c743acba184e91db3731c598e219a60b2b338b5e3e7474a6ca72499d"
     }
   },
-  "canonical_export_scope": "Twenty current station-specific manufacturing STEP/STLs in their authored print poses, generated from the bound source. Native installed proof outputs above retain their own coordinate frames and identities."
+  "canonical_export_scope": "Twenty current station-specific manufacturing STEP/STLs in their authored print poses, generated from the bound source. Native installed proof outputs above retain their own coordinate frames and identities.",
+  "box_input_equivalence": {
+    "old_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+    "new_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+    "box_geometry_values_equal": false,
+    "outer_equal": true,
+    "complete_collet_plate_equal": true,
+    "changes": [
+      {
+        "path": "/box/pack/values/17/0/0/0",
+        "before": 16.8950000078204,
+        "after": 16.895000007820393
+      },
+      {
+        "path": "/box/pack/values/17/0/0/1",
+        "before": 270.59999999999997,
+        "after": 270.5999999
+      },
+      {
+        "path": "/box/pack/values/25/0/0",
+        "before": -78.5000001156408,
+        "after": -78.50000011564079
+      },
+      {
+        "path": "/box/pack/values/25/0/1",
+        "before": 194.29999989999993,
+        "after": 194.29999979999997
+      },
+      {
+        "path": "/box/pack/values/25/1/0",
+        "before": 78.5000001156408,
+        "after": 78.50000011564079
+      },
+      {
+        "path": "/box/pack/values/25/1/1",
+        "before": 194.29999989999993,
+        "after": 194.29999979999997
+      },
+      {
+        "path": "/box/pack/values/27/0/0",
+        "before": -90.50000011564077,
+        "after": -90.50000011564079
+      },
+      {
+        "path": "/box/pack/values/27/0/1",
+        "before": 323.79999999999995,
+        "after": 323.7999999
+      },
+      {
+        "path": "/box/pack/values/27/0/2",
+        "before": 191.85000009999996,
+        "after": 191.84999999999997
+      }
+    ],
+    "maximum_other_coordinate_change_mm": 9.999999406318238e-08,
+    "accepted_document_tolerance_mm": 1e-06,
+    "scope": "The complete dock plate and outer bounds are exact. Nine other coordinates move by at most 1e-7 mm; the document comparator accepts up to 1e-6 mm of native coordinate jitter. Native installed and manufacturing artifact identities remain as separately recorded; no assertion of complete raw Box byte identity is made."
+  }
 }
