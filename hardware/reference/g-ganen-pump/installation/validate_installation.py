@@ -30,7 +30,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
+def run(*, include_routes=True, output=HERE/'native-installation-check.json'):
     started=time.monotonic()
     inputs=[Path(ea.__file__), Path(ea._lines.__file__), Path(ea._cci.__file__),
             HERE/'g_ganen_installation.py', HERE/'validate_installation.py',
@@ -48,11 +48,13 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     shape,carry=ea.build_water_pump(foam,gate)
     core_y_shift=ea.box(foam).ymax-facts['bodies']['foam-assembly'][4]
     print('placed pump',bounds(shape),flush=True)
-    su,sc=ea.build_suction_chain(fc)
+    elbows={name:(bodies[name],elbow_carry) for name,bodies,elbow_carry in ea.build_pump_elbows(carry).values()}
     di,dc=ea.build_discharge_chain(fc)
-    vk,vc=ea.build_vk(sc)
-    placed={'g-ganen-pump':shape,'suction-chain':su,'discharge-chain':di,'vk-solenoid':vk,'foam-assembly':foam}
-    carries={'g-ganen-pump':carry,'suction-chain':sc,'discharge-chain':dc,'vk-solenoid':vc,'foam-assembly':fc}
+    vk,vc=ea.build_vk(fc)
+    placed={'g-ganen-pump':shape,'discharge-chain':di,'vk-solenoid':vk,'foam-assembly':foam,
+            **{name:s for name,(s,_c) in elbows.items()}}
+    carries={'g-ganen-pump':carry,'discharge-chain':dc,'vk-solenoid':vc,'foam-assembly':fc,
+             **{name:c for name,(_s,c) in elbows.items()}}
     F=ea._lines.frames(placed,carries)
     checks=[]
     def check(label,value,limit,relation='<='):
@@ -66,12 +68,13 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
           abs(ea.box(foam).ymax-pump.rigid_shape().moved(carry.where).BoundingBox().ymax-pump.REAR_CLEARANCE),1e-6)
     check('flavor storey unchanged by the pump',abs(ea.flavor_storey(gate,carry)-(gate-ea.FLAVOR_STOREY_DROP)),1e-7)
     check('flow local discharge maps enclosure -X',carry(pump.discharge())[1][0],-.999)
-    for name,s in [('suction-chain',su),('discharge-chain',di),('vk-solenoid',vk)]:
+    for name,s in [('discharge-chain',di),('vk-solenoid',vk),*((n,s) for n,(s,_c) in elbows.items())]:
         b=ea.box(s);wanted=list(facts['bodies'][name])
         wanted[1]+=core_y_shift;wanted[4]+=core_y_shift
         got=[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax]
         check(name+' cap-relative placed bounds',max(abs(x-y) for x,y in zip(got,wanted)),1e-5)
-        check(name+' pump clearance',s.distance(shape),1.,'>=')
+        # Each elbow sits on its own barb; everything else stands its millimetre off the pump.
+        if name not in elbows:check(name+' pump clearance',s.distance(shape),1.,'>=')
     # Four instances of the same purchased foot, with their rail clips engaged.
     foot_rows=[]
     for row in pump.mount_stations():
@@ -90,15 +93,13 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
         check(row['id']+' washer and straight driver corridor to rigid pump',gap,.5,'>=')
         foot_rows.append({**row,'selected_native_bounds_mm':bounds(foot),'tool_rigid_gap_mm':gap})
     routes=[]
-    hose_solids=[]
+    route_solids=[]
     ea._routing.BLOCKED.clear()
-    for fn in ((ea._lines._water_7,ea._lines._water_6) if include_hoses else ()):
+    for fn in ((ea._lines._water_7,ea._lines._water_6) if include_routes else ()):
         r=fn(F);tube=ea._routing.tube(r)
         check(r.id+' native invalid',int(not tube.isValid()),0)
-        check(r.id+' smallest seated bend radius',min(r.radii.values()),ea._lines.HOSE_BEND,'>=')
-        # At the connected tip the hose meets its own fitting. A volume check
-        # distinguishes that intended end-plane contact from a route entering
-        # the molded port or any other measured pump component.
+        check(r.id+' smallest seated bend radius',min(r.radii.values()),ea._lines.TUBE_BEND,'>=')
+        # Each tube ends in its elbow's socket and reaches no part of the pump itself.
         tb=tube.BoundingBox()
         overlap=[]
         for name,part in pump.build_parts().items():
@@ -109,16 +110,17 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
             overlap.append((name,part.intersect(tube).Volume() if boxes_meet else 0.))
         peak=max(overlap,key=lambda x:x[1])
         check(r.id+' maximum native pump-component overlap',peak[1],1e-6)
-        others={'vk-solenoid':vk, 'opposite chain':di if r.id=='water-7' else su}
+        ends={r.frm.split('.')[0],r.to.split('.')[0]}
+        others={n:s for n,s in placed.items() if n not in ends|{'g-ganen-pump','foam-assembly'}}
         distances={n:tube.distance(s) for n,s in others.items()}
         for n,d in distances.items():check(r.id+' to '+n,d,1.,'>=')
         routes.append({'id':r.id,'waypoints_mm':r.pts,'radii_mm':r.radii,
-                       'minimum_requested_radius_mm':ea._lines.HOSE_BEND,
+                       'minimum_requested_radius_mm':ea._lines.TUBE_BEND,
                        'native_valid':tube.isValid(),'distance_mm':distances,
                        'pump_component_overlap_mm3':dict(overlap)})
-        hose_solids.append((r.id,tube))
+        route_solids.append((r.id,tube))
     blocked=list(ea._routing.BLOCKED)
-    if include_hoses:check('hose route blockers',len(blocked),0)
+    if include_routes:check('route blockers',len(blocked),0)
     # Build the actual printed cap and lid, without calling their exporting main.
     cup=cap.add_deck_mounts(cap.build_foam_cap()).val()
     lid=cap.add_side_anchors(cap.add_chain_anchors(cap.add_cradles(
@@ -131,7 +133,7 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     cup_world=ea._foam._spin(cup).translate((0,0,ea._foam.cap_face_z-cap.lid_total_height-cap.top_cap_height)).moved(fc.where)
     lid_world=ea._foam._spin(lid).translate((0,0,ea._foam.cap_face_z-cap.lid_total_height)).moved(fc.where)
     check('rigid pump to printed lid',pump.rigid_shape().moved(carry.where).distance(lid_world),1.,'>=')
-    for name,tube in hose_solids:
+    for name,tube in route_solids:
         check(name+' printed lid clearance',tube.distance(lid_world),1.,'>=')
     screw_rows=[]
     for row in pump.mount_stations():
@@ -166,9 +168,9 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
          'selected_feet':foot_rows,'printed_cap_stations_mm':ea._cci.deck_mount_xy('g-ganen-pump'),
          'mount_rows':mount_rows,'screw_stacks':screw_rows,'washer_od_mm':pump.WASHER_OD,'washer_t_mm':pump.WASHER_T,
          'bore_depth_mm':ea._cci.deck_mount_bore_depth,'remaining_floor_mm':floor,
-         'routes':routes,'routes_checked':include_hoses,'route_blockers':blocked,
+         'routes':routes,'routes_checked':include_routes,'route_blockers':blocked,
          'checks':checks,'all_pass':all(r['pass'] for r in checks),
-         'physical_checks_open':['Actual M3 passes all four complete slots','Selected washer seats flat and clears rubber upstand','Loaded rubber compression and screw engagement','Hose insertion and clamp retention'],
+         'physical_checks_open':['Actual M3 passes all four complete slots','Selected washer seats flat and clears rubber upstand','Loaded rubber compression and screw engagement','Elbow fit on both barbs, tube insertion and clamp retention'],
          'elapsed_seconds':time.monotonic()-started}
     output.write_text(json.dumps(out,indent=2)+'\n')
     print('All pass:',out['all_pass'],'seconds',out['elapsed_seconds'],flush=True)
@@ -176,8 +178,8 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
 
 if __name__=='__main__':
     parser=ArgumentParser(description=__doc__)
-    parser.add_argument('--skip-hoses',action='store_true',
-                        help='Check mounts and neighbors; hose qualification is a separate current route check')
+    parser.add_argument('--skip-routes',action='store_true',
+                        help='Check mounts and neighbors; the elbow tube routes are a separate current route check')
     parser.add_argument('--output',type=Path,default=HERE/'native-installation-check.json')
     args=parser.parse_args()
-    run(include_hoses=not args.skip_hoses,output=args.output)
+    run(include_routes=not args.skip_routes,output=args.output)

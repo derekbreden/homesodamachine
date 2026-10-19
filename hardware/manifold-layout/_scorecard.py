@@ -72,6 +72,11 @@ ROOM_TOL = 1e-6
 # stubs off its free mouths the same way. Everything else the assembly carries is a body.
 TUBE_PREFIXES = ("tube-", "turn-", "step-", "stub-")
 
+# The pump's two printed elbows and the two clamp bands on each, by the names
+# `enclosure_assembly.build_pump_elbows` places them under.
+PUMP_ELBOW_BODIES = tuple(f"pump-elbow-{port}{part}" for port in ("suction", "discharge")
+                          for part in ("", "-clamp-barb", "-clamp-tube"))
+
 
 @cache
 def pack_bodies() -> frozenset:
@@ -163,16 +168,15 @@ REFRIGERANT_SEGMENTS = (
 # meet face to face, so the first tube in the machine is a length of stock cut to the two grips
 # and swallowed whole by them (`enclosure_assembly.py`, the bulkhead block).
 #
-# AND THERE IS NO `water-4`, for the same reason. V-K's outlet and the suction chain's collet
-# stand on one column and one plane — `enclosure_assembly.build_vk` seats the valve on that
-# collet — and the source row's own depth brings the two faces together, so what joins them is
-# the tube inside each grip and nothing between.
+# AND THERE IS NO `water-4`. The tube V-K's outlet hands to the pump is `water-7`, which ends in
+# the suction elbow's socket; the elbows themselves sit on the pump's moulded barbs, so neither
+# barb carries a run of its own.
 WATER_SEGMENTS = (
     ("water-2", "asse1022-assembly tube-out", "water-split supply"),
     ("water-3", "water-split to-vk", "vk-solenoid inlet"),
     ("water-5", "discharge-chain tube-port", "foam-assembly water-in"),
-    ("water-6", "g-ganen-pump discharge (3/8\" barb, moulded)", "discharge-chain barb-tip"),
-    ("water-7", "g-ganen-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
+    ("water-6", "pump-elbow-discharge tube (TPU elbow on the moulded barb)", "discharge-chain inlet"),
+    ("water-7", "vk-solenoid outlet", "pump-elbow-suction tube (TPU elbow on the moulded barb)"),
 )
 
 # Gas passes from the wall bulkhead through WR1110, then the downstream check, to the
@@ -276,11 +280,13 @@ MOUNTS = (
     # (`enclosure._pump_contact_fixed_cuts`, `enclosure._pump_contact_cap_cuts`).
     ("pump-contact-male", "enclosure-front-top", "bosses"),
     ("pump-contact-female", "enclosure-pump-cap", "bosses"),
-    # Both chains lie in ribs printed on the cold core's cap lid — the same plate the pump bolts
-    # to, so the hose stub at each of its barbs spans no joint
+    # The check chain lies in a rib printed on the cold core's cap lid — the same plate the pump
+    # bolts to, so the tube from the discharge elbow spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
-    ("suction-chain", "foam-assembly", "cradle"),
     ("discharge-chain", "foam-assembly", "cradle"),
+    # Each elbow pushes onto one of the pump's moulded barbs and its clamp bands close on its own
+    # sockets, so all three ride the pump (`RIDES`) and its deck mounts are their fastening.
+    *((name, None, "sleeve") for name in PUMP_ELBOW_BODIES),
     ("psu", "enclosure-back-top", "bosses"),
     ("pcba", "enclosure-back-top", "bosses"),
     ("relay-1", "enclosure-back-top", "bosses"),
@@ -464,6 +470,7 @@ RIDES = {
     "nameplate-ink": "nameplate",
     **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
     **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
+    **{name: "g-ganen-pump" for name in PUMP_ELBOW_BODIES},
 }
 
 
@@ -597,11 +604,6 @@ MADE_UP = (
     # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
     # the two grips and swallowed whole by them, which is why there is no `water-1`.
     ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
-    # V-K's outlet and the suction chain's collet, which meet the same way —
-    # `enclosure_assembly.build_vk` seats the valve ON that collet, and the source row's own depth
-    # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
-    # which is why there is no `water-4` either.
-    ("vk-solenoid.outlet", "suction-chain.tube-port"),
     # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
     # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet grips the stub
     # itself.
@@ -686,10 +688,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
-    # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
+    # THE MADE-UP CHAIN IN THE RIB THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
-    ("foam-assembly", "suction-chain"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -736,11 +737,12 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("elbow-cradle", "funnel-frame"),
     ("elbow-cradle", "funnel"),
     ("funnel", "funnel-drain-stub"),
-    # V-K'S OUTLET AND THE SUCTION CHAIN'S COLLET, which `water-4` butts. `enclosure_assembly
-    # .build_vk` seats the valve on that collet's own column and plane and the source row's
-    # depth brings the two faces together, so what the run carries is the tube inside each
-    # quick-connect and nothing between them.
-    ("suction-chain", "vk-solenoid"),
+    # EACH PUMP ELBOW ON ITS BARB, AND ITS TWO BANDS ON IT. The elbow is drawn installed: its
+    # socket opened to the barb's largest scanned crest, so the barb meets the bore and its tip
+    # meets the passage shelf, and each closed band is drawn on the cuff's installed diameter.
+    *(("g-ganen-pump", f"pump-elbow-{port}") for port in ("suction", "discharge")),
+    *((f"pump-elbow-{port}", f"pump-elbow-{port}-clamp-{band}")
+      for port in ("suction", "discharge") for band in ("barb", "tube")),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
@@ -1622,7 +1624,7 @@ LOOSE = {
     "fluid-18":
         "Flavor A's line to its rear union. The low cap post grips the fore crossing "
         "(`_cold_core_interface.cap_side_anchors`). The remaining line follows the west "
-        "flank, turns below the pump discharge hose and returns to the rear union. Those "
+        "flank, turns in over the pump's west-rear foot and returns to the rear union. Those "
         "unretained spans need a support and relaxed-tube review. The authored centreline "
         "does not establish physical tube shape or its clearance to neighbouring parts.",
 }

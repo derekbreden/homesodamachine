@@ -38,4 +38,4 @@ tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/feet-corr
 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/feet-correction-validation/reproduce.py washer --output /tmp/g-ganen-washer-replay
 ```
 
-The production mount validator is `../validate_installation.py --skip-hoses`; its executed source snapshot and exact final report are retained. No complete producer or printer command is part of this package.
+This package's mount check ran as `../validate_installation.py --skip-hoses`; its executed source snapshot and exact final report are retained. No complete producer or printer command is part of this package.

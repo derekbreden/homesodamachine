@@ -93,7 +93,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-pp0408w",
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "funnel-drain-stub",
-           _hw / "reference" / "seaflo-suction-chain",
+           _hw / "printed-parts" / "diaphragm-pump-sleeve",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
@@ -162,7 +162,7 @@ import elbow_cradle as _cradle                        # noqa: E402
 import funnel_drain_stub as _stub                     # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
-import seaflo_suction_chain as _suct                  # noqa: E402
+import diaphragm_pump_sleeve as _pump_elbow           # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
@@ -326,8 +326,7 @@ C_FOAM = M_PETG_BLACK
 C_FUNNEL = M_SILICONE_BLACK
 # The funnel's drain stub, off the roll `fluid-4` carries on from the elbow.
 C_STUB = _routing.tube_color("fluid-4")
-# Each pump-port chain is a made-up run of SS adapter, check valve and reinforced PVC, and it is
-# drawn as the metal that is most of it.
+# The water check chain and the elbows' clamp bands are drawn as the metal that is most of them.
 C_SUCT = M_STAINLESS
 # The border over that glass, in the enclosure's own black stock.
 C_COVER = M_PETGF_BLACK
@@ -1013,9 +1012,9 @@ def carry_stated_bounds() -> None:
 # same place.
 #   NOTHING HERE CHOOSES A POSE. Two of the three valves ride the flavour pack, which is stood
 # on the refrigeration base's crown, so where they land over this cap is that stack's arithmetic
-# and not the cap's — and the third hangs off the pump's suction chain. So the row is
-# re-derived off the placed valve at every build, and a build whose valves have moved fails
-# with the rows the cap should carry rather than seating them on air.
+# and not the cap's. So the row is re-derived off the placed valve at every build, and a build
+# whose valves have moved fails with the rows the cap should carry rather than seating them on
+# air. The third, V-K, is seated on its own row, and this reads that seat back the same way.
 CRADLE_TOL = 0.001
 
 
@@ -1060,10 +1059,9 @@ def cradle_rows(foam, foam_carry, placed: dict) -> list:
     return rows
 
 
-# How far a placed cap valve may stand off the plinth the cap prints for it. The three are
-# placed by three different rules — two ride the pack, one is stood on the suction chain's
-# own mouth — and the cap's table is a stated one, so nothing carries a valve that moves
-# onto its sockets. This is what `cradles_land` holds the two sides to.
+# How far a placed cap valve may stand off the plinth the cap prints for it. Two ride the pack
+# and one is seated on its own row, and the cap's table is a stated one, so nothing carries a
+# valve that moves onto its sockets. This is what `cradles_land` holds the two sides to.
 CRADLE_TOL = 0.01
 
 
@@ -1444,12 +1442,12 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-",
                 "pump-receiver-", "pump-return-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
-# when the back assembly comes over: the water pump, its two made-up chains, and the
-# three cap-cradled valves with their coils and port stubs. They sweep with the core,
-# so the ride carries them.
+# when the back assembly comes over: the water pump with its two elbows and their clamps,
+# the made-up check chain, and the three cap-cradled valves with their coils and port stubs.
+# They sweep with the core, so the ride carries them.
 CORE_RIDERS = ("g-ganen-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
                "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
-               "discharge-chain", "suction-chain")
+               "discharge-chain", "pump-elbow-")
 # And what is NOT in the box at all when the core rides in: the pan and its plate come
 # through the −X wall after, the pump cartridge later still, and every crossing run is
 # internal-plumbing's, made up at the mouth. Everything else in the back — the chain,
@@ -1663,49 +1661,72 @@ def build_water_pump(foam, gate: float):
     return placed, carry
 
 
-# --- the suction chain, lying in the lane beside the pump ------------------
+# --- the pump's two elbows, on its own barbs --------------------------------
 #
-# The chain is the two fittings that carry the pump's inlet from the 1/4" LLDPE that reaches it
-# down onto its 3/8" hose barb, made up on the bench as one piece.
+# A printed TPU elbow (`diaphragm-pump-sleeve`) pushes onto each measured G Ganen barb and turns
+# the line through 90 degrees inside itself, so the 1/4" LLDPE leaves a few millimetres past the
+# barb tip and nothing else stands between the pump and the tube. One clamp band closes on each
+# socket's plain outside.
 #
-# It is LAID, not stood. Stood on end its barb faces the ceiling and a hose fed from a mouth
-# below it has to turn over to come down; laid, both of its mouths face along the machine and a
-# run reaches either square on.
-#
-# It lies BARB AFT, COLLET FORWARD. The barb faces back at the pump because that is where its
-# hose comes from — `WATER_PUMP_YAW` lays the motor axis front-to-back, which puts the moulded
-# suction barb on the head's EAST face pointing east, so `water-7` leaves across the machine and
-# turns forward onto a mouth facing it. The collet then faces FORWARD, down the machine at the
-# tap-water column that will feed it, rather than into the rear band.
-SUCT_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
-# The lane it lies in is the strip of the cold core's crown EAST of the pump, and the strip is
-# EMPTY: probed in 20 mm slices from y 180 to the rear plane, nothing stands in
-# x[49, 90.5] z[253.4, 313.4] anywhere along it. The manifold's box reaches y 257 at this height
-# and none of its solids do.
-#
-# Its column is the rib's — `cap_anchors["suction-chain"]` — which hugs the pump rather than the
-# core's east edge and leaves the wall side of the strip open. `clearance-floor` is what holds it
-# off the pump's casting, the same reading it takes of every other pair.
+# EACH IS CLOCKED ON ITS BARB, and the clocking is the whole of the choice. `WATER_PUMP_YAW` lays
+# the motor axis front-to-back, so the suction barb points east and the discharge barb west. The
+# suction elbow's leg points FORWARD, down the machine at V-K's outlet; the discharge elbow's
+# points forward and `DISCHARGE_ELBOW_DIP` under it, so its line passes beneath the gravity
+# drain's route on its way to the check's inlet.
+DISCHARGE_ELBOW_DIP = 25.0
+PUMP_ELBOWS = {
+    "suction": ("pump-elbow-suction", (0.0, -1.0, 0.0)),
+    "discharge": ("pump-elbow-discharge",
+                  (0.0, -math.cos(math.radians(DISCHARGE_ELBOW_DIP)),
+                   -math.sin(math.radians(DISCHARGE_ELBOW_DIP)))),
+}
 
 
-def build_suction_chain(foam_carry):
-    """Seat the actual hex midpoint on its printed anchor; V-K follows its collet."""
-    section = next(row for row in _suct.sections() if row[0] == "MAACFLOW hex")
-    mid = (section[2] + section[3]) / 2.0
-    return seat_body(_suct.build(), SUCT_CHAIN_TURN, seat="suction-chain",
-                     station=(((0.0, 0.0, -mid), (0.0, 0.0, 1.0)),
-                              foam_carry(cap_anchor("suction-chain"))[0]))
+def elbow_carry(where):
+    """The `carry` a seated elbow's stations ride: its own frame taken through `where`. The
+    move is rigid, so an axis is carried as the difference of two carried points."""
+    def at(p):
+        v = cq.Vertex.makeVertex(*p).moved(where).Center()
+        return cq.Vector(v.x, v.y, v.z)
+
+    def carry(station):
+        pos, axis = station
+        p = at(pos)
+        d = at(tuple(pos[i] + axis[i] for i in range(3))) - p
+        return ((p.x, p.y, p.z), (d.x, d.y, d.z))
+    carry.where = where
+    return carry
+
+
+def build_pump_elbows(water_pump_carry):
+    """The two elbows on the placed pump's barbs, each with its two closed clamp bands:
+    `{port: (name, {body name: solid}, carry)}`.
+
+    Each is seated on its barb's measured tip and outward axis, carried through the pump's own
+    placement, and its seat states that tip — the mouth a socket answers to."""
+    out = {}
+    for port, (name, toward) in PUMP_ELBOWS.items():
+        tip, axis = water_pump_carry(getattr(_lines._pump, port)())
+        carry = elbow_carry(_pump_elbow.location(tip, axis, toward))
+        bodies = {name: _pump_elbow.placed(tip, axis, toward)}
+        for band, solid in _pump_elbow.bands(tip, axis, toward).items():
+            bodies[f"{name}-clamp-{band}"] = solid
+        record_seat(name, station=tip, got=carry(((0.0, 0.0, 0.0), (1.0, 0.0, 0.0)))[0],
+                    members=tuple(bodies))
+        out[port] = (name, bodies, carry)
+    return out
 
 
 # --- the discharge chain, in the lane west of the pump ---------------------
 #
-# The three fittings that carry the pump's outlet off its moulded 3/8" barb, hold the
-# carbonator's pressure off it when it is idle, and hand the water over on 1/4" tube:
-# MAACFLOW barb, GASHER check, PP450822E collet, made up on the bench as one piece.
+# The three fittings that take the discharge elbow's tube, hold the carbonator's pressure off the
+# pump when it is idle, and hand the water over on 1/4" tube: PP010822E collet, GASHER check,
+# PP450822E collet, made up on the bench as one piece.
 #
-# It lies BARB AFT, COLLET FORWARD in the lane west of the pump, which is the suction chain's
-# own pose read across the machine — so it takes the suction chain's own turn.
-DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
+# It is LAID, not stood: both of its mouths face along the machine and a run reaches either
+# square on. It lies INLET AFT, OUTLET FORWARD — the inlet looks back at the elbow its tube comes
+# from, and the outlet looks forward, down the machine at the core's water-in conduit.
+DISCH_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
 # What a printed rib holds its chain off itself, radially. `chains-seated` reads it back.
 CHAIN_SEAT_SLIP = fits.slip
 def build_discharge_chain(foam_carry):
@@ -3043,7 +3064,9 @@ def co2_wall_port(inlet_carry):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
-              "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
+              *(f"{name}{part}" for name, _toward in PUMP_ELBOWS.values()
+                for part in ("", "-clamp-barb", "-clamp-tube")),
+              "funnel", "discharge-chain", "display", "display-cover",
               "display-gasket", "pump-contact-male", "pump-contact-female",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly",
@@ -3933,10 +3956,9 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     """Each chain anchor as `(name, label, has, wants, fouls)` — the rib the cap carries against
     the sections of the placed body it stands under.
 
-    A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON, and the suction chain's is: what its twin
-    seats on is an 18 mm check hex, and that fitting is only on the discharge side. So the test is
-    not containment but clearance — exactly one section under the rib FILLS the bore, and every
-    other one it overhangs onto has to pass under it. `fouls` names any that does not.
+    A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON. So the test is not containment but
+    clearance — exactly one section under the rib FILLS the bore, and every other one it overhangs
+    onto has to pass under it. `fouls` names any that does not.
 
     `wants` is the filling section's own circumradius plus `CHAIN_SEAT_SLIP`, read off the body's
     own stack. The cap prints a rib it never sees the body of, so the body is what corrects it.
@@ -3949,9 +3971,9 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
             continue
         carry, mod = bodies[name]
         axis = foam_carry(cap_anchor(name))[0]
-        tip = carry(mod.barb_tip())[0]
+        tip = carry(mod.inlet())[0]
         half = _cci.cap_anchor_len / 2.0
-        # `s` runs from the barb tip down the chain, and both chains are laid barb aft — so a rib
+        # `s` runs from the inlet mouth down the chain, and the chain is laid inlet aft — so a rib
         # standing at `axis` covers this stretch of the stack.
         s0, s1 = (tip[1] - axis[1]) - half, (tip[1] - axis[1]) + half
         under = [(lab, r) for lab, r, a, b in mod.sections() if a < s1 - 1e-9 and s0 + 1e-9 < b]
@@ -4070,33 +4092,32 @@ def build_flowreg(split_carry):
 # Normally closed, so a leak alarm or a power loss stops all water reaching the carbonator. Its
 # own frame runs the flow down ±Y — inlet forward, outlet aft — with the coil standing over it,
 # and that is already the direction the water goes here, so it takes NO TURN AT ALL: it stands
-# forward of the suction chain, firing aft into the collet that feeds the pump.
+# forward of the pump, firing aft along the tube to the suction elbow.
 #
-# V-K STANDS ON THE CHAIN'S OWN MOUTH AND NOTHING ELSE DECIDES ITS DEPTH. Three Beduans sit on
-# this cap — V-A, V-B and this one — all the same way up. The two the pack carries stand where
-# the flavour chain's butted layout puts them, which is a plane this valve does not share: the
-# chain behind V-K lies on its printed cap anchor, and what is left
-# between its collet and V-K's outlet has to be nothing, because that joint is a butt with tube
-# in both grips and none between them. So the chain's plane is the one V-K answers to, and the
-# millimetres between its end and the source pair's are whatever the pack's own body lengths
-# leave. `pack-closes` is what reads the butt.
-# THE VALVE'S SEAT is the cradle's. The cap prints a socketed plinth (`valve_seat`) at this
-# valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
-# Beduan's Z = 0 — the plane its four post ends stand on — lands once those posts are pressed
-# home. So the seat is read off the part that carries it rather than stated here, and a cradle
-# that moves takes the valve and the chain behind it with it.
+# V-K STANDS ON ITS OWN CRADLE AND NOTHING ELSE DECIDES ITS POSE. Three Beduans sit on this cap —
+# V-A, V-B and this one — all the same way up. The two the pack carries stand where the flavour
+# chain's butted layout puts them; this one answers to the cap alone. The cap prints a socketed
+# plinth (`valve_seat`) at this valve's own station (`_cold_core_interface.cap_cradles`), and
+# what a seat says is where the Beduan's Z = 0 — the plane its four post ends stand on — lands
+# once those posts are pressed home. Its ports stand level with the check chain's axis, so the
+# tube to the suction elbow and the one from the split both meet it on that plane.
 
 
-def build_vk(chain_carry):
-    """V-K seated on its OUTLET, on the suction chain's own mouth — its column, its plane and
-    the elevation its rib lays the chain on, so the valve comes back down onto its own seat.
+def build_vk(foam_carry):
+    """V-K seated on its cradle: the plinth's centre and the plane its seat stands the four post
+    ends on, carried out of the cap's frame through the core's own placement.
 
-    The outlet is this valve's aft collet, so the whole body stands forward of that mouth and
-    the two collets meet face to face."""
-    target, _axis = chain_carry(_suct.tube_port())
+    The Beduan's box is centred on its mounting datum and floored on that post-end plane
+    (`cradle_rows` reads it back the same way), so the centre of the box's floor is the station
+    that lands on the seat."""
     body = _beduan.build_beduan_solenoid()
     body = body.val() if hasattr(body, "val") else body
-    return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
+    b = box(body)
+    (cx, cy), _yaw, seat = _cci.cap_cradles["vk-solenoid"]
+    x, y = _foam.spin_xy((cx, cy))
+    target = foam_carry(((x, y, _foam.cap_face_z + seat), (0.0, 0.0, 1.0)))[0]
+    floor = (((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, b.zmin), (0.0, 0.0, 1.0))
+    return seat_body(body, (), seat="vk-solenoid", station=(floor, target))
 
 
 def _whole(bodies):
@@ -4175,11 +4196,10 @@ def place_base(seated, names=()):
 # picture still looks made up.
 #
 # THE ROW OF THREE ON THE COLD CORE'S CAP SHARES THIS DEPTH. V-A and V-B ride the pack directly;
-# V-K takes their world row while remaining butted to the suction chain. The cap prints all three
-# cradles and the chain anchor at those resulting stations, so the ten pack valves, the cap row,
-# both pumps, the fittings and the short tubes occupy one coherent arrangement. `cradle_rows`
-# reads the printed seats against the placed valves, and `runs-drawn` reads the ports against the
-# tubes.
+# V-K stands on its own cradle in their world row. The cap prints all three cradles and the
+# chain anchor at those stations, so the ten pack valves, the cap row, both pumps, the fittings
+# and the short tubes occupy one coherent arrangement. `cradle_rows` reads the printed seats
+# against the placed valves, and `runs-drawn` reads the ports against the tubes.
 #
 # WHAT THE STEP TO V-A COSTS IS LENGTH, NOT ROOM. Taking travel off it makes the run LONGER: it
 # carries a hairpin ahead of the step, which turns through the whole circle to put the run
@@ -4347,8 +4367,10 @@ def build_pack() -> cq.Assembly:
     gate_cruise = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
     water_pump, water_pump_carry = build_water_pump(foam, gate_cruise)
     a.add(water_pump, name="g-ganen-pump", color=M_DONOR_BLACK)
-    chain, chain_carry = build_suction_chain(foam_carry)
-    a.add(chain, name="suction-chain", color=C_SUCT)
+    elbows = build_pump_elbows(water_pump_carry)
+    for _name, bodies, _carry in elbows.values():
+        for name, solid in bodies.items():
+            a.add(solid, name=name, color=_pump_elbow.COLOR if name == _name else C_SUCT)
     wall_seat = east_wall_seat()
     psu, psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
@@ -4402,7 +4424,7 @@ def build_pack() -> cq.Assembly:
     a.east_bosses, a.east_mount_fills = wall_mounts(
         *power_mounts,
         blockers=tuple((name, solid) for name, (solid, _colour) in _solids(a).items()))
-    vk, vk_carry = build_vk(chain_carry)
+    vk, vk_carry = build_vk(foam_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
     # two came up with the pack, so this is the first point at which all three are in world.
@@ -4465,11 +4487,9 @@ def build_pack() -> cq.Assembly:
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     disch, disch_carry = build_discharge_chain(foam_carry)
     a.add(disch, name="discharge-chain", color=C_SUCT)
-    # Each rib the cap prints against the sections of the chain it stands under, read back off
-    # the placed body — the same reading the pump's four columns take. Both chains are down by
-    # here, and a rib answers to the one it holds.
-    a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis),
-                                         "suction-chain": (chain_carry, _suct)})
+    # The rib the cap prints against the sections of the chain it stands under, read back off
+    # the placed body — the same reading the pump's four columns take.
+    a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis)})
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
@@ -4542,7 +4562,8 @@ def build_pack() -> cq.Assembly:
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
-    carries = {"foam-assembly": foam_carry, "g-ganen-pump": water_pump_carry, "suction-chain": chain_carry,
+    carries = {"foam-assembly": foam_carry, "g-ganen-pump": water_pump_carry,
+               **{name: carry for name, _bodies, carry in elbows.values()},
                "discharge-chain": disch_carry,
                "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
@@ -4551,7 +4572,8 @@ def build_pack() -> cq.Assembly:
                "bulkhead-drain": drain_carry,
                "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
-    solids = {"foam-assembly": foam, "g-ganen-pump": water_pump, "suction-chain": chain,
+    solids = {"foam-assembly": foam, "g-ganen-pump": water_pump,
+              **{name: bodies[name] for name, bodies, _carry in elbows.values()},
               "discharge-chain": disch,
               "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
@@ -5777,8 +5799,9 @@ def report(a: cq.Assembly, clashes=None) -> None:
     line("g-ganen-pump", sf)
     if "funnel" in named:
         line("funnel", box(named["funnel"]))
-    if "suction-chain" in named:
-        line("suction-chain", box(named["suction-chain"]))
+    for n, _toward in PUMP_ELBOWS.values():
+        if n in named:
+            line(n, box(named[n]))
     if "display" in named:
         line("display", box(named["display"]))
     if "display-cover" in named:

@@ -410,8 +410,8 @@ SOURCE_JOG = 13.625
 # length is solved for.
 #
 # V-A's spread is what centres it in the row of three the cold core's cap carries — V-B on this
-# pack's west inner limb, V-A, then V-K on the suction chain's column. The chain is not in this
-# study, so the figure is stated here and measured there:
+# pack's west inner limb, V-A, then V-K on its own cap cradle. V-K is not in this study, so the
+# figure is stated here and measured there:
 # `enclosure_assembly.check_valve_row` prints the spread the row wants.
 SOURCE_SPREAD = {"V-A": 1.92, "V-B": 0.0}
 

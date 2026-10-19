@@ -54,8 +54,6 @@ ASSUMPTIONS = {
     "lldpe-1/4-sleeve": {"sleeve_od": 25.4, "sleeve_EI_Nmm2": 10000,
                          "note": "CARGEN 1/4 in ID x 3/8 in wall nitrile foam on carb-1 and carb-2 "
                                  "(internal-plumbing.md): not drawn; its stiffness a guess at E 0.5 MPa"},
-    "hose-3/8": {"od": 15.10, "id": 9.525, "E_MPa": 30, "E_range_MPa": [10, 60],
-                 "density_g_cm3": 1.2, "note": "reinforced PVC hose over a barb; a guess"},
     "copper-1/4": {"rigid": True, "note": "formed ACR copper holds its shape; not relaxed"},
 }
 SCENARIOS = {
@@ -67,7 +65,6 @@ SCENARIOS = {
 }
 MATERIALS = {
     "lldpe-1/4":  dict(od=6.35, id_=4.32, E_MPa=250.0, density_g_cm3=0.925, coil_radius_mm=150.0),
-    "hose-3/8":   dict(od=15.10, id_=9.525, E_MPa=30.0, density_g_cm3=1.2, coil_radius_mm=None),
     "copper-1/4": dict(rigid=True),
 }
 

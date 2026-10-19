@@ -48,14 +48,16 @@ replacement-foot manufacturing specification.
 
 Use each port's own tip, axis and exterior profile. `suction()`, `discharge()`
 and `port_profile()` retain the separate measured ports. `profiled_barb_length()`
-provides the observed exterior length; it does not certify completed hose
-insertion or clamp retention. The two reinforced-PVC hoses preserve the measured terminal axes and their
-R15.9 minimum bend requirement.
+provides the observed exterior length; it does not certify completed elbow
+insertion or clamp retention. Each printed TPU elbow
+([`diaphragm-pump-sleeve`](/hardware/printed-parts/diaphragm-pump-sleeve/README.md))
+is seated on its port's own measured tip and axis, and its tube socket hands
+1/4" LLDPE on at R14.
 
 `pan_front_y` reads the placed discharge envelope. The pan has its own clearance
-span and service path. Suction/discharge chains remain seated on their cap
-anchors; pump placement and both hoses are checked together without treating the
-chain mounts as pump-foot stations.
+span and service path. The discharge chain remains seated on its cap anchor and
+V-K on its cap cradle; pump placement, both elbows and their tubes are checked
+together without treating those mounts as pump-foot stations.
 
 The fixed casing reference fills reentrant rail/cradle regions. Attributed
 foot/rail overlap inside that filled envelope is distinct from a collision with

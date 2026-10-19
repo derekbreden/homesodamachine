@@ -39,8 +39,7 @@ import enclosure_assembly as ea                         # noqa: E402
 import _routing as R                                    # noqa: E402
 import _scorecard                                       # noqa: E402
 import _mesh_payload                                    # noqa: E402
-import g_ganen_installation as _pump                          # noqa: E402
-import seaflo_discharge_chain as _dis                   # noqa: E402
+import diaphragm_pump_sleeve as _pump_elbow             # noqa: E402
 lap("imports")
 
 _cci = ea._cci
@@ -92,16 +91,11 @@ def export(a):
 
     # --- materials --------------------------------------------------------------------
 
-    HOSE_OD = _dis.HOSE_OD
-
-
     def material_of(run):
         if run.kind == "refrigerant":
             return "copper-1/4"
         if run.kind in ("fluid", "co2", "water") and abs(run.diam - 6.35) < 0.05:
             return "lldpe-1/4"
-        if run.kind == "water" and abs(run.diam - HOSE_OD) < 0.05:
-            return "hose-3/8"
         return f"unknown({run.kind} Ø{run.diam:g})"
 
 
@@ -119,14 +113,11 @@ def export(a):
     # Frame name → (kind, grip length, the figure it came from). Ports not listed here fall
     # through to `unknown`.
     END_KINDS = {
-        "g-ganen-pump": {
-            port: ("barb", float(_pump.profiled_barb_length(port)),
-                   "G Ganen independently scanned exterior: candidate insertion allowance; "
-                   "physical hose engagement and retention remain unqualified")
-            for port in ("suction", "discharge")},
-        "suction-chain": {"barb-tip": ("barb", float(_dis.BARB_L), "seaflo_discharge_chain.BARB_L (MAACFLOW barb)"),
-                          "tube-port": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0")},
-        "discharge-chain": {"barb-tip": ("barb", float(_dis.BARB_L), "seaflo_discharge_chain.BARB_L (MAACFLOW barb)"),
+        **{elbow: {"tube": ("socket", float(_pump_elbow.TUBE_DEPTH),
+                            "diaphragm_pump_sleeve.TUBE_DEPTH: the printed elbow's tube socket, "
+                            "mouth to shelf")}
+           for elbow in ("pump-elbow-suction", "pump-elbow-discharge")},
+        "discharge-chain": {"inlet": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0"),
                             "tube-port": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0")},
         "foam-assembly": {"water-in": "cap-bore", "carb-water-out": "cap-bore", "reservoir-a": "cap-bore",
                           "reservoir-b": "cap-bore", "reservoir-a-fill": "cap-bore",
@@ -561,14 +552,8 @@ def export(a):
             "_anchor_cap_interface.RIB_LEN": _anchor_cap.RIB_LEN,
             "cap_anchor_len": _cci.cap_anchor_len,
             "cap_side_len": _cci.cap_side_len,
-            "HOSE_OD": HOSE_OD,
-            "HOSE_BEND": _lines.HOSE_BEND,
             "collet_grip_mm": COLLET_GRIP,
-            "pump_barb_exterior_mm": {port: _pump.profiled_barb_length(port)
-                                      for port in ("suction", "discharge")},
-            "pump_hose_engagement_physically_qualified": False,
-            "pump_grip_allowance_basis": "per-port observed exterior, assembly-test candidate",
-            "chain_BARB_L": _dis.BARB_L,
+            "pump_elbow_tube_socket_mm": _pump_elbow.TUBE_DEPTH,
             "cap_bore_len_mm": CAP_BORE_LEN,
             "cap_bore_len_source": CAP_BORE_SOURCE,
             "BUTT_MAX": R.BUTT_MAX,

@@ -34,7 +34,7 @@ committed. Source hashes and the selected small numeric inputs are recorded in
 | 21 | Black/White faucet factory tube cut schedules | [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 1 |
 | 22 | Trim the three outlets flush at the printed faucet tip | [`faucet shell assembly`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) |
 | 23 | Internal fluid color/ID cut plan, engagement and fit limits; PRV mouth | `internal-plumbing.md`; [`cold-core.md`](/hardware/assembly/cold-core.md) |
-| 24 | Reinforced PVC pump-hose blanks, atmospheric vent stub, funnel drain stub | `internal-plumbing.md` step 2; [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) |
+| 24 | Pump elbow tubes, ASSE vent tube end, funnel drain stub | `internal-plumbing.md` step 2; [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) |
 | 25 | Cut fitted insulation/braid; flush-cut ties | `faucet-and-umbilical.md` step 3; `internal-plumbing.md`; [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) |
 | 26 | Ribbon/bulk-wire blanks, branch trimming, terminal-length stripping | `cable-assemblies.md`; [`wiring run schedule`](/hardware/wiring/ac-wiring-schedule.md) |
 | 27 | Snip attached filler wire; dress its stub without grinding the crater | `pressure-vessel.md` step 3 |

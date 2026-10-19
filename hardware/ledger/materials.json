@@ -124,11 +124,23 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-000045",
-            "quantity": 1,
+            "material": "HSM-000324",
+            "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "suction-chain"
+              "pump-elbow-suction",
+              "pump-elbow-discharge"
+            ]
+          },
+          {
+            "material": "HSM-000325",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "pump-elbow-suction-clamp-barb",
+              "pump-elbow-suction-clamp-tube",
+              "pump-elbow-discharge-clamp-barb",
+              "pump-elbow-discharge-clamp-tube"
             ]
           },
           {
@@ -729,7 +741,7 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000291",
+            "material": "HSM-000326",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
@@ -738,7 +750,7 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000292",
+            "material": "HSM-000327",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
@@ -2897,45 +2909,6 @@
       ]
     },
     {
-      "id": "HSM-000045",
-      "description": "Water-pump suction fitting assembly",
-      "kind": "assembly",
-      "models": [
-        {
-          "file": "reference/seaflo-suction-chain/seaflo-suction-chain.step"
-        }
-      ],
-      "aliases": [
-        "suction chain"
-      ],
-      "documents": [
-        {
-          "title": "Water-pump fitting assembly",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        }
-      ],
-      "bom": {
-        "scope": "Bench-made threaded fitting chain between hose-barb tip and push-to-connect collet. Hose, clamps, mounting and onward tubing belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
-        "source": "assembly/internal-plumbing.md",
-        "items": [
-          {
-            "material": "HSM-000176",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000177",
-            "quantity": 1,
-            "unit": "ea"
-          }
-        ]
-      }
-    },
-    {
       "id": "HSM-000046",
       "description": "Mean Well IRM-90-12ST power supply",
       "kind": "purchased",
@@ -3142,7 +3115,7 @@
     },
     {
       "id": "HSM-000058",
-      "description": "Water-pump discharge fitting assembly",
+      "description": "Water-pump discharge check fitting assembly",
       "kind": "assembly",
       "models": [
         {
@@ -3167,11 +3140,11 @@
         }
       ],
       "bom": {
-        "scope": "Bench-made threaded fitting chain between hose-barb tip and push-to-connect collet. Hose, clamps, mounting and onward tubing belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
+        "scope": "Bench-made threaded fitting chain between two push-to-connect collets: the discharge elbow's tube enters one and the line to the cold core leaves the other. Tubing, mounting and the rib tie belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
-            "material": "HSM-000176",
+            "material": "HSM-000013",
             "quantity": 1,
             "unit": "ea"
           },
@@ -4921,24 +4894,6 @@
       ]
     },
     {
-      "id": "HSM-000176",
-      "description": "MAACFLOW adapter \u00b7 3/8 inch hose barb \u00d7 1/4 MNPT",
-      "kind": "purchased",
-      "aliases": [
-        "water-pump barb adapter"
-      ],
-      "documents": [
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Water-pump fitting assembly",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-000177",
       "description": "John Guest PP450822E \u00b7 1/4 inch female adapter",
       "kind": "purchased",
@@ -5711,64 +5666,6 @@
         "refrig-2",
         "tube-refrig-2",
         "refrig 2 tube \u00b7 ACR copper"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000291",
-      "description": "Water-pump suction hose \u00b7 reinforced PVC",
-      "kind": "manufactured",
-      "aliases": [
-        "water-7",
-        "tube-water-7",
-        "water 7 tube \u00b7 reinforced PVC"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000292",
-      "description": "Water-pump discharge hose \u00b7 reinforced PVC",
-      "kind": "manufactured",
-      "aliases": [
-        "water-6",
-        "tube-water-6",
-        "water 6 tube \u00b7 reinforced PVC"
       ],
       "documents": [
         {
@@ -6627,6 +6524,109 @@
       ],
       "aliases": [
         "Anchor cap"
+      ]
+    },
+    {
+      "id": "HSM-000324",
+      "description": "Water-pump elbow \u00b7 TPU 85A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/diaphragm-pump-sleeve/README.md"
+        },
+        {
+          "title": "Water-pump connections",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "aliases": [
+        "diaphragm pump elbow",
+        "pump elbow",
+        "diaphragm pump sleeve"
+      ]
+    },
+    {
+      "id": "HSM-000325",
+      "description": "YDS butterfly hose clamp \u00b7 10\u201316 mm, 9 mm band",
+      "kind": "purchased",
+      "manufacturer_number": "B07C33VLQ6",
+      "documents": [
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Elbow clamping",
+          "path": "printed-parts/diaphragm-pump-sleeve/README.md"
+        }
+      ],
+      "aliases": [
+        "pump elbow clamp",
+        "butterfly clamp"
+      ]
+    },
+    {
+      "id": "HSM-000326",
+      "description": "Water-pump suction tube \u00b7 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-7",
+        "tube-water-7",
+        "water 7 tube \u00b7 1/4 inch white LLDPE"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000327",
+      "description": "Water-pump discharge tube \u00b7 1/4 inch white LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "water-6",
+        "tube-water-6",
+        "water 6 tube \u00b7 1/4 inch white LLDPE"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Internal plumbing",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
       ]
     }
   ]

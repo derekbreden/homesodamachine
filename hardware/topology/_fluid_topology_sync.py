@@ -223,7 +223,8 @@ NODES = {
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
     "FlowReg":    _body("flow-regulator", "inlet", "outlet"),
     "VK":         _body("vk-solenoid", "inlet", "outlet"),
-    "SuctChain":  _body("suction-chain", "tube-port", "barb-tip"),
+    "ElbowS":     _body("pump-elbow-suction", "tube"),
+    "ElbowD":     _body("pump-elbow-discharge", "tube"),
     "ResA":       _body("foam-assembly", "reservoir-a"),
     "ResAFill":   _body("foam-assembly", "reservoir-a-fill"),
     "ResB":       _body("foam-assembly", "reservoir-b"),
@@ -233,7 +234,7 @@ NODES = {
     # The carbonator spine's own bodies.
     "BhW":        _body("bulkhead-water", "inboard", "outboard"),
     "BFP":        _body("asse1022-assembly", "tube-in", "tube-out", "vent-tip"),
-    "DischChain": _body("discharge-chain", "tube-port", "barb-tip"),
+    "DischChain": _body("discharge-chain", "inlet", "tube-port"),
     "PW":         _body("g-ganen-pump", "suction", "discharge"),
     "CO2In":      _body("co2-inlet", "inboard", "outboard"),
     "GasherCO2":  _body("gasher-co2", "inlet", "outlet"),

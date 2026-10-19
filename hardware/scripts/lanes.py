@@ -3,8 +3,8 @@ the hand that has to lay it.
 
 A run's ends are fixed by the two fittings it joins. What is not fixed is the corridor between
 them, and the card only ever reads the corridor the run is in: `carb-1` spends 289.1 mm of stock
-on ends 176.3 mm apart and passes the suction chain at 0.775 mm, and every gate grades that lane
-without asking whether the run belongs in it. `lanes()` asks. It enumerates every orthogonal
+on ends 176.3 mm apart, and every gate grades that lane without asking whether the run belongs in
+it. `lanes()` asks. It enumerates every orthogonal
 corridor between the two mouths that keeps a stated floor off every body, redraws each one the
 way the bender would, and hands back the ones a tube can be made to.
 
