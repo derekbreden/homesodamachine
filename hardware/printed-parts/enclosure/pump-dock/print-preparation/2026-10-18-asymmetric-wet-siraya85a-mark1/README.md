@@ -33,6 +33,22 @@ and 0.10 rad angular tolerance. The canonical download meshes use 0.005 mm and
 0.05 rad; the prepared project meshes are separate artifacts, with their own
 hashes. The bead reader retains a 0.05 mm distance allowance.
 
+| Editable project | Native filament (g) | Native time (h:mm:ss) |
+| --- | ---: | ---: |
+| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 7.602 | 1:53:51 |
+| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 8.159 | 2:12:37 |
+| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 7.792 | 1:55:52 |
+| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 7.039 | 1:53:19 |
+| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 7.780 | 1:55:40 |
+| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 7.031 | 1:53:08 |
+| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 7.539 | 1:53:07 |
+| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 8.153 | 2:12:25 |
+| **All eight** | **61.094** | **15:50:00** |
+
+These are the eight actual native-slice estimates, rounded here; exact values and
+project hashes are in the [native review](native-review.json). They do not include
+the twelve PET-GF fixture parts. No printer was contacted or launched.
+
 The retained wet recipe requests six walls and 100% infill. Each readback also
 records the actual mounting keys intersected with the cut body, including their
 connected roots, with posed bounds, solid volume and an exact local-to-print
