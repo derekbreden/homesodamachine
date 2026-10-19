@@ -1,0 +1,131 @@
+{
+  "scope": "One-off native path and psychrometric design review of casing seam sealing. This is not a measured leak rate, adhesion, lifetime, or complete vapor-retarder qualification; it adds no recurring check.",
+  "customer_outcome": "Keep humid cabinet air out of chilled component spaces and preserve dry insulation during refrigerated operation.",
+  "decision": "Seal the top shell/cap seam for refrigerated operation with the specified exterior 3M 425 band. Cap/lid joints close the separate cap insulation cavities; the same end bands cover these. The bottom shell/cap joint is between printed floors and has no equivalent direct opening to the body insulation. Covering it is incidental to the common lower band. Room-temperature enclosure fit prints do not require the tape.",
+  "native_input_sha256": {
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "775f1953512c16960cc232335b948ae87ec6b4a36b60286ebb1e9f73a83a2fd2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2448417f47a811246f63574344d625fa12a7fbdfaea8265358d2c454246bed2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "68f1ad52beb68df9e4b4a5e17107a85c2c393b3eb3e481d1b82f04111cbebe0d"
+  },
+  "placement_basis": "foam_assembly.build(): top cup floor at shell top + 0.15 mm, top lid at shell top + 14.6 mm, both rotated 180 degrees about Z. Body foam is assumed flush-trimmed at shell top. The connected three-segment witness enters the intact +X side-wall joint at Y=20 mm, avoiding the copper slots and screw axes, and approaches the negative-X side of the outlet tube.",
+  "shell_top_z_mm": 213.4000001,
+  "top_cup_floor_z_mm": 213.5500001,
+  "nominal_seat_gap_mm": 0.15,
+  "chilled_water_conduit_center_shell_xy_mm": [
+    -52.2,
+    -77.5
+  ],
+  "conduit_radius_mm": 3.75,
+  "tube_radius_from_existing_6_5mm_measurement_mm": 3.25,
+  "witness_radius_from_tube_axis_mm": 3.5,
+  "continuous_line_clearance_review": [
+    {
+      "route": "outside through upper side-wall joint, clear of copper slots and screw axes",
+      "start_mm": [
+        142,
+        20,
+        213.4750001
+      ],
+      "end_mm": [
+        -55.7,
+        20,
+        213.4750001
+      ],
+      "minimum_distance_to_native_parts_mm": {
+        "shell": 0.0750001,
+        "cup": 0.075,
+        "lid": 14.525
+      },
+      "clear_of_native_parts": true
+    },
+    {
+      "route": "across seat to chilled outlet, clear of other top conduits",
+      "start_mm": [
+        -55.7,
+        20,
+        213.4750001
+      ],
+      "end_mm": [
+        -55.7,
+        -77.5,
+        213.4750001
+      ],
+      "minimum_distance_to_native_parts_mm": {
+        "shell": 0.0750001,
+        "cup": 0.075,
+        "lid": 14.525
+      },
+      "clear_of_native_parts": true
+    },
+    {
+      "route": "seat up chilled-outlet conduit annulus",
+      "start_mm": [
+        -55.7,
+        -77.5,
+        213.4750001
+      ],
+      "end_mm": [
+        -55.7,
+        -77.5,
+        233.4
+      ],
+      "minimum_distance_to_native_parts_mm": {
+        "shell": 5.00056247,
+        "cup": 0.25,
+        "lid": 0.25
+      },
+      "clear_of_native_parts": true
+    }
+  ],
+  "path_limit": "Native part clearance establishes a design opening, not its as-printed flow conductance. Clamping can close nominal allowances; dry printed contact has no specified continuous air seal. The outlet tube is a candidate condensation surface during cold-water dispensing; its exterior temperature is not measured here.",
+  "operating_basis": {
+    "source": "firmware/lib/machine_policy/cold_policy.h",
+    "carbonator_wall_control_c": [
+      2,
+      4
+    ],
+    "evaporator_freeze_cutoff_c": -8,
+    "ambient_examples_are_assumptions_not_measurements": true
+  },
+  "psychrometric_method": "Hyland-Wexler water saturation pressure in SI (ASHRAE Fundamentals 2017, ch. 1 eq. 6). Dew point is the bisection solution of p_ws(T_dew)=RH*p_ws(T_air), neglecting the small humid-air enhancement factor.",
+  "psychrometric_examples": [
+    {
+      "assumed_air_c": 25,
+      "assumed_relative_humidity": 0.5,
+      "calculated_dew_point_c": 13.864,
+      "ambient_water_vapor_pa": 1584.61,
+      "saturation_at_4c_pa": 813.48,
+      "vapor_pressure_difference_to_4c_pa": 771.13
+    },
+    {
+      "assumed_air_c": 25,
+      "assumed_relative_humidity": 0.6,
+      "calculated_dew_point_c": 16.701,
+      "ambient_water_vapor_pa": 1901.53,
+      "saturation_at_4c_pa": 813.48,
+      "vapor_pressure_difference_to_4c_pa": 1088.05
+    },
+    {
+      "assumed_air_c": 30,
+      "assumed_relative_humidity": 0.7,
+      "calculated_dew_point_c": 23.928,
+      "ambient_water_vapor_pa": 2972.22,
+      "saturation_at_4c_pa": 813.48,
+      "vapor_pressure_difference_to_4c_pa": 2158.74
+    }
+  ],
+  "relative_humidity_threshold_at_25c_for_4c_surface": 0.2567,
+  "material_basis": {
+    "foam": "Fiberglass Supply Depot describes its 2 lb foam as 95-98% closed cell and water resistant, with possible water uptake under prolonged submersion. Its product page does not supply a vapor-permeance qualification at the cold-core thickness. Closed cells do not close an external joint or a conduit annulus.",
+    "tape": "3M 425 technical data lists moisture barriers in appliances, low moisture-vapor transmission, 0.12 mm total thickness, and clean/dry above-freezing application. These support the local static-seam use; its reported WVTR is not an installed-system permeance or lifetime result."
+  },
+  "boundary_scope": "The end bands seal the casing perimeter only. The nine top tube/cable annuli, copper-slot exits, screw access and exposed cap foam at pour/vent holes are separate parts of the warm-side moisture boundary. Reservoir vent membranes, tube lumens and the PRV discharge route must remain functional. No complete vapor-retarder claim follows from the seam bands.",
+  "sources": [
+    "https://handbook.ashrae.org/Handbooks/R26/IP/R26_Ch10/R26_Ch10_ip.aspx",
+    "https://handbook.ashrae.org/Handbooks/F25/SI/F25_Ch01/F25_Ch01_si.aspx",
+    "https://psychrometrics.github.io/psychrolib/api_docs.html",
+    "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
+    "https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf"
+  ],
+  "witness_other_conduits": "The first segment is at shell Y=20 mm, clear of the nearest reed conduit center at Y=31 mm and fluid conduit centers at |Y| >=43.5 mm. The second segment is at X=-55.7 mm, clear of their axes. The final segment is 3.5 mm from the outlet axis, between the 3.25 mm measured tube radius and 3.75 mm bore radius."
+}
