@@ -292,7 +292,7 @@ def main():
         selftest()
         return 0
     if args.paths:
-        paths = [Path(p) for p in args.paths]
+        paths = [Path(p).resolve() for p in args.paths]
     else:
         from _solids import solids
         paths = [ROOT / p for p in solids() if p.endswith('.step') and (ROOT / p).is_file()]
