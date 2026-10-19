@@ -46,6 +46,7 @@ lap("imports")
 _cci = ea._cci
 _foam = ea._foam
 _enc = ea._enc
+_anchor_cap = ea._anchor_cap
 _lines = ea._lines
 
 SAMPLE_STEP = 4.0          # mm of arc length between samples, at most
@@ -263,16 +264,20 @@ def export(a):
         if st is None:
             unmatched.append(f"TUBE_ANCHOR_SITES[{n}] {rid} leg {leg}: no station in a.tube_anchors at {mid}")
             continue
+        # A capped rib holds the tube straight over its own longer pipe, closed by the anchor
+        # cap rather than a zip tie (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`).
+        capped = tuple(st[5:6]) == ("cap",)
         hold_rows.append((rid, {
             "id": f"{rid}/rib-{leg}",
-            "label": f"{piece.replace('enclosure-', '')} rib on {rid} leg {leg}",
-            "type": "rib",
+            "label": f"{piece.replace('enclosure-', '')} rib on {rid} leg {leg}"
+                     + (", closed by its anchor cap" if capped else ""),
+            "type": "capped-rib" if capped else "rib",
             "source": "enclosure_assembly.TUBE_ANCHOR_SITES",
             "host": piece,
             "point": list(st[0]), "tangent": list(st[1]), "root": list(st[2]),
             "seat_r_mm": float(st[3]),
             "slip_mm": float(ea.TUBE_ANCHOR_SLIP),
-            "clamp_length_mm": float(_enc.tube_anchor_len),
+            "clamp_length_mm": float(_anchor_cap.RIB_LEN if capped else _enc.tube_anchor_len),
             "end_forms": list(st[4]),
         }))
 
@@ -553,6 +558,7 @@ def export(a):
             "TUBE_ANCHOR_SLIP": ea.TUBE_ANCHOR_SLIP,
             "TUBE_ANCHOR_SPAN": ea.TUBE_ANCHOR_SPAN,
             "enclosure.tube_anchor_len": _enc.tube_anchor_len,
+            "_anchor_cap_interface.RIB_LEN": _anchor_cap.RIB_LEN,
             "cap_anchor_len": _cci.cap_anchor_len,
             "cap_side_len": _cci.cap_side_len,
             "HOSE_OD": HOSE_OD,

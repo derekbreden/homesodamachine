@@ -373,6 +373,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -549,6 +550,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -1010,6 +1012,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -2579,6 +2582,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -2963,6 +2967,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -4301,6 +4306,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -4421,6 +4427,67 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/README.md $$O1
+""",
+)
+
+genrule(
+    name = "anchor-cap",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/enclosure/anchor-cap/README.md",
+        "pysrc/hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step)
+O1=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh)
+O2=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl)
+O3=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json)
+O4=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py > /dev/null
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step $$O0
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh $$O1
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl $$O2
+cp hardware/printed-parts/enclosure/anchor-cap/README.figures.json $$O3
+cp hardware/printed-parts/enclosure/anchor-cap/README.md $$O4
 """,
 )
 
@@ -5048,6 +5115,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -5252,6 +5320,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -5718,6 +5787,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -5886,6 +5956,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -6063,6 +6134,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -6240,6 +6312,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -7263,6 +7336,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -8094,6 +8168,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -9952,6 +10027,7 @@ genrule(
         ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        ":out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
@@ -9963,6 +10039,7 @@ genrule(
         ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -10561,6 +10638,7 @@ genrule(
         "hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -10817,6 +10895,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -10968,6 +11047,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -12194,6 +12274,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-90a9ee5e6872",
+    srcs = ["hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-cdd0eefe2907",
     srcs = ["hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
@@ -12293,6 +12381,14 @@ genrule(
     name = "pysrc-065baf5a6b4c",
     srcs = ["hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-d93b774456d7",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -13654,6 +13750,7 @@ filegroup(
         ":pcba-assembly",
         ":pcba-tray",
         ":enclosure-dimensions",
+        ":anchor-cap",
         ":asse-drip-pan",
         ":bulkhead-ring",
         ":data-ring",

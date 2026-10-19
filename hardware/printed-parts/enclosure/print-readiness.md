@@ -9,8 +9,9 @@ core and refrigeration provisions, even when a bench build uses the external Lil
 carbonator.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom), pump cartridge and cap, machine display cover and the two
-G Ganen cold-core mounting parts. Its permanent pump dock has four asymmetric TPU
+back-top, back-bottom), pump cartridge and cap, machine display cover, the
+[anchor cap](anchor-cap/README.md) on `carb-1`'s rib and the two G Ganen cold-core
+mounting parts. Its permanent pump dock has four asymmetric TPU
 junctions, four compound TPU returns, four interior keepers, four rigid cradles and
 four closing covers. The front flanks are continuous across the fixed dock room.
 
@@ -152,8 +153,9 @@ catches have dense emitted coverage. The ground mounting annulus's final round
 terminal has an explicit 0.126 mm layer-lattice deviation. Physical insert and
 cable retention, show finish, cleanup effort and assembled fit remain separate.
 These results apply only to its bound source hashes. Current enlarged hosts,
-recessed PCBA entries and complete solid roots need their own native slice;
-the v9 support review supplies no load-capacity or drop result.
+recessed PCBA entries, complete solid roots and the capped `carb-1` rib with its two
+bridged catch windows need their own native slice; the v9 support review supplies no
+load-capacity or drop result.
 
 ## Physical evidence
 

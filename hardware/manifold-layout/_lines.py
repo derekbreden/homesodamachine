@@ -327,9 +327,11 @@ def _co2_1(F):
 
     src = F["wr1110"].at("outlet")
     dst = F["gasher-co2"].at("inlet")
-    # The water crossing's cradle reaches one wall beyond its slipped tube seat.
-    # Keep its near surface one clearance floor plus 0.1 mm behind that aft flank;
-    # the measured regulator's shorter body must not pull the bend into this rib.
+    # The U turns beside the water crossing, one tied rib's reach off it: one wall beyond its
+    # slipped tube seat. Keep its near surface one clearance floor plus 0.1 mm behind that aft
+    # flank; the measured regulator's shorter body must not pull the bend onto the crossing.
+    # The crossing's own rib stands east of the U, at the head of its climb, where the anchor
+    # cap's wings clear it (`enclosure_assembly.tube_anchor_midpoint`).
     water_y = F["foam-assembly"].at("carb-water-out")[1] - CARB_1_FORWARD_LEAN
     cradle_aft = water_y + _split.TUBE_D / 2 + enc.fits.slip + enc.wall
     turn_y = max(min(src[1], dst[1]) - 2.0 * TUBE_BEND + 1.0,

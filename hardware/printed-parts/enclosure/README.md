@@ -65,6 +65,7 @@ The crossing airflow's grilles are the flanks' own flutes, pierced over the fins
 - [`y-wall-of-back-top/`](/hardware/printed-parts/enclosure/y-wall-of-back-top/) — that wall's connection inventory. Not a separate part: it is a wall of `enclosure-back-top`.
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the 104.53 × 38 mm horizontal brand-and-QR plate, lying flush in a pocket of the +Y wall of back-top beside the bulkhead rings, retained by two integral PET-GF snap tabs.
 - [`bulkhead-ring/`](/hardware/printed-parts/enclosure/bulkhead-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered in raised type with that port's name.
+- [`anchor-cap/`](/hardware/printed-parts/enclosure/anchor-cap/) — the printed other half of a tube anchor's pipe, pressed on over the tube in place of a zip tie; it closes `carb-1`'s rib under back-top's ceiling.
 - [`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
 - [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived collar source used twice in the small `enclosure-pump-cap` top clamp: a plate over the molded flange, an octagonal wall around the boss, and a shoulder around the motor can. Neither collar is separate. Pump weight bears through the molded skirt into the large lower `enclosure-pump-cartridge` cradle.
 

@@ -104,7 +104,7 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Small solid PET-GF: the collet press and the dock's keepers/return fixtures.
+    # Small solid PET-GF: the collet press, the dock's keepers/return fixtures and the anchor cap.
     # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
     # 100% infill. Bill their complete geometry until native production slices.
     "tool":  (2.70, 0.45, 1.00),
@@ -169,6 +169,9 @@ PARTS = {
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
+    # ONE FILE PER CAPPED TUBE ANCHOR: the printed other half of a rib's pipe, pressed on over the
+    # tube on each site `enclosure_assembly.TUBE_ANCHOR_CLOSURES` closes with a cap.
+    "Anchor cap — one per capped tube anchor": ["enclosure/anchor-cap/anchor-cap.step"],
     # ONE ROW, SIX CHIPS AND THE SIX WORDS THEY CARRY — one file per crossing the +Y wall of
     # back-top passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.
@@ -242,6 +245,7 @@ GROUP_OF = [
     ("Enclosure — pump receiver",   "tool"),
     ("Enclosure — pump return",     "tool"),
     ("Display cover plate",         "ext"),
+    ("Anchor cap",                  "tool"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),

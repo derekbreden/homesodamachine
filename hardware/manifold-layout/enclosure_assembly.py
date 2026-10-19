@@ -153,6 +153,7 @@ import copper_plugs as _plugs                         # noqa: E402
 import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
+import _anchor_cap_interface as _anchor_cap           # noqa: E402
 import reeding as _reeding                            # noqa: E402
 import funnel_frame as _funnel_frame
 import funnel as _funnel                       # noqa: E402
@@ -330,6 +331,7 @@ C_STUB = _routing.tube_color("fluid-4")
 C_SUCT = M_STAINLESS
 # The border over that glass, in the enclosure's own black stock.
 C_COVER = M_PETGF_BLACK
+C_ANCHOR_CAP = M_PETGF_BLACK
 # And the soft ring under its lap, in the same TPU 90A as every other seal here.
 C_DGASKET = M_TPU_BLACK
 # `pcb/pcba/order.md` places the main board at "black mask / white silk".
@@ -2315,7 +2317,7 @@ TUBE_ANCHOR_SLIP = fits.slip
 TUBE_ANCHOR_SITES = (
     # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm. The
     # wall there is back-top's ceiling slab, the face that piece prints on, so the rib stands up
-    # from the bed and the slab stands off its zip tie's room (`enclosure._ceiling_tie_reliefs`).
+    # from the bed.
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # The downstream gas line's aft crossing, under the same back-top ceiling slab.
     ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
@@ -2337,11 +2339,38 @@ TUBE_ANCHOR_END_FORMS = {
 ANCHOR_END_FORMS = ("column", "corbel")
 FLAVOR_B_ANCHOR_WELL_CLEAR = 1.0
 
+# WHAT CLOSES EACH ANCHOR, STATED: a zip tie through the rib's channel, or the anchor cap
+# (`_anchor_cap_interface`), the printed other half of the pipe, which presses on over the tube
+# and catches a window in each of the rib's flanks. The cap is cut for the 1/4" seat and for a
+# rib standing up off its piece's bed, where each window's bearing face prints as a bridge and
+# no corbel stands where a wing runs (`enclosure._capped_anchor`), and its rib is
+# `_anchor_cap_interface.RIB_LEN` long, which has to stand on the leg's straight. `co2-2`'s leg
+# is shorter than that between its two bends, so that crossing takes a tie; flavour B's rib
+# roots on the -X wall. Every site names one, and a site missing here is an error.
+TUBE_ANCHOR_CLOSURES = {
+    "carb-1": "cap",
+    "co2-2": "tie",
+    "fluid-28": "tie",
+}
+ANCHOR_CLOSURES = ("tie", "cap")
+
 
 def tube_anchor_midpoint(run, leg):
-    """The rib centre on its straight leg, with the flavour-B Wago working lane clear."""
+    """The rib centre on its straight leg, with the flavour-B Wago working lane clear and
+    `carb-1`'s anchor cap clear of `co2-1`.
+
+    CARB-1'S RIB STANDS AT THE HEAD OF ITS CLIMB. `co2-1`'s U runs beside the middle of the
+    crossing, one tied rib's reach off it (`_lines._co2_1`) and inside the anchor cap's wings,
+    so the capped rib stands with its near end one `wall` past the tangent point of the bend the
+    run climbs into, where the cap stands clear of the U and holds the tube where it turns."""
     p, q = run.pts[leg], run.pts[leg + 1]
     mid = tuple((p[k] + q[k]) / 2.0 for k in range(3))
+    if run.id == "carb-1":
+        tangents = {i: run.radii[i] * math.tan(math.radians(turn) / 2.0)
+                    for i, turn, _incoming, _outgoing in run.bends}
+        at = tangents.get(leg, 0.0) + _enc.wall + _anchor_cap.RIB_LEN / 2.0
+        length = math.dist(p, q)
+        return tuple(p[k] + (q[k] - p[k]) * at / length for k in range(3))
     if run.id != "fluid-28":
         return mid
     if abs(p[0] - q[0]) > 1e-6 or abs(p[2] - q[2]) > 1e-6 or q[1] <= p[1]:
@@ -2369,26 +2398,37 @@ def tube_anchor_midpoint(run, leg):
     return (mid[0], y, mid[2])
 
 
-def tube_anchors(runs) -> tuple:
-    """One station per anchor — `(mid, along, root, seat_r, end_forms)`, the first four read
-    off the run itself and the end-web forms carried from `TUBE_ANCHOR_SITES`.
+def tube_anchor_sites(runs) -> tuple:
+    """`(run id, station)` per anchor. A station is `(mid, along, root, seat_r, end_forms)`,
+    the first four read off the run itself and the end-web forms carried from
+    `TUBE_ANCHOR_SITES` — and a sixth entry, `"cap"`, on a station an anchor cap closes
+    (`TUBE_ANCHOR_CLOSURES`). A station a zip tie closes carries no sixth entry.
 
     The rib follows the named straight leg. Most use its midpoint; flavour B uses
-    the free band ahead of the rear Wago row, including its worked levers. The piece
-    supplies the root face, and the tube supplies the rib's X/Z and bore."""
+    the free band ahead of the rear Wago row, including its worked levers, and `carb-1` the
+    head of its climb (`tube_anchor_midpoint`). The piece
+    supplies the root face, and the tube supplies the rib's X/Z and bore. A capped rib is
+    longer than a tied one (`_anchor_cap_interface.RIB_LEN`), and it stands whole on the leg's
+    straight, between the tangent points of the bends either end."""
     by_id = {r.id: r for r in runs}
     stations = []
     site_ids = {rid for rid, _leg, _root, _piece in TUBE_ANCHOR_SITES}
-    if missing := site_ids - set(TUBE_ANCHOR_END_FORMS):
-        raise ValueError(f"tube_anchors: no end forms stated for {sorted(missing)}")
-    if unknown := set(TUBE_ANCHOR_END_FORMS) - site_ids:
-        raise ValueError(f"tube_anchors: end forms name no anchor site: {sorted(unknown)}")
+    for table, what in ((TUBE_ANCHOR_END_FORMS, "end forms"), (TUBE_ANCHOR_CLOSURES, "closures")):
+        if missing := site_ids - set(table):
+            raise ValueError(f"tube_anchors: no {what} stated for {sorted(missing)}")
+        if unknown := set(table) - site_ids:
+            raise ValueError(f"tube_anchors: {what} name no anchor site: {sorted(unknown)}")
     for rid, leg, root, _piece in TUBE_ANCHOR_SITES:
         end_forms = tuple(TUBE_ANCHOR_END_FORMS[rid])
         if len(end_forms) != 2 or any(form not in ANCHOR_END_FORMS for form in end_forms):
             raise ValueError(
                 f"tube_anchors: {rid} end forms are {end_forms!r}; each of the two route ends "
                 f"must be one of {ANCHOR_END_FORMS}.")
+        closure = TUBE_ANCHOR_CLOSURES[rid]
+        if closure not in ANCHOR_CLOSURES:
+            raise ValueError(
+                f"tube_anchors: {rid} is closed by {closure!r}; a closure is one of "
+                f"{ANCHOR_CLOSURES}.")
         r = by_id.get(rid)
         if r is None:
             continue                        # a run whose bodies are not both placed yet
@@ -2412,8 +2452,21 @@ def tube_anchors(runs) -> tuple:
                 f"tube_anchors: {rid} leg {leg} is {length:.2f} mm and a rib is "
                 f"{_enc.tube_anchor_len:.2f}. A seat longer than the straight it stands on would "
                 f"close on the corners either side of it.")
-        stations.append((tube_anchor_midpoint(r, leg), u, tuple(root),
-                         r.diam / 2.0 + TUBE_ANCHOR_SLIP, tuple(end_forms)))
+        mid = tube_anchor_midpoint(r, leg)
+        station = (mid, u, tuple(root), r.diam / 2.0 + TUBE_ANCHOR_SLIP, tuple(end_forms))
+        if closure == "cap":
+            tangents = {i: r.radii[i] * math.tan(math.radians(turn) / 2.0)
+                        for i, turn, _incoming, _outgoing in r.bends}
+            at = math.dist(p, mid)
+            lo, hi = tangents.get(leg, 0.0), length - tangents.get(leg + 1, 0.0)
+            half = _anchor_cap.RIB_LEN / 2.0
+            if at - half < lo - 1e-6 or at + half > hi + 1e-6:
+                raise ValueError(
+                    f"tube_anchors: {rid}'s capped rib runs {at - half:.2f}..{at + half:.2f} mm "
+                    f"along leg {leg}, whose straight is {lo:.2f}..{hi:.2f}. A rib off the "
+                    f"straight closes on the bend either side of it.")
+            station += ("cap",)
+        stations.append((rid, station))
     return tuple(stations)
 
 
@@ -3001,7 +3054,8 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
               *_gas_chain.ADAPTER_NAMES,
               "nameplate", "nameplate-ink",
-              "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
+              "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow",
+              "anchor-cap-carb-1")
 
 
 def _manifold(name):
@@ -4519,7 +4573,8 @@ def build_pack() -> cq.Assembly:
     a.pack_solids, a.carries = solids, carries
     draw_runs(a, _lines.build_runs(solids, carries))
     # AND THE ANCHORS ON THOSE LINES, struck on the runs themselves so a reroute carries them.
-    a.tube_anchors = tube_anchors(a.runs)
+    a.tube_anchor_sites = tube_anchor_sites(a.runs)
+    a.tube_anchors = tuple(station for _rid, station in a.tube_anchor_sites)
     # The cold core's own ribs that hold a run are kept apart from those: `a.tube_anchors` is what
     # the BOX builds from, and a station on the core has no business being handed to a wall. Both
     # hold a run, so `tube-anchored` counts them together.
@@ -4997,7 +5052,14 @@ def stand_anchors(stations) -> tuple:
                 f"stand_anchors: end forms are {end_forms!r}; each end must be one of "
                 f"{ANCHOR_END_FORMS}.")
         st = tuple(station[:4])
+        # A capped station keeps its closure behind its `stand` (`enclosure.anchor_capped`).
+        capped = tuple(station[5:6]) == ("cap",)
         if not _enc.back_top_owns(st[0]):
+            if capped:
+                raise ValueError(
+                    f"stand_anchors: the anchor at ({st[0][0]:.2f}, {st[0][1]:.2f}, "
+                    f"{st[0][2]:.2f}) is capped and stands outside back-top's band; the anchor "
+                    f"cap closes a rib under back-top's ceiling.")
             out.append(st)
             continue
         columns = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
@@ -5012,7 +5074,7 @@ def stand_anchors(stations) -> tuple:
                     f"{st[0][2]:.2f}) states `column` on end {end}, and that rib has no column "
                     f"to the print-bed face — its site should say `corbel`.")
             stand.append((face_z, None))
-        out.append(st + (tuple(stand),))
+        out.append(st + (tuple(stand),) + (("cap",) if capped else ()))
     return tuple(out)
 
 
@@ -5642,6 +5704,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # THE ANCHOR CAPS, each pushed home on the rib its site names (`TUBE_ANCHOR_CLOSURES`): the
+    # section the part's own generator prints, struck in the station's frame.
+    for rid, station in a.tube_anchor_sites:
+        if station[5:6] == ("cap",):
+            mid, u, root = station[:3]
+            a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, root)), name=f"anchor-cap-{rid}",
+                  color=C_ANCHOR_CAP)
     if box.pack.collet_plate:
         dock_parts = _dock.parts(box.pack.collet_plate)
         retention = _enc.pump_retention_features(box)

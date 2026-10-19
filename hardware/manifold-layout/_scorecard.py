@@ -344,6 +344,9 @@ MOUNTS = (
     ("bulkhead-drain", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
+    # The anchor cap closes `carb-1`'s rib under the ceiling: its two lips catch the rib's
+    # windows, and the tube lies in the pipe the pair makes (`enclosure._capped_anchor`).
+    ("anchor-cap-carb-1", "enclosure-back-top", "snap-capture"),
     ("data-ring", "enclosure-back-top", "snap"),
     ("data-ring-word", "data-ring", "well"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
@@ -1279,6 +1282,9 @@ def anchored_pairs() -> set:
     where the names are runs."""
     import enclosure_assembly as _ea
     pairs = {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
+    # A capped rib's other half is the anchor cap, closing on the same tube at the same slip.
+    pairs |= {frozenset((rid, f"anchor-cap-{rid}"))
+              for rid, closure in _ea.TUBE_ANCHOR_CLOSURES.items() if closure == "cap"}
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
     # that rib stands on the cap — so the pair is the run against `foam-assembly`. A row bored for
     # a body never matches here: this set is only read in the run pass, where the names are runs.

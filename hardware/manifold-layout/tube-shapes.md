@@ -36,11 +36,14 @@ possible new locations, at the path sampling resolution. Surface screening does 
 self-contact or guarantee clearance for a tube wholly enclosed inside a solid. Neighbouring
 tubes remain at their drawn positions during a single-run review.
 
-## The six ties in the exposed runs
+## The six holds in the exposed runs
 
 These readings use straight stock and coil curvature in both senses about XY, XZ and YZ,
 at an assumed 250 mm coil radius. Each range covers those seven scenarios. Shift is the
-largest displacement of a material station from its CAD position, in millimetres.
+largest displacement of a material station from its CAD position, in millimetres. Every
+rib's hold was read at the zip-tie rib's 9.5 mm, with `carb-1`'s at the middle of its crossing.
+That rib stands at the head of the run's climb and is closed by an anchor cap, which holds the
+tube over 14 mm of a 20.6 mm rib, so `carb-1`'s row reads a hold other than the one it has.
 
 | Run | Hold retained | Hold omitted | Reading |
 | --- | ---: | ---: | --- |

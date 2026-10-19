@@ -11,7 +11,6 @@
     "C14_SCREW_TIP": "2.34",
     "CAP_CRADLES": "3",
     "CARBONATOR_PORTS": "4",
-    "CARB_1_LOOP": "39.7 mm",
     "CARB_REEDS": "2",
     "COMPRESSOR_BORE": "14",
     "COMPRESSOR_LIGAMENT": "7.5",
@@ -54,8 +53,8 @@
     "FOAM_FACE_SCREWS": "10",
     "FOAM_INSERTS": "24",
     "FOAM_SCREWS": "20",
-    "FOUR_INCH_TIES": "24",
-    "FOUR_INCH_TIES_COST": "$0.51",
+    "FOUR_INCH_TIES": "23",
+    "FOUR_INCH_TIES_COST": "$0.49",
     "FUNNEL_BATCH_COST": "$8.73",
     "FUNNEL_DENSITY_G_ML": "1.13",
     "FUNNEL_FINISHED_G": "248",
@@ -150,6 +149,7 @@
     "TOTAL_M5_INSERTS": "8",
     "TOUCHFLO_INSERTS": "3",
     "TOUCHFLO_SCREWS": "3",
+    "TUBE_RIB_LOOP": "39.7 mm",
     "VENT_FILTERS": "2",
     "WASHER_MAX_OD": "29",
     "WATER_3_POST_LOOP": "48.8 mm",
@@ -160,9 +160,9 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,470.21",
+    "BOM_GRAND": "$1,470.25",
     "BOM_SEC1": "$175.03",
-    "BOM_SEC11": "$42.09",
+    "BOM_SEC11": "$42.07",
     "BOM_SEC12": "$29.78",
     "BOM_SEC13": "$24.86",
     "BOM_SEC14": "$4.29",
@@ -172,7 +172,7 @@
     "BOM_SEC4": "$128.94",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$18.64",
-    "BOM_SEC7": "$171.88",
+    "BOM_SEC7": "$171.94",
     "BOM_SEC8": "$238.01",
     "BOM_SEC9": "$72.01"
   }
