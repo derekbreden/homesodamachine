@@ -144,7 +144,7 @@ The **bag pockets take no foam** — each is occupied by its reservoir at [0.25 
 
 After cure, remove the temporary passage masks and trim external foam flush. Keep the tubes and relief discharge path open.
 
-The pour encapsulates both temperature probes and their leads against the cold metal. Potted in closed-cell foam with no air gap, they need no separate waterproofing — the foam is the vapor barrier. Ensure the pour fully wets around each probe and up its lead entry with no void: a void is a trapped-air pocket that will condense and frost against the cold surface, and is the only path by which moisture reaches a probe. A void at a probe is an insulation defect first and a probe-fouling risk second.
+The pour encapsulates both temperature probes and their leads against the cold metal. Ensure the pour fully wets around each probe and up its lead entry without a connected air void. Such a void lets cabinet moisture reach a cold surface directly. Closed-cell foam resists moisture but is not automatically a vapor barrier or probe-waterproofing qualification: water vapor can also permeate the material. Seal the dry casing joints as specified below; the [seam moisture review](/hardware/printed-parts/cold-core/foam-shell/README.md#why-the-operating-cores-seams-are-sealed) explains their role and the scope of the local foil bands.
 
 ### 7. Final assembly
 
@@ -154,6 +154,8 @@ With all three pours cured:
 - Top cap (foam-filled, trimmed from step 3) seated with its dry printed-face allowance **rotated 180° about Z**, which is what carries its deck-mount columns and its lid's valve cradles to the positions they hold in the machine — the screw pattern is 180°-symmetric, so it bolts up either way, and neither of those patterns is, so either one tells you which is right. [10](CAP_FACE_SCREWS) M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
 - Bottom cap (mouth-down) onto the body's underside with its dry printed-face allowance, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
 - Seal the dry exterior cap/shell and cap/lid seams with 3M 425 foil tape per [Dry casing seams](/hardware/printed-parts/cold-core/foam-shell/README.md#dry-casing-seams). Use one band per assembled end on its 0.30 mm recessed smooth lands, with at most two foil layers at the 25 mm end overlap. The band spans the head pockets' small side openings. Burnish around the corners and keep the axial driver openings, flat bearing faces, mounting seats and fluid passages clear. The cup provides 0.15 mm static room at each rigid seat; the foil is outside the mechanical stack.
+
+These bands restrict cabinet-air entry at the perimeter joints for refrigerated operation. They do not close the tube/cable annuli or qualify the complete cold-core vapor retarder. A room-temperature enclosure fit print does not need these seals.
 
 ## Warm-side check valves
 
