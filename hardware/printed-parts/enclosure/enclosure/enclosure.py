@@ -3211,7 +3211,13 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
 
 @functools.lru_cache(maxsize=1)
 def _disposal_flat():
-    """Centered warning outlines in XY, with their bottom at zero and relief along +Z."""
+    """Centered warning outlines in XY, with their bottom at zero and relief along +Z.
+
+    EVERY LETTER IS RAKED. back-bottom prints floor-down, so the letters stand on a vertical
+    wall, and a stroke carried straight out of it ends in a flat underside the bed sees as a
+    shelf. Each letter's outline is instead carried out along +Z and up its caps' +Y at once,
+    at 45°: every underside is a 45° face the layer beneath it carries, the face keeps the
+    outline's whole height, and the letter stands the same `disposal_raise` proud."""
     def text(line, size):
         return cq.Workplane("XY").text(
             line, size, disposal_raise + disposal_embed,
@@ -3232,7 +3238,14 @@ def _disposal_flat():
         letters.append(row.translate(cq.Vector(
             -(bounds.xmin + bounds.xmax) / 2.0,
             index * leading + (row_height - bounds.ylen) / 2.0 - bounds.ymin, 0.0)))
-    return cq.Compound.makeCompound(letters)
+    depth = disposal_raise + disposal_embed
+    raked = []
+    for row in letters:
+        for face in row.Faces():
+            if abs(face.Center().z) > 1e-6 or face.normalAt().z > -0.99:
+                continue                                    # each letter's own outline only
+            raked.append(cq.Solid.extrudeLinear(face, cq.Vector(0.0, depth, depth)))
+    return cq.Compound.makeCompound(raked)
 
 
 def disposal_letters(outer):

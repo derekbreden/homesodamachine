@@ -113,7 +113,9 @@ The full disposal wording is centered low on back-bottom, raised in the enclosur
 own material. Fluting is omitted beneath the letters and their surrounding margin;
 the flat field has no border or separate carrier. The CAD measures actual warning
 letter heights against the minimum, and the relief supplies the visible edges of
-the same-color text. The paper proof establishes the wording and a full-size type
+the same-color text. A letter's height is its outline's: the raised letters are raked
+45° out of the wall so they print without support, and the raking moves the face up
+without shortening it, so each letter keeps its full outline height on its face. The paper proof establishes the wording and a full-size type
 reference; its panel dimensions and left alignment are not the enclosure layout.
 The service panel's physical carrier is not modeled in this proof.
 
