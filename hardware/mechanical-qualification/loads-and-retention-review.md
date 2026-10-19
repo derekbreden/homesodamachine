@@ -31,7 +31,7 @@ outside this review.
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
 | M1.4 connector inserts | Connector magnets plus four 0.44 N springs | Ear plate → two M1.4×8 → M1.4×4 inserts per half | Under 10 N per half | Adequate; installation access is the open item ([mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md)) |
 | Cartridge magnetic capture vs blocked-fill pressure | 34.9 N on one pump's port pair at 80 psi ([pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)) | Six SB443-IN pairs in two three-pair columns, one column on that pump's line | 46 N for the one column at the catalogue steel rating: 1.3; 91 N if both columns share: 2.6 | Dock-adjacent; physical qualification already planned there |
-| Pogo contact current | Pump start and stall current | DRV8870 with ISEN grounded: no current regulation | 0.8 A running against 2 A; stall is unmeasured and typically 3–6× running | Design change needed (board); see below |
+| Pogo contact current | Pump start and jam current, held at the trip | DRV8870 current regulation through the 0.2 Ω sense resistor on each ISEN (R28, R29) | 1.54–1.81 A against 2 A: 1.10 at the ceiling; 1.65 A nominal, about twice the 0.8 A running current | Adequate in the board source; the start under the trip needs a physical observation; see below |
 
 ## Y-seam head recesses
 
@@ -74,20 +74,21 @@ shipment.
 
 ## Pogo contact current
 
-Each contact is rated 2 A. The Kamoer KPHM600 draws about 0.8 A running. Its stall current, the
-supply voltage over the winding resistance, is unmeasured; small brush motors commonly stall at
-3–6 times their running current.
-U11 and U12 have ISEN tied to ground and VREF to 3V3 ([PCB source](../pcb/pcba/pcba.tsx)), which
-the [DRV8870 data sheet](https://www.ti.com/lit/ds/symlink/drv8870.pdf) describes as PWM without
-current regulation. Nothing between the 12 V supply and the contacts bounds a jam.
+Each contact is rated 2 A and carries one pump's whole motor current. In the
+[PCB source](../pcb/pcba/pcba.tsx), each DRV8870's ISEN returns through its own 0.2 Ω ±1 %
+sense resistor (R28 on U11, R29 on U12) and VREF is 3V3. The
+[DRV8870 data sheet](https://www.ti.com/lit/ds/symlink/drv8870.pdf) trips at
+I_TRIP = VREF / (A_V × R_ISEN): 1.65 A nominal, 1.54–1.81 A across its 9.4–10.4 ISEN gain, the
+3V3 rail's ±2 % and the resistor's ±1 %. At the trip the bridge brakes for 25 µs and drives
+again, so a start or a jam is held there, and the contacts carry the trip current through the
+brake. The resistor dissipates 0.65 W at the 1.81 A ceiling, on a 1 W part. Boards from the first
+two JLCPCB batches ground ISEN and are bounded only by the driver's 3.7–6.4 A overcurrent
+protection.
 
-The correction is a sense resistor between each driver's ISEN pin and ground. The data sheet's
-current regulation trips at I_TRIP = VREF / (10 × R_ISEN); with VREF at 3.3 V, 0.18 Ω sets 1.83 A and 0.2 Ω
-sets 1.65 A, both above the running current and under the contact rating. The resistor dissipates
-about 0.6 W at that current, which needs a 1206 or larger part. The resistor is a change to the
-board source and its next order. The bench observation that confirms the setting is a pump
-start under the limit: a primed pump at the coldest expected cabinet temperature reaches full
-speed within 1 s of its command. A start that stalls under the limit selects 0.18 Ω.
+A primed head starts against the trip current. The observation that confirms the setting is a
+pump start under it: a primed pump at the coldest expected cabinet temperature reaches full speed
+within 1 s of its command
+([current protection](../reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection)).
 
 ## Cartridge capture against pressure
 
