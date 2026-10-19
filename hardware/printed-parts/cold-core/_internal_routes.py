@@ -52,8 +52,9 @@ stepped down until it stops meeting anything. The reading that comes back is the
 measurement, and the whole reason to draw these at all.
 
 TWO THINGS BUY A CORNER, and both are in here. Where a line crosses a wall, the WALL
-gives way: its opening is the line's own corridor rather than a circle, carried square
-through a pocket's flat ±Y wall (`_port_cuts.cut_line_corridors`), so a draw may come
+gives way: its opening is the line's own corridor rather than a circle, and through a
+pocket's flat ±Y wall the rectangle bounding it, cut square (`_port_cuts.cut_line_corridors`),
+so a draw may come
 about the moment it is through instead of holding a bore's length of straight first.
 Where a line has to reach and rise
 at once, it LEANS: one diagonal in place of two square corners on a step's own width,

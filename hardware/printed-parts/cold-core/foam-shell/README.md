@@ -466,7 +466,8 @@ corridor's answer, not a choice, and the last line of the report is the pack's s
 
 Six of the seven turn at the stock arc, and two things buy that. Where a line crosses a
 wall, **the wall gives way**: the opening is the line's own corridor rather than a circle,
-carried square through a bag pocket's flat ±Y wall (`_port_cuts.cut_line_corridors`), so a
+and through a bag pocket's flat ±Y wall the rectangle bounding it, cut square
+(`_port_cuts.cut_line_corridors`), so a
 draw comes about the moment it is through instead
 of holding a bore's length of straight first. Where a line has to reach and rise at once
 it **leans** — one diagonal in place of two square corners on a step's own width — which
@@ -533,9 +534,10 @@ Both cross at the elbow's own exit Z. The cable's front bore is its station on t
 and between the two the run turns onto the lane and climbs to it — the lane is what lets
 them sit at different X *and* different Z.
 
-The cable's crossing is a round bore because a cable is limp. A DRAW's is not: it is that
-line's own corridor carried square through the wall, a longer opening in x with at least the
-same loose clearance round the tube (`_port_cuts.pocket_wall_shadows`). Only two bodies in the shell give
+The cable's crossing is a round bore because a cable is limp. A DRAW's is not: it is the
+rectangle bounding that line's own corridor across the wall, cut square through it, a longer
+opening in x with at least the same loose clearance round the tube
+(`_port_cuts.pocket_wall_shadows`). Only two bodies in the shell give
 way to a line that way — a bag pocket's ±Y wall and the pocket corner posts — and every
 other thing a line meets stops it.
 
@@ -674,8 +676,8 @@ Every internal component is installed first:
   native route is [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py)
   `prv-vent`; installed relief backpressure and capacity remain unqualified.
 - Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
-  inboard of the bulkhead axis — the opening there is the line's own corridor carried
-  square through the wall, so
+  inboard of the bulkhead axis — the opening there is the rectangle bounding the line's own
+  corridor, cut square through the wall, so
   the tube turns as it crosses rather than after it — onto the port lane at the
   bulkhead band, then forward along the lane's own floor, under everything else
   standing in it, and up the forward strip to its conduit. Reservoir B's leaves by
@@ -821,11 +823,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1257727.309 mm³](FSHELL_VOLUME) |
+| volume | [1257778.766 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.510 to 141.510 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.510 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.977461, 0.208662, 91.171736) mm](CENTROID) |
+| centroid | [(0.976629, 0.178889, 91.217774) mm](CENTROID) |
 
 Quick reproduction:
 
