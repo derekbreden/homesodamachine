@@ -25,7 +25,7 @@ The plinth's height places that face on the installed valve's bearing plane.
 | bearing face | valve-frame Z[5.2](SEAT_TOP_Z) mm |
 | socket floor | valve-frame Z[-1](SOCKET_FLOOR_Z) mm |
 | stock to the outer outline | at least [3 mm](WALL) |
-| valve port | ⌀[15.2](PORT_DIA) mm, with [1.000 mm](PORT_CLEARANCE) radial channel clearance |
+| valve port | ⌀[15.2](PORT_DIA) mm, with [0.500 mm](PORT_CLEARANCE) radial channel clearance |
 
 The port channel follows the valve's Y axis. A placed plinth turns with the valve.
 `port_clearance()` reads the actual gap.

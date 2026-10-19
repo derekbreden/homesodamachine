@@ -83,7 +83,11 @@ SEAT = -_seat.seat_top_z
 # own Y instead, the port's barrel and this slip, straight across and out both ends. The barrel
 # is longer than the plate is high, so the channel is open at both — in the piece's own print
 # orientation it runs UP the standing plate and prints as a notch in the section, nothing
-# bridged and nothing to pick out. One millimetre is the box's own figure for air round a body.
+# bridged and nothing to pick out. The slip is half a millimetre, not the box's one-millimetre
+# figure for air round a body: the valve is no loose neighbour here. Its corner posts press into
+# the sockets and its round boss lands on this face, so the barrel only has to stand clear, and
+# every tenth taken off this air goes into the web between a socket and the channel. At half a
+# millimetre that web is 3.15 mm where the valve's face meets the plate.
 PORT_SLIP = _seat.port_air
 
 

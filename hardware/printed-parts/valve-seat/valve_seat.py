@@ -49,7 +49,7 @@ boss_radius = corner_post_radius + fits.slip + wall
 seat_half_x = corner_inset_x + boss_radius
 seat_half_y = corner_inset_y + boss_radius
 seat_corner_radius = wall
-port_air = 1.0
+port_air = 0.5
 
 
 def socket_depth():
