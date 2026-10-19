@@ -31,8 +31,8 @@ document says so.
 **One. The machine pours in Derek's kitchen.** One appliance, built end to end from this
 tree — carbonator welded and hydro-tested, loop brazed and charged, core foamed, box
 printed, board flashed, faucet plumbed through the counter — standing under his own sink
-where the prototype stands now, pouring both flavors daily for a month without being
-opened. Until this exists the tree describes a machine that has never been built once.
+pouring both flavors daily for a month without being opened. The integrated appliance's
+first complete build and month of uninterrupted daily use remain open.
 
 **Two. Ten machines in ten kitchens.** Ring 1 of
 [`target-market.md`](/marketing/target-market.md) "The internal plan": the first ten units
@@ -54,6 +54,12 @@ machine has been built enough times that the build is boring, and it closes when
 fiftieth is committed.
 
 ## What stands between here and the first mark
+
+The immediate milestone is to resolve assembly fit issues and button up the
+[working dispense-side prototype](/hardware/printed-parts/enclosure/lillium-prototype-2026-10-18/physical-observation.json),
+preserving its soda service. That countertop prototype does not complete the
+integrated-appliance mark. Carbonator welding and refrigeration remain part of
+the work toward that mark.
 
 The build follows the order in [`/hardware/README.md`](/hardware/README.md) "Build
 order". First-unit fabrication and performance qualification are part of that work.
