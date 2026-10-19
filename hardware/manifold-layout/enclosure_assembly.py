@@ -5477,8 +5477,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
 
         box, bounds = _box_spec.read(
             _enc.Box, _enc.Bound, (_enc.Pack, _enc.PortField, _enc.Nameplate))
-        if (_box_spec.document(_enc.documented(live_box), _enc.BOUNDS)
-                != _box_spec.document(_enc.documented(box), bounds)):
+        if not _box_spec.same_document(
+                _box_spec.document(_enc.documented(live_box), _enc.BOUNDS),
+                _box_spec.document(_enc.documented(box), bounds)):
             raise ValueError(
                 "the materialized enclosure Box differs from the freshly derived placement; "
                 "rebuild enclosure-box before composing the assembly")
