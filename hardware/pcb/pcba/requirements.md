@@ -59,7 +59,7 @@ score = 100 · (pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto)
 | `auto` | 0 | A live signal left to the autorouter — drops the score; none on this board |
 
 `score` is 100 only when every connection is hand-authored — no `auto`, no `deferred` — which is
-where this board sits (`130 pcbPath · 0 pcbComb · 100% score`). The counts ride the chip and the
+where this board sits (`132 pcbPath · 0 pcbComb · 100% score`). The counts ride the chip and the
 terminal; an `auto` or `deferred` reappearing is a regression to fix, not a backlog to burn down.
 The live work is **tightening** — pulling components into denser bundles, toward a smaller board:
 the real size floor is the board-edge parts (JSTs, screw terminal, USB-C, buttons, antenna) and
