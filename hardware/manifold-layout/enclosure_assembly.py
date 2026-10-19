@@ -270,8 +270,8 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #
 #     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
-    "wago-mana": (+1, 180.0, 280.0, "420"),
-    "wago-manb": (+1, 180.0, 246.0, "415"),
+    "wago-mana": (+1, 169.0, 280.0, "420"),
+    "wago-manb": (+1, 169.0, 246.0, "415"),
     "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
     "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
     "wago-sensors": (-1, 335.0, 270.0, "415"),
