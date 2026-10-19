@@ -8,7 +8,8 @@ MACHINE IS OCCUPIED, which is not costed and answers turnaround + throughput.
 The print estimate uses §7 masses, which are geometry-derived and commit-gated
 (_bom_masses.py), plus §12's float quantity and the accepted ASA Aero slice.
 For §7 parts, shape changes propagate through mass, print hours and throughput.
-The float and permanent TPU-receiver contributions are provisional native-slice allowances.
+The float contribution is a provisional native-slice allowance. The permanent
+TPU pump junctions and returns use their eight one-object native slice estimates.
 
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
     faucet batch, whose duration is read directly from its committed slice. THE KG IS
@@ -20,8 +21,6 @@ The float and permanent TPU-receiver contributions are provisional native-slice 
     unassigned row. The ninth group is the three ASA Aero floats: quantity
     comes from the float's BOM row; object-feed mass and time come from its v1
     native slice. The v2 geometry and manual insertion pause remain unmeasured.
-    The tenth group is one four-receiver TPU plate, using its native estimated
-    time and total feed including supports and brim, without extrapolating a rate.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
     procedure figures. Their subtotals are summed here.
   * The turnaround table is likewise read and summed, except for the print's own
@@ -45,9 +44,9 @@ FAUCET_SLICE = os.path.join(HERE, "..", "printed-parts", "faucet",
 FLOAT_SLICE = os.path.join(HERE, "..", "printed-parts", "cold-core",
                           "magnetic-float", "all-aero", "mark2-print", "v1",
                           "float-preflight.json")
-RECEIVER_SLICE = os.path.join(HERE, "..", "printed-parts", "enclosure", "pump-dock",
-                             "print-preparation", "2026-10-18-receivers-siraya85a-mark1",
-                             "native-readback.json")
+DOCK_TPU_SLICE = os.path.join(
+    HERE, "..", "printed-parts", "enclosure", "pump-dock", "print-preparation",
+    "2026-10-18-asymmetric-wet-siraya85a-mark1", "native-review.json")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(
@@ -109,12 +108,12 @@ RATES = {
     "rings": round(_BULK_PETG * 2.8),  # ten small two-colour PET-GF parts on two 0.4 nozzles
     "petgf": None,  # Exact batch duration from the committed production-profile slice.
     "aero": None,   # Native v1 estimate per float, excluding the manual pause.
-    "tpu": None,    # Native four-receiver plate estimate, not a completed-job timing.
+    "dock_tpu": None,  # Eight actual one-object Siraya native slices.
 }
 
 GROUP_MARKER = {"cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
-                "rings": "RINGS", "aero": "AERO", "tpu": "TPU"}
+                "rings": "RINGS", "aero": "AERO", "dock_tpu": "DOCK_TPU"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:
@@ -201,21 +200,19 @@ def print_estimate():
     if cover_hours <= 0 or kg['cover'] <= 0:
         raise ValueError('Funnel-cover native duration and BOM mass must be positive')
     rates['cover'] = round(cover_hours / kg['cover'], 1)
-    with open(RECEIVER_SLICE, encoding='utf-8') as fh:
-        receiver_slice = json.load(fh)
-    receiver_hours = receiver_slice['estimated_seconds'] / 3600
-    kg['tpu'] = receiver_slice['estimated_filament_g'] / 1000
-    rates['tpu'] = round(receiver_hours / kg['tpu'], 1)
+    with open(DOCK_TPU_SLICE, encoding='utf-8') as fh:
+        dock = json.load(fh)['parts']
+    dock_hours = sum(part['estimated_seconds'] for part in dock.values()) / 3600
+    kg['dock_tpu'] = sum(part['estimated_filament_g'] for part in dock.values()) / 1000
+    rates['dock_tpu'] = round(dock_hours / kg['dock_tpu'], 1)
     hours = {g: kg[g] * rates[g] for g in kg}
     hours["petgf"] = faucet_hours
     hours["aero"] = float_qty * float_hours
     hours['cover'] = cover_hours
-    hours['tpu'] = receiver_hours
+    hours['dock_tpu'] = dock_hours
     return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
             "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
-            "float_qty": int(float_qty), "float_minutes": float_hours * 60,
-            "receiver_qty": len(receiver_slice['parts']),
-            "receiver_minutes": receiver_hours * 60}
+            "float_qty": int(float_qty), "float_minutes": float_hours * 60}
 
 
 def read_sections():
@@ -304,8 +301,6 @@ def main():
         "MT_KG": f"{estimate['total_kg']:.3f}",
         "MT_FLOAT_QTY": estimate["float_qty"],
         "MT_FLOAT_MINUTES": f"{estimate['float_minutes']:.1f}",
-        "MT_RECEIVER_QTY": estimate['receiver_qty'],
-        "MT_RECEIVER_MINUTES": f"{estimate['receiver_minutes']:.1f}",
         # What a unit still takes off the PETG spool: the three groups that are not
         # PET-GF or ASA Aero. Summed from the same masses, so it follows §7.
         "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small'] + kg['cover']:.2f}",

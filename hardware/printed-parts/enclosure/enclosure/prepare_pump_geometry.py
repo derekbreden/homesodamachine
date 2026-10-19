@@ -178,7 +178,9 @@ def native_checks(enc, box):
           full_insert_engagement_mm=enc.cap_heatset_len)
 
     floor = enc._bay_floor(box.inner,box.y_joint,plate,trays)
-    wall = enc._tee_wall(box.inner,box.y_joint,plate,box.pump_bay)
+    wall = enc._receiver_wall(box.inner,box.y_joint,plate,box.pump_bay)
+    stocks, cuts = enc._dock.fixed_features(plate)
+    wall = wall.fuse(*stocks).cut(*cuts[1:]).clean()
     for cx, cy, cz in trays:
         above = enc._ybox(cx-32,cx+32,enc.front_plane_y,cy+33,
                          floor_top+.001,floor_top+2.)
@@ -197,7 +199,7 @@ def native_checks(enc, box):
             tube = enc._ycyl(3.175,x,outlet_z,datum[1],plate['seated_tube_bottom_y'])
             empty(f'X{x:g} quarter-inch tube clears emitted cradle',tube,cradle)
             empty(f'X{x:g} quarter-inch tube clears fixed plate passage',tube,wall)
-    for dy in (0.,-plate['connected_release_travel'],-20.,-80.):
+    for dy in (0.,-enc._receiver.CUSTOMER_TIP_Y,-20.,-80.):
         empty(f'cradle/plate at {dy:g} mm cartridge withdrawal',
               cradle.translate((0,dy,0)),wall)
         empty(f'cap/plate at {dy:g} mm cartridge withdrawal',

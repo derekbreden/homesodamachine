@@ -42,8 +42,7 @@ Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assem
 
 Cycle the pump dock dry before attaching either bench supply. Brace the enclosure and
 withdraw the cartridge straight along its floor. All four prepared flanged stems must
-slide out together while the TPU receivers, their locked keepers, rear support and all
-commercial tees stay fixed. Confirm that the electrical contact pair parts with the
+slide out together while the TPU receivers, their locked keepers, four fixed TPU returns and dry captures stay fixed. Confirm that the electrical contact pair parts with the
 cartridge and that its fixed half and +X cable clip remain in place. Inspect all four
 socket entrances and tube tips for cuts, displaced TPU, loose material or scoring.
 
@@ -62,7 +61,7 @@ Connect the test-rig water source to the +Y wall's PP1208E 1/4" JG QC inlet, pus
 **Set the primary to [75 PSI](CO2_PRIMARY_SET). It ships at this setting, and the customer never adjusts it.** Loosen the jam nut on the slotted adjusting screw and back the screw out until it turns freely. Open the cylinder valve. Turn the screw in a quarter turn at a time until the upper 160 PSI gauge settles at [75 PSI](CO2_PRIMARY_SET) [± 5 PSI](CO2_PRIMARY_TOL) with no gas flowing; the secondary then feeds the nominal [43.5 PSI](CO2_CENTERLINE). Come up to 75 from below: if the needle passes it, back the screw out, close the cylinder valve and open the faucet until the gauge falls under 75, then reopen the valve and come up again. Hold the screw and tighten the jam nut against the bonnet. Close the cylinder valve, open the faucet until the gauge falls, reopen the valve and confirm the needle settles back at 75. Draw one paint-pen line across the screw end, the jam nut and the bonnet, so any later turn shows. Record the setting in the unit's log. A trial at another feed uses a bench regulator and is a separate test, not the qualification. Record the initial charging, air removal and conditioning sequence so carbonation comparisons use the same CO2 headspace condition. Do not yet open the water-side test-rig valve. Place the [12 oz](GLASS_OZ) target glass on the bench under the faucet position (the faucet itself is on its under-counter mount; the bench can take the chassis with the faucet temporarily oriented over a catch tray or with a stub line into the same target glass — bench-rig detail at Derek's discretion).
 
 **Pass:** all four tube ends separate and reenter together; the cartridge closes on its
-rigid seats; the receivers, keepers, rear support, commercial tees, fixed electrical half
+rigid seats; the junctions, keepers, returns, dry captures, fixed electrical half
 and cable clip stay put; all four J13-to-pump connections are continuous and correctly
 mapped; the dedicated faucet OVER outlet is open over the test sink; and no bench gas
 connection leaks. **Fail:** damaged or displaced TPU, a bent or caught stem, incomplete
@@ -115,7 +114,7 @@ Re-fill the carbonator using the refill queued by the falling low-level crossing
 Run the metered dispense (target [~250 mL](METERED_WATER) water + [~12.5 mL](METERED_FLAVOR) flavor A concentrate, totalling [~262.5 mL](METERED_TOTAL)). The graduated cylinder receives the mixed product; the carbonator low-reed will likely assert mid-pour and queue a refill which firmware will defer until the dispense window closes.
 
 During flow and the following closed-valve hold, inspect both pump-end joints, both
-sides of the TPU receivers and the fixed tails. No seepage, air ingress visible in the
+sides of the TPU junctions, returns and fixed tube links. No seepage, air ingress visible in the
 clear receiver, receiver migration or cartridge movement off its seats is acceptable.
 Apply the same inspection to channel B in step 7. The dock's separate pressure and
 endurance qualification sets the operating envelope; a clean dispense alone does not
@@ -191,7 +190,7 @@ Confirm before releasing the unit: no water audible on a gentle tilt, both reser
 A unit that has passed acceptance and burn-in:
 
 - Carbonator first-water-fill completed without leak
-- Pump dock cycled dry through seated → withdrawn → seated; four flanged stems separated and reentered together, permanent receivers/keepers/rear support and tees stayed fixed, the electrical pair parted and mated without disturbing its fixed half or cable clip, and J13-to-tab continuity was confirmed with the cartridge on its rigid seats
+- Pump dock cycled dry through seated → withdrawn → seated; four flanged stems separated and reentered together, permanent junctions/keepers/returns and dry captures stayed fixed, the electrical pair parted and mated without disturbing its fixed half or cable clip, and J13-to-tab continuity was confirmed with the cartridge on its rigid seats
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet OVER outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin

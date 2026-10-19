@@ -1,7 +1,12 @@
-# Four permanent TPU receivers — native print preparation
+# Four straight receivers — archived native print preparation
 
-Four copies of the [canonical receiver STL](../../../enclosure/enclosure-pump-receiver.stl)
-stand with their front funnel rings on the bed and their bores vertical.
+This archive covers four copies of the straight receiver mesh embedded in
+its saved project. It does not prepare the asymmetric junctions, fixed
+returns, keepers, cradles or covers in the current twenty-part dock.
+Its receiver geometry, vertical-bore pose and four-object plate apply only
+to the archived meshes and source bindings below.
+
+The four receivers stand with their front funnel rings on the bed and their bores vertical.
 The preparation uses the Mark1/H2C right fixed 0.6 mm nozzle recipe retained
 by the [Siraya single-elbow physical record](../../../../../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json).
 That record accepts the elbow's exterior quality and reports internal
@@ -81,20 +86,19 @@ a strand-free passage. Inspect and clear the actual fluid passage before
 factory assembly; receiver dimensions, seal holding and lifetime remain
 physical qualifications.
 
-[Source bindings](source-bindings.json) bind the canonical STL, geometry
+[Source bindings](source-bindings.json) identify the reviewed source STL, geometry
 module, retained recipe and physical record, preparation/review scripts,
 project, archive and figure. All reviewed functional settings survive the
 native slicer's metadata normalization, and the native G-code checksum
 matches. The [preparation record](preparation.json),
 [native readback](native-readback.json) and [slicer result](slice-result.json)
 retain their separate evidence. The [binding audit](binding-audit.json)
-compares the fresh preparation's exact geometry snapshot, current canonical
-wet STL bytes and all eight embedded receiver meshes. The original source
-reference remains intact, with geometric differences reported explicitly.
+compares that preparation's geometry snapshot, source STL bytes and all
+eight embedded receiver meshes. Its recorded hashes and source reference
+scope the reading to this archive.
 
-Reproduce this preparation manually, without any printer action:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py
-```
+The retained [preparation script](prepare.py) and [path reader](review_slice.py)
+document this archive's process. Their straight-receiver source name and
+vertical-bore rotation are not a preparation recipe for current wet parts.
+Current junctions and returns require one object per plate in their own
+manufacturing pose, with a review of their emitted paths.
