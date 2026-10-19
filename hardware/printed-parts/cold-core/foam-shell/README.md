@@ -325,12 +325,54 @@ the foil onto the smooth lands around the openings without wrinkles or
 air channels. This local seam seal is not a complete cold-core vapor-barrier or lifetime qualification.
 
 [3M's technical data](https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf)
-identifies low moisture-vapor transmission and seam-sealing use. This is
-the material basis for the dry joint. The
+identifies low moisture-vapor transmission and moisture-barrier use in
+appliances. This supports the local static-seam application. The
 [native closure review](../foam-cap/dry-closure-review.json) records the
 rigid seats, complete floor stock, screw reach and unchanged stack planes.
 Reservoir gaskets retain their separate wetted-seal function and accepted
 physical evidence.
+
+#### Why the operating core's seams are sealed
+
+The upper cap/shell joint opens into the body's component and insulation
+space. At its nominal 0.15 mm seat allowance, a path crosses above the
+flush-trimmed body foam and enters the unfilled clearance around the chilled
+water outlet tube. That conduit is 7.5 mm across around the measured 6.5 mm
+tube. The reservoir pockets and reed channels also remain air cavities.
+The [one-off seam review](../foam-cap/seam-moisture-review.json) records a
+continuous native route clear of the shell, cup, lid and tube envelope from
+the cabinet into this conduit. Clamping may close the nominal allowance;
+dry printed contact provides no specified continuous air seal.
+
+The carbonator wall control is 2–4 °C. For an illustrative room condition
+of 25 °C and 50% RH, the calculated dew point is 13.9 °C; at 60% RH it is
+16.7 °C. Cabinet air admitted beside a tube carrying chilled water can
+therefore condense inside the core. The outside seam itself need not be
+below the dew point, and no bulk air flow is needed for vapor diffusion
+along a connected gap. These examples establish the design reason to close
+the route; they are not measurements of this core's leak rate or wetting time.
+
+[ASHRAE's refrigeration insulation guidance](https://handbook.ashrae.org/Handbooks/R26/IP/R26_Ch10/R26_Ch10_ip.aspx)
+calls for sealing seams and penetrations on the warm side of below-ambient
+insulation. Even insulation that itself supplies sufficient vapor resistance
+needs sealed joints. The
+[foam supplier](https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html)
+describes a 95–98% closed-cell, water-resistant material; that does not close
+the casing's gaps or establish its vapor permeance at our thickness.
+
+The cap/lid joints border the separate cap insulation cavities. The bottom
+cap/shell joint lies between two printed floors and has no equivalent open
+route into the body foam; the common lower band covers it while sealing
+the lower cap/lid joint. These joints do not all have the same exposure.
+
+The foil bands close the perimeter joints only. Tube/cable annuli, copper
+exits, screw access and exposed foam at the cap pour/vent holes belong to
+the rest of the warm-side moisture boundary. Their presence prevents a
+complete vapor-retarder claim from these bands alone. Functional reservoir
+vents, fluid lumens and the PRV discharge route must stay open. This local
+sealing decision requires no gasket, dimensional change or moisture test
+before a room-temperature enclosure fit print; the tape is applied during
+assembly for refrigerated operation.
 
 ## Cap-to-outer-shell joinery
 
