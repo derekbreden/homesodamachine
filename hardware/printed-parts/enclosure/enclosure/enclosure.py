@@ -126,6 +126,8 @@ import cadquery as cq
 from OCP.BRepAdaptor import BRepAdaptor_Surface
 from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffset
 from OCP.GeomAbs import GeomAbs_Arc, GeomAbs_Intersection
+from OCP.ShapeExtend import ShapeExtend_WireData
+from OCP.ShapeFix import ShapeFix_Wire
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -342,6 +344,8 @@ disposal_bottom = 14.0
 disposal_margin = 5.0
 # Half the 0.42 mm bead: each outline is shrunk and regrown by this before it is raised.
 disposal_open = 0.21
+# An opened outline edge shorter than this joins its neighbours.
+disposal_small_edge = 0.01
 
 
 def flute_backed_sections():
@@ -3219,6 +3223,28 @@ def _disposal_offset(face, distance, join):
     return cq.Face.makeFromWires(wires[0], wires[1:]).fix() if wires else None
 
 
+def _disposal_joined(face):
+    """`face` with every outline edge shorter than `disposal_small_edge` merged away. Opening
+    leaves such edges where a straight stroke meets a curve; raked, each would be a face no
+    tessellation closes."""
+    wires = []
+    for wire in [face.outerWire(), *face.innerWires()]:
+        kept = ShapeExtend_WireData()
+        for edge in wire.Edges():
+            if edge.Length() >= disposal_small_edge:
+                kept.Add(edge.wrapped)
+        fix = ShapeFix_Wire()
+        fix.Load(kept)
+        fix.SetFace(face.wrapped)
+        fix.SetPrecision(disposal_small_edge)
+        fix.SetMaxTolerance(disposal_small_edge)
+        fix.FixReorder()
+        fix.FixConnected(disposal_small_edge)
+        fix.FixClosed(disposal_small_edge)
+        wires.append(cq.Wire(fix.Wire()))
+    return cq.Face.makeFromWires(wires[0], wires[1:]).fix()
+
+
 def _disposal_opened(face):
     """`face` shrunk and regrown by `disposal_open`: a point or spur narrower than a bead is
     gone, and every stroke and gap wider than one stands where it was. An outline OCCT cannot
@@ -3227,7 +3253,7 @@ def _disposal_opened(face):
         shrunk = _disposal_offset(face, -disposal_open, join)
         grown = shrunk and _disposal_offset(shrunk, disposal_open, join)
         if grown:
-            return grown
+            return _disposal_joined(grown)
     return face
 
 
