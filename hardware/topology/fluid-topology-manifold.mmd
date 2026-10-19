@@ -20,8 +20,8 @@ flowchart LR
   %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest include
   %% [4](UPPER_LINK_COUNT) straight upper links, [8](LOWER_LINK_COUNT) straight lower links,
   %% printed TPU junctions/returns and the source pair's two quarter-and-step turns. Reported tube lengths total
-  %% [2601.4 mm](FLUID_TOTAL) of 1/4" LLDPE over [69](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [446.4 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% [2410.2 mm](FLUID_TOTAL) of 1/4" LLDPE over [53](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [446.8 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The stock total
   %% excludes machined pump stems and printed TPU passages. Mouth-to-mouth link lengths
   %% need their actual socket or fitting insertions for cut blanks. The funnel's gravity
@@ -144,8 +144,8 @@ flowchart LR
   %% are straight upper links to the fore valves.
   VC -->|"fluid-9"| YC
   VE -->|"fluid-10"| YC
-  YC -->|"fluid-11"| PA
-  PA -->|"fluid-12"| YD
+  YC -->|"fluid-11<br/>pump-dock"| PA
+  PA -->|"fluid-12<br/>pump-dock"| YD
   YD -->|"fluid-13"| VF
   VF -->|"fluid-14"| ResAFill
   ResA -->|"fluid-16"| VE
@@ -160,8 +160,8 @@ flowchart LR
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
   VH -->|"fluid-20"| YF
-  YF -->|"fluid-21"| PB
-  PB -->|"fluid-22"| YG
+  YF -->|"fluid-21<br/>pump-dock"| PB
+  PB -->|"fluid-22<br/>pump-dock"| YG
   YG -->|"fluid-23"| VI
   VI -->|"fluid-24"| ResBFill
   ResB -->|"fluid-26"| VH

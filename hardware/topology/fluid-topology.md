@@ -72,7 +72,7 @@ a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
 [4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
 exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [2601.4 mm](FLUID_TOTAL); exposed lengths need
+links. Reported LLDPE paths total [2410.2 mm](FLUID_TOTAL); exposed lengths need
 their actual fitting insertions when making finished blanks. A butt joint still
 needs tube through both fittings despite its zero exposed length. The factory
 sets captive link lengths from the mounted stop spans and fully seats valve-side

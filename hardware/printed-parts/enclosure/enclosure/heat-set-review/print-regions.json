@@ -991,34 +991,34 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "d554b02c45977c634632086ab368026dd7c1338628e7c6cfff01673cb0b7a84c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "057c5b483ae6e9dc8087a690d57eace27d6f5c2d578c4979d917e9c5d78356f0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "fc4819d3e41440c0d85a3f6895e553e9d8c5d4171a55d99dba313d536489b477",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "21e6952b68f866e6ca345b96672082fc577554beb9956a58083bd2ec71597bf4",
+    "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "70a4b80b9ca909f9a03f5bb0cdc3a5e32c23f1764221d63f237f69ac87d043a9",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
     "hardware/printed-parts/enclosure/pump-dock/stub_grip.py": "c412dd99a5c29301b57f175b6381a7d009fe914e818893d417857412930bf71f",
     "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json": "1956cc2892c57f7b1409238ab1ba9fedb128e3af98f521ba6941362d9b9838ef"
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json": "8e37c1125939dcca4be4303197a1dd44d3868e3bc924fb5e52efbe95ccd66682"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "a44f1f760cbbf15c99fc4aea3590efe21951141680119e60679770d1886d3607",
-      ".stl": "2c8fdedab66d75751a00d74cba855b4cfc3a2498aef213519719282ec52e801f"
+      ".step": "09e760f0a31e3e3a40ef1ae91d2d30998ada755e0aea8b329c77d303c863d19e",
+      ".stl": "60624269c6d6c30bb6589109aa48e4759c1ae15f6a3fb773659eb32100931603"
     },
     "front-top": {
-      ".step": "1d3f179b0eeee9257453562882ca03ec440dffcc07c1bf95f68fc14765cd36a4",
-      ".stl": "717688ad4685e2651f80c9900853f7a152623f7245df76196f85fbfe66ea74ea"
+      ".step": "61ec85572b318128ee9a2eefb1f81f00df882f3f634c01bd584d40fdd41bb8d8",
+      ".stl": "99cc384e339261c87f65618d3e4445b182bc9fc9167e55655d77cd3d3c4b71ce"
     },
     "back-bottom": {
-      ".step": "ab5843d14aed4a795274c5df99811fb57cae6e32c465558422b714a25ac2dca1",
-      ".stl": "5000137d209e8a4c4b859152bcdd0e3ad6e176033534b5aa476598a54c212e39"
+      ".step": "bf7c642cd3e76301864ff37d79797dd52a67540d01377c5f935dadce8ebc54b4",
+      ".stl": "6eab117a2d6a55ba806af57c4df3c0fad16a4a63490af89f3f5017178bb396a9"
     },
     "back-top": {
-      ".step": "e76b15bf84ccde53a0c76646cd20a58512d4652cf3e0ba518b5bd4d6d89aa99c",
-      ".stl": "081e23f6407482b7503ef4604993f385bfb03172ecd6703085d42d59ad85caa6"
+      ".step": "7c37fa578fdcc501712b0f3ed8aee082aa6a014bdb74fffa566907eeda8538b4",
+      ".stl": "f9213cd74d30a8bb8c95b61b2a15b060cbe8ac3ab6e88482522ccabce5bc1ec7"
     },
     "pump-cartridge": {
       ".step": "9bfe3ca33a40e038b383923479c0fd8d53d4b1c2c228c5461301ca5a555a7e07",
@@ -1041,12 +1041,12 @@
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-return-cradle-west-outer": {
-      ".step": "543d825a8343981c74d4b48d9428811b24212c9e0b6e9393b1199271bc198e74",
-      ".stl": "3d7857291b795f9cca3bde1f11b6be9c35b595d8f1041518308858a2fbd03fd5"
+      ".step": "c94c200940721ac1ba93755dcec629127d239cbc15c384add5d0a3003e1efb9d",
+      ".stl": "823d7704796a83c393a5ce0e769f2e7544ecd8094160a5726e873127957beddc"
     },
     "pump-return-cover-west-outer": {
-      ".step": "e0c57f05056311fab56dc553dd6da679adb8fb0354c10e8c52cc1ff4153d761a",
-      ".stl": "7d1135aadf873a63aaeabfbb426aaf55fc847ad592a03f3cc58e12262ebeaf05"
+      ".step": "f0b9388d6facb96e93a624cfea7257e8f76578e1330be9f1648535f616c817db",
+      ".stl": "bd7dc3237bbbd1a514b27053954b592814e69720c5dfdef3015552ec4f2ae196"
     },
     "pump-receiver-west-inner": {
       ".step": "00ef197f2db195f214ce5ca116e0b429f2fb866ea80932edbb5ddb33800efba0",
@@ -1061,12 +1061,12 @@
       ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
     },
     "pump-return-cradle-west-inner": {
-      ".step": "96109f87ffbfa288f1fd701e012b8ef1719b110887440b1742adfcd75cd8be32",
-      ".stl": "cd890c40debca1d6ccf96dcd097a5c2c4363744cd7f713989dd4b9f421305bea"
+      ".step": "d1462d63c3ab535ca3b6f47b5d20984bc91c2f4e5aba39e588d3d514ae34ed2d",
+      ".stl": "536c89446255c662b98e8e1bc1d8fc5000cfd480fbba6da135a7a249449c1735"
     },
     "pump-return-cover-west-inner": {
-      ".step": "ab0511c37e1a69929072b377706ba6b9e44bf56a5b663999525296b67268ed1f",
-      ".stl": "9d0a476bcf3daaabfd83e59bdaafa6f9c797b849682fb4feb501e6d836617913"
+      ".step": "5d290687356955f163dcc10bc867966eca29295f2867ef7de501084034dd2a4f",
+      ".stl": "8d0bc689da291af25e61bb4c6054bc8d92da2a5dcb4384537b3d87063ab05b0f"
     },
     "pump-receiver-east-inner": {
       ".step": "6cedf1d311422f335bb3b1dde2dbb9329fbddb033afe49208343a39c75eb8cc4",
@@ -1081,12 +1081,12 @@
       ".stl": "4b0ae0b176dce5f9ddf7e4a5d1761e79549202fa2bb3c270b41731224c1fc807"
     },
     "pump-return-cradle-east-inner": {
-      ".step": "1628f4f786805dc697a7668d0b1b14891b030ea622d34c96bb025159f866f7d2",
-      ".stl": "cb09da79a406d2009a0397431444a1687fa76209cb84514eebdb72f13a8f63d7"
+      ".step": "12d10ef1f43e31498c88d5dd0005adcee95fd3fdc9cbd3e7852cf232b112ebfb",
+      ".stl": "018390f9c54472e73d1c8df5c778d219e2653a89e13309d2ba7167b35ce962ab"
     },
     "pump-return-cover-east-inner": {
-      ".step": "5570f949c2da868ad9daff3d40d434b551da966530719c0083f6bcd41c0d3087",
-      ".stl": "af332199fde288da36b42f48a00e9e75f51eda033b16618cf96f176628729b41"
+      ".step": "85dc20ca546691e1dd5248a0c0ba3b4720e2b37434890f51e2a26e34ab0efe65",
+      ".stl": "52a29e932cfc3592094ec6be9fd82eb0d983e7851fea07f07bf871eac35c5aa9"
     },
     "pump-receiver-east-outer": {
       ".step": "648e505f23657f9decc58b6da99d54da052a90a7b820f643ba6a6227ef9381ae",
@@ -1101,12 +1101,12 @@
       ".stl": "9875c8b82867939838d7d0848aae5a47ca2359680c38383512ad7df85f1ac47b"
     },
     "pump-return-cradle-east-outer": {
-      ".step": "38342bcbda2f609f43a3aff2ea91b7a8a68798ce6ff320c4e31ea5b575f77bc6",
-      ".stl": "642800dde31a6455cf550b64f83621208773202e427f459aa764603d3d8c1c57"
+      ".step": "6c7e111bdbc80c295fb5434f719c7f3bb5c01dcddac29523a01e79435c9e2c25",
+      ".stl": "6ee5c0bcedcd0288d8981926876c1064d7eab81dfc5a343dc126ae260cc4082f"
     },
     "pump-return-cover-east-outer": {
-      ".step": "23e2f56502071e45e89632131e5d9c6cc1aef4e1b997fe2ca146ff827ed7f905",
-      ".stl": "e4d51065c743acba184e91db3731c598e219a60b2b338b5e3e7474a6ca72499d"
+      ".step": "cc8636efd3e3b7a65277459ceada6c7512615335f1d78819a16ebd14c1691eaa",
+      ".stl": "2f858ab34ba8508ca404642c3c5d7a109b57801fea78d15606ae8c098ea6eb39"
     }
   },
   "pieces": {
@@ -1583,8 +1583,8 @@
           -14.85,
           14.85,
           82.64,
-          99.836,
-          263.1256261237512,
+          98.39,
+          261.05081084357994,
           284.42400000000004
         ],
         "sparse_infill_density": "100%",
@@ -1593,16 +1593,16 @@
           -14.85,
           14.85,
           82.64,
-          99.836,
-          263.1256261237512,
+          98.39,
+          261.05081084357994,
           284.42400000000004
         ],
         "print_bounds_mm": [
           -14.85,
           14.85,
           82.64,
-          99.836,
-          102.8756261237512,
+          98.39,
+          100.80081084357994,
           124.17400000000004
         ]
       },
@@ -4206,9 +4206,9 @@
           -14.596194077710004,
           59.688339828220016,
           -31.181048327200443,
-          43.57295167279504,
+          43.57295167279514,
           5.934142066621462e-14,
-          24.925000000000015
+          24.9250000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -4216,7 +4216,7 @@
           -14.596194077710004,
           59.68833923339844,
           -31.181047439575195,
-          43.57295167279504,
+          43.57295167279514,
           8.881784197001252e-14,
           24.924999237060547
         ],
@@ -4224,7 +4224,7 @@
           -14.596194077710004,
           59.68833923339844,
           -31.181047439575195,
-          43.57295167279504,
+          43.57295167279514,
           8.881784197001252e-14,
           24.924999237060547
         ]
@@ -4456,9 +4456,9 @@
           -59.68833982822,
           14.596194077713003,
           -31.18104832720209,
-          43.57295167279504,
+          43.57295167279514,
           -8.160694342507213e-13,
-          24.925000000000015
+          24.9250000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -4466,7 +4466,7 @@
           -59.68833923339844,
           14.596194077713003,
           -31.181047439575195,
-          43.57295167279504,
+          43.57295167279514,
           8.881784197001252e-14,
           24.924999237060547
         ],
@@ -4474,7 +4474,7 @@
           -59.68833923339844,
           14.596194077713003,
           -31.181047439575195,
-          43.57295167279504,
+          43.57295167279514,
           8.881784197001252e-14,
           24.924999237060547
         ]
@@ -4761,73 +4761,5 @@
         ]
       }
     ]
-  },
-  "source_input_equivalence": [
-    {
-      "input": "hardware/manifold-layout/enclosure-box.json",
-      "raw_generation_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
-      "current_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
-      "complete_collet_plate_equal": true,
-      "outer_equal": true,
-      "other_coordinate_changes": [
-        {
-          "path": "/box/pack/values/17/0/0/0",
-          "before": 16.8950000078204,
-          "after": 16.895000007820393
-        },
-        {
-          "path": "/box/pack/values/17/0/0/1",
-          "before": 270.59999999999997,
-          "after": 270.5999999
-        },
-        {
-          "path": "/box/pack/values/25/0/0",
-          "before": -78.5000001156408,
-          "after": -78.50000011564079
-        },
-        {
-          "path": "/box/pack/values/25/0/1",
-          "before": 194.29999989999993,
-          "after": 194.29999979999997
-        },
-        {
-          "path": "/box/pack/values/25/1/0",
-          "before": 78.5000001156408,
-          "after": 78.50000011564079
-        },
-        {
-          "path": "/box/pack/values/25/1/1",
-          "before": 194.29999989999993,
-          "after": 194.29999979999997
-        },
-        {
-          "path": "/box/pack/values/27/0/0",
-          "before": -90.50000011564077,
-          "after": -90.50000011564079
-        },
-        {
-          "path": "/box/pack/values/27/0/1",
-          "before": 323.79999999999995,
-          "after": 323.7999999
-        },
-        {
-          "path": "/box/pack/values/27/0/2",
-          "before": 191.85000009999996,
-          "after": 191.84999999999997
-        }
-      ],
-      "maximum_other_coordinate_change_mm": 9.999999406318238e-08,
-      "scope": "The complete dock plate and enclosure bounds are exact. Nine other coordinates differ by at most 1e-7 mm, below the declared 1e-6 mm document comparison tolerance. Named modifier geometry and all 52 native artifact bindings are retained."
-    },
-    {
-      "input": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
-      "raw_generation_sha256": "f6a53884f0744707a454e4caa54ce2a076ad095786677c0b225556ff136934db",
-      "current_sha256": "1956cc2892c57f7b1409238ab1ba9fedb128e3af98f521ba6941362d9b9838ef",
-      "exact_unchanged_fields": [
-        "All eight key_regions arrays",
-        "All eight source_to_print_mm matrices"
-      ],
-      "scope": "Only source input equivalence metadata is rebound in the wet review. Native key geometry descriptors, placement matrices, project and emitted identities are unchanged."
-    }
-  ]
+  }
 }
