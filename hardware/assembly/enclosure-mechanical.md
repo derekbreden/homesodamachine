@@ -52,7 +52,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | Bench-built electronics bay | Output of [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](/hardware/assembly/wiring.md) |
 | ruthex M3 heat-set inserts, **both bodies** + M3 fasteners | ruthex B08BCRZZS3 (RX-M3x5.7 full-length) + B09ZHSGHXD (RX-M3Sx4.0 short) + BNUOK B0DJQGF665 / B0DJQH3WSX (M3 × 6) / B0DJQGPRPV (M3 × 8) / B0DJQGGDP2 (M3 × 10) | Per the mount schedules the printed pieces carry, including the condenser's two aft fingers. The cold core's grips take none, being printed features the box closes on. The nameplate's receiving slots and retaining shoulders are printed features |
 | ruthex M5 heat-set inserts + M5 fasteners | ruthex B07YSVXWS8 + MewuDecor B0BHZVXNJX + M5 × 25 fender washers B0GSMDY5GL | The floor slab's four posts under the compressor's plate, and the Y seam's four corner-stack stations |
-| Y-seam screws and flat washers | Two partially threaded M5 × 150 and two fully threaded M5 × 60 socket-head screws; four M5 flat washers, Ø10 × 1 mm | One washer under each head; all four use 4 mm hex. The screws pass through printed clearance holes into ruthex M5 inserts |
+| Y-seam screws | Two partially threaded M5 × 150 and two fully threaded M5 × 60 socket-head screws | Each head bears on its printed floor; all four use 4 mm hex. The screws pass through printed clearance holes into ruthex M5 inserts |
 | Chassis bonding lead — compressor body | Green 18 AWG, ring terminal | Rings under the compressor's own earth screw at its terminal box; landed at the ground bus in [`wiring.md`](/hardware/assembly/wiring.md) |
 
 Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm for M5), soldering iron + ruthex insert tips for any inserts not pre-installed at the printed-part stage, a level, and a bench fixture that holds the pieces square while the pack goes in (not yet specified — see Open items).
@@ -236,27 +236,21 @@ The box closes in two slides and four screws, and everything in the service bay 
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's tongue closes square inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor pocket is Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, leaving 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
-3. **Four screws, one washer on each.** Support the flank securely over the bench edge.
+3. **Four screws.** Support the flank securely over the bench edge.
    Allow about 120 mm clear below the enclosure for the lower screws to enter or withdraw,
    and about 60 mm above the roof for the upper screws.
 
-   **Place each lower washer first.** Tip the loose washer sideways by about 35° and guide
-   it up through the handhold into the open head pocket, whose entry has a 0.35 mm bevel.
-   Once it is inside, turn it flat
-   against the bearing floor and hold it there. Feed the [M5 × 150](LOWER_ROD) screw upward
-   through the washer and the printed blocks into back-top's anchor block.
-
-   For each upper station, drop a washer flat into its roof pocket and insert the
-   [M5 × 60](UPPER_ROD) screw downward through it into front-top's upper block. Each
+   Feed each [M5 × 150](LOWER_ROD) screw upward through the handhold's head pocket and
+   the printed blocks into back-top's anchor block. For each upper station, insert the
+   [M5 × 60](UPPER_ROD) screw downward through its roof pocket into front-top's upper block. Each
    U-shaped head pocket opens toward the enclosure interior; the upper mouth continues
    into the funnel opening above the frame. Start every screw in its
    cooled insert by fingers for several turns. Put the long leg of a 4 mm hex key in
    the head and turn its short leg with thumb and forefinger. Stop at the first distinct
-   seating resistance, with the washer flat and head free play removed. Do not use a
+   seating resistance, with the head on its floor and free play removed. Do not use a
    screw to pull a binding slide home. The modeled PET-GF-to-PET-GF block allowances
-   accommodate printed material; the steel washers bear on nominal pocket floors. Tightening
-   does not guarantee a visible block gap remains. The lower
-   washer placement and holding operation's practical ease remain unqualified.
+   accommodate printed material; the heads bear on nominal pocket floors. Tightening
+   does not guarantee a visible block gap remains.
 
    No installation torque or retained clamping force is established for these printed parts.
    The lower screws connect both bottom pieces to back-top; the upper screws connect the two

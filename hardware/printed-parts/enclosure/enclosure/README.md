@@ -102,8 +102,8 @@ other's overlap, alternating up the corner, with two vertical M5 screws through 
 flank and runs aft one running fit inside the back piece's skin; a back knuckle grows out of
 that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
 overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
-[9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior; the upper axes stand at |X|98,
-[9.5 mm](Y_STACK_AXIS_OUT) in. All four are mid-overlap in Y. The lower blocks reach
+[9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior; the upper axes stand at |X|97.5,
+[10 mm](Y_STACK_AXIS_OUT) in. All four are mid-overlap in Y. The lower blocks reach
 13.75 mm inward from `interior_x`, leaving 0.25 mm to the cold core's flank.
 
 - **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
@@ -133,29 +133,24 @@ The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. The 
 its manufacturer minimum surrounding stock, [Ø11.6](Y_STACK_INSERT_BOSS) about the screw
 axis, fit inside the side band.
 
-Each screw carries **one ordinary M5 flat washer**, Ø10 × 1 mm, directly under its head.
-The [Ø10.8 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
-interior, with a complete washer-bearing floor. The lower floor is Z37.25 and the upper
-floor is Z347. The nominal screw and washer poses keep the head faces recessed 2 mm
-from the handhold ceiling and roof. The steel washers bear directly on those floors.
+Each screw head bears directly on a printed floor.
+The [Ø9 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
+interior, with a complete head-bearing floor. The lower floor is Z37.25 and the upper
+floor is Z347. The head faces stand 3 mm inside the handhold ceiling and roof.
 The [native insert audit](heat-set-review/geometry-check.json) records insert hosts
 and screw pockets for its listed source and STEP hashes. At those nominal CAD part poses,
 the ±0.8 mm screw-length allowance leaves all four seam screws with the full 9.5 mm
 insert engagement and at least 1.7 mm of blind-tip room.
 The screw passages are printed to size.
-Seat the washers with a hand-operated 4 mm hex key and stop at the intended bearing faces.
+Seat the heads with a hand-operated 4 mm hex key and stop when they meet their floors.
 The printed joint has no qualified installation torque or retained clamping force.
 
-**Upper screw-access mouth at the roof edge:** the exterior show-edge taper leaves a
-minimum horizontal outboard rim width of 1.81 mm over the top 2.38 mm of the opening.
-That width reaches at least 3 mm below Z352.6164. The rim is the fluted flank skin, under
-the same show-field profile exception as every fluted face; the Ø10 washer, front-top's M5
-insert host in its 13 mm knuckle and the fixed exterior set the recess it stands outside.
-Both head recesses retain a complete 3 mm section below their washer-bearing annuli.
-Outboard of each lower recess the flank stays plain from the handhold ceiling to the top of
-its R6 roll, so the flutes fade in above the recess and its washer floor keeps the full
-3 mm flute backing. The rim of that recess at the handhold's R6 edge is the washer-locating
-rim and bears nothing; the washer bears on the floor.
+**Head mouths at the R6 rolls:** the roof's side roll and its additive print chamfer stand
+outboard of the upper recesses, which keep a 3.2 mm outboard rim at the roof plane. The
+handhold's lifting-edge roll stands outboard of the lower recesses; their outboard rim is
+2.46 mm at the ceiling plane and reaches 3 mm about 1.2 mm above it. Both recesses keep a
+complete 3 mm section below their head-bearing floors, and the flank's flutes keep 3 mm of
+backing behind every groove outboard of the lower recess.
 
 The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted
 stages to its identified exports: quadrant and frame faces, hardware stock, pump-cartridge
@@ -172,7 +167,7 @@ equality, the unchanged frame and the actual silicone preserve the identified ho
 webs and upper bearing measurements. Earlier route readings remain conservative lower
 bounds under the measured cradle-subset chain; their original input and model scopes are retained.
 The 35 insert-station measurements and 14 finished-knuckle queries retain their original
-artifact scope. The current integrity stage measures the four M5 hosts and four washer
+artifact scope. The current integrity stage measures the four M5 hosts and four head
 floors; it does not refresh screw engagement or blind-tip reserve. Surface finish and
 load capacity require their own evidence.
 The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
@@ -189,11 +184,7 @@ whole-quadrant thin sampling is not included.
 Remove the two upper screws to free front-top, which draws fore off its rails. Removing
 all four lets the halves part. The upper screws need about 60 mm of clear space above
 the roof for insertion and withdrawal. The lower screws need about 120 mm below the
-enclosure, with the flank supported over the bench edge. Place each lower washer in
-the pocket separately: tip it through the handhold, turn it flat and hold it against
-the bearing floor before feeding the screw through it. A flat washer already on the
-screw does not clear the inner wall during entry. This placement's practical ease
-remains unqualified. The handhold's inner wall over the seam is front-bottom's, standing on
+enclosure, with the flank supported over the bench edge. The handhold's inner wall over the seam is front-bottom's, standing on
 its own floor tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
 (`_handhold_frame`). The [heat-set review](heat-set-review/README.md) checks every knuckle's
 whole section and the four M5 insert envelopes.
@@ -275,12 +266,9 @@ plane. The exterior transition ends at |X|105.208, leaving 11.458 mm of flat cen
 lifting-ceiling depth before the screw-pocket openings. The block's 13.75 mm reach
 uses a different reference, `interior_x`; it includes the retained blind wall.
 The floor tongue continues across the middle of the enclosure. The lower seam screws drive up
-through the handhold ceilings. Each head and its single flat washer sit inside
-an inward-open pocket, with the head face recessed 2 mm above the finger surface.
-The openings remain exposed during use.
-Their finger-contact entrances have a 0.35 mm, 45° ease, which leaves back-bottom one full
-wall between the eased mouth and its seam face; the washer-bearing floors and screw seating
-planes retain their full sections.
+through the handhold ceilings. Each head sits inside an inward-open pocket, its face
+3 mm above the finger surface. The openings remain exposed during use; the head-bearing
+floors and screw seating planes retain their full sections.
 
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
@@ -801,7 +789,7 @@ and clamping faces require the same applicable allowances; a datum does not waiv
 This enclosure pass covers the PET-GF-to-PET-GF interfaces in its stated scope.
 Rigid-part fits elsewhere remain subject to the same printed-face allowances and are
 unresolved by this pass. Compliant gaskets and seals use their specified installed squeeze
-in the compression direction. Steel washer floors retain their nominal source planes and
+in the compression direction. Screw-head floors retain their nominal source planes and
 are outside this pass's fit assessment.
 Heat-set pilots follow the manufacturer's installation dimensions.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.

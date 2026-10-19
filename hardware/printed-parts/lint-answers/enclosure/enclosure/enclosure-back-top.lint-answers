@@ -248,8 +248,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=34.170 y=479.545 z=256.553
 click: x=-40.710 y=479.545 z=291.217
 
-[ceiling] Unavoidable screw/washer bearings: these screw-anchor caps and upper washer-bearing floors retain their current complete native host sections and positive mating gaps. Tree(auto)/Default support can leave through the empty seam, inward pockets and roof before assembly; actual cleanup remains unqualified.
-alternatives: Sloping tilts the washer or spends blind-end host stock. A corbel can enter neighboring block travel; a continuous post occupies frame/service room.
+[ceiling] Unavoidable screw-head bearings: these screw-anchor caps and upper head-bearing floors retain their current complete native host sections and positive mating gaps. Tree(auto)/Default support can leave through the empty seam, inward pockets and roof before assembly; actual cleanup remains unqualified.
+alternatives: Sloping tilts the head seat or spends blind-end host stock. A corbel can enter neighboring block travel; a continuous post occupies frame/service room.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-97.625 y=209.975 z=195.050
 click: x=97.625 y=209.975 z=195.050

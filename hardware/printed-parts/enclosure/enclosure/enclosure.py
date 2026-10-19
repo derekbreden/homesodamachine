@@ -35,8 +35,8 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     driven up from the handhold ceiling through both bottom pieces into an
     insert in back-top's knuckle on the Z seam, the upper down from back-top's
     roof into an insert in front-top's knuckle under the funnel frame. Each
-    ordinary screw has one flat washer and an as-printed clearance passage
-    (`_y_stacks`).
+    ordinary screw seats its head on a printed floor and runs in an as-printed
+    clearance passage (`_y_stacks`).
   * A bottom↔top split per column that SLIDES HOME and takes no screw, at ONE
     stated height both sides of the Y seam (`z_seam`, one level line round the
     box). The BOTTOM pieces carry the lip — a 3-sided band, their outer ±Y
@@ -467,19 +467,18 @@ funnel_front_ledge = 0.0
 
 # The Y seam's two corner stacks. In each ±X corner the front and back pieces stand knuckles
 # that alternate up the seam, retained by two ordinary M5 screws: the lower enters from the
-# handhold ceiling, the upper from the roof. Each head bears on one flat washer. Clearance
+# handhold ceiling, the upper from the roof. Each head bears on its printed floor. Clearance
 # passages print to size; they must pass the screw by hand before its thread reaches the insert.
-y_stack_axis_in = 6.5          # upper screw axis inboard of the interior face
-y_stack_lower_axis_in = y_stack_axis_in - fits.running
+y_stack_axis_in = 7.0          # upper screw axis inboard of the interior face
+y_stack_lower_axis_in = 6.25   # lower axis: its head passes the handhold's inner wall
 y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
-y_stack_cbore_dia = 10.8       # M5 SHCS head Ø8.5 and one DIN 125 washer Ø10
-y_stack_head_recess = 2.0      # head face inside the opening
+y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
+y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
-y_stack_washer_h = 1.0         # one DIN 125 M5 flat washer per screw
-y_stack_cbore_depth = y_stack_head_recess + y_stack_head_h + y_stack_washer_h
+y_stack_cbore_depth = y_stack_head_recess + y_stack_head_h
 y_stack_tip_clearance = 2.5    # nominal blind air beyond the screw tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
 y_stack_hub_h = 20.0           # back-top's knuckle on the Z seam: the lower insert and its cap
@@ -848,10 +847,6 @@ y_stack_low_depth = side_band_inset - fits.running
 # and the M5 insert's boss keeps [3.1 mm](Y_STACK_INSERT_LIGAMENT) of knuckle ahead of it and
 # behind it.
 lip_len = 17.8
-# The 45° ease at the exposed lower head pocket's finger-contact edge. The back pieces start one
-# `fits.slip` aft of the seam (`_seam_fit_reliefs`); the eased mouth keeps one `wall` of the
-# lowest back knuckle between that face and the recess.
-y_stack_mouth_ease = lip_len / 2.0 - y_stack_cbore_dia / 2.0 - fits.slip - wall
 
 # The appliance's stated HEIGHT — floor slab's underside (z = −floor_t) to the top
 # wall's outer face. It is the machine's silhouette, the one dimension a counter
@@ -3571,8 +3566,8 @@ def _ceiling_corbels(solid, inner, centre, y_joint):
 # Every mating block face keeps its running fit, including the screw-clamped seats,
 # with the supported allowance for each opposing face that prints over support.
 # These modeled gaps accommodate the printed surface material during assembly. The middle knuckles carry
-# transverse screw bearing, not a continuous compression stack. Plain screws and flat washers
-# retain the seated halves. Their hand seating gives no controlled preload or load-sharing
+# transverse screw bearing, not a continuous compression stack. Plain screws, their heads on
+# printed floors, retain the seated halves. Their hand seating gives no controlled preload or load-sharing
 # claim. The passages are printed clearance holes, without a drilling operation.
 
 def _handhold_levels(inner):
@@ -3695,7 +3690,7 @@ def _y_knuckle_air(x_in, sx, y_joint, piece, z0, z1, gap_below, gap_above, depth
 
 
 def _y_stack_bores(x_in, sx, y_joint, inner):
-    """Both screws' head/washer openings, printed passages and M5 insert pockets at one corner.
+    """Both screws' head openings, printed passages and M5 insert pockets at one corner.
     Each blind pocket clears the nominal screw tip by `y_stack_tip_clearance` and retains the
     insert manufacturer's minimum relief independently of screw reach."""
     lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
@@ -3706,29 +3701,20 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
         y_stack_rods(inner)
     rc, rp, ri = y_stack_cbore_dia / 2.0, y_stack_clearance_dia / 2.0, floor_heatset_dia / 2.0
 
-    def head_access(ax, ay, z0, z1, depth, ease=0.0):
+    def head_access(ax, ay, z0, z1, depth):
         # Open toward the cavity instead of leaving a thin cup around the head.
         # The rectangular opening has the counterbore's full width and depth;
-        # its floor remains a complete washer-bearing annulus.
+        # its floor remains a complete head-bearing annulus.
         xa, xb = sorted((ax, x_in + sx * (depth + 0.01)))
-        cut = _zcyl(rc, ax, ay, z0, z1).fuse(
+        return _zcyl(rc, ax, ay, z0, z1).fuse(
             _ybox(xa, xb, ay - rc, ay + rc, z0, z1))
-        if ease:
-            # Ease only the entry, leaving the head seat and washer floor exact.
-            flare = cq.Solid.makeCone(rc + ease, rc, ease, cq.Vector(ax, ay, ceiling))
-            flare = flare.fuse(_yz_prism(xa, xb,
-                [(ay - rc - ease, ceiling), (ay + rc + ease, ceiling),
-                 (ay + rc, ceiling + ease), (ay - rc, ceiling + ease)]))
-            cut = cut.fuse(flare)
-        return cut
 
     # Above the frame the mouth joins the funnel opening. Stopping at the
     # narrower block would leave a thin strip of the roof across that opening.
     upper_mouth_depth = abs(x_in) - _funnel.collar_w / 2.0
 
     return (
-        head_access(lx, ly, ceiling - 0.01, ceiling + y_stack_cbore_depth,
-                    y_stack_low_depth, y_stack_mouth_ease),
+        head_access(lx, ly, ceiling - 0.01, ceiling + y_stack_cbore_depth, y_stack_low_depth),
         _zcyl(rp, lx, ly, ceiling + y_stack_cbore_depth - 0.01, l_in0 + 0.01),
         _zcyl(ri, lx, ly, l_in0, max(l_in1 + mount_bore_relief,
                                     l_tip + y_stack_tip_clearance)),
@@ -3971,7 +3957,7 @@ def _stack_flute_plain(inner, y_joint):
     """Where each flank stays plain outboard of its lower head pocket, as flute `plain` boxes:
     the pocket's chord that stands within `flute_depth + flute_backing` of the exterior face,
     from the handhold ceiling to the top of the handhold's R6 roll. The flutes fade in above it,
-    so the washer floor's outboard corner keeps `flute_backing` behind every groove."""
+    so the head floor's outboard corner keeps `flute_backing` behind every groove."""
     _bed, roof, _crown = _handhold_levels(inner)
     rc = y_stack_cbore_dia / 2.0
     out = []
