@@ -1,9 +1,13 @@
-# Enclosure trial preparation
+# Enclosure print preparation
 
 [`prepare.py`](prepare.py) writes a fresh native Bambu Studio project for each piece of the
-[full enclosure trial](../print-readiness.md) from its current STL. Every layer band, painted
+[complete enclosure print](../print-readiness.md) from its current STL. Every layer band, painted
 face, ribbon, window and modifier box is read from that mesh, and every piece carries the
 shared PET-GF recipe. [`pieces.json`](pieces.json) declares the pieces.
+
+The [readiness objective](../print-readiness.md) is a complete working appliance ready
+to ship. This preparation records manufacturing inputs and emitted paths; it does not
+reduce that objective to fit or qualify the assembled machine by itself.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py list

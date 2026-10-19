@@ -1,7 +1,7 @@
 {
   "scope": "One-off native path and psychrometric design review of casing seam sealing. This is not a measured leak rate, adhesion, lifetime, or complete vapor-retarder qualification; it adds no recurring check.",
   "customer_outcome": "Keep humid cabinet air out of chilled component spaces and preserve dry insulation during refrigerated operation.",
-  "decision": "Seal the top shell/cap seam for refrigerated operation with the specified exterior 3M 425 band. Cap/lid joints close the separate cap insulation cavities; the same end bands cover these. The bottom shell/cap joint is between printed floors and has no equivalent direct opening to the body insulation. Covering it is incidental to the common lower band. Room-temperature enclosure fit prints do not require the tape.",
+  "decision": "Seal the top shell/cap seam for refrigerated operation with the specified exterior 3M 425 band. Cap/lid joints close the separate cap insulation cavities; the same end bands cover these. The bottom shell/cap joint is between printed floors and has no equivalent direct opening to the body insulation. Covering it is incidental to the common lower band. Complete appliance readiness also requires a defined moisture boundary at the other entries; this local seam decision does not release the complete print set or operating core.",
   "native_input_sha256": {
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "775f1953512c16960cc232335b948ae87ec6b4a36b60286ebb1e9f73a83a2fd2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f2448417f47a811246f63574344d625fa12a7fbdfaea8265358d2c454246bed2",
