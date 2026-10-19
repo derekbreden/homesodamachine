@@ -20,6 +20,7 @@ ENTRY_RADIAL=.25
 MATERIAL='Siraya Tech Flex TPU85A Clear'
 COLOR=cq.Color(.92,.92,.90,.60)
 PRINT_HEEL_TRIM=.70
+STOP_WALL=3.0
 
 
 def frame(layout):
@@ -86,7 +87,12 @@ def _geometry(layout,*,installed=False):
     above=cq.Solid.makeBox(level.xlen+2*margin,level.ylen+2*margin,level.zlen+2*margin,
         cq.Vector(level.xmin-margin,level.ymin-margin,level.zmin))
     outer=outer.fuse(teardrop_sweep(turn,od/2,inward=False)).intersect(keep).intersect(above).clean()
-    void=_sweep(plumbing.TUBE_ID,local['flow_segments']).fuse(teardrop_sweep(turn,plumbing.TUBE_ID/2,inward=True))
+    # The passage roof ends a wall short of the outlet's tube stop, which bears on solid TPU.
+    roof=teardrop_sweep(turn,plumbing.TUBE_ID/2,inward=True);span=roof.BoundingBox()
+    floor=local['output']['tube_stop'][2]-STOP_WALL
+    roof=roof.intersect(cq.Solid.makeBox(span.xlen+2,span.ylen+2,floor-span.zmin+1,
+        cq.Vector(span.xmin-1,span.ymin-1,span.zmin-1)))
+    void=_sweep(plumbing.TUBE_ID,local['flow_segments']).fuse(roof)
     for port in ('input','output'):
         p=local[port];d=cq.Vector(*p['axis']);stop=cq.Vector(*p['tube_stop'])
         seal_end=stop+d*plumbing.SEAL_LAND

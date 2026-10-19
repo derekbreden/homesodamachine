@@ -35,15 +35,15 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 
 | Editable project | Native filament (g) | Native time (h:mm:ss) |
 | --- | ---: | ---: |
-| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.324 | 1:52:34 |
-| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.663 | 1:54:47 |
-| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.412 | 1:52:58 |
-| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:00 |
-| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.412 | 1:52:58 |
-| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:00 |
-| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.326 | 1:52:28 |
-| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.661 | 1:54:48 |
-| **All eight** | **58.123** | **14:32:34** |
+| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.111 | 1:51:10 |
+| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.664 | 1:54:51 |
+| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.218 | 1:51:46 |
+| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:06 |
+| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.218 | 1:51:46 |
+| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:06 |
+| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.110 | 1:51:07 |
+| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.662 | 1:54:50 |
+| **All eight** | **57.307** | **14:27:41** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and
 project hashes are in the [native review](native-review.json). They do not include
