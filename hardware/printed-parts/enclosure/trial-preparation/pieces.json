@@ -246,21 +246,87 @@
       "printer": "Mark1",
       "spacing_mm": 12,
       "parts": [
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
-         "quantity": 4,
-         "pose": {"turns": [["x", 90]]},
-         "object_settings": {
-           "wall_loops": {"value": "6", "reason": "heat-set-review/print-regions.json part_process_overrides: the thin continuous keeper section is the load path."},
-           "sparse_infill_density": {"value": "100%", "reason": "heat-set-review/print-regions.json part_process_overrides."},
-           "sparse_infill_pattern": {"value": "zig-zag", "reason": "heat-set-review/print-regions.json part_process_overrides."}
-         }},
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
-         "pose": {"turns": [["x", 90]]},
-         "object_settings": {
-           "wall_loops": {"value": "6", "reason": "heat-set-review/print-regions.json part_process_overrides: the thin continuous support section is the load path."},
-           "sparse_infill_density": {"value": "100%", "reason": "heat-set-review/print-regions.json part_process_overrides."},
-           "sparse_infill_pattern": {"value": "zig-zag", "reason": "heat-set-review/print-regions.json part_process_overrides."}
-         }}
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl",
+          "quantity": 1,
+          "pose": {
+            "turns": [
+              [
+                "x",
+                0
+              ]
+            ]
+          },
+          "regions": "pump-receiver-keeper-west-outer",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The complete structural keeper/cradle/cover uses six walls."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Complete head bearings, closed tube guides and fastener load paths."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid structural-part recipe."
+            }
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl",
+          "quantity": 1,
+          "pose": {
+            "turns": [
+              [
+                "x",
+                0
+              ]
+            ]
+          },
+          "regions": "pump-return-cradle-west-outer",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The complete structural keeper/cradle/cover uses six walls."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Complete head bearings, closed tube guides and fastener load paths."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid structural-part recipe."
+            }
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl",
+          "quantity": 1,
+          "pose": {
+            "turns": [
+              [
+                "x",
+                0
+              ]
+            ]
+          },
+          "regions": "pump-return-cover-west-outer",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The complete structural keeper/cradle/cover uses six walls."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Complete head bearings, closed tube guides and fastener load paths."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid structural-part recipe."
+            }
+          }
+        }
       ]
     },
     "labels": {

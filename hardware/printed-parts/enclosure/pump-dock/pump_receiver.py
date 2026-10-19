@@ -1,16 +1,18 @@
-"""Permanent wall-supported TPU 85A pump-cartridge receiver.
+"""Permanent wall-supported asymmetric TPU pump junction.
 
 Local +Y enters the enclosure; Y=0 is the PET-GF wall's pump-facing surface.
 The closed wall locates X/Z. A flat interior keeper in the rear groove
-retains Y. The two tube sockets use radial interference; the cartridge hard
+retains Y. The three tube sockets use radial interference; the cartridge hard
 stop sets insertion and leaves its tube tip clear of the annular stop.
 
 The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
-pressure holding and endurance are unqualified on this geometry. Printing
-with the bore vertical keeps both sealing lands accessible and support-free;
-the outside mounting ramp and rear collar allow removable external supports.
+pressure holding and endurance are unqualified on this geometry. The lower-mouth print pose keeps the terminal bores at0/45/45 degrees.
+External supports remain accessible before factory mounting. Round flow roofs
+are separate from the round sealing lands.
 """
+from functools import lru_cache
+import json
 from pathlib import Path
 import argparse
 import json
@@ -18,6 +20,9 @@ import math
 import sys
 
 import cadquery as cq
+import fixed_returns as plumbing
+import pump_return as returned
+from flow_roof import cached_flow_cap
 
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
@@ -39,23 +44,31 @@ FRONT_SEAL_Y = (1.0, 7.0)
 FRONT_RELIEF_D = 6.8
 CUSTOMER_TIP_Y = 7.5
 CUSTOMER_STOP_Y = 8.0
-FACTORY_TIP_Y = 9.0
 CUSTOMER_TIP_END_D = 6.05
 THROAT_D = 5.00
 RELIEF_TAPER_START_Y = CUSTOMER_STOP_Y - (FRONT_RELIEF_D - CUSTOMER_TIP_END_D) / 2
 RELIEF_TAPER_END_Y = RELIEF_TAPER_START_Y + (FRONT_RELIEF_D - THROAT_D) / 2
-REAR_END_Y = 15.0
-REAR_SEAL_Y = (FACTORY_TIP_Y, REAR_END_Y)
 COLLAR_OD = 17.5
 COLLAR_RAMP_Y = (3.6, 5.9)
 FRONT_COLLAR_Y = (5.9, 7.0)
 GROOVE_Y = (7.0, 10.35)
-REAR_COLLAR_Y = (10.35, 11.85)
+REAR_COLLAR_Y = (10.35, 13.35)
 KEEPER_SLOT_D = 12.4
 KEEPER_RADIAL_CLEARANCE = (KEEPER_SLOT_D - BODY_OD) / 2
-KEEPER_Y = (7.0, 10.0)
+KEEPER_Y = (7.15, 10.15)
 KEEPER_THICKNESS = KEEPER_Y[1] - KEEPER_Y[0]
-REAR_SUPPORT_Y = (REAR_COLLAR_Y[1], REAR_END_Y)
+UPPER_MOUTH_LOCAL_Y = 22.775
+BRANCH_OD = 11.72
+FORK_BLEND_R = .60
+LOWER_STOP_BORE_D = 5.50
+LOWER_STOP_TAPER = (LOWER_STOP_BORE_D-TUBE_ID)/2
+ENTRY_AXIAL = .50
+ENTRY_RADIAL = .25
+KEY_ROOT_X = 6.5
+KEY_OUTER_X = 12.5
+KEY_BASE_Z = -3.0
+KEY_SHOULDER_Z = 0.0
+KEY_TOP_Z = 3.0
 MATERIAL = "Siraya Tech Flex TPU 85A Clear"
 # Clear stock, rather than the black Bambu 90A gasket stock.
 COLOR = cq.Color(.92, .92, .90, .60)
@@ -77,7 +90,7 @@ def _outside(installed=False):
     # It is not an elastic-deformation or contact-pressure prediction.
     growth = TUBE_OD ** 2 - SEAL_BORE_D ** 2 if installed else 0.0
     od = lambda diameter: math.sqrt(diameter ** 2 + growth)
-    return (_cylinder(od(BODY_OD), FRONT_LIP_Y[0], REAR_END_Y)
+    return (_cylinder(od(BODY_OD), FRONT_LIP_Y[0], REAR_COLLAR_Y[1])
             .fuse(_cylinder(od(FRONT_LIP_OD), *FRONT_LIP_Y))
             .fuse(_cone(od(BODY_OD), od(COLLAR_OD), *COLLAR_RAMP_Y))
             .fuse(_cylinder(od(COLLAR_OD), *FRONT_COLLAR_Y))
@@ -88,28 +101,154 @@ def _place(shape, wall_fore_y=0.0, x=0.0, z=0.0):
     return shape.translate((x, wall_fore_y, z))
 
 
-def build_receiver(wall_fore_y=0.0, x=0.0, z=0.0, *, installed=False):
-    """One-piece wet solid, relaxed for manufacture or expanded for assembly.
+def _wire(segments):
+    edges=[]
+    for segment in segments:
+        a=cq.Vector(*segment["start_mm"]); b=cq.Vector(*segment["end_mm"])
+        edges.append(cq.Edge.makeThreePointArc(a,cq.Vector(*segment["midpoint_mm"]),b)
+                     if segment["kind"]=="arc" else cq.Edge.makeLine(a,b))
+    return cq.Wire.assembleEdges(edges)
 
-    ``installed`` opens the tight sockets to nominal tube OD and expands the
-    outside by conserved annular area, avoiding artificial tube/CAD clashes.
-    It supplies occupied geometry and no prediction of seal stress.
+
+def _sweep(diameter,segments):
+    first=segments[0]
+    profile=cq.Wire.makeCircle(diameter/2,cq.Vector(*first["start_mm"]),
+                              cq.Vector(*first["start_tangent"]))
+    return cq.Solid.sweep(profile,[],_wire(segments),makeSolid=True,isFrenet=True)
+
+
+def _default_junction():
+    return plumbing.junction_ports(0.,0.,0.,
+        {"point":(0.,UPPER_MOUTH_LOCAL_Y,36.501),"axis":(0.,0.,-1.)},
+        {"point":(0.,83.725,-16.),"axis":(0.,0.,-1.)})
+
+
+def _local_junction(junction,origin):
+    if junction is None:return _default_junction()
+    out=dict(junction)
+    for key in ("upper_flow_segments","lower_flow_segments"):
+        out[key]=tuple({k:tuple(v[i]-origin[i] for i in range(3))
+                        if k in ("start_mm","end_mm","midpoint_mm") else v
+                        for k,v in segment.items()} for segment in junction[key])
+    for key in ("upper","lower","upper_target","return_target"):
+        out[key]=dict(junction[key])
+        for field in ("point","tube_stop"):
+            if field in junction[key]:out[key][field]=tuple(junction[key][field][i]-origin[i] for i in range(3))
+    return out
+
+
+def anti_rotation_keys():
+    """Broad rear-flange ears enter open-aft house-shaped PET-GF seats.
+
+    The rear flange is three millimetres thick. These keys carry clocking
+    loads; the wall and flat keeper retain the permanent junction axially.
     """
-    seal_d = TUBE_OD if installed else SEAL_BORE_D
-    bores = (_cone(FUNNEL_BORE_D, seal_d, 0.0, FRONT_SEAL_Y[0])
-             .fuse(_cylinder(FUNNEL_BORE_D, -_EPS, 0.0))
-             .fuse(_cylinder(seal_d, *FRONT_SEAL_Y))
-             .fuse(_cylinder(FRONT_RELIEF_D, FRONT_SEAL_Y[1], RELIEF_TAPER_START_Y))
-             .fuse(_cone(FRONT_RELIEF_D, THROAT_D, RELIEF_TAPER_START_Y, RELIEF_TAPER_END_Y))
-             .fuse(_cylinder(THROAT_D, RELIEF_TAPER_END_Y, FACTORY_TIP_Y))
-             .fuse(_cylinder(seal_d, *REAR_SEAL_Y))
-             .fuse(_cylinder(seal_d, REAR_END_Y, REAR_END_Y + _EPS)))
-    return _place(_outside(installed).cut(bores).clean(), wall_fore_y, x, z)
+    parts=[]
+    for sign in (-1,1):
+        cx=sign*(KEY_ROOT_X+KEY_OUTER_X)/2
+        points=[(cx-3,KEY_BASE_Z),(cx+3,KEY_BASE_Z),
+                (cx+3,KEY_SHOULDER_Z),(cx,KEY_TOP_Z),
+                (cx-3,KEY_SHOULDER_Z)]
+        wire=cq.Wire.makePolygon([cq.Vector(x,REAR_COLLAR_Y[0],z) for x,z in points]
+                                +[cq.Vector(points[0][0],REAR_COLLAR_Y[0],points[0][1])])
+        parts.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,REAR_COLLAR_Y[1]-REAR_COLLAR_Y[0],0)))
+    return parts[0].fuse(parts[1])
 
 
-def receiver_envelope(wall_fore_y=0.0, x=0.0, z=0.0, *, installed=False):
-    """Nominal occupied envelope, without its internal fluid bore."""
-    return _place(_outside(installed), wall_fore_y, x, z)
+def _geometry(*,installed=False,junction=None,mount_side=1):
+    """Local wet solid, occupied envelope and cavity from shared port datums."""
+    junction=junction or _default_junction()
+    growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
+    od=math.sqrt(BRANCH_OD**2+growth)
+    seal=TUBE_OD if installed else SEAL_BORE_D
+    root=junction["upper_flow_segments"][0]["start_mm"][1]
+    outer=_outside(installed).fuse(anti_rotation_keys())
+    void=(_cone(FUNNEL_BORE_D,seal,0.,FRONT_SEAL_Y[0])
+          .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
+          .fuse(_cylinder(seal,*FRONT_SEAL_Y))
+          .fuse(_cylinder(FRONT_RELIEF_D,FRONT_SEAL_Y[1],RELIEF_TAPER_START_Y))
+          .fuse(_cone(FRONT_RELIEF_D,THROAT_D,RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y))
+          .fuse(_cylinder(THROAT_D,RELIEF_TAPER_END_Y,root+.08)))
+    for branch in ("upper","lower"):
+        segments=junction[branch+"_flow_segments"]
+        outer=outer.fuse(_sweep(od,segments))
+        void=void.fuse(_sweep(TUBE_ID,segments))
+        port=junction[branch]; d=cq.Vector(*port["axis"])
+        stop=cq.Vector(*port["tube_stop"])
+        if branch=='lower':
+            # The downward-printed socket retains a supported0.30mm annular
+            # stop. The downstream45degree taper leaves the6mm land and the
+            # factory tip datum untouched.
+            void=void.fuse(cq.Solid.makeCone(LOWER_STOP_BORE_D/2,TUBE_ID/2,
+                          LOWER_STOP_TAPER,stop,d*-1))
+        end=stop+d*plumbing.SEAL_LAND
+        void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
+                       cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
+                       cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,_EPS,cq.Vector(*port["point"]),d))
+    lower=junction["lower_flow_segments"][0]
+    blend_edges=[e for e in void.Edges() if e.geomType()=="BSPLINE"
+                 and e.BoundingBox().ymax>lower["end_mm"][1]+1.2
+                 and e.BoundingBox().zmin>lower["end_mm"][2]/2-.04
+                 and e.BoundingBox().zmax<0]
+    void=void.fillet(FORK_BLEND_R,blend_edges).clean()
+    # Build the roof in the actual lower-mouth-flat print frame. A clocked
+    # outer junction first yaws its terminal's horizontal tangent onto+Y.
+    zrot,xrot=print_rotations(junction)
+    arc=junction["upper_flow_segments"][0]
+    def rz(v):
+        a=math.radians(zrot);return (v[0]*math.cos(a)-v[1]*math.sin(a),v[0]*math.sin(a)+v[1]*math.cos(a),v[2])
+    rotated={k:rz(v) if k in ("start_mm","midpoint_mm","end_mm","start_tangent","end_tangent") else v for k,v in arc.items()}
+    roof=cached_flow_cap(rotated,TUBE_ID/2,print_angle=xrot).rotate((0,0,0),(0,0,1),-zrot)
+    void=void.fuse(roof).clean()
+    # Broad keys retain the two supported sockets; the lower key's aft shift
+    # is parallel to its actual print bed, leaving the lower rim seated.
+    bare=outer.clean()
+    lower=junction['lower'];target=junction['return_target']
+    local_return=plumbing.return_layout(lower['point'],lower['axis'],target)
+    origin,n,h=returned.frame(local_return)
+    build=print_build_direction(junction)
+    local_build=(build.dot(n),build.dot(h),build.z)
+    keys=[]
+    for point in mount_stations(junction):
+        center=returned._point(point,origin,n,h)
+        key=returned.to_world(returned.button(center,mount_side,installed=installed,build_direction=local_build),local_return)
+        keys.append(key);outer=outer.fuse(key)
+    neck_od=math.sqrt(BODY_OD**2+growth)
+    ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
+    outer=outer.cut(ring).clean()
+    return {"body":outer.cut(void).clean(),"envelope":outer,"bare_envelope":bare,"void":void,
+            "junction":junction,"occupied_od":od,"keys":tuple(keys)}
+
+
+def mount_stations(junction):
+    """Aft lower key keeps its socket-stop build height and a broad cuff root."""
+    target=junction['return_target'];port=junction['lower']
+    layout=plumbing.return_layout(port['point'],port['axis'],target)
+    _,n,h=returned.frame(layout)
+    build=print_build_direction(junction)
+    move=(cq.Vector(*port['point'])-cq.Vector(*port['tube_stop'])).dot(h)
+    shift=h*move+cq.Vector(0,0,-build.dot(h)/build.z*move)
+    return ((cq.Vector(*port['tube_stop'])+shift).toTuple(),tuple(junction['upper']['tube_stop']))
+
+
+@lru_cache(maxsize=24)
+def _cached_geometry(declaration,installed,mount_side):
+    return _geometry(installed=installed,junction=json.loads(declaration),mount_side=mount_side)
+
+
+def geometry(*,installed=False,junction=None,mount_side=1):
+    declaration=json.dumps(junction or _default_junction(),sort_keys=True)
+    return _cached_geometry(declaration,installed,mount_side)
+
+
+def build_receiver(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None,mount_side=None):
+    local=_local_junction(junction,(x,wall_fore_y,z))
+    return _place(geometry(installed=installed,junction=local,mount_side=(1 if x>=0 else -1) if mount_side is None else mount_side)["body"],wall_fore_y,x,z)
+
+
+def receiver_envelope(wall_fore_y=0.,x=0.,z=0.,*,installed=False,junction=None,mount_side=None,include_mounts=True):
+    local=_local_junction(junction,(x,wall_fore_y,z))
+    return _place(geometry(installed=installed,junction=local,mount_side=(1 if x>=0 else -1) if mount_side is None else mount_side)["envelope" if include_mounts else "bare_envelope"],wall_fore_y,x,z)
 
 
 def receiver_wall_cut(wall_fore_y=0.0, x=0.0, z=0.0):
@@ -129,71 +268,48 @@ def receiver_wall_cut(wall_fore_y=0.0, x=0.0, z=0.0):
     return _place(tool.clean(), wall_fore_y, x, z)
 
 
-def rear_support_cut(wall_fore_y=0.0, x=0.0, z=0.0):
-    """Circular support cavity around the permanent rear tube cuff."""
-    return _place(_cylinder(WALL_BORE_D, REAR_SUPPORT_Y[0] - _EPS,
-                            REAR_SUPPORT_Y[1] + _EPS), wall_fore_y, x, z)
+def wet_stations(wall_fore_y=0.,x=0.,z=0.,*,junction=None):
+    local=_local_junction(junction,(x,wall_fore_y,z))
+    return {"axis":(0.,1.,0.),
+            "customer_tip":(x,wall_fore_y+CUSTOMER_TIP_Y,z),
+            "customer_stop":(x,wall_fore_y+CUSTOMER_STOP_Y,z),
+            "front_seal":((x,wall_fore_y+FRONT_SEAL_Y[0],z),(x,wall_fore_y+FRONT_SEAL_Y[1],z)),
+            "upper":local["upper"],"lower":local["lower"]}
 
 
-def wet_stations(wall_fore_y=0.0, x=0.0, z=0.0):
-    def point(y):
-        return (float(x), float(wall_fore_y + y), float(z))
-    return {
-        "axis": (0.0, 1.0, 0.0),
-        "customer_tip": point(CUSTOMER_TIP_Y),
-        "customer_stop": point(CUSTOMER_STOP_Y),
-        "factory_tip": point(FACTORY_TIP_Y),
-        "rear_mouth": point(REAR_END_Y),
-        "front_seal": tuple(point(y) for y in FRONT_SEAL_Y),
-        "rear_seal": tuple(point(y) for y in REAR_SEAL_Y),
-    }
+def print_rotations(junction=None):
+    d=(junction or _default_junction())['lower']['axis']
+    return math.degrees(math.atan2(d[0],d[1])),-math.degrees(math.atan2(math.hypot(d[0],d[1]),-d[2]))
 
 
-def print_solid():
-    """Funnel ring on the bed, fluid bore along +Z."""
-    return build_receiver().rotate((0, 0, 0), (1, 0, 0), 90)
+def print_build_direction(junction=None):
+    yaw,tilt=map(math.radians,print_rotations(junction))
+    return cq.Vector(math.sin(tilt)*math.sin(yaw),math.sin(tilt)*math.cos(yaw),math.cos(tilt))
+
+
+def print_solid(*,junction=None,mount_side=1):
+    """Actual lower mouth normal points down, giving a flat sealing rim bed."""
+    zrot,xrot=print_rotations(junction)
+    solid=geometry(junction=junction,mount_side=mount_side)['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
+    return solid.translate((0,0,-solid.BoundingBox().zmin))
 
 
 def engineering_record():
-    """Dimensions and geometric load cases; no inferred seal/array ratings."""
-    bore_area = math.pi * TUBE_OD ** 2 / 4
-    return {
-        "material": MATERIAL,
-        "wall_thickness_mm": WALL_THICKNESS,
-        "front_seal_bore_mm": SEAL_BORE_D,
-        "front_seal_land_mm": FRONT_SEAL_Y[1] - FRONT_SEAL_Y[0],
-        "rear_seal_land_mm": REAR_SEAL_Y[1] - REAR_SEAL_Y[0],
-        "front_lip_thickness_mm": FRONT_LIP_Y[1] - FRONT_LIP_Y[0],
-        "front_collar_ramp_y_mm": list(COLLAR_RAMP_Y),
-        "wall_neck_axial_stock_mm": COLLAR_RAMP_Y[0] - FRONT_LIP_Y[1],
-        "front_collar_ramp_degrees_from_axis": math.degrees(math.atan(
-            (COLLAR_OD - BODY_OD) / 2 / (COLLAR_RAMP_Y[1] - COLLAR_RAMP_Y[0]))),
-        "front_collar_flat_y_mm": list(FRONT_COLLAR_Y),
-        "front_collar_periphery_thickness_mm": FRONT_COLLAR_Y[1] - FRONT_COLLAR_Y[0],
-        "flow_throat_d_mm": THROAT_D,
-        "relief_taper_y_mm": [RELIEF_TAPER_START_Y, RELIEF_TAPER_END_Y],
-        "relief_taper_degrees_from_axis": 45.0,
-        "customer_stop_reference": "First nominal contact of the actual 6.05 mm tip end after 0.50 mm overtravel; the 0.30 mm axial stem lead reduces radius by 0.15 mm.",
-        "relaxed_cuff_od_mm": BODY_OD,
-        "wall_radial_room_mm": WALL_RADIAL_CLEARANCE,
-        "keeper_radial_room_mm": KEEPER_RADIAL_CLEARANCE,
-        "keeper_thickness_mm": KEEPER_THICKNESS,
-        "keeper_axial_station_mm": list(KEEPER_Y),
-        "keeper_wall_face_gap_mm": KEEPER_Y[0] - WALL_THICKNESS,
-        "keeper_rear_groove_room_mm": GROOVE_Y[1] - KEEPER_Y[1],
-        "tube_tip_clearance_to_stop_mm": CUSTOMER_STOP_Y - CUSTOMER_TIP_Y,
-        "nominal_annular_area_expanded_od_mm": math.sqrt(
-            BODY_OD ** 2 + TUBE_OD ** 2 - SEAL_BORE_D ** 2),
-        "local_wet_stations_mm": wet_stations(),
-        "projected_od_load_cases": [
-            {"pressure_psi": psi, "per_port_n": psi * .006894757293168 * bore_area,
-             "two_ports_n": 2 * psi * .006894757293168 * bore_area,
-             "four_ports_n": 4 * psi * .006894757293168 * bore_area}
-            for psi in (10, 30, 80)],
-        "scope": "Nominal geometry and separating-load cases; no physical seal, retention or lifetime rating.",
-        "print_orientation": "Funnel ring on bed; bore vertical; no support in fluid passage.",
-        "external_support": "Tree(auto)/Default on the outside mounting ramp and rear collar; remove before factory assembly. No fluid-bore supports.",
-    }
+    return {"material":MATERIAL,"wall_thickness_mm":WALL_THICKNESS,
+            "front_seal_bore_mm":SEAL_BORE_D,"front_seal_land_mm":6.,
+            "branch_seal_land_mm":plumbing.SEAL_LAND,"branch_entry_axial_mm":ENTRY_AXIAL,
+            "branch_entry_radial_mm":ENTRY_RADIAL,"branch_mouth_radial_stock_mm":BRANCH_OD/2-SEAL_BORE_D/2-ENTRY_RADIAL,
+            "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
+            "rear_flange_y_mm":REAR_COLLAR_Y,"anti_rotation_key_x_mm":[KEY_ROOT_X,KEY_OUTER_X],
+            "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,
+            "keeper_wall_face_gap_mm":KEEPER_Y[0]-WALL_THICKNESS,"keeper_rear_groove_room_mm":GROOVE_Y[1]-KEEPER_Y[1],
+            "lower_socket_stop_bore_mm":LOWER_STOP_BORE_D,"lower_socket_stop_radial_mm":(SEAL_BORE_D-LOWER_STOP_BORE_D)/2,
+            "lower_socket_stop_taper_mm":LOWER_STOP_TAPER,"installed_tip_stop_contact_area_mm2":math.pi*(TUBE_OD**2-LOWER_STOP_BORE_D**2)/4,
+            "fork_blend_radius_mm":FORK_BLEND_R,"customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
+            "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
+            "print_orientation":"Yaw the actual lower outward axis onto+Y, then rotate it onto−Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+            "physical_reference":"future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+            "scope":"Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."}
 
 
 def main():

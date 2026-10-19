@@ -8,19 +8,18 @@ flowchart LR
   %% `manifold_layout.LIMBS` and holds exactly the bodies that limb chains;
   %% `_fluid_topology_sync.py` gates it against that table.
 
-  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and the [6](TEE_COUNT) junction
-  %% tees, over [2](PUMP_COUNT) pumps.
+  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and [6](TEE_COUNT) junctions:
+  %% [2](PURCHASED_TEE_COUNT) purchased tees and [4](TPU_JUNCTION_COUNT) printed TPU junctions,
+  %% over [2](PUMP_COUNT) pumps.
 
   %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
-  %% ports, so a limb is one line of valves and tees butted collet to collet, front to back, on
-  %% one column of X. A fixed pump-side tee connects its BRANCH through a permanent TPU
-  %% receiver to its prepared pump stem. Its RUN lies across the head's face, giving
-  %% each pump two of these lanes, 57 mm apart.
+  %% ports, so a limb is a lane of valves and one junction. A permanent pump-side TPU
+  %% junction connects its inlet to a prepared pump stem, its upper outlet to a straight
+  %% link and its lower outlet to straight links and a fixed printed return.
 
-  %% THE PACK OCCUPIES TWO FIXED DECKS connected by four stationary hairpins.
+  %% THE PACK OCCUPIES TWO FIXED DECKS connected by four printed returns with straight links.
   %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
-  %% [8](LOWER_COUNT) stay on the first. The four connections crossing the hinge each become a
-  %% 180° hairpin.
+  %% [8](LOWER_COUNT) stay on the first.
 
   %% Neither reservoir appears here and neither has a junction: each carries two mouths of its
   %% own, so each pair's two valves reach them directly.
@@ -59,8 +58,8 @@ flowchart LR
     VI["V-I"]
   end
 
-  %% ---- Butted, along a limb's own lane ----
-  %% Collet to collet, no tube between them. Blue.
+  %% ---- Along a limb's own lane ----
+  %% Y-A/Y-B butt their valves. The four pump junctions use straight upper links. Blue.
   YA --> VC
   YB --> VD
   VE --> YC
@@ -68,9 +67,8 @@ flowchart LR
   YD --> VF
   YG --> VI
 
-  %% ---- Across the hinge ----
-  %% The four 180° hairpins, each on its own limb's column: a quarter of R14, 31.4 mm of straight,
-  %% and a quarter back. Orange.
+  %% ---- Fixed lower returns ----
+  %% Each connection has two straight LLDPE links and one printed TPU return. Orange.
   VC --> YC
   YD --> VG
   VD --> YF
@@ -88,11 +86,11 @@ flowchart LR
   YA <--> YB
 
   %% ---- Styling ----
-  %% All six junctions are PP0208E Tees — an in-line RUN and a BRANCH off it. What each port
-  %% reaches is fluid-topology.md "Junctions".
+  %% Y-A/Y-B are PP0208E tees. Y-C/Y-D/Y-F/Y-G are printed TPU junctions.
+  %% What each port reaches is fluid-topology.md "Junctions".
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YF,YG tee;
-  %% The bodies forward of the hinge, which the fold carries up onto the second deck.
+  %% The fixed upper-deck bodies.
   classDef upper stroke-dasharray:4;
   class VA,VB,VC,VD,VG,VJ,YA,YB upper;
   linkStyle 0,1,2,3,4,5 stroke:#09f,stroke-width:2px

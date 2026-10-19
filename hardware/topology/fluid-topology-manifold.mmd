@@ -17,20 +17,20 @@ flowchart LR
   %% never reaches.
 
   %% [26](SEGMENT_COUNT) flavor segments. [3](BUTT_COUNT) are collet butted to collet and carry
-  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest include four fixed fore S links,
-  %% four stationary hairpins and the source pair's two quarter-and-step turns. Reported tube lengths total
-  %% [2601.4 mm](FLUID_TOTAL) of 1/4" LLDPE over [69](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [446.4 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest include
+  %% [4](UPPER_LINK_COUNT) straight upper links, [8](LOWER_LINK_COUNT) straight lower links,
+  %% printed TPU junctions/returns and the source pair's two quarter-and-step turns. Reported tube lengths total
+  %% [2410.2 mm](FLUID_TOTAL) of 1/4" LLDPE over [53](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [446.8 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The stock total
-  %% counts the four complete receiver-to-tee tails and excludes machined pump stems.
-  %% Other mouth-to-mouth path lengths need their actual fitting insertions for cut blanks.
-  %% Add both actual fitting insertions to each fore S-link exposed path for its cut blank. The funnel's gravity
+  %% excludes machined pump stems and printed TPU passages. Mouth-to-mouth link lengths
+  %% need their actual socket or fitting insertions for cut blanks. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
 
   %% Colour is the circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
   %% (9 … 18), green channel B (19 … 28), grey the carbonator's own two runs through this bay.
-  %% A dashed border is a body the fold carries onto the upper deck.
+  %% A dashed border is a fixed upper-deck body.
 
   %% Per-limb grouping without the endpoints is fluid-topology-limbs.mmd; the water and CO2 spine
   %% feeding the split, and everything the carbonator dispenses through, are
@@ -57,10 +57,11 @@ flowchart LR
   %% =========================
   %% The flavour manifold
   %% =========================
-  %% Four limbs, two decks. A limb is one lane: a line of valves and tees butted collet to collet,
-  %% front to back, hinged in the middle — everything forward of the hinge folded up and over onto
-  %% the deck above. Both pumps stand at the fold, each hanging out two lanes 57 mm apart with a
-  %% tee dropped on each barb by its branch. Channel A stands east of the mirror plane in the
+  %% Four limbs, two fixed decks. Each lane joins its valves through one junction:
+  %% Y-A/Y-B are purchased tees; Y-C/Y-D/Y-F/Y-G are permanent printed TPU junctions.
+  %% Each prepared pump stem enters its junction through the closed pump-bay wall.
+  %% Straight upper links and fixed TPU returns connect the two valve rows.
+  %% Channel A stands east of the mirror plane in the
   %% machine and channel B west, the pack posed face down on the refrigeration stratum's crown.
   subgraph Manifold["manifold pack — four limbs on two decks"]
 
@@ -138,15 +139,14 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D stand in fixed saddles behind pump A's two permanent TPU receivers.
-  %% Each prepared pump stem enters its receiver; a straight permanent tail joins the
-  %% receiver to the tee branch. fluid-9 and fluid-17 are stationary R14 hairpins,
-  %% and fluid-10 and fluid-13 are fixed R14 S links to the fore valves.
+  %% Y-C and Y-D are pump A's permanent TPU junctions. fluid-9 and fluid-17 each use
+  %% two straight LLDPE links and one fixed printed TPU return. fluid-10 and fluid-13
+  %% are straight upper links to the fore valves.
   VC -->|"fluid-9"| YC
-  VE -->|"fluid-10<br/>bowed"| YC
-  YC -->|"fluid-11"| PA
-  PA -->|"fluid-12"| YD
-  YD -->|"fluid-13<br/>bowed"| VF
+  VE -->|"fluid-10"| YC
+  YC -->|"fluid-11<br/>pump-dock"| PA
+  PA -->|"fluid-12<br/>pump-dock"| YD
+  YD -->|"fluid-13"| VF
   VF -->|"fluid-14"| ResAFill
   ResA -->|"fluid-16"| VE
   YD -->|"fluid-17"| VG
@@ -155,14 +155,14 @@ flowchart LR
   %% =========================
   %% Channel B — fluid-19 … fluid-28
   %% =========================
-  %% Channel B mirrors channel A about x = 0. Y-F and Y-G stand behind pump B's receivers, fluid-19 and
-  %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
+  %% Channel B mirrors channel A about x = 0. Y-F and Y-G are pump B's permanent junctions;
+  %% fluid-19 and fluid-27 use straight links and fixed TPU returns. V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
-  VH -->|"fluid-20<br/>bowed"| YF
-  YF -->|"fluid-21"| PB
-  PB -->|"fluid-22"| YG
-  YG -->|"fluid-23<br/>bowed"| VI
+  VH -->|"fluid-20"| YF
+  YF -->|"fluid-21<br/>pump-dock"| PB
+  PB -->|"fluid-22<br/>pump-dock"| YG
+  YG -->|"fluid-23"| VI
   VI -->|"fluid-24"| ResBFill
   ResB -->|"fluid-26"| VH
   YG -->|"fluid-27"| VJ
@@ -202,15 +202,13 @@ flowchart LR
   %% Outside the pack (group:outside) — no run carries it.
   linkStyle 27,28,29 stroke:#555,stroke-width:1px
 
-  %% Junction fittings. All six are PP0208E TEES: an in-line RUN, one straight lane through the
-  %% fitting shared by two of its three ports, and a BRANCH, the leg that leaves that lane. Y-A
-  %% and Y-B stand on a limb's own axis with their branches across the mirror plane; the other
-  %% four connect by permanent receiver/tail joints to the pump stems, with their runs
-  %% across the head's face. Neither
+  %% Junction fittings. Y-A/Y-B are purchased PP0208E tees; their branches meet across
+  %% the mirror plane. Y-C/Y-D/Y-F/Y-G are permanent printed TPU junctions at the
+  %% prepared pump stems. Neither
   %% reservoir has one. fluid-topology.md "Junctions" carries where each port goes.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YF,YG tee;
-  %% The bodies forward of the hinge, which the fold carries up onto the second deck.
+  %% The fixed upper-deck bodies.
   classDef upper stroke-dasharray:4;
   class VA,VB,VC,VD,VG,VJ,YA,YB upper;
   %% Not the flavor manifold's — the carbonator's valve, and the pack's edge.

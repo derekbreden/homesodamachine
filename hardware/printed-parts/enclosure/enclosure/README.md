@@ -14,7 +14,7 @@ its underside, so it stands in the silhouette and the cavity's floor plane — t
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
 screws, two at each Y-seam corner, close the whole box.
-It measures [215 × 476.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures [215 × 466.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -313,7 +313,7 @@ outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [94 mm](RAIL_RUN_FRONT) per flank on the front column,
-[242 mm](RAIL_RUN_BACK) and [230 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
@@ -605,12 +605,12 @@ list.
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1362 mm](FLUTE_PERIM) of
+**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1342 mm](FLUTE_PERIM) of
 plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
 flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
 station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [5.0073 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
-one straight line running the full height of both side walls — lands [1.9 mm](FLUTE_SEAM_MISS)
+on, [4.9338 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
+one straight line running the full height of both side walls — lands [1.3 mm](FLUTE_SEAM_MISS)
 off a groove's centre, in the shadow that is already there rather than on a land.
 **`flute-closes`** holds the pitch to the coupon's.
 
@@ -629,7 +629,7 @@ returns outboard of the cavity planes; those two actual surfaces are two open ra
 [364.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
-**x = 0** and the pitch remains [5.0073 mm](FLUTE_PITCH), so both ledges retain the machine's
+**x = 0** and the pitch remains [4.9338 mm](FLUTE_PITCH), so both ledges retain the machine's
 inside phase. Each real surface is open; its two ends are edges like any other and the field
 ramps to zero on them, as it does at both Z ends of the band, which keeps cutter caps off every
 mouth and window arris.
@@ -670,10 +670,10 @@ full depth, so nothing crosses a flute anywhere here and no edge it makes is one
 on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 
 **The mullion is the governing number, not the section behind the groove.** A slot takes its
-width out of the pitch, and what is left between two of them is [1.9073 mm](VENT_MULLION) at
-[5.0073 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+width out of the pitch, and what is left between two of them is [1.8338 mm](VENT_MULLION) at
+[4.9338 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
 profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
-[0.1673 mm](VENT_SPARE) and ceilings a slot down every groove at [3.2673 mm](VENT_CEILING). The
+[0.0938 mm](VENT_SPARE) and ceilings a slot down every groove at [3.1938 mm](VENT_CEILING). The
 two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
@@ -687,7 +687,7 @@ the vent follows the field if `flute_count` is ever retuned — there is no Y st
 anywhere in the feature. A groove is in when its whole slot lies inside the block's AIRWAY: the
 [34..148 mm](VENT_WINDOW) between the block's two recesses, which is finstack. The 20 mm at
 either end is the sheet the box holds the block by, and the fan draws through neither.
-[22](VENT_GROOVES) grooves stand in that window on each flank.
+[23](VENT_GROOVES) grooves stand in that window on each flank.
 
 **In height the band is the FAN, not the airway.** What moves air through this wall is the axial
 fan bolted to the block's own flank; the finstack either side of it is served by whatever that fan
@@ -708,12 +708,12 @@ like any other above it, there being no chute up there to leave a strip against;
 widened into a vent, and no strip thinner than a wall survives between the two openings. Over
 the chute, the skin between two crossing slots on one flank of its arched roof ends level at
 the crown of the can's sweep, square to both jambs. All
-[85](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+[90](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
-[1.9073 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
-[57.7:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+[1.8338 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
+[60:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
 is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
 [3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
 pierced**, so every mullion and both jambs run into one plate of full section
@@ -732,13 +732,13 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [1.9073 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [1.9073 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+| −X intake | [23](VENT_SLOTS_IN) | [90](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [64.0 cm²](VENT_OPEN_IN) |
+| +X exhaust | [23](VENT_SLOTS_OUT) | [92](VENT_RUNS_OUT) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [65.5 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
-is [61.9 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
+is [62.8 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
 out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
-[1.9073 mm](VENT_MEAS_MULLION) mullion, which is [12.8:1](VENT_ASPECT).
+[1.8338 mm](VENT_MEAS_MULLION) mullion, which is [13.4:1](VENT_ASPECT).
 
 **The air path is the donor's.** The condenser, its fan and shroud, and the compressor beside
 them stand in the donor ice maker's own arrangement
@@ -1451,19 +1451,26 @@ locates the receivers in X/Z. Their recessed collars fit in the wall, and
 Each keeper is [3 mm](DOCK_KEEPER_T) thick with
 [0.35 mm](DOCK_KEEPER_RADIAL_AIR) nominal radial room around its receiver neck and
 one factory-only M3×8 lock screw and Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0
-insert. The keeper bears against the wall and retains 0.50 mm behind it in the
-TPU groove. A separate two-screw
-rear support frame has four cuff rings, narrow uprights and a high bridge that
-clears the keeper guides. Its mounting pads bear against the frame's fore face;
-each M3×8 screw uses the same washer. The
-support is installed after the receivers and keepers, before the rear tails and tees.
+insert. The keeper seats against a broad integral wall land with 0.15 mm clearance
+over the remaining wall face. Each receiver is a complete asymmetric Y with
+90° between its pump inlet and upper branch, with a nominal 135° lower branch.
+Its upper link is straight. A one-piece compound TPU return supplies the lower
+45° and 90° turns, with straight LLDPE between the junction and return and a
+short straight tail into the original aft valve station.
+
+Each junction/return pair has its own side-opening PET-GF cradle and flat cover.
+Broad TPU keys beside all four fixed socket stops retain both wet bodies and
+the cover against the rigid cradle; the PET-GF does not flex for assembly.
+The cradle closes the straight tube's side guide and locks to the wall and
+aft tray with two M3×8 screws and the same washers. All permanent plumbing is
+assembled on loose front-top before that piece joins the compressor half.
 
 Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
 set full insertion, with the stem tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
-A straight pull withdraws the four stems while every receiver, keeper, support,
-commercial tee and rear tube remains fixed. No commercial collet moves during a pump
+A straight pull withdraws the four stems while every junction, keeper, return,
+cradle and fixed tube remains in place. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, factory setting fixtures and material selections.
 
@@ -1498,15 +1505,19 @@ faces to the cartridge body. The top clamp has no separate grip.
 
 ## Fixed plumbing behind the receiver wall
 
-The four pump-side commercial tees stand in fixed saddles behind the receiver wall.
-Two 6-inch, 18 lb ties per tee, eight total, retain its fixed run-collar stock while
-leaving all three collets free. The permanent straight LLDPE tails join the rear TPU sockets to their tee
-branches. The fore links and spine hairpins hold stationary routes to the valves;
-no tube bend is used as a service-motion spring.
+Four permanent TPU junctions combine the pump-facing funnel, tight inlet land
+and two branches in one printed wet body. The inlet and upper outlet are at
+90 degrees; the lower outlet points 45 degrees aft from downward. The upper
+LLDPE link runs straight to its original valve port. Each lower outlet joins
+one permanent printed return containing a 45-degree turn, a straight passage
+and a 90-degree turn. Two straight LLDPE links connect that body to the junction
+and the original aft valve port.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
-The receiver keepers and rear support install from the open interior before the tee
-plumbing and valve rows close access. The aft valves and coils enter from the loose
+The flat receiver keepers, socket backing and tube capture install from the
+open interior before the valve rows close access. TPU mounting features
+interlock with PET-GF fixtures; the fixed socket stops and closed tube guides
+locate the short links against axial motion and bowing. The aft valves and coils enter from the loose
 piece's underside and move onto their mounting posts. The Beduan socket fit retains
 its identified physical acceptance; ties supply retention. Factory assembly and the
 complete dock's physical qualification are specified in
@@ -1556,7 +1567,7 @@ plane.
 
 The receiver row has a 7 mm wall section with four closed Ø12 mm bores and recessed
 front lips and rear collar seats. The interior access recess leaves flat keeper guides,
-their lock hosts, the fixed tee saddles and the separate rear cuff support. The full
+their lock hosts and the fixed socket mounting fixtures. The full
 backing depth continues into the ridge/contact wall above. The Z-seam rail channels
 begin at the bulkhead's retained aft datum.
 
@@ -1693,14 +1704,14 @@ carry the same allowance.
 its aft face, apex up, wide enough at the contact row for both outer tails and their solder
 joints. Its apex keeps [3 mm](POGO_LEAD_BORE_ROOF) of bulkhead under the crown, so its axis
 stands [0.8984 mm](POGO_LEAD_DROP) below the pair's. It opens through the aft face above the fore
-valve tray's crown at z [no tray](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
+valve tray's crown at z [274.45 mm](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
 opens through the clamp's crown, which is the clamp's bed face, and one
 [4 × 3.5 mm](POGO_GROOVE) groove per pump carries that pump's pair along the crown into its
 terminal well. The crown keeps [6.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's [215 × 476.3 × 361 mm](BOX_SIZE)
+The machine display sits on a 30° plane within the enclosure's [215 × 466.3 × 361 mm](BOX_SIZE)
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;

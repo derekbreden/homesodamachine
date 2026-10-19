@@ -674,7 +674,7 @@ def _fluid_2(F):
 # before the U is level and the U only falls, so nothing on the line stands above the elbow.
 
 # The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
-FLUID_4_CROSS_Y = 289.0
+FLUID_4_CROSS_Y = 282.0
 
 
 def _fluid_4(F):
@@ -789,7 +789,7 @@ GATE_B_JOG_LEG = 19.9
 GATE_B_DRAIN_RETURN_RISE = 3.5
 GATE_B_RETURN_WEST = 16.5
 GATE_B_RETURN_HOLD_Y = 412.0
-GATE_B_UNION_JOIN_Y = 448.5
+GATE_B_UNION_APPROACH = 8.01
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is
 # THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
@@ -863,7 +863,8 @@ def _fluid_28(F, solids):
     """Flavor B retains the front support and follows its raised west return.
 
     The return rises 3.5 mm, passes 16.5 mm west of the rear union's column and
-    reaches its collet on-axis. The rear return corners hold R25.4.
+    reaches its collet on-axis. Its 8.01 mm approach is measured from the
+    actual union mouth along its outward normal. The rear corners hold R25.4.
     """
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
@@ -876,9 +877,9 @@ def _fluid_28(F, solids):
         (tin[0], 340.0, climb + GATE_B_DRAIN_RETURN_RISE),
         (tin[0] - GATE_B_RETURN_WEST, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
         (tin[0] - GATE_B_RETURN_WEST, GATE_B_RETURN_HOLD_Y, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0], GATE_B_UNION_JOIN_Y, tin[2]),
         "bulkhead-flavor-b.tube-in",
-        kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,
+        kind="fluid", lead=(0.0, GATE_B_UNION_APPROACH),
+        bend={1: TUBE_BEND, 2: TUBE_BEND,
                             3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
         note="flavor B: V-J-O → rear union, through the front support and "
              "a raised west return above the ASSE drain")
@@ -972,7 +973,7 @@ FILL_A_GATE_LEAN_DEG = 2.9
 # plus this air apart at the fill line's lane plane, rather than making either established end
 # storey carry the other's valve lift.
 FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 16.6
+FILL_A_DRAW_GATE_LEAD = 16.3
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
