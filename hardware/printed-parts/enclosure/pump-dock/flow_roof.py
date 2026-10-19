@@ -1,8 +1,9 @@
 """Native45-degree flow-roof construction for permanent TPU wet parts.
 
-The roof triangles are expressed in the selected print frame. Their two roof
-edges have exact X slopes+/-1; a ruled loft preserves those slopes between
-sections. Socket sealing lands are not supplied to this function.
+The roof triangles are expressed in the selected print frame. Their lower
+roots overlap the round passage; both roof edges rise at least45degrees.
+A ruled loft joins the sections. Socket sealing lands are not supplied to
+this function.
 """
 import math
 import cadquery as cq
@@ -48,7 +49,7 @@ def _support(edges,sx):
 
 def selfsupport_flow_cap(arc_segment,radius=2.15,*,print_angle=-45.,blend=.8,
                          max_step=.20,support_error=.003,crown_air=.006,
-                         record=None):
+                         record=None,tangent_overlap=.10):
     """Return a cap-only native solid in the input frame for one flow arc.
 
     Use the last90degree arc and its short straight blends, outside all tube
@@ -79,7 +80,12 @@ def selfsupport_flow_cap(arc_segment,radius=2.15,*,print_angle=-45.,blend=.8,
         f=max(0.,min(1.,f))
         # A tiny outward allowance covers accepted sub-section interpolation.
         shift=cq.Vector(0,0,crown_air*f)
-        tri=[top+(p-top)*f+shift for p in (pm,pp,apex)]
+        # Bury both lower roots in the round passage. Moving the root down
+        # twice its lateral reach keeps each roof side steeper than45degrees
+        # while the crown allowance and fade leave the apex unchanged.
+        tri=[top+(pm-top)*f+shift+cq.Vector(-tangent_overlap*f,0,-2*tangent_overlap*f),
+             top+(pp-top)*f+shift+cq.Vector(tangent_overlap*f,0,-2*tangent_overlap*f),
+             top+(apex-top)*f+shift]
         row={'y':y,'support':[hp,hm],'tri':tri,'top':top,'fade':f}
         cache[y]=row;return row
     # Avoid the exact swept end faces while finding the fade endpoint crown.
@@ -122,7 +128,8 @@ def selfsupport_flow_cap(arc_segment,radius=2.15,*,print_angle=-45.,blend=.8,
     if record is not None:
         record.update(print_angle_X_deg=print_angle,flow_radius_mm=radius,blend_mm=blend,
                       max_section_step_mm=max_step,requested_support_error_mm=support_error,
-                      outward_roof_allowance_mm=crown_air,loft_sections=len(accepted),
+                      outward_roof_allowance_mm=crown_air,tangent_overlap_mm=tangent_overlap,
+                      root_downward_overlap_mm=2*tangent_overlap,loft_sections=len(accepted),
                       exact_axial_clip_planes=[dict(point=_vtuple(pre),inward=_vtuple(ta)),dict(point=_vtuple(post),inward=_vtuple(tb*-1))],**stats,
                       cap_valid=cap.isValid(),cap_solids=len(cap.Solids()),cap_volume_mm3=cap.Volume(),
                       scope='Native adaptive roof construction only. Caller validates outside stock, stop separation and actual sliced deposition; no material/pressure/lifetime qualification.')
