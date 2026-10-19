@@ -823,11 +823,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1257778.766 mm³](FSHELL_VOLUME) |
+| volume | [1257778.758 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.510 to 141.510 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.510 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.976629, 0.178889, 91.217774) mm](CENTROID) |
+| centroid | [(0.976630, 0.178889, 91.217773) mm](CENTROID) |
 
 Quick reproduction:
 
