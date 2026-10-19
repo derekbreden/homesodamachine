@@ -284,9 +284,13 @@ def edge_fins(geo: Geometry, feature: dict, ceiling: dict) -> dict:
         x_in = x_out - side * width
         for k in range(count):
             a = y0 + k * (actual + release)
-            fins.append({"side": side, "box_print_mm": [[min(x_in, x_out), a, 0.0], [max(x_in, x_out), a + actual, top]],
-                         "blocker_print_mm": [[min(x_in, x_out) - 0.2, a - 0.2, top - 0.85],
-                                              [max(x_in, x_out) + 0.2, a + actual + 0.2, ceiling["ceiling_print_z_mm"] + 0.85]]})
+            fin = {"side": side, "box_print_mm": [[min(x_in, x_out), a, 0.0], [max(x_in, x_out), a + actual, top]],
+                   "blocker_print_mm": [[min(x_in, x_out) - 0.2, a - 0.2, top - 0.85],
+                                        [max(x_in, x_out) + 0.2, a + actual + 0.2, ceiling["ceiling_print_z_mm"] + 0.85]]}
+            if feature.get("foot_height_mm"):
+                foot = (x_out + side * feature["foot_outboard_mm"], x_in - side * feature["foot_inboard_mm"])
+                fin["foot_print_mm"] = [[min(foot), a, 0.0], [max(foot), a + actual, feature["foot_height_mm"]]]
+            fins.append(fin)
     if not fins:
         raise FeatureMissing(f"{feature['name']}: no exterior ceiling edge found")
     return {"name": feature["name"], "kind": "edge_fins", "fins": fins, "reason": feature["reason"]}
