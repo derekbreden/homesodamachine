@@ -704,9 +704,9 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "8d726703da52058d533fbdd292d60f163251f0228c59c1809d270fc197a278a8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3f17e1506177145ea5903d2aac4c7f4ea1606959ca5613ea6017785c26180071",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "673f2b24bea6c15ac59e42b1490516a6e8769ae265f9f60d12e695c0b4d90b38",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ddd8937ee6f6bb4ae567204c36f242f14cbbbf3d9f64656ae5f04f607004479f",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c3bf1c98bd0d25d975439179bebfb3889501d1ce6f633e4c1bf2a420ec784da7",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
@@ -721,8 +721,8 @@
       ".stl": "6a01061944e97cdf1ed46af95add3e4a6638a47f17f83884a421fd5b74eec432"
     },
     "front-top": {
-      ".step": "1365b09a863573400d6226cc98f4f0fd67d3f347a49be22f37ecfaa7ee3c75d8",
-      ".stl": "d8f5526d9eaf99160555072468c690336899adaec2b70fa9f8f6f9ad592aa2a6"
+      ".step": "1c27b2a911067b35879b2bc30be03ad483bcd618413a58717fdc9e94d589c7e7",
+      ".stl": "60893e0df47a11c8138f83b4e6ed588c3352c7478c8e22cc689dffff3f01f5a2"
     },
     "back-bottom": {
       ".step": "8b1820fe8f80256f3d5e3f7675af1f7aa6bcdec640cdd7c3222f4f65ee9ba2af",
