@@ -88,7 +88,7 @@ click: x=101.125 y=155.116 z=307.400
 [ledge] These two 2 mm projection faces are the separated manifold-A Wago retention tabs at Z295.300. They retain the connector ends while leaving the center open for lever/wire access and the selected short roof profile. Physical retention and support cleanup remain unqualified.
 alternatives: Removing the tabs removes end retention. Joining their ends changes the open-center pocket, lever access and support treatment.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.300 y=176.383 z=295.300
+click: x=98.300 y=175.717 z=295.300
 click: x=98.300 y=161.617 z=295.300
 
 [thin] Wrong material-thickness classification across a concave corner: front-top's upper Y-stack knuckle face (|X|104.25, exposed aft of Y200, top on the frame datum Z299.65) meets the funnel-frame foot's running clearance (|X|103.75, floor Z299.65, ending on the rear-narrowing plane Y200) only at one shared edge. Between |X|103.75 and 104.25 three of the four quadrants about that edge are solid. A ray along the knuckle sample's inward normal crosses 12.75 mm of material, and from the clearance wall 3.74 mm, the flank beside the clearance (probe on the current STL).
@@ -102,58 +102,46 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-63.394 y=19.131 z=308.466
 click: x=63.397 y=19.131 z=308.470
 
-[thin] Boundary-tangent classification, not a through-material section. All five interior positions at 10/25/50/75/90 percent along each exact current rounded segment classify ON the native boundary; none classifies inside the solid. Four lie on the X±98.5 valve-fixture boundary and two on the display interface. The reported separation follows a surface boundary and supplies no wall-thickness acceptance.
-alternatives: The reader needs an interior-material requirement before ranking tangent boundary pairs as thickness. Thickening geometry solely to move this surface tangent does not measure the surrounding section; use a section through actual interior material when assessing it.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.500 y=171.739 z=180.832
-click: x=-98.500 y=171.739 z=180.832
-click: x=62.650 y=19.320 z=305.372
-click: x=-62.650 y=19.320 z=305.372
-
 [thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
 alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-57.049 y=83.865 z=183.489
-click: x=-47.682 y=83.865 z=176.671
 click: x=-87.667 y=178.290 z=184.469
-click: x=-86.533 y=178.290 z=208.942
+click: x=-86.448 y=178.290 z=208.927
 click: x=-63.342 y=178.290 z=184.511
-click: x=-61.963 y=178.290 z=208.920
-click: x=-37.852 y=178.290 z=177.017
-click: x=-36.955 y=178.290 z=200.377
+click: x=-62.090 y=178.290 z=208.934
+click: x=-37.841 y=178.290 z=176.976
+click: x=-37.133 y=178.290 z=200.563
 click: x=64.076 y=181.290 z=213.901
 click: x=34.841 y=181.290 z=206.738
 click: x=13.422 y=181.290 z=202.970
 click: x=-6.787 y=181.290 z=203.099
 click: x=-31.200 y=181.290 z=202.733
 click: x=-58.536 y=181.290 z=211.376
-click: x=-58.302 y=181.290 z=186.849
-click: x=-82.649 y=181.290 z=212.734
+click: x=-58.469 y=181.290 z=187.530
+click: x=-83.026 y=181.290 z=211.327
 click: x=-82.764 y=181.290 z=186.686
-click: x=-13.444 y=178.290 z=176.975
-click: x=-13.444 y=178.290 z=201.825
-click: x=47.401 y=83.865 z=183.489
-click: x=56.768 y=83.865 z=176.671
-click: x=86.151 y=101.208 z=298.129
-click: x=68.762 y=104.208 z=306.714
-click: x=6.705 y=178.290 z=177.818
-click: x=6.705 y=178.290 z=202.668
-click: x=32.250 y=178.290 z=175.451
+click: x=-13.496 y=178.290 z=177.183
+click: x=-13.456 y=178.290 z=201.911
+click: x=71.709 y=101.208 z=298.220
+click: x=68.655 y=104.208 z=298.517
+click: x=6.711 y=178.290 z=177.732
+click: x=6.711 y=178.290 z=202.582
+click: x=32.437 y=178.290 z=175.275
 click: x=32.979 y=178.290 z=199.779
-click: x=34.298 y=181.290 z=174.691
-click: x=11.104 y=181.290 z=174.707
-click: x=-9.283 y=181.290 z=174.682
+click: x=35.001 y=181.290 z=174.689
+click: x=10.401 y=181.290 z=174.709
+click: x=-9.985 y=181.290 z=174.685
 click: x=-34.584 y=181.290 z=174.719
 click: x=58.224 y=181.290 z=187.742
 click: x=82.764 y=181.290 z=187.584
 click: x=82.922 y=181.290 z=213.457
 click: x=59.898 y=178.290 z=184.511
-click: x=61.320 y=178.290 z=208.915
+click: x=61.150 y=178.290 z=208.934
 click: x=84.373 y=178.290 z=184.469
-click: x=85.507 y=178.290 z=208.942
+click: x=85.592 y=178.290 z=208.927
 click: x=98.132 y=161.650 z=231.161
-click: x=95.251 y=164.650 z=261.053
-click: x=97.892 y=173.350 z=231.378
+click: x=95.574 y=164.650 z=231.099
+click: x=98.450 y=173.350 z=240.383
 click: x=98.481 y=176.350 z=258.302
 click: x=98.125 y=157.950 z=265.258
 click: x=95.252 y=160.950 z=294.947
@@ -161,3 +149,8 @@ click: x=98.358 y=180.050 z=295.170
 click: x=98.320 y=177.050 z=265.639
 click: x=98.408 y=162.612 z=298.300
 click: x=97.675 y=177.006 z=298.300
+
+[slope] Unavoidable without moving the fore valve tray: the plate (Y90.24–99.44, floor Z230.40) overhangs the keeper access pocket, whose 45-degree roof roots at Z226.174 on the bay wall's aft face (Y89.515), 0.67 mm over the four keepers at the top of their 20 mm upward removal route (Z225.674, Y89.665–92.665). No 45-degree face rising off that wall reaches the plate's far edge without entering that route, so the strip aft of the roof has no wall to stand on. The keel under the plate's whole thickness hangs its apex line at Z225.80 between the side walls and takes tree support along that one line from the open interior before the dock is fitted; its fore face stands 2.30 mm over the lifted keepers. Support removal remains unqualified.
+alternatives: A 45-degree corbel from the wall to the plate's far edge roots at Z220.475, 2.05–5.05 mm inside the keepers' route. A 45-degree cut through the plate's lower aft corner opens the four valve port channels. A flat floor needs support across the whole 5.7 mm strip. Moving the tray moves its four valves and their links.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=93.415 z=227.225
