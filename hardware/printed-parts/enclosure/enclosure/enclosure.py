@@ -124,6 +124,8 @@ from pathlib import Path
 
 import cadquery as cq
 from OCP.BRepAdaptor import BRepAdaptor_Surface
+from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffset
+from OCP.GeomAbs import GeomAbs_Arc, GeomAbs_Intersection
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -338,6 +340,8 @@ disposal_embed = 0.1
 disposal_line_gap = 2.5
 disposal_bottom = 14.0
 disposal_margin = 5.0
+# Half the 0.42 mm bead: each outline is shrunk and regrown by this before it is raised.
+disposal_open = 0.21
 
 
 def flute_backed_sections():
@@ -3209,9 +3213,43 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
+def _disposal_offset(face, distance, join):
+    """`face` grown by `distance` (shrunk when negative) in its own plane, holes and all."""
+    grow = BRepOffsetAPI_MakeOffset(face.wrapped, join)
+    grow.Perform(distance)
+    if not grow.IsDone() or grow.Shape().IsNull():
+        return None
+    wires = sorted(cq.Shape.cast(grow.Shape()).Wires(),
+                   key=lambda w: cq.Face.makeFromWires(w).Area(), reverse=True)
+    return cq.Face.makeFromWires(wires[0], wires[1:]).fix() if wires else None
+
+
+def _disposal_opened(face):
+    """`face` shrunk and regrown by `disposal_open`: a point or spur narrower than a bead is
+    gone, and every stroke and gap wider than one stands where it was. An outline OCCT cannot
+    offset with either join is kept as drawn."""
+    for join in (GeomAbs_Arc, GeomAbs_Intersection):
+        shrunk = _disposal_offset(face, -disposal_open, join)
+        grown = shrunk and _disposal_offset(shrunk, disposal_open, join)
+        if grown:
+            return grown
+    return face
+
+
 @functools.lru_cache(maxsize=1)
 def _disposal_flat():
-    """Centered warning outlines in XY, with their bottom at zero and relief along +Z."""
+    """Centered warning outlines in XY, with their bottom at zero and relief along +Z.
+
+    EVERY LETTER IS RAKED. back-bottom prints floor-down, so the letters stand on a vertical
+    wall, and a stroke carried straight out of it ends in a flat underside the bed sees as a
+    shelf. Each letter's outline is instead carried out along +Z and up its caps' +Y at once,
+    at 45°: every underside is a 45° face the layer beneath it carries, the face keeps the
+    outline's whole height, and the letter stands the same `disposal_raise` proud.
+
+    AND OPENED FIRST. A bold face draws K and X's arms and R's leg to points, and a point
+    narrower than a bead is a sliver no nozzle prints: each outline is shrunk and regrown by
+    `disposal_open` (`_disposal_opened`), which takes those points off and leaves every stroke
+    and every gap between letters where the font set it."""
     def text(line, size):
         return cq.Workplane("XY").text(
             line, size, disposal_raise + disposal_embed,
@@ -3232,17 +3270,30 @@ def _disposal_flat():
         letters.append(row.translate(cq.Vector(
             -(bounds.xmin + bounds.xmax) / 2.0,
             index * leading + (row_height - bounds.ylen) / 2.0 - bounds.ymin, 0.0)))
-    return cq.Compound.makeCompound(letters)
+    depth = disposal_raise + disposal_embed
+    raked = []
+    for row in letters:
+        for face in row.Faces():
+            if abs(face.Center().z) > 1e-6 or face.normalAt().z > -0.99:
+                continue                                    # each letter's own outline only
+            opened = _disposal_opened(face)
+            if opened.BoundingBox().ylen < face.BoundingBox().ylen - 0.01:
+                raise ValueError("opening the disposal warning shortened a letter")
+            raked.append(cq.Solid.extrudeLinear(opened, cq.Vector(0.0, depth, depth)))
+    return cq.Compound.makeCompound(raked)
 
 
 def disposal_letters(outer):
-    """Raised letters facing +Y, reading left to right along -X with their caps along +Z."""
+    """Raised letters facing +Y, reading left to right along -X with their caps along +Z.
+
+    They are placed by location, so each letter keeps the faces `_disposal_flat` built: a
+    transformed copy of a raked letter with a counter leaves two of its faces unorientable,
+    and back-bottom fused with those does not close."""
     ox0, ox1, _oy0, oy1, oz0, _oz1 = outer
-    return (_disposal_flat()
-            .rotate((0, 0, 0), (1, 0, 0), 90.0)
-            .rotate((0, 0, 0), (0, 0, 1), 180.0)
-            .translate(cq.Vector((ox0 + ox1) / 2.0,
-                                 oy1 - disposal_embed, oz0 + disposal_bottom)))
+    return _disposal_flat().moved(
+        cq.Location(cq.Vector((ox0 + ox1) / 2.0, oy1 - disposal_embed, oz0 + disposal_bottom))
+        * cq.Location(cq.Vector(), cq.Vector(0, 0, 1), 180.0)
+        * cq.Location(cq.Vector(), cq.Vector(1, 0, 0), 90.0))
 
 
 def disposal_field(outer):
