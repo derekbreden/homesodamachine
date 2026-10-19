@@ -1,7 +1,8 @@
 # Mechanical evidence and qualification
 
 This register connects the current fasteners and print settings to their design basis and
-physical evidence. Evidence limits describe what can be claimed; they do not assign tests
+physical evidence. The [loads and retention review](loads-and-retention-review.md) sets the handling,
+seam, insert, compressor-post, cartridge and contact loads against their governing features. Evidence limits describe what can be claimed; they do not assign tests
 or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
 2026-10-04 against the generators, saved print projects and linked physical records.
