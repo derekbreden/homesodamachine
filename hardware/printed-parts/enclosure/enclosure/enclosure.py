@@ -8601,7 +8601,8 @@ def _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up):
     rib that stands up off its piece's bed, rooted on the face the piece prints on, so a rib
     rooted anywhere else raises too. Where the ceiling stands inside the wings' reach it has
     already given them their room (`_ceiling_cap_reliefs`), and the windows are cut once the
-    rib is fused, through rib and ceiling alike.
+    rib is fused, each from its bearing face to where its flank ends, so no band of flank is
+    left between window and ceiling (`_anchor_cap_interface.window_top`).
 
     A piece that owns only part of the rib builds none of it, like every other station here."""
     mid, u, n, seat_r = station[:4]
@@ -8623,7 +8624,10 @@ def _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up):
             f"{tuple(n)}, which is not the face its piece prints on; its windows' bearing faces "
             f"would print as overhangs. Close it with a zip tie.")
     solid = solid.fuse(_anchor_cap.rib(frame, b_face).clean())
-    for window in _anchor_cap.windows(frame):
+    # The rib is struck up to the lane (`b_face`), inside the slab; its flanks end on the face the
+    # slab presents (`back_top_ceiling_face`), and so do its windows.
+    b_ceiling = (back_top_ceiling_face() - mid[2]) * n[2]
+    for window in _anchor_cap.windows(frame, b_ceiling):
         solid = solid.cut(window)
     return solid
 

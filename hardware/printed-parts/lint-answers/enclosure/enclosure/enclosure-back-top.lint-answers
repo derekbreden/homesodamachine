@@ -298,3 +298,15 @@ alternatives: An unrestricted corbel enters the populated-board/tail keepout. Sh
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=348.300 z=259.400
 click: x=97.375 y=348.800 z=327.200
+
+[ceiling] Unavoidable fitted catch bridges: each face is the bearing face of a catch window in `carb-1`'s capped rib, where the anchor cap's lip bears. Back-top prints ceiling-down, so the face is a 14.6 mm bridge carried by the rib's two 3 mm end webs, 4.0 mm over the slab; the window it roofs is the 1.6 mm pocket the lip enters.
+alternatives: A corbel or column under the face fills the window the lip enters. Sloping the face turns the lip's pull into a spread that walks the wing out of the window, and a window open at its ends gives up the end webs the bridge stands on.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=50.200 y=265.075 z=339.022
+click: x=50.200 y=276.125 z=339.022
+
+[sliver] Unavoidable fitted catch faces: each 1.6 mm strip is the bearing face of a catch window in `carb-1`'s capped rib, as deep as the window: the anchor cap lip's 1.2 mm engagement with a slip and the bridge's 0.25 mm finish allowance past the lip's tip.
+alternatives: A deeper window narrows the rib's web for bearing the 1.2 mm lip never uses, and a shallower one lets the lip bottom out. A deeper engagement spreads the cap's wings past the faucet display cover's strain on the same estimate.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=50.200 y=265.075 z=339.022
+click: x=50.200 y=276.125 z=339.022

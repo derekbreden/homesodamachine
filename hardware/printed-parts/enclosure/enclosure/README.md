@@ -1367,10 +1367,11 @@ east lane to the cold core.
 **An anchor cap closes `carb-1`'s rib, and that rib takes no zip tie** (`_capped_anchor`,
 `_anchor_cap_interface`). It is the same half pipe at `seat_r` with flat lips one `wall` past
 the axis plane, built as one solid post [20.6 mm](CAP_RIB_LEN) long with nothing cut for a
-tie. Each flank carries a catch window: a closed pocket [14.6 mm](CAP_WINDOW_LEN) long between
-the rib's two end webs, [1.6 mm](CAP_WINDOW_DEPTH) deep, from [6.92 mm](CAP_WINDOW_B0) to
-[10.19 mm](CAP_WINDOW_B1) over the axis plane. Back-top prints ceiling-down, so each window's
-bearing face, the side nearest the tube, prints as a bridge web to web. The rib's two outer
+tie. Each flank carries a catch window: a pocket [14.6 mm](CAP_WINDOW_LEN) long between the
+rib's two end webs, [1.6 mm](CAP_WINDOW_DEPTH) deep, from [6.92 mm](CAP_WINDOW_B0) over the axis
+plane to where the flank meets the ceiling, past the [10.19 mm](CAP_WINDOW_B1) the lip reaches.
+Back-top prints ceiling-down, so each window's bearing face, the side nearest the tube, prints
+as a bridge web to web. The rib's two outer
 bottom edges carry a [0.8 mm](CAP_RIB_CHAMFER) chamfer the cap's lips ride onto. The
 [anchor cap](../anchor-cap/README.md) presses on over the tube, and its lips drop into the
 windows.

@@ -1,0 +1,27 @@
+[sliver] Unavoidable fitted snap lips: each wing's lip reaches the faucet display cover's 1.2 mm engagement. Its retention face is that 1.2 mm, flat and square to the push, and bears on the rib window's bearing face; its 0.9 mm straight tip, between that face and the 30° lead-in ramp, is what rides the rib's flank going on.
+alternatives: A deeper engagement spreads each wing past the faucet cover's strain on the same beam estimate, and a shallower one holds less. Running the ramp down to the retention face leaves a knife edge at the tip.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step
+click: x=5.875 y=7.322 z=7.000
+click: x=-5.875 y=7.322 z=7.000
+click: x=5.275 y=7.772 z=7.000
+click: x=-5.275 y=7.772 z=7.000
+
+[sliver] Specific flexure: each strip is the top of a 1.5 mm spring wing, the thickness that keeps its peak strain going on at the faucet display cover's (1.76% against 1.77% on one beam estimate).
+alternatives: A thicker wing strains more for the same spread. A longer one needs the face the rib roots on further from the tube than the ceiling over carb-1 stands.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step
+click: x=7.225 y=10.300 z=7.000
+click: x=-7.225 y=10.300 z=7.000
+
+[sliver] Unavoidable fitted lead-in: each strip is an eased edge of the cap's bore at its shoulder, 0.45 mm wide and running 10° round the bore, which guides a tube lying slightly off the rib's seat into the bore as the cap goes on.
+alternatives: A wider ease wraps less of the tube in the cap's half of the pipe; none leaves a sharp bore edge to pinch the tube.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step
+click: x=3.525 y=-0.289 z=7.000
+click: x=-3.525 y=-0.289 z=7.000
+
+[thin] Specific flexure: the cap's two spring wings are 1.5 mm thick from the round end of each wing gap to their tops; the faucet display cover's accepted wings are 1.35 mm. Everything else in the cap is the solid saddle round the bore.
+alternatives: A thicker wing strains more going on, past the faucet cover's on the same estimate. Filling the gap stiffens the wing's root, which then takes the whole bend over a shorter length.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step
+click: x=7.456 y=-2.827 z=0.999
+click: x=6.054 y=-2.296 z=0.999
+click: x=-7.456 y=-2.827 z=0.999
+click: x=-6.054 y=-2.296 z=0.999

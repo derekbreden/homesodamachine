@@ -66,7 +66,8 @@ SADDLE_R = SEAT_R + SADDLE
 CAVITY = WING_IN - SADDLE_R             # `WALL + WING_AIR - SADDLE`, whatever the seat
 # The window: deep enough for the lip's whole engagement with a slip and the bridged roof's
 # finish allowance beyond it, from the bearing face a slip and that allowance under the seated
-# lip up to a slip over where the lip's ramp crosses the flank.
+# lip up to where the flank ends (`window_top`), which is past a slip over where the lip's ramp
+# crosses the flank (`WINDOW_B1`).
 BEARING_PLAY = fits.slip + fits.supported_surface
 WINDOW_DEPTH = ENGAGE + fits.slip + fits.supported_surface
 WINDOW_B0 = LIP_B - BEARING_PLAY
@@ -113,9 +114,10 @@ class Frame:
 
 
 def _lip(side):
-    """A wing's lip: the flat retention face under it, the straight tip, the ramp back out."""
+    """A wing's lip: the flat retention face under it, the straight tip, and the ramp back out to
+    the wing's top inner corner, so no strip of the wing's inner face stands over the ramp."""
     pts = [(WING_IN + 0.05, LIP_B), (WING_IN - ENGAGE, LIP_B), (WING_IN - ENGAGE, LIP_B + LIP_TIP),
-           (WING_IN + 0.05, LIP_B + LIP_H)]
+           (WING_IN, LIP_B + LIP_H), (WING_IN + 0.05, LIP_B + LIP_H)]
     return [(side * a, b) for a, b in pts]
 
 
@@ -162,13 +164,22 @@ def rib(frame, b_root):
     return body.cut(frame.bore(SEAT_R, -RIB_LEN / 2.0 - 1.0, RIB_LEN / 2.0 + 1.0))
 
 
-def windows(frame):
-    """The two catch windows, each run out past its flank so the cut is clean."""
+def window_top(b_face):
+    """Where a window ends toward the root: where the flank it is cut in ends, so no band of
+    flank stands between the window and that face. That is the root face, or the top of the
+    wing room cut into it (`wing_room`), whose inner wall the flank runs on up."""
+    return SLOT_TOP if b_face < SLOT_TOP - HEADROOM / 2.0 else b_face
+
+
+def windows(frame, b_face):
+    """The two catch windows, each run out past its flank so the cut is clean, from its bearing
+    face to where the flank ends (`window_top`)."""
+    top = window_top(b_face)
     out = []
     for side in (1, -1):
         a_in, a_out = side * (RIB_R - WINDOW_DEPTH), side * (RIB_R + 2.0)
-        out.append(frame.prism([(a_in, WINDOW_B0), (a_out, WINDOW_B0), (a_out, WINDOW_B1),
-                                (a_in, WINDOW_B1)], -WINDOW_LEN / 2.0, WINDOW_LEN / 2.0))
+        out.append(frame.prism([(a_in, WINDOW_B0), (a_out, WINDOW_B0), (a_out, top),
+                                (a_in, top)], -WINDOW_LEN / 2.0, WINDOW_LEN / 2.0))
     return out
 
 
