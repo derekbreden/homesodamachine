@@ -341,7 +341,8 @@ The main board runs `b79be4d54` or later. Nothing is configured for this build.
 ## Before guests use it
 
 1. **Pump current.** Read one pump's startup and stall current with the multimeter in series on a
-   motor lead. The cartridge contacts are rated 2 A each, and nothing on the board limits motor
-   current below that ([concerns](/hardware/concerns.md), "Pump startup or jam current through the
-   pogo contacts").
+   motor lead. The cartridge contacts are rated 2 A each. A batch-1 or batch-2 board limits motor
+   current only at the driver's 3.7–6.4 A overcurrent protection; a board built from the current
+   source holds it at 1.54–1.81 A ([concerns](/hardware/concerns.md), "Pump startup or jam current
+   through the pogo contacts").
 2. **The first glass.** Leave it idle overnight, then pour each flavor without priming.
