@@ -322,12 +322,13 @@ def linear(color) -> tuple:
 # the same filament catalog as its generators.
 PETGF_BLACK_PARTS = {
     *(f"enclosure-{name}" for name in WALL_COLORS),
-    "enclosure-pump-receiver-keeper", "enclosure-pump-rear-support",
-    "enclosure-pump-tube-setting-jig", "pump-receiver-rear-support",
+    "enclosure-pump-tube-setting-jig",
     "enclosure-pump-magnet-gauge-moving", "enclosure-pump-magnet-gauge-fixed",
     "pump-stem-setting-fixture",
-    *("pump-receiver-keeper-"+station for station in
-      ("west-outer","west-inner","east-inner","east-outer")),
+    *(prefix+part+"-"+station
+      for prefix in ("", "enclosure-")
+      for part in ("pump-receiver-keeper", "pump-return-cradle", "pump-return-cover")
+      for station in ("west-outer", "west-inner", "east-inner", "east-outer")),
     "display-cover", "funnel-frame", "elbow-cradle",
     "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
     "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",

@@ -49,8 +49,8 @@ def _fastening_by_body():
 def holder(name: str, decked: frozenset):
     """The enclosure piece holding a body, including its fixed host.
 
-    Pump heads ride the cartridge. Fixed commercial tees have their own bulkhead
-    seats or inherit the held valve named in `TEE_LANDS`.
+    Pump heads ride the cartridge. Permanent junctions and returns have fixed
+    dry hosts; each commercial source tee inherits the valve in `TEE_LANDS`.
     """
     if name in decked:
         return RIDES_OUT
@@ -109,10 +109,11 @@ def main():
         "JOINT_COUNT": f"{len(found)}",
         "CART_PUMPS": f"{len(decked)}",
         "RECEIVERS": f"{len(plate['holes'])}",
+        "RETURNS": f"{len(plate['holes'])}",
         "KEEPERS": f"{len(plate['holes'])}",
         "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
         "CAP_VALVES": f"{len(cap_cradles)}",
-        "BOX_TEES": f"{sum(1 for n in _sc.TEE_LANDS if holder(n, decked) != RIDES_OUT)}",
+        "BOX_TEES": f"{sum(holder(_ml.body_name(n), decked) != RIDES_OUT for n in _ml.PURCHASED_TEES)}",
         "TUBE_OD": f"{_ml.TUBE_D:.4g} mm",
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.6g} mm",
         "TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
@@ -125,8 +126,9 @@ def main():
     print("-> pump-replacement.md")
     print(f"   {len(found)} slip joints: {', '.join(found)}")
     print(f"   {variables['CART_PUMPS']} prepared pumps leave; "
-          f"{variables['RECEIVERS']} permanent receivers and "
-          f"{variables['BOX_TEES']} fixed tees stay")
+          f"{variables['RECEIVERS']} permanent junctions, "
+          f"{variables['RETURNS']} compound returns and "
+          f"{variables['BOX_TEES']} source tees stay")
 
 
 if __name__ == "__main__":

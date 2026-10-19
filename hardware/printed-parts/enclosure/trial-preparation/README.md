@@ -10,7 +10,9 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/pre
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py back-top --slice --review
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py all --slice --review
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py dock-petgf \
-    --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl,quantity=4,turns=x:90,walls=6,infill=100
+    --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl,quantity=1,turns=x:0,walls=6,infill=100 \
+    --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl,quantity=1,turns=x:0,walls=6,infill=100 \
+    --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl,quantity=1,turns=x:0,walls=6,infill=100
 ```
 
 `list` prints each piece's meshes, their digests and whether the region record binds them.
@@ -20,7 +22,10 @@ A run writes `.cache/prints/trial/<date>-<piece>-<printer>-<mesh digest>/`: the 
 and its measured span, the painted face counts, the ribbon, window and modifier boxes, and
 each recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2;
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
-infill. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
+infill. The `dock-petgf` default is one west-outer station: keeper, cradle and cover.
+The full dock requires the corresponding three parts at each of the other three
+stations. Their manufacturing STLs already contain the print pose; use `turns=x:0`
+for explicit declarations. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
 line on the project and keeps its archive beside it. No printer is contacted.
 
 ## Recipe
@@ -46,7 +51,7 @@ yaw that leaves it the most room.
 | `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; cap crown-down | — |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2 | Magnet gauges on their flat backs ([magnet process](../pump-dock/magnet-retention.md)); tip gauge and stem fixture as exported | — |
-| `dock-petgf` | Mark1 | Keepers and rear support on their fore Y faces | Six walls, 100% zig-zag per part |
+| `dock-petgf` | Mark1 | One west-outer keeper/cradle/cover set by default; four station-specific sets form the full dock. Manufacturing exports already in print pose | Six walls, 100% zig-zag per part |
 | `labels` | Mark2 | [`../../drain-readiness/prepare.py`](../../drain-readiness/prepare.py) `labels`, under the CAD lock: closing layers on each face-up chip and DATA face and lettering top | — |
 
 ## Declared features

@@ -104,7 +104,7 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Small solid PET-GF: the collet press and the dock's keeper/support parts.
+    # Small solid PET-GF: the collet press and the dock's keepers/return fixtures.
     # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
     # 100% infill. Bill their complete geometry until native production slices.
     "tool":  (2.70, 0.45, 1.00),
@@ -152,10 +152,13 @@ PARTS = {
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
     "Enclosure — pump receiver keepers (one set)": [
-        "enclosure/enclosure/enclosure-pump-receiver-keeper.step",
-    ] * 4,
-    "Enclosure — pump receiver rear support": [
-        "enclosure/enclosure/enclosure-pump-rear-support.step",
+        f"enclosure/enclosure/enclosure-pump-receiver-keeper-{station}.step"
+        for station in ("west-outer", "west-inner", "east-inner", "east-outer")
+    ],
+    "Enclosure — pump return fixtures (one set)": [
+        f"enclosure/enclosure/enclosure-pump-return-{part}-{station}.step"
+        for station in ("west-outer", "west-inner", "east-inner", "east-outer")
+        for part in ("cradle", "cover")
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
@@ -237,6 +240,7 @@ GROUP_OF = [
     ("Enclosure — back",            "ext"),
     ("Enclosure — pump cartridge",  "ext"),
     ("Enclosure — pump receiver",   "tool"),
+    ("Enclosure — pump return",     "tool"),
     ("Display cover plate",         "ext"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),

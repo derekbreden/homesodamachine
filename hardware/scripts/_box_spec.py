@@ -6,6 +6,7 @@ placement so an edited checkout cannot use yesterday's stations.
 """
 
 import json
+import math
 import os
 from pathlib import Path
 
@@ -104,6 +105,26 @@ def document(box, bounds=()) -> dict:
             for bound in bounds
         ],
     }
+
+
+def same_document(left, right) -> bool:
+    """Compare placement descriptions at 1 nm, below the CAD mesh tolerance.
+
+    Re-reading an OCCT solid can shift derived bounds by about 0.1 nm. Keep
+    record structure and nonnumeric values exact while comparing float stations
+    with an absolute 0.000001 mm allowance.
+    """
+    if left == right:
+        return True
+    if isinstance(left, float) and isinstance(right, float):
+        return math.isclose(left, right, rel_tol=0.0, abs_tol=1e-6)
+    if isinstance(left, dict) and isinstance(right, dict):
+        return left.keys() == right.keys() and all(
+            same_document(left[key], right[key]) for key in left)
+    if isinstance(left, list) and isinstance(right, list):
+        return len(left) == len(right) and all(
+            same_document(a, b) for a, b in zip(left, right))
+    return False
 
 
 def write(box, bounds=(), path=ARTIFACT) -> Path:

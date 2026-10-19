@@ -974,7 +974,7 @@ def front_top_flank_root_z():
 
 
 def tray_corbel_roots(stations, wall_aft_y):
-    """Where each corbelled valve tray's root corbel meets the tee wall's aft face (`_valve_trays`):
+    """Where each corbelled valve tray's root corbel meets the receiver wall's aft face (`_valve_trays`):
     the plate's floor, less the depth it overhangs that face."""
     roots = []
     for plane, sign, seats in stations:
@@ -1476,6 +1476,8 @@ z_rise = 14.8
 # ledge plane (`rim + wall` — the seam cap's top and the sill), so the roof leaves that
 # plane through a slot instead of meeting it edge-on in a zero-thickness line.
 hook_arm = 4.5  # complete arm fits the existing channel with its 0.5 mm running clearance
+dock_key_rail_relief = 0.26
+dock_key_rail_margin = 1.25
 rail_stop_len = 4.0          # closed-end zone along Y; block retains this less slide_slip
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
@@ -1781,7 +1783,7 @@ def documented(box):
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
 #   collet_plate  the fixed receiver-wall interface, retaining its assembly schema name:
-#                 wall Y datums, X/Z extent, four receiver axes and fixed tee stations,
+#                 wall Y datums, X/Z extent, four receiver axes and fixed valve ports,
 #                 as `enclosure_assembly.collet_plate_spec` derives from the pump pack.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel c14 "
@@ -2857,7 +2859,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
     symmetric in x about it. It is walked from the middle out (`flute_rails`), which is why
     the segments read from one mouth edge straight through to the other.
 
-    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the tee wall
+    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the receiver wall
     the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
     the global arc coordinate across each window but never become flute rails. The central
     segment carries phase across the lower tee face, which is berthed or hidden; above it the
@@ -2869,7 +2871,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
     which is what keeps the flutes off the mouth arris."""
     bx0, bx1 = bay_x_span(inner)
     fore = inner[2]                        # the flank opening begins on the front-wall plane
-    aft = plate["aft_y"]                   # the tee wall's fore face, the storey's back
+    aft = plate["aft_y"]                   # the receiver wall's fore face, the storey's back
     ledge = bx0 - outer[0]                 # exposed front-wall section, mouth to exterior
     window = aft - fore
     return (
@@ -3965,7 +3967,7 @@ def _z_rail_runs(inner, y_joint, col, plate, chase=()):
     run reaches a structural limit rather than a horizon: the front's is
     `wall + z_lip_y_margin` short of the joint, where the Y telescope's overlap
     begins; the back's is the rear wall's own corner round. The front opens on the
-    tee wall (`plate["wall_aft_y"]`), the back on that same corner."""
+    receiver wall (`plate["wall_aft_y"]`), the back on that same corner."""
     iy0, iy1 = inner[2], inner[3]
     out = []
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
@@ -4053,6 +4055,31 @@ def rail_catch_air(col):
     return slide_slip + supported_faces * fits.supported_surface
 
 
+def _dock_key_rail_cuts(plate, sx, back, z0, z1):
+    """Clear outer return heads from the rail arm's nonbearing back face.
+
+    The local retreat retains4.24mm of arm. Its sliding face and the caught
+    head underside keep their full source section; short plan ramps join
+    the relieved back to the nominal arm outside the key's clearance window.
+    """
+    for x, _z in plate['holes']:
+        if abs(x) < 50 or x * sx >= 0:
+            continue
+        layout = _dock.plumbing.layouts(plate)[str(x)]['return']
+        local = _dock.returned.local_layout(layout)
+        center = _dock.returned.mount_stations(local)[0]
+        key = _dock.returned.to_world(
+            _dock.returned.button(center, _dock.mount_side(x), installed=True), layout)
+        bounds = key.BoundingBox()
+        y0, y1 = bounds.ymin - dock_key_rail_margin, bounds.ymax + dock_key_rail_margin
+        retreat = back - sx * dock_key_rail_relief
+        interior = back + sx
+        yield _xy_prism(z0, z1, ((interior, y0-dock_key_rail_relief),
+            (back, y0-dock_key_rail_relief), (retreat, y0),
+            (retreat, y1), (back, y1+dock_key_rail_relief),
+            (interior, y1+dock_key_rail_relief)))
+
+
 def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     """The BOTTOM piece's whole share of its Z seam above the mouth: the hooked
     rails — an ARM standing on the mouth down each straight run, its HEAD stepping
@@ -4083,7 +4110,7 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
         if col == "front" and plate:
             # Both rail ends have running room at the assembled position,
-            # including the entrance beside the tee-wall rear face.
+            # including the entrance beside the receiver-wall rear face.
             y0 += slide_slip
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx, col)
         arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, catch_z),
@@ -4107,6 +4134,9 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         yb0, yb1 = sorted((y1 - sy * (rail_stop_len - slide_slip), y1))
         block = _ybox(min(x_hk, x_h1), max(x_hk, x_h1), yb0, yb1, zj, rim)
         piece = arm.fuse(block)
+        if col == 'front' and plate:
+            for cut in _dock_key_rail_cuts(plate, sx, x_h1, zj-rail_flare_drop-1., rim+1.):
+                piece = piece.cut(cut)
         out = piece if out is None else out.fuse(piece)
     return out
 
@@ -4402,7 +4432,7 @@ def _plate_foot(inner, plate, zj):
     hollow under the plate's middle.
 
     Each land reaches `plate_foot_reach` inboard of the flank. Its `plate_foot_y` run is
-    centred on the plate's two Y faces, and aft it runs on to the tee wall's aft face, where
+    centred on the plate's two Y faces, and aft it runs on to the receiver wall's aft face, where
     the rail arm's under-flare takes over; the mouth face fore of it is the flank's own,
     unbroken and flush.
 
@@ -5565,10 +5595,10 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
 
     `_front_flat_lip_drop`'s twin, turned a quarter: that one gives the lip up across the
     bay's own flat, this one gives it up round the corners and back down each flank as far
-    as the tee wall's aft face (`plate["wall_aft_y"]`) — which is where the front column's
+    as the receiver wall's aft face (`plate["wall_aft_y"]`) — which is where the front column's
     RAIL then starts (`_z_rail_runs`). What the telescope was doing over that run is done
     better by what stands there now — the seam's cap over it, the bay floor bedded through
-    it, the tee wall across it — and a lip that registers nothing is a wall poking into a
+    it, the receiver wall across it — and a lip that registers nothing is a wall poking into a
     cavity cut to receive it."""
     # Down to the mouth and NOT past it: below the seam this run is front-bottom's own wall,
     # which the drop has no business in — only the lip standing proud of the mouth.
@@ -5576,7 +5606,7 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
 
 
 def _flank_lip_run(inner, plate, y_joint, z):
-    """The drop's OUTLINE over a z band given: wall to wall and back to the tee wall's aft
+    """The drop's OUTLINE over a z band given: wall to wall and back to the receiver wall's aft
     face.
 
     `_flank_lip_drop` asks for the lip's own band, which is what a piece is cut on.
@@ -5610,7 +5640,7 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     return slab
 
 
-def _tee_wall(inner, y_joint, plate, bay):
+def _receiver_wall(inner, y_joint, plate, bay):
     """Closed receiver wall, with a flat recessed interior assembly face.
 
     The upper bulkhead retains its contact and display backing. The lower
@@ -5998,17 +6028,31 @@ def pump_contact_faces(box):
 
 
 def _pump_contact_fixed_stock(box):
-    """Broad insert-root backing with a 45-degree underside into the wall."""
+    """Insert and lead backing with supported undersides clear of the valves."""
     x, z = pump_contact_station(box)
     axis = pump_contact_lead_axis_z(box)
     half = max(abs(v) for v in _pogo.ear_xs()) + pogo_insert_entry_dia / 2 + wall
-    bottom = min(z - pogo_insert_entry_dia / 2 - wall,
-                 axis - pogo_lead_r - wall)
-    back = box.pack.collet_plate["wall_aft_y"]
-    pad = _ybox(x - half, x + half, back, back + wall, bottom, box.pump_bay[2])
-    corbel = _yz_prism(x - half, x + half,
-                      [(back, bottom - wall), (back + wall, bottom), (back, bottom)])
-    return pad.fuse(corbel).clean()
+    root = box.pack.collet_plate["wall_aft_y"]
+    face = pump_contact_faces(box)[0]
+    back = max(root, face + _pogo.ear_back() + pogo_heatset_setback
+               + pogo_heatset_len + pogo_heatset_relief + wall)
+    depth = back - root
+    insert_floor = z - pogo_heatset_dia / 2 - wall
+    pad = _ybox(x - half, x + half, root, back, insert_floor, box.pump_bay[2])
+    pad = pad.fuse(_yz_prism(x - half, x + half,
+                   [(root, insert_floor - depth), (back, insert_floor),
+                    (root, insert_floor)]))
+    radius = pogo_lead_r + wall
+    tangent = radius / 2**.5
+    low = axis - radius * 2**.5
+    lead = _ycyl(radius, x, axis, root, back).fuse(_xz_prism(root, back,
+               [(x - tangent, axis - tangent), (x, low),
+                (x + tangent, axis - tangent)]))
+    web = _ybox(x - pogo_lead_r, x + pogo_lead_r,
+                root, back, low, insert_floor)
+    web = web.fuse(_yz_prism(x - pogo_lead_r, x + pogo_lead_r,
+                  [(root, low - depth), (back, low), (root, low)]))
+    return pad.fuse(lead, web).clean()
 
 
 def _pump_contact_fixed_cuts(box):
@@ -7831,8 +7875,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
     placed on.
 
     A PLATE THAT OUTRUNS ITS OWN WALL IS CORBELLED AT THE ROOT. `wall_aft_y` is
-    `collet_plate_spec`'s own `wall_aft_y` — the tee wall's aft face, the plane wall support
-    actually ends at (`_tee_wall`). Where that plane falls strictly inside a plate's own
+    `collet_plate_spec`'s own `wall_aft_y` — the receiver wall's aft face, the plane wall support
+    actually ends at (`_receiver_wall`). Where that plane falls strictly inside a plate's own
     near/far span, the plate stands on the wall for the inboard share of its thickness and
     overhangs open bay air for the rest: `far - wall_aft_y`, read off the two planes and never
     typed. The corbel rises 45° off the wall's own aft face and closes at the plate's own far
@@ -8725,7 +8769,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # The front flat's share of both skins goes to the bay's floor and the heads
             # that pass through its berth; the flat sill is front-top's.
             piece = piece.cut(_front_flat_lip_drop(inner, zj))
-            # And both flanks over the same run, round the corners to the tee wall's aft
+            # And both flanks over the same run, round the corners to the receiver wall's aft
             # face — the rail starts on that face and nothing crosses the seam fore of it.
             piece = piece.cut(_flank_lip_drop(inner, box.pack.collet_plate, y_joint, zj))
         # The rail heads and their stop blocks — the whole of what stands proud of this
@@ -8841,10 +8885,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
-    # The wall the anchor tees stand in, behind the collet plate — BEFORE the valve trays,
+    # The permanent junction wall, ahead of the valve trays — BEFORE the valve trays,
     # because a tray's seats are cut out of whatever stands on that plane and this stands on it.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
-        piece = piece.fuse(_tee_wall(inner, y_joint, box.pack.collet_plate, box.pump_bay))
+        piece = piece.fuse(_receiver_wall(inner, y_joint, box.pack.collet_plate, box.pump_bay))
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
@@ -9585,10 +9629,8 @@ def build_pieces(box):
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
     if box.pack.collet_plate:
-        from _materials import M_PETGF_BLACK
         for name, part in _dock.parts(box.pack.collet_plate).items():
-            color = _receiver.COLOR if name.startswith("pump-receiver-") and "keeper" not in name and "support" not in name else M_PETGF_BLACK
-            assy.add(part, name=name, color=color)
+            assy.add(part, name=name, color=_dock.part_color(name))
     return pieces, assy
 
 
@@ -9620,19 +9662,20 @@ def _collet_plate_body(plate):
 
 
 def export_pump_dock(box):
-    """Write the real receiver, flat keepers, support bar and factory tool."""
+    """Write station-specific wet parts, dry captures and factory tools."""
     import flute_payload
     from _materials import M_PETGF_BLACK
     gauges = pump_retention_features(box)
-    for stem, shape, color in (
-        ("enclosure-pump-receiver", _receiver.build_receiver(), _receiver.COLOR),
-        ("enclosure-pump-receiver-keeper", _dock.keeper(), M_PETGF_BLACK),
-        ("enclosure-pump-rear-support", _dock.rear_support(box.pack.collet_plate), M_PETGF_BLACK),
+    products = _dock.manufacturing_parts(box.pack.collet_plate)
+    tools = (
         ("enclosure-pump-tube-setting-jig", _dock.tube_setting_jig(
             box.pack.collet_plate, pump_cartridge_aft_y(
                 box.pack.pump_trays, box.pack.collet_plate)), M_PETGF_BLACK),
         ("enclosure-pump-magnet-gauge-moving", gauges["moving"]["setting_gauges"][0], M_PETGF_BLACK),
-        ("enclosure-pump-magnet-gauge-fixed", gauges["fixed"]["setting_gauges"][0], M_PETGF_BLACK)):
+        ("enclosure-pump-magnet-gauge-fixed", gauges["fixed"]["setting_gauges"][0], M_PETGF_BLACK))
+    products.update({stem: {"shape": shape, "color": color} for stem, shape, color in tools})
+    for stem, product in products.items():
+        shape, color = product["shape"], product["color"]
         step = _here.parent / (stem + ".step")
         stl = step.with_suffix(".stl")
         export_assembly(one_body(shape, stem, color), str(step))
@@ -10036,7 +10079,7 @@ def main():
         "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
                      f"{bo[5] - bo[4]:.6g} mm"),
         "FRONT_WALL": f"{front_wall:.4g} mm",
-        # How far the fore valve tray's flat underside reaches aft of the tee wall.
+        # How far the fore valve tray's flat underside reaches aft of the receiver wall.
         "FORE_TRAY_OVERHANG": (
             f"{max(plane - sign * _valve_tray.SEAT for plane, sign, _seats in box.pack.valve_trays if sign > 0) - box.pack.collet_plate['wall_aft_y']:.4g} mm"
             if box.pack.collet_plate else "no station"),

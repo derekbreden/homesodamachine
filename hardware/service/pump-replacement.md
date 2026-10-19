@@ -2,13 +2,15 @@
 
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
 The customer replaces complete prepared pumps: each replacement has two smooth, machined natural PP-H Polystone P flanged stems
-already fitted and secured in its pump tubing. The fixed TPU receivers, keepers,
-commercial tees and magnetic mounts remain installed during pump changes.
+already fitted and secured in its pump tubing. The fixed TPU junctions, compound
+returns, flat keepers, dry cradles and closing covers, and magnetic mounts remain installed
+during pump changes.
 No enclosure quadrant comes off for a pump change.
 
 [4](JOINT_COUNT) flavor joints separate when the cartridge is pulled straight forward.
-Each smooth Ø[6.35 mm](TUBE_OD) stem slides out of a stationary TPU socket. The four tee
-branches remain connected behind the receiver wall. Water, CO2 and carbonated-water
+Each smooth Ø[6.35 mm](TUBE_OD) stem slides out of a stationary TPU socket. The four
+printed junctions remain connected to their upper and lower valve paths behind the
+receiver wall. Water, CO2 and carbonated-water
 connections stay closed, so the carbonator remains connected and charged.
 
 This is the service procedure for the built dock geometry. Pump-holder fit has its
@@ -21,37 +23,40 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their prepared flanged stems and the fitted top clamp | [4](RECEIVERS) permanent TPU receivers in the rigid wall and [4](KEEPERS) locked flat interior keepers |
+| [2](CART_PUMPS) complete pumps, their prepared flanged stems and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) locked flat interior keepers |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
 | The cartridge's positively retained SB443-IN magnets | Their positively retained mates in front-top |
-| | All [6](BOX_TEES) commercial tees; the four pump-side tees are fixed behind the receivers |
+| | [4](RETURNS) permanent compound TPU returns, their interlocking dry cradles and closing covers, and the [2](BOX_TEES) commercial source tees |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
-| | All stationary tee-to-valve links, hairpins, other tubing, the funnel, display and cold core |
+| | All stationary straight junction-to-valve and return links, other tubing, the funnel, display and cold core |
 
 The wall locates each TPU receiver in X/Z. Its recessed collar bears in the wall;
 one flat keeper per receiver slides down the interior face and captures its groove in Y.
-Each keeper is locked at the factory against the wall by one M3×8 screw with a
-Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0 insert.
-A common rear support frame backs the four permanent tube cuffs and is secured by
-two more factory-only M3×8 screws and the same washers, with its mounting pads in contact.
-The keeper has running clearance around the neck and does not position the receiver
-across its axis. Neither keepers nor receivers move during a pump change.
+Each keeper is locked in its wall guides at the factory by one M3×8 screw with a
+Ø7 × 0.5 mm DIN 125A washer. The screw enters from the empty pump bay through
+the recessed wall opening and threads into an RX-M3Sx4.0 insert in the keeper's
+local 5 mm boss. These locks stay installed during a customer pump change.
+The junction's rear keys prevent rotation. The return's broad flexible keys interlock
+with its PET-GF cradle and closing cover. The straight junction-to-return link is captured
+between supported socket stops and held against bowing by its dry guide. The keeper
+has running clearance around the neck and does not position the junction across its
+axis. These permanent parts stay seated during a pump change.
 
 ## The four separating joints
 
 | Joint | Cartridge end | Staying end | Air-purge states |
 |---|---|---|---|
-| `fluid-11` | pump A suction stem | TPU receiver to Y-C branch | 1 and 2 |
-| `fluid-12` | pump A discharge stem | TPU receiver to Y-D branch | 1 and 2 |
-| `fluid-21` | pump B suction stem | TPU receiver to Y-F branch | 3 and 4 |
-| `fluid-22` | pump B discharge stem | TPU receiver to Y-G branch | 3 and 4 |
+| `fluid-11` | pump A suction stem | TPU junction Y-C inlet | 1 and 2 |
+| `fluid-12` | pump A discharge stem | TPU junction Y-D inlet | 1 and 2 |
+| `fluid-21` | pump B suction stem | TPU junction Y-F inlet | 3 and 4 |
+| `fluid-22` | pump B discharge stem | TPU junction Y-G inlet | 3 and 4 |
 
 The socket entrances are TPU funnels leading to tight straight sealing lands. Dedicated
 outboard rigid stop lands on the receiver wall bear against the lower cradle to
 establish its final position, while the broad aft faces retain [0.25 mm](DOCK_BODY_GAP) clearance. The prepared stem tips enter
 the sockets together. The magnets hold that seated position; the TPU receiver is not
 a cartridge stop. A straight pull parts the magnets, contact pair and four slip joints
-without moving the fixed tees or operating their collets.
+without moving the permanent junctions, returns or their straight tube links.
 
 ## Dry mode
 
@@ -155,7 +160,8 @@ or transfer the stems.
 - Both Faston pairs are connected and all four leads remain below the crown.
 - All four straight stems enter seated TPU receivers together; the cartridge is
   flush against its rigid seats and the contact pair is engaged.
-- Receiver funnels, all four locked keepers, rear support and magnetic mounts remain fixed in the appliance.
+- Junction funnels, all four locked keepers, compound returns, dry cradles and covers,
+  and magnetic mounts remain fixed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.
 

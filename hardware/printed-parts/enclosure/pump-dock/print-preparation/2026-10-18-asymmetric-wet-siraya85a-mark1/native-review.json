@@ -1,0 +1,3903 @@
+{
+  "review_date": "2026-10-18",
+  "status": "Eight offline native slices and emitted-path readings complete; physical internal finish and wet service remain unqualified.",
+  "scope": "One normal object per plate, actual handed source print pose, retained Siraya Tech Flex TPU85A Clear right0.6 recipe. No printer was contacted or launched. These manual readings do not join the normal CAD/build path.",
+  "bindings": {
+    "source_sha256_at_preparation": {
+      "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+      "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+      "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+      "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+      "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+      "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+    },
+    "current_source_sha256": {
+      "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+      "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+      "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+      "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+      "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+      "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+    },
+    "source_input_equivalence": [
+      {
+        "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+        "source_path": "hardware/manifold-layout/enclosure-box.json",
+        "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+        "full_decoded_plate_input_identical": true,
+        "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+      }
+    ],
+    "retained_recipe": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+    "retained_recipe_sha256": "a0b48b9ce31fc7c032e766d1a2aaf5ae15bf4fc4d4a7b02d5441d9801317cd7e",
+    "plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+    "reader_sources_sha256": {
+      ".cache/pump-dock-engineering/compact-fixed-returns/review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+      ".cache/pump-dock-engineering/compact-fixed-returns/review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+      ".cache/pump-dock-engineering/compact-fixed-returns/review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7",
+      ".cache/pump-dock-engineering/compact-fixed-returns/review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499",
+      ".cache/pump-dock-engineering/compact-fixed-returns/run_eight_readers.py": "74f8173f2ddac2d09ba4ec549184ce8fafe5dcb6a85e23b24d16b7be9348590d"
+    },
+    "shared_reader_dependencies_sha256": {
+      "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+      "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+    },
+    "raw_preparation_index_sha256": "4e8c03c5e84a8e29ca155b6aea345da5826e86a5d52db7672e2a551fcde4c553",
+    "raw_reader_index_sha256": "109e9a8fbcadda4d8402b6999bea1fa84c688b6ac8be82597c5ccb05f09ad74c"
+  },
+  "consolidation_helper_sha256": "5a888071a7a416ebd91f5f725c4ac2e21a09d76f5e009e6512c159c83c013aba",
+  "mesh_scope": {
+    "preparation_stl_deflection_mm": 0.025,
+    "preparation_stl_angular_tolerance_rad": 0.1,
+    "canonical_stl_deflection_mm": 0.005,
+    "canonical_stl_angular_tolerance_rad": 0.05,
+    "definition": "The native project contains its separately hashed source-native preparation mesh; it is not byte-identical to the finer canonical download STL. Emitted-path proof binds the actual project, body and wet-void STL hashes above."
+  },
+  "retained_preparation_changes": {
+    "enable_support": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "flush_into_support": {
+      "source": "1",
+      "prepared": "0"
+    },
+    "reduce_crossing_wall": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "seam_position": {
+      "source": "aligned",
+      "prepared": "nearest"
+    },
+    "support_filament": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "support_interface_filament": {
+      "source": "0",
+      "prepared": "1"
+    },
+    "time_lapse_gcode": {
+      "source": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "prepared": ""
+    },
+    "top_one_wall_type": {
+      "source": "all top",
+      "prepared": "not apply"
+    }
+  },
+  "wet_support_exclusion": "Actual wet-cavity vertical projection plus0.65mmXY allowance, Z\u22122 to body top+2; local wet-shadow support exclusion only. External Tree(auto)/Default retained.",
+  "reading_method": {
+    "support": "Actual positive-extrusion support-bead XY footprints use emitted widths and heights and are compared with closed wet-void mesh sections at three heights through every support layer. Zero sampled overlap is a sampled deposition result, not an unconditional tree-transit or support-removal claim.",
+    "first_layers": "Complete native model, brim and support footprints at the first two actual layer heights. Overlap is geometric attachment opportunity, not measured bed adhesion.",
+    "lower_stop": "Actual posed lower mouth/tube-stop points determine layer selection. First six post-stop layers are read in emission order against previous-layer and already-placed same-layer bead footprints. Centerline spacing is at most0.10mm; nominal reach subtracts0.05mm for unsampled distance. It does not measure deposited TPU adhesion or strength.",
+    "travel": "Actual nonextruding3D nozzle segments and last-positive-extrusion-attachment to each nozzle-waypoint taut chords are intersected with the actual translated watertight wet-void STL. Arcs are sampled at most0.05mm; crossings at most0.10mm are omitted from opportunity counts. The chord is a possible free strand, not a prediction of extrusion, sag or contamination. Startup before first object extrusion and terminal travel after last object extrusion are outside this reading.",
+    "keys": "Actual positive model-bead footprints through each source key intersected with the cut wet body, at every native model-layer center through that key. Interior core excludes one half-bead at the target boundary; coverage and widest residual gaps are reported without a strength, porosity or lifetime threshold.",
+    "support_arc_chord_mm": 0.08,
+    "bead_distance_allowance_mm": 0.05
+  },
+  "parts": {
+    "enclosure-pump-receiver-west-outer": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "2c7bc5629ad8d2fc74d3edd45cf64c1b1e7e8000aec096c45f2810e21d09d64e",
+      "project_bytes": 687637,
+      "prepared_body_stl_sha256": "a05b9b425e0742d0f266368fb763cd0a6eaee5c6be0286092aa32976995eccdf",
+      "prepared_wet_void_stl_sha256": "f8e7e6f2fa40d678f553ce46b865966b27182a230bc502c0adcab4b92466661c",
+      "wet_shadow_blocker_stl_sha256": "79e00d7ec3705ba3687511acb77d2f96756e60188cc7f0896664e9bfa78369f0",
+      "native_archive_sha256": "fa4170adf529dd1eef91668de82d0a382ebe92266d10aef0b0afa24b4768f083",
+      "native_gcode_sha256": "2fa6eff2ac59de0d68e8d0696c83e94272a65c31fb0b86e41716a667090b9f64",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 19822,
+        "facets": 39648
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 13080,
+        "facets": 26156
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.602253437042236,
+      "estimated_seconds": 6830.90380859375,
+      "native_slice_wall_seconds": 8.713745667017065,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": -1,
+        "rotate_z_degrees": 6.56821827247174,
+        "rotate_x_degrees": -45.37981477607967,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "lower-point": [
+            -1.351324197091079,
+            8.243529411838635,
+            -23.06726188957804
+          ],
+          "lower-tube_stop": [
+            -1.3513241970910863,
+            8.243529411838647,
+            -16.567261889578035
+          ],
+          "upper-point": [
+            -2.605143727001042,
+            31.55137770731225,
+            -0.6514721269455794
+          ],
+          "upper-tube_stop": [
+            -2.605143727001042,
+            26.924816584623265,
+            -5.217097185798185
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ports_print_mm": {
+          "lower-point": [
+            -1.351324197091079,
+            8.243529411838635,
+            1.0000000472132342e-07
+          ],
+          "lower-tube_stop": [
+            -1.3513241970910863,
+            8.243529411838647,
+            6.500000100000012
+          ],
+          "upper-point": [
+            -2.605143727001042,
+            31.55137770731225,
+            22.415789862632465
+          ],
+          "upper-tube_stop": [
+            -2.605143727001042,
+            26.924816584623265,
+            17.85016480377986
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            23.067261989578046
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            -14.951324297091078,
+            -4.351324095827629,
+            7.749995686505279,
+            26.51838190387363,
+            0.5000000000000012,
+            18.14591248524405
+          ],
+          "volume_mm3": 636.9193028206006,
+          "stl": "key-1.stl",
+          "stl_sha256": "715dac720310b288f05a50ab32a930896a54b67f2f57a8962529d56ef6c8b05c"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            -14.951324297091078,
+            -4.351324094363112,
+            19.84452925823183,
+            38.61291547560018,
+            11.850164703779841,
+            29.496077189023907
+          ],
+          "volume_mm3": 605.5127225486497,
+          "stl": "key-2.stl",
+          "stl_sha256": "09ab545568705e0a61e02e1386660ef3d68c81025aa05d622647b0d25992c67f"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          0.9934363679261682,
+          -0.11438611315042992,
+          0.0,
+          0.0
+        ],
+        [
+          0.08034524685913112,
+          0.6977935347352661,
+          0.7117786342598437,
+          0.0
+        ],
+        [
+          -0.08141759139650495,
+          -0.7071067811865476,
+          0.702403855208093,
+          23.067261989578046
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 23.067261989578046,
+      "native_flat_bed_face_area_sum_mm2": 73.6690910896192,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 74.74775144403168,
+        "first_layer_brim_projected_bead_area_mm2": 160.66070290498263,
+        "first_layer_model_to_brim_gap_mm": 0.06988803886271436,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 76.35835093713675,
+        "second_layer_overlap_with_first_model_mm2": 74.74291088039865,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 74.74291088039865,
+        "second_layer_outside_all_first_layer_beads_mm2": 1.6154400567380944,
+        "second_layer_model_bounds_build_mm": [
+          172.3708635849773,
+          145.22783251482414,
+          0.2,
+          184.2278102582457,
+          157.08480589341403,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 1164,
+        "Brim": 7,
+        "Inner wall": 33015,
+        "Outer wall": 4495,
+        "Overhang wall": 10,
+        "Bridge": 1,
+        "Internal solid infill": 45,
+        "Sparse infill": 20,
+        "Floating vertical shell": 70,
+        "Top surface": 12,
+        "Gap infill": 9
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 135.43106891961654,
+        "front": 135.51560674147706,
+        "right": 137.18628066266348,
+        "rear": 136.54104849592665
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 1164
+        },
+        "sampled_wet_section_count": 654,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 2.0159436479838657,
+        "bead_bounds_build_mm": [
+          160.69355391961653,
+          135.77809174147706,
+          0.0,
+          192.55123433733652,
+          183.19646650407336,
+          26.24
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 243,
+        "nonextruding_transition_count": 4831,
+        "nozzle_segments_reviewed": 248374,
+        "potential_chords_reviewed": 248363,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 185,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 770,
+        "maximum_potential_chord_wet_length_mm": 15.433621218460994
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0,
+        "stop": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499",
+        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true,
+        "review_lower_stop_beads.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-receiver-west-outer",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "3d76f599d56897900a01ff9daf28760305342aaeaed8a8e987ccf770d68ab046",
+        "travel-wet-review.json": "c5e4b1884a45187fdb94734287fb6a7df0a5535a9d031da0bd2af48ed6d2fe36",
+        "lower-stop-bead-review.json": "fc73e412e25019f0ef20817b0ee129723039c6364df2b92c7a69e6112de6a9cd",
+        "key-deposition-review.json": "cfe983bf1e60296f5eaee87414104f66cf8159d24a218997afd40a400cc009b9"
+      },
+      "raw_readback_sha256": "4405a9f1b9eb893a58e485c0afbd869ce527127f7f0e70c88483715c30b15116",
+      "lower_stop": {
+        "lower_mouth_print_z_mm": 1.0000000472132342e-07,
+        "posed_port_datums_available": true,
+        "stop_print_z_mm": 6.500000100000012,
+        "seal_bore_mm": 6.1,
+        "lower_stop_bore_mm": 5.5,
+        "stop_radial_width_mm": 0.2999999999999998,
+        "relaxed_stop_annular_area_mm2": 5.466371217246235,
+        "taper_axial_mm": 0.6000000000000001,
+        "first_six_native_layers": [
+          {
+            "model_layer_z_mm": 6.68,
+            "previous_model_layer_z_mm": 6.56,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 24093,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.1317742862512291,
+                "overlap_previous_layer_mm2": 1.227920195665888,
+                "overlap_previous_or_already_placed_same_layer_mm2": 1.2279201956658952
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.8,
+            "previous_model_layer_z_mm": 6.68,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25110,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 0.17078609629558886,
+                "overlap_previous_or_already_placed_same_layer_mm2": 0.17078609629558886
+              },
+              {
+                "gcode_line": 25144,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.654881741209252,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.654881741209245
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.92,
+            "previous_model_layer_z_mm": 6.8,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25671,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 2.448649293031881,
+                "overlap_previous_or_already_placed_same_layer_mm2": 2.448649293031881
+              },
+              {
+                "gcode_line": 25703,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.63945877855324,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.639458778553259
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.04,
+            "previous_model_layer_z_mm": 6.92,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26251,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 4.6588023353925365,
+                "overlap_previous_or_already_placed_same_layer_mm2": 4.6588023353925365
+              },
+              {
+                "gcode_line": 26287,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.293743105804456,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.293743105804452
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.16,
+            "previous_model_layer_z_mm": 7.04,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26834,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.812728761353906,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.812728761353906
+              },
+              {
+                "gcode_line": 26870,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 7.823681900283066,
+                "overlap_previous_or_already_placed_same_layer_mm2": 7.823681900283066
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.28,
+            "previous_model_layer_z_mm": 7.16,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 27378,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.814835117815537,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.814835117815537
+              },
+              {
+                "gcode_line": 27414,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 9.529642753863275,
+                "overlap_previous_or_already_placed_same_layer_mm2": 9.529642753863275
+              }
+            ]
+          }
+        ]
+      },
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "715dac720310b288f05a50ab32a930896a54b67f2f57a8962529d56ef6c8b05c",
+            "bounds_print_mm": [
+              -14.951324297091078,
+              -4.351324095827629,
+              7.749995686505279,
+              26.51838190387363,
+              0.5000000000000012,
+              18.14591248524405
+            ],
+            "volume_mm3": 636.9193028206006,
+            "sampled_native_layer_count": 146,
+            "positive_model_run_counts": {
+              "Inner wall": 2317,
+              "Outer wall": 659,
+              "Bridge": 1,
+              "Internal solid infill": 21,
+              "Sparse infill": 19,
+              "Floating vertical shell": 68,
+              "Top surface": 6,
+              "Gap infill": 8
+            },
+            "minimum_nominal_bead_covered_fraction": 0.0,
+            "minimum_interior_core_covered_fraction": 0.8985355156060376,
+            "maximum_uncovered_core_inscribed_width_mm": 0.44962004022610685
+          },
+          {
+            "index": 2,
+            "stl_sha256": "09ab545568705e0a61e02e1386660ef3d68c81025aa05d622647b0d25992c67f",
+            "bounds_print_mm": [
+              -14.951324297091078,
+              -4.351324094363112,
+              19.84452925823183,
+              38.61291547560018,
+              11.850164703779841,
+              29.496077189023907
+            ],
+            "volume_mm3": 605.5127225486497,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 4654,
+              "Outer wall": 546
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7684680943780879,
+            "minimum_interior_core_covered_fraction": 0.8794091279430176,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5915431722470178
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-return-west-outer": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "b507965f6d186679db7a01ff4dfa4e477a780962df28021d03c12805d3ec6fc4",
+      "project_bytes": 472103,
+      "prepared_body_stl_sha256": "9c37efa7ea324611b0cbd8542572e4ee9a970ee4cdf68d31667e3e133b791a97",
+      "prepared_wet_void_stl_sha256": "c364dc0584f19f11bfee847ed3662cf99b8b0978085113326917cabf6165f857",
+      "wet_shadow_blocker_stl_sha256": "6de4fcebd17cc4698d4e647b957fdd5f87cd0b4d8ebf862ed5bfe8b89b72ac69",
+      "native_archive_sha256": "666557642d3249a31c2d45b8c9d2a664419c36ad3d0441d4c9e6bfd40c7d4bdb",
+      "native_gcode_sha256": "89f9d6b118a97c311b85f1b274d7eca8deee38cb7f5952dce5bc695580927c1f",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 16133,
+        "facets": 32266
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 8833,
+        "facets": 17662
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 8.158519744873047,
+      "estimated_seconds": 7957.23486328125,
+      "native_slice_wall_seconds": 11.104590667004231,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": -1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.0,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "input-tube_stop": [
+            7.432393843749966e-15,
+            0.04308830395750851,
+            -6.49985718289734
+          ],
+          "output-point": [
+            1.6739928844106434e-14,
+            38.22647047605488,
+            -29.03034470762888
+          ],
+          "output-tube_stop": [
+            1.6739928844106434e-14,
+            33.630276398342325,
+            -33.62653878534144
+          ]
+        },
+        "ports_print_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            41.251005079408706
+          ],
+          "input-tube_stop": [
+            7.432393843749966e-15,
+            0.04308830395750851,
+            34.75114789651137
+          ],
+          "output-point": [
+            1.6739928844106434e-14,
+            38.22647047605488,
+            12.220660371779825
+          ],
+          "output-tube_stop": [
+            1.6739928844106434e-14,
+            33.630276398342325,
+            7.624466294067268
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            -13.600000100000011,
+            -2.999999899999999,
+            -7.027979607907988,
+            11.71035029353554,
+            28.751147796511347,
+            46.4184098860894
+          ],
+          "volume_mm3": 637.1690655529713,
+          "stl": "key-1.stl",
+          "stl_sha256": "b0d7333b61bcb553e9d184df1fc7c82a6a4becabad4733d4d96f56e72c74db23"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            -13.600000100000026,
+            -2.9999998999999993,
+            24.791441533510458,
+            43.529771434953986,
+            3.3922331470336267,
+            21.059495236611667
+          ],
+          "volume_mm3": 637.1855873583903,
+          "stl": "key-2.stl",
+          "stl_sha256": "9ce02b3ca4fb67dc7b065068958a5dc3e354c606b19a18d6e64803346270e9af"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865476,
+          0.7071067811865475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865475,
+          0.7071067811865476,
+          41.251005079408706
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 41.251005079408706,
+      "native_flat_bed_face_area_sum_mm2": 64.14017337290262,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 66.07325007348993,
+        "first_layer_brim_projected_bead_area_mm2": 0.0,
+        "first_layer_model_to_brim_gap_mm": null,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 70.67615723243486,
+        "second_layer_overlap_with_first_model_mm2": 65.3694444722782,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 65.36944447227816,
+        "second_layer_outside_all_first_layer_beads_mm2": 5.306712760156564,
+        "second_layer_model_bounds_build_mm": [
+          178.15941025146583,
+          162.508094,
+          0.2,
+          185.1593931733776,
+          177.942906,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 706,
+        "Inner wall": 35144,
+        "Outer wall": 1873,
+        "Internal solid infill": 77,
+        "Sparse infill": 4,
+        "Floating vertical shell": 4,
+        "Top surface": 12,
+        "Gap infill": 9
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 138.8454945427518,
+        "front": 134.318755,
+        "right": 136.9024746241678,
+        "rear": 132.95543949719018
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 706
+        },
+        "sampled_wet_section_count": 842,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 3.5304164495779693,
+        "bead_bounds_build_mm": [
+          164.0877395427518,
+          146.49099999999999,
+          0.0,
+          192.8552803758322,
+          186.80231550280982,
+          36.68
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 384,
+        "nonextruding_transition_count": 4343,
+        "nozzle_segments_reviewed": 193076,
+        "potential_chords_reviewed": 193074,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 171,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 666,
+        "maximum_potential_chord_wet_length_mm": 15.51302491928251
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-return-west-outer",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "cf26bcf1cf33937eb6e8e6a67b2087330f685ff97f487784e4692a20f4b9a24e",
+        "travel-wet-review.json": "602d1eae043cab8e28e5f39719f10ec7cf0936f0318784569bd1e06dca1f11a7",
+        "key-deposition-review.json": "8f788e345a8354be24f64c64ec1d03e8369a5c69e2df6e8c87dfb4b313cbb0d6"
+      },
+      "raw_readback_sha256": "9ed4384b13a9feb8425eac7379e283ea7191a3e925a435fc4817a5761bd7bce9",
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "b0d7333b61bcb553e9d184df1fc7c82a6a4becabad4733d4d96f56e72c74db23",
+            "bounds_print_mm": [
+              -13.600000100000011,
+              -2.999999899999999,
+              -7.027979607907988,
+              11.71035029353554,
+              28.751147796511347,
+              46.4184098860894
+            ],
+            "volume_mm3": 637.1690655529713,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 2781,
+              "Outer wall": 480,
+              "Internal solid infill": 11
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7677195265925043,
+            "minimum_interior_core_covered_fraction": 0.9109155671425422,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5720079999999257
+          },
+          {
+            "index": 2,
+            "stl_sha256": "9ce02b3ca4fb67dc7b065068958a5dc3e354c606b19a18d6e64803346270e9af",
+            "bounds_print_mm": [
+              -13.600000100000026,
+              -2.9999998999999993,
+              24.791441533510458,
+              43.529771434953986,
+              3.3922331470336267,
+              21.059495236611667
+            ],
+            "volume_mm3": 637.1855873583903,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2518,
+              "Outer wall": 516,
+              "Internal solid infill": 26
+            },
+            "minimum_nominal_bead_covered_fraction": 0.0,
+            "minimum_interior_core_covered_fraction": 0.889870400481437,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5780967926556286
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-receiver-west-inner": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "b4f8ab9a7ccfc4641a0562af5aec118d29d8646b1fda83c4858abea02c301f68",
+      "project_bytes": 592553,
+      "prepared_body_stl_sha256": "5dd963d027363ff5000eca8fde4ec43df4dd0cb32aeae352a32a3307a908af96",
+      "prepared_wet_void_stl_sha256": "5e8a674c638b7390c92ae06be0f677b0bd4e7a2a1afe0416e3660b8af44fcb18",
+      "wet_shadow_blocker_stl_sha256": "ca2cd57701b9ec1cbc1a3d457010243331e7aede3e0a486b943c72c1bdbfad1e",
+      "native_archive_sha256": "e737822ca9001414f86b0d3f7276ca1f642c39ca9f5bb5f6923a383e47db8f22",
+      "native_gcode_sha256": "8fab5b11e7f0a2a9d450241f0d93129f4c9039fc4c860023a1a92aded52d1e2e",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 19738,
+        "facets": 39480
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 12503,
+        "facets": 25002
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.792114734649658,
+      "estimated_seconds": 6952.1083984375,
+      "native_slice_wall_seconds": 8.954006834013853,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": -1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.00000000000001,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "lower-point": [
+            0.0,
+            8.353553390593277,
+            -23.06726188957804
+          ],
+          "lower-tube_stop": [
+            0.0,
+            8.353553390593287,
+            -16.56726188957804
+          ],
+          "upper-point": [
+            0.0,
+            31.66070612762767,
+            -0.548007755419583
+          ],
+          "upper-tube_stop": [
+            0.0,
+            27.06451204991511,
+            -5.14420183313214
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ports_print_mm": {
+          "lower-point": [
+            0.0,
+            8.353553390593277,
+            1.000000082740371e-07
+          ],
+          "lower-tube_stop": [
+            0.0,
+            8.353553390593287,
+            6.500000100000008
+          ],
+          "upper-point": [
+            0.0,
+            31.66070612762767,
+            22.519254234158467
+          ],
+          "upper-tube_stop": [
+            0.0,
+            27.06451204991511,
+            17.92306015644591
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            23.06726198957805
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            -13.600000099999999,
+            -2.9999999,
+            7.782485478727803,
+            26.520815380171314,
+            0.4999999999999963,
+            18.167262089578045
+          ],
+          "volume_mm3": 637.3089123907096,
+          "stl": "key-1.stl",
+          "stl_sha256": "42f56251b83fbb3a8cf209f700342621fb3edce2b9670e409ccb52a882f0b451"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            -13.600000099999999,
+            -2.9999998999999664,
+            19.993444138049632,
+            38.731774039493146,
+            11.92306005644591,
+            29.590322146023947
+          ],
+          "volume_mm3": 637.0270044929555,
+          "stl": "key-2.stl",
+          "stl_sha256": "3ba54326bdca7b595a31d9bacf41e60011f8645e2b3fed821f5213eb9989e3f9"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865475,
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865476,
+          0.7071067811865475,
+          23.06726198957805
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 23.06726198957805,
+      "native_flat_bed_face_area_sum_mm2": 73.66909108961929,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 74.92541751054166,
+        "first_layer_brim_projected_bead_area_mm2": 126.64227790756145,
+        "first_layer_model_to_brim_gap_mm": 0.06888472282468512,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 76.49865361490167,
+        "second_layer_overlap_with_first_model_mm2": 74.88492585166375,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 74.88492585166375,
+        "second_layer_outside_all_first_layer_beads_mm2": 1.613727763237784,
+        "second_layer_model_bounds_build_mm": [
+          172.41524095325985,
+          145.24427524904638,
+          0.2,
+          184.27261306639627,
+          157.1016688832105,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 1246,
+        "Brim": 9,
+        "Inner wall": 32832,
+        "Outer wall": 4139,
+        "Overhang wall": 7,
+        "Bridge": 1,
+        "Internal solid infill": 60,
+        "Sparse infill": 19,
+        "Floating vertical shell": 76,
+        "Top surface": 13,
+        "Gap infill": 16
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 135.48099891961655,
+        "front": 133.36650577599582,
+        "right": 135.41165301130994,
+        "rear": 136.4405273368314
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 1246
+        },
+        "sampled_wet_section_count": 654,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 2.000939362453445,
+        "bead_bounds_build_mm": [
+          160.73955391961655,
+          133.62506077599582,
+          0.0,
+          194.32979198869006,
+          183.3009176631686,
+          26.24
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 244,
+        "nonextruding_transition_count": 4967,
+        "nozzle_segments_reviewed": 259183,
+        "potential_chords_reviewed": 259167,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 164,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 761,
+        "maximum_potential_chord_wet_length_mm": 17.23964834992256
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0,
+        "stop": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499",
+        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true,
+        "review_lower_stop_beads.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-receiver-west-inner",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "15725a49d378a2edeb7ca752179747f9ed38c65a70484180827aaaf39a5f415c",
+        "travel-wet-review.json": "503a24c4367320132554310e140b74f6092e539215094cadf0651248328d450d",
+        "lower-stop-bead-review.json": "d73fbc8a37c8c8e47c833e432d1a9b5d3e4bedcf7b7fb2014c865a3089e01868",
+        "key-deposition-review.json": "542e4ffcb3993a6638ec17a4dfea62148e1253c3f35fb456de196e103ef4c88d"
+      },
+      "raw_readback_sha256": "f266af1ef4e7b1b2107cded8318f0979e504ac799bc6afec174611f81d2ecd5c",
+      "lower_stop": {
+        "lower_mouth_print_z_mm": 1.000000082740371e-07,
+        "posed_port_datums_available": true,
+        "stop_print_z_mm": 6.500000100000008,
+        "seal_bore_mm": 6.1,
+        "lower_stop_bore_mm": 5.5,
+        "stop_radial_width_mm": 0.2999999999999998,
+        "relaxed_stop_annular_area_mm2": 5.466371217246235,
+        "taper_axial_mm": 0.6000000000000001,
+        "first_six_native_layers": [
+          {
+            "model_layer_z_mm": 6.68,
+            "previous_model_layer_z_mm": 6.56,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 24124,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.1270199585531277,
+                "overlap_previous_layer_mm2": 1.2270622766313082,
+                "overlap_previous_or_already_placed_same_layer_mm2": 1.227062276631294
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.8,
+            "previous_model_layer_z_mm": 6.68,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 24759,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 0.1693548690671251,
+                "overlap_previous_or_already_placed_same_layer_mm2": 0.1693548690671251
+              },
+              {
+                "gcode_line": 24792,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.671007945698307,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.671007945698307
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.92,
+            "previous_model_layer_z_mm": 6.8,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25354,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 2.490389703692685,
+                "overlap_previous_or_already_placed_same_layer_mm2": 2.490389703692685
+              },
+              {
+                "gcode_line": 25392,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.64276270259559,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.642762702595594
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.04,
+            "previous_model_layer_z_mm": 6.92,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26040,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 4.6713152920946435,
+                "overlap_previous_or_already_placed_same_layer_mm2": 4.6713152920946435
+              },
+              {
+                "gcode_line": 26075,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.287321301204976,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.287321301204976
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.16,
+            "previous_model_layer_z_mm": 7.04,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 27203,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.79945193023876,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.79945193023876
+              },
+              {
+                "gcode_line": 27235,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 7.827083419436132,
+                "overlap_previous_or_already_placed_same_layer_mm2": 7.827083419436132
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.28,
+            "previous_model_layer_z_mm": 7.16,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 27614,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.82175582910364,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.82175582910364
+              },
+              {
+                "gcode_line": 27646,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 9.538199388994308,
+                "overlap_previous_or_already_placed_same_layer_mm2": 9.538199388994308
+              }
+            ]
+          }
+        ]
+      },
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "42f56251b83fbb3a8cf209f700342621fb3edce2b9670e409ccb52a882f0b451",
+            "bounds_print_mm": [
+              -13.600000099999999,
+              -2.9999999,
+              7.782485478727803,
+              26.520815380171314,
+              0.4999999999999963,
+              18.167262089578045
+            ],
+            "volume_mm3": 637.3089123907096,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2305,
+              "Outer wall": 652,
+              "Bridge": 1,
+              "Internal solid infill": 19,
+              "Sparse infill": 16,
+              "Floating vertical shell": 72,
+              "Top surface": 3,
+              "Gap infill": 7
+            },
+            "minimum_nominal_bead_covered_fraction": -2.220446049250313e-16,
+            "minimum_interior_core_covered_fraction": 0.8931419901469976,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          },
+          {
+            "index": 2,
+            "stl_sha256": "3ba54326bdca7b595a31d9bacf41e60011f8645e2b3fed821f5213eb9989e3f9",
+            "bounds_print_mm": [
+              -13.600000099999999,
+              -2.9999998999999664,
+              19.993444138049632,
+              38.731774039493146,
+              11.92306005644591,
+              29.590322146023947
+            ],
+            "volume_mm3": 637.0270044929555,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 3904,
+              "Outer wall": 520,
+              "Internal solid infill": 13
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7679866929508625,
+            "minimum_interior_core_covered_fraction": 0.7374545936160801,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5760706745163001
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-return-west-inner": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "2816c942e22746342be340e3973ee0c8c63912de617e722564a8432d97f30423",
+      "project_bytes": 470986,
+      "prepared_body_stl_sha256": "c877fbdcf32f625bd7bc561839736f2ba148580e751891da958c3edc8f41bd80",
+      "prepared_wet_void_stl_sha256": "335d751efe6168d8341c87803ed82cd47e63ace6297b39eaabfaa421defd206c",
+      "wet_shadow_blocker_stl_sha256": "60663face18cb2ecf74fb4cb0e599ccc577624af89757c39fd5f88debfa4ce20",
+      "native_archive_sha256": "3f37b1005f8b0b0cf99f3fdfe46a4e644206c64da66dc8595cde1a4070a1b13f",
+      "native_gcode_sha256": "282a1c0572e26b252b46ce242b73fd9cac9b45518970111be90d92ba39789d73",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 16234,
+        "facets": 32468
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 8833,
+        "facets": 17662
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.0385026931762695,
+      "estimated_seconds": 6798.529296875,
+      "native_slice_wall_seconds": 8.98435945896199,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": -1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.0,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "input-tube_stop": [
+            0.0,
+            4.440892098500626e-16,
+            -6.500000000000012
+          ],
+          "output-point": [
+            0.0,
+            31.404232488401565,
+            -22.29763077060332
+          ],
+          "output-tube_stop": [
+            0.0,
+            26.808038410689004,
+            -26.89382484831588
+          ]
+        },
+        "ports_print_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            34.518291142383156
+          ],
+          "input-tube_stop": [
+            0.0,
+            4.440892098500626e-16,
+            28.01829114238314
+          ],
+          "output-point": [
+            0.0,
+            31.404232488401565,
+            12.220660371779836
+          ],
+          "output-tube_stop": [
+            0.0,
+            26.808038410689004,
+            7.624466294067275
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            -13.600000100000011,
+            -2.9999998999999993,
+            -7.071067911865495,
+            11.667261989578034,
+            22.018291042383137,
+            39.68555313196118
+          ],
+          "volume_mm3": 637.1690694020702,
+          "stl": "key-1.stl",
+          "stl_sha256": "b4e00229b9edca17ca3d16e1aa9a7f67e6bfb4afe36d3c1b95869067d3900187"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            -13.600000100000026,
+            -2.9999999,
+            17.969203545857145,
+            36.70753344730067,
+            3.3922331470336355,
+            21.05949523661168
+          ],
+          "volume_mm3": 637.1855873583945,
+          "stl": "key-2.stl",
+          "stl_sha256": "01bb8034684ca93a55e950ce8f92c1c61cb28909033466d8eb626d4942158c9b"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865476,
+          0.7071067811865475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865475,
+          0.7071067811865476,
+          34.518291142383156
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 34.518291142383156,
+      "native_flat_bed_face_area_sum_mm2": 64.14017337290203,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 66.05565679791751,
+        "first_layer_brim_projected_bead_area_mm2": 0.0,
+        "first_layer_model_to_brim_gap_mm": null,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 70.6822808945971,
+        "second_layer_overlap_with_first_model_mm2": 65.35300754297059,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 65.35300754297062,
+        "second_layer_outside_all_first_layer_beads_mm2": 5.32927335162655,
+        "second_layer_model_bounds_build_mm": [
+          178.04742895337142,
+          159.295094,
+          0.2,
+          185.047906,
+          174.729906,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 655,
+        "Inner wall": 29802,
+        "Outer wall": 1733,
+        "Internal solid infill": 77,
+        "Sparse infill": 4,
+        "Floating vertical shell": 4,
+        "Top surface": 12,
+        "Gap infill": 9
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 138.73084117852295,
+        "front": 137.88446499999998,
+        "right": 137.02228653412809,
+        "rear": 136.16173739358902
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 655
+        },
+        "sampled_wet_section_count": 674,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 3.5082853582474742,
+        "bead_bounds_build_mm": [
+          163.98637617852296,
+          150.058,
+          0.0,
+          192.7221784658719,
+          183.58272760641097,
+          29.96
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 328,
+        "nonextruding_transition_count": 3829,
+        "nozzle_segments_reviewed": 175458,
+        "potential_chords_reviewed": 175453,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 153,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 602,
+        "maximum_potential_chord_wet_length_mm": 15.443216821289614
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-return-west-inner",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "f1cad32cfea310c4919d82f53e979c770ee15e785e6b852609fd408b07f19c94",
+        "travel-wet-review.json": "b7ef2c2aff7ba8ac0d538815b90f1be25c9881fd0e237c114c060581fbdc9d5e",
+        "key-deposition-review.json": "7d2d45773475d458b7f79019b22d1c9259fdf3581deb839e4c2500f80104a0a9"
+      },
+      "raw_readback_sha256": "e8af68877b4f4186fecd30897f67ab52bb16a3f44d70f31d3870351bc123b2a2",
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "b4e00229b9edca17ca3d16e1aa9a7f67e6bfb4afe36d3c1b95869067d3900187",
+            "bounds_print_mm": [
+              -13.600000100000011,
+              -2.9999998999999993,
+              -7.071067911865495,
+              11.667261989578034,
+              22.018291042383137,
+              39.68555313196118
+            ],
+            "volume_mm3": 637.1690694020702,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 2836,
+              "Outer wall": 482,
+              "Internal solid infill": 12
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7672966170874393,
+            "minimum_interior_core_covered_fraction": 0.8824787946626063,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          },
+          {
+            "index": 2,
+            "stl_sha256": "01bb8034684ca93a55e950ce8f92c1c61cb28909033466d8eb626d4942158c9b",
+            "bounds_print_mm": [
+              -13.600000100000026,
+              -2.9999999,
+              17.969203545857145,
+              36.70753344730067,
+              3.3922331470336355,
+              21.05949523661168
+            ],
+            "volume_mm3": 637.1855873583945,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2550,
+              "Outer wall": 518,
+              "Internal solid infill": 26
+            },
+            "minimum_nominal_bead_covered_fraction": -2.220446049250313e-16,
+            "minimum_interior_core_covered_fraction": 0.8898760476899581,
+            "maximum_uncovered_core_inscribed_width_mm": 0.577804185417516
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-receiver-east-inner": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "830cfba3a7648f93ccff19a89194e32156699ce7dcf1b8c9483546ef69f567cf",
+      "project_bytes": 607916,
+      "prepared_body_stl_sha256": "c6c2463276067f524ee8c1ff353271c7fa74fdb57fe111253fcfec7e60f5159a",
+      "prepared_wet_void_stl_sha256": "5e8a674c638b7390c92ae06be0f677b0bd4e7a2a1afe0416e3660b8af44fcb18",
+      "wet_shadow_blocker_stl_sha256": "e2d5354df7e695251841e907d0c7abe540a942146bbb4abd73d8f803f487dc24",
+      "native_archive_sha256": "73739bec70dc9e2842275388162cf9defce14bfec022019ec7b0f2b25393cc93",
+      "native_gcode_sha256": "25f34c611dcc88df28e9e17c56812a09491edab7d058cf6b5eafaf08290a35d8",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 20247,
+        "facets": 40498
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 12503,
+        "facets": 25002
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.779709339141846,
+      "estimated_seconds": 6940.06494140625,
+      "native_slice_wall_seconds": 9.683032125001773,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": 1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.00000000000001,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "lower-point": [
+            0.0,
+            8.353553390593277,
+            -23.06726188957804
+          ],
+          "lower-tube_stop": [
+            0.0,
+            8.353553390593287,
+            -16.56726188957804
+          ],
+          "upper-point": [
+            0.0,
+            31.66070612762767,
+            -0.548007755419583
+          ],
+          "upper-tube_stop": [
+            0.0,
+            27.06451204991511,
+            -5.14420183313214
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ports_print_mm": {
+          "lower-point": [
+            0.0,
+            8.353553390593277,
+            1.000000082740371e-07
+          ],
+          "lower-tube_stop": [
+            0.0,
+            8.353553390593287,
+            6.500000100000008
+          ],
+          "upper-point": [
+            0.0,
+            31.66070612762767,
+            22.519254234158467
+          ],
+          "upper-tube_stop": [
+            0.0,
+            27.06451204991511,
+            17.92306015644591
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            23.06726198957805
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            2.999999899999999,
+            13.600000100000015,
+            7.7824854787278035,
+            26.520815380171314,
+            0.5000000000000071,
+            18.167262089578045
+          ],
+          "volume_mm3": 637.3089122778847,
+          "stl": "key-1.stl",
+          "stl_sha256": "1275b1825f7d68da7f4a2717d791b760c1f636ba15c6ae9712b217aaab33b8e6"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            2.9999998999999997,
+            13.600000100000015,
+            19.993444138049632,
+            38.731774039493146,
+            11.92306005644594,
+            29.590322146023947
+          ],
+          "volume_mm3": 637.0270043209526,
+          "stl": "key-2.stl",
+          "stl_sha256": "8f29dc1f67e70b0c41e7addc698490382987d8d023b0cf31e135bcde59b8487a"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865475,
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865476,
+          0.7071067811865475,
+          23.06726198957805
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 23.06726198957805,
+      "native_flat_bed_face_area_sum_mm2": 73.66909108961929,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 74.94076618067305,
+        "first_layer_brim_projected_bead_area_mm2": 135.17913120685063,
+        "first_layer_model_to_brim_gap_mm": 0.06850710784559708,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 76.52138162843914,
+        "second_layer_overlap_with_first_model_mm2": 74.9065720529247,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 74.90657205292472,
+        "second_layer_outside_all_first_layer_beads_mm2": 1.6148095755146326,
+        "second_layer_model_bounds_build_mm": [
+          170.84150587812033,
+          145.41855475522206,
+          0.2,
+          182.70027787582973,
+          157.27751543858895,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 1220,
+        "Brim": 8,
+        "Inner wall": 32881,
+        "Outer wall": 4181,
+        "Overhang wall": 11,
+        "Bridge": 2,
+        "Internal solid infill": 55,
+        "Sparse infill": 23,
+        "Floating vertical shell": 82,
+        "Top surface": 13,
+        "Gap infill": 11
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 135.7459610409751,
+        "front": 132.576475462979,
+        "right": 135.44697808094523,
+        "rear": 136.42594849592663
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 1220
+        },
+        "sampled_wet_section_count": 654,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 2.001322339833525,
+        "bead_bounds_build_mm": [
+          161.0045460409751,
+          132.83506046297902,
+          0.0,
+          194.29443691905476,
+          183.31546650407336,
+          26.24
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 244,
+        "nonextruding_transition_count": 4936,
+        "nozzle_segments_reviewed": 255563,
+        "potential_chords_reviewed": 255550,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 179,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 780,
+        "maximum_potential_chord_wet_length_mm": 16.255559590873137
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0,
+        "stop": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499",
+        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true,
+        "review_lower_stop_beads.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-receiver-east-inner",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "2f90c9aa696ea0d423777ce5f8b1e09d62f978711be343179b19e44ee3f698f4",
+        "travel-wet-review.json": "2ed4953e20c729cbd8b9cccd587965a1d0c934d804c9517ad3a853f943e53661",
+        "lower-stop-bead-review.json": "9c2b98519ce09ac48e1ee2c8c8b408b3aa571f8d2ae3b5f5769863e01e58ef6c",
+        "key-deposition-review.json": "137b44075c4b7d8a0d0c1b9a9e4436d4acc6bdaf5a63f0039d5357d31141dafc"
+      },
+      "raw_readback_sha256": "41d1ac6fa44315cb048d676337fdf0b4df06d9c6128efce336d930828c3a3433",
+      "lower_stop": {
+        "lower_mouth_print_z_mm": 1.000000082740371e-07,
+        "posed_port_datums_available": true,
+        "stop_print_z_mm": 6.500000100000008,
+        "seal_bore_mm": 6.1,
+        "lower_stop_bore_mm": 5.5,
+        "stop_radial_width_mm": 0.2999999999999998,
+        "relaxed_stop_annular_area_mm2": 5.466371217246235,
+        "taper_axial_mm": 0.6000000000000001,
+        "first_six_native_layers": [
+          {
+            "model_layer_z_mm": 6.68,
+            "previous_model_layer_z_mm": 6.56,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 23458,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.12747824496348825,
+                "overlap_previous_layer_mm2": 1.222350068462724,
+                "overlap_previous_or_already_placed_same_layer_mm2": 1.2223500684627204
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.8,
+            "previous_model_layer_z_mm": 6.68,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 24259,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 0.1836504037146413,
+                "overlap_previous_or_already_placed_same_layer_mm2": 0.1836504037146413
+              },
+              {
+                "gcode_line": 24294,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.677523249668575,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.677523249668575
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.92,
+            "previous_model_layer_z_mm": 6.8,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25112,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 2.485070318645139,
+                "overlap_previous_or_already_placed_same_layer_mm2": 2.485070318645139
+              },
+              {
+                "gcode_line": 25148,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.629624616331018,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.629624616331022
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.04,
+            "previous_model_layer_z_mm": 6.92,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25530,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 4.650575709444233,
+                "overlap_previous_or_already_placed_same_layer_mm2": 4.650575709444233
+              },
+              {
+                "gcode_line": 25566,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.29491611991341,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.29491611991341
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.16,
+            "previous_model_layer_z_mm": 7.04,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26680,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.822544544030013,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.822544544030013
+              },
+              {
+                "gcode_line": 26713,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 7.81242417906444,
+                "overlap_previous_or_already_placed_same_layer_mm2": 7.81242417906444
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.28,
+            "previous_model_layer_z_mm": 7.16,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 27217,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.819006365491262,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.819006365491262
+              },
+              {
+                "gcode_line": 27253,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 9.534966703833966,
+                "overlap_previous_or_already_placed_same_layer_mm2": 9.534966703833966
+              }
+            ]
+          }
+        ]
+      },
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "1275b1825f7d68da7f4a2717d791b760c1f636ba15c6ae9712b217aaab33b8e6",
+            "bounds_print_mm": [
+              2.999999899999999,
+              13.600000100000015,
+              7.7824854787278035,
+              26.520815380171314,
+              0.5000000000000071,
+              18.167262089578045
+            ],
+            "volume_mm3": 637.3089122778847,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2320,
+              "Outer wall": 660,
+              "Bridge": 1,
+              "Internal solid infill": 16,
+              "Sparse infill": 21,
+              "Floating vertical shell": 75,
+              "Top surface": 3,
+              "Gap infill": 6
+            },
+            "minimum_nominal_bead_covered_fraction": 0.0,
+            "minimum_interior_core_covered_fraction": 0.8931287818370734,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5720079999999825
+          },
+          {
+            "index": 2,
+            "stl_sha256": "8f29dc1f67e70b0c41e7addc698490382987d8d023b0cf31e135bcde59b8487a",
+            "bounds_print_mm": [
+              2.9999998999999997,
+              13.600000100000015,
+              19.993444138049632,
+              38.731774039493146,
+              11.92306005644594,
+              29.590322146023947
+            ],
+            "volume_mm3": 637.0270043209526,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 3903,
+              "Outer wall": 538,
+              "Internal solid infill": 13
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7639505157855077,
+            "minimum_interior_core_covered_fraction": 0.8869832900185252,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5782996829862964
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-return-east-inner": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "aaa082569fa7e1ef6792033133a0bd16fc21063b0bcbea84b0e3bee50ff5b6a6",
+      "project_bytes": 466487,
+      "prepared_body_stl_sha256": "a8455931b8a406264982cfb8da642648c3a81135f808ca0a77764ecc97e7daac",
+      "prepared_wet_void_stl_sha256": "335d751efe6168d8341c87803ed82cd47e63ace6297b39eaabfaa421defd206c",
+      "wet_shadow_blocker_stl_sha256": "0a4d0b44d571278631284c1280521032438025a7bc521b67cede6fa07cc73060",
+      "native_archive_sha256": "b18536edbd854c909158f7a7bb21a0e96c979a35cd3809d514648c0c89a66a51",
+      "native_gcode_sha256": "cf1adce0cdf9ee078ff31ddad485956327ea9b814af32bfcf7c18c45a57a5f49",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 16209,
+        "facets": 32418
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 8833,
+        "facets": 17662
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.031068325042725,
+      "estimated_seconds": 6788.4462890625,
+      "native_slice_wall_seconds": 7.055048957990948,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": 1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.0,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "input-tube_stop": [
+            0.0,
+            4.440892098500626e-16,
+            -6.500000000000012
+          ],
+          "output-point": [
+            0.0,
+            31.404232488401565,
+            -22.29763077060332
+          ],
+          "output-tube_stop": [
+            0.0,
+            26.808038410689004,
+            -26.89382484831588
+          ]
+        },
+        "ports_print_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            34.518291142383156
+          ],
+          "input-tube_stop": [
+            0.0,
+            4.440892098500626e-16,
+            28.01829114238314
+          ],
+          "output-point": [
+            0.0,
+            31.404232488401565,
+            12.220660371779836
+          ],
+          "output-tube_stop": [
+            0.0,
+            26.808038410689004,
+            7.624466294067275
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            2.999999899999996,
+            13.600000099999999,
+            -7.071067911865475,
+            11.667261989578034,
+            22.018291042383144,
+            39.68555313196118
+          ],
+          "volume_mm3": 637.1690693662789,
+          "stl": "key-1.stl",
+          "stl_sha256": "b83f7b2273e4fdc0be34b48ae2ab41bf0cfac58ece0d1acc83ce0e0491eb2394"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            2.999999899999998,
+            13.600000100000019,
+            17.96920354585716,
+            36.70753344730067,
+            3.392233147033651,
+            21.05949523661168
+          ],
+          "volume_mm3": 637.1855875317427,
+          "stl": "key-2.stl",
+          "stl_sha256": "5d9f81e903970be4515dad878503f8bcc026e33fc38aa20df0efb69577779264"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865476,
+          0.7071067811865475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865475,
+          0.7071067811865476,
+          34.518291142383156
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 34.518291142383156,
+      "native_flat_bed_face_area_sum_mm2": 64.14017337290203,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 66.05354771556262,
+        "first_layer_brim_projected_bead_area_mm2": 0.0,
+        "first_layer_model_to_brim_gap_mm": null,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 70.68736747687558,
+        "second_layer_overlap_with_first_model_mm2": 65.35095205340335,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 65.35095205340333,
+        "second_layer_outside_all_first_layer_beads_mm2": 5.336415423472289,
+        "second_layer_model_bounds_build_mm": [
+          169.8520477544145,
+          159.11808399999998,
+          0.2,
+          176.852916,
+          174.55391600000002,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 617,
+        "Inner wall": 29568,
+        "Outer wall": 1758,
+        "Internal solid infill": 95,
+        "Sparse infill": 4,
+        "Floating vertical shell": 3,
+        "Top surface": 12,
+        "Gap infill": 8
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 136.626744268295,
+        "front": 137.70772499999998,
+        "right": 138.85465221497995,
+        "rear": 136.4686508328421
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 617
+        },
+        "sampled_wet_section_count": 674,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 3.5273345610961546,
+        "bead_bounds_build_mm": [
+          161.882019268295,
+          149.902,
+          0.0,
+          190.89007278502004,
+          183.2760741671579,
+          29.96
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 328,
+        "nonextruding_transition_count": 3769,
+        "nozzle_segments_reviewed": 169408,
+        "potential_chords_reviewed": 169402,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 155,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 599,
+        "maximum_potential_chord_wet_length_mm": 13.84149188473664
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-return-east-inner",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "e2abf542649ad131bd1f2cbe72dbab1b2241a402f406e8acdaf2f3dfc3e223b3",
+        "travel-wet-review.json": "1199c5e48c27226dc856d4fafbf33ffddb8f6470536a5b74ed34a281ac800940",
+        "key-deposition-review.json": "81fd0eb5be8d6553cbb20579e33edb2d80ac51b7940b26f0792080583e200023"
+      },
+      "raw_readback_sha256": "915e732e366d43b12c77b0d85601b4e2f7b2be5a95839bcfd592343ce9c6f0f8",
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "b83f7b2273e4fdc0be34b48ae2ab41bf0cfac58ece0d1acc83ce0e0491eb2394",
+            "bounds_print_mm": [
+              2.999999899999996,
+              13.600000099999999,
+              -7.071067911865475,
+              11.667261989578034,
+              22.018291042383144,
+              39.68555313196118
+            ],
+            "volume_mm3": 637.1690693662789,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 2803,
+              "Outer wall": 478,
+              "Internal solid infill": 11
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7642396053055229,
+            "minimum_interior_core_covered_fraction": 0.8828924008642045,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          },
+          {
+            "index": 2,
+            "stl_sha256": "5d9f81e903970be4515dad878503f8bcc026e33fc38aa20df0efb69577779264",
+            "bounds_print_mm": [
+              2.999999899999998,
+              13.600000100000019,
+              17.96920354585716,
+              36.70753344730067,
+              3.392233147033651,
+              21.05949523661168
+            ],
+            "volume_mm3": 637.1855875317427,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2549,
+              "Outer wall": 520,
+              "Internal solid infill": 26
+            },
+            "minimum_nominal_bead_covered_fraction": 0.0,
+            "minimum_interior_core_covered_fraction": 0.8902926906810313,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-receiver-east-outer": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "619411835c6816ebe168e009df30a87cad6df3907d7f3c300d7f6f599681c225",
+      "project_bytes": 684087,
+      "prepared_body_stl_sha256": "bb983045e36839fbbda403c3fe8ff6ab76284b80224639afad2bf29a47c07b4e",
+      "prepared_wet_void_stl_sha256": "f0bc2d1313100d1f44cf14f421178f1354de7df6a32df01f9dacab646dae7e93",
+      "wet_shadow_blocker_stl_sha256": "410ed3a758646d8382b85e42b2d398d8b15472f9db7cde3aa160128a874f1a33",
+      "native_archive_sha256": "f5f317fa31d80416ea14dfced2cc1af6a30c8eade08bcc77a8f5765e0768c5ca",
+      "native_gcode_sha256": "c0ffd2dc5e9f26274872ea8a2ea97d2cfa8cef5ab77502b3bb6aa37c75bb6c60",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 19711,
+        "facets": 39426
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 13068,
+        "facets": 26132
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 7.538629531860352,
+      "estimated_seconds": 6787.296875,
+      "native_slice_wall_seconds": 6.3382722090464085,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": 1,
+        "rotate_z_degrees": -6.56821827247174,
+        "rotate_x_degrees": -45.37981477607967,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "lower-point": [
+            1.351324197091079,
+            8.243529411838635,
+            -23.06726188957804
+          ],
+          "lower-tube_stop": [
+            1.3513241970910863,
+            8.243529411838647,
+            -16.567261889578035
+          ],
+          "upper-point": [
+            2.605143727001042,
+            31.55137770731225,
+            -0.6514721269455794
+          ],
+          "upper-tube_stop": [
+            2.605143727001042,
+            26.924816584623265,
+            -5.217097185798185
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "ports_print_mm": {
+          "lower-point": [
+            1.351324197091079,
+            8.243529411838635,
+            1.0000000472132342e-07
+          ],
+          "lower-tube_stop": [
+            1.3513241970910863,
+            8.243529411838647,
+            6.500000100000012
+          ],
+          "upper-point": [
+            2.605143727001042,
+            31.55137770731225,
+            22.415789862632465
+          ],
+          "upper-tube_stop": [
+            2.605143727001042,
+            26.924816584623265,
+            17.85016480377986
+          ],
+          "pump-inlet": [
+            0.0,
+            0.0,
+            23.067261989578046
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            4.351324096992138,
+            14.95132429709109,
+            7.74999568650528,
+            26.51838190387363,
+            0.5000000000000138,
+            18.14591248524405
+          ],
+          "volume_mm3": 636.9192981328039,
+          "stl": "key-1.stl",
+          "stl_sha256": "d182cdd26d2e81c544336b388ac75b358d374b52d4d8f16934b778b5cabb4260"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            4.351324094130888,
+            14.951324297091091,
+            19.84452925823183,
+            38.61291547560018,
+            11.850164703779859,
+            29.496077189023907
+          ],
+          "volume_mm3": 605.5127219347142,
+          "stl": "key-2.stl",
+          "stl_sha256": "cb316734eba58359d60e43502c838f52dae9cddfd725bf05a75bae07d451b995"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          0.9934363679261682,
+          0.11438611315042992,
+          0.0,
+          0.0
+        ],
+        [
+          -0.08034524685913112,
+          0.6977935347352661,
+          0.7117786342598437,
+          0.0
+        ],
+        [
+          0.08141759139650495,
+          -0.7071067811865476,
+          0.702403855208093,
+          23.067261989578046
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 23.067261989578046,
+      "native_flat_bed_face_area_sum_mm2": 73.66909108961926,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 74.72915471837203,
+        "first_layer_brim_projected_bead_area_mm2": 174.48031988209493,
+        "first_layer_model_to_brim_gap_mm": 0.07131893904729701,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 76.34389492143625,
+        "second_layer_overlap_with_first_model_mm2": 74.72802988997299,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 74.72802988997302,
+        "second_layer_outside_all_first_layer_beads_mm2": 1.6158650314630179,
+        "second_layer_model_bounds_build_mm": [
+          170.7759867925062,
+          145.22600068147378,
+          0.2,
+          182.63690503144971,
+          157.08600848154904,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 1113,
+        "Brim": 8,
+        "Inner wall": 33096,
+        "Outer wall": 4455,
+        "Overhang wall": 9,
+        "Bridge": 1,
+        "Internal solid infill": 49,
+        "Sparse infill": 20,
+        "Floating vertical shell": 72,
+        "Top surface": 13,
+        "Gap infill": 2
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 136.363394884108,
+        "front": 134.26845962441533,
+        "right": 135.37251812029317,
+        "rear": 136.42848724891263
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 1113
+        },
+        "sampled_wet_section_count": 654,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 2.0061237098883455,
+        "bead_bounds_build_mm": [
+          161.625989884108,
+          134.53105462441533,
+          0.0,
+          194.36488687970683,
+          183.30891775108736,
+          26.24
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 243,
+        "nonextruding_transition_count": 4788,
+        "nozzle_segments_reviewed": 239758,
+        "potential_chords_reviewed": 239753,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 182,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 749,
+        "maximum_potential_chord_wet_length_mm": 13.260753586474815
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0,
+        "stop": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499",
+        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true,
+        "review_lower_stop_beads.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-receiver-east-outer",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "f1c0d5cd4b15c4c1a65ae65b79b5a2343b186f944f212a1580f66dfcde9c0872",
+        "travel-wet-review.json": "e6a37b2692df30cb191e390842260000b58888adfd0e5d20fcbf4fad287066a1",
+        "lower-stop-bead-review.json": "6cb27ce7c9fb7d5cbef4f18292ec016cb0103be45b920e1372abbba1a8a298f6",
+        "key-deposition-review.json": "a8bd8c220acab23c7e80f4b19fab043d767e3db92ae75aa1b4d1841fe733c985"
+      },
+      "raw_readback_sha256": "80be0025f430c5b007e13b6bba619162639c9fdb52fe53c81d0aba740a9f7537",
+      "lower_stop": {
+        "lower_mouth_print_z_mm": 1.0000000472132342e-07,
+        "posed_port_datums_available": true,
+        "stop_print_z_mm": 6.500000100000012,
+        "seal_bore_mm": 6.1,
+        "lower_stop_bore_mm": 5.5,
+        "stop_radial_width_mm": 0.2999999999999998,
+        "relaxed_stop_annular_area_mm2": 5.466371217246235,
+        "taper_axial_mm": 0.6000000000000001,
+        "first_six_native_layers": [
+          {
+            "model_layer_z_mm": 6.68,
+            "previous_model_layer_z_mm": 6.56,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 23729,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.1347414350616269,
+                "overlap_previous_layer_mm2": 1.2159679777564918,
+                "overlap_previous_or_already_placed_same_layer_mm2": 1.2159679777564811
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.8,
+            "previous_model_layer_z_mm": 6.68,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 24669,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 0.14096114130591916,
+                "overlap_previous_or_already_placed_same_layer_mm2": 0.14096114130591916
+              },
+              {
+                "gcode_line": 24698,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.650565673899418,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.650565673899411
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 6.92,
+            "previous_model_layer_z_mm": 6.8,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25293,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 2.4721669109320814,
+                "overlap_previous_or_already_placed_same_layer_mm2": 2.4721669109320814
+              },
+              {
+                "gcode_line": 25328,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.651308141489142,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.651308141489132
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.04,
+            "previous_model_layer_z_mm": 6.92,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 25854,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 4.657847519710032,
+                "overlap_previous_or_already_placed_same_layer_mm2": 4.657847519710032
+              },
+              {
+                "gcode_line": 25889,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 8.276056155402074,
+                "overlap_previous_or_already_placed_same_layer_mm2": 8.276056155402078
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.16,
+            "previous_model_layer_z_mm": 7.04,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26451,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.824039764721107,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.824039764721107
+              },
+              {
+                "gcode_line": 26483,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 7.836739336873173,
+                "overlap_previous_or_already_placed_same_layer_mm2": 7.836739336873169
+              }
+            ]
+          },
+          {
+            "model_layer_z_mm": 7.28,
+            "previous_model_layer_z_mm": 7.16,
+            "stop_paths_in_emission_order": [
+              {
+                "gcode_line": 26979,
+                "feature": "Inner wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 6.817353384191424,
+                "overlap_previous_or_already_placed_same_layer_mm2": 6.817353384191424
+              },
+              {
+                "gcode_line": 27014,
+                "feature": "Outer wall",
+                "width_mm": 0.619992,
+                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
+                "overlap_previous_layer_mm2": 9.520776707115083,
+                "overlap_previous_or_already_placed_same_layer_mm2": 9.520776707115083
+              }
+            ]
+          }
+        ]
+      },
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "d182cdd26d2e81c544336b388ac75b358d374b52d4d8f16934b778b5cabb4260",
+            "bounds_print_mm": [
+              4.351324096992138,
+              14.95132429709109,
+              7.74999568650528,
+              26.51838190387363,
+              0.5000000000000138,
+              18.14591248524405
+            ],
+            "volume_mm3": 636.9192981328039,
+            "sampled_native_layer_count": 146,
+            "positive_model_run_counts": {
+              "Inner wall": 2387,
+              "Outer wall": 664,
+              "Bridge": 1,
+              "Internal solid infill": 21,
+              "Sparse infill": 20,
+              "Floating vertical shell": 70,
+              "Top surface": 7
+            },
+            "minimum_nominal_bead_covered_fraction": -2.220446049250313e-16,
+            "minimum_interior_core_covered_fraction": 0.8985228468266216,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5144008119408423
+          },
+          {
+            "index": 2,
+            "stl_sha256": "cb316734eba58359d60e43502c838f52dae9cddfd725bf05a75bae07d451b995",
+            "bounds_print_mm": [
+              4.351324094130888,
+              14.951324297091091,
+              19.84452925823183,
+              38.61291547560018,
+              11.850164703779859,
+              29.496077189023907
+            ],
+            "volume_mm3": 605.5127219347142,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 4778,
+              "Outer wall": 555
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7647876882495606,
+            "minimum_interior_core_covered_fraction": 0.8794487436762971,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5967652600884652
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    },
+    "enclosure-pump-return-east-outer": {
+      "emitted_slicer_version": "BambuStudio 02.08.02.61",
+      "editable_project": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf",
+      "source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "project_sha256": "17d78aa094e7bea332fcbdf9a15c1e2a233bbde36f97e7e580b5690ef7391ca5",
+      "project_bytes": 466351,
+      "prepared_body_stl_sha256": "4befa32c6c9176d43c030af4fc0cb936c5a175ce4d7664e90597c3c8aeaae3db",
+      "prepared_wet_void_stl_sha256": "aba0021c46820fb523152cc2d5b81182fc78eef57f5fbab9ea2a2026188cafab",
+      "wet_shadow_blocker_stl_sha256": "dc7e88829f7869bee9d49cf613268756671a93ccd4f007019b0e8c6b1fc36acb",
+      "native_archive_sha256": "f87c121d01cc20e2b6a8370626fa036d97a8a3e314721335523e7c8c3c410950",
+      "native_gcode_sha256": "c4fb4986a0483d23c07631046a8b81a80abe6a8ea4eb417fb733c944764e9a01",
+      "normal_object_count": 1,
+      "wet_cavity_blocker_count": 1,
+      "preparation_mesh_tolerances": {
+        "deflection_mm": 0.025,
+        "angular_tolerance_rad": 0.1
+      },
+      "prepared_body_mesh": {
+        "watertight": true,
+        "vertices": 16053,
+        "facets": 32106
+      },
+      "prepared_wet_void_mesh": {
+        "watertight": true,
+        "vertices": 8833,
+        "facets": 17662
+      },
+      "native_gcode_md5_matches": true,
+      "critical_native_settings_preserved": {
+        "machine_start_gcode": true,
+        "machine_end_gcode": true,
+        "filament_map": true,
+        "filament_nozzle_map": true,
+        "nozzle_diameter": true,
+        "extruder_offset": true,
+        "nozzle_temperature": true,
+        "nozzle_temperature_initial_layer": true,
+        "eng_plate_temp": true,
+        "eng_plate_temp_initial_layer": true,
+        "filament_flow_ratio": true,
+        "filament_max_volumetric_speed": true,
+        "layer_height": true,
+        "initial_layer_print_height": true,
+        "wall_loops": true,
+        "wall_sequence": true,
+        "top_one_wall_type": true,
+        "seam_gap": true,
+        "seam_position": true,
+        "sparse_infill_density": true,
+        "enable_support": true,
+        "support_type": true,
+        "support_style": true,
+        "support_top_z_distance": true,
+        "support_bottom_z_distance": true,
+        "support_object_xy_distance": true,
+        "support_filament": true,
+        "support_interface_filament": true,
+        "time_lapse_gcode": true,
+        "reduce_crossing_wall": true,
+        "retraction_length": true,
+        "filament_retraction_length": true,
+        "outer_wall_speed": true,
+        "inner_wall_speed": true
+      },
+      "native_metadata_normalization_keys": [
+        "alternate_extra_wall",
+        "ams_filament_load_time_ams",
+        "ams_filament_load_time_ams_lite",
+        "ams_filament_load_time_n3f_s",
+        "ams_filament_unload_time_ams",
+        "ams_filament_unload_time_ams_lite",
+        "ams_filament_unload_time_n3f_s",
+        "bed_heat_soak_area",
+        "counterbore_hole_bridging",
+        "default_ams_type",
+        "description",
+        "different_settings_to_system",
+        "enable_order_independent_overlap_carving",
+        "extruder_nozzle_stats_new",
+        "farthest_point_timelapse",
+        "filament_contact_safe",
+        "filament_emission_safe",
+        "filament_id",
+        "filament_ingredients_safe",
+        "filament_long_retractions_when_ec",
+        "filament_map_2",
+        "filament_retraction_distances_when_ec",
+        "flush_multiplier_fast",
+        "inherits_group",
+        "initial_layer_print_height",
+        "machine_bed_mass_Y",
+        "machine_max_force_Y",
+        "machine_max_printed_mass",
+        "skirt_per_object",
+        "support_fast_purge_mode",
+        "version"
+      ],
+      "sources_unchanged_after_native_slice": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": true,
+        "hardware/manifold-layout/enclosure-box.json": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": true
+      },
+      "estimated_filament_g": 8.153484344482422,
+      "estimated_seconds": 7945.31396484375,
+      "native_slice_wall_seconds": 4.766530624998268,
+      "native_slicer_warning": "",
+      "pose": {
+        "mount_side": 1,
+        "rotate_z_degrees": 0.0,
+        "rotate_x_degrees": -45.0,
+        "bed": "Native body minimum Z to0",
+        "ports_before_bedding_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "input-tube_stop": [
+            -7.432393843749966e-15,
+            0.04308830395750851,
+            -6.49985718289734
+          ],
+          "output-point": [
+            -1.6739928844106434e-14,
+            38.22647047605488,
+            -29.03034470762888
+          ],
+          "output-tube_stop": [
+            -1.6739928844106434e-14,
+            33.630276398342325,
+            -33.62653878534144
+          ]
+        },
+        "ports_print_mm": {
+          "input-point": [
+            0.0,
+            0.0,
+            41.251005079408706
+          ],
+          "input-tube_stop": [
+            -7.432393843749966e-15,
+            0.04308830395750851,
+            34.75114789651137
+          ],
+          "output-point": [
+            -1.6739928844106434e-14,
+            38.22647047605488,
+            12.220660371779825
+          ],
+          "output-tube_stop": [
+            -1.6739928844106434e-14,
+            33.630276398342325,
+            7.624466294067268
+          ]
+        }
+      },
+      "key_regions": [
+        {
+          "index": 1,
+          "bounds_print_mm": [
+            2.999999899999996,
+            13.60000010000003,
+            -7.027979607907976,
+            11.71035029353554,
+            28.75114779651138,
+            46.4184098860894
+          ],
+          "volume_mm3": 637.1690655066017,
+          "stl": "key-1.stl",
+          "stl_sha256": "a322769d361270e12b04190afa9b44aa0d9dfc97b6c19086e179b97b09099032"
+        },
+        {
+          "index": 2,
+          "bounds_print_mm": [
+            2.999999899999998,
+            13.600000100000008,
+            24.791441533510472,
+            43.529771434953986,
+            3.3922331470336498,
+            21.059495236611667
+          ],
+          "volume_mm3": 637.1855875317376,
+          "stl": "key-2.stl",
+          "stl_sha256": "4f9fa9d0986f49f7324cf9af78a51929453cb185f79235bdcf5ae980b60bcd3e"
+        }
+      ],
+      "key_region_scope": "Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.",
+      "source_to_print_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.7071067811865476,
+          0.7071067811865475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.7071067811865475,
+          0.7071067811865476,
+          41.251005079408706
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_frame": "Wet builder local geometry before print rotations; plate XY centering is separate.",
+      "body_min_z_to_bed_mm": 41.251005079408706,
+      "native_flat_bed_face_area_sum_mm2": 64.14017337290285,
+      "first_second_layer": {
+        "first_layer_model_component_count": 1,
+        "first_layer_model_projected_bead_area_mm2": 66.07290808674385,
+        "first_layer_brim_projected_bead_area_mm2": 0.0,
+        "first_layer_model_to_brim_gap_mm": null,
+        "first_layer_model_brim_overlap_mm2": 0.0,
+        "second_layer_model_projected_bead_area_mm2": 70.67838670404001,
+        "second_layer_overlap_with_first_model_mm2": 65.36922891974976,
+        "second_layer_overlap_with_all_first_layer_beads_mm2": 65.36922891974974,
+        "second_layer_outside_all_first_layer_beads_mm2": 5.30915778429031,
+        "second_layer_model_bounds_build_mm": [
+          169.96302739602513,
+          162.685084,
+          0.2,
+          176.96381383216044,
+          178.11991600000002,
+          0.32
+        ],
+        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
+      },
+      "native_positive_extrusion_feature_runs": {
+        "Support": 682,
+        "Inner wall": 35082,
+        "Outer wall": 1898,
+        "Internal solid infill": 94,
+        "Sparse infill": 4,
+        "Floating vertical shell": 3,
+        "Top surface": 12,
+        "Gap infill": 9
+      },
+      "usable_bed_bead_margins_mm": {
+        "left": 136.7934084821884,
+        "front": 134.496415,
+        "right": 138.7664376017889,
+        "rear": 132.93650046036277
+      },
+      "support": {
+        "positive_extrusion_runs": {
+          "Support": 682
+        },
+        "sampled_wet_section_count": 842,
+        "maximum_sampled_wet_overlap_mm2": 0.0,
+        "minimum_sampled_wet_gap_mm": 3.568553379625608,
+        "bead_bounds_build_mm": [
+          162.03499348218838,
+          146.69,
+          0.0,
+          190.9919773982111,
+          186.82191453963725,
+          36.68
+        ],
+        "interface_regions_printframe": []
+      },
+      "nonextruding_travel": {
+        "wet_mesh_watertight": true,
+        "layer_count": 384,
+        "nonextruding_transition_count": 4291,
+        "nozzle_segments_reviewed": 190360,
+        "potential_chords_reviewed": 190355,
+        "transitions_with_nozzle_wet_crossing_over_point1_mm": 182,
+        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 668,
+        "maximum_potential_chord_wet_length_mm": 14.338985237015438
+      },
+      "native_reader_exit_codes": {
+        "support": 0,
+        "travel": 0,
+        "keys": 0
+      },
+      "native_reader_sources_sha256": {
+        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
+        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814",
+        "review_key_deposition.py": "2aa6dce82a98222f5de6f3244a7933142ad66881564250b37961c28b4c216499"
+      },
+      "native_reader_sources_unchanged_after": {
+        "review_final_supports.py": true,
+        "review_single_wet_travels.py": true,
+        "review_key_deposition.py": true
+      },
+      "native_reader_dependency_sources_sha256": {
+        "tools/gcode/toolpaths.py": "44da07b6e29008163f4eee6a69d88b40a874b0b7af3582b0ed9fc9dae0946e5f",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": "a07975239323eb4475819ce1e8234af25cfb9362276922f3f96b68a0e57a85b5"
+      },
+      "native_reader_dependency_sources_unchanged_after": {
+        "tools/gcode/toolpaths.py": true,
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py": true
+      },
+      "raw_artifact_directory": ".cache/pump-dock-engineering/compact-fixed-returns/prepared-final-wet-parts/enclosure-pump-return-east-outer",
+      "raw_reader_sha256": {
+        "support-bead-review.json": "1f8b04a8ed0f4c6ab40cd8b65967783fb1cae9a9798d8a494821de620f882666",
+        "travel-wet-review.json": "9296b736117d91810bc19c597e232028f087466db179fd31d2a71997a6da662b",
+        "key-deposition-review.json": "1d86947ce36e9bc9ae22476a25b610c29c42b24efeb6481449a3d3e82afb8d7b"
+      },
+      "raw_readback_sha256": "a406013949bdfec0c17afb0900b53628ed0c182762e465e97ae499bf265b083a",
+      "key_deposition": {
+        "scope": "Actual positive model extrusion through the source mounting keys intersected with the cut wet body. Width-expanded emitted bead footprints are compared with each watertight key-material mesh section at every native model-layer center through the key. This is a commanded deposition geometry reading, not measured infill density, porosity, adhesion, strength or life. Feature labels such as Sparse infill do not by themselves establish low density.",
+        "native_requested_wall_loops": "6",
+        "native_requested_infill": "100%",
+        "keys": [
+          {
+            "index": 1,
+            "stl_sha256": "a322769d361270e12b04190afa9b44aa0d9dfc97b6c19086e179b97b09099032",
+            "bounds_print_mm": [
+              2.999999899999996,
+              13.60000010000003,
+              -7.027979607907976,
+              11.71035029353554,
+              28.75114779651138,
+              46.4184098860894
+            ],
+            "volume_mm3": 637.1690655066017,
+            "sampled_native_layer_count": 145,
+            "positive_model_run_counts": {
+              "Inner wall": 2918,
+              "Outer wall": 472,
+              "Internal solid infill": 10
+            },
+            "minimum_nominal_bead_covered_fraction": 0.7643630910828015,
+            "minimum_interior_core_covered_fraction": 0.9108918361276966,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          },
+          {
+            "index": 2,
+            "stl_sha256": "4f9fa9d0986f49f7324cf9af78a51929453cb185f79235bdcf5ae980b60bcd3e",
+            "bounds_print_mm": [
+              2.999999899999998,
+              13.600000100000008,
+              24.791441533510472,
+              43.529771434953986,
+              3.3922331470336498,
+              21.059495236611667
+            ],
+            "volume_mm3": 637.1855875317376,
+            "sampled_native_layer_count": 147,
+            "positive_model_run_counts": {
+              "Inner wall": 2566,
+              "Outer wall": 521,
+              "Internal solid infill": 26
+            },
+            "minimum_nominal_bead_covered_fraction": -4.440892098500626e-16,
+            "minimum_interior_core_covered_fraction": 0.8898813271053674,
+            "maximum_uncovered_core_inscribed_width_mm": 0.5710079999999493
+          }
+        ]
+      },
+      "current_source_sha256": {
+        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
+        "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
+        "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "418190422bc959fd92bac0458836b895a243f001083b9c5125626ebde612be26",
+        "hardware/printed-parts/enclosure/pump-dock/exterior_roof.py": "55d494b80a53871e37ff80f8e5c383be9a5f90104637bbca6207b703c6ff499c",
+        "hardware/manifold-layout/enclosure-box.json": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "1368f877b50a3d74504aa320b87c76aeb138e28434e28993669f14ae35fceb4b"
+      },
+      "source_input_equivalence": [
+        {
+          "scope": "Only the outer Box artifact bytes changed after native preparation. The complete decoded plate input supplied to the wet builders is exactly equal. Raw slice-time source hashes and post-slice flags remain unchanged; no wet geometry or G-code was regenerated for this rebind.",
+          "source_path": "hardware/manifold-layout/enclosure-box.json",
+          "preparation_source_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+          "current_source_sha256": "7fb01dc81b2daf98d7235fc90e3781646393e1764f4eafaab909aa572b626159",
+          "prepared_plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b",
+          "full_decoded_plate_input_identical": true,
+          "decoded_plate_value_sha256": "eb979f41f0eb8ec5e5b56935c1afb547c16886ebe5fe2a2aae89b34b1fa7afa2"
+        }
+      ]
+    }
+  },
+  "totals": {
+    "editable_project_bytes": 4448120,
+    "native_estimated_filament_g": 61.094282150268555,
+    "native_estimated_seconds": 56999.8984375
+  },
+  "physical_evidence": [
+    {
+      "record": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
+      "article_scope": "Siraya single elbow: accepted exterior; internal stringing reported. It does not establish the present junction/return print, fit, seal or service life."
+    },
+    {
+      "record": "future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json",
+      "article_scope": "Bambu TPU85A Black fin/body article: dense bore strands reported. This is separate material/article evidence; its observed free-strand mechanism motivates the actual attachment-to-nozzle chord reading."
+    },
+    {
+      "record": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/physical-result.json",
+      "article_scope": "Siraya deposited-link article: physical result pending."
+    }
+  ],
+  "limits": [
+    "Nonextruding nozzle and possible taut-chord crossings remain in the emitted G-code. Single-object placement and saved travel-avoidance settings do not establish clean wet passages.",
+    "No physical print or acceptance exists for these eight bodies. Bore finish, accessible exterior-support release, bed adhesion, food contact, seal forces, pressure retention, inserted-tube capture and service life are not qualified by these readings.",
+    "Estimates include the native plate output with its automatic support/brim decisions. They are slicer predictions, not measured production consumption or machine time."
+  ]
+}

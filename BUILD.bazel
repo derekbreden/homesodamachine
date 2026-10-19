@@ -562,7 +562,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -1019,7 +1023,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -2491,7 +2499,6 @@ cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O7
 genrule(
     name = "enclosure-assembly",
     srcs = [
-        "brand/mark.svg",
         "pysrc/hardware/assembly/scenes/_scenes.py",
         "pysrc/hardware/assembly/scenes/render_scenes.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -2518,7 +2525,6 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
-        "pysrc/hardware/printed-parts/cadlib/plan.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
@@ -2549,7 +2555,6 @@ genrule(
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-        "pysrc/hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
         ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         ":out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
@@ -2563,7 +2568,6 @@ genrule(
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
@@ -2583,8 +2587,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-female-coupon.stl",
-        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
@@ -2609,42 +2611,83 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.stl",
-        "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.stl",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -2674,7 +2717,6 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-        "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -2684,7 +2726,6 @@ genrule(
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
@@ -2723,13 +2764,10 @@ genrule(
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -2739,11 +2777,9 @@ genrule(
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         ":out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
@@ -2941,7 +2977,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -3068,6 +3108,11 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4230,7 +4275,6 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
-        "pysrc/hardware/printed-parts/cadlib/plan.py",
         "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
@@ -4253,12 +4297,10 @@ genrule(
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/README.md",
         "pysrc/hardware/printed-parts/enclosure/_enclosure_dimensions.py",
-        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -4272,11 +4314,14 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4309,19 +4354,15 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -5218,10 +5259,17 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -5243,13 +5291,11 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "pysrc/hardware/scripts/_box_spec.py",
@@ -5303,15 +5349,66 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -5347,23 +5444,74 @@ O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step)
 O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step.mesh)
 O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step)
-O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh)
-O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl)
-O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O34=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O35=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O36=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O37=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O38=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O39=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O40=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step)
+O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh)
+O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl)
+O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step)
+O31=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step.mesh)
+O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.stl)
+O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step)
+O34=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step.mesh)
+O35=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.stl)
+O36=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step)
+O37=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step.mesh)
+O38=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.stl)
+O39=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step)
+O40=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step.mesh)
+O41=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl)
+O42=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step)
+O43=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh)
+O44=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl)
+O45=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step)
+O46=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh)
+O47=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl)
+O48=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step)
+O49=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step.mesh)
+O50=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.stl)
+O51=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step)
+O52=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step.mesh)
+O53=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.stl)
+O54=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step)
+O55=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step.mesh)
+O56=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.stl)
+O57=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step)
+O58=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step.mesh)
+O59=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl)
+O60=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step)
+O61=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step.mesh)
+O62=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.stl)
+O63=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step)
+O64=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step.mesh)
+O65=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.stl)
+O66=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step)
+O67=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step.mesh)
+O68=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.stl)
+O69=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step)
+O70=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step.mesh)
+O71=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl)
+O72=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step)
+O73=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh)
+O74=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl)
+O75=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step)
+O76=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh)
+O77=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl)
+O78=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step)
+O79=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh)
+O80=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl)
+O81=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step)
+O82=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh)
+O83=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl)
+O84=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O85=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O86=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O87=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O88=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O89=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O90=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O91=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5406,23 +5554,74 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-fixed.
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step $$O21
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step.mesh $$O22
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl $$O23
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh $$O25
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl $$O26
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step $$O27
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh $$O28
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl $$O29
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step $$O30
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh $$O31
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl $$O32
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O33
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O34
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O35
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O36
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O37
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O38
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O39
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O40
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step $$O24
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh $$O25
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl $$O26
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh $$O28
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl $$O29
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step $$O30
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step.mesh $$O31
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.stl $$O32
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step $$O33
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step.mesh $$O34
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.stl $$O35
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step $$O36
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step.mesh $$O37
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.stl $$O38
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step $$O39
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step.mesh $$O40
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl $$O41
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step $$O42
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh $$O43
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl $$O44
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step $$O45
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh $$O46
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl $$O47
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step $$O48
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step.mesh $$O49
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.stl $$O50
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step $$O51
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step.mesh $$O52
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.stl $$O53
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step $$O54
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step.mesh $$O55
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.stl $$O56
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step $$O57
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step.mesh $$O58
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl $$O59
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step $$O60
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step.mesh $$O61
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.stl $$O62
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step $$O63
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step.mesh $$O64
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.stl $$O65
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step $$O66
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step.mesh $$O67
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.stl $$O68
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step $$O69
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step.mesh $$O70
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl $$O71
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step $$O72
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh $$O73
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl $$O74
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step $$O75
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh $$O76
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl $$O77
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step $$O78
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh $$O79
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl $$O80
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step $$O81
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh $$O82
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl $$O83
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O84
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O85
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O86
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O87
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O88
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O89
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O90
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O91
 """,
 )
 
@@ -9778,16 +9977,31 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-east-outer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-inner.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -10042,7 +10256,7 @@ genrule(
         "hardware/ledger/bom.md",
         "hardware/ledger/machine-time.md",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
-        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json",
+        "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
         "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
         "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
         "pysrc/hardware/scripts/_bom_masses.py",
@@ -10381,15 +10595,15 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-magnet-gauge-moving.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-rear-support.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.step.mesh",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -10613,7 +10827,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -10763,7 +10981,11 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/stub_grip.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -10808,7 +11030,6 @@ genrule(
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-        ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -12189,9 +12410,41 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-bc0b35c722f8",
+    srcs = ["hardware/printed-parts/enclosure/pump-dock/exterior_roof.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/exterior_roof.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-ce387d620a32",
+    srcs = ["hardware/printed-parts/enclosure/pump-dock/fixed_returns.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-a37cd37de1ba",
+    srcs = ["hardware/printed-parts/enclosure/pump-dock/flow_roof.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-6878b9fc858d",
     srcs = ["hardware/printed-parts/enclosure/pump-dock/pump_receiver.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-6697bfa97aee",
+    srcs = ["hardware/printed-parts/enclosure/pump-dock/pump_return.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
