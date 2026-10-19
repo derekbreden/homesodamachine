@@ -62,16 +62,18 @@ def dock_regions(box, region, wet_review):
         return
     dock, receiver = e._dock, e._receiver
     fore = plate['fore_y']
-    # The keeper's screw is offset from the receiver axis. Both its actual
-    # raised bearing land and the full through-pilot belong inside this host.
+    # The keeper screw enters from the empty pump bay. Its washer backing and
+    # raised land belong to the fixed wall; the insert boss belongs to the
+    # separately printed keeper and is covered by its whole-part region below.
     host_r = dock.LOCK_INSERT_D / 2.0 + e.wall
     for number, (x, z) in enumerate(plate['holes'], start=1):
         lock_x = x + dock.keeper_side(x) * 8.5
         lock_z = z + dock.LOCK_Z
-        region('front-top', f'Dock keeper lock {number}, complete host, bearing land and wall root',
-               [lock_x-host_r, lock_x+host_r, fore,
-                fore+receiver.KEEPER_Y[0], lock_z-host_r,
-                lock_z+dock.LOCK_INSERT_D/2.0*2**.5+e.wall])
+        keeper_wall_r = dock.KEEPER_COUNTERBORE_D / 2.0 + e.wall
+        region('front-top', f'Dock keeper lock {number}, washer backing, bearing land and wall root',
+               [lock_x-keeper_wall_r, lock_x+keeper_wall_r, fore,
+                fore+receiver.KEEPER_Y[0], lock_z-keeper_wall_r,
+                lock_z+dock.KEEPER_COUNTERBORE_D/2.0*2**.5+e.wall])
         guide = dock.guides(fore, x, z, plate['wall_aft_y'])
         for side, shape in enumerate(guide.Solids(), start=1):
             b = shape_bounds(shape)
@@ -96,7 +98,7 @@ def dock_regions(box, region, wet_review):
                 root_floor = dock.valve_tray.wall_root_floors(seats)[side]
                 xa, xb = ((box.inner[0], ax+half) if x < 0
                           else (ax-half, box.inner[1]))
-                b = [xa, xb, near-dock.fits.running, far,
+                b = [xa, xb, min(ay, near)-dock.fits.running, far,
                      box.splits[0]+e.fits.supported_surface,
                      max(top, root_floor+e.wall)]
             region('front-top', f'Return fixture {number}/{index+1}, insert, axial land and native host root', b)

@@ -33,7 +33,9 @@ properties do not follow from the CAD fit.
 The wall locates each TPU receiver in X/Z. Its recessed collar bears in the wall;
 one flat keeper per receiver slides down the interior face and captures its groove in Y.
 Each keeper is locked in its wall guides at the factory by one M3×8 screw with a
-Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0 insert.
+Ø7 × 0.5 mm DIN 125A washer. The screw enters from the empty pump bay through
+the recessed wall opening and threads into an RX-M3Sx4.0 insert in the keeper's
+local 5 mm boss. These locks stay installed during a customer pump change.
 The junction's rear keys prevent rotation. The return's broad flexible keys interlock
 with its PET-GF cradle and closing cover. The straight junction-to-return link is captured
 between supported socket stops and held against bowing by its dry guide. The keeper

@@ -1172,10 +1172,10 @@ def valve_tray_stations(placed: dict) -> tuple:
     plate's extent is the seats' own, and its thickness, margin and seat height are
     `valve_tray`'s.
 
-    EVERY DECK IS STRUCK THE SAME AND NO VALVE MOVES. A valve seats its whole post in its
-    socket and lands its body on its plate's face, on this deck as on every other — the
-    release moves the TEE, and the millimetre it takes is absorbed by the tube stub between
-    them, not by anything the plate does."""
+    Each fixed valve seats its whole post in its socket and lands its body on
+    the tray face. The permanent pump junctions and compound returns connect
+    to those seated ports through straight links. Cartridge withdrawal leaves
+    the valves, junctions, returns and their links stationary."""
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         if axis != 1:
