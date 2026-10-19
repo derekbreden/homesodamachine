@@ -1,6 +1,14 @@
 # Full enclosure print readiness
 
-The complete enclosure trial prints the four shell quadrants (front-top, front-bottom,
+The next complete enclosure print is intended for a fully working appliance ready
+to ship. Its design, materials, printed structure, surface finish, assembly, sealing,
+retention and customer pump replacement are assessed against that use. Further
+iteration is expected when evidence calls for it; the print has no reduced fit-test
+acceptance standard. The complete operating assembly includes the integrated cold
+core and refrigeration provisions, even when a bench build uses the external Lillium
+carbonator.
+
+The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
 back-top, back-bottom), pump cartridge and cap, machine display cover and the two
 G Ganen cold-core mounting parts. Its permanent pump dock has four asymmetric TPU
 junctions, four compound TPU returns, four interior keepers, four rigid cradles and
@@ -184,14 +192,32 @@ retain their commercial-fitting scope. Customer pump withdrawal does not actuate
 those collets. See the [permanent dock](pump-dock/README.md) for its station-specific
 manufacturing outputs, fixture load paths and assembly order.
 
-## What the trial establishes
+## Remaining work for the complete working appliance
 
-The complete printed assembly establishes valve and permanent wet-fixture installation;
-simultaneous four-stem insertion and withdrawal; permanent-receiver capture and
-sealing; pump mounting, connectors and primed operation; and shell
-closure. G Ganen screw/washer seating and rubber compression, DIGITEN arrow orientation, and
-actual made-up gas-fitting fit are direct assembly observations. They do not require another
-scan or a separate coupon before the trial. Production LLDPE routes retain nominal ¼-inch and
-⅜-inch outside diameters.
+The current record does not establish release of a complete production print set or
+a machine ready to ship. The following work remains in the readiness assessment.
+Each item needs a resolved design or a specific decision; a statement that it is
+unmeasured does not by itself supply a task or test for the founder.
 
-Complete enclosure fit is an **outcome of this trial**, not a prerequisite to printing it.
+| Area | Work needed |
+| --- | --- |
+| Final permanent dock | Finish the current matched junction, return, keeper, cradle and cover exports; bind the eight TPU and twelve PET-GF parts to the final native projects and emitted paths. Resolve bore cleanup, supported sealing surfaces and fixture/key stock for the intended wet assembly. The [manufacturing handoff](pump-dock/petgf-production-parts.md) and [wet preparation](pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/README.md) identify the pieces. |
+| Remaining enclosure geometry | Resolve the front-top seam-to-roof and display-wing corners, plus the sensor/scarf, rear-interface, handhold/floor, warning, lid-perimeter and valve-fixture findings in the [manual interface review](pump-dock/lint-interface-review.json) and the [front-top findings](../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Keep each classifier diagnosis and supported functional section tied to its exact feature; unresolved inherited geometry remains open. |
+| Production deposition and finish | Complete fresh native preparations for the final meshes, dense fastener hosts and roots, support removal, visible transitions and the back-top sliding grooves. The rejected full-shell articles and accepted local surfaces above retain their recorded scopes. Prepared settings do not establish deposited material or usable cleanup. |
+| Complete assembly | Close the current [assembly feedback](enclosure/assembly-fit-review/README.md) against the populated machine: cord and driver access, valve and tube installation, pump feet and washers, routing, lid/deck stations, funnel frame and all four closing quadrants. A nominal CAD gap is not complete assembly acceptance. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters. |
+| Cold-core moisture boundary | Specify the complete warm-side closure, including tube/cable annuli, copper exits, screw access and exposed cap foam. The [seam review](../cold-core/foam-cap/seam-moisture-review.json) supports local foil bands but does not close those other paths. Resolve the required closure materials, application and any printed sealing lands before releasing affected parts. |
+| Condensate and refill water | Resolve the [documented water paths](../../concerns.md#running) at cold riser joints, meter and umbilical tails, plus funnel runoff and overpour above electrical hardware. Give water a defined route and protect the electrical parts; include any required insulation, shields, drainage or sealing features in the print set. |
+| Loads, retention and electrical contacts | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, cartridge seats, six-pair magnetic capture, four wet joints and pogo contacts for actual operating, handling and customer replacement conditions. The [mechanical register](../../mechanical-qualification/README.md), [pressure/retention assessment](pump-dock/pressure-retention-review.json) and [contact audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) identify the current basis and limits. Coupon fit, magnet catalogue pull and saved infill settings retain their specific scopes. |
+| Finished appliance function | Close the relevant material, cleaning, fluid, electrical, control and commissioning work in [concerns](../../concerns.md) and [acceptance and burn-in](../../assembly/acceptance-and-burn-in.md). Any resolution that changes a printed part, access, load path or manufacturing process belongs in this print's design review. The current Lillium-fed soda observation retains its complete stated scope. |
+
+Known design and manufacturing problems are addressed before releasing the affected
+print. The actual printed assembly then supplies the evidence that depends on real
+parts: cleanup and finish, complete seating and closure, fluid sealing and retention,
+electrical contact, handling and customer pump replacement. Its complete operating
+and cleaning results are part of readiness for shipping; they are not waived by the
+print's development stage. The design and the evidence need their own conclusions.
+
+This is a manual assessment of the requested readiness question. It adds no recurring
+commit, edit or build check and requests no measurement, destructive test or purchase.
+Any proposed physical check needs its decision, complete procedure, available tools
+and application-derived acceptance criteria before the founder is asked to run it.

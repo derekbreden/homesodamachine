@@ -369,10 +369,11 @@ The foil bands close the perimeter joints only. Tube/cable annuli, copper
 exits, screw access and exposed foam at the cap pour/vent holes belong to
 the rest of the warm-side moisture boundary. Their presence prevents a
 complete vapor-retarder claim from these bands alone. Functional reservoir
-vents, fluid lumens and the PRV discharge route must stay open. This local
-sealing decision requires no gasket, dimensional change or moisture test
-before a room-temperature enclosure fit print; the tape is applied during
-assembly for refrigerated operation.
+vents, fluid lumens and the PRV discharge route must stay open. Specify the
+complete boundary's closure materials, application and any required printed
+sealing lands for refrigerated operation before releasing affected prints.
+The perimeter-seam decision alone does not close the
+[complete appliance readiness assessment](../../enclosure/print-readiness.md#remaining-work-for-the-complete-working-appliance).
 
 ## Cap-to-outer-shell joinery
 

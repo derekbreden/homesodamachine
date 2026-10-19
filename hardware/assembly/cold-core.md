@@ -155,7 +155,7 @@ With all three pours cured:
 - Bottom cap (mouth-down) onto the body's underside with its dry printed-face allowance, [10](CAP_FACE_SCREWS) M3 × 25 SHCS into the bottom-face inserts
 - Seal the dry exterior cap/shell and cap/lid seams with 3M 425 foil tape per [Dry casing seams](/hardware/printed-parts/cold-core/foam-shell/README.md#dry-casing-seams). Use one band per assembled end on its 0.30 mm recessed smooth lands, with at most two foil layers at the 25 mm end overlap. The band spans the head pockets' small side openings. Burnish around the corners and keep the axial driver openings, flat bearing faces, mounting seats and fluid passages clear. The cup provides 0.15 mm static room at each rigid seat; the foil is outside the mechanical stack.
 
-These bands restrict cabinet-air entry at the perimeter joints for refrigerated operation. They do not close the tube/cable annuli or qualify the complete cold-core vapor retarder. A room-temperature enclosure fit print does not need these seals.
+These bands restrict cabinet-air entry at the perimeter joints for refrigerated operation. They do not close the tube/cable annuli or qualify the complete cold-core vapor retarder. The complete working appliance requires a defined moisture boundary at those annuli, copper exits, screw access and exposed cap foam. Its closure materials, application and any required printed sealing lands remain part of the [complete enclosure readiness assessment](/hardware/printed-parts/enclosure/print-readiness.md#remaining-work-for-the-complete-working-appliance).
 
 ## Warm-side check valves
 
