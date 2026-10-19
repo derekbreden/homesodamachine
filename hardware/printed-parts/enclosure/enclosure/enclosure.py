@@ -8045,9 +8045,11 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         floor = mid_z - half
         wedge_depth = 0.0
         if wall_aft_y is not None and near < wall_aft_y < far:
-            wedge_depth = far - wall_aft_y
+            # One 45-degree keel under the plate's whole thickness. Ahead of the wall's aft
+            # face the plate stands over the keeper pocket, where a flat floor is a ceiling.
+            wedge_depth = (far - near) / 2.0
             tray = tray.fuse(_yz_prism(inner[0], inner[1], [
-                (far, floor), (wall_aft_y, floor), (wall_aft_y, floor - wedge_depth),
+                (far, floor), (near, floor), ((near + far) / 2.0, floor - wedge_depth),
             ]))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
         # face, its valve-side face one plane with the plate's, so the plate prints as a
