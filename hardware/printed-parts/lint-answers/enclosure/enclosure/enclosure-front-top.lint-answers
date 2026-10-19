@@ -106,11 +106,6 @@ alternatives: Filling beneath the roof enters cartridge travel. Sloping its full
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=43.757 z=284.674
 
-[ceiling] The fore valve tray retains its flat lower edge at Z230.400 and current Y109.840 face centroid above the fixed dock. Its valve-post rooms and port channels retain the purchased valve insertion envelope. Support can be approached through the empty interior before dock plumbing and valves are installed; cleanup remains unqualified.
-alternatives: A full 45-degree corbel from Y114.440/Z230.400 toward wall aft Y96.836 reaches Z213.475 at the rear frame aft plane Y97.515, leaving only 0.051 mm above its Z213.424 top. Filling that space loses the required clearance; moving the tray changes four valve and link stations.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=109.840 z=230.400
-
 [ceiling] These Z272.500 flats close the upper Y-seam insert hosts above the existing tube corridor. The source-declared pilot and surrounding host remain inside the rechecked native windows. Support approaches through the open interior before assembly; physical cleanup remains unqualified.
 alternatives: A corbel below the block enters the tube corridor. Cutting upward spends the insert host or its blind cap.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
