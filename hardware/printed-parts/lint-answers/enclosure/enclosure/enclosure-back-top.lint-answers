@@ -1,124 +1,67 @@
-[step] Unavoidable independent seating levels: the Y475.30 wall face, which the five full-section bulkhead nuts bear on, and the Y474.79 back of the keystone's 3 mm lip, which the jack's shoulder locates against, differ by 0.51 mm. Each is the bearing or locating plane of its own purchased part, struck from the wall's section and the jack's face datum respectively.
+[step] Unavoidable independent seating levels: the Y465.30 wall face, which the five full-section bulkhead nuts bear on, and the Y464.79 back of the keystone's 3 mm lip, which the jack's shoulder locates against, differ by 0.51 mm. Each is the bearing or locating plane of its own purchased part, struck from the wall's section and the jack's face datum respectively.
 alternatives: A common plane moves either the nuts' clamp stack or the jack's lip depth, and each is fixed by its fitting.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-48.160 y=474.790 z=307.556
+click: x=-48.160 y=464.790 z=307.341
 
 [sliver] Unavoidable fitted catch projections: the 1.4 mm upper tang keeper and 1.3 mm lower latch keeper retain the purchased keystone module. Their full native profiles and actual swing/insertion clearances are identified in the receptacle review. This does not establish printed latch life or physical support cleanup.
 alternatives: Filling the keeper openings enters the module envelope. Removing or sloping the working projections changes tang/latch capture; a different retention arrangement requires a complete receptacle redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=468.730 z=294.437
-click: x=-40.710 y=468.780 z=314.487
+click: x=-40.710 y=458.730 z=294.222
+click: x=-40.710 y=458.780 z=314.272
 
 [thin] Wrong material-thickness classification: these exact segments lie on native boundary planes at all five interior positions. Their 0.337/0.348/0.645 mm lengths run along retained mounting/roof surfaces rather than through material.
 alternatives: Reject boundary-tangent endpoint pairs before diagnosing thickness. A wall change at these exact surface segments does not address the invalid measurement.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=96.188 y=338.800 z=343.331
-click: x=96.274 y=264.800 z=342.653
+click: x=96.188 y=328.800 z=343.331
 
 [thin] Wrong material-thickness classification: all five interior samples of this exact C14-region segment are outside both the native solid and final STL. Its 1.053 mm endpoint distance spans empty clearance rather than a material section.
 alternatives: Require material occupancy along a segment before classifying thickness. Filling this interval would alter the cord/receptacle clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=95.435 y=470.437 z=319.258
+click: x=95.435 y=460.437 z=319.258
 
 [thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
 alternatives: Flattening or shallowing changes the retained visible contour. Widening lands changes closed-field spacing. Assess a finish change against the appearance evidence rather than choosing it from a thickness-only cutoff.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=102.521 y=479.030 z=176.048
-click: x=-107.422 y=470.645 z=286.177
-click: x=-101.854 y=479.476 z=247.577
-click: x=107.305 y=471.439 z=345.382
-click: x=-104.500 y=308.248 z=256.482
-click: x=-104.500 y=338.242 z=262.560
-click: x=104.500 y=423.433 z=328.227
-click: x=104.500 y=433.480 z=327.573
-click: x=-104.500 y=213.052 z=265.820
-click: x=104.500 y=213.052 z=265.820
-click: x=106.301 y=213.053 z=172.559
-click: x=-104.500 y=268.252 z=288.231
-click: x=44.998 y=478.300 z=336.619
-click: x=-106.301 y=213.047 z=172.559
-click: x=104.500 y=403.477 z=322.460
-click: x=104.500 y=368.259 z=262.254
-click: x=104.500 y=368.259 z=295.254
-click: x=104.500 y=368.237 z=313.454
-click: x=104.500 y=383.445 z=329.370
-click: x=104.500 y=333.449 z=320.959
-click: x=104.500 y=333.473 z=258.879
-click: x=104.500 y=253.302 z=323.150
-click: x=104.500 y=253.302 z=256.700
-click: x=85.419 y=478.300 z=337.517
-click: x=-58.427 y=481.021 z=325.062
-click: x=13.229 y=481.126 z=323.688
-click: x=-58.427 y=481.021 z=257.812
-click: x=-56.860 y=480.416 z=287.876
-click: x=51.976 y=481.152 z=325.312
-click: x=51.969 y=481.149 z=346.812
-click: x=-61.920 y=480.939 z=287.806
-click: x=-61.974 y=481.088 z=255.188
-
-[thin] Required purchased-jack swing ease: these 0.071 mm tips are where the keystone module's 50° swing ease (riteav_keystone) starts on the aperture's own top edge, which is the DATA floor plane; the ease is the path the jack swings through as it seats. Blunting the tip needs a step of at least 1.6 mm to avoid a sliver, and that step would show through the DATA opening's 1 mm margin. The tip locates nothing.
-alternatives: Start the ease below the aperture edge, which puts a visible step in the DATA opening, or change the receptacle so the jack swings through another path.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.740 y=477.790 z=310.878
-click: x=-33.680 y=477.790 z=310.878
+click: x=106.300 y=213.453 z=172.559
+click: x=-106.300 y=213.447 z=172.559
+click: x=104.500 y=243.300 z=256.684
 
 [thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm only along the slot-mouth line at the apex of the 1.10 x 0.40 mm entry bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
 alternatives: A thicker lip needs a thicker plate or a thinner wing, each a change to the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-24.549 y=481.293 z=315.150
-click: x=86.592 y=481.294 z=261.077
-click: x=-56.872 y=481.298 z=312.680
-
-[thin] Required keystone catches: these are the 1.3 mm lower and 1.4 mm upper catch depths (CATCH_LOWER/CATCH_UPPER), the keepers the purchased jack's latch and tang snap behind; they also take the plug push. The 927 mm2 area counts the frame walls at 3.000 mm around them.
-alternatives: Deeper catches enter the module envelope; shallower ones lose latch and tang capture.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.878 y=468.080 z=292.192
-click: x=-47.850 y=468.080 z=314.865
-
-[thin] Wrong material-thickness classification: a single sample with 0.0 mm2 of surface at the DATA pad's R5 corner, where 3.6 mm of pad stands with the wall behind it.
-alternatives: Ignore single zero-area samples at a round. Thickening the pad changes nothing here.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-59.582 y=474.198 z=290.731
+click: x=-24.549 y=471.293 z=314.939
 
 [thin] Specific fitted M3 insert-host interface: these sections span 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Inside a fill the host keeps the fill's face, 1.75 mm behind the relieved crown.
 alternatives: A 3 mm host needs every body gap in the bay widened by about 1 mm and relays with pins further from their holes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=93.291 y=345.463 z=335.589
-click: x=97.292 y=269.465 z=329.064
-click: x=97.292 y=341.183 z=319.248
-click: x=97.292 y=354.183 z=319.248
-click: x=97.374 y=342.936 z=251.315
-click: x=97.374 y=355.936 z=251.315
-click: x=97.292 y=270.800 z=343.955
-click: x=97.292 y=336.800 z=330.955
-click: x=97.292 y=332.800 z=343.930
+click: x=97.374 y=332.936 z=251.315
+click: x=97.374 y=345.936 z=251.315
+click: x=97.292 y=326.800 z=330.955
 
-[thin] Specific required partition, with a classifier minimum: each row's 1.445 mm minimum pairs the meter anchor's rib crown (Z344.4) inside the tie band with the slab underside (Z343) past the band's end, a corner pair. The real section in the cluster is the 1.95 mm slab between each zip tie's channel and the flow meter's pocket (Y382.56-384.51 and 423.51-425.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
+[thin] Specific required partition, with a classifier minimum: each row's 1.445 mm minimum pairs the meter anchor's rib crown (Z344.4) inside the tie band with the slab underside (Z343) past the band's end, a corner pair. The real section in the cluster is the 1.95 mm slab between each zip tie's channel and the flow meter's pocket (Y372.56-374.51 and 413.51-415.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
 alternatives: A 3 mm partition needs a positive axial stop holding the meter within about 0.9 mm, e.g. the inner end webs carried over the neck with a lead-in, so the pocket can give up the room; a narrower tie channel or a shifted band thins the collar's end webs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-55.655 y=382.535 z=344.400
-click: x=-55.655 y=428.935 z=344.400
+click: x=-55.655 y=372.535 z=344.400
+click: x=-55.655 y=418.935 z=344.400
 
 [thin] Wrong material-thickness classification: stepped-corner pairs. Each pairs two opposed faces that meet only at the edge of a stepped corner of solid stock: a rib crown with the slab underside past a tie band's end, a rib flank with a pocket wall above it, two pockets' roofs either side of a step, a channel floor with the flank face beside a band's end. A ray along each sample's inward normal crosses 7.9-22.7 mm of material (probe on the current STL).
 alternatives: Reject pairs whose sample's inward chord through the material reaches the search. No wall change addresses these readings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-83.990 y=458.510 z=348.685
-click: x=-71.575 y=459.010 z=348.363
-click: x=-31.765 y=379.085 z=344.400
-click: x=-31.765 y=425.485 z=344.400
-click: x=-56.468 y=378.847 z=343.000
-click: x=-30.952 y=382.772 z=343.000
-click: x=-30.952 y=429.172 z=343.000
-click: x=-56.468 y=425.247 z=343.000
-click: x=7.612 y=378.751 z=343.028
-click: x=7.612 y=368.638 z=343.333
-click: x=-91.626 y=322.335 z=316.137
-click: x=-13.694 y=378.751 z=343.028
-click: x=-13.694 y=368.638 z=343.333
-click: x=-101.250 y=268.533 z=282.714
-click: x=-98.500 y=264.696 z=282.054
-click: x=-98.500 y=268.924 z=282.054
-click: x=-101.250 y=265.394 z=282.952
+click: x=-83.990 y=448.510 z=348.685
+click: x=-71.575 y=449.010 z=348.363
+click: x=-31.765 y=369.085 z=344.400
+click: x=-31.765 y=415.485 z=344.400
+click: x=-56.468 y=368.847 z=343.000
+click: x=-30.952 y=372.772 z=343.000
+click: x=-30.952 y=419.172 z=343.000
+click: x=-56.468 y=415.247 z=343.000
+click: x=7.612 y=358.638 z=343.333
+click: x=-91.626 y=308.185 z=316.137
+click: x=-13.694 y=358.638 z=343.333
+click: x=-101.250 y=258.533 z=282.714
+click: x=-98.500 y=254.696 z=282.054
+click: x=-98.500 y=258.924 z=282.054
+click: x=-101.250 y=255.394 z=282.952
 
 [ledge] Required Wago bearing tabs: each is a 2.0 mm end tab (`wago_roof_tab`) of a well's lid; on back-top the lid is the pocket's machine -Z face, so these flats are what the lever-nut rests on.
 alternatives: A sloped tab puts the lug on a ramp; a full lid is a 9.3 x 8.7 mm ceiling.
@@ -126,16 +69,16 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-101.400 y=315.733 z=254.600
 click: x=-101.400 y=331.983 z=254.600
 click: x=-101.400 y=309.883 z=254.700
-click: x=98.300 y=367.327 z=312.450
-click: x=98.300 y=374.027 z=312.450
-click: x=98.300 y=383.577 z=312.450
-click: x=98.300 y=390.277 z=312.450
-click: x=98.300 y=399.827 z=312.450
-click: x=98.300 y=406.527 z=312.450
-click: x=98.300 y=416.077 z=312.450
-click: x=98.300 y=422.777 z=312.450
-click: x=98.300 y=432.327 z=312.450
-click: x=98.300 y=439.027 z=312.450
+click: x=98.300 y=357.327 z=312.450
+click: x=98.300 y=364.027 z=312.450
+click: x=98.300 y=373.577 z=312.450
+click: x=98.300 y=380.277 z=312.450
+click: x=98.300 y=389.827 z=312.450
+click: x=98.300 y=396.527 z=312.450
+click: x=98.300 y=406.077 z=312.450
+click: x=98.300 y=412.777 z=312.450
+click: x=98.300 y=422.327 z=312.450
+click: x=98.300 y=429.027 z=312.450
 click: x=-101.400 y=321.767 z=254.600
 click: x=-101.400 y=338.017 z=254.600
 click: x=-101.400 y=295.117 z=254.700
@@ -143,26 +86,15 @@ click: x=-101.400 y=295.117 z=254.700
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
 alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-23.477 y=478.550 z=295.217
-click: x=-19.462 y=478.550 z=260.553
-click: x=-58.077 y=478.550 z=295.217
-click: x=87.802 y=478.550 z=260.553
-
-[ledge] Required keystone catch: the lower catch's print-down top, offset 0.25 mm; it bridges the fitted pocket between its side walls.
-alternatives: Sloping it changes the latch capture.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-43.193 y=468.513 z=294.437
+click: x=-19.462 y=468.550 z=260.553
+click: x=-58.077 y=468.550 z=295.002
+click: x=87.802 y=468.550 z=260.553
 
 [slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° across 3.6 mm of pad stock, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
 alternatives: Read hole roofs separately from sideways corbels.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.670 y=475.990 z=270.953
-click: x=29.670 y=475.990 z=270.953
-
-[slope] Required keystone corbel turn-back: between the corbel's wall-grounded side cheeks the strip turns back at 45 degrees onto the DATA pad's run-out, keeping 1.0 mm off the soda union's clamp-nut envelope and 3.9 mm off the union itself; its lowest printed edge is a 15.56 mm bridge between the cheeks and both faces carry themselves.
-alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=473.174 z=322.573
+click: x=38.670 y=465.990 z=270.953
+click: x=29.670 y=465.990 z=270.953
 
 [sliver] Required transition between two running fits: aft of the front tongue and its knuckles back-top's wall face stays at |X|104.5, one fit outside front-top's tongue; from the back rail's closed end it steps 0.75 mm in to the channel's standing wall, one slip outside the head.
 alternatives: Either face moved onto the other closes a running fit.
@@ -173,8 +105,8 @@ click: x=104.125 y=219.800 z=167.650
 [thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm anchor, wall or insert-host sections. Native interiors are material and endpoint coordinates differ by exactly 3.000 mm along the section axis. Floating-point inclusion at the 3 mm reach does not establish a smaller design section or qualify printed/load performance.
 alternatives: Use an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal fitted section solely to change its rank has no dimensional basis.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-98.405 y=327.800 z=175.233
-click: x=-98.466 y=324.800 z=175.401
+click: x=-98.405 y=317.800 z=175.233
+click: x=-98.466 y=314.800 z=175.401
 click: x=-98.258 y=316.079 z=254.600
 click: x=-95.540 y=321.136 z=254.600
 click: x=-95.544 y=314.620 z=251.600
@@ -182,10 +114,9 @@ click: x=-98.258 y=332.329 z=254.600
 click: x=-95.540 y=337.386 z=254.600
 click: x=-98.106 y=321.355 z=251.600
 click: x=-95.443 y=330.882 z=251.600
-click: x=-97.812 y=338.890 z=251.600
-click: x=-98.493 y=262.060 z=312.376
-click: x=-90.858 y=265.060 z=305.455
-click: x=-98.025 y=268.560 z=306.351
+click: x=-98.493 y=252.060 z=312.376
+click: x=-90.858 y=255.060 z=305.455
+click: x=-98.025 y=258.560 z=306.351
 click: x=-98.326 y=277.250 z=284.551
 click: x=-98.134 y=286.750 z=277.584
 click: x=-98.375 y=280.250 z=284.524
@@ -195,109 +126,97 @@ click: x=-87.501 y=277.250 z=266.494
 click: x=-87.223 y=280.250 z=264.254
 click: x=-85.501 y=286.750 z=266.948
 click: x=-84.438 y=283.750 z=276.549
-click: x=-98.454 y=271.560 z=306.166
+click: x=-98.454 y=261.560 z=306.166
 click: x=-96.953 y=291.450 z=284.729
-click: x=-101.256 y=403.953 z=355.000
-click: x=-96.517 y=342.800 z=202.206
+click: x=-96.517 y=332.800 z=202.206
 click: x=-98.068 y=342.350 z=254.728
-click: x=-52.306 y=384.570 z=355.000
-click: x=-15.581 y=423.387 z=352.000
-click: x=-33.349 y=474.653 z=288.812
-click: x=-34.760 y=477.790 z=292.064
-click: x=-11.686 y=476.150 z=331.320
-click: x=12.145 y=274.586 z=338.572
-click: x=15.145 y=274.525 z=338.834
-click: x=18.645 y=286.581 z=341.632
-click: x=21.645 y=274.634 z=341.297
-click: x=50.325 y=410.443 z=342.648
-click: x=53.325 y=422.274 z=342.305
-click: x=98.106 y=368.521 z=309.450
-click: x=98.116 y=367.678 z=312.450
-click: x=98.116 y=374.378 z=312.450
-click: x=97.649 y=363.660 z=331.439
-click: x=95.594 y=373.615 z=309.450
-click: x=98.257 y=383.142 z=309.450
-click: x=98.116 y=383.928 z=312.450
-click: x=98.116 y=390.628 z=312.450
-click: x=95.249 y=400.806 z=309.450
-click: x=96.183 y=391.520 z=309.450
-click: x=98.116 y=400.178 z=312.450
-click: x=95.249 y=417.056 z=309.450
-click: x=96.183 y=407.770 z=309.450
-click: x=98.116 y=406.878 z=312.450
-click: x=56.825 y=411.011 z=342.623
-click: x=59.825 y=410.443 z=342.648
-click: x=98.116 y=416.428 z=312.450
-click: x=95.249 y=433.306 z=309.450
-click: x=96.183 y=424.020 z=309.450
-click: x=98.116 y=423.128 z=312.450
-click: x=98.116 y=432.678 z=312.450
-click: x=96.025 y=440.315 z=309.450
-click: x=98.116 y=439.378 z=312.450
-click: x=95.883 y=443.360 z=312.559
+click: x=-34.760 y=467.790 z=291.849
+click: x=-11.686 y=466.150 z=331.320
+click: x=50.325 y=400.443 z=342.648
+click: x=98.116 y=364.378 z=309.450
+click: x=98.116 y=357.678 z=312.450
+click: x=98.116 y=364.378 z=312.450
+click: x=97.649 y=353.660 z=331.439
+click: x=95.594 y=363.615 z=309.450
+click: x=98.257 y=373.142 z=309.450
+click: x=98.116 y=373.928 z=312.450
+click: x=98.116 y=380.628 z=312.450
+click: x=95.249 y=390.806 z=309.450
+click: x=96.183 y=381.520 z=309.450
+click: x=98.116 y=390.178 z=312.450
+click: x=95.249 y=407.056 z=309.450
+click: x=96.183 y=397.770 z=309.450
+click: x=98.116 y=396.878 z=312.450
+click: x=59.825 y=400.443 z=342.648
+click: x=98.116 y=406.428 z=312.450
+click: x=95.249 y=423.306 z=309.450
+click: x=96.183 y=414.020 z=309.450
+click: x=98.116 y=413.128 z=312.450
+click: x=98.116 y=422.678 z=312.450
+click: x=96.025 y=430.315 z=309.450
+click: x=98.116 y=429.378 z=312.450
+click: x=95.883 y=433.360 z=312.559
 
 [ceiling] Unavoidable PRV chase profile: these flats are the exterior crown and square mouth lower edge of the retained vent. The 12 mm passage and sloped inner air roof remain intact. Support can leave through the empty crown/mouth before core and vent installation; physical cleanup remains unqualified.
 alternatives: Filling reduces the vent passage. A different crown or mouth changes the rib/tube-target envelope and requires its own clearance review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-94.625 y=333.800 z=214.350
-click: x=-92.250 y=333.800 z=185.600
+click: x=-94.625 y=323.800 z=214.350
+click: x=-92.250 y=323.800 z=185.600
 
 [ceiling] Unavoidable fitted plate ends: these nameplate and DATA body mouths retain the shared static and supported-face allowances at their complete lower outlines. Support leaves through the empty rear-facing mouths before plate installation; cleanup remains unqualified.
 alternatives: Filling reduces body-end clearance. Tapering removes part of the fitted perimeter; enlarging changes the locating boundary.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=34.170 y=479.545 z=256.553
-click: x=-40.710 y=479.545 z=291.217
+click: x=34.170 y=469.545 z=256.553
+click: x=-40.710 y=469.545 z=291.002
 
 [ceiling] Unavoidable screw-head bearings: these screw-anchor caps and upper head-bearing floors retain their current complete native host sections and positive mating gaps. Tree(auto)/Default support can leave through the empty seam, inward pockets and roof before assembly; actual cleanup remains unqualified.
 alternatives: Sloping tilts the head seat or spends blind-end host stock. A corbel can enter neighboring block travel; a continuous post occupies frame/service room.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-97.625 y=209.975 z=195.050
 click: x=97.625 y=209.975 z=195.050
-click: x=-97.450 y=208.900 z=347.000
-click: x=97.450 y=208.900 z=347.000
+click: x=-96.750 y=208.900 z=347.000
+click: x=96.750 y=208.900 z=347.000
 
 [ceiling] Unavoidable square slide-capture profiles: these Z168.70 flats are the rear top feet beneath bottom catches at Z169.45, with the defined running and supported-face allowance. Support can leave the open channels before assembly; cleanup remains unqualified.
 alternatives: Sloping changes the capture bearing. Filling enters the slide path; cutting away the overlap loses retention.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=101.125 y=345.050 z=168.700
-click: x=-101.125 y=403.050 z=168.700
-click: x=-101.125 y=275.800 z=168.700
+click: x=101.125 y=340.050 z=168.700
+click: x=-101.125 y=393.050 z=168.700
+click: x=-101.125 y=270.800 z=168.700
 
 [ceiling] Unavoidable fitted jack/chip boundaries: these flats retain the complete purchased connector, chip-end and latch-passage profiles with their current positive clearances. Support can leave through empty rear openings before hardware placement. Native fit geometry does not qualify physical cleanup or retention.
 alternatives: Filling enters the hardware or latch path. Sloping or truncating spends the complete fitted outline; changing the module arrangement requires a separate receiver redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=477.175 z=326.311
-click: x=66.900 y=470.550 z=324.226
-click: x=-40.710 y=480.225 z=257.194
-click: x=-78.070 y=480.225 z=257.194
-click: x=-40.710 y=480.225 z=324.381
-click: x=-78.070 y=480.225 z=324.381
-click: x=-3.350 y=480.225 z=324.591
-click: x=-78.070 y=480.225 z=291.217
-click: x=-40.710 y=471.435 z=291.812
-click: x=-40.710 y=476.290 z=294.217
+click: x=66.900 y=467.175 z=326.311
+click: x=66.900 y=460.550 z=324.226
+click: x=-40.710 y=470.225 z=257.194
+click: x=-78.070 y=470.225 z=257.194
+click: x=-40.710 y=470.225 z=324.381
+click: x=-78.070 y=470.225 z=324.381
+click: x=-3.350 y=470.225 z=324.591
+click: x=-78.070 y=470.225 z=291.002
+click: x=-40.710 y=466.290 z=294.002
+click: x=-40.710 y=462.085 z=291.597
 
 [ceiling] Unavoidable open tie/seat profiles: these flats close the retained tube, chain and meter anchor channels while their ends/root profiles locate the purchased bodies. The tie returns remain open for assembly and support withdrawal before tubing and fittings are installed. Physical support contacts, cleanup and loaded retention remain unqualified.
 alternatives: Filling blocks the tie return or installed body. Extending a root through the open span spends that assembly path; changing the seat or channel needs a complete anchor review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-87.850 y=320.260 z=315.011
-click: x=-100.000 y=388.510 z=321.671
-click: x=-95.550 y=266.810 z=305.411
-click: x=-101.500 y=266.810 z=280.611
-click: x=-91.207 y=388.510 z=345.211
-click: x=-3.350 y=373.653 z=348.546
-click: x=-43.710 y=380.810 z=344.400
-click: x=-43.710 y=427.210 z=344.400
-click: x=32.650 y=339.153 z=346.861
-click: x=16.895 y=280.600 z=338.425
-click: x=55.075 y=416.653 z=342.286
+click: x=-87.850 y=310.260 z=315.011
+click: x=-100.000 y=378.510 z=321.671
+click: x=-95.550 y=256.810 z=305.411
+click: x=-101.500 y=256.810 z=280.611
+click: x=-3.350 y=363.653 z=348.546
+click: x=-43.710 y=370.810 z=344.400
+click: x=-43.710 y=417.210 z=344.400
+click: x=32.650 y=329.153 z=346.861
+click: x=55.075 y=406.653 z=342.286
 click: x=-88.285 y=282.000 z=276.899
 
 [ceiling] Unavoidable populated-electronics mounting profiles: these finite pad ends retain their component mounting planes and insert hosts, with corbel reach limited by the actual pin/blocker fields. Support approaches through the empty interior before electronics installation. Physical cleanup remains unqualified.
 alternatives: An unrestricted corbel enters the populated-board/tail keepout. Shortening changes the insert host or mounting plane; a different layout needs its own full populated clearance review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.375 y=348.300 z=259.400
-click: x=97.375 y=348.800 z=327.200
+click: x=97.375 y=338.300 z=259.400
+click: x=97.375 y=338.800 z=327.200
 
 [ceiling] Unavoidable fitted catch bridges: each face is the bearing face of a catch window in `carb-1`'s capped rib, where the anchor cap's lip bears. Back-top prints ceiling-down, so the face is a 14.6 mm bridge carried by the rib's two 3 mm end webs, 4.0 mm over the slab; the window it roofs is the 1.6 mm pocket the lip enters.
 alternatives: A corbel or column under the face fills the window the lip enters. Sloping the face turns the lip's pull into a spread that walks the wing out of the window, and a window open at its ends gives up the end webs the bridge stands on.
@@ -308,5 +227,9 @@ click: x=50.200 y=276.125 z=339.022
 [sliver] Unavoidable fitted catch faces: each 1.6 mm strip is the bearing face of a catch window in `carb-1`'s capped rib, as deep as the window: the anchor cap lip's 1.2 mm engagement with a slip and the bridge's 0.25 mm finish allowance past the lip's tip.
 alternatives: A deeper window narrows the rib's web for bearing the 1.2 mm lip never uses, and a shallower one lets the lip bottom out. A deeper engagement spreads the cap's wings past the faucet display cover's strain on the same estimate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=50.200 y=265.075 z=339.022
 click: x=50.200 y=276.125 z=339.022
+
+[slope] Required keystone corbel turn-back: between the corbel's wall-grounded side cheeks the strip turns back at 45 degrees onto the DATA pad's run-out, keeping 1.0 mm off the soda union's clamp-nut envelope and 3.9 mm off the union itself; its lowest printed edge is a 15.56 mm bridge between the cheeks and both faces carry themselves.
+alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=463.334 z=322.840
