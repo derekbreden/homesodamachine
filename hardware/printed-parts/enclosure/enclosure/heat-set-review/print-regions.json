@@ -993,7 +993,7 @@
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "d554b02c45977c634632086ab368026dd7c1338628e7c6cfff01673cb0b7a84c",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "057c5b483ae6e9dc8087a690d57eace27d6f5c2d578c4979d917e9c5d78356f0",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+    "hardware/manifold-layout/enclosure-box.json": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "21e6952b68f866e6ca345b96672082fc577554beb9956a58083bd2ec71597bf4",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "5d52bdafae7fe8b1f2eb57d1eabc24c24e58df71e1ebe98ef9b2168496eabd57",
@@ -1001,7 +1001,7 @@
     "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json": "f6a53884f0744707a454e4caa54ce2a076ad095786677c0b225556ff136934db"
+    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json": "1956cc2892c57f7b1409238ab1ba9fedb128e3af98f521ba6941362d9b9838ef"
   },
   "native_artifact_sha256": {
     "front-bottom": {
@@ -4761,5 +4761,73 @@
         ]
       }
     ]
-  }
+  },
+  "source_input_equivalence": [
+    {
+      "input": "hardware/manifold-layout/enclosure-box.json",
+      "raw_generation_sha256": "c0b5838ba75678694a98351ffb2b8f88fea3d58809a68352dda2d73378de56be",
+      "current_sha256": "560c5eab127b673b56e15f02c9530383bb6cee05b46c25fd2e0afdb58f28c663",
+      "complete_collet_plate_equal": true,
+      "outer_equal": true,
+      "other_coordinate_changes": [
+        {
+          "path": "/box/pack/values/17/0/0/0",
+          "before": 16.8950000078204,
+          "after": 16.895000007820393
+        },
+        {
+          "path": "/box/pack/values/17/0/0/1",
+          "before": 270.59999999999997,
+          "after": 270.5999999
+        },
+        {
+          "path": "/box/pack/values/25/0/0",
+          "before": -78.5000001156408,
+          "after": -78.50000011564079
+        },
+        {
+          "path": "/box/pack/values/25/0/1",
+          "before": 194.29999989999993,
+          "after": 194.29999979999997
+        },
+        {
+          "path": "/box/pack/values/25/1/0",
+          "before": 78.5000001156408,
+          "after": 78.50000011564079
+        },
+        {
+          "path": "/box/pack/values/25/1/1",
+          "before": 194.29999989999993,
+          "after": 194.29999979999997
+        },
+        {
+          "path": "/box/pack/values/27/0/0",
+          "before": -90.50000011564077,
+          "after": -90.50000011564079
+        },
+        {
+          "path": "/box/pack/values/27/0/1",
+          "before": 323.79999999999995,
+          "after": 323.7999999
+        },
+        {
+          "path": "/box/pack/values/27/0/2",
+          "before": 191.85000009999996,
+          "after": 191.84999999999997
+        }
+      ],
+      "maximum_other_coordinate_change_mm": 9.999999406318238e-08,
+      "scope": "The complete dock plate and enclosure bounds are exact. Nine other coordinates differ by at most 1e-7 mm, below the declared 1e-6 mm document comparison tolerance. Named modifier geometry and all 52 native artifact bindings are retained."
+    },
+    {
+      "input": "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
+      "raw_generation_sha256": "f6a53884f0744707a454e4caa54ce2a076ad095786677c0b225556ff136934db",
+      "current_sha256": "1956cc2892c57f7b1409238ab1ba9fedb128e3af98f521ba6941362d9b9838ef",
+      "exact_unchanged_fields": [
+        "All eight key_regions arrays",
+        "All eight source_to_print_mm matrices"
+      ],
+      "scope": "Only source input equivalence metadata is rebound in the wet review. Native key geometry descriptors, placement matrices, project and emitted identities are unchanged."
+    }
+  ]
 }
