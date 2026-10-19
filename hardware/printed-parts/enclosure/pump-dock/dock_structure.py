@@ -521,7 +521,16 @@ def _diagonal_link_guide(base,cover,layout,junction,jbody,side):
     band=band.fuse(prism(first,bed,-radius,-radius,radius,4.))
     fore=plumbing.OCCUPIED_CUFF_OD/2+fits.running+.05-.1
     trim=prism(fore,-radius-3.,radius,0.,radius+3.1,first-fore+.001)
-    return base.cut(_to_local(trim,layout,side)).fuse(_to_local(band,layout,side)).clean()
+    base=base.cut(_to_local(trim,layout,side))
+    if abs(point.x)<50:
+        # Open the unused upper continuation beside the terminal pocket.
+        # The complete four-mm band, lower wall and inboard slab remain.
+        aft=first+4.
+        last=(end-point).Length-radius-3.
+        if last>aft:
+            tail=prism(aft,-radius-3.,radius,0.,radius+3.1,last-aft)
+            base=base.cut(_to_local(tail,layout,side))
+    return base.fuse(_to_local(band,layout,side)).clean()
 
 
 def _factory_loading_fit(base,cover,plate,x,item,layout,side,centers,cuffs,arms,return_bare,jbody,profile,host_window):
