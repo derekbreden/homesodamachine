@@ -249,82 +249,56 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl",
           "quantity": 1,
-          "pose": {
-            "turns": [
-              [
-                "x",
-                0
-              ]
-            ]
-          },
+          "pose": {"turns": [["x", 0]]},
           "regions": "pump-receiver-keeper-west-outer",
           "object_settings": {
-            "wall_loops": {
-              "value": "6",
-              "reason": "The complete structural keeper/cradle/cover uses six walls."
-            },
-            "sparse_infill_density": {
-              "value": "100%",
-              "reason": "Complete head bearings, closed tube guides and fastener load paths."
-            },
-            "sparse_infill_pattern": {
-              "value": "zig-zag",
-              "reason": "Solid structural-part recipe."
-            }
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries the receiver groove bearing and its lock."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing, insert boss and lock load path."},
+            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         },
         {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cradle-west-outer.stl",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-inner.stl",
           "quantity": 1,
-          "pose": {
-            "turns": [
-              [
-                "x",
-                0
-              ]
-            ]
-          },
-          "regions": "pump-return-cradle-west-outer",
+          "pose": {"turns": [["x", 0]]},
+          "regions": "pump-receiver-keeper-west-inner",
           "object_settings": {
-            "wall_loops": {
-              "value": "6",
-              "reason": "The complete structural keeper/cradle/cover uses six walls."
-            },
-            "sparse_infill_density": {
-              "value": "100%",
-              "reason": "Complete head bearings, closed tube guides and fastener load paths."
-            },
-            "sparse_infill_pattern": {
-              "value": "zig-zag",
-              "reason": "Solid structural-part recipe."
-            }
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries the receiver groove bearing and its lock."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing, insert boss and lock load path."},
+            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         },
         {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-cover-west-outer.stl",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-inner.stl",
           "quantity": 1,
-          "pose": {
-            "turns": [
-              [
-                "x",
-                0
-              ]
-            ]
-          },
-          "regions": "pump-return-cover-west-outer",
+          "pose": {"turns": [["x", 0]]},
+          "regions": "pump-receiver-keeper-east-inner",
           "object_settings": {
-            "wall_loops": {
-              "value": "6",
-              "reason": "The complete structural keeper/cradle/cover uses six walls."
-            },
-            "sparse_infill_density": {
-              "value": "100%",
-              "reason": "Complete head bearings, closed tube guides and fastener load paths."
-            },
-            "sparse_infill_pattern": {
-              "value": "zig-zag",
-              "reason": "Solid structural-part recipe."
-            }
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries the receiver groove bearing and its lock."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing, insert boss and lock load path."},
+            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-east-outer.stl",
+          "quantity": 1,
+          "pose": {"turns": [["x", 0]]},
+          "regions": "pump-receiver-keeper-east-outer",
+          "object_settings": {
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries the receiver groove bearing and its lock."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing, insert boss and lock load path."},
+            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl",
+          "quantity": 1,
+          "pose": {"turns": [["x", 0]]},
+          "regions": "pump-return-block",
+          "object_settings": {
+            "wall_loops": {"value": "6", "reason": "Solid channel walls, lips and screw columns round all four returns."},
+            "sparse_infill_density": {"value": "100%", "reason": "The block is solid stock; every seat and lip carries a return."},
+            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         }
       ]

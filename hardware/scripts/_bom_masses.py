@@ -104,7 +104,7 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Small solid PET-GF: the collet press, the dock's keepers/return fixtures and the anchor cap.
+    # Solid PET-GF: the collet press, the dock's keepers and return block, and the anchor cap.
     # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
     # 100% infill. Bill their complete geometry until native production slices.
     "tool":  (2.70, 0.45, 1.00),
@@ -155,11 +155,7 @@ PARTS = {
         f"enclosure/enclosure/enclosure-pump-receiver-keeper-{station}.step"
         for station in ("west-outer", "west-inner", "east-inner", "east-outer")
     ],
-    "Enclosure — pump return fixtures (one set)": [
-        f"enclosure/enclosure/enclosure-pump-return-{part}-{station}.step"
-        for station in ("west-outer", "west-inner", "east-inner", "east-outer")
-        for part in ("cradle", "cover")
-    ],
+    "Enclosure — pump return block": ["enclosure/enclosure/enclosure-pump-return-block.step"],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
         "enclosure/enclosure/enclosure-back-bottom.step",

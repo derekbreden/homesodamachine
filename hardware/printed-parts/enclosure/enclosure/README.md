@@ -1498,11 +1498,9 @@ Its upper link is straight. A one-piece compound TPU return supplies the lower
 45° and 90° turns, with straight LLDPE between the junction and return and a
 short straight tail into the original aft valve station.
 
-Each junction/return pair has its own side-opening PET-GF cradle and flat cover.
-Broad TPU keys beside all four fixed socket stops retain both wet bodies and
-the cover against the rigid cradle; the PET-GF does not flex for assembly.
-The cradle closes the straight tube's side guide and locks to the wall and
-aft tray with two M3×8 screws and the same washers. All permanent plumbing is
+All four returns snap into one PET-GF return block under the seam: a straight slot
+per return, narrower than the TPU body, with a round seat along the return's path. Three M3×12 screws
+hold the block's top face to the aft tray foot. All permanent plumbing is
 assembled on loose front-top before that piece joins the compressor half.
 
 Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
@@ -1510,7 +1508,7 @@ set full insertion, with the stem tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
 A straight pull withdraws the four stems while every junction, keeper, return,
-cradle and fixed tube remains in place. No commercial collet moves during a pump
+the return block and every fixed tube remain in place. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, factory setting fixtures and material selections.
 
@@ -1554,10 +1552,10 @@ and a 90-degree turn. Two straight LLDPE links connect that body to the junction
 and the original aft valve port.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
-The flat receiver keepers, socket backing and tube capture install from the
-open interior before the valve rows close access. TPU mounting features
-interlock with PET-GF fixtures; the fixed socket stops and closed tube guides
-locate the short links against axial motion and bowing. The aft valves and coils enter from the loose
+The flat receiver keepers install from the open interior before the valve rows close
+access. Each junction's solid TPU between its branches backs its upper socket; the
+return block's channels seat the returns, so the fixed socket stops locate the short
+diagonal links against axial motion. The aft valves and coils enter from the loose
 piece's underside and move onto their mounting posts. The Beduan socket fit retains
 its identified physical acceptance; ties supply retention. Factory assembly and the
 complete dock's physical qualification are specified in

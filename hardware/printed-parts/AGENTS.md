@@ -69,6 +69,10 @@ drainage or access requirement. Do not contour the wall around every available
 void to gain volume; quantify any useful capacity tradeoff against the simpler
 wall before choosing the boundary.
 
+One job is one solid object: a part that needs a second part to hold it together is
+redesigned, not covered or keyed. Fewer edges is better. Saving material is not a goal;
+no part is thinned, skeletonized or pocketed to use less of it.
+
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
 Enclosure parts and their receiver coupons use the shared `petgf.3mf` tree supports and their

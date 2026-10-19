@@ -345,10 +345,11 @@ BEARS_ON = {
     # The wall and its separate locked keeper jointly retain each TPU receiver.
     **{f"pump-receiver-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
-    # Each cradle and closing cover jointly capture the permanent return.
-    **{f"{part}-{port}": f"pump-return-cradle-{port}"
-       for part in ("pump-return", "pump-return-cover")
+    # Each permanent return snaps into its channel in the one return block,
+    # and the block screws up into the front-top's tray foot.
+    **{f"pump-return-{port}": "pump-return-block"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
+    "pump-return-block": "enclosure-front-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }

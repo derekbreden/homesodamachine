@@ -145,19 +145,13 @@ including engagement at both real fittings. Exposed path length is not a tube-bl
 length. Use black LLDPE except for `fluid-3`, V-A's outlet into Y-A, which uses white tube.
 Square-cut, deburr without scoring the outside sealing surface, and tag each segment.
 
-1. **Fit the aft valves and empty return fixtures.** Install the RX-M3Sx4.0
-   inserts in the four keepers and eight return-fixture hosts before fitting TPU.
+1. **Fit the aft valves.** Install the RX-M3Sx4.0 inserts in the four keepers
+   and the three tray-foot bosses before fitting TPU.
    Bring V-C, V-D, V-G and V-J through front-top's open underside, align their mounts,
    then seat them along their posts. Match the topology's ports and coil clocks,
    then close the retaining ties. For each return-to-valve link,
    first seat uncut tube fully into the actual valve, mark its collet face, then
    cut 8.5 mm beyond that mark: 2 mm exposed plus 6.5 mm insertion into TPU.
-   On the bench, slide each closing cover onto its empty cradle, then park it
-   6.25 mm outward along its slide axis. Raise the empty cradle and parked cover
-   together through front-top's open underside and position them on their rigid
-   hosts. Leave their shared locks out while loading the plumbing. Keep the
-   fore-junction loading corridor and lower return's 6.5 mm vertical loading
-   path open.
 
 2. **Seat the upper groups and lock the keepers from the pump bay.**
    Inspect each TPU bore and funnel for continuous, clean material. For each fore
@@ -178,34 +172,27 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    keeper must slide without pinching the TPU neck. Keep the pump bay empty
    until all four keeper screws are seated.
 
-3. **Assemble and capture the lower returns.** Match each junction and compound
-   return to its station. Cut the straight junction-to-return tube from the actual
-   mounted stop span, targeting 0.15 mm total axial play. Fit the straight link
+3. **Assemble the lower returns and fit the return block.** Match each junction and
+   compound return to its station. Cut the straight junction-to-return tube from the
+   actual mounted stop span, targeting 0.15 mm total axial play. Fit the straight link
    into the junction before seating the return.
-   With the closing cover parked outward, hold the return 6.5 mm below its final position,
+   Hold the return 6.5 mm below its final position,
    with the vertical socket coaxial with the valve tail. Start the diagonal tube
    in both sockets, then raise the return straight onto the valve tail. The
    diagonal tube temporarily takes a shallow S during this unpressurized motion;
    the checked minimum radius is 34.2 mm at the outer stations and 79.2 mm at the
    inner stations. It finishes straight. Perform this factory fit with front-top
-   loose, before joining it to the condenser/compressor half. The cradle's open
-   loading trough admits this motion with the empty base already on its hosts.
-   Confirm that both socket shoulders will be backed by their dry cradle seats.
-   The combined manufacturing, thermal and loaded-motion allowance is 0.50 mm
-   total, retaining at least 5.5 mm of each 6 mm sealing land. The nominal cut is
-   a starting setting; the installed span and physical retention determine acceptance.
+   loose, before joining it to the condenser/compressor half.
    Keep every link straight and the valve collets
    accessible. Keep all links clear of the wall, keeper, neighboring fittings and
    cartridge envelope. Tug-check
    each push-fit connection without using a valve or receiver as a lever. Confirm
-   that the TPU returns recover without visible distortion. Slide each cover
-   inward by 6.25 mm to close its socket backing and key captures. Secure each
-   cradle and its cover to both rigid hosts
-   with their two shared M3×12 washer-equipped locks. Verify the TPU keys are captured beside all socket
-   stops and that neither the base nor its cover can leave the seated assembly.
-   Use the factory ball-end driver and the [dock's access directions](/hardware/printed-parts/enclosure/pump-dock/README.md#factory-assembly)
-   through the crowned dry passages, with the cartridge removed and front-top
-   still loose above its open underside.
+   that the TPU returns recover without visible distortion.
+   Bring the one return block onto all four returns from front-top's open underside,
+   top face first, until that face seats on the aft tray foot. Each return squeezes
+   through its slot and snaps into its seat. Drive the three M3×12 screws through
+   the block's counterbores into the tray-foot inserts. Confirm that each return sits
+   in its seat and cannot be lifted out by hand.
    Printed-part recovery and seal performance remain
    subject to the pump-dock's physical qualification.
 

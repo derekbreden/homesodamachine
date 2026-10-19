@@ -35,26 +35,22 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 
 | Editable project | Native filament (g) | Native time (h:mm:ss) |
 | --- | ---: | ---: |
-| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 7.602 | 1:53:51 |
-| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 8.159 | 2:12:37 |
-| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 7.792 | 1:55:52 |
-| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 7.039 | 1:53:19 |
-| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 7.780 | 1:55:40 |
-| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 7.031 | 1:53:08 |
-| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 7.539 | 1:53:07 |
-| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 8.153 | 2:12:25 |
-| **All eight** | **61.094** | **15:50:00** |
+| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.324 | 1:52:34 |
+| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.663 | 1:54:47 |
+| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.412 | 1:52:58 |
+| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:00 |
+| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.412 | 1:52:58 |
+| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:00 |
+| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.326 | 1:52:28 |
+| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.661 | 1:54:48 |
+| **All eight** | **58.123** | **14:32:34** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and
 project hashes are in the [native review](native-review.json). They do not include
-the twelve PET-GF fixture parts. No printer was contacted or launched.
+the five PET-GF dock parts. No printer was contacted or launched.
 
-The retained wet recipe requests six walls and 100% infill. Each readback also
-records the actual mounting keys intersected with the cut body, including their
-connected roots, with posed bounds, solid volume and an exact local-to-print
-transform. The emitted-path review checks model perimeters and infill through
-those regions. Settings and geometric bead coverage do not establish printed
-key strength or life.
+The retained wet recipe requests six walls and 100% infill. The parts carry no
+mounting keys: the return block holds each return by its round body.
 
 The blocker is the vertical projection of the actual wet passage, expanded
 0.65 mm in XY and extended from 2 mm below the bed to 2 mm above the part. It

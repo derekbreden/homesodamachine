@@ -1,7 +1,0 @@
-[thin] Strict-threshold reading of the nominal sliding-plate section. Both emitted pairs intersect exactly 3.000000 mm of the actual canonical keeper, with five native interior samples IN per pair. The current complete --all reader reports 3.000 mm at each planar section. The source plate spans Y7.00..10.00 and fits the 3.35 mm TPU groove with 0.35 mm rear running room when its fore face is clamped to the wall. These are the specified nominal 3 mm PET-GF walls; printed fit, sliding force and retention load remain unqualified.
-alternatives: Thickening the plate beyond its nominal 3 mm to conceal a numerical threshold reading spends the 0.35 mm groove room. A 3.35 mm plate consumes it entirely; greater thickness requires a different TPU groove and guide slot. A thinner plate gives up the nominal section without a demonstrated fit requirement. An actually smaller native section would require a source correction.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper.step
-click: x=-6.281 y=7.000 z=-0.348
-click: x=-6.281 y=10.000 z=-0.348
-click: x=-11.549 y=10.000 z=-10.847
-click: x=-11.549 y=7.000 z=-10.847

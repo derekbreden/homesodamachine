@@ -78,7 +78,7 @@ def decode(value):
     return value
 
 
-def prepare(name,body,void,keys,bindings,pose,dimensions,*,slice_native=False):
+def prepare(name,body,void,bindings,pose,dimensions,*,slice_native=False):
     folder=OUT/name;folder.mkdir(parents=True,exist_ok=True)
     shift=-body.BoundingBox().zmin
     pose=dict(pose,ports_print_mm={key:(value[0],value[1],value[2]+shift) for key,value in pose['ports_before_bedding_mm'].items()})
@@ -87,12 +87,6 @@ def prepare(name,body,void,keys,bindings,pose,dimensions,*,slice_native=False):
     rz=np.asarray([[math.cos(a),-math.sin(a),0.],[math.sin(a),math.cos(a),0.],[0.,0.,1.]])
     rx=np.asarray([[1.,0.,0.],[0.,math.cos(b),-math.sin(b)],[0.,math.sin(b),math.cos(b)]])
     source_to_print=np.eye(4);source_to_print[:3,:3]=rx@rz;source_to_print[2,3]=shift
-    key_regions=[]
-    for index,key in enumerate(keys,1):
-        key=key.translate((0,0,shift));bb=key.BoundingBox();target=folder/f'key-{index}.stl'
-        cq.exporters.export(key,str(target),tolerance=.025,angularTolerance=.1)
-        key_regions.append({'index':index,'bounds_print_mm':[bb.xmin,bb.xmax,bb.ymin,bb.ymax,bb.zmin,bb.zmax],
-            'volume_mm3':key.Volume(),'stl':target.name,'stl_sha256':sha(target)})
     bed_faces=[face for face in body.Faces() if face.geomType()=='PLANE' and abs(face.BoundingBox().zmin)<1e-5 and abs(face.BoundingBox().zmax)<1e-5]
     meshes=[]
     for member,shape in zip(('body','wet-void'),(body,void)):
@@ -159,7 +153,6 @@ def prepare(name,body,void,keys,bindings,pose,dimensions,*,slice_native=False):
         native_elapsed=None
     record={'status':('Offline native slice' if slice_native else 'Prepared offline native project')+'; no printer contacted or launched','slicer_exit_code':exit_code,'native_slice_wall_seconds':native_elapsed,
         'part':name,'normal_object_count':1,'wet_cavity_blocker_count':1,
-        'key_regions':key_regions,'key_region_scope':'Full source mounting keys intersected with the actual cut wet body, including their remaining connected roots. These are inspection/solid-region metadata, not extra printed objects.',
         'source_to_print_mm':source_to_print.tolist(),'source_frame':'Wet builder local geometry before print rotations; plate XY centering is separate.',
         'preparation_mesh_tolerances':{'deflection_mm':.025,'angular_tolerance_rad':.10},
         'prepared_body_mesh':{'watertight':bool(meshes[0].is_watertight),'vertices':len(meshes[0].vertices),'facets':len(meshes[0].faces)},
@@ -241,8 +234,7 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True)
     (OUT/'plate-used.json').write_text(json.dumps(plate,indent=2)+'\n')
     import flow_roof
-    import exterior_roof
-    sources=[Path(m.__file__) for m in (fixed_returns,pump_receiver,pump_return,flow_roof,exterior_roof)]
+    sources=[Path(m.__file__) for m in (fixed_returns,pump_receiver,pump_return,flow_roof)]
     sources+=[ROOT/'hardware/manifold-layout/enclosure-box.json',Path(__file__)]
     bindings={str(p.relative_to(ROOT)):sha(p) for p in sources}
     choices=[]
@@ -257,20 +249,19 @@ def main():
     records={}
     for name,kind,x in choices:
         if args.part and name not in args.part:continue
-        data=layouts[str(x)];side=1 if x>0 else -1
+        data=layouts[str(x)]
         if kind=='receiver':
             z=dict(plate['holes'])[x];local=pump_receiver._local_junction(data['junction'],(x,plate['fore_y'],z))
-            shape=pump_receiver.geometry(junction=local,mount_side=side)
+            shape=pump_receiver.geometry(junction=local)
             zrot,xrot=pump_receiver.print_rotations(local)
             ports={key+'-'+field:local[key][field] for key in ('lower','upper') for field in ('point','tube_stop')}
             ports['pump-inlet']=(0.,0.,0.)
         else:
-            shape=pump_return.geometry(data['return'],mount_side=side);zrot,xrot=0.,-45.
+            shape=pump_return.geometry(data['return']);zrot,xrot=0.,-45.
             ports={key+'-'+field:shape['layout'][key][field] for key in ('input','output') for field in ('point','tube_stop')}
         body=shape['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
         void=shape['void'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
-        keys=[key.intersect(shape['body']).clean().rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot) for key in shape['keys']]
-        records[name]=prepare(name,body,void,keys,bindings,{'mount_side':side,'rotate_z_degrees':zrot,'rotate_x_degrees':xrot,'bed':'Native body minimum Z to0',
+        records[name]=prepare(name,body,void,bindings,{'rotate_z_degrees':zrot,'rotate_x_degrees':xrot,'bed':'Native body minimum Z to0',
                 'ports_before_bedding_mm':{key:rotate_point(value,zrot,xrot) for key,value in ports.items()}},
             pump_receiver.engineering_record() if kind=='receiver' else pump_return.engineering_record(),slice_native=name in slices)
     (OUT/'preparation-index.json').write_text(json.dumps({'scope':'Manual offline preparation, one normal object per plate. No printer API. Native slicing occurs only with --slice or --slice-all. Support and free-strand paths require review; no physical clean-bore acceptance.','plate_snapshot':'plate-used.json','plate_snapshot_sha256':sha(OUT/'plate-used.json'),'parts':records},indent=2)+'\n')

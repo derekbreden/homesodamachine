@@ -465,13 +465,12 @@ def _dock_face_witness(solid, point, normal):
 
 
 def record_fixed_return_seats(plate, dock_parts):
-    """The twelve world-authored return/fixture parts on their own datums."""
+    """The four world-authored returns and their one block, on their own datums."""
     declared = _dock.plumbing.layouts(plate)
     returned = _dock.returned
     for suffix, (x, _z) in zip(_dock.STATIONS, plate['holes']):
         layout = declared[str(x)]['return']
         origin, normal, along = returned.frame(layout)
-        side = _dock.mount_side(x)
         # A point in the actual output cuff's annular end face, between its
         # seal and occupied outer radii. Another cuff may stand higher.
         radial = (_dock.plumbing.TUBE_OD + _dock.plumbing.OCCUPIED_CUFF_OD) / 4
@@ -479,22 +478,12 @@ def record_fixed_return_seats(plate, dock_parts):
         name = f'pump-return-{suffix}'
         record_seat(name, station=point,
                     got=_dock_face_witness(dock_parts[name], point, layout['output']['axis']))
-        # The cradle's wall-facing tab bears on the declared front anchor
-        # plane. The witness lies outside the screw crown, inside the11mm tab.
-        ax, ay, az = _dock.fixture_anchors(plate, x)[0]
-        point = (ax - side * 3.5, ay + _dock.fits.running, az)
-        name = f'pump-return-cradle-{suffix}'
-        record_seat(name, station=point,
-                    got=_dock_face_witness(dock_parts[name], point, (0, -1, 0)))
-        # The cover's front shared-lock tab seats its washer on this exact
-        # source plane. Use material in the bearing annulus, outside the
-        # crowned screw bore, rather than a whole-part bounding-box extreme.
-        face = (ay + _dock.fits.running + 2 * _dock.FIXTURE_TAB_THICK
-                + _dock.FIXTURE_COVER_SPACER)
-        point = (ax - side * 3.0, face, az)
-        name = f'pump-return-cover-{suffix}'
-        record_seat(name, station=point,
-                    got=_dock_face_witness(dock_parts[name], point, (0, 1, 0)))
+    # The block's top face bears on the front-top's bed plane under the tray
+    # foot. The witness stands beside the centre screw's clearance bore.
+    x, y = _dock.block_screws(plate)[len(_dock.BLOCK_SCREW_X) // 2]
+    point = (x + _dock.BLOCK_COUNTERBORE_D, y, plate['fixture_print_bed_z'])
+    record_seat('pump-return-block', station=point,
+                got=_dock_face_witness(dock_parts['pump-return-block'], point, (0, 0, 1)))
 
 
 def record_pump_dock_seats(box_spec, dock_parts, retention):
