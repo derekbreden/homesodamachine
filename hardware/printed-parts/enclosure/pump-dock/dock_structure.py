@@ -173,8 +173,12 @@ def _key_seat_cut(wall_fore_y,x,z):
         cx=x+sign*(receiver.KEY_ROOT_X+receiver.KEY_OUTER_X)/2
         half=3.+fits.running
         top=z+receiver.KEY_TOP_Z+fits.running*2**.5
+        # End the crown at the guide's open inner face. An apex centred on
+        # the ear leaves a triangular skin beside that face.
+        apex=x+sign*GUIDE_INNER_X
+        roof=top+abs(cx-apex)
         pts=[(cx-half,z+receiver.KEY_BASE_Z-fits.running),(cx+half,z+receiver.KEY_BASE_Z-fits.running),
-             (cx+half,top-half),(cx,top),(cx-half,top-half)]
+             (cx+half,top-half),(apex,roof),(cx-half,top-half)]
         y0=wall_fore_y+receiver.REAR_COLLAR_Y[0]-.01
         y1=wall_fore_y+receiver.REAR_COLLAR_Y[1]+3
         wire=cq.Wire.makePolygon([cq.Vector(a,y0,b) for a,b in pts]+[cq.Vector(pts[0][0],y0,pts[0][1])])

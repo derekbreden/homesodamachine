@@ -34,7 +34,7 @@
         },
         {
           "name": "tube-fluid-28",
-          "gap_mm": 5.468428,
+          "gap_mm": 3.4714304,
           "overlap_mm3": 0
         },
         {
@@ -370,7 +370,7 @@
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 5.468428,
+          "gap_mm": 3.4714304,
           "overlap_mm3": 0
         },
         {
@@ -464,15 +464,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "new_return_centerline_radii_mm": [
-        0.4466891,
         25.4
       ],
       "existing_front_route_scope": "Front supports and their existing bends retained.",
-      "passed": false
+      "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "new_return_centerline_radii_mm": [
         25.4
       ],
@@ -483,11 +482,11 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "88f50b24270aadae31dfa004f1343c1d8d9cd4a9c3f8b73e71655811ec98eef5",
-    "hardware/manifold-layout/_lines.py": "a7b1f0a5339287ea652ea663f55030d77c65f4bbe8957d02543a541a1e132278",
+    "hardware/manifold-layout/enclosure_assembly.py": "88eeea6328b50b7af1cf3047e09497754c839c48b981bd9da93c59aaf9167fa2",
+    "hardware/manifold-layout/_lines.py": "b3cccf173c5c6cbe86d32b45846bbd12b1bd718a0f95ed33ea96ad3d52a43fa2",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "6e3e624ca10c1f81d2e487d27a16facc8cfb12ea4567dbac6bd8788148eddded"
   },
-  "passed": false
+  "passed": true
 }

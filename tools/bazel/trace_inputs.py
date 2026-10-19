@@ -294,8 +294,12 @@ def trace(gen: str, files: set, argv=()) -> dict:
     # after without opening (`PIECE_FINDERS` in the runner).
     pieced = set(seen.get("pieced", ()))
     if pieced:
+        # The published inventory also names pieces absent from this checkout.
+        # A directory finder can select only the STEP/STL pairs actually present.
         out["reads"] |= {f for f in files if f.endswith(".stl")
-                         and os.path.dirname(f) in pieced and f[:-4] + ".step" in files}
+                         and os.path.dirname(f) in pieced and f[:-4] + ".step" in files
+                         and (_ROOT / f).is_file()
+                         and (_ROOT / (f[:-4] + ".step")).is_file()}
     answer = {k: sorted(v) for k, v in out.items()}
     if seen.get("raised"):
         answer["raised"] = seen["raised"]

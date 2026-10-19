@@ -57,7 +57,7 @@
     }
   ],
   "retained_structural_stock": {
-    "pilot_envelope_description": "Full circular pilot with its0.25mm supported-face allowance,3mm surrounding stock and3mm axial blind cap.",
+    "pilot_envelope_description": "Full circular pilot with its 0.25 mm supported-face allowance, 3 mm surrounding stock and 3 mm axial blind cap.",
     "pilots": [
       {
         "x": -10.22,
@@ -88,9 +88,92 @@
   },
   "unchanged_datums": [
     "Box dimensions and serialized plate stations",
-    "fixed and moving contact faces, including0.500mm nominal contact gap",
+    "fixed and moving contact faces, including 0.500 mm nominal contact gap",
     "insert and screw stations",
     "five wet modules and eight wet preparation projects"
   ],
-  "final_canonical_binding": "The parent canonical producer materializes this exact source helper; its final artifact digest is recorded by the complete dock integration review."
+  "final_canonical_binding": {
+    "source_sha256": "fc4819d3e41440c0d85a3f6895e553e9d8c5d4171a55d99dba313d536489b477",
+    "artifacts_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "61ec85572b318128ee9a2eefb1f81f00df882f3f634c01bd584d40fdd41bb8d8",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "99cc384e339261c87f65618d3e4445b182bc9fc9167e55655d77cd3d3c4b71ce"
+    },
+    "scope": "The canonical producer executes the exact bound contact-stock source helper. The original whole-part review and its actual input identities remain above. The complete current appliance card is bound separately by fixed-return-integration-review.json; these hashes do not relabel the earlier whole-part reading."
+  },
+  "adopted_source": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "sha256": "579d0d0ca214cabdbe5d022e4183332a02b26aaa90cd73a20efd7b2534ac1cbf",
+    "fixed_stock_AST_matches_source_at_initial_whole_part_review": true,
+    "continuous_lead_exit_function": "_pump_contact_fixed_cuts"
+  },
+  "continuous_lead_exit": {
+    "scope": "Current lead opening crosses the complete backing and the central valve-tray top with the existing teardrop roof. Bounded native subtraction from the exact published complete front-top; no full enclosure rebuild or physical acceptance.",
+    "actual_input_step_sha256": "61ec85572b318128ee9a2eefb1f81f00df882f3f634c01bd584d40fdd41bb8d8",
+    "actual_input_stl_sha256": "99cc384e339261c87f65618d3e4445b182bc9fc9167e55655d77cd3d3c4b71ce",
+    "reviewed_complete_part_sha256": "a811a1abd581a464c6898384efee5cff938f2e61cae747eeb981d735f9b54691",
+    "source_sha256": "579d0d0ca214cabdbe5d022e4183332a02b26aaa90cd73a20efd7b2534ac1cbf",
+    "native_proof_path": ".cache/pump-dock-engineering/fixed-elbow-implementation/valve-wall-regression/continuous-exit-review.json",
+    "native_proof_sha256": "ff3c5ed05a80d568cf9e5a49314a4d7858da2877b907d78e30df3c19aeee62ad",
+    "complete_part_valid": true,
+    "complete_part_solid_count": 1,
+    "removed_material_mm3": 118.70341781789453,
+    "removed_material_bounds_mm": [
+      -5.497195236178,
+      5.497195236178,
+      96.836,
+      99.44,
+      269.12562612375,
+      274.45
+    ],
+    "added_material_mm3": 0.0,
+    "former_manual_thin44_segment_all_interior_points_are_air": true,
+    "pilot_roots": [
+      {
+        "x": -10.22,
+        "pilot_start_y": 89.89,
+        "pilot_end_y": 95.39,
+        "end_cap_y": 98.39,
+        "required_mm3": 424.23225229831536,
+        "missing_mm3": 0.0
+      },
+      {
+        "x": 10.22,
+        "pilot_start_y": 89.89,
+        "pilot_end_y": 95.39,
+        "end_cap_y": 98.39,
+        "required_mm3": 424.23225229831536,
+        "missing_mm3": 0.0
+      }
+    ],
+    "lead_lower_3mm_shell": {
+      "required_mm3": 102.52273465724947,
+      "missing_mm3": 0.0
+    },
+    "purchased_valve_checks": [
+      {
+        "name": "v-e",
+        "whole_part_overlap_mm3": 0.0,
+        "noncontact_stock_gap_mm": 1.2000000000000117,
+        "noncontact_stock_overlap_mm3": 0.0
+      },
+      {
+        "name": "v-h",
+        "whole_part_overlap_mm3": 0.0,
+        "noncontact_stock_gap_mm": 1.1999999999999948,
+        "noncontact_stock_overlap_mm3": 0.0
+      }
+    ],
+    "changed_neighbourhood_native_faces": {
+      "faces_read": 1,
+      "under45": []
+    },
+    "retained_evidence_scope": "The initial complete eight-valve/coil zero-overlap reading above remains bound to its exact earlier input and reviewed construction. The current complete part is an exact native subset with zero added volume, so it cannot introduce overlap with any of those sixteen purchased bodies. Both affected valve bodies are also intersected directly here. Complete supported pilot envelopes/endcaps and the lower lead shell are measured again on this current complete part. The original stock-face normal scope remains exact because its stock constructor is unchanged; the changed lead boundary is read separately.",
+    "datums_unchanged": [
+      "Box and valve/receiver stations",
+      "fixed and moving contact faces",
+      "pilot and screw axes",
+      "five wet modules and eight preparation projects"
+    ],
+    "final_canonical_binding": "Pending the next canonical front-top materialization; the initial canonical binding above retains its exact source/artifact scope."
+  }
 }

@@ -73,13 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "3 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "valve-v-e \u2229 enclosure-front-top   57.4 mm\u00b3, x[    6.70,   38.00] y[   94.66,   99.84] z[  236.55,  268.30]",
-    "valve-v-h \u2229 enclosure-front-top   57.4 mm\u00b3, x[  -38.00,   -6.70] y[   94.66,   99.84] z[  236.55,  268.30]",
-    "bulkhead-flavor-b \u2229 tube-fluid-28   9.1 mm\u00b3, x[  -82.45,  -74.90] y[  446.51,  448.89] z[  265.85,  272.50]",
     "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
    "active": true
@@ -89,21 +86,14 @@
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "11 under, tightest 0.150 mm",
+   "value": "4 under, tightest 0.997 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "coil-v-c \u2014 pump-return-cradle-east-inner: 0.150 mm \u2014 \u2717 under the global pack floor",
-    "coil-v-c \u2014 pump-return-cover-east-inner: 0.150 mm \u2014 \u2717 under the global pack floor",
-    "coil-v-d \u2014 pump-return-cradle-west-inner: 0.150 mm \u2014 \u2717 under the global pack floor",
-    "coil-v-d \u2014 pump-return-cover-west-inner: 0.150 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-c \u2014 pump-return-cradle-east-inner: 0.201 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-c \u2014 pump-return-cover-east-inner: 0.201 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-d \u2014 pump-return-cradle-west-inner: 0.201 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-d \u2014 pump-return-cover-west-inner: 0.201 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-g \u2014 pump-return-cover-east-outer: 0.250 mm \u2014 \u2717 under the global pack floor",
-    "wago-manb \u2014 foam-assembly: 0.821 mm \u2014 \u2717 under the global pack floor",
-    "fluid-16 \u2014 funnel-frame: 0.968 mm \u2014 \u2717 under the global pack floor",
+    "valve-v-c \u2014 pump-return-cradle-east-inner: 0.997 mm \u2014 \u2717 under the global pack floor",
+    "valve-v-d \u2014 pump-return-cradle-west-inner: 0.997 mm \u2014 \u2717 under the global pack floor",
+    "valve-v-c \u2014 pump-return-cover-east-inner: 0.997 mm \u2014 \u2717 under the global pack floor",
+    "valve-v-d \u2014 pump-return-cover-west-inner: 0.997 mm \u2014 \u2717 under the global pack floor",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
@@ -211,11 +201,16 @@
     "pump-return-east-outer \u2014 pump-return-cradle-east-outer: 0.251 mm \u2014 excluded from the global pack floor",
     "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 excluded from the global pack floor",
     "display \u2014 display-cover: 1.000 mm \u2014 excluded from the global pack floor",
+    "valve-v-g \u2014 pump-return-cover-east-outer: 1.005 mm",
     "valve-v-j \u2014 pump-return-cover-west-outer: 1.005 mm",
     "valve-v-g \u2014 pump-return-cradle-east-outer: 1.005 mm",
     "valve-v-j \u2014 pump-return-cradle-west-outer: 1.005 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.037 mm",
     "fluid-26 \u2014 funnel-frame: 1.038 mm",
+    "coil-v-c \u2014 pump-return-cradle-east-inner: 1.100 mm",
+    "coil-v-c \u2014 pump-return-cover-east-inner: 1.100 mm",
+    "coil-v-d \u2014 pump-return-cradle-west-inner: 1.100 mm",
+    "coil-v-d \u2014 pump-return-cover-west-inner: 1.100 mm",
     "co2-1 \u2014 enclosure-back-top: 1.101 mm",
     "condenser+fan \u2014 pump-return-cradle-east-outer: 1.107 mm",
     "condenser+fan \u2014 pump-return-cover-east-outer: 1.107 mm",
@@ -223,6 +218,7 @@
     "fluid-14 \u2014 funnel-frame: 1.138 mm",
     "fluid-24 \u2014 funnel-frame: 1.150 mm",
     "keystone-jack \u2014 data-ring: 1.161 mm",
+    "fluid-16 \u2014 funnel-frame: 1.213 mm",
     "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "fluid-14 \u2014 valve-v-a: 1.305 mm",
     "fluid-18 \u2014 enclosure-back-top: 1.308 mm",
@@ -573,7 +569,7 @@
    "label": "The removable funnel has a retained drain tube",
    "kind": "goal",
    "status": "pass",
-   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 213.0 mm to V-B",
+   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 199.0 mm to V-B",
    "target": "a fixed tube through the frame connected to V-B",
    "detail": [
     "The cradle's snap and the plug's push-on seal on the stub are not physically qualified; `zone-c/funnel/cradle-trial` tests the snap."
@@ -776,26 +772,23 @@
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
-   "status": "fail",
-   "value": "21/22 as drawn",
+   "status": "pass",
+   "value": "22/22 as drawn",
    "target": "0 short",
-   "detail": [
-    "fluid-28: enters bulkhead-flavor-b.tube-in 180.0\u00b0 off the port's axis (> 3.0\u00b0), and is drawn at it \u2014 move the last waypoint onto the port's normal, or pass `lead=` to plant one."
-   ],
+   "detail": [],
    "active": true
   },
   {
    "id": "bend-radius",
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
-   "status": "fail",
-   "value": "F \u2014 75/76 corners at spec",
+   "status": "pass",
+   "value": "B \u2014 76/76 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: A:1 B:18 F:1",
-    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red",
-    "F/D fluid-28 (valve-v-j.outlet \u2192 bulkhead-flavor-b.tube-in): R0.4 against R14, bound by leg 6 at 40.4 mm \u2014 1.15\u00d7 its need: 325 mm of path for ends 283 mm apart"
+    "runs by grade: A:1 B:19",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true
   },
@@ -825,7 +818,6 @@
    "detail": [
     "data-ring: no seat states where it stands",
     "data-ring-word: no seat states where it stands",
-    "manifold-layout: z0 was asked for 143.5000 and reads 149.9906 \u2014 6.49e+00 mm off",
     "funnel-frame: cy was asked for 164.5500 and reads 165.5750 \u2014 1.02e+00 mm off"
    ],
    "active": false
@@ -876,14 +868,13 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "19/21 within span, 1 left loose",
+   "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-4: 213.0 mm unheld, 13.0 over",
     "fluid-14: 203.0 mm unheld, 3.0 over",
     "carb-1: 147.5 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
-    "fluid-28: 173.6 mm, held at its anchor",
+    "fluid-28: 173.0 mm, held at its anchor",
     "fluid-18: 363.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. The low cap post grips the fore crossing (`_cold_core_interface.cap_side_anchors`). The remaining line follows the west flank, turns below the pump discharge hose and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false
