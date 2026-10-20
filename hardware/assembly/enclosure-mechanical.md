@@ -335,7 +335,7 @@ receiver underside is Z307.4, giving 0.50 mm for the running fit and one support
 The silicone lifts out from above. Deburr and wipe its seat without rounding the rail bearing faces.
 After closing the shell and tightening its upper seam screws, fit the silicone
 funnel onto its drain stub and bearing seat. Smooth its integral apron onto
-the roof so the underside rib seats around the frame opening. The apron
+the roof with its flat underside resting around the frame opening. The apron
 covers the upper screw wells; lift it for screw access and to clean both faces.
 
 Before the frame goes in, drop the PP0308E elbow into the

@@ -3,9 +3,8 @@
 The black PETG cover closes the silicone funnel between fills. Its solid plate
 sits on the silicone apron, adding [3 mm](PLATE) above its Z358 seating plane.
 Its fitted top is Z361, 6 mm above the rigid enclosure roof. A [6 mm](SKIRT) locating
-skirt enters the existing mouth; four broad pads have [0.15 mm](PAD) nominal
-interference with the silicone. The skirt opposes sideways displacement, and
-the pads provide a provisional friction grip. Lift the broad front edge to remove it
+skirt enters the existing mouth and locates the cover sideways. The plate rests
+on the silicone brim under gravity. Lift the broad front edge to remove it
 before pouring or lifting the silicone out for cleaning. Press it down until
 the plate rests evenly on the brim after the fill is complete.
 
@@ -16,8 +15,8 @@ Its entire front edge extends [4 mm](FRONT_EXTENSION) toward the display,
 beyond the [1.5 mm](OVERHANG) brim overlap. A shallow
 [1.2 mm](FRONT_RELIEF) recess under that edge provides lifting access.
 The skirt has [3 mm](WALL) walls and
-[0.25 mm](AIR) nominal running air except at the pads. Its lead-in and the
-pads' lower ramps enter without a sharp outward step. The plate has no holes;
+[0.25 mm](AIR) nominal running air around its continuous surface. Its lower
+lead-in guides insertion into the mouth. The plate has no holes;
 the lifting recess opens only underneath the extended front edge.
 
 The cover lifts off vertically, so the refill does not require a horizontal
@@ -29,7 +28,7 @@ the bottle's filling envelope.
 Direct overhead drips and debris meet the plate instead of the open bowl.
 Runoff leaves at the plate perimeter onto the funnel's continuous silicone
 apron, which covers the exposed frame joints and reaches the exterior sides.
-The apron has an integral underside roof-contact rib. Physical water exclusion
+The apron's flat underside rests on the roof. Physical water exclusion
 remains open in the [concerns register](/hardware/concerns.md).
 Remove external water and debris
 before opening it, and clean both faces separately from the funnel.
@@ -57,7 +56,7 @@ review identifies the material preset, source hashes, solid infill and
 toolpaths; physical fit and drip exclusion remain unqualified.
 
 The [native check](geometry-check.json) binds the exact cover, funnel and
-assembly exports. It checks the solid plate, intended silicone-pad contact,
+assembly exports. It checks the solid plate, silicone clearance,
 surrounding hardware clearance and vertical removal. It does not measure
 friction, silicone distortion, deposited watertightness or lifetime.
 

@@ -74,7 +74,7 @@ with the block bottom. Keep the guide clear during filling and vacuum cycling.
    the brim to admit air. Lift the core straight off the rod, then peel the
    casting and rod out of the cavity. Support the block and slide the released
    rod out along its axis. Trim seat, guide, fill and vent flash. Keep the 6 mm
-   cylindrical bore, flat bearing face and underside roof-contact rib intact.
+   cylindrical bore, flat bearing face and flat apron underside intact.
 6. Clean the funnel and fit it over the drain stub until the brim and block are
    seated, with the apron smoothed onto the roof. Check the normal filling,
    lift-out and refitting operation. Clean
@@ -110,9 +110,8 @@ prints upright; the core prints inverted on its dry back. The Textured PEI
 recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). First-layer
 walls/infill run at 20/30 mm/s with an 8 mm outer brim. Probing clump checks
 remain Off. The apron tooling has no production slice qualification or physical
-casting result. The [corner path study](../funnel/overflow-review/corner-path-study/README.md)
-checks one local forming feature in a complete cavity slice. Its larger
-footprint needs a production plate layout and support review before printing.
+casting result. Its larger footprint needs a production plate layout and
+support review before printing.
 
 The generator's [design record](design.json) records closure with the intended
 fill, vent and rod-guide mouths capped for analysis, straight rod withdrawal,

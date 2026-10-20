@@ -30,8 +30,3 @@ click: x=-50.000 y=91.396 z=54.150
 click: x=50.000 y=91.396 z=54.150
 click: x=-50.000 y=-91.396 z=54.150
 click: x=50.000 y=-91.396 z=54.150
-
-[thin] Local mold-forming exception at the front root/curved sealing-rib transition. The identified native 0.24 mm, six-wall slice emits 0.42/0.45 mm inner/outer wall paths over solid top/infill layers. The measured nominal footprint overlap with the preceding layer is 98.9–100% in the recorded window. The corner-path study records tip rounding; physical forming accuracy remains unqualified.
-alternatives: Removing or moving this forming corner changes the cast root/rib junction. Enlarging its stock requires changing that local seal profile. Retain the scoped forming geometry with its recorded native paths and finishing limits; this answer does not qualify other thin features.
-file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-103.074 y=-67.485 z=55.619

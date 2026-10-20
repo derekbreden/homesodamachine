@@ -1,9 +1,9 @@
 {
   "project": "funnel-cover-petg.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
-  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_source_sha256": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
+  "settings_sha256": "120a33d4804a6fd0d8f2674c8e55405405b9eac6826e6079265f9c77e7dc11cf",
+  "source_settings_sha256": "e8fc4ae8011d87a94485c6268ebc109645e175443376f69f73844c7fbaa90bff",
   "settings_changes": {
     "machine_start_gcode": {
       "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
@@ -18,7 +18,7 @@
   "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
-    "Polymaker PET-GF @BBL H2C"
+    "Bambu PETG Basic @BBL H2C"
   ],
   "layer_height_mm": 0.24,
   "nozzle_diameter_mm": [
@@ -35,9 +35,9 @@
   },
   "wall_loops": 3,
   "sparse_infill_percent": 100,
-  "sparse_infill_pattern": "grid",
+  "sparse_infill_pattern": "zig-zag",
   "saved_profile_filament_density_g_cm3": [
-    1.29
+    "1.25"
   ],
   "bed_type": "Textured PEI Plate",
   "shared_printable_area_mm": [
@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-      "stl_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
-      "triangles": 12212,
+      "stl_sha256": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
+      "triangles": 2812,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -99,12 +99,12 @@
       "plate_bounds_mm": [
         [
           71.5,
-          90.65849304199219,
+          87.80424499511719,
           0.0
         ],
         [
           253.5,
-          229.3415069580078,
+          232.1957550048828,
           9.000000000000009
         ]
       ],
@@ -113,9 +113,9 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "20d20d8848d9b1ec9d5f552493d8f328b8e8fc975418d761e9d3759908b31ced",
+  "project_sha256": "9b851dc4a8f0bf48e43adb32effbc4a8a00d262820dc6f33a7b49ab2120fe02e",
   "settings_preserved_byte_for_byte": false,
-  "source_mesh_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
+  "source_mesh_sha256": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
   "material": "Bambu PETG Basic Black",
   "filament_preset_sha256": {
     "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",

@@ -1105,37 +1105,6 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("funnel-drain-stub", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
-    cover_pair = frozenset(("funnel-cover", "funnel"))
-    if any(frozenset((hit.a, hit.b)) == cover_pair for hit in bad):
-        try:
-            import funnel_cover
-            plug = bodies["funnel"].BoundingBox()
-            (cx, cy, _seat), _axis = a.carries["funnel"](
-                ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
-            reading = funnel_cover.contact_reading(
-                bodies["funnel-cover"], bodies["funnel"],
-                cx, cy, plug.zmax)
-            if reading["outside_pads_mm3"] <= _clearing.HIT_VOL:
-                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != cover_pair]
-        except Exception as exc:
-            unanswered.append(("funnel-cover", "funnel", "silicone pads: " + str(exc).splitlines()[0]))
-    roof_pairs = {frozenset(("funnel", name)): name
-                  for name in ("enclosure-front-top", "enclosure-back-top")}
-    for hit in list(bad):
-        roof = roof_pairs.get(frozenset((hit.a, hit.b)))
-        if roof is None:
-            continue
-        try:
-            import funnel as _funnel
-            origin, _axis = a.carries["funnel"](
-                ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
-            rib = _funnel.roof_seal().translate(origin)
-            # Only the molded rib's nominal seating interference is intended.
-            common = bodies["funnel"].intersect(pieces[roof])
-            if common.cut(rib).Volume() <= _clearing.HIT_VOL:
-                bad.remove(hit)
-        except Exception as exc:
-            unanswered.append(("funnel", roof, "roof rib: " + str(exc).splitlines()[0]))
     result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
     return result

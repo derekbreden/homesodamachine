@@ -47,13 +47,7 @@ apron_rise = 3.0  # mouth and cover seat above the enclosure roof
 apron_width = 215.0  # complete enclosure width; overflow reaches the exterior sides
 apron_depth = collar_d + 32.0
 apron_y = 3.0
-apron_floor = brim_thickness + 0.5
 apron_corner_r = 6.0
-seal_width = 208.0
-seal_depth = apron_depth - 10.0
-seal_y = 2.0
-seal_corner_r = 9.0
-seal_preload = 0.3
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
 capacity_ml = 530.54  # nominal capacity to the mouth rim
 chute_h = 23.485946291005064  # brim top to inner ramp start
@@ -127,40 +121,9 @@ def apron_plan(grow, z0, z1):
                         apron_corner_r + grow, z0, z1, 0.0, apron_y)
 
 
-def roof_seal():
-    """Blunt continuous silicone rib with a sloping root into the front brim.
-
-    The contact band is 1.5 mm wide. Its 0.3 mm nominal interference is a
-    seating allowance, not a measured seal force or drip-exclusion result.
-    """
-    outer, inner = [], []
-    for z, grow in ((brim_thickness - seal_preload, 0.75),
-                    (apron_floor + 0.05, 1.5)):
-        outer.append(_rounded_wire(seal_width + 2 * grow, seal_depth + 2 * grow,
-                                   seal_corner_r + grow, z, 0.0, seal_y))
-        inner.append(_rounded_wire(seal_width - 2 * grow, seal_depth - 2 * grow,
-                                   seal_corner_r - grow, z, 0.0, seal_y))
-    rib = cq.Solid.makeLoft(outer, True).cut(cq.Solid.makeLoft(inner, True))
-    # The front root joins the bearing brim across the complete apron width,
-    # sharing the apron's outer boundary at both ends.
-    front = -collar_d / 2 - brim_overhang
-    contact = seal_y - seal_depth / 2 + 0.75
-    root = (cq.Workplane('YZ', origin=(-apron_width / 2, 0, 0))
-            .polyline([(contact, brim_thickness - seal_preload),
-                       (front, brim_thickness),
-                       (front, apron_floor + 0.05),
-                       (contact, apron_floor + 0.05)])
-            .close().extrude(apron_width).val()
-            .intersect(apron_plan(0.0, brim_thickness - seal_preload,
-                                  apron_floor + 0.05)))
-    return rib.fuse(root).clean()
-
-
 def apron():
-    """The raised brim, roof-spanning sheet and its integral sealing rib."""
-    top = brim_thickness + apron_rise
-    return (brim_plan(0.0, brim_thickness - 0.05, top)
-            .fuse(apron_plan(0.0, apron_floor, top)).fuse(roof_seal()).clean())
+    """One flat-bottomed sheet resting on the roof around the bearing brim."""
+    return apron_plan(0.0, brim_thickness, brim_thickness + apron_rise)
 
 
 def _cyl(r, z_top, z_bot, cx, cy):

@@ -8,7 +8,7 @@
     "core": [
       247.0,
       193.39151584656256,
-      45.34844392833939
+      45.348443928342505
     ],
     "funnel": [
       215.0000002,
@@ -22,9 +22,9 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1387.9611123702039,
-    "core": 726.5089681535674,
-    "funnel": 275.0154176001142,
+    "cavity": 1384.8301991526869,
+    "core": 726.5089707444756,
+    "funnel": 278.2348913339262,
     "rod": 0.7068583470577037
   },
   "shell_thickness_mm": 5.0,
@@ -34,17 +34,17 @@
   "minimum_core_backing_mm": 7.372452093551324,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 820.8052243416935,
+      "retained_volume_ml": 823.9234935211988,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 305.86836100076584,
+      "retained_volume_ml": 308.98821446054694,
       "casting_outside_retained_mm3": 0.0
     }
   },
   "parting_z_mm": 59.150000000000006,
   "finish_allowance_mm": 0.3,
-  "casting_scope": "whole finished funnel with integral roof apron and sealing rib, rectangular block, flat bearing face and straight 6 mm outlet",
+  "casting_scope": "whole finished funnel with flat-bottomed integral roof apron, rectangular block, flat bearing face and straight 6 mm outlet",
   "flange_plan_mm": [
     247.0,
     193.39151584656256
@@ -87,7 +87,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "de234226a4628e2c1de926fd2f36988fc97b9daf771cb85f7af90117dc37532e",
+  "finished_funnel_step_sha256": "fadf41fa09c82de060148bd27a1a23794da9e3ecb094396b559783a31ffd2306",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -281,11 +281,11 @@
   "chamber_radial_clearance_mm": 4.219457205225893,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
-    "cavity.stl": "d0e6b38f2bb17048c8784b50ffd82b0f1dcfc50a213260fd6f041b62425add93",
-    "cavity.step.mesh": "ba34a62116466849d95af53b90caf0568fce2d8d6875f30e9715b9380399e6b4",
-    "core.step": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48",
-    "core.stl": "f5c3b6fc8fc7f21c8edbf0998cf5041287ecd57a1241573ab4947eeb7aa612e8",
-    "core.step.mesh": "251421271ae6f1a8d486e9b0ce34311a3b0b9c20fef03f5819934da84e9cdf10"
+    "cavity.step": "240d1b3ba8dade51db4cff52acf1c3a536e820371c4bdf24a4768923702ff148",
+    "cavity.stl": "f132445abf1e9691b8da34e05472741880220c30cc1fcebe9fcb476dc4a38078",
+    "cavity.step.mesh": "ec66c0b4f556751b70206c6474f9ef877053b47f9b30219528ff88972bdd22b2",
+    "core.step": "2dfa976c5b21994df151e4c2ec61d2ad0b173c82b6559caa2e56b8e000eb5452",
+    "core.stl": "a272b5966763bbdb7b2fd4e7c2a0ff1b9953bc6e3482e0bf98e73d97a15dc85c",
+    "core.step.mesh": "aaff97b9fc0d512cd3a66e23ee8b413da3ecf925f1d506c52769f70e493dffdc"
   }
 }

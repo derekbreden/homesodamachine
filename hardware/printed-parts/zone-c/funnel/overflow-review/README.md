@@ -2,8 +2,8 @@
 
 The customer can keep pouring after the funnel is full. The removable silicone
 funnel therefore includes a continuous apron across the exposed frame/roof
-joints to the enclosure's exterior sides. An integral underside rib contacts
-the roof outside the frame opening, opposing runoff beneath the apron.
+joints to the enclosure's exterior sides. Its broad, flat underside rests
+on the roof outside the frame opening.
 The funnel, apron and rib are one casting and lift out together for cleaning.
 
 ![Integral silicone apron covering the frame joints, highlighted in gold](assembly.png)
@@ -15,24 +15,20 @@ The funnel, apron and rib are one casting and lift out together for cleaning.
 | Mouth rim and cover seat | Z358 mm |
 | Highest point with cover | Z361 mm |
 | Apron plan | 215 × 155.392 mm, Y87.0–242.392 |
-| Apron sheet | 2.5 mm |
-| Rib's bottom contact band | 1.5 mm wide, Z354.7 mm |
-| Nominal flat-roof seating interference | 0.3 mm |
+| Apron sheet | 3 mm |
+| Flat apron underside | Z355 mm |
 | Capacity to the mouth rim | 530.54 mL |
-| Finished casting volume | Approximately 275.0 mL |
+| Finished casting volume | Approximately 278.2 mL |
 
-The rib is a local cast-silicone sealing feature. Its nominal interference
-allows seating; it does not establish sealing force or water exclusion.
-The front rib merges into the bearing brim through a short sloping root
-across the complete apron width.
-The surrounding apron can bend while the brim and outlet block bear on
+The apron has one roof-bearing plane. The brim's 6 mm underside shoulder
+fits the recessed frame. The surrounding apron can bend while the brim and outlet block bear on
 their existing frame/cradle seats. The drain stub, collar, frame and shell
 fits use their existing datums. Fit the silicone after closing the upper
 shell screws; lift the apron for screw access and wipe both faces when cleaning.
 
 [The native review](native-review.json) binds the source and finished STEP
-files. It records intended contact only within the underside rib, the cover's
-four silicone pads, and sampled vertical extraction clearance. The
+files. It records roof and frame fit, cover clearance and sampled vertical
+extraction clearance. The
 [cover review](../../funnel-cover/geometry-check.json) checks its assembled
 placement, neighboring hardware and removal.
 
@@ -44,13 +40,10 @@ hardware and the dry-side breather drill paths. Current tooling needs its
 own production slice; dated print receipts apply to their identified artifacts.
 
 The [post-publication mesh review](mold-mesh-review.json) identifies the retained
-tool-entry notches, flat clamp bearings and 0.30 mm finishing pocket. One small
-forming corner has a [native filament-path study](corner-path-study/README.md):
-its wall paths connect through the solid layers below. The study records the
-slicer's local rounding and leaves physical forming accuracy unqualified.
+tool-entry notches, flat clamp bearings and 0.30 mm finishing pocket.
 
-The native aggregate refresh replaces only the named front-top, funnel and
-cover members. The front-top uses its continuous display backing wall. Every
+The native aggregate refresh replaces only the named funnel and cover
+members. Every
 other original STEP entity record remains unchanged; named native geometry,
 colors and viewer arrays are also checked. The refresh scripts are manual
 review tools and are not called by a generator or build.
