@@ -93,6 +93,10 @@ def main():
     # Retain the final, material-correct project receipt beside the project.
     report.update(project_sha256=hashlib.sha256(project.read_bytes()).hexdigest(),
                   source_mesh_sha256=hashlib.sha256((HERE / 'funnel-cover-print.stl').read_bytes()).hexdigest(),
+                  settings_sha256=hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest(),
+                  filament=settings['filament_settings_id'],
+                  sparse_infill_pattern=settings['sparse_infill_pattern'],
+                  saved_profile_filament_density_g_cm3=settings['filament_density'],
                   material='Bambu PETG Basic Black', wall_loops=3, sparse_infill_percent=100,
                   filament_preset_sha256=preset_files)
     (HERE / 'funnel-cover-petg.print.json').write_text(json.dumps(report, indent=2) + '\n')

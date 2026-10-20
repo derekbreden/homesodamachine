@@ -36,9 +36,8 @@ def main():
                            + assembled_cover.cut(cover).Volume())
     assert assembly_difference < 0.001, assembly_difference
     cover_bounds = cover.BoundingBox()
-    contact = lid.contact_reading(cover, silicone, cx, cy, roof)
-    assert contact['pad_contact_mm3'] > 0
-    assert contact['outside_pads_mm3'] < 0.001, contact
+    contact = abs(cover.intersect(silicone).Volume())
+    assert contact < 0.001, contact
     # The native plate contains a complete sheet over the full mouth, with
     # the thickness required for the solid cover. No thumb feature enters it.
     mouth_sheet = lid.rounded(lid.MOUTH_W, lid.MOUTH_D, lid.funnel.mouth_corner_r,
@@ -65,17 +64,15 @@ def main():
     removal = []
     for z in (0, 0.5, 1, 2, 4, 6, 8):
         shifted = cover.translate((0, 0, z))
-        reading = lid.contact_reading(shifted, silicone, cx, cy, roof + z)
-        assert reading['outside_pads_mm3'] < 0.001, (z, reading)
-        if z >= lid.SKIRT_DEPTH:
-            assert reading['pad_contact_mm3'] < 0.001, (z, reading)
-        removal.append({'lift_mm': z, **reading})
+        overlap = abs(shifted.intersect(silicone).Volume())
+        assert overlap < 0.001, (z, overlap)
+        removal.append({'lift_mm': z, 'silicone_overlap_mm3': overlap})
     lateral = []
     for x, y in ((-2, 0), (2, 0), (0, -2), (0, 2)):
         shifted = cover.translate((x, y, 0))
-        reading = lid.contact_reading(shifted, silicone, cx + x, cy + y, roof)
-        assert reading['outside_pads_mm3'] > 1, (x, y, reading)
-        lateral.append({'shift_mm': [x, y], **reading})
+        overlap = abs(shifted.intersect(silicone).Volume())
+        assert overlap > 1, (x, y, overlap)
+        lateral.append({'shift_mm': [x, y], 'silicone_overlap_mm3': overlap})
     native_print = import_assembly(HERE / 'funnel-cover-print.step')['funnel-cover'][0]
     print_bounds = native_print.BoundingBox()
     assert abs(print_bounds.zmin) < 1e-6
@@ -91,17 +88,17 @@ def main():
                             cover_bounds.ymin, cover_bounds.ymax],
         'front_extension_mm': lid.FRONT_EXTENSION,
         'assembly_cover_difference_mm3': assembly_difference,
-        'closed_mouth_missing_mm3': missing, 'nominal_contact': contact,
+        'closed_mouth_missing_mm3': missing, 'silicone_overlap_mm3': contact,
         'neighbours': neighbours, 'vertical_removal': removal,
         'lateral_locating_interference': lateral,
         'print_pose': {'bed_z_mm': print_bounds.zmin, 'height_mm': print_bounds.zlen,
                        'flat_exterior_on_bed': True},
         'geometry_checks_pass': True,
-        'scope': 'Native solid coverage, intended local silicone contact, neighbour clearance and sampled motion. '
+        'scope': 'Native solid coverage, silicone clearance, neighbour clearance and sampled motion. '
                  'No physical retention, water exclusion, food-contact, cleaning or lifetime qualification.',
     }
     (HERE / 'geometry-check.json').write_text(json.dumps(report, indent=2) + '\n')
-    print(f'Cover: closed mouth, four local pad contacts; {len(neighbours)} native neighbours clear; '
+    print(f'Cover: closed mouth, continuous skirt with silicone clearance; {len(neighbours)} native neighbours clear; '
           f'upward removal clear after {lid.SKIRT_DEPTH:g} mm; adds {lid.PLATE_T:g} mm.')
 
 

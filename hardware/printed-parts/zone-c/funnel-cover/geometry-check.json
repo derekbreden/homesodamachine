@@ -1,13 +1,13 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "58323b1c8f5527769d46f2bf86a1bc7aba2866b26f94546f0a84f5b4d64635ab",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "09e6402c4fd5daf976db430a61680befd70cab090b315289f64d09b1c3643ebf",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "81bd8b913aa0d99d3ddfce91b05501da348374c87bbdf1ee236917e07df6d438",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "e21dbfb49096eedf1e7b836b3d792bf6948e4d5750ab81d319356b2f03617cb8",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "64a7a9fdd179b4c20a0ed62cf2daa0e31b14ffdd775d6d755981c04250a847a2",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "1005a6e631bcd7083ce5407e53aa71a15d6930c18a65f8a4f99fe1febc5796c9",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "3049e40e64a467f8ac66a5c139833eaf51e2ceadc760f5e8a8286f8d2fdd4fe9",
-    "hardware/manifold-layout/enclosure-assembly.step": "f97b50835080700235711db26b151c8d6352d09ce43eca31d37a49ce89a5d98d"
+    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "e3e00cb440c8154dde01ddef087bc1d14856defe9e5b459ad68fcd55fb5438be",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "58e219cf45026eac70fae61ccc76eb7df6261bc27b74b92ed979b929feaf8b63",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "50a03ba1acee43951b86df0a8f3979a7809a91fa349d4a3cdb7c449231868f3b",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "fd266fe7bc972166cb59656beb9f65dc45b59547b56822cbcabd44179a51ae92",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "08989ad82728ded44b75b37373cc89bbbca67cf1c668ec3212b9c3c56556dfe8",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "c058277840d9859d1bd81726a00790b7d687881229ae8a421b87ad14af65df10",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
+    "hardware/manifold-layout/enclosure-assembly.step": "eaae1a2f9f9bb644da4e6f17a6b1723d1b493674af70fcaaf25bc2dfafb80ab4"
   },
   "seating_mm": [
     0.0,
@@ -24,10 +24,7 @@
   "front_extension_mm": 4.0,
   "assembly_cover_difference_mm3": 0.0,
   "closed_mouth_missing_mm3": 0.0,
-  "nominal_contact": {
-    "pad_contact_mm3": 41.72745947575009,
-    "outside_pads_mm3": 0.0
-  },
+  "silicone_overlap_mm3": 0.0,
   "neighbours": {
     "funnel-frame": {
       "gap_mm": 3.0,
@@ -45,38 +42,31 @@
   "vertical_removal": [
     {
       "lift_mm": 0,
-      "pad_contact_mm3": 41.72745947575009,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 0.5,
-      "pad_contact_mm3": 37.124267248606486,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 1,
-      "pad_contact_mm3": 32.52107502146163,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 2,
-      "pad_contact_mm3": 23.314690567262055,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 4,
-      "pad_contact_mm3": 4.901921658686942,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 6,
-      "pad_contact_mm3": 0.0,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     },
     {
       "lift_mm": 8,
-      "pad_contact_mm3": 0.0,
-      "outside_pads_mm3": 0.0
+      "silicone_overlap_mm3": 0.0
     }
   ],
   "lateral_locating_interference": [
@@ -85,32 +75,28 @@
         -2,
         0
       ],
-      "pad_contact_mm3": 1153.8788867734413,
-      "outside_pads_mm3": 765.9729834967695
+      "silicone_overlap_mm3": 1086.1731835642104
     },
     {
       "shift_mm": [
         2,
         0
       ],
-      "pad_contact_mm3": 1153.8788820241684,
-      "outside_pads_mm3": 765.9729787400162
+      "silicone_overlap_mm3": 1086.1731785210534
     },
     {
       "shift_mm": [
         0,
         -2
       ],
-      "pad_contact_mm3": 1544.40156941978,
-      "outside_pads_mm3": 1502.674109940032
+      "silicone_overlap_mm3": 1502.674109940032
     },
     {
       "shift_mm": [
         0,
         2
       ],
-      "pad_contact_mm3": 1544.4015700353884,
-      "outside_pads_mm3": 1502.674110327224
+      "silicone_overlap_mm3": 1502.674110327224
     }
   ],
   "print_pose": {
@@ -119,5 +105,5 @@
     "flat_exterior_on_bed": true
   },
   "geometry_checks_pass": true,
-  "scope": "Native solid coverage, intended local silicone contact, neighbour clearance and sampled motion. No physical retention, water exclusion, food-contact, cleaning or lifetime qualification."
+  "scope": "Native solid coverage, silicone clearance, neighbour clearance and sampled motion. No physical retention, water exclusion, food-contact, cleaning or lifetime qualification."
 }

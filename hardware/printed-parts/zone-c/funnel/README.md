@@ -26,16 +26,13 @@ corners meet the frame's two side strips. The drain exits at X0, Y161.70, Z306.0
 An integral **215 × 155.392 mm silicone apron** covers the exposed frame/roof
 joints and upper seam screw wells. It reaches both exterior sides and runs
 from Y87.0 to Y242.392. Overpour crosses this continuous silicone surface to
-the exterior. A blunt underside rib contacts the rigid roof outside the frame
-opening, opposing roof runoff beneath the apron. Its 1.5 mm contact band has
-0.3 mm nominal seating interference; the 2.5 mm apron sheet above it is free
-to bend. This is a local cast-silicone sealing section.
-The front rib merges directly into the bearing brim through a short sloping
-root across the complete apron width.
+the exterior. The apron is a uniform 3 mm sheet with one flat underside
+resting on the rigid roof at Z355. The bearing brim's underside is Z349;
+the 6 mm shoulder between these planes locates it in the recessed frame.
 
 The [overflow review](overflow-review/README.md) records native coverage,
-intended roof contact, mold fit and lift-out clearance. Water exclusion and
-seating force have not been measured on a cast part.
+roof fit, mold fit and lift-out clearance. Water exclusion has not been
+measured on a cast part.
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
@@ -49,7 +46,7 @@ Its straight bore slides off the raw 1/4-inch LLDPE drain stub, which stays stan
 elbow's collet under the frame. To refit, press the plug into the frame's socket
 until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
 Fit it after the enclosure halves and upper seam screws are closed. Smooth
-the apron onto the roof with its underside rib seated, and lift it to wipe
+the apron flat onto the roof, and lift it to wipe
 both faces during cleaning.
 The [two mold shells and straight steel rod](../funnel-mold/README.md) form the
 complete block and cylindrical outlet.
