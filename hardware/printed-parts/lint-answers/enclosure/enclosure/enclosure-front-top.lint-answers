@@ -37,8 +37,8 @@ click: x=99.850 y=169.000 z=261.400
 [ceiling] These Z307.400 flats are the hooked bearing feet of the front funnel-frame receivers. They preserve the nominal supported moving-face and vertical-guide clearances of that captured frame. Support approaches through the empty frame opening; physical fit and cleanup remain unqualified.
 alternatives: Sloping the caught face changes its lifting-retention profile. Filling beneath it reduces frame entry clearance; removing it removes capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-101.125 y=155.116 z=307.400
-click: x=101.125 y=155.116 z=307.400
+click: x=-101.125 y=152.261 z=307.400
+click: x=101.125 y=152.261 z=307.400
 
 [ledge] These two 2 mm projection faces are the separated manifold-A Wago retention tabs at Z295.300. They retain the connector ends while leaving the center open for lever/wire access and the selected short roof profile. Physical retention and support cleanup remain unqualified.
 alternatives: Removing the tabs removes end retention. Joining their ends changes the open-center pocket, lever access and support treatment.
@@ -106,10 +106,6 @@ click: x=98.320 y=177.050 z=265.639
 click: x=98.408 y=162.612 z=298.300
 click: x=97.675 y=177.006 z=298.300
 
-[slope] Unavoidable without moving the fore valve tray: the plate (Y90.24–99.44, floor Z230.40) overhangs the keeper access pocket, whose 45-degree roof roots at Z226.174 on the bay wall's aft face (Y89.515), 0.67 mm over the four keepers at the top of their 20 mm upward removal route (Z225.674, Y89.665–92.665). No 45-degree face rising off that wall reaches the plate's far edge without entering that route, so the strip aft of the roof has no wall to stand on. The keel under the plate's whole thickness hangs its apex line at Z225.80 between the side walls and takes tree support along that one line from the open interior before the dock is fitted; its fore face stands 2.30 mm over the lifted keepers. Support removal remains unqualified.
-alternatives: A 45-degree corbel from the wall to the plate's far edge roots at Z220.475, 2.05–5.05 mm inside the keepers' route. A 45-degree cut through the plate's lower aft corner opens the four valve port channels. A flat floor needs support across the whole 5.7 mm strip. Moving the tray moves its four valves and their links.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=93.415 z=227.225
 [sliver] Required by the purchased K&J SB443-IN's side grooves: each magnet column's slot in the receiver wall is the printed capture Derek specified for these stepped blocks, faces touching, loaded at one print pause. The 1.575 mm faces seat each block's 1.6 mm front band from the bay face to its rails, the 1.500 mm faces are the rails' tips standing in the 1.6 mm grooves, and the 0.797 mm faces are the rails' fore and aft bearing faces. Each runs the slot's 26 mm. pump-dock/magnet-retention.md gives the slot.
 alternatives: A wider or deeper rail does not enter the 1.6 × 0.79 mm groove. A cover across the pole face separates the required touching poles. The specified groove-bearing interface requires this local section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
