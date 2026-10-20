@@ -84,6 +84,13 @@ show those connections. The [RC62 print jobs](enclosure/magnet-retention/queue.j
 their identified ring-magnet articles; their pauses and covering layers do not qualify
 the bare-face SB443-IN columns loaded at front-top's and the cartridge plate's pauses.
 
+Front-top has unresolved display-side geometry lint findings. Its leading
+thin-section readings are 0.047 mm near X68.594 and
+X86.406, Y98.703–98.750, Z300.869–309.151 mm, and 0.174 mm near
+X68.779–68.849, Y98.610–98.750, Z318.432–318.510 mm. They require their own
+geometry assessment. The magnet-rail exception applies only to the groove rails;
+the native magnet review does not resolve these display-side findings.
+
 The show transitions print without support contacts. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
 use face-specific blockers on the show transitions. Inspect all emitted support paths, including short bodies without labelled
