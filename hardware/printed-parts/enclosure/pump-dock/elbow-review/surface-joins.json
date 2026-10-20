@@ -1,0 +1,22 @@
+{
+  "(-22.247, 168.175)": {
+    "old_cutter_end_material": false,
+    "distance_to_current_material_mm": 0.28309787281780313
+  },
+  "(22.247, 168.175)": {
+    "old_cutter_end_material": false,
+    "distance_to_current_material_mm": 0.28309787281780313
+  },
+  "(-73.923, 177.675)": {
+    "old_cutter_end_material": false,
+    "distance_to_current_material_mm": 0.28309787281780324
+  },
+  "(73.717, 177.675)": {
+    "old_cutter_end_material": false,
+    "distance_to_current_material_mm": 0.2830978728178031
+  },
+  "tray_tower_join": {
+    "old_crown_plane_plus_0_01_mm_is_solid": true,
+    "shared_crown_z_mm": 230.85
+  }
+}

@@ -1,333 +1,92 @@
 {
-  "unchanged_original_records": 3215093,
-  "replaced_solid_roots": 50,
+  "unchanged_original_records": 3504557,
+  "replaced_solid_roots": 9,
   "replacement_products": [
     "Open CASCADE STEP translator 7.8 2.156",
-    "coil-v-c/1",
-    "coil-v-c/2",
-    "coil-v-c/3",
-    "coil-v-d/1",
-    "coil-v-d/2",
-    "coil-v-d/3",
-    "coil-v-g/1",
-    "coil-v-g/2",
-    "coil-v-g/3",
-    "coil-v-j/1",
-    "coil-v-j/2",
-    "coil-v-j/3",
-    "pump-elbow-east-inner/1",
-    "pump-elbow-east-inner/2",
-    "pump-elbow-east-inner/3",
-    "pump-elbow-east-outer/1",
-    "pump-elbow-east-outer/2",
-    "pump-elbow-east-outer/3",
-    "pump-elbow-west-inner/1",
-    "pump-elbow-west-inner/2",
-    "pump-elbow-west-inner/3",
-    "pump-elbow-west-outer/1",
-    "pump-elbow-west-outer/2",
-    "pump-elbow-west-outer/3",
     "pump-receiver-east-inner",
     "pump-receiver-east-outer",
     "pump-receiver-west-inner",
     "pump-receiver-west-outer",
-    "step-fluid-3",
-    "step-fluid-5",
-    "tee-y-a",
-    "tee-y-b",
     "tube-fluid-17-junction",
-    "tube-fluid-17-valve",
-    "tube-fluid-18",
     "tube-fluid-19-junction",
-    "tube-fluid-19-valve",
-    "tube-fluid-26",
     "tube-fluid-27-junction",
-    "tube-fluid-27-valve",
-    "tube-fluid-28",
-    "tube-fluid-9-junction",
-    "tube-fluid-9-valve",
-    "turn-fluid-3",
-    "turn-fluid-5",
-    "valve-v-c",
-    "valve-v-d",
-    "valve-v-g",
-    "valve-v-j"
+    "tube-fluid-9-junction"
   ],
   "scope": "Scoped native replacement at retained component placements. Original records outside replaced solid roots are byte-identical; retained viewer arrays have identical fingerprints. No whole-machine physical qualification.",
   "changed_members": [
-    "coil-v-c",
-    "coil-v-d",
-    "coil-v-g",
-    "coil-v-j",
     "enclosure-front-top",
-    "pump-elbow-east-inner",
-    "pump-elbow-east-outer",
-    "pump-elbow-west-inner",
-    "pump-elbow-west-outer",
     "pump-receiver-east-inner",
     "pump-receiver-east-outer",
     "pump-receiver-west-inner",
     "pump-receiver-west-outer",
-    "step-fluid-3",
-    "step-fluid-5",
-    "tee-y-a",
-    "tee-y-b",
     "tube-fluid-17-junction",
-    "tube-fluid-17-valve",
-    "tube-fluid-18",
     "tube-fluid-19-junction",
-    "tube-fluid-19-valve",
-    "tube-fluid-26",
     "tube-fluid-27-junction",
-    "tube-fluid-27-valve",
-    "tube-fluid-28",
-    "tube-fluid-9-junction",
-    "tube-fluid-9-valve",
-    "turn-fluid-3",
-    "turn-fluid-5",
-    "valve-v-c",
-    "valve-v-d",
-    "valve-v-g",
-    "valve-v-j"
+    "tube-fluid-9-junction"
   ],
   "changed_native_checks": {
-    "tee-y-a": {
+    "pump-receiver-west-outer": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8004.127461182627,
-      "landed_volume_mm3": 8004.127461182958
-    },
-    "valve-v-c": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 1.0000000116860974e-07,
-      "source_volume_mm3": 22158.488095260953,
-      "landed_volume_mm3": 22158.48801713747
-    },
-    "coil-v-c": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 18344.727688120485,
-      "landed_volume_mm3": 18344.727688120354
-    },
-    "valve-v-g": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 22158.488095261822,
-      "landed_volume_mm3": 22158.488017138123
-    },
-    "coil-v-g": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 18344.72768812044,
-      "landed_volume_mm3": 18344.72768812031
-    },
-    "tee-y-b": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8004.127461182626,
-      "landed_volume_mm3": 8004.127461182957
-    },
-    "valve-v-d": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 9.999999406318238e-08,
-      "source_volume_mm3": 22158.488095261408,
-      "landed_volume_mm3": 22158.48801713794
-    },
-    "coil-v-d": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 18344.727688119907,
-      "landed_volume_mm3": 18344.727688119776
-    },
-    "valve-v-j": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 22158.488095262062,
-      "landed_volume_mm3": 22158.488017138396
-    },
-    "coil-v-j": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 18344.727688118925,
-      "landed_volume_mm3": 18344.727688118783
-    },
-    "tube-fluid-9-junction": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 924.9228070523002,
-      "landed_volume_mm3": 924.9228070523651
-    },
-    "tube-fluid-9-valve": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 17.14720540237444,
-      "landed_volume_mm3": 17.14720540237485
-    },
-    "tube-fluid-17-junction": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 772.6611773136709,
-      "landed_volume_mm3": 772.6611773137055
-    },
-    "tube-fluid-17-valve": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 17.147205402374446,
-      "landed_volume_mm3": 17.14720540237486
-    },
-    "tube-fluid-19-junction": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 924.9228070523003,
-      "landed_volume_mm3": 924.9228070523649
-    },
-    "tube-fluid-19-valve": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 17.14720540237444,
-      "landed_volume_mm3": 17.14720540237485
+      "source_volume_mm3": 9832.564849700522,
+      "landed_volume_mm3": 9832.564849700553
     },
     "tube-fluid-27-junction": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 772.6611773136697,
-      "landed_volume_mm3": 772.6611773137046
-    },
-    "tube-fluid-27-valve": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 17.147205402374446,
-      "landed_volume_mm3": 17.14720540237486
-    },
-    "pump-receiver-east-inner": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 9775.063353092966,
-      "landed_volume_mm3": 9775.063353092992
-    },
-    "pump-elbow-east-inner": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 5.400124791776761e-13,
-      "source_volume_mm3": 3935.904217385452,
-      "landed_volume_mm3": 3935.9042173855646
-    },
-    "pump-receiver-east-outer": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 9775.063353092966,
-      "landed_volume_mm3": 9775.063353092994
-    },
-    "pump-elbow-east-outer": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 5.258016244624741e-13,
-      "source_volume_mm3": 3935.9042173847056,
-      "landed_volume_mm3": 3935.9042173848475
+      "source_volume_mm3": 768.3743759631033,
+      "landed_volume_mm3": 768.3743759631158
     },
     "pump-receiver-west-inner": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 9775.063353093276,
-      "landed_volume_mm3": 9775.063353093305
+      "source_volume_mm3": 9832.564849700524,
+      "landed_volume_mm3": 9832.564849700553
     },
-    "pump-elbow-west-inner": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 5.400124791776761e-13,
-      "source_volume_mm3": 3935.904217385391,
-      "landed_volume_mm3": 3935.9042173855028
-    },
-    "pump-receiver-west-outer": {
+    "tube-fluid-19-junction": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 9775.063353093277,
-      "landed_volume_mm3": 9775.063353093306
+      "source_volume_mm3": 920.6360057017596,
+      "landed_volume_mm3": 920.6360057017719
     },
-    "pump-elbow-west-outer": {
-      "valid": true,
-      "solids": 3,
-      "max_bounds_error_mm": 4.547473508864641e-13,
-      "source_volume_mm3": 3935.904217382018,
-      "landed_volume_mm3": 3935.90421738236
-    },
-    "turn-fluid-3": {
+    "pump-receiver-east-inner": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 696.4424660601603,
-      "landed_volume_mm3": 696.4424660601603
+      "source_volume_mm3": 9832.564849700202,
+      "landed_volume_mm3": 9832.564849700231
     },
-    "turn-fluid-5": {
+    "tube-fluid-9-junction": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 696.4424660601601,
-      "landed_volume_mm3": 696.4424660601603
+      "source_volume_mm3": 920.6360057017596,
+      "landed_volume_mm3": 920.6360057017719
     },
-    "step-fluid-3": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 4.156675004196586e-13,
-      "source_volume_mm3": 1646.3302861945003,
-      "landed_volume_mm3": 1646.330286194498
-    },
-    "step-fluid-5": {
+    "pump-receiver-east-outer": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 1645.0359671194242,
-      "landed_volume_mm3": 1645.035967119424
+      "source_volume_mm3": 9832.564849700206,
+      "landed_volume_mm3": 9832.564849700231
     },
-    "tube-fluid-18": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 9.999303074437194e-08,
-      "source_volume_mm3": 13877.578714893041,
-      "landed_volume_mm3": 13877.578714893038
-    },
-    "tube-fluid-28": {
+    "tube-fluid-17-junction": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 10010.87002133593,
-      "landed_volume_mm3": 10010.870021335932
+      "source_volume_mm3": 768.3743759629,
+      "landed_volume_mm3": 768.3743759629051
     },
     "enclosure-front-top": {
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 1247732.4741288947,
-      "landed_volume_mm3": 1247732.4741288947
-    },
-    "tube-fluid-26": {
-      "valid": true,
-      "solids": 1,
-      "max_bounds_error_mm": 7.105427357601002e-15,
-      "source_volume_mm3": 5321.410851623651,
-      "landed_volume_mm3": 5321.410851623502
+      "source_volume_mm3": 1249279.1423029674,
+      "landed_volume_mm3": 1249279.1423029674
     }
   },
   "retained_viewer_fingerprints": {
@@ -681,6 +440,47 @@
     "pump-dock-SB443-fixed-2-4": "17b9ae5f3687aeb9a1b6949eb59de225861abf5e2e3642324f9a7374df739fc0",
     "pump-keeper-west": "7de897ada38af226f356b9f1ee08a28166b673afac5b2bcc53a16c1aea78661e",
     "pump-keeper-middle": "40f3c73517d4d7d30846649d53a3859d2bc0dd3e7c3b1785f61639089c2af7be",
-    "pump-keeper-east": "80c2e42862849b10c9741b8a6bad6c9a560f18d24ead6386a7dd7642bee3ff83"
+    "pump-keeper-east": "80c2e42862849b10c9741b8a6bad6c9a560f18d24ead6386a7dd7642bee3ff83",
+    "tee-y-a": "ea8673e3da0566a32fdeec1fe61f2f358e9471e288de3243ef33f221fcd1e529",
+    "valve-v-c": "c1836e88f12e1920519e7acd759a00f170ee0eed657c3e61676145747b669d49",
+    "coil-v-c/1": "5b33274f488f09bb4dcdb84d9f62abbbec45be7948294b84329abe60ff1a6a19",
+    "coil-v-c/2": "1079b46078fdfc1dd617f29f13bf38840e0d5c29b914c421248e9bf6033c9a0c",
+    "coil-v-c/3": "71aee33d46def9190e0499ca1f8c7b16fa1bf38eb756488e114b8db5672bb3ed",
+    "valve-v-g": "b2f72e0418fb637112ade6555079b5ef7367272c6d02196674a0d57bedf60c50",
+    "coil-v-g/1": "3965a01077d324c056141014dca320825ddad1815bed7f574a531a73d00ea1f5",
+    "coil-v-g/2": "01b706baffcb27a3366ba4cc732d16f6aeb815b4c1a893706efb25306d35aaa1",
+    "coil-v-g/3": "cf1f6d93d573f4546c107dcd76a9aa571ceee2544f7d03b8472ca5f5c6ba0b52",
+    "tee-y-b": "e42a8164a0f972c707796eae7e28c89801eb549fb8994f470ebc6f7842b39431",
+    "valve-v-d": "6d96f00677d61e26ac805dae5d3f66bda2c58a195cd9e2ddcc449e0346c5f30e",
+    "coil-v-d/1": "c047ec3db5a3ae5522cc4ce272de5c1fbda68d54a91dd8b08ef0d8ec25c7c3b5",
+    "coil-v-d/2": "d2077755f698f64f0d3544668eabcd02e85aa1deb9d31b1ced57504c49eae177",
+    "coil-v-d/3": "6d8db772357606c7436a326d9643e793fab708f1f32de49e3f858e93c44bc056",
+    "valve-v-j": "456c05b83d28f833e6f668e5caffa47ac1c2d766a084fb949d39638dc2f15547",
+    "coil-v-j/1": "bda56158988435995a2ccfa49cd8150da206bf20110d46b77ef070a5fd636efa",
+    "coil-v-j/2": "bbe13298036efb9b35d363263a8cba87b9a88d798d8ffafe3a4ab44ea9e68bc4",
+    "coil-v-j/3": "490c57ecd3e262af73fb334f477d1dc68173f1ecaa9c88373abb09a91492351c",
+    "tube-fluid-9-valve": "f2f58f9ebf0f95c1291e98c9cd2f739a11c19fc7110f9bfcbe16ea7bd79ea12a",
+    "tube-fluid-17-valve": "8c4a26dd07f5a1ab0d6daa2700bbcffe0fe096c76965760b4e4ffa341361b640",
+    "tube-fluid-19-valve": "4bbd9e59a0ebfd8c0d5d760cf7824a4bf45cef192e207dc111c376a516a14cd7",
+    "tube-fluid-27-valve": "8011692cf2cef462575977db150ef3c8ddf99724fda983d4458c0ef623119e9c",
+    "pump-elbow-east-inner/1": "512173052e88f2fece1594fd8d49c818cc3dcf070710ee93921bc20961bfbd4f",
+    "pump-elbow-east-inner/2": "daacce803400ec7c206160eca763df0481ea8f9fb03eee832886faa199ca4c5b",
+    "pump-elbow-east-inner/3": "a162e8e88d23240a11669d5c3dd903d6ce2817f4e562a89d0f2ae391df4978c4",
+    "pump-elbow-east-outer/1": "fee4470ee0a6f8e720d7de4fc43538eecd5273c3e21eb599c5c3ebe22584b6c8",
+    "pump-elbow-east-outer/2": "abb8a713c2953fa7d04cce2cee9772d207aea1aa978d796ccb2c08be5c90b278",
+    "pump-elbow-east-outer/3": "62de835db1c129ea36221721c70a3a7c1621c3fe2788f9c8805d5112148a33bc",
+    "pump-elbow-west-inner/1": "d53943285a9437e949c78371a1e3ead0d6ccd844bdbb07acfa1b1f571a9cf1c1",
+    "pump-elbow-west-inner/2": "bb8cca0bfa1cae03a105775f32ac45e18ff11e449cb3c3d8efdca4fbd40dba57",
+    "pump-elbow-west-inner/3": "12052f6181261c724d79ef245df23c05c73d2218d00ba714ed3983097e8fe60b",
+    "pump-elbow-west-outer/1": "19b8cdb2628056629888407891d57bde790a0624548d6f8c8723fb870ea698e3",
+    "pump-elbow-west-outer/2": "a38dab59e53a83047109d85aae2e35fc9b78cc2f8c53f4a87b07180973c18bf3",
+    "pump-elbow-west-outer/3": "bfa295aa38a762c74b1eab705a40be5ecbdf444e32be4beb026f41a021bb5f52",
+    "turn-fluid-3": "adf780f189b1e0c8ab5efd0ae28c0061311cc457ed544b655221181d96fb9620",
+    "turn-fluid-5": "6e99922d1c508e9fcc6a60fa449d4cbcac20e418c710a196e75017c06b858388",
+    "step-fluid-3": "a626c714152d2087979a1ad9a7b9007d02562188e21d8bfe7c50787889b4ad09",
+    "step-fluid-5": "484bd1d5fdfa5fe13938f436d5a682aff832af707c622cf4bf4a35051c2bb384",
+    "tube-fluid-18": "efd8019e5b7d8c5a35accdebd63aab9b918cc03e169859cd1a6977d152e77f63",
+    "tube-fluid-28": "43fbdc60ef20cda4f2c4d5edc59a41b50304d120199138b3d7943dae819800da",
+    "tube-fluid-26": "74e6196b782491ae45b631489a2d4bed03034f2b8ad46f4484d4afe4fb5c4ab2"
   }
 }

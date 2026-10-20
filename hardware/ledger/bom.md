@@ -131,7 +131,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.252 | $31.33 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.253 | $31.35 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.491 | $12.29 <!--@printed--> |
 | Enclosure — pump receiver keepers (one set) | 3 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
@@ -151,9 +151,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.239 | $5.99 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.109 | $1.22 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.29 <!--@printed--> |
-| **Printed parts total** | | | **~7.18** | **[$165.51](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.18** | **[$165.53](BOM_SEC7)** |
 
-By material: PETG ≈ 1.02 kg / $11.38 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.16 kg / $154.12.
+By material: PETG ≈ 1.02 kg / $11.38 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.16 kg / $154.14.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -343,7 +343,7 @@ until their supply quantities and unit prices are bound.
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.51](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.53](BOM_SEC7) |
 | 8. Flavor subsystem | [$249.23](BOM_SEC8) |
 | 9. Dispensing | [$72.01](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -352,7 +352,7 @@ until their supply quantities and unit prices are bound.
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$18.45](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,454.05](BOM_GRAND)** |
+| **Total** | **[$1,454.07](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
