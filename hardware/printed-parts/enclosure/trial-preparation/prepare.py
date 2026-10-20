@@ -137,7 +137,9 @@ def layer_ranges(features: list[dict]) -> list[dict]:
     for f in features:
         if f["kind"] == "fine_band":
             low, high = f["span_print_z_mm"]
-            bands.append({"min_z": max(0.0, low - _derive.LAYER), "max_z": high + 0.001,
+            # One fine layer past the span's top: the slicer ends a range on the last whole layer
+            # inside it, and the span's top must sit inside a fine layer, not under the next 0.24.
+            bands.append({"min_z": max(0.0, low - _derive.LAYER), "max_z": high + f["layer_height_mm"],
                           "options": {"layer_height": f"{f['layer_height_mm']:g}"}, "feature": f["name"]})
         elif f["kind"] == "transition_band":
             low, high = f["span_print_z_mm"]

@@ -65,8 +65,8 @@ print frame, and states an `expect` range. A feature whose faces are missing, or
 measured extent leaves its range, stops the preparation and reports what was found.
 
 - **`fine_band`** — an inward/top show round. Its connected faces' print-Z extent is the
-  span; the layer range starts one ordinary layer below it at 0.08 mm. Its faces are painted
-  support-blocked.
+  span; the 0.08 mm layer range starts one ordinary layer below it and ends one fine layer
+  above it, so the span's top lies inside a fine layer. Its faces are painted support-blocked.
 - **`transition_band`** — an expanding print-down round with the 0.5:1 additive chamfer of
   [`overhang_round.py`](../../cadlib/overhang_round.py). The foot is the flat face most
   chamfer area starts from; the measured chamfer rise matches the declared radius within
