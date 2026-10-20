@@ -8,7 +8,7 @@
     "core": [
       211.00000000000006,
       169.39151584656258,
-      42.349436310563924
+      42.34844392833588
     ],
     "funnel": [
       179.0000002,
@@ -22,23 +22,23 @@
     ]
   },
   "volume_ml": {
-    "cavity": 817.9535316437555,
-    "core": 624.1184156403608,
-    "funnel": 228.73099360599548,
-    "rod": 0.7068583470577035
+    "cavity": 817.9551152461999,
+    "core": 624.1184509496624,
+    "funnel": 228.72581947384444,
+    "rod": 0.7068583470577037
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.009910660426309,
+  "minimum_cavity_backing_mm": 5.009903533868759,
   "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 7.372344390498553,
+  "minimum_core_backing_mm": 7.372452093551324,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 720.5809890761632,
+      "retained_volume_ml": 720.5796255335125,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 252.89586354621227,
+      "retained_volume_ml": 252.89445620847857,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -86,7 +86,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "8f00ac2bcc30050016e9e7bdb9792baab1f44772c969ba184662a75474eb6c2e",
+  "finished_funnel_step_sha256": "bbe799d532607d6fbda515d4c75a68795275e2c90708a24a4f6ce837bb8a6312",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -279,11 +279,11 @@
   "chamber_radial_clearance_mm": 24.24331954453355,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "11ae1cae026f196b8436a466c2828d80a66320b1f17df443d0e8c0e2a9a0ae00",
-    "cavity.stl": "a8aaed91a2213d5cae6438d31aa44e7dd2316a2213f2d60c875b69ba0c4782c3",
-    "cavity.step.mesh": "b1ca7d129fb62c56c043715f5442f1e378c7920992e014aec906e908db0d2ad9",
-    "core.step": "8561a550cc8e80a72e943e30dfe8e78a1566d808823fc9833956e9cc9b23a67f",
-    "core.stl": "e815d6f735b7c584b728c539a7d2fd44bb2e496bdef1b4d375f17cc6643ad21c",
-    "core.step.mesh": "3e8039076c0038746f5fbb76b4a0d1e29ddb7aa3fb29968c34fda456b9c52533"
+    "cavity.step": "c5387ee74548ef9a12aca1e5898fd33976a2522891d6f1fefd77ebae9c6e25fa",
+    "cavity.stl": "0629a187c6471d7181a11ae4e62b049e3a998686b67a8c9d829186f083eb7fa6",
+    "cavity.step.mesh": "831a871de63348cd01b504dfbc2bc8a312353771630cfe13ba27ece09f3328bb",
+    "core.step": "c084407aad040b508e6ac9f3c3c2d9c9dae9f12b78d5757d57297addc690b136",
+    "core.stl": "cee3c9641e3e0d1e6b1645b4cebd2ff8a9e84f7b5cf94ca46711fec84796ec4b",
+    "core.step.mesh": "cfc6610c068a2e71238eec840294f04eac023627cd2575883a14bdff0cdafadb"
   }
 }

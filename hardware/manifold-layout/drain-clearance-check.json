@@ -237,17 +237,17 @@
         },
         {
           "name": "elbow-cradle",
-          "gap_mm": 18.5237319,
+          "gap_mm": 18.6182211,
           "overlap_mm3": 0
         },
         {
           "name": "funnel-drain-union",
-          "gap_mm": 23.0055783,
+          "gap_mm": 23.0334273,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-4",
-          "gap_mm": 15.7171608,
+          "gap_mm": 15.76,
           "overlap_mm3": 0
         },
         {
@@ -499,14 +499,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "new_return_centerline_radii_mm": [
         25.4
       ],
       "existing_front_route_scope": "Front supports and their existing bends retained.",
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "new_return_centerline_radii_mm": [
         25.4
       ],
@@ -517,7 +517,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "e4247042bb92ff176487e0071a90155ca8efa4bf0561d5d7ec26826924bd6cd5",
+    "hardware/manifold-layout/enclosure_assembly.py": "cb8187940e362bbe58c6372cb0c63138bee5b452766e2e634a5d9f2fd864e029",
     "hardware/manifold-layout/_lines.py": "396d3ea816fa0891f56c2f863eeb53c0b0f9f3b443e32b805faa9e76b54bd061",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

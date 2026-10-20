@@ -299,8 +299,8 @@ COMPRESSOR_YAW = 90.0
 # and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
 # measured motor axis front-to-back.
 WATER_PUMP_YAW = _lines._pump.YAW
-# 0 keeps the collar's own axes on the top wall's, so the drain stands `funnel.neck_dx` east of
-# the collar centre, over the frame's drain hole.
+# 0 keeps the collar's own axes on the top wall's, so the drain stands on the collar's centre,
+# over the frame's drain hole.
 FUNNEL_ROT = 0.0
 
 # THE MATERIAL IS THE COLOUR. `ledger/bom.md` is where each part is bought and what it says it is

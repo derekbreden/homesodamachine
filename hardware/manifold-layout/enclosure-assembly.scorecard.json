@@ -556,7 +556,7 @@
    "label": "The removable funnel has a retained drain tube",
    "kind": "goal",
    "status": "pass",
-   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 201.9 mm to V-B",
+   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 200.0 mm to V-B",
    "target": "a fixed tube through the frame connected to V-B",
    "detail": [
     "The cradle's snap and the plug's push-on seal on the stub are not physically qualified; `zone-c/funnel/cradle-trial` tests the snap."
@@ -892,7 +892,7 @@
    "detail": [
     "fluid-16: 353.2 mm unheld, 153.2 over",
     "fluid-14: 205.1 mm unheld, 5.1 over",
-    "fluid-4: 201.9 mm unheld, 1.9 over",
+    "fluid-4: 200.0 mm unheld, 0.0 over",
     "carb-1: 183.0 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
     "fluid-28: 173.0 mm, held at its anchor",
