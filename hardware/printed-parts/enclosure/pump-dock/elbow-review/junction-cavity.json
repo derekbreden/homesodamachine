@@ -1,6 +1,6 @@
 {
   "scope": "Exact native connected cavity, socket-axis and annular-bearing witnesses; unchanged exterior envelopes. Geometric results only.",
-  "source_sha256": "66ac409f4d0630450da577a28b1a7948a6bc459551d3f79c9b8f6e86b2878324",
+  "source_sha256": "6a2861ea42e60b32093b883fcff50f7b020acfb66b3f8729e11909abbc6608dc",
   "stations": {
     "west-outer": {
       "upper": {
@@ -127,7 +127,7 @@
       "outer": 45
     }
   },
-  "passage_construction": "One continuous round inlet trunk and one straight branch, nominal 4.3 mm diameter. Inner trunk turns into the lower socket; outer trunk turns into the upper socket. Straight-branch end caps lie inside the joined passages.",
+  "passage_construction": "One continuous round inlet trunk and one straight 4.3 mm branch. Inner trunk is 4.3 mm; outer trunk is 4.5 mm with a continuous 1 mm blend at its branch merge.",
   "superseded_fin_locations": {
     "west-outer": [
       {
@@ -136,7 +136,7 @@
           "click: x=1.578 y=-8.563 z=10.025"
         ],
         "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 5.745596072623968
+        "current_native_continuous_material_chord_mm": 0.0
       },
       {
         "previous_print_pick": [
@@ -144,7 +144,7 @@
           "click: x=-1.760 y=-8.572 z=10.126"
         ],
         "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 5.654173703675273
+        "current_native_continuous_material_chord_mm": 0.0
       },
       {
         "previous_print_pick": [
@@ -152,7 +152,7 @@
           "click: x=-0.016 y=-16.150 z=22.695"
         ],
         "previous_native_continuous_material_chord_mm": 0.36167091284961295,
-        "current_native_continuous_material_chord_mm": 4.532259175160284
+        "current_native_continuous_material_chord_mm": 3.6050587181645213
       }
     ],
     "west-inner": [
@@ -198,7 +198,7 @@
           "click: x=1.578 y=-8.563 z=10.025"
         ],
         "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 5.745596072623968
+        "current_native_continuous_material_chord_mm": 0.0
       },
       {
         "previous_print_pick": [
@@ -206,7 +206,7 @@
           "click: x=-1.760 y=-8.572 z=10.126"
         ],
         "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 5.654173703675273
+        "current_native_continuous_material_chord_mm": 0.0
       },
       {
         "previous_print_pick": [
@@ -214,7 +214,7 @@
           "click: x=-0.016 y=-16.150 z=22.695"
         ],
         "previous_native_continuous_material_chord_mm": 0.36167091284961295,
-        "current_native_continuous_material_chord_mm": 4.532259175160284
+        "current_native_continuous_material_chord_mm": 3.6050587181645213
       }
     ]
   },
@@ -234,7 +234,7 @@
           ]
         ],
         "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 12.961904533537217
+        "current_native_material_chord_mm": 0.0
       },
       {
         "previous_print_pair_mm": [
@@ -250,7 +250,7 @@
           ]
         ],
         "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 12.96190453353722
+        "current_native_material_chord_mm": 0.0
       }
     ],
     "west-inner": [
@@ -304,7 +304,7 @@
           ]
         ],
         "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 12.961904533537217
+        "current_native_material_chord_mm": 0.0
       },
       {
         "previous_print_pair_mm": [
@@ -320,8 +320,17 @@
           ]
         ],
         "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 12.96190453353722
+        "current_native_material_chord_mm": 0.0
       }
     ]
+  },
+  "outer_merge_witness": {
+    "unblended_print_pick_mm": [
+      0.572,
+      -13.101,
+      18.892
+    ],
+    "unblended_native_material_distance_mm": 3.0483284220077072e-05,
+    "blended_native_material_distance_mm": 0.7645167428109104
   }
 }
