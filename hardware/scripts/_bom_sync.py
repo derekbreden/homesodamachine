@@ -24,7 +24,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop,
+from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop, cap_anchors,
                                   cap_cradles, cap_side_anchor_tie_loop, deck_mounts,
                                   deck_mount_xy)
 from _reed_channels import reeds_per_reservoir
@@ -111,9 +111,10 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-four_inch_ties_per_build = 23
-# Meter, water check chain, regulator, CO2 check and flavor-A cap post.
-six_inch_ties_per_build = 6
+# Cable management (~15), the water-3 post, the flavor tap's pair and the ASSE sleeve's two lands.
+four_inch_ties_per_build = 20
+# Meter (two), water check chain, regulator and CO2 check.
+six_inch_ties_per_build = 5
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -141,9 +142,7 @@ vent_filters_per_reservoir_cap = 1
 reservoir_reeds_total = reeds_per_reservoir * reservoirs_per_build
 total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 
-# PP1208E per build: umbilical cluster (3) + water inlet (1) = 4. The
-# reservoir-cap outlet uses the PureSec B0968K4JRN single-piece 90° PTC
-# bulkhead, not PP1208E.
+# PP1208E per build: umbilical cluster (3) + water inlet (1) = 4.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # The purchased union elbow is the funnel drain's (§8). The permanent TPU
@@ -439,16 +438,20 @@ vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 # reaches `wall`, and both are the box's own three millimetres.
 digiten_tie_loop = _enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP)
 # EVERY RIB HOLDING A RUN IS BORED FOR THE ONE STOCK, which is why the row quotes one figure for
-# all of them rather than reading them apiece. A rib an anchor cap closes takes no tie, so it
-# quotes no loop (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`).
-_run_seats = {round(station[3], 6) for station in _f.pack["tube_anchors"]
+# all of them rather than reading them apiece: the box's ribs and the cap lid's rows named for a
+# run. A rib an anchor cap closes takes no tie, so it quotes no loop
+# (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`, `_cold_core_interface.cap_anchors`); with every
+# one of them capped the row quotes none.
+_run_loops = {round(_enc.tube_anchor_tie_loop(station[3]), 6) for station in _f.pack["tube_anchors"]
               if tuple(station[5:6]) != ("cap",)}
-if len(_run_seats) != 1:
+_run_loops |= {round(cap_anchor_tie_loop(name), 6) for name, row in cap_anchors.items()
+               if name in _ea._lines.authored() and getattr(row, "closure", "tie") != "cap"}
+if len(_run_loops) > 1:
     raise ValueError(
-        f"the box's run anchors are bored at {sorted(_run_seats)} and bom.md §11 quotes one loop "
-        f"for every rib holding a tube. Either they go back on one stock or the row reads them "
-        f"apiece.")
-run_tie_loop = _enc.tube_anchor_tie_loop(next(iter(_run_seats)))
+        f"the tied ribs holding a run close loops of {sorted(_run_loops)} mm and bom.md §11 quotes "
+        f"one for every rib holding a tube. Either they go back on one stock or the row reads "
+        f"them apiece.")
+run_tie_loop = next(iter(_run_loops)) if _run_loops else None
 # THE RIBS BORED FOR A BODY take whatever section that body offers, so each answers on its own.
 # `BODY_ANCHOR_SITES` is the table `check_body_seated` grades the built pieces against, and the
 # radius is the reference module's — read here by name rather than off a row's position.
@@ -517,9 +520,8 @@ def main(*, only_bom=False):
         # names `_cold_core_interface` and `_internal_plumbing_sync` write elsewhere, so
         # `docgen.lint` holds this row against those pages rather than letting the two drift.
         "DIGITEN_LOOP": f"{digiten_tie_loop:.3g} mm",
-        "TUBE_RIB_LOOP": f"{run_tie_loop:.3g} mm",
+        **({"TUBE_RIB_LOOP": f"{run_tie_loop:.3g} mm"} if run_tie_loop else {}),
         "WATER_3_POST_LOOP": f"{cap_side_anchor_tie_loop('water-3'):.3g} mm",
-        "FLUID_18_POST_LOOP": f"{cap_side_anchor_tie_loop('fluid-18'):.3g} mm",
         "SPLIT_LOOP": f"{body_tie_loops['water-split']:.3g} mm",
         "FLOWREG_LOOP": f"{body_tie_loops['flow-regulator']:.3g} mm",
         "ANCHOR_LOOP": f"{chain_tie_loop:.3g} mm",

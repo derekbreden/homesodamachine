@@ -10,7 +10,7 @@ the plate rests evenly on the brim after the fill is complete.
 
 ![The cover's underside, locating skirt and broad front lifting edge](underside.png)
 
-The plate is [182 mm](WIDTH) across and [138.683 mm](DEPTH) front to back.
+The plate is [182 mm](WIDTH) across and [144.392 mm](DEPTH) front to back.
 Its entire front edge extends [4 mm](FRONT_EXTENSION) toward the display,
 beyond the [1.5 mm](OVERHANG) brim overlap. A shallow
 [1.2 mm](FRONT_RELIEF) recess under that edge provides lifting access.

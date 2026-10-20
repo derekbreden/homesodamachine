@@ -183,41 +183,6 @@ def to92(*, centre, axis=(0, 0, 1)):
     return _orient(body, axis).translate(c - axis.multiply(TO92_H / 2))
 
 
-# --- PureSec 1/4" RO push-to-connect 90° elbow bulkhead ----------------------
-#
-# `bom.md` §8 — the reservoir floor/trough outlet. Threaded barrel up through the ⌀16 floor
-# bore, hex nut under it, integral 90° elbow turning the syrup line laterally.
-# Measured thread major diameter in the purchased PureSec geometry description.
-PURESEC_BARREL_R = 15.5 / 2.0
-PURESEC_NUT_AF = 22.0
-PURESEC_NUT_H = 6.0
-PURESEC_COLLET_R = 6.0
-PURESEC_ELBOW_LEG = 16.0
-
-
-PURESEC_BARREL_LEN = 14.0
-PURESEC_BODY_DROP = 3.0
-
-
-def puresec_elbow(*, corner, up=(0, 0, 1), out, barrel_len=None, collet_r=None):
-    """The bulkhead standing on `corner`, where its two leg axes cross.
-
-    The barrel rises `up` from the corner through the trough floor, with its nut on the wet side
-    at the top of it; the collet faces `out` on the corner's own storey."""
-    up = cq.Vector(*up).normalized()
-    out = cq.Vector(*out).normalized()
-    c = cq.Vector(*corner)
-    barrel_len = PURESEC_BARREL_LEN if barrel_len is None else barrel_len
-    collet_r = PURESEC_COLLET_R if collet_r is None else collet_r
-    barrel = _orient(_cyl(PURESEC_BARREL_R, barrel_len), up).translate(c)
-    nut = _orient(_hex(PURESEC_NUT_AF, PURESEC_NUT_H), up).translate(
-        c + up.multiply(barrel_len))
-    leg = _orient(_cyl(collet_r, PURESEC_ELBOW_LEG), out).translate(c)
-    body = _orient(_cyl(collet_r, PURESEC_BODY_DROP), -up).translate(c)
-    solid = barrel.fuse(nut).fuse(leg).fuse(body)
-    return solid, Mouth(tuple(c + out.multiply(PURESEC_ELBOW_LEG)), tuple(out), 6.35)
-
-
 def stand_x_along(solid, *, at, axis):
     """A solid built on +X, stood so its own +X runs along `axis` with its origin at `at`."""
     a = cq.Vector(*axis).normalized()
@@ -230,23 +195,6 @@ def stand_x_along(solid, *, at, axis):
     else:
         turned = solid.rotate(cq.Vector(0, 0, 0), x.cross(a), math.degrees(math.acos(dot)))
     return turned.translate(cq.Vector(*at))
-
-
-# --- uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm ---------------------
-#
-# `bom.md` §8 — the reservoir bulkhead's wet-side face seal, in the wet-side counterbore under
-# the bulkhead's own nut.
-WASHER_ID = 16.0
-WASHER_OD = 24.0
-WASHER_T = 3.0
-
-
-def silicone_washer(*, centre, axis=(0, 0, 1)):
-    axis = cq.Vector(*axis).normalized()
-    c = cq.Vector(*centre)
-    ring = _orient(_cyl(WASHER_OD / 2, WASHER_T), axis).translate(c)
-    bore = _orient(_cyl(WASHER_ID / 2, WASHER_T + 2), axis).translate(c - axis.multiply(1))
-    return ring.cut(bore)
 
 
 # --- LVDALAB PTFE membrane filter, ⌀13 × 0.45 µm ----------------------------

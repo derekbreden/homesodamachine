@@ -1319,14 +1319,17 @@ physical qualification items. The nominal routes run from the inlet to WR1110, t
 forward from its outlet into the check inlet, then return from the check through the
 east lane to the cold core.
 
-**An anchor cap closes `carb-1`'s rib, and that rib takes no zip tie** (`_capped_anchor`,
-`_anchor_cap_interface`). It is the same half pipe at `seat_r` with flat lips one `wall` past
-the axis plane, built as one solid post [20.6 mm](CAP_RIB_LEN) long with nothing cut for a
-tie. Each flank carries a catch window: a pocket [14.6 mm](CAP_WINDOW_LEN) long between the
+**Anchor caps close back-top's three ribs that hold a tube, and those ribs take no zip tie**
+(`_capped_anchor`, `_anchor_cap_interface`): `carb-1`'s and `co2-2`'s under the ceiling and
+`fluid-28`'s on the −X wall. Each is the same half pipe at `seat_r` with flat lips one `wall`
+past the axis plane, built as one solid post [16.3 mm](CAP_RIB_LEN) long with nothing cut for a
+tie. Each flank carries a catch window: a pocket [10.3 mm](CAP_WINDOW_LEN) long between the
 rib's two end webs, [1.6 mm](CAP_WINDOW_DEPTH) deep, from [6.92 mm](CAP_WINDOW_B0) over the axis
 plane to where the flank meets the ceiling, past the [10.19 mm](CAP_WINDOW_B1) the lip reaches.
-Back-top prints ceiling-down, so each window's bearing face, the side nearest the tube, prints
-as a bridge web to web. The rib's two outer
+Back-top prints ceiling-down, so under the ceiling each window's bearing face, the side nearest
+the tube, prints as a bridge web to web. On the −X wall the rib reaches level out of the wall:
+the flank that looks print-down and its window's roof bridge web to web, and the two end webs
+stand on the tied rib's own 45° corbels, beyond the cap's ends. The rib's two outer
 bottom edges carry a [0.8 mm](CAP_RIB_CHAMFER) chamfer the cap's lips ride onto. The
 [anchor cap](../anchor-cap/README.md) presses on over the tube, and its lips drop into the
 windows.
@@ -1335,15 +1338,16 @@ The cap's wings reach [10.3 mm](CAP_WING_TOP) over the axis plane. Where the cei
 stands inside [0.6 mm](CAP_HEADROOM) of that, the ceiling gives each wing a slot as wide as the
 wing and the spread its lip makes (`_ceiling_cap_reliefs`), and the rib's flank runs on up the
 slot's inner wall. Over `carb-1` the slab's face stands that far off, and the ceiling gives up
-nothing.
+nothing; over `co2-2` it stands 7.04 mm off and gives both slots. `fluid-28`'s wall stands
+12.43 mm off its axis and gives up nothing.
 
 The rib stands at the head of `carb-1`'s climb, its near end one `wall` past the corner the run
 climbs into (`enclosure_assembly.tube_anchor_midpoint`): `co2-1`'s U runs beside the middle of
 the crossing inside the cap's wings, and at the head of the climb the cap stands clear of it.
 
-The cap is cut for the 1/4" seat, and it closes only a rib rooted on the face its piece prints
-on. Its rib also has to stand on its leg's straight; `co2-2`'s straight is shorter than that
-between its two bends, so that crossing takes a zip tie.
+The cap is cut for the 1/4" seat. It closes a rib rooted on the face its piece prints on or
+reaching level out of a wall, and its rib has to stand on its leg's straight: `co2-2`'s,
+16.85 mm between its two R14 bends, is the shortest it closes.
 
 ## The pump cartridge and its bay
 
@@ -1750,11 +1754,11 @@ its inboard plane out to 6 mm inside the side wall's flute valleys, and from the
 back to the plane of the pump bay's aft wall, straight up to the ceiling. It opens into
 the bay across its whole floor, and its ceiling is 10.02 mm behind the display plane. Between the two walls the opening continues down to
 the bay as one room, which holds the display's back and SIG-7's run to the ridge bore.
-The display backing presents one broad vertical cavity face at Y95.208 up
-to Z355, with 0.25 mm air to the frame's flat front. A 1.37 mm rise at its
-foot joins it to the bay bulkhead at 45°. The front-top flanks carry their
-complete 9 mm section to the roof opening. The wall and frame keep the
-silicone funnel's 455.44 mL nominal capacity.
+The display backing presents one broad vertical cavity face at Y92.75 up
+to Z355, 3 mm behind the display's PCB pocket and 0.25 mm ahead of the funnel frame's
+flat front. A 4.09 mm rise at its foot joins it to the bay bulkhead at 45°. The facet's
+roof round ends on this face 0.19 mm under the roof plane. The front-top flanks carry
+their complete 9 mm section to the roof opening.
 Supports carry the lintel's flat underside, the room's short housing strips and the two
 cavity ceilings from the bay; their geometry preserves the display seats and the catches.
 
@@ -1772,9 +1776,10 @@ it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE). It
 locates nothing and carries nothing; the display loom is dressed after it is through.
 
-On the same wall's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
+On the same wall's cavity face, one [9 mm](CABLE_CLIP_DEPTH)-deep cable clip, sunk 3 mm into the
+wall so the funnel frame's front corbel passes over its upper arm, runs toward
 +X from X68.5 to X86.5 and stops [12 mm](PUMP_LEAD_CLIP_LAND) short of the
-flank's inboard face. Its base is Z285.796, above the wall's foot transition.
+flank's inboard face. Its base is Z288.510, above the wall's foot transition.
 It guides and strain-relieves the
 **fixed J13-to-contact lead**. From the clip's west end the lead lies along the bay bulkhead's
 crown behind the rib to the centreline, then drops down the bulkhead's aft face into the contact
@@ -1790,8 +1795,10 @@ stock and the scope of the exported geometry.
 
 ## Funnel opening
 
-The 455 mL silicone funnel sits in a separate solid PET-GF frame centered at
-Y164.55, with its outlet at the same Y centre. Its front rail pair slides into
+The 480 mL silicone funnel sits in a separate solid PET-GF frame centered at
+Y161.70, with its outlet at the same Y centre. The frame's flat front and the brim's
+square-cornered front edge stand together one running fit behind the display wall.
+Its front rail pair slides into
 front-top's receivers. The rear frame is 182.5 mm wide beside back-top's screw
 blocks and has no rear rails. Its actual aft corners retain R6 plan rounds;
 the clearance shoulders at Y199.75 remain square. `funnel_frame.py` uses the
@@ -1804,10 +1811,10 @@ hook tops 3.15 mm above that socket floor. The 2.75 mm hooks leave 0.40 mm above
 the web for static assembly and its supported finish; the receiving web retains 3 mm.
 The front rail feet remain at Z306.9; front-top's receiver underside is Z307.4,
 providing 0.50 mm for the running fit and its supported receiver face.
-The front surround reaches the flush Z355 roof plane and ends at Y199.75,
+The roof surround's two side strips reach the flush Z355 roof plane and end at Y199.75,
 one running clearance before the seam. The rear frame retains its Z349
 envelope beneath the existing back-top roof. Front-top's opening clears the
-removable surround and roof tongue, leaving no fixed inward brim-bearing
+removable side strips and roof tongue, leaving no fixed inward brim-bearing
 ledge above the frame. The complete brim footprint retains 3 mm of frame
 bearing beneath Z349. The rail channels retain their separate functional profile.
 See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
@@ -1841,7 +1848,7 @@ keeps its plan and is exactly one 3 mm wall deep; every other local pocket betwe
 3 mm deep is a producer error. The C14's ceiling pocket is its canonical slipped flange profile
 continued along the insertion run, so the pocket and the flange seat are one outline.
 The flow meter's two anchors and every rib a zip tie closes on
-the ceiling — the co2-2 rib and the regulator's — get the room their zip tie's
+the ceiling — the regulator's — get the room their zip tie's
 loop comes down: over the tie band alone, the rib's reach plus the tie's thickness and its
 routing air either side, from the axis plane up to the channel's roof and no deeper
 (`_ceiling_tie_reliefs`); the rib is fused back afterwards and stands up off the bed with

@@ -18,7 +18,7 @@ including upright guide play. Liquid switching heights need calibration.
 | Reservoir body and matching cap | Rod axis **(x = ±[106.25 mm](RES_X), y = +[32.5 mm](RES_Y))** in the assembled cold-core frame; sign selects the mirrored reservoir |
 | Reservoir local datum | Rod axis is 20 mm inward from its wet far wall, x = ±126.25 mm; body and cap registers share this axis |
 | Carbonator rod blank | **[131.08 mm](CARB_ROD_LENGTH)** starting length; hand-fit the actual conical register pair before tacking, with positive top engagement and fully seated plates |
-| Reservoir rod cut | **[176.515 mm](RES_ROD_LENGTH)**, with **[0.15 mm](RES_ROD_CLEARANCE)** axial clearance |
+| Reservoir rod cut | **[203.750 mm](RES_ROD_LENGTH)**, with **[0.15 mm](RES_ROD_CLEARANCE)** axial clearance |
 
 Use the [end-cap drawing](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf)
 and [pressure-vessel procedure](/hardware/assembly/pressure-vessel.md) for
@@ -70,9 +70,9 @@ CAD; use the assembly datum rather than the local underside of a loose printed c
 | Carbonator target liquid levels, pump-on / pump-off | **[67.098 / 95.250 mm](CARB_WATER_LEVELS)** |
 | Carbonator provisional reed centers, CLO / CHI | **[58.332 / 86.484 mm](CARB_REED_CENTERS)** |
 | Carbonator magnet-center mechanical travel | **[28.200–125.700 mm](CARB_TRAVEL)** |
-| Reservoir magnet-center mechanical travel | **[52.485–188.150 mm](RES_TRAVEL)** |
-| Reservoir four provisional reed centers | **[52.817, 97.817, 142.817, 187.817 mm](RES_REED_CENTERS)** |
-| Reservoir provisional reed pitch | **[45 mm](RES_REED_PITCH)** |
+| Reservoir magnet-center mechanical travel | **[25.250–188.150 mm](RES_TRAVEL)** |
+| Reservoir four provisional reed centers | **[25.700, 79.700, 133.700, 187.700 mm](RES_REED_CENTERS)** |
+| Reservoir provisional reed pitch | **[54 mm](RES_REED_PITCH)** |
 
 The carbonator target water-level difference displaces one 338.1 mL water
 serving. Its provisional reed centers assume 0.65 g/cm³ foam, a dry pocket,

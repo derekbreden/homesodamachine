@@ -197,7 +197,7 @@ Build both closed before they go into the shell ([cold core §4](cold-core.md#4-
 
 1. **The draw:** a PureSec bulkhead up through the trough floor, silicone wet washer above, TPU
    dry washer below, the elbow clocked to its own pocket wall (A at −Y, B at +Y), the nut
-   hand-tight from inside ([floor and bulkhead](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)).
+   hand-tight from inside ([floor and bulkhead as printed](https://github.com/derekbreden/homesodamachine/blob/20e19fc573/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)).
 2. **The float:** cut each 1/8" rod ([handwork](handwork.md#cut--seat-the-reservoir-float-rods)),
    seat it in the body boss, the float over it.
 3. **The reeds:** run the
@@ -222,7 +222,7 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
    front-bottom. The compressor bay stays empty.
 2. **The foam shell:** both reservoirs in their pockets, the reed columns down their channels,
    each draw out through its own pocket wall and up the forward band
-   ([foam shell](/hardware/printed-parts/cold-core/foam-shell/README.md)). It stands on the slab
+   ([foam shell as printed](https://github.com/derekbreden/homesodamachine/blob/b20e7d208/hardware/printed-parts/cold-core/foam-shell/README.md)). It stands on the slab
    where the cold core does, its front corners in front-bottom's blocks.
 3. **The reservoir runs** cross the Y seam, made up before the back column rides
    ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)):

@@ -67,11 +67,7 @@ from _reservoir_pocket_walls import (
     pocket_centerward_arc_transition_y,
     transition_outer_r,
 )
-from _port_cuts import (
-    co2_inlet_xyz,
-    flavor_line_hole_x,
-)
-from _cold_core_interface import reservoir_bulkhead_port_x
+from _port_cuts import co2_inlet_xyz
 from _cold_core_interface import (
     cap_screw_beyond_face,
     cap_screw_length,
@@ -114,33 +110,6 @@ def _report_front_ports(shell):
                       for n, (p, _a) in sorted(stations.items(), key=lambda kv: kv[1][0][2])))
 
 
-def _report_wall_openings():
-    """The one opening each −Y bag-pocket wall carries.
-
-    A DRAW's crossing is the rectangle bounding that line's own corridor across the wall, cut
-    square through it (`_port_cuts.pocket_wall_shadows`), so its footprint is a consequence of
-    where the route goes and not of a diameter — move the run and the hole changes size; its
-    x span is the corridor's own span across the wall. Nothing else pierces that wall: the reed cable
-    leaves by the top of its own channel, so the pocket is opened once and for the draw.
-      Each opening is met with the pocket walls themselves — the hole in the wall, not the
-    run through it — and what it leaves is what its box leaves. A box is enough here because
-    it can only understate a gap, so a reading over one wall is a proof and never a guess."""
-    sys.path.insert(0, str(_here.parent))
-    from _internal_routes import route_corridor
-    from _reservoir_pocket_walls import build_reservoir_pocket_walls
-
-    walls = build_reservoir_pocket_walls().val()
-
-    def holes(solid):
-        """One body's openings in the pocket walls, as boxes — one per wall it pierces."""
-        return [lump.BoundingBox() for lump in solid.intersect(walls).Solids()]
-
-    for name in ("reservoir-a", "reservoir-b"):
-        for draw in holes(route_corridor(name)):
-            print(f"  {name} crossing: its corridor squared through the wall, x "
-                  f"{draw.xmin:.4g} .. {draw.xmax:.4g}, the wall's only opening  OK")
-
-
 def _plug_span(name):
     """"low → high" Z span of one copper plug, as the README's table reads it."""
     z_bottom, z_top = plug_specs[name].z_range
@@ -157,7 +126,6 @@ def main():
     write_bed_file(foam_shell, _here / "foam-shell.stl")
 
     _report_front_ports(foam_shell)
-    _report_wall_openings()
 
     solid = foam_shell.val()
     bbox = solid.BoundingBox()
@@ -227,9 +195,6 @@ def main():
             # port axis) and the Z it shares with the water outlet.
             "CO2_BORE_Y": f"{co2_inlet_xyz[1]:.4g}",
             "CO2_BORE_Z": f"{co2_inlet_xyz[2]:.4g}",
-            # The draw's own crossing of its pocket wall — the one opening each
-            # −Y bag-pocket wall carries, joined to the cap by a run up the band.
-            "FLAVOR_POCKET_X": f"{flavor_line_hole_x:.4g} mm",
             # The front face and its port lane.
             "LANE_Y": f"{port_lane_outer_y:.4g} to {port_lane_inner_y:.4g}",
             "LANE_W": f"{port_lane_inner_y - port_lane_outer_y:.4g} mm",

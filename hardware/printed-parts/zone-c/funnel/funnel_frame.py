@@ -97,7 +97,8 @@ def corbel_cut(centre, floor, air=0.0):
 
 def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
                 y_joint=200.0, full_front_opening=False):
-    """The removable roof surround and its complete 3 mm brim bearing."""
+    """The removable roof surround and its complete 3 mm brim bearing. The frame's flat front
+    is the silicone brim's front edge, one running fit behind the display wall."""
     import enclosure as enc
     cx, cy = centre
     # Front-top carries its 9 mm flank section through the roof. Its inner
@@ -105,8 +106,7 @@ def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
     # removable surround fits those faces with the normal running air.
     flank_growth = enc.front_top_flank_t - enc.wall
     roof_width = inner[1] - inner[0] - 2 * (flank_growth + enc.slide_slip)
-    front = (cy - funnel.collar_d / 2 - funnel.brim_overhang
-             - enc.funnel_collar_air - web)
+    front = cy - funnel.collar_d / 2 - funnel.brim_overhang
     back = (cy + depth / 2 if full_front_opening else
             min(cy + depth / 2, y_joint - enc.slide_slip))
     floor = seat - web
@@ -190,7 +190,9 @@ def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
 
 @functools.cache
 def forming_clearance():
-    return funnel.build_solids(outer_air=forming_air)[0]
+    """The silicone's forming air under the brim and above the socket: the brim's own air is
+    its pocket, and the plug's is the socket."""
+    return funnel.build_solids(outer_air=forming_air, plug=False, brim=False)[0]
 
 
 def merge_edges(shape):
@@ -221,34 +223,17 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     # The drain hole and the elbow cradle's two wing slots are all that pierce the 3 mm web.
     clear = forming_clearance().translate((cx, cy, seat))
     clear = clear.intersect(funnel._box(400, 400, plug, seat, cx, cy))
-    # Forming air expands the silicone brim below its underside. Keep that
-    # expansion in the collar opening, so it cannot shave the brim's bearing.
-    collar_limit = funnel._rounded_box(
-        funnel.collar_w + 2 * forming_air, funnel.collar_d + 2 * forming_air,
-        funnel.collar_corner_r + forming_air,
-        seat - forming_air - 0.01, seat + 0.01, cx, cy)
-    brim_air = funnel._box(400, 400, seat - forming_air - 0.01,
-                          seat + 0.01, cx, cy).cut(collar_limit)
-    clear = clear.cut(brim_air)
     # The silicone's complete brim bears on the removable frame at the existing
     # seat datum; its top and the frame's surround finish on the same roof plane.
-    brim = funnel._rounded_box(
-        funnel.collar_w + 2 * (funnel.brim_overhang + enc.funnel_collar_air),
-        funnel.collar_d + 2 * (funnel.brim_overhang + enc.funnel_collar_air),
-        funnel.brim_corner_r + enc.funnel_collar_air,
-        seat, seat + funnel.brim_thickness + 1, cx, cy)
+    brim = funnel.brim_plan(enc.funnel_collar_air, seat, seat + funnel.brim_thickness + 1,
+                            cx, cy)
     place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
-    primary_socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare,
-        corner_radius=elbow_cradle.PLUG_CORNER + gap).translate(place)
     pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
-    body = body.cut(clear.fuse(primary_socket).fuse(brim))
-    for c in pierce:
-        body = body.cut(c)
-    body = merge_edges(body)
-    corner_air = socket.cut(primary_socket)
-    body = body.cut(corner_air).clean()
+    for cutter in (socket, clear, brim, *pierce):
+        body = body.cut(cutter)
+    body = merge_edges(body).clean()
     assert body.isValid() and len(body.Solids()) == 1
     assert abs(body.BoundingBox().zmin - floor) < 0.0001
     # The web stands whole under the socket but for those cuts, and no stock stands in the socket.

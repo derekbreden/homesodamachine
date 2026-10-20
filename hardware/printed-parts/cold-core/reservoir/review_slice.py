@@ -172,7 +172,10 @@ def main():
             if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0.02"]:
                 raise ValueError(f"Native Mark2 Z trim differs: {trims}")
             layers = re.findall(r"^; CHANGE_LAYER\n; Z_HEIGHT: ([0-9.]+)\n; LAYER_HEIGHT: ([0-9.]+)", text, re.MULTILINE)
-            if len(layers) != 740 or float(layers[0][1]) != 0.30 or any(abs(float(v[1]) - 0.24) > 2e-5 for v in layers[1:]):
+            # The layers climb from the bed to within one layer of the plate's tallest part.
+            top = max(p["plate_bounds_mm"][1][2] for p in parts)
+            if (float(layers[0][1]) != 0.30 or any(abs(float(v[1]) - 0.24) > 2e-5 for v in layers[1:])
+                    or abs(float(layers[-1][0]) - top) >= 0.24):
                 raise ValueError("Native layer count or heights differ")
             if row["feature_type_times"].get("Ironing", 0) != 0:
                 raise ValueError("Native estimate includes ironing")

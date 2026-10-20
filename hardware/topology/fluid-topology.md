@@ -35,7 +35,7 @@ Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topo
 
 The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**. Y-A and Y-B are purchased PP0208E tees. Y-C, Y-D, Y-F and Y-G are permanent printed TPU junctions with an orthogonal pump inlet/upper outlet and a lower arm angled 45° aft. The `Y-` identifiers and numbered hydraulic ports remain the topology's names.
 
-**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects the valves to a pump through its permanent receiver.
+**Neither reservoir has a junction.** Each carries **two mouths of its own**, both bores in its own cap — the fill, ending above the liquid, and the draw, whose line goes on down to the floor as the reservoir's dip tube — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects the valves to a pump through its permanent receiver.
 
 Y-A and Y-B inherit location from their fixed face-to-face valve joints. The closed PET-GF wall locates Y-C, Y-D, Y-F and Y-G in X/Z; a flat interior keeper captures each junction in Y. Their returns and the return block they snap into remain stationary during a pump change.
 
@@ -73,7 +73,7 @@ a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
 [4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
 exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [2410.2 mm](FLUID_TOTAL); exposed lengths need
+links. Reported LLDPE paths total [2686.6 mm](FLUID_TOTAL); exposed lengths need
 their actual fitting insertions when making finished blanks. A butt joint still
 needs tube through both fittings despite its zero exposed length. The factory
 sets captive link lengths from the mounted stop spans and fully seats valve-side
@@ -108,7 +108,7 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | 12 | P-A-O | Y-D-1 | Prepared pump A discharge stem → permanent TPU junction; this slip joint separates for service |
 | 13 | Y-D-2 | V-F-I | Straight upper LLDPE link; add actual TPU socket and valve insertion |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
-| 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
+| 16 | Reservoir A draw | V-E-I | The dip tube up off A's floor and out its `reservoir-a` cap conduit, forward across the deck between V-A and V-K |
 | 17 | Y-D-3 | V-G-I | Fixed compound TPU return and two straight LLDPE links |
 | 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the +Y wall of back-top |
 
@@ -122,7 +122,7 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | 22 | P-B-O | Y-G-1 | Prepared pump B discharge stem → permanent TPU junction; this slip joint separates for service |
 | 23 | Y-G-3 | V-I-I | Straight upper LLDPE link; add actual TPU socket and valve insertion |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
-| 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
+| 26 | Reservoir B draw | V-H-I | The dip tube up off B's floor and out its `reservoir-b` cap conduit, forward west of the funnel drain's elbow |
 | 27 | Y-G-2 | V-J-I | Fixed compound TPU return and two straight LLDPE links |
 | 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the +Y wall of back-top |
 

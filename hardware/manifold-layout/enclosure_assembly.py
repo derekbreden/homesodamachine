@@ -1615,33 +1615,43 @@ def water_pump_port_lane_limit() -> float:
     return PANEL_X["bulkhead-flavor-a"] + _jg.BODY_D / 2.0 + PORT_LANE_CLEAR
 
 
-def build_water_pump(foam, gate: float):
-    """The measured pump on its bearing datum, clear of the rear shell and nameplate.
+def build_water_pump(foam, gate: float, foam_carry):
+    """The measured pump on its bearing datum, standing on the four columns the cap prints for it.
+
+    THE CAP'S COLUMNS PLACE IT. The four M3 screws through its feet are the pump's whole
+    fastening, and the cap strikes their columns for one pump origin
+    (`g_ganen_installation.CAP_PUMP_ORIGIN`, whose aft term is the 9.7 mm off the core's rear
+    that clears the rear shell and nameplate), so the pump's origin goes on that station carried
+    out through the core's own placement. The lanes west of it — the retained mounting datum and
+    the flavour unions' own storey — are read at that station, and a pump that would crowd
+    either raises rather than leaving its columns.
 
     Each selected rubber foot slides only along its casing rail. Free rubber can
     extend below the measured average bearing plane; its box does not set the
-    pump height. The tray and rear fitting lanes constrain the lateral position.
+    pump height.
     """
     pump = _lines._pump
     shape = pump.build()
-    rigid_rear = pump.rigid_shape().BoundingBox().xmax
-    origin_y = box(foam).ymax - rigid_rear - pump.REAR_CLEARANCE
+    origin = foam_carry(((*_foam.spin_xy(pump.CAP_PUMP_ORIGIN), 0.0), (0.0, 0.0, 1.0)))[0]
     bearing_z = cap_face(foam)
     turns = (((0, 0, 1), WATER_PUMP_YAW),)
-    def at(x, seat=None):
-        return seat_body(shape, turns, seat=seat,
-                         station=(pump.bearing_datum(), (x, origin_y, bearing_z)))
-    probe, probe_carry = at(0.0)
-    rigid_probe = pump.rigid_shape().moved(probe_carry.where)
-    pb = box(rigid_probe)
-    west = pump_west_face(rigid_probe, bearing_z + pump.observed_pad_upper_z(), pb.zmax,
-                          pump_rear_lane_front_y(probe_carry), pb.ymax)
-    storey = flavor_storey(gate, probe_carry)
-    lane = pump_west_face(rigid_probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
+    placed, carry = seat_body(shape, turns, seat="g-ganen-pump",
+                              station=(pump.bearing_datum(), (origin[0], origin[1], bearing_z)))
+    rigid = pump.rigid_shape().moved(carry.where)
+    rb = box(rigid)
+    west = pump_west_face(rigid, bearing_z + pump.observed_pad_upper_z(), rb.zmax,
+                          pump_rear_lane_front_y(carry), rb.ymax)
+    storey = flavor_storey(gate, carry)
+    lane = pump_west_face(rigid, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
                           bulkhead_mouth_y(), _enc.rear_plane_y)
-    shift = max(0.0, water_pump_west_limit() - west if west is not None else 0.0,
-                water_pump_port_lane_limit() - lane if lane is not None else 0.0)
-    placed, carry = at(shift, "g-ganen-pump")
+    for face, limit, what in ((west, water_pump_west_limit(), "the retained mounting datum"),
+                              (lane, water_pump_port_lane_limit(),
+                               "the flavour unions' port lane")):
+        if face is not None and face < limit - 1e-6:
+            raise ValueError(
+                f"build_water_pump: on its cap columns the pump's casting reaches x {face:.3f}, "
+                f"{limit - face:.3f} mm west of {what} at x {limit:.3f}. The columns and the "
+                f"lane are one placement: move the columns (`CAP_PUMP_ORIGIN`) or the lane.")
     return placed, carry
 
 
@@ -2346,16 +2356,15 @@ FLAVOR_B_ANCHOR_WELL_CLEAR = 1.0
 
 # WHAT CLOSES EACH ANCHOR, STATED: a zip tie through the rib's channel, or the anchor cap
 # (`_anchor_cap_interface`), the printed other half of the pipe, which presses on over the tube
-# and catches a window in each of the rib's flanks. The cap is cut for the 1/4" seat and for a
-# rib standing up off its piece's bed, where each window's bearing face prints as a bridge and
-# no corbel stands where a wing runs (`enclosure._capped_anchor`), and its rib is
-# `_anchor_cap_interface.RIB_LEN` long, which has to stand on the leg's straight. `co2-2`'s leg
-# is shorter than that between its two bends, so that crossing takes a tie; flavour B's rib
-# roots on the -X wall. Every site names one, and a site missing here is an error.
+# and catches a window in each of the rib's flanks. The cap is cut for the 1/4" seat, for a rib
+# standing up off its piece's bed or reaching level out of a wall (`enclosure._capped_anchor`),
+# and its rib is `_anchor_cap_interface.RIB_LEN` long, which has to stand on the leg's straight;
+# `co2-2`'s, 16.85 mm between its two R14 bends, is the shortest it closes. Every site names one,
+# and a site missing here is an error.
 TUBE_ANCHOR_CLOSURES = {
     "carb-1": "cap",
-    "co2-2": "tie",
-    "fluid-28": "tie",
+    "co2-2": "cap",
+    "fluid-28": "cap",
 }
 ANCHOR_CLOSURES = ("tie", "cap")
 
@@ -2593,6 +2602,30 @@ def cap_tube_anchors(foam_carry, runs) -> tuple:
                 f"of that run passes through it. "
                 f"`_cold_core_interface.cap_side_anchors[{name!r}]` is in the cap's own frame, "
                 f"and the run is where its two ports put it.")
+    return tuple(out)
+
+
+def lid_cap_stations(foam_carry, runs) -> tuple:
+    """`(name, mid, along)` for every rib on the cold core's lid an anchor cap closes
+    (`_cold_core_interface.cap_anchors`, closure "cap"): the seat's world axis point, carried out
+    of the cap's own frame, and the run's leg through it. The cap roots on the lid, so its frame's
+    root direction is the world's −Z."""
+    by_id = {r.id: r for r in runs}
+    out = []
+    for name, row in _cci.cap_anchors.items():
+        r = by_id.get(name)
+        if row.closure != "cap" or r is None:
+            continue
+        mid = foam_carry(cap_anchor(name))[0]
+        for p, q in zip(r.pts, r.pts[1:]):
+            if _on_leg(mid, p, q, 1e-3):
+                d = math.dist(p, q)
+                out.append((name, mid, tuple((q[k] - p[k]) / d for k in range(3))))
+                break
+        else:
+            raise ValueError(
+                f"lid_cap_stations: the capped rib for {name} stands at {mid} and no leg of that "
+                f"run passes through it.")
     return tuple(out)
 
 
@@ -3062,7 +3095,9 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               *_gas_chain.ADAPTER_NAMES,
               "nameplate", "nameplate-ink",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow",
-              "anchor-cap-carb-1")
+              *(f"anchor-cap-{rid}" for rid, closure in TUBE_ANCHOR_CLOSURES.items()
+                if closure == "cap"),
+              *(f"anchor-cap-{name}" for name, row in _cci.cap_anchors.items() if row.closure == "cap"))
 
 
 def _manifold(name):
@@ -4343,7 +4378,7 @@ def build_pack() -> cq.Assembly:
     # Two bodies take it: `build_water_pump` carries it into `flavor_storey` for the band its casting
     # is measured over, and `a.gate_z` stands the pair itself on what that storey comes out at.
     gate_cruise = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
-    water_pump, water_pump_carry = build_water_pump(foam, gate_cruise)
+    water_pump, water_pump_carry = build_water_pump(foam, gate_cruise, foam_carry)
     a.add(water_pump, name="g-ganen-pump", color=M_DONOR_BLACK)
     elbows = build_pump_elbows(water_pump_carry)
     for _name, bodies, _carry in elbows.values():
@@ -5058,8 +5093,8 @@ def stand_anchors(stations) -> tuple:
             if capped:
                 raise ValueError(
                     f"stand_anchors: the anchor at ({st[0][0]:.2f}, {st[0][1]:.2f}, "
-                    f"{st[0][2]:.2f}) is capped and stands outside back-top's band; the anchor "
-                    f"cap closes a rib under back-top's ceiling.")
+                    f"{st[0][2]:.2f}) is capped and stands outside back-top's band; the box's "
+                    f"anchor caps close ribs back-top builds.")
             out.append(st)
             continue
         columns = _enc.tube_anchor_end_columns(st, roots, lane, up, face_z)
@@ -5711,6 +5746,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
             mid, u, root = station[:3]
             a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, root)), name=f"anchor-cap-{rid}",
                   color=C_ANCHOR_CAP)
+    # And the cold core lid's, on the ribs its own table closes with a cap.
+    for name, mid, u in lid_cap_stations(a.carries["foam-assembly"], a.runs):
+        a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, (0.0, 0.0, -1.0))),
+              name=f"anchor-cap-{name}", color=C_ANCHOR_CAP)
     if box.pack.collet_plate:
         dock_parts = _dock.parts(box.pack.collet_plate)
         retention = _enc.pump_retention_features(box)

@@ -353,9 +353,13 @@ MOUNTS = (
     ("bulkhead-drain", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
-    # The anchor cap closes `carb-1`'s rib under the ceiling: its two lips catch the rib's
-    # windows, and the tube lies in the pipe the pair makes (`enclosure._capped_anchor`).
+    # Each anchor cap closes a tube rib: its two lips catch the rib's windows, and the tube
+    # lies in the pipe the pair makes (`enclosure._capped_anchor`, `foam_cap.capped_lid_rib`).
     ("anchor-cap-carb-1", "enclosure-back-top", "snap-capture"),
+    ("anchor-cap-co2-2", "enclosure-back-top", "snap-capture"),
+    ("anchor-cap-fluid-28", "enclosure-back-top", "snap-capture"),
+    ("anchor-cap-fluid-14", "foam-assembly", "snap-capture"),
+    ("anchor-cap-fluid-18", "foam-assembly", "snap-capture"),
     ("data-ring", "enclosure-back-top", "snap"),
     ("data-ring-word", "data-ring", "well"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
@@ -677,6 +681,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # THE MADE-UP CHAIN IN THE RIB THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
+    ("foam-assembly", "anchor-cap-fluid-14"),
+    ("foam-assembly", "anchor-cap-fluid-18"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -1273,6 +1279,8 @@ def anchored_pairs() -> set:
     # A capped rib's other half is the anchor cap, closing on the same tube at the same slip.
     pairs |= {frozenset((rid, f"anchor-cap-{rid}"))
               for rid, closure in _ea.TUBE_ANCHOR_CLOSURES.items() if closure == "cap"}
+    pairs |= {frozenset((name, f"anchor-cap-{name}"))
+              for name, row in _ea._cci.cap_anchors.items() if row.closure == "cap"}
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
     # that rib stands on the cap — so the pair is the run against `foam-assembly`. A row bored for
     # a body never matches here: this set is only read in the run pass, where the names are runs.
@@ -1608,8 +1616,8 @@ def _room_holds(a) -> Check:
 # out of the denominator, and its text goes out on the card.
 LOOSE = {
     "fluid-18":
-        "Flavor A's line to its rear union. The low cap post grips the fore crossing "
-        "(`_cold_core_interface.cap_side_anchors`). The remaining line follows the west "
+        "Flavor A's line to its rear union. A capped lid rib holds the fore crossing "
+        "(`_cold_core_interface.cap_anchors`). The remaining line follows the west "
         "flank, turns in over the pump's west-rear foot and returns to the rear union. Those "
         "unretained spans need a support and relaxed-tube review. The authored centreline "
         "does not establish physical tube shape or its clearance to neighbouring parts.",

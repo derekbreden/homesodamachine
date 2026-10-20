@@ -54,7 +54,7 @@ def main():
     assert abs(reed_y_center - res.rod_position_y) < 1e-9
 
     # Five travel stations and nine radial offsets span the upright bounding
-    # envelope. Fixed cross-section walls, sloped floor and both stops are
+    # envelope. Fixed cross-section walls, the floor and both stops are
     # checked in the emitted body/cap B-reps, not only in duplicated dimensions.
     for side, label in ((1, 'right'), (-1, 'left')):
         vessel_path = HERE.parents[1]/'reservoir'/f'reservoir-{label}.step'

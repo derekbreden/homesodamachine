@@ -404,7 +404,6 @@ display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # skirt's flex lane one cavity under the catch plane opens into the bay
 # (`display_storey_cavities`), standing this far inside the side wall's flute valleys.
 display_storey_side_wall = 6.0
-display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the display slope
@@ -430,11 +429,14 @@ cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BOR
 # TWO RUNS MEET THIS RIB, AND BOTH ARRIVE ON +X. SIG-7 comes forward along that flank from the
 # electronics bay and passes the rib through its own bore east of the centreline. The fixed
 # J13-to-contact lead comes down the same flank, turns the corner and runs back west into one
-# full-depth cable clip rooted on this rib's cavity face, then along the bay bulkhead's crown
+# cable clip sunk into this rib's cavity face, then along the bay bulkhead's crown
 # behind the rib to the centreline and down the bulkhead's aft face into the contact pair's lead
 # bore. Nothing on the removable pump cartridge is clipped to the enclosure.
 display_loom_x_offset = 32.0
 pump_lead_clip_edge_land = 12.0
+# The clip sinks this far into the rib, so the funnel frame's front corbel passes over its upper
+# arm; the rib keeps more than the clip's own backing behind the channel.
+pump_lead_clip_embed = 3.0
 display_cover_thickness = _interface.display_cover_thickness
 display_cover_slip = _interface.display_cover_slip
 
@@ -459,9 +461,6 @@ funnel_front_y = _funnel_frame_part.center_y - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
 ceiling_skin = _interface.ceiling_skin
 ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
-# The top wall between the display housing's back plane and the throat, read on
-# `funnel-collar-frame`. The separate frame carries the silicone brim.
-funnel_front_ledge = 0.0
 
 # The Y seam's two corner stacks. In each ±X corner the front and back pieces stand knuckles
 # that alternate up the seam, held by two ordinary M5 screws: the lower enters from the
@@ -2614,25 +2613,26 @@ def _dims(pack):
         ([] if y_joint >= facet_back + 2.0 else [
             f"the Y seam at {y_joint:.2f} cuts the display housing, whose back plane is at "
             f"{facet_back:.2f} — the facet has to stay whole in the front pieces. Move "
-            f"`y_seam` aft of {facet_back + 2.0:.2f}, or bring `display_housing_back` "
-            f"forward"])))
+            f"`y_seam` aft of {facet_back + 2.0:.2f}, or take the funnel's "
+            f"`forward_extension` back"])))
     # The vertical cut squares off slab the funnel's throat wants, and what stops it is the
     # display's own SEATS — the inset the cover plate drops into and the bezel counterbore
     # under it. The PCB hole is not one of them: `display_pcb_cut_through` drives it past the
     # back on purpose, to take a socket collar clean through.
     seats = max(_seat_back(display_inset_depth, display_inset_slope / 2.0),
                 _seat_back(display_bezel_depth, display_bezel_cut_slope / 2.0))
+    housing = facet_back - outer[2]
     record_bound(Bound(
         "display-housing-seats", "The housing's back cut keeps a wall behind the display's seats",
-        display_housing_back >= seats + wall,
-        f"cut at {display_housing_back:.2f} aft of the front face, seats reach {seats:.2f}",
+        housing >= seats + wall,
+        f"cut at {housing:.2f} aft of the front face, seats reach {seats:.2f}",
         f"a {wall:g} mm wall behind them, so aft of {seats + wall:.2f}",
-        ([] if display_housing_back >= seats + wall else [
-            f"`display_housing_back` {display_housing_back:.2f} stands "
-            f"{seats + wall - display_housing_back:.2f} mm forward of where the display's "
+        ([] if housing >= seats + wall else [
+            f"the display wall {housing:.2f} aft of the front face stands "
+            f"{seats + wall - housing:.2f} mm forward of where the display's "
             f"seats leave room — the deeper of the inset and the bezel counterbore reaches "
             f"{seats:.2f} aft of the front face, and the cut opens its back into the box. "
-            f"Take `display_housing_back` aft of {seats + wall:.2f}"])))
+            f"Take the funnel's `forward_extension` back"])))
     # WHAT EACH LIP'S OWN WALL COSTS THE CAVITY. A flank under a Z seam is `2 * wall` thick
     # from the slab to the rim (`_lip_underwall`), so on three sides of each bottom piece the
     # room stops one `wall` inboard of `inner`. The pack already stands that far off every one
@@ -2725,18 +2725,18 @@ def _facet_geom(outer):
 
 
 def housing_back_y(outer):
-    """The Y the display housing reaches back to — the vertical plane
-    `display_housing_back` aft of the box's front face, cut the full width. The
-    frontmost the Y seam may sit, since the whole facet belongs to the front top
-    piece; and where the top wall resumes, which is the forward wall of the frame
-    the funnel's collar stands in.
+    """The Y the display housing reaches back to — the display wall's flat face, cut the full
+    width, one running fit ahead of the funnel frame's flat front, which is the silicone
+    brim's front edge. The frontmost the Y seam may sit, since the whole facet belongs to the
+    front top piece. `_report_ridge_roof` holds the display's backing behind it.
 
     ONE PLANE, NOT A REACH OFF THE 45°. The slab behind the face is
     `display_facet_thickness` thick measured perpendicular to it, which would put
     its back plane at a Y that walks with the slope and with the thickness — and
     at the top face that plane stands aft of everything the display needs, over
-    the funnel's own throat. This states where the slab stops instead."""
-    return outer[2] + display_housing_back
+    the funnel's own throat. This states where the slab stops instead. The funnel is
+    placed in machine Y, so `outer` does not move it."""
+    return _funnel_frame_part.roof_datums()['front'] - slide_slip
 
 
 def pcb_ridge(outer):
@@ -3359,15 +3359,12 @@ def _funnel_frame(inner, outer):
 
     THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those three the frame runs
     out into a free edge, and the flange overhangs the collar by `brim_overhang` to catch the
-    wall and hold the funnel out of the box. Forward the wall runs straight on into the
-    display housing, whose back is the vertical `housing_back_y` — and the slab ahead of that
-    cut is what the brim's front flange lands on. The front's requirement is
-    `funnel_front_ledge`, the top wall kept between that plane and the throat itself, and it
-    stands in this frame."""
+    wall and hold the funnel out of the box. Forward the brim's front edge stands one running
+    fit behind the display wall, `housing_back_y`, which carries the display's backing."""
     ix0, ix1, _iy0, iy1, _iz0, _iz1 = inner
     return (ix0 + side_band_inset + funnel_band_gap,   # clear of the −X side band
             ix1 - side_band_inset - funnel_band_gap,   # clear of the +X side band
-            housing_back_y(outer) + funnel_front_ledge, # behind the display housing
+            housing_back_y(outer),                      # behind the display wall
             iy1 - wall)                                 # ahead of the +Y wall
 
 
@@ -3476,11 +3473,7 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     that floor."""
     cx, cy = centre
     seat = funnel_seat_z(outer)
-    pocket = _swept_top.rounded_prism(
-        _funnel.collar_w + 2.0 * (_funnel.brim_overhang + funnel_collar_air),
-        _funnel.collar_d + 2.0 * (_funnel.brim_overhang + funnel_collar_air),
-        _funnel.brim_corner_r + funnel_collar_air,
-        seat, outer[5] + 1.0, cx, cy)
+    pocket = _funnel.brim_plan(funnel_collar_air, seat, outer[5] + 1.0, cx, cy)
     half_w = _funnel.collar_w / 2.0 + _funnel.brim_overhang + funnel_collar_air
     mouth = y_stack_axis(inner[1], -1.0, y_seam)[1] - y_stack_cbore_dia / 2.0
     sides = _ybox(cx - half_w, cx + half_w, cy, mouth, seat, outer[5] + 1.0)
@@ -5090,11 +5083,11 @@ def _ceiling_cap_reliefs(box, lane):
     from the ceiling's face to `HEADROOM` over the wing tops (`_anchor_cap_interface.wing_room`).
     The rib is fused afterwards and its flanks run on up the slots' inner walls, so a lip rides
     one plane from the rib's foot to its window. A ceiling that clears the wings gives up
-    nothing."""
+    nothing, and a capped rib on a wall takes its room from that wall (`_capped_anchor`)."""
     face = back_top_ceiling_face()
     pockets = []
     for station in (box.pack.tube_anchors or ()):
-        if not anchor_capped(station):
+        if not anchor_capped(station) or tuple(int(round(c)) for c in station[2]) != (0, 0, 1):
             continue
         mid, u, n = station[:3]
         if mid[2] + _anchor_cap.SLOT_TOP > lane:
@@ -5753,7 +5746,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
         origin=(clip_start, face, clip_z),
         outward=(0.0, 1.0, 0.0),
         along=(1.0, 0.0, 0.0),
-        embed=0.0,
+        embed=pump_lead_clip_embed,
         wall_thickness=t,
     ).val()
     # Its lower arm grows at 45 degrees from the completed flat wall, above
@@ -7652,7 +7645,7 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     fluid-28 tube in its rib    [39.7 mm](LOOP_TUBE_RIB)
+#     fluid-28 tube in its rib    [65.1 mm](LOOP_TUBE_RIB)
 #     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
 #     WR1110 barrel in its rib    [83.2 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
@@ -8298,7 +8291,8 @@ def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
     `tube_anchor_corbel_depth(station, roots, lane)` for the footprint the corbel would have
     had. `station` is `(mid, u, n, seat_r)` as `_tube_anchors` reads it, `roots` and `lane` the
     piece's root faces and the box's own, and the boxes are struck the way that builder strikes
-    the rib; the assembly reads each against the pack to say which end stands (`stand`)."""
+    the rib — a capped station's on its own longer rib and end webs (`_capped_anchor`); the
+    assembly reads each against the pack to say which end stands (`stand`)."""
     mid, u, n, seat_r = station[:4]
     face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
     if face is None:
@@ -8308,7 +8302,8 @@ def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
     b_lane = (lane[face] - mid[face // 2]) * sign
     reach = seat_r + wall
     b_crown = seat_r + wall
-    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t) else b_face
+    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t
+                        and not anchor_capped(station)) else b_face
     t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
     if abs(abs(t[2]) - 1.0) > 1e-6:
         return (None, None)
@@ -8316,10 +8311,12 @@ def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
     a_face = (face_z - mid[2]) / t[2]
     if abs(a_face) <= abs(a_hang) + 1e-6 or (a_face > 0) != (a_hang > 0):
         return (None, None)
-    origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
+    length, web = ((_anchor_cap.RIB_LEN, _anchor_cap.END_WEB) if anchor_capped(station)
+                   else (tube_anchor_len, tie_cav_wall))
+    origin = tuple(mid[k] - u[k] * length / 2.0 for k in range(3))
     b_lo = 0.0 if depth is None else max(0.0, b_root - depth)
     out = []
-    for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
+    for s0, s1 in ((0.0, web), (length - web, length)):
         pts = [tuple(origin[k] + u[k] * s + n[k] * b + t[k] * a for k in range(3))
                for s in (s0, s1) for b in (b_lo, b_root) for a in (a_hang, a_face)]
         out.append(tuple(min(p[k] for p in pts) for k in range(3))
@@ -8339,7 +8336,8 @@ def tube_anchor_corbel_depth(station, roots, lane):
     b_face = (roots[face] - mid[face // 2]) * sign
     b_lane = (lane[face] - mid[face // 2]) * sign
     b_crown = station[3] + wall
-    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t) else b_face
+    b_root = b_lane if (b_face < b_lane - 1e-9 and b_face - b_crown < tie_t
+                        and not anchor_capped(station)) else b_face
     return min(b_root, b_root - b_lane + tube_anchor_corbel_reach)
 
 
@@ -8455,7 +8453,7 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
         sign = 1.0 if face % 2 else -1.0
         b_face = (roots[face] - mid[face // 2]) * sign      # the face this piece presents
         if anchor_capped(station):
-            solid = _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up)
+            solid = _capped_anchor(solid, station, b_face, roots, lane, y0, y1, z0, z1, up)
             continue
         b_lane = (lane[face] - mid[face // 2]) * sign       # and the box's own, at or outboard of it
         reach = seat_r + wall              # the lip's outer edge
@@ -8558,18 +8556,26 @@ def anchor_capped(station):
     return len(station) > 5 and station[5] == "cap"
 
 
-def _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up):
+def _capped_anchor(solid, station, b_face, roots, lane, y0, y1, z0, z1, up):
     """The rib an anchor cap closes (`_anchor_cap_interface`): the tie rib's half pipe as one
     solid post from the face it roots on to the axis plane, a catch window in each flank, and
     no room for a tie anywhere.
 
-    THE CAP IS CUT FOR ONE SEAT AND ONE BED. Its section is struck for the 1/4" tube, so a
-    station seating anything else raises. Its windows' bearing faces print as bridges only on a
-    rib that stands up off its piece's bed, rooted on the face the piece prints on, so a rib
-    rooted anywhere else raises too. Where the ceiling stands inside the wings' reach it has
-    already given them their room (`_ceiling_cap_reliefs`), and the windows are cut once the
-    rib is fused, each from its bearing face to where its flank ends, so no band of flank is
-    left between window and ceiling (`_anchor_cap_interface.window_top`).
+    THE CAP IS CUT FOR ONE SEAT. Its section is struck for the 1/4" tube, so a station seating
+    anything else raises.
+
+    AND THE RIB STANDS ON A FACE UNDER IT OR BESIDE IT IN THE PRINT. Rooted on the face the piece
+    prints on, it stands up off the bed: each window's bearing face prints as a bridge web to
+    web, and where the ceiling stands inside the wings' reach it has already given them their
+    room (`_ceiling_cap_reliefs`). Rooted on a wall, its tube level, it reaches out of that wall:
+    the flank that looks print-down and its window's roof bridge web to web, and the two end
+    webs stand on the tied rib's own 45-degree corbels (`tube_anchor_corbel_depth`), which grow
+    beyond the cap's ends and so never meet a wing; where that wall stands inside the wings'
+    reach it gives them their room here. A rib whose root looks print-up would hang, and raises.
+
+    The windows are cut once the rib is fused, each from its bearing face to where its flank
+    ends — the slab's interior face under the ceiling, the piece's own face elsewhere — so no
+    band of flank is left between window and root (`_anchor_cap_interface.window_top`).
 
     A piece that owns only part of the rib builds none of it, like every other station here."""
     mid, u, n, seat_r = station[:4]
@@ -8580,21 +8586,41 @@ def _capped_anchor(solid, station, b_face, y0, y1, z0, z1, up):
     if not (y0 <= min(p[1] for p in span) and max(p[1] for p in span) <= y1
             and z0 <= min(p[2] for p in span) and max(p[2] for p in span) <= z1):
         return solid
+    where = f"({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f})"
     if abs(seat_r - _anchor_cap.SEAT_R) > 1e-6:
         raise ValueError(
-            f"_capped_anchor: the anchor at ({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f}) seats "
-            f"r {seat_r:.3f} and the anchor cap is cut for the 1/4\" tube's {_anchor_cap.SEAT_R:.3f}. "
-            f"Close it with a zip tie, or cut a cap for its seat.")
-    if n[2] * up > -1.0 + 1e-6:
+            f"_capped_anchor: the anchor at {where} seats r {seat_r:.3f} and the anchor cap is cut "
+            f"for the 1/4\" tube's {_anchor_cap.SEAT_R:.3f}. Close it with a zip tie, or cut a "
+            f"cap for its seat.")
+    rise = n[2] * up                    # -1: root under the rib in the print; 0: a wall
+    if rise > 1e-6:
         raise ValueError(
-            f"_capped_anchor: the anchor at ({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f}) roots on "
-            f"{tuple(n)}, which is not the face its piece prints on; its windows' bearing faces "
-            f"would print as overhangs. Close it with a zip tie.")
-    solid = solid.fuse(_anchor_cap.rib(frame, b_face).clean())
-    # The rib is struck up to the lane (`b_face`), inside the slab; its flanks end on the face the
-    # slab presents (`back_top_ceiling_face`), and so do its windows.
-    b_ceiling = (back_top_ceiling_face() - mid[2]) * n[2]
-    for window in _anchor_cap.windows(frame, b_ceiling):
+            f"_capped_anchor: the anchor at {where} roots on {tuple(n)}, which looks print-up; "
+            f"the rib would hang off it. Close it with a zip tie.")
+    walled = abs(rise) < 1e-6
+    if walled and abs(u[2]) > 1e-6:
+        raise ValueError(
+            f"_capped_anchor: the anchor at {where} roots on a wall with its tube along "
+            f"{tuple(u)}; a wall rib stands its tube level, so its webs' corbels carry the "
+            f"flank that looks print-down. Close it with a zip tie.")
+    ceiling = tuple(int(round(c)) for c in n) == (0, 0, 1) and up < 0
+    # Under the ceiling the rib is struck up to the lane (`b_face`), inside the slab, and its
+    # flanks end on the face the slab presents (`back_top_ceiling_face`); anywhere else they end
+    # on the root face itself.
+    b_top = (back_top_ceiling_face() - mid[2]) * n[2] if ceiling else b_face
+    if not ceiling:
+        for pocket in _anchor_cap.wing_room(frame, b_face):
+            solid = solid.cut(pocket)
+    rib = _anchor_cap.rib(frame, b_face)
+    if walled:
+        a_hang = math.copysign(_anchor_cap.RIB_R, -up * frame.t[2])
+        deep = tube_anchor_corbel_depth(station, roots, lane)
+        if deep > 1e-9:
+            for s0 in (-half, half - _anchor_cap.END_WEB):
+                rib = rib.fuse(_anchor_corbel(frame.point(0.0, 0.0, s0), u, n,
+                                              _anchor_cap.END_WEB, a_hang, b_face, deep))
+    solid = solid.fuse(rib.clean())
+    for window in _anchor_cap.windows(frame, b_top):
         solid = solid.cut(window)
     return solid
 
@@ -9301,7 +9327,7 @@ def _report_ridge_roof(half, box):
             additions.append(add.moved(location))
         channels.append(cut.moved(location))
     clip_geometry((clip_end - _cable_clip.RUN, wall_y, clip_z),
-                  (0, 1, 0), (1, 0, 0), 0,
+                  (0, 1, 0), (1, 0, 0), pump_lead_clip_embed,
                   wall_y - box.pack.collet_plate['aft_y'], _cable_clip.RUN)
     witness = _rounded_outer(outer).intersect(_ybox(
         lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5]))

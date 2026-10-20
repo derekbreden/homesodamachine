@@ -6,7 +6,7 @@ Hydrophobic PTFE membrane filter inside the printed reservoir cap, plus a slotte
 
 A ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) hydrophobic PTFE membrane filter (LVDALAB B0D41KT345) sits in a ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) cylindrical pocket at the top of the cap. A press-fit TPU 90A retaining ring holds the filter down. Below the pocket, a slotted splash-baffle cylinder hangs into the cap interior — any syrup that splashes up against the cap ceiling has to take a 90°-turn through one of the cylinder's side slots before it could reach the membrane.
 
-Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
+Geometry constants in `reservoir.py` in this directory (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
 
 - Filter: ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T), hydrophobic PTFE on PET backing
 - Pocket: ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) (filter thickness + retaining ring thickness)
@@ -18,8 +18,8 @@ Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_po
 ## Function
 
 The reservoir is non-pressurized; the vent equalizes the air space
-above the liquid as syrup drains out the bottom outlet (PureSec 90°
-elbow bulkhead) and as the funnel-fill cycle refills it from above.
+above the liquid as the pump draws syrup up the dip tube and as the
+fill cycle refills it from above.
 
 The hydrophobic PTFE membrane passes air freely and blocks aqueous
 syrup at the membrane surface. The splash-baffle cylinder forces any

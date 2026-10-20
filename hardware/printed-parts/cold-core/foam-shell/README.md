@@ -28,13 +28,12 @@ The CadQuery script uses an explicit XY plane with +Z normal
   right angles to each plate's own pair, is what holds the two together. Carbonator assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
-  two per cold core. **Two mouths, and they never share one.** The FILL is a
-  ⌀[7.5 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
-  liquid; the DRAW is a PureSec bulkhead clamped through the floor's central
-  trough, at the bottom of the wet V and the lowest drainable point in the
-  cavity. Everything that enters has to cross the cavity to leave. The floor is
-  a wet slope to that trough and carries a printed boss for the internal SS float
-  rod. Body envelope: **[140.5 mm](RESERVOIR_W) wide (along Y)
+  two per cold core, standing on its pocket's floor. **Two mouths, both in its
+  cap, and they never share one.** The FILL is a ⌀[7.5 mm](TUBE_HOLE_D) bore
+  opening into the headspace above the liquid; the DRAW is a second bore the
+  line goes on down through to the flat floor as its own dip tube. Everything
+  that enters has to cross the cavity to leave. The floor carries a printed boss
+  for the internal SS float rod. Body envelope: **[140.5 mm](RESERVOIR_W) wide (along Y)
   × [48.5 mm](RESERVOIR_D) deep (along X, radially outward) × [199.9 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
@@ -135,27 +134,23 @@ Inboard of the ring's inner face (R < [61.5 mm](SUPPORT_RING_INNER_R))
 is open volume — so the carbonator's bottom-plate fittings have unobstructed
 downward space, and pour foam fills around them.
 
-Four 30°-wide angular slots are cut through the ring at azimuths
-45°/135°/225°/315°, leaving four 60° support segments aligned with
-the cardinal axes. The slots let pour foam reach the under-carbonator
-floor regardless of which cavity it enters from.
+Four 30°-wide angular slots are cut through the ring, centred at
+37°/127°/217°/307° — the diagonals clocked −8° (`_support_ring.slot_clock`) — leaving
+four 60° support segments. The slots let pour foam reach the under-carbonator
+floor regardless of which cavity it enters from, and they are where the two
+bottom-plate lines cross the ring, one slot each, so the ring is bored nowhere.
 
-**Both bottom-plate lines cross the ring at the 225° slot, and the ring is bored
-nowhere.** The **CO2 inlet** takes a ⌀[7.5 mm](TUBE_HOLE_D) reach in from the
-bottom plate's lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z),
-**leaning** across the shell's floor to land on the port lane under the top cap's
-`co2-in` conduit. The line falls the shell's whole height down that lane, and an
-axis struck on the shell's centreline would end 7 mm from the ring's own face —
-less than the corner takes, so the tube would have to finish bending inside the
-reach. Struck on the conduit's column instead, the fall lands on the axis itself:
-one corner out in the open, then straight in. The **carbonated-water outlet**
-crosses the same slot on the column its own cap conduit stands over, one storey
-above the CO2, leaning up as it goes.
+The **CO2 inlet** takes a ⌀[7.5 mm](TUBE_HOLE_D) reach in to the bottom plate's
+lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z), **leaning** across the
+shell's floor from the port lane through the 307° slot. The line falls the shell's whole
+height down that lane, runs along its floor and turns in where the lean both lands in
+the slot and stays outboard of reservoir A's pocket corner — the reservoir stands on that
+pocket's floor. The **carbonated-water outlet** crosses the 217° slot on the column it
+climbs, straight out from its own port.
 
 Neither notches a bearing segment and all four stay whole.
-`_port_cuts.ring_crossing_azimuths` measures the water outlet's crossing against
-`ring_slot_spans` every build, so moving either the column or the ring fails
-rather than drifts.
+`_port_cuts` measures both crossings against `ring_slot_spans` every build, so moving a
+column or the ring fails rather than drifts.
 
 ### outer_shell
 
@@ -434,15 +429,15 @@ the +Y flank into the enclosure’s exterior relief chase.
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
-| 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 225° slot and up beside the coil |
-| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the check downstream of WR1110 — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which opens **directly below the liquid** |
-| 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
-| 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same off B's floor bulkhead, out the pocket's +Y wall and forward along the west lane |
+| 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 217° slot and up beside the coil |
+| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the check downstream of WR1110 — the one line running DOWN: the port lane the shell's whole height, along its floor, then the leaning reach through the ring's 307° slot onto Port 1, which opens **directly below the liquid** |
+| 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | A's dip tube: straight down through the draw bore in A's own cap to **its floor** |
+| 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same through B's cap |
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | straight down onto the fill bore in reservoir A's own cap, **above its liquid** |
 | 12 | Reservoir B fill | **top-cap conduit** `reservoir-b-fill` | the same onto reservoir B's cap |
 
 **The carbonator and both reservoirs are filled high and drawn low** — the carbonator at
-its two plates, each reservoir at its cap and its trough. Nothing that enters one can leave
+its two plates, each reservoir through its cap, from above the liquid and from its floor. Nothing that enters one can leave
 without crossing it, which is what the air-purge and clean-flush service modes run on.
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
@@ -452,8 +447,8 @@ live on the warm side. Inside, every line is 1/4" OD.
 
 ### The runs themselves
 
-[`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) draws all
-seven as swept solids on the tube's own centreline, and `foam_assembly.py` measures each
+[`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) draws every
+line as a swept solid on the tube's own centreline, and `foam_assembly.py` measures each
 against the shell, the carbonator with its wrapped coil, and both reservoirs with their caps —
 then lands them as `foam-assembly/internal-routes.step`. A line in here is a void's
 occupant: it appears in no bounding box and collides with nothing, so drawing it is the
@@ -464,21 +459,12 @@ floor — `_routing.STOCKS`, the same bench-tested figure every run outside the 
 graded against — and stepping down until it stops meeting anything. That reading is the
 corridor's answer, not a choice, and the last line of the report is the pack's short list.
 
-Six of the seven turn at the stock arc, and two things buy that. Where a line crosses a
-wall, **the wall gives way**: the opening is the line's own corridor rather than a circle,
-and through a bag pocket's flat ±Y wall the rectangle bounding it, cut square
-(`_port_cuts.cut_line_corridors`), so a
-draw comes about the moment it is through instead
-of holding a bore's length of straight first. Where a line has to reach and rise at once
-it **leans** — one diagonal in place of two square corners on a step's own width — which
-is what the carbonated water does under the carbonator to cross the CO2, and again at the top to
-put itself on its conduit's column.
-
-`water-in` is the one left short. It comes off the top plate's elbow, has to travel
-outboard of both pockets (each one is full of reservoir to within a pour clearance of the
-cap's floor), and has to arrive back on its conduit's own station — and the whole of that
-step is taken inside the band between the top plate and the cap. The step is wider than
-the band is tall, so the two corners either end of it share a leg neither can have.
+Every one turns at the stock arc. Where a line has to reach and rise at once it **leans** —
+one diagonal in place of two square corners on a step's own width — which is what the
+carbonated water does on its way up beside the coil, and again at the top to put itself on
+its conduit's column. No line crosses a bag pocket: each reservoir's two lines are straight
+drops through its own cap, and the carbonated water's climb stands in the middle of the
+annulus between the coil and reservoir B's pocket wall.
 
 ### Port lane
 
@@ -515,40 +501,12 @@ that against the loop itself, on `clearance-floor` and `pack-closes`, so a
 slot that drops reads red over there rather than quietly walking the refrigerant loop into
 a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up from this top.
 
-**Three fluid lines use this lane and none of them crosses this wall:** reservoir A's
-draw runs forward along the lane's own floor at the bulkhead band, under everything;
-the CO2 falls the lane's whole height and turns in at the plate band above it; the
+**Two fluid lines use this lane and neither crosses this wall:** the CO2 falls the
+lane's whole height and runs along its floor at the plate band before it turns in; the
 carbonated water joins only once the carbonator's top plate is under it. The lane is one bore
-wide, so what keeps those three apart is the storey each takes, and
+wide, so what keeps them apart is the storey each takes, and
 `_internal_routes.report_routes` is what proves it. Above the shell,
 `cap_conduit_pair_neck` holds the two columns in this lane apart.
-
-### Two-bore front pass-throughs
-
-Each reed cable crosses its bag-pocket wall and then the −X wall, and the two bores
-share neither an axis nor a height. The pocket-wall bore sits outboard of the bulkhead
-axis, on `_cold_core_interface.reed_cable_conduit_xy`'s own station; reservoir A's draw
-comes about inboard of it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable
-costs.
-Both cross at the elbow's own exit Z. The cable's front bore is its station on the field,
-and between the two the run turns onto the lane and climbs to it — the lane is what lets
-them sit at different X *and* different Z.
-
-The cable's crossing is a round bore because a cable is limp. A DRAW's is not: it is the
-rectangle bounding that line's own corridor across the wall, cut square through it, a longer
-opening in x with at least the same loose clearance round the tube
-(`_port_cuts.pocket_wall_shadows`). Only two bodies in the shell give
-way to a line that way — a bag pocket's ±Y wall and the pocket corner posts — and every
-other thing a line meets stops it.
-
-A shaped hole has no diameter to check, so the LAND between it and its neighbour in the
-same wall is measured instead: `foam_shell.py` reads both openings out of the walls
-themselves at every build and fails under one wall thickness. A route that moves changes
-the hole's shape, and this is what keeps it from walking into the cable's.
-
-Both cables run through the open pocket space under the reservoir's raised floor, are
-threaded after the pour has cured, and are potted nowhere.
-`cut_pour_band_pass_through` in `_cold_core_interface.py` cuts each pair.
 
 ### The two lane slots and their copper plug stacks
 
@@ -643,7 +601,7 @@ Every internal component is installed first:
 
 - Carbonator lowered into the centerward arc envelope, seated
   on the `carbonator_support_ring`. Its four port elbows are already made up and clocked
-  to the lines they feed — the bottom-plate CO2 elbow onto the leaning bore, the
+  to the lines they feed — the bottom-plate CO2 elbow onto the leaning reach, the
   bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
   the water-side PP010822E and gas-side gray PI010822S collets hanging inboard
   of the ring. The top water-inlet elbow carries its qualified jet cap; the bottom
@@ -675,27 +633,21 @@ Every internal component is installed first:
   flush with the flank to open into the enclosure’s exterior relief chase. The
   native route is [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py)
   `prv-vent`; installed relief backpressure and capacity remain unqualified.
-- Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
-  inboard of the bulkhead axis — the opening there is the rectangle bounding the line's own
-  corridor, cut square through the wall, so
-  the tube turns as it crosses rather than after it — onto the port lane at the
-  bulkhead band, then forward along the lane's own floor, under everything else
-  standing in it, and up the forward strip to its conduit. Reservoir B's leaves by
-  its pocket's +Y wall onto the west lane and comes forward to the same strip.
 - Carbonated-water outlet off the bottom-plate Port 3 elbow, out to its own column
-  on the +Y side of the plate's axis, then **leaning** −Y and up together out
-  through the ring's 225° slot — over the CO2's run, which sweeps the same quadrant
-  at the plate band, one tube and one hug clear where the two cross. From there it
-  climbs beside the coil clear of the lane, and leans again at the top to put itself
-  on its conduit's own column for the last stock arc.
+  on the +Y side of the plate's axis, then straight −Y under the carbonator and out
+  through the ring's 217° slot into the annulus between the coil and reservoir B's
+  pocket wall. From there it climbs beside the coil clear of the lane, and leans at
+  the top to put itself on its conduit's own column for the last stock arc.
 - CO2 inlet on the plate's lane-side port at y = [-19.05](CO2_BORE_Y),
-  z = [17](CO2_BORE_Z) — its leaning reach crosses the ring's 225° slot on that line
-  and opens on the lane under the top cap's `co2-in` conduit. The line comes DOWN the
-  lane from that conduit, turns once in the open and runs straight in onto the collet
-  already made up under the plate.
+  z = [17](CO2_BORE_Z) — its leaning reach crosses the ring's 307° slot and opens on
+  the lane's floor. The line comes DOWN the lane from the top cap's `co2-in` conduit,
+  runs along that floor to the lean and goes straight in onto the collet already made
+  up under the plate.
 
-All five fluid runs are laid **before the top cap goes on**, because every one of
-them leaves by the lid and every one is potted where it turns.
+These four potted runs are laid **before the top cap goes on**, because every one of
+them leaves by the lid and every one is potted where it turns. The two reservoirs' lines
+are not: each reservoir is filled and drawn through its own cap, and those lines go in
+from above once the top cap is on (`reservoir/floor-and-dip-tube.md`).
 [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) is
 each run's drawn shape and the arc it turns at.
 
@@ -713,21 +665,17 @@ them.
 The **two reservoir pockets take no foam.** Each is occupied by its
 reservoir, which fills the pocket to [0.25 mm](RESERVOIR_GAP) on all
 four sides and leaves the same clearance at the top under the pocket
-wall top — the pour has no way in. The pocket interior stays an air
-cavity, which is what lets the reed cable be threaded through it to
-its pocket-wall hole at final assembly, after the foam has cured
+wall top — the pour has no way in. The reed channels are open
+cavities and stay empty: their columns drop in after cure
 ([`../reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)).
-The reed channels are likewise open cavities and stay empty: their
-columns drop in after cure.
 
 The longest required traverse for the foam is around the back of the
 coil at the ±X azimuths — the foam has to work through the embedded
 helical wraps and fill the 15 mm blanket out to the centerward wall's
 carbonator-side face, ~110 mm of arc to reach around from the ±Y entry.
 
-Before the pour, mask the clearance gaps around installed tubes at both
-reservoir-pocket crossings and outer exits with removable tape on the dry
-side. Keep tube mouths, collets and reed channels open. After cure, remove
+Before the pour, mask the clearance gaps around installed tubes at the
+outer exits with removable tape on the dry side. Keep tube mouths, collets and reed channels open. After cure, remove
 the masks and trim any external foam flush.
 
 ### Final assembly (after the body foam pour has cured)
@@ -823,11 +771,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1257778.758 mm³](FSHELL_VOLUME) |
+| volume | [1226622.369 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.510 to 141.510 mm](FSHELL_BBOX_X) |
-| bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
+| bbox z | [-0.008 to 213.454 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.510 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.976630, 0.178889, 91.217773) mm](CENTROID) |
+| centroid | [(0.942927, 0.186261, 93.222547) mm](CENTROID) |
 
 Quick reproduction:
 

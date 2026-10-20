@@ -7,7 +7,7 @@
     "CART_PUMPS": "2",
     "DOCK_BODY_GAP": "0.25 mm",
     "JOINT_COUNT": "4",
-    "KEEPERS": "4",
+    "KEEPERS": "3",
     "RECEIVERS": "4",
     "RETURNS": "4",
     "TIP_FROM_CARTRIDGE": "7.75 mm",

@@ -71,12 +71,6 @@ PARTS = (
     ("reservoir gaskets", "2× reservoir gasket", ("reservoir-a-gasket", "reservoir-b-gasket")),
     ("reed bridge", "Carbonator reed bridge", ("reed-bridge",)),
 
-    # §8 — the pockets' own hardware
-    ("floor bulkheads", "PureSec 1/4\" RO push-to-connect 90° elbow bulkhead",
-     ("bulkhead-reservoir-a", "bulkhead-reservoir-b")),
-    ("bulkhead seals", "uxcell silicone flat washer",
-     ("bulkhead-seal-a", "bulkhead-seal-b")),
-
     # §12 — level sensing
     ("floats", "ASA Aero magnetic float", ("float-carb", "float-a", "float-b")),
     # Each float compound contains the foam body and its inserted RC62.

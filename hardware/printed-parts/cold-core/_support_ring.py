@@ -16,6 +16,11 @@ from _cold_core_interface import (
 
 slot_count = 4
 slot_angular_width = 30.0
+# The slots stand between the diagonals and are clocked off them, so the two lines that cross
+# the ring under the carbonator each cross inside one: the CO2's lean in from the port lane,
+# which keeps outboard of reservoir A's pocket corner, and the carbonated water's climb out
+# (`_port_cuts.co2-inlet-slot`, `water-outlet-slot`).
+slot_clock = -8.0
 # Slot overruns each ring face radially.
 slot_radial_margin = 1.0
 
@@ -53,7 +58,7 @@ def build_carbonator_support_ring():
     slot_spacing_angle = 360 / slot_count
     slot_template = revolve_rect(slot_r_range, ring_z_range, slot_angular_width)
     for i in range(slot_count):
-        slot_center_angle = slot_spacing_angle * (i + 0.5)
+        slot_center_angle = slot_spacing_angle * (i + 0.5) + slot_clock
         slot_start_angle = slot_center_angle - slot_angular_width / 2
         slot = slot_template.rotate((0, 0, 0), (0, 0, 1), slot_start_angle)
         ring = ring.cut(slot)

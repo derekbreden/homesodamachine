@@ -152,8 +152,10 @@ PARTS = {
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
     "Enclosure — pump receiver keepers (one set)": [
-        f"enclosure/enclosure/enclosure-pump-receiver-keeper-{station}.step"
-        for station in ("west-outer", "west-inner", "east-inner", "east-outer")
+        # Two outer keepers, one per outer receiver, and the inner pair's keeper.
+        "enclosure/enclosure/enclosure-pump-keeper-outer.step",
+        "enclosure/enclosure/enclosure-pump-keeper-outer.step",
+        "enclosure/enclosure/enclosure-pump-keeper-middle.step",
     ],
     "Enclosure — pump return block": ["enclosure/enclosure/enclosure-pump-return-block.step"],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
@@ -166,8 +168,10 @@ PARTS = {
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
     # ONE FILE PER CAPPED TUBE ANCHOR: the printed other half of a rib's pipe, pressed on over the
-    # tube on each site `enclosure_assembly.TUBE_ANCHOR_CLOSURES` closes with a cap.
-    "Anchor cap — one per capped tube anchor": ["enclosure/anchor-cap/anchor-cap.step"],
+    # tube on each rib a cap closes: back-top's carb-1, co2-2 and fluid-28
+    # (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`) and the cold core lid's fluid-14 and fluid-18
+    # (`_cold_core_interface.cap_anchors`).
+    "Anchor cap — one per capped tube anchor": ["enclosure/anchor-cap/anchor-cap.step"] * 5,
     # ONE ROW, SIX CHIPS AND THE SIX WORDS THEY CARRY — one file per crossing the +Y wall of
     # back-top passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.

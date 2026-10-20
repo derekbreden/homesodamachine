@@ -34,7 +34,7 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    if piece.startswith(('pump-receiver-', 'pump-return-')):
+    if piece.startswith(('pump-receiver-', 'pump-return-', 'pump-keeper-')):
         return dict(up_axis_in_source=[0, 0, 1],
                     bed_face='Manufacturing export is already bedded in print pose',
                     source_to_print_mm=[[1, 0, 0, 0], [0, 1, 0, 0],

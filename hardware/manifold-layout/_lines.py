@@ -68,6 +68,7 @@ for _p in (_hw / "scripts", _here.parent,
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
+import _anchor_cap_interface as _anchor_cap           # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
 import g_ganen_installation as _pump                         # noqa: E402
@@ -87,6 +88,7 @@ import copper_plugs as _plugs                          # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
 import _gas_chain                                      # noqa: E402
+import _anchor_cap_interface as _anchor_cap            # noqa: E402
 import digiten_flow_sensor as _digiten                  # noqa: E402
 # The one floor every pair on the card answers to, so a run drawn against a casting
 # and the reading taken of it afterwards cannot come off two different millimetres.
@@ -110,7 +112,7 @@ ELBOW_CUFF_D = _pump_elbow.BARB_OD_INSTALLED + 2.0 * _pump_elbow.BAND_T
 # them: the suction elbow's leg to V-K's outlet, and the discharge elbow's leg to the check's
 # inlet collet.
 SUCTION_LEAD = (22.0, 15.0)
-DISCHARGE_LEAD = (9.0, TUBE_BEND)
+DISCHARGE_LEAD = (10.5, TUBE_BEND)
 # 1/4" soft ACR copper, the stock the sealed loop is cut from.
 CU_OD = 6.35
 # The straight each copper mouth takes before its first corner, so the arcs seat in the middle
@@ -360,9 +362,8 @@ def _co2_1(F):
 # WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the drain union, standing
 # in its cradle under the frame's drain hole with its aft leg reaching toward the core, and the
 # drain stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
-# `enclosure.funnel_front_y` and that offset, and with nothing else. The display housing's
-# back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
-# funnel aft behind it.
+# `enclosure.funnel_front_y` and that offset, and with nothing else. The display wall is
+# `enclosure.housing_back_y`, one running fit ahead of the funnel frame's flat front.
 # The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
@@ -807,11 +808,15 @@ GATE_B_STEP_Y = 393.0
 # apiece, so nearly all of this is straight — the reach is here to keep the corner well over the
 # 2° a lean needs to be a lean, not because the arcs want it.
 GATE_B_RISE_RUN = 20.0
-# Flavor A crosses the lid's fore strip on a low side bearing. The adjoining legs
-# pass 1.2 mm lower to clear the tap-water crossing and its cap-entry approach.
-GATE_A_FORE_DROP = 1.2
-GATE_A_POST_STRAIGHT_AIR = 1.0
-GATE_A_POST_EXIT = 7.0
+# Flavor A crosses the lid's fore strip on its capped rib. The adjoining legs pass 2.7 mm lower:
+# under the tap-water crossing and its cap-entry approach, and along the west flank a millimetre
+# under `fluid-28`'s anchor cap, whose wings reach 7.98 mm under that run's axis.
+GATE_A_FORE_DROP = 2.7
+# The crossing's square corners, each side of its capped lid rib's centre. The east one's R14
+# turn off the diagonal leaves 3.1 mm of straight past the rib's east end; the west one, where
+# the run leans down 1.2 mm over `GATE_A_LOW_LEAN_RUN`, a millimetre past its west end.
+GATE_A_JOIN_RUN = 19.4
+GATE_A_POST_EXIT = _anchor_cap.RIB_LEN / 2.0 + 1.0
 GATE_A_LOW_LEAN_RUN = 22.0
 # The west lane is outside the reservoir-B fill column and the discharge chain.
 # Its return begins behind the pump's discharge elbow and crosses the pump's west-rear foot,
@@ -824,13 +829,14 @@ GATE_A_RISE_RUN = 20.0
 
 
 def _gate_a_anchor(F) -> tuple:
-    """The installed side-post axis, from the cap's own placement declaration."""
+    """The installed crossing's axis at the middle of its capped lid rib, from the cap's own
+    placement declaration (`_cold_core_interface.cap_anchors["fluid-18"]`)."""
     draw = F["foam-assembly"].at("reservoir-a")
-    anchor = _cc.cap_side_anchors["fluid-18"]
+    anchor = _cc.cap_anchors["fluid-18"]
     local_draw = _cc.cap_conduits["reservoir-a"]
     # Installed cap +Y is world +X and cap +X is world -Y.
     return (draw[0] + anchor.centre[1] - local_draw[1],
-            draw[1] + local_draw[0] - _cc.cap_side_axis_y("fluid-18"),
+            draw[1] + local_draw[0] - anchor.centre[0],
             draw[2] + anchor.over_face)
 
 
@@ -895,7 +901,7 @@ def _fluid_28(F, solids):
 def _fluid_18(F, solids):
     """Flavor A: cross the low cap bearing, follow the west flank and reach the rear union.
 
-    The complete post bears on a straight tube ahead of the cap valves. The west leg
+    The capped lid rib bears on a straight tube ahead of the cap valves. The west leg
     passes outside the fill column and discharge chain, then turns in behind the
     discharge elbow, holds `LANE_CLEAR` over the pump's west-rear foot and rises onto the
     rear union's axis.
@@ -903,8 +909,7 @@ def _fluid_18(F, solids):
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
     anchor_x, deck_y, cross_z = _gate_a_anchor(F)
-    join_x = (anchor_x + _cc.cap_side_len / 2.0 + TUBE_BEND
-              + GATE_A_POST_STRAIGHT_AIR)
+    join_x = anchor_x + GATE_A_JOIN_RUN
     post_exit_x = anchor_x - GATE_A_POST_EXIT
     fore_z = cross_z - GATE_A_FORE_DROP
     low_z = (F["foam-assembly"].at("reservoir-a")[2] + _pump.observed_pad_upper_z()
@@ -925,31 +930,26 @@ def _fluid_18(F, solids):
         kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND, 3: TUBE_BEND,
                             4: TUBE_BEND, 5: TUBE_BEND,
                             6: 25.4, 7: 25.4, 8: 25.4, 9: 25.4},
-        note="flavor A: V-G-O → rear union, through the low fore cap post, "
+        note="flavor A: V-G-O → rear union, over the low fore cap rib, "
              "aft along the west flank and over the pump's west-rear foot")
 
 
 # --- the four reservoir lines, gate to reservoir and reservoir to gate --------
 #
-# Neither reservoir has a junction: each carries two mouths of its own — the draw on the bulkhead
-# at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach
-# one directly. The fill arrives ABOVE THE LIQUID, which is the whole point of the second mouth:
-# everything entering has to cross the cavity to leave by the trough, so a purge displaces what
-# is in there rather than short-circuiting back out the drain it came in by.
+# Neither reservoir has a junction: each carries two mouths of its own, both bores in its own cap —
+# the fill, which ends above the liquid, and the draw, whose line goes on down the bore to the
+# floor as the reservoir's dip tube — so each pair's two valves reach one directly. Everything
+# entering has to cross the cavity to leave, so a purge displaces what is in there rather than
+# short-circuiting back out the way it came in.
 #
 # Both ends face up: a gate's lower-deck collet and a cap conduit open +Z.
-# Each crossing rises above its gate and returns into the cap or draw gate.
+# Each line rises off its conduit and comes down onto its gate's lead.
 #
-# Reservoir A's draw crosses one stock radius above its upward gate. The two B
-# lines use a lower crown and shallow gate leads, retaining their full R14 turns
+# The two B lines use a lower crown and shallow gate leads, retaining their full R14 turns
 # below the funnel frame. Reservoir A's fill uses its own anchored low lane.
 RESERVOIR_CRUISE = TUBE_BEND
 RESERVOIR_B_CRUISE = TUBE_BEND - 0.6
 RESERVOIR_B_GATE_LEAN_DEG = 2.9
-# B's draw crown passes below the fill crossing, then rises toward its gate.
-# The separate gate lead seats the complete R14 approach below the funnel frame.
-RESERVOIR_B_DRAW_DROP = 8.9
-RESERVOIR_B_DRAW_GATE_LEAD = 15.3
 # The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
 #
 # THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
@@ -960,28 +960,20 @@ RESERVOIR_B_DRAW_GATE_LEAD = 15.3
 # clear the machine's whole depth.
 # `water-5` leaves the anchored discharge chain's collet and slants down to its cap
 # bore. Its own placed route determines the crossing clearance in this plane.
-#   `FILL_B_JOIN_Y` is then fenced from the other side: `fluid-26` rises off the draw bore at
-# y 184 on this same column, so the join stands clear of that climb by more than the two lines'
-# own sections. `FILL_B_LEAN_Y` holds the gate's column long enough to make the crossing steep,
-# which is what buys that clearance.
+#   `FILL_B_LEAN_Y` holds the gate's column long enough to make the crossing steep.
 FILL_B_LEAN_Y = 170.0
 FILL_B_JOIN_Y = 192.0
 # What a line holds off a body it passes in a lane, where the lane is the whole of its room.
 LANE_CLEAR = 4.0
-# The high approach crosses over fluid-16. The long low leg's column and height belong to
+# The high approach to the lane. The long low leg's column and height belong to
 # its cap anchor, in the native round-body gap between V-A and V-K. Its finished sweep must
 # retain the ordinary clearance floor to both valves; their boxes do not describe that gap.
 FILL_A_LANE_Z = 289.0
 # Straight lead off V-F before spending its lifted station in the diagonal. The completed
 # route below checks every bend rather than assuming this lead alone guarantees R14.
 FILL_A_GATE_LEAD = 14.6
-# A shallow aft lean keeps both gate approaches below the complete funnel frame.
+# A shallow aft lean keeps the gate approach below the complete funnel frame.
 FILL_A_GATE_LEAN_DEG = 2.9
-# The draw line and fill line cross as two long leans. Keep their centre lines a tube section
-# plus this air apart at the fill line's lane plane, rather than making either established end
-# storey carry the other's valve lift.
-FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 16.3
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
@@ -989,23 +981,51 @@ FILL_A_DRAW_GATE_LEAD = 16.3
 #
 #     tools/cad-venv/bin/python hardware/scripts/probe.py reroute fluid-14 3-4 y- 0:6:0.5
 #
-# — clear to 2.5 mm forward of here, then that corner starves and `fluid-16` arrives a few
-# millimetres behind it. The rib holding this run stands in the cap's own frame and does not
-# follow the fall: `_cold_core_interface.cap_anchors["fluid-14"]`.
+# — clear to 2.5 mm forward of here, then that corner starves. The rib holding this run stands
+# in the cap's own frame and does not follow the fall: `_cold_core_interface.cap_anchors["fluid-14"]`.
 FILL_A_LANE_RUN = TUBE_BEND
 # How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
 # what reaches the cap's plane is the fall plus those two arcs.
 FILL_A_FALL_RUN = 6.0
 # After the complete cap bearing, a shallow descent passes under the suction elbow and the
-# tube leaving it. The rear fill approach keeps the cap anchor's storey; neither printed anchor
-# nor conduit moves.
+# tube leaving it. It ends where it did; its run is short enough that the bearing keeps its
+# whole straight aft of the rib. The rear fill approach keeps the cap anchor's storey;
+# neither printed anchor nor conduit moves.
 FILL_A_HOSE_DROP = 1.25
-FILL_A_HOSE_FALL_RUN = 20.0
+FILL_A_HOSE_FALL_RUN = 12.0
 # The valve-side leg passes below the wide part of V-A, then returns to the
 # complete cap bearing before its fore edge. These gentle bends retain R14.
 FILL_A_VALVE_DROP = 1.5
 FILL_A_VALVE_RETURN_RUN = 8.0
-FILL_A_BEARING_LEAD = 2.0
+# THE CAP BEARING IS A STRAIGHT A SNAP CAP CLOSES ON: the rib's own length and a millimetre past
+# each end of it, level at the bearing's height and centred on the rib, before either corner
+# beside it begins to turn (`_anchor_cap_interface.RIB_LEN`).
+FILL_A_BEARING_STRAIGHT = _anchor_cap.RIB_LEN + 2.0
+
+# RESERVOIR A'S DRAW CROSSES THE DECK. Its dip tube comes up out of the aft pocket between the
+# pump's two east feet, and the gate it serves stands at the front of the machine. The run climbs
+# over the pump's suction elbow, holds that storey forward along the pump's east side, threads the
+# gap V-A's and V-K's coils leave between them, and leans down past the fill's fall onto the
+# gate's lead. The deck path rides the core — its stations are struck in the cap's own frame
+# (`_on_cap`) — and the approach rides the gate.
+#   The cruise stands over the lid's face clear of the suction elbow and its clamp, which reach
+# 35 mm over it.
+DRAW_A_CRUISE = 43.4
+# Where the cruise ends, aft of V-A's coil, and where the run comes out of the gap forward of
+# V-K: cap-frame stations, the second with its height over the lid's face.
+DRAW_A_NECK_IN = (56.5, 47.7)
+DRAW_A_NECK_OUT = (92.2, 42.9, 38.3)
+# The approach, off the gate: between the source step `step-fluid-3` and the fill's fall, low
+# enough that the lean onto the lead stays under the funnel frame.
+DRAW_A_APPROACH = (11.7, 90.1, -2.3)
+DRAW_A_GATE_LEAD = 16.4
+# RESERVOIR B'S DRAW rises out of the front pocket west of the funnel's drain line, crosses over
+# that line's elbow on the way forward, and comes about west of the elbow's cradle onto the gate's
+# lead. The crown stands over the lid's face clear of the drain line, which reaches 30 mm over it.
+DRAW_B_CRUISE = 34.6
+DRAW_B_APPROACH = (-1.65, 90.7, 2.8)
+DRAW_B_GATE_LEAD = 15.3
+DRAW_GATE_LEAN_DEG = 2.9
 
 
 def _fill_a_lane_y(solids) -> float:
@@ -1031,7 +1051,7 @@ def _fill_a_turn_y(F) -> float:
 def _fluid_14(F, solids):
     """fluid-14 — the channel-A fill gate to the bore in reservoir A's own cap.
 
-    Rise off V-F, cross above fluid-16, then fall into the round-body gap between V-A and V-K.
+    Rise off V-F, then fall into the round-body gap between V-A and V-K.
     The valve-side leg passes below V-A and returns to its anchor's height before the
     complete cap bearing. It descends gently under the suction elbow's tube, leaves that
     lane aft of the elbow and returns to the anchor's storey on the fill-bore approach. Both
@@ -1047,7 +1067,9 @@ def _fluid_14(F, solids):
     bearing_y = (F["foam-assembly"].at("reservoir-a")[1]
                  + _cc.cap_conduits["reservoir-a"][0]
                  - _cc.cap_anchors["fluid-14"].centre[0])
-    valve_return = bearing_y - _cc.cap_anchor_len / 2.0 - FILL_A_BEARING_LEAD
+    # The bearing's fore end is where the corner off the valve-side leg finishes turning.
+    kink = TUBE_BEND * math.tan(math.atan2(FILL_A_VALVE_DROP, FILL_A_VALVE_RETURN_RUN) / 2.0)
+    valve_return = bearing_y - FILL_A_BEARING_STRAIGHT / 2.0 - kink
     valve_under = cap - FILL_A_VALVE_DROP
     hose_fall_end = F["pump-elbow-suction"].at("tube")[1] - TUBE_BEND
     hose_fall_start = hose_fall_end - FILL_A_HOSE_FALL_RUN
@@ -1067,31 +1089,53 @@ def _fluid_14(F, solids):
         (bore[0], bore[1], cap),                            # one lean east onto the bore's column
         "foam-assembly.reservoir-a-fill",                   # and straight down the strip into it
         kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="reservoir A fill: V-F-O → the fill bore in its own cap, over `fluid-16`'s lean and "
-             "straight down onto the cap, then the whole way aft in the lane V-K and V-A leave "
-             "to the bore's own column behind the suction elbow")
+        note="reservoir A fill: V-F-O → the fill bore in its own cap, straight down onto the cap, "
+             "then the whole way aft in the lane V-K and V-A leave to the bore's own column "
+             "behind the suction elbow")
+
+
+def _on_cap(F, cap_xy, over_face=0.0) -> tuple:
+    """A station struck in the top cap's own frame, carried into the world off the cap's own
+    `reservoir-a` conduit: the installed cap lays its +Y on world +X and its +X on world −Y."""
+    ref = F["foam-assembly"].at("reservoir-a")
+    local = _cc.cap_conduits["reservoir-a"]
+    return (ref[0] + cap_xy[1] - local[1], ref[1] + local[0] - cap_xy[0], ref[2] + over_face)
+
+
+def _gate_lead(gate, toward, lead: float) -> tuple:
+    """The top of a gate's lead: `lead` straight over its collet, leaning `DRAW_GATE_LEAN_DEG`
+    toward the point the run comes in from, within the collet's own allowance."""
+    dx, dy = toward[0] - gate[0], toward[1] - gate[1]
+    reach = math.hypot(dx, dy)
+    lean = lead * math.tan(math.radians(DRAW_GATE_LEAN_DEG))
+    return (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, gate[2] + lead)
 
 
 def _fluid_16(F):
-    """fluid-16 — the draw conduit on reservoir A's cap to the channel-A draw gate.
+    """fluid-16 — reservoir A's dip tube, up out of its own cap and across the deck to the
+    channel-A draw gate.
 
-    A's draw conduit stands at the head of its band on the same forward strip B's does. It rises
-    to a plane one tube and `FILL_A_DRAW_CLEAR` under the fill lane, then leans forward, inboard
-    and up to a full-radius lead over the lifted gate. The unequal endpoints spend the valve
-    lift in that long lean while both established reservoir and gate stations stay put."""
+    The riser climbs off the conduit over the pump's suction elbow, the cruise runs forward along
+    the pump's east side, the run threads the gap between V-A's and V-K's coils, and one lean
+    brings it down past the fill's fall to the gate's full-radius lead."""
     bore = F["foam-assembly"].at("reservoir-a")
     gate = F["valve-v-e"].at("inlet")
-    draw_z = FILL_A_LANE_Z - _split.TUBE_D - FILL_A_DRAW_CLEAR
-    gate_z = gate[2] + FILL_A_DRAW_GATE_LEAD
+    cruise = bore[2] + DRAW_A_CRUISE
+    neck_in = _on_cap(F, DRAW_A_NECK_IN)
+    neck_out = _on_cap(F, DRAW_A_NECK_OUT[:2], DRAW_A_NECK_OUT[2])
+    approach = (gate[0] + DRAW_A_APPROACH[0], gate[1] + DRAW_A_APPROACH[1],
+                gate[2] + DRAW_A_APPROACH[2])
     return R.bent(
         "fluid-16", "foam-assembly.reservoir-a",
-        (bore[0], bore[1], draw_z),              # up under the fill lane with named skin air
-        (gate[0], gate[1] + FILL_A_DRAW_GATE_LEAD * math.tan(math.radians(FILL_A_GATE_LEAN_DEG)),
-         gate_z),                              # full-radius approach, leaning aft within the collet
+        (bore[0], bore[1], cruise),             # straight up the conduit's axis
+        (neck_in[0], neck_in[1], cruise),       # forward along the pump's east side
+        neck_out,                               # through the gap V-A and V-K leave
+        approach,                               # down past the fill's fall
+        _gate_lead(gate, approach, DRAW_A_GATE_LEAD),
         "valve-v-e.inlet",                      # and straight down into the collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="reservoir A draw: the cap's draw conduit → V-E-I, up under the fill lane and "
-             "one lean forward, inboard and up onto the lifted gate's own column")
+        note="reservoir A draw: the dip tube up out of A's cap → V-E-I, forward along the "
+             "pump's east side and between V-A and V-K onto the gate's lead")
 
 
 def _fluid_24(F):
@@ -1119,26 +1163,23 @@ def _fluid_24(F):
 
 
 def _fluid_26(F):
-    """fluid-26 — the draw conduit on reservoir B's cap to the channel-B draw gate.
+    """fluid-26 — reservoir B's dip tube, up out of its own cap to the channel-B draw gate.
 
-    The draw crown stands below the fill crossing. Its long lean then rises toward the
-    gate's full-radius lead, between the tap-water descent and the source feed above.
-    Both turns remain below the funnel frame."""
+    The riser climbs off the conduit over the funnel's drain line; one diagonal takes it forward
+    and west of the drain elbow's cradle, and a lean brings it to the gate's full-radius lead."""
     bore = F["foam-assembly"].at("reservoir-b")
     gate = F["valve-v-h"].at("inlet")
-    draw_z = gate[2] + RESERVOIR_B_CRUISE - RESERVOIR_B_DRAW_DROP
-    gate_z = gate[2] + RESERVOIR_B_DRAW_GATE_LEAD
-    lean = RESERVOIR_B_DRAW_GATE_LEAD * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
-    dx, dy = bore[0] - gate[0], bore[1] - gate[1]
-    reach = math.hypot(dx, dy)
+    approach = (gate[0] + DRAW_B_APPROACH[0], gate[1] + DRAW_B_APPROACH[1],
+                gate[2] + DRAW_B_APPROACH[2])
     return R.bent(
         "fluid-26", "foam-assembly.reservoir-b",
-        (bore[0], bore[1], draw_z),             # lower crown clears the fill crossing
-        (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, gate_z),
+        (bore[0], bore[1], bore[2] + DRAW_B_CRUISE),  # straight up the conduit's axis
+        approach,                               # forward, west of the drain elbow's cradle
+        _gate_lead(gate, approach, DRAW_B_GATE_LEAD),
         "valve-v-h.inlet",                      # shallow approach into the gate's collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="reservoir B draw: the cap's draw conduit → V-H-I, up off the bore and one lean "
-             "forward and inboard onto the gate's own column")
+        note="reservoir B draw: the dip tube up out of B's cap → V-H-I, forward west of the "
+             "funnel drain's elbow onto the gate's lead")
 
 
 def _refrig_3(F):

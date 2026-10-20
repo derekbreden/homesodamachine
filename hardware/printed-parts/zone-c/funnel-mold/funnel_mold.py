@@ -226,7 +226,7 @@ def build():
     cavity_outer = expanded(ramp, funnel.collar_wall + backing_allowance)
     backing_bodies = (
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
-        funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
+        funnel.brim_plan(0.0, 0, top),
         funnel.elbow_cradle.plug_outline(funnel.plug_width/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
@@ -278,9 +278,7 @@ def build():
         cq.Vector(x, y, guide_top))
     plate = rounded(flange_width, flange_depth, flange_radius, top, back)
     # The brim's top face grows downward by the measured finishing thickness.
-    plate = plate.cut(funnel._rounded_box(m['out_w']+2*finish_allowance,
-        m['out_d']+2*finish_allowance, funnel.brim_corner_r+finish_allowance,
-        top-1, top+finish_allowance))
+    plate = plate.cut(funnel.brim_plan(finish_allowance, top-1, top+finish_allowance))
 
     rod_bottom = end-rod_end_depth
     rod_top = rod_bottom+rod_length
@@ -337,8 +335,10 @@ def build():
     arc_radius = funnel.brim_corner_r - m['rim_ring']/2
     corner_x = m['out_w']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
     corner_y = m['out_d']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
-    pour = (-corner_x, -corner_y)
-    vents = [(corner_x, -corner_y), (corner_x, corner_y),
+    # The brim's square front corners take their ports on the ring's own midline.
+    front_x, front_y = port_radius, m['out_d']/2-m['rim_ring']/2
+    pour = (-front_x, -front_y)
+    vents = [(front_x, -front_y), (corner_x, corner_y),
              (-corner_x, corner_y), (-port_radius, 0), (port_radius, 0)]
     ports = [cylinder(pour_diameter/2, top-1, back+1, *pour)]
     ports += [cylinder(vent_diameter/2, top-1, back+1, *xy) for xy in vents]

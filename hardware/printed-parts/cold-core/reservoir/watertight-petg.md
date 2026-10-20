@@ -53,14 +53,14 @@ The reservoir is a vented cup with 3 mm walls/floor and 6 mm internal corner
 fillets. Six M3 fasteners clamp a separate cap through a TPU gasket. The PTFE
 vent equalizes headspace pressure. Cold service is 8–15 °C.
 
-A purchased silicone flat washer in the wet-side bulkhead counterbore is the
-primary floor seal; the dry side carries a printed TPU washer and locknut.
-Sealing faces and controlled washer compression establish that joint.
-[Floor and bulkhead](floor-and-bulkhead.md) describes the hardware.
+Nothing pierces the cup below its rim: both lines enter through the cap, and the
+draw line goes on down to the floor as its own dip tube. The printed floor and
+walls are the whole fluid barrier. [Floor and dip tube](floor-and-dip-tube.md)
+describes them.
 
 Arachne fits widths to the geometry. Six requested walls are a limit, rather
 than six tracks everywhere in a 3 mm wall. Check the emitted wall, corner,
-seam, floor/wall and bulkhead-seat paths when refreshing geometry. Nominal
+seam and floor/wall paths when refreshing geometry. Nominal
 100% fill and a closed mesh do not establish that the deposited part holds
 water. Ironing is disabled on every model and support surface.
 

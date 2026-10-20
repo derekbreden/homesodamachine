@@ -45,7 +45,7 @@ def run(*, include_routes=True, output=HERE/'native-installation-check.json'):
     gate=(bb[2]+bb[5])/2+ea.FLAVOR_STOREY_DROP
     f0,_=ea.build_foam(0.)
     foam,fc=ea.build_foam(ea._enc.rear_plane_y-ea._enc.rear_seam_clear-ea.box(f0).ylen)
-    shape,carry=ea.build_water_pump(foam,gate)
+    shape,carry=ea.build_water_pump(foam,gate,fc)
     core_y_shift=ea.box(foam).ymax-facts['bodies']['foam-assembly'][4]
     print('placed pump',bounds(shape),flush=True)
     elbows={name:(bodies[name],elbow_carry) for name,bodies,elbow_carry in ea.build_pump_elbows(carry).values()}

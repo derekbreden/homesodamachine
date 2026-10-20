@@ -412,10 +412,14 @@
           },
           {
             "material": "HSM-000323",
-            "quantity": 1,
+            "quantity": 5,
             "unit": "ea",
             "bodies": [
-              "anchor-cap-carb-1"
+              "anchor-cap-carb-1",
+              "anchor-cap-co2-2",
+              "anchor-cap-fluid-28",
+              "anchor-cap-fluid-14",
+              "anchor-cap-fluid-18"
             ]
           },
           {
@@ -1365,24 +1369,6 @@
             "unit": "ea",
             "bodies": [
               "reed-bridge"
-            ]
-          },
-          {
-            "material": "HSM-000030",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-reservoir-a",
-              "bulkhead-reservoir-b"
-            ]
-          },
-          {
-            "material": "HSM-000031",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "bulkhead-seal-a",
-              "bulkhead-seal-b"
             ]
           },
           {
@@ -2640,32 +2626,6 @@
       ],
       "aliases": [
         "reed bridge"
-      ]
-    },
-    {
-      "id": "HSM-000030",
-      "description": "PureSec reservoir elbow bulkhead \u00b7 1/4 inch",
-      "kind": "purchased",
-      "aliases": [
-        "floor bulkheads"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000031",
-      "description": "Reservoir bulkhead silicone seal",
-      "kind": "purchased",
-      "aliases": [
-        "bulkhead seals"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
       ]
     },
     {

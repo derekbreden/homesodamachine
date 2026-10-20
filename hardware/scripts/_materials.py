@@ -333,6 +333,7 @@ PETGF_BLACK_PARTS = {
     "above-counter-plate", "faucet-display-cover", "faucet-display-cover-seated",
     "industrial-shell-base", "industrial-display-cover", "industrial-above-counter-plate",
     "umbilical-organizer", "anchor-cap", "anchor-cap-carb-1",
+    "anchor-cap-co2-2", "anchor-cap-fluid-28", "anchor-cap-fluid-14", "anchor-cap-fluid-18",
 }
 
 

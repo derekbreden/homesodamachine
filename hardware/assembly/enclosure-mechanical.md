@@ -86,7 +86,7 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length (RX-M3x5.7) — two.** The two in the condenser fin's fingers on `enclosure-front-bottom`'s +X wall that the block's aft flanges are drawn down onto. Each bore takes the full-length body.
-- **Short (RX-M3Sx4.0) — [26](SHELL_SHORT_INSERTS).** The C14's two in the fore face of the +Y wall's inlet tunnel, the [17](EAST_BOSSES) +X wall bosses the electronics bay bolts to, and [3](DOCK_LOCK_INSERTS) factory pump-dock locks in the aft tray foot's bosses under the return block. The receiver keepers take no insert. The Z seams take no screw and no insert: their retention is the rails' own hooked heads. Every one of these is short because its own bore stops where it does — `bom.md` §13 names what each is spending that depth on.
+- **Short (RX-M3Sx4.0) — [22](SHELL_SHORT_INSERTS).** The C14's two in the fore face of the +Y wall's inlet tunnel, the [17](EAST_BOSSES) +X wall bosses the electronics bay bolts to, and [3](DOCK_LOCK_INSERTS) factory pump-dock locks in the aft tray foot's bosses under the return block. The receiver keepers take no insert. The Z seams take no screw and no insert: their retention is the rails' own hooked heads. Every one of these is short because its own bore stops where it does — `bom.md` §13 names what each is spending that depth on.
   The main board's four insert tops sit **2.25 mm behind their PCB mounting
   faces**. Their Ø7 entry sleeves occupy the unchanged tail-clearance footprints;
   the complete Ø8 brass hosts stand behind the tails. Install these before the
@@ -97,7 +97,7 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
   other electronics inserts seat on their actual mounting faces: the PSU takes
   M3 × 10 through its moulded ears and each relay M3 × 6 through its board, with
   each stack in `bom.md` §13.
-- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed [0.125 mm](POGO_FACE_RECESS); its ear datum is [3.125 mm](POGO_EAR_HOST_DEPTH) and the insert's top [7.375 mm](POGO_INSERT_HOST_DEPTH) inside the printed face. The insert starts [4.25 mm](POGO_INSERT_SETBACK) behind the ear datum. The 2.6 mm wide loading stadium admits the whole Ø2.3 knurl; the Ø2.0 pilot continues 5.5 mm from the insert-top datum. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
+- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed [0.125 mm](POGO_FACE_RECESS); its ear datum is [3.125 mm](POGO_EAR_HOST_DEPTH) and the insert's top [5.125 mm](POGO_INSERT_HOST_DEPTH) inside the printed face. The insert starts [2 mm](POGO_INSERT_SETBACK) behind the ear datum. The 2.6 mm wide loading stadium admits the whole Ø2.3 knurl; the Ø2.0 pilot continues 5.5 mm from the insert-top datum. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. A second tip off the same T18 kit.
 
 The acquired VECO-T T18 assortment includes I/LB fine tips; the M2–M8 insert kit
@@ -106,13 +106,13 @@ insert through the 2.6 mm loading passage without bearing on its printed wall. T
 
 Install each M1.4 insert before its connector is fitted. Hold the loose piece with
 the bore vertical. Use a spare insert and the existing calipers to set the cold
-tip/probe's insertion travel to [7.375 mm](POGO_INSERT_HOST_DEPTH) from the printed mating face; mark that
+tip/probe's insertion travel to [5.125 mm](POGO_INSERT_HOST_DEPTH) from the printed mating face; mark that
 travel on the probe. Heat and press straight through the clearance entry, stopping
-with the insert's top [7.375 mm](POGO_INSERT_HOST_DEPTH) below that face. Allow it to cool, then verify the
+with the insert's top [5.125 mm](POGO_INSERT_HOST_DEPTH) below that face. Allow it to cool, then verify the
 depth with the cold probe and calipers before seating the connector. Do not use
 the blind end or the connector's screw to force the depth. The current installation must seat a whole insert without melting the ear datum or moving
 the connector face more than ±0.05 mm from its designed [0.125 mm](POGO_FACE_RECESS) recess. The M1.4×8 screw engages
-[2.75 mm](POGO_THREAD_ENGAGEMENT) of its 4 mm body and leaves [2.75 mm](POGO_SCREW_TIP_AIR) before the pilot's blind end. Existing coupon acceptance retains its identified seat geometry; the recessed installation and actual tool fit remain unqualified.
+[4 mm](POGO_THREAD_ENGAGEMENT) of its 4 mm body and leaves [0.5 mm](POGO_SCREW_TIP_AIR) before the pilot's blind end. Existing coupon acceptance retains its identified seat geometry; the recessed installation and actual tool fit remain unqualified.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
 checks the complete host walls, blind relief, caps, entry paths and every corner-stack knuckle.
@@ -120,7 +120,7 @@ Use locally solid deposition through these hosts and their roots as specified in
 that review. Installed fit, pullout and assembled drop performance remain physical
 qualification items.
 
-**Back-top is populated inverted on the bench, ceiling down.** Its ceiling is its own slab, and every anchor under it — the flow meter's two, the carb, CO2 and regulator ribs — is an upward-opening cradle with the piece on its back: the body drops in, the zip tie goes round (on the carb rib, the [anchor cap](/hardware/printed-parts/enclosure/anchor-cap/README.md) presses on instead), and the piece comes upright with everything riding it.
+**Back-top is populated inverted on the bench, ceiling down.** Its ceiling is its own slab, and every anchor under it — the flow meter's two, the carb, CO2 and regulator ribs — is an upward-opening cradle with the piece on its back: the body drops in, the zip tie goes round (on the carb and CO2 ribs, an [anchor cap](/hardware/printed-parts/enclosure/anchor-cap/README.md) presses on instead, as one does on flavor B's rib on the −X wall), and the piece comes upright with everything riding it.
 
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
 
@@ -313,8 +313,8 @@ Use a **hand-operated 1.3 mm hex driver** to seat **two M1.4 × 8** screws into
 the **two M1.4 × 4 × Ø2.3** inserts pressed at §1. Stop with the ear plates
 seated flat, without rotating the inserts or bending the ears. Powered torque
 settings are not qualified for this joint. The 1 mm ears and
-[4.25 mm](POGO_INSERT_SETBACK) setback give [2.75 mm](POGO_THREAD_ENGAGEMENT)
-nominal thread engagement and [2.75 mm](POGO_SCREW_TIP_AIR) blind-end clearance. The
+[2 mm](POGO_INSERT_SETBACK) setback give [4 mm](POGO_THREAD_ENGAGEMENT)
+nominal thread engagement and [0.5 mm](POGO_SCREW_TIP_AIR) blind-end clearance. The
 [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
 datums, the attracting orientation and the installed compression limits.
 
@@ -362,7 +362,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [133](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [138](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 
