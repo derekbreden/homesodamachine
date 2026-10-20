@@ -76,7 +76,7 @@
     "POGO_SCREWS_COST": "$0.70",
     "POGO_SCREW_TIP_AIR": "0.5",
     "POGO_THREAD_ENGAGEMENT": "4",
-    "PP0308E_COST": "$11.41",
+    "PP0308E_COST": "$11.42",
     "PP0308E_TOTAL": "5",
     "PP1208E_INLET": "1",
     "PP1208E_PANEL": "3",
@@ -139,7 +139,7 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,453.97",
+    "BOM_GRAND": "$1,453.98",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$41.88",
     "BOM_SEC12": "$29.78",
@@ -152,7 +152,7 @@
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$18.64",
     "BOM_SEC7": "$165.44",
-    "BOM_SEC8": "$249.22",
+    "BOM_SEC8": "$249.23",
     "BOM_SEC9": "$72.01"
   }
 }

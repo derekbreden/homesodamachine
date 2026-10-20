@@ -14,6 +14,8 @@
     13.25
   ],
   "crotch_web_half_width_mm": 7.0,
+  "common_chamber_min_web_stock_mm": 3.0,
+  "common_chamber_width_mm": 4.8,
   "groove_y_mm": [
     7.0,
     10.25
@@ -31,15 +33,15 @@
   "neck_mouth_w_mm": 12.4,
   "lower_socket_stop_bore_mm": 5.5,
   "lower_socket_stop_radial_mm": 0.2999999999999998,
-  "lower_socket_stop_taper_mm": 0.6000000000000001,
+  "lower_socket_stop_taper_mm": 1.2000000000000002,
   "installed_tip_stop_contact_area_mm2": 7.910923000820796,
   "customer_tip_clearance_mm": 0.5,
-  "flow_throat_d_mm": 5.0,
+  "flow_throat_d_mm": 4.3,
   "relief_taper_y_mm": [
     7.775,
-    8.675
+    9.025
   ],
-  "print_orientation": "Yaw the actual lower outward axis onto +Y, then rotate it onto -Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+  "print_orientation": "Rotate -135 degrees about X; the integral aft web landing is flat on the bed. Circular lands stand 45/45/20 degrees (inner) or 45/45/45 degrees (outer) from vertical. Exterior Tree(auto)/Default supports.",
   "physical_reference": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
   "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."
 }

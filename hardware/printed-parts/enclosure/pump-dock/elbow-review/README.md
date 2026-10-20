@@ -14,7 +14,9 @@ The illustration highlights exact assembly meshes. The wall is hidden to show it
 - [Shell scope](shell-scope.json): the native front-top has zero added or removed volume outside X ±105, Y 78–188, Z 130–230 mm. Roof, display and other shell geometry match the input part.
 - [Aggregate refresh](aggregate-refresh.json): affected native members match their source geometry. Unrelated native bodies retain their geometry and colours; unrelated viewer arrays retain their fingerprints. The four formed tube solids stop at the known release faces. The [front-top service scene](scene-refresh.json) contains the same purchased elbows, junctions and tubing.
 
-The standalone manifold generator reports zero volume clashes. Junction manufacturing exports stand on their actual lower sealing mouths; keeper exports lie flat on their wall faces. The [current manufacturing instructions](../README.md#manufacture) define the seven printed pieces and the scope of archived print projects.
+The standalone manifold generator reports zero volume clashes. Junction manufacturing exports lie on a broad aft web landing. The inlet/upper lands stand 45 degrees from vertical; lower lands stand 20 degrees (inner) or 45 degrees (outer). Keeper exports lie flat on their wall faces. The [current manufacturing instructions](../README.md#manufacture) define the seven printed pieces and the scope of archived print projects.
+
+The [junction cavity reading](junction-cavity.json) records open socket axes, retained annular bearings, removed native fin witnesses and the flat print landing. The chamber stays within the web's 3 mm inset; circular seal lands remain intact.
 
 ## Tube preparation
 

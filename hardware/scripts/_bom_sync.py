@@ -585,7 +585,7 @@ def main(*, only_bom=False):
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
 
         "PP0308E_TOTAL": f"{pp0308e_per_build}",
-        "PP0308E_COST": f"${pp0308e_per_build*2.283:.2f}",
+        "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),
         "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
