@@ -31,14 +31,28 @@ for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
     bores = e._y_stack_bores(xi, sx, box.y_joint, box.inner)
     for rod, _seat, tip, length, piece, z0, z1 in e.y_stack_rods(box.inner):
         ax, ay = e.y_stack_axis(xi, sx, box.y_joint, rod)
-        # Read the blind end from the cutter that actually makes this pocket.
+        # Both pilots open on the top of their knuckles; read each far end from the cutter
+        # that actually makes the pocket.
         bore = bores[2 if rod == 'lower' else 5].BoundingBox()
-        mouth, into, blind = (z0, 1.0, bore.zmax) if rod == 'lower' else (z1, -1.0, bore.zmin)
+        mouth, into, blind = z1, -1.0, bore.zmin
         depth = into * (blind - mouth)
         add(piece, 'Y-seam stack', (ax, ay, mouth), (0, 0, into), e.floor_heatset_dia,
             e.floor_heatset_depth, depth, 2.6)
-        reach = into * (tip - mouth)
         tolerance = e.y_stack_screw_length_tolerance
+        if rod == 'lower':
+            # Driven up into the insert from its deep end; the tip stands past the open top.
+            engaged = min(tip - tolerance, z1) - z0
+            station_rows[-1].update(
+                screw_length_mm=length, screw_length_tolerance_mm=tolerance,
+                printed_clearance_diameter_mm=e.y_stack_clearance_dia,
+                through_passage_mm=e.y_stack_clearance_dia,
+                nominal_thread_engagement_mm=min(tip, z1) - z0,
+                minimum_thread_engagement_mm=engaged,
+                nominal_tip_past_open_mouth_mm=tip - z1,
+                maximum_tip_past_open_mouth_mm=tip + tolerance - z1)
+            station_rows[-1]['screw_reach_pass'] = engaged >= e.floor_heatset_depth - 1e-9
+            continue
+        reach = into * (tip - mouth)
         tip_clearance = depth - reach
         station_rows[-1].update(
             screw_length_mm=length, screw_length_tolerance_mm=tolerance,
@@ -136,6 +150,10 @@ for row in station_rows:
     into=cq.Vector(*row['into']);seat=cq.Vector(*row['seat_mm'])
     cap_start=seat+into*(row['pocket_depth_mm']+0.02)
     cap_probe=cq.Solid.makeCylinder(row['pilot_mm']/2.0,0.25,cap_start,into)
+    if row.get('through_passage_mm'):
+        # The screw enters this insert from the pocket's far end: the stock past the pilot is
+        # the shoulder round its clearance passage.
+        cap_probe=cap_probe.cut(cq.Solid.makeCylinder(row['through_passage_mm']/2.0,0.25,cap_start,into))
     row['missing_closed_blind_stock_mm3']=cap_probe.cut(shape).Volume()
     row['closed_blind_pass']=row['missing_closed_blind_stock_mm3']<=tol
     if row['family']=='pogo':

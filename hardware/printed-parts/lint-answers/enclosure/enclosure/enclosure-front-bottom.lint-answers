@@ -88,14 +88,6 @@ click: x=-57.153 y=23.571 z=5.150
 click: x=15.367 y=20.286 z=7.300
 click: x=13.997 y=28.273 z=5.150
 
-[ceiling] Unavoidable flat bearing interfaces: these Z66.2/Z138.6 flats are the complete lower ends of the front screw-bearing blocks. Their current paired native interfaces retain positive running/support clearance. Tree(auto)/Default support can leave through the empty seam and interior before assembly; cleanup and loaded performance remain unqualified.
-alternatives: A corbel below an end enters the neighboring block travel envelope. Sloping or shortening spends the defined screw-bearing and insert-host length.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-97.500 y=207.400 z=66.200
-click: x=97.500 y=207.400 z=66.200
-click: x=-97.500 y=207.400 z=138.600
-click: x=97.500 y=207.400 z=138.600
-
 [ceiling] Unavoidable lifting interfaces: these Z29.25 handhold ceilings retain the flat finger bearings, shared R6 ends and 12 mm roof sections. Support can leave through the open handhold and seam before assembly. Actual cleanup, bare-surface comfort and loaded lifting remain unqualified.
 alternatives: Sloping changes the finger bearing and opening. Filling below the roof blocks upward entry. Retain the specified working profile and assess its support contacts in the production slice.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step

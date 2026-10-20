@@ -174,19 +174,13 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.979 y=224.075 z=29.250
 click: x=97.979 y=224.075 z=29.250
 
-[ceiling] Unavoidable interleaved screw-bearing ends: these Z102.15 flats retain the complete block lengths and positive running/support room to the neighboring blocks. Support is accessible through the empty seam and interior before assembly; removal effort remains unqualified.
-alternatives: A corbel enters the adjacent block envelope. Sloping or shortening spends the defined screw-bearing length; a continuous post prevents interleaving.
+[ceiling] Unavoidable head bearings: these Z40.8 flats seat the two lower M5 heads at the top of their Ø9 openings, which run up from the handhold ceiling and end on the plane of the handhold inner wall's finger face. Support leaves down through the opening and handhold before hardware placement. Geometric access does not qualify cleanup.
+alternatives: Sloping tilts the head seat. Moving the floor changes the screw's reach into its insert; rounding the opening's square inboard side leaves a knife edge where its circle touches the wall face.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-97.625 y=209.975 z=102.150
-click: x=97.625 y=209.975 z=102.150
+click: x=-98.250 y=208.900 z=40.800
+click: x=98.250 y=208.900 z=40.800
 
-[ceiling] Unavoidable head bearings: these Z37.25 flats seat the two lower M5 heads in the inward-open head pockets and retain their full native annular backing. Support leaves through the empty pocket and handhold before hardware placement. Geometric access does not qualify cleanup.
-alternatives: Sloping tilts the head seat. Moving the floor changes seating and engagement; closing the inward access obstructs hardware placement.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-96.750 y=208.900 z=37.250
-click: x=96.750 y=208.900 z=37.250
-
-[thin] Pending Derek's decision, reported: the lower Y-stack head recess (Ø9, head only) leaves a 2.46 mm outboard rim where the handhold's R6 lifting-edge roll and its additive print chamfer meet the ceiling plane; the rim reaches 3 mm about 1.2 mm above it. The recess axis is fixed by the head passing the handhold's 3 mm inner wall, which stands 0.25 mm off the cold core. A 3 mm rim at the plane needs that roll at R4.5, against Derek's 2026-09-19 request that the bottom grips match the top's rounding "all aspects of it, for all rounded edges".
+[thin] Unavoidable at the matched R6 roll: the lower Y-stack head opening (Ø9) leaves a 2.46 mm outboard rim where the handhold's R6 lifting-edge roll and its additive print chamfer meet the ceiling plane; the rim reaches 3 mm about 1.2 mm above it. The opening's axis is fixed by the head passing the handhold's 3 mm inner wall, which stands 0.25 mm off the cold core. A 3 mm rim at the plane needs that roll at R4.5, against Derek's 2026-09-19 request that the bottom grips match the top's rounding "all aspects of it, for all rounded edges".
 alternatives: An R4.5 handhold lifting-edge roll gives a 3.03 mm rim; a local boss round each recess breaks the matched roll at the fastener.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=105.247 y=209.512 z=29.327

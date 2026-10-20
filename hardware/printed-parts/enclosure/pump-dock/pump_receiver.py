@@ -2,12 +2,15 @@
 
 Local +Y enters the enclosure; Y=0 is the PET-GF wall's pump-facing surface.
 The closed wall locates X/Z. A flat interior keeper in the rear groove
-retains Y. The three tube sockets use radial interference; the cartridge hard
-stop sets insertion and leaves its tube tip clear of the annular stop.
+retains Y; the neck snaps into the keeper's keyhole. The three tube sockets
+use radial interference; the cartridge hard stop sets insertion and leaves its
+tube tip clear of the annular stop. The upper link into its fixed valve clocks
+the junction about Y.
 
 The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
-pressure holding and endurance are unqualified on this geometry. The lower-mouth print pose keeps the terminal bores at0/45/45 degrees.
+pressure holding and endurance are unqualified on this geometry. The
+lower-mouth print pose keeps the terminal bores at 0/45/45 degrees.
 External supports remain accessible before factory mounting. Round flow roofs
 are separate from the round sealing lands.
 """
@@ -50,12 +53,19 @@ RELIEF_TAPER_END_Y = RELIEF_TAPER_START_Y + (FRONT_RELIEF_D - THROAT_D) / 2
 COLLAR_OD = 17.5
 COLLAR_RAMP_Y = (3.6, 5.9)
 FRONT_COLLAR_Y = (5.9, 7.0)
-GROOVE_Y = (7.0, 10.35)
-REAR_COLLAR_Y = (10.35, 13.35)
-KEEPER_SLOT_D = 12.4
-KEEPER_RADIAL_CLEARANCE = (KEEPER_SLOT_D - BODY_OD) / 2
-KEEPER_Y = (7.15, 10.15)
-KEEPER_THICKNESS = KEEPER_Y[1] - KEEPER_Y[0]
+# The keeper slides past the wall face and the slot's back face, so each keeps
+# the printed sliding allowance; the rear collar bears on the keeper itself.
+KEEPER_THICKNESS = 3.0
+KEEPER_SLIDE_AIR = 0.25
+KEEPER_Y = (WALL_THICKNESS + KEEPER_SLIDE_AIR,
+            WALL_THICKNESS + KEEPER_SLIDE_AIR + KEEPER_THICKNESS)
+KEEPER_SLOT_Y = (WALL_THICKNESS, KEEPER_Y[1] + KEEPER_SLIDE_AIR)
+GROOVE_Y = (WALL_THICKNESS, KEEPER_Y[1])
+REAR_COLLAR_Y = (KEEPER_Y[1], KEEPER_Y[1] + 3.0)
+# The neck snaps through the keyhole's narrower mouth into its grip, which clears the
+# neck's occupied envelope.
+NECK_GRIP_D = BODY_OD + 0.2
+NECK_MOUTH_W = BODY_OD - 1.3
 UPPER_MOUTH_LOCAL_Y = 22.775
 BRANCH_OD = 11.72
 FORK_BLEND_R = .60
@@ -63,11 +73,6 @@ LOWER_STOP_BORE_D = 5.50
 LOWER_STOP_TAPER = (LOWER_STOP_BORE_D-TUBE_ID)/2
 ENTRY_AXIAL = .50
 ENTRY_RADIAL = .25
-KEY_ROOT_X = 6.5
-KEY_OUTER_X = 12.5
-KEY_BASE_Z = -3.0
-KEY_SHOULDER_Z = 0.0
-KEY_TOP_Z = 3.0
 WEB_HALF_WIDTH = 7.0
 WEB_RIM_MARGIN = 1.5
 MATERIAL = "Siraya Tech Flex TPU 85A Clear"
@@ -138,24 +143,6 @@ def _local_junction(junction,origin):
     return out
 
 
-def anti_rotation_keys():
-    """Broad rear-flange ears enter open-aft house-shaped PET-GF seats.
-
-    The rear flange is three millimetres thick. These keys carry clocking
-    loads; the wall and flat keeper retain the permanent junction axially.
-    """
-    parts=[]
-    for sign in (-1,1):
-        cx=sign*(KEY_ROOT_X+KEY_OUTER_X)/2
-        points=[(cx-3,KEY_BASE_Z),(cx+3,KEY_BASE_Z),
-                (cx+3,KEY_SHOULDER_Z),(cx,KEY_TOP_Z),
-                (cx-3,KEY_SHOULDER_Z)]
-        wire=cq.Wire.makePolygon([cq.Vector(x,REAR_COLLAR_Y[0],z) for x,z in points]
-                                +[cq.Vector(points[0][0],REAR_COLLAR_Y[0],points[0][1])])
-        parts.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,REAR_COLLAR_Y[1]-REAR_COLLAR_Y[0],0)))
-    return parts[0].fuse(parts[1])
-
-
 def crotch_web(junction=None):
     """Flat-sided TPU between the two branches, in the branch plane.
 
@@ -197,7 +184,7 @@ def _geometry(*,installed=False,junction=None):
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
     root=junction["upper_flow_segments"][0]["start_mm"][1]
-    outer=_outside(installed).fuse(anti_rotation_keys())
+    outer=_outside(installed)
     void=(_cone(FUNNEL_BORE_D,seal,0.,FRONT_SEAL_Y[0])
           .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
           .fuse(_cylinder(seal,*FRONT_SEAL_Y))
@@ -211,8 +198,8 @@ def _geometry(*,installed=False,junction=None):
         port=junction[branch]; d=cq.Vector(*port["axis"])
         stop=cq.Vector(*port["tube_stop"])
         if branch=='lower':
-            # The downward-printed socket retains a supported0.30mm annular
-            # stop. The downstream45degree taper leaves the6mm land and the
+            # The downward-printed socket retains a supported 0.30 mm annular
+            # stop. The downstream 45-degree taper leaves the 6 mm land and the
             # factory tip datum untouched.
             void=void.fuse(cq.Solid.makeCone(LOWER_STOP_BORE_D/2,TUBE_ID/2,
                           LOWER_STOP_TAPER,stop,d*-1))
@@ -312,15 +299,15 @@ def engineering_record():
             "branch_seal_land_mm":plumbing.SEAL_LAND,"branch_entry_axial_mm":ENTRY_AXIAL,
             "branch_entry_radial_mm":ENTRY_RADIAL,"branch_mouth_radial_stock_mm":BRANCH_OD/2-SEAL_BORE_D/2-ENTRY_RADIAL,
             "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
-            "rear_flange_y_mm":REAR_COLLAR_Y,"anti_rotation_key_x_mm":[KEY_ROOT_X,KEY_OUTER_X],
+            "rear_flange_y_mm":REAR_COLLAR_Y,
             "crotch_web_half_width_mm":WEB_HALF_WIDTH,
-            "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,
-            "keeper_wall_face_gap_mm":KEEPER_Y[0]-WALL_THICKNESS,"keeper_rear_groove_room_mm":GROOVE_Y[1]-KEEPER_Y[1],
+            "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,"keeper_slot_y_mm":KEEPER_SLOT_Y,
+            "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
             "lower_socket_stop_bore_mm":LOWER_STOP_BORE_D,"lower_socket_stop_radial_mm":(SEAL_BORE_D-LOWER_STOP_BORE_D)/2,
             "lower_socket_stop_taper_mm":LOWER_STOP_TAPER,"installed_tip_stop_contact_area_mm2":math.pi*(TUBE_OD**2-LOWER_STOP_BORE_D**2)/4,
             "fork_blend_radius_mm":FORK_BLEND_R,"customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
             "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
-            "print_orientation":"Yaw the actual lower outward axis onto+Y, then rotate it onto−Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+            "print_orientation":"Yaw the actual lower outward axis onto +Y, then rotate it onto -Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
             "physical_reference":"future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
             "scope":"Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."}
 

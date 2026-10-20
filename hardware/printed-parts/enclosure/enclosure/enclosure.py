@@ -11,7 +11,7 @@ either way, so a pack that overran it gets a wall drawn through it.
 
 Three bodies stand on the floor slab — the compressor and the condenser side by side
 across the front, and the cold core behind them. The Y seam's corner stacks occupy its
-overlap in Y, the lower from the handhold ceiling to back-top's knuckle on the Z seam and
+overlap in Y, the lower from the handhold ceiling to the Z seam and
 the upper from over the tap-water line to the roof. A body is held one `side_band_inset`
 off the wall where it meets their footprint in Y and Z; outside that footprint the band is
 the wall's own air. The cold core meets the lower stack and is held off it; the compressor
@@ -31,9 +31,9 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     proud tongue cannot, a full-thickness tongue that ends square inside the slab
     (`_floor_tongue`). Each ±X corner of the seam is a STACK of knuckles that
     alternate between the front and back pieces, sliding past one another as
-    the halves telescope, pinned and clamped by two vertical M5 rods: the lower
-    driven up from the handhold ceiling through both bottom pieces into an
-    insert in back-top's knuckle on the Z seam, the upper down from back-top's
+    the halves telescope, held by two vertical M5 rods: the lower driven up
+    from the handhold ceiling through front-bottom's knuckle into an insert in
+    back-bottom's knuckle under the Z seam, the upper down from back-top's
     roof into an insert in front-top's knuckle under the funnel frame. Each
     ordinary screw seats its head on a printed floor and runs in an as-printed
     clearance passage (`_y_stacks`).
@@ -98,16 +98,15 @@ mark the slide leaves on one.
 
 A knuckle is a block of one piece standing in the other's overlap: a front knuckle
 roots fore of the seam in its own flank and runs aft inside the back piece's skin, a
-back knuckle grows out of that skin and its flank. Each rod pushes the piece its head
-bears on toward the piece its insert is set in, and the faces between them are datums
-the rod pulls shut; every other face between knuckles keeps a running fit, so the
-halves telescope.
+back knuckle grows out of that skin and its flank. Every face between knuckles keeps a
+running fit, so the halves telescope. The lower rod is held by back-bottom at both ends
+and carries front-bottom's knuckle between them; the upper rod pulls front-top's knuckle
+up against back-top's.
 
 A Z seam is held shut along its whole run rather than pinned at its ends: the
 rails' hooks bear over every millimetre both flanks carry, and the stop
-blocks and end walls close the travel. At each Y-seam corner the lower rod also
-clamps back-top down onto the two bottoms, and the upper rod holds front-top up
-against back-top, which locks front-top's slide.
+blocks and end walls close the travel. At each Y-seam corner the upper rod holds
+front-top up against back-top, which locks front-top's slide.
 
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
@@ -465,10 +464,10 @@ ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
 funnel_front_ledge = 0.0
 
 # The Y seam's two corner stacks. In each ±X corner the front and back pieces stand knuckles
-# that alternate up the seam, retained by two ordinary M5 screws: the lower enters from the
+# that alternate up the seam, held by two ordinary M5 screws: the lower enters from the
 # handhold ceiling, the upper from the roof. Each head bears on its printed floor. Clearance
 # passages print to size; they must pass the screw by hand before its thread reaches the insert.
-y_stack_axis_in = 7.0          # upper screw axis inboard of the interior face
+y_stack_axis_in = 6.8          # upper screw axis inboard of the interior face
 y_stack_lower_axis_in = 6.25   # lower axis: its head passes the handhold's inner wall
 y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
                                # lift-off cover
@@ -478,13 +477,13 @@ y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
 y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
 y_stack_cbore_depth = y_stack_head_recess + y_stack_head_h
-y_stack_tip_clearance = 2.5    # nominal blind air beyond the screw tip
+y_stack_tip_clearance = 2.5    # nominal blind air beyond the upper screw's tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
-y_stack_hub_h = 20.0           # back-top's knuckle on the Z seam: the lower insert and its cap
 y_stack_upper_floor = 272.5    # over the tap-water line's run along the −X flank
-y_stack_upper_chamfer = 5.1    # front-top's knuckle gives its inboard-aft edge to the flavour
-                               # line (`tube-fluid-1`) that turns past the −X corner under the frame
-lower_rod_len = 150.0          # ISO 4762 M5 × 150, handhold ceiling to back-top's hub
+y_stack_upper_chamfer = 5.1    # front-top's −X knuckle gives its inboard-aft edge to the flavour
+                               # line (`tube-fluid-1`) that turns past that corner under the frame
+lower_rod_len = 120.0          # ISO 4762 M5 × 120, handhold ceiling to the insert under the Z seam
+lower_rod_thread = 22.0        # ISO 4762 M5 b: its thread at the tip, the rest plain shank
 upper_rod_len = 60.0           # ISO 4762 M5 × 60, roof to front-top's knuckle under the frame
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
@@ -1505,8 +1504,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle keeps its nominal bed while the receiver floor retreats by
 # `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
-# Eight bonded SB443-IN pairs pull the lower cradle toward the bulkhead,
-# four on each pump's own port line. Each prepared pump's head clamps its
+# Eight printed-in SB443-IN pairs pull the lower cradle toward the bulkhead,
+# four on each pump's own port line, and their meeting poles seat it
+# (`dock_retention`). Each prepared pump's head clamps its
 # two straight LLDPE stubs; the stubs pass the cradle's open tube passages.
 # Four permanent TPU receivers carry radial seals. Pulling the complete
 # cartridge withdraws only the stubs; the receivers and commercial tees stay.
@@ -1519,10 +1519,10 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
-# THE CLOSED RECEIVER WALL LOCATES THE TPU IN X/Z. Flat keepers slide down
-# its interior face and capture the receiver grooves in Y. A removable
-# support bar backs the four permanent rear cuffs. The wall joins the bay
-# floor, lintel and both flanks; front-bottom supports its two lower ends.
+# THE CLOSED RECEIVER WALL LOCATES THE TPU IN X/Z. Flat keepers slide up
+# slots behind its interior face from the seam and snap onto the receiver
+# necks, capturing the grooves in Y. The wall joins the bay floor, lintel and
+# both flanks; front-bottom supports its two lower ends.
 #
 # The full-width opening extends from the show face to this bulkhead. The cartridge's
 # front, rounded corners and flanks share the enclosure silhouette. Its hand pockets,
@@ -1543,11 +1543,6 @@ pump_bay_side_air = fits.running      # pump-body air inside each cavity throat 
 # withdrawal.
 cap_kiss = fits.running               # preferred plate air, cradle and clamp alike
 cap_kiss_station_allowance = 0.01      # one least-significant place of the measured 30.11 mm skirt datum
-# Broad integral lands on the fixed wall bear on retained outboard cradle
-# stock. Their fore faces set the cartridge's Y datum across the body air.
-pump_body_stop_width = 4.0
-pump_body_stop_height = 12.0
-pump_body_stop_edge_inset = 7.5
 # Front-bottom's two bearing lands under the pump-bay bulkhead.
 plate_foot_reach = 10.0
 plate_foot_y = 20.0
@@ -1589,9 +1584,10 @@ clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper wel
                              # and the two wells read as one opening for the clamp's spine
 clamp_drop_air = fits.running  # clamp footprint and bracket air through the cradle well
 clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
-# Broad underside and fitted boss/can openings of the physically accepted cap.
+# Broad underside and fitted boss/can openings of the physically accepted cap. Above each
+# fitted motor bore a 45-degree cone opens through the crown round the motor end and its
+# terminal pair, so the crown-down print builds each well without support.
 cap_bridge_rise = 2.0
-cap_terminal_opening_r = 22.5  # open crown around each motor end and its terminal pair
 cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap position
 
 # --- THE CARTRIDGE CONNECTS AS IT SEATS --------------------------------------
@@ -1626,7 +1622,7 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 # bore opens through that face above the tray's crown and ends on it below.
 pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
 pogo_heatset_len = 4.0
-pogo_heatset_setback = 4.25  # anchor 7.25 mm behind contact face, past the body cavity
+pogo_heatset_setback = 2.0   # anchor wholly behind the connector's body and slip, 4.15 mm in
 pogo_heatset_relief = 1.5    # pilot beyond the complete four-millimetre insert
 pogo_screw_len = 8.0
 pogo_head = (2.74, 1.4)      # Kozelo B0DFYKBQ2S, (diameter, height)
@@ -2226,9 +2222,9 @@ def seam_bosses(inner, y_joint, splits):
     it occupies of that wall, both walls taken together.
 
     The two corner stacks occupy the overlap from a front knuckle's root to the back flank: the
-    lower from the slab to back-top's hub over the Z seam, the upper from its floor to the
-    ceiling. Read from the definitions that BUILD them (`y_stack`, `y_stack_y`,
-    `_z_rail_runs`), so a footprint cannot drift from the geometry it stands for.
+    lower from the slab to the Z seam, the upper from its floor to the ceiling. Read from the
+    definitions that BUILD them (`y_stack`, `y_stack_y`, `_z_rail_runs`), so a footprint cannot
+    drift from the geometry it stands for.
 
     THE HEIGHT IS HALF THE ANSWER. A body hung on a flank clears a stack by standing beside it
     or by standing over or under it, and a reading with no z in it can only see the first.
@@ -2956,7 +2952,6 @@ def flute_rails(box, berthed=()):
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer),
                               plain=((disposal_field(outer),) +
-                                     _stack_flute_plain(box.inner, box.y_joint) +
                                      (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
                                       if box.pack.nameplate else ()) +
                                      (_data_fit.plain_lips(box.pack.keystone,outer[3])
@@ -3547,27 +3542,23 @@ def _ceiling_corbels(solid, inner, centre, y_joint):
 #
 # The front half's lip telescopes into the back half on both side walls and the ceiling, and its
 # floor runs on inside the slab as a square-ended tongue (`_floor_tongue`). What holds the halves
-# together is a STACK of knuckles in each ±X corner of the overlap — blocks of one piece standing
-# in the other's band, alternating up the seam — with two vertical M5 rods through them.
+# together is a STACK of knuckles in each ±X corner of the overlap, alternating between the
+# pieces, with two vertical M5 screws through them.
 #
-#   * THE LOWER STACK runs from the handhold ceiling to the lip rim: back-bottom, front-bottom,
-#     back-bottom, front-bottom, and over the rim back-top's HUB, the knuckle the lower rod's
-#     insert is set in. The rod drives up from the exposed handhold ceiling, so
-#     tightening it pushes back-bottom up into front-bottom and pulls back-top down onto it: both
-#     bottoms and the back column's Z seam are clamped at the corner.
+#   * THE LOWER STACK is a three-knuckle hinge inside the two bottom pieces: back-bottom's
+#     knuckle over the handhold, front-bottom's, and back-bottom's under the Z seam. The screw
+#     drives up from the handhold ceiling, its head in the lower back knuckle and its thread in
+#     an insert set in the top of the upper one, so back-bottom holds it at both ends and
+#     front-bottom's knuckle hangs on it between them.
 #   * THE UPPER STACK stands under the roof, over the tap-water line on the −X flank: front-top's
-#     knuckle under the funnel frame and back-top's from there to the roof. The frame slides into
-#     front-top from the seam end, so front-top keeps nothing in the corner above the frame's
-#     floor. The rod drives down from back-top's roof into an insert in front-top's knuckle, so
-#     tightening it holds front-top up against back-top, which locks front-top's slide. With the
-#     two upper rods out, front-top draws off the front.
+#     knuckle under the funnel frame and back-top's from there to the roof. The screw drives down
+#     from back-top's roof into an insert in front-top's knuckle, so tightening it holds front-top
+#     up against back-top, which locks front-top's slide. With the two upper screws out,
+#     front-top draws off the front.
 #
-# Every mating block face keeps its running fit, including the screw-clamped seats,
-# with the supported allowance for each opposing face that prints over support.
-# These modeled gaps accommodate the printed surface material during assembly. The middle knuckles carry
-# transverse screw bearing, not a continuous compression stack. Plain screws, their heads on
-# printed floors, retain the seated halves. Their hand seating gives no controlled preload or load-sharing
-# claim. The passages are printed clearance holes, without a drilling operation.
+# Every face between knuckles keeps a running fit. A knuckle face that prints facing down rises
+# 45° off the stock its piece prints it on (`_y_knuckle_faces`), so no knuckle asks for
+# support. The passages are printed clearance holes.
 
 def _handhold_levels(inner):
     """Standing floor, lifting ceiling and the full section above it."""
@@ -3589,58 +3580,83 @@ def y_stack_y(y_joint):
 
 
 def _y_stack_gap(down_supported, up_supported):
-    """Running room at a block interface, counting each supported opposing face once."""
+    """Running room at a knuckle interface, counting each supported opposing face once."""
     return fits.running + fits.supported_surface * (int(down_supported) + int(up_supported))
+
+
+def _y_knuckle_faces(piece, gap_below, gap_above):
+    """How a knuckle's bottom and top faces run: "level", "aft" (rising one for one aft of
+    the seam plane) or "in" (rising one for one inboard of the interior face).
+
+    A face that prints facing down rises off the stock its own piece prints it on. Front-bottom's
+    knuckle grows aft off its handhold roof, so its underside rises aft, and the back knuckle it
+    stands over takes that slope on its top. Back-bottom's upper knuckle grows off its own skin,
+    so its underside rises inboard, and front-bottom's takes that slope on its top. Back-bottom's
+    lower knuckle bottoms on the handhold ceiling, which is the handhold's. Front-top's knuckle
+    grows off its own lip band, so its underside rises inboard; back-top prints roof-down, so
+    both its faces print facing up."""
+    if piece == "front-bottom":
+        return "aft", "in"
+    if piece == "back-bottom":
+        return ("in" if gap_below else "level"), ("aft" if gap_above else "level")
+    if piece == "front-top":
+        return "in", "level"
+    return "level", "level"
 
 
 def y_stack(inner):
     """Each corner's knuckles, bottom to top, as `(lower, upper)`: rows of
-    `(piece, z0, z1, gap_below, gap_above)`. Every opposed mating face has its
-    applicable running and supported-surface allowance.
+    `(piece, z0, z1, gap_below, gap_above)`. z0 and z1 are the knuckle's bottom and top where
+    `_y_knuckle_faces` strikes them: a level face at its height, a face rising aft at the seam
+    plane `y_joint`, a face rising inboard at the interior face. The gaps are vertical, one
+    running fit measured square to the face.
 
-    The bottom pieces and front-top print +Z up, so a knuckle of theirs prints its underside
-    facing down; back-top prints on its ceiling, so one of its prints its top face down."""
-    _bed, ceiling, _crown = _handhold_levels(inner)
-    # The hub stands where back-top's notch roof does over the back rail's heads, one running
-    # fit over the lip rim, so it slides fore over them as back-top goes on.
-    hub = z_seam + z_rise + slide_slip
-    h = (hub - ceiling) / 4.0
-    g = _y_stack_gap(False, True)
+    The bottom pieces and front-top print +Z up; back-top prints on its roof."""
+    _bed, ceiling, crown = _handhold_levels(inner)
+    sloped = fits.running * math.sqrt(2.0)
     seated = _y_stack_gap(False, False)
-    # The front root also passes front-top's 45-degree flank bedding.
-    # A vertical retreat projects by sqrt(2) onto that face's normal.
-    hub_gap = seated * math.sqrt(2.0)
+    # Front-bottom's knuckle rises aft off its own handhold roof; back-bottom's roof under it
+    # keeps its whole `handhold_roof` section from the first plane the back quadrant has.
+    fb0 = crown + sloped - fits.slip
+    # The insert sits in the top of back-bottom's upper knuckle, which ends on the Z seam. That
+    # knuckle's underside, the face front-bottom's knuckle hangs under, crosses the lower screw
+    # on its plain shank: one wall below where the shortest screw's thread begins.
+    top = z_seam
+    bb0 = (top - lower_rod_thread - wall + sloped
+           - (y_stack_lower_axis_in + y_stack_clearance_dia / 2.0))
     lower = (
-        ("back-bottom", ceiling, ceiling + h, 0.0, g),
-        ("front-bottom", ceiling + h + g, ceiling + 2.0 * h - g, g, g),
-        ("back-bottom", ceiling + 2.0 * h, ceiling + 3.0 * h - g, g, g),
-        ("front-bottom", ceiling + 3.0 * h, hub - hub_gap, g, hub_gap),
-        ("back-top", hub, hub + y_stack_hub_h, hub_gap, _y_stack_gap(True, True)),
+        ("back-bottom", ceiling, fb0 - sloped, 0.0, sloped),
+        ("front-bottom", fb0, bb0 - sloped, sloped, sloped),
+        ("back-bottom", bb0, top, sloped, 0.0),
     )
     roof = inner[5] + wall
     datum = _funnel_frame_part.datums(roof - _funnel.brim_thickness)[0] - slide_slip
     upper = (
-        ("front-top", y_stack_upper_floor, datum, 0.0, seated),
+        ("front-top", y_stack_upper_floor - wall - fits.running, datum, 0.0, seated),
         ("back-top", datum + seated, roof, seated, 0.0),
     )
     return lower, upper
 
 
 def y_stack_axis(x_in, sx, y_joint, rod="upper"):
-    """A screw axis in plan; the lower head clears the full-section handhold wall."""
+    """A screw axis in plan; the lower head passes the handhold's full-section inner wall."""
     inset = y_stack_lower_axis_in if rod == "lower" else y_stack_axis_in
     return x_in + sx * inset, y_joint + lip_len / 2.0
 
 
 def y_stack_rods(inner):
-    """Each corner's two rods, the same both corners, as rows of
+    """Each corner's two screws, the same both corners, as rows of
     `(rod, seat_z, tip_z, length, insert_piece, insert_z0, insert_z1)`: where the head's
-    underside bears, where the tip ends, and the M5 insert its thread engages."""
+    underside bears, where the tip ends, and the M5 insert its thread engages. Both inserts
+    are pressed in from the top of their knuckles. The lower screw enters its insert from the
+    deep end and its tip stands the length allowance past the insert's open top, so the
+    shortest screw still takes the whole insert; its head sits as deep in the handhold ceiling
+    as that leaves."""
     lower, upper = y_stack(inner)
-    ceiling, hub = lower[0][1], lower[-1][1]
-    seat = ceiling + y_stack_head_recess + y_stack_head_h
+    top = lower[-1][2]
+    seat = top + y_stack_screw_length_tolerance - lower_rod_len
     rows = [("lower", seat, seat + lower_rod_len, lower_rod_len, lower[-1][0],
-             hub, hub + floor_heatset_depth)]
+             top - floor_heatset_depth, top)]
     roof, datum = upper[-1][2], upper[0][2]
     seat = roof - y_stack_head_recess - y_stack_head_h
     rows.append(("upper", seat, seat - upper_rod_len, upper_rod_len, upper[0][0],
@@ -3648,79 +3664,140 @@ def y_stack_rods(inner):
     return tuple(rows)
 
 
+def _y_face_z(kind, level, x_in, sx, y_joint, x, y):
+    """A knuckle face's height at one point in plan."""
+    if kind == "aft":
+        return level + (y - y_joint)
+    if kind == "in":
+        return level + sx * (x - x_in)
+    return level
+
+
+def _y_under_face(kind, level, x_in, sx, y_joint, xa, xb, ya, yb, z_floor):
+    """The part of a plan box from `z_floor` up to one knuckle face."""
+    if kind == "aft":
+        return _yz_prism(xa, xb, [(ya, z_floor), (yb, z_floor), (yb, level + (yb - y_joint)),
+                                  (ya, level + (ya - y_joint))])
+    if kind == "in":
+        return _xz_prism(ya, yb, [(xa, z_floor), (xb, z_floor),
+                                  (xb, level + sx * (xb - x_in)), (xa, level + sx * (xa - x_in))])
+    return _ybox(xa, xb, ya, yb, z_floor, level)
+
+
+def _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb, ya, yb, cap=None):
+    """A plan box between a knuckle's two faces, its top held to `cap` where one is given."""
+    corners = [(x, y) for x in (xa, xb) for y in (ya, yb)]
+    low = min(_y_face_z(bottom, z0, x_in, sx, y_joint, x, y) for x, y in corners) - 1.0
+    body = _y_under_face(top, z1, x_in, sx, y_joint, xa, xb, ya, yb, low).cut(
+        _y_under_face(bottom, z0, x_in, sx, y_joint, xa, xb, ya, yb, low - 1.0))
+    return body if cap is None else body.intersect(_ybox(xa, xb, ya, yb, low - 1.0, cap))
+
+
+def _y_top_cap(top, z1, depth):
+    """Where a knuckle's rising top levels off: one `wall` short of the free face it rises
+    toward, so the knuckle ends on a face rather than a 45° arris."""
+    if top == "in":
+        return z1 + depth - wall
+    if top == "aft":
+        return z1 + lip_len - wall
+    return None
+
+
 def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
-    """One knuckle's solid before its bores. A front knuckle roots `y_stack_front_root` fore of
-    the seam in its own flank and runs aft one running fit inside the back piece's skin; a back
-    knuckle grows out of that skin and, outboard of the flank's face, on into the thickened
-    flank. A knuckle stays inside the print silhouette (`_rounded_outer`). The finished
-    handhold envelope cuts the complete bottom piece after the knuckles join it."""
+    """One knuckle's solid before its bores. A front knuckle roots `y_stack_front_root` fore
+    of the seam in its own flank and runs aft one running fit inside the back piece's skin; a
+    back knuckle grows out of that skin and, outboard of the flank's face, on into the thickened
+    flank. A knuckle stays inside the print silhouette (`_rounded_outer`). The finished handhold
+    envelope cuts the complete bottom piece after the knuckles join it."""
+    row = next(r for rows in y_stack(inner) for r in rows
+               if r[0] == piece and abs(r[1] - z0) < 1e-9)
+    bottom, top = _y_knuckle_faces(piece, row[3], row[4])
+
     def xs(d0, d1):
         return sorted((x_in + sx * d0, x_in + sx * d1))
 
+    cap = _y_top_cap(top, z1, depth)
     if piece.startswith("front"):
         xa, xb = xs(fits.running, depth)
-        body = _ybox(xa, xb, y_joint - y_stack_front_root, y_joint + lip_len, z0, z1)
-        if piece == "front-top":
-            # A 45° chamfer down the inboard-aft edge, the same at both corners.
+        root = y_joint - y_stack_front_root
+        if bottom == "aft":
+            # The underside rises aft from the seam plane; fore of it the root carries the
+            # knuckle's whole section down into its own flank and handhold roof.
+            body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
+                                    y_joint - 0.01, y_joint + lip_len, cap)
+            body = body.fuse(_y_between_faces("level", z0 - y_stack_front_root, top, z1,
+                                              x_in, sx, y_joint, xa, xb, root, y_joint, cap))
+        else:
+            body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
+                                    root, y_joint + lip_len, cap)
+        if piece == "front-top" and sx > 0:
+            # A 45° chamfer down the inboard-aft edge of the −X knuckle, where the flavour line
+            # (`tube-fluid-1`) turns past that corner under the frame.
             ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
-            corner = (cq.Workplane("XY").workplane(offset=z0 - 1.0)
+            zlo, zhi = min(z0, z1) - 1.0, max(z0, z1) + depth + 1.0
+            corner = (cq.Workplane("XY").workplane(offset=zlo)
                       .polyline([(ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
                                  (ex + sx, ey - c - 1.0)]).close()
-                      .extrude(z1 - z0 + 2.0).val())
+                      .extrude(zhi - zlo).val())
             body = body.cut(corner)
     else:
+        # Back-bottom's knuckle under the Z seam runs its whole depth on to the flank, where
+        # the back rail's arm stands; the others join the flank across its own section.
         xa, xb = xs(-1.0, depth)
-        body = _ybox(xa, xb, y_joint, y_joint + lip_len, z0, z1)
-        xa, xb = xs(-1.0, back_bottom_flank_t - wall)
-        body = body.fuse(_ybox(xa, xb, y_joint + lip_len - 0.01,
-                               back_flank_start(y_joint) + 0.01, z0, z1))
-    body = body.intersect(_rounded_outer(outer))
-    return body
+        full = piece == "back-bottom" and top == "level"
+        body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb, y_joint,
+                                back_flank_start(y_joint) + 0.01 if full else y_joint + lip_len,
+                                cap)
+        if not full:
+            xa, xb = xs(-1.0, back_bottom_flank_t - wall)
+            body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
+                                              y_joint + lip_len - 0.01,
+                                              back_flank_start(y_joint) + 0.01, cap))
+    return body.intersect(_rounded_outer(outer))
 
 
 def _y_knuckle_air(x_in, sx, y_joint, piece, z0, z1, gap_below, gap_above, depth):
-    """The other half's knuckle envelope with allowance on every opposed mating face."""
+    """The other half's knuckle envelope with a running fit on every opposed face."""
+    bottom, top = _y_knuckle_faces(piece, gap_below, gap_above)
     xa, xb = sorted((x_in, x_in + sx * (depth + 1.0)))
     if piece.startswith("front"):
-        y0, y1 = y_joint - 1.0, y_joint + lip_len + fits.running
+        ya, yb = y_joint - 1.0, y_joint + lip_len + fits.running
     else:
-        y0, y1 = y_joint, back_flank_start(y_joint) + 1.0
-    return _ybox(xa, xb, y0, y1, z0 - gap_below, z1 + gap_above)
+        ya, yb = y_joint, back_flank_start(y_joint) + 1.0
+    return _y_between_faces(bottom, z0 - gap_below, top, z1 + gap_above, x_in, sx, y_joint,
+                            xa, xb, ya, yb)
 
 
 def _y_stack_bores(x_in, sx, y_joint, inner):
-    """Both screws' head openings, printed passages and M5 insert pockets at one corner.
-    Each blind pocket clears the nominal screw tip by `y_stack_tip_clearance` and retains the
-    insert manufacturer's minimum relief independently of screw reach."""
+    """Both screws' head openings, printed passages and M5 insert pilots at one corner.
+    Each pilot opens on the top of its knuckle and runs `mount_bore_relief` past its insert."""
     lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
     ux, uy = y_stack_axis(x_in, sx, y_joint, "upper")
     lower, upper = y_stack(inner)
     ceiling, roof = lower[0][1], upper[-1][2]
-    (_l, _ls, l_tip, _ll, _lp, l_in0, l_in1), (_u, _us, u_tip, _ul, _up, u_in0, u_in1) = \
+    (_l, l_seat, _lt, _ll, _lp, l_in0, l_in1), (_u, _us, u_tip, _ul, _up, u_in0, u_in1) = \
         y_stack_rods(inner)
     rc, rp, ri = y_stack_cbore_dia / 2.0, y_stack_clearance_dia / 2.0, floor_heatset_dia / 2.0
 
-    def head_access(ax, ay, z0, z1, depth):
-        # Open toward the cavity instead of leaving a thin cup around the head.
-        # The rectangular opening has the counterbore's full width and depth;
-        # its floor remains a complete head-bearing annulus.
-        xa, xb = sorted((ax, x_in + sx * (depth + 0.01)))
-        return _zcyl(rc, ax, ay, z0, z1).fuse(
-            _ybox(xa, xb, ay - rc, ay + rc, z0, z1))
+    def head_access(ax, ay, z0, z1, x_end):
+        # Round on the outboard side, square on the inboard plane the opening ends on.
+        xa, xb = sorted((ax, x_end))
+        return _zcyl(rc, ax, ay, z0, z1).fuse(_ybox(xa, xb, ay - rc, ay + rc, z0, z1))
 
-    # Above the frame the mouth joins the funnel opening. Stopping at the
-    # narrower block would leave a thin strip of the roof across that opening.
-    upper_mouth_depth = abs(x_in) - _funnel.collar_w / 2.0
+    # The lower opening ends on the handhold inner wall's finger face, carried up into the roof.
+    wall_face = x_in + sx * (y_stack_low_depth - handhold_wall)
+    # Above the frame the upper opening joins the funnel opening rather than leaving a strip
+    # of roof between the two.
+    mouth = x_in + sx * (abs(x_in) - _funnel.collar_w / 2.0)
 
     return (
-        head_access(lx, ly, ceiling - 0.01, ceiling + y_stack_cbore_depth, y_stack_low_depth),
-        _zcyl(rp, lx, ly, ceiling + y_stack_cbore_depth - 0.01, l_in0 + 0.01),
-        _zcyl(ri, lx, ly, l_in0, max(l_in1 + mount_bore_relief,
-                                    l_tip + y_stack_tip_clearance)),
-        head_access(ux, uy, roof - y_stack_cbore_depth, roof + 1.0, upper_mouth_depth),
+        head_access(lx, ly, ceiling - 0.01, l_seat, wall_face),
+        _zcyl(rp, lx, ly, l_seat - 0.01, l_in0 + 0.01),
+        _zcyl(ri, lx, ly, l_in0 - mount_bore_relief, l_in1 + 1.0),
+        head_access(ux, uy, roof - y_stack_cbore_depth, roof + 1.0, mouth),
         _zcyl(rp, ux, uy, u_in1 - 0.01, roof - y_stack_cbore_depth + 0.01),
         _zcyl(ri, ux, uy, min(u_in0 - mount_bore_relief,
-                                    u_tip - y_stack_tip_clearance), u_in1),
+                              u_tip - y_stack_tip_clearance), u_in1),
     )
 
 
@@ -3952,25 +4029,6 @@ def _finish_handholds(solid, inner):
     return solid.clean()
 
 
-def _stack_flute_plain(inner, y_joint):
-    """Where each flank stays plain outboard of its lower head pocket, as flute `plain` boxes:
-    the pocket's chord that stands within `flute_depth + flute_backing` of the exterior face,
-    from the handhold ceiling to the top of the handhold's R6 roll. The flutes fade in above it,
-    so the head floor's outboard corner keeps `flute_backing` behind every groove."""
-    _bed, roof, _crown = _handhold_levels(inner)
-    rc = y_stack_cbore_dia / 2.0
-    out = []
-    for x_in, sx in ((inner[0], 1.0), (inner[1], -1.0)):
-        x_ext = x_in - sx * wall
-        lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
-        short = flute_depth + flute_backing - (abs(lx - x_ext) - rc)
-        if short > 0.0:
-            half = math.sqrt(rc * rc - (rc - short) ** 2)
-            out.append((x_ext - 1.0, x_ext + 1.0, ly - half, ly + half,
-                        roof, roof + handhold_edge_r))
-    return tuple(out)
-
-
 # --- bottom↔top joint: the HOOKED SLIDE --------------------------------------
 #
 # The BOTTOM piece carries the lip, the hooked arms on its straight flank runs, the
@@ -4191,23 +4249,12 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
             # head (`_rail_channel_span`), while this piece's grown flank begins on the rim at
             # `x_in`, so the shell over the notch would be one `wall`. The foot's outer edge
             # runs on up to the flank's 45° bedding and meets it on its own line, from the
-            # run's open end to one running fit short of the lower stack's front knuckle,
-            # thinning back to the flank's interior face over its last `wall` in plan: the
-            # end is then one face a `wall` long rather than a strip as narrow as the stock.
+            # run's open end to the seam plane.
             x_open = _rail_channel_span(x_in, sx, col)[0]
             rim = zj + z_rise
-            y_end = y_joint - y_stack_front_root - fits.running
-            run = abs(x_in - x_open)
-            sy_end = 1.0 if y_end > y0 else -1.0
-            out_x = 1.0 if x_in > x_open else -1.0
-            stock = _xz_prism(y0, y_end, [
-                (x_root, zj), (x_open, zj), (x_open, rim + run),
-                (x_in, rim), (x_root, rim)])
-            over = wall * (1.0 + 0.5 / run)
-            stock = stock.cut(_xy_prism(zj - 1.0, rim + run + 1.0, [
-                (x_open - out_x * 0.5, y_end - sy_end * over), (x_in, y_end),
-                (x_in, y_end + sy_end * 0.5), (x_open - out_x * 0.5, y_end + sy_end * 0.5)]))
-            out = out.fuse(stock)
+            out = out.fuse(_xz_prism(y0, y_joint, [
+                (x_root, zj), (x_open, zj), (x_open, rim + abs(x_in - x_open)),
+                (x_in, rim), (x_root, rim)]))
     return out
 
 
@@ -4292,28 +4339,18 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
             # inside `x_in`, while this channel's standing wall ends at `x_open`. Below the
             # roof the crossing opens the complete span from the flank's inboard face `x_f`
             # to `x_in`; `_rail_keep` leaves the exterior wall whole fore of the joint.
-            # The one broad 45-degree roof from `x_open` to `x_f` rises one-for-one in Y
-            # from the full wall at `y_joint`, so each returning line stands on the line
-            # before it and the tongue resumes at full section above it.
+            # The roof is level across at the gable's ridge and rises one-for-one in Y from
+            # the full wall at `y_joint`, so each returning line stands on the line before
+            # it and the tongue resumes at full section above it.
             rise = lane_aft - y_joint
             floor = zj - 1.0 - rise
             crossing = _xz_prism(y_joint, lane_aft, [
-                (x_f, floor), (x_in, floor), (x_in, z_roof),
-                (x_open, z_roof), (x_peak, z_peak)])
+                (x_f, floor), (x_in, floor), (x_in, z_peak), (x_f, z_peak)])
             crossing = crossing.transformGeometry(cq.Matrix([
                 [1.0, 0.0, 0.0, 0.0],
                 [0.0, 1.0, 0.0, 0.0],
                 [0.0, 1.0, 1.0, -y_joint],
             ]))
-            # BACK-TOP'S LOWER HUB TAKES THE CROSSING OVER AT ITS CLEARANCE ROOF. `_y_stacks`
-            # clears the hub flat to that roof across this whole crossing, so a crossing that
-            # reaches the roof stops on it and the flank above keeps its square corner.
-            _piece, _hub, hub_top, _below, above = y_stack(inner)[0][-1]
-            hub_roof = hub_top + above
-            if floor < hub_roof < z_peak + rise:
-                xa, xb = sorted((x_in, x_f))
-                crossing = crossing.cut(_ybox(xa - 1.0, xb + 1.0, y_joint - 1.0,
-                                              lane_aft + 1.0, hub_roof, z_peak + rise + 1.0))
             void = void.fuse(crossing)
         void = void.intersect(keep)
         out = void if out is None else out.fuse(void)
@@ -5181,7 +5218,7 @@ def cap_base_z(pump_trays):
 
 
 def cap_terminal_opening_z(box):
-    """The fitted motor bore's upper end; the wider open crown begins here."""
+    """The fitted motor bore's upper end; the terminal well's 45-degree cone begins here."""
     return (max(cz for _cx, _cy, cz in box.pack.pump_trays)
             + _tray.motor_crown + bay_crown_air - pump_cartridge_z_clearance)
 
@@ -5189,6 +5226,11 @@ def cap_terminal_opening_z(box):
 def cap_crown_z(box):
     """The surrounding crown meets the cartridge's top edge around two open motor ends."""
     return box.pump_bay[2] - pump_cartridge_top_clearance
+
+
+def cap_terminal_crown_r(box):
+    """The terminal well's radius where its 45-degree cone meets the crown."""
+    return _tray.can_half + cap_crown_z(box) - cap_terminal_opening_z(box)
 
 
 def cap_head_seat_z(box):
@@ -5491,7 +5533,7 @@ def pump_cartridge_figures(box):
         "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
         "CLAMP_BRIDGE_RISE": f"{cap_bridge_rise:.4g} mm",
-        "CLAMP_TERMINAL_OPENING": f"{2.0 * cap_terminal_opening_r:g} mm",
+        "CLAMP_TERMINAL_OPENING": f"{2.0 * cap_terminal_crown_r(box):.4g} mm",
         "CLAMP_TERMINAL_OPENING_Z": f"{cap_terminal_opening_z(box):.6g} mm",
         "PUMP_SEATED_DROP": f"{_interface.pump_seated_drop:g} mm",
         "CAP_TUBE_OPEN_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
@@ -5665,14 +5707,14 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
 
 def _receiver_wall(inner, y_joint, plate, bay):
-    """Closed receiver wall, with a flat recessed interior assembly face.
+    """Closed receiver wall, solid from the bay face to its aft plane.
 
-    The upper bulkhead retains its contact and display backing. The lower
-    access pocket leaves a seven-millimetre supported receiver wall.
+    The upper bulkhead retains its contact and display backing. The keeper
+    slots and receiver bays are cut with the dock's fixed features, after the
+    bay floor joins the wall.
     """
-    slab = _ybox(inner[0], inner[1], bay_back_y(plate),
-                  plate["wall_aft_y"], z_seam, bay[2])
-    return slab.cut(_dock.wall_recess(plate))
+    return _ybox(inner[0], inner[1], bay_back_y(plate),
+                 plate["wall_aft_y"], z_seam, bay[2])
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
@@ -5765,7 +5807,8 @@ def build_pump_cartridge(box, halves_cache=None):
     stay open through the whole drop path while the aft pull wall remains between them.
 
     Both tall side pulls have mirrored edge margins plus supported-roof allowance. The clamp has no pull feature.
-    Two heat-set bores open upward from the centre spine for the clamp screws."""
+    Two heat-set bores open upward from the centre spine for the clamp screws. One magnet slot
+    per pump opens through the flat back on that pump's port line (`dock_retention`)."""
     solid = _pump_cartridge_gross(box, halves_cache)
     for void in _pump_drop_voids(box):
         solid = solid.cut(void)
@@ -5773,8 +5816,7 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(box)[1]:
         solid = solid.cut(bore)
-    magnet = pump_retention_features(box)["moving"]
-    solid = solid.fuse(magnet["stock"]).cut(magnet["cutter"])
+    solid = solid.cut(pump_retention_features(box)["moving"]["cutter"])
     return _unified(_round_cradle_pull_rims(solid, box))
 
 
@@ -5834,14 +5876,16 @@ def pump_cap_body_x_span(pump_trays):
 def _pump_clamp_gross(box, halves_cache=None):
     """One broad cap with fitted octagonal bosses and cylindrical motor openings.
 
-    The surrounding crown reaches the cartridge top. Two wider openings pass straight through
-    that crown above the fitted motor bores, leaving the motor ends and terminals open."""
+    The surrounding crown reaches the cartridge top. Above each fitted motor bore a
+    45-degree cone opens through that crown, leaving the motor end and terminals open."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     split = cap_split_z(trays)
     base = cap_base_z(trays)
     crown = cap_crown_z(box)
+    well = cap_terminal_opening_z(box)
+    rise = crown + 1.0 - well
     fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
     aft = pump_cartridge_aft_y(trays, plate)
     x0, x1 = pump_cap_body_x_span(trays)
@@ -5852,10 +5896,10 @@ def _pump_clamp_gross(box, halves_cache=None):
             cq.Location(cq.Vector(cx, opening_y, split))))
         solid = solid.cut(_zcyl(
             _tray.can_half, cx, opening_y,
-            split + _tray.boss_depth - 0.1, crown + 1.0))
-        solid = solid.cut(_zcyl(
-            cap_terminal_opening_r, cx, opening_y,
-            cap_terminal_opening_z(box), crown + 1.0))
+            split + _tray.boss_depth - 0.1, well + 0.01))
+        solid = solid.cut(cq.Solid.makeCone(
+            _tray.can_half, _tray.can_half + rise, rise,
+            cq.Vector(cx, opening_y, well), cq.Vector(0.0, 0.0, 1.0)))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
     return solid
@@ -5895,31 +5939,12 @@ def _cap_screws(box):
     return clear, sets
 
 
-def pump_cartridge_body_stops(box):
-    """Four fixed-wall bearing lands setting Y on the lower cradle itself.
-
-    Two heights at both outboard edges define the seating plane clear of the
-    tube passages and magnet columns. Each land spans the actual body-plane
-    gap and embeds a complete wall section in the fixed bulkhead. The moving
-    poles are set against their fixed mates with the cradle on these faces.
-    """
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    aft = pump_cartridge_aft_y(trays, plate)
-    fore = bay_back_y(plate)
-    x = _cap_x_span(box.pump_bay)[1] - pump_body_stop_edge_inset
-    zs = (cap_split_z(trays) + wall,
-          cap_crown_z(box) - 2.0 * pump_body_stop_height)
-    return tuple(_ybox(sx * x - pump_body_stop_width / 2.0,
-                       sx * x + pump_body_stop_width / 2.0,
-                       aft, fore + wall, z, z + pump_body_stop_height)
-                 for sx in (-1.0, 1.0) for z in zs)
-
-
 def pump_retention_features(box):
+    """The two magnet slots in each mating half and their blocks (`dock_retention`): the
+    cartridge's in its flat back, front-top's in the receiver wall's bay face."""
     plate = box.pack.collet_plate
     return _retention.features(
-        plate["holes"], pump_cartridge_aft_y(box.pack.pump_trays, plate),
-        bay_back_y(plate), plate["wall_aft_y"])
+        plate["holes"], pump_cartridge_aft_y(box.pack.pump_trays, plate), bay_back_y(plate))
 
 
 def pump_dock_figures(box):
@@ -5927,7 +5952,7 @@ def pump_dock_figures(box):
     back = pump_cartridge_aft_y(box.pack.pump_trays, plate)
     return {
         "RECEIVER_COUNT": str(len(plate["holes"])),
-        "KEEPER_COUNT": str(len(plate["holes"])),
+        "KEEPER_COUNT": str(len(_dock.KEEPERS)),
         "DOCK_TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
         "DOCK_TIP_FROM_BACK": f"{plate['seated_tube_bottom_y']-back:.6g} mm",
         "DOCK_LAND": f"{_receiver.FRONT_SEAL_Y[1]-_receiver.FRONT_SEAL_Y[0]:.4g} mm",
@@ -5935,7 +5960,10 @@ def pump_dock_figures(box):
         "DOCK_MAGNET_COUNT": str(2*len(_retention.stations(plate["holes"]))),
         "DOCK_MAGNET_ROWS": str(_retention.ROWS_PER_COLUMN),
         "DOCK_KEEPER_T": f"{_receiver.KEEPER_THICKNESS:.4g} mm",
-        "DOCK_KEEPER_RADIAL_AIR": f"{_receiver.KEEPER_RADIAL_CLEARANCE:.4g} mm",
+        "DOCK_KEEPER_SLIDE_AIR": f"{_receiver.KEEPER_SLIDE_AIR:.4g} mm",
+        "DOCK_NECK_GRIP": f"{_receiver.NECK_GRIP_D:.4g} mm",
+        "DOCK_NECK_MOUTH": f"{_receiver.NECK_MOUTH_W:.4g} mm",
+        "DOCK_NECK": f"{_receiver.BODY_OD:.4g} mm",
     }
 
 
@@ -6025,7 +6053,8 @@ pump_contact_face_recess = 0.125
 
 
 def pump_contact_faces(box):
-    """Mating plastic faces, recessed equally from the cartridge body stops.
+    """Mating plastic faces, each recessed equally into the bay wall's face and the
+    cartridge's flat back.
 
     A 0.500 mm face gap leaves 0.2–0.8 mm pin compression over the purchased
     0.8–1.2 mm projection range and a ±0.05 mm allowance at either seat.
@@ -6037,40 +6066,13 @@ def pump_contact_faces(box):
             pump_cartridge_aft_y(trays, plate) - recess)
 
 
-def _pump_contact_fixed_stock(box):
-    """Insert and lead backing with supported undersides clear of the valves."""
-    x, z = pump_contact_station(box)
-    axis = pump_contact_lead_axis_z(box)
-    half = max(abs(v) for v in _pogo.ear_xs()) + pogo_insert_entry_dia / 2 + wall
-    root = box.pack.collet_plate["wall_aft_y"]
-    face = pump_contact_faces(box)[0]
-    back = max(root, face + _pogo.ear_back() + pogo_heatset_setback
-               + pogo_heatset_len + pogo_heatset_relief + wall)
-    depth = back - root
-    insert_floor = z - pogo_heatset_dia / 2 - wall
-    pad = _ybox(x - half, x + half, root, back, insert_floor, box.pump_bay[2])
-    pad = pad.fuse(_yz_prism(x - half, x + half,
-                   [(root, insert_floor - depth), (back, insert_floor),
-                    (root, insert_floor)]))
-    radius = pogo_lead_r + wall
-    tangent = radius / 2**.5
-    low = axis - radius * 2**.5
-    lead = _ycyl(radius, x, axis, root, back).fuse(_xz_prism(root, back,
-               [(x - tangent, axis - tangent), (x, low),
-                (x + tangent, axis - tangent)]))
-    web = _ybox(x - pogo_lead_r, x + pogo_lead_r,
-                root, back, low, insert_floor)
-    web = web.fuse(_yz_prism(x - pogo_lead_r, x + pogo_lead_r,
-                  [(root, low - depth), (back, low), (root, low)]))
-    return pad.fuse(lead, web).clean()
-
-
 def _pump_contact_fixed_cuts(box):
     """Male seat, joined insert-loading passage and teardrop lead bore.
 
-    The lead opening overlaps the body cavity from the ear-back datum. Its
-    rear opening crosses the complete integral backing pad and central tray
-    top with the same supported roof profile.
+    The seat and both inserts stand inside the bay bulkhead, whose aft face closes the
+    pilots with stock to spare. The lead opening overlaps the body cavity from the ear-back
+    datum, and its rear opening crosses the bulkhead's aft face and the central tray top with
+    the same supported roof profile.
     """
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
@@ -9119,18 +9121,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                                    box.pack.collet_plate))
         # And the contact pair's fixed half, let into the bulkhead face the bay ends on.
         if box.pack.collet_plate:
-            piece = piece.fuse(_pump_contact_fixed_stock(box))
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
             stocks, cuts = _dock.fixed_features(box.pack.collet_plate)
             for stock in stocks:
                 piece = piece.fuse(stock)
-            magnet = pump_retention_features(box)["fixed"]
-            piece = piece.fuse(magnet["stock"])
-            for cutter in (*cuts[1:], magnet["cutter"]):
+            for cutter in (*cuts, pump_retention_features(box)["fixed"]["cutter"]):
                 piece = piece.cut(cutter)
-            for stop in pump_cartridge_body_stops(box):
-                piece = piece.fuse(stop)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
@@ -9413,12 +9410,12 @@ def y_stack_figures(inner):
         "Y_STACK_AXIS_OUT": f"{wall + y_stack_axis_in:.4g} mm",
         "Y_STACK_LOWER_AXIS_OUT": f"{wall + y_stack_lower_axis_in:.4g} mm",
         "Y_STACK_CEILING": f"{lower[0][1]:.4g}",
-        "Y_STACK_HUB": f"{lower[-1][1]:.5g}..{lower[-1][2]:.5g}",
-        "Y_STACK_UPPER_FLOOR": f"{upper[0][1]:.4g}",
+        "Y_STACK_UPPER_FLOOR": f"{y_stack_upper_floor:.4g}",
         "Y_STACK_DATUM": f"{upper[-1][1]:.5g}",
-        "Y_STACK_GAP": f"{_y_stack_gap(False, True):.3g} mm",
+        "Y_STACK_GAP": f"{fits.running:.3g} mm",
         "Y_STACK_CLEARANCE": f"Ø{y_stack_clearance_dia:.3g}",
-        "Y_STACK_CBORE": f"Ø{y_stack_cbore_dia:.3g} × {y_stack_cbore_depth:.3g} mm",
+        "Y_STACK_CBORE": f"{y_stack_cbore_depth:.3g} mm",
+        "Y_STACK_LOWER_CBORE": f"{rods['lower'][1] - lower[0][1]:.4g} mm",
         "Y_STACK_INSERT_BOSS": f"Ø{boss:.3g}",
         "Y_STACK_INSERT_LIGAMENT": f"{lip_len / 2.0 - boss / 2.0:.2g} mm",
         "LOWER_ROD": f"M5 × {rods['lower'][3]:g}",

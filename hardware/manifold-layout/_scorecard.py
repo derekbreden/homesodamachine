@@ -233,6 +233,9 @@ PUMP_DOCK_PORTS = {
     "east-inner": ("Y-C", "fluid-11"),
     "east-outer": ("Y-D", "fluid-12"),
 }
+# Keepers by the receivers they hold, as `pump-dock/dock_structure.KEEPERS` names them.
+PUMP_DOCK_KEEPERS = {"west": ("west-outer",), "middle": ("west-inner", "east-inner"),
+                     "east": ("east-outer",)}
 
 MOUNTS = (
     # THE ONE BODY ON THE FLOOR THE SLAB FASTENS. Four posts stand on the front piece's slab
@@ -424,21 +427,19 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
-    # The wall locates each permanent TPU receiver in X/Z. Its flat locked keeper
-    # captures the receiver groove in Y.
+    # The wall locates each permanent TPU receiver in X/Z. A flat keeper, slid up its
+    # slot behind the wall and snapped onto the receiver necks, captures the grooves in Y.
     *((f"pump-receiver-{port}",
-       ("enclosure-front-top", f"pump-receiver-keeper-{port}"), "wall-seat-and-keeper")
-      for port in PUMP_DOCK_PORTS),
-    *((f"pump-receiver-keeper-{port}", "enclosure-front-top", "guided-slide-M3-lock")
-      for port in PUMP_DOCK_PORTS),
+       ("enclosure-front-top", f"pump-keeper-{keeper}"), "wall-seat-and-keeper")
+      for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
+    *((f"pump-keeper-{keeper}", "enclosure-front-top", "slot-slide-and-neck-snap")
+      for keeper in PUMP_DOCK_KEEPERS),
     # Each return snaps into its channel in the one return block.
     *((f"pump-return-{port}", "pump-return-block", "snap-seat") for port in PUMP_DOCK_PORTS),
     ("pump-return-block", "enclosure-front-top", "three-M3-into-tray-foot"),
-    ("pump-dock-potting-moving", "enclosure-pump-cartridge", "bonded-pocket"),
-    ("pump-dock-potting-fixed", "enclosure-front-top", "bonded-pocket"),
-    # Exposed SB443-IN blocks are bonded in one plain pocket per column; their side
-    # grooves key each block into the cured bedding.
-    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "grooves-in-bonded-pocket")
+    # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
+    # closed in by the layer printed over the column at the part's one pause.
+    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
       for side, host in (("moving", "enclosure-pump-cartridge"),
                          ("fixed", "enclosure-front-top"))
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
@@ -623,10 +624,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("funnel-cover", "enclosure-front-top"),
     ("funnel-cover", "enclosure-back-top"),
     # Bare attracting pole faces meet; adjacent blocks share a column stack.
-    *((f"pump-dock-potting-{side}", f"pump-dock-SB443-{side}-{column}-{row}")
-      for side in ("moving", "fixed")
-      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
-      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
     *((f"pump-dock-SB443-moving-{column}-{row}", f"pump-dock-SB443-fixed-{column}-{row}")
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
@@ -643,8 +640,8 @@ TOUCHING_OK = {frozenset(p) for p in (
       for offset in (-1, 1)
       if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
     # Intentional near-contact interfaces of the permanent receiver assembly.
-    *((f"pump-receiver-{port}", f"pump-receiver-keeper-{port}")
-      for port in PUMP_DOCK_PORTS),
+    *((f"pump-receiver-{port}", f"pump-keeper-{keeper}")
+      for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
     # Each return seats in its block channel with only the seat air between.
     *((f"pump-return-{port}", "pump-return-block") for port in PUMP_DOCK_PORTS),
     # The block bears on the front-top's bed plane under the tray foot.

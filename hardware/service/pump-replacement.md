@@ -3,7 +3,7 @@
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
 The customer replaces complete prepared pumps: each replacement has two straight 1/4" LLDPE stubs
 already fitted in its pump tubing and clamped there by the pump head's own housing. The fixed TPU junctions, compound
-returns, flat keepers, the return block and magnetic mounts remain installed
+returns, flat keepers, the return block and front-top's magnets remain installed
 during pump changes.
 No enclosure quadrant comes off for a pump change.
 
@@ -23,20 +23,19 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) locked flat interior keepers |
+| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) flat interior keepers snapped onto their necks |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
-| The cartridge's eight bonded SB443-IN magnets | Their eight bonded mates in front-top |
+| The cartridge's eight printed-in SB443-IN magnets | Their eight printed-in mates in front-top |
 | | [4](RETURNS) permanent compound TPU returns, the one return block they snap into, and the [2](BOX_TEES) commercial source tees |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
 | | All stationary straight junction-to-valve and return links, other tubing, the funnel, display and cold core |
 
 The wall locates each TPU receiver in X/Z. Its recessed collar bears in the wall;
-one flat keeper per receiver slides down the interior face and captures its groove in Y.
-Each keeper is locked in its wall guides at the factory by one M3×8 screw with a
-Ø7 × 0.5 mm DIN 125A washer. The screw enters from the empty pump bay through
-the recessed wall opening and threads into an RX-M3Sx4.0 insert in the keeper's
-local 5 mm boss. These locks stay installed during a customer pump change.
-The junction's rear keys prevent rotation. Each return snaps into its channel in the
+three flat keepers, one for each outer receiver and one for the inner pair, slide up
+slots behind the interior face from front-top's seam at the factory and snap onto the
+receiver necks, capturing their grooves in Y. They take no fastener and stay installed
+during a customer pump change. The straight upper link into its fixed valve clocks each
+junction. Each return snaps into its channel in the
 PET-GF return block. The straight junction-to-return link is captured between the two
 fixed socket stops. The keeper
 has running clearance around the neck and does not position the junction across its
@@ -51,12 +50,12 @@ axis. These permanent parts stay seated during a pump change.
 | `fluid-21` | pump B suction stub | TPU junction Y-F inlet | 3 and 4 |
 | `fluid-22` | pump B discharge stub | TPU junction Y-G inlet | 3 and 4 |
 
-The socket entrances are TPU funnels leading to tight straight sealing lands. Dedicated
-outboard rigid stop lands on the receiver wall bear against the lower cradle to
-establish its final position, while the broad aft faces retain [0.25 mm](DOCK_BODY_GAP) clearance. The prepared stub tips enter
-the sockets together. The magnets hold that seated position; the TPU receiver is not
-a cartridge stop. A straight pull parts the magnets, contact pair and four slip joints
-without moving the permanent junctions, returns or their straight tube links.
+The socket entrances are TPU funnels leading to tight straight sealing lands. The prepared
+stub tips enter the sockets together. The two magnet columns then draw the cartridge home,
+and their meeting poles set its final position with [0.25 mm](DOCK_BODY_GAP) of air between
+the broad aft faces; the TPU receiver is not a cartridge stop. A straight pull parts the
+magnets, contact pair and four slip joints without moving the permanent junctions, returns
+or their straight tube links.
 
 ## Dry mode
 
@@ -103,7 +102,7 @@ service state; the topology and Dry timer do not establish them.
    and tube ends with a clean damp cloth. The TPU funnels must remain seated, clear of
    debris and free of cuts, folds or displaced lips.
    Wipe the electrical contact faces and magnet faces dry. A displaced receiver, damaged
-   socket or loose magnetic mount requires appliance service; it is not a customer
+   socket or chipped magnet requires appliance service; it is not a customer
    replacement item.
 
 4. **Replace the complete pumps.** Pull each Faston receptacle by its insulated body,
@@ -118,10 +117,10 @@ service state; the topology and Dry timer do not establish them.
    +X crown-groove pair serves pump A and the −X pair serves pump B. Return the leads to
    their grooves below the clamp crown. With power still disconnected, set the cartridge
    on its bay floor and present all four stub tips to the TPU funnels. Push squarely and
-   evenly until the rigid stop lands seat and the front face finishes flush. Do not
-   count a magnetic snap as full seating: check the complete perimeter, receiver lips
-   and electrical contact engagement. The stubs must remain straight and the receivers
-   must remain seated when the cartridge is gently pulled against its retention.
+   evenly until the magnets draw the cartridge onto its seat and the front face finishes
+   flush; check the complete perimeter, receiver lips and electrical contact engagement.
+   The stubs must remain straight and the receivers must remain seated when the
+   cartridge is gently pulled against its retention.
 
 6. **Re-prime and observe.** Restore power and prime each channel through the funnel-fill
    path, then dispense from each until flow is clean. Inspect the four dock joints and
@@ -137,7 +136,7 @@ the TPU funnel without scoring it. Loosen the pump head's housing, push one stub
 each BPT end and snug the housing.
 
 Seat both pumps in the cartridge under the closed cap, set the printed tube setting
-jig on the cartridge's flat rear seating face and slide each stub until its tip meets
+jig on the cartridge's flat rear face and slide each stub until its tip meets
 its jig stop: all four free tips at [7.75 mm](TIP_FROM_CARTRIDGE) aft of that face, enclosure
 Y[90.015 mm](TIP_Y) when seated, and [12.851 mm](TUBE_PROJECTION) beyond the pump's
 outlet face. On the reference pump, whose BPT ends 13.9 mm short of the tip, that leaves
@@ -152,10 +151,10 @@ the stubs.
 
 - Both complete pumps sit firmly on their cradle lands under the seated clamp.
 - Both Faston pairs are connected and all four leads remain below the crown.
-- All four straight stubs enter seated TPU receivers together; the cartridge is
-  flush against its rigid seats and the contact pair is engaged.
-- Junction funnels, all four locked keepers, compound returns, the return block
-  and magnetic mounts remain fixed in the appliance.
+- All four straight stubs enter seated TPU receivers together; the cartridge sits on its
+  meeting magnet poles with its front face flush, and the contact pair is engaged.
+- Junction funnels, all three keepers, compound returns, the return block
+  and front-top's magnets remain fixed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.
 

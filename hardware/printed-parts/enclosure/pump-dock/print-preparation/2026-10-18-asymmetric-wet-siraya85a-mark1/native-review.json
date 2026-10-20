@@ -1,14 +1,14 @@
 {
   "review_date": "2026-10-19",
-  "status": "Eight offline native slices and emitted-path readings complete; physical internal finish and wet service remain unqualified.",
+  "status": "Eight offline native slices complete. Emitted-path readings cover the four returns' current G-code; the four junctions' readings are not yet taken on their current G-code. Physical internal finish and wet service remain unqualified.",
   "scope": "One normal object per plate, actual handed source print pose, retained Siraya Tech Flex TPU85A Clear right0.6 recipe. No printer was contacted or launched. These manual readings do not join the normal CAD/build path.",
   "bindings": {
     "source_sha256_at_preparation": {
       "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+      "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
       "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
       "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-      "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+      "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
       "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
     },
     "plate_snapshot_sha256": "0378b40cc6e82f077f798108a38636b19acdd3588476940b9df098de50055a8b"
@@ -68,14 +68,14 @@
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.21574878692627,
-      "estimated_seconds": 6705.83447265625,
-      "native_slice_wall_seconds": 2.6004836249994696,
-      "project_sha256": "3b3f9d39cf958eda563190d7a9f626c6f06ae1eadf690b5af7b55481df6ac1ca",
-      "archive_sha256": "dc1a7d59ca22d83acaa40b2e4544feb012de84af96f1b11c43e1e8e150aa88fc",
-      "gcode_sha256": "9282d43c125b3eb065c09dc367e2e4c27e7f0349bab4ebde2b5ba01820130a57",
+      "estimated_filament_g": 8.024062156677246,
+      "estimated_seconds": 6550.82958984375,
+      "native_slice_wall_seconds": 2.053044125001179,
+      "project_sha256": "dd874530a3b61d036aef540c127e23b091d0e91810006eff6e023203732566a5",
+      "archive_sha256": "048d0ac38493ab0a81598425912e1a0cd8171a0e6e3b5feebc3805d934268ebd",
+      "gcode_sha256": "9166a449fb9866e385585ee4b6b2888480e0693dfaef2373def9a62a3e461574",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "6b0b5f9550f61da205f9d3b476c51b7a6d2363290d485062c822482a87f64461",
+      "body_stl_sha256": "b458c1aa0b93097bec91c7274ba3cd30d4b38196398c187a591cb0d7bc3310fd",
       "wet_void_stl_sha256": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
@@ -149,10 +149,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -171,8 +171,8 @@
       },
       "prepared_body_mesh": {
         "watertight": true,
-        "vertices": 11777,
-        "facets": 23558
+        "vertices": 11923,
+        "facets": 23850
       },
       "prepared_wet_void_mesh": {
         "watertight": true,
@@ -269,394 +269,24 @@
       "native_flat_bed_face_area_sum_mm2": 134.39942496062594,
       "plate_xy_translation_mm": [
         177.5,
-        144.57223107797205
+        144.57219250357622
       ],
       "editable_project": "plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf",
-      "project_bytes": 361028,
-      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
-      "native_positive_extrusion_feature_runs": {
-        "Support": 958,
-        "Brim": 11,
-        "Inner wall": 30100,
-        "Outer wall": 3357,
-        "Internal solid infill": 409,
-        "Sparse infill": 55,
-        "Floating vertical shell": 3,
-        "Top surface": 18,
-        "Gap infill": 1
-      },
-      "support": {
-        "positive_extrusion_runs": {
-          "Support": 958
-        },
-        "sampled_wet_section_count": 654,
-        "maximum_sampled_wet_overlap_mm2": 0.0,
-        "minimum_sampled_wet_gap_mm": 2.002548117130375,
-        "bead_bounds_build_mm": [
-          160.97101574028324,
-          134.55306077599582,
-          0.0,
-          193.27058761345222,
-          156.26716934213596,
-          26.24
-        ],
-        "interface_regions_printframe": []
-      },
-      "first_second_layer": {
-        "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 136.74251882947252,
-        "first_layer_brim_projected_bead_area_mm2": 207.1168010007103,
-        "first_layer_model_to_brim_gap_mm": 0.0649635698383163,
-        "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 140.33170764881652,
-        "second_layer_overlap_with_first_model_mm2": 136.1239125498701,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.23040186754534,
-        "second_layer_outside_all_first_layer_beads_mm2": 3.101305781271175,
-        "second_layer_model_bounds_build_mm": [
-          170.389514,
-          146.966514,
-          0.2,
-          184.610486,
-          162.371486,
-          0.32
-        ],
-        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
-      },
-      "usable_bed_bead_margins_mm": {
-        "left": 135.71495074028323,
-        "front": 134.2969957759958,
-        "right": 136.47334738654777,
-        "rear": 139.36401327072147
-      },
-      "nonextruding_travel": {
-        "wet_mesh_watertight": true,
-        "layer_count": 232,
-        "nonextruding_transition_count": 4400,
-        "nozzle_segments_reviewed": 210199,
-        "potential_chords_reviewed": 210190,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 190,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 734,
-        "maximum_potential_chord_wet_length_mm": 20.2245502960979
-      },
-      "lower_stop": {
-        "lower_mouth_print_z_mm": 1.000000082740371e-07,
-        "posed_port_datums_available": true,
-        "stop_print_z_mm": 6.500000100000008,
-        "seal_bore_mm": 6.1,
-        "lower_stop_bore_mm": 5.5,
-        "stop_radial_width_mm": 0.2999999999999998,
-        "relaxed_stop_annular_area_mm2": 5.466371217246235,
-        "taper_axial_mm": 0.6000000000000001,
-        "native_stop_layers": [
-          {
-            "previous_model_layer_z_mm": 6.56,
-            "model_layer_z_mm": 6.68,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27169,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 18.428200200914375,
-                "whole_path_bead_projected_area_mm2": 11.422530067231769,
-                "whole_path_overlap_previous_layer_mm2": 3.976347723371795,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.13342549699438003,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.12657050300561995,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.13342549699438003,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 8.66040453323485,
-                "overlap_previous_layer_mm2": 1.2142221893748903,
-                "overlap_previous_or_already_placed_same_layer_mm2": 1.2142221893748975,
-                "minimum_path_to_previous_or_current_beads_mm": 0.09840613012283769,
-                "path_bounds_build_xy_mm": [
-                  174.561,
-                  149.999,
-                  180.422,
-                  155.859
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.68,
-            "model_layer_z_mm": 6.8,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27675,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 21.396145918948946,
-                "whole_path_bead_projected_area_mm2": 13.263493190713017,
-                "whole_path_overlap_previous_layer_mm2": 13.263493190712982,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 0.17434090985313094,
-                "overlap_previous_layer_mm2": 0.17434090985313205,
-                "overlap_previous_or_already_placed_same_layer_mm2": 0.17434090985313205,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.093,
-                  149.51784385296975,
-                  180.90657942226696,
-                  156.327
-                ]
-              },
-              {
-                "gcode_line": 27708,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 17.679938781120224,
-                "whole_path_bead_projected_area_mm2": 10.95847970867936,
-                "whole_path_overlap_previous_layer_mm2": 9.046196490134243,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.572687751779956,
-                "overlap_previous_layer_mm2": 8.660404533234843,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.660404533234857,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.683,
-                  150.107,
-                  180.308,
-                  155.739
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.8,
-            "model_layer_z_mm": 6.92,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28218,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 20.6419399488103,
-                "whole_path_bead_projected_area_mm2": 12.79604626332571,
-                "whole_path_overlap_previous_layer_mm2": 12.796046263325753,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 2.4524575629761216,
-                "overlap_previous_layer_mm2": 2.4524575629761323,
-                "overlap_previous_or_already_placed_same_layer_mm2": 2.4524575629761323,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.208,
-                  149.647,
-                  180.77594071121862,
-                  156.217
-                ]
-              },
-              {
-                "gcode_line": 28252,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.919560011318712,
-                "whole_path_bead_projected_area_mm2": 10.487361276014056,
-                "whole_path_overlap_previous_layer_mm2": 8.642616423912958,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.487361276014052,
-                "overlap_previous_layer_mm2": 8.642616423912973,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.64261642391298,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.803,
-                  150.238,
-                  180.189,
-                  155.62
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.92,
-            "model_layer_z_mm": 7.04,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28653,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.888144199927826,
-                "whole_path_bead_projected_area_mm2": 12.328993931899184,
-                "whole_path_overlap_previous_layer_mm2": 12.328993931899223,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 4.633012358048106,
-                "overlap_previous_layer_mm2": 4.633012358048099,
-                "overlap_previous_or_already_placed_same_layer_mm2": 4.633012358048099,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.33321260329674,
-                  149.7621012323253,
-                  180.657,
-                  156.097
-                ]
-              },
-              {
-                "gcode_line": 28681,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.17115311591277,
-                "whole_path_bead_projected_area_mm2": 10.02284966760876,
-                "whole_path_overlap_previous_layer_mm2": 8.279704089226968,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.022849667608753,
-                "overlap_previous_layer_mm2": 8.279704089226968,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.279704089226964,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.923,
-                  150.348,
-                  180.063,
-                  155.5
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.04,
-            "model_layer_z_mm": 7.16,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 29123,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.117857182975037,
-                "whole_path_bead_projected_area_mm2": 11.850411578188677,
-                "whole_path_overlap_previous_layer_mm2": 11.850411578188666,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.818526652412082,
-                "overlap_previous_layer_mm2": 6.818526652412075,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.818526652412075,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.453,
-                  149.879,
-                  180.549,
-                  155.956
-                ]
-              },
-              {
-                "gcode_line": 29155,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.40153442318754,
-                "whole_path_bead_projected_area_mm2": 9.545198987729083,
-                "whole_path_overlap_previous_layer_mm2": 7.8426446729635515,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.545198987729075,
-                "overlap_previous_layer_mm2": 7.8426446729635515,
-                "overlap_previous_or_already_placed_same_layer_mm2": 7.842644672963548,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.06004229837825,
-                  150.473,
-                  179.956,
-                  155.368
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.16,
-            "model_layer_z_mm": 7.28,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 29546,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.114325241021298,
-                "whole_path_bead_projected_area_mm2": 11.847505898113635,
-                "whole_path_overlap_previous_layer_mm2": 11.847505898113639,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.848039273176223,
-                "overlap_previous_layer_mm2": 6.848039273176216,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.848039273176216,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.453,
-                  149.879,
-                  180.544,
-                  155.956
-                ]
-              },
-              {
-                "gcode_line": 29579,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.399304580905062,
-                "whole_path_bead_projected_area_mm2": 9.543781050165004,
-                "whole_path_overlap_previous_layer_mm2": 9.53377653087002,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.543781050164995,
-                "overlap_previous_layer_mm2": 9.533776530870032,
-                "overlap_previous_or_already_placed_same_layer_mm2": 9.533776530870032,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.06016947206305,
-                  150.473,
-                  179.956,
-                  155.368
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "native_reader_sources_sha256": {
-        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
-        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7",
-        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814"
-      }
+      "project_bytes": 363768,
+      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2"
     },
     "enclosure-pump-receiver-east-outer": {
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.106680870056152,
-      "estimated_seconds": 6662.9287109375,
-      "native_slice_wall_seconds": 2.4806993330003024,
-      "project_sha256": "bb344e168a1255507fbe9c14d81bb4e37b1d7a822500e78b7e9e3d2c97bf06ac",
-      "archive_sha256": "63c362ca6cd4ec79272aece4b21b2536ac3224bd0c340567d2ee7420b7e8e681",
-      "gcode_sha256": "77b93700e33ab3579020951bfbf3803a6bdcae5f0b7364d2bb3b294c84f9b86b",
+      "estimated_filament_g": 8.054339408874512,
+      "estimated_seconds": 6577.52197265625,
+      "native_slice_wall_seconds": 2.1895555830014928,
+      "project_sha256": "4a2d217afe8bbf2bd94fec028542e6c42ca6c112114a0d3d7d4cd9901abf27e1",
+      "archive_sha256": "9ad98e2e8bb5ebecd7bb6bd6df3d5b4c1fba264e558b6871b2102554cf2b063e",
+      "gcode_sha256": "b072e46ca06a36dbf9a2523c2e5e3580c48148b02de72d5e9a17c893bf9c65f5",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "d4b01472fe2dff1f347ad1628e9c1a2b28ff0a37906edc3b60ab81d2c5bced65",
+      "body_stl_sha256": "fd9221e7ea3bfee41c38132576689cf0ff0820ccacb7986ff76b1dc5f1366ac9",
       "wet_void_stl_sha256": "1479e8ad5f1e037eabc04a2570de2663856a3d800a744c0fe8ded471552912ca",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
@@ -730,10 +360,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -752,8 +382,8 @@
       },
       "prepared_body_mesh": {
         "watertight": true,
-        "vertices": 11714,
-        "facets": 23432
+        "vertices": 11841,
+        "facets": 23686
       },
       "prepared_wet_void_mesh": {
         "watertight": true,
@@ -849,396 +479,25 @@
       "body_min_z_to_bed_mm": 23.06726198957805,
       "native_flat_bed_face_area_sum_mm2": 133.22795255520367,
       "plate_xy_translation_mm": [
-        176.1445245591674,
-        144.67287477005783
+        176.40561595844179,
+        144.672836195662
       ],
       "editable_project": "plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf",
-      "project_bytes": 416901,
-      "wet_shadow_blocker_stl_sha256": "2835fb117f0643753215316c27da3b871006eaf066dcf335c7f6112e6d7f6c36",
-      "native_positive_extrusion_feature_runs": {
-        "Support": 864,
-        "Brim": 8,
-        "Inner wall": 29851,
-        "Outer wall": 3692,
-        "Internal solid infill": 379,
-        "Sparse infill": 55,
-        "Floating vertical shell": 1,
-        "Top surface": 17,
-        "Gap infill": 1,
-        "Overhang wall": 5
-      },
-      "support": {
-        "positive_extrusion_runs": {
-          "Support": 864
-        },
-        "sampled_wet_section_count": 654,
-        "maximum_sampled_wet_overlap_mm2": 0.0,
-        "minimum_sampled_wet_gap_mm": 2.007614777835764,
-        "bead_bounds_build_mm": [
-          162.38463932866324,
-          136.384,
-          0.0,
-          188.86143691905474,
-          157.01244288970346,
-          26.24
-        ],
-        "interface_regions_printframe": []
-      },
-      "first_second_layer": {
-        "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 135.04392252793764,
-        "first_layer_brim_projected_bead_area_mm2": 245.67471352729646,
-        "first_layer_model_to_brim_gap_mm": 0.06657526886147151,
-        "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 139.00305388919395,
-        "second_layer_overlap_with_first_model_mm2": 134.5281969757434,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.64577418612367,
-        "second_layer_outside_all_first_layer_beads_mm2": 3.357279703070306,
-        "second_layer_model_bounds_build_mm": [
-          171.53329160213542,
-          146.96015349730777,
-          0.2,
-          186.461586,
-          163.259586,
-          0.32
-        ],
-        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
-      },
-      "usable_bed_bead_margins_mm": {
-        "left": 137.12757432866323,
-        "front": 136.12693499999997,
-        "right": 138.641935,
-        "rear": 139.417935
-      },
-      "nonextruding_travel": {
-        "wet_mesh_watertight": true,
-        "layer_count": 232,
-        "nonextruding_transition_count": 4328,
-        "nozzle_segments_reviewed": 197159,
-        "potential_chords_reviewed": 197148,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 179,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 691,
-        "maximum_potential_chord_wet_length_mm": 19.615390234674386
-      },
-      "lower_stop": {
-        "lower_mouth_print_z_mm": 1.000000082740371e-07,
-        "posed_port_datums_available": true,
-        "stop_print_z_mm": 6.500000100000015,
-        "seal_bore_mm": 6.1,
-        "lower_stop_bore_mm": 5.5,
-        "stop_radial_width_mm": 0.2999999999999998,
-        "relaxed_stop_annular_area_mm2": 5.466371217246235,
-        "taper_axial_mm": 0.6000000000000001,
-        "native_stop_layers": [
-          {
-            "previous_model_layer_z_mm": 6.56,
-            "model_layer_z_mm": 6.68,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 26368,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 18.425917982039763,
-                "whole_path_bead_projected_area_mm2": 11.421145312512305,
-                "whole_path_overlap_previous_layer_mm2": 3.9594364326505733,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.1297296279803649,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.1302663720196351,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.1297296279803649,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 8.664966474321535,
-                "overlap_previous_layer_mm2": 1.2032575944597994,
-                "overlap_previous_or_already_placed_same_layer_mm2": 1.20325759445981,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0978907816618874,
-                "path_bounds_build_xy_mm": [
-                  174.558,
-                  149.98481131369778,
-                  180.423,
-                  155.853
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.68,
-            "model_layer_z_mm": 6.8,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 26836,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 21.398302815184266,
-                "whole_path_bead_projected_area_mm2": 13.265068844671486,
-                "whole_path_overlap_previous_layer_mm2": 13.265068844671433,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 0.15786111466645708,
-                "overlap_previous_layer_mm2": 0.15786111466646408,
-                "overlap_previous_or_already_placed_same_layer_mm2": 0.15786111466646408,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.08699933983618,
-                  149.506,
-                  180.89986402895693,
-                  156.311
-                ]
-              },
-              {
-                "gcode_line": 26868,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 17.681055218038043,
-                "whole_path_bead_projected_area_mm2": 10.959174220221701,
-                "whole_path_overlap_previous_layer_mm2": 9.054374062455057,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.569766632088161,
-                "overlap_previous_layer_mm2": 8.664966474321531,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.664966474321531,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.678,
-                  150.098,
-                  180.308,
-                  155.733
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.8,
-            "model_layer_z_mm": 6.92,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27352,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 20.64349402589313,
-                "whole_path_bead_projected_area_mm2": 12.79682443014903,
-                "whole_path_overlap_previous_layer_mm2": 12.796824430149023,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 2.455187592879021,
-                "overlap_previous_layer_mm2": 2.4551875928790317,
-                "overlap_previous_or_already_placed_same_layer_mm2": 2.4551875928790317,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.214945562904,
-                  149.645,
-                  180.776,
-                  156.202
-                ]
-              },
-              {
-                "gcode_line": 27389,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.924446976738444,
-                "whole_path_bead_projected_area_mm2": 10.49060446933846,
-                "whole_path_overlap_previous_layer_mm2": 8.659244131293338,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.490604469338457,
-                "overlap_previous_layer_mm2": 8.659244131293335,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.659244131293327,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.798,
-                  150.239,
-                  180.189,
-                  155.615
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.92,
-            "model_layer_z_mm": 7.04,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27786,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.884395841018183,
-                "whole_path_bead_projected_area_mm2": 12.325797159636515,
-                "whole_path_overlap_previous_layer_mm2": 12.325797159636533,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 4.671954999590913,
-                "overlap_previous_layer_mm2": 4.671954999590916,
-                "overlap_previous_or_already_placed_same_layer_mm2": 4.671954999590916,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.326,
-                  149.747,
-                  180.65,
-                  156.084
-                ]
-              },
-              {
-                "gcode_line": 27821,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.171861989921695,
-                "whole_path_bead_projected_area_mm2": 10.023533233885356,
-                "whole_path_overlap_previous_layer_mm2": 8.271010857965617,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.023533233885367,
-                "overlap_previous_layer_mm2": 8.271010857965614,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.27101085796561,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.917,
-                  150.339,
-                  180.068,
-                  155.494
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.04,
-            "model_layer_z_mm": 7.16,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28224,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.11858271924744,
-                "whole_path_bead_projected_area_mm2": 11.850059275746617,
-                "whole_path_overlap_previous_layer_mm2": 11.85005927574662,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.83887622666423,
-                "overlap_previous_layer_mm2": 6.83887622666424,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.83887622666424,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.456,
-                  149.867,
-                  180.537,
-                  155.966
-                ]
-              },
-              {
-                "gcode_line": 28263,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.399041552710653,
-                "whole_path_bead_projected_area_mm2": 9.543400927181324,
-                "whole_path_overlap_previous_layer_mm2": 7.824852148541098,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.543400927181324,
-                "overlap_previous_layer_mm2": 7.824852148541101,
-                "overlap_previous_or_already_placed_same_layer_mm2": 7.824852148541101,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.05154101868118,
-                  150.458,
-                  179.951,
-                  155.359
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.16,
-            "model_layer_z_mm": 7.28,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28638,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.11849478159696,
-                "whole_path_bead_projected_area_mm2": 11.849928952324635,
-                "whole_path_overlap_previous_layer_mm2": 11.849928952324635,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.842253952181675,
-                "overlap_previous_layer_mm2": 6.842253952181675,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.842253952181675,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.456,
-                  149.868,
-                  180.537,
-                  155.966
-                ]
-              },
-              {
-                "gcode_line": 28676,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.400148741500935,
-                "whole_path_bead_projected_area_mm2": 9.544100917813221,
-                "whole_path_overlap_previous_layer_mm2": 9.539400075988539,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.544100917813221,
-                "overlap_previous_layer_mm2": 9.539400075988523,
-                "overlap_previous_or_already_placed_same_layer_mm2": 9.539400075988523,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.05243525488558,
-                  150.458,
-                  179.951,
-                  155.361
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "native_reader_sources_sha256": {
-        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
-        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7",
-        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814"
-      }
+      "project_bytes": 420630,
+      "wet_shadow_blocker_stl_sha256": "2835fb117f0643753215316c27da3b871006eaf066dcf335c7f6112e6d7f6c36"
     },
     "enclosure-pump-receiver-west-inner": {
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.21574878692627,
-      "estimated_seconds": 6705.83447265625,
-      "native_slice_wall_seconds": 2.4360955000001923,
-      "project_sha256": "859b582a714101bf2260599576dc0a0b4d860412f06d76aa63b604435fc49b2c",
-      "archive_sha256": "c26c69c6fda384d219fbd7b428e7c9cebffb4fe9cdc8ebd711fcc1f0d2c24670",
-      "gcode_sha256": "84ba05c72233ffeca038c59787e60d21b3658c2bc8126dbddc52f1fb2ceb394b",
+      "estimated_filament_g": 8.024062156677246,
+      "estimated_seconds": 6550.82958984375,
+      "native_slice_wall_seconds": 2.2691088329993363,
+      "project_sha256": "7d644cf97e3198dbc765401a9b323bb8ceb7ab3d112d6488be78b2dcfbe90f04",
+      "archive_sha256": "9f85873ab5130c42edfaa21d90018f4c892710a5266bee914d864f745aa3695f",
+      "gcode_sha256": "40d437179e32e26218995020930d6e6d04a96e28c582e34b1dd8da88a8b7effd",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "6b0b5f9550f61da205f9d3b476c51b7a6d2363290d485062c822482a87f64461",
+      "body_stl_sha256": "b458c1aa0b93097bec91c7274ba3cd30d4b38196398c187a591cb0d7bc3310fd",
       "wet_void_stl_sha256": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
@@ -1312,10 +571,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -1334,8 +593,8 @@
       },
       "prepared_body_mesh": {
         "watertight": true,
-        "vertices": 11777,
-        "facets": 23558
+        "vertices": 11923,
+        "facets": 23850
       },
       "prepared_wet_void_mesh": {
         "watertight": true,
@@ -1432,394 +691,24 @@
       "native_flat_bed_face_area_sum_mm2": 134.39942496062594,
       "plate_xy_translation_mm": [
         177.5,
-        144.57223107797205
+        144.57219250357622
       ],
       "editable_project": "plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf",
-      "project_bytes": 361026,
-      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
-      "native_positive_extrusion_feature_runs": {
-        "Support": 958,
-        "Brim": 11,
-        "Inner wall": 30100,
-        "Outer wall": 3357,
-        "Internal solid infill": 409,
-        "Sparse infill": 55,
-        "Floating vertical shell": 3,
-        "Top surface": 18,
-        "Gap infill": 1
-      },
-      "support": {
-        "positive_extrusion_runs": {
-          "Support": 958
-        },
-        "sampled_wet_section_count": 654,
-        "maximum_sampled_wet_overlap_mm2": 0.0,
-        "minimum_sampled_wet_gap_mm": 2.002548117130375,
-        "bead_bounds_build_mm": [
-          160.97101574028324,
-          134.55306077599582,
-          0.0,
-          193.27058761345222,
-          156.26716934213596,
-          26.24
-        ],
-        "interface_regions_printframe": []
-      },
-      "first_second_layer": {
-        "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 136.74251882947252,
-        "first_layer_brim_projected_bead_area_mm2": 207.1168010007103,
-        "first_layer_model_to_brim_gap_mm": 0.0649635698383163,
-        "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 140.33170764881652,
-        "second_layer_overlap_with_first_model_mm2": 136.1239125498701,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 137.23040186754534,
-        "second_layer_outside_all_first_layer_beads_mm2": 3.101305781271175,
-        "second_layer_model_bounds_build_mm": [
-          170.389514,
-          146.966514,
-          0.2,
-          184.610486,
-          162.371486,
-          0.32
-        ],
-        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
-      },
-      "usable_bed_bead_margins_mm": {
-        "left": 135.71495074028323,
-        "front": 134.2969957759958,
-        "right": 136.47334738654777,
-        "rear": 139.36401327072147
-      },
-      "nonextruding_travel": {
-        "wet_mesh_watertight": true,
-        "layer_count": 232,
-        "nonextruding_transition_count": 4400,
-        "nozzle_segments_reviewed": 210199,
-        "potential_chords_reviewed": 210190,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 190,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 734,
-        "maximum_potential_chord_wet_length_mm": 20.2245502960979
-      },
-      "lower_stop": {
-        "lower_mouth_print_z_mm": 1.000000082740371e-07,
-        "posed_port_datums_available": true,
-        "stop_print_z_mm": 6.500000100000008,
-        "seal_bore_mm": 6.1,
-        "lower_stop_bore_mm": 5.5,
-        "stop_radial_width_mm": 0.2999999999999998,
-        "relaxed_stop_annular_area_mm2": 5.466371217246235,
-        "taper_axial_mm": 0.6000000000000001,
-        "native_stop_layers": [
-          {
-            "previous_model_layer_z_mm": 6.56,
-            "model_layer_z_mm": 6.68,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27169,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 18.428200200914375,
-                "whole_path_bead_projected_area_mm2": 11.422530067231769,
-                "whole_path_overlap_previous_layer_mm2": 3.976347723371795,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.13342549699438003,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.12657050300561995,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.13342549699438003,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 8.66040453323485,
-                "overlap_previous_layer_mm2": 1.2142221893748903,
-                "overlap_previous_or_already_placed_same_layer_mm2": 1.2142221893748975,
-                "minimum_path_to_previous_or_current_beads_mm": 0.09840613012283769,
-                "path_bounds_build_xy_mm": [
-                  174.561,
-                  149.999,
-                  180.422,
-                  155.859
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.68,
-            "model_layer_z_mm": 6.8,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27675,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 21.396145918948946,
-                "whole_path_bead_projected_area_mm2": 13.263493190713017,
-                "whole_path_overlap_previous_layer_mm2": 13.263493190712982,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 0.17434090985313094,
-                "overlap_previous_layer_mm2": 0.17434090985313205,
-                "overlap_previous_or_already_placed_same_layer_mm2": 0.17434090985313205,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.093,
-                  149.51784385296975,
-                  180.90657942226696,
-                  156.327
-                ]
-              },
-              {
-                "gcode_line": 27708,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 17.679938781120224,
-                "whole_path_bead_projected_area_mm2": 10.95847970867936,
-                "whole_path_overlap_previous_layer_mm2": 9.046196490134243,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.572687751779956,
-                "overlap_previous_layer_mm2": 8.660404533234843,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.660404533234857,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.683,
-                  150.107,
-                  180.308,
-                  155.739
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.8,
-            "model_layer_z_mm": 6.92,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28218,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 20.6419399488103,
-                "whole_path_bead_projected_area_mm2": 12.79604626332571,
-                "whole_path_overlap_previous_layer_mm2": 12.796046263325753,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 2.4524575629761216,
-                "overlap_previous_layer_mm2": 2.4524575629761323,
-                "overlap_previous_or_already_placed_same_layer_mm2": 2.4524575629761323,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.208,
-                  149.647,
-                  180.77594071121862,
-                  156.217
-                ]
-              },
-              {
-                "gcode_line": 28252,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.919560011318712,
-                "whole_path_bead_projected_area_mm2": 10.487361276014056,
-                "whole_path_overlap_previous_layer_mm2": 8.642616423912958,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.487361276014052,
-                "overlap_previous_layer_mm2": 8.642616423912973,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.64261642391298,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.803,
-                  150.238,
-                  180.189,
-                  155.62
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.92,
-            "model_layer_z_mm": 7.04,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28653,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.888144199927826,
-                "whole_path_bead_projected_area_mm2": 12.328993931899184,
-                "whole_path_overlap_previous_layer_mm2": 12.328993931899223,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 4.633012358048106,
-                "overlap_previous_layer_mm2": 4.633012358048099,
-                "overlap_previous_or_already_placed_same_layer_mm2": 4.633012358048099,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.33321260329674,
-                  149.7621012323253,
-                  180.657,
-                  156.097
-                ]
-              },
-              {
-                "gcode_line": 28681,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.17115311591277,
-                "whole_path_bead_projected_area_mm2": 10.02284966760876,
-                "whole_path_overlap_previous_layer_mm2": 8.279704089226968,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.022849667608753,
-                "overlap_previous_layer_mm2": 8.279704089226968,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.279704089226964,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.923,
-                  150.348,
-                  180.063,
-                  155.5
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.04,
-            "model_layer_z_mm": 7.16,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 29123,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.117857182975037,
-                "whole_path_bead_projected_area_mm2": 11.850411578188677,
-                "whole_path_overlap_previous_layer_mm2": 11.850411578188666,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.818526652412082,
-                "overlap_previous_layer_mm2": 6.818526652412075,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.818526652412075,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.453,
-                  149.879,
-                  180.549,
-                  155.956
-                ]
-              },
-              {
-                "gcode_line": 29155,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.40153442318754,
-                "whole_path_bead_projected_area_mm2": 9.545198987729083,
-                "whole_path_overlap_previous_layer_mm2": 7.8426446729635515,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.545198987729075,
-                "overlap_previous_layer_mm2": 7.8426446729635515,
-                "overlap_previous_or_already_placed_same_layer_mm2": 7.842644672963548,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.06004229837825,
-                  150.473,
-                  179.956,
-                  155.368
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.16,
-            "model_layer_z_mm": 7.28,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 29546,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.114325241021298,
-                "whole_path_bead_projected_area_mm2": 11.847505898113635,
-                "whole_path_overlap_previous_layer_mm2": 11.847505898113639,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.848039273176223,
-                "overlap_previous_layer_mm2": 6.848039273176216,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.848039273176216,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.453,
-                  149.879,
-                  180.544,
-                  155.956
-                ]
-              },
-              {
-                "gcode_line": 29579,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.399304580905062,
-                "whole_path_bead_projected_area_mm2": 9.543781050165004,
-                "whole_path_overlap_previous_layer_mm2": 9.53377653087002,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.543781050164995,
-                "overlap_previous_layer_mm2": 9.533776530870032,
-                "overlap_previous_or_already_placed_same_layer_mm2": 9.533776530870032,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.06016947206305,
-                  150.473,
-                  179.956,
-                  155.368
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "native_reader_sources_sha256": {
-        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
-        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7",
-        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814"
-      }
+      "project_bytes": 363766,
+      "wet_shadow_blocker_stl_sha256": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2"
     },
     "enclosure-pump-receiver-west-outer": {
       "status": "Offline native slice; no printer contacted or launched",
       "slicer_exit_code": 0,
       "slicer_warning": "",
-      "estimated_filament_g": 8.108253479003906,
-      "estimated_seconds": 6670.927734375,
-      "native_slice_wall_seconds": 3.4606178750000254,
-      "project_sha256": "f9a27e683bba160b295c9cfd60f17cabe9d09494f217aa59b1270d460bc20a8e",
-      "archive_sha256": "bb9bf9f4a5682fc8c7b7d179302af5598c7f7a064ce9568c73c0cf87219a1c9a",
-      "gcode_sha256": "c27ef51d1ccc6f0cb1aeff92d1318038dd78018a94b62b85c52d1500be454a7d",
+      "estimated_filament_g": 8.044772148132324,
+      "estimated_seconds": 6566.45654296875,
+      "native_slice_wall_seconds": 3.0550817500006815,
+      "project_sha256": "79443fa3065fb3cb69829f3521f07ead9bec489b0ec492c68bb626ab3040a610",
+      "archive_sha256": "96c691963c274923e172823435cfd15be38739e4ed34d6bb6b93d2f1677b0fe0",
+      "gcode_sha256": "c2d3dc75df3fd5c29297f6a551d53097c7ada9786d0b84ffda87dcccc82d91fa",
       "gcode_md5_matches": true,
-      "body_stl_sha256": "091aecbcb10bcf6c8763a6367e73cae15ea2c8e871abbab8388693c8b34d691c",
+      "body_stl_sha256": "f0cfbfe4fa1a5286ebd54e8170597ed0f3c8344edfe86aa4c0801aac4fbe5772",
       "wet_void_stl_sha256": "ac84b566027b8f56768197fb13c53b6e8e8135950edcf5799ffaa0464f0afb74",
       "critical_native_settings_preserved": {
         "machine_start_gcode": true,
@@ -1893,10 +782,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -1915,8 +804,8 @@
       },
       "prepared_body_mesh": {
         "watertight": true,
-        "vertices": 11747,
-        "facets": 23498
+        "vertices": 11880,
+        "facets": 23764
       },
       "prepared_wet_void_mesh": {
         "watertight": true,
@@ -2012,383 +901,12 @@
       "body_min_z_to_bed_mm": 23.06726198957805,
       "native_flat_bed_face_area_sum_mm2": 133.22795255520356,
       "plate_xy_translation_mm": [
-        178.8554754408326,
-        144.67287477005783
+        178.59438404155821,
+        144.672836195662
       ],
       "editable_project": "plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf",
-      "project_bytes": 418350,
-      "wet_shadow_blocker_stl_sha256": "a904a19011bcac4270efe9f686f4571924fc6f947659a1c1173887a31d19dac5",
-      "native_positive_extrusion_feature_runs": {
-        "Support": 848,
-        "Brim": 7,
-        "Inner wall": 29731,
-        "Outer wall": 3696,
-        "Internal solid infill": 414,
-        "Sparse infill": 54,
-        "Floating vertical shell": 1,
-        "Top surface": 16,
-        "Gap infill": 9,
-        "Overhang wall": 5
-      },
-      "support": {
-        "positive_extrusion_runs": {
-          "Support": 848
-        },
-        "sampled_wet_section_count": 654,
-        "maximum_sampled_wet_overlap_mm2": 0.0,
-        "minimum_sampled_wet_gap_mm": 2.016655481512211,
-        "bead_bounds_build_mm": [
-          166.15695592752414,
-          137.08606046297902,
-          0.0,
-          192.1131642707448,
-          156.986,
-          26.24
-        ],
-        "interface_regions_printframe": []
-      },
-      "first_second_layer": {
-        "first_layer_model_component_count": 1,
-        "first_layer_model_projected_bead_area_mm2": 135.06877687492,
-        "first_layer_brim_projected_bead_area_mm2": 237.73079804348112,
-        "first_layer_model_to_brim_gap_mm": 0.06983615407786552,
-        "first_layer_model_brim_overlap_mm2": 0.0,
-        "second_layer_model_projected_bead_area_mm2": 139.13138294947436,
-        "second_layer_overlap_with_first_model_mm2": 134.62893789751146,
-        "second_layer_overlap_with_all_first_layer_beads_mm2": 135.74651529879495,
-        "second_layer_outside_all_first_layer_beads_mm2": 3.384867650679564,
-        "second_layer_model_bounds_build_mm": [
-          168.538104,
-          146.9610569489085,
-          0.2,
-          183.4715816463805,
-          163.259896,
-          0.32
-        ],
-        "scope": "Width-expanded native bead projections at both actual layer heights; overlap is geometric attachment opportunity, not measured adhesion."
-      },
-      "usable_bed_bead_margins_mm": {
-        "left": 138.643425,
-        "front": 136.82848546297902,
-        "right": 137.6292607292552,
-        "rear": 139.4118929360717
-      },
-      "nonextruding_travel": {
-        "wet_mesh_watertight": true,
-        "layer_count": 232,
-        "nonextruding_transition_count": 4302,
-        "nozzle_segments_reviewed": 195404,
-        "potential_chords_reviewed": 195396,
-        "transitions_with_nozzle_wet_crossing_over_point1_mm": 179,
-        "transitions_with_potential_taut_chord_wet_crossing_over_point1_mm": 715,
-        "maximum_potential_chord_wet_length_mm": 20.293022675839566
-      },
-      "lower_stop": {
-        "lower_mouth_print_z_mm": 1.000000082740371e-07,
-        "posed_port_datums_available": true,
-        "stop_print_z_mm": 6.500000100000015,
-        "seal_bore_mm": 6.1,
-        "lower_stop_bore_mm": 5.5,
-        "stop_radial_width_mm": 0.2999999999999998,
-        "relaxed_stop_annular_area_mm2": 5.466371217246235,
-        "taper_axial_mm": 0.6000000000000001,
-        "native_stop_layers": [
-          {
-            "previous_model_layer_z_mm": 6.56,
-            "model_layer_z_mm": 6.68,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 26207,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 18.42681912941612,
-                "whole_path_bead_projected_area_mm2": 11.421424619560984,
-                "whole_path_overlap_previous_layer_mm2": 3.946900971302462,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.13657056546243013,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.12342543453756986,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.13657056546243013,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 8.670084847023691,
-                "overlap_previous_layer_mm2": 1.1955611987651658,
-                "overlap_previous_or_already_placed_same_layer_mm2": 1.195561198765155,
-                "minimum_path_to_previous_or_current_beads_mm": 0.09980111535344875,
-                "path_bounds_build_xy_mm": [
-                  174.57,
-                  149.988,
-                  180.429,
-                  155.8470754521116
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.68,
-            "model_layer_z_mm": 6.8,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 26668,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 21.3986024540225,
-                "whole_path_bead_projected_area_mm2": 13.264883215693175,
-                "whole_path_overlap_previous_layer_mm2": 13.264883215693153,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 0.1703920862011362,
-                "overlap_previous_layer_mm2": 0.1703920862011353,
-                "overlap_previous_or_already_placed_same_layer_mm2": 0.1703920862011353,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.102,
-                  149.51176821966857,
-                  180.904,
-                  156.312
-                ]
-              },
-              {
-                "gcode_line": 26702,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 17.681918030411445,
-                "whole_path_bead_projected_area_mm2": 10.959925249110643,
-                "whole_path_overlap_previous_layer_mm2": 9.067335230507034,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.562674865627304,
-                "overlap_previous_layer_mm2": 8.670084847023706,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.670084847023702,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.69,
-                  150.10265516428308,
-                  180.31,
-                  155.726
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.8,
-            "model_layer_z_mm": 6.92,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27116,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 20.644264912713734,
-                "whole_path_bead_projected_area_mm2": 12.796560128330292,
-                "whole_path_overlap_previous_layer_mm2": 12.796560128330299,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 2.4744885206688068,
-                "overlap_previous_layer_mm2": 2.474488520668814,
-                "overlap_previous_or_already_placed_same_layer_mm2": 2.474488520668814,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.221,
-                  149.631,
-                  180.785,
-                  156.192
-                ]
-              },
-              {
-                "gcode_line": 27152,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.926856989278726,
-                "whole_path_bead_projected_area_mm2": 10.4915007568186,
-                "whole_path_overlap_previous_layer_mm2": 8.644907042845372,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.491500756818603,
-                "overlap_previous_layer_mm2": 8.644907042845379,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.644907042845375,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.81,
-                  150.226,
-                  180.191,
-                  155.60976331735887
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 6.92,
-            "model_layer_z_mm": 7.04,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27551,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.888664299361107,
-                "whole_path_bead_projected_area_mm2": 12.328315027189682,
-                "whole_path_overlap_previous_layer_mm2": 12.328315027189674,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 4.661860145522844,
-                "overlap_previous_layer_mm2": 4.661860145522855,
-                "overlap_previous_or_already_placed_same_layer_mm2": 4.661860145522855,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.341,
-                  149.75,
-                  180.662,
-                  156.075
-                ]
-              },
-              {
-                "gcode_line": 27586,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 16.1737222749956,
-                "whole_path_bead_projected_area_mm2": 10.02445630052756,
-                "whole_path_overlap_previous_layer_mm2": 8.279741622101206,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 10.02445630052756,
-                "overlap_previous_layer_mm2": 8.279741622101188,
-                "overlap_previous_or_already_placed_same_layer_mm2": 8.279741622101195,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.929,
-                  150.339,
-                  180.072,
-                  155.488
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.04,
-            "model_layer_z_mm": 7.16,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 27972,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.11608414161766,
-                "whole_path_bead_projected_area_mm2": 11.84839165811271,
-                "whole_path_overlap_previous_layer_mm2": 11.848391658112678,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.84839011648722,
-                "overlap_previous_layer_mm2": 6.848390116487231,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.848390116487231,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.456,
-                  149.86746467686095,
-                  180.553,
-                  155.947
-                ]
-              },
-              {
-                "gcode_line": 28007,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.398067321374285,
-                "whole_path_bead_projected_area_mm2": 9.543102328388622,
-                "whole_path_overlap_previous_layer_mm2": 7.827944444486928,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.543102328388596,
-                "overlap_previous_layer_mm2": 7.827944444486953,
-                "overlap_previous_or_already_placed_same_layer_mm2": 7.827944444486949,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.049,
-                  150.46,
-                  179.953,
-                  155.358
-                ]
-              }
-            ]
-          },
-          {
-            "previous_model_layer_z_mm": 7.16,
-            "model_layer_z_mm": 7.28,
-            "paths_in_emission_order": [
-              {
-                "gcode_line": 28403,
-                "feature": "Inner wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 19.114417852478105,
-                "whole_path_bead_projected_area_mm2": 11.84716267634872,
-                "whole_path_overlap_previous_layer_mm2": 11.84716267634876,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 6.857874540317333,
-                "overlap_previous_layer_mm2": 6.857874540317333,
-                "overlap_previous_or_already_placed_same_layer_mm2": 6.857874540317333,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  174.456,
-                  149.864,
-                  180.553,
-                  155.947
-                ]
-              },
-              {
-                "gcode_line": 28438,
-                "feature": "Outer wall",
-                "width_mm": 0.619992,
-                "path_length_mm": 15.39736528627372,
-                "whole_path_bead_projected_area_mm2": 9.54232417999168,
-                "whole_path_overlap_previous_layer_mm2": 9.531266445953086,
-                "maximum_sampled_centerline_gap_to_previous_beads_mm": 0.0,
-                "minimum_nominal_bead_overlap_reach_to_previous_mm": 0.259996,
-                "maximum_sampled_centerline_gap_to_previous_or_already_placed_beads_mm": 0.0,
-                "centerline_sampling_mm": 0.1,
-                "unsampled_distance_allowance_mm": 0.05,
-                "bead_projected_area_in_stop_region_mm2": 9.542324179991663,
-                "overlap_previous_layer_mm2": 9.53126644595311,
-                "overlap_previous_or_already_placed_same_layer_mm2": 9.53126644595311,
-                "minimum_path_to_previous_or_current_beads_mm": 0.0,
-                "path_bounds_build_xy_mm": [
-                  175.049,
-                  150.458,
-                  179.952,
-                  155.358
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "native_reader_sources_sha256": {
-        "review_final_supports.py": "fb4163c6e6d426faa9d2049f6814b5ba520f0e989ce8011d1c85e01f10a487c1",
-        "review_lower_stop_beads.py": "049b2d022931d9cb06aa3b979cb4fa7daf97237ebca88b66cba26da2894655c7",
-        "review_single_wet_travels.py": "82fe4c2ce1d1f1fd4dc914ae61bb3822562f5587f0ba45c49e0983503314c814"
-      }
+      "project_bytes": 422161,
+      "wet_shadow_blocker_stl_sha256": "a904a19011bcac4270efe9f686f4571924fc6f947659a1c1173887a31d19dac5"
     },
     "enclosure-pump-return-east-inner": {
       "status": "Offline native slice; no printer contacted or launched",
@@ -2396,9 +914,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 5.662359237670898,
       "estimated_seconds": 5765.71728515625,
-      "native_slice_wall_seconds": 2.0290717919997405,
-      "project_sha256": "522a1b26016b85bd44fe1fbebb23cc2be616c700b13d46270873f92926a6a7ef",
-      "archive_sha256": "7722e2b42924a70d33601b1f0f24a19f50147825c1c1eb757efd1ebd99c33291",
+      "native_slice_wall_seconds": 1.8126420000007784,
+      "project_sha256": "b6d9cf2e64941c9055d711513141b68abe58d79571eec3ee16e1b8c0a1627f4a",
+      "archive_sha256": "1d64d8611c93a883c2886cd5356adf14ba40c0111f0a2d791d5729cfe2052eaf",
       "gcode_sha256": "d6a0e31d109daef6aa2fa1dae08705cbb390b99edcee92b7c7ba086ef0657f39",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
@@ -2475,10 +993,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -2667,9 +1185,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 6.661800861358643,
       "estimated_seconds": 6890.248046875,
-      "native_slice_wall_seconds": 2.403203500000018,
-      "project_sha256": "4eed202209a57549d63d7d3685d2205a9fe92d5116d10cf2ed301f5bdb49cf97",
-      "archive_sha256": "84c707d73e74d776f1fc3af47b7b5793d6313dd1a67aa0ac79be2dd7f7747d33",
+      "native_slice_wall_seconds": 1.9972096670026076,
+      "project_sha256": "497a4a05f7a0d0551cf3187fa62a2e4db426822eb929a03fa1607ba4f23a0e5a",
+      "archive_sha256": "01f4a1592369d10821e7006832d5a218ff68f47de62ff3b489b511e0b4b3bffc",
       "gcode_sha256": "42ad6d30d6139b540556126a1d1dd31f17e3ddb0e654ace72c627278dd4ef6d1",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9bd38e21d6672004d349746f96057fa7ec08a0a833d6cd9139fafedcb0d2baad",
@@ -2746,10 +1264,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -2938,9 +1456,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 5.662359237670898,
       "estimated_seconds": 5765.71728515625,
-      "native_slice_wall_seconds": 2.02821374999985,
-      "project_sha256": "7973ce248043394141b8d5fd532a1b8248c608d3d979aa31f82114cbf22b35e6",
-      "archive_sha256": "a3a51957c6fab57a0071d5206ff4766b2344065a920edd1ebb8ce8ea833595f8",
+      "native_slice_wall_seconds": 1.8930172079999465,
+      "project_sha256": "908cf1ce59df7d4be882f64217cddaf977ab5a499fd45bffac5cd5c8e0b78279",
+      "archive_sha256": "81f20f4a29ba8b2a413201ce58b0969a465addec0d49a1fbf47296ac50bc6c3b",
       "gcode_sha256": "73661eb287ee620d49527db44b1e44e7db6821998cf307bb413aad4d297b1ec9",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
@@ -3017,10 +1535,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -3209,9 +1727,9 @@
       "slicer_warning": "",
       "estimated_filament_g": 6.663750171661377,
       "estimated_seconds": 6891.4833984375,
-      "native_slice_wall_seconds": 2.486806333000459,
-      "project_sha256": "8df9f4430a6cacac25288e0577e6b68bd0483627c54c174746a85194b9e949a2",
-      "archive_sha256": "ece7ca130861c3eb4d28a9e49b88e4a3f49de42532b272139c9e4b4a41e2522a",
+      "native_slice_wall_seconds": 2.108278875002725,
+      "project_sha256": "d5bff442d591dbb6f11d818ef8bfa81084faa7592774edb23b0533cfc929c931",
+      "archive_sha256": "9db8f83254b8c8d05db639a13f5b59015255e61a8f93d40806f6453a3a0ae9f8",
       "gcode_sha256": "879fa3f5c096a91a52ada332a8b8a6e21b74a19650d49ea8c758683bab1fbf1b",
       "gcode_md5_matches": true,
       "body_stl_sha256": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
@@ -3288,10 +1806,10 @@
       ],
       "source_sha256": {
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
-        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "cf2450f450f137aa6f016b67fba41da02c89f6cd14831c011643e457303acd54",
+        "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
         "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py": "e087fa4bcce8f13fbdae3c57d849390b10d1b55a68c60be13ef77eabe83dfb03",
-        "hardware/manifold-layout/enclosure-box.json": "fbe8d50108e1002e6a1498be911152bf6de4f88f421aac6da64a1fd39fb11e6f",
+        "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/prepare.py": "a7d29bc2506e150621d9ba728782a2d8db33080b819df48b9535d0170acdbce7"
       },
       "bound_sources_unchanged_after_slice": {
@@ -3476,9 +1994,9 @@
     }
   },
   "totals": {
-    "editable_project_bytes": 3188393,
-    "native_estimated_filament_g": 57.296701431274414,
-    "native_estimated_seconds": 52058.69140625
+    "editable_project_bytes": 3201413,
+    "native_estimated_filament_g": 56.797505378723145,
+    "native_estimated_seconds": 51558.8037109375
   },
   "physical_evidence": [
     {
@@ -3495,6 +2013,7 @@
     }
   ],
   "limits": [
+    "The four junction projects' support, first/second-layer, bed-margin, nonextruding-travel and lower-stop readings are not taken on their current G-code; read them before a junction print.",
     "Nonextruding nozzle and possible taut-chord crossings remain in the emitted G-code. Single-object placement and saved travel-avoidance settings do not establish clean wet passages.",
     "No physical print or acceptance exists for these eight bodies. Bore finish, accessible exterior-support release, bed adhesion, food contact, seal forces, pressure retention, inserted-tube capture and service life are not qualified by these readings.",
     "Estimates include the native plate output with its automatic support/brim decisions. They are slicer predictions, not measured production consumption or machine time."

@@ -11,3 +11,31 @@ click: x=97.150 y=5.117 z=170.555
 click: x=-97.150 y=5.117 z=278.835
 click: x=107.257 y=82.265 z=280.589
 click: x=-107.257 y=82.265 z=280.552
+
+[sliver] Required by the purchased K&J SB443-IN's side grooves: each magnet column's slot is the printed capture Derek specified for these stepped blocks, faces touching, loaded at one print pause. The 1.575 mm faces seat each block's 1.6 mm front band from the flat back to its rails, the 1.500 mm faces are the rails' tips standing in the 1.6 mm grooves, and the 0.797 mm faces are the rails' fore and aft bearing faces, the groove's 0.787 mm depth plus the 0.1 mm side air less the 0.09 mm tip air. Each runs the slot's 26 mm. pump-dock/magnet-retention.md gives the slot.
+alternatives: A wider or deeper rail does not enter the 1.6 × 0.79 mm groove. A cover across the pole face keeps the faces apart. Bonded blocks in plain pockets need DP420, two sequential 24 h cures and a seating fixture, which this capture replaces.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=55.500 y=81.477 z=186.452
+click: x=54.703 y=79.940 z=186.452
+click: x=-48.950 y=81.477 z=186.452
+click: x=-49.747 y=79.940 z=186.452
+click: x=-55.101 y=79.190 z=186.452
+click: x=55.101 y=79.190 z=186.452
+
+[thin] Required by the purchased SB443-IN's side grooves: these are the four magnet rails, each 1.5 mm thick (the 1.6 mm groove less 0.05 mm fore and aft) and 0.80 mm proud of its slot wall, printed solid with the cartridge's aft wall over the slot's 26 mm. The pulled block bears on their aft faces.
+alternatives: A thicker rail does not enter the groove; dropping the rails leaves the block free to fall out of the face; bonding replaces one pause with DP420 and two cures.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-55.111 y=79.190 z=174.080
+click: x=-55.111 y=80.690 z=174.080
+click: x=-49.358 y=79.190 z=174.080
+click: x=-49.358 y=80.690 z=174.080
+click: x=49.339 y=79.190 z=174.080
+click: x=49.339 y=80.690 z=174.080
+click: x=55.092 y=79.190 z=174.080
+click: x=55.092 y=80.690 z=174.080
+
+[ceiling] Required by the print-pause capture: each slot's flat roof at Z199.430 is the first layer printed after the pause, bridging 6.55 mm across the slot onto the four loaded blocks with 0.15 mm of air over a drawing-maximum stack. The preparation blocks support inside both slots.
+alternatives: A 45-degree ridge over the stack leaves the blocks 3.3 mm of Z play under it; closing the slot before the pause leaves no way to load the blocks.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
+click: x=-52.225 y=79.770 z=199.430
+click: x=52.225 y=79.770 z=199.430

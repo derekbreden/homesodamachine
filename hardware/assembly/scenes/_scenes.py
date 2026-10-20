@@ -197,9 +197,9 @@ SCENES = (
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
              "and takes two screws. Each pump head clamps its two short LLDPE stubs, which "
-             "pass the cradle's open tube passages. Eight bonded SB443-IN magnet pairs, one "
-             "column on each pump's line, hold the installed cartridge against its rigid "
-             "seats; the four stubs enter permanent TPU receivers in the bay wall.",
+             "pass the cradle's open tube passages. Eight printed-in SB443-IN magnet pairs, one "
+             "column on each pump's line, hold the installed cartridge where their bare poles "
+             "meet; the four stubs enter permanent TPU receivers in the bay wall.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -342,7 +342,7 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # The wall and its separate locked keeper jointly retain each TPU receiver.
+    # The wall and its snapped-on flat keeper jointly retain each TPU receiver.
     **{f"pump-receiver-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
     # Each permanent return snaps into its channel in the one return block,

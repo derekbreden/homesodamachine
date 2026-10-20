@@ -6,7 +6,7 @@
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py front-top --printer Mark2 --slice --review
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py all --slice --review
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py dock-petgf \
-        --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-keeper-west-outer.stl,quantity=1,turns=x:0,walls=6,infill=100
+        --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.stl,quantity=2,turns=x:0,walls=6,infill=100
 
 `pieces.json` declares every piece: its meshes, pose, printer, recipe changes with
 their reasons, and the named features read from each mesh. Preparation writes the
@@ -25,6 +25,7 @@ import shutil
 import subprocess
 import sys
 import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import numpy as np
@@ -357,6 +358,28 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                                        paint_all="8" if kind == "normal_part" else None)
                     placed = to_plate(np.array(fin["box_print_mm"]))
                     record["fins"].append({**fin, "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()]})
+        if part.get("pause"):
+            # One print pause loads parts into closed slots: support stays out of each slot, and
+            # the source Z the pause waits under is carried into this part's print frame.
+            pause = part["pause"]
+            if abs(abs(mesh.rotation[2][2]) - 1.0) > 1e-9:
+                raise ValueError(f"{inst['name']}: a pause plane needs a pose that keeps Z vertical")
+
+            def print_z(source_z):
+                local = np.array([0.0, 0.0, source_z]) - mesh.center
+                return float((local @ mesh.rotation.T)[2] + mesh.lift)
+            slots = []
+            for x0, x1, y0, y1, z0, z1 in pause["slots_source_mm"]:
+                low_s, high_s = np.array([x0, y0, z0]), np.array([x1, y1, z1])
+                vertices, faces = _mesh.box_mesh(low_s - mesh.center, high_s - mesh.center)
+                plate.add_part(obj, "Magnet slot support exclusion", vertices, faces, subtype="support_blocker")
+                corners = np.array([[x, y, z] for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)])
+                placed = (corners - mesh.center) @ (r_yaw @ mesh.rotation).T + translation
+                slots.append([placed.min(axis=0).tolist(), placed.max(axis=0).tolist()])
+            record["pause"] = {"source_z_mm": pause["source_z_mm"], "threshold_print_z_mm": print_z(pause["source_z_mm"]),
+                               "stack_top_print_z_mm": print_z(pause["stack_top_source_z_mm"]),
+                               "slots_plate_mm": slots, "gcode": pause.get("gcode", "M400 U1"),
+                               "message": pause["message"], "reason": pause["reason"]}
         if inst["regions"]:
             overrides = inst["regions"]["part_process_overrides"]
             record["regions"] = {k: v for k, v in inst["regions"].items() if k != "rows"}
@@ -385,6 +408,9 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         record["ranges"] = obj["ranges"]
         records.append(record)
 
+    pauses = [dict(r["pause"], object=r["name"], identify_id=r["identify_id"]) for r in records if "pause" in r]
+    if len({round(p["threshold_print_z_mm"], 4) for p in pauses}) > 1:
+        raise ValueError(f"{name}: a plate pauses once; its parts ask for {[p['threshold_print_z_mm'] for p in pauses]}")
     sources = sorted({r["stl_sha256"] for r in records})
     stamp = datetime.datetime.now().strftime("%Y-%m-%d")
     stem = f"{stamp}-{name}-{printer.lower()}-{hashlib.sha256(''.join(sources).encode()).hexdigest()[:8]}"
@@ -410,6 +436,7 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         "settings_changes": changes, "profile_changes": profile["changes"],
         "usable_plate_mm": [usable_low.tolist(), usable_high.tolist()], "plate_border_mm": border,
         "brim_allowance_mm": brim, "plate_offset_mm": piece.get("plate_offset_mm"), "objects": records,
+        "pause": pauses[0] if pauses else None,
         "show_faces": relative(directory / "show-faces.npz"),
         "spec": relative(SPEC_PATH), "spec_sha256": _mesh.sha256(SPEC_PATH),
         "tool_sha256": {relative(p): _mesh.sha256(p) for p in sorted(HERE.glob("*.py"))},
@@ -425,17 +452,10 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
     return directory
 
 
-def slice_project(directory: Path) -> Path:
-    preparation = json.loads((directory / "preparation.json").read_text())
-    project = ROOT / preparation["project"]
-    if _mesh.sha256(project) != preparation["project_sha256"]:
-        raise ValueError("the project changed after preparation")
-    native = directory / "native"
+def _studio(project: Path, native: Path, archive_name: str) -> tuple[list, dict]:
     native.mkdir()
-    archive_name = project.name.replace(".3mf", ".gcode.3mf")
     command = [str(STUDIO), "--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir", str(native),
                "--export-3mf", archive_name, str(project)]
-    save(directory / "slice-command.json", command)
     with (native / "slice.log").open("w") as log:
         result = subprocess.run(command, cwd=native, stdout=log, stderr=subprocess.STDOUT,
                                 env=dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1"))
@@ -444,6 +464,73 @@ def slice_project(directory: Path) -> Path:
     sliced = json.loads((native / "result.json").read_text())
     if sliced.get("return_code") != 0:
         raise RuntimeError(f"Bambu Studio reported {sliced.get('error_string')}")
+    return command, sliced
+
+
+def gcode_layers(archive: Path) -> list[tuple[float, float]]:
+    """Each emitted layer's top Z and height, in order."""
+    with zipfile.ZipFile(archive) as z:
+        text = z.read("Metadata/plate_1.gcode").decode("utf-8", "replace")
+    out = []
+    for line in text.splitlines():
+        if line.startswith("; Z_HEIGHT:"):
+            out.append([float(line.split(":", 1)[1]), None])
+        elif line.startswith("; LAYER_HEIGHT:") and out and out[-1][1] is None:
+            out[-1][1] = float(line.split(":", 1)[1])
+    return [(z, h) for z, h in out]
+
+
+def pause_layer(layers: list[tuple[float, float]], pause: dict) -> dict:
+    """The first layer sliced above the slots' roof opens with the pause; its bottom clears the stack."""
+    threshold = pause["threshold_print_z_mm"]
+    for index, (z, h) in enumerate(layers):
+        if z - h / 2.0 > threshold + 1e-6:
+            bottom = z - h
+            if bottom < pause["stack_top_print_z_mm"] - 1e-6:
+                raise ValueError(f"the layer that closes the slots starts at print Z{bottom:.3f}, under the "
+                                 f"loaded stack's top at Z{pause['stack_top_print_z_mm']:.4f}")
+            return {"top_z_mm": z, "height_mm": h, "bottom_z_mm": round(bottom, 6), "index": index,
+                    "previous_top_z_mm": layers[index - 1][0] if index else None,
+                    "air_over_stack_mm": round(bottom - pause["stack_top_print_z_mm"], 4)}
+    raise ValueError(f"no layer is sliced above print Z{threshold:.4f}")
+
+
+def write_pause(project: Path, top_z: float, pause: dict) -> None:
+    root = ET.Element("custom_gcodes_per_layer")
+    plate = ET.SubElement(root, "plate")
+    ET.SubElement(plate, "plate_info", id="1")
+    ET.SubElement(plate, "layer", top_z=f"{top_z:.3f}", type="1", extruder="1", color="",
+                  extra=pause["message"], gcode=pause["gcode"])
+    ET.SubElement(plate, "mode", value="SingleExtruder")
+    member = "Metadata/custom_gcode_per_layer.xml"
+    temporary = project.with_suffix(".pause.tmp")
+    with zipfile.ZipFile(project) as source, zipfile.ZipFile(temporary, "w", zipfile.ZIP_DEFLATED) as target:
+        for item in source.infolist():
+            if item.filename != member:
+                target.writestr(item, source.read(item.filename))
+        target.writestr(member, ET.tostring(root, xml_declaration=True, encoding="UTF-8"))
+    os.replace(temporary, project)
+
+
+def slice_project(directory: Path) -> Path:
+    preparation = json.loads((directory / "preparation.json").read_text())
+    project = ROOT / preparation["project"]
+    if _mesh.sha256(project) != preparation["project_sha256"]:
+        raise ValueError("the project changed after preparation")
+    archive_name = project.name.replace(".3mf", ".gcode.3mf")
+    pause = preparation.get("pause")
+    if pause:
+        # Slice once to read the layers the slicer emits, put the pause on the layer that closes
+        # the slots, then slice the paused project.
+        probe = directory / "native-probe"
+        _studio(project, probe, archive_name)
+        pause["layer"] = pause_layer(gcode_layers(probe / archive_name), pause)
+        write_pause(project, pause["layer"]["top_z_mm"], pause)
+        preparation.update(project_sha256=_mesh.sha256(project), pause=pause)
+        save(directory / "preparation.json", preparation)
+    native = directory / "native"
+    command, sliced = _studio(project, native, archive_name)
+    save(directory / "slice-command.json", command)
     archive = directory / archive_name
     shutil.copyfile(native / archive_name, archive)
     with zipfile.ZipFile(archive) as z:

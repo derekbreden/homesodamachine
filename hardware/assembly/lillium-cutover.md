@@ -106,7 +106,7 @@ in every piece before anything goes in the box:
   stack (one). The eight relay bosses can stay empty.
 - **Full-length M3:** the lower pump cradle's two, under the clamp's M3×60s; and six in each
   reservoir's wall-top bosses.
-- **M5:** four Y-seam inserts, two in back-top's lower anchor blocks and two in front-top's upper blocks.
+- **M5:** four Y-seam inserts, two in back-bottom's knuckles under the Z seam and two in front-top's knuckles under the funnel frame.
 - **M1.4:** two in front-top's bay bulkhead and two in the pump clamp, for the pogo halves.
 - **The faucet:** the three short M3 in the shell base
   ([faucet assembly](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md#base-joint)).

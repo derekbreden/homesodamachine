@@ -1,22 +1,22 @@
-[ceiling] Flat transition from the fitted motor bore to the wider open terminal well. The cap prints crown-down; Tree (auto)/Default support reaches the bed through the same Ø45 well before pump installation. The retained motor-seat geometry has its own fit evidence; the complete cap’s support finish and removal are unqualified.
-alternatives: Extending the Ø45 opening through the motor bore removes its locating shoulder. A sloping transition changes the retained seat. Keep the flat shoulder and remove support through the open terminal well.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-52.225 y=44.859 z=278.925
-click: x=52.225 y=44.859 z=278.925
-
 [ceiling] Required flat lower boundary of the female connector body seat and lead slot at Z273.124. The cap prints crown-down and this face includes its supported-surface allowance. The 4.150 mm axial body cavity and adjoining crown/lead opening give Tree (auto)/Default support an aft-mouth and crown removal path before the connector is fitted. Ear plates and inserts keep their separate axial datums; the coupon does not establish this full-cap fit or support finish.
 alternatives: Ramping into the seat changes the purchased connector’s stadium clearance. Ramping outward cuts additional stock beside the lead route. Opening the floor removes the boundary below the connector and changes the seat. Retain the flat fitted envelope and its accessible support path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=0.000 y=77.702 z=273.124
 
-[ceiling] Required routing floors of two crown grooves, 4 mm wide and 3.5 mm into the cap’s bed face. Each opens directly to the crown and joins an open motor-terminal well; Tree (auto)/Default supports leave through that bed-side opening before wiring. The floors preserve the specified routing volume and full 3 mm separation above the connector cavity. Actual deposition, lead restraint and support finish remain unqualified.
+[ceiling] Required routing floors of two crown grooves, 4 mm wide and 3.5 mm into the cap’s bed face. Each opens directly to the crown and joins a motor-terminal cone; Tree (auto)/Default supports leave through that bed-side opening before wiring. The floors preserve the specified routing volume and full 3 mm separation above the connector cavity. Actual deposition, lead restraint and support finish remain unqualified.
 alternatives: A V-section at the same depth reduces room for the two insulated leads. Retaining that volume with a slope needs a wider or deeper cut, spending the connector roof stock. Cutting the grooves through removes their floor. Keep the open flat-bottom routing envelope.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
-click: x=-18.588 y=65.621 z=280.674
-click: x=18.588 y=65.621 z=280.674
+click: x=-19.548 y=65.024 z=280.674
+click: x=19.548 y=65.024 z=280.674
 
 [ledge] Required flat annular head bearings for the two M3×60 cap screws. Their Ø5.8 counterbores surround Ø3.3 through passages and seat at Z268.975, 15.199 mm below the crown. The cap prints crown-down; Tree (auto)/Default support and a driver approach through each open Ø5.8 counterbore before assembly. The full hardware/seat geometry is retained; cleanup and loaded performance remain unqualified.
 alternatives: Sloping the bearing removes flat contact under the screw head. A larger through hole loses its seat; moving the seat changes the M3×60 engagement and tip reserve. A closed top obstructs screw and driver access. Keep the flat annular bearing with its open counterbore.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=0.294 y=67.303 z=268.975
 click: x=0.038 y=31.324 z=268.975
+
+[thin] Required by the M1.4 insert's installation: the 2.6 mm loading stadium has to carry the whole Ø2.3 knurl to the round Ø2 pilot, and this 0.1 mm² reading is the corner where the stadium's floor meets that pilot, 2.16 mm across.
+alternatives: Stopping the stadium short of the pilot leaves the knurl a printed lip to melt through; running the stadium into the pilot turns the grip zone's round hole into a slot.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=9.288 y=76.223 z=275.887
+click: x=8.482 y=77.990 z=276.824
