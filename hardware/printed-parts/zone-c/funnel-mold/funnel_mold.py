@@ -228,7 +228,7 @@ def build():
     backing_bodies = (
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
         funnel.brim_plan(0.0, 0, funnel.brim_thickness),
-        funnel.apron_plan(0.0, funnel.brim_thickness - funnel.seal_preload, top),
+        funnel.apron_plan(0.0, funnel.brim_thickness, top),
         funnel.elbow_cradle.plug_outline(funnel.plug_width/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
@@ -339,7 +339,7 @@ def build():
     rear_y = funnel.apron_y + funnel.apron_depth / 2 - 12.0
     pour = (-port_x, front_y)
     vents = [(port_x, front_y), (port_x, rear_y), (-port_x, rear_y),
-             (-funnel.seal_width / 2 + 3.5, 0), (funnel.seal_width / 2 - 3.5, 0)]
+             (-funnel.apron_width / 2 + 7.0, 0), (funnel.apron_width / 2 - 7.0, 0)]
     ports = [cylinder(pour_diameter/2, top-1, back+1, *pour)]
     ports += [cylinder(vent_diameter/2, top-1, back+1, *xy) for xy in vents]
     core = one(core.cut(*ports), 'core fill and vents')
@@ -384,7 +384,7 @@ def build():
         'minimum_core_backing_mm': minimum_core_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
-        'casting_scope': 'whole finished funnel with integral roof apron and sealing rib, rectangular block, flat bearing face and straight 6 mm outlet',
+        'casting_scope': 'whole finished funnel with flat-bottomed integral roof apron, rectangular block, flat bearing face and straight 6 mm outlet',
         'flange_plan_mm': [flange_width, flange_depth],
         'flange_corner_radius_mm': flange_radius,
         'flange_margin_mm': flange_margin,

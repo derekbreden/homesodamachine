@@ -1817,7 +1817,7 @@ ledge above the frame. The complete brim footprint retains 3 mm of frame
 bearing beneath Z349. The rail channels retain their separate functional profile.
 The funnel's integral silicone apron covers the exposed frame joints and
 upper seam screw wells, reaching both exterior sides. Its mouth and cover
-seat are Z358; the fitted cover reaches Z361. Its underside roof-contact rib
+seat are Z358; the fitted cover reaches Z361. Its flat roof-bearing underside
 and spill-path geometry are recorded in the
 [overflow review](../../zone-c/funnel/overflow-review/README.md).
 See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.

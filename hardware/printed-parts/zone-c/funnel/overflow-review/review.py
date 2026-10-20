@@ -19,7 +19,6 @@ sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(FUNNEL), str(ENC), str(COVER
 import cadquery as cq
 import numpy as np
 import funnel
-import funnel_cover
 import funnel_frame
 import enclosure as enc
 import _box_spec
@@ -64,7 +63,6 @@ def main():
     difference = local.cut(expected).Volume() + expected.cut(local).Volume()
     assert local.isValid() and len(local.Solids()) == 1 and difference < 1e-4
     installed = local.translate(position)
-    rib = funnel.roof_seal().translate(position)
     roof = box.outer[5] + funnel.apron_rise
     cover = import_step(str(COVER / 'funnel-cover.step')).val().translate((cx, cy, roof))
     shells = {n: import_step(str(ENC / f'enclosure-{n}.step')).val()
@@ -74,12 +72,11 @@ def main():
     contacts = {}
     for name, body in [*shells.items(), ('funnel-frame', frame)]:
         common = installed.intersect(body)
-        outside = abs(common.cut(rib).Volume()) if abs(common.Volume()) > 1e-8 else 0.0
-        assert outside < 1e-4, (name, outside)
-        contacts[name] = {'nominal_contact_mm3': abs(common.Volume()),
-                          'outside_roof_rib_mm3': outside}
-    lid_contact = funnel_cover.contact_reading(cover, installed, cx, cy, roof)
-    assert lid_contact['pad_contact_mm3'] > 0 and lid_contact['outside_pads_mm3'] < 1e-4
+        overlap = abs(common.Volume())
+        assert overlap < 1e-4, (name, overlap)
+        contacts[name] = {'overlap_mm3': overlap}
+    lid_contact = {'silicone_overlap_mm3': abs(cover.intersect(installed).Volume())}
+    assert lid_contact['silicone_overlap_mm3'] < 1e-4
     removal = []
     for lift in (0.5, 1, 3, 6, 12, 24, 52):
         moved = installed.translate((0, 0, lift))
@@ -112,28 +109,26 @@ def main():
         'mouth_and_cover_seat_z_mm': roof,
         'height_with_cover_mm': cover.BoundingBox().zmax,
         'rigid_roof_z_mm': box.outer[5],
-        'roof_rib_lowest_z_mm': seat + funnel.brim_thickness - funnel.seal_preload,
-        'roof_rib_bottom_contact_width_mm': 1.5,
+        'apron_underside_z_mm': seat + funnel.brim_thickness,
+        'apron_thickness_mm': funnel.apron_rise,
         'nominal_roof_contact': contacts,
         'cover_contact': lid_contact,
         'sampled_vertical_removal': removal,
     }
     print('Funnel geometry, named contact and removal checks passed.', flush=True)
-    surfaces = flute_payload.surfaces((ENC,))
-    changes = {'enclosure-front-top': shells['front-top']}
-    selected = {name: surfaces[name] for name in changes}
-    backup = ROOT / 'tmp/funnel-runoff/aggregate-before'
+    changes = {'funnel': installed, 'funnel-cover': cover}
+    selected = {
+        'funnel': translated_surface(local_surface(FUNNEL, 'funnel'), position),
+        'funnel-cover': translated_surface(local_surface(COVER, 'funnel-cover'), (cx, cy, roof)),
+    }
+    backup = ROOT / 'tmp/funnel-cover-edge/before'
     backup.mkdir(parents=True, exist_ok=True)
     aggregates = {}
-    for path in (ENC / 'enclosure.step', ROOT / 'hardware/manifold-layout/enclosure-assembly.step'):
+    for path in (ROOT / 'hardware/manifold-layout/enclosure-assembly.step',):
         for p in (path, path.with_name(path.name + '.mesh')):
             saved = backup / p.name
             if not saved.exists():
                 shutil.copy2(p, saved)
-        if path.name == 'enclosure-assembly.step':
-            changes.update({'funnel': installed, 'funnel-cover': cover})
-            selected['funnel'] = translated_surface(local_surface(FUNNEL, 'funnel'), position)
-            selected['funnel-cover'] = translated_surface(local_surface(COVER, 'funnel-cover'), (cx, cy, roof))
         aggregates[str(path.relative_to(ROOT))] = refresh.refresh(path, changes, selected)
     review['aggregates'] = aggregates
     (HERE / 'native-review.json').write_text(json.dumps(review, indent=2) + '\n')

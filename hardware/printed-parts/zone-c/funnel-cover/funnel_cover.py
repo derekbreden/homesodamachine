@@ -1,8 +1,8 @@
 """Low lift-off cover located in the silicone funnel's existing mouth.
 
 Local Z=0 is the underside of the plate on the silicone brim. The whole top
-is a flat bed face in the separate print export. The shallow skirt takes
-sideways displacement; four local pads lightly interfere with the silicone.
+is a flat bed face in the separate print export. The continuous shallow skirt
+locates the cover sideways; the plate rests on the silicone brim under gravity.
 """
 
 import functools
@@ -27,10 +27,6 @@ SKIRT_WALL = 3.0
 RUNNING_AIR = 0.25
 LEAD_H = 1.4
 LEAD_INSET = 0.7
-PAD_INTERFERENCE = 0.15
-PAD_LENGTH = 16.0
-PAD_Y = 22.0
-PAD_LEAD_H = 1.6
 FRONT_EXTENSION = 4.0
 FRONT_RELIEF = 1.2
 
@@ -43,23 +39,6 @@ DEPTH = SEATED_DEPTH + FRONT_EXTENSION
 
 def rounded(w, d, r, z0, z1, x=0.0, y=0.0):
     return funnel._rounded_box(w, d, r, z0, z1, x, y)
-
-
-def pad(side, y):
-    """Broad rooted pad; the lower ramp grows 0.9 mm over 1.6 mm rise."""
-    outer = MOUTH_W / 2 + PAD_INTERFERENCE
-    inner = outer - SKIRT_WALL
-    wires = []
-    for z, inset in ((-SKIRT_DEPTH, 0.9),
-                     (-SKIRT_DEPTH + PAD_LEAD_H, 0.0), (0.0, 0.0)):
-        x0, x1 = sorted((side * inner, side * (outer - inset)))
-        wires.append(funnel._rounded_wire(x1 - x0, PAD_LENGTH, 0.6,
-                                           z, (x0 + x1) / 2, y))
-    return cq.Solid.makeLoft(wires, ruled=True)
-
-
-def pads():
-    return cq.Compound.makeCompound([pad(s, y) for s in (-1, 1) for y in (-PAD_Y, PAD_Y)])
 
 
 @functools.cache
@@ -81,7 +60,7 @@ def build():
     inside = rounded(sw - 2 * SKIRT_WALL, sd - 2 * SKIRT_WALL,
                       sr - SKIRT_WALL, -SKIRT_DEPTH - 1, 0.02)
     skirt = skirt.cut(inside).clean()
-    body = plate.fuse(skirt).fuse(pads()).clean()
+    body = plate.fuse(skirt).clean()
     assert body.isValid() and len(body.Solids()) == 1
     return body
 
@@ -90,16 +69,8 @@ def placed(cx, cy, roof):
     return build().translate((cx, cy, roof))
 
 
-def contact_reading(cover, silicone, cx, cy, roof):
-    """Permit silicone contact only in the four declared friction-pad solids."""
-    common = cover.intersect(silicone)
-    mask = pads().translate((cx, cy, roof))
-    return {'pad_contact_mm3': common.Volume(),
-            'outside_pads_mm3': common.cut(mask).Volume() if common.Volume() else 0.0}
-
-
 def print_shape():
-    # Flat exterior on the bed, skirt and pads growing up. No support is
+    # Flat exterior on the bed, skirt growing up. No support is
     # required underneath a liquid-side face.
     return build().rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, PLATE_T))
 
@@ -123,7 +94,7 @@ def main():
         'PLATE': f'{PLATE_T:g} mm', 'SKIRT': f'{SKIRT_DEPTH:g} mm',
         'WALL': f'{SKIRT_WALL:g} mm', 'WIDTH': f'{WIDTH:g} mm',
         'DEPTH': f'{DEPTH:.3f} mm', 'OVERHANG': f'{OVERHANG:g} mm',
-        'AIR': f'{RUNNING_AIR:g} mm', 'PAD': f'{PAD_INTERFERENCE:g} mm',
+        'AIR': f'{RUNNING_AIR:g} mm',
         'FRONT_EXTENSION': f'{FRONT_EXTENSION:g} mm',
         'FRONT_RELIEF': f'{FRONT_RELIEF:g} mm',
         'PRINT_HEIGHT': f'{PLATE_T + SKIRT_DEPTH:g} mm',
