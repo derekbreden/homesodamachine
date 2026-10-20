@@ -1,9 +1,8 @@
 """Two-channel flavor manifold with permanent asymmetric TPU pump junctions.
 
-The four wall junctions feed straight upper links and fixed compound TPU
-returns. Each lower return takes two straight LLDPE links; opposed supported
-stops capture the junction link, and the purchased valve collet anchors the
-short valve link. Pump replacement withdraws only the prepared pump stubs.
+The four wall junctions feed straight upper links and four scanned PP0308E
+elbows. Each lower socket seals on a short stub gripped by its supported
+elbow; a formed LLDPE run joins that elbow to the purchased valve collet. Pump replacement withdraws only the prepared pump stubs.
 
 Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
 enclosure +Y. The pump station retains its fitted physical datum. The fore
@@ -343,7 +342,7 @@ FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
 
 # Compatibility figure: this is the printed return's internal flow radius;
 # the connected LLDPE members are straight.
-SPINE_R = _returns.RETURN_ARC_R
+SPINE_R = _returns.TUBE_BEND_R
 
 
 def fold_pt(p) -> tuple:
@@ -684,13 +683,7 @@ def pump_plumbing():
                  "axis": enclosure_axis(port_axis(upper_valve, "front"))}
         lower = {"point": enclosure_point(port(return_valve, "back")),
                  "axis": enclosure_axis(port_axis(return_valve, "back"))}
-        junction = _returns.junction_ports(fore, x, z, upper, lower)
-        returned = _returns.return_layout(junction["lower"]["point"],
-                                           junction["lower"]["axis"], lower)
-        start = junction["upper"]["point"]
-        out[name] = {"junction": junction, "return": returned,
-                     "upper_tube": {"start_mm": start, "end_mm": upper["point"],
-                                    "length_mm": math.dist(start, upper["point"])}}
+        out[name] = _returns.station(fore,x,z,upper,lower,_enc_if.z_seam+_enc_if.slide_slip)
     return out
 
 
@@ -805,19 +798,23 @@ def elbow_pose(gate: str, side: float) -> tuple:
 # --- Bodies ----------------------------------------------------------------
 
 def lower_links() -> dict:
-    """Two straight authoring-frame LLDPE members per permanent return."""
-    out = {}
-    for cid, name in LOWER_CONNECTIONS.items():
-        data = pump_plumbing()[name]["return"]
-        out[cid] = {
-            key: (authoring_point(data[source]["start_mm"]),
-                  authoring_point(data[source]["end_mm"]))
-            for key, source in (("junction", "diagonal_link"), ("valve", "valve_link"))}
-    return out
+    """Stub and formed tube centerline segments in the manifold authoring frame."""
+    def author(segment):
+        return {k:authoring_point(v) if k in ('start_mm','end_mm','midpoint_mm') else
+                authoring_axis(v) if k in ('start_tangent','end_tangent') else v
+                for k,v in segment.items()}
+    return {cid:{member:tuple(author(s) for s in pump_plumbing()[name]['elbow'][source])
+                 for member,source in (('junction','stub'),('valve','formed_tube'))}
+            for cid,name in LOWER_CONNECTIONS.items()}
+
+
+def lower_tube(segments):
+    return _receiver._sweep(TUBE_D,segments).cut(_receiver._sweep(_returns.TUBE_ID,segments)).clean()
 
 
 def lower_link_length(cid: int) -> float:
-    return sum(math.dist(*pair) for pair in lower_links()[cid].values())
+    e=pump_plumbing()[LOWER_CONNECTIONS[cid]]['elbow']
+    return e['stub_cut_nominal_mm']+e['formed_cut_nominal_mm']
 
 
 def _junction_at_author_x(x):
@@ -825,23 +822,23 @@ def _junction_at_author_x(x):
 
 
 def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> float:
-    """Printed flow radius; connected LLDPE members are straight."""
-    return _returns.RETURN_ARC_R
+    """Centerline bend radius of the formed lower tube."""
+    return _returns.TUBE_BEND_R
 
 
 def spine_offset_x(x: float) -> float:
     name = _junction_at_author_x(x)
     data = pump_plumbing()[name]
-    return authoring_point(data["return"]["target"]["point"])[0] - x
+    return authoring_point(data["elbow"]["target"]["point"])[0] - x
 
 
 def spine_middle_length(x: float) -> float:
-    """The printed return's horizontal flow passage, excluding its curves."""
-    return pump_plumbing()[_junction_at_author_x(x)]["return"]["flow_bridge_mm"]
+    """Straight run between the elbow departure and valve approach turns."""
+    return sum(s['length_mm'] for s in pump_plumbing()[_junction_at_author_x(x)]['elbow']['formed_tube'][:-1] if s['kind']=='line')
 
 
 def spine_tube_length(x: float) -> float:
-    """Sum of the two exposed straight LLDPE members at this station."""
+    """Nominal cut stock for the stub and formed run, including insertion allowances."""
     name = _junction_at_author_x(x)
     return lower_link_length(next(cid for cid, junction in LOWER_CONNECTIONS.items()
                                   if junction == name))
@@ -1011,7 +1008,7 @@ _bounds.state(
     + ". `SOURCE_JOG` is the lever: the floor climbs with the cross, and the travel is the "
       "pack's to give, not this run's.")
 
-# The four lower connections each contain one printed return and two straight links.
+# Each lower connection contains a scanned elbow, captured stub and formed tube.
 LOWER_CONNECTIONS = {9: "Y-C", 17: "Y-D", 19: "Y-F", 27: "Y-G"}
 # Compatibility station lookup for topology/accounting callers.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -1069,10 +1066,10 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet
                   color=_routing.tube_color(f"fluid-{cid}"))
     for cid, links in lower_links().items():
         for member, pair in links.items():
-            a.add(straight(*pair), name=f"tube-fluid-{cid}-{member}",
+            a.add(lower_tube(pair), name=f"tube-fluid-{cid}-{member}",
                   color=_routing.tube_color(f"fluid-{cid}"))
     if include_fixed_wet:
-        import pump_return
+        import dock_structure
         fore = pump_wall_fore_y()
         for name, data in pump_plumbing().items():
             junction = data["junction"]
@@ -1080,8 +1077,8 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet
             suffix = PUMP_PART_SUFFIX[name]
             wet = _receiver.build_receiver(fore, x, z, installed=True, junction=junction)
             a.add(authoring_shape(wet), name="pump-receiver-" + suffix, color=_receiver.COLOR)
-            returned = pump_return.build_return(data["return"], installed=True)
-            a.add(authoring_shape(returned), name="pump-return-" + suffix, color=_receiver.COLOR)
+            elbow = dock_structure.elbow_shape(data["elbow"])
+            a.add(authoring_shape(elbow), name="pump-elbow-" + suffix, color=dock_structure.part_color("pump-elbow-"+suffix))
     for cid, (x, z0) in QUARTERS.items():
         a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP, AFT_DECK_AFT_SHIFT)),
               name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
@@ -1266,8 +1263,8 @@ def report(assy: cq.Assembly) -> dict:
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
             links = lower_links()[cid]
-            note = (f"{math.dist(*links['junction']):.3f} + {math.dist(*links['valve']):.3f} mm "
-                    f"straight LLDPE, joined by one permanent R{SPINE_R:g} TPU return")
+            note = (f"{sum(s['length_mm'] for s in links['junction']):.3f} mm stub + "
+                    f"{sum(s['length_mm'] for s in links['valve']):.3f} mm formed LLDPE, scanned PP0308E elbow")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
@@ -1316,9 +1313,9 @@ def report(assy: cq.Assembly) -> dict:
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"lower links: {len(SPINE)} permanent TPU returns, each with two straight LLDPE members; "
+    print(f"lower links: {len(SPINE)} purchased elbows, each with a captured stub and formed LLDPE run; "
           f"{spine_tube_length(INNER_X):.3f} mm inner and {spine_tube_length(OUTER_X):.3f} mm outer "
-          f"total exposed tube; printed flow radius R{SPINE_R:g}")
+          f"nominal tube stock including insertion; formed tube radius R{SPINE_R:g}")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
@@ -1381,18 +1378,18 @@ def selftest() -> int:
     for cid, links in lower_links().items():
         junction = LOWER_CONNECTIONS[cid]
         valve = PUMP_VALVES[junction][1]
-        if dist(links["junction"][0], port(junction, "front")) > 1e-8 \
-                or dist(links["valve"][1], port(valve, "back")) > 1e-8:
-            failures.append(f"fluid-{cid} straight links miss their junction or valve")
+        if abs(dist(links["junction"][-1]["end_mm"], port(junction, "front"))-(_returns.SOCKET_DEPTH-_returns.LINK_NOMINAL_AXIAL_PLAY)) > 1e-8 \
+                or dist(links["valve"][-1]["end_mm"], port(valve, "back")) > 1e-8:
+            failures.append(f"fluid-{cid} inserted tubes miss their junction or valve")
         for member, pair in links.items():
-            shape = straight(*pair)
+            shape = lower_tube(pair)
             if not shape.isValid() or len(shape.Solids()) != 1:
-                failures.append(f"fluid-{cid}-{member} is not one valid straight member")
+                failures.append(f"fluid-{cid}-{member} is not one valid tube member")
     for failure in failures:
         print(f"FAIL: {failure}")
     if failures:
         return 1
-    print("PASS: four prepared pump spans, four straight upper links and eight straight lower links meet their stations")
+    print("PASS: four prepared pump spans, four straight upper links and four captured stubs and four formed lower tubes meet their stations")
     return 0
 
 
@@ -1403,11 +1400,11 @@ def main():
     print(f"-> {out.name}")
     r = report(assy)
     bb, reach = r["bb"], r["reach"]
-    straight_lldpe_count = len(FORE_STUBS) + 2 * len(LOWER_CONNECTIONS)
+    straight_lldpe_count = len(FORE_STUBS) + len(LOWER_CONNECTIONS)
     swallowed_lldpe_count = sum(
         how == "butt" or (how == "crossbar" and dist(*RUNS[how]) < 1e-9)
         for _cid, _frm, _to, how in SEGMENTS)
-    lldpe_cut_count = (straight_lldpe_count + len(QUARTERS) + len(JOINS)
+    lldpe_cut_count = (straight_lldpe_count + len(LOWER_CONNECTIONS) + len(QUARTERS) + len(JOINS)
                        + swallowed_lldpe_count)
     substitute_md(
         _here.parent / "README.md",

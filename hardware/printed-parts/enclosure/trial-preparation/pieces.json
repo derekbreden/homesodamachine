@@ -284,8 +284,8 @@
           "pose": {"turns": [["x", 0]]},
           "regions": "pump-keeper-outer",
           "object_settings": {
-            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its neck's keyhole."},
-            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and keyhole load path."},
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its downward-open U."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and U-crown load path."},
             "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         },
@@ -295,19 +295,8 @@
           "pose": {"turns": [["x", 0]]},
           "regions": "pump-keeper-middle",
           "object_settings": {
-            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its neck's keyhole."},
-            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and keyhole load path."},
-            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
-          }
-        },
-        {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl",
-          "quantity": 1,
-          "pose": {"turns": [["x", 0]]},
-          "regions": "pump-return-block",
-          "object_settings": {
-            "wall_loops": {"value": "6", "reason": "Solid channel walls, lips and screw columns round all four returns."},
-            "sparse_infill_density": {"value": "100%", "reason": "The block is solid stock; every seat and lip carries a return."},
+            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its downward-open U."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and U-crown load path."},
             "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         }

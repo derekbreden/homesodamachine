@@ -127,7 +127,7 @@ def main():
     print(f"   {len(found)} slip joints: {', '.join(found)}")
     print(f"   {variables['CART_PUMPS']} prepared pumps leave; "
           f"{variables['RECEIVERS']} permanent junctions, "
-          f"{variables['RETURNS']} compound returns and "
+          f"{variables['RETURNS']} purchased elbows and "
           f"{variables['BOX_TEES']} source tees stay")
 
 

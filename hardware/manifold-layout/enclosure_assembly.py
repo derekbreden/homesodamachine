@@ -60,8 +60,8 @@ back now faces up.
 `PACK_CROWN` locates the manifold above the refrigeration base. Eight flavor valves stand in
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
 water-fill valve. The pump cartridge supports both pump heads. Each permanent TPU junction
-locates in the receiver wall, and a flat keeper snapped onto its neck captures it in Y; the one
-return block seats the four fixed TPU returns and their socket stops. The two purchased tees butt
+locates in the receiver wall; a gravity-seated flat keeper captures Y, and the
+fixed-collar U seats support the four purchased PP0308E elbows and their gripped stubs. The two purchased tees butt
 onto held valves.
 The `mounted` axis records these load paths.
 
@@ -465,28 +465,6 @@ def _dock_face_witness(solid, point, normal):
     return min(reads, key=lambda row: row[0])[1]
 
 
-def record_fixed_return_seats(plate, dock_parts):
-    """The four world-authored returns and their one block, on their own datums."""
-    declared = _dock.plumbing.layouts(plate)
-    returned = _dock.returned
-    for suffix, (x, _z) in zip(_dock.STATIONS, plate['holes']):
-        layout = declared[str(x)]['return']
-        origin, normal, along = returned.frame(layout)
-        # A point in the actual output cuff's annular end face, between its
-        # seal and occupied outer radii. Another cuff may stand higher.
-        radial = (_dock.plumbing.TUBE_OD + _dock.plumbing.OCCUPIED_CUFF_OD) / 4
-        point = (cq.Vector(*layout['output']['point']) + normal * radial).toTuple()
-        name = f'pump-return-{suffix}'
-        record_seat(name, station=point,
-                    got=_dock_face_witness(dock_parts[name], point, layout['output']['axis']))
-    # The block's top face bears on the front-top's bed plane under the tray
-    # foot. The witness stands beside the centre screw's clearance bore.
-    x, y = _dock.block_screws(plate)[len(_dock.BLOCK_SCREW_X) // 2]
-    point = (x + _dock.BLOCK_COUNTERBORE_D, y, plate['fixture_print_bed_z'])
-    record_seat('pump-return-block', station=point,
-                got=_dock_face_witness(dock_parts['pump-return-block'], point, (0, 0, 1)))
-
-
 def record_pump_dock_seats(box_spec, dock_parts, retention):
     """World-authored dock parts on wall/port and bare-pole construction datums."""
     plate = box_spec.pack.collet_plate
@@ -497,14 +475,19 @@ def record_pump_dock_seats(box_spec, dock_parts, retention):
         name = f'pump-receiver-{suffix}'
         record_seat(name, planes={'y0': fore + _receiver.FRONT_LIP_Y[0]},
                     got=box(dock_parts[name]))
-    # Each keeper stands on its own slot datums: the wall face plus its sliding air, and
-    # its foot just inside front-top's bed face.
+    # Each keeper seats downward on the occupied neck crown in its wall slot.
     for keeper in _dock.KEEPERS:
         name = f'pump-keeper-{keeper}'
         record_seat(name, planes={'y0': fore + _receiver.KEEPER_Y[0],
-                                 'z0': plate['fixture_print_bed_z'] + _dock.KEEPER_BED_AIR},
+                                 'z0': _dock.keeper_arc_z(plate) - _dock.KEEPER_BELOW},
                     got=box(dock_parts[name]))
-    record_fixed_return_seats(plate, dock_parts)
+    # The scanned upper release face locates each purchased elbow.
+    for suffix,(x,_z) in zip(_dock.STATIONS,plate['holes']):
+        layout=_dock.plumbing.layouts(plate)[str(x)]['elbow']
+        point=(cq.Vector(*layout['up_face'])+cq.Vector(*layout['x_axis'])*3.8).toTuple()
+        name='pump-elbow-'+suffix
+        record_seat(name,station=point,
+                    got=_dock_face_witness(dock_parts[name],point,layout['up_axis']))
     interface = retention['interface']
     magnet_spec = _enc._retention
     columns = magnet_spec.column_stations(plate['holes'])
@@ -1157,9 +1140,9 @@ def valve_tray_stations(placed: dict) -> tuple:
     `valve_tray`'s.
 
     Each fixed valve seats its whole post in its socket and lands its body on
-    the tray face. The permanent pump junctions and compound returns connect
-    to those seated ports through straight links. Cartridge withdrawal leaves
-    the valves, junctions, returns and their links stationary."""
+    the tray face. The permanent junctions and supported purchased elbows connect
+    to those seated ports through straight upper links and captured lower stubs with formed tubes. Cartridge withdrawal leaves
+    the valves, junctions, elbows and tubing stationary."""
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         if axis != 1:
@@ -1424,14 +1407,15 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
 # The receiver bulkhead and fixed supports are integral with front-top.
 FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-",
-                "pump-receiver-", "pump-return-")
+                "pump-receiver-",
+                *("pump-elbow-"+station for station in _dock.STATIONS))
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump with its two elbows and their clamps,
 # the made-up check chain, and the three cap-cradled valves with their coils and port stubs.
 # They sweep with the core, so the ride carries them.
 CORE_RIDERS = ("g-ganen-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
                "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
-               "discharge-chain", "pump-elbow-")
+               "discharge-chain", "pump-elbow-suction", "pump-elbow-discharge")
 # And what is NOT in the box at all when the core rides in: the pan and its plate come
 # through the −X wall after, the pump cartridge later still, and every crossing run is
 # internal-plumbing's, made up at the mouth. Everything else in the back — the chain,

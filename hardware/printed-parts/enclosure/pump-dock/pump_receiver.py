@@ -2,7 +2,7 @@
 
 Local +Y enters the enclosure; Y=0 is the PET-GF wall's pump-facing surface.
 The closed wall locates X/Z. A flat interior keeper in the rear groove
-retains Y; the neck snaps into the keeper's keyhole. The three tube sockets
+retains Y; its downward-open U seats on the neck by gravity. The three tube sockets
 use radial interference; the cartridge hard stop sets insertion and leaves its
 tube tip clear of the annular stop. The upper link into its fixed valve clocks
 the junction about Y.
@@ -10,7 +10,7 @@ the junction about Y.
 The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
 pressure holding and endurance are unqualified on this geometry. The
-lower-mouth print pose keeps the terminal bores at 0/45/45 degrees.
+lower-mouth print pose leaves the lower sealing rim on the bed.
 External supports remain accessible before factory mounting. Round flow roofs
 are separate from the round sealing lands.
 """
@@ -62,13 +62,11 @@ KEEPER_Y = (WALL_THICKNESS + KEEPER_SLIDE_AIR,
 KEEPER_SLOT_Y = (WALL_THICKNESS, KEEPER_Y[1] + KEEPER_SLIDE_AIR)
 GROOVE_Y = (WALL_THICKNESS, KEEPER_Y[1])
 REAR_COLLAR_Y = (KEEPER_Y[1], KEEPER_Y[1] + 3.0)
-# The neck snaps through the keyhole's narrower mouth into its grip, which clears the
-# neck's occupied envelope.
-NECK_GRIP_D = BODY_OD + 0.2
-NECK_MOUTH_W = BODY_OD - 1.3
+# The downward-open keeper clears the occupied neck and rests on its crown.
+NECK_GRIP_D = 12.4
+NECK_MOUTH_W = NECK_GRIP_D
 UPPER_MOUTH_LOCAL_Y = 22.775
 BRANCH_OD = 11.72
-FORK_BLEND_R = .60
 LOWER_STOP_BORE_D = 5.50
 LOWER_STOP_TAPER = (LOWER_STOP_BORE_D-TUBE_ID)/2
 ENTRY_AXIAL = .50
@@ -144,35 +142,33 @@ def _local_junction(junction,origin):
 
 
 def crotch_web(junction=None):
-    """Flat-sided TPU between the two branches, in the branch plane.
+    """Broad flat-sided stock around the fork; socket rims remain circular.
 
-    It runs from inside the rear collar to the upper socket's stop height and
-    back to the upper cuff's aft tangent, then down that vertical face to the
-    lower mouth plane, the print bed. Both sealing cuffs stay round beyond
-    their stops.
+    The lower passage has a tighter turn than its exterior cuff radius, so
+    its exterior is solid stock rather than a self-intersecting pipe sweep.
+    All points lie in the inlet Y/Z plane; the lower socket aims into the
+    fixed elbow's upper collet.
     """
     junction=junction or _default_junction()
     r=BRANCH_OD/2
-    upper,lower=junction['upper'],junction['lower']
-    _,uy,uz=upper['tube_stop']
-    mouth=cq.Vector(*lower['point']);axis=cq.Vector(*lower['axis']).normalized()
-    _,dy,dz=axis.toTuple();length=(dy*dy+dz*dz)**.5;dy,dz=dy/length,dz/length
-    aft=uy+r
+    _,uy,uz=junction['upper']['tube_stop']
+    mouth=cq.Vector(*junction['lower']['point'])
+    axis=cq.Vector(*junction['lower']['axis'])
     front=REAR_COLLAR_Y[1]-.5
-    # At the collar's back face the web's corners stand well inside its round rim.
-    back=REAR_COLLAR_Y[1];rim=((COLLAR_OD/2)**2-WEB_HALF_WIDTH**2)**.5-WEB_RIM_MARGIN
+    back=REAR_COLLAR_Y[1]
+    rim=((COLLAR_OD/2)**2-WEB_HALF_WIDTH**2)**.5-WEB_RIM_MARGIN
     top=rim-(back-front)*(uz-rim)/(uy-back)
-    _,ay,az=junction['lower_flow_segments'][0]['end_mm']
-    beyond=r
-    outline=[(aft,uz),(aft,mouth.z-(aft-mouth.y)*dy/dz-beyond),
-             (mouth.y-dz*r+dy*beyond,mouth.z+dy*r+dz*beyond),(ay,az),
-             (front,az),(front,top),(uy,uz)]
-    vertices=[cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline]
-    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
+    # Convex outside in Y/Z, trimmed square at the lower sealing mouth.
+    # The broad aft face carries both branch loads into the rear collar.
+    lower=junction['lower_flow_segments'][0]
+    aft=max(uy+r,lower['midpoint_mm'][1]+r,
+            junction['lower']['tube_stop'][1]+r)
+    foot=mouth.z-(aft-mouth.y)*axis.y/axis.z-r
+    outline=[(front,-rim),(front,top),(uy,uz),(aft,uz),
+             (aft,foot),(mouth.y-r,foot)]
+    wire=cq.Wire.makePolygon([cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline],close=True)
     web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
-    # The foot is the actual lower mouth plane, clocked or not.
-    across=axis.cross(cq.Vector(0,0,1)).normalized()
-    behind=cq.Workplane(cq.Plane(origin=mouth,xDir=across,normal=axis*-1)).box(
+    behind=cq.Workplane(cq.Plane(origin=mouth,xDir=(1,0,0),normal=axis*-1)).box(
         400,400,400,centered=(True,True,False)).val()
     return web.intersect(behind)
 
@@ -183,8 +179,8 @@ def _geometry(*,installed=False,junction=None):
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
-    root=junction["upper_flow_segments"][0]["start_mm"][1]
-    outer=_outside(installed)
+    root=max(junction[k+"_flow_segments"][0]["start_mm"][1] for k in ("upper","lower"))
+    outer=_outside(installed).fuse(_cylinder(od,REAR_COLLAR_Y[1]-.5,root+.1),crotch_web(junction))
     void=(_cone(FUNNEL_BORE_D,seal,0.,FRONT_SEAL_Y[0])
           .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
           .fuse(_cylinder(seal,*FRONT_SEAL_Y))
@@ -193,7 +189,11 @@ def _geometry(*,installed=False,junction=None):
           .fuse(_cylinder(THROAT_D,RELIEF_TAPER_END_Y,root+.08)))
     for branch in ("upper","lower"):
         segments=junction[branch+"_flow_segments"]
-        outer=outer.fuse(_sweep(od,segments))
+        if branch=='upper':
+            outer=outer.fuse(_sweep(od,segments))
+        else:
+            mouth=cq.Vector(*junction['lower']['point']);d=cq.Vector(*junction['lower']['axis'])
+            outer=outer.fuse(cq.Solid.makeCylinder(od/2,plumbing.SOCKET_DEPTH+1.0,mouth,d*-1))
         void=void.fuse(_sweep(TUBE_ID,segments))
         port=junction[branch]; d=cq.Vector(*port["axis"])
         stop=cq.Vector(*port["tube_stop"])
@@ -207,22 +207,9 @@ def _geometry(*,installed=False,junction=None):
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
                        cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,BRANCH_OD,cq.Vector(*port["point"]),d))
-    lower=junction["lower_flow_segments"][0]
-    blend_edges=[e for e in void.Edges() if e.geomType()=="BSPLINE"
-                 and e.BoundingBox().ymax>lower["end_mm"][1]+1.2
-                 and e.BoundingBox().zmin>lower["end_mm"][2]/2-.04
-                 and e.BoundingBox().zmax<0]
-    void=void.fillet(FORK_BLEND_R,blend_edges).clean()
-    # The upper turn's passage roof points up in the lower-mouth-flat print
-    # frame. A clocked outer junction tilts that frame a few degrees out of the
-    # branch plane, so its flanks stand at 40 degrees.
+    # The upper turn keeps its supported teardrop passage roof; the circular
+    # sealing lands are cut separately.
     void=void.fuse(teardrop_sweep(junction["upper_flow_segments"][0],TUBE_ID/2,inward=True,flank=40.)).clean()
-    # Solid TPU fills the crotch between the two branches, flat-sided and as
-    # wide as the rear collar allows inside the keeper guides. It carries the
-    # upper socket's separating load into the body. Its aft face stands on the
-    # upper cuff's aft side; in the lower-mouth-flat print pose that face is
-    # the 45-degree gusset under the upper cuff and its foot is the bed plane.
-    outer=outer.fuse(crotch_web(junction)).clean()
     neck_od=math.sqrt(BODY_OD**2+growth)
     ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
     outer=outer.cut(ring).clean()
@@ -305,7 +292,7 @@ def engineering_record():
             "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
             "lower_socket_stop_bore_mm":LOWER_STOP_BORE_D,"lower_socket_stop_radial_mm":(SEAL_BORE_D-LOWER_STOP_BORE_D)/2,
             "lower_socket_stop_taper_mm":LOWER_STOP_TAPER,"installed_tip_stop_contact_area_mm2":math.pi*(TUBE_OD**2-LOWER_STOP_BORE_D**2)/4,
-            "fork_blend_radius_mm":FORK_BLEND_R,"customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
+            "customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
             "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
             "print_orientation":"Yaw the actual lower outward axis onto +Y, then rotate it onto -Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
             "physical_reference":"future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",

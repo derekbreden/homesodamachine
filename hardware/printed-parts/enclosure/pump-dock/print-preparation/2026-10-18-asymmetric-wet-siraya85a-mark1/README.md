@@ -1,5 +1,7 @@
 # Asymmetric junction and fixed-return TPU preparation
 
+Scope: the eight saved October 18 meshes and native projects. Current elbow-fed junction geometry and the three gravity-seated keepers are specified in the [current dock design](../../README.md). These archived projects do not prepare current parts.
+
 The manual preparer makes eight station-specific projects: four permanent pump
 junctions and four compound returns. Each plate contains one normal object and a
 local support blocker. The source supplies the handed print pose, the actual wet
@@ -12,7 +14,7 @@ layers. Temperature, flow, retraction and wipe settings stay in that retained
 recipe. Exterior supports use Tree (auto), Default, including the normal
 sections that Bambu generates automatically.
 
-Run from the repository root:
+Archived reproduction command; use the source revision identified by these records:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python \

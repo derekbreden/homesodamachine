@@ -9,7 +9,7 @@ The print estimate uses §7 masses, which are geometry-derived and commit-gated
 (_bom_masses.py), plus §12's float quantity and the accepted ASA Aero slice.
 For §7 parts, shape changes propagate through mass, print hours and throughput.
 The float contribution is a provisional native-slice allowance. The permanent
-TPU pump junctions and returns use their eight one-object native slice estimates.
+Current TPU pump junctions require source-bound native slice estimates.
 
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
     faucet batch, whose duration is read directly from its committed slice. THE KG IS
@@ -44,9 +44,6 @@ FAUCET_SLICE = os.path.join(HERE, "..", "printed-parts", "faucet",
 FLOAT_SLICE = os.path.join(HERE, "..", "printed-parts", "cold-core",
                           "magnetic-float", "all-aero", "mark2-print", "v1",
                           "float-preflight.json")
-DOCK_TPU_SLICE = os.path.join(
-    HERE, "..", "printed-parts", "enclosure", "pump-dock", "print-preparation",
-    "2026-10-18-asymmetric-wet-siraya85a-mark1", "native-review.json")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(
@@ -108,12 +105,11 @@ RATES = {
     "rings": round(_BULK_PETG * 2.8),  # ten small two-colour PET-GF parts on two 0.4 nozzles
     "petgf": None,  # Exact batch duration from the committed production-profile slice.
     "aero": None,   # Native v1 estimate per float, excluding the manual pause.
-    "dock_tpu": None,  # Eight actual one-object Siraya native slices.
 }
 
 GROUP_MARKER = {"cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
-                "rings": "RINGS", "aero": "AERO", "dock_tpu": "DOCK_TPU"}
+                "rings": "RINGS", "aero": "AERO"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:
@@ -200,16 +196,10 @@ def print_estimate():
     if cover_hours <= 0 or kg['cover'] <= 0:
         raise ValueError('Funnel-cover native duration and BOM mass must be positive')
     rates['cover'] = round(cover_hours / kg['cover'], 1)
-    with open(DOCK_TPU_SLICE, encoding='utf-8') as fh:
-        dock = json.load(fh)['parts']
-    dock_hours = sum(part['estimated_seconds'] for part in dock.values()) / 3600
-    kg['dock_tpu'] = sum(part['estimated_filament_g'] for part in dock.values()) / 1000
-    rates['dock_tpu'] = round(dock_hours / kg['dock_tpu'], 1)
     hours = {g: kg[g] * rates[g] for g in kg}
     hours["petgf"] = faucet_hours
     hours["aero"] = float_qty * float_hours
     hours['cover'] = cover_hours
-    hours['dock_tpu'] = dock_hours
     return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
             "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
             "float_qty": int(float_qty), "float_minutes": float_hours * 60}

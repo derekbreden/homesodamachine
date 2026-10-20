@@ -9,16 +9,11 @@
     "pump-cartridge": "Source STEP/STL coordinates in the appliance frame",
     "pump-cap": "Source STEP/STL coordinates in the appliance frame",
     "pump-receiver-west-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-return-west-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
     "pump-receiver-west-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-return-west-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
     "pump-receiver-east-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-return-east-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
     "pump-receiver-east-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-return-east-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
     "pump-keeper-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-keeper-middle": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-return-block": "Canonical manufacturing STEP/STL, already bedded in print pose"
+    "pump-keeper-middle": "Canonical manufacturing STEP/STL, already bedded in print pose"
   },
   "print_poses": {
     "front-bottom": {
@@ -259,75 +254,7 @@
         ]
       ]
     },
-    "pump-return-west-outer": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
     "pump-receiver-west-inner": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-return-west-inner": {
       "up_axis_in_source": [
         0,
         0,
@@ -395,75 +322,7 @@
         ]
       ]
     },
-    "pump-return-east-inner": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
     "pump-receiver-east-outer": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-return-east-outer": {
       "up_axis_in_source": [
         0,
         0,
@@ -532,40 +391,6 @@
       ]
     },
     "pump-keeper-middle": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-return-block": {
       "up_axis_in_source": [
         0,
         0,
@@ -605,31 +430,24 @@
       "wall_loops": "6",
       "sparse_infill_density": "100%",
       "sparse_infill_pattern": "zig-zag",
-      "purpose": "The keepers and the return block are solid structural parts: groove bearings, keyholes, channel seats and lips, inserts and screw columns. Whole-object solid deposition includes every named interface."
+      "purpose": "The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing."
     },
     "pump-keeper-middle": {
       "wall_loops": "6",
       "sparse_infill_density": "100%",
       "sparse_infill_pattern": "zig-zag",
-      "purpose": "The keepers and the return block are solid structural parts: groove bearings, keyholes, channel seats and lips, inserts and screw columns. Whole-object solid deposition includes every named interface."
-    },
-    "pump-return-block": {
-      "wall_loops": "6",
-      "sparse_infill_density": "100%",
-      "sparse_infill_pattern": "zig-zag",
-      "purpose": "The keepers and the return block are solid structural parts: groove bearings, keyholes, channel seats and lips, inserts and screw columns. Whole-object solid deposition includes every named interface."
+      "purpose": "The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing."
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "55704c6b2314499e7ce9ec66c92d5df668615d2dad38738e61c9b7072630d477",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "49becf6e4c6d114038e5b1193b377a0344f88ac1b24ef6df95927fad0b362fce",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "0c4e0ca9075fbb34a489b8e630067ddf603a003020807e433d07806a0a90c916",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "51607874bb449b582c6793b71a0fe68fdc3a718f67a544c6456f8c341954a075",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "5c26f0a06f1ad7ee387a2ba463a1782dd57d738cd415c37a600ba1fbcc79ec43",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b444628a11365aae116a33f20eb430d6bc4bca365ff4a939bbe5bdf29855242e",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "d72482234e7926a5de1048d5b37221b0ce51fa2119d26997a9c81424b9969510",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
-    "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "aeed2b7cda862d39cf13df4df5b7ce083fa5b50905f0b0578b8853681e70b086",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
   },
   "native_artifact_sha256": {
@@ -638,8 +456,8 @@
       ".stl": "db09d9da5a87faab648c25fc997aa92ceb91a9f9c85582f2fef0bb013b8ea532"
     },
     "front-top": {
-      ".step": "f91e696d0d5df2b027e7dea903fed68d8805259a04450e907d938b1ecfe232d0",
-      ".stl": "495f6e3c378fb51d1d9f1fa6a80d51cf980b747aa525a4c2c31dc0e6e5f9bb10"
+      ".step": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
+      ".stl": "ffd5d371695c17ac189b3454059d341c8af8807d93436b0c12983c7df585eded"
     },
     "back-bottom": {
       ".step": "89e3f4a760184ac18123ff34b2b4b9dfd4e19ee444f3f1dd949204f18de0eee8",
@@ -658,48 +476,28 @@
       ".stl": "119b7c35f59b9117f5849e45b9da5975b4b0b36fde29db7ad7148a67e65b92ba"
     },
     "pump-receiver-west-outer": {
-      ".step": "e7262f5d7962fa70a84c4756e92bf0d1136ef7d3ebaaa3d7f2137f7e64623289",
-      ".stl": "8f5ed7aa69c10138c406c5e6bd90e1696c61f14638a4af2da1bbf414cb353fbc"
-    },
-    "pump-return-west-outer": {
-      ".step": "c0dc4c983977649eae524288c671d28680c3a116674bf8ef6b9452c2ff3f489e",
-      ".stl": "7a5eec67e29604925c7dabaa4d30a01c55765edbb8e2d4f177778d8b8280d992"
+      ".step": "ad3480cf934d633d4db0bb37811fa3b1b634243bb6e8f2a54f7060973def5e9b",
+      ".stl": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654"
     },
     "pump-receiver-west-inner": {
-      ".step": "bacc3cf63fef54f2d95264972c536749848dc2443052995794bb5af631e28f4b",
-      ".stl": "f07bf640564069526a818d27c8aad1a69da7a4f5e2e4b109443ac18da248ae11"
-    },
-    "pump-return-west-inner": {
-      ".step": "b33fc1951a18d59d3ccb67ca2c08e334b1cfd83407d37601f4b6e9420e2ad0b0",
-      ".stl": "fd87d60cebb26a01da5f7b1927d775063bc9d3b7fe3177571910989b0ae04a29"
+      ".step": "6ec8fde829fb59376769915889153e606bfd11058bc87ea91fabf7c03ff28d76",
+      ".stl": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5"
     },
     "pump-receiver-east-inner": {
-      ".step": "cd206f914fc79e9b06fa5370a606ef4f5fd7722905d6ef6a05f6eb8b394ec6b3",
-      ".stl": "f07bf640564069526a818d27c8aad1a69da7a4f5e2e4b109443ac18da248ae11"
-    },
-    "pump-return-east-inner": {
-      ".step": "1b7e1772af1cec0d870434920c2c8a9be0a33cf05da2a1ce8cbf00e49ccf31be",
-      ".stl": "fd87d60cebb26a01da5f7b1927d775063bc9d3b7fe3177571910989b0ae04a29"
+      ".step": "b0795c547fcd5c4309461c7484278e5cb78dcc1e0559e76913bfe8a4f615f0f4",
+      ".stl": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5"
     },
     "pump-receiver-east-outer": {
-      ".step": "7ce51e147eb79912f22247dd28f3d627364016a4e57d5d6f0e31a773ba8012b2",
-      ".stl": "c28c8968245b4e3d81df1f927e8ab245ee9db4f4b8a401a6ed34750b6b04ca96"
-    },
-    "pump-return-east-outer": {
-      ".step": "4e0ac581d363e4e57d1373014515870c550f394e902985c62dbcb56e0f3cd6c3",
-      ".stl": "9967ed3bcb55c4ab331bff1cc052bfc360c51740cb051ead3eb85a1fe3d45384"
+      ".step": "be6ae90b0caed687ba92c52a668c26b37dd3af2cdd9f35c3436983c7845abc89",
+      ".stl": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654"
     },
     "pump-keeper-outer": {
-      ".step": "c3859649e2c5ef5231e8dd45732ef93bf36f6ddc9ee19f0ce3b4031af5cbcf9d",
-      ".stl": "de867e116771a90961ee94bdf8b429581e87046fdf236b3007f273e97924f136"
+      ".step": "760c88c55d3a1c27c5458849588dbf62413fa6baa4023209f0a7e81cd5d9c41f",
+      ".stl": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5"
     },
     "pump-keeper-middle": {
-      ".step": "16a5322251ceca996db0b5bfa7bfca9dea0f34efbe20a7c4660a82dce375643b",
-      ".stl": "d182db6077ea453803010382d58919b3ef0811bb325ab2741496a4ac8bc6a128"
-    },
-    "pump-return-block": {
-      ".step": "c0bbce497fff1e3e3af879c8c8ef1713c2b2c39d83f891ac99dfaaa2925bbc24",
-      ".stl": "93688f80286c66d277a66e98a62e51deda0ac5807ce32ffc54a52f60b9db9755"
+      ".step": "76ccc52fccd018d5469e21618d701fe883e84fed8dbe6297d4f5056bd5a41ea3",
+      ".stl": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474"
     }
   },
   "pieces": {
@@ -1149,7 +947,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1159,7 +957,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "print_bounds_mm": [
           -94.35,
@@ -1167,7 +965,7 @@
           93.015,
           96.836,
           0.0,
-          37.92400000000001
+          51.123999999999995
         ]
       },
       {
@@ -1178,7 +976,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1188,7 +986,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "print_bounds_mm": [
           -34.6,
@@ -1196,7 +994,7 @@
           93.015,
           96.836,
           0.0,
-          37.92400000000001
+          51.123999999999995
         ]
       },
       {
@@ -1207,7 +1005,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1217,7 +1015,7 @@
           93.015,
           96.836,
           160.25,
-          198.174
+          211.374
         ],
         "print_bounds_mm": [
           69.85,
@@ -1225,94 +1023,123 @@
           93.015,
           96.836,
           0.0,
-          37.92400000000001
+          51.123999999999995
         ]
       },
       {
-        "name": "Return block insert 1, tray-foot boss and tray root",
+        "name": "Fixed PP0308E collar seat and wall root",
         "machine_bounds_mm": [
-          -53.5,
-          -42.5,
-          168.99,
-          181.29,
+          -92.25,
+          -71.94999999999999,
+          96.826,
+          115.25,
           160.25,
-          170.75
+          167.10000000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -53.5,
-          -42.5,
-          168.99,
-          181.29,
+          -92.25,
+          -71.94999999999999,
+          96.826,
+          115.25,
           160.25,
-          170.75
+          167.10000000000002
         ],
         "print_bounds_mm": [
-          -53.5,
-          -42.5,
-          168.99,
-          181.29,
+          -92.25,
+          -71.94999999999999,
+          96.826,
+          115.25,
           0.0,
-          10.5
+          6.850000000000023
         ]
       },
       {
-        "name": "Return block insert 2, tray-foot boss and tray root",
+        "name": "Fixed PP0308E collar seat and wall root",
         "machine_bounds_mm": [
-          -5.5,
-          5.5,
-          168.99,
-          181.29,
+          -32.5,
+          -12.200000000000003,
+          96.82599999999991,
+          106.26126485437473,
           160.25,
-          170.75
+          167.64973625831564
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -5.5,
-          5.5,
-          168.99,
-          181.29,
+          -32.5,
+          -12.200000000000003,
+          96.82599999999991,
+          106.26126485437473,
           160.25,
-          170.75
+          167.64973625831564
         ],
         "print_bounds_mm": [
-          -5.5,
-          5.5,
-          168.99,
-          181.29,
+          -32.5,
+          -12.200000000000003,
+          96.82599999999991,
+          106.26126485437473,
           0.0,
-          10.5
+          7.399736258315642
         ]
       },
       {
-        "name": "Return block insert 3, tray-foot boss and tray root",
+        "name": "Fixed PP0308E collar seat and wall root",
         "machine_bounds_mm": [
-          42.5,
-          53.5,
-          168.99,
-          181.29,
+          12.200000000000001,
+          32.5,
+          96.82599999999992,
+          106.26126485437473,
           160.25,
-          170.75
+          167.64973625831564
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          42.5,
-          53.5,
-          168.99,
-          181.29,
+          12.200000000000001,
+          32.5,
+          96.82599999999992,
+          106.26126485437473,
           160.25,
-          170.75
+          167.64973625831564
         ],
         "print_bounds_mm": [
-          42.5,
-          53.5,
-          168.99,
-          181.29,
+          12.200000000000001,
+          32.5,
+          96.82599999999992,
+          106.26126485437473,
           0.0,
-          10.5
+          7.399736258315642
+        ]
+      },
+      {
+        "name": "Fixed PP0308E collar seat and wall root",
+        "machine_bounds_mm": [
+          71.94999999999999,
+          92.25,
+          96.826,
+          115.25,
+          160.25,
+          167.10000000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          71.94999999999999,
+          92.25,
+          96.826,
+          115.25,
+          160.25,
+          167.10000000000002
+        ],
+        "print_bounds_mm": [
+          71.94999999999999,
+          92.25,
+          96.826,
+          115.25,
+          0.0,
+          6.850000000000023
         ]
       },
       {
@@ -2369,103 +2196,68 @@
       }
     ],
     "pump-receiver-west-outer": [],
-    "pump-return-west-outer": [],
     "pump-receiver-west-inner": [],
-    "pump-return-west-inner": [],
     "pump-receiver-east-inner": [],
-    "pump-return-east-inner": [],
     "pump-receiver-east-outer": [],
-    "pump-return-east-outer": [],
     "pump-keeper-outer": [
       {
-        "name": "Complete keeper, keyhole grips and mouths",
+        "name": "Complete keeper, downward-open U and crown",
         "machine_bounds_mm": [
           -12.0,
           12.0,
-          -17.337,
-          17.337,
-          -6.60582699651875e-16,
-          3.000000000000004
+          -7.6,
+          7.6,
+          0.0,
+          3.0000000000000018
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -12.0,
           12.0,
-          -17.336999893188477,
-          17.336999893188477,
-          -6.60531538861954e-16,
+          -7.599999904632568,
+          7.599999904632568,
+          0.0,
           3.0
         ],
         "print_bounds_mm": [
           -12.0,
           12.0,
-          -17.336999893188477,
-          17.336999893188477,
-          -6.60531538861954e-16,
+          -7.599999904632568,
+          7.599999904632568,
+          0.0,
           3.0
         ]
       }
     ],
     "pump-keeper-middle": [
       {
-        "name": "Complete keeper, keyhole grips and mouths",
+        "name": "Complete keeper, downward-open U and crown",
         "machine_bounds_mm": [
           -34.35,
           34.35,
-          -17.337,
-          17.337,
-          -6.60582699651875e-16,
-          3.000000000000004
+          -7.6,
+          7.6,
+          0.0,
+          3.0000000000000018
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
           -34.349998474121094,
           34.349998474121094,
-          -17.336999893188477,
-          17.336999893188477,
-          -6.60531538861954e-16,
+          -7.599999904632568,
+          7.599999904632568,
+          0.0,
           3.0
         ],
         "print_bounds_mm": [
           -34.349998474121094,
           34.349998474121094,
-          -17.336999893188477,
-          17.336999893188477,
-          -6.60531538861954e-16,
+          -7.599999904632568,
+          7.599999904632568,
+          0.0,
           3.0
-        ]
-      }
-    ],
-    "pump-return-block": [
-      {
-        "name": "Complete block, four channel seats and lips, three screw columns",
-        "machine_bounds_mm": [
-          -91.27125658405,
-          91.27125658405599,
-          -180.2900001,
-          -128.5899998999705,
-          -3.2964461615843015e-11,
-          20.151021209075008
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -91.27125549316406,
-          91.27125549316406,
-          -180.2899932861328,
-          -128.5899998999705,
-          9.999999406318238e-08,
-          20.151021209075008
-        ],
-        "print_bounds_mm": [
-          -91.27125549316406,
-          91.27125549316406,
-          -180.2899932861328,
-          -128.5899998999705,
-          9.999999406318238e-08,
-          20.151021209075008
         ]
       }
     ]

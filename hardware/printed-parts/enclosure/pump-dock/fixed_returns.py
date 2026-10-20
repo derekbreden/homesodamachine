@@ -22,14 +22,8 @@ SOCKET_DEPTH = SEAL_LAND + ENTRY_LEAD
 FLOW_REACH = 1.0
 MOUTH_TO_CURVE = SOCKET_DEPTH + FLOW_REACH
 
-LOWER_ROOT_Y = 8.5
-LOWER_ARC_R = 8.0
-LOWER_TURN_DEG = 45.0
-LOWER_POST_ARC = 11.4
 UPPER_ARC_R = 12.2
 UPPER_MOUTH_Z = 22.0
-RETURN_ARC_R = 6.0
-VALVE_LINK_EXPOSED = 2.0
 
 # Factory links are cut against the mounted stop span. This nominal target
 # does not include the complete manufacturing, thermal or loaded tolerance
@@ -89,112 +83,108 @@ def _fork_arc(root, radius, angle, across):
             "length_mm": radius * abs(angle)}
 
 
-def junction_ports(wall_fore_y, x, z, upper_port, return_port):
-    """The asymmetric junction, aligned to the two original purchased valve ports.
+# Scanned exterior release-face station; the scan does not establish internal stops.
+ELBOW_FACE = 20.56239
+ELBOW_INSERTION_NOMINAL = 15.7  # layout estimate only; factory marking sets actual cuts
+VALVE_INSERTION_NOMINAL = 12.0
+STUB_FACE_GAP = 1.0
+TUBE_BEND_R = 14.0  # existing spool observation, _routing.STOCKS
+ELBOW_ROOT_HALF = 7.15
+ELBOW_BEARING_STATION = 11.5
+ELBOW_WALL = 3.0
 
-    ``upper_port`` and ``return_port`` contain ``point`` and ``axis`` tuples.
-    The outer lower arms are clocked slightly about Y so each straight link
-    lies in its own return plane; their angle to +Y remains 45 degrees.
+
+def _unit(v):
+    return _scale(v, 1.0 / math.sqrt(sum(c*c for c in v)))
+
+
+def _cross(a, b):
+    return (a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0])
+
+
+def elbow_layout(wall_fore_y, x, z, return_port, bed_z):
+    """A supported scanned PP0308E, captured straight stub and formed LLDPE run.
+
+    The inner elbows lean 25 degrees to lower the run below the electrical
+    terminals. Outer elbows yaw toward their valve and clear the condenser.
+    The stub illustrates nominal elbow insertion. The formed run ends at the
+    known release faces; its insertion allowances are stock estimates only.
     """
-    upper_target = tuple(upper_port["point"])
-    lower_target = tuple(return_port["point"])
-    angle = math.radians(LOWER_TURN_DEG)
-    intercept = wall_fore_y + LOWER_ROOT_Y + LOWER_ARC_R * math.tan(angle / 2)
-    phi = math.asin((lower_target[0] - x)
-                    / (math.tan(angle) * (lower_target[1] - intercept)))
-    lower_root = (x, wall_fore_y + LOWER_ROOT_Y, z)
-    lower_arc = _fork_arc(lower_root, LOWER_ARC_R, angle,
-                          (math.sin(phi), 0., -math.cos(phi)))
-    lower_straight = _line(lower_arc["end_mm"], lower_arc["end_tangent"], LOWER_POST_ARC)
-    lower_mouth = lower_straight["end_mm"]
-    lower_axis = lower_straight["end_tangent"]
-    upper_root = (x, upper_target[1] - UPPER_ARC_R, z)
-    upper_arc = _fork_arc(upper_root, UPPER_ARC_R, math.pi / 2, (0., 0., 1.))
-    upper_straight = _line(upper_arc["end_mm"], (0., 0., 1.),
-                           UPPER_MOUTH_Z - UPPER_ARC_R)
-    upper_mouth = upper_straight["end_mm"]
-    return {
-        "wall_fore_y": float(wall_fore_y), "pump_axis": (float(x), float(z)),
-        "upper_root_local_y": upper_root[1] - wall_fore_y,
-        "upper_flow_segments": (upper_arc, upper_straight),
-        "lower_flow_segments": (lower_arc, lower_straight),
-        "upper": {"point": upper_mouth, "axis": (0., 0., 1.),
-                  "tube_stop": _add(upper_mouth, (0., 0., -SOCKET_DEPTH))},
-        "lower": {"point": lower_mouth, "axis": lower_axis,
-                  "tube_stop": _add(lower_mouth, _scale(lower_axis, -SOCKET_DEPTH))},
-        "upper_target": dict(upper_port), "return_target": dict(return_port),
-        "lower_clock_about_y_degrees": math.degrees(phi),
-        "seal_land_mm": SEAL_LAND, "socket_depth_mm": SOCKET_DEPTH,
-    }
+    target = tuple(return_port['point'])
+    inner = abs(x) < 50.
+    tilt = math.radians(25. if inner else 0.)
+    corner = (x, wall_fore_y + (17.385 if inner else 23.585),
+              bed_z + ELBOW_WALL - ELBOW_BEARING_STATION*math.cos(tilt) + .7
+              if inner else bed_z - 4.65)
+    up = (0., math.sin(tilt), math.cos(tilt))
+    aft = (0., math.cos(tilt), -math.sin(tilt)) if inner else _unit((target[0]-x, target[1]-corner[1], 0.))
+    up_face = _add(corner, _scale(up, ELBOW_FACE))
+    mouth = _add(up_face, _scale(up, STUB_FACE_GAP))
+    stop = _add(mouth, _scale(up, SOCKET_DEPTH))
+    direction = _scale(up, -1.)
+    radius = 4.0 if inner else 2.5
+    turn = math.acos(direction[1])
+    across = _unit((direction[0], 0., direction[2]))
+    rel = _add((0., radius*math.sin(turn), 0.), _scale(across, radius*(1.-math.cos(turn))))
+    tail = (stop[2] - z - rel[2]) / direction[2]
+    root = (x, stop[1] - tail*direction[1] - rel[1], z)
+    arc = _fork_arc(root, radius, turn, across)
+    lower = (arc, _line(arc['end_mm'], direction, tail + SOCKET_DEPTH))
+    out_face = _add(corner, _scale(aft, ELBOW_FACE))
+    path = []
+    if inner:
+        first_turn = _arc(out_face, (0.,1.,0.), TUBE_BEND_R, -tilt, tilt)
+        path.append(first_turn)
+        level = first_turn['end_mm']
+        horizontal = (0.,1.,0.)
+    else:
+        level, horizontal = out_face, aft
+    q = (target[0]-TUBE_BEND_R*horizontal[0], target[1]-TUBE_BEND_R*horizontal[1], level[2])
+    path.append(_line(level, horizontal, math.dist(level,q)))
+    path.append(_arc(q, horizontal, TUBE_BEND_R, 0., math.pi/2))
+    lead = target[2] - path[-1]['end_mm'][2]
+    path.append(_line(path[-1]['end_mm'], (0.,0.,1.), lead))
+    stub_start = _add(up_face, _scale(up, -ELBOW_INSERTION_NOMINAL))
+    stub = _line(stub_start, up, ELBOW_INSERTION_NOMINAL + STUB_FACE_GAP + SOCKET_DEPTH - LINK_NOMINAL_AXIAL_PLAY)
+    return {'corner':corner, 'up_axis':up, 'aft_axis':aft, 'x_axis':_cross(aft,up),
+            'up_face':up_face, 'aft_face':out_face, 'tilt_degrees':math.degrees(tilt),
+            'lower_flow_segments':lower, 'lower':{'point':mouth, 'axis':direction, 'tube_stop':stop},
+            'target':dict(return_port), 'stub':(stub,), 'formed_tube':tuple(path),
+            'stub_cut_nominal_mm':stub['length_mm'],
+            'formed_cut_nominal_mm':sum(s['length_mm'] for s in path)+ELBOW_INSERTION_NOMINAL+VALVE_INSERTION_NOMINAL,
+            'formed_exposed_length_mm':sum(s['length_mm'] for s in path),
+            'valve_straight_exposed_mm':lead,
+            'bearing_z':corner[2]+ELBOW_BEARING_STATION*math.cos(tilt)}
 
 
-def return_layout(lower_mouth, lower_axis, return_port, *, radius=RETURN_ARC_R,
-                  valve_exposed=VALVE_LINK_EXPOSED):
-    """One compound return and two straight LLDPE links.
+def junction_ports(wall_fore_y, x, z, upper_port, return_port, bed_z=None):
+    """The wall inlet and upper outlet, with a lower land over its fixed elbow."""
+    if bed_z is None:
+        bed_z = z - 25.924
+    elbow = elbow_layout(wall_fore_y,x,z,return_port,bed_z)
+    upper_target = tuple(upper_port['point'])
+    upper_root = (x,upper_target[1]-UPPER_ARC_R,z)
+    arc = _fork_arc(upper_root,UPPER_ARC_R,math.pi/2,(0.,0.,1.))
+    upper = (arc,_line(arc['end_mm'],(0.,0.,1.),UPPER_MOUTH_Z-UPPER_ARC_R))
+    mouth=upper[-1]['end_mm']
+    return {'wall_fore_y':float(wall_fore_y), 'pump_axis':(float(x),float(z)),
+            'upper_root_local_y':upper_root[1]-wall_fore_y,
+            'upper_flow_segments':upper, 'lower_flow_segments':elbow['lower_flow_segments'],
+            'upper':{'point':mouth,'axis':(0.,0.,1.),'tube_stop':_add(mouth,(0.,0.,-SOCKET_DEPTH))},
+            'lower':elbow['lower'], 'upper_target':dict(upper_port),'return_target':dict(return_port),
+            'lower_clock_about_y_degrees':0., 'seal_land_mm':SEAL_LAND,'socket_depth_mm':SOCKET_DEPTH}
 
-    The printed body contains the first turn, horizontal passage and final
-    quarter turn. Six-millimetre sockets end one millimetre before the curves.
-    The incoming link is captive between opposed, rigidly supported stops;
-    its cut length is set from the actual mounted span at factory assembly.
-    The outgoing link is anchored by the purchased valve's own collet.
-    """
-    p, d, target = tuple(lower_mouth), tuple(lower_axis), tuple(return_port["point"])
-    horizontal_length = math.hypot(d[0], d[1])
-    horizontal = (d[0] / horizontal_length, d[1] / horizontal_length, 0.)
-    beta = math.atan2(-d[2], horizontal_length)
-    across = math.hypot(target[0] - p[0], target[1] - p[1])
-    diagonal = (p[2] - target[2] + valve_exposed + radius * math.cos(beta)
-                + MOUTH_TO_CURVE * (1 - math.sin(beta))) / math.sin(beta)
-    bridge = across - (diagonal + MOUTH_TO_CURVE) * math.cos(beta) \
-        - radius * (1 + math.sin(beta))
-    a = _add(p, _scale(d, diagonal))
-    first = _line(a, d, MOUTH_TO_CURVE)
-    turn1 = _arc(first["end_mm"], horizontal, radius, -beta, beta)
-    middle = _line(turn1["end_mm"], horizontal, bridge)
-    turn2 = _arc(middle["end_mm"], horizontal, radius, 0., math.pi / 2)
-    last = _line(turn2["end_mm"], (0., 0., 1.), MOUTH_TO_CURVE)
-    b = last["end_mm"]
-    stop0 = _add(p, _scale(d, -SOCKET_DEPTH))
-    stop1 = _add(a, _scale(d, SOCKET_DEPTH))
-    stop_span = diagonal + 2 * SOCKET_DEPTH
-    segments = (first, turn1, middle, turn2, last)
-    return {
-        "input": {"point": a, "axis": _scale(d, -1.), "tube_stop": stop1},
-        "output": {"point": b, "axis": (0., 0., 1.),
-                   "tube_stop": _add(b, (0., 0., -SOCKET_DEPTH))},
-        "target": dict(return_port), "flow_segments": segments,
-        "diagonal_link": _line(p, d, diagonal),
-        "valve_link": _line(b, (0., 0., 1.), valve_exposed),
-        "opposed_stops": (stop0, stop1), "opposed_stop_axis": d,
-        "nominal_stop_span_mm": stop_span,
-        "nominal_link_cut_mm": stop_span - LINK_NOMINAL_AXIAL_PLAY,
-        "nominal_link_tip_points": (
-            _add(stop0, _scale(d, LINK_NOMINAL_AXIAL_PLAY / 2)),
-            _add(stop1, _scale(d, -LINK_NOMINAL_AXIAL_PLAY / 2))),
-        "maximum_total_axial_play_mm": LINK_MAX_TOTAL_AXIAL_PLAY,
-        "minimum_seal_engagement_mm": LINK_MIN_SEAL_ENGAGEMENT,
-        "flow_radius_mm": float(radius), "flow_bridge_mm": bridge,
-        "flow_length_mm": sum(segment["length_mm"] for segment in segments),
-        "total_turn_degrees": math.degrees(beta) + 90.,
-        "seal_land_mm": SEAL_LAND, "socket_depth_mm": SOCKET_DEPTH,
-        "mouth_to_curve_mm": MOUTH_TO_CURVE,
-        "relaxed_cuff_od_mm": CUFF_OD, "occupied_cuff_od_mm": OCCUPIED_CUFF_OD,
-        "flow_body_od_mm": FLOW_OD,
-        "minimum_flow_centerline_z_mm": target[2] - valve_exposed - MOUTH_TO_CURVE - radius,
-    }
+
+def station(wall_fore_y,x,z,upper_port,return_port,bed_z=None):
+    if bed_z is None:bed_z=z-25.924
+    elbow=elbow_layout(wall_fore_y,x,z,return_port,bed_z)
+    junction=junction_ports(wall_fore_y,x,z,upper_port,return_port,bed_z)
+    start=junction['upper']['point']
+    return {'junction':junction,'elbow':elbow,
+            'upper_tube':_line(start,(0.,0.,1.),upper_port['point'][2]-start[2])}
 
 
 def layouts(plate):
-    """Four station-derived declarations, keyed by the serialized pump-port X."""
-    out = {}
-    for x, z in plate["holes"]:
-        key = str(x)
-        junction = junction_ports(plate["fore_y"], x, z,
-                                   plate["upper_ports"][key], plate["return_ports"][key])
-        lower = junction["lower"]
-        returned = return_layout(lower["point"], lower["axis"], plate["return_ports"][key])
-        target = plate["upper_ports"][key]["point"]
-        upper_length = target[2] - junction["upper"]["point"][2]
-        out[key] = {"junction": junction, "return": returned,
-                    "upper_tube": _line(junction["upper"]["point"], (0., 0., 1.), upper_length)}
-    return out
+    return {str(x):station(plate['fore_y'],x,z,plate['upper_ports'][str(x)],
+                          plate['return_ports'][str(x)],plate['fixture_print_bed_z'])
+            for x,z in plate['holes']}

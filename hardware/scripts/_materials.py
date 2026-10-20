@@ -325,7 +325,6 @@ PETGF_BLACK_PARTS = {
     "enclosure-pump-tube-setting-jig",
     "pump-keeper-west", "pump-keeper-middle", "pump-keeper-east",
     "enclosure-pump-keeper-outer", "enclosure-pump-keeper-middle",
-    "pump-return-block", "enclosure-pump-return-block",
     "display-cover", "funnel-frame", "elbow-cradle",
     "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
     "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",
