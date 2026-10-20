@@ -1,0 +1,210 @@
+{
+  "scope": "One-off production-pose native-slice reading: groove-rail deposition and connection to the parent wall, insertion pause and empty loading slots. These are filament-path readings, not measured strength or physical magnet fit.",
+  "rail_thickness_mm": 1.5001999999999998,
+  "rail_projection_from_slot_wall_mm": 0.7974000000000001,
+  "jobs": [
+    {
+      "piece": "enclosure-pump-cartridge",
+      "preparation": ".cache/prints/trial/2026-10-20-pump-cartridge-cap-mark1-61cadfd3",
+      "stl_sha256": "fd84d158eb58c2a9db9a7c30bd8001b41c2edc95d4271f970210d0401a7cf8b2",
+      "project": ".cache/prints/trial/2026-10-20-pump-cartridge-cap-mark1-61cadfd3/2026-10-20-pump-cartridge-cap-mark1-61cadfd3.3mf",
+      "project_sha256": "07a82d0c4529e6f16d40cd5eac6f9df79b5f0ae0ac8778dae9252549103521a2",
+      "archive": ".cache/prints/trial/2026-10-20-pump-cartridge-cap-mark1-61cadfd3/2026-10-20-pump-cartridge-cap-mark1-61cadfd3.gcode.3mf",
+      "archive_sha256": "1adfe9b378a4edfa31df29cee2d2882ff561f6ad83bc856fa410af27769363ad",
+      "gcode_sha256": "cc791e5c097753ead04349022c212f5be90f223778ced866db6f81994a049da6",
+      "native_review_pass": true,
+      "native_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "pause_opens_closing_layer": true,
+        "slots_support_free": true
+      },
+      "pause": {
+        "planned_layer_top_z_mm": 34.36,
+        "emitted": [
+          {
+            "layer_top_z_mm": 34.36,
+            "after_extrusion_in_layer": false
+          }
+        ],
+        "placed_as_planned": true,
+        "air_over_stack_mm": 0.1946,
+        "message": "Cartridge magnet pause: drop four K&J SB443-IN blocks down each of the two slots in the cartridge's flat back, grooves on the rails, poles facing aft. Bottom block south pole out, then alternate (S, N, S, N from the bottom); each block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them."
+      },
+      "support_crossings_in_slots": [],
+      "rail_layers": [
+        {
+          "column_x_mm": -52.225,
+          "side": -1,
+          "rectangle_mm": [
+            -55.5,
+            79.1896,
+            -54.702600000000004,
+            80.6898
+          ],
+          "layers": 191,
+          "connected_layers": 191,
+          "minimum_coverage": 0.77915,
+          "minimum_coverage_source_z_mm": 173.55500732421876
+        },
+        {
+          "column_x_mm": -52.225,
+          "side": 1,
+          "rectangle_mm": [
+            -49.7474,
+            79.1896,
+            -48.95,
+            80.6898
+          ],
+          "layers": 191,
+          "connected_layers": 191,
+          "minimum_coverage": 0.77871,
+          "minimum_coverage_source_z_mm": 173.55500732421876
+        },
+        {
+          "column_x_mm": 52.225,
+          "side": -1,
+          "rectangle_mm": [
+            48.95,
+            79.1896,
+            49.7474,
+            80.6898
+          ],
+          "layers": 191,
+          "connected_layers": 191,
+          "minimum_coverage": 0.77871,
+          "minimum_coverage_source_z_mm": 173.55500732421876
+        },
+        {
+          "column_x_mm": 52.225,
+          "side": 1,
+          "rectangle_mm": [
+            54.702600000000004,
+            79.1896,
+            55.5,
+            80.6898
+          ],
+          "layers": 191,
+          "connected_layers": 191,
+          "minimum_coverage": 0.77871,
+          "minimum_coverage_source_z_mm": 173.55500732421876
+        }
+      ],
+      "sample_layer_source_z_mm": 186.11500732421877
+    },
+    {
+      "piece": "enclosure-front-top",
+      "preparation": ".cache/prints/trial/2026-10-20-front-top-mark1-4ac8088b",
+      "stl_sha256": "495f6e3c378fb51d1d9f1fa6a80d51cf980b747aa525a4c2c31dc0e6e5f9bb10",
+      "project": ".cache/prints/trial/2026-10-20-front-top-mark1-4ac8088b/2026-10-20-front-top-mark1-4ac8088b.3mf",
+      "project_sha256": "5ada615d0ea209779d08da49eddf97ab1b331517055f92793ff7bbaa67dc4859",
+      "archive": ".cache/prints/trial/2026-10-20-front-top-mark1-4ac8088b/2026-10-20-front-top-mark1-4ac8088b.gcode.3mf",
+      "archive_sha256": "22e2c0995fb52ac638dc60ad56e2ec9f9ce5ee71154c3014213f5b1e294c20f6",
+      "gcode_sha256": "f130d151a77580cf2ed077f9ac32d1387b661abf052ebf6180360587b9a5179b",
+      "native_review_pass": true,
+      "native_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "pause_opens_closing_layer": true,
+        "slots_support_free": true
+      },
+      "pause": {
+        "planned_layer_top_z_mm": 39.32,
+        "emitted": [
+          {
+            "layer_top_z_mm": 39.32,
+            "after_extrusion_in_layer": false
+          }
+        ],
+        "placed_as_planned": true,
+        "air_over_stack_mm": 0.1033,
+        "message": "Front-top magnet pause: drop four K&J SB443-IN blocks down each of the two slots in the bay wall's face, grooves on the rails, poles facing the bay. Bottom block north pole out, then alternate (N, S, N, S from the bottom); each block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them."
+      },
+      "support_crossings_in_slots": [],
+      "rail_layers": [
+        {
+          "column_x_mm": -52.225,
+          "side": -1,
+          "rectangle_mm": [
+            -55.5,
+            84.0902,
+            -54.702600000000004,
+            85.5904
+          ],
+          "layers": 108,
+          "connected_layers": 108,
+          "minimum_coverage": 0.99207,
+          "minimum_coverage_source_z_mm": 173.65
+        },
+        {
+          "column_x_mm": -52.225,
+          "side": 1,
+          "rectangle_mm": [
+            -49.7474,
+            84.0902,
+            -48.95,
+            85.5904
+          ],
+          "layers": 108,
+          "connected_layers": 108,
+          "minimum_coverage": 0.99217,
+          "minimum_coverage_source_z_mm": 173.65
+        },
+        {
+          "column_x_mm": 52.225,
+          "side": -1,
+          "rectangle_mm": [
+            48.95,
+            84.0902,
+            49.7474,
+            85.5904
+          ],
+          "layers": 108,
+          "connected_layers": 108,
+          "minimum_coverage": 0.99217,
+          "minimum_coverage_source_z_mm": 173.65
+        },
+        {
+          "column_x_mm": 52.225,
+          "side": 1,
+          "rectangle_mm": [
+            54.702600000000004,
+            84.0902,
+            55.5,
+            85.5904
+          ],
+          "layers": 108,
+          "connected_layers": 108,
+          "minimum_coverage": 0.99217,
+          "minimum_coverage_source_z_mm": 174.13
+        }
+      ],
+      "sample_layer_source_z_mm": 186.13
+    }
+  ],
+  "method": {
+    "footprints": "Extruded native G-code segments buffered by half their emitted width in XY, transformed to the source frame.",
+    "rail_sample": "All model layers with their top more than 0.05 mm above the column floor and below the roof; target rectangle inset 0.025 mm.",
+    "connection": "One footprint component, with 0.015 mm join tolerance, covers more than half the rail target and reaches at least 0.02 mm2 into its parent-wall root.",
+    "scope_limit": "Planar deposited footprints establish the intended filament connection, not interlayer adhesion or load capacity."
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
+    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "6bd0f40155cf88593630f1f8b8f21ab7502629e43cdff1cddfaf2baf198c8c48",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "21cc147cf62ce9d98f7fd8cbac248c1cd699ca06f67116df8473248dc3399ec4",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "3cf718b7a053e711d960dfdca6f7fa4ba970ca8c9c23dec347b2b955b999e492"
+  },
+  "figure": "printed-capture-beads.png"
+}

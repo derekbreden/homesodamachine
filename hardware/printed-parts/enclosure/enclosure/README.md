@@ -1473,15 +1473,15 @@ the return block and every fixed tube remain in place. No commercial collet move
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, tube setting jig and material selections.
 
-**Bonded SB443-IN pairs seat and retain the cartridge.**
+**Printed-in SB443-IN pairs seat and retain the cartridge.**
 [16](DOCK_MAGNET_COUNT) magnets stand in one [4](DOCK_MAGNET_ROWS)-high column on each
-pump's own load line in each half. Each column is one plain pocket open at the mating face,
-roofed by a 45° ridge, with the printed-fit allowances round the blocks; each block is bedded
-in DP420 and pushed home to its floor, both parts in one cure. A nominal block's pole stands
-0.125 mm proud of its face, so the poles meet in the middle of the 0.25 mm gap and seat the
-cartridge. The [magnet record](../pump-dock/magnet-retention.md) gives the pockets and the
-bonding. Installed holding force and bond capacity remain physical qualifications rather than
-advertised-array calculations.
+pump's own load line in each half. Each column is one slot open at the mating face, with a
+printed rail standing in each of the blocks' side grooves; the blocks drop down the rails at
+the part's one print pause and the next layer closes over them. Pulled onto its rails, each
+pole stands 0.125 mm proud of its face, so the poles meet in the middle of the 0.25 mm gap
+and seat the cartridge. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
+the pause and the loading. Installed holding force and the printed rails' fit remain physical
+qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
@@ -1636,6 +1636,7 @@ uses those fitted profiles for the boss openings and Ø37 mm motor bores.
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. Each hand pocket's
 flat roof takes support removable through the open side. The pump wells remain open above.
+The print pauses once, before the layer over the two magnet slots.
 **The top clamp prints on its crown** (`print_up` is −1 for `pump-cap`). Its boss
 octagons open upward through the underside. Each motor bore opens through the crown in a
 45° cone that the print builds without support; each screw-head seat is accessible through
