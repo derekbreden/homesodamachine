@@ -2,12 +2,12 @@
   "source_sha256": {
     "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "58323b1c8f5527769d46f2bf86a1bc7aba2866b26f94546f0a84f5b4d64635ab",
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "09e6402c4fd5daf976db430a61680befd70cab090b315289f64d09b1c3643ebf",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "0be60e973dd9146054381ddca01806ed3669312b5848d894e60463d7c2f77ebc",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "abdbf800162d5d86051d0fee623c1e2adae141a34e23e93afa12b301d1af1563",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "e21dbfb49096eedf1e7b836b3d792bf6948e4d5750ab81d319356b2f03617cb8",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "64a7a9fdd179b4c20a0ed62cf2daa0e31b14ffdd775d6d755981c04250a847a2",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "1005a6e631bcd7083ce5407e53aa71a15d6930c18a65f8a4f99fe1febc5796c9",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "3049e40e64a467f8ac66a5c139833eaf51e2ceadc760f5e8a8286f8d2fdd4fe9",
-    "hardware/manifold-layout/enclosure-assembly.step": "6f235ca63da978fafb4323e05d5d880fe0d013fc433371239aa8a1d2d996211e"
+    "hardware/manifold-layout/enclosure-assembly.step": "9c5b5656bab314c364b0d13b0c0418c02b6cb42245d8d9ed0d5d71bb5c2a42d9"
   },
   "seating_mm": [
     0.0,
