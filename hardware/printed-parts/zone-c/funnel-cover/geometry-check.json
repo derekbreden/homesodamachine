@@ -1,71 +1,71 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "7f3413182eb9dc5fe6f8fe742a3d9ff91eace68806d198ed07db1b1b34a208f0",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "fbcba987f883375a8ef84a793a6260b1ee18c4470e16eb3a69d34790b1736a39",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "8cc308ed2f3447fc135397897e06ad04e28e01123b89afe5ec7cec7c2ea28a1e",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "449975ca608ae8f3ee2a8384d9908ae30f346d81d49986c738f7180cd72348c3",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "357f3ddcbba59095c9a3b4630534d29e5c379d8d227abe4971ba8f711788cbe8",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
-    "hardware/manifold-layout/enclosure-assembly.step": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e"
+    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "58323b1c8f5527769d46f2bf86a1bc7aba2866b26f94546f0a84f5b4d64635ab",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "09e6402c4fd5daf976db430a61680befd70cab090b315289f64d09b1c3643ebf",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "0be60e973dd9146054381ddca01806ed3669312b5848d894e60463d7c2f77ebc",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "e21dbfb49096eedf1e7b836b3d792bf6948e4d5750ab81d319356b2f03617cb8",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "64a7a9fdd179b4c20a0ed62cf2daa0e31b14ffdd775d6d755981c04250a847a2",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "1005a6e631bcd7083ce5407e53aa71a15d6930c18a65f8a4f99fe1febc5796c9",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "3049e40e64a467f8ac66a5c139833eaf51e2ceadc760f5e8a8286f8d2fdd4fe9",
+    "hardware/manifold-layout/enclosure-assembly.step": "6f235ca63da978fafb4323e05d5d880fe0d013fc433371239aa8a1d2d996211e"
   },
   "seating_mm": [
     0.0,
-    164.55,
-    355.0
+    161.69575,
+    358.0
   ],
   "added_height_mm": 3.0,
   "plate_bounds_mm": [
     -91.0,
     91.0,
-    93.20849207672,
+    87.49999207672,
     231.891507923281
   ],
   "front_extension_mm": 4.0,
   "assembly_cover_difference_mm3": 0.0,
   "closed_mouth_missing_mm3": 0.0,
   "nominal_contact": {
-    "pad_contact_mm3": 41.72745947574967,
+    "pad_contact_mm3": 41.72745947575009,
     "outside_pads_mm3": 0.0
   },
   "neighbours": {
     "funnel-frame": {
-      "gap_mm": 6.0,
+      "gap_mm": 3.0,
       "max_removal_overlap_mm3": 0.0
     },
     "enclosure-front-top": {
-      "gap_mm": 0.0,
+      "gap_mm": 3.1879245258798505,
       "max_removal_overlap_mm3": 0.0
     },
     "enclosure-back-top": {
-      "gap_mm": 0.0,
+      "gap_mm": 3.0,
       "max_removal_overlap_mm3": 0.0
     }
   },
   "vertical_removal": [
     {
       "lift_mm": 0,
-      "pad_contact_mm3": 41.72745947574967,
+      "pad_contact_mm3": 41.72745947575009,
       "outside_pads_mm3": 0.0
     },
     {
       "lift_mm": 0.5,
-      "pad_contact_mm3": 37.12426724860597,
+      "pad_contact_mm3": 37.124267248606486,
       "outside_pads_mm3": 0.0
     },
     {
       "lift_mm": 1,
-      "pad_contact_mm3": 32.52107502146178,
+      "pad_contact_mm3": 32.52107502146163,
       "outside_pads_mm3": 0.0
     },
     {
       "lift_mm": 2,
-      "pad_contact_mm3": 23.31469056717364,
+      "pad_contact_mm3": 23.314690567262055,
       "outside_pads_mm3": 0.0
     },
     {
       "lift_mm": 4,
-      "pad_contact_mm3": 4.901921658687018,
+      "pad_contact_mm3": 4.901921658686942,
       "outside_pads_mm3": 0.0
     },
     {
@@ -85,37 +85,37 @@
         -2,
         0
       ],
-      "pad_contact_mm3": 1096.7368017409801,
-      "outside_pads_mm3": 708.8308984620064
+      "pad_contact_mm3": 1153.8788867734413,
+      "outside_pads_mm3": 765.9729834967695
     },
     {
       "shift_mm": [
         2,
         0
       ],
-      "pad_contact_mm3": 1096.7367972549669,
-      "outside_pads_mm3": 708.8308939685372
+      "pad_contact_mm3": 1153.8788820241684,
+      "outside_pads_mm3": 765.9729787400162
     },
     {
       "shift_mm": [
         0,
         -2
       ],
-      "pad_contact_mm3": 1544.4015694203022,
-      "outside_pads_mm3": 1502.674109940366
+      "pad_contact_mm3": 1544.40156941978,
+      "outside_pads_mm3": 1502.674109940032
     },
     {
       "shift_mm": [
         0,
         2
       ],
-      "pad_contact_mm3": 1544.4015700229522,
-      "outside_pads_mm3": 1502.6741103274198
+      "pad_contact_mm3": 1544.4015700353884,
+      "outside_pads_mm3": 1502.674110327224
     }
   ],
   "print_pose": {
-    "bed_z_mm": -8.881784197001252e-15,
-    "height_mm": 9.000000100000019,
+    "bed_z_mm": -9.307636084627474e-15,
+    "height_mm": 9.00000010000002,
     "flat_exterior_on_bed": true
   },
   "geometry_checks_pass": true,

@@ -1,6 +1,6 @@
-"""Removable 480 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
+"""Removable silicone funnel with an integral roof apron.
 
-The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
+The collar center is the origin; z=0 is the frame-bearing brim underside. The brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
 square-cornered rectangle centred on the outlet. Its flat underside bears on
 the elbow cradle's two hook tops. Its walls run up into
@@ -42,9 +42,20 @@ collar_corner_r = mouth_corner_r + 6.0
 brim_corner_r = collar_corner_r + 7.0
 brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
-brim_thickness = 6.0  # vertical flange thickness
+brim_thickness = 6.0  # frame-bearing underside to the enclosure roof
+apron_rise = 3.0  # mouth and cover seat above the enclosure roof
+apron_width = 215.0  # complete enclosure width; overflow reaches the exterior sides
+apron_depth = collar_d + 32.0
+apron_y = 3.0
+apron_floor = brim_thickness + 0.5
+apron_corner_r = 6.0
+seal_width = 208.0
+seal_depth = apron_depth - 10.0
+seal_y = 2.0
+seal_corner_r = 9.0
+seal_preload = 0.3
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 479.92  # nominal capacity to the brim
+capacity_ml = 530.54  # nominal capacity to the mouth rim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 0.0  # the outlet stands on the collar's centre
 neck_dy = 0.0
@@ -108,6 +119,35 @@ def brim_plan(grow, z0, z1, cx=0.0, cy=0.0, front=0.0):
             .threePointArc((x - k, y - k), (x - r, y)).lineTo(-x + r, y)
             .threePointArc((-x + k, y - k), (-x, y - r)).close())
     return plan.extrude(z1 - z0).val()
+
+
+def apron_plan(grow, z0, z1):
+    """Continuous wet surface over the frame, roof joints and upper seam screws."""
+    return _rounded_box(apron_width + 2 * grow, apron_depth + 2 * grow,
+                        apron_corner_r + grow, z0, z1, 0.0, apron_y)
+
+
+def roof_seal():
+    """Blunt continuous silicone rib; its free apron bends against the roof.
+
+    The contact band is 1.5 mm wide. Its 0.3 mm nominal interference is a
+    seating allowance, not a measured seal force or drip-exclusion result.
+    """
+    outer, inner = [], []
+    for z, grow in ((brim_thickness - seal_preload, 0.75),
+                    (apron_floor + 0.05, 1.5)):
+        outer.append(_rounded_wire(seal_width + 2 * grow, seal_depth + 2 * grow,
+                                   seal_corner_r + grow, z, 0.0, seal_y))
+        inner.append(_rounded_wire(seal_width - 2 * grow, seal_depth - 2 * grow,
+                                   seal_corner_r - grow, z, 0.0, seal_y))
+    return cq.Solid.makeLoft(outer, True).cut(cq.Solid.makeLoft(inner, True)).clean()
+
+
+def apron():
+    """The raised brim, roof-spanning sheet and its integral sealing rib."""
+    top = brim_thickness + apron_rise
+    return (brim_plan(0.0, brim_thickness - 0.05, top)
+            .fuse(apron_plan(0.0, apron_floor, top)).fuse(roof_seal()).clean())
 
 
 def _cyl(r, z_top, z_bot, cx, cy):
@@ -177,8 +217,8 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
     cx = cy = 0.0
     ncx, ncy = neck_dx, neck_dy
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    top_z = brim_thickness
-    ramp_top_z = top_z - chute_h
+    top_z = brim_thickness + apron_rise
+    ramp_top_z = brim_thickness - chute_h
     neck_z = ramp_top_z - _ramp_rise
     end_z = -drop + plug_lift
     land_z = neck_z - neck_blend_drop
@@ -193,7 +233,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
              .intersect(_box(600, 600, end_z - outer_air - 1, 0.05 + outer_air, 0, 0)))
     bases = [walls, _cyl(spout_or, neck_z, end_z, ncx, ncy)]
     if brim:
-        bases.append(brim_plan(0.0, 0.0, top_z))
+        bases.extend((brim_plan(0.0, 0.0, brim_thickness), apron()))
     if plug:
         bases.append(elbow_cradle.plug_outline(plug_width / 2, 0.0, 0.0, plug_height)
                      .translate(cq.Vector(ncx, ncy, end_z)))
@@ -222,7 +262,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, bri
         "mouth_corner_r": mouth_corner_r,
         "brim_overhang": brim_overhang, "brim_margin": brim_margin,
         "collar_wall": collar_wall,
-        "out_w": w + 2 * brim_overhang, "out_d": d + 2 * brim_overhang,
+        "out_w": apron_width, "out_d": apron_depth + 2 * abs(apron_y),
         "out_cx": cx, "out_cy": cy, "rim_ring": collar_wall + brim_overhang,
         "spout_id": spout_id,
         "top_z": top_z, "ramp_top_z": ramp_top_z, "neck_z": neck_z,
