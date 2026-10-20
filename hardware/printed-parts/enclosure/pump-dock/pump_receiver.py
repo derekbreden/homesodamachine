@@ -174,18 +174,13 @@ def _geometry(*,installed=False,junction=None):
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
-    # The branch bores meet one inlet passage, without a parallel chamber.
-    root=max(port['tube_stop'][1]-port['axis'][1]*port['tube_stop'][2]/port['axis'][2]
-             for port in (junction['upper'],junction['lower']))
-    turn=REAR_COLLAR_Y[1]
-    lower=junction['lower']['tube_stop']
-    # Keep 3 mm between the outer lower stop's fore edge and the inlet bore.
-    # The occupied seal radius includes the tube's radial growth. The inner
-    # stop already has this separation with a level inlet.
-    fore_run=root-turn-TUBE_OD/2
-    theta=max(0.,math.asin((TUBE_ID/2+3.)/math.hypot(fore_run,lower[2]))
-              -math.atan2(-lower[2],fore_run))
-    rise=math.ceil((root-turn)*math.tan(theta)*10.)/10.
+    # One continuous inlet trunk and one straight branch. The inclined inner
+    # socket needs its lower bend; the outer trunk turns into the upper socket
+    # to clear the closely spaced lower tube stop.
+    trunk='lower' if abs(junction['lower']['axis'][1])>.1 else 'upper'
+    segments=junction[trunk+'_flow_segments']
+    start=(0.,RELIEF_TAPER_END_Y,0.)
+    lead=plumbing._line(start,(0.,1.,0.),segments[0]['start_mm'][1]-start[1])
     outer_root=max(junction["upper_flow_segments"][0]["start_mm"][1],
                    junction["lower_flow_segments"][0]["end_mm"][1])
     outer=_outside(installed).fuse(_cylinder(od,REAR_COLLAR_Y[1]-.5,outer_root+.1),crotch_web(junction))
@@ -194,9 +189,7 @@ def _geometry(*,installed=False,junction=None):
           .fuse(_cylinder(seal,*FRONT_SEAL_Y))
           .fuse(_cylinder(FRONT_RELIEF_D,FRONT_SEAL_Y[1],RELIEF_TAPER_START_Y))
           .fuse(_cone(FRONT_RELIEF_D,THROAT_D,RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y))
-          .fuse(_cylinder(THROAT_D,RELIEF_TAPER_END_Y,turn+.08)))
-    link=cq.Vector(0.,root-turn,rise)
-    void=void.fuse(cq.Solid.makeCylinder(TUBE_ID/2,link.Length,cq.Vector(0.,turn,0.),link.normalized()))
+          .fuse(_sweep(TUBE_ID,(lead,*segments))))
     for branch in ("upper","lower"):
         segments=junction[branch+"_flow_segments"]
         if branch=='upper':
@@ -206,8 +199,14 @@ def _geometry(*,installed=False,junction=None):
             outer=outer.fuse(cq.Solid.makeCylinder(od/2,plumbing.SOCKET_DEPTH+1.0,mouth,d*-1))
         port=junction[branch]; d=cq.Vector(*port["axis"])
         stop=cq.Vector(*port["tube_stop"])
-        inlet_z=rise*(stop.y-turn)/(root-turn)
-        void=void.fuse(cq.Solid.makeCylinder(TUBE_ID/2,(stop.z-inlet_z)/d.z,stop,d*-1))
+        if branch!=trunk:
+            meet=(cq.Vector(0.,stop.y,0.) if trunk=='lower' else
+                  cq.Vector(*junction['upper_flow_segments'][0]['end_mm']))
+            flow=(meet-stop).normalized()
+            # Both end caps lie inside the passages they join. The half-mm
+            # overlap into the larger seal bore leaves no blind cut remnant.
+            void=void.fuse(cq.Solid.makeCylinder(TUBE_ID/2,(meet-stop).Length+.5,
+                           stop-flow*.5,flow))
         end=stop+d*plumbing.SEAL_LAND
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
@@ -292,11 +291,11 @@ def engineering_record():
             "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
             "rear_flange_y_mm":REAR_COLLAR_Y,
             "crotch_web_half_width_mm":WEB_HALF_WIDTH,
-            "flow_passages":"Circular straight bores connect the inlet and both branches. The outer inlet rises inside the web to leave 3 mm above the occupied lower tube stop.",
+            "flow_passages":"One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
             "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,"keeper_slot_y_mm":KEEPER_SLOT_Y,
             "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
-            "lower_socket_stop_bore_mm":TUBE_ID,"lower_socket_stop_radial_mm":(SEAL_BORE_D-TUBE_ID)/2,
-            "installed_tip_stop_contact_area_mm2":math.pi*(TUBE_OD**2-TUBE_ID**2)/4,
+            "lower_socket_nominal_throat_mm":TUBE_ID,
+            "lower_socket_nominal_stop_radial_mm":(SEAL_BORE_D-TUBE_ID)/2,
             "customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
             "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
             "print_orientation":"Rotate -135 degrees about X; the integral aft web landing is flat on the bed. Circular lands stand 45/45/20 degrees (inner) or 45/45/45 degrees (outer) from vertical. Exterior Tree(auto)/Default supports.",

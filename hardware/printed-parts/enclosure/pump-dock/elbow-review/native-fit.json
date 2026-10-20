@@ -4,7 +4,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 7727.305843447762
+        "volume_mm3": 7701.266357318861
       },
       "elbow": {
         "valid": true,
@@ -340,7 +340,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9990.340083893163
+        "volume_mm3": 10035.30967681758
       },
       "elbow": {
         "valid": true,
@@ -721,7 +721,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9990.340083893163
+        "volume_mm3": 10035.30967681758
       },
       "elbow": {
         "valid": true,
@@ -1102,7 +1102,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 7727.305843447762
+        "volume_mm3": 7701.266357318861
       },
       "elbow": {
         "valid": true,
@@ -1465,6 +1465,6 @@
     }
   },
   "scope": "Native affected parts against native front-top; FCL distances to retained current assembly payload. Connector boxes are assumed 8\u00d75\u00d721.5 mm and do not qualify the purchased terminals. Native valid/clearance results do not establish wet performance or lifetime.",
-  "source_sha256": "5c550962556bfcc61994065219145ff65acd52e0f375504246ad9655e8b0d215",
-  "interior_refresh_scope": "Straight internal bores. Native exterior envelopes equal the prior fit review in relaxed and occupied states; fit distances retain that exterior scope."
+  "source_sha256": "66ac409f4d0630450da577a28b1a7948a6bc459551d3f79c9b8f6e86b2878324",
+  "interior_refresh_scope": "Continuous inlet trunk and straight branch. Native exterior envelopes equal the prior fit review in relaxed and occupied states; fit distances retain that exterior scope."
 }
