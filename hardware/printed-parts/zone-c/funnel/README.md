@@ -30,6 +30,7 @@ the exterior. A blunt underside rib contacts the rigid roof outside the frame
 opening, opposing roof runoff beneath the apron. Its 1.5 mm contact band has
 0.3 mm nominal seating interference; the 2.5 mm apron sheet above it is free
 to bend. This is a local cast-silicone sealing section.
+The front rib merges directly into the bearing brim through a short sloping root.
 
 The [overflow review](overflow-review/README.md) records native coverage,
 intended roof contact, mold fit and lift-out clearance. Water exclusion and
