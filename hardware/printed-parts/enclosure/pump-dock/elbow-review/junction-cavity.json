@@ -1,6 +1,6 @@
 {
-  "scope": "Exact native socket-axis and annular-bearing witnesses; connected void and one connected wet body. A geometric result only.",
-  "source_sha256": "f4a1fc79a3d125b58402732e72a80b5629d82724b8e01115cea9a4ad420dd8bc",
+  "scope": "Exact native straight-bore connectivity, socket-axis and annular-bearing witnesses. Exterior envelopes match the previously reviewed fit. Geometric results only.",
+  "source_sha256": "5c550962556bfcc61994065219145ff65acd52e0f375504246ad9655e8b0d215",
   "stations": {
     "west-outer": {
       "upper": {
@@ -115,24 +115,6 @@
       }
     }
   },
-  "fin_rejection_witnesses": {
-    "east-inner": {
-      "upper_old_material_chord_mm": 0.0004274206289635384,
-      "lower_old_material_chord_mm": 0.8358713418397411,
-      "current_chords_mm": [
-        0.0,
-        0.0
-      ]
-    },
-    "east-outer": {
-      "upper_old_material_chord_mm": 0.0005641392295387959,
-      "lower_old_material_chord_mm": 0.0017256152371771805,
-      "current_chords_mm": [
-        0.0,
-        0.0
-      ]
-    }
-  },
   "print_pose": {
     "x_rotation_degrees": -135.0,
     "landing_area_mm2_min": 59.39696961967,
@@ -144,5 +126,96 @@
       "inner": 20,
       "outer": 45
     }
+  },
+  "passage_construction": "Connected circular straight bores, each 4.3 mm diameter. The outer inlet rises 4.5 mm within the web, leaving at least 3 mm from the inlet bore to the occupied lower stop fore edge. No parallel chamber or swept interior bend.",
+  "superseded_fin_locations": {
+    "west-outer": [
+      {
+        "previous_print_pick": [
+          "click: x=1.529 y=-8.554 z=10.012",
+          "click: x=1.578 y=-8.563 z=10.025"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
+        "current_native_continuous_material_chord_mm": 5.748810017281201
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-1.600 y=-8.531 z=10.097",
+          "click: x=-1.760 y=-8.572 z=10.126"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
+        "current_native_continuous_material_chord_mm": 5.6588747696527335
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-0.017 y=-16.406 z=22.951",
+          "click: x=-0.016 y=-16.150 z=22.695"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.36167091284961295,
+        "current_native_continuous_material_chord_mm": 3.405927244724854
+      }
+    ],
+    "west-inner": [
+      {
+        "previous_print_pick": [
+          "click: x=1.529 y=-8.554 z=10.012",
+          "click: x=1.578 y=-8.563 z=10.025"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
+        "current_native_continuous_material_chord_mm": 5.748810017281194
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-1.600 y=-8.531 z=10.097",
+          "click: x=-1.760 y=-8.572 z=10.126"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
+        "current_native_continuous_material_chord_mm": 5.6588747696527335
+      }
+    ],
+    "east-inner": [
+      {
+        "previous_print_pick": [
+          "click: x=1.529 y=-8.554 z=10.012",
+          "click: x=1.578 y=-8.563 z=10.025"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
+        "current_native_continuous_material_chord_mm": 5.748810017281194
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-1.600 y=-8.531 z=10.097",
+          "click: x=-1.760 y=-8.572 z=10.126"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
+        "current_native_continuous_material_chord_mm": 5.6588747696527335
+      }
+    ],
+    "east-outer": [
+      {
+        "previous_print_pick": [
+          "click: x=1.529 y=-8.554 z=10.012",
+          "click: x=1.578 y=-8.563 z=10.025"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
+        "current_native_continuous_material_chord_mm": 5.748810017281201
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-1.600 y=-8.531 z=10.097",
+          "click: x=-1.760 y=-8.572 z=10.126"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
+        "current_native_continuous_material_chord_mm": 5.6588747696527335
+      },
+      {
+        "previous_print_pick": [
+          "click: x=-0.017 y=-16.406 z=22.951",
+          "click: x=-0.016 y=-16.150 z=22.695"
+        ],
+        "previous_native_continuous_material_chord_mm": 0.36167091284961295,
+        "current_native_continuous_material_chord_mm": 3.405927244724854
+      }
+    ]
   }
 }
