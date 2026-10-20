@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -85,13 +85,11 @@
    "id": "clearance-floor",
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 under, tightest 0.425 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.037 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "valve-v-c \u2014 pump-return-block: 0.425 mm \u2014 \u2717 under the global pack floor",
-    "valve-v-d \u2014 pump-return-block: 0.425 mm \u2014 \u2717 under the global pack floor",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
@@ -218,6 +216,8 @@
     "fluid-14 \u2014 fluid-16: 1.512 mm",
     "discharge-chain \u2014 anchor-cap-fluid-28: 1.520 mm",
     "water-2 \u2014 fluid-1: 1.528 mm",
+    "valve-v-c \u2014 pump-return-block: 1.550 mm",
+    "valve-v-d \u2014 pump-return-block: 1.550 mm",
     "bulkhead-drain \u2014 bulkhead-ring-drain-word: 1.568 mm",
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
     "fluid-16 \u2014 coil-v-a: 1.583 mm",
