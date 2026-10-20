@@ -98,7 +98,7 @@ def dock_regions(box, region):
             b[4] -= e.wall
             b[5] += e.wall
             b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
-            region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
+            region(piece, f'SB443 column {number}: bonded pocket walls, ridge and root', b)
 
     # The keepers and the return block are exported already in print pose.
     # Their whole-object 100%/six-wall recipe covers every seat, lip, boss and keyhole.

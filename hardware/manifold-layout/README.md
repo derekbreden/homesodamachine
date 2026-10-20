@@ -202,7 +202,7 @@ hold. The stubs enter TPU funnels and six-millimetre tight lands. The wall locat
 permanent junction in X/Z and a flat interior keeper captures Y. Stub tips remain 0.50 mm
 short of their stops with the cartridge on its meeting magnet poles. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the flat keepers, the return block and the printed-in
+The complete enclosure assembly supplies the flat keepers, the return block and the bonded
 SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 

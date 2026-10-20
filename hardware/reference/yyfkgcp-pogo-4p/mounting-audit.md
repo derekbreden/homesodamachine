@@ -6,7 +6,7 @@ front-top's bay bulkhead. Each purchased half contains two magnets. The printed 
 provide recessed screw-fastened seats and lead passages. A separate
 [eight-pair SB443-IN array](../../printed-parts/enclosure/pump-dock/magnet-retention.md)
 retains the lower cartridge cradle against the fixed receiver wall at the fluid-port
-row, below the pogo row. The blocks are printed in, riding printed rails in one slot
+row, below the pogo row. The blocks are bedded in DP420, bottomed in one plain pocket
 per column, and their bare poles meet at the cartridge's seat. The pump cap contains
 its purchased connector magnets.
 
@@ -129,7 +129,7 @@ claim are connector specifications, not results for the assembled machine.
 
 The separate SB443-IN array attracts along Y in one four-high column per pump on each
 half, between each pump's two receiver axes. Its load path enters the cradle and fixed
-wall through the printed rails in each column's slot. The
+wall through the cured bedding in each plain pocket. The
 [retention geometry module](../../printed-parts/enclosure/pump-dock/dock_retention.py)
 does not establish installed pull, printed-mount strength or the force required
 to seat all four fluid joints and pogo springs. The magnet seat and the

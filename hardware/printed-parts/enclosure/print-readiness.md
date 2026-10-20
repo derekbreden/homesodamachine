@@ -26,7 +26,7 @@ The five current PET-GF dock pieces require their own production native
 preparations, using the [exact part handoff](pump-dock/petgf-production-parts.md).
 The complete dock requires assembled physical qualification: seal fit, flexible
 funnel insertion, socket-stop restraint, keeper and closing-cover retention,
-the pump heads' stub clamps and the printed-in SB443-IN columns that seat the cartridge.
+the pump heads' stub clamps and the bonded SB443-IN columns that seat the cartridge.
 The [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
 [connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
 retain their identified scopes; neither establishes the current wet seals or
@@ -79,7 +79,7 @@ path review; they do not establish support removal or physical load capacity.
 Each pump-dock job binds the current magnetic mounts and seating faces to its native
 geometry. The [RC62 print jobs](enclosure/magnet-retention/queue.json) are evidence for
 their identified ring-magnet articles; their pauses and covering layers do not qualify
-the bare-face SB443-IN columns loaded at front-top's and the cartridge plate's pauses.
+the bonded bare-face SB443-IN columns.
 
 The show transitions print without support contacts. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
