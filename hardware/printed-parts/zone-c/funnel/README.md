@@ -15,11 +15,12 @@ The collar center is world X0, Y161.70. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
 165 × 123.392 mm with R20 corners; the mouth is 153 × 111.392 mm with R14 corners;
 the brim is 179 × 137.392 mm with R27 aft corners and square front corners. The collar
-wall and ramp's normal wall are 6 mm. The ramp falls toward X1.85, Y161.70, centred in Y.
+wall and ramp's normal wall are 6 mm. The ramp falls to the outlet at the collar's centre,
+X0, Y161.70.
 
 The native cavity holds 479.92 mL to the brim. The brim's flat front edge, Y93.0, stands
 one 0.25 mm running fit behind the display wall across its full width; its square front
-corners meet the frame's two side strips. The drain exits at X1.85, Y161.70, Z306.05.
+corners meet the frame's two side strips. The drain exits at X0, Y161.70, Z306.05.
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
@@ -42,7 +43,7 @@ Its lower footprint runs from Y113.39 to Y210, 96.61 mm long and at most 207 mm 
 aft of Y199.75 it narrows to [182.5 mm](FRAME_REAR_WIDTH). Its underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
 silicone block's lower face. An [11.25 mm](FRAME_HOLE) hole at
-X1.85, Y161.70 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
+X0, Y161.70 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
 below the frame's underside in the released pose. The plug socket is a
 [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
 hole, with a [0.25 mm](CRADLE_SOCKET_CORNER) receiver corner radius and a 1 mm
