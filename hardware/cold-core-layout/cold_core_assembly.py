@@ -96,8 +96,6 @@ for _n in _V.PORTS:
 
 # What holds the bodies that come in families, by the name each family shares.
 HELD_BY_PREFIX = (
-    ("bulkhead-reservoir", "trough floor"),
-    ("bulkhead-seal-", "the bulkhead's own nut"),
     ("collet-", "elbow socket"),
     ("vent-membrane-", "cap vent pocket"),
     ("float-rod-", "body boss"),
@@ -159,8 +157,6 @@ MADE_UP_ON = {
     "co2-in": ("collet-co2-in", "carbonator-elbow-co2-in"),
     "carb-water-out": ("collet-carb-water-out", "carbonator-elbow-carb-water-out"),
     "water-in": ("collet-water-in", "carbonator-elbow-water-in"),
-    "reservoir-a": ("bulkhead-reservoir-a",),
-    "reservoir-b": ("bulkhead-reservoir-b",),
     # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
     # around — it is the fitting this line is made up on.
     "prv-vent": ("prv-shroud",),
@@ -295,9 +291,6 @@ def trimmed_routes() -> dict:
     mouths = _V.mouths()
     for port, (line, which) in _V.PORT_LINES.items():
         out[line][0 if which == "start" else -1] = mouths[port].pos
-    # Each reservoir's draw starts at its own floor bulkhead's collet the same way.
-    for line, mouth in _I.mouths().items():
-        out[line][0] = mouth.pos
     # And the PRV vent starts on the shroud's own bore, wherever the placed cup puts it.
     out["prv-vent"][0] = prv_vent_mouth()
     return out
@@ -493,7 +486,6 @@ def _goal(cid: str, label: str, done: int, total: int, target: str, detail=()) -
 def build_card(a) -> Scorecard:
     placed, fitted = a.placed, a.fitted
     mouths = [("carbonator", n, m, n) for n, m in _V.mouths().items()]
-    mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
     # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
     # same feature wherever one exists, and `by` is None for the two the tape holds — which is
     # what the `mounted` goal below counts.

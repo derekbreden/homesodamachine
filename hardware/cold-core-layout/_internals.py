@@ -1,5 +1,5 @@
-"""What stands inside the carbonator and inside each pocket: the inlet jet, both floor
-bulkheads, the level-sensing columns, and the two 1-wire probes.
+"""What stands inside the carbonator and inside each pocket: the inlet jet, the
+level-sensing columns, each reservoir cap's vent membrane, and the two 1-wire probes.
 
 Every station here is read off the part that owns it. The reservoir rod is at `reservoir.py`'s
 own `rod_position_x` / `rod_position_y`; the reed column stands in the channel
@@ -9,7 +9,7 @@ pockets at; the inlet jet is at the top water elbow's male tip.
 THE ONE SET OF STATIONS THIS FILE STRIKES ITSELF is where each reservoir's four reeds sit
 along its column. `level-sensing.md` states the float's useful travel and the pitch that
 spans it — the soldering is what fixes them on the real column — so `reservoir_reed_z` lays
-four at that pitch, centred in that travel, and `report` prints what it laid.
+four at that pitch across that travel, and `report` prints what it laid.
 """
 
 from __future__ import annotations
@@ -35,10 +35,7 @@ import _internal_routes as _R                            # noqa: E402
 from _water_inlet_jet import JET_CAP_D, JET_CAP_T, JET_PASSAGE_D  # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
     bag_pocket_outermost_x,
-    bulkhead_elbow_bottom_z,
-    bulkhead_elbow_exit_z,
     reed_x_depth,
-    reservoir_bulkhead_port_x,
     carbonator_outer_radius,
 )
 from _reed_channels import reed_y_center, reeds_per_reservoir   # noqa: E402
@@ -90,62 +87,6 @@ def water_inlet_jet() -> cq.Solid:
     return cap.cut(passage)
 
 
-# --- both reservoirs' floor bulkheads ----------------------------------------
-#
-# The PureSec barrel rises through the trough floor on the bulkhead axis and its integral
-# elbow turns the syrup line onto the run `_internal_routes` draws out of the pocket, so the
-# collet is clocked by that line the same way the carbonator's sockets are.
-BULKHEAD_LINES = {"reservoir-a": "reservoir-a", "reservoir-b": "reservoir-b"}
-# The elbow's own half-height, read off the band `_cold_core_interface` gives it: the
-# lateral port's centre at `bulkhead_elbow_exit_z` over the lowest hardware at
-# `bulkhead_elbow_bottom_z`, which is what leaves the pocket floor its clearance.
-BULKHEAD_COLLET_R = bulkhead_elbow_exit_z - bulkhead_elbow_bottom_z
-
-
-def _bulkhead_out(line: str) -> tuple:
-    pts = _R.routes[line]
-    return tuple(cq.Vector(*pts[1]).sub(cq.Vector(*pts[0])).normalized().toTuple())
-
-
-def _bulkhead_corner(line: str) -> tuple:
-    x = reservoir_bulkhead_port_x if line == "reservoir-a" else -reservoir_bulkhead_port_x
-    return (x, 0.0, bulkhead_elbow_exit_z)
-
-
-def trough_floor_z(reservoir_solid, x: float) -> float:
-    """The top of one pocket's trough floor on the bulkhead's own axis.
-
-    The floor is bored ⌀16 for the barrel, so a probe on the axis passes clear; this samples a
-    ring just outside that bore and takes the highest floor material under the wet V."""
-    bb = reservoir_solid.BoundingBox()
-    ring = (cq.Solid.makeCylinder(F.PURESEC_NUT_AF / 2, (bb.zmax - bb.zmin) / 3.0,
-                                  cq.Vector(x, 0.0, bb.zmin), cq.Vector(0, 0, 1))
-            .cut(cq.Solid.makeCylinder(F.PURESEC_BARREL_R, (bb.zmax - bb.zmin) / 3.0 + 2,
-                                       cq.Vector(x, 0.0, bb.zmin - 1), cq.Vector(0, 0, 1))))
-    hit = reservoir_solid.intersect(ring)
-    return hit.BoundingBox().zmax if hit.Volume() > 1e-9 else bb.zmin
-
-
-def reservoir_bulkheads(reservoirs: dict = None) -> dict:
-    """Each pocket's floor bulkhead, name → `(solid, mouth)`.
-
-    The barrel carries the trough floor it passes and the washer squeezed on top of it, so the
-    nut lands on the wet side of both."""
-    out = {}
-    for name, line in BULKHEAD_LINES.items():
-        corner = _bulkhead_corner(line)
-        body = (reservoirs or {}).get(name)
-        barrel = None
-        if body is not None:
-            # The nut lands on the wet side of the seal, so the barrel carries the
-            # floor it passes AND the washer squeezed on top of it.
-            barrel = max(F.PURESEC_BARREL_LEN,
-                         trough_floor_z(body, corner[0]) - corner[2] + F.WASHER_T)
-        out[name] = F.puresec_elbow(corner=corner, up=(0, 0, 1), out=_bulkhead_out(line),
-                                    barrel_len=barrel, collet_r=BULKHEAD_COLLET_R)
-    return out
-
-
 # --- level sensing -----------------------------------------------------------
 #
 # The carbonator's float rides `_carbonator`'s welded rod; each reservoir's rides the rod standing
@@ -159,7 +100,6 @@ RES_ROD_LEN = _res.reservoir_rod_len
 def rod_seat_z(reservoir_solid, x: float) -> float:
     """Where one reservoir's rod bottoms — the blind bore's floor in its anchor boss.
 
-    `reservoir.py` strikes the boss off a sloping wet floor, so the seat follows that slope.
     Probing the part on the rod's own axis is what reads it, and a boss that moves carries its
     rod with it."""
     bb = reservoir_solid.BoundingBox()
@@ -172,14 +112,14 @@ def rod_seat_z(reservoir_solid, x: float) -> float:
 # The reed column's own x — the middle of the channel `_reed_channels` carves outward from the
 # pocket's far ±X wall.
 REED_COLUMN_X = bag_pocket_outermost_x + reed_x_depth / 2.0
-# `level-sensing.md`: the float's useful travel on the rod, floor-side above the wet slope to
+# `level-sensing.md`: the float's useful travel on the rod, from its boss on the floor to
 # just under the cap, and the pitch four reeds span it at.
 FLOAT_TRAVEL_Z = _res.float_magnet_travel_z
 RESERVOIR_REED_PITCH = _res.reservoir_reed_pitch
 
 
 def reservoir_reed_z() -> tuple:
-    """The four stations along one reservoir's column, centred in the float's travel."""
+    """The four stations along one reservoir's column, spanning the float's travel."""
     return _res.reservoir_reed_centres_z
 
 
@@ -281,13 +221,9 @@ def level_bodies(reservoirs: dict = None) -> dict:
 
 
 def seals(reservoirs: dict = None) -> dict:
-    """Each pocket's wet-side face seal, and the membrane in each cap's vent pocket."""
+    """The membrane in each cap's vent pocket."""
     out = {}
     for name, side in (("a", +1), ("b", -1)):
-        body = (reservoirs or {}).get(f"reservoir-{name}")
-        x = side * reservoir_bulkhead_port_x
-        floor = trough_floor_z(body, x) if body is not None else bulkhead_elbow_exit_z
-        out[f"bulkhead-seal-{name}"] = F.silicone_washer(centre=(x, 0.0, floor))
         out[f"vent-membrane-{name}"] = F.membrane(
             centre=(side * _res.vent_position_x, _res.vent_position_y,
                     _cap_z() + _res.vent_pocket_bottom_z))
@@ -323,24 +259,16 @@ def bodies(reservoirs: dict = None) -> dict:
     out = {"water-inlet-jet-cap-nominal": water_inlet_jet()}
     for name, (solid, _m) in carbonator_collets().items():
         out[f"collet-{name}"] = solid
-    for name, (solid, _m) in reservoir_bulkheads(reservoirs).items():
-        out[f"bulkhead-{name}"] = solid
     out.update(level_bodies(reservoirs))
     out.update(seals(reservoirs))
     out.update(probes())
     return out
 
 
-def mouths() -> dict:
-    return {name: mouth for name, (_s, mouth) in reservoir_bulkheads().items()}
-
-
 def report(reservoirs: dict = None) -> None:
     print("  internals")
     print(f"    inlet jet       nominal ⌀{JET_CAP_D:g} × {JET_CAP_T:g} cap, "
           f"⌀{JET_PASSAGE_D:g} passage; fit, weld and installed projection unqualified")
-    for name, m in sorted(mouths().items()):
-        print(f"    {name:15} mouth ({m.pos[0]:+.1f}, {m.pos[1]:+.1f}, {m.pos[2]:.1f})")
     print(f"    carb reeds      z {', '.join(f'{z:.1f}' for z in carbonator_reed_z())} "
           f"at x {carbonator_reed_x():.2f}")
     print(f"    res reeds       z {', '.join(f'{z:.1f}' for z in reservoir_reed_z())} "

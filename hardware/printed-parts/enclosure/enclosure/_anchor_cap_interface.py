@@ -8,7 +8,9 @@ windows, the ceiling's wing room and the cap.
 THE RIB IS THE TIE RIB'S HALF PIPE WITHOUT THE TIE. A solid post, the seat bored into it and its
 lips flat one `WALL` past the axis plane, with a catch window in each flank. Each window is a
 closed pocket between the rib's two end webs, so on a piece printed root-down its bearing face
-prints as a bridge web to web, the way the tie channel's crown did.
+prints as a bridge web to web, the way the tie channel's crown did. On a rib rooted on a wall the
+flank that looks print-down and its window's roof bridge web to web instead, and the two end
+webs stand on the tied rib's own 45-degree corbels (`enclosure._capped_anchor`).
 
 THE CAP IS THE OTHER HALF OF THE PIPE, one section extruded `CAP_LEN` along the tube. Below the
 axis plane it is solid from the bore out to its round back; two `WING`-thick wings rise up the
@@ -38,8 +40,10 @@ TUBE_OD = 6.35
 SEAT_R = TUBE_OD / 2.0 + fits.slip
 RIB_R = SEAT_R + WALL                   # the rib's half-width, the tie rib's own
 # Along the tube: the cap, its end air to each window end, and the rib's end webs past those.
-CAP_LEN = 14.0
-END_AIR = 2.0 * fits.slip
+# One cap closes every capped crossing, so its rib has to stand whole on the shortest straight
+# among them: `co2-2`'s 16.85 mm between its two R14 bends.
+CAP_LEN = 10.0
+END_AIR = fits.slip
 WINDOW_LEN = CAP_LEN + 2.0 * END_AIR
 END_WEB = WALL
 RIB_LEN = WINDOW_LEN + 2.0 * END_WEB

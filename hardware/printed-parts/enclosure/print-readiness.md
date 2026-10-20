@@ -10,7 +10,7 @@ carbonator.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
 back-top, back-bottom), pump cartridge and cap, machine display cover, the
-[anchor cap](anchor-cap/README.md) on `carb-1`'s rib and the two G Ganen cold-core
+five [anchor caps](anchor-cap/README.md) on the tube ribs of back-top and the cold core's lid and the two G Ganen cold-core
 mounting parts. Its permanent pump dock has four asymmetric TPU
 junctions, four compound TPU returns, three interior keepers and one return block.
 The front flanks are continuous across the fixed dock room.

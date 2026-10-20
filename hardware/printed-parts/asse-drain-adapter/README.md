@@ -17,12 +17,13 @@ water tightness and complete fault discharge have no physical acceptance.
 | Bore transition | Smooth taper, [60](TAPER_ANGLE)° above the print bed |
 | Overall length | [28.79](LENGTH) mm |
 | Large / small outside diameter | Ø[14](BARB_OD) / Ø[11.7](TUBE_OD) mm |
-| Minimum relaxed radial wall at each end | [3.45](MIN_WALL) mm, including ties and socket mouths |
+| Minimum relaxed radial wall | [3.45](MIN_WALL) mm, under each tie land |
 | Zip-tie lands | 2.8 mm flat width, 0.5 mm recess, 1 mm sloping shoulders |
-| Solid CAD volume | [3.009](VOLUME) cm³ |
+| Solid CAD volume | [3.010](VOLUME) cm³ |
 
 Both outside diameters derive from one `MIN_WALL` parameter. The plain socket
-walls are 3.95 mm thick; the tie recesses and mouth lead-ins retain 3.45 mm.
+walls are 3.95 mm thick, the mouth lead-ins leave 3.55 mm and the tie recesses
+retain 3.45 mm. Both ends are square to the bore.
 The large bore tapers smoothly into the 3.80 mm tube bore. There is no
 internal shelf. A 14 mm insertion mark places the tube across its tie land
 and grips the full small socket. The barb tip ends above the reducer when
@@ -57,14 +58,14 @@ computed elastomer strain, sealing pressure or retained tie tension.
 Print upright with the large socket on the bed and the small socket up.
 The internal reducer, external taper and bore-entry chamfers rise 60° above the bed;
 recessed tie shoulders expand at 0.5 mm per millimetre of build rise. No supports are needed inside the sealing bores.
-Use dry TPU 85A and a solid process: 100% zig-zag infill, four
-continuous wall loops, 0.20 mm first layer and 0.24 mm layers above it. Keep hole
-and contour compensation at zero for the first fit. The [Mark2 print project](asse-drain-adapter-tpu85a-right06-mark2.3mf)
-and [reviewed native slice](native/asse-drain-adapter-tpu85a-right06-mark2/asse-drain-adapter-tpu85a-right06-mark2.gcode.3mf)
-use the right 0.6 mm nozzle, 225°C nozzle / 35°C bed, and the saved +0.04 mm
-TPU Z trim. [Native review](native-review.json) binds the source mesh, settings,
-full bead envelope and support result. The native estimate is about 42 minutes
-and contains no supports. This fit-trial job has not been sent to a printer.
+Print it in **Siraya Tech Flex TPU 85A Clear**, the stock the
+[pump dock's](/hardware/printed-parts/enclosure/pump-dock/README.md) wet parts and the
+[G Ganen elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README.md) print in, dry, one
+part to a plate, with the recipe of the
+[accepted Siraya single](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):
+Mark1's right 0.6 mm nozzle, glued Engineering Plate, zero user Z trim, 225°C first layer
+and 215°C normal layers, 100% infill and no supports. Keep hole and contour compensation at
+zero for the first fit. No native project is bound to this mesh yet.
 
 1. Put two loose four-inch / 2.54 mm-wide ties around their respective lands.
 2. Slide the large socket over the entire vent barb, leaving the sleeve mouth

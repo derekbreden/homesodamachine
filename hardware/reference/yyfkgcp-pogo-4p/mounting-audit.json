@@ -63,12 +63,12 @@
     "magnet_housings": "Two factory-contained magnets per purchased half",
     "female_location": "Pump-cap aft face",
     "male_location": "Front-top bay bulkhead fore face",
-    "closing_datum": "Dedicated outboard PET-GF stop lands on the fixed wall bearing against retained lower-cradle stock; broad aft planes retain their nominal clearance",
+    "closing_datum": "The meeting poles of the two SB443-IN columns; broad aft planes retain their nominal clearance",
     "separate_retention_magnets": "Sixteen SB443-IN blocks, eight attracting pairs in one four-high column per pump on each half",
     "retention_pair_location": "Lower cartridge cradle and fixed receiver wall, centered between each pump's port axes",
-    "retention_mount": "Post-print DP420 Off-White bedding in one plain pocket per column; moving poles cured against the fixed poles on the seated frame",
+    "retention_mount": "Printed in: blocks loaded down printed rails in one slot per column at one print pause per part; bare poles meet at the seat",
     "retention_record": "../../printed-parts/enclosure/pump-dock/magnet-retention.md",
-    "magnet_insertion_pause_required": false
+    "magnet_insertion_pause_required": true
   },
   "drawing_source": "https://www.amazon.com/dp/B0GCBNTBT8?th=1",
   "drawing_observed_local_date": "2026-10-03",
@@ -111,29 +111,29 @@
     "datum": "Depth into either printed host from its mating face; contact-face depths omit the recess.",
     "ear_bearing_from_contact_face": 3.0,
     "ear_bearing_from_printed_host": 3.125,
-    "insert_top_from_contact_face": 7.25,
-    "insert_top_from_printed_host": 7.375,
-    "insert_end_from_printed_host": 11.375,
-    "pilot_end_from_printed_host": 12.875,
+    "insert_top_from_contact_face": 5.0,
+    "insert_top_from_printed_host": 5.125,
+    "insert_end_from_printed_host": 9.125,
+    "pilot_end_from_printed_host": 10.625,
     "screw_tip_from_printed_host": 10.125,
-    "screw_thread_engagement": 2.75,
-    "screw_tip_to_blind_end": 2.75,
+    "screw_thread_engagement": 4.0,
+    "screw_tip_to_blind_end": 0.5,
     "loading_stadium_width": 2.5999999999999996,
     "tool_profile_or_physical_fit_qualified": false
   },
   "source_sha256": {
-    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "f535e5b7ec3ce01f07b3c154a533155e0e21f17d9a043145c2a58625261d25ce",
-    "hardware/manifold-layout/enclosure-box.json": "967b4d4e3ebf45fe45451cf83728a3ec103dab7b59c91b4bdcb7110dec4a3f1e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63c73320392800080778bc854972fbd312149c59045c5572fc969a62ffdc9c81",
-    "hardware/manifold-layout/enclosure_assembly.py": "f635aaf61d55edf1b67842fac3386e9084d6572e554b472b1b2502e5ccb47213",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "cb532910df5113f024581301858c1ae3c05277dce2d82065e8c46a3692a65e41",
+    "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "49becf6e4c6d114038e5b1193b377a0344f88ac1b24ef6df95927fad0b362fce",
+    "hardware/manifold-layout/enclosure_assembly.py": "0888773e17fd223c6f2fbeef7da4b82fab50c91709e0437bb7a6efe3415571a9",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
     "hardware/printed-parts/cadlib/fits.py": "573b51faf3948e5750db1ab580c9f3035d7063a43815c4eaf505b40092ad83a0",
     "hardware/scripts/_box_spec.py": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "554885d8d99dfcd76f228058d4f852e7a02236c070a65391bfebaf52cf382f29",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "7e937b7a5224e674f831a6d7042010a6c4458ec9fda7d7222ee3eeb1bbee87ba",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "327cf756278654794ab39350407b30fc350aadbd71b5ad13d371bac3a4d36eac"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "147703cb0e737367cbb5c4b5a1327243e32c1c7c1734bb861f36b775a72421b8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "0941f4982ce97a60c876ec519b06b35dc55166ca86a8c1a49e9db8e65ea1848e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "ebf2ca8b1ebc52c3d8979a92d1cf60ef28f5d48e2020f3c0879164f5562585de"
   },
   "physical_record": "physical-observations.json"
 }

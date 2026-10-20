@@ -75,10 +75,6 @@ def colour_for(name: str):
         return _mat.C_PLUG
     if name.startswith("evap-"):
         return _mat.M_COPPER
-    if name.startswith("bulkhead-seal"):
-        return _mat.C_SILICONE
-    if name.startswith("bulkhead-"):
-        return _mat.M_JG_WHITE_PP
     if name.startswith("vent-membrane"):
         return _mat.M_PTFE_WHITE
     if name.startswith("float-rod"):

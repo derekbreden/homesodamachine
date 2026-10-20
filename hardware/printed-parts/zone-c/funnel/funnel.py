@@ -1,4 +1,4 @@
-"""Removable 455 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
+"""Removable 480 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
 
 The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
@@ -9,6 +9,7 @@ the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
 hole and the drain stub are separate parts.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -32,7 +33,9 @@ import elbow_cradle
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
-forward_extension = 35.9  # additional collar and frame reach toward the display, in Y−
+# Collar and frame reach toward the display, in Y−: the brim's front edge stands one running
+# fit behind the display wall, and that wall 3 mm behind the display's PCB pocket.
+forward_extension = 41.6085
 collar_d = 81.78301584656256 + forward_extension  # collar footprint in Y
 mouth_corner_r = 14.0
 collar_corner_r = mouth_corner_r + 6.0
@@ -41,7 +44,7 @@ brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 455.18  # nominal capacity to the brim
+capacity_ml = 479.92  # nominal capacity to the brim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 1.85
 neck_dy = 0.0  # the outlet shares the collar's Y centre
@@ -92,6 +95,19 @@ def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1, corner_r=0.0):
            else cq.Workplane("XY", origin=(cx0, cy0, z0)).rect(w0, d0).val())
     bottom = cq.Wire.makeCircle(r1, cq.Vector(cx1, cy1, z1), cq.Vector(0, 0, 1))
     return cq.Solid.makeLoft([top, bottom])
+
+
+def brim_plan(grow, z0, z1, cx=0.0, cy=0.0, front=0.0):
+    """The brim's plan grown by `grow`, and its front edge carried `front` further toward the
+    display: square front corners against the display wall, rounded aft corners."""
+    x, y, r = (collar_w / 2.0 + brim_overhang + grow, collar_d / 2.0 + brim_overhang + grow,
+               brim_corner_r + grow)
+    k = r * (1.0 - math.sqrt(0.5))
+    plan = (cq.Workplane("XY", origin=(cx, cy, z0))
+            .moveTo(-x, -y - front).lineTo(x, -y - front).lineTo(x, y - r)
+            .threePointArc((x - k, y - k), (x - r, y)).lineTo(-x + r, y)
+            .threePointArc((-x + k, y - k), (-x, y - r)).close())
+    return plan.extrude(z1 - z0).val()
 
 
 def _cyl(r, z_top, z_bot, cx, cy):
@@ -151,11 +167,11 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
 
 # --- the funnel -------------------------------------------------------------
 
-def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
+def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, brim=True):
     """Filled outer envelope, complete wet cavity, and mold-forming dimensions.
 
-    Clearance grows the forming primitives along their own normal faces.
-    The ramp keeps a 5 micron allowance for the rounded offset joins.
+    Clearance grows the forming primitives along their own normal faces. `plug` and `brim`
+    leave those blocks out of the envelope, for a receiver that cuts its own.
     """
     w, d = collar_w, collar_d
     cx = cy = 0.0
@@ -169,21 +185,29 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     spout_or = spout_id / 2.0 + spout_wall
     ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
                     ncx, ncy, neck_z, mouth_corner_r)
-    bases = [normal_envelope(ramp, ramp_wall + outer_air + (0.005 if outer_air else 0)) if ramp_wall else
-             _loft_rc(w, d, cx, cy, ramp_top_z, spout_or,
-                      ncx, ncy, neck_z, collar_corner_r),
-             _rounded_box(w, d, collar_corner_r, ramp_top_z, 0.05),
-             _rounded_box(w + 2 * brim_overhang, d + 2 * brim_overhang,
-                          brim_corner_r, 0.0, top_z),
-             _cyl(spout_or, neck_z, end_z, ncx, ncy),
-             elbow_cradle.plug_outline(plug_width / 2, 0.0, 0.0, plug_height)
-             .translate(cq.Vector(ncx, ncy, end_z))]
+    # The collar and ramp walls are one normal skin round the wet volume below the brim,
+    # cut level with the collar's top.
+    wet = fuse_shapes(_rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, 0.05), ramp,
+                      tol=0.0001).clean()
+    walls = (normal_envelope(wet, ramp_wall + outer_air)
+             .intersect(_box(600, 600, end_z - outer_air - 1, 0.05 + outer_air, 0, 0)))
+    bases = [walls, _cyl(spout_or, neck_z, end_z, ncx, ncy)]
+    if brim:
+        bases.append(brim_plan(0.0, 0.0, top_z))
+    if plug:
+        bases.append(elbow_cradle.plug_outline(plug_width / 2, 0.0, 0.0, plug_height)
+                     .translate(cq.Vector(ncx, ncy, end_z)))
     if outer_air:
         bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
-    solid = fuse_shapes(*bases, tol=0.0001).clean()
+    # One body at a time: a single general fuse of them all can return one valid solid
+    # without the plug's lower block.
+    solid = bases[0]
+    for body in bases[1:]:
+        solid = fuse_shapes(solid, body, tol=0.0001).clean()
     plug_top = end_z + plug_height + outer_air
-    assert not [f for f in solid.Faces() if f.geomType() == "PLANE"
-                and abs(f.Center().z - plug_top) < 0.001], "the plug's top shows below the bowl"
+    assert not plug or not [f for f in solid.Faces() if f.geomType() == "PLANE"
+                            and abs(f.Center().z - plug_top) < 0.001], \
+        "the plug's top shows below the bowl"
     # The plug's broad lower annulus is the silicone's sole bottom plane.
     solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
     assert solid.isValid() and len(solid.Solids()) == 1

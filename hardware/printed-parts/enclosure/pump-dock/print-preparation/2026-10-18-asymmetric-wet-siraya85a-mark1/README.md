@@ -46,9 +46,8 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 | **All eight** | **56.798** | **14:19:19** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and
-project hashes are in the [native review](native-review.json). The four returns' emitted-path
-readings bind their current G-code; the four junctions' readings are taken on their
-current G-code before a junction print. They do not include
+project hashes are in the [native review](native-review.json). Every project's emitted-path
+readings bind its current G-code. They do not include
 the four PET-GF dock parts. No printer was contacted or launched.
 
 The retained wet recipe requests six walls and 100% infill. The parts carry no

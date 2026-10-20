@@ -3,7 +3,7 @@
     "C14_SCREWS": "2",
     "COND_SCREWS": "2",
     "DISPLAY_COVER_SCREWS": "0",
-    "DOCK_LOCKS": "7",
+    "DOCK_LOCKS": "3",
     "FLOOR_SCREWS": "4",
     "FOAM_SCREWS": "20",
     "NAMEPLATE_SCREWS": "0",
@@ -15,10 +15,10 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "77",
-    "TOTAL_M3_INSERTS": "69",
+    "TOTAL_INSERTS": "73",
+    "TOTAL_M3_INSERTS": "65",
     "TOTAL_M5_INSERTS": "8",
-    "TOTAL_SCREWS": "77",
+    "TOTAL_SCREWS": "73",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {

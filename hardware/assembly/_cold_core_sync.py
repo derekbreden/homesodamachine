@@ -45,7 +45,6 @@ from _cold_core_interface import (  # noqa: E402
     outer_shell_x_length,
     outer_shell_y_length,
     port_hole_radius,
-    reservoir_bulkhead_port_x,
     reservoir_clearance,
     top_band_to_cap,
     wall_and_floor_thickness,
@@ -147,8 +146,8 @@ def main():
         "CAP_DECK_INSERTS": f"{CAP_DECK_INSERTS}",
         "RES_INSERTS": f"{RESERVOIR_INSERTS}",
         # ─── Penetrations (step 4, lines 70-72) ───────────────────────
-        # Generic small-feature port hole (water outlet, reservoir
-        # bulkheads, CO2 tube clearance through cap+lid).
+        # Generic small-feature port hole (water outlet, the reservoir caps'
+        # bores, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
         # CO2 inlet Y — the carbonator's own port axis. The bore, the carbonator
         # elbow and the tube all stand on it.
@@ -159,13 +158,8 @@ def main():
         "TOP_BAND": f"{top_band_to_cap:.4g}",
         "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
         # The strip between a bag pocket's own wall and the shell's — the band
-        # both reservoir draws climb to reach their cap conduits.
+        # the water inlet's line climbs to reach its cap conduit.
         "FORWARD_BAND": f"{forward_band_width:.4g} mm",
-        # The two pocket-wall holes per reservoir side: flavor line inboard,
-        # reed cable outboard of the bulkhead axis. There is no matching pair of
-        # outer-wall holes — each draw turns onto its own band and climbs to its cap
-        # conduit, so the pocket wall is opened once and only for that run.
-        "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
         # Where each reed cable leaves the core: the bore the cap stands over its own
         # channel's mouth, in the SHELL's frame — the frame the channel is drawn in.
         "REED_CONDUIT_XY": ", ".join(

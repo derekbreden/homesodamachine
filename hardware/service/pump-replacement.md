@@ -23,7 +23,7 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [4](KEEPERS) flat interior keepers snapped onto their necks |
+| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [3](KEEPERS) flat interior keepers snapped onto their necks |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half, fixed J13 ribbon and ridge-wall cable clip |
 | The cartridge's eight printed-in SB443-IN magnets | Their eight printed-in mates in front-top |
 | | [4](RETURNS) permanent compound TPU returns, the one return block they snap into, and the [2](BOX_TEES) commercial source tees |

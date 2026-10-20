@@ -18,7 +18,7 @@ lid; their printed seats follow their individual mounting stations.
 
 ## The funnel
 
-The removable silicone funnel holds nominally [455 mL](funnel/README.md). Its 6 mm brim, collar and
+The removable silicone funnel holds nominally [480 mL](funnel/README.md). Its 6 mm brim, collar and
 normal ramp wall lead to a plug seated in the frame's socket. The plug's straight 6 mm
 bore grips a raw 1/4-inch LLDPE drain stub standing in a PP0308E elbow, which a printed cradle
 holds under the frame's drain hole; `fluid-4` runs from the elbow to V-B. Lifting the

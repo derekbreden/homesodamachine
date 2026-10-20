@@ -8,7 +8,7 @@
     "DIGITEN_LOOP": "81.2 mm",
     "DIGITEN_WEST_SET": "3 mm",
     "DISCHARGE_CHAIN_LEN": "73.5 mm",
-    "DISCHARGE_TUBE_LEN": "40 mm",
+    "DISCHARGE_TUBE_LEN": "42 mm",
     "DOCK_BODY_GAP": "0.25 mm",
     "DOCK_FORE_LINK": "14.501 mm",
     "DOCK_UPPER_TAIL": "21.001 mm",
@@ -21,10 +21,10 @@
     "FLOWREG_LOOP": "65.1 mm",
     "MANIFOLD_TEES": "2",
     "MANIFOLD_VALVES": "10",
-    "POGO_INSERT_HOST_DEPTH": "7.375 mm",
-    "POGO_INSERT_SETBACK": "4.25 mm",
+    "POGO_INSERT_HOST_DEPTH": "5.125 mm",
+    "POGO_INSERT_SETBACK": "2 mm",
     "SPLIT_LOOP": "74.9 mm",
-    "SUCTION_TUBE_LEN": "70 mm",
+    "SUCTION_TUBE_LEN": "69 mm",
     "WR1110_LOOP": "83.2 mm"
   }
 }
