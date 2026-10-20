@@ -154,13 +154,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=34.170 y=469.545 z=256.553
 click: x=-40.710 y=469.545 z=291.002
 
-[ceiling] Unavoidable screw-head bearings: these screw-anchor caps and upper head-bearing floors retain their current complete native host sections and positive mating gaps. Tree(auto)/Default support can leave through the empty seam, inward pockets and roof before assembly; actual cleanup remains unqualified.
-alternatives: Sloping tilts the head seat or spends blind-end host stock. A corbel can enter neighboring block travel; a continuous post occupies frame/service room.
+[ceiling] Unavoidable screw-head bearings: these Z347 floors seat the two upper M5 heads 8 mm down from the roof, where each Ø9 opening runs on into the funnel opening. Tree(auto)/Default support can leave through the opening and the roof before assembly; actual cleanup remains unqualified.
+alternatives: Sloping tilts the head seat. Raising the floor shortens the screw's reach into front-top's insert; a corbel under it occupies frame/service room.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.625 y=209.975 z=195.050
-click: x=97.625 y=209.975 z=195.050
-click: x=-96.750 y=208.900 z=347.000
-click: x=96.750 y=208.900 z=347.000
+click: x=-96.850 y=208.900 z=347.000
+click: x=96.850 y=208.900 z=347.000
 
 [ceiling] Unavoidable square slide-capture profiles: these Z168.70 flats are the rear top feet beneath bottom catches at Z169.45, with the defined running and supported-face allowance. Support can leave the open channels before assembly; cleanup remains unqualified.
 alternatives: Sloping changes the capture bearing. Filling enters the slide path; cutting away the overlap loses retention.

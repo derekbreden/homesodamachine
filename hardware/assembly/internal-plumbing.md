@@ -130,8 +130,8 @@ Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topol
 
 **This step begins on the bench with `enclosure-front-top` open and both valve rows absent.**
 The two valve trays and four one-piece TPU pump junctions are stationary. The permanent TPU
-junction inlets pass through the bay wall; their recessed collars locate against the wall and a
-flat interior keeper per receiver captures its rear groove. The receiver funnels are the only surfaces
+junction inlets pass through the bay wall; their recessed collars locate against the wall and three
+flat interior keepers capture their rear grooves. The receiver funnels are the only surfaces
 the four cartridge tube tips enter. The [pump service procedure](/hardware/service/pump-replacement.md)
 describes the separating joints and the complete prepared pumps supplied for a customer swap.
 
@@ -145,15 +145,15 @@ including engagement at both real fittings. Exposed path length is not a tube-bl
 length. Use black LLDPE except for `fluid-3`, V-A's outlet into Y-A, which uses white tube.
 Square-cut, deburr without scoring the outside sealing surface, and tag each segment.
 
-1. **Fit the aft valves.** Install the RX-M3Sx4.0 inserts in the four keepers
-   and the three tray-foot bosses before fitting TPU.
+1. **Fit the aft valves.** Install the RX-M3Sx4.0 inserts in the three tray-foot
+   bosses before fitting TPU.
    Bring V-C, V-D, V-G and V-J through front-top's open underside, align their mounts,
    then seat them along their posts. Match the topology's ports and coil clocks,
    then close the retaining ties. For each return-to-valve link,
    first seat uncut tube fully into the actual valve, mark its collet face, then
    cut 8.5 mm beyond that mark: 2 mm exposed plus 6.5 mm insertion into TPU.
 
-2. **Seat the upper groups and lock the keepers from the pump bay.**
+2. **Seat the upper groups and fit the keepers.**
    Inspect each TPU bore and funnel for continuous, clean material. For each fore
    valve, seat uncut tube fully into the actual valve, mark its collet face, then
    cut [21.001 mm](DOCK_UPPER_TAIL) beyond the mark: [14.501 mm](DOCK_FORE_LINK)
@@ -161,16 +161,15 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    straight link and corresponding fore valve off the wall. Bring this group
    forward along −Y, seating the valve onto its +Y-facing posts while folding the flexible
    funnel through its wall opening and allow it to recover fully on the pump side. Seat
-   the locating body and recessed collar against the wall. Lower each flat keeper along
-   its interior guides into the corresponding rear groove. From the empty pump
-   bay, pass one M3×8 screw with its Ø7 × 0.5 mm DIN 125A washer through the wall's
-   recessed bearing seat and start it in the keeper's insert by hand. Seat the
-   screw with its head below the wall face. The lower stops
-   retain running clearance; do not force the keeper downward to reach them.
-   Confirm that all four keepers are locked, each funnel has
-   recovered, and each receiver remains captured when pushed and pulled along Y. The wall locates X/Z; the
-   keeper must slide without pinching the TPU neck. Keep the pump bay empty
-   until all four keeper screws are seated.
+   the locating body and recessed collar against the wall. From front-top's open
+   underside, push each flat keeper into its slot at the seam face, keyholes first,
+   and slide it along the wall's interior face until every receiver neck it holds
+   snaps through the keyhole's mouth into its grip: one keeper for each outer receiver
+   and one for the inner pair. The keeper's foot finishes just inside the seam face.
+   Confirm that each funnel has recovered and each receiver remains captured when
+   pushed and pulled along Y. The wall locates X/Z. For factory service, a flat blade
+   entered through a receiver bay from aft presses the keeper's crown back down off
+   its necks.
 
 3. **Assemble the lower returns and fit the return block.** Match each junction and
    compound return to its station. Cut the straight junction-to-return tube from the
@@ -201,14 +200,14 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    under the loosened pump-head housing. Lower both complete pumps into their fitted
    wells with the stubs facing +Y through the cradle's open tube passages. Set the
    free tips to the [prepared-pump datum](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps)
-   with the printed tube setting jig against the cartridge's flat rear seating face,
+   with the printed tube setting jig against the cartridge's flat rear face,
    then tighten each housing so it clamps the tube around its stubs. Keep the exposed
    stubs straight and verify all four tip positions, a firm hand pull on each stub and
    pump-end sealing before closing the clamp. The customer's replacement pumps receive
    this same factory preparation.
 
 5. **Fit the electrical contact and clamp.** Install the cap's two M1.4 inserts with
-   their tops [7.375 mm](POGO_INSERT_HOST_DEPTH) inside its aft printed face, [4.25 mm](POGO_INSERT_SETBACK) behind the recessed ear-bearing datum, using
+   their tops [5.125 mm](POGO_INSERT_HOST_DEPTH) inside its aft printed face, [2 mm](POGO_INSERT_SETBACK) behind the recessed ear-bearing datum, using
    the recessed-seat procedure in
    [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Solder four
    ~100 mm 22 AWG leads to the female contact half and mount it in the cap with its marked
@@ -221,15 +220,16 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    `AM2`, `AM1`, `BM2`, `BM1` from +X to −X. Crimp their female Faston receptacles and
    connect them to the marked motor tabs. Keep all leads below the crown.
 
-6. **Verify the closed dock after chassis assembly.** Inspect the bonded magnet
-   columns, exposed attracting faces and dedicated outboard rigid stop lands. With power
-   disconnected, slide the cartridge on its floor and present all four tube ends squarely
-   to the TPU funnels. Push evenly until the stop lands seat on the lower cradle and the cartridge finishes
-   flush. Confirm that every receiver remains seated, every tube enters straight and the
-   pogo pair reaches its designed compression. The broad aft planes retain [0.25 mm](DOCK_BODY_GAP)
-   clearance; the stop lands establish closure. Withdraw and reinsert straight to confirm
-   that the four slip joints separate together while the permanent junctions, returns and keeper
-   remain fixed. Magnetic attraction alone does not establish full seating or sealing.
+6. **Verify the closed dock after chassis assembly.** Inspect both parts' printed-in
+   magnet columns and their exposed attracting faces. With power disconnected, slide the
+   cartridge on its floor and present all four tube ends squarely to the TPU funnels. Push
+   evenly until the magnets draw the cartridge onto its seat and it finishes flush. Confirm
+   that every receiver remains seated, every tube enters straight and the pogo pair reaches
+   its designed compression. The meeting magnet poles establish closure, with
+   [0.25 mm](DOCK_BODY_GAP) of air between the broad aft planes. Withdraw and reinsert
+   straight to confirm that the four slip joints separate together while the permanent
+   junctions, returns and keepers remain fixed. Magnetic attraction alone does not establish
+   sealing.
 
 Y-A and Y-B remain on the inner limbs with their branches facing one another across the
 mirror plane. V-A's inlet takes the water split through the flow regulator. V-B's inlet
@@ -272,9 +272,9 @@ A finished internally-plumbed appliance:
 - CO2 path closed dry from the +Y wall's ABU44 bulkhead, `co2-0` to WR1105 IN, `co2-1` from WR1105 OUT to the downstream GASHER check, and `co2-2` from its outlet PI450822S to the cold core's `co2-in` conduit; made-up placement, support and hose clearances recorded
 - Water path closed dry from the +Y wall's PP1208E 1/4" JG QC bulkhead — its inboard collet butted to the ASSE chain's inlet — through the PP010822E + GAGIRA 316L SS reducing coupling, the Multiplex 19-0897 ASSE 1022 backflow preventer, the PI4512F6S + PP061208W outlet stack, `water-2` to the PP0208E water split, `water-3` to V-K, `water-7` to the clamped suction elbow on the G Ganen pump, `water-6` from the clamped discharge elbow to the made-up PP010822E + GASHER + PP450822E chain, and `water-5` onto the `water-in` cap conduit
 - Multiplex atmospheric vent through the black adapter stack and 4 mm OVER bulkhead to the dedicated faucet outlet over the sink bowl
-- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and four locked flat keepers, four compound TPU returns retained in PET-GF fixtures, and straight captured pump links, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
-- Pump stubs 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its rigid stop lands; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
-- All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` off the two floor bulkheads at the bottom of each wet V
+- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and three snapped-on flat keepers, four compound TPU returns seated in the one PET-GF return block, and straight captured pump links, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
+- Pump stubs 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its meeting magnet poles; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
+- All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` as the two dip tubes, each down its draw bore to its reservoir's floor
 - Three risers landing on the three PP1208E umbilical bulkheads on the +Y wall on one row (blue LLDPE on the blue-ringed bulkhead for carbonated water; black LLDPE on the two flavor bulkheads)
 - Carbonated-water riser insulated with CARGEN nitrile-rubber pipe foam in segments from the cold-core exit to the inboard face of the blue-ringed bulkhead, bare only along `carb-1`'s rib; the DIGITEN flow meter, its union and the tube tails at both are wrapped in the same foam, slit over the meter body and its cable, with every seam closed by 3M 425 foil tape
 - Every NPT joint PTFE-taped and torqued past hand-tight, no thread tape past half-engagement

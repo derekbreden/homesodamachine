@@ -10,24 +10,25 @@
   "relaxed_cuff_od_mm": 11.7,
   "occupied_cuff_od_mm": 11.832265210009451,
   "rear_flange_y_mm": [
-    10.35,
-    13.35
-  ],
-  "anti_rotation_key_x_mm": [
-    6.5,
-    12.5
+    10.25,
+    13.25
   ],
   "crotch_web_half_width_mm": 7.0,
   "groove_y_mm": [
     7.0,
-    10.35
+    10.25
   ],
   "keeper_y_mm": [
-    7.15,
-    10.15
+    7.25,
+    10.25
   ],
-  "keeper_wall_face_gap_mm": 0.15000000000000036,
-  "keeper_rear_groove_room_mm": 0.1999999999999993,
+  "keeper_slot_y_mm": [
+    7.0,
+    10.5
+  ],
+  "keeper_slide_air_mm": 0.25,
+  "neck_grip_d_mm": 11.899999999999999,
+  "neck_mouth_w_mm": 10.399999999999999,
   "lower_socket_stop_bore_mm": 5.5,
   "lower_socket_stop_radial_mm": 0.2999999999999998,
   "lower_socket_stop_taper_mm": 0.6000000000000001,
@@ -39,7 +40,7 @@
     7.775,
     8.675
   ],
-  "print_orientation": "Yaw the actual lower outward axis onto+Y, then rotate it onto\u2212Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+  "print_orientation": "Yaw the actual lower outward axis onto +Y, then rotate it onto -Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
   "physical_reference": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
   "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."
 }

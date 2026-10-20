@@ -1,9 +1,16 @@
 """Dry structure for four permanent receivers and their fixed plumbing.
 
 Coordinates share the enclosure frame. The receiver module owns the wet
-geometry; this module owns the flat keepers, their wall guides and locks, and
+geometry; this module owns the flat keepers, the wall bays they slide in, and
 the one return block that seats all four compound returns. No customer
 operation reaches these parts.
+
+Each keeper is a flat PET-GF plate that slides up its slot behind the wall
+from front-top's seam face while front-top lies inverted, until each receiver
+neck snaps through the keyhole's mouth into its grip. The slot's two faces
+back it in Y; the TPU neck holds it in X and Z. The magnet column between each
+pump's two ports divides the wall into three bays: one keeper for each outer
+receiver and one for the inner pair.
 """
 from pathlib import Path
 import sys
@@ -24,26 +31,21 @@ sys.path.insert(0,str(HERE.parent/"valve-tray"))
 import valve_tray
 
 STATIONS = ('west-outer', 'west-inner', 'east-inner', 'east-outer')
-KEEPER_HALF_WIDTH = 12.0
-KEEPER_Z = (-11.0, 19.5)
-KEEPER_BOSS_THICKNESS = 5.0
-KEEPER_BOSS_RADIUS = 5.3
-KEEPER_COUNTERBORE_DEPTH = 3.75
-KEEPER_COUNTERBORE_D = 7.3
-KEEPER_WING_X = 14.0
-KEEPER_LIFT = 20.0
-LOCK_Z = 14.0
-LOCK_BORE_D = 3.5
-LOCK_INSERT_D = 4.0
-LOCK_INSERT_LENGTH = 4.0
-LOCK_RELIEF = 1.25
-LOCK_WASHER_OD = 7.0
-LOCK_WASHER_ID = 3.2
-LOCK_WASHER_T = .5
-GUIDE_INNER_X = 9.25
-GUIDE_OUTER_X = 16.4
-GUIDE_Z = (-11.0, 8.5)
-RECESS_Z = (-14.0, 40.0)
+# Keepers by the receivers they hold: one per outer receiver, one for the inner pair.
+KEEPERS = {'west': ('west-outer',), 'middle': ('west-inner', 'east-inner'),
+           'east': ('east-outer',)}
+# Plate reach past each held receiver axis; the slot keeps the sliding allowance past it.
+KEEPER_REACH = 12.0
+# The keeper's crown stands this far over the receiver axis, three millimetres over its grip.
+KEEPER_CROWN = 9.0
+# Its foot stands this far inside front-top's bed face, where the thumb pushes it home.
+KEEPER_BED_AIR = fits.running
+# The receiver bay round each rear collar and branch root: radial room and floor.
+BAY_HALF = receiver.COLLAR_OD / 2 + 0.5
+BAY_FLOOR = 12.0
+# The bay's ceiling stands three millimetres over the keeper's crown at the wall face, room for
+# the factory tool that presses a keeper back down off its necks, and rises 45 degrees aft.
+BAY_ROOF = KEEPER_CROWN + 3.0
 
 # The return block: one solid under the front-top's seam that all four returns
 # snap down into. Its top face is the front-top's own print bed plane and it is
@@ -59,6 +61,7 @@ BLOCK_REAR_AIR = 1.0
 BLOCK_SCREW_X = (-48.0, 0.0, 48.0)
 BLOCK_SCREW_LENGTH = 12.0
 BLOCK_SCREW_ENGAGEMENT = 4.0
+BLOCK_INSERT_D = 4.0
 BLOCK_INSERT_RELIEF = 1.75
 BLOCK_CLEARANCE_D = 3.4
 BLOCK_COUNTERBORE_D = 6.5
@@ -77,94 +80,66 @@ def ycyl(radius, x, z, y0, y1):
     return cq.Solid.makeCylinder(radius,y1-y0,cq.Vector(x,y0,z),cq.Vector(0,1,0))
 
 
-def ycrown(radius,x,z,y0,y1,*,toward_x=0):
-    """Full round screw/insert room with a tangent45degree print crown."""
-    a=radius/2**.5
-    if toward_x:
-        points=[(x+toward_x*a,z-a),(x+toward_x*a,z+a),(x+toward_x*radius*2**.5,z)]
-    else:points=[(x-a,z+a),(x+a,z+a),(x,z+radius*2**.5)]
-    vertices=[cq.Vector(px,y0,pz) for px,pz in points]
-    wire=cq.Wire.makePolygon(vertices+[vertices[0]])
-    return ycyl(radius,x,z,y0,y1).fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,y1-y0,0))).clean()
-
-
 def fused(parts):
     parts = tuple(parts)
     return (parts[0].fuse(*parts[1:]) if len(parts)>1 else parts[0]).clean()
 
 
-def keeper(wall_fore_y=0.,x=0.,z=0.,*,side=1,clamped=True):
-    """Flat axial keeper with a front-driven lock and five-mm insert boss."""
-    y0,y1=(wall_fore_y+y for y in receiver.KEEPER_Y)
-    slab=box(x-12,x+12,y0,y1,z+KEEPER_Z[0],z+KEEPER_Z[1])
-    a,b=sorted((x+side*12,x+side*KEEPER_WING_X))
-    slab=slab.fuse(box(a,b,y0,y1,z+8.75,z+KEEPER_Z[1]))
-    rear=y0+KEEPER_BOSS_THICKNESS
-    r=receiver.KEEPER_SLOT_D/2
-    notch=ycyl(r,x,z,y0-.1,rear+.1).fuse(box(x-r,x+r,y0-.1,rear+.1,z+KEEPER_Z[0]-.1,z))
-    cx=x+side*8.5
-    boss=ycyl(KEEPER_BOSS_RADIUS,cx,z+LOCK_Z,y0,rear)
-    result=slab.fuse(boss).cut(notch).cut(ycyl(LOCK_INSERT_D/2,cx,z+LOCK_Z,y0-.1,rear+.1)).clean()
-    return result if clamped else result.translate((0,fits.sliding_extra,0))
-
-
-def keeper_side(x):
-    return 1 if x<-50 or 0<x<50 else -1
-
-
-def wall_recess(plate):
-    """Broad keeper access pocket with a 45-degree roof rising aft."""
+def keeper_groups(plate):
+    """Each keeper's held receiver axes and their common row height."""
+    xs = dict(zip(STATIONS, (x for x, _z in plate['holes'])))
     row = plate['holes'][0][1]
-    x0,x1=plate['x0']+6.0,plate['x1']-6.0
-    y0,y1=plate['fore_y']+receiver.WALL_THICKNESS,plate['wall_aft_y']+.1
-    roof=row+RECESS_Z[1]
-    pocket=box(x0,x1,y0,y1,row+RECESS_Z[0],roof)
-    points=[cq.Vector(x0,y0,roof),cq.Vector(x0,y1,roof),
-            cq.Vector(x0,y1,roof+y1-y0)]
-    wire=cq.Wire.makePolygon(points+[points[0]])
-    return pocket.fuse(cq.Solid.extrudeLinear(wire,[],cq.Vector(x1-x0,0,0))).clean()
+    return {name: ([xs[st] for st in held], row) for name, held in KEEPERS.items()}
 
 
-def guides(wall_fore_y,x,z,wall_aft_y=None):
-    back = wall_fore_y+receiver.WALL_THICKNESS
-    slot_back = wall_fore_y+receiver.GROOVE_Y[1]
-    rear = slot_back+3 if wall_aft_y is None else wall_aft_y
-    stocks=[]
-    for side in (-1,1):
-        a,b = sorted((x+side*12.25,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0]-.35,z+GUIDE_Z[1]))
-        a,b = sorted((x+side*GUIDE_INNER_X,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,slot_back,rear,z+GUIDE_Z[0]-.35,z+GUIDE_Z[1]))
-    # Stop under both uninterrupted plate wings; the U opening stays clear.
-    for side in (-1,1):
-        a,b=sorted((x+side*6.5,x+side*GUIDE_OUTER_X))
-        stocks.append(box(a,b,back,rear,z+GUIDE_Z[0]-3.35,z+GUIDE_Z[0]-.35))
-    return fused(stocks)
+def keeper(plate, name):
+    """One flat keeper in place: plate from the seam face to its crown, a keyhole per neck."""
+    xs, row = keeper_groups(plate)[name]
+    fore = plate['fore_y']
+    y0, y1 = (fore + y for y in receiver.KEEPER_Y)
+    bed = plate['fixture_print_bed_z'] + KEEPER_BED_AIR
+    body = box(min(xs) - KEEPER_REACH, max(xs) + KEEPER_REACH, y0, y1, bed, row + KEEPER_CROWN)
+    for x in xs:
+        mouth = receiver.NECK_MOUTH_W / 2
+        body = body.cut(ycyl(receiver.NECK_GRIP_D / 2, x, row, y0 - .1, y1 + .1)
+                        .fuse(box(x - mouth, x + mouth, y0 - .1, y1 + .1, row, row + KEEPER_CROWN + 1)))
+    return body.clean()
 
 
-def lock_cut(wall_fore_y,x,z):
-    """Front-driven keeper screw room; the insert belongs to the keeper."""
-    return ycrown(KEEPER_COUNTERBORE_D/2,x,z+LOCK_Z,wall_fore_y-.1,wall_fore_y+KEEPER_COUNTERBORE_DEPTH).fuse(
-        ycrown(LOCK_BORE_D/2,x,z+LOCK_Z,wall_fore_y-.1,wall_fore_y+receiver.KEEPER_Y[0]+.01)).clean()
+def _yz_prism(x0, x1, points):
+    wire = cq.Wire.makePolygon([cq.Vector(x0, y, z) for y, z in points], close=True)
+    return cq.Solid.extrudeLinear(cq.Face.makeFromWires(wire), cq.Vector(x1 - x0, 0, 0))
 
 
-def _key_seat_cut(wall_fore_y,x,z):
-    pieces=[]
-    for sign in (-1,1):
-        cx=x+sign*(receiver.KEY_ROOT_X+receiver.KEY_OUTER_X)/2
-        half=3.+fits.running
-        top=z+receiver.KEY_TOP_Z+fits.running*2**.5
-        # End the crown at the guide's open inner face. An apex centred on
-        # the ear leaves a triangular skin beside that face.
-        apex=x+sign*GUIDE_INNER_X
-        roof=top+abs(cx-apex)
-        pts=[(cx-half,z+receiver.KEY_BASE_Z-fits.running),(cx+half,z+receiver.KEY_BASE_Z-fits.running),
-             (cx+half,top-half),(apex,roof),(cx-half,top-half)]
-        y0=wall_fore_y+receiver.REAR_COLLAR_Y[0]-.01
-        y1=wall_fore_y+receiver.REAR_COLLAR_Y[1]+3
-        wire=cq.Wire.makePolygon([cq.Vector(a,y0,b) for a,b in pts]+[cq.Vector(pts[0][0],y0,pts[0][1])])
-        pieces.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,y1-y0,0)))
-    return fused(pieces)
+def keeper_bays(plate):
+    """Each keeper's slot from the seam face and each receiver's bay, under one 45-degree roof."""
+    fore, aft = plate['fore_y'], plate['wall_aft_y'] + .1
+    bed = plate['fixture_print_bed_z'] - .01
+    face = fore + receiver.KEEPER_SLOT_Y[0]
+    back = fore + receiver.KEEPER_SLOT_Y[1]
+    cuts = []
+    for xs, row in keeper_groups(plate).values():
+        roof = row + BAY_ROOF
+        slide = fits.running
+        cuts.append(_yz_prism(min(xs) - KEEPER_REACH - slide, max(xs) + KEEPER_REACH + slide,
+                              [(face, bed), (back, bed), (back, roof + back - face), (face, roof)]))
+        for x in xs:
+            cuts.append(_yz_prism(x - BAY_HALF, x + BAY_HALF,
+                                  [(face, row - BAY_FLOOR), (aft, row - BAY_FLOOR),
+                                   (aft, roof + aft - face), (face, roof)]))
+    return fused(cuts)
+
+
+def keeper_backing(plate):
+    """Per keeper, the wall stock behind its slot that takes the receivers' aft load:
+    [x0, x1, y0, y1, z0, z1] from the slot's back face to the wall's aft face."""
+    fore, bed = plate['fore_y'], plate['fixture_print_bed_z']
+    out = {}
+    for name, (xs, row) in keeper_groups(plate).items():
+        reach = KEEPER_REACH + fits.running
+        out[name] = [min(xs) - reach, max(xs) + reach, fore + receiver.KEEPER_SLOT_Y[1],
+                     plate['wall_aft_y'], bed, row + BAY_ROOF]
+    return out
 
 
 def aft_tray(plate):
@@ -255,16 +230,11 @@ def return_block(plate):
 
 
 def fixed_features(plate):
-    """Wall seats and flat keepers, outlet reliefs, and the block's insert bosses."""
-    fore=plate['fore_y'];stocks=[];cuts=[wall_recess(plate)]
+    """Wall bores and keeper bays, outlet reliefs, and the block's insert bosses."""
+    fore=plate['fore_y'];stocks=[];cuts=[keeper_bays(plate)]
     bed=plate['fixture_print_bed_z']
     for x,z in plate['holes']:
-        side=keeper_side(x)
-        stocks.append(guides(fore,x,z,plate['wall_aft_y']))
-        stocks.append(ycyl(4.,x+side*8.5,z+LOCK_Z,fore+receiver.WALL_THICKNESS,fore+receiver.KEEPER_Y[0]))
-        cuts.extend((receiver.receiver_wall_cut(fore,x,z),
-                     lock_cut(fore,x+side*8.5,z),
-                     _key_seat_cut(fore,x,z)))
+        cuts.append(receiver.receiver_wall_cut(fore,x,z))
         # Continue the existing valve port channel down the tray foot. The
         # occupied exterior heel has the same fixed outlet axis and must not
         # bear on the tray; this is an open-to-bed relief, not a blind pocket.
@@ -275,7 +245,7 @@ def fixed_features(plate):
     for x,y in block_screws(plate):
         stocks.append(box(x-BLOCK_BOSS_HALF,x+BLOCK_BOSS_HALF,tray_front-BLOCK_BOSS_DEPTH,tray_front+.01,
                           bed,bed+BLOCK_BOSS_HEIGHT))
-        cuts.append(cq.Solid.makeCylinder(LOCK_INSERT_D/2,BLOCK_SCREW_ENGAGEMENT+BLOCK_INSERT_RELIEF+.01,
+        cuts.append(cq.Solid.makeCylinder(BLOCK_INSERT_D/2,BLOCK_SCREW_ENGAGEMENT+BLOCK_INSERT_RELIEF+.01,
                                           cq.Vector(x,y,bed-.01),cq.Vector(0,0,1)))
     return stocks,cuts
 
@@ -285,15 +255,16 @@ def parts(plate,*,installed=True):
     for name,(x,z) in zip(STATIONS,plate['holes']):
         data=declared[str(x)]
         out['pump-receiver-'+name]=receiver.build_receiver(plate['fore_y'],x,z,installed=installed,junction=data['junction'])
-        out['pump-receiver-keeper-'+name]=keeper(plate['fore_y'],x,z,side=keeper_side(x))
         out['pump-return-'+name]=returned.build_return(data['return'],installed=installed)
+    for name in KEEPERS:
+        out['pump-keeper-'+name]=keeper(plate,name)
     out['pump-return-block']=return_block(plate)
     return out
 
 
 def part_color(name):
     wet=(name.startswith(('pump-receiver-','pump-return-'))
-         and not name.startswith(('pump-receiver-keeper-','pump-return-block')))
+         and not name.startswith('pump-return-block'))
     return receiver.COLOR if wet else cq.Color(.16,.16,.16)
 
 
@@ -301,11 +272,15 @@ def manufacturing_parts(plate):
     out={};declared=plumbing.layouts(plate)
     for name,(x,z) in zip(STATIONS,plate['holes']):
         data=declared[str(x)];local=receiver._local_junction(data['junction'],(x,plate['fore_y'],z))
-        keep=keeper(0,0,0,side=keeper_side(x)).rotate((0,0,0),(1,0,0),90)
-        keep=keep.translate((0,0,-keep.BoundingBox().zmin))
-        rows={'pump-receiver-'+name:receiver.print_solid(junction=local),'pump-receiver-keeper-'+name:keep,
+        rows={'pump-receiver-'+name:receiver.print_solid(junction=local),
               'pump-return-'+name:returned.print_solid(data['return'])}
         for part,shape in rows.items():out['enclosure-'+part]={'shape':shape,'color':part_color(part)}
+    # Keepers print flat on their wall face; the two outer keepers are one part.
+    for stem,name in (('pump-keeper-outer','west'),('pump-keeper-middle','middle')):
+        keep=keeper(plate,name).rotate((0,0,0),(1,0,0),-90)
+        b=keep.BoundingBox()
+        out['enclosure-'+stem]={'shape':keep.translate((-b.center.x,-b.center.y,-b.zmin)),
+                                'color':part_color(stem)}
     # The block prints on its top face, the front-top's own bed plane.
     block=return_block(plate).rotate((0,0,0),(1,0,0),180)
     block=block.translate((0,0,-block.BoundingBox().zmin))
