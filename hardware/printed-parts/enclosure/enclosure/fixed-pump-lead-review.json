@@ -51,5 +51,67 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "224aab916b379c19ddad30f97a1e75764eb768d78f0654ac6913565519757449",
     "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
     "hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md": "2e47eb3de8245950cc84d39e55634dfc5c574f003dc500b97d1a1499cf10b1b6"
+  },
+  "post_publication_geometry_lint": {
+    "printed_mesh_sha256": "8c4628708d318968180c114e13387d6867a80ccc3ef4bf7a06e584fb7c48a6eb",
+    "facets": 549322,
+    "findings": 72,
+    "answered": 32,
+    "open_leading_readings": [
+      {
+        "thickness_mm": 0.612,
+        "locations_mm": [
+          [
+            -104.25,
+            200.031,
+            299.299
+          ],
+          [
+            104.25,
+            200.031,
+            299.299
+          ]
+        ]
+      },
+      {
+        "thickness_mm": 0.816,
+        "location_mm": [
+          -101.34,
+          6.551,
+          295.888
+        ]
+      }
+    ],
+    "scope": "The leading thin findings are outside the clip change region. That region has no retained clip or recessed channel; its two sub-0.2 mm entry tips are absent. Unrelated inherited geometry findings remain open."
+  },
+  "live_publication": {
+    "members": [
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "sha256": "e5e150ae8978c2d938306056cedd26af7cba92ce7d4e99e3cd657498082b331e",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "sha256": "8c4628708d318968180c114e13387d6867a80ccc3ef4bf7a06e584fb7c48a6eb",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "sha256": "0ac7216f3b39134f7c1b09b3c3837055009860ab1ea813517005314c8c38b305",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "sha256": "ea5b2f11012ec2dc97c234317fe6bfe7fc9ca200688c847f17cfe6ead58de5f6",
+        "pass": true
+      },
+      {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "b7407d63cc76c6d7707b4ea4cc8c112f5ba8ad0feedc784d3545cc442289d207",
+        "pass": true
+      }
+    ],
+    "all_match": true
   }
 }
