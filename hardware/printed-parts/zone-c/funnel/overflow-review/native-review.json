@@ -6,7 +6,7 @@
     "hardware/printed-parts/zone-c/funnel/overflow-review/step_patch.py": "163e2e467919a394aa99142da4cb090e7049e426a36f5b26c4e4dd3b03189ba5",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "0be60e973dd9146054381ddca01806ed3669312b5848d894e60463d7c2f77ebc",
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "09e6402c4fd5daf976db430a61680befd70cab090b315289f64d09b1c3643ebf",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "267662749b3f1764f40bd06f4629c71396b9a9e46f6bcbf7d206f2c34c9c9751",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "c248e355cc4473dfe29e207cba46efcec709ddc4e5897e4d2129955c62394d8e",
     "hardware/manifold-layout/enclosure_assembly.py": "f419cbc28d9ec5ac948d707b3a0adbeea0c3198ee3400ebd24f6922e8c3708ed",
     "hardware/manifold-layout/_scorecard.py": "0560210a0c6cb2660984abeb3045835a694e60a1787575163ecddb268793b183"
   },
@@ -14,8 +14,8 @@
     "hardware/printed-parts/zone-c/funnel/funnel.step": "b655912265baeb9df1fc11618df3a856d8a0d78d33e2ec6f87375f1085b5554b",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "02779decbf514be8393afdfb4c5a108b71463cc381f8f3a80f909fa0dcc5f87b",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "e21dbfb49096eedf1e7b836b3d792bf6948e4d5750ab81d319356b2f03617cb8",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "e0f7282e7c71ce569cba52e058fa6ced17821dcd5db8e3cb637ccd5a7f5017ab",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "752c94dfd023ff466143f0a5aeb5d66234e8732c9cde1c724391a95a9a2cb87a"
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "0f55b21b708a3a0de3fcd9c29543e5bd11403eafc2b036c3ae45997ca5194076",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "82ac6e22df1798d4d7c922119f313dc805a968ce8d62b0c314ee5a83cfc4b7f3"
   },
   "finished_funnel_native_difference_mm3": 0.0,
   "capacity_to_mouth_ml": 530.5403569272468,
@@ -3087,5 +3087,9 @@
       "retained_member_count": 247,
       "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
     }
+  },
+  "tooling_refresh": {
+    "scope": "Mold locator placement and downward-open bolt access. Funnel, frame, cover and native appliance geometry are unchanged.",
+    "checks": "Regenerated tooling passes the generator\u2019s complete nominal casting equality, liquid containment, core lift, rod withdrawal, washer clearance and closed mesh checks."
   }
 }
