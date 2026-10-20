@@ -360,9 +360,9 @@ numerical forces and endurance are not measured separately.
 
 The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) defines four
 permanent Siraya Tech Flex TPU 85A receivers in closed PET-GF wall bores. The wall
-locates X/Z; four locked flat keepers capture Y, and a separate two-screw frame supports
-the rear cuffs. Fixed LLDPE tails connect the rear sockets to stationary commercial
-tees. Factory-prepared complete pumps carry two straight 1/4" LLDPE stubs each, clamped
+locates X/Z; three flat keepers snapped onto the receiver necks capture Y. Straight LLDPE
+links join each upper socket to its fore valve and, through four fixed TPU returns seated in
+one PET-GF return block, each lower socket to its aft valve. Factory-prepared complete pumps carry two straight 1/4" LLDPE stubs each, clamped
 by the pump head's own housing, which carries their axial load into the head. The
 customer replaces complete pumps and leaves the receiver assembly installed.
 
@@ -387,9 +387,9 @@ maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.
 The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
 describes eight attracting SB443-IN pairs, one four-high column on each pump's own
-line, bonded bare-faced in one 45°-roofed pocket per column in each part. These are geometry
-and design-basis records. They establish no accepted seal, assembled retaining force,
-bond capacity, cleanability or service life. The stub clamp's pull-out, tip location
+line, printed in on rails in one slot per column in each part, their bare poles meeting at
+the cartridge's seat. These are geometry and design-basis records. They establish no
+accepted seal, assembled retaining force, rail capture, cleanability or service life. The stub clamp's pull-out, tip location
 and pump-end joint also remain physical qualifications of this assembly.
 
 The [Bambu TPU elbow fit](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
@@ -523,7 +523,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 
 | Joint | Current arrangement and load path | Design basis and evidence limit |
 | --- | --- | --- |
-| Enclosure Y seam | A corner stack at each flank: knuckles alternating between the front and back pieces, pinned by two vertical M5 screws. The lower screw clamps both bottoms and back-top's hub over the Z seam; the upper holds front-top up against back-top. The telescoping lap locates the halves; hooked rails retain the vertical seams. [Corner-stack geometry](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks). | Opening can load the fully threaded screw in bearing against alternating blocks. Block ligaments, wall roots and screw bending carry that load; equal sharing between blocks is unestablished. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
+| Enclosure Y seam | A corner stack at each flank: knuckles alternating between the front and back pieces, held by two vertical M5 screws. The lower screw runs from back-bottom's knuckle over the handhold through front-bottom's into an insert in back-bottom's knuckle under the Z seam; the upper holds front-top up against back-top. The telescoping lap locates the halves; hooked rails retain the vertical seams. [Corner-stack geometry](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks). | Opening can load each screw in bearing against alternating knuckles; the lower screw bears on its plain shank at both of front-bottom's faces. Block ligaments, wall roots and screw bending carry that load; equal sharing between blocks is unestablished. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
 | Cold-core cap stacks | Ten M3×25 stations per face with 5.7 mm inserts and 10.5 mm blind pilots. Dry printed seats have 0.15 mm static allowance; recessed 3M 425 exterior bands seal both casing seams at each end. The nominal stack envelope is 253.4 mm. The [native closure review](../printed-parts/cold-core/foam-cap/dry-closure-review.json) records floor stock, complete insert walls and screw-tip room. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion are unmeasured; the local seam construction does not qualify the complete vapor barrier or lifetime. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](../printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
@@ -549,8 +549,9 @@ them; the closed rail ends constrain common translation when the bottom halves r
 fixed. The hooked bearing runs retain Z lift. That translation check does not establish
 a compression path across the tops when the bottom halves bend toward each other.
 In that sagging mode, each top can withdraw relative to its moving bottom half. The
-lower stacks retain the opening: each lower screw passes alternately through
-back and front blocks from the handhold ceiling to back-top's anchor block. Opening can
+lower stacks retain the opening: each lower screw passes from the handhold ceiling through
+back-bottom's knuckle and front-bottom's into the insert in back-bottom's knuckle under the
+Z seam. Opening can
 load the screw in bearing against those blocks. The Ø5.6 mm printed holes have clearance
 around the nominal Ø5 mm screw, so print variation and deflection determine which blocks
 bear first. Equal load sharing is unestablished. Block ligaments, wall roots and screw
@@ -568,7 +569,7 @@ Each upper insert sits in front-top's knuckle under the funnel frame, with its c
 root in that knuckle; the [native audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
 checks its recorded seat after the funnel and other functional cavities are cut. The
 [fit review](../printed-parts/enclosure/enclosure/y-seam-fit-review.json) identifies
-the current four M5 host-stock witnesses. The rail arms use 4.5 mm nominal stock within the
+four M5 host-stock witnesses for its bound inputs. The rail arms use 4.5 mm nominal stock within the
 existing side band; finished clearance, stops and roots are separate native checks.
 
 Those heights are 0.1016–0.1524 m: gravitational energy is 1.00–1.49 J per kilogram of

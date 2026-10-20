@@ -2,15 +2,15 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cartridge precisely and can be handled without its joints opening.
-The [native audit](geometry-check.json) records 35 insert stations and 14 finished
+The [native audit](geometry-check.json) records 35 insert stations and 10 finished
 knuckles for its exact source and native input hashes. It reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
 knuckles. Source and STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
 qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
 identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
-records current PET-GF-to-PET-GF gaps and complete local stock at the four M5 insert
-hosts and four head floors. The 35 station readings, 14 knuckle queries, screw
+records PET-GF-to-PET-GF gaps and complete local stock at four M5 insert hosts and
+four head floors for its bound inputs. The 35 station readings, 10 knuckle queries, screw
 engagement and blind-tip reserve retain the insert audit's recorded artifact scope.
 
 ## Supplier constraints and screw stacks
@@ -23,17 +23,15 @@ pilot has at least 1 mm beyond the installed insert; the enclosure's screw stack
 also checks full seam-insert engagement and at least 0.5 mm beyond the longest specified
 screw tip. The seam screws carry a ±0.8 mm length allowance.
 
-Each screw head sits in an inboard-open U-shaped access recess and bears directly on
-its printed floor. Both complete head-bearing annuli retain 3 mm of stock below their
-floors. Each pocket is Ø9 × 8 mm; the lower floor is Z37.25 and the upper floor is Z347,
-with the head faces 3 mm inside the ceiling and roof.
-The upper mouth continues inward into the funnel opening above the frame.
-The outboard rims at the R6 rolls are in
+Each Y-seam screw head bears directly on its printed floor in a Ø9 opening. The lower
+opening runs up into the handhold ceiling and ends on the plane of the handhold's inner
+wall; the upper runs 8 mm down into the roof and on into the funnel opening above the
+frame. The rim at the handhold's R6 lip is in
 [the enclosure specification](../README.md#seams--corner-stacks).
 
 | Station | Body | Pilot depth | Nominal host / screw stack |
 | --- | --- | --- | --- |
-| Four Y-seam stack stations | M5, 9.5 mm | Lower 13.70 mm; upper 14.15 mm | The lower insert is in back-top's anchor block over the Z seam; the upper is in front-top's block under the funnel frame. The specified stack gives full 9.5 mm engagement and at least 1.7 mm blind-tip room with the ±0.8 mm length allowance at nominal CAD part poses |
+| Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 15.15 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 120 enters from the deep end and its tip stands past the open top; the upper into front-top's knuckle under the funnel frame. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
 | Seventeen electronics / ground stations | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the unchanged PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
@@ -61,31 +59,29 @@ full-frame compression and electrical behavior remain physical qualifications.
 
 The Y seam stands at Y200 mm with a 17.8 mm overlap. Each ±X corner carries a stack
 of knuckles alternating between the front and back pieces, its screw axis mid-overlap
-([corner stacks](../README.md#seams--corner-stacks)). The lower stack runs from the
-handhold ceiling through back-bottom, front-bottom, back-bottom and front-bottom to
-back-top's hub over the Z seam, and an M5 × 150 drives up through it into the hub's
-insert. The upper stack stands under the roof: front-top's knuckle under the funnel
-frame and back-top's roof knuckle, with an M5 × 60 driven down into front-top's insert.
-Lower axes stand at |X|98.25 and upper axes at |X|98. The lower blocks reach
-13.75 mm from `interior_x`, leaving 0.25 mm to the core. Front-bottom's first block
-starts at Z66.2 and its top block ends at Z174.696447, 0.353553 mm below the back-top hub.
-This gives 0.25 mm measured normal to the adjacent 45° front-top rail bedding.
-Front-top's upper insert mouth is Z299.65, 0.25 mm below back-top's Z299.9 block.
-Every PET-GF-to-PET-GF block face requires its applicable static or running and supported-face
-allowances, including the faces loaded when the screws seat.
-Clearance holes print at Ø5.6 mm. The audit reports nominal and minimum thread
-engagement and tip clearance with the ±0.8 mm screw-length allowance.
+([corner stacks](../README.md#seams--corner-stacks)). The lower stack is a three-knuckle
+hinge inside the bottom pieces: back-bottom's knuckle over the handhold, front-bottom's,
+and back-bottom's under the Z seam. An M5 × 120 drives up from the handhold ceiling through
+all three into the insert pressed into the top of the upper back knuckle, so back-bottom
+holds the screw at both ends and front-bottom's knuckle hangs on it between them. The upper
+stack stands under the roof: front-top's knuckle under the funnel frame and back-top's roof
+knuckle, with an M5 × 60 driven down into front-top's insert. The lower blocks reach
+13.75 mm from `interior_x`, leaving 0.25 mm to the core. Every face between knuckles keeps
+0.25 mm of running fit measured square to the face; knuckle faces that print facing down
+rise 45° off their own piece's stock. Clearance holes print at Ø5.6 mm. The audit reports
+nominal and minimum thread engagement with the ±0.8 mm screw-length allowance.
 
-A seam-opening load can put the screws in bearing against the alternating blocks.
-The lower M5 × 150 screws are partially threaded McMaster 91290A298, with at least 27 mm
-of thread at the tip; the upper M5 × 60 screws are fully threaded SVLING B0GHNHFYJN.
-The Ø5.6 mm printed holes have clearance around the nominal Ø5 mm screws; print
-variation and deflection determine which blocks bear first. Equal load sharing is
-unestablished. The audit reads every block's whole native section, its length along the
-screw and its ligament fore and aft of the clearance hole. These are geometric quantities,
-not a measured shear or bearing capacity. Edge-first bending that opens the bottom seam
-loads the lower screws. The floor tongue has no tensile interlock,
-and the joined tops do not establish a compression flange under that bending mode.
+A seam-opening load puts the screws in shear at the faces between knuckles: two per lower
+corner, one per upper corner. The lower M5 × 120 screws are partially threaded McMaster
+91290A290, whose 22 mm of thread at the tip lies within back-bottom's upper knuckle and the
+insert, so front-bottom's knuckle bears on the plain shank at both its faces; the upper
+M5 × 60 screws are fully threaded SVLING B0GHNHFYJN. The Ø5.6 mm
+printed holes have clearance around the nominal Ø5 mm screws; print variation and
+deflection determine which faces bear first. The audit reads every knuckle's whole native
+section, its length along the screw and its ligament fore and aft of the clearance hole.
+These are geometric quantities, not a measured shear or bearing capacity. The floor tongue
+has no tensile interlock, and the joined tops do not establish a compression flange under
+edge-first bending.
 
 The Z hooks have 4.5 mm arms and 5 mm overlap over their 6 mm feet. Every sliding
 face retains its stated running/support allowance; the end-stop clearance is
@@ -96,20 +92,19 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
-and its root, and Z hook/foot/stop roots. The manual specification also covers all
-twelve factory dock-lock hosts, keeper guides, SB443 rail and bedding-key roots,
-rigid-stop bearings, stem-flange capture shoulders, recessed pogo hosts and the
-actual cut TPU mounting keys. It binds the six main pieces and twenty
-station-specific dock STEP/STLs by hash. The dock manufacturing exports already
+and its root, and Z hook/foot/stop roots. The manual specification also covers the
+three return-block insert hosts in the aft tray foot, the wall stock behind the three
+keeper slots, the SB443 column walls and their host roots, the rigid-stop bearings
+and the recessed pogo hosts. It binds the six main pieces and the eleven dock
+manufacturing STEP/STLs by hash. The dock manufacturing exports already
 contain their print poses; the main pieces retain their prescribed source-to-print
 transforms. Plate X/Y nesting remains part of the native project.
 
 These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern
-and inherit the ordinary wall settings. The four station-specific keepers, four
-cradles and four covers use six walls and 100% infill throughout their connected
-load paths. The manual wet preparation records solid deposition through the
-actual keys under its retained Siraya recipe.
+and inherit the ordinary wall settings. The three keepers and the return block use
+six walls and 100% infill throughout their connected load paths. The manual wet
+preparation records solid deposition under its retained Siraya recipe.
 General enclosure infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the

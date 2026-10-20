@@ -271,19 +271,15 @@ display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
-# Each permanent receiver has one flat keeper and a factory-only M3×8 lock screw.
-dock_keepers_per_build = len(_f.box["collet_plate"]["holes"])
-dock_keeper_inserts_per_build = dock_keepers_per_build
-dock_keeper_screws_per_build = dock_keepers_per_build
-dock_keeper_screw_projection = (8.0 + _enc._dock.KEEPER_COUNTERBORE_DEPTH
-    - _enc._dock.LOCK_WASHER_T - _enc._receiver.KEEPER_Y[0])
-dock_keeper_tip_air = _enc._dock.KEEPER_BOSS_THICKNESS - dock_keeper_screw_projection
+# The receivers' flat keepers snap onto their necks and take no fastener: one per outer
+# receiver and one for the inner pair.
+dock_keepers_per_build = len(_enc._dock.KEEPERS)
 # The one return block hangs on three vertical M3×12 screws driven up from its
 # counterbores into short inserts in the tray foot's bosses. Each head bears
 # on its counterbore floor; the thread engages the whole insert.
 dock_fixture_locks_per_build = len(_enc._dock.block_screws(_f.box['collet_plate']))
 dock_fixture_screw_projection = _enc._dock.BLOCK_SCREW_ENGAGEMENT
-dock_fixture_pilot_depth = (_enc._dock.LOCK_INSERT_LENGTH
+dock_fixture_pilot_depth = (_enc._dock.BLOCK_SCREW_ENGAGEMENT
     + _enc._dock.BLOCK_INSERT_RELIEF)
 _dock_native = json.loads((_here.parent / 'printed-parts/enclosure/pump-dock'
     / 'print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1'
@@ -314,10 +310,10 @@ assert not _display_stack, (
     f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
     f"snap-retained cover and its gasket")
 
-# Four M5 seam screws pass through the printed corner blocks. Each screw carries
-# one ordinary flat washer and threads into a ruthex M5 insert in its anchor block.
-# The two lower screws enter from the handholds; the two upper screws enter from
-# the roof. The Z seams retain their sliding hooked rails.
+# Four M5 seam screws pass through the printed knuckles. Each head bears on its
+# printed floor and the thread engages a ruthex M5 insert: the two lower screws enter
+# from the handholds into back-bottom's knuckles under the Z seam, the two upper from
+# the roof into front-top's. The Z seams retain their sliding hooked rails.
 _seam_rods = _enc.y_stack_rods(_f.box["inner"])
 enclosure_seam_rods_per_build = 2 * len(_seam_rods)
 enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "lower")
@@ -325,12 +321,12 @@ enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 
 # Every M3 × 8 in the build: the main board's four, the condenser's aft pair, the faucet
-# base, C14 inlet and permanent receiver keepers. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
+# base and C14 inlet. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
 # seating face on the receptacle's rim, so an 8 leaves 2.9 mm in the 4 mm insert.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
-                  + touchflo_screws_per_build + dock_keeper_screws_per_build)
+                  + touchflo_screws_per_build)
 
 # And every M3 x 10: the PSU's four and the ground-stack clamp's one.
 m3x10_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
@@ -403,7 +399,6 @@ m3_short_inserts_per_build = (
     + shelf_inserts_per_build
     + faucet_display_cover_inserts_per_build
     + c14_inserts_per_build
-    + dock_keeper_inserts_per_build
     + dock_fixture_locks_per_build
 )
 
@@ -424,7 +419,6 @@ total_m3_screws_per_build = (
     + faucet_display_cover_screws_per_build
     + pump_cap_screws_per_build
     + c14_screws_per_build
-    + dock_keeper_screws_per_build
     + dock_fixture_locks_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
@@ -596,7 +590,7 @@ def main(*, only_bom=False):
         "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
         "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
         "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-        "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "12.07", 5),
+        "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "10.74", 10),
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_STUBS": f"{len(_f.box['collet_plate']['holes'])}",
@@ -605,14 +599,10 @@ def main(*, only_bom=False):
         "DOCK_JUNCTION_FEED_G": f"{dock_junction_feed_g:.2f}",
         "DOCK_RETURN_FEED_G": f"{dock_return_feed_g:.2f}",
         "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
-        "DOCK_KEEPER_INSERTS": f"{dock_keeper_inserts_per_build:.4g}",
-        "DOCK_KEEPER_SCREWS": f"{dock_keeper_screws_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
         "DOCK_FIXTURE_THREAD": f"{dock_fixture_screw_projection:.4g}",
         "DOCK_FIXTURE_PILOT_DEPTH": f"{dock_fixture_pilot_depth:.4g}",
         "DOCK_FIXTURE_TIP_AIR": f"{dock_fixture_pilot_depth - dock_fixture_screw_projection:.4g}",
-        "DOCK_LOCK_WASHERS": f"{dock_keeper_screws_per_build:.4g}",
-        "DOCK_LOCK_WASHERS_COST": pack_line_cost(dock_keeper_screws_per_build, "7.82", 200),
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
@@ -640,11 +630,6 @@ def main(*, only_bom=False):
         "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g}",
         "POGO_THREAD_ENGAGEMENT": f"{max(0.0, min(_enc.pogo_heatset_len, _enc._pogo.EAR_FACE + _enc.pogo_screw_len - _enc._pogo.ear_back() - _enc.pogo_heatset_setback)):.4g}",
         "POGO_SCREW_TIP_AIR": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pogo_heatset_len + _enc.pogo_heatset_relief - _enc._pogo.EAR_FACE - _enc.pogo_screw_len:.4g}",
-        "DOCK_KEEPER_PILOT_DEPTH": f"{_enc._dock.KEEPER_BOSS_THICKNESS:.4g}",
-        "DOCK_KEEPER_THREAD": f"{dock_keeper_screw_projection:.4g}",
-        "DOCK_KEEPER_TIP_AIR": f"{dock_keeper_tip_air:.4g}",
-        "DOCK_KEEPER_WALL_BACKING": f"{_enc._receiver.WALL_THICKNESS - _enc._dock.KEEPER_COUNTERBORE_DEPTH:.4g}",
-        "DOCK_KEEPER_HEAD_RECESS": f"{_enc._dock.KEEPER_COUNTERBORE_DEPTH - _enc._dock.LOCK_WASHER_T - 3.0:.4g}",
         "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
@@ -714,7 +699,7 @@ def main(*, only_bom=False):
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
-            "DOCK_LOCKS": f"{dock_keeper_screws_per_build + dock_fixture_locks_per_build:.4g}",
+            "DOCK_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
             "C14_SCREWS": f"{c14_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",

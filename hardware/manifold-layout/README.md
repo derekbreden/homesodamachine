@@ -200,9 +200,9 @@ Both pumps ride out on the cartridge. Each pump head's own housing clamps its tw
 carries their insertion and withdrawal reactions into the head, which the cradle and cap
 hold. The stubs enter TPU funnels and six-millimetre tight lands. The wall locates each
 permanent junction in X/Z and a flat interior keeper captures Y. Stub tips remain 0.50 mm
-short of their stops with the cartridge on its outboard stop lands. Broad cartridge and wall planes have 0.250 mm clearance.
+short of their stops with the cartridge on its meeting magnet poles. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the flat keepers, the return block and the bonded
+The complete enclosure assembly supplies the flat keepers, the return block and the printed-in
 SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 

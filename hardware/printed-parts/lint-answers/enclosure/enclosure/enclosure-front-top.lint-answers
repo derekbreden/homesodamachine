@@ -1,43 +1,10 @@
-[step] Specific positive body-stop interface: four flat 4 × 12 mm lands stand 0.250 mm fore of the fixed wall, ending exactly at the lower cartridge aft plane Y82.265. Their 48 mm² faces establish the cartridge pose and carry both insertion reaction and seating moments independently of magnet faces and TPU tip stops. body-stop-native-review.json reads all four actual final bearing faces, 3 mm integral root stock, positive overtravel reaction and cartridge/cap withdrawal.
-alternatives: Making the land flush leaves the cartridge without its positive stop across the required 0.250 mm body air. Advancing the whole wall to the bearing plane removes that running clearance through the cap and fluid interfaces. A separate shim or adjustable screw adds factory parts and another seating datum. The localized flat lands preserve the named lower-cradle contact planes.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-100.000 y=82.265 z=223.925
-
-[sliver] Specific mating-stop perimeter: the 0.250 mm strip is the exposed fore projection of each 4 × 12 mm body-stop face across the cartridge/wall running gap. The current native review measures the complete 48 mm² reaction face and 3 mm root behind the wall at each station; 0.250 mm is the required stop offset, not a membrane thickness. These edges finish the four explicit lower-cradle seating planes.
-alternatives: Removing the projection loses positive seating across the body air. Enlarging its Y projection changes the closing pose and both magnet/contact datums. Extending the wall across the whole gap removes required cap/fluid clearance. A perimeter bevel changes the stated full rectangular contact area; it does not provide a thicker through-wall section.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.000 y=82.390 z=223.925
-click: x=98.000 y=82.390 z=266.174
-click: x=-102.000 y=82.390 z=223.925
-click: x=-102.000 y=82.390 z=266.174
-click: x=-98.000 y=82.390 z=223.925
-click: x=-98.000 y=82.390 z=266.174
-click: x=102.000 y=82.390 z=223.925
-click: x=102.000 y=82.390 z=266.174
-click: x=-100.000 y=82.390 z=260.174
-click: x=100.000 y=82.390 z=260.174
-click: x=-100.000 y=82.390 z=217.925
-click: x=100.000 y=82.390 z=217.925
-click: x=-100.000 y=82.390 z=229.925
-click: x=100.000 y=82.390 z=229.925
-click: x=-100.000 y=82.390 z=272.174
-click: x=100.000 y=82.390 z=272.174
-
-[ledge] Specific mating-stop lower end: each 1.00 mm² horizontal face closes the 0.250 mm fore projection of a 4 × 12 mm flat reaction land. Its depth is fixed by the required cartridge/wall running gap and its fore edge by the lower-cradle seating plane. The full 48 mm² stop faces and 3 mm roots are measured in body-stop-native-review.json. Tree (auto)/Default support can approach through the empty bay before the cartridge is fitted; removal quality remains unqualified.
-alternatives: Bevelling through the fore edge reduces the full rectangular reaction face and changes its lower edge. Filling below that face extends the stop into a different cradle contact region. Removing the projection loses seating across the 0.250 mm air; advancing the entire wall removes the running clearance. Keep the four bounded flat contact lands.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-100.667 y=82.432 z=260.174
-click: x=99.333 y=82.432 z=260.174
-click: x=-100.667 y=82.432 z=217.925
-click: x=99.333 y=82.432 z=217.925
-
 [sliver] Required purchased-body / insert-loading depth transition. These 0.850 mm face strips join the 4.30 mm-high body/ear stadium and the 2.60 mm-high knurl-loading stadium, each with the separate supported-face allowance, at body-cavity end Y86.790. The source retains 3.10 mm axial root allowance between body depth 4.15 and heat-set anchor 7.25. Exact native rejection witnesses show that extending the body cavity to the anchor removes both 3.10 mm material lines and opens cavity points only 1.427773 mm from the nominal Ø2.3 knurls, below the specified 3 mm root. The strip width is not a 0.850 mm through-wall allowance. Printed loading and screw retention remain separately unqualified.
 alternatives: A straight 45-degree reconciliation of the 0.85 mm profile-height change requires 0.85 mm additional axial run, leaving 2.25 mm to anchor 7.25; the current 3.10 mm stack has only 0.10 mm beyond its 3 mm minimum. Extending the complete body-height cavity loses the quantified root. Enlarging the loading aperture through the full ear width spends the ear bearing at depth 3.00. Moving inserts deeper changes the 8 mm screw stack and loading-tool access.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-6.442 y=86.790 z=277.499
 click: x=6.442 y=86.790 z=277.499
 
-[ceiling] Purchased connector body/ear seat roof. This closed ceiling follows the complete body envelope with slip and the separate supported-face allowance. The ear bearing remains at depth 3.00, the body cavity at depth 4.15 and the insert anchor at depth 7.25. Tree(auto)/Default support reaches it from the empty contact opening before hardware installation. Printed cleanup, fit and retention are unqualified; accessible support alone does not establish removal effort.
+[ceiling] Purchased connector body/ear seat roof. This closed ceiling follows the complete body envelope with slip and the separate supported-face allowance. The ear bearing remains at depth 3.00, the body cavity at depth 4.15 and the insert anchor at depth 5.00. Tree(auto)/Default support reaches it from the empty contact opening before hardware installation. Printed cleanup, fit and retention are unqualified; accessible support alone does not establish removal effort.
 alternatives: Sloping down into the source stadium consumes the purchased body clearance. A one-direction 45-degree rise over the 4.15 mm body depth consumes 4.15 of the current 6.75 mm to the crown, leaving 2.60 mm rather than the nominal 3 mm. A two-sided pitched relief could limit the rise to about 2.075 mm but would change the complete body-capture, insert-loading and adjoining lead-bore profiles; that alternative has not received an exact native or print review. Removing the roof opens the body seat through the retained crown.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=84.653 z=277.924
@@ -62,18 +29,6 @@ alternatives: Filling beneath the roof enters cartridge travel. Sloping its full
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=43.757 z=284.674
 
-[ceiling] These Z272.500 flats close the upper Y-seam insert hosts above the existing tube corridor. The source-declared pilot and surrounding host remain inside the rechecked native windows. Support approaches through the open interior before assembly; physical cleanup remains unqualified.
-alternatives: A corbel below the block enters the tube corridor. Cutting upward spends the insert host or its blind cap.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-95.000 y=207.400 z=272.500
-click: x=95.000 y=207.400 z=272.500
-
-[ceiling] The Z195.800 roofs preserve the nominal 0.750 mm gap to the opposing back-top hubs at Z195.050, including the prescribed running and supported-face allowances. Their finite native windows are unchanged. Support leaves through the open corner before assembly; physical cleanup remains unqualified.
-alternatives: Filling below the roof enters hub travel. Cutting above the roof removes the corner root joining the insert stack to the rail storey.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-101.375 y=208.900 z=195.800
-click: x=101.375 y=208.900 z=195.800
-
 [ceiling] The manifold-B connector well retains its complete flat lid at Z261.400/Y169.000. It captures the connector across the pocket width; support approaches through the empty inboard pocket before connector installation. Printed fit and removal effort remain unqualified.
 alternatives: Removing the lid removes connector capture. Filling or sloping into the well enters the connector and open-lever envelope. Tabs require a different retention profile and support treatment.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -95,6 +50,7 @@ click: x=98.300 y=161.617 z=295.300
 alternatives: The reader should not rank a closest point that lies on the edge where the opposite face ends. Moving either face off the shared frame datum adds a 0.25 mm step between fitted faces.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-104.250 y=200.029 z=299.301
+click: x=104.250 y=200.029 z=299.301
 
 [thin] Wrong material-thickness classification at an inside pocket corner: each pair joins the world-vertical support exit's fore face (Y19.132) to the seating-floor vertex where the inset's R6.15 lower round crosses the exit's inboard plane |X|62.65; the normals are exactly 120° apart and the material between is the inset's solid corner surround. Rays from the pair cross 9.1 mm and 6.2 mm of material (probe on the current STL). The real section here is the 1.80 mm wing-retention lip (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
 alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
@@ -154,11 +110,3 @@ click: x=97.675 y=177.006 z=298.300
 alternatives: A 45-degree corbel from the wall to the plate's far edge roots at Z220.475, 2.05–5.05 mm inside the keepers' route. A 45-degree cut through the plate's lower aft corner opens the four valve port channels. A flat floor needs support across the whole 5.7 mm strip. Moving the tray moves its four valves and their links.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=93.415 z=227.225
-
-[thin] The lint is wrong at its strict 3 mm threshold: these are the four nominal 3 mm blind caps behind the round M1.4 pilots. Each Ø2 pilot ends flat at Y95.390 and the contact stock's aft face stands at Y98.390; native chords through each cap along its pilot axis measure 3.000000 mm. The heat-set audit holds each cap closed behind its pilot.
-alternatives: A cap thicker than nominal carries the contact stock 3 mm or more past the frame's Y96.836 plane, which also turns that stock's 1.554 mm step strips into whole faces, but moves the stock toward the fore tray's valves that the fixed contact-stock review clears; that change is raised with Derek, not made here. A shorter pilot spends the 1.5 mm relief beyond the insert.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-11.159 y=95.390 z=275.866
-click: x=-11.060 y=98.390 z=275.039
-click: x=9.281 y=95.390 z=275.866
-click: x=9.866 y=98.390 z=275.368

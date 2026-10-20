@@ -2,7 +2,7 @@
 
 Each case: the load, its path, the feature that governs it, a hand-calculation margin and a
 verdict, for the enclosure at `fbc3e5dd3` and its regenerated quadrants. Physical evidence is in
-the [register](README.md). The pump dock's cradles, covers, keeper fixtures and TPU keys are
+the [register](README.md). The pump dock's keepers, return block and TPU wet parts are
 outside this review.
 
 ## Basis and assumptions
@@ -30,24 +30,24 @@ outside this review.
 | Compressor posts, vertical rebound | 4.5 kg × deceleration | Grommet top flange → washer → M5 screw → RX-M5x9.5 pull-out | 276 N per insert at 25 g, 552 N at 50 g | Adequate to about 50 g on an assumed 1 kN insert pull-out; drop acceptance is the evidence |
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
 | M1.4 connector inserts | Connector magnets plus four 0.44 N springs | Ear plate → two M1.4×8 → M1.4×4 inserts per half | Under 10 N per half | Adequate; installation access is the open item ([mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md)) |
-| Cartridge magnetic capture vs blocked-fill pressure | 34.9 N on one pump's port pair at 80 psi ([pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)) | Eight SB443-IN pairs, one four-pair column on each pump's own line, bare poles bonded to meet across the body air | 60.9 N for that pump's column alone at the catalogue steel rating: 1.74, over the 1.5 screen | Adequate on its own line; physical qualification planned at the dock |
+| Cartridge magnetic capture vs blocked-fill pressure | 34.9 N on one pump's port pair at 80 psi ([pressure review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)) | Eight SB443-IN pairs, one four-pair column on each pump's own line, printed in on rails, bare poles meeting across the body air | 60.9 N for that pump's column alone at the catalogue steel rating: 1.74, over the 1.5 screen | Adequate on its own line; physical qualification planned at the dock |
 | Pogo contact current | Pump start and jam current, held at the trip | DRV8870 current regulation through the 0.2 Ω sense resistor on each ISEN (R28, R29) | 1.54–1.81 A against 2 A: 1.10 at the ceiling; 1.65 A nominal, about twice the 0.8 A running current | Adequate in the board source; the start under the trip needs a physical observation; see below |
 
 ## Y-seam head recesses
 
-The four M5 seam screws seat in Ø9 recesses, head only, their faces 3 mm inside the handhold
-ceiling and the roof; the head floors stay at Z37.25 and Z347. The upper axes stand at |X|97.5,
-10 mm in from the exterior, and their M5 insert envelope stays 0.2 mm inside front-top's 13 mm
-knuckle face. The lower axes stand at |X|98.25, where the head passes the handhold's 3 mm inner
+The four M5 seam screws seat in Ø9 openings, their head floors at Z40.8 and Z347: the lower
+heads' faces stand 6.55 mm above the handhold ceiling, the upper 3 mm inside the roof. The upper
+axes stand at |X|97.7, 9.8 mm in from the exterior, and their M5 insert envelope stays 0.4 mm
+inside front-top's 13 mm knuckle face. The lower axes stand at |X|98.25, where the head passes the handhold's 3 mm inner
 wall, which stands 0.25 mm off the cold core.
 
 Each recess stands inside an R6 roll whose additive print chamfer, 0.5 mm outward per mm of
 rise, meets the ceiling and roof planes at |X|105.21: the roof's side shoulder over the upper
-recesses, the handhold's lifting edge under the lower ones. The upper outboard rim is 3.2 mm at
+recesses, the handhold's lifting edge under the lower ones. The upper outboard rim is 3.0 mm at
 the roof plane. The lower one is 2.46 mm at the ceiling plane and reaches 3 mm about 1.2 mm
 above it; 3 mm at the plane needs the handhold roll at R4.5, and Derek asked on 2026-09-19 that
-the bottom grips match the top's rounding. That rim's lint row is answered as pending his
-decision.
+the bottom grips match the top's rounding, so the roll stays R6 and the rim's lint row is
+answered with R4.5 as the alternative.
 
 **Bearing.** The head bears 32.1 mm² on its floor, compression across layers. A hand-snug seat
 of 0.5–1 N·m gives 500–1,000 N and 16–31 MPa, inside the assumed 50 MPa. At 2 N·m it reaches

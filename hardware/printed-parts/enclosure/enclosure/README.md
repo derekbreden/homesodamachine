@@ -24,7 +24,7 @@ clash in `pack-closes` at the body that overran.
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_band_inset` in from the wall **where it meets one of the
   seam's corner stacks in depth and in height** (`seam_bosses`), leaving every knuckle its
-  full section. The lower stacks stand from the slab to back-top's hub over the Z seam; the
+  full section. The lower stacks stand from the slab to the Z seam; the
   upper ones from their floor to the ceiling. Outside those footprints the band is air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
@@ -101,98 +101,61 @@ other's overlap, alternating up the corner, with two vertical M5 screws through 
 (`_y_stacks`). A front knuckle roots [3 mm](Y_STACK_FRONT_ROOT) fore of the seam in its own
 flank and runs aft one running fit inside the back piece's skin; a back knuckle grows out of
 that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
-overlap and the [14 mm](SIDE_BAND) side band. The lower axes stand at |X|98.25,
-[9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior; the upper axes stand at |X|97.5,
-[10 mm](Y_STACK_AXIS_OUT) in. All four are mid-overlap in Y. The lower blocks reach
-13.75 mm inward from `interior_x`, leaving 0.25 mm to the cold core's flank.
+overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
 
-- **The lower stack** runs from the handhold ceiling at Z[29.25](Y_STACK_CEILING) to back-top's
-  **hub** over the lip rim: back-bottom, front-bottom, back-bottom, front-bottom, then the hub
-  at Z[175.05..195.05](Y_STACK_HUB). Front-bottom's first block starts at Z66.2;
-  its top block ends at Z174.696447, 0.353553 mm below that hub. The same retreat gives
-  0.25 mm measured normal to front-top's adjacent 45° rail bedding. An [M5 × 150](LOWER_ROD) drives up from the handhold
-  ceiling, its head recessed into back-bottom's knuckle, through every
-  knuckle into a ruthex RX-M5x9.5 set in the hub's underside. The screw captures both bottom
-  pieces at the corner and anchors them to back-top; the Z rails retain back-top vertically.
-  The hub stands where back-top's notch
-  roof already stands over the back rail's heads, so it slides fore over them as back-top
-  goes on.
+- **The lower stack** is a three-knuckle hinge inside the bottom pieces: back-bottom's
+  knuckle over the handhold, front-bottom's, and back-bottom's under the Z seam. An
+  [M5 × 120](LOWER_ROD) drives up from the handhold ceiling at Z[29.25](Y_STACK_CEILING),
+  its head in the lower back knuckle, through front-bottom's knuckle into a ruthex RX-M5x9.5
+  pressed into the top of the upper back knuckle, flush with the Z seam; its tip stands just
+  past the insert's open top. Back-bottom holds the screw at both ends and front-bottom's
+  knuckle hangs on it between them, so a pull that opens the seam meets the screw at two
+  faces, both on its plain shank, one wall below its 22 mm of thread. Nothing of either
+  bottom stands above the Z seam.
 - **The upper stack** stands under the roof, over the tap-water line on the −X flank:
-  front-top's knuckle from Z[272.5](Y_STACK_UPPER_FLOOR) to its insert mouth at Z299.65,
-  and back-top's from Z[299.9](Y_STACK_DATUM) to the roof, with 0.25 mm between them.
-  The frame slides into front-top from the seam end above the front-top block. An
-  [M5 × 60](UPPER_ROD) drives down from back-top's roof into an insert in front-top's knuckle,
-  so tightening it holds front-top up against back-top; that also locks front-top's slide.
-  Front-top's knuckle gives its inboard-aft edge a 5.1 mm, 45° chamfer for the flavour line that turns
-  past the −X corner under the frame (`y_stack_upper_chamfer`).
+  front-top's knuckle, rooted on its lip band at Z[272.5](Y_STACK_UPPER_FLOOR), up to its
+  insert's mouth, and back-top's from Z[299.9](Y_STACK_DATUM) to the roof. An
+  [M5 × 60](UPPER_ROD) drives down from back-top's roof into the insert, so tightening it
+  holds front-top up against back-top, which also locks front-top's slide. Front-top's −X
+  knuckle gives its inboard-aft edge a 5.1 mm, 45° chamfer to the flavour line that turns
+  past that corner under the frame (`y_stack_upper_chamfer`).
 
-All PET-GF-to-PET-GF faces between blocks require their applicable static or sliding fit and
-the allowance for each supported surface, including faces loaded when the screws seat.
-The middle bottom-piece gaps are [0.5 mm](Y_STACK_GAP).
-The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. The M5 insert and
-its manufacturer minimum surrounding stock, [Ø11.6](Y_STACK_INSERT_BOSS) about the screw
-axis, fit inside the side band.
+No knuckle needs support. Each face that prints facing down rises 45° off its own piece's
+stock: front-bottom's knuckle rises aft off its handhold roof, back-bottom's upper knuckle
+rises inboard off its skin and front-top's rises inboard off its lip band; back-top prints on
+its roof. The slopes run across the slide or close as the front half slides aft, and a top
+that rises toward a free face levels off one wall short of it. Every face between knuckles
+keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face, including the two
+the upper screw pulls together.
 
-Each screw head bears directly on a printed floor.
-The [Ø9 × 8 mm](Y_STACK_CBORE) head recess is U-shaped and open toward the enclosure
-interior, with a complete head-bearing floor. The lower floor is Z37.25 and the upper
-floor is Z347. The head faces stand 3 mm inside the handhold ceiling and roof.
-The [native insert audit](heat-set-review/geometry-check.json) records insert hosts
-and screw pockets for its listed source and STEP hashes. At those nominal CAD part poses,
-the ±0.8 mm screw-length allowance leaves all four seam screws with the full 9.5 mm
-insert engagement and at least 1.7 mm of blind-tip room.
-The screw passages are printed to size.
-Seat the heads with a hand-operated 4 mm hex key and stop when they meet their floors.
-The printed joint has no qualified installation torque or retained clamping force.
+The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. Each insert and
+the manufacturer's minimum stock round it, [Ø11.6](Y_STACK_INSERT_BOSS) about the axis, fit
+inside the side band. The lower axes stand [9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior,
+where the head passes the handhold's inner wall on its way up; the upper axes
+[9.8 mm](Y_STACK_AXIS_OUT), which leaves 3 mm outboard of the roof opening and 3 mm inboard
+of front-top's insert. Each head bears on a printed floor in a Ø9 opening,
+[11.55 mm](Y_STACK_LOWER_CBORE) up into the handhold ceiling and [8 mm](Y_STACK_CBORE) down
+into the roof. The lower opening ends on the plane of the handhold's inner wall; the upper
+one runs on into the funnel opening. Seat the heads with a 4 mm hex key and stop when they
+meet their floors; the printed joint has no qualified installation torque.
 
-**Head mouths at the R6 rolls:** the roof's side roll and its additive print chamfer stand
-outboard of the upper recesses, which keep a 3.2 mm outboard rim at the roof plane. The
-handhold's lifting-edge roll stands outboard of the lower recesses; their outboard rim is
-2.46 mm at the ceiling plane and reaches 3 mm about 1.2 mm above it. Both recesses keep a
-complete 3 mm section below their head-bearing floors, and the flank's flutes keep 3 mm of
-backing behind every groove outboard of the lower recess.
+**The lower opening and the handhold's lip:** the lip's R6 roll and its print chamfer take
+the first 2.29 mm of the lifting ceiling from the outer face, and the lower opening begins
+4.75 mm in, so 2.46 mm of flat ceiling stands between them; 1.2 mm above the ceiling the
+stock between the opening and the roll is 3 mm. The opening cannot move inboard: the head
+passes the handhold's inner wall with 0.14 mm to spare, and that wall stands 0.25 mm off the
+cold core.
 
-The [native fit review](y-seam-fit-review.json) binds 237 finite patches in nine targeted
-stages to its identified exports: quadrant and frame faces, hardware stock, pump-cartridge
-interfaces, nameplate and DATA receivers, bulkhead rings, window covers, tee carrier,
-the 45° bedding edge and the core's five external printed bodies. Its observations
-retain those source and artifact scopes and do not qualify the permanent TPU dock. Every measured finite patch meets its
-applicable static or running allowance, including the allowance for each supported face.
-The native tolerance is 0.00001 mm. The review retains exact witnesses, complete local
-stock checks and the standalone quadrant survey. The [cradle finish](cradle-finish-review.json)
-binds the canonical body to its measured lower-mouth candidate by native equality. Its lower
-mouth is open aft of local Y15.5; the forward elbow-following pocket retains 302.779 mm²
-of native surface. This is pocket area, not loaded contact. Protected upper-body and hook/leaf
-equality, the unchanged frame and the actual silicone preserve the identified hook gaps,
-webs and upper bearing measurements. Earlier route readings remain conservative lower
-bounds under the measured cradle-subset chain; their original input and model scopes are retained.
-The 35 insert-station measurements and 14 finished-knuckle queries retain their original
-artifact scope. The current integrity stage measures the four M5 hosts and four head
-floors; it does not refresh screw engagement or blind-tip reserve. Surface finish and
-load capacity require their own evidence.
-The [native seam and frame review](y-seam-plain-review.json) retains its artifact-scoped closed
-parts, complete funnel-brim bearing and sampled straight assembly motions. The
-[frame motion record](../../zone-c/funnel/integration-review/rail-motion-check.json)
-records frame insertion and capture. Their source hashes define the checked geometry;
-physical fit and support removal remain separate observations.
+Remove the two upper screws to free front-top, which draws fore off its rails. Removing all
+four lets the halves part. The upper screws need about 60 mm of clear space above the roof,
+the lower screws about 125 mm below the enclosure with the flank supported over the bench
+edge. The handhold's inner wall over the seam is front-bottom's, standing on its own floor
+tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
+(`_handhold_frame`).
 
-The [manual finish review](finish-lint-review.json) retains the raw post-publication lint
-and explanations for the functional faces at its recorded STL hashes. Six undefined
-numerical diagnostics remain unresolved. Its quadrant scope covers five face classes;
-whole-quadrant thin sampling is not included.
-
-Remove the two upper screws to free front-top, which draws fore off its rails. Removing
-all four lets the halves part. The upper screws need about 60 mm of clear space above
-the roof for insertion and withdrawal. The lower screws need about 120 mm below the
-enclosure, with the flank supported over the bench edge. The handhold's inner wall over the seam is front-bottom's, standing on
-its own floor tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
-(`_handhold_frame`). The [heat-set review](heat-set-review/README.md) checks every knuckle's
-whole section and the four M5 insert envelopes.
-
-An edge-first drop that opens the lower Y seam loads the lower screws and the knuckles they pass
-in bearing. The floor tongue supplies no tensile interlock. Drop
-resistance requires assembled physical qualification; native solid volume and the saved 15%
-general infill do not establish that capacity.
+A drop that opens the Y seam loads the screws in shear at the faces between knuckles: two
+per lower corner, one per upper corner. The floor tongue supplies no tensile interlock. Drop
+resistance requires assembled physical qualification.
 
 ## Exterior disposal warning
 
@@ -266,9 +229,9 @@ plane. The exterior transition ends at |X|105.208, leaving 11.458 mm of flat cen
 lifting-ceiling depth before the screw-pocket openings. The block's 13.75 mm reach
 uses a different reference, `interior_x`; it includes the retained blind wall.
 The floor tongue continues across the middle of the enclosure. The lower seam screws drive up
-through the handhold ceilings. Each head sits inside an inward-open pocket, its face
-3 mm above the finger surface. The openings remain exposed during use; the head-bearing
-floors and screw seating planes retain their full sections.
+through the handhold ceilings. Each head sits in an opening that ends on the inner wall's
+finger-facing plane, its face 6.55 mm above the finger surface. The openings remain exposed
+during use.
 
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
@@ -1430,8 +1393,9 @@ less its [0.25 mm](CARTRIDGE_BULKHEAD_KISS) clearance, the plane the clamp ends 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
 (`build_pump_cap`) is [174.4 mm](CLAMP_SPAN) across and [67.249 mm](CLAMP_RISE) high. Its bridge underside
 stands at z [216.93 mm](CLAMP_BASE_Z), [2 mm](CLAMP_BRIDGE_RISE) above the holder datum.
-The fitted cylindrical motor bores are Ø37 mm. Above their upper ends, two
-[45 mm](CLAMP_TERMINAL_OPENING) open wells leave the motor ends and terminal pairs exposed.
+The fitted cylindrical motor bores are Ø37 mm. Above its upper end, each opens through the
+crown as a 45° cone, [47.5 mm](CLAMP_TERMINAL_OPENING) across at the crown, leaving the motor
+end and its terminal pair exposed.
 One filled field spans both pump heads from their clean
 fore envelope to the cartridge's flat back and reaches one common crown at z
 [284.17 mm](CLAMP_CROWN_Z), with [0.5 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
@@ -1479,12 +1443,14 @@ transfer a stub.
 The stubs enter [4](RECEIVER_COUNT) custom TPU funnels followed by
 Ø[6.1 mm](DOCK_SEAL_BORE), [6 mm](DOCK_LAND) straight sealing lands. The rigid wall
 locates the receivers in X/Z. Their recessed collars fit in the wall, and
-[4](KEEPER_COUNT) flat PET-GF keepers slide down the interior guides to capture Y.
-Each keeper is [3 mm](DOCK_KEEPER_T) thick with
-[0.35 mm](DOCK_KEEPER_RADIAL_AIR) nominal radial room around its receiver neck and
-one factory-only M3×8 lock screw and Ø7 × 0.5 mm DIN 125A washer into an RX-M3Sx4.0
-insert. The keeper seats against a broad integral wall land with 0.15 mm clearance
-over the remaining wall face. Each receiver is a complete asymmetric Y with
+[3](KEEPER_COUNT) flat PET-GF keepers capture Y: one for each outer receiver and one for
+the inner pair, the magnet column between each pump's ports dividing the wall into three
+bays. Each keeper is [3 mm](DOCK_KEEPER_T) thick and slides up its slot behind the wall's
+interior face from the seam, [0.25 mm](DOCK_KEEPER_SLIDE_AIR) from each slot face, until
+each [11.7 mm](DOCK_NECK) receiver neck snaps through its keyhole's
+[10.4 mm](DOCK_NECK_MOUTH) mouth into the [11.9 mm](DOCK_NECK_GRIP) grip. The slot's faces
+back the keeper both ways in Y and the TPU neck holds it in X and Z; no screw, insert or
+washer. Each receiver is a complete asymmetric Y with
 90° between its pump inlet and upper branch, with a nominal 135° lower branch.
 Its upper link is straight. A one-piece compound TPU return supplies the lower
 45° and 90° turns, with straight LLDPE between the junction and return and a
@@ -1495,8 +1461,7 @@ per return, narrower than the TPU body, with a round seat along the return's pat
 hold the block's top face to the aft tray foot. All permanent plumbing is
 assembled on loose front-top before that piece joins the compressor half.
 
-Dedicated outboard PET-GF stop lands bear on the retained lower-cradle stock and
-set full insertion, with the stub tips
+The meeting magnet poles set full insertion, with the stub tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
 A straight pull withdraws the four stubs while every junction, keeper, return,
@@ -1504,15 +1469,14 @@ the return block and every fixed tube remain in place. No commercial collet move
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, tube setting jig and material selections.
 
-**Bare-pole SB443-IN pairs retain the seated cartridge.**
+**Printed-in SB443-IN pairs seat and retain the cartridge.**
 [16](DOCK_MAGNET_COUNT) magnets stand in one [4](DOCK_MAGNET_ROWS)-high column on each
-pump's own load line in each half. Each column is bonded with 3M DP420 Off-White in one
-plain pocket per part; each block's side grooves key it into the cured bedding. The
-fixed blocks bottom in their pockets, and the moving blocks cure against them with the
-rigid stop lands seated, so nominal pocket clearance does not determine their final
-axial position. The [magnet record](../pump-dock/magnet-retention.md) describes that
-factory operation.
-Installed holding force, mount capacity and heat exposure remain physical
+pump's own load line in each half. Each column is one slot open at the mating face, with a
+printed rail standing in each of the blocks' side grooves; the blocks drop down the rails at
+the part's one print pause and the next layer closes over them. Pulled onto its rails, each
+pole stands 0.125 mm proud of its face, so the poles meet in the middle of the 0.25 mm gap
+and seat the cartridge. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
+the pause and the loading. Installed holding force and the printed rails' fit remain physical
 qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
@@ -1561,8 +1525,8 @@ complete dock's physical qualification are specified in
 One opening spans the full cartridge width between the bay floor and lintel. Both
 rounded front corners and the exterior flanks belong to the removable cradle. Its
 straight aft face follows the bay bulkhead across the complete width with
-[0.25 mm](CARTRIDGE_BULKHEAD_KISS) broad-face clearance. The dedicated outboard
-stop lands contact the lower cradle and establish the closing datum.
+[0.25 mm](CARTRIDGE_BULKHEAD_KISS) broad-face clearance. The meeting magnet poles
+establish the closing datum.
 
 The cradle's exterior stands plumb from its common bed plane to
 [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The fixed shell perimeter is recessed
@@ -1640,7 +1604,7 @@ surface, region by region.
 
 The geometry in `printed-parts/enclosure/pump-tray/` supplies the fitted boss and motor
 openings. The cap has one broad underside and two screw counterbores. Its surrounding crown
-is level with the cartridge top; two open wells leave the motor ends and terminal pairs exposed.
+is level with the cartridge top; two conical wells leave the motor ends and terminal pairs exposed.
 The screw seats and lower fitted surfaces remain on their holder datums.
 
 Derek confirms the existing assembled cartridge and cap hold both pumps firmly with no vertical
@@ -1668,11 +1632,12 @@ uses those fitted profiles for the boss openings and Ø37 mm motor bores.
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. Each hand pocket's
 flat roof takes support removable through the open side. The pump wells remain open above.
+The print pauses once, before the layer over the two magnet slots.
 **The top clamp prints on its crown** (`print_up` is −1 for `pump-cap`). Its boss
-octagons open upward through the underside. Each motor bore opens into a Ø45 mm terminal
-well through the crown. The annular transition has a straight support-removal path through
-that open well; each screw-head seat is accessible through its counterbore mouth on the
-crown. Each native preparation must record its support contacts and removal paths at those regions.
+octagons open upward through the underside. Each motor bore opens through the crown in a
+45° cone that the print builds without support; each screw-head seat is accessible through
+its counterbore mouth on the crown. Each native preparation must record its support contacts
+and removal paths at those regions.
 
 ## Cartridge contacts
 
@@ -1693,7 +1658,7 @@ The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) cove
 the current exported seats, drawing tolerances and physical evidence. The purchased
 connector halves contain their own magnets. The separate eight-pair
 [SB443-IN dock array](../pump-dock/magnet-retention.md) acts at the four fluid-port
-row, with its moving faces bonded against the fixed ones in the seated frame. Its retention does
+row, its bare poles meeting at the cartridge's seat. Its retention does
 not establish pin compression or electrical continuity. The
 [RC62 ring-magnet print records](magnet-retention/README.md) retain their identified
 pocket, covering-layer and rattle scopes; they do not qualify the SB443-IN mounts.
@@ -1717,10 +1682,11 @@ lands on, 3.125 mm behind the printed host face. The
 body's stadium continues behind it, and the tails and their solder joints stand in the lead
 passage behind that. Two M1.4 × 8 socket-head screws pass the
 ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
-[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 4.25 mm behind the ear datum, or 7.375 mm
+[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 2 mm behind the ear datum, or 5.125 mm
 inside the printed host face. A 2.6 mm wide loading stadium admits the entire knurl through that
-setback. The full insert occupies depths 7.375–11.375 mm, the pilot ends at 12.875 mm,
-and the M1.4×8 tip ends at 10.125 mm, giving 2.75 mm thread engagement and blind-tip room. Each head stands
+setback. The full insert occupies depths 5.125–9.125 mm, the pilot ends at 10.625 mm,
+and the M1.4×8 tip ends at 10.125 mm, engaging the whole 4 mm insert with 0.5 mm of
+blind-tip room. Each head stands
 [0.6 mm](POGO_HEAD_RECESS) behind the recessed connector face. Install the inserts before the half goes in, using the recessed-seat
 procedure in [enclosure assembly](../../../assembly/enclosure-mechanical.md).
 The supplier specifies the insert body, without a host-wall or hole-depth rule;
@@ -1728,8 +1694,8 @@ The supplier specifies the insert body, without a host-wall or hole-depth rule;
 
 **Both seats are horizontal pockets.** Front-top builds in +Z and the clamp prints on its
 crown, so each seat roof spans the mouth's 23.7 mm length along X between its round ends, with the
-supported-surface allowance on the face that looks print-up. The insert bores are round and
-carry the same allowance.
+supported-surface allowance on the face that looks print-up. The insert pilots are plain
+round Ø2 holes, so each knurl has stock all round it.
 
 **The leads leave by the routes each print allows.** Behind the male, one
 [Ø11 mm](POGO_LEAD_BORE) teardrop bore starts at the body's back and runs through the bulkhead to

@@ -35,22 +35,25 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 
 | Editable project | Native filament (g) | Native time (h:mm:ss) |
 | --- | ---: | ---: |
-| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.108 | 1:51:11 |
+| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.045 | 1:49:26 |
 | [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.664 | 1:54:51 |
-| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.216 | 1:51:46 |
+| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.024 | 1:49:11 |
 | [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:06 |
-| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.216 | 1:51:46 |
+| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.024 | 1:49:11 |
 | [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:06 |
-| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.107 | 1:51:03 |
+| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.054 | 1:49:38 |
 | [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.662 | 1:54:50 |
-| **All eight** | **57.297** | **14:27:39** |
+| **All eight** | **56.798** | **14:19:19** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and
-project hashes are in the [native review](native-review.json). They do not include
-the five PET-GF dock parts. No printer was contacted or launched.
+project hashes are in the [native review](native-review.json). The four returns' emitted-path
+readings bind their current G-code; the four junctions' readings are taken on their
+current G-code before a junction print. They do not include
+the four PET-GF dock parts. No printer was contacted or launched.
 
 The retained wet recipe requests six walls and 100% infill. The parts carry no
-mounting keys: the return block holds each return by its round body.
+keys: the return block holds each return by its round body, and each junction's
+neck snaps into its flat keeper.
 
 The blocker is the vertical projection of the actual wet passage, expanded
 0.65 mm in XY and extended from 2 mm below the bed to 2 mm above the part. It

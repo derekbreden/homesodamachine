@@ -110,7 +110,7 @@ def main():
         "CART_PUMPS": f"{len(decked)}",
         "RECEIVERS": f"{len(plate['holes'])}",
         "RETURNS": f"{len(plate['holes'])}",
-        "KEEPERS": f"{len(plate['holes'])}",
+        "KEEPERS": f"{len(_enc._dock.KEEPERS)}",
         "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
         "CAP_VALVES": f"{len(cap_cradles)}",
         "BOX_TEES": f"{sum(holder(_ml.body_name(n), decked) != RIDES_OUT for n in _ml.PURCHASED_TEES)}",
