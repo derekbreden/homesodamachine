@@ -195,6 +195,16 @@
     },
     "pump-cartridge-cap": {
       "printer": "Mark1",
+      "settings": {
+        "support_object_xy_distance": {
+          "value": "1.0",
+          "reason": "Two bed-rooted tree trunks rise past the flanks into the hand pockets to carry each pull roof. Where a trunk passes the lower hand-pocket rim, the R6 slopes away under the trunk's edge, so a trunk held 0.4 mm off the rim's slice outline still ran its edge beads within a bead radius of the painted rim (clearance down to -0.07 mm, 2026-10-19 Mark1 slices of the 693f9e26 cartridge). 1.0 mm keeps the trunk off the rim's whole slope. Cartridge-cap plate only."
+        },
+        "independent_support_layer_height": {
+          "value": "0",
+          "reason": "Support on the model's own layers: through the 0.08 mm rim band the trunk's beads are 0.08 mm tall instead of 0.28 mm, and the support audit reads each trunk as one bed-rooted body instead of hundreds of one-layer islands. Cartridge-cap plate only."
+        }
+      },
       "spacing_mm": 15,
       "parts": [
         {
