@@ -1,35 +1,35 @@
 {
-  "checked_at_utc": "2026-10-20T07:50:01.782167+00:00",
+  "checked_at_utc": "2026-10-20T14:08:19.812679+00:00",
   "scope": "Post-publication review of the current tooling meshes in their print orientations; manual review, outside generators and builds.",
   "artifacts": {
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "d0e6b38f2bb17048c8784b50ffd82b0f1dcfc50a213260fd6f041b62425add93",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48",
-    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "f5c3b6fc8fc7f21c8edbf0998cf5041287ecd57a1241573ab4947eeb7aa612e8"
-  },
-  "cavity": {
-    "facets": 97474,
-    "findings": 22,
-    "classes": {
-      "step": 1,
-      "sliver": 12,
-      "ceiling": 8,
-      "thin": 1
-    },
-    "retained_features": "Four 1 mm mold-opening entries, eight flat M4 clamp bearings, and one locally reviewed forming corner."
-  },
-  "core": {
-    "facets": 38910,
-    "findings": 4,
-    "classes": {
-      "sliver": 4
-    },
-    "retained_features": "Four 0.30 mm apron finishing-pocket boundaries."
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "240d1b3ba8dade51db4cff52acf1c3a536e820371c4bdf24a4768923702ff148",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "f132445abf1e9691b8da34e05472741880220c30cc1fcebe9fcb476dc4a38078",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "2dfa976c5b21994df151e4c2ec61d2ad0b173c82b6559caa2e56b8e000eb5452",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "a272b5966763bbdb7b2fd4e7c2a0ff1b9953bc6e3482e0bf98e73d97a15dc85c"
   },
   "answers": [
     "hardware/printed-parts/lint-answers/zone-c/funnel-mold/cavity.lint-answers",
     "hardware/printed-parts/lint-answers/zone-c/funnel-mold/core.lint-answers"
   ],
-  "corner_path_review": "corner-path-study/review.json",
-  "physical_status": "Current tooling has no physical casting result; local native paths do not qualify surface accuracy, support removal or water exclusion."
+  "physical_status": "Current tooling has no physical casting result; geometric checks do not qualify surface accuracy, support removal or water exclusion.",
+  "cavity": {
+    "facets": 66378,
+    "findings": 21,
+    "classes": {
+      "step": 1,
+      "sliver": 12,
+      "ceiling": 8
+    },
+    "unanswered": 0,
+    "retained_features": "Four 1 mm mold-opening entries and eight flat M4 clamp bearings."
+  },
+  "core": {
+    "facets": 38904,
+    "findings": 4,
+    "classes": {
+      "sliver": 4
+    },
+    "unanswered": 0,
+    "retained_features": "Four 0.30 mm apron finishing-pocket boundaries."
+  }
 }
