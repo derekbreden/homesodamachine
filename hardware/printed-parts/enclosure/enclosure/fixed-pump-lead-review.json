@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "customer_outcome": "One continuous display-backing wall, with the fixed pump lead unloaded during customer cartridge removal.",
+  "geometry": {
+    "front_top_step_sha256": "e5e150ae8978c2d938306056cedd26af7cba92ce7d4e99e3cd657498082b331e",
+    "assembly_step_sha256": "6779141bd1369f1017739f43352910c836b6da4451868f9645385ccd7322c25a",
+    "valid": true,
+    "solid_count": 1,
+    "flat_display_backing": {
+      "face_y_mm": 92.74999207671873,
+      "flat_root_z_mm": 288.5100079232813,
+      "flat_face_count": 1,
+      "flat_face_area_mm2": 12886.484312493558,
+      "minimum_display_backing_mm": 3.0161321747492877,
+      "missing_flat_wall_witness_mm3": 0.0,
+      "unexpected_aft_stock_mm3": 0.0,
+      "unexpected_flat_wall_witness_mm3": 0.0,
+      "witness_thickness_mm": 0.05
+    },
+    "clip_region_mm": {
+      "xmin": 67.5,
+      "xmax": 87.5,
+      "ymin": 88.74999207671873,
+      "ymax": 100.74999207671873,
+      "zmin": 287.5100079232813,
+      "zmax": 328.5100079232813
+    },
+    "added_material_mm3": 693.0000000000066,
+    "removed_material_mm3": 1863.0000000000055,
+    "added_material_outside_clip_region_mm3": 0.0,
+    "removed_material_outside_clip_region_mm3": 0.0,
+    "enclosure-front-top.stl": "8c4628708d318968180c114e13387d6867a80ccc3ef4bf7a06e584fb7c48a6eb",
+    "enclosure-front-top.step.mesh": "0ac7216f3b39134f7c1b09b3c3837055009860ab1ea813517005314c8c38b305",
+    "reference_front_top_step_sha256": "f91e696d0d5df2b027e7dea903fed68d8805259a04450e907d938b1ecfe232d0"
+  },
+  "mechanical_basis": {
+    "cartridge_separation_load_path": "Contact body and ears to the two M1.4 screws in the fixed bulkhead; the fixed ribbon does not move with the cartridge.",
+    "lead_tension": "Support the free harness while assembling or repairing the appliance. Leave the insulated solder-joint exit relaxed and disconnect J13 by its housing before separating enclosure pieces.",
+    "retention_capacity_claimed": false
+  },
+  "evidence_limits": "No complete installed wire route, physical harness fit, vibration, wire pull-load or lifetime result is claimed. Accepted connector test-piece fit and mating results retain their original scope.",
+  "scope": "Local native wall geometry and the fixed contact load path. Installed harness routing is not qualified by this record.",
+  "routing_review": {
+    "stock": "350 mm 22 AWG 4P silicone ribbon; nominal 6.8 by 1.7 mm section; individual heat-shrink on the four solder joints.",
+    "intended_local_route": "Bulkhead lead bore and crown below the frame, returning through the +X interior cavity clear of the manifold Wago and tube approaches.",
+    "known_constraints": "A straight run at X93.5, Z292.2 from Y104.5 to Y204.5 crosses the manifold Wago and front-top stock. A crosswise run at Y104.5, Z292.2 crosses fluid-14 and fluid-16. The exact route, ribbon attitude and termination access require an installed harness model.",
+    "new_retaining_feature": null,
+    "normal_service_motion": "The contact pair parts while both fixed lead endpoints remain mounted. Support the free lead during assembly and repair, and unplug J13 by its housing before separating enclosure pieces."
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "224aab916b379c19ddad30f97a1e75764eb768d78f0654ac6913565519757449",
+    "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
+    "hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md": "2e47eb3de8245950cc84d39e55634dfc5c574f003dc500b97d1a1499cf10b1b6"
+  }
+}

@@ -852,7 +852,7 @@ Wago tower names its column in `WELL_COLUMNS`.
 
 `wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
 or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
-loop over a crown, a screw head's pass, the cable clip's stated profile — or a wedge a column
+loop over a crown, a screw head's pass — or a wedge a column
 could replace, which the bound names with the viewer's pick text. It is a goal row on the
 scorecard. The anchor and tower forms come from their site declarations.
 
@@ -1731,7 +1731,7 @@ Its 107.5 × 71 mm window laps the glass through the 1 mm TPU gasket. The glass
 face is 4.84 mm below the display plane and its back is 5.84 mm below it. The
 106 × 69 × 17 mm module is offset 0.5 mm laterally and 1 mm down the slope.
 The PCB opening is 23.84 mm deep, retaining 1 mm behind the module's rear face.
-The flat display backing keeps at least 5.47 mm of stock behind the deepest
+The flat display backing keeps at least 3.02 mm of stock behind the deepest
 PCB-pocket corner.
 
 Each horizontal wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm. It has
@@ -1776,22 +1776,20 @@ it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE). It
 locates nothing and carries nothing; the display loom is dressed after it is through.
 
-On the same wall's cavity face, one [9 mm](CABLE_CLIP_DEPTH)-deep cable clip, sunk 3 mm into the
-wall so the funnel frame's front corbel passes over its upper arm, runs toward
-+X from X68.5 to X86.5 and stops [12 mm](PUMP_LEAD_CLIP_LAND) short of the
-flank's inboard face. Its base is Z288.510, above the wall's foot transition.
-It guides and strain-relieves the
-**fixed J13-to-contact lead**. From the clip's west end the lead lies along the bay bulkhead's
-crown behind the rib to the centreline, then drops down the bulkhead's aft face into the contact
-pair's lead bore ([Cartridge contacts](#cartridge-contacts)). Nothing on the cartridge is clipped
-here. The loom bore is teardropped because the piece beds on Z.
+The **fixed J13-to-contact lead** leaves the contact pair's lead bore
+([Cartridge contacts](#cartridge-contacts)), rises behind the bay bulkhead and lies along
+its crown below the funnel frame. It returns toward the electronics bay through the +X half of the cavity, clear of
+the manifold Wago and tube approaches. The display backing and the fore end of the 9 mm flank present
+continuous inner walls. Keep the bare ribbon below the frame and clear of the
+closing slides, with a relaxed exit at the insulated solder joints. Support its free
+J13 end during assembly; unplug J13 by its housing before separating enclosure pieces.
+Both ends stay fixed during a cartridge change. The contact body's screws take the
+contact-separation load.
 
-The fixed pump lead turns onto front-top's +X flank, and SIG-7 follows the same
-wall toward the display. The fore end of this 9 mm flank presents a continuous
-inner wall beside the display backing. The ridge-wall clip retains DC-5 locally;
-the two ribbons run along the flank toward the electronics bay. The
-[front-top cable route check](front-top-cable-route-check.json) records the wall
-stock and the scope of the exported geometry.
+SIG-7 follows the same +X wall toward its separate display-loom bore. The
+[fixed pump lead review](fixed-pump-lead-review.json) binds the continuous wall to the
+current export and records the limits of the installed routing assessment. The loom bore is teardropped because
+the piece beds on Z.
 
 ## Funnel opening
 

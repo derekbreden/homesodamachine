@@ -149,7 +149,6 @@ from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
-import cable_clip as _cable_clip
 import fits
 import port_chip
 import reeding
@@ -428,15 +427,10 @@ cable_bore_air = 1.0             # all round it, because this is a pass and not 
 cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BORE)
 # TWO RUNS MEET THIS RIB, AND BOTH ARRIVE ON +X. SIG-7 comes forward along that flank from the
 # electronics bay and passes the rib through its own bore east of the centreline. The fixed
-# J13-to-contact lead comes down the same flank, turns the corner and runs back west into one
-# cable clip sunk into this rib's cavity face, then along the bay bulkhead's crown
-# behind the rib to the centreline and down the bulkhead's aft face into the contact pair's lead
-# bore. Nothing on the removable pump cartridge is clipped to the enclosure.
+# J13-to-contact lead reaches the bay bulkhead's crown below the funnel frame through the
+# +X half of the cavity, then descends into the fixed contact's lead bore. Its route must
+# clear the manifold Wago and tube approaches. Both ends stay fixed during a cartridge change.
 display_loom_x_offset = 32.0
-pump_lead_clip_edge_land = 12.0
-# The clip sinks this far into the rib, so the funnel frame's front corbel passes over its upper
-# arm; the rib keeps more than the clip's own backing behind the channel.
-pump_lead_clip_embed = 3.0
 display_cover_thickness = _interface.display_cover_thickness
 display_cover_slip = _interface.display_cover_slip
 
@@ -5714,13 +5708,12 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     """Solid display backing with one flat cavity face rooted on the bay lintel.
 
     The slipped frame front and this wall share one vertical plane. Display
-    pockets cut only the fore side; the loom passes through the full wall and
-    its retaining clip stands on the accessible cavity face.
+    pockets cut only the fore side; the display loom passes through the full wall.
+    The fixed pump ribbon lies below the funnel frame along the bulkhead crown.
     """
     fore, foot = plate["aft_y"], bay[2]
     face = _funnel_frame_part.roof_datums(
         inner, funnel, funnel_seat_z(outer), y_seam)['front'] - slide_slip
-    t = face - fore
     # Join the actual bulkhead back to the frame's fixed cavity face at 45
     # degrees. A deeper bulkhead narrows upward; a shallower one grows toward
     # the frame. Both feet remain supported by the complete bulkhead below.
@@ -5736,21 +5729,6 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
                                 fore - 1.0, face + 1.0))
 
-    clip_end = front_top_flank_face()[1] - pump_lead_clip_edge_land
-    clip_start = clip_end - _cable_clip.RUN
-    # The seat follows the loom's height while keeping a full wall thickness below
-    # the ridge crown. The lead reaches down into the seat where the crown sets its height.
-    clip_z = max(foot + rise, loom[2] - _cable_clip.seat_top())
-    slab = _cable_clip.apply(
-        slab,
-        origin=(clip_start, face, clip_z),
-        outward=(0.0, 1.0, 0.0),
-        along=(1.0, 0.0, 0.0),
-        embed=pump_lead_clip_embed,
-        wall_thickness=t,
-    ).val()
-    # Its lower arm grows at 45 degrees from the completed flat wall, above
-    # the short wall-foot transition. Both channel entrances remain open.
     return slab
 
 
@@ -9325,32 +9303,15 @@ def _report_ridge_roof(half, box):
     foot = box.pump_bay[2]
     flat_root = foot + abs(wall_y - box.pack.collet_plate['wall_aft_y'])
     loom = _ridge_loom_station(outer, box.pack.collet_plate, box.pump_bay)
-    clip_end = lower_x1 - pump_lead_clip_edge_land
-    clip_z = max(flat_root, loom[2] - _cable_clip.seat_top())
-    additions, channels = [], []
-    def clip_geometry(origin, outward, along, embed, thickness, run):
-        add, cut = _cable_clip.local_geometry(
-            embed=embed, wall_thickness=thickness, run=run)
-        location = cq.Location(cq.Plane(origin=origin, xDir=outward, normal=along))
-        if add is not None:
-            additions.append(add.moved(location))
-        channels.append(cut.moved(location))
-    clip_geometry((clip_end - _cable_clip.RUN, wall_y, clip_z),
-                  (0, 1, 0), (1, 0, 0), pump_lead_clip_embed,
-                  wall_y - box.pack.collet_plate['aft_y'], _cable_clip.RUN)
     witness = _rounded_outer(outer).intersect(_ybox(
         lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5]))
     witness = witness.cut(_teardrop_y(cable_bore_dia / 2, loom[0], loom[2],
                                     wall_y - 1, wall_y + 1))
-    for channel in channels:
-        witness = witness.cut(channel)
     missing = abs(witness.cut(half.val()).Volume())
     unexpected_witness = abs(half.val().intersect(_ybox(
         lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5])).cut(witness).Volume())
     air = _ybox(lower_x0, lower_x1, wall_y,
                 wall_y + .05, flat_root, outer[5]).intersect(_rounded_outer(outer))
-    for addition in additions:
-        air = air.cut(addition)
     extra = abs(air.intersect(half.val()).Volume())
     largest_area = max((face.Area() for face in roof_faces), default=0.0)
     whole = (len(roof_faces) == 1 and missing <= stated_bound_tol
@@ -9370,7 +9331,7 @@ def _report_ridge_roof(half, box):
                 flat_face_area_mm2=largest_area,minimum_display_backing_mm=backing,
                 missing_flat_wall_witness_mm3=missing,unexpected_aft_stock_mm3=extra,
                 unexpected_flat_wall_witness_mm3=unexpected_witness,
-                witness_thickness_mm=.05,clip_origin_mm=[clip_end-_cable_clip.RUN,wall_y,clip_z])
+                witness_thickness_mm=.05)
 
 
 def _report_facet(half, box):
@@ -10298,13 +10259,6 @@ def main():
         "CABLE_BORE": f"{cable_bore_dia:.4g} mm",
         "CABLE_SLEEVE_NOM": f"{cable_sleeve_nom:.4g} mm",
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
-        "PUMP_LEAD_CLIP_LAND": f"{pump_lead_clip_edge_land:.4g} mm",
-        "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
-        "CABLE_CLIP_HEIGHT": f"{_cable_clip.HEIGHT:.4g} mm",
-        "CABLE_CLIP_SEAT": f"{_cable_clip.seat_height():.4g} mm",
-        "CABLE_CLIP_RUN": f"{_cable_clip.RUN:.4g} mm",
-        "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
-        "CABLE_CLIP_BACKING": f"{_cable_clip.BACKING:.4g} mm",
         "PAN_CLIP_WALL": f"{back_top_flank_t:.4g} mm",
         "TEARDROP_ROOF": f"{teardrop_roof_angle:.4g}°",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
