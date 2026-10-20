@@ -1,0 +1,419 @@
+{
+  "scope": "Manual exact native material chords for current strict-threshold mesh picks. No recurring check and no physical strength qualification.",
+  "parts": {
+    "front-top": [
+      {
+        "pick": [
+          "click: x=-88.299 y=178.290 z=192.910",
+          "click: x=-88.299 y=181.290 z=192.910"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-63.896 y=178.290 z=192.914",
+          "click: x=-63.896 y=181.290 z=192.914"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-88.603 y=178.290 z=218.063",
+          "click: x=-88.603 y=181.290 z=218.063"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-64.203 y=178.290 z=218.063",
+          "click: x=-64.203 y=181.290 z=218.063"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-37.133 y=178.290 z=183.713",
+          "click: x=-37.133 y=181.290 z=183.713"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-37.395 y=178.290 z=208.902",
+          "click: x=-37.395 y=181.290 z=208.902"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-11.872 y=178.290 z=183.011",
+          "click: x=-11.872 y=181.290 z=183.011"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-12.675 y=178.290 z=208.500",
+          "click: x=-12.675 y=181.290 z=208.500"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=64.236 y=181.290 z=221.951",
+          "click: x=64.236 y=178.290 z=221.951"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=36.842 y=181.290 z=213.267",
+          "click: x=36.842 y=178.290 z=213.267"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=13.455 y=181.290 z=210.875",
+          "click: x=13.455 y=178.290 z=210.875"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-6.966 y=181.290 z=210.832",
+          "click: x=-6.966 y=178.290 z=210.832"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-31.492 y=181.290 z=212.354",
+          "click: x=-31.492 y=178.290 z=212.354"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-58.463 y=181.290 z=219.770",
+          "click: x=-58.463 y=178.290 z=219.770"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-58.544 y=181.290 z=194.970",
+          "click: x=-58.544 y=178.290 z=194.970"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-82.757 y=181.290 z=220.495",
+          "click: x=-82.757 y=178.290 z=220.495"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-82.736 y=181.290 z=195.347",
+          "click: x=-82.736 y=178.290 z=195.347"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.045 y=178.290 z=184.496",
+          "click: x=7.045 y=181.290 z=184.496"
+        ],
+        "native_continuous_material_chord_mm": 3.0200000000000102,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.281 y=178.290 z=208.938",
+          "click: x=7.281 y=181.290 z=208.938"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=31.409 y=178.290 z=184.574",
+          "click: x=31.409 y=181.290 z=184.574"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-37.793 y=181.290 z=186.357",
+          "click: x=-37.793 y=178.290 z=186.357"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-13.457 y=181.290 z=185.488",
+          "click: x=-13.457 y=178.290 z=185.488"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=6.770 y=181.290 z=186.199",
+          "click: x=6.770 y=178.290 z=186.199"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=31.396 y=181.290 z=186.841",
+          "click: x=31.396 y=178.290 z=186.841"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=58.269 y=181.290 z=194.807",
+          "click: x=58.269 y=178.290 z=194.807"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=82.697 y=181.290 z=196.129",
+          "click: x=82.697 y=178.290 z=196.129"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=82.821 y=181.290 z=220.779",
+          "click: x=82.821 y=178.290 z=220.779"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=31.857 y=178.290 z=208.695",
+          "click: x=31.857 y=181.290 z=208.695"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=58.726 y=178.290 z=193.623",
+          "click: x=58.726 y=181.290 z=193.623"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=83.126 y=178.290 z=193.623",
+          "click: x=83.126 y=181.290 z=193.623"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=59.037 y=178.290 z=218.063",
+          "click: x=59.037 y=181.290 z=218.063"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=83.437 y=178.290 z=218.063",
+          "click: x=83.437 y=181.290 z=218.063"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=95.607 y=176.350 z=231.154",
+          "click: x=95.607 y=173.350 z=231.154"
+        ],
+        "native_continuous_material_chord_mm": 3.0,
+        "line_extension_each_end_mm": 0.02
+      }
+    ],
+    "pump-receiver-west-outer": [
+      {
+        "pick": [
+          "click: x=0.000 y=-14.534 z=31.600",
+          "click: x=0.000 y=-12.412 z=33.721"
+        ],
+        "native_continuous_material_chord_mm": 3.000000083319726,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-3.790 y=-4.768 z=21.834",
+          "click: x=-3.790 y=-2.647 z=23.955"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000000005036,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.282 y=-11.113 z=28.179",
+          "click: x=7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-7.282 y=-11.113 z=28.179",
+          "click: x=-7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      }
+    ],
+    "pump-receiver-west-inner": [
+      {
+        "pick": [
+          "click: x=0.000 y=-14.534 z=31.600",
+          "click: x=0.000 y=-12.412 z=33.721"
+        ],
+        "native_continuous_material_chord_mm": 3.000000083319726,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-3.790 y=-4.768 z=21.834",
+          "click: x=-3.790 y=-2.647 z=23.955"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000000005036,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.282 y=-11.113 z=28.179",
+          "click: x=7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-7.282 y=-11.113 z=28.179",
+          "click: x=-7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      }
+    ],
+    "pump-receiver-east-inner": [
+      {
+        "pick": [
+          "click: x=0.000 y=-14.534 z=31.600",
+          "click: x=0.000 y=-12.412 z=33.721"
+        ],
+        "native_continuous_material_chord_mm": 3.000000083319726,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-3.790 y=-4.768 z=21.834",
+          "click: x=-3.790 y=-2.647 z=23.955"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000000005036,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.282 y=-11.113 z=28.179",
+          "click: x=7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-7.282 y=-11.113 z=28.179",
+          "click: x=-7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      }
+    ],
+    "pump-receiver-east-outer": [
+      {
+        "pick": [
+          "click: x=0.000 y=-14.534 z=31.600",
+          "click: x=0.000 y=-12.412 z=33.721"
+        ],
+        "native_continuous_material_chord_mm": 3.000000083319726,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-3.790 y=-4.768 z=21.834",
+          "click: x=-3.790 y=-2.647 z=23.955"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000000005036,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=7.282 y=-11.113 z=28.179",
+          "click: x=7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      },
+      {
+        "pick": [
+          "click: x=-7.282 y=-11.113 z=28.179",
+          "click: x=-7.282 y=-8.991 z=30.300"
+        ],
+        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "line_extension_each_end_mm": 0.02
+      }
+    ]
+  },
+  "source_files": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e3d85f4da5a5c306623d827dbfc9cf930f7a928d58780528f1e490d7eaa6c69a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "abb0af6e3bd384a3f38150dc80cd3156e78bf93bf31a38c9fc3f94688f519cda",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step": "d212fd113a6a91eca361f29585dcdad7383d485af6e8dca31520facbca187f49",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step": "ef10e91388904e4850e958982d44bf693496dce023a91d5a3cb32d833b5ae22a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step": "a0b93468c1b516d82438b748972dfeaa249f8a29afe08b5b373375086e5a038d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step": "a336526653fabf73cc514cb3ceba543e6188a5866eedff579c5524888d24bf67",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d"
+  }
+}

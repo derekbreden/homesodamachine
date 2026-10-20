@@ -2218,7 +2218,6 @@
     ]
   },
   "reservoir_b_draw": {
-    "approach_change_x_mm": -10.0,
     "bend_floor_mm": 14.0,
     "source_routes": {
       "turn-fluid-5": {
@@ -2276,6 +2275,11 @@
         105.29,
         282.175
       ]
+    ],
+    "approach_offset_from_valve_inlet_mm": [
+      -11.65,
+      90.7,
+      2.8
     ]
   }
 }
