@@ -66,9 +66,9 @@
     "closing_datum": "The meeting poles of the two SB443-IN columns; broad aft planes retain their nominal clearance",
     "separate_retention_magnets": "Sixteen SB443-IN blocks, eight attracting pairs in one four-high column per pump on each half",
     "retention_pair_location": "Lower cartridge cradle and fixed receiver wall, centered between each pump's port axes",
-    "retention_mount": "DP420 bedding in one plain pocket per column, every block bottomed, both parts in one cure; bare poles meet at the seat",
+    "retention_mount": "Printed in: blocks loaded down printed rails in one slot per column at one print pause per part; bare poles meet at the seat",
     "retention_record": "../../printed-parts/enclosure/pump-dock/magnet-retention.md",
-    "magnet_insertion_pause_required": false
+    "magnet_insertion_pause_required": true
   },
   "drawing_source": "https://www.amazon.com/dp/B0GCBNTBT8?th=1",
   "drawing_observed_local_date": "2026-10-03",
@@ -122,18 +122,18 @@
     "tool_profile_or_physical_fit_qualified": false
   },
   "source_sha256": {
-    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "6816658412b3cde0da8103865df0abdb8930336985b2d1753987569b9706f1d2",
+    "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "cb532910df5113f024581301858c1ae3c05277dce2d82065e8c46a3692a65e41",
     "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "24487214858111f0343ba2803c7d9fb9121ba239a53659f6cf6782383b4aa77a",
-    "hardware/manifold-layout/enclosure_assembly.py": "e4247042bb92ff176487e0071a90155ca8efa4bf0561d5d7ec26826924bd6cd5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "49becf6e4c6d114038e5b1193b377a0344f88ac1b24ef6df95927fad0b362fce",
+    "hardware/manifold-layout/enclosure_assembly.py": "12d7ff7947df73f7d5f2acb257f6c33ca153e9fe04d078253a6feb6c325ba52c",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
     "hardware/printed-parts/cadlib/fits.py": "573b51faf3948e5750db1ab580c9f3035d7063a43815c4eaf505b40092ad83a0",
     "hardware/scripts/_box_spec.py": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "39a8ef7b0e7eba49e75940085f889656fa07fbfc687bdf03e30d5deda09601ca",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "f91e696d0d5df2b027e7dea903fed68d8805259a04450e907d938b1ecfe232d0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "0941f4982ce97a60c876ec519b06b35dc55166ca86a8c1a49e9db8e65ea1848e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "644f4cd2dc2d39b50d6e495026530d235e87796992c195b18e2673021ef13dfe"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "ebf2ca8b1ebc52c3d8979a92d1cf60ef28f5d48e2020f3c0879164f5562585de"
   },
   "physical_record": "physical-observations.json"
 }

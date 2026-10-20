@@ -82,6 +82,13 @@ use the nominal 3 mm wall section. Remove cut remnants and tapered tips that lea
 Apply thinner-section exceptions only to the specific flexure, cover or other feature that
 requires them.
 
+The SB443-IN magnet-groove retaining rails are a named local thickness exception.
+Keep the magnets mechanically captured during printing with exposed mating poles and one
+insertion pause per part. Assess each rail's slice in the production orientation: connected
+wall paths, their connection into the parent wall, and the short projection into the groove.
+Thickness alone does not reject this feature. See the
+[magnet construction](enclosure/pump-dock/magnet-retention.md#slot-and-rails).
+
 Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
 print-down show rounds use an additive chamfer tangent to their retained taper,
 following `cadlib/overhang_round.py`: 0.5 mm outward per millimetre of build rise.

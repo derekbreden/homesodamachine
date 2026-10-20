@@ -1,30 +1,23 @@
-"""Bonded SB443-IN columns for the pump cartridge's magnetic seat.
+"""Printed-in SB443-IN columns for the pump cartridge's magnetic seat.
 
 Each pump's load line carries one column of four attracting pairs, centred
 between that pump's two fluid ports. In each mating part the column is one
-plain pocket, open only at the mating face and roofed by one 45-degree ridge,
-cut into solid wall: front-top's receiver wall and the cartridge's aft wall
-between each pump's two tube passages. Every printed face of the pocket keeps
-its printed-fit allowance (`fits.py`): running clearance at the sides and ends,
-which a block slides past as it is pushed home, and static clearance at the
-floor it seats on. Each block is bedded in DP420 and pushed home to the floor,
-so its pole stands proud of the face by its own thickness less the pocket
-depth, and the seated pairs' poles meet and seat the cartridge. No magnetic
-force or printed strength is inferred from this geometry.
+vertical slot, open at the mating face, whose side walls carry a printed rail
+in each of the blocks' two side grooves. The blocks drop down the rails at one
+print pause, bare pole faces toward the mate, and the first layer after the
+pause closes over them. Pulled toward its mate, each block bears on its rails
+with its pole half the frame gap proud of its face, so the poles of a seated
+pair meet in the middle of the gap and the meeting poles seat the cartridge.
+The slots are cut into solid walls: front-top's receiver wall and the
+cartridge's aft wall between each pump's two tube passages.
+No magnetic force or printed strength is inferred from this geometry.
 """
 
 from __future__ import annotations
 
-import sys
 from dataclasses import dataclass
-from pathlib import Path
 
 import cadquery as cq
-
-HERE = Path(__file__).resolve().parent
-HW = next(p for p in HERE.parents if p.name == 'hardware')
-sys.path.insert(0, str(HW / 'printed-parts' / 'cadlib'))
-import fits  # noqa: E402
 
 
 # K&J SB443-IN drawing rev 0. General three-decimal tolerance is +/-0.004 in;
@@ -42,30 +35,30 @@ ROWS_PER_COLUMN = 4
 COLUMNS_PER_HALF = 2
 MAGNETS_PER_HALF = ROWS_PER_COLUMN * COLUMNS_PER_HALF
 
-# A block slides past the pocket's sides and ends as it is pushed home, and seats
-# head-on on its floor.
-SIDE_AIR = fits.running
-FLOOR_AIR = fits.slip
+# The slot keeps this air beside each block; the blocks slide down it by hand.
+SIDE_AIR = 0.10
 SLOT_HALF = BAR / 2.0 + SIDE_AIR
-# Bedding stays behind the front band's shallowest drawing position, so every
-# pole face and the frame gap in front of it stay dry.
-BEDDING_FRONT = GROOVE_FRONT - GROOVE_TOLERANCE
-
-
-def _box(x0, x1, y0, y1, z0, z1):
-    return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0,
-                            cq.Vector(x0, y0, z0))
+# Named local section exception: the rail is a short ledge continuous with its
+# parent wall on every upright layer. Its thickness fits the purchased groove;
+# the production slice establishes the wall-road connection. This metal-insert
+# fit retains the umbilical interface's 0.05 mm fore/aft and 0.09 mm tip air.
+# PET-GF-to-PET-GF frame clearances remain separate.
+RAIL = GROOVE_HEIGHT - 0.10
+RAIL_TIP_AIR = 0.09
+RAIL_TIP_HALF = GROOVED_WIDTH / 2.0 + RAIL_TIP_AIR
+# Air behind the thickest block pushed in onto its rails.
+FLOOR_AIR = 0.15
+# Air over a stack of four drawing-maximum blocks, under the first closing layer.
+STACK_AIR = 0.15
 
 
 def _span(a, b):
     return min(a, b), max(a, b)
 
 
-def _ridge(x, half, y0, y1, z):
-    """A 45-degree roof along Y: its eaves `half` either side of `x` at `z`, its ridge over `x`."""
-    wire = cq.Wire.makePolygon([cq.Vector(x - half, y0, z), cq.Vector(x + half, y0, z),
-                                cq.Vector(x, y0, z + half)], close=True)
-    return cq.Solid.extrudeLinear(cq.Face.makeFromWires(wire), cq.Vector(0.0, y1 - y0, 0.0))
+def _box(x0, x1, y0, y1, z0, z1):
+    return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0,
+                            cq.Vector(x0, y0, z0))
 
 
 def _fused(shapes):
@@ -95,10 +88,10 @@ def stations(holes):
 
 
 def column_limits(z):
-    """The pocket's Z extent below its ridge: four drawing-maximum blocks with running
-    air at both ends, centred on the row."""
-    half = ROWS_PER_COLUMN * (BAR + GENERAL_TOLERANCE) / 2.0 + SIDE_AIR
-    return z - half, z + half
+    """The slot's floor and roof in Z: four nominal blocks stand on the floor, and the
+    first layer over the slot clears four drawing-maximum blocks by STACK_AIR."""
+    bottom = z - ROWS_PER_COLUMN * BAR / 2.0
+    return bottom, bottom + ROWS_PER_COLUMN * (BAR + GENERAL_TOLERANCE) + STACK_AIR
 
 
 @dataclass(frozen=True)
@@ -113,24 +106,29 @@ class Interface:
 
     @property
     def pole_y(self):
-        """Where nominal poles meet: the middle of the frame gap."""
+        """Where the poles of a seated pair meet: the middle of the frame gap."""
         return (self.fixed_face_y + self.moving_face_y) / 2.0
 
     @property
     def proud(self):
-        """A nominal block's pole stands this far out of its face, bottomed in its pocket."""
+        """Each pole stands this far out of its face, pulled onto its rails."""
         return self.frame_gap / 2.0
 
     @property
-    def depth(self):
-        """Pocket depth from the mating face: a nominal block stands `proud` out of it once
-        bottomed, with the floor's static allowance behind it."""
-        return THICKNESS - self.proud + FLOOR_AIR
+    def rail_depths(self):
+        """The rail's two faces, measured into the part from its mating face. A block
+        pulled toward its mate bears its back band on the deeper face."""
+        deep = GROOVE_FRONT + GROOVE_HEIGHT - self.proud
+        return deep - RAIL, deep
 
-    def proud_range(self):
-        """A bottomed block's pole stand-out over the drawing's thickness tolerance."""
-        seat = self.depth - FLOOR_AIR
-        return (THICKNESS - GENERAL_TOLERANCE - seat, THICKNESS + GENERAL_TOLERANCE - seat)
+    @property
+    def pushed_proud(self):
+        """The pole's stand-out with the block pushed back onto the rail's shallow face."""
+        return GROOVE_FRONT - self.rail_depths[0]
+
+    @property
+    def floor_depth(self):
+        return THICKNESS + GENERAL_TOLERANCE - self.pushed_proud + FLOOR_AIR
 
     def into(self, side):
         if side not in ("moving", "fixed"):
@@ -141,13 +139,10 @@ class Interface:
         self.into(side)
         return self.moving_face_y if side == "moving" else self.fixed_face_y
 
-    def floor(self, side):
-        return self.face(side) + self.into(side) * self.depth
-
-    def yspan(self, side, d0, d1):
-        """Depth is measured from the nominal pole plane into the owning part."""
-        into = self.into(side)
-        return _span(self.pole_y + into * d0, self.pole_y + into * d1)
+    def at(self, side, d0, d1):
+        """A Y span at depths d0..d1 into the owning part from its mating face."""
+        into, face = self.into(side), self.face(side)
+        return _span(face + into * d0, face + into * d1)
 
 
 def interface(holes, moving_face_y, fixed_face_y):
@@ -156,24 +151,36 @@ def interface(holes, moving_face_y, fixed_face_y):
     column_stations(result.holes)
     if result.frame_gap <= 0.0:
         raise ValueError("The poles meet across a positive frame gap")
+    if result.pushed_proud < 0.0:
+        raise ValueError("A block pushed onto its rails would sink below its face")
     return result
 
 
-def pocket(i, side, x, z):
-    """One plain pocket per column, open only at the owning part's face, roofed by a
-    45-degree ridge standing on both side walls."""
+def slot(i, side, x, z):
+    """One column's slot: open at the mating face, a rail standing into each side
+    groove, a flat floor in Z for the stack and a flat roof the print closes over it."""
     bottom, top = column_limits(z)
-    y0, y1 = _span(i.face(side) - i.into(side) * 0.1, i.floor(side))
-    return (_box(x - SLOT_HALF, x + SLOT_HALF, y0, y1, bottom, top)
-            .fuse(_ridge(x, SLOT_HALF, y0, y1, top)).clean())
+    r0, r1 = i.rail_depths
+    d = i.floor_depth
+    # The slot's section in the part's own depth: wide, narrowed by the rails, wide.
+    section = [(-SLOT_HALF, -0.1), (-SLOT_HALF, r0), (-RAIL_TIP_HALF, r0),
+               (-RAIL_TIP_HALF, r1), (-SLOT_HALF, r1), (-SLOT_HALF, d),
+               (SLOT_HALF, d), (SLOT_HALF, r1), (RAIL_TIP_HALF, r1),
+               (RAIL_TIP_HALF, r0), (SLOT_HALF, r0), (SLOT_HALF, -0.1)]
+    into, face = i.into(side), i.face(side)
+    points = [cq.Vector(x + u, face + into * depth, bottom) for u, depth in section]
+    wire = cq.Wire.makePolygon(points + [points[0]])
+    return cq.Solid.extrudeLinear(cq.Face.makeFromWires(wire),
+                                  cq.Vector(0.0, 0.0, top - bottom))
 
 
 def magnet(i, side, x, z):
-    """Nominal purchased block with its two side grooves, bottomed: pole face on the pole plane."""
+    """Nominal purchased block with its two side grooves, pulled onto its rails: pole
+    face on the pole plane."""
     half = BAR / 2.0
-    y0, y1 = i.yspan(side, 0.0, THICKNESS)
+    y0, y1 = i.at(side, -i.proud, THICKNESS - i.proud)
     body = _box(x - half, x + half, y0, y1, z - half, z + half)
-    gy0, gy1 = i.yspan(side, GROOVE_FRONT, GROOVE_FRONT + GROOVE_HEIGHT)
+    gy0, gy1 = i.at(side, GROOVE_FRONT - i.proud, GROOVE_FRONT + GROOVE_HEIGHT - i.proud)
     neck = GROOVED_WIDTH / 2.0
     for sign in (-1, 1):
         gx0, gx1 = _span(x + sign * neck, x + sign * (half + 0.1))
@@ -183,49 +190,43 @@ def magnet(i, side, x, z):
 
 def features(holes, moving_face_y, fixed_face_y):
     """Production integration API, per side: cut `cutter` from the mating part.
-    `magnets` are named reference solids, not printed geometry; `potting` is the
-    nominal cured bedding, deliberately separate from PET-GF."""
+    `magnets` are named reference solids, not printed geometry."""
     i = interface(holes, moving_face_y, fixed_face_y)
     out = {"interface": i, "dimensions": dimensions(i)}
     for side in ("moving", "fixed"):
-        cutters, magnets, fills = [], {}, []
+        cutters, magnets = [], {}
         for col, (x, z) in enumerate(column_stations(i.holes), start=1):
-            cavity = pocket(i, side, x, z)
-            cutters.append(cavity)
-            bars = []
+            cutters.append(slot(i, side, x, z))
             for row in range(ROWS_PER_COLUMN):
-                shape = magnet(i, side, x, row_z(z, row))
-                magnets[f"pump-dock-SB443-{side}-{col}-{row + 1}"] = shape
-                bars.append(shape)
-            fy0, fy1 = _span(i.pole_y + i.into(side) * BEDDING_FRONT, i.floor(side))
-            fill = cavity.intersect(_box(x - 20, x + 20, fy0, fy1, z - 40, z + 40))
-            fills.append(fill.cut(_fused(bars)).clean())
-        out[side] = {"cutter": _fused(cutters), "magnets": magnets, "potting": _fused(fills)}
+                magnets[f"pump-dock-SB443-{side}-{col}-{row + 1}"] = magnet(
+                    i, side, x, row_z(z, row))
+        out[side] = {"cutter": _fused(cutters), "magnets": magnets}
     return out
 
 
 def dimensions(i):
     bottom, top = column_limits(0.0)
-    low, high = i.proud_range()
+    r0, r1 = i.rail_depths
+    columns = column_stations(i.holes)
     return {"magnet": "K&J SB443-IN", "magnets_per_half": len(stations(i.holes)),
-            "columns_per_half": len(column_stations(i.holes)),
+            "columns_per_half": len(columns),
             "rows_per_column": ROWS_PER_COLUMN,
-            "column_axes_xz_mm": column_stations(i.holes),
+            "column_axes_xz_mm": columns,
             "nominal_bar_mm": [BAR, THICKNESS, BAR],
             "frame_faces_y_mm": [i.moving_face_y, i.fixed_face_y],
-            "frame_gap_nominal_mm": i.frame_gap,
+            "frame_gap_mm": i.frame_gap,
             "pole_plane_y_mm": i.pole_y,
-            "pole_proud_nominal_mm": i.proud,
-            "pole_proud_drawing_range_mm": [low, high],
-            "frame_gap_drawing_range_mm": [2 * low, 2 * high],
-            "pocket_width_mm": 2 * SLOT_HALF,
-            "pocket_depth_mm": i.depth,
-            "pocket_height_mm": top - bottom,
-            "pocket_ridge_rise_mm": SLOT_HALF,
-            "side_and_end_air_mm": SIDE_AIR,
-            "floor_air_mm": FLOOR_AIR,
-            "bedding_front_depth_mm": BEDDING_FRONT,
-            "assembly": "Each block bedded in DP420 and pushed home to its pocket floor, both "
-                        "parts together, one cure before the cartridge is seated",
+            "pole_proud_pulled_mm": i.proud,
+            "pole_proud_pushed_mm": i.pushed_proud,
+            "slot_width_mm": 2 * SLOT_HALF,
+            "rail_mm": {"depths_from_face": [r0, r1], "thickness": RAIL,
+                        "tip_gap": 2 * RAIL_TIP_HALF, "tip_air": RAIL_TIP_AIR},
+            "slot_depth_mm": i.floor_depth,
+            "slot_floor_z_mm": [z + bottom for _x, z in columns],
+            "first_layer_over_slot_z_mm": [z + top for _x, z in columns],
+            "drawing_maximum_stack_air_mm": STACK_AIR,
+            "nominal_stack_air_mm": top - bottom - ROWS_PER_COLUMN * BAR,
+            "assembly": "Four blocks per slot dropped down the rails at one print pause per "
+                        "part, alternating poles; the next layer closes over them",
             "magnet_pull_force_established": False,
             "customer_adjustment": False}

@@ -621,13 +621,13 @@
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "9ed6950e8fd31b977eb34f219bb437edb6d00ea17ca0f12bb698bc7503d21c31",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "24487214858111f0343ba2803c7d9fb9121ba239a53659f6cf6782383b4aa77a",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "55704c6b2314499e7ce9ec66c92d5df668615d2dad38738e61c9b7072630d477",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "49becf6e4c6d114038e5b1193b377a0344f88ac1b24ef6df95927fad0b362fce",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "5c26f0a06f1ad7ee387a2ba463a1782dd57d738cd415c37a600ba1fbcc79ec43",
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f9f40416e87f8258a1bb46491c5b603b0cd6dfe96b0e44c5308fff3d5a858aa0",
-    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "53f4078b24e9a8eae0e3e29b552c9342ff751256e3c7da34c49c58ceee688327",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
     "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "5f58477e824b1f9c0e9c80633c0ab26736cb3052cc97a8ac3b9f539b6fc4e658",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6717badb5675d602bbbe1fc652e10b413b6ddeed76eb2a74eef34d18bea9f56d",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
@@ -638,8 +638,8 @@
       ".stl": "db09d9da5a87faab648c25fc997aa92ceb91a9f9c85582f2fef0bb013b8ea532"
     },
     "front-top": {
-      ".step": "39a8ef7b0e7eba49e75940085f889656fa07fbfc687bdf03e30d5deda09601ca",
-      ".stl": "325cf53549167034e0214f135cc2344e617bb35fdd5551d370e571ed97efd6d6"
+      ".step": "f91e696d0d5df2b027e7dea903fed68d8805259a04450e907d938b1ecfe232d0",
+      ".stl": "495f6e3c378fb51d1d9f1fa6a80d51cf980b747aa525a4c2c31dc0e6e5f9bb10"
     },
     "back-bottom": {
       ".step": "89e3f4a760184ac18123ff34b2b4b9dfd4e19ee444f3f1dd949204f18de0eee8",
@@ -650,8 +650,8 @@
       ".stl": "17c04da0f3ef675a0f03b9965afcc392226b27393d9e7f58e9eb23592b1334de"
     },
     "pump-cartridge": {
-      ".step": "644f4cd2dc2d39b50d6e495026530d235e87796992c195b18e2673021ef13dfe",
-      ".stl": "9073ded6139f988571ec543bac59e35308457ec7aef035746e45189dad577917"
+      ".step": "ebf2ca8b1ebc52c3d8979a92d1cf60ef28f5d48e2020f3c0879164f5562585de",
+      ".stl": "fd84d158eb58c2a9db9a7c30bd8001b41c2edc95d4271f970210d0401a7cf8b2"
     },
     "pump-cap": {
       ".step": "0941f4982ce97a60c876ec519b06b35dc55166ca86a8c1a49e9db8e65ea1848e",
@@ -1316,61 +1316,61 @@
         ]
       },
       {
-        "name": "SB443 column 1: bonded pocket walls, ridge and root",
+        "name": "SB443 column 1: rail slot walls, roof over the blocks and root",
         "machine_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
+          -58.49999999999999,
+          -45.949999999999996,
           82.415,
-          90.3025,
-          170.0208,
-          205.75220000000002
+          90.5041,
+          170.47400000000002,
+          202.43040000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
+          -58.49999999999999,
+          -45.949999999999996,
           82.415,
-          90.3025,
-          170.0208,
-          205.75220000000002
+          90.5041,
+          170.47400000000002,
+          202.43040000000002
         ],
         "print_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
+          -58.49999999999999,
+          -45.949999999999996,
           82.415,
-          90.3025,
-          9.770800000000008,
-          45.502200000000016
+          90.5041,
+          10.224000000000018,
+          42.18040000000002
         ]
       },
       {
-        "name": "SB443 column 2: bonded pocket walls, ridge and root",
+        "name": "SB443 column 2: rail slot walls, roof over the blocks and root",
         "machine_bounds_mm": [
-          45.8,
-          58.64999999999999,
+          45.949999999999996,
+          58.49999999999999,
           82.415,
-          90.3025,
-          170.0208,
-          205.75220000000002
+          90.5041,
+          170.47400000000002,
+          202.43040000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          45.8,
-          58.64999999999999,
+          45.949999999999996,
+          58.49999999999999,
           82.415,
-          90.3025,
-          170.0208,
-          205.75220000000002
+          90.5041,
+          170.47400000000002,
+          202.43040000000002
         ],
         "print_bounds_mm": [
-          45.8,
-          58.64999999999999,
+          45.949999999999996,
+          58.49999999999999,
           82.415,
-          90.3025,
-          9.770800000000008,
-          45.502200000000016
+          90.5041,
+          10.224000000000018,
+          42.18040000000002
         ]
       }
     ],
@@ -2279,61 +2279,61 @@
         ]
       },
       {
-        "name": "SB443 column 1: bonded pocket walls, ridge and root",
+        "name": "SB443 column 1: rail slot walls, roof over the blocks and root",
         "machine_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
-          74.4775,
+          -58.49999999999999,
+          -45.949999999999996,
+          74.27590000000001,
           82.365,
-          170.0208,
-          205.75220000000002
+          170.47400000000002,
+          202.43040000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
-          74.4775,
+          -58.49999999999999,
+          -45.949999999999996,
+          74.27590000000001,
           82.26499938964844,
-          170.0208,
-          205.75220000000002
+          170.47400000000002,
+          202.43040000000002
         ],
         "print_bounds_mm": [
-          -58.64999999999999,
-          -45.8,
-          74.4775,
+          -58.49999999999999,
+          -45.949999999999996,
+          74.27590000000001,
           82.26499938964844,
-          4.825792675781258,
-          40.557192675781266
+          5.278992675781268,
+          37.23539267578127
         ]
       },
       {
-        "name": "SB443 column 2: bonded pocket walls, ridge and root",
+        "name": "SB443 column 2: rail slot walls, roof over the blocks and root",
         "machine_bounds_mm": [
-          45.8,
-          58.64999999999999,
-          74.4775,
+          45.949999999999996,
+          58.49999999999999,
+          74.27590000000001,
           82.365,
-          170.0208,
-          205.75220000000002
+          170.47400000000002,
+          202.43040000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          45.8,
-          58.64999999999999,
-          74.4775,
+          45.949999999999996,
+          58.49999999999999,
+          74.27590000000001,
           82.26499938964844,
-          170.0208,
-          205.75220000000002
+          170.47400000000002,
+          202.43040000000002
         ],
         "print_bounds_mm": [
-          45.8,
-          58.64999999999999,
-          74.4775,
+          45.949999999999996,
+          58.49999999999999,
+          74.27590000000001,
           82.26499938964844,
-          4.825792675781258,
-          40.557192675781266
+          5.278992675781268,
+          37.23539267578127
         ]
       }
     ],

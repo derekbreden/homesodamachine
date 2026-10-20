@@ -245,6 +245,26 @@ def _filtered_gcode(archive: Path, identify_id: int, output: Path) -> Path:
     return output
 
 
+def pause_reading(archive: Path, pause: dict) -> dict:
+    """Where the emitted pause falls: it must open the planned layer before any of its moves."""
+    with zipfile.ZipFile(archive) as z:
+        text = z.read("Metadata/plate_1.gcode").decode("utf-8", "replace")
+    layers, opened, extruded = [], [], False
+    for line in text.splitlines():
+        if line.startswith("; Z_HEIGHT:"):
+            layers.append(float(line.split(":", 1)[1]))
+            extruded = False
+        elif line.startswith(pause["gcode"]) and layers:
+            opened.append({"layer_top_z_mm": layers[-1], "after_extrusion_in_layer": extruded})
+        elif layers and re.match(r"G[123] .*E\.?\d", line) and not re.search(r"E-", line):
+            extruded = True
+    planned = pause["layer"]["top_z_mm"]
+    placed = (len(opened) == 1 and abs(opened[0]["layer_top_z_mm"] - planned) < 1e-3
+              and not opened[0]["after_extrusion_in_layer"])
+    return {"planned_layer_top_z_mm": planned, "emitted": opened, "placed_as_planned": placed,
+            "air_over_stack_mm": pause["layer"]["air_over_stack_mm"], "message": pause["message"]}
+
+
 def review(directory: Path, audit: bool = True) -> dict:
     directory = Path(directory)
     preparation = json.loads((directory / "preparation.json").read_text())
@@ -272,11 +292,13 @@ def review(directory: Path, audit: bool = True) -> dict:
                 for gy in range(lo[1], hi[1] + 1):
                     grid.setdefault((gx, gy), []).append((oid, index))
     windows = [(oid, w) for oid, r in objects.items() for w in r["tie_windows"]]
+    pause = preparation.get("pause")
+    slots = [(pause["identify_id"], box) for box in pause["slots_plate_mm"]] if pause else []
     ribbons = [(oid, rb) for oid, r in objects.items() for rb in r["ribbons"]]
     fine = [(oid, s) for oid, r in objects.items() for s in r["verify_spans"]]
     stats = {"layers": 0, "bead_low": np.full(2, np.inf), "bead_high": np.full(2, -np.inf),
              "support_roads": 0, "show_min_clearance": None, "show_contacts": [],
-             "window_crossings": [], "ribbon_support": [], "ribbon_layers": defaultdict(set),
+             "window_crossings": [], "slot_support": [], "ribbon_support": [], "ribbon_layers": defaultdict(set),
              "unbacked": defaultdict(lambda: {"roads": 0, "unbacked_mm": 0.0, "longest_mm": 0.0, "bridge_mm": 0.0, "layers": 0}),
              "stack": {}}
     previous = None
@@ -326,8 +348,13 @@ def review(directory: Path, audit: bool = True) -> dict:
                         if clearance <= 0 and len(stats["show_contacts"]) < 200:
                             stats["show_contacts"].append({"z_mm": z, "road": r[index].tolist(),
                                                            "feature": features[index], "bead_clearance_mm": clearance})
-                if windows or ribbons:
+                if windows or ribbons or slots:
                     bead = LineString([(x0, y0), (x1, y1)]).buffer(width / 2, quad_segs=2)
+                for oid, ((bx0, by0, bz0), (bx1, by1, bz1)) in slots:
+                    if z - height < bz1 - 0.02 and z > bz0 + 0.02 and bead.intersects(
+                            shapely_box(bx0 + 0.02, by0 + 0.02, bx1 - 0.02, by1 - 0.02)):
+                        stats["slot_support"].append({"object": oid, "z_mm": z, "road": r[index].tolist(),
+                                                      "feature": features[index]})
                 for oid, window in windows:
                     (bx0, by0, bz0), (bx1, by1, bz1) = window["box_plate_mm"]
                     if z - height < bz1 - 0.02 and z > bz0 + 0.02 and bead.intersects(
@@ -450,6 +477,11 @@ def review(directory: Path, audit: bool = True) -> dict:
             row["layers_with_ribbon_roads"] >= row["declared_layers"] - 1 for row in ribbon_rows),
         "solid_hosts_sampled": all(row["minimum_coverage"] is None or row["minimum_coverage"] >= 0.9 for row in dense),
     }
+    if pause:
+        result["pause"] = pause_reading(archive, pause)
+        result["slot_support_crossings"] = stats["slot_support"][:200]
+        checks["pause_opens_closing_layer"] = result["pause"]["placed_as_planned"]
+        checks["slots_support_free"] = not stats["slot_support"]
     result["checks"] = checks
     result["pass"] = all(checks.values())
     save(directory / "review.json", result)

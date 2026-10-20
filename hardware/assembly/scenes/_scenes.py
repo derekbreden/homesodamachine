@@ -197,7 +197,7 @@ SCENES = (
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
              "and takes two screws. Each pump head clamps its two short LLDPE stubs, which "
-             "pass the cradle's open tube passages. Eight bonded SB443-IN magnet pairs, one "
+             "pass the cradle's open tube passages. Eight printed-in SB443-IN magnet pairs, one "
              "column on each pump's line, hold the installed cartridge where their bare poles "
              "meet; the four stubs enter permanent TPU receivers in the bay wall.",
     ),

@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 253,
+  "installed_body_count": 251,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -517,7 +517,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "a46bfd81283cb0f51a80a990bd5cd703ee18b238349c1c2f0e13255b3117bbf0",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "cb8187940e362bbe58c6372cb0c63138bee5b452766e2e634a5d9f2fd864e029",
+    "hardware/manifold-layout/enclosure_assembly.py": "12d7ff7947df73f7d5f2acb257f6c33ca153e9fe04d078253a6feb6c325ba52c",
     "hardware/manifold-layout/_lines.py": "396d3ea816fa0891f56c2f863eeb53c0b0f9f3b443e32b805faa9e76b54bd061",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

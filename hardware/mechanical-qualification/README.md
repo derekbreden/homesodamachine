@@ -387,9 +387,9 @@ maps single-channel flow and blocked-fill modes to separating loads and defines
 the dry/wet assembly qualification with the available fixtures and tools.
 The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
 describes eight attracting SB443-IN pairs, one four-high column on each pump's own
-line, bonded bottomed in one 45°-roofed pocket per column in each part, their bare poles
-meeting at the cartridge's seat. These are geometry and design-basis records. They establish
-no accepted seal, assembled retaining force, bond capacity, cleanability or service life. The stub clamp's pull-out, tip location
+line, printed in on rails in one slot per column in each part, their bare poles meeting at
+the cartridge's seat. These are geometry and design-basis records. They establish no
+accepted seal, assembled retaining force, rail capture, cleanability or service life. The stub clamp's pull-out, tip location
 and pump-end joint also remain physical qualifications of this assembly.
 
 The [Bambu TPU elbow fit](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)

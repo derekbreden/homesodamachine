@@ -1503,7 +1503,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle keeps its nominal bed while the receiver floor retreats by
 # `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
-# Eight bonded SB443-IN pairs pull the lower cradle toward the bulkhead,
+# Eight printed-in SB443-IN pairs pull the lower cradle toward the bulkhead,
 # four on each pump's own port line, and their meeting poles seat it
 # (`dock_retention`). Each prepared pump's head clamps its
 # two straight LLDPE stubs; the stubs pass the cradle's open tube passages.
@@ -5800,7 +5800,7 @@ def build_pump_cartridge(box, halves_cache=None):
     stay open through the whole drop path while the aft pull wall remains between them.
 
     Both tall side pulls have mirrored edge margins plus supported-roof allowance. The clamp has no pull feature.
-    Two heat-set bores open upward from the centre spine for the clamp screws. One magnet pocket
+    Two heat-set bores open upward from the centre spine for the clamp screws. One magnet slot
     per pump opens through the flat back on that pump's port line (`dock_retention`)."""
     solid = _pump_cartridge_gross(box, halves_cache)
     for void in _pump_drop_voids(box):
@@ -5933,9 +5933,8 @@ def _cap_screws(box):
 
 
 def pump_retention_features(box):
-    """The two magnet pockets in each mating half, their blocks and bedding
-    (`dock_retention`): the cartridge's in its flat back, front-top's in the receiver
-    wall's bay face."""
+    """The two magnet slots in each mating half and their blocks (`dock_retention`): the
+    cartridge's in its flat back, front-top's in the receiver wall's bay face."""
     plate = box.pack.collet_plate
     return _retention.features(
         plate["holes"], pump_cartridge_aft_y(box.pack.pump_trays, plate), bay_back_y(plate))
