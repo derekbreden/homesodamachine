@@ -1,0 +1,148 @@
+{
+  "scope": "Exact native socket-axis and annular-bearing witnesses; connected void and one connected wet body. A geometric result only.",
+  "source_sha256": "f4a1fc79a3d125b58402732e72a80b5629d82724b8e01115cea9a4ad420dd8bc",
+  "stations": {
+    "west-outer": {
+      "upper": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "west-inner": {
+      "upper": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "east-inner": {
+      "upper": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "east-outer": {
+      "upper": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "lower": {
+        "socket_axis_clear_at_1_3_5_5_mm": [
+          true,
+          true,
+          true
+        ],
+        "stop_material_present_at_four_radial_3_mm_witnesses": [
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  },
+  "fin_rejection_witnesses": {
+    "east-inner": {
+      "upper_old_material_chord_mm": 0.0004274206289635384,
+      "lower_old_material_chord_mm": 0.8358713418397411,
+      "current_chords_mm": [
+        0.0,
+        0.0
+      ]
+    },
+    "east-outer": {
+      "upper_old_material_chord_mm": 0.0005641392295387959,
+      "lower_old_material_chord_mm": 0.0017256152371771805,
+      "current_chords_mm": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "print_pose": {
+    "x_rotation_degrees": -135.0,
+    "landing_area_mm2_min": 59.39696961967,
+    "inlet_upper_land_angle_from_vertical_degrees": [
+      45,
+      45
+    ],
+    "lower_land_angle_from_vertical_degrees": {
+      "inner": 20,
+      "outer": 45
+    }
+  }
+}

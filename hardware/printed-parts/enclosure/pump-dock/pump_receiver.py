@@ -10,9 +10,8 @@ the junction about Y.
 The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
 pressure holding and endurance are unqualified on this geometry. The
-lower-mouth print pose leaves the lower sealing rim on the bed.
-External supports remain accessible before factory mounting. Round flow roofs
-are separate from the round sealing lands.
+aft web provides a flat print landing, with circular lands tilted at most 45 degrees.
+External supports remain accessible before factory mounting. The sealing lands remain circular.
 """
 from functools import lru_cache
 import json
@@ -23,7 +22,6 @@ import sys
 
 import cadquery as cq
 import fixed_returns as plumbing
-from flow_roof import teardrop_sweep
 
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
@@ -47,7 +45,7 @@ CUSTOMER_TIP_Y = 7.5
 CUSTOMER_STOP_Y = 8.0
 # The stub's square-cut end: its full OD meets the stop taper.
 CUSTOMER_TIP_END_D = 6.35
-THROAT_D = 5.00
+THROAT_D = TUBE_ID
 RELIEF_TAPER_START_Y = CUSTOMER_STOP_Y - (FRONT_RELIEF_D - CUSTOMER_TIP_END_D) / 2
 RELIEF_TAPER_END_Y = RELIEF_TAPER_START_Y + (FRONT_RELIEF_D - THROAT_D) / 2
 COLLAR_OD = 17.5
@@ -68,7 +66,7 @@ NECK_MOUTH_W = NECK_GRIP_D
 UPPER_MOUTH_LOCAL_Y = 22.775
 BRANCH_OD = 11.72
 LOWER_STOP_BORE_D = 5.50
-LOWER_STOP_TAPER = (LOWER_STOP_BORE_D-TUBE_ID)/2
+LOWER_STOP_TAPER = LOWER_STOP_BORE_D-TUBE_ID
 ENTRY_AXIAL = .50
 ENTRY_RADIAL = .25
 WEB_HALF_WIDTH = 7.0
@@ -141,36 +139,54 @@ def _local_junction(junction,origin):
     return out
 
 
-def crotch_web(junction=None):
-    """Broad flat-sided stock around the fork; socket rims remain circular.
-
-    The lower passage has a tighter turn than its exterior cuff radius, so
-    its exterior is solid stock rather than a self-intersecting pipe sweep.
-    All points lie in the inlet Y/Z plane; the lower socket aims into the
-    fixed elbow's upper collet.
-    """
-    junction=junction or _default_junction()
+def _web_wire(junction):
     r=BRANCH_OD/2
     _,uy,uz=junction['upper']['tube_stop']
     mouth=cq.Vector(*junction['lower']['point'])
     axis=cq.Vector(*junction['lower']['axis'])
-    front=REAR_COLLAR_Y[1]-.5
-    back=REAR_COLLAR_Y[1]
+    front=REAR_COLLAR_Y[1]-.5;back=REAR_COLLAR_Y[1]
     rim=((COLLAR_OD/2)**2-WEB_HALF_WIDTH**2)**.5-WEB_RIM_MARGIN
     top=rim-(back-front)*(uz-rim)/(uy-back)
-    # Convex outside in Y/Z, trimmed square at the lower sealing mouth.
-    # The broad aft face carries both branch loads into the rear collar.
     lower=junction['lower_flow_segments'][0]
-    aft=max(uy+r,lower['midpoint_mm'][1]+r,
+    # A broad 45-degree aft face is the print landing. It remains outside
+    # the upper tube corridor and has at least 3 mm horizontal projection.
+    peak=(uy+r,junction['upper']['point'][2])
+    aft=max(peak[0]+3.,lower['midpoint_mm'][1]+r,
             junction['lower']['tube_stop'][1]+r)
     foot=mouth.z-(aft-mouth.y)*axis.y/axis.z-r
-    outline=[(front,-rim),(front,top),(uy,uz),(aft,uz),
+    outline=[(front,-rim),(front,top),peak,(aft,sum(peak)-aft),
              (aft,foot),(mouth.y-r,foot)]
-    wire=cq.Wire.makePolygon([cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline],close=True)
+    return cq.Wire.makePolygon([cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline],close=True)
+
+
+def crotch_web(junction=None):
+    """One flat-sided web with an integral 45-degree print landing."""
+    junction=junction or _default_junction()
+    wire=_web_wire(junction)
     web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
+    mouth=cq.Vector(*junction['lower']['point']);axis=cq.Vector(*junction['lower']['axis'])
     behind=cq.Workplane(cq.Plane(origin=mouth,xDir=(1,0,0),normal=axis*-1)).box(
         400,400,400,centered=(True,True,False)).val()
     return web.intersect(behind)
+
+
+def common_chamber(junction):
+    """Remove the dividing cusp between branches, leaving 3 mm web stock.
+
+    The chamber lies inside the inset web profile and ends one millimetre
+    before each socket stop. Circular seal lands and annular stops remain.
+    """
+    wires=_web_wire(junction).offset2D(-3.)
+    width=TUBE_ID+.5
+    wire=wires[0].translate((WEB_HALF_WIDTH-width/2,0,0))
+    chamber=cq.Solid.extrudeLinear(wire,[],cq.Vector(width,0,0))
+    for branch in ('upper','lower'):
+        port=junction[branch];axis=cq.Vector(*port['axis'])
+        inside=cq.Vector(*port['tube_stop'])-axis*1.
+        half=cq.Workplane(cq.Plane(origin=inside,xDir=(1,0,0),normal=axis*-1)).box(
+            400,400,400,centered=(True,True,False)).val()
+        chamber=chamber.intersect(half)
+    return chamber
 
 
 def _geometry(*,installed=False,junction=None):
@@ -179,7 +195,8 @@ def _geometry(*,installed=False,junction=None):
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
-    root=max(junction[k+"_flow_segments"][0]["start_mm"][1] for k in ("upper","lower"))
+    root=max(junction["upper_flow_segments"][0]["start_mm"][1],
+             junction["lower_flow_segments"][0]["end_mm"][1])
     outer=_outside(installed).fuse(_cylinder(od,REAR_COLLAR_Y[1]-.5,root+.1),crotch_web(junction))
     void=(_cone(FUNNEL_BORE_D,seal,0.,FRONT_SEAL_Y[0])
           .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
@@ -199,7 +216,7 @@ def _geometry(*,installed=False,junction=None):
         stop=cq.Vector(*port["tube_stop"])
         if branch=='lower':
             # The downward-printed socket retains a supported 0.30 mm annular
-            # stop. The downstream 45-degree taper leaves the 6 mm land and the
+            # stop. The gentle downstream taper leaves the 6 mm land and the
             # factory tip datum untouched.
             void=void.fuse(cq.Solid.makeCone(LOWER_STOP_BORE_D/2,TUBE_ID/2,
                           LOWER_STOP_TAPER,stop,d*-1))
@@ -207,9 +224,8 @@ def _geometry(*,installed=False,junction=None):
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
                        cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,BRANCH_OD,cq.Vector(*port["point"]),d))
-    # The upper turn keeps its supported teardrop passage roof; the circular
-    # sealing lands are cut separately.
-    void=void.fuse(teardrop_sweep(junction["upper_flow_segments"][0],TUBE_ID/2,inward=True,flank=40.)).clean()
+    # A single chamber removes the dividing cusps between the round branches.
+    void=void.fuse(common_chamber(junction)).clean()
     neck_od=math.sqrt(BODY_OD**2+growth)
     ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
     outer=outer.cut(ring).clean()
@@ -264,8 +280,9 @@ def wet_stations(wall_fore_y=0.,x=0.,z=0.,*,junction=None):
 
 
 def print_rotations(junction=None):
-    d=(junction or _default_junction())['lower']['axis']
-    return math.degrees(math.atan2(d[0],d[1])),-math.degrees(math.atan2(math.hypot(d[0],d[1]),-d[2]))
+    # The aft web landing is flat; inlet/upper lands are 45 degrees and the
+    # lower land is 20 degrees (inner) or 45 degrees (outer) from vertical.
+    return 0.,-135.
 
 
 def print_build_direction(junction=None):
@@ -274,7 +291,7 @@ def print_build_direction(junction=None):
 
 
 def print_solid(*,junction=None):
-    """Actual lower mouth normal points down, giving a flat sealing rim bed."""
+    """The broad aft web landing sits flat on the bed."""
     zrot,xrot=print_rotations(junction)
     solid=geometry(junction=junction)['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
     return solid.translate((0,0,-solid.BoundingBox().zmin))
@@ -287,14 +304,14 @@ def engineering_record():
             "branch_entry_radial_mm":ENTRY_RADIAL,"branch_mouth_radial_stock_mm":BRANCH_OD/2-SEAL_BORE_D/2-ENTRY_RADIAL,
             "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
             "rear_flange_y_mm":REAR_COLLAR_Y,
-            "crotch_web_half_width_mm":WEB_HALF_WIDTH,
+            "crotch_web_half_width_mm":WEB_HALF_WIDTH,"common_chamber_min_web_stock_mm":3.,"common_chamber_width_mm":TUBE_ID+.5,
             "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,"keeper_slot_y_mm":KEEPER_SLOT_Y,
             "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
             "lower_socket_stop_bore_mm":LOWER_STOP_BORE_D,"lower_socket_stop_radial_mm":(SEAL_BORE_D-LOWER_STOP_BORE_D)/2,
             "lower_socket_stop_taper_mm":LOWER_STOP_TAPER,"installed_tip_stop_contact_area_mm2":math.pi*(TUBE_OD**2-LOWER_STOP_BORE_D**2)/4,
             "customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
             "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
-            "print_orientation":"Yaw the actual lower outward axis onto +Y, then rotate it onto -Z; lower mouth rim flat on the bed. Exterior Tree(auto)/Default support only.",
+            "print_orientation":"Rotate -135 degrees about X; the integral aft web landing is flat on the bed. Circular lands stand 45/45/20 degrees (inner) or 45/45/45 degrees (outer) from vertical. Exterior Tree(auto)/Default supports.",
             "physical_reference":"future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
             "scope":"Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."}
 

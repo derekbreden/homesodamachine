@@ -4,12 +4,12 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 6581.2489547276155
+        "volume_mm3": 7279.423703967311
       },
       "elbow": {
         "valid": true,
         "solids": 3,
-        "volume_mm3": 3935.9042160403997
+        "volume_mm3": 3935.904216040395
       },
       "seat": {
         "valid": true,
@@ -60,18 +60,18 @@
               "obstacle": "enclosure-pump-cartridge",
               "gap_mm": 0.25000061035156307,
               "point": [
-                -89.15072855341663,
+                -88.77081756785921,
                 82.515,
-                185.94921593426972
+                186.37379658175303
               ]
             },
             {
               "obstacle": "enclosure-front-top",
               "gap_mm": 0.0,
               "point": [
-                -87.6161036912659,
+                -87.15069936195349,
                 83.115,
-                181.7750540958995
+                181.24768688011383
               ]
             }
           ]
@@ -85,11 +85,11 @@
           "near": [
             {
               "obstacle": "valve-v-j",
-              "gap_mm": 0.0,
+              "gap_mm": 0.0016698190285665486,
               "point": [
-                -74.77632043230808,
-                164.31439587901608,
-                177.6750030517578
+                -72.69791068950084,
+                169.21010783966904,
+                170.175
               ]
             },
             {
@@ -340,12 +340,12 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9507.388834972784
+        "volume_mm3": 9235.924572164644
       },
       "elbow": {
         "valid": true,
         "solids": 3,
-        "volume_mm3": 3935.904216040398
+        "volume_mm3": 3935.9042160403933
       },
       "seat": {
         "valid": true,
@@ -405,9 +405,9 @@
               "obstacle": "enclosure-pump-cartridge",
               "gap_mm": 0.25000061035156307,
               "point": [
-                -29.38606285247421,
+                -29.10241160061882,
                 82.515,
-                186.69263921799876
+                186.3423946321863
               ]
             },
             {
@@ -440,19 +440,19 @@
           "near": [
             {
               "obstacle": "valve-v-d",
-              "gap_mm": 0.0,
+              "gap_mm": 0.001670866506127365,
               "point": [
-                -24.467336668976248,
-                166.61334358198388,
-                168.1750030517578
+                -19.969444680577446,
+                164.13914746562995,
+                160.675
               ]
             }
           ]
         }
       ],
       "assumed_connector_gaps_mm": [
-        4.323039952468192,
-        4.323039952468199
+        4.323039952468194,
+        4.323039952468201
       ],
       "layout": {
         "corner": [
@@ -721,12 +721,12 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9507.388834972782
+        "volume_mm3": 9235.924572164644
       },
       "elbow": {
         "valid": true,
         "solids": 3,
-        "volume_mm3": 3935.904216040398
+        "volume_mm3": 3935.9042160403933
       },
       "seat": {
         "valid": true,
@@ -786,9 +786,9 @@
               "obstacle": "enclosure-pump-cartridge",
               "gap_mm": 0.25000061035156307,
               "point": [
-                20.745919428125383,
+                19.175614076356574,
                 82.515,
-                179.8743791495806
+                179.87536264709001
               ]
             },
             {
@@ -821,19 +821,19 @@
           "near": [
             {
               "obstacle": "valve-v-c",
-              "gap_mm": 0.0,
+              "gap_mm": 0.001670866506127365,
               "point": [
-                20.20918240784538,
-                166.43235479443476,
-                168.1750524030126
+                19.96944468057747,
+                164.13914746562992,
+                160.675
               ]
             }
           ]
         }
       ],
       "assumed_connector_gaps_mm": [
-        4.323039952468192,
-        4.323039952468199
+        4.323039952468194,
+        4.323039952468201
       ],
       "layout": {
         "corner": [
@@ -1102,12 +1102,12 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 6581.2489547276155
+        "volume_mm3": 7279.423703967311
       },
       "elbow": {
         "valid": true,
         "solids": 3,
-        "volume_mm3": 3935.9042160403988
+        "volume_mm3": 3935.904216040394
       },
       "seat": {
         "valid": true,
@@ -1167,9 +1167,9 @@
               "obstacle": "enclosure-pump-cartridge",
               "gap_mm": 0.25000061035156307,
               "point": [
-                75.04683149680051,
+                75.34758730907544,
                 82.515,
-                186.14739640987213
+                186.34239465937685
               ]
             },
             {
@@ -1192,11 +1192,11 @@
           "near": [
             {
               "obstacle": "valve-v-g",
-              "gap_mm": 0.0,
+              "gap_mm": 0.0016698190285665486,
               "point": [
-                74.38690396473883,
-                163.11694222390324,
-                177.68219574895272
+                72.69791068950084,
+                169.21010783966904,
+                170.175
               ]
             },
             {
@@ -1464,14 +1464,13 @@
       "parked_z_min": 195.674
     }
   },
-  "scope": "Native affected parts against native front-top; FCL distances to retained current assembly payload. Connector boxes are assumed 8\u00d75\u00d721.5 mm and do not qualify the purchased terminals. Native valid/clearance results do not establish wet performance or lifetime. Formed tube solids terminate at the known release faces; the spatial readings cover the identical exposed path and conservative hidden insertion illustration used during the fit probe. Stock insertions remain nominal.",
+  "scope": "Native affected parts against native front-top; FCL distances to retained current assembly payload. Connector boxes are assumed 8\u00d75\u00d721.5 mm and do not qualify the purchased terminals. Native valid/clearance results do not establish wet performance or lifetime.",
   "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "e691c7e45fb501dbca6e3766399335649636774cd7fe18f4f6454a14376a001e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "2c50acb1f95dd6d6e1a0ae32902321df02a9907768ba7b7fd06d9782a19d0bad",
+    "hardware/manifold-layout/enclosure-assembly.step": "35f763842379ae808b8849e1ce55c967cef4df6895b04510df54427bbd35ad29",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9963d41946eca360c47c5653c9b1e59ce7b90b7c088be9380f2ee5b26a331e6e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "ffd5d371695c17ac189b3454059d341c8af8807d93436b0c12983c7df585eded",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "aeed2b7cda862d39cf13df4df5b7ce083fa5b50905f0b0578b8853681e70b086",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "d72482234e7926a5de1048d5b37221b0ce51fa2119d26997a9c81424b9969510",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f4a1fc79a3d125b58402732e72a80b5629d82724b8e01115cea9a4ad420dd8bc",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b444628a11365aae116a33f20eb430d6bc4bca365ff4a939bbe5bdf29855242e"
   }
 }

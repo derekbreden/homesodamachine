@@ -1,9 +1,0 @@
-[slope] Unavoidable without a collision: the junction web's aft face stands vertical in place, from the upper cuff's aft tangent down to the lower mouth plane, and this print pose (lower mouth on the bed) lays every aft-facing face of the flat-sided web at 45 degrees along its sides. The one orientation that stands upright in this pose runs parallel to the lower branch, and from that tangent it reaches the fore valve's coil directly aft of the junction.
-alternatives: An aft face along the lower branch prints upright but touches the fore valve coil (0.00 mm, checked in the assembly). Moving that face forward to clear the coil gives up the fill behind the upper socket, which is the web's job. Rounding the web's sides to the branch radius trades two flat faces for curved ones and still leaves a 45-degree underside.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step
-click: x=0.000 y=24.319 z=6.890
-
-[slope] Unavoidable while the web joins the rear collar: the collar's back face is perpendicular to the inlet axis, so this print pose lays it at 45 degrees, and the flat-sided web standing on that face makes it run along the web's side.
-alternatives: Starting the web clear of the collar leaves a narrow slot between them, which strings in TPU and drops the collar's backing of the upper socket. Lengthening the collar into the web adds faces without changing the angle.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step
-click: x=0.000 y=9.738 z=13.926
