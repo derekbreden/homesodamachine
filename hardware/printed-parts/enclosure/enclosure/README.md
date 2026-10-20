@@ -675,7 +675,7 @@ like any other above it, there being no chute up there to leave a strip against;
 widened into a vent, and no strip thinner than a wall survives between the two openings. Over
 the chute, the skin between two crossing slots on one flank of its arched roof ends level at
 the crown of the can's sweep, square to both jambs. All
-[90](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+[89](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
@@ -699,7 +699,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [23](VENT_SLOTS_IN) | [90](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [64.0 cm²](VENT_OPEN_IN) |
+| −X intake | [23](VENT_SLOTS_IN) | [89](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [63.3 cm²](VENT_OPEN_IN) |
 | +X exhaust | [23](VENT_SLOTS_OUT) | [92](VENT_RUNS_OUT) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [65.5 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
