@@ -23,7 +23,8 @@ The funnel, apron and rib are one casting and lift out together for cleaning.
 
 The rib is a local cast-silicone sealing feature. Its nominal interference
 allows seating; it does not establish sealing force or water exclusion.
-The front rib merges into the bearing brim through a short sloping root.
+The front rib merges into the bearing brim through a short sloping root
+across the complete apron width.
 The surrounding apron can bend while the brim and outlet block bear on
 their existing frame/cradle seats. The drain stub, collar, frame and shell
 fits use their existing datums. Fit the silicone after closing the upper

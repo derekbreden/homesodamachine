@@ -4,22 +4,22 @@
   "source_sha256": {
     "hardware/printed-parts/zone-c/funnel/overflow-review/review.py": "8c964b7b859e676b9096b2d3e74dc7ce4f263bf1840b2a1a2a44ae10c40ae11c",
     "hardware/printed-parts/zone-c/funnel/overflow-review/step_patch.py": "163e2e467919a394aa99142da4cb090e7049e426a36f5b26c4e4dd3b03189ba5",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "abdbf800162d5d86051d0fee623c1e2adae141a34e23e93afa12b301d1af1563",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "81bd8b913aa0d99d3ddfce91b05501da348374c87bbdf1ee236917e07df6d438",
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "09e6402c4fd5daf976db430a61680befd70cab090b315289f64d09b1c3643ebf",
     "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "c248e355cc4473dfe29e207cba46efcec709ddc4e5897e4d2129955c62394d8e",
     "hardware/manifold-layout/enclosure_assembly.py": "f419cbc28d9ec5ac948d707b3a0adbeea0c3198ee3400ebd24f6922e8c3708ed",
     "hardware/manifold-layout/_scorecard.py": "0560210a0c6cb2660984abeb3045835a694e60a1787575163ecddb268793b183"
   },
   "native_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel.step": "b6a4136e2bf97641dca3c21ba8e1fa2d1f8a6d06dceb8d2fada2eae38c56c2a9",
+    "hardware/printed-parts/zone-c/funnel/funnel.step": "de234226a4628e2c1de926fd2f36988fc97b9daf771cb85f7af90117dc37532e",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "02779decbf514be8393afdfb4c5a108b71463cc381f8f3a80f909fa0dcc5f87b",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "e21dbfb49096eedf1e7b836b3d792bf6948e4d5750ab81d319356b2f03617cb8",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "fd0b16698d218af5c59f53bdf4cfd7f87d4fbf4b9d4b292c26fa5263a53e1299",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "a68938d902f8ff79de34553b9a9c512e525dad57094b202be195e17ff84bedeb"
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48"
   },
   "finished_funnel_native_difference_mm3": 0.0,
   "capacity_to_mouth_ml": 530.5403569272468,
-  "native_silicone_volume_ml": 275.0111446355908,
+  "native_silicone_volume_ml": 275.02860830596103,
   "funnel_seat_world_mm": [
     0.0,
     161.69575,
@@ -38,7 +38,7 @@
   "roof_rib_bottom_contact_width_mm": 1.5,
   "nominal_roof_contact": {
     "front-top": {
-      "nominal_contact_mm3": 114.12446807218544,
+      "nominal_contact_mm3": 114.12446807218564,
       "outside_roof_rib_mm3": 0.0
     },
     "back-top": {
@@ -341,8 +341,8 @@
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
       "input_step_sha256": "6779141bd1369f1017739f43352910c836b6da4451868f9645385ccd7322c25a",
-      "output_step_sha256": "9c5b5656bab314c364b0d13b0c0418c02b6cb42245d8d9ed0d5d71bb5c2a42d9",
-      "output_payload_sha256": "939ec16e89d3fe7175f0284d1c710a4a0afbce7057ca1ca117d8bc3605c96590",
+      "output_step_sha256": "f97b50835080700235711db26b151c8d6352d09ce43eca31d37a49ce89a5d98d",
+      "output_payload_sha256": "e48bb112b87232e4e3141149f9472454652a398f752e9d0cbe9984c0c42bae45",
       "replaced_members": [
         "enclosure-front-top",
         "funnel",
@@ -2603,9 +2603,9 @@
           "max_bounds_error_mm": 9.947598300641403e-13,
           "topology": [
             1,
-            86,
-            215,
-            134
+            95,
+            239,
+            148
           ],
           "valid": true,
           "color_linear_rgb": [
@@ -2613,8 +2613,8 @@
             0.007194409146904945,
             0.007194409146904945
           ],
-          "source_fingerprint": "09e263c7cab76041f87db824888f6274af97f705b75bb9975815f0e1a1e7c295",
-          "exported_fingerprint": "d8ad7e09170c085964954e133473fa2035fc29c7952baba1da379fba78681567",
+          "source_fingerprint": "51079022ed8b0a26ba889fcd51434e0d535a96536c13f6de0e620f4b2bbf70c7",
+          "exported_fingerprint": "7914cc48bb39cfaef68b1863e81e79cf576ab90874b45f8c3c082736923e2395",
           "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences.",
           "viewer_color_linear_rgb": [
             0.007194409146904945,

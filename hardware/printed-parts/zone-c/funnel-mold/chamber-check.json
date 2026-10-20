@@ -627,11 +627,11 @@
   },
   "scope": "Nominal fit in the acquired chamber record, including closure hardware. No physical insertion or sparse-print stiffness measurement is claimed. Dry-side holes are drilled after printing to connect the gyroid to chamber air.",
   "sha256": {
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "fd0b16698d218af5c59f53bdf4cfd7f87d4fbf4b9d4b292c26fa5263a53e1299",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "47b69261b0cb1c3513583cae92f37afa0d667c1bb8c7af733d7b298b13453741",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "a68938d902f8ff79de34553b9a9c512e525dad57094b202be195e17ff84bedeb",
-    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "bbec01f109c103d4e54c3e598964f92d10b9a3774ca2f6cd82877d995d56b6aa",
-    "hardware/printed-parts/zone-c/funnel-mold/design.json": "fcdd2188a2cd8f83066d8425e3de39a4d14d6bfe6555a009a655ac62abc6049a",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "d0e6b38f2bb17048c8784b50ffd82b0f1dcfc50a213260fd6f041b62425add93",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "f5c3b6fc8fc7f21c8edbf0998cf5041287ecd57a1241573ab4947eeb7aa612e8",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "2a72e885719427e611c3503ebca6e5c328c1765686ee4a0186aea5b6bdd3ade7",
     "tools/funnel-mold-print/review_chamber.py": "b81ae10f2b1f505beb7618ba751012f920a59cc5289bf2fc658d208232f67d46"
   },
   "passed": true

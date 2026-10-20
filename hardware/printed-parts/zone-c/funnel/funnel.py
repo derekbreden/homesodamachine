@@ -141,16 +141,18 @@ def roof_seal():
         inner.append(_rounded_wire(seal_width - 2 * grow, seal_depth - 2 * grow,
                                    seal_corner_r - grow, z, 0.0, seal_y))
     rib = cq.Solid.makeLoft(outer, True).cut(cq.Solid.makeLoft(inner, True))
-    # Join the close front rib directly to the bearing brim. A separate gap
-    # here would require a long, thin printed ridge in the casting tool.
+    # The front root joins the bearing brim across the complete apron width,
+    # sharing the apron's outer boundary at both ends.
     front = -collar_d / 2 - brim_overhang
     contact = seal_y - seal_depth / 2 + 0.75
-    root = (cq.Workplane('YZ', origin=(-collar_w / 2 - brim_overhang, 0, 0))
+    root = (cq.Workplane('YZ', origin=(-apron_width / 2, 0, 0))
             .polyline([(contact, brim_thickness - seal_preload),
                        (front, brim_thickness),
                        (front, apron_floor + 0.05),
                        (contact, apron_floor + 0.05)])
-            .close().extrude(collar_w + 2 * brim_overhang).val())
+            .close().extrude(apron_width).val()
+            .intersect(apron_plan(0.0, brim_thickness - seal_preload,
+                                  apron_floor + 0.05)))
     return rib.fuse(root).clean()
 
 
