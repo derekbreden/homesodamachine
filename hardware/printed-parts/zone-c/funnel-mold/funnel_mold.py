@@ -40,7 +40,7 @@ bolt_pocket_height = 8.0
 bolt_pocket_width = 12.0
 flange_thickness = 5.0
 flange_margin = 16.0
-flange_radius = 24.0
+flange_radius = 28.0
 bolt_diameter = 5.0
 bolt_edge_margin = 6.0
 bolt_station = 50.0
@@ -226,7 +226,8 @@ def build():
     cavity_outer = expanded(ramp, funnel.collar_wall + backing_allowance)
     backing_bodies = (
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
-        funnel.brim_plan(0.0, 0, top),
+        funnel.brim_plan(0.0, 0, funnel.brim_thickness),
+        funnel.apron_plan(0.0, funnel.brim_thickness - funnel.seal_preload, top),
         funnel.elbow_cradle.plug_outline(funnel.plug_width/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
@@ -278,7 +279,7 @@ def build():
         cq.Vector(x, y, guide_top))
     plate = rounded(flange_width, flange_depth, flange_radius, top, back)
     # The brim's top face grows downward by the measured finishing thickness.
-    plate = plate.cut(funnel.brim_plan(finish_allowance, top-1, top+finish_allowance))
+    plate = plate.cut(funnel.apron_plan(finish_allowance, top-1, top+finish_allowance))
 
     rod_bottom = end-rod_end_depth
     rod_top = rod_bottom+rod_length
@@ -331,15 +332,13 @@ def build():
     cavity = one(cavity.cut(*bolt_pockets), 'cavity bolt head access')
     cavity = one(cavity.cut(*bolts), 'cavity clamp holes')
     core = one(core.cut(*bolts), 'core clamp holes')
-    port_radius = m['out_w']/2-m['rim_ring']/2
-    arc_radius = funnel.brim_corner_r - m['rim_ring']/2
-    corner_x = m['out_w']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
-    corner_y = m['out_d']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
-    # The brim's square front corners take their ports on the ring's own midline.
-    front_x, front_y = port_radius, m['out_d']/2-m['rim_ring']/2
-    pour = (-front_x, -front_y)
-    vents = [(front_x, -front_y), (corner_x, corner_y),
-             (-corner_x, corner_y), (-port_radius, 0), (port_radius, 0)]
+    # Keep the full pour bore inside the asymmetric apron and outside the mouth.
+    port_x = funnel.apron_width / 2 - 14.5
+    front_y = funnel.apron_y - funnel.apron_depth / 2 + 10.0
+    rear_y = funnel.apron_y + funnel.apron_depth / 2 - 12.0
+    pour = (-port_x, front_y)
+    vents = [(port_x, front_y), (port_x, rear_y), (-port_x, rear_y),
+             (-funnel.seal_width / 2 + 3.5, 0), (funnel.seal_width / 2 - 3.5, 0)]
     ports = [cylinder(pour_diameter/2, top-1, back+1, *pour)]
     ports += [cylinder(vent_diameter/2, top-1, back+1, *xy) for xy in vents]
     core = one(core.cut(*ports), 'core fill and vents')
@@ -384,8 +383,9 @@ def build():
         'minimum_core_backing_mm': minimum_core_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
-        'casting_scope': 'whole finished funnel with rectangular block, flat bearing face and straight 6 mm outlet',
+        'casting_scope': 'whole finished funnel with integral roof apron and sealing rib, rectangular block, flat bearing face and straight 6 mm outlet',
         'flange_plan_mm': [flange_width, flange_depth],
+        'flange_corner_radius_mm': flange_radius,
         'flange_margin_mm': flange_margin,
         'plug_blank_mm': [funnel.plug_width,
                           2*funnel.elbow_cradle.plug_half_length(funnel.plug_width/2)],
@@ -526,7 +526,8 @@ def write_parts(parts, info, output):
 
 def write_back_view(parts, output):
     backs = cq.Assembly()
-    for name, dx, color in [('cavity', -120, '#3D9998'), ('core', 120, '#D8A751')]:
+    spacing = max(parts[n].BoundingBox().xlen for n in ('cavity', 'core')) / 2 + 22
+    for name, dx, color in [('cavity', -spacing, '#3D9998'), ('core', spacing, '#D8A751')]:
         part = parts[name]
         if name == 'cavity':
             part = part.rotate((0, 0, 0), (1, 0, 0), 180)

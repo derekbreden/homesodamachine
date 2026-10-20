@@ -2,6 +2,7 @@
 import hashlib
 import json
 import math
+from datetime import date
 from pathlib import Path
 
 import cadquery as cq
@@ -49,7 +50,7 @@ def main():
                 'maximum_radius_mm': float(np.linalg.norm(points[:, :2], axis=1).max()),
                 'top_mm': part.BoundingBox().zmax, 'mold_interference_mm3': overlaps})
     width, depth = info['flange_plan_mm']
-    radius = 24.0
+    radius = info['flange_corner_radius_mm']
     exact_radius = math.hypot(width/2-radius, depth/2-radius)+radius
     mesh_radius = max(float(np.linalg.norm(trimesh.load(MODELS/(n+'.stl'),
         force='mesh').vertices[:, :2], axis=1).max()) for n in ('cavity', 'core'))
@@ -74,7 +75,7 @@ def main():
                 'casting_clearance_mm': clearance})
     files = [MODELS/(n+'.'+suffix) for n in ('cavity', 'core') for suffix in ('step', 'stl')]
     files += [MODELS/'design.json', Path(__file__)]
-    result = {'checked_date': '2026-10-05',
+    result = {'checked_date': date.today().isoformat(),
         'method': 'Native STEP hardware-clearance booleans, exact rounded-flange enclosing circle, STL bound and drill-path reads.',
         'chamber': {'asin': 'B0D78ZM928', 'source': str(source.relative_to(ROOT)),
             'recorded_interior_inches': [11.8, 11.8], 'diameter_mm': diameter, 'height_mm': height,

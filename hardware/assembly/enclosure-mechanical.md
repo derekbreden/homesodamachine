@@ -326,13 +326,17 @@ connection belong to WR-04. The cartridge's leads remain in its cap; nothing on 
 cartridge shares this fixed lead. Both connector halves are mounted before the
 unpowered cartridge seating and compression check at IP-05.
 
-The 455 mL silicone funnel seats in a separate PET-GF frame behind the display,
+The 531 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top from the seam end before closure; back-top's
 roof closes over its rear as the enclosure closes. The [frame motion
 record](../printed-parts/zone-c/funnel/integration-review/rail-motion-check.json) binds the
 insertion and capture geometry to its recorded artifact hashes. The frame's front feet are at Z306.9 and the
 receiver underside is Z307.4, giving 0.50 mm for the running fit and one supported face.
 The silicone lifts out from above. Deburr and wipe its seat without rounding the rail bearing faces.
+After closing the shell and tightening its upper seam screws, fit the silicone
+funnel onto its drain stub and bearing seat. Smooth its integral apron onto
+the roof so the underside rib seats around the frame opening. The apron
+covers the upper screw wells; lift it for screw access and to clean both faces.
 
 Before the frame goes in, drop the PP0308E elbow into the
 [elbow cradle](/hardware/printed-parts/zone-c/funnel/README.md#elbow-cradle), vertical leg up.

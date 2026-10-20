@@ -1,6 +1,6 @@
 # Flavor-fill funnel and sliding frame
 
-The removable silicone funnel holds nominally [480 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [531 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top on one pair of front rails. Closing the enclosure
 captures the frame against withdrawal. Its rear passes between the upper Y-seam
 screw blocks. The frame uses the enclosure's production rail section and its
@@ -11,16 +11,29 @@ Remove it before pouring or lifting the silicone out, and reseat it after fillin
 
 ## Silicone
 
-The collar center is world X0, Y161.70. Its brim underside is Z349 and its
-6 mm brim finishes flush with the Z355 enclosure roof. The collar is
+The collar center is world X0, Y161.70. Its frame-bearing brim underside is
+Z349. The mouth and cover seat are Z358, 3 mm above the rigid enclosure roof;
+the fitted cover reaches Z361. The collar is
 165 × 123.392 mm with R20 corners; the mouth is 153 × 111.392 mm with R14 corners;
-the brim is 179 × 137.392 mm with R27 aft corners and square front corners. The collar
+the bearing brim is 179 × 137.392 mm with R27 aft corners and square front corners. The collar
 wall and ramp's normal wall are 6 mm. The ramp falls to the outlet at the collar's centre,
 X0, Y161.70.
 
-The native cavity holds 479.92 mL to the brim. The brim's flat front edge, Y93.0, stands
+The native cavity holds 530.54 mL to the mouth rim. The bearing brim's flat front edge, Y93.0, stands
 one 0.25 mm running fit behind the display wall across its full width; its square front
 corners meet the frame's two side strips. The drain exits at X0, Y161.70, Z306.05.
+
+An integral **215 × 155.392 mm silicone apron** covers the exposed frame/roof
+joints and upper seam screw wells. It reaches both exterior sides and runs
+from Y87.0 to Y242.392. Overpour crosses this continuous silicone surface to
+the exterior. A blunt underside rib contacts the rigid roof outside the frame
+opening, opposing roof runoff beneath the apron. Its 1.5 mm contact band has
+0.3 mm nominal seating interference; the 2.5 mm apron sheet above it is free
+to bend. This is a local cast-silicone sealing section.
+
+The [overflow review](overflow-review/README.md) records native coverage,
+intended roof contact, mold fit and lift-out clearance. Water exclusion and
+seating force have not been measured on a cast part.
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
@@ -33,6 +46,9 @@ The intended cleaning motion is lifting the whole silicone funnel out by hand.
 Its straight bore slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
 elbow's collet under the frame. To refit, press the plug into the frame's socket
 until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
+Fit it after the enclosure halves and upper seam screws are closed. Smooth
+the apron onto the roof with its underside rib seated, and lift it to wipe
+both faces during cleaning.
 The [two mold shells and straight steel rod](../funnel-mold/README.md) form the
 complete block and cylindrical outlet.
 

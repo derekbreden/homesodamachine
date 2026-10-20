@@ -13,9 +13,12 @@ import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'hardware/scripts/_cadq_export.py').is_file())
-sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(HERE)]
+sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(HERE),
+                str(ROOT / 'hardware/printed-parts/enclosure/enclosure')]
 from _cadq_export import import_assembly
 import funnel_cover as lid
+import enclosure as enc
+import _box_spec
 
 
 def main():
@@ -24,7 +27,9 @@ def main():
     bodies = import_assembly(assembly)
     silicone = bodies['funnel'][0]
     b = silicone.BoundingBox()
-    cx, cy, roof = (b.xmin + b.xmax) / 2, (b.ymin + b.ymax) / 2, b.zmax
+    box, _ = _box_spec.read(enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate))
+    cx, cy = box.pack.funnel
+    roof = b.zmax
     cover = import_assembly(cover_step)['funnel-cover'][0].translate((cx, cy, roof))
     assembled_cover = bodies['funnel-cover'][0]
     assembly_difference = (cover.cut(assembled_cover).Volume()

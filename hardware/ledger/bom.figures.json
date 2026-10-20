@@ -44,13 +44,13 @@
     "FOAM_SCREWS": "20",
     "FOUR_INCH_TIES": "20",
     "FOUR_INCH_TIES_COST": "$0.43",
-    "FUNNEL_BATCH_COST": "$9.10",
+    "FUNNEL_BATCH_COST": "$10.94",
     "FUNNEL_DENSITY_G_ML": "1.13",
-    "FUNNEL_FINISHED_G": "258",
-    "FUNNEL_KIT_YIELD": "3.86",
-    "FUNNEL_MIXED_G": "284",
+    "FUNNEL_FINISHED_G": "311",
+    "FUNNEL_KIT_YIELD": "3.21",
+    "FUNNEL_MIXED_G": "342",
     "FUNNEL_MIX_ALLOWANCE": "10%",
-    "FUNNEL_VOLUME_ML": "228.7",
+    "FUNNEL_VOLUME_ML": "274.9",
     "GAS_CHECK_LOOP": "71.4 mm",
     "GROMMET_SQUEEZE": "0.4",
     "LAID_FT": "13.41 ft",
@@ -146,7 +146,7 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,448.19",
+    "BOM_GRAND": "$1,450.03",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$41.88",
     "BOM_SEC12": "$29.78",
@@ -159,7 +159,7 @@
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$18.64",
     "BOM_SEC7": "$169.36",
-    "BOM_SEC8": "$238.12",
+    "BOM_SEC8": "$239.96",
     "BOM_SEC9": "$72.01"
   }
 }
