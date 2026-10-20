@@ -178,6 +178,7 @@ def _geometry(*,installed=False,junction=None):
     # socket needs its lower bend; the outer trunk turns into the upper socket
     # to clear the closely spaced lower tube stop.
     trunk='lower' if abs(junction['lower']['axis'][1])>.1 else 'upper'
+    throat=TUBE_ID+(.2 if trunk=='upper' else 0.)
     segments=junction[trunk+'_flow_segments']
     start=(0.,RELIEF_TAPER_END_Y,0.)
     lead=plumbing._line(start,(0.,1.,0.),segments[0]['start_mm'][1]-start[1])
@@ -188,8 +189,8 @@ def _geometry(*,installed=False,junction=None):
           .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
           .fuse(_cylinder(seal,*FRONT_SEAL_Y))
           .fuse(_cylinder(FRONT_RELIEF_D,FRONT_SEAL_Y[1],RELIEF_TAPER_START_Y))
-          .fuse(_cone(FRONT_RELIEF_D,THROAT_D,RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y))
-          .fuse(_sweep(TUBE_ID,(lead,*segments))))
+          .fuse(_cone(FRONT_RELIEF_D,throat,RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y))
+          .fuse(_sweep(throat,(lead,*segments))))
     for branch in ("upper","lower"):
         segments=junction[branch+"_flow_segments"]
         if branch=='upper':
@@ -211,6 +212,11 @@ def _geometry(*,installed=False,junction=None):
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
                        cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,BRANCH_OD,cq.Vector(*port["point"]),d))
+    if trunk=='upper':
+        # The wider trunk admits a continuous 1 mm blend around the branch
+        # merge. Equal bores pinch the seam at two tangent points.
+        seams=[edge for edge in void.Edges() if edge.geomType()=='BSPLINE']
+        void=void.fillet(1.,seams)
     void=void.clean()
     neck_od=math.sqrt(BODY_OD**2+growth)
     ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
@@ -292,6 +298,8 @@ def engineering_record():
             "rear_flange_y_mm":REAR_COLLAR_Y,
             "crotch_web_half_width_mm":WEB_HALF_WIDTH,
             "flow_passages":"One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
+            "inlet_trunk_bore_mm":{"inner":TUBE_ID,"outer":TUBE_ID+.2},
+            "outer_branch_merge_blend_radius_mm":1.,
             "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,"keeper_slot_y_mm":KEEPER_SLOT_Y,
             "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
             "lower_socket_nominal_throat_mm":TUBE_ID,

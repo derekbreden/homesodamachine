@@ -1,6 +1,6 @@
 {
   "review_date": "2026-10-18",
-  "scope": "Current permanent asymmetric pump junctions, fixed printed returns and straight pump-link geometry inside the original appliance envelope. Nominal source construction, exact native artifacts and the eight offline manufacturing readings are bound separately. Geometry and saved settings establish no seal force, pressure rating, magnetic margin, food-contact suitability or service life.",
+  "scope": "Identified 2026-10-18 permanent asymmetric pump junctions, fixed printed returns and straight pump-link geometry inside the original appliance envelope. Nominal source construction, exact native artifacts and the eight offline manufacturing readings are bound separately. Geometry and saved settings establish no seal force, pressure rating, magnetic margin, food-contact suitability or service life.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "c107540deef3b1393abcd67e890b48d374511f6d462da8aa26199447bbe838f3",
     "hardware/printed-parts/enclosure/pump-dock/pump_return.py": "f5984a20409b05b53cf4671101da7a33d1aa13af7a37d8a6da4a88e29be3f187",
@@ -2994,5 +2994,6 @@
       "sha256": "5cf4bb7fbc205a4a9dc7b4ddc6fbf3287a00e433f0eaf62a52f20b4d37210bdd"
     },
     "binding_scope": "Artifact hashes are actual files released by the final producer. Native manufacturing readers retain their own slice-time source and preparation-mesh identities."
-  }
+  },
+  "current_assembly_geometry": "elbow-review/README.md"
 }

@@ -1,36 +1,36 @@
 {
-  "checked_at_utc": "2026-10-20T19:58:55.179701+00:00",
+  "checked_at_utc": "2026-10-20T20:08:50.286260+00:00",
   "method": "Fetch every changed CAD member through the live site object manifest or its STL object route, decompress, and compare SHA-256 with the published pointer file. Canonical manifest URLs are checked before downloading.",
-  "pointer_commit": "2d9d155110d9df0e54099a337c1b3a5870891512",
+  "pointer_commit": "cd58ec066bc56db22f3e7ce00d4a814186bc7c3c",
   "members": [
     {
       "path": "hardware/assembly/scenes/glb/front-top.glb",
-      "sha256": "2ba9d9d808f1fa5dac91fb7da84eda45403baf328d36ae8259ad92dc21d52065",
-      "bytes": 9463720,
+      "sha256": "5533d380ef7613a9fef037e296bdcaf2f5403c9dbe70729c2c6eebd4b97a32aa",
+      "bytes": 9547804,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "sha256": "e6702ef7b7afbe499278638a77d847c85d6ede8eee34915f31b589c1c5217edd",
-      "bytes": 194701218,
+      "sha256": "9adfaa2e70f90863f6457e37f315a31c5c038bcd0e73305d0bffc243e8d01cc0",
+      "bytes": 195672696,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "c087c689ab0838241b7c70e9cb02b4a668dd0e218cfc40de215877c787af66c2",
-      "bytes": 33564844,
+      "sha256": "a89550cdc5a495eca13498d0e7392570751bb2400348b67466b3cb996c389f62",
+      "bytes": 33677136,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/manifold-layout.step",
-      "sha256": "ce3fcf2fae742289d1cc13e80bf80dbd014c7bbf30d606425f71b7cb60ad41e7",
-      "bytes": 21762699,
+      "sha256": "4ab7b5ebcd2f91489db164eb1ed6f8145fb464b38ca0d2d8e0d9e61b3b73f8fc",
+      "bytes": 21742228,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/manifold-layout.step.mesh",
-      "sha256": "51323b10d6e5d5504af8d1a6a406048479b1e44fca341c72deb18f2dcb9de1b9",
-      "bytes": 6552144,
+      "sha256": "efb27412e8642d8a14518c3d2f638d562d2744293c260792f13b836695368ea3",
+      "bytes": 6584608,
       "pass": true
     },
     {
@@ -89,74 +89,74 @@
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step",
-      "sha256": "74b27eaf4d70597082f5042a388e13f07063252b6197841cf857beb336a7864a",
-      "bytes": 223795,
+      "sha256": "ae08e51c87d1e3258247890e59ecafcd173f98a98541a36f12da236db4593092",
+      "bytes": 216910,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh",
-      "sha256": "580ad92e80f3c9924eafa0a0e511dbc2d11fd2d74dd7cc2dedf385ea375ff1fd",
-      "bytes": 344288,
+      "sha256": "105f67b87565f0763258f5393feea4a56abfc5779a346c2b1f05bfc63fbf7383",
+      "bytes": 400264,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
-      "sha256": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106",
-      "bytes": 1344884,
+      "sha256": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6",
+      "bytes": 3370384,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step",
-      "sha256": "da8a25c033ebf86ab2ead5660b7cb8b46a69695a8f3ab818f63d922b4122a188",
-      "bytes": 245089,
+      "sha256": "2a822612c79e0ade79c010a25406ad1c16ab27ec01590449eb334e520b2bf06f",
+      "bytes": 243390,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh",
-      "sha256": "04a6a2d8ad736f0a6de3617389d13c1ea4c1b1ff70ab0946852dd909c8ce4711",
-      "bytes": 353504,
+      "sha256": "96069871f1d07fb52944114341a4ba9bb352e25477e1cc70b183457ab4448a9f",
+      "bytes": 370560,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
-      "sha256": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3",
-      "bytes": 1370884,
+      "sha256": "2b94c4836cf5eb2379a2f7ec31ea35a90e856b0fc5bec0a239767e6f5c4e8b9c",
+      "bytes": 3095984,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step",
-      "sha256": "7d0da7ddda09a79f5e57f45fb65a84b6735218a0b958a32bf0de6dcdd6efbb7a",
-      "bytes": 223795,
+      "sha256": "d27797096d2238ab219e63a45edfa94b7f02ca9e2268b662be1dfc929a938b11",
+      "bytes": 216910,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh",
-      "sha256": "5914baa720ff3be19363b6be02e3372479ffb13f01c3e84523af33a4d7029a0b",
-      "bytes": 344288,
+      "sha256": "bfc773017a190e63851f9717bd2cc08fa952180a97caf1d8213f7f31def668dc",
+      "bytes": 400264,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
-      "sha256": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106",
-      "bytes": 1344884,
+      "sha256": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6",
+      "bytes": 3370384,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
-      "sha256": "2118068a4abbdce697b5f61a5b027327dbc4dd71b48ec81bbbdb3a1227abadcc",
-      "bytes": 245089,
+      "sha256": "b4f80abb528d9a3dd0c596ca4e24e3932a7f61c8abaf81fe862c6abac6b3e846",
+      "bytes": 243390,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
-      "sha256": "aef43de56fd9cddd933e191d78609261a85277c185a1db2db6ad0999c13b1f5b",
-      "bytes": 353504,
+      "sha256": "d5e9380e30b64e3a82f05bdec3cea22d0e0ffde3dd8a80f70e3634eb04daac31",
+      "bytes": 370560,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
-      "sha256": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3",
-      "bytes": 1370884,
+      "sha256": "2b94c4836cf5eb2379a2f7ec31ea35a90e856b0fc5bec0a239767e6f5c4e8b9c",
+      "bytes": 3095984,
       "pass": true
     },
     {
