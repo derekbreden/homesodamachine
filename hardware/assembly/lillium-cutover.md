@@ -121,7 +121,8 @@ Front-top is the fixture for the whole flavor side.
    ([enclosure mechanical §8](enclosure-mechanical.md#8-let-the-display-into-the-facet-and-clear-the-funnel-opening)):
    the fixed 4P ribbon ([cable assemblies](cable-assemblies.md#contact-pair--dc-5)) soldered to
    the male half in `AM2`, `AM1`, `BM2`, `BM1` order from +X,
-   seated with two M1.4×8, laid through the ridge-wall clip, its J13 end tied off.
+   seated with two M1.4×8, laid along the bulkhead crown below the funnel frame,
+   its unplugged J13 end supported clear of the closing slides.
 2. **The manifold** per
    [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
    steps 1–3: the tee carrier with Y-C, Y-D, Y-F and Y-G

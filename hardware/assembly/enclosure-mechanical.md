@@ -70,7 +70,7 @@ Remove loose support material before closing the two halves. The current
 bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
 results.
 
-Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four closed receiver bores, recessed collar seats, the three keeper slots open at front-top's seam face and the four receiver bays behind them, and the three flat keepers. Inspect the return block's four slots and seats, its three counterbores and the aft tray foot's three insert bosses. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four closed receiver bores, recessed collar seats, the three keeper slots open at front-top's seam face and the four receiver bays behind them, and the three flat keepers. Inspect the return block's four slots and seats, its three counterbores and the aft tray foot's three insert bosses. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the display backing's cavity face is continuous. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
 Front-top and the lower pump cradle carry eight attracting SB443-IN pairs, one
 four-high column on each pump's line, printed in: each part's print pauses once while its
@@ -294,9 +294,9 @@ and [bound native integration check](../printed-parts/enclosure/enclosure/accept
 identify the accepted receiver geometry within the check's listed source hashes; there are no display-cover screws.
 Leave the display's RS485 and power leads loose for [`wiring.md`](/hardware/assembly/wiring.md).
 
-The ridge wall immediately below the display keeps two electrical features: the J9 teardrop at
-+X for the display loom, and the cable clip near +X reserved for the fixed J13-to-contact ribbon.
-Deburr both without opening the clip throat. Complete the contact work at the **unpowered,
+The ridge wall immediately below the display has the J9 teardrop at
++X for the display loom. Deburr the passage. The fixed J13-to-contact ribbon runs
+along the bulkhead crown below the funnel frame. Complete the contact work at the **unpowered,
 loose front-top bench stage (EN-10), before the valves, funnel frame and closing slides**.
 The bay bulkhead's fore face carries the male seat; its solder tails sit inside the lead
 passage when mounted, so prepare and insulate those joints with the half outside its seat.
@@ -318,11 +318,12 @@ nominal thread engagement and [0.5 mm](POGO_SCREW_TIP_AIR) blind-end clearance. 
 [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
 datums, the attracting orientation and the installed compression limits.
 
-Lay the local ribbon along the bulkhead's crown through the ridge-wall clip on front-top.
-Keep its labeled J13 end unplugged and secured to the same piece, clear of the rails,
-valves and fixed pump links during the closing slides. Final cabinet routing and the J13
+Lay the bare local ribbon along the bulkhead's crown below the funnel frame, with a
+relaxed exit behind the contact's insulated solder joints. Keep its labeled J13 end
+unplugged and supported, clear of the rails, valves and fixed pump links during the
+closing slides. Final cabinet routing and the J13
 connection belong to WR-04. The cartridge's leads remain in its cap; nothing on the
-cartridge enters this fixed-lead clip. Both connector halves are mounted before the
+cartridge shares this fixed lead. Both connector halves are mounted before the
 unpowered cartridge seating and compression check at IP-05.
 
 The 455 mL silicone funnel seats in a separate PET-GF frame behind the display,
