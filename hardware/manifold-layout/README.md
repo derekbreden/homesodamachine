@@ -2,9 +2,9 @@
 
 The ten flavor valves, both KPHM600 pumps and [2](TEE_COUNT) purchased source tees form the
 flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pumps' LLDPE
-stubs through the enclosure wall. Each junction has one straight upper link and a lower socket over a purchased scanned PP0308E elbow. A captured stub and formed LLDPE run connect the lower socket to its aft valve.
+stubs through the enclosure wall. Each junction has one straight upper link and a downward socket. One bent tube reaches a scanned PP0308E elbow directly beneath the rear valve; a short straight tube joins the elbow to that valve.
 
-[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, pump stubs, LLDPE members and four printed wet junctions. The [complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, integral fixed-collar seats and magnet columns from the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
+[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, pump stubs, LLDPE members and four printed wet junctions. The [complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, valve-tray clearances and magnet columns from the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
 
 The connections follow [`fluid-topology.md`](/hardware/topology/fluid-topology.md).
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and 16/26 draw
@@ -32,7 +32,7 @@ height, 0 at the pumps' own floor. The unshifted authoring deck references are z
 ## Four limbs, folded in two
 
 Each pump has two permanent wall junctions on its measured [59.75](BARB_PITCH2) mm port
-pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. The outer lower sockets point down; the inner sockets lean 25 degrees toward their supported elbows. The upper outlets align with the fore valve ports.
+pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. All four lower sockets point down. The upper outlets align with the fore valve ports.
 
 The logical Y-C/D/F/G names identify these printed junctions. Y-A/B identify the two purchased
 source tees. The lane diagram describes connectivity and the valve placement construction;
@@ -55,15 +55,15 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 
 ## The fixed lower returns
 
-Fluid-9, 17, 19 and 27 each use one supported PP0308E elbow, one short captured stub and one formed LLDPE run. The exposed bends use R[14](SPINE_R), the spool observation recorded in `_routing.STOCKS`. The elbow grips the lower stub; the TPU socket supplies its seal. The valve collet grips the other end of the formed run.
+Fluid-9, 17, 19 and 27 each have an upright PP0308E immediately beneath the rear valve. A short straight tube joins the two purchased push-fit fittings. The junction's downward outlet reaches the elbow's forward leg through one R[14](SPINE_R) LLDPE bend, following the spool observation recorded in `_routing.STOCKS`.
 
-The stub's nominal cut is 23.05 mm. Fully seated marks in the actual purchased fittings govern finished cuts; nominal CAD insertion lengths are 15.7 mm at the elbow and 12 mm at the valve. See the [dock assembly procedure](/hardware/assembly/internal-plumbing.md) and [native integration review](/hardware/printed-parts/enclosure/pump-dock/elbow-review/README.md).
+The rear valve row and source crossbar stand 8 mm above their deck reference to clear the compressor and condenser. V-A and V-B retain their cold-core seats. The valve joining tube's nominal cut is 28.7 mm. Actual fully seated marks govern purchased-fitting cuts; nominal insertion allowances are 15.7 mm at the elbow and 12 mm at the valve. The bent tube's TPU engagement is nominally 6.35 mm; its interference grip remains physically unqualified. See the [dock assembly procedure](/hardware/assembly/internal-plumbing.md) and [native integration review](/hardware/printed-parts/enclosure/pump-dock/elbow-review/README.md).
 
 ## The quarter turns
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[71.25](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[79.25](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
@@ -89,21 +89,21 @@ makes one U east and down into V-B's aft-facing inlet. All four corners are R14,
 and the line only falls.
 
 Once they are round, V-A and V-B go [46.72](STEP_TRAVEL) mm further along their run and
-[13.625](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
+[21.625](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:
 
     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 
 which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
-θ = [17.844](STEP_ANGLE)° either side of s = [40.07](STEP_STRAIGHT) mm —
-[48.79](STEP_LEN) mm of tube.
+θ = [28.658](STEP_ANGLE)° either side of s = [37.94](STEP_STRAIGHT) mm —
+[51.94](STEP_LEN) mm of tube.
 
 That pair has a member only while `(2R − jog)² + travel² ≥ (2R)²`, and the travel is not this
 run's to choose: V-A and V-B stand on the cold core's cap, which the pack does not carry, so
 every millimetre the pack goes aft comes off it. **THE
 JOG IS WHAT THE FLOOR IS SET BY.** Written out, that floor is `√(jog·(4R − jog))`, and it climbs
-with the jog for every jog under 2R: at [13.625](STEP_JOG2) mm across it is
-[24.03](STEP_FLOOR) mm against a travel of [46.72](STEP_TRAVEL2), so each run is the pair of
+with the jog for every jog under 2R: at [21.625](STEP_JOG2) mm across it is
+[27.26](STEP_FLOOR) mm against a travel of [46.72](STEP_TRAVEL2), so each run is the pair of
 arcs and nothing else.
 
 Under that floor the family has no member at all, and a run that cannot span its jog has to go
@@ -119,8 +119,8 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [1.92](STEP_SPREAD) mm of that: it steps
-[13.76](STEP_CROSS_A) mm across in the same [46.72](STEP_TRAVEL3) along, θ = [18.028](STEP_ANGLE_A)° either side of
-s = [40.02](STEP_STRAIGHT_A) mm, [48.83](STEP_LEN_A) mm of tube. V-A retains this
+[21.71](STEP_CROSS_A) mm across in the same [46.72](STEP_TRAVEL3) along, θ = [28.771](STEP_ANGLE_A)° either side of
+s = [37.93](STEP_STRAIGHT_A) mm, [51.99](STEP_LEN_A) mm of tube. V-A retains this
 outboard offset.
 
 **Y-C, Y-D, Y-F and Y-G** are permanent printed wall junctions receiving the prepared
@@ -153,7 +153,7 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [170](ENV_Y) × [272](ENV_Z) mm — [9.14](ENV_L) L of bounding box over the
+[198](ENV_X) × [170](ENV_Y) × [272](ENV_Z) mm — [9.16](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
 [198](REACH_X) × [170](REACH_Y) × [286](REACH_Z).
@@ -173,7 +173,7 @@ hold. The stubs enter TPU funnels and six-millimetre tight lands. The wall locat
 permanent junction in X/Z and a flat interior keeper captures Y. Stub tips remain 0.50 mm
 short of their stops with the cartridge on its meeting magnet poles. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the flat keepers, integral collar seats and the printed-in
+The complete enclosure assembly supplies the flat keepers, valve-tray clearances and the printed-in
 SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 

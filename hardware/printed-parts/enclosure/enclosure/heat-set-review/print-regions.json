@@ -440,14 +440,14 @@
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "0c4e0ca9075fbb34a489b8e630067ddf603a003020807e433d07806a0a90c916",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "51607874bb449b582c6793b71a0fe68fdc3a718f67a544c6456f8c341954a075",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "bca8d6eb91d0611115b62cb8d7dcf22451e5bb472f53af1b3a97d2244b405b72",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b851a88a12512f33692c7930255096aabddcb0b19ce4e6c6a8c0ec6795bd234f",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b444628a11365aae116a33f20eb430d6bc4bca365ff4a939bbe5bdf29855242e",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "6a2861ea42e60b32093b883fcff50f7b020acfb66b3f8729e11909abbc6608dc",
+    "hardware/manifold-layout/enclosure-box.json": "f4a9be483de8e47279886b1feffcc82a6cdb651b764c37c10dab1b06b530794d",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "e9e3c5f38c890676c96f0369bab451d657853f2c359e0bb10bd31ea45573a0de",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "8732c1b619e7c2a34c98134ce4f0aee24cd2fdeb8db977d0b424367f56300dab",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "aeed2b7cda862d39cf13df4df5b7ce083fa5b50905f0b0578b8853681e70b086",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "8026fa0313594b9a0785c4f138fe151931a8c2160a72a423ded76ba7a710d09c",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
   },
   "native_artifact_sha256": {
@@ -456,8 +456,8 @@
       ".stl": "db09d9da5a87faab648c25fc997aa92ceb91a9f9c85582f2fef0bb013b8ea532"
     },
     "front-top": {
-      ".step": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
-      ".stl": "ffd5d371695c17ac189b3454059d341c8af8807d93436b0c12983c7df585eded"
+      ".step": "80d30ff078156a5379190952cb052c2134c8983f0ea57200979cbfedcb1f0f28",
+      ".stl": "bb42dc869550dfba05f9154c7bc0137496dfddea8823e915d8dacdb177fa2070"
     },
     "back-bottom": {
       ".step": "89e3f4a760184ac18123ff34b2b4b9dfd4e19ee444f3f1dd949204f18de0eee8",
@@ -476,27 +476,27 @@
       ".stl": "119b7c35f59b9117f5849e45b9da5975b4b0b36fde29db7ad7148a67e65b92ba"
     },
     "pump-receiver-west-outer": {
-      ".step": "ff7fabc8a36efd9dc1cc1a3b793a5c46a35c2cb54511305f06fca9a085d00a14",
-      ".stl": "6129bfecb5a78e9359fefeaf414847083b5f7cae73008dadbbea99015e2adc8e"
+      ".step": "1c5b669ec1a91a155fa64eb6d2fd4bbd570776021dcefc845ca869364589770e",
+      ".stl": "fc37a3cd2f6164d66a58e7f6348a4187cfb1958ec73b10fe45fe60ab49455706"
     },
     "pump-receiver-west-inner": {
-      ".step": "d27797096d2238ab219e63a45edfa94b7f02ca9e2268b662be1dfc929a938b11",
-      ".stl": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6"
+      ".step": "9a5bd6e94e5b140be550d69ad0f64787ac2f9a5f8a679b948e5d454d763e7879",
+      ".stl": "fc37a3cd2f6164d66a58e7f6348a4187cfb1958ec73b10fe45fe60ab49455706"
     },
     "pump-receiver-east-inner": {
-      ".step": "ae08e51c87d1e3258247890e59ecafcd173f98a98541a36f12da236db4593092",
-      ".stl": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6"
+      ".step": "9050f27ccb4a0a1ada6fadf6d77a8fe0945f0df23dd79258dc03770469683978",
+      ".stl": "fc37a3cd2f6164d66a58e7f6348a4187cfb1958ec73b10fe45fe60ab49455706"
     },
     "pump-receiver-east-outer": {
-      ".step": "390ab5ae39a65420e1232825007290aff4012f1c259e39bb45d6ec2a03849eb9",
-      ".stl": "6129bfecb5a78e9359fefeaf414847083b5f7cae73008dadbbea99015e2adc8e"
+      ".step": "ea894a3624cff9ab9dbea4ea3cea45e3eb13979d76a09ff987bd8aec46fc1348",
+      ".stl": "fc37a3cd2f6164d66a58e7f6348a4187cfb1958ec73b10fe45fe60ab49455706"
     },
     "pump-keeper-outer": {
-      ".step": "6c870c2b94c1743a324e323e525e8db6dd4ebbc2a9c640c834d32a29cf7ca56e",
+      ".step": "760c88c55d3a1c27c5458849588dbf62413fa6baa4023209f0a7e81cd5d9c41f",
       ".stl": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5"
     },
     "pump-keeper-middle": {
-      ".step": "fd8ac9b0cfa4759a2d4a3c282628cbe8dbdac38c20edc81497d5d3a017bf1e85",
+      ".step": "76ccc52fccd018d5469e21618d701fe883e84fed8dbe6297d4f5056bd5a41ea3",
       ".stl": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474"
     }
   },
@@ -1024,122 +1024,6 @@
           96.836,
           0.0,
           51.123999999999995
-        ]
-      },
-      {
-        "name": "Fixed PP0308E collar seat and wall root",
-        "machine_bounds_mm": [
-          -92.25,
-          -71.94999999999999,
-          96.826,
-          115.25,
-          160.25,
-          167.10000000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -92.25,
-          -71.94999999999999,
-          96.826,
-          115.25,
-          160.25,
-          167.10000000000002
-        ],
-        "print_bounds_mm": [
-          -92.25,
-          -71.94999999999999,
-          96.826,
-          115.25,
-          0.0,
-          6.850000000000023
-        ]
-      },
-      {
-        "name": "Fixed PP0308E collar seat and wall root",
-        "machine_bounds_mm": [
-          -32.5,
-          -12.200000000000003,
-          96.82599999999991,
-          106.26126485437473,
-          160.25,
-          167.64973625831564
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -32.5,
-          -12.200000000000003,
-          96.82599999999991,
-          106.26126485437473,
-          160.25,
-          167.64973625831564
-        ],
-        "print_bounds_mm": [
-          -32.5,
-          -12.200000000000003,
-          96.82599999999991,
-          106.26126485437473,
-          0.0,
-          7.399736258315642
-        ]
-      },
-      {
-        "name": "Fixed PP0308E collar seat and wall root",
-        "machine_bounds_mm": [
-          12.200000000000001,
-          32.5,
-          96.82599999999992,
-          106.26126485437473,
-          160.25,
-          167.64973625831564
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          12.200000000000001,
-          32.5,
-          96.82599999999992,
-          106.26126485437473,
-          160.25,
-          167.64973625831564
-        ],
-        "print_bounds_mm": [
-          12.200000000000001,
-          32.5,
-          96.82599999999992,
-          106.26126485437473,
-          0.0,
-          7.399736258315642
-        ]
-      },
-      {
-        "name": "Fixed PP0308E collar seat and wall root",
-        "machine_bounds_mm": [
-          71.94999999999999,
-          92.25,
-          96.826,
-          115.25,
-          160.25,
-          167.10000000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          71.94999999999999,
-          92.25,
-          96.826,
-          115.25,
-          160.25,
-          167.10000000000002
-        ],
-        "print_bounds_mm": [
-          71.94999999999999,
-          92.25,
-          96.826,
-          115.25,
-          0.0,
-          6.850000000000023
         ]
       },
       {

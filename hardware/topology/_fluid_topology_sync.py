@@ -95,7 +95,7 @@ class Seg:
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
       `pump-dock`— a prepared pump's LLDPE stub sealing in a permanent TPU junction.
-      `elbow-and-tube` — a purchased PP0308E, captured stub and formed LLDPE run;
+      `elbow-and-tube` — a purchased PP0308E beneath the valve, short valve link and bent LLDPE run;
                    the reported tube length excludes the purchased elbow's internal passage.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `turn`     — a quarter out of the deck plane and the step that follows it.
@@ -138,7 +138,7 @@ def _interior(cid: int, how: str) -> tuple:
     makes each interior connection, the card reads that column to score `routed`, and this
     reads it to label an edge — so classifying it twice is how the chart and the card come to
     disagree about the same segment. What is this driver's own is the mm and the corners, off
-    `manifold_layout`'s figures: `lower_link_length` the captured stub and formed lower tube,
+    `manifold_layout`'s figures: `lower_link_length` the short valve link and bent lower tube,
     `FORE_STUBS` the straight upper links, `QUARTER_LEN` the source quarter out of the
     deck plane, `source_step` its following step and `RUNS` the remaining straights.
 
@@ -148,7 +148,7 @@ def _interior(cid: int, how: str) -> tuple:
     if how in ml.BARB_OF:
         return (kind, 0.0, 0, None)
     if how == "spine":
-        # Both the captured stub and formed LLDPE run count as tube stock.
+        # Both the short valve link and bent LLDPE run count as tube stock.
         corners=sum(s['kind']=='arc' for s in ml.pump_plumbing()[ml.LOWER_CONNECTIONS[cid]]['elbow']['formed_tube'])
         return (kind, ml.lower_link_length(cid), corners, None)
     if how in ml.FORE_STUBS:

@@ -437,8 +437,10 @@ MOUNTS = (
       for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
     *((f"pump-keeper-{keeper}", "enclosure-front-top", "slot-slide-and-gravity-seat")
       for keeper in PUMP_DOCK_KEEPERS),
-    # The scanned fixed-body collars bear on the integral front-top U seats.
-    *((f"pump-elbow-{port}", "enclosure-front-top", "fixed-collar-seat") for port in PUMP_DOCK_PORTS),
+    # Each elbow is joined to its mounted valve by a short push-fit tube.
+    *((f"pump-elbow-{port}", valve, "short-push-fit-link") for port,valve in
+      (("west-outer","valve-v-j"),("west-inner","valve-v-d"),
+       ("east-inner","valve-v-c"),("east-outer","valve-v-g"))),
     # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
     # closed in by the layer printed over the column at the part's one pause.
     *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
@@ -493,7 +495,7 @@ def derived_mounts() -> tuple:
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
     printed seats, the pump heads have their cartridge cradle and the permanent TPU
-    junctions and purchased elbows have wall seats and collar supports. A remaining body no printed feature reaches is carried only
+    junctions have wall seats; purchased elbows connect to mounted valves through short push-fit links. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -647,8 +649,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # Intentional near-contact interfaces of the permanent receiver assembly.
     *((f"pump-receiver-{port}", f"pump-keeper-{keeper}")
       for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
-    # The fixed elbow collars bear on their dry wall seats.
-    *((f"pump-elbow-{port}", "enclosure-front-top") for port in PUMP_DOCK_PORTS),
+
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
@@ -756,7 +757,7 @@ MADE_AS = {
     "pump-dock": "made by a prepared pump's LLDPE stub in a permanent TPU junction",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
-    "elbow-and-tube": "purchased PP0308E elbow, captured stub and formed LLDPE tube",
+    "elbow-and-tube": "purchased PP0308E below the valve, short valve link and bent LLDPE tube",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
 }

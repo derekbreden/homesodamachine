@@ -345,7 +345,7 @@ BEARS_ON = {
     # The wall and its gravity-seated flat keeper jointly retain each TPU receiver.
     **{f"pump-receiver-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
-    # Each purchased fixed collar bears on its integral front-top seat.
+    # Short push-fit tubes join these elbows to front-top's mounted rear valves.
     **{f"pump-elbow-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
     # Riding another body rather than a piece.
@@ -380,7 +380,7 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # Prepared pump stubs ride the cartridge; the upper links, captured lower stubs and formed tubes stay on
+    # Prepared pump stubs ride the cartridge; the upper links, bent lower tubes and short valve links stay on
     # front-top with their permanent junctions and purchased elbows.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:

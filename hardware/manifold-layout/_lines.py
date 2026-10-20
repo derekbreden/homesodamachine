@@ -1023,7 +1023,7 @@ DRAW_A_GATE_LEAD = 16.4
 # that line's elbow on the way forward, and comes about west of the elbow's cradle onto the gate's
 # lead. The crown stands over the lid's face clear of the drain line, which reaches 30 mm over it.
 DRAW_B_CRUISE = 34.6
-DRAW_B_APPROACH = (-1.65, 90.7, 2.8)
+DRAW_B_APPROACH = (-11.65, 90.7, 2.8)
 DRAW_B_GATE_LEAD = 15.3
 DRAW_GATE_LEAN_DEG = 2.9
 

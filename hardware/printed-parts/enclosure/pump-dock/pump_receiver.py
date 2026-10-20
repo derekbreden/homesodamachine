@@ -174,11 +174,9 @@ def _geometry(*,installed=False,junction=None):
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
-    # One continuous inlet trunk and one straight branch. The inclined inner
-    # socket needs its lower bend; the outer trunk turns into the upper socket
-    # to clear the closely spaced lower tube stop.
-    trunk='lower' if abs(junction['lower']['axis'][1])>.1 else 'upper'
-    throat=TUBE_ID+(.2 if trunk=='upper' else 0.)
+    # One continuous downward-turning inlet trunk and one straight upper branch.
+    trunk='lower'
+    throat=TUBE_ID
     segments=junction[trunk+'_flow_segments']
     start=(0.,RELIEF_TAPER_END_Y,0.)
     lead=plumbing._line(start,(0.,1.,0.),segments[0]['start_mm'][1]-start[1])
@@ -201,8 +199,7 @@ def _geometry(*,installed=False,junction=None):
         port=junction[branch]; d=cq.Vector(*port["axis"])
         stop=cq.Vector(*port["tube_stop"])
         if branch!=trunk:
-            meet=(cq.Vector(0.,stop.y,0.) if trunk=='lower' else
-                  cq.Vector(*junction['upper_flow_segments'][0]['end_mm']))
+            meet=cq.Vector(0.,stop.y,0.)
             flow=(meet-stop).normalized()
             # Both end caps lie inside the passages they join. The half-mm
             # overlap into the larger seal bore leaves no blind cut remnant.
@@ -212,11 +209,6 @@ def _geometry(*,installed=False,junction=None):
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
                        cq.Solid.makeCylinder(seal/2+ENTRY_RADIAL,BRANCH_OD,cq.Vector(*port["point"]),d))
-    if trunk=='upper':
-        # The wider trunk admits a continuous 1 mm blend around the branch
-        # merge. Equal bores pinch the seam at two tangent points.
-        seams=[edge for edge in void.Edges() if edge.geomType()=='BSPLINE']
-        void=void.fillet(1.,seams)
     void=void.clean()
     neck_od=math.sqrt(BODY_OD**2+growth)
     ring=_cylinder(50.,*GROOVE_Y).cut(_cylinder(neck_od,GROOVE_Y[0]-.01,GROOVE_Y[1]+.01))
@@ -273,7 +265,7 @@ def wet_stations(wall_fore_y=0.,x=0.,z=0.,*,junction=None):
 
 def print_rotations(junction=None):
     # The aft web landing is flat; inlet/upper lands are 45 degrees and the
-    # lower land is 20 degrees (inner) or 45 degrees (outer) from vertical.
+    # lower land is 45 degrees from vertical.
     return 0.,-135.
 
 

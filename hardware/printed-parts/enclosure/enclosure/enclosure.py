@@ -9106,6 +9106,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         flank_runs=(_z_rail_runs(inner, y_joint, "front", box.pack.collet_plate)
                     if (y_side, z_side) == ("front", "top") else ()),
     )
+    if (y_side, z_side) == ('front', 'top') and box.pack.collet_plate:
+        piece = piece.cut(_dock.elbow_clearances(box.pack.collet_plate))
     # The removable cartridge bears on the floor joined to the bay bulkhead.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
         piece = piece.fuse(_bay_floor(inner, y_joint, box.pack.collet_plate, box.pack.pump_trays))

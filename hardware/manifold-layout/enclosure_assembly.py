@@ -61,7 +61,7 @@ back now faces up.
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
 water-fill valve. The pump cartridge supports both pump heads. Each permanent TPU junction
 locates in the receiver wall; a gravity-seated flat keeper captures Y, and the
-fixed-collar U seats support the four purchased PP0308E elbows and their gripped stubs. The two purchased tees butt
+short push-fit tubes join the four purchased PP0308E elbows directly beneath the rear valves. The two purchased tees butt
 onto held valves.
 The `mounted` axis records these load paths.
 
@@ -1141,7 +1141,7 @@ def valve_tray_stations(placed: dict) -> tuple:
 
     Each fixed valve seats its whole post in its socket and lands its body on
     the tray face. The permanent junctions and supported purchased elbows connect
-    to those seated ports through straight upper links and captured lower stubs with formed tubes. Cartridge withdrawal leaves
+    to those seated ports through straight upper links and bent lower tubes and short elbow-to-valve links. Cartridge withdrawal leaves
     the valves, junctions, elbows and tubing stationary."""
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):

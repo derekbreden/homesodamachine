@@ -1,12 +1,12 @@
 """Two-channel flavor manifold with permanent asymmetric TPU pump junctions.
 
 The four wall junctions feed straight upper links and four scanned PP0308E
-elbows. Each lower socket seals on a short stub gripped by its supported
-elbow; a formed LLDPE run joins that elbow to the purchased valve collet. Pump replacement withdraws only the prepared pump stubs.
+elbows. Each lower socket feeds one bent LLDPE tube into an upright elbow beneath
+its rear valve; a short straight tube joins the two purchased push-fit fittings. Pump replacement withdraws only the prepared pump stubs.
 
 Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
 enclosure +Y. The pump station retains its fitted physical datum. The fore
-and aft valves occupy their original deck stations. The two source turns
+valves retain their deck stations; the rear row stands 8 mm higher for elbow clearance. The two source turns
 retain their own construction independently of the pump-port connections.
 """
 
@@ -108,6 +108,9 @@ CARRIER_DATUM_SHIFT = -1.75
 FIXED_TEE_AFT_SHIFT = 0.0
 FORE_DECK_AFT_SHIFT = 0.0
 AFT_DECK_AFT_SHIFT = 0.0
+# Clearance for the scanned PP0308E bodies below the rear valve ports.
+# The cold-core valves retain their existing seats.
+AFT_PACK_RISE = 8.0
 # Existing world lift is independent of the fixed routing's lowest surface.
 WORLD_LIFT = 191.425
 PACK_ORIGIN_Y = 14.48
@@ -489,10 +492,16 @@ def hairpin_back(r: float, travel: float, jog: float) -> float:
     return max(0.0, two_arc_floor(r, jog) + SOURCE_SLACK - travel)
 
 
-def source_cross(name: str) -> tuple:
+def source_valve_shift(name: str) -> tuple:
     """A source valve's cross-move, `(dx, dy)` in the pack's own frame: `SOURCE_JOG` toward the
     crown, which is −Y, and its own `SOURCE_SPREAD` away from the mirror plane."""
     return (math.copysign(SOURCE_SPREAD[name], P[name]["x"]), -SOURCE_JOG)
+
+
+def source_cross(name: str) -> tuple:
+    """Tube step from the raised crossbar to the unchanged cold-core valve."""
+    x, y = source_valve_shift(name)
+    return x, y - AFT_PACK_RISE
 
 
 def source_step(name: str) -> tuple:
@@ -510,11 +519,14 @@ def source_step(name: str) -> tuple:
 
 # In the pack's own frame the source valves run along +Z once they are round, and the crown
 # they are stepping toward is −Y.
-SHIFT = {n: source_cross(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
+SHIFT = {n: source_valve_shift(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
 SHIFT.update({n: (0.0, FORE_VALVE_RISE, 0.0) for n in FORE_VALVES})
 SHIFT.update({n: (0.0, -CARRIER_DROP, 0.0) for n in CARRIER_TEES})
 SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
               for n in ("V-G", "V-J")})
+for _name in ('V-C', 'V-D', 'V-G', 'V-J', 'Y-A', 'Y-B'):
+    _dx, _dy, _dz = SHIFT.get(_name, (0., 0., 0.))
+    SHIFT[_name] = (_dx, _dy + AFT_PACK_RISE, _dz)
 for _name in ("V-A", "V-B", "Y-A", "Y-B", "V-C", "V-D"):
     _dx, _dy, _dz = SHIFT.get(_name, (0.0, 0.0, 0.0))
     SHIFT[_name] = (_dx, _dy - INNER_LIMB_DROP, _dz)
@@ -804,7 +816,7 @@ def lower_links() -> dict:
                 authoring_axis(v) if k in ('start_tangent','end_tangent') else v
                 for k,v in segment.items()}
     return {cid:{member:tuple(author(s) for s in pump_plumbing()[name]['elbow'][source])
-                 for member,source in (('junction','stub'),('valve','formed_tube'))}
+                 for member,source in (('junction','formed_tube'),('valve','stub'))}
             for cid,name in LOWER_CONNECTIONS.items()}
 
 
@@ -963,7 +975,7 @@ def turns_meet() -> list:
     lands = {3: port("V-A", "back"), 5: port("V-B", "back")}
     out = []
     for cid, (x, z0) in sorted(QUARTERS.items()):
-        end = (x, BEND_Y + BEND_R - INNER_LIMB_DROP, z0 + BEND_R + AFT_DECK_AFT_SHIFT)
+        end = (x, BEND_Y + BEND_R - INNER_LIMB_DROP + AFT_PACK_RISE, z0 + BEND_R + AFT_DECK_AFT_SHIFT)
         if cid in SBENDS:                                  # the step carries on from the quarter
             dx, dy = source_cross(SBENDS[cid])
             end = (end[0] + dx, end[1] + dy, end[2] + SOURCE_TRAVEL)
@@ -1008,7 +1020,7 @@ _bounds.state(
     + ". `SOURCE_JOG` is the lever: the floor climbs with the cross, and the travel is the "
       "pack's to give, not this run's.")
 
-# Each lower connection contains a scanned elbow, captured stub and formed tube.
+# Each lower connection contains an upright valve elbow, short valve link and bent tube.
 LOWER_CONNECTIONS = {9: "Y-C", 17: "Y-D", 19: "Y-F", 27: "Y-G"}
 # Compatibility station lookup for topology/accounting callers.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -1080,11 +1092,11 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet
             elbow = dock_structure.elbow_shape(data["elbow"])
             a.add(authoring_shape(elbow), name="pump-elbow-" + suffix, color=dock_structure.part_color("pump-elbow-"+suffix))
     for cid, (x, z0) in QUARTERS.items():
-        a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP, AFT_DECK_AFT_SHIFT)),
+        a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP + AFT_PACK_RISE, AFT_DECK_AFT_SHIFT)),
               name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     for cid, name in SBENDS.items():
         x, z0 = QUARTERS[cid]
-        a.add(source_run(name, (x, BEND_Y + BEND_R - INNER_LIMB_DROP,
+        a.add(source_run(name, (x, BEND_Y + BEND_R - INNER_LIMB_DROP + AFT_PACK_RISE,
                                  z0 + BEND_R + AFT_DECK_AFT_SHIFT), SOURCE_TRAVEL),
               name=f"step-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     # A mouth's stub is the first bend radius of the run that leaves on it, and carries that
@@ -1263,7 +1275,7 @@ def report(assy: cq.Assembly) -> dict:
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
             links = lower_links()[cid]
-            note = (f"{sum(s['length_mm'] for s in links['junction']):.3f} mm stub + "
+            note = (f"{sum(s['length_mm'] for s in links['junction']):.3f} mm short valve link + "
                     f"{sum(s['length_mm'] for s in links['valve']):.3f} mm formed LLDPE, scanned PP0308E elbow")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
@@ -1313,18 +1325,18 @@ def report(assy: cq.Assembly) -> dict:
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"lower links: {len(SPINE)} purchased elbows, each with a captured stub and formed LLDPE run; "
+    print(f"lower links: {len(SPINE)} purchased elbows, each beneath its rear valve with a short valve link and bent LLDPE tube; "
           f"{spine_tube_length(INNER_X):.3f} mm inner and {spine_tube_length(OUTER_X):.3f} mm outer "
           f"nominal tube stock including insertion; formed tube radius R{SPINE_R:g}")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
-          f"run and {SOURCE_JOG:g} across it toward the crown, {hairpins} behind a hairpin — "
+          f"run and {abs(source_cross('V-B')[1]):g} across it toward the crown, {hairpins} behind a hairpin — "
           + "; ".join(f"{v} {math.degrees(th):.3f}° each side of {s:.2f} mm, {ln:.2f} mm of tube"
                       + (f", spread {SOURCE_SPREAD[v]:g} outboard" if SOURCE_SPREAD[v] else "")
                       for v, th, s, ln in steps))
     print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
-          f"all on the plane y {BEND_Y - INNER_LIMB_DROP:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
+          f"all on the plane y {BEND_Y - INNER_LIMB_DROP + AFT_PACK_RISE:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
     print(f"source tube corners: {len(QUARTERS) + 2 * len(SBENDS) + 2 * hairpins}, at R{BEND_R:g}; "
           f"the recorded stock basis is {STOCK.source}. "
@@ -1378,7 +1390,7 @@ def selftest() -> int:
     for cid, links in lower_links().items():
         junction = LOWER_CONNECTIONS[cid]
         valve = PUMP_VALVES[junction][1]
-        if abs(dist(links["junction"][-1]["end_mm"], port(junction, "front"))-(_returns.SOCKET_DEPTH-_returns.LINK_NOMINAL_AXIAL_PLAY)) > 1e-8 \
+        if dist(links["junction"][0]["start_mm"], port(junction, "front")) > 1e-8 \
                 or dist(links["valve"][-1]["end_mm"], port(valve, "back")) > 1e-8:
             failures.append(f"fluid-{cid} inserted tubes miss their junction or valve")
         for member, pair in links.items():
@@ -1389,7 +1401,7 @@ def selftest() -> int:
         print(f"FAIL: {failure}")
     if failures:
         return 1
-    print("PASS: four prepared pump spans, four straight upper links and four captured stubs and four formed lower tubes meet their stations")
+    print("PASS: four prepared pump spans, four straight upper links and four short valve links and four single-bend lower tubes meet their stations")
     return 0
 
 
@@ -1426,16 +1438,16 @@ def main():
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
             "QUARTER_COUNT4": str(len(QUARTERS)), "MOUTH_COUNT2": str(len(MOUTHS)),
-            "BEND_Y": f"{BEND_Y - INNER_LIMB_DROP:.2f}",
+            "BEND_Y": f"{BEND_Y - INNER_LIMB_DROP + AFT_PACK_RISE:.2f}",
             "CORNER_COUNT": str(len(QUARTERS) + 2 * len(SBENDS)
                                 + 2 * hairpins_drawn()),
             "STEP_ANGLE": f"{math.degrees(source_step('V-B')[0]):.3f}",
             "STEP_STRAIGHT": f"{source_step('V-B')[1]:.2f}",
             "STEP_LEN": f"{source_step('V-B')[2]:.2f}",
-            "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{SOURCE_JOG:g}",
+            "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{abs(source_cross('V-B')[1]):g}",
             "STEP_TRAVEL2": f"{SOURCE_TRAVEL:g}", "STEP_TRAVEL3": f"{SOURCE_TRAVEL:g}",
-            "STEP_JOG2": f"{SOURCE_JOG:g}",
-            "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, SOURCE_JOG):.2f}",
+            "STEP_JOG2": f"{abs(source_cross('V-B')[1]):g}",
+            "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, abs(source_cross('V-B')[1])):.2f}",
             "HAIRPIN_COUNT": str(hairpins_drawn()),
             "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
             "BARB_TUBE_LEN": f"{BARB_TUBE_LEN:.2f}",

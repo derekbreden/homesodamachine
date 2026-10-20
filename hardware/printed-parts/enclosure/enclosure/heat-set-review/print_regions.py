@@ -80,10 +80,6 @@ def dock_regions(box, region):
     for name, b in dock.keeper_backing(plate).items():
         region('front-top', f'Dock keeper slot {name}, backing skin and fingers', b)
 
-    for x,z in plate['holes']:
-        seat=dock.elbow_seat(plate,dock.plumbing.layouts(plate)[str(x)]['elbow'])
-        region('front-top','Fixed PP0308E collar seat and wall root',shape_bounds(seat))
-
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
         for number, shape in enumerate(retention[side]['cutter'].Solids(), start=1):

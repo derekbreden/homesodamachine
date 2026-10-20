@@ -158,43 +158,7 @@ click: x=-8.482 y=86.790 z=274.224
 click: x=9.288 y=88.557 z=275.161
 click: x=8.482 y=86.790 z=274.224
 
-[thin] Numerical threshold classification at the four purchased-elbow seats. Each reported pair spans the nominal 3 mm cheek. The exact current native solid contains a continuous 3.000000 mm material chord through each rounded pair; pump-dock/elbow-review/seat-thickness.json records every reading. These are not sub-3 mm sections.
-alternatives: Interpret the strict threshold from the native section. Thickening the fitted seat solely to alter floating-point ranking consumes the purchased collar/body clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-92.250 y=106.249 z=163.222
-click: x=-89.250 y=106.249 z=163.222
-click: x=-89.250 y=106.243 z=160.655
-click: x=-92.250 y=106.243 z=160.655
-click: x=-74.950 y=106.243 z=166.695
-click: x=-71.950 y=106.243 z=166.695
-click: x=-71.950 y=114.898 z=160.311
-click: x=-74.950 y=114.898 z=160.311
-click: x=-32.500 y=105.116 z=163.255
-click: x=-29.500 y=105.116 z=163.255
-click: x=-29.500 y=103.253 z=160.555
-click: x=-32.500 y=103.253 z=160.555
-click: x=-15.200 y=103.509 z=160.404
-click: x=-12.200 y=103.509 z=160.404
-click: x=-12.200 y=105.880 z=163.252
-click: x=-15.200 y=105.880 z=163.252
-click: x=12.200 y=105.116 z=163.255
-click: x=15.200 y=105.116 z=163.255
-click: x=15.200 y=103.253 z=160.555
-click: x=12.200 y=103.253 z=160.555
-click: x=29.500 y=103.509 z=160.404
-click: x=32.500 y=103.509 z=160.404
-click: x=32.500 y=105.880 z=163.252
-click: x=29.500 y=105.880 z=163.252
-click: x=71.950 y=106.249 z=163.222
-click: x=74.950 y=106.249 z=163.222
-click: x=74.950 y=106.243 z=160.655
-click: x=71.950 y=106.243 z=160.655
-click: x=92.250 y=114.898 z=160.311
-click: x=89.250 y=114.898 z=160.311
-click: x=89.250 y=106.243 z=166.695
-click: x=92.250 y=106.243 z=166.695
-
-[thin] Outside the purchased-elbow conversion: these display, bay-end and interlocking-flank locations are geometrically unchanged outside the dock edit region X[-105,105], Y[78,188], Z[130,230] mm. The sampled bay/seam distances are 1.74–2.56 mm; the display-corner sample is about 0.82 mm. The comparison is recorded in pump-dock/elbow-review/shell-scope.json. These inherited findings remain open for a feature-specific fit, section and print-path review; this answer does not qualify or accept them.
+[thin] Outside the purchased-elbow conversion: these display, bay-end and interlocking-flank locations are geometrically unchanged outside the dock edit region X[-105,105], Y[78,188], Z[130,250] mm. The sampled bay/seam distances are 1.74–2.56 mm; the display-corner sample is about 0.82 mm. The comparison is recorded in pump-dock/elbow-review/shell-scope.json. These inherited findings remain open for a feature-specific fit, section and print-path review; this answer does not qualify or accept them.
 alternatives: Review the existing bay boundaries, seam engagement and display corner with their mating pieces before changing them. A blanket 3 mm enlargement could consume their fitted clearances. The elbow conversion preserves these unrelated interfaces, and the completion reply identifies this deferred review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=101.340 y=6.554 z=289.899

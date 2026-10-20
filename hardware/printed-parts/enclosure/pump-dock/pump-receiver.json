@@ -14,12 +14,8 @@
     13.25
   ],
   "crotch_web_half_width_mm": 7.0,
-  "flow_passages": "One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
-  "inlet_trunk_bore_mm": {
-    "inner": 4.3,
-    "outer": 4.5
-  },
-  "outer_branch_merge_blend_radius_mm": 1.0,
+  "flow_passages": "One continuous round inlet trunk turns downward through R6; a straight vertical branch reaches the upper socket. All four junctions use this common geometry.",
+  "inlet_trunk_bore_mm": 4.3,
   "groove_y_mm": [
     7.0,
     10.25
@@ -43,7 +39,7 @@
     7.775,
     9.025
   ],
-  "print_orientation": "Rotate -135 degrees about X; the integral aft web landing is flat on the bed. Circular lands stand 45/45/20 degrees (inner) or 45/45/45 degrees (outer) from vertical. Exterior Tree(auto)/Default supports.",
+  "print_orientation": "Rotate -135 degrees about X; the integral aft web landing is flat on the bed. All circular lands stand 45 degrees from vertical. Exterior Tree(auto)/Default supports.",
   "physical_reference": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
   "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."
 }
