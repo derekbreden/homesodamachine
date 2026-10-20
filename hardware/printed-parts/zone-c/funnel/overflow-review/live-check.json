@@ -1,0 +1,140 @@
+{
+  "checked_at_utc": "2026-10-20T07:33:07.368882+00:00",
+  "method": "Fetch changed members through the live site object manifest or its STL object route, decompress, and compare SHA-256 with the published pointer file. Prior live matches are retained only while the current pointer names the same hash; canonical manifest URLs are checked for every member.",
+  "pointer_commit": "f19f1e25d8d608818a16a108c1636bef151e61f9",
+  "members": [
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "f97b50835080700235711db26b151c8d6352d09ce43eca31d37a49ce89a5d98d",
+      "bytes": 104703707,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "e48bb112b87232e4e3141149f9472454652a398f752e9d0cbe9984c0c42bae45",
+      "bytes": 31112004,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "sha256": "218ae74323e48d2b2e9474a6d8cadc1c7479b2c623cdddb354724bed87205a39",
+      "bytes": 30887640,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "sha256": "03b165c947b91f1cb7c9af9faba39d49742dcb9c5450bb04603d2e47638bf589",
+      "bytes": 15887816,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/assembly.step",
+      "sha256": "866da5d0db33408c533ab077de3b4f4a0c080398167b08c6b80cf087f93fde74",
+      "bytes": 2474895,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh",
+      "sha256": "edced41eb4ef8294716fb0ecf328ab4d66ba0e42d317db7a7ab99ceb45713591",
+      "bytes": 534992,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/backs.step",
+      "sha256": "11d6a3743b3ad483589f5a5f6460772c976371d75ceaac275793087033a14c19",
+      "bytes": 1928499,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh",
+      "sha256": "2df6652b34c45941bec519976a1359395dfe7605830de3406f308baf60ded4ea",
+      "bytes": 341232,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.step",
+      "sha256": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
+      "bytes": 1101947,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
+      "sha256": "ba34a62116466849d95af53b90caf0568fce2d8d6875f30e9715b9380399e6b4",
+      "bytes": 786216,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+      "sha256": "d0e6b38f2bb17048c8784b50ffd82b0f1dcfc50a213260fd6f041b62425add93",
+      "bytes": 4873784,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/core.step",
+      "sha256": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48",
+      "bytes": 775273,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh",
+      "sha256": "251421271ae6f1a8d486e9b0ce34311a3b0b9c20fef03f5819934da84e9cdf10",
+      "bytes": 467788,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/core.stl",
+      "sha256": "f5c3b6fc8fc7f21c8edbf0998cf5041287ecd57a1241573ab4947eeb7aa612e8",
+      "bytes": 1945584,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/funnel.step",
+      "sha256": "e5063dab450af2dfee1e0dc24bf420368e2dccc0db403a16c20ea4ca59128b94",
+      "bytes": 548895,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh",
+      "sha256": "52dd4f9a3f0e6af676cf962d1ca6dbf9ce25351ea338ffc4d9750fe664412c7f",
+      "bytes": 164412,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/overview.step",
+      "sha256": "2f4afce7110ccc322f6f0811870f4afe280d55a46bec824f3a915617398c9bbf",
+      "bytes": 1920053,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh",
+      "sha256": "4d9525b8220cfbf54e84f1caf01897dc64f974ba1674c09b82bfd83afb57a0c6",
+      "bytes": 339144,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/section.step",
+      "sha256": "195275da2e8f8f3205c3c56d77862277f92a93a0b2cb6dddede764134ee0767c",
+      "bytes": 1064859,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh",
+      "sha256": "e4dbee6f8b23656733a0776a356bd3990543d372268fe1f1ab67f1c95fcdb271",
+      "bytes": 53828,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/funnel.step",
+      "sha256": "de234226a4628e2c1de926fd2f36988fc97b9daf771cb85f7af90117dc37532e",
+      "bytes": 477530,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/funnel.step.mesh",
+      "sha256": "fd746b9265e3b1d688e646b63269ff36cc9b2173a2c49f5519c68099c1b60019",
+      "bytes": 153688,
+      "pass": true
+    }
+  ],
+  "all_match": true
+}

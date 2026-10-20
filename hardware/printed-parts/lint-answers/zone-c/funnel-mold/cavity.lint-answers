@@ -1,29 +1,37 @@
-[step] The four 1 mm opening notches retain a 4 mm flange floor and open through the edge for a blunt tool.
+[step] Local functional mold-opening clearance: the 1 mm recess admits a thin blunt separation blade at the clamped parting edge.
+alternatives: Deleting the entry removes controlled opening access. A 3 mm entry would leave 2 mm beneath it in the 5 mm flange and change the intended tool opening.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-103.000 y=0.000 z=55.150
+click: x=-121.000 y=0.000 z=58.150
 
-[sliver] The narrow vertical faces are backs and sides of the four 1 mm opening notches. Their width is the recess height; the retained flange floor is 4 mm.
+[sliver] Local functional mold-opening clearance: these faces set the 1 mm blade-entry height at the four edge stations.
+alternatives: Removing these faces removes the opening entries; their height follows the separation-tool clearance.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-100.500 y=0.000 z=55.650
-click: x=0.000 y=-76.842 z=55.650
-click: x=100.500 y=0.000 z=55.650
-click: x=0.000 y=76.832 z=55.650
-click: x=8.000 y=79.342 z=55.650
-click: x=8.000 y=-79.342 z=55.650
-click: x=-103.000 y=8.000 z=55.650
-click: x=103.000 y=8.000 z=55.650
-click: x=-8.000 y=79.342 z=55.650
-click: x=-8.000 y=-79.342 z=55.650
-click: x=-103.000 y=-8.011 z=55.650
-click: x=103.000 y=-8.010 z=55.650
+click: x=-118.500 y=0.000 z=58.650
+click: x=0.000 y=-91.696 z=58.650
+click: x=0.000 y=91.696 z=58.650
+click: x=118.500 y=0.000 z=58.650
+click: x=8.000 y=94.196 z=58.650
+click: x=8.000 y=-94.196 z=58.650
+click: x=-121.000 y=8.000 z=58.650
+click: x=121.000 y=8.000 z=58.650
+click: x=-121.000 y=-8.000 z=58.650
+click: x=121.000 y=-8.000 z=58.650
+click: x=-8.000 y=94.196 z=58.650
+click: x=-8.000 y=-94.196 z=58.650
 
-[ceiling] These eight 12 mm wide open side pockets give access to M4 bolt heads and 9 mm washers beneath the 5 mm flange. The current six-wall/15% gyroid native slice has eight bed-rooted Snug support bodies and accessible interfaces up to print Z50.88. Cut and detach each exposed support column through the pocket opening.
+[ceiling] Functional flat bearing for the M4 clamp washers and bolt heads at eight stations. The mold recipe assigns support to these faces; the side and downward access remain open. Current support placement and removal need the tooling's fresh production slice.
+alternatives: A sloping bearing tilts the flat washer. Closing the access prevents fitting and holding the bolt head. Keep the required bearing and its accessible supported print face.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-100.200 y=50.000 z=51.150
-click: x=-100.200 y=-50.000 z=51.150
-click: x=100.200 y=50.000 z=51.150
-click: x=100.200 y=-50.000 z=51.150
-click: x=-50.000 y=76.542 z=51.150
-click: x=50.000 y=76.542 z=51.150
-click: x=-50.000 y=-76.542 z=51.150
-click: x=50.000 y=-76.542 z=51.150
+click: x=-118.200 y=50.000 z=54.150
+click: x=-118.200 y=-50.000 z=54.150
+click: x=118.200 y=50.000 z=54.150
+click: x=118.200 y=-50.000 z=54.150
+click: x=-50.000 y=91.396 z=54.150
+click: x=50.000 y=91.396 z=54.150
+click: x=-50.000 y=-91.396 z=54.150
+click: x=50.000 y=-91.396 z=54.150
+
+[thin] Local mold-forming exception at the front root/curved sealing-rib transition. The identified native 0.24 mm, six-wall slice emits 0.42/0.45 mm inner/outer wall paths over solid top/infill layers. The measured nominal footprint overlap with the preceding layer is 98.9–100% in the recorded window. The corner-path study records tip rounding; physical forming accuracy remains unqualified.
+alternatives: Removing or moving this forming corner changes the cast root/rib junction. Enlarging its stock requires changing that local seal profile. Retain the scoped forming geometry with its recorded native paths and finishing limits; this answer does not qualify other thin features.
+file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
+click: x=-103.074 y=-67.485 z=55.619

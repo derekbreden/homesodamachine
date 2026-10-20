@@ -1,10 +1,7 @@
-[step] The brim forming pocket reserves 0.30 mm net finishing growth. Its 4.70 mm backing prints upward in the inverted core; keep surrounding closure lands bare.
+[sliver] Local functional finishing reserve: these four 0.30 mm faces bound the apron-forming pocket. Its depth allows sanding/sealing of the forming face while the surrounding bare lands establish closure.
+alternatives: Omitting the reserve changes the finished casting after coating. Increasing it to 3 mm changes the specified forming allowance. Retain the 0.30 mm process dimension.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=20.833 y=-57.075 z=56.450
-
-[sliver] The four 0.30 mm vertical edges belong to the brim finishing pocket. The 4.70 mm flange backs the forming face; surrounding lands remain bare.
-file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=0.000 y=66.137 z=56.300
-click: x=0.000 y=-66.142 z=56.300
-click: x=89.800 y=0.000 z=56.300
-click: x=-89.800 y=0.000 z=56.300
+click: x=0.000 y=80.996 z=59.300
+click: x=0.000 y=-74.996 z=59.300
+click: x=107.800 y=3.000 z=59.300
+click: x=-107.800 y=3.000 z=59.300
