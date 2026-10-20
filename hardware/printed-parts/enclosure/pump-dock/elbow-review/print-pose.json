@@ -1,0 +1,45 @@
+{
+  "scope": "Manufacturing-pose alternatives for the two broad 45-degree underside faces; no printed support-removal or sealing acceptance.",
+  "print_up_in_local": [
+    -0.0,
+    -0.7071067811865476,
+    -0.7071067811865475
+  ],
+  "rear_flange_level_foot": {
+    "face_witness_local_mm": [
+      0.0,
+      13.25,
+      8.5
+    ],
+    "foot_ray_point_local_mm": [
+      0.0,
+      22.775,
+      18.025
+    ],
+    "ray_direction": [
+      0,
+      1,
+      1
+    ],
+    "point_inside_upper_sealing_void": true,
+    "consequence": "A continuous bed-level foot fills the upper sealing land along this print-down ray."
+  },
+  "aft_web_level_foot": {
+    "foot_projected_corner_world_mm": [
+      22.35,
+      132.025,
+      187.299
+    ],
+    "fixed_coil_body_bounds_mm": [
+      5.6,
+      39.1,
+      119.9899999,
+      151.29,
+      179.575,
+      215.325
+    ],
+    "enters_coil_body_envelope": true,
+    "scope": "Fixed coil body envelope only; bendable electrical tabs and assumed connector bodies are excluded."
+  },
+  "selected_support": "Tree(auto)/Default on accessible exterior faces, with circular lands at 45 degrees. A new native slice and physical cleanup remain unqualified."
+}
