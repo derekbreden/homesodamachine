@@ -138,62 +138,13 @@ describes the separating joints and the complete prepared pumps supplied for a c
 **V-A and V-B stand on the cold core's cap.** Their two forward runs reach Y-A and Y-B across
 the Y seam. Build those connections while the core and front-top remain accessible.
 
-Lay out the ten Beduan valves, two PP0208E tees, four TPU junctions and four TPU
-compound returns with port directions visible. Cut the
-stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md),
-including engagement at both real fittings. Exposed path length is not a tube-blank cut
-length. Use black LLDPE except for `fluid-3`, V-A's outlet into Y-A, which uses white tube.
-Square-cut, deburr without scoring the outside sealing surface, and tag each segment.
+Lay out the ten Beduan valves, two PP0208E tees, four TPU junctions and four purchased PP0308E elbows. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
-1. **Fit the aft valves.** Install the RX-M3Sx4.0 inserts in the three tray-foot
-   bosses before fitting TPU.
-   Bring V-C, V-D, V-G and V-J through front-top's open underside, align their mounts,
-   then seat them along their posts. Match the topology's ports and coil clocks,
-   then close the retaining ties. For each return-to-valve link,
-   first seat uncut tube fully into the actual valve, mark its collet face, then
-   cut 8.5 mm beyond that mark: 2 mm exposed plus 6.5 mm insertion into TPU.
+1. **Prepare the keepers and connected groups.** Insert each flat keeper from front-top's seam and park it above the junction collar path. For each upper link, seat uncut tube fully in its actual fore valve, mark the release face and cut [21.001 mm](DOCK_UPPER_TAIL) beyond that mark: [14.501 mm](DOCK_FORE_LINK) exposed plus 6.5 mm into TPU. Connect the upper link, junction and fore valve off the wall.
 
-2. **Seat the upper groups and fit the keepers.**
-   Inspect each TPU bore and funnel for continuous, clean material. For each fore
-   valve, seat uncut tube fully into the actual valve, mark its collet face, then
-   cut [21.001 mm](DOCK_UPPER_TAIL) beyond the mark: [14.501 mm](DOCK_FORE_LINK)
-   exposed plus 6.5 mm insertion into the TPU upper socket. Connect the junction,
-   straight link and corresponding fore valve off the wall. Bring this group
-   forward along −Y, seating the valve onto its +Y-facing posts while folding the flexible
-   funnel through its wall opening and allow it to recover fully on the pump side. Seat
-   the locating body and recessed collar against the wall. From front-top's open
-   underside, push each flat keeper into its slot at the seam face, keyholes first,
-   and slide it along the wall's interior face until every receiver neck it holds
-   snaps through the keyhole's mouth into its grip: one keeper for each outer receiver
-   and one for the inner pair. The keeper's foot finishes just inside the seam face.
-   Confirm that each funnel has recovered and each receiver remains captured when
-   pushed and pulled along Y. The wall locates X/Z. For factory service, a flat blade
-   entered through a receiver bay from aft presses the keeper's crown back down off
-   its necks.
+2. **Fit the purchased lower elbows and junctions.** Seat uncut tube fully in the actual PP0308E upper leg and mark its release face. Cut 7.35 mm beyond the mark: a nominal 1 mm exposed gap plus 6.5 mm socket depth, less 0.15 mm stop room. Push this stub into the junction's lower socket. The nominal complete cut is 23.05 mm; the actual elbow's seated mark governs. Bring each connected group forward along −Y, seating the fore valve on its +Y-facing posts, folding the flexible inlet lip through its wall opening and sliding the elbow's fixed collar into the aft-open U seat. Inspect full lip recovery and collar seating. The support must bear on the fixed elbow body and leave its release collets free. Turn front-top upright and lower the keepers onto the necks: one per outer junction and one for the inner pair. Check capture by pushing and pulling the junction along Y. For factory removal, lift the keeper to its parked position.
 
-3. **Assemble the lower returns and fit the return block.** Match each junction and
-   compound return to its station. Cut the straight junction-to-return tube from the
-   actual mounted stop span, targeting 0.15 mm total axial play. Fit the straight link
-   into the junction before seating the return.
-   Hold the return 6.5 mm below its final position,
-   with the vertical socket coaxial with the valve tail. Start the diagonal tube
-   in both sockets, then raise the return straight onto the valve tail. The
-   diagonal tube temporarily takes a shallow S during this unpressurized motion;
-   the checked minimum radius is 34.2 mm at the outer stations and 79.2 mm at the
-   inner stations. It finishes straight. Perform this factory fit with front-top
-   loose, before joining it to the condenser/compressor half.
-   Keep every link straight and the valve collets
-   accessible. Keep all links clear of the wall, keeper, neighboring fittings and
-   cartridge envelope. Tug-check
-   each push-fit connection without using a valve or receiver as a lever. Confirm
-   that the TPU returns recover without visible distortion.
-   Bring the one return block onto all four returns from front-top's open underside,
-   top face first, until that face seats on the aft tray foot. Each return squeezes
-   through its slot and snaps into its seat. Drive the three M3×12 screws through
-   the block's counterbores into the tray-foot inserts. Confirm that each return sits
-   in its seat and cannot be lifted out by hand.
-   Printed-part recovery and seal performance remain
-   subject to the pump-dock's physical qualification.
+3. **Connect the formed lower runs.** Fit V-C, V-D, V-G and V-J on their posts with the topology's coil clocks and close their retaining ties. Form each black LLDPE run along its R14 centerline, with straight, coaxial entry into both collets. Use the actual elbow and valve insertion marks to set the blank length; the CAD's 15.7 mm and 12 mm insertions are estimates. Seat both ends fully and tug-check each push-fit connection. Keep the terminal region, tube routes and outgoing elbow/valve release collets accessible. Complete this work with front-top loose, before it closes over the condenser/compressor half. The short stub is restrained by the supported purchased elbow; do not substitute a freely bending tube directly in the ungripped TPU socket.
 
 4. **Build and prepare the Kamoer cartridge.** Pull Kamoer's barbed connectors out of
    both pumps' tube ends and push a 26 mm stub of black 1/4" LLDPE into each BPT end
@@ -279,7 +230,7 @@ A finished internally-plumbed appliance:
 - CO2 path closed dry from the +Y wall's ABU44 bulkhead, `co2-0` to WR1105 IN, `co2-1` from WR1105 OUT to the downstream GASHER check, and `co2-2` from its outlet PI450822S to the cold core's `co2-in` conduit; made-up placement, support and hose clearances recorded
 - Water path closed dry from the +Y wall's PP1208E 1/4" JG QC bulkhead — its inboard collet butted to the ASSE chain's inlet — through the PP010822E + GAGIRA 316L SS reducing coupling, the Multiplex 19-0897 ASSE 1022 backflow preventer, the PI4512F6S + PP061208W outlet stack, `water-2` to the PP0208E water split, `water-3` to V-K, `water-7` to the clamped suction elbow on the G Ganen pump, `water-6` from the clamped discharge elbow to the made-up PP010822E + GASHER + PP450822E chain, and `water-5` onto the `water-in` cap conduit
 - Multiplex atmospheric vent through the black adapter stack and 4 mm OVER bulkhead to the dedicated faucet outlet over the sink bowl
-- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and three snapped-on flat keepers, four compound TPU returns seated in the one PET-GF return block, and straight captured pump links, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
+- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and three gravity-seated flat keepers, four purchased PP0308E elbows in integral collar seats, and captured stubs plus formed lower tubes, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
 - Pump stubs 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its meeting magnet poles; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
 - All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` as the two dip tubes, each down its draw bore to its reservoir's floor
 - Three risers landing on the three PP1208E umbilical bulkheads on the +Y wall on one row (blue LLDPE on the blue-ringed bulkhead for carbonated water; black LLDPE on the two flavor bulkheads)

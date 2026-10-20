@@ -13,6 +13,8 @@ sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
 
 import fits  # noqa: E402
 
+z_seam = 160.0
+slide_slip = fits.running
 wall = 3.0
 ceiling_skin = 3.0
 rear_seam_clear = 3.0

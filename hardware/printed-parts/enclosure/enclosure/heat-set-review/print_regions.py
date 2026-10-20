@@ -34,7 +34,7 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    if piece.startswith(('pump-receiver-', 'pump-return-', 'pump-keeper-')):
+    if piece.startswith(('pump-receiver-', 'pump-keeper-')):
         return dict(up_axis_in_source=[0, 0, 1],
                     bed_face='Manufacturing export is already bedded in print pose',
                     source_to_print_mm=[[1, 0, 0, 0], [0, 1, 0, 0],
@@ -50,8 +50,8 @@ def print_pose(piece, mesh_bounds):
 
 def dock_piece_names(dock):
     return (*(f'{part}-{station}' for station in dock.STATIONS
-              for part in ('pump-receiver', 'pump-return')),
-            'pump-keeper-outer', 'pump-keeper-middle', 'pump-return-block')
+              for part in ('pump-receiver',)),
+            'pump-keeper-outer', 'pump-keeper-middle')
 
 
 def _junction_print_bounds(dock, receiver, plate, station, bounds):
@@ -80,14 +80,9 @@ def dock_regions(box, region):
     for name, b in dock.keeper_backing(plate).items():
         region('front-top', f'Dock keeper slot {name}, backing skin and fingers', b)
 
-    # The return block's three screws: each insert in a tray-foot boss.
-    bed = plate['fixture_print_bed_z']
-    _row, (tray_front, tray_back) = dock.aft_tray(plate)
-    for number, (x, y) in enumerate(dock.block_screws(plate), start=1):
-        half = dock.BLOCK_BOSS_HALF
-        region('front-top', f'Return block insert {number}, tray-foot boss and tray root',
-               [x-half, x+half, tray_front-dock.BLOCK_BOSS_DEPTH, tray_back,
-                bed, bed+dock.BLOCK_BOSS_HEIGHT+e.wall])
+    for x,z in plate['holes']:
+        seat=dock.elbow_seat(plate,dock.plumbing.layouts(plate)[str(x)]['elbow'])
+        region('front-top','Fixed PP0308E collar seat and wall root',shape_bounds(seat))
 
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
@@ -100,14 +95,10 @@ def dock_regions(box, region):
             b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
             region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
 
-    # The keepers and the return block are exported already in print pose.
-    # Their whole-object 100%/six-wall recipe covers every seat, lip, boss and keyhole.
-    solid = e.cq.importers.importStep(str(ENC/'enclosure-pump-return-block.step')).val()
-    region('pump-return-block', 'Complete block, four channel seats and lips, three screw columns',
-           shape_bounds(solid))
+    # Keepers are exported in their flat print pose.
     for name in ('pump-keeper-outer', 'pump-keeper-middle'):
         solid = e.cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val()
-        region(name, 'Complete keeper, keyhole grips and mouths', shape_bounds(solid))
+        region(name, 'Complete keeper, downward-open U and crown', shape_bounds(solid))
 
 
 def main():
@@ -185,18 +176,18 @@ def main():
     paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
            Path(e._dock.__file__),Path(e._receiver.__file__),
            Path(e._retention.__file__),
-           Path(e._dock.returned.__file__),Path(e._dock.plumbing.__file__),
+           Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: ('Canonical manufacturing STEP/STL, already bedded in print pose'
-                                         if name.startswith(('pump-receiver-', 'pump-return-', 'pump-keeper-'))
+                                         if name.startswith(('pump-receiver-', 'pump-keeper-'))
                                          else 'Source STEP/STL coordinates in the appliance frame') for name in pieces},
                 print_poses=poses,
                 part_process_overrides={name: dict(wall_loops='6', sparse_infill_density='100%',
                     sparse_infill_pattern='zig-zag',
-                    purpose='The keepers and the return block are solid structural parts: groove bearings, keyholes, channel seats and lips, inserts and screw columns. Whole-object solid deposition includes every named interface.')
-                    for name in pieces if name.startswith('pump-keeper-') or name == 'pump-return-block'},
+                    purpose='The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing.')
+                    for name in pieces if name.startswith('pump-keeper-')},
                 source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)

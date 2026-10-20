@@ -68,12 +68,12 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. The pu
 Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd).
 [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor
 connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
-`printed-return` with two straight links, a `pump-dock` connection, a `turn` out of
+`elbow-and-tube` with a captured stub and formed run, a `pump-dock` connection, a `turn` out of
 a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
 [4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
 exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [2686.6 mm](FLUID_TOTAL); exposed lengths need
+links. Reported LLDPE paths total [2987.8 mm](FLUID_TOTAL); exposed lengths need
 their actual fitting insertions when making finished blanks. A butt joint still
 needs tube through both fittings despite its zero exposed length. The factory
 sets captive link lengths from the mounted stop spans and fully seats valve-side

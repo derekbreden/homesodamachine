@@ -2,8 +2,8 @@
 
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
 The customer replaces complete prepared pumps: each replacement has two straight 1/4" LLDPE stubs
-already fitted in its pump tubing and clamped there by the pump head's own housing. The fixed TPU junctions, compound
-returns, flat keepers, the return block and front-top's magnets remain installed
+already fitted in its pump tubing and clamped there by the pump head's own housing. The fixed TPU junctions, purchased
+elbows, flat keepers and front-top's magnets remain installed
 during pump changes.
 No enclosure quadrant comes off for a pump change.
 
@@ -23,23 +23,15 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [3](KEEPERS) flat interior keepers snapped onto their necks |
+| [2](CART_PUMPS) complete pumps, their clamped LLDPE stubs and the fitted top clamp | [4](RECEIVERS) permanent TPU junctions in the rigid wall and [3](KEEPERS) flat interior keepers seated down over their necks |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half and fixed J13 ribbon behind the bulkhead |
 | The cartridge's eight printed-in SB443-IN magnets | Their eight printed-in mates in front-top |
-| | [4](RETURNS) permanent compound TPU returns, the one return block they snap into, and the [2](BOX_TEES) commercial source tees |
+| | [4](RETURNS) purchased PP0308E elbows in integral front-top seats, and the [2](BOX_TEES) commercial source tees |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
-| | All stationary straight junction-to-valve and return links, other tubing, the funnel, display and cold core |
+| | All stationary junction-to-valve tubing, other tubing, the funnel, display and cold core |
 
 The wall locates each TPU receiver in X/Z. Its recessed collar bears in the wall;
-three flat keepers, one for each outer receiver and one for the inner pair, slide up
-slots behind the interior face from front-top's seam at the factory and snap onto the
-receiver necks, capturing their grooves in Y. They take no fastener and stay installed
-during a customer pump change. The straight upper link into its fixed valve clocks each
-junction. Each return snaps into its channel in the
-PET-GF return block. The straight junction-to-return link is captured between the two
-fixed socket stops. The keeper
-has running clearance around the neck and does not position the junction across its
-axis. These permanent parts stay seated during a pump change.
+three flat keepers, one per outer receiver and one for the inner pair, slide down over the necks at the factory, capturing their grooves in Y. They seat by gravity and take no fastener. The straight upper link clocks each junction. Each purchased lower elbow grips a short stub into the junction and bears on its integral shell seat. A formed tube connects it to its aft valve. These permanent parts stay seated during a customer pump change.
 
 ## The four separating joints
 
@@ -153,7 +145,7 @@ the stubs.
 - Both Faston pairs are connected and all four leads remain below the crown.
 - All four straight stubs enter seated TPU receivers together; the cartridge sits on its
   meeting magnet poles with its front face flush, and the contact pair is engaged.
-- Junction funnels, all three keepers, compound returns, the return block
+- Junction funnels, all three keepers, purchased elbows and their collar seats
   and front-top's magnets remain fixed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.

@@ -145,11 +145,8 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # PP1208E per build: umbilical cluster (3) + water inlet (1) = 4.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# The purchased union elbow is the funnel drain's (§8). The permanent TPU
-# junctions and compound returns are printed wet parts, billed separately.
-assert not ml.JOINS, (
-    f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §8 buys "
-    f"one, for the funnel drain — raise that row's count to cover these too")
+# Four dock elbows and the funnel drain use purchased PP0308E stock.
+pp0308e_per_build = len(ml.LOWER_CONNECTIONS) + 1
 
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
@@ -273,20 +270,8 @@ pump_cap_screws_per_build = pump_cap_inserts_per_build
 # The receivers' flat keepers snap onto their necks and take no fastener: one per outer
 # receiver and one for the inner pair.
 dock_keepers_per_build = len(_enc._dock.KEEPERS)
-# The one return block hangs on three vertical M3×12 screws driven up from its
-# counterbores into short inserts in the tray foot's bosses. Each head bears
-# on its counterbore floor; the thread engages the whole insert.
-dock_fixture_locks_per_build = len(_enc._dock.block_screws(_f.box['collet_plate']))
-dock_fixture_screw_projection = _enc._dock.BLOCK_SCREW_ENGAGEMENT
-dock_fixture_pilot_depth = (_enc._dock.BLOCK_SCREW_ENGAGEMENT
-    + _enc._dock.BLOCK_INSERT_RELIEF)
-_dock_native = json.loads((_here.parent / 'printed-parts/enclosure/pump-dock'
-    / 'print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1'
-    / 'native-review.json').read_text())['parts']
-dock_junction_feed_g = sum(part['estimated_filament_g']
-    for name, part in _dock_native.items() if name.startswith('enclosure-pump-receiver-'))
-dock_return_feed_g = sum(part['estimated_filament_g']
-    for name, part in _dock_native.items() if name.startswith('enclosure-pump-return-'))
+dock_fixture_locks_per_build = 0
+# Current wet parts have no source-bound production slices or feed estimate.
 
 # The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
 # stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
@@ -598,13 +583,11 @@ def main(*, only_bom=False):
         "DOCK_STUBS": f"{len(_f.box['collet_plate']['holes'])}",
         "DOCK_RECEIVERS": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
-        "DOCK_JUNCTION_FEED_G": f"{dock_junction_feed_g:.2f}",
-        "DOCK_RETURN_FEED_G": f"{dock_return_feed_g:.2f}",
+
+        "PP0308E_TOTAL": f"{pp0308e_per_build}",
+        "PP0308E_COST": f"${pp0308e_per_build*2.283:.2f}",
         "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
-        "DOCK_FIXTURE_THREAD": f"{dock_fixture_screw_projection:.4g}",
-        "DOCK_FIXTURE_PILOT_DEPTH": f"{dock_fixture_pilot_depth:.4g}",
-        "DOCK_FIXTURE_TIP_AIR": f"{dock_fixture_pilot_depth - dock_fixture_screw_projection:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
