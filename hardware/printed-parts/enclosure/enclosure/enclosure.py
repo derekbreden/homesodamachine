@@ -7945,7 +7945,7 @@ def _valve_socket_cutters(plane, sign, seat_x, seat_z):
 
 
 def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
-                 wall_aft_y=None, flank_bed_z=None, flank_runs=()):
+                 wall_aft_y=None, flank_bed_z=None, flank_runs=(), wells=()):
     """Every valve tray whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
@@ -8002,7 +8002,15 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         # outboard of that.
         face = plane - sign * _valve_tray.SEAT
         near, far = sorted((face, face - sign * _valve_tray.THICK))
-        tray = _ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half)
+        top = mid_z + half
+        # Join a nearby connector pocket at its existing floor plane.
+        # Keep one crown instead of a narrow step below that fitted floor.
+        for side, wy, wz, size, *_rest in wells:
+            hy, _hz = wago_half(size)
+            landing = _wago_pocket(side, wz, size, inner)[3]
+            if wy-hy < far and wy+hy > near and 0. < landing-top < wall:
+                top = landing
+        tray = _ybox(inner[0], inner[1], near, far, mid_z - half, top)
         floor = mid_z - half
         wedge_depth = 0.0
         if wall_aft_y is not None and near < wall_aft_y < far:
@@ -9101,6 +9109,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
+        wells=box.pack.side_wells,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
         flank_bed_z=(zj if (y_side, z_side) == ("front", "top") else None),
         flank_runs=(_z_rail_runs(inner, y_joint, "front", box.pack.collet_plate)

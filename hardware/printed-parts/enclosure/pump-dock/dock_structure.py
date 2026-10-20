@@ -127,8 +127,13 @@ def elbow_clearances(plate):
     tools=[]
     for data in plumbing.layouts(plate).values():
         elbow=data['elbow'];x,y,z=elbow['corner']
-        tools.append(cq.Solid.makeCylinder(8.7, plumbing.ELBOW_FACE + .5,
-                     cq.Vector(x,y,z), cq.Vector(0,0,1)))
+        end=z+plumbing.ELBOW_FACE+.5
+        # Blend the larger elbow clearance into the valve's Ø16.2 channel.
+        # A square end to the cutter leaves a small ceiling under every valve.
+        tools.append(cq.Solid.makeCylinder(8.7, end-z,
+                     cq.Vector(x,y,z), cq.Vector(0,0,1)).fuse(
+            cq.Solid.makeCone(8.7,8.1,.6,cq.Vector(x,y,end),cq.Vector(0,0,1)),
+            cq.Solid.makeCylinder(8.1,20.,cq.Vector(x,y,end+.6),cq.Vector(0,0,1))))
     return fused(tools)
 
 

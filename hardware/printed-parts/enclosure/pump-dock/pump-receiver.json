@@ -41,5 +41,6 @@
   ],
   "print_orientation": "Rotate -135 degrees about X; the integral aft web landing is flat on the bed. All circular lands stand 45 degrees from vertical. Exterior Tree(auto)/Default supports.",
   "physical_reference": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
-  "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."
+  "scope": "Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime.",
+  "lower_bend_to_stop_straight_mm": 1.25
 }

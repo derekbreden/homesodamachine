@@ -2,7 +2,7 @@
   "scope": "Current relaxed manufacturing geometry: one connected body and cavity, circular seal axes and annular-bearing witnesses. No seal/pressure/lifetime qualification.",
   "source_sha256": {
     "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "8732c1b619e7c2a34c98134ce4f0aee24cd2fdeb8db977d0b424367f56300dab",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "8026fa0313594b9a0785c4f138fe151931a8c2160a72a423ded76ba7a710d09c"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "cb181ea11e5a5b5b121c4b64dab8ac64d30ff505906b6fd55c7ac01b4be3347a"
   },
   "stations": {
     "west-outer": {
