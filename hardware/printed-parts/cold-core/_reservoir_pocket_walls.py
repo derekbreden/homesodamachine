@@ -26,9 +26,9 @@ pocket_centerward_arc_transition_y = 60.0
 # arc and the pocket's ±Y wall. Carbonator-side face radius.
 transition_outer_r = 8.0
 
-# Centerward-wall arc geometry. The reservoir corner supports seat
-# against the transition corner where the centerward wall meets a ±Y
-# wall. The +Y side is described; the −Y side mirrors in y.
+# Centerward-wall arc geometry, at the transition corner where the
+# centerward wall meets a ±Y wall. The +Y side is described; the −Y side
+# mirrors in y.
 arc_cavity_r = pocket_centerward_arc_outer_radius
 arc_outer_r = arc_cavity_r - w
 # ±Y wall position — the reservoir's own half-width, NOT the arc radius, so the
@@ -40,10 +40,6 @@ _chord_half_y = (y_inner - pocket_centerward_arc_transition_y) / 2.0
 transition_center_x = middle_outer_x + math.sqrt(transition_outer_r**2 - _chord_half_y**2)
 transition_center_y = (y_inner + pocket_centerward_arc_transition_y) / 2.0
 transition_cavity_r = math.sqrt((transition_center_x - middle_cavity_x)**2 + _chord_half_y**2)
-# Cavity-side vertex where the centerward wall meets a ±Y wall (+Y; −Y
-# mirrors). The corner the centerward supports nest into.
-centerward_corner_x = middle_cavity_x
-centerward_corner_y = y_inner
 
 
 def build_plus_x_cavity(height=None):

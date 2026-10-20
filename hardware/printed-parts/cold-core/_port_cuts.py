@@ -1,22 +1,11 @@
-"""Port openings and slot cuts through the foam shell — the two reservoir draws, the
-CO2 inlet bore, and the front wall's two lane slots.
+"""Openings through the foam shell — the PRV vent's port through the +Y flank and the front
+wall's two lane slots — and the two lines that cross the carbonator support ring.
 
-EVERY FLUID LINE LEAVES BY THE TOP, and every opening one of them takes on the way is
-that line's own CORRIDOR: the run swept at the project's ⌀[7.5](PORT_HOLE_DIAMETER)
-standard where it crosses shell material, rather than a circle the line has to hold a
-straight through (`cut_line_corridors`). The loose passage is the same either way —
-it is radial to the tube's own path — and what a corner costs stops being the hole's
-shape. Through a bag pocket's flat ±Y wall the opening is the rectangle bounding that
-corridor's crossing, cut square through the wall (`pocket_wall_shadows`), so both faces meet
-every jamb at a right angle.
-Reservoir A's opening is in its pocket's −Y wall, onto the port lane; reservoir B's is in
-its +Y wall, onto the west lane; and the CO2's is the port lane run the other way, its
-line coming DOWN from the cap into a bore that runs the whole reach in.
-
-The carbonated-water outlet has no opening here at all. It crosses the carbonator support
-ring at one of the ring's own slots, on the column it CLIMBS — `water_outlet_climb_x`,
-which its cap conduit no longer has to stand over — and the assertion under it is what
-holds the crossing inside the slot.
+EVERY FLUID LINE LEAVES BY THE TOP, and no line crosses a bag pocket's wall: both reservoirs
+are filled and drawn through their own caps. The two lines that run under the carbonator —
+the CO2 in and the carbonated water out — cross the support ring at its own slots, on the
+columns `co2_lane_x` and `water_outlet_climb_x`, and the assertions here are what hold each
+crossing inside one slot.
 
 Only the two lane slots open on the shell's −X FACE. The two reed cables take the
 reed channels' own cavities, open to the cap (`_reed_channels`), and they are the whole
@@ -32,12 +21,6 @@ from _cold_core_interface import (
     outer_shell_wall,
     hole_shift_from_edge,
     foam_shell_outer_height,
-    bag_pocket_width,
-    bag_pocket_y_inner_max,
-    bag_pocket_far_inner_x,
-    bag_pocket_corner_inner_radius,
-    outer_shell_x_length,
-    reservoir_bulkhead_port_x,
     water_outlet_climb_x,
     co2_inlet_y,
     co2_lane_x,
@@ -50,15 +33,14 @@ from _cold_core_interface import (
     port_to_shell,
     state,
 )
-from _support_ring import slot_angular_width, slot_count
+from _support_ring import slot_angular_width, slot_clock, slot_count
 
 # [17](FRONT_FACE_PORT_Z) — Z of the carbonator's two bottom-plate lines where they
 # leave their own fittings: the carbonated-water outlet and the CO2 inlet, both
 # hole_shift_from_edge in from the +Z outer face of the shell's floor. One band of the
 # shell's height carries both, one either side of the plate's own axis in Y, and both
 # have to cross the carbonator support ring to get out of it. THEY CROSS IT IN DIFFERENT
-# PLACES: the CO2 takes a bore on the shell's centreline (below), the water outlet
-# takes a slot. Two lines on one crossing would be two tubes in one ⌀[7.5](PORT_HOLE_DIAMETER) hole.
+# SLOTS: two lines on one crossing would be two tubes in one ⌀[7.5](PORT_HOLE_DIAMETER) passage.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # WHERE THE CARBONATED-WATER OUTLET LEAVES THE RING, and the one thing this module says
@@ -126,8 +108,8 @@ def segment_ring_azimuths(a, b, tube_radius):
 def ring_slot_spans():
     """Each ring slot as `(low, high)` degrees — `_support_ring`'s own construction."""
     step = 360.0 / slot_count
-    return [(step * (i + 0.5) - slot_angular_width / 2.0,
-             step * (i + 0.5) + slot_angular_width / 2.0) for i in range(slot_count)]
+    return [(step * (i + 0.5) + slot_clock - slot_angular_width / 2.0,
+             step * (i + 0.5) + slot_clock + slot_angular_width / 2.0) for i in range(slot_count)]
 
 
 _crossing = ring_crossing_azimuths(water_outlet_ring_crossing_x, lldpe_tube_od / 2.0)
@@ -183,135 +165,15 @@ state(
      f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
      f"segment that carries the carbonator"))
 
-# Reservoir DRAW pass-throughs — each reservoir's 1/4" LLDPE line off its floor bulkhead,
-# out of the pocket at bulkhead_elbow_exit_z (level out of the elbow's lateral port, in the
-# open space under the reservoir's raised floor). The two leave by OPPOSITE ±Y bands,
-# because that is the wall each one's elbow is turned at: A crosses its pocket's −Y wall
-# onto the port lane, B its +Y wall onto the west lane. Both then come about and climb the
-# forward band to their own cap conduits — neither crosses the −X wall.
-#
-# A's crossing stands inboard of the bulkhead axis and B's stands on it. Each pocket wall is
-# opened once and for its own draw: the reed cable never crosses a pocket wall, having left by
-# the top of the channel its column stands in.
-flavor_line_hole_offset_from_bulkhead_x = 8.0
-flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
-
-
-def pocket_wall_slab(y_sign):
-    """One bag pocket's ±Y wall as a slab, an overshoot proud of both faces.
-
-    Not a cut — a place. Two openings are neighbours when they land in the same wall, and a
-    run half a metre long passes plenty of things it never shares a wall with, so anything
-    pricing one opening against another meets both with this first."""
-    overshoot = 1.0
-    return make_box(
-        (-outer_shell_x_length, outer_shell_x_length),
-        (y_sign * (bag_pocket_width / 2.0 + overshoot),
-         y_sign * (bag_pocket_y_inner_max - overshoot)),
-        (-overshoot, foam_shell_outer_height + overshoot),
-    ).val()
-
-
-def pocket_wall_shadows(tool):
-    """Each place `tool` passes through a bag pocket's flat ±Y wall, as `(opening, region)`.
-
-    A draw is already in its stock arc where it crosses its wall. The opening is the
-    rectangle that bounds the corridor's whole crossing, cut along the wall's normal through
-    the wall: both faces meet every jamb at a right angle, the floor and crown keep the
-    corridor's heights, the x span is the corridor's own span across the wall, and the whole
-    ⌀[7.5](PORT_HOLE_DIAMETER) corridor passes inside it. Its faces are all planes, so the
-    shell's cuts after it keep merging coplanar faces cleanly. `region` is the same box: the
-    corridor is replaced inside it, so no swept face is left on the wall."""
-    from _reservoir_pocket_walls import centerward_corner_x
-
-    run = (centerward_corner_x, bag_pocket_far_inner_x - bag_pocket_corner_inner_radius)
-    t = tool.BoundingBox()
-    found = []
-    for y_sign in (-1, 1):
-        faces = (y_sign * bag_pocket_y_inner_max, y_sign * bag_pocket_width / 2.0)
-        slab = pocket_wall_slab(y_sign).BoundingBox()
-        if t.ymax < slab.ymin or t.ymin > slab.ymax:
-            continue
-        for x_sign in (-1, 1):
-            x0, x1 = sorted(x_sign * x for x in run)
-            if t.xmax < x0 or t.xmin > x1:
-                continue
-            crossing = tool.intersect(make_box((x0, x1), (slab.ymin, slab.ymax),
-                                               (slab.zmin, slab.zmax)).val())
-            if crossing.Volume() <= 1e-6:
-                continue
-            c = crossing.BoundingBox()
-            if c.ymin > min(faces) or c.ymax < max(faces):
-                continue                         # meets the wall without passing through it
-            region = make_box((c.xmin, c.xmax), (slab.ymin, slab.ymax), (c.zmin, c.zmax)).val()
-            found.append((region, region))
-    return found
-
-
-def cut_line_corridors(foam_shell, gives_way):
-    """Every internal line's opening through the shell, cut as that line's own CORRIDOR
-    (`_internal_routes.route_corridor`) and not as a straight bore.
-
-    A wall here is two millimetres of PET-GF. A circular bore in one makes the line hold a
-    straight a bore's length past it before it may begin to turn, and every one of these
-    lines turns the moment it is through: both reservoir draws come out of a pocket and
-    come about onto a lane, and the CO2 arrives down the port lane and turns in under the
-    pockets. What they turn in is `outer_shell_foam_gap` with the attachment bosses standing
-    in its outboard half, so a bore's shape rather than the band would be what set the
-    corner. Cut as the corridor, what a corner costs is what the band leaves — and the tube
-    crosses with the shell's ⌀[7.5](PORT_HOLE_DIAMETER) clearance round a
-    `lldpe_tube_od` line. Mask the clearance during the foam pour.
-
-    THROUGH A BAG POCKET'S FLAT ±Y WALL the opening is `pocket_wall_shadows`: the draw is
-    already in its stock arc there, and the rectangle bounding that crossing, cut square through
-    the wall, keeps every jamb at a right angle on both faces with the whole corridor inside it.
-
-    `gives_way` IS THE WHOLE FENCE ON THIS, and it is a list of bodies rather than a region:
-    each corridor is met with them and the shell is cut by what comes back, so a line opens
-    those bodies where it crosses them and nothing anywhere else on a run that may be half a
-    metre long. What gives way is stated by `_foam_shell`, which is where the bodies are.
-    Everything left out of it — the outer shell, the carbonator support ring, the carbonator, the
-    reservoirs, the other six lines — still stops a line dead, and `_internal_routes.
-    report_routes` is where that shows as the arc a corner comes back at.
-
-    Which line crosses which body is not named anywhere: this reads every line in the pack,
-    and a corridor that never reaches a body leaves nothing when it is met with it."""
-    from _internal_routes import routes as internal_routes, route_corridor
-
-    for name in sorted(internal_routes):
-        corridor = route_corridor(name)
-        # Floor-down shell: keep the tube's nominal floor and axis, with the
-        # bridge allowance at the crossing's crown. The enlarged tool only cuts
-        # the explicitly permitted pocket walls and corner posts below.
-        # Sequential subtraction is the same union of cutters, without fusing
-        # two nearly coincident swept pipes along their entire route first.
-        for tool in (corridor, corridor.translate((0, 0, fits.supported_surface))):
-            square = pocket_wall_shadows(tool)
-            for _opening, region in square:
-                tool = tool.cut(region)
-            box = tool.BoundingBox()
-            for body in gives_way:
-                solid = body.val() if hasattr(body, "val") else body
-                for opening, _region in square:
-                    foam_shell = foam_shell.cut(opening.intersect(solid))
-                b = solid.BoundingBox()
-                if (box.xmax < b.xmin or box.xmin > b.xmax or box.ymax < b.ymin
-                        or box.ymin > b.ymax or box.zmax < b.zmin or box.zmin > b.zmax):
-                    continue                  # a box is enough to prove it never gets there
-                foam_shell = foam_shell.cut(tool.intersect(solid))
-    return foam_shell
-
 
 def cut_prv_vent_port(foam_shell):
     """The PRV vent's opening through the +Y OUTER wall — the one place a line is let out
-    through this shell's skin, and it is named here rather than swept up by
-    `cut_line_corridors` for exactly that reason.
+    through this shell's skin, cut for that line by name.
 
-    THE OUTER SHELL IS NOT IN `gives_way` AND MUST NOT BE. What keeps six lines climbing to
-    the lid instead of punching out wherever they happen to touch the skin is that the skin
-    never yields to a corridor: a run that meets it reads blocked, and `report_routes` says
-    so. Opening it for one line is a decision about that line, so it is written as one line's
-    own cut with that line's own name on it.
+    THE OUTER SHELL YIELDS TO NO OTHER LINE. What keeps six lines climbing to the lid instead
+    of punching out wherever they happen to touch the skin is that a run meeting it reads
+    blocked, and `report_routes` says so. Opening it for one line is a decision about that
+    line, so it is written as one line's own cut with that line's own name on it.
 
     WHY THIS LINE. The core is reached through its lid because nothing potted in it can be
     reached again, so every run the machine has to make up is brought to the one face the

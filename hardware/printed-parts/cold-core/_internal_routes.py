@@ -20,12 +20,12 @@ WHERE EACH LINE GOES, and what it does at the end of it:
                    top plate is under it.
   co2-in           the one line that runs DOWN. The port lane's own column the shell's
                    whole height, a leg along its floor, and straight in along the
-                   leaning reach that bores the support ring — then the plain bottom
-                   gas opening. Gas bubbles through the water to the headspace;
+                   leaning reach that crosses the support ring at a slot — then the plain
+                   bottom gas opening. Gas bubbles through the water to the headspace;
                    the top water-inlet jet mixes during refill.
-  reservoir-a      each reservoir's floor bulkhead, at the bottom of the wet V and the
-  reservoir-b      lowest drainable point in it. Out of the pocket at the bulkhead band,
-                   about into its own ±Y band, and up the forward strip.
+  reservoir-a      each reservoir's dip tube: the draw line itself, straight down from its
+  reservoir-b      conduit through the bore in that reservoir's own cap to the floor, its
+                   mouth the lowest point a line reaches in the cavity.
   reservoir-a-fill onto the bore in that reservoir's own cap, opening into the HEADSPACE
   reservoir-b-fill above the liquid. Face to face with the conduit over it, so these two
                    have no run in the shell at all — they are the gap between two bores.
@@ -35,11 +35,10 @@ one can leave without crossing it, which is what the air-purge and clean-flush s
 
 THE BANDS ARE STACKED IN Z, not in Y — AND A RISER IS ON NO BAND. A lane is one bore
 wide, so two runs that want it at the same height cannot pass: what separates them is the
-storey each takes. On the port lane, reservoir A's draw has the lane's own floor at the
-bulkhead band, under everything; the evaporator's inlet copper takes a storey above it;
-the carbonated water does not join the lane until it is over the carbonator. On the west lane,
-reservoir B's draw has that same floor, and the PRV vent and the evaporator's outlet
-copper take the two storeys over it.
+storey each takes. On the port lane, the CO2 has the lane's own floor where it turns in to
+the carbonator; the evaporator's inlet copper takes a storey above it; the carbonated water
+does not join the lane until it is over the carbonator. On the west lane, the PRV vent and the
+evaporator's outlet copper take two storeys and water-in runs high over the carbonator.
 A RISER answers to none of that — it stands in every storey at once, so what keeps it
 clear is its X, and one bore of lane holds exactly one riser. EACH LANE CARRIES ONE. The
 CO2's fall is the port lane's (`_cold_core_interface.co2_cap_x`), and the evaporator's
@@ -51,15 +50,9 @@ WHAT A CORNER TURNS AT IS NOT CHOSEN HERE — it is what the corridor leaves, an
 stepped down until it stops meeting anything. The reading that comes back is the
 measurement, and the whole reason to draw these at all.
 
-TWO THINGS BUY A CORNER, and both are in here. Where a line crosses a wall, the WALL
-gives way: its opening is the line's own corridor rather than a circle, and through a
-pocket's flat ±Y wall the rectangle bounding it, cut square (`_port_cuts.cut_line_corridors`),
-so a draw may come
-about the moment it is through instead of holding a bore's length of straight first.
-Where a line has to reach and rise
-at once, it LEANS: one diagonal in place of two square corners on a step's own width,
-which is what the carbonated water does under the carbonator to cross the CO2 and again at the
-top to put itself on its conduit's column.
+WHERE A LINE HAS TO REACH AND RISE AT ONCE, IT LEANS: one diagonal in place of two square
+corners on a step's own width, which is what the carbonated water does under the carbonator to
+cross the CO2 and again at the top to put itself on its conduit's column.
 
 WHAT IS LEFT SHORT is printed by name at every build. `top_band_to_cap` is the band between
 the carbonator's top plate and the cap's floor, and it is narrower than the step `water-in` takes
@@ -83,7 +76,6 @@ sys.path.insert(0, str(_here.parent / "prv-shroud"))
 sys.path.insert(0, str(_here.parents[2] / "scripts"))
 
 from _cold_core_interface import (  # noqa: E402
-    bulkhead_elbow_exit_z,
     cap_conduit_shell_xy,
     co2_inlet_y,
     foam_shell_outer_height,
@@ -93,13 +85,12 @@ from _cold_core_interface import (  # noqa: E402
     port_hole_radius,
     outer_shell_y_length,
     port_lane_mid_y,
-    reservoir_bulkhead_port_x,
-    reservoir_bulkhead_port_y,
     carbonator_coil_envelope_radius,
     carbonator_support_ring_height,
     carbonator_top_plate_z,
     carbonator_port_offset,
     wall_and_floor_thickness,
+    pocket_centerward_arc_outer_radius,
     water_outlet_upper_climb_x,
     water_outlet_drift_z,
     west_lane_mid_y,
@@ -108,7 +99,6 @@ from _foam_cap import cap_face_z  # noqa: E402
 from _port_cuts import (  # noqa: E402
     co2_inlet_lane_xyz,
     co2_inlet_xyz,
-    flavor_line_hole_x,
     front_face_port_z,
     water_outlet_ring_crossing_x,
 )
@@ -135,7 +125,7 @@ route_stock = stock_of("fluid", lldpe_tube_od)
 # --- The storeys ------------------------------------------------------------
 #
 # Four heights carry everything, and which one a line is on is most of where it is.
-pocket_storey_z = bulkhead_elbow_exit_z                       # both reservoirs' floor bulkheads
+dip_tube_z = _reservoir.dip_tube_mouth_z                      # both reservoirs' dip-tube mouths
 plate_storey_z = front_face_port_z                            # both bottom-plate elbows
 top_band_z = carbonator_top_plate_z + hole_shift_from_edge          # both top-plate elbows
 shell_top_z = foam_shell_outer_height                         # where a riser enters its conduit
@@ -149,8 +139,7 @@ conduit_mouth_z = cap_face_z                                  # and where it com
 # bore and a tube inside it is straight or it is not in it.
 lane_step_top_z = shell_top_z - route_bend_radius
 
-# The strip every riser to the forward band climbs, read off the conduits that stand over
-# it rather than restated: all three are on it, so any one of them names it.
+# The strip `water-in` climbs, read off the conduit that stands over it rather than restated.
 forward_band_x = cap_conduit_shell_xy("water-in")[0]
 
 # The storey `water-in` crosses to the forward band on, under the carbonator's own. It drops onto
@@ -233,6 +222,16 @@ def coil_standoff_y(x):
     return -math.sqrt(reach) if reach > 0.0 else 0.0
 
 
+def annulus_y(x):
+    """The −Y a riser at `x` stands on in the middle of the annulus between the carbonator+coil
+    envelope and a reservoir pocket's centreward wall — the one place a riser stands with both of
+    them beside it, and the middle is what leaves each its share of the slack. Radial, as above."""
+    mid = (carbonator_coil_envelope_radius + pocket_centerward_arc_outer_radius
+           - wall_and_floor_thickness) / 2.0
+    reach = mid ** 2 - x ** 2
+    return -math.sqrt(reach) if reach > 0.0 else 0.0
+
+
 def co2_run_y(x):
     """The Y the CO2's reach in stands at, at one X — `None` at an X its lean never reaches.
 
@@ -258,12 +257,10 @@ def co2_run_y(x):
 
 
 def _routes():
-    a_bulkhead = (+reservoir_bulkhead_port_x, 0.0, pocket_storey_z)
-    b_bulkhead = (-reservoir_bulkhead_port_x, 0.0, pocket_storey_z)
-    a_wall_y = reservoir_bulkhead_port_y                    # A crosses the −Y pocket wall
-    b_wall_y = -reservoir_bulkhead_port_y                   # B crosses the +Y one
     carb_x = water_outlet_ring_crossing_x
-    carb_riser_y = coil_standoff_y(carb_x)
+    # The lower climb stands in the annulus between the coil and reservoir B's pocket wall,
+    # which is 8 mm across for the 6.35 mm tube; centred in it, the line opens neither.
+    carb_riser_y = annulus_y(carb_x)
     carb_upper_x = water_outlet_upper_climb_x
     carb_upper_y = coil_standoff_y(carb_upper_x)
     # The drift's middle stands on the coil standoff too, so neither half of its chord cuts
@@ -293,8 +290,6 @@ def _routes():
     # stock bend radius at every corner and the conduit's unchanged endpoint.
     carb_cap_x = cap_conduit_shell_xy("carb-water-out")[0]
     water_in_y = cap_conduit_shell_xy("water-in")[1]
-    a_riser_y = cap_conduit_shell_xy("reservoir-a")[1]
-    b_riser_y = cap_conduit_shell_xy("reservoir-b")[1]
 
     return {
         # The carbonator's top plate, above the liquid. Out of the elbow on one diagonal that
@@ -317,26 +312,16 @@ def _routes():
             (forward_band_x, water_in_y, water_in_lane_z + water_in_step_climb),
             (forward_band_x, water_in_y, conduit_mouth_z),
         ],
-        # Reservoir B's trough. Its elbow points straight at its wall bore, so the run out
-        # of the pocket is one line across the open space under the raised floor.
-        "reservoir-b": [
-            b_bulkhead,
-            (-reservoir_bulkhead_port_x, b_wall_y, pocket_storey_z),        # the pocket-wall bore
-            (-reservoir_bulkhead_port_x, west_lane_mid_y, pocket_storey_z),
-            (forward_band_x, west_lane_mid_y, pocket_storey_z),
-            (forward_band_x, b_riser_y, pocket_storey_z),
-            (forward_band_x, b_riser_y, conduit_mouth_z),
-        ],
-        # Reservoir A's trough. Its wall bore steps inboard of the bulkhead axis to leave
-        # the outboard slot for the reed cable, so its elbow is clocked off the wall's own
-        # normal and the run straightens onto the bore before it reaches it.
+        # Each reservoir's dip tube: the draw line, one straight drop from its mouth on the
+        # floor up through the cap's draw bore and the conduit over it. It is the same tube
+        # the deck run to the draw gate is, so it is laid from above, after the cap is on.
         "reservoir-a": [
-            a_bulkhead,
-            (flavor_line_hole_x, a_wall_y / 2.0, pocket_storey_z),   # straight by mid-floor
-            (flavor_line_hole_x, port_lane_mid_y, pocket_storey_z),  # out through the bore
-            (forward_band_x, port_lane_mid_y, pocket_storey_z),
-            (forward_band_x, a_riser_y, pocket_storey_z),
-            (forward_band_x, a_riser_y, conduit_mouth_z),
+            cap_conduit_shell_xy("reservoir-a") + (dip_tube_z,),
+            cap_conduit_shell_xy("reservoir-a") + (conduit_mouth_z,),
+        ],
+        "reservoir-b": [
+            cap_conduit_shell_xy("reservoir-b") + (dip_tube_z,),
+            cap_conduit_shell_xy("reservoir-b") + (conduit_mouth_z,),
         ],
         # The only line that runs down, and the only riser the port lane carries. It falls the
         # whole shell on the CAP CONDUIT's column, runs the lane's floor to the column the

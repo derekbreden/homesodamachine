@@ -18,12 +18,12 @@
     "CRADLE_WING_T": "1.3 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
-    "FUNNEL_CAP": "455 mL",
+    "FUNNEL_CAP": "480 mL",
     "FUNNEL_PLUG": "36 \u00d7 41.0 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
     "FRAME_HOLE": "11.25 mm",
-    "FRAME_RAILS": "Y111.7 to Y199.75",
+    "FRAME_RAILS": "Y106.0 to Y199.75",
     "FRAME_REAR_WIDTH": "182.5 mm",
     "FRAME_SLOTS": "5.54 \u00d7 32.3 mm",
     "FRAME_SOCKET": "36.6 \u00d7 41.6 mm"

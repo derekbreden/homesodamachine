@@ -28,10 +28,10 @@ planes the appliance reads off the stack.
 | carbonator fittings | four TAISHER street elbows, one per tapped port; the SV-125 and its shroud on port 4 |
 | pockets | both reservoirs and their caps |
 | wall | the two copper-slot covers, one in each lane slot |
-| lines | the seven `_internal_routes` centrelines, each drawn at the arc its corridor leaves |
+| lines | the eight `_internal_routes` centrelines — both reservoirs' dip tubes among them — each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |
-| pockets | both floor bulkheads with their wet-side seals, both rods, both floats, both cap vent membranes |
+| pockets | both rods, both floats, both cap vent membranes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
 | collets | two PP010822E water adapters and one PI010822S gas adapter on the carbonator elbows |
 

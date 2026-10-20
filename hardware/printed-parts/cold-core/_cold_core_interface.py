@@ -34,6 +34,7 @@ from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, World
 from _stated_bounds import bound, state
 from _enclosure_interface import (manifold_rise, inner_limb_drop,
                                   rear_plane_y, rear_seam_clear)
+import _anchor_cap_interface as _anchor_cap
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
@@ -138,18 +139,14 @@ reed_y_half_w = 4.0
 # (`reservoir.rod_position_y`) and the reed column outside (`_reed_channels.reed_y_center`),
 # which are ONE station and not two: a reed reads the float's magnet across the pocket wall
 # and nothing else, so the two cannot drift apart (`reservoir/level-sensing.md` carries the
-# bench-measured magnet-to-reed path). The pair rides the reservoir's +Y half, clear of the
-# bulkhead exit on the −Y front, and the donut has its whole travel clear of both cavity
-# walls anywhere along that half.
-#   What pins it HERE is the FORWARD BAND overhead: the reed channel's envelope and
-# reservoir B's draw conduit both stand in that band's 8 mm, on the same face of the shell,
-# and a ⌀[7.5](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
-# own deck wants and the reed column steps off it.
+# bench-measured magnet-to-reed path). The pair rides the reservoir's +Y half, and the donut
+# has its whole travel clear of both cavity walls anywhere along that half; the cap's vent and
+# both of its bores stand off it (`reservoir.py`).
 level_rod_y = 32.5
 
 # Bag pocket. Width and depth are the reservoir's own dimensions — sized to the
 # flavor charge it carries (each usable window, Reed 1 low → Reed 4 full over
-# 135 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
+# 162 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
 # to the carbonator geometry: the ±Y width stands on its own so growing the cylinder's
 # foam blanket slides the pocket outward without resizing the reservoir.
 bag_pocket_width = 145.0
@@ -167,65 +164,55 @@ bag_pocket_walls_top_z = foam_shell_outer_height
 reservoir_clearance = fits.running
 bag_pocket_corner_inner_radius = 6.0 + reservoir_clearance
 reservoir_floor_thickness = 3.0
-# Bulkhead vertical scheme. The PureSec mounts elbow-DOWN: the integral 90°
-# elbow + its dry-side flange + the below-side printed-TPU washer hang below
-# the reservoir's flat exterior floor bottom (the wet-side primary seal is a
-# purchased silicone flat washer in a wet/cavity-side counterbore, compressed
-# by the nut on the wet/cavity side, above; the dry-side TPU washer is the
-# secondary seal under the elbow flange). The reservoir's weight rides on the
-# corner support posts; the
-# elbow's lowest point clears the bag-pocket floor by bulkhead_floor_clearance
-# and bears no load. The flavor-line wall holes and the reed cable holes both
-# pin their Z to bulkhead_elbow_exit_z (the elbow's lateral-port center), so
-# the tube and the cable run level out of the open pocket.
-bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — non-load-bearing
-bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
-bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # elbow's lateral-PTC-port Z center
-reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
-# Y of a pocket-wall pass-through, 10 mm inboard of the bag pocket's ±Y wall outer
-# face. Reservoir A's draw and BOTH reed cables cross the −Y wall at this y, onto
-# the port lane; reservoir B's draw crosses the +Y wall at its mirror, onto the west
-# lane. Which wall a line takes is which lane its cap conduit stands over.
-reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 
-# The reservoir's SECOND mouth, in its own cap. The draw leaves by the bulkhead
-# at the bottom of the wet V; the fill arrives up here, above the liquid, so the
-# two never share a mouth and everything entering has to cross the cavity to
-# leave by the trough. The cap reads its station (`reservoir.build_reservoir_cap`)
-# and so does the conduit standing over it (`cap_conduits`) — in two different
-# frames, neither part seeing the other, so `reservoir_fill_conduit_xy` is the
-# whole of what holds them together and the assertion under `cap_conduits` is
-# what enforces it. A conduit that misses its bore is a hole into a sealed
-# pocket; a bore that misses its conduit is a blind one.
-#   EACH RESERVOIR TAKES ITS OWN STATION, and only half of what picks it lives
+# BOTH OF A RESERVOIR'S MOUTHS ARE IN ITS OWN CAP. The fill ends in the headspace, above
+# the liquid; the draw is a dip tube — the line itself, carried on down through its bore to
+# the floor — so everything entering has to cross the cavity to leave. The cap reads each
+# station (`reservoir.build_reservoir_cap`) and so does the conduit standing over it
+# (`cap_conduits`) — in two different frames, neither part seeing the other, so
+# `reservoir_fill_conduit_xy` and `reservoir_draw_conduit_xy` are the whole of what holds
+# them together. A conduit that misses its bore is a hole into a sealed pocket; a bore that
+# misses its conduit is a blind one.
+#   EACH RESERVOIR TAKES ITS OWN STATIONS, and only half of what picks them lives
 # in this file. THIS half is the cap's: anywhere the vent boss, the rod's
-# register boss and the screw bosses leave empty, standing over open cavity
-# so the bore lands in the headspace rather than in a wall. Both stations answer
-# that, and it leaves a wide choice.
+# register boss, the screw bosses and the other bore leave empty, standing over open
+# cavity, and for the draw a dip tube clear of the float's whole travel.
 #   The OTHER half is what stands on the crown over each pocket, and this module
 # cannot see it — the machine imports the cold core, not the reverse. So the
 # fence is measured where the bodies are, in `manifold-layout/enclosure_assembly.py`,
 # and what arrives here is the answer rather than the reasoning. B's pocket has
-# a clear crown and takes the corner furthest from its own drain. A's carries
-# the pump and the power brick, and its station is the strip they leave between
-# them.
+# a clear crown: its fill takes the corner furthest from its draw, and its draw the
+# strip between the lid's pour hole and V-B's plinth, west of the funnel's drain line.
+# A's carries the pump and the power brick: its fill takes the strip they leave between
+# them, and its draw the bay between the pump's two east feet.
 #   The conduit's own boss does not pay that fence either way: it is a column
 # INSIDE the cap, under the crown those bodies stand on. What has to find room
 # up there is the tube.
 reservoir_fill_port = {
-    -1: (-90.5, 43.5),      # B, forward pocket — the corner opposite its drain
+    -1: (-90.5, 43.5),      # B, forward pocket — the corner opposite its draw
     +1: (102.5, -57.5),     # A, aft pocket — the strip between the pump and the brick
 }
 reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
+reservoir_draw_port = {
+    -1: (-94.3, 9.5),       # B — between the lid's pour hole and V-B's plinth
+    +1: (84.2, -45.0),      # A — between the pump's two east feet
+}
 
 
 def reservoir_fill_conduit_xy(side):
     """The CAP-frame station of the conduit standing over one reservoir's cap fill bore.
 
-    The bore is authored in the RESERVOIR's frame (`reservoir._add_fill_port`) and the
+    The bore is authored in the RESERVOIR's frame (`reservoir._add_port`) and the
     conduit in the CAP's, and the cap installs spun a half turn about Z
     (`foam_assembly.spin_xy`) — so the station is the anchor negated in both coordinates."""
     x, y = reservoir_fill_port[side]
+    return (-x, -y)
+
+
+def reservoir_draw_conduit_xy(side):
+    """The CAP-frame station of the conduit the dip tube comes down — the draw bore's anchor
+    negated, for the same half turn."""
+    x, y = reservoir_draw_port[side]
     return (-x, -y)
 
 # Outer footprint. The ±Y (front/back) gap is the carbonator's foam blanket out to the
@@ -262,14 +249,9 @@ forward_band_mid_x = bag_pocket_outermost_x + forward_band_width / 2.0
 
 # The −Y pour band — the open gap between the bag-pocket wall's outer face
 # and the outer shell's inner face, poured full of foam around the
-# reservoirs. Every front-wall pass-through crosses it, so each is two
-# bores rather than one: the pocket-wall bore stays where the fitting
-# inside points, the outer-shell bore goes where the cabinet needs it, and
-# the line turns through the band between them. The band is what lets the
-# two sit at different X.
+# reservoirs.
 pour_band_pocket_side_y = -(bag_pocket_width / 2)
 pour_band_shell_side_y = -(outer_shell_y_length / 2 - outer_shell_wall)
-pour_band_mid_y = (pour_band_pocket_side_y + pour_band_shell_side_y) / 2
 
 
 # Foam-cap stack — the pour trays that close both ends of the shell (one
@@ -357,7 +339,7 @@ foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 # which is why the shell's short axis is what sets the appliance's width.
 #
 # Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
-# shell, so a line from the carbonator or from either pocket gets there along the −Y POUR
+# shell, so a line from the carbonator gets there along the −Y POUR
 # BAND, which runs the shell's whole length outboard of both pockets. What a line
 # may use of that band is the LANE: the strip inboard of every attachment boss.
 # Every boss on a ±Y wall stands hard against it (`attachment_stations`) and reaches
@@ -373,11 +355,9 @@ port_lane_inner_y = pour_band_pocket_side_y
 port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 
 # The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
-# bands leave the same strip. Two lines use it, and they use it end to end rather than
-# crossing: reservoir B's flavor line comes out of its pocket's +Y wall, comes about in this
-# band and climbs it to the TOP, out through the cap's own `reservoir-b` conduit; and the
-# evaporator's WARM tail drops this band to its own station low on the front wall
-# (`copper_plugs.columns`).
+# bands leave the same strip. The evaporator's WARM tail drops this band to its own station
+# low on the front wall (`copper_plugs.columns`), and `water-in` runs along it high, over
+# the carbonator, to the forward band.
 west_lane_mid_y = -port_lane_mid_y
 # PET-GF left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
@@ -855,9 +835,10 @@ state(
 # is for; `_internal_routes` draws every one of them and measures it against the shell. Seven
 # stand here, and they answer to the carbonator and the two reservoirs. TWO ENTER THE
 # CARBONATOR (water at the top plate, CO2 at the bottom) and one draws it; each reservoir is
-# entered once at its cap and drawn once at its floor. Every line that ENTERS one of the three
-# arrives above that one's liquid and every line that LEAVES takes its lowest point, so nothing
-# can enter and leave without crossing it. That is what the air-purge and clean-flush service modes run on.
+# entered once at its cap and drawn once from its floor, by a dip tube down through that same
+# cap. Every line that ENTERS one of the three arrives above that one's liquid and every line
+# that LEAVES takes its lowest point, so nothing can enter and leave without crossing it. That
+# is what the air-purge and clean-flush service modes run on.
 #
 #   water-in — the carbonator's TOP-PLATE −Y port, above the water line, where filtered tap
 # water is pumped in against the CO2 back-pressure and falls into the headspace. The port
@@ -867,38 +848,35 @@ state(
 # (`top_band_to_cap`), comes about in the +Y band and turns into
 # the FORWARD BAND, where this bore stands. The top band is [14](TOP_BAND) mm against the
 # [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner off the elbow is the one that reach
-# buys with, and it is potted where it turns. It shares the forward strip with both reservoir
-# draws, each climbing its own bore `cap_conduit_pair_neck` away.
+# buys with, and it is potted where it turns. It shares the forward strip with reservoir B's reed
+# cable, each in its own bore `cap_conduit_pair_neck` apart.
 #   water-in's X in the cap's frame is that strip's own centreline. Its Y is THE DECK ABOVE:
 # the discharge chain lies fore and aft in the lane the water split leaves it, collet forward,
 # and this bore stands on the chain's own column at the far end of the fall. So the run off the
 # collet is one straight and one slant, the slant entering the bore inside its own
 # `cap_conduit_entry_skew`, and the lid's countersink is what lays the lip along it.
-#   reservoir-b and reservoir-a are the two DRAWS, and both stand over that same FORWARD BAND —
-# the strip between a pocket's own wall and the shell's, [6.8 mm](FORWARD_BAND) of it
-# (`forward_band_width`). Each line starts on its reservoir's floor bulkhead, at the bottom of
-# the wet V and the lowest drainable point in the cavity; the elbow under the raised floor turns
-# it laterally, it crosses its pocket's own ±Y wall at `bulkhead_elbow_exit_z` into the band
-# behind it, comes about, and climbs the forward strip potted to this bore. B takes the +Y band
-# and A the −Y one, because that is the wall each one's elbow points at, and A's climb is the
-# longer for it — its pocket is the far one from this strip.
-#   A ⌀[7.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
-# pins the two stations in Y is that and the reed channels, whose envelopes stand in this same
-# strip and which both bores clear (`_reed_channels` measures it).
+#   The FORWARD BAND is the strip between a pocket's own wall and the shell's, [6.8 mm](FORWARD_BAND)
+# of it (`forward_band_width`). A ⌀[7.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG`
+# of foam either side; what pins water-in's station in Y is that and the reed channel, whose
+# envelope stands in this same strip and which the bore clears (`_reed_channels` measures it).
 #   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything
 # in the cup, so a post over it stands inside the pour gap the perimeter wall wants — and a
 # conduit has the same two states against that wall it has against another conduit
 # (`cap_conduit_wall_neck`): the column fuses into the wall and the bore runs up a local
 # thickening of it, carrying a wall's material outboard.
-#   A RESERVOIR FILL stands over its own reservoir rather than over a band, and has no run
-# inside the shell at all: it is the column between a valve on the deck and the bore in the cap
-# of the reservoir it fills, and that cap's own outer face is the last thing under this one, so
-# the two features meet across the pour clearance over the reservoir and nothing else
-# (`_internal_routes` draws and measures the stub). The bore it lands on opens
-# into the reservoir's HEADSPACE, above the liquid and clear of the vent boss, the rod register
-# and every screw boss — so what arrives falls into the cavity and can only leave by the trough.
-# `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is which reservoirs
-# have one.
+#   reservoir-a-fill and reservoir-b-fill, the two FILLS, stand over their own reservoirs rather
+# than over a band, and have no run inside the shell at all: each is the column between a valve
+# on the deck and the bore in the cap of the reservoir it fills, and that cap's own outer face is
+# the last thing under this one, so the two features meet across the pour clearance over the
+# reservoir and nothing else (`_internal_routes` draws and measures the stub). The bore it lands
+# on opens into the reservoir's HEADSPACE, above the liquid and clear of the vent boss, the rod
+# register and every screw boss — so what arrives falls into the cavity and can only leave by the
+# draw. `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is which
+# reservoirs have one.
+#   reservoir-a and reservoir-b, the two DRAWS, stand over their own reservoirs the same way, and
+# the line that comes down one does not stop at the cap: it is its own dip tube, down the cap's
+# draw bore to the reservoir's floor, so the column over it is the top of one straight drop and
+# the internal route is that drop (`_internal_routes`). `reservoir_draw_conduit_xy` is the station.
 #   carb-water-out — the carbonator's BOTTOM-PLATE +Y port, under the liquid, which is the
 # carbonator's own drain and the dispense line's source. The elbow turns it laterally, it crosses
 # under the carbonator inboard of the support ring, leaves the ring through the ring's OWN SLOT on
@@ -916,22 +894,25 @@ state(
 # leave a 2.5 mm band and this is in it.
 #   co2-in stands over the PORT LANE and its line runs DOWN it, the one conduit here that feeds
 # rather than drains. It falls the shell's whole height, turns along the lane's floor and leans
-# in to `_port_cuts.co2_inlet_xyz` — the one bore through the support ring — to land on the
+# in to `_port_cuts.co2_inlet_xyz` through one of the support ring's slots, to land on the
 # collet made up under the bottom plate's lane-side port. That port opens directly into the
 # water column; gas rises to the headspace. Because the line arrives from above, it is laid
 # down the lane before the top cap goes on.
 #   ITS FALL IS THE ONLY RISER THE LANE CARRIES. A lane is one bore wide, so a riser in it is a
 # wall to everything crossing that column, and the lane's other traffic all runs WEST at one
 # storey each: the evaporator's inlet copper drops onto the lane beside the carbonator and takes it to
-# its slot station (`copper_plugs.columns`), reservoir A's draw crosses on the pockets' floor
-# storey, and the carbonated water joins only once it is over the carbonator.
+# its slot station (`copper_plugs.columns`), and the carbonated water joins only once it is over
+# the carbonator.
 # The PRV shroud lies on the west lane and its vent leaves through the +Y flank.
 #   WHERE THE LEAN CROSSES is the Carbonator SUPPORT RING's business, not this file's. The reach in
 # from the lane to the bottom plate's port crosses the ring, and the ring is four bearing
 # segments with four slots between them (`_support_ring`); a reach that misses a slot would have
 # to be bored through a segment that carries the carbonator. `_port_cuts.co2-inlet-slot` is that
-# fence, and `co2_lane_x` is the column whose lean lands inside slot four.
-co2_lane_x = 72.5
+# fence, and `co2_lane_x` is the column whose lean lands inside slot four. Reservoir A stands on
+# its pocket's floor, so the lean also keeps out of that pocket: struck from here it passes
+# outboard of the pocket's centreward corner, and the ring's slots are clocked to meet it
+# (`_support_ring.slot_clock`).
+co2_lane_x = 48.0
 # THE RING IS AT THE FLOOR AND THE CONDUIT IS IN THE CAP, so one column does not have to serve
 # both. The line falls the lane, runs along its floor and only then leans in, and it is the LEAN
 # the ring reads — a jog along the lane costs the run nothing it was not already spending, since
@@ -953,28 +934,20 @@ water_outlet_climb_x = -48.5
 # `evap_tail_low_z`, and both lines are 1/4" OD, so one OD and a 2 mm foam hug clear it —
 # the tube drifts along the coil standoff to the column where its climb and its lean out to
 # the lane stand clear of reservoir B's −Y centerward pocket corner, so that pocket's wall is
-# opened only by B's own draw. Every turn keeps the stock bend radius.
+# never opened. Every turn keeps the stock bend radius.
 water_outlet_upper_climb_x = -35.0
 water_outlet_drift_z = (evap_tail_low_z + lldpe_tube_od + 2.0, 140.0)
 # THE TWO REED CABLES LEAVE BY THE LID, each up the channel its own column stands in. A reed
 # channel is a cavity open from the shell's floor to its top face (`_reed_channels`), so the
 # cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.
 # The column drops into the channel at `assembly/cold-core.md` step 7 and the cap goes on after
-# it, so what this bore passes is the cable and never the column.
-#   IT STEPS OFF THE CAVITY'S CENTRE AWAY FROM RESERVOIR B'S DRAW. B's channel shares the
-# forward band with that draw's own conduit one lane over, and on the cavity's centre the two
-# columns stand at exactly the tangent `cap_conduit_pair_neck` refuses — too near to leave the
-# pour its gap between them, too far to fuse. Stepping the other way, INTO the merge, is a
-# window `cap_conduit_entry_skew` closes from the other side: two bores near enough to share a
-# post still open two entry cones in the lid, and those may not overlap. So the pair stands
-# APART, and the step is what buys the gap. A's channel has nothing beside it and takes the same
-# station mirrored, because one figure for both sides is what makes the pair read as one lane.
+# it, so what this bore passes is the cable and never the column. It stands on the cavity's own
+# centre, one figure for both sides.
 #   The bore is wider than the cavity and stands proud of it either side in X; what it owes is
 # that it OPEN on the cavity rather than clip its corner, which is `_reed_channels` bound
 # `reed-cable-conduit-stands-over-its-channel`.
 reed_cable_conduit_x = bag_pocket_outermost_x + reed_x_depth / 2.0
-reed_cable_conduit_step = 1.5
-reed_cable_conduit_y = level_rod_y - reed_cable_conduit_step
+reed_cable_conduit_y = level_rod_y
 
 
 def reed_cable_conduit_xy(side):
@@ -984,11 +957,11 @@ def reed_cable_conduit_xy(side):
 
 
 cap_fluid_conduits = {
-    # THE THREE THAT CLIMB THE FORWARD BAND stand on its centre (`forward_band_mid_x`), which is
+    # The one that climbs the forward band stands on its centre (`forward_band_mid_x`), which is
     # the only station in it that clears both its faces.
     "water-in": (forward_band_mid_x, -56.0),
-    "reservoir-a": (forward_band_mid_x, 43.5),
-    "reservoir-b": (forward_band_mid_x, -43.5),
+    "reservoir-a": reservoir_draw_conduit_xy(+1),
+    "reservoir-b": reservoir_draw_conduit_xy(-1),
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (52.2, -port_lane_mid_y),
@@ -1004,10 +977,10 @@ cap_cable_conduits = {
     "reed-cable-b": reed_cable_conduit_xy(-1),
 }
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
-# Full-height webs close the narrow foam gaps between these forward columns.
-# The bore axes and their 7.5 mm clear passages are independent of this stock.
-cap_conduit_links = (("reed-cable-b", "reservoir-b"),
-                     ("reservoir-b", "water-in"))
+# A full-height web closes a foam gap between two columns too narrow to pour; the bore axes and
+# their 7.5 mm clear passages are independent of that stock. Every pair here stands the pour gap
+# apart, so none is linked.
+cap_conduit_links = ()
 cap_conduit_link_width = 5.0
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
@@ -1188,7 +1161,12 @@ for _name in cap_cradles:
 #
 # Per anchor: the seat's centre in the CAP'S OWN frame, and the radius of the bore — the seated
 # section's own circumradius plus the slip the machine closes on it. The rib is extruded along the
-# cap's +X.
+# cap's +X, or its +Y where the row says `along="y"`.
+#   WHAT CLOSES IT IS STATED: a zip tie through the rib's channel, or the anchor cap
+# (`_anchor_cap_interface`), the printed other half of the pipe. A capped row's rib is one solid
+# post from the lid's face to the axis plane with a catch window in each flank, cut for the 1/4"
+# tube; where the lid stands inside the cap's wings it gives each wing a slot
+# (`_anchor_cap_interface.wing_room`), the room back-top's ceiling gives over `co2-2`.
 #   A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON. The chain seats on the GASHER's 18 mm hex,
 # and the sections either side of the bore are thinner than it and do not touch it.
 # `enclosure_assembly.anchor_rows` holds that: every section under a rib clears the bore, and
@@ -1198,20 +1176,24 @@ for _name in cap_cradles:
 # asks for. A RUN is not: the plane a tube lies on is set by the two ports it joins, so there the
 # rib comes to the tube instead, and `over_face` is what it has to reach. `check_run_seated` reads
 # that back off the placed solids.
-CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face")
-CapAnchor.__new__.__defaults__ = (None,)
+CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face along closure")
+CapAnchor.__new__.__defaults__ = (None, "x", "tie")
 cap_anchors = {
-    #                             centre         seat_r  over_face
+    #                             centre         seat_r                  over_face along closure
     # The check stands far enough forward of the pump that the discharge elbow's tube makes
     # both of its R14 turns before the inlet collet.
     "discharge-chain": CapAnchor((71.000, -60.500), 8.5 + fits.slip, 14.700),
-    # Reservoir A's fill runs aft along this straight cap lane. The anchor stands behind
-    # V-A's plinth with the full room required by `cap_anchor_room`.
+    # Reservoir A's fill runs aft along this straight cap lane, its rib behind V-A's plinth with
+    # the full room required by `cap_anchor_room`.
     #
     # Its column and height define the low lane between the actual V-A and V-K bodies.
-    # `_lines._fluid_14` reads both from this row; `check_run_seated` reads the native
-    # tube and seat back together. The 3 mm tie-channel floor and full bearing web remain.
-    "fluid-14":        CapAnchor(( 41.000,  44.750), 6.35 / 2.0 + fits.slip, 15.894),
+    # `_lines._fluid_14` reads both from this row and holds the run level over the whole rib;
+    # `check_run_seated` reads the native tube and seat back together.
+    "fluid-14":        CapAnchor(( 38.900,  44.750), 6.35 / 2.0 + fits.slip, 15.894, "x", "cap"),
+    # Flavor A's crossing on the lid's fore strip, ahead of both cap valves, along the cap's Y.
+    # The run lies 7.6 mm over the lid, inside the cap's wings, so the lid gives them their
+    # slots. `_lines._gate_a_anchor` reads the crossing off this row.
+    "fluid-18":        CapAnchor((121.800,  34.000), 6.35 / 2.0 + fits.slip,  7.600, "y", "cap"),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
@@ -1240,20 +1222,22 @@ def cap_anchor_axis_over_face(name):
 
     Three layers of the rib, read from the face up: the channel the zip tie is pushed through, one
     `cap_anchor_wall`; the material under the bore, one more; then the bore's own radius. A body
-    seated lower than that sits on its own zip tie.
+    seated lower than that sits on its own zip tie. A capped rib has no channel, so its two
+    layers are the material under the bore and the bore.
 
     A row that STATES its own height is one whose body cannot move to meet the rib, so the rib is
-    built up to it. What it must not do is come out under the three layers, which is the same
-    floor a seated body has."""
-    stated = cap_anchors[name].over_face
-    least = cap_anchors[name].seat_r + 2.0 * cap_anchor_wall
+    built up to it. What it must not do is come out under its layers, which is the same floor a
+    seated body has."""
+    row = cap_anchors[name]
+    stated = row.over_face
+    least = row.seat_r + (1.0 if row.closure == "cap" else 2.0) * cap_anchor_wall
     if stated is None:
         return least
     if stated < least - 1e-9:
         raise ValueError(
             f"cap_anchor_axis_over_face: {name} states {stated:.3f} mm over the lid's face and "
-            f"the rib's own three layers come to {least:.3f}. A seat lower than that stands the "
-            f"body on its own zip tie.")
+            f"the rib's own layers come to {least:.3f}. A seat lower than that stands the body on "
+            f"the lid or on its own zip tie.")
     return stated
 
 
@@ -1271,17 +1255,32 @@ def cap_anchor_tie_loop(name):
     return 2.0 * w + 2.0 * w + 2.0 * math.sqrt(w * w - r * r) + r * (math.pi - 2.0 * math.acos(r / w))
 
 
+def cap_anchor_slotted(name):
+    """Whether a capped rib's lid gives the cap's wings their slots: its face standing inside the
+    wings' reach (`_anchor_cap_interface.wing_room`)."""
+    return (cap_anchors[name].closure == "cap"
+            and cap_anchor_axis_over_face(name) < _anchor_cap.SLOT_TOP - _anchor_cap.HEADROOM / 2.0)
+
+
 def cap_anchor_room(name):
     """The least room this rib leaves to anything else opening on the lid's outer face:
     `(mm, what)` — a conduit's entry countersink, a clamp screw's counterbore, a deck mount's
     lid hole, a cradle boss, the pour hole, a vent, the lid's own edge.
 
-    Read on the rib's own rectangle, which is the whole of it: `cap_anchor_len` down the cap's
-    +X and one `reach` either side of the centre across it."""
-    (cx, cy) = cap_anchors[name].centre
-    reach = cap_anchors[name].seat_r + cap_anchor_wall
-    x0, x1 = cx - cap_anchor_len / 2.0, cx + cap_anchor_len / 2.0
-    y0, y1 = cy - reach, cy + reach
+    Read on the rib's own rectangle, which is the whole of it: its length down the row's own
+    axis and one `reach` either side of the centre across it — a tied rib's `cap_anchor_len`, a
+    capped rib's `_anchor_cap_interface.RIB_LEN` and, where the lid gives the cap's wings their
+    slots, the slots' outer walls."""
+    row = cap_anchors[name]
+    (cx, cy) = row.centre
+    if row.closure == "cap":
+        length = _anchor_cap.RIB_LEN
+        reach = _anchor_cap.RIB_R + (_anchor_cap.SLOT_W if cap_anchor_slotted(name) else 0.0)
+    else:
+        length, reach = cap_anchor_len, row.seat_r + cap_anchor_wall
+    along, across = (length / 2.0, reach) if row.along == "x" else (reach, length / 2.0)
+    x0, x1 = cx - along, cx + along
+    y0, y1 = cy - across, cy + across
 
     def off(px, py, r):
         """How far a disc of radius `r` at (px, py) stands off the rib's rectangle."""
@@ -1389,12 +1388,10 @@ cap_side_anchors = {
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
     # The post is one length deep, with the V-B plinth aft of it.
+    #   It keeps its zip tie: the run crosses 7.6 mm over the lid with the funnel's elbow cradle
+    # 8.1 mm over its axis, along 12.7 mm of straight, where an anchor cap reaches 7.98 mm from
+    # the axis on both sides and its rib needs 16.3 mm of straight.
     "water-3": SideAnchor((138.000, -13.000), 7.600, 6.35 / 2.0 + fits.slip, 1.500, cap_side_len),
-    # The flavor-A crossing is on the lid's fore strip, ahead of both cap valves.
-    # Its low side seat keeps a full wall below and above the bore, a tie path under it,
-    # and 3.475 mm of stock between the bore and the rear tie channel. The west leg
-    # follows the cap's outboard flank before returning to the rear union's column.
-    "fluid-18": SideAnchor((120.800, 34.000), 7.600, 6.35 / 2.0 + fits.slip, 1.000, 7.000),
 }
 
 
@@ -1626,95 +1623,6 @@ def make_box(x_range, y_range, z_range):
         .extrude(z_max - z_min)
         .unwrap()
     )
-
-
-def build_hole_punch(
-    *,
-    origin=(0, 0, 0),
-    hole_punch_radius,
-    hole_punch_height=40,
-    direction=1,
-):
-    """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
-    starting at `origin`'s Y, extruded in `direction`·Y (+1 = +Y, −1 = −Y —
-    so a port on the −Y wall punches outward toward −Y)."""
-    x, y, z = origin
-    return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(x, 0, z), offset=y)
-        .circle(hole_punch_radius)
-        .extrude(direction * hole_punch_height)
-    )
-
-
-def build_x_axis_hole_punch(
-    *,
-    origin=(0, 0, 0),
-    hole_punch_radius,
-    hole_punch_height=40,
-    direction=1,
-):
-    """X-axis ⌀ × height cylindrical cut, centered at `origin`'s Y/Z and starting
-    at `origin`'s X, extruded in `direction`·X (+1 = +X, −1 = −X — so a port on the
-    −X wall punches outward toward −X)."""
-    x, y, z = origin
-    return cq.Solid.makeCylinder(
-        hole_punch_radius, hole_punch_height,
-        cq.Vector(x, y, z), cq.Vector(direction, 0, 0))
-
-
-def cut_front_exit(foam_shell, *, z, hole_punch_radius, lateral=0.0):
-    """One penetration's mouth: a bore straight out through the −X wall, on the
-    port lane at `lateral` off its centre. The line inside reaches it along the
-    lane, so this bore's Z is the field's station and has nothing to do with the
-    height of the fitting it serves."""
-    overshoot = 1.0                                    # a through-cut, both faces cleared
-    return foam_shell.cut(
-        build_x_axis_hole_punch(
-            origin=(front_wall_x + wall_and_floor_thickness + overshoot,
-                    port_lane_mid_y + lateral, z),
-            hole_punch_radius=hole_punch_radius,
-            hole_punch_height=wall_and_floor_thickness + 2.0 * overshoot,
-            direction=-1,
-        )
-    )
-
-
-def pour_band_pocket_punch(*, pocket_hole_x, y, z, hole_punch_radius):
-    """The pocket-side half of a pour-band pass-through, as a SOLID: a bore through the
-    bag-pocket (or ring) wall at `pocket_hole_x`, starting at `y` and stopping on the port
-    lane.
-
-    Named apart from the cut so that whatever prices a neighbouring opening against this
-    hole is reading the hole itself and not a second construction of it."""
-    return build_hole_punch(
-        origin=(pocket_hole_x, y, z),
-        hole_punch_radius=hole_punch_radius,
-        hole_punch_height=y - port_lane_mid_y,
-        direction=-1,
-    )
-
-
-def cut_pour_band_pass_through(
-    foam_shell,
-    *,
-    pocket_hole_x,
-    y,
-    z,
-    exit_z,
-    hole_punch_radius,
-):
-    """Cut one pass-through as two bores that do not meet: through the bag-pocket
-    (or ring) wall at `pocket_hole_x`, starting at `y` and stopping on the port
-    lane, and out through the −X wall at the field station `exit_z`. Between them
-    the line turns and runs along the open lane — west to the wall, and up it from
-    the fitting's own height to the station's. The lane is what lets the two sit at
-    different X *and* different Z."""
-    foam_shell = foam_shell.cut(
-        pour_band_pocket_punch(
-            pocket_hole_x=pocket_hole_x, y=y, z=z, hole_punch_radius=hole_punch_radius)
-    )
-    return cut_front_exit(foam_shell, z=exit_z, hole_punch_radius=hole_punch_radius)
 
 
 def build_slot_punch(

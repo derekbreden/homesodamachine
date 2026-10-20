@@ -15,16 +15,17 @@ from the wet far wall at `x = ±[126.25](CAVITY_FAR_WALL_X)`. The float is
 This leaves 2 mm nominal wall clearance, with 1.1875 mm minimum under upright
 radial guide motion. Finished foam expansion and free travel need physical checks.
 
-Cut each rod to **[176.5 mm (6.95 in)](RESERVOIR_ROD_LEN)**. The lower end seats
-in a blind bore in a standing boss on the body's wet slope. The upper end enters
+Cut each rod to **[203.8 mm (8.02 in)](RESERVOIR_ROD_LEN)**. The lower end seats
+in a blind bore in a standing boss on the body's flat floor. The upper end enters
 the matching cap boss. The bosses share the same XY axis and are wider than the
-float bore, so they define its travel stops. The wet slope remains uncut beneath
+float bore, so they define its travel stops. The floor remains uncut beneath
 the lower rod seat. Rod end clearance is [0.15 mm](ROD_END_CLEARANCE); the cap must seat on its gasket.
 
-The magnet-center travel is **[52.48–188.15 mm](FLOAT_TRAVEL)** in the assembled
-frame. Four provisional reed centers are **[52.82, 97.82, 142.82, 187.82](REED_CENTRES)
-mm**, at 45 mm pitch. These accessible CAD stations are seeds for calibration,
-not quarter-volume measurements or final full/empty control thresholds.
+The magnet-center travel is **[25.25–188.15 mm](FLOAT_TRAVEL)** in the assembled
+frame. Four provisional reed centers are **[25.70, 79.70, 133.70, 187.70](REED_CENTRES)
+mm**, at [54 mm](REED_PITCH) pitch, spanning that whole travel. These accessible CAD stations
+are seeds for calibration, not quarter-volume measurements or final full/empty control
+thresholds.
 
 ## Reed channel and wiring
 
@@ -40,9 +41,9 @@ top and has a bottom shelf. The column drops into this dry channel after the
 foam pour has cured; it is mechanically captured by the shelf, sides and cap.
 It is not embedded in foam. The cable rises directly through the cap's
 **[7.5 mm](CONDUIT_BORE_D)** conduit at
-[reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)](REED_CONDUIT_XY).
-The −X face stays flat against the refrigeration base. The fluid draw exits
-through each pocket's −Y wall at x = [±97](FLAVOR_HOLE_X).
+[reed-cable-a (134.5, 32.5), reed-cable-b (-134.5, 32.5)](REED_CONDUIT_XY).
+The −X face stays flat against the refrigeration base. The fluid draw is a dip
+tube down through the reservoir's own cap ([floor and dip tube](floor-and-dip-tube.md)).
 
 The greatest float-edge-to-reed-center distance is **11.063 mm**, including
 upright bore play; the corresponding RC62-edge distance is 19.538 mm. The
@@ -66,8 +67,8 @@ interpret all reeds below the water surface as closed.
 The display has five states from empty through full. Locate the end thresholds
 at reachable liquid crossings, then place the two intermediate reeds at measured
 volume fractions. Equal height spacing is an initial layout, not proof of equal
-volume or servings. The float's immersed volume and the reservoir's shaped
-floor matter at the bottom of its travel. The finished-float
+volume or servings. The float's immersed volume matters at the bottom of its
+travel, where it comes to rest on its boss above the flat floor. The finished-float
 [calibration procedure](../magnetic-float/all-aero/installation.md#reed-calibration)
 gives the tools, direction-dependent measurements and placement criteria.
 

@@ -92,6 +92,7 @@ from _cold_core_interface import (
     outer_shell_x_length,
     outer_shell_y_length,
 )
+import _anchor_cap_interface as _anchor_cap
 from docgen import substitute_py_comments
 
 
@@ -249,8 +250,44 @@ def add_cradles(lid, face_z):
     return lid
 
 
+def capped_lid_rib(lid, name, face_z):
+    """A capped row's rib on the lid at `face_z`: the anchor cap's own post
+    (`_anchor_cap_interface.rib`), struck in the row's frame — along its own axis, rooted on the
+    lid — fused on, then its two catch windows and, where the lid stands inside the cap's wings,
+    the wings' two slots cut (`wing_room`). Each window runs from its bearing face to where its
+    flank ends: the slot's floor where the lid gives the wings room, the lid's face otherwise."""
+    row = cap_anchors[name]
+    (cx, cy) = row.centre
+    b_face = cap_anchor_axis_over_face(name)
+    frame = _anchor_cap.Frame((cx, cy, face_z + b_face),
+                              (1.0, 0.0, 0.0) if row.along == "x" else (0.0, 1.0, 0.0),
+                              (0.0, 0.0, -1.0))
+    lid = lid.union(_anchor_cap.rib(frame, b_face).clean())
+    for cutter in (_anchor_cap.windows(frame, _anchor_cap.window_top(b_face))
+                   + _anchor_cap.wing_room(frame, b_face)):
+        lid = lid.cut(cutter)
+    return lid
+
+
+def capped_lid_rib_volume(name):
+    """What a capped row adds to the lid, in closed form: the post from the face to the axis
+    plane less its half bore and its two lip-ride chamfers, less each window's share of the
+    post, less what each window and slot take out of the plate under it."""
+    a = _anchor_cap
+    b_face = cap_anchor_axis_over_face(name)
+    post = a.RIB_LEN * (2.0 * a.RIB_R * b_face - a.RIB_CHAMFER ** 2
+                        - 0.5 * math.pi * a.SEAT_R ** 2)
+    in_post = 2.0 * a.WINDOW_DEPTH * (b_face - a.WINDOW_B0) * a.WINDOW_LEN
+    in_plate = (2.0 * (a.WINDOW_DEPTH + a.SLOT_W) * (a.SLOT_TOP - b_face) * a.WINDOW_LEN
+                if b_face < a.SLOT_TOP - a.HEADROOM / 2.0 else 0.0)
+    return post - in_post - in_plate
+
+
 def add_chain_anchors(lid, face_z, names=None):
     """Every chain anchor, standing on the lid's outer face at `face_z`.
+
+    A ROW THE ANCHOR CAP CLOSES is the cap's own rib (`capped_lid_rib`) and takes none of what
+    follows.
 
     THE CHANNEL IS A REMAINDER: the rib stands one `cap_anchor_wall` over the face down its whole
     length and only its two ends carry on down to meet it, so the zip tie's channel is the room
@@ -267,6 +304,9 @@ def add_chain_anchors(lid, face_z, names=None):
     in, and its bore in as many again."""
     for name, station in cap_anchors.items():
         if names is not None and name not in names:
+            continue
+        if station.closure == "cap":
+            lid = capped_lid_rib(lid, name, face_z)
             continue
         (cx, cy) = station.centre
         seat_r = station.seat_r
@@ -514,15 +554,17 @@ def main():
     #   A RIB STANDS AS HIGH AS ITS OWN ROW SAYS. One bored for a body takes the height the three
     # layers come to; one bored for a RUN is built up to a plane the run already lies on, so what
     # the block spans over the face is `cap_anchor_axis_over_face` less the channel under it.
+    tied = {n: s for n, s in cap_anchors.items() if s.closure != "cap"}
     anchor_volume = sum(
         cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall)
         * (cap_anchor_axis_over_face(n) - cap_anchor_wall)
         - 0.5 * math.pi * s.seat_r ** 2 * cap_anchor_len
         + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
-        for n, s in cap_anchors.items()
+        for n, s in tied.items()
     )
     anchor_volume -= sum(cap_anchor_cav_w * 2.0 * (s.seat_r + cap_anchor_wall)
-                         * fits.supported_surface for s in cap_anchors.values())
+                         * fits.supported_surface for s in tied.values())
+    anchor_volume += sum(capped_lid_rib_volume(n) for n in cap_anchors if n not in tied)
     # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
     # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is
     # that block's forward face; then the tie's window taken out under the pipe, and the tie's

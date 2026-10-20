@@ -1,12 +1,12 @@
 # Casting the reservoir in food-grade silicone
 
-Standing guidance for casting the reservoir in food-grade silicone: an FDM-printed two-part mold, platinum-cure silicone cast in the gap, the cured rubber as the wetted part. Generic silicone-casting technique applied to this part's geometry and its food-contact + 10-year requirements. Companion to [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md) (the printed-PETG path) and [`floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md) (floor + bulkhead geometry).
+Standing guidance for casting the reservoir in food-grade silicone: an FDM-printed two-part mold, platinum-cure silicone cast in the gap, the cured rubber as the wetted part. Generic silicone-casting technique applied to this part's geometry and its food-contact + 10-year requirements. Companion to [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md) (the printed-PETG path) and [`floor-and-dip-tube.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md) (the floor and the cap's two mouths).
 
 ## The part, for casting purposes
 
-- Open-top `[` cup: floor + four walls, ~2–4 mm wall, closed by a separate cap through a TPU gasket; vertical bulkhead through the V-floor trough.
+- Open-top `[` cup: flat floor + four walls, ~2–4 mm wall, closed by a separate cap through a TPU gasket. Nothing pierces the cup: both lines enter through the cap.
 - **Vented, non-pressurized** — the only wall load is ~210 mm of syrup head, ≈ **0.3 psi**. The rubber trivially holds that; the failure mode is a **through-wall void or pinhole** left by trapped air during the cast, i.e. a leak, not a strength failure.
-- Silicone is **flexible**, so the foam-shell pocket carries the reservoir's shape — it is not self-standing the way the rigid print is. The cap and the bulkhead are separate rigid parts.
+- Silicone is **flexible**, so the foam-shell pocket carries the reservoir's shape — it is not self-standing the way the rigid print is. The cap is a separate rigid part.
 - Cold service (8–15 °C), food contact, mildly acidic concentrate. The wetted surface is the cured silicone.
 
 Two things make this geometry hard to cast: the wall is **thin and tall** (a deep narrow gap is the worst case for trapped air and complete fill), and the wetted volume must come out **void-free** because any pinhole is a leak.
@@ -34,8 +34,7 @@ For a wetted part, **Smooth-SIL 940** is the credible choice (Shore 40A is firm 
 
 - **Two-part: outer cavity + inner core**, the gap between them is the wall. Assembled mold ≈ **260 mm tall** with a ~160 × 70 mm footprint — this height drives the void-control rig sizing below.
 - **Demolding a thin flexible wall off a core** is the constraint: put **draft** on the core, use a **release agent**, and lean on the rubber's flexibility to peel; a **split cavity** helps lift the part free of the centerward concave wall and corner fillets without tearing.
-- **Air escape:** fill from the **low point (the trough)** so air is pushed up and out; add **vents / risers** at the trough ends, the corner fillets, and the bulkhead boss — the spots where air otherwise stalls in a thin gap.
-- **Bulkhead port:** either cast around a placed insert at the trough, or cast the trough solid-ish and pierce + mount the PureSec after (it is a through-wall panel-mount fitting — see [`floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)).
+- **Air escape:** fill from the **low point (the floor)** so air is pushed up and out; add **vents / risers** at the floor's corners, the corner fillets and the rod boss — the spots where air otherwise stalls in a thin gap.
 - An FDM mold under pressure-cast loads wants robust walls (or a rigid backing shell) so it does not flex or leak at ~50 psi.
 
 ## Void control (the crux)
@@ -64,9 +63,9 @@ The shop air compressor (the pressure-test pancake) already covers the pressure 
 1. Print the two-part mold; apply release agent.
 2. Mix to ratio (0.1 g scale for Smooth-SIL 940's 10:1; the 1:1 grades by eye/scale).
 3. Degas the mix in the chamber until it stops frothing.
-4. Pour into the mold from the trough/low point — or seal and pressure-cast at ~45 psi.
+4. Pour into the mold from the floor/low point — or seal and pressure-cast at ~45 psi.
 5. Cure ~24 h at room temp (heat accelerates; check the grade's bulletin).
-6. Demold, trim the rim, install the bulkhead + TPU washer, fit the cap.
+6. Demold, trim the rim, fit the cap.
 
 ## Leak / qualification
 

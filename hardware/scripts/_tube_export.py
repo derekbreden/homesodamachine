@@ -282,16 +282,19 @@ def export(a):
         if st is None:
             unmatched.append(f"cap_anchors[{name}]: no station in a.cap_tube_anchors at {mid}")
             continue
+        # A capped lid rib holds the tube over the anchor cap's own longer pipe.
+        capped = _cci.cap_anchors[name].closure == "cap"
         hold_rows.append((name, {
             "id": f"{name}/cap-rib",
-            "label": f"cold-core top-lid rib on {name}",
-            "type": "cap-rib",
+            "label": f"cold-core top-lid rib on {name}"
+                     + (", closed by its anchor cap" if capped else ""),
+            "type": "capped-rib" if capped else "cap-rib",
             "source": "_cold_core_interface.cap_anchors",
             "host": "foam-cap-lid-top",
             "point": list(st[0]), "tangent": list(st[1]), "root": list(st[2]),
             "seat_r_mm": float(st[3]),
             "slip_mm": float(st[3] - r.diam / 2.0),
-            "clamp_length_mm": float(_cci.cap_anchor_len),
+            "clamp_length_mm": float(_anchor_cap.RIB_LEN if capped else _cci.cap_anchor_len),
         }))
     for name in _cci.cap_side_anchors:
         r = by_id.get(name)

@@ -39,7 +39,6 @@ MOUTH_D = funnel.collar_d - 2 * funnel.collar_wall
 WIDTH = funnel.collar_w + 2 * (funnel.brim_overhang + OVERHANG)
 SEATED_DEPTH = funnel.collar_d + 2 * (funnel.brim_overhang + OVERHANG)
 DEPTH = SEATED_DEPTH + FRONT_EXTENSION
-RADIUS = funnel.brim_corner_r + OVERHANG
 
 
 def rounded(w, d, r, z0, z1, x=0.0, y=0.0):
@@ -65,8 +64,7 @@ def pads():
 
 @functools.cache
 def build():
-    plate = rounded(WIDTH, DEPTH, RADIUS, 0.0, PLATE_T,
-                    y=-FRONT_EXTENSION / 2)
+    plate = funnel.brim_plan(OVERHANG, 0.0, PLATE_T, front=FRONT_EXTENSION)
     # The full-width underside lifting relief ends outside the brim and never
     # pierces the plate. Its minimum closed section is 1.8 mm.
     relief = funnel._box(WIDTH + 2, FRONT_EXTENSION + 1,

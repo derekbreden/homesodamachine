@@ -7,8 +7,8 @@ drain stub over its full 5.015 mm insertion depth; the funnel lifts off for clea
 
 ![The two pieces in their print orientations](overview.png)
 
-The clamping flanges are **211 × 163.683 mm**, with 16 mm margin around the
-179 × 131.683 mm silicone brim. The cavity has a flat 164.85 × 117.533 mm base and a **63.4° corbel**
+The clamping flanges are **211 × 169.392 mm**, with 16 mm margin around the
+179 × 137.392 mm silicone brim. The cavity has a flat 164.85 × 123.242 mm base and a **63.4° corbel**
 supporting its flange. The core has a flat dry back and one **41.085 mm
 circular tapered access hole** leading to the straight rod guide. Both flanges
 are 5 mm thick. The core's 0.30 mm brim-finishing pocket retains

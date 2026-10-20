@@ -1,13 +1,19 @@
 # Anchor cap
 
-The printed half pipe that closes a 1/4" tube anchor in place of its zip tie. One ships on every
-machine, closing the carbonated-water line's crossing under back-top's ceiling (`carb-1`).
-Which anchors take a cap is stated in `enclosure_assembly.TUBE_ANCHOR_CLOSURES`; the rib it
-closes is described in the [enclosure's tube anchors](../enclosure/README.md#tube-anchors).
+The printed half pipe that closes a 1/4" tube anchor in place of its zip tie. Five ship on
+every machine, one on each rib that holds a tube: the carbonated-water and gas lines' crossings
+under back-top's ceiling (`carb-1`, `co2-2`), flavor B's cruise along its −X wall (`fluid-28`),
+and reservoir A's fill and flavor A's crossing on the cold core's lid (`fluid-14`, `fluid-18`).
+Which anchors take a cap is stated in `enclosure_assembly.TUBE_ANCHOR_CLOSURES` and
+`_cold_core_interface.cap_anchors`; the ribs are described in the
+[enclosure's tube anchors](../enclosure/README.md#tube-anchors).
+`water-3`'s post on the cold core's lid keeps its zip tie: there the tube runs 7.6 mm over the
+lid with the funnel's elbow cradle 8.1 mm above it, along 12.7 mm of straight, and a cap reaches
+7.98 mm from the tube's axis on both sides while its rib needs 16.3 mm of straight.
 
 ## Geometry
 
-The cap is one section extruded [14 mm](CAP_LEN) along the tube, [15.95 mm](CAP_WIDTH) across
+The cap is one section extruded [10 mm](CAP_LEN) along the tube, [15.95 mm](CAP_WIDTH) across
 and [18.27 mm](CAP_HEIGHT) from its round back to its wing tips. Its bore is the rib's own
 [6.65 mm](SEAT_D) seat, so the tube lies in one round pipe once the cap is home, and the bore's
 two edges are eased so a slightly offset tube is guided in rather than pinched.
@@ -29,9 +35,12 @@ nor life.
 
 Pressed home, the shoulders meet the rib's flat lips and each of the cap's lips has
 [0.4 mm](BEARING_PLAY) to go before it bears on its window's bearing face. Under the ceiling the
-cap hangs on those faces: its own weight and the tube's take up the play.
+cap hangs on those faces: its own weight and the tube's take up the play. On the wall and the
+lid the tube's weight sits in the rib's bore and the cap only stops it leaving. Where the root
+face stands inside the wings' reach — back-top's ceiling over `co2-2`, the lid under `fluid-18`
+— it gives each wing a slot, and the rib's flank runs on down the slot's inner wall.
 
-One cap is [1.57 cm³](CAP_VOLUME) of solid; [bom.md](/hardware/ledger/bom.md) §7 bills the
+One cap is [1.12 cm³](CAP_VOLUME) of solid; [bom.md](/hardware/ledger/bom.md) §7 bills the
 filament.
 
 ## Printing
@@ -41,19 +50,23 @@ tube's axis vertical. Every layer is the whole section, so nothing overhangs and
 needed, and each wing bends along its own extrusion lines. Print it solid — at least six walls
 and 100% infill, the recipe the collet press and the pump-dock keepers use — with a 0.20 mm
 first layer and 0.24 mm layers. Keep the 0.65 mm gaps open: they are what lets the wings
-spring.
+spring. Part cooling stays off, per the [localized cooling policy](../../cooling/README.md): the
+cap has no bridge or overhang that needs it, and general cooling is what left PET-GF snap covers
+brittle. Print the five caps on one plate, or on the dock's PET-GF plate beside its keepers and
+return block, so each layer has time to set without the fan.
 
 ## Assembly
 
-The cap goes on while back-top is populated inverted on the bench, ceiling down, so the rib's
-half pipe opens upward ([enclosure mechanical](/hardware/assembly/enclosure-mechanical.md),
+Back-top's caps go on while it is populated inverted on the bench, ceiling down, so the two
+ceiling ribs' half pipes open upward and the wall rib's opens inboard; the lid's ribs open
+upward with the core in place ([enclosure mechanical](/hardware/assembly/enclosure-mechanical.md),
 [internal plumbing](/hardware/assembly/internal-plumbing.md)):
 
-1. Lay the tube in the rib's half pipe. The rib holds the bare tube; the line's insulation
+1. Lay the tube in the rib's half pipe. The rib holds the bare tube; `carb-1`'s insulation
    stops at the rib's two ends.
 2. Set the cap over it, shoulders toward the rib and a wing either side.
-3. Press it straight down until both lips click into their windows and the shoulders sit on the
-   rib's lips.
+3. Press it straight on toward the rib's root until both lips click into their windows and the
+   shoulders sit on the rib's lips.
 4. Tug the tube and the cap; neither comes away.
 
 To take a cap off, twist a thin flat blade in the gap between the half pipe and one wing at the

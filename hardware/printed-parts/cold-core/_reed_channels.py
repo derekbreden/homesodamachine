@@ -5,9 +5,6 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     foam_shell_outer_height,
     bag_pocket_outermost_x,
-    reservoir_bulkhead_port_x,
-    reservoir_bulkhead_port_y,
-    bulkhead_elbow_exit_z,
     cap_conduits,
     cap_conduit_shell_xy,
     lldpe_tube_od,
@@ -16,8 +13,6 @@ from _cold_core_interface import (
     reed_y_half_w,
     level_rod_y,
     make_box,
-    pour_band_pocket_punch,
-    cut_pour_band_pass_through,
     bound,
 )
 

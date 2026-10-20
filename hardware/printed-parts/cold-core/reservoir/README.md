@@ -5,8 +5,11 @@ Current bodies and matching caps carry the ASA Aero float guide at
 **20 mm inward from the wet far wall**. Use a 36 × 28 mm ASA Aero float with
 a midplane RC62 on the 3.175 mm rod.
 
+Each body stands on its pocket's floor with one flat 3 mm floor, full height, and its cap
+carries both mouths: the fill, and the dip tube the draw line becomes.
+
 [Float installation and reed calibration](../magnetic-float/all-aero/installation.md) ·
-[Level sensing](level-sensing.md) · [Floor and bulkhead](floor-and-bulkhead.md) ·
+[Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
 ## Next print
@@ -25,7 +28,7 @@ seams, zero seam gap, **no ironing** and the September support settings.
 [Complete current settings](print-settings.json) ·
 [Printing guide](watertight-petg.md) · [Project verification](reservoir.print.json) ·
 [Native slice review](slice-review.json). Each current body/cap plate estimates
-about **19 h 23 min and 419 g** in Bambu Studio 02.08.02.61. The native
+about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
 model/support/brim envelope stays at least **80.5 mm inside the usable bed**.
 Filament assignment is Manual on the left nozzle. Start Mark2 on **A4**, with
 the preferred **A4 → A3 → A1** consumption order in the
@@ -70,6 +73,6 @@ Past settings, reported outcomes and source commits are in the
 [print log](print-log.md) and [September inspection record](history/seal-trial.md).
 Historical 3MFs are retained in Git.
 
-Reservoir leak results belong to the articles and process tested. Moving the
-rod bosses preserves their blind seats and the continuous wet floor; CAD
-clearance does not establish a new print's sealing or finished float sliding.
+Reservoir leak results belong to the articles and process tested. The current
+bodies have no water result of their own; CAD clearance does not establish a new
+print's sealing or finished float sliding.

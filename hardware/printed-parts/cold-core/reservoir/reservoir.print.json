@@ -41,8 +41,8 @@
       "name": "reservoir-left",
       "plate": 1,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "step_sha256": "7d9f472c45d59da17742dd3daec0810a697185790511b9ccf3c7622eb26b24ac",
-      "triangles": 11782,
+      "step_sha256": "addefcf9f35e0298efb310b205bbc2b257a9de162b30700584d7454c9c36cdda",
+      "triangles": 9202,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "mouth up",
@@ -55,7 +55,7 @@
         [
           244.4809055328369,
           230.25,
-          177.54999351501465
+          199.89999389648438
         ]
       ]
     },
@@ -63,8 +63,8 @@
       "name": "reservoir-cap-left",
       "plate": 1,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "step_sha256": "fad889ee9bc0ee0118c13c7ca64e2688c2ac0fd0a7d51a3a2b103f6ccde53667",
-      "triangles": 15002,
+      "step_sha256": "70847bc00a185847da37d3fb88d951a2b3c401f26233dddb9a3bd903fe03c20a",
+      "triangles": 16270,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
@@ -85,8 +85,8 @@
       "name": "reservoir-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-      "step_sha256": "1bbf0e57b592503969b0884f0c4fc56b18e8bccf4f2880af9924298bb3925ea4",
-      "triangles": 11788,
+      "step_sha256": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
+      "triangles": 9208,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "mouth up",
@@ -99,7 +99,7 @@
         [
           244.4809055328369,
           230.25,
-          177.54999351501465
+          199.89999389648438
         ]
       ]
     },
@@ -107,8 +107,8 @@
       "name": "reservoir-cap-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "step_sha256": "2870ee10b68830ae5cab1cbbc09188296b16a0243aabaa7c638fc0f356a6e94c",
-      "triangles": 15002,
+      "step_sha256": "22ebb75f487a98b05b0cf18f3b779afe629de1e6364116d91f38903b0c1095e4",
+      "triangles": 16270,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
@@ -127,5 +127,5 @@
     }
   ],
   "scope": "Current CAD and no-ironing recipe. Coupon finish selection is recorded separately; the physical water hold belongs to the September article.",
-  "project_sha256": "b2ea21a4878f32b1b51d9503e544029a583de7460bb26e30a32e1818a324179b"
+  "project_sha256": "32938ee2c97eff6312d6c7010c09aedc83887b167d5280666382409bb7c71685"
 }

@@ -1,6 +1,6 @@
 # Flavor-fill funnel and sliding frame
 
-The removable silicone funnel holds nominally [455 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [480 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top on one pair of front rails. Closing the enclosure
 captures the frame against withdrawal. Its rear passes between the upper Y-seam
 screw blocks. The frame uses the enclosure's production rail section and its
@@ -11,16 +11,15 @@ Remove it before pouring or lifting the silicone out, and reseat it after fillin
 
 ## Silicone
 
-The collar center is world X0, Y164.55. Its brim underside is Z349 and its
+The collar center is world X0, Y161.70. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
-165 × 117.683 mm with R20 corners; the mouth is 153 × 105.683 mm with R14 corners;
-the brim is 179 × 131.683 mm with R27 corners. The collar wall and ramp's normal
-wall are 6 mm. The ramp falls toward X1.85, Y164.55, centred in Y.
+165 × 123.392 mm with R20 corners; the mouth is 153 × 111.392 mm with R14 corners;
+the brim is 179 × 137.392 mm with R27 aft corners and square front corners. The collar
+wall and ramp's normal wall are 6 mm. The ramp falls toward X1.85, Y161.70, centred in Y.
 
-The native cavity holds 455.182 mL to the brim. The brim pocket keeps a 3.114 mm
-roof landing behind the display facet's arris, including its 0.25 mm running air.
-The drain exits at X1.85, Y164.55, Z306.05. Geometry and clearances are recorded in
-[`integration-review/forward-expansion-check.json`](integration-review/forward-expansion-check.json).
+The native cavity holds 479.92 mL to the brim. The brim's flat front edge, Y93.0, stands
+one 0.25 mm running fit behind the display wall across its full width; its square front
+corners meet the frame's two side strips. The drain exits at X1.85, Y161.70, Z306.05.
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
@@ -38,12 +37,12 @@ complete block and cylindrical outlet.
 
 ## PET-GF frame
 
-The frame's complete plan envelope is 207 mm wide and 140.233 mm long.
-Its lower footprint runs from Y119.1 to Y210, 90.9 mm long and at most 207 mm wide;
+The frame's complete plan envelope is 207 mm wide and 142.692 mm long.
+Its lower footprint runs from Y113.39 to Y210, 96.61 mm long and at most 207 mm wide;
 aft of Y199.75 it narrows to [182.5 mm](FRAME_REAR_WIDTH). Its underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
 silicone block's lower face. An [11.25 mm](FRAME_HOLE) hole at
-X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
+X1.85, Y161.70 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
 below the frame's underside in the released pose. The plug socket is a
 [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
 hole, with a [0.25 mm](CRADLE_SOCKET_CORNER) receiver corner radius and a 1 mm
@@ -54,31 +53,30 @@ stands above 3 mm of frame web on both sides.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. Below Z306.9, the two front foot wings outside the 196.5 mm body
-end at Y116.791 with 3 mm high blunt faces. The lower footprint runs from
-Y119.1 to Y210. The body widens
-upward to its flat front at Y95.458 and its rear at Y235.692. The rail datum
+end at Y111.082 with 3 mm high blunt faces. The lower footprint runs from
+Y113.39 to Y210. The body widens
+upward to its flat front at Y93.0, reached at Z335.2, and its rear at Y235.692. The rail datum
 is Z306.9 and its top is Z321.7. The physical front foot is at Z306.9;
 front-top's receiver underside is Z307.4, leaving 0.50 mm for running clearance
 and one supported face. This allowance accommodates printed material at the seat.
 The broad body fills the stock between its bowl clearance and rails.
 The removable frame carries the complete brim bearing at Z349, with 3 mm of
-material beneath the slipped collar footprint. The front roof surround finishes
-flush with the enclosure at Z355 and ends at Y199.75, one running clearance
-before the Y200 seam. The rear frame envelope remains at Z349 beneath the
-existing back-top roof. The front surround and body are 196.5 mm wide,
+material beneath the slipped collar footprint; the brim's front edge is flush with the
+frame's flat front. The roof surround is two side strips that finish flush with the
+enclosure at Z355 and end at Y199.75, one running clearance before the Y200 seam.
+The rear frame envelope remains at Z349 beneath the existing back-top roof. The side
+strips and body are 196.5 mm wide,
 fitting front-top's complete 9 mm flanks with 0.25 mm air on each side. Aft of
 Y199.75 the body is [182.5 mm](FRAME_REAR_WIDTH) wide, with 0.25 mm air to each
 upper screw block. The 179 mm silicone brim retains its complete bearing.
-The rail pair engages front-top from [Y111.7 to Y199.75](FRAME_RAILS);
+The rail pair engages front-top from [Y106.0 to Y199.75](FRAME_RAILS);
 there are no rear rails. The rear portion of the frame is supported from the
 front receivers. Geometric capture does not establish its loaded stiffness.
-The upper front surround has square plan corners, including its rear edge at
-the flat back-top seam, and keeps 0.25 mm air to the shell. Its flat front
-clears the solid display wall at Y95.208 by 0.25 mm. The lower body's aft
-corners have R6 plan rounds within the narrowed 182.5 mm envelope, trimmed by
-the same 30° corbel planes. Its shoulders at Y199.75 remain square.
-The display-side roof landing is 3 mm wide.
-Front-top's opening clears the surround and its roof tongue, with
+The side strips have square plan corners at both ends and keep 0.25 mm air to the
+shell. The frame's flat front clears the solid display wall at Y92.75 by 0.25 mm. The
+lower body's aft corners have R6 plan rounds within the narrowed 182.5 mm envelope,
+trimmed by the same 30° corbel planes. Its shoulders at Y199.75 remain square.
+Front-top's opening clears the side strips and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
