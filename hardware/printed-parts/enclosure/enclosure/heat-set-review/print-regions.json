@@ -445,7 +445,7 @@
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/manifold-layout/enclosure-box.json": "d1fce8f046974801719965fce6042c67b13a3a80b4edbbf4027996c4752ab1c8",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b444628a11365aae116a33f20eb430d6bc4bca365ff4a939bbe5bdf29855242e",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "5c550962556bfcc61994065219145ff65acd52e0f375504246ad9655e8b0d215",
+    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "66ac409f4d0630450da577a28b1a7948a6bc459551d3f79c9b8f6e86b2878324",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "aeed2b7cda862d39cf13df4df5b7ce083fa5b50905f0b0578b8853681e70b086",
     "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
@@ -476,20 +476,20 @@
       ".stl": "119b7c35f59b9117f5849e45b9da5975b4b0b36fde29db7ad7148a67e65b92ba"
     },
     "pump-receiver-west-outer": {
-      ".step": "2118068a4abbdce697b5f61a5b027327dbc4dd71b48ec81bbbdb3a1227abadcc",
-      ".stl": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3"
+      ".step": "b4f80abb528d9a3dd0c596ca4e24e3932a7f61c8abaf81fe862c6abac6b3e846",
+      ".stl": "2b94c4836cf5eb2379a2f7ec31ea35a90e856b0fc5bec0a239767e6f5c4e8b9c"
     },
     "pump-receiver-west-inner": {
-      ".step": "7d0da7ddda09a79f5e57f45fb65a84b6735218a0b958a32bf0de6dcdd6efbb7a",
-      ".stl": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106"
+      ".step": "d27797096d2238ab219e63a45edfa94b7f02ca9e2268b662be1dfc929a938b11",
+      ".stl": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6"
     },
     "pump-receiver-east-inner": {
-      ".step": "74b27eaf4d70597082f5042a388e13f07063252b6197841cf857beb336a7864a",
-      ".stl": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106"
+      ".step": "ae08e51c87d1e3258247890e59ecafcd173f98a98541a36f12da236db4593092",
+      ".stl": "3a028b4712ad899307a6a2ac9ab3fd46af68511e433e026aae4adaa03339c1e6"
     },
     "pump-receiver-east-outer": {
-      ".step": "da8a25c033ebf86ab2ead5660b7cb8b46a69695a8f3ab818f63d922b4122a188",
-      ".stl": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3"
+      ".step": "2a822612c79e0ade79c010a25406ad1c16ab27ec01590449eb334e520b2bf06f",
+      ".stl": "2b94c4836cf5eb2379a2f7ec31ea35a90e856b0fc5bec0a239767e6f5c4e8b9c"
     },
     "pump-keeper-outer": {
       ".step": "6c870c2b94c1743a324e323e525e8db6dd4ebbc2a9c640c834d32a29cf7ca56e",

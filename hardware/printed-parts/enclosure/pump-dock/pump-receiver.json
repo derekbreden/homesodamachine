@@ -14,7 +14,7 @@
     13.25
   ],
   "crotch_web_half_width_mm": 7.0,
-  "flow_passages": "Circular straight bores connect the inlet and both branches. The outer inlet rises inside the web to leave 3 mm above the occupied lower tube stop.",
+  "flow_passages": "One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
   "groove_y_mm": [
     7.0,
     10.25
@@ -30,9 +30,8 @@
   "keeper_slide_air_mm": 0.25,
   "neck_grip_d_mm": 12.4,
   "neck_mouth_w_mm": 12.4,
-  "lower_socket_stop_bore_mm": 4.3,
-  "lower_socket_stop_radial_mm": 0.8999999999999999,
-  "installed_tip_stop_contact_area_mm2": 17.14720540237479,
+  "lower_socket_nominal_throat_mm": 4.3,
+  "lower_socket_nominal_stop_radial_mm": 0.8999999999999999,
   "customer_tip_clearance_mm": 0.5,
   "flow_throat_d_mm": 4.3,
   "relief_taper_y_mm": [
