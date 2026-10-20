@@ -25,14 +25,6 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
           "regions": "front-top",
-          "pause": {
-            "source_z_mm": 199.4304,
-            "stack_top_source_z_mm": 199.2804,
-            "slots_source_mm": [[-55.5, -48.95, 82.415, 87.504, 173.474, 199.43], [48.95, 55.5, 82.415, 87.504, 173.474, 199.43]],
-            "gcode": "M400 U1",
-            "message": "Front-top magnet pause: drop four K&J SB443-IN blocks down each of the two slots in the bay wall's face, grooves on the rails, poles facing the bay. Bottom block north pole out, then alternate (N, S, N, S from the bottom); each block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them.",
-            "reason": "The four K&J SB443-IN blocks of each pump's column drop down their printed rail slot at this one pause; the first layer sliced above the slots' roof at Z199.4304 bridges over them, and its bottom must clear the drawing-maximum four-block stack at Z199.2804. Support stays out of both slots. pump-dock/magnet-retention.md."
-          },
           "features": [
             {
               "name": "R6 roof side edges, level run",
@@ -218,14 +210,6 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
           "regions": "pump-cartridge",
-          "pause": {
-            "source_z_mm": 199.4304,
-            "stack_top_source_z_mm": 199.2804,
-            "slots_source_mm": [[-55.5, -48.95, 77.276, 82.365, 173.474, 199.43], [48.95, 55.5, 77.276, 82.365, 173.474, 199.43]],
-            "gcode": "M400 U1",
-            "message": "Cartridge magnet pause: drop four K&J SB443-IN blocks down each of the two slots in the cartridge's flat back, grooves on the rails, poles facing aft. Bottom block south pole out, then alternate (S, N, S, N from the bottom); each block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them.",
-            "reason": "The four K&J SB443-IN blocks of each pump's column drop down their printed rail slot at this one pause; the first layer sliced above the slots' roof at Z199.4304 bridges over them, and its bottom must clear the drawing-maximum four-block stack at Z199.2804. Support stays out of both slots. pump-dock/magnet-retention.md."
-          },
           "features": [
             {
               "name": "Lower hand-pocket rims",

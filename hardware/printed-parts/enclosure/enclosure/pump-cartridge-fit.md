@@ -8,10 +8,10 @@ the male half stays in front-top's bay bulkhead. Its four leads stay on the pump
 when the cartridge is withdrawn.
 
 The lower cradle and fixed receiver wall carry eight attracting SB443-IN pairs,
-one four-high column on each pump's own load line at the fluid-port row. Each
-part's print pauses once while the blocks drop down the printed rails of one slot
-per column; the next layer closes over them, and the bare poles meet at the
-cartridge's seat ([magnet record](../pump-dock/magnet-retention.md)).
+one four-high column on each pump's own load line at the fluid-port row. The
+blocks are bedded in DP420 and pushed home to the floor of one 45°-roofed pocket
+per column in each part, and the bare poles meet at the cartridge's seat
+([magnet record](../pump-dock/magnet-retention.md)).
 Installed retention and contact compression remain physical qualifications.
 
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
@@ -61,7 +61,7 @@ underside; the cap prints crown-down.
 
 The RC62 trial's [paused source](magnet-retention/pump-cartridge-pause.3mf) and
 [emitted-path check](magnet-retention/native-check.json) retain their identified
-ring-pocket scope. The current SB443-IN columns follow the print-pause loading
+ring-pocket scope. The current SB443-IN columns follow the bonding process
 linked above. The cap's purchased pogo magnets arrive inside the connector.
 
 The [support audit](pump-support-audit.md) names the actual support bodies and their

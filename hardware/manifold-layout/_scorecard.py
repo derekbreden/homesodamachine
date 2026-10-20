@@ -441,9 +441,11 @@ MOUNTS = (
     # Each return snaps into its channel in the one return block.
     *((f"pump-return-{port}", "pump-return-block", "snap-seat") for port in PUMP_DOCK_PORTS),
     ("pump-return-block", "enclosure-front-top", "three-M3-into-tray-foot"),
-    # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
-    # closed in by the layer printed over the column at the part's one pause.
-    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
+    ("pump-dock-potting-moving", "enclosure-pump-cartridge", "bonded-pocket"),
+    ("pump-dock-potting-fixed", "enclosure-front-top", "bonded-pocket"),
+    # Exposed SB443-IN blocks are bonded in one plain pocket per column; their side
+    # grooves key each block into the cured bedding.
+    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "grooves-in-bonded-pocket")
       for side, host in (("moving", "enclosure-pump-cartridge"),
                          ("fixed", "enclosure-front-top"))
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
@@ -628,6 +630,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("funnel-cover", "enclosure-front-top"),
     ("funnel-cover", "enclosure-back-top"),
     # Bare attracting pole faces meet; adjacent blocks share a column stack.
+    *((f"pump-dock-potting-{side}", f"pump-dock-SB443-{side}-{column}-{row}")
+      for side in ("moving", "fixed")
+      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
+      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
     *((f"pump-dock-SB443-moving-{column}-{row}", f"pump-dock-SB443-fixed-{column}-{row}")
       for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),

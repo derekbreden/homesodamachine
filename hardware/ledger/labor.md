@@ -169,7 +169,7 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. The print model allocates [7.453](LAB_PRINT_KG) kg of filament and [199.1](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats and the four-receiver TPU plate ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup, the three RC62 insertions at their print pauses and the sixteen SB443-IN blocks loaded at the front-top and cartridge pauses. That tending allowance is provisional. Assembly includes the [73](TOTAL_INSERTS) M3/M5 heat-set inserts and [73](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 8 screws mounting the pogo halves.
+Everything that is putting parts together with fasteners and hands. The print model allocates [7.453](LAB_PRINT_KG) kg of filament and [199.1](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats and the four-receiver TPU plate ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [73](TOTAL_INSERTS) M3/M5 heat-set inserts and [73](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 8 screws mounting the pogo halves.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
@@ -240,7 +240,7 @@ The target is 10 hours attended per unit. The current estimate is [11 h 5 m](LAB
 
 ## Not counted here
 
-- **Pump-dock manufacturing allowances** — the pump stub preparation and the magnet loading at the two print pauses are required production operations. Their attended time is unmeasured and excluded from these totals.
+- **Pump-dock manufacturing allowances** — the pump stub preparation and the DP420 bedding of the sixteen SB443-IN blocks are required production operations. Their attended time is unmeasured and excluded from these totals. Both parts' bonded blocks cure together for 24 hours at 23 °C before the cartridge is seated.
 - **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.
