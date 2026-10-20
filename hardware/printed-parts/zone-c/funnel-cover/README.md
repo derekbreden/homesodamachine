@@ -60,10 +60,11 @@ assembly exports. It checks the solid plate, silicone clearance,
 surrounding hardware clearance and vertical removal. It does not measure
 friction, silicone distortion, deposited watertightness or lifetime.
 
-The post-publication geometry lint has one intentional finding, the lifting
-recess's short vertical back wall, recorded in the
-[lint answers](../../lint-answers/zone-c/funnel-cover/funnel-cover-print.lint-answers). The recess retains a continuous
-plate above it and stays outside the mouth.
+The post-publication [mesh review](mesh-review.json) identifies the lifting
+recess, the continuous skirt lead-in and the nominal 3 mm plate at the
+thickness ranking's cutoff. The
+[lint answers](../../lint-answers/zone-c/funnel-cover/funnel-cover-print.lint-answers)
+record these locations and their functions. The recess stays outside the mouth.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py

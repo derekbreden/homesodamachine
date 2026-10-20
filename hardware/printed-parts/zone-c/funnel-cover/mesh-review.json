@@ -1,0 +1,59 @@
+{
+  "checked_at_utc": "2026-10-20T14:11:05.220037+00:00",
+  "scope": "Post-publication manual review of the native print-pose STL; no generator or build gate. Existing native PETG slice supplies the production orientation and support-path reading.",
+  "facets": 2812,
+  "findings": [
+    {
+      "class": "sliver",
+      "reading": "1.200 mm strip, 182.0 mm long",
+      "pick": [
+        "click: x=0.000 y=69.696 z=2.400"
+      ],
+      "answered": true
+    },
+    {
+      "class": "thin",
+      "reading": "1.800 mm of material at its thinnest \u00b7 2089.3 mm\u00b2 of surface under 3 mm \u00b7 spans 181.9 \u00d7 6.9 \u00d7 1.8 mm \u00b7 in 2 pieces",
+      "pick": [
+        "click: x=90.650 y=69.700 z=1.800",
+        "click: x=90.650 y=69.700 z=0.000"
+      ],
+      "answered": true
+    },
+    {
+      "class": "thin",
+      "reading": "2.300 mm of material at its thinnest \u00b7 18036.1 mm\u00b2 of surface under 3 mm \u00b7 spans 181.9 \u00d7 125.6 \u00d7 6.0 mm \u00b7 in 2 pieces",
+      "pick": [
+        "click: x=62.150 y=-52.446 z=8.992",
+        "click: x=62.150 y=-54.746 z=9.000"
+      ],
+      "answered": true
+    },
+    {
+      "class": "thin",
+      "reading": "3.000 mm of material at its thinnest \u00b7 4106.0 mm\u00b2 of surface under 3 mm \u00b7 spans 181.9 \u00d7 72.1 \u00d7 0.0 mm",
+      "pick": [
+        "click: x=-69.193 y=-69.392 z=0.000",
+        "click: x=-69.193 y=-69.392 z=3.000"
+      ],
+      "answered": true
+    },
+    {
+      "class": "thin",
+      "reading": "3.000 mm of material at its thinnest \u00b7 7915.4 mm\u00b2 of surface under 3 mm \u00b7 spans 146.5 \u00d7 54.4 \u00d7 0.0 mm",
+      "pick": [
+        "click: x=-66.843 y=-49.979 z=0.000",
+        "click: x=-66.843 y=-49.979 z=3.000"
+      ],
+      "answered": true
+    }
+  ],
+  "unanswered": 0,
+  "sha256": {
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "08989ad82728ded44b75b37373cc89bbbca67cf1c668ec3212b9c3c56556dfe8",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
+    "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json": "a3399e078fcae5ae373c5a5f4ea14f71a7e3aeaf26016ce96354836b801a851c",
+    "hardware/printed-parts/lint-answers/zone-c/funnel-cover/funnel-cover-print.lint-answers": "11d351172bb726ab8a208d52ad3f7bb53c2450af97a9775c2547016e6b28cc83"
+  },
+  "physical_scope": "No physical fit, strength or water-exclusion result."
+}
