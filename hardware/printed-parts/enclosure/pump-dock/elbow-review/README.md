@@ -1,27 +1,17 @@
-# Purchased pump-dock elbows
+# Purchased elbows beneath the rear valves
 
-Four purchased [John Guest PP0308E elbows](../../../../reference/jg-pp0308e-elbow/README.md) sit below the permanent TPU junctions. Each uses the native three-solid scanned exterior, with its fixed collar supported by an integral front-top U seat. A short gripped stub enters the lower TPU sealing land; a formed black LLDPE run connects the other elbow leg to its aft valve. The assembly contains four wet TPU junctions, three flat PET-GF keepers and four purchased elbows.
+Four purchased [John Guest PP0308E elbows](../../../../reference/jg-pp0308e-elbow/README.md) stand upright directly beneath V-C, V-D, V-G and V-J. A short straight tube joins each elbow to its valve, with a nominal 1 mm exposed gap. The forward leg faces the permanent wall junction. One R14 bend in black 1/4-inch LLDPE connects the junction's downward outlet to that leg.
 
-![Inner station and the assumed connector envelopes](elbow-layout.png)
+![Upright purchased elbow beneath the rear valve](elbow-layout.png)
 
-The illustration highlights exact assembly meshes. The wall is hidden to show its integral seat. Orange boxes are assumed 8 × 5 × 21.5 mm female-connector envelopes, not measurements of the purchased terminals.
+The rear valve row and source crossbar stand 8 mm above their deck reference. This clears the west inner elbow from the compressor and the east outer elbow from the condenser; the latter has about 2.45 mm geometric clearance. Round Ø17.4 mm openings through the rear tray foot clear the elbows. V-A and V-B retain their cold-core seats. The reservoir-B draw tube's approach passes 10 mm farther west to clear the raised source bends, retaining R14 bends and its existing endpoints.
 
-## Geometry and assembly
+All four TPU junctions share one geometry: a continuous Ø4.3 mm inlet passage turns downward through R6, and one straight vertical branch reaches the upper socket. Six-millimetre circular sealing lands and their annular tube stops remain. The wall and three gravity-seated keepers locate the junctions; the straight upper links clock them.
 
-- [Native fit](native-fit.json): all four junctions, scanned elbows and dry seats are valid native geometry. Junctions and elbows have zero interfering volume with front-top. The inner junctions clear the coil bodies by about 1.91 mm; the outer elbows clear the condenser by about 1.44 mm. The assumed inner connector boxes clear the formed tubes by about 4.32 mm.
-- [Factory approach](assembly-motion.json): each elbow clears its aft-open seat at the recorded 0, 1, 3, 6, 12 and 20 mm approach positions. Fit the connected fore-valve/junction/elbow groups before the aft valves. All three keepers clear the shell both seated and parked above the collar path; their plain U openings face down in service.
-- [Collar contact](collar-contact.json): the fixed collars contact their seats within 0.2 mm motion along the stub axis. Together with 0.15 mm nominal stub stop room, the rigid geometry consumes less than the 0.5 mm total movement allowance. This is a geometric travel reading, not a loaded-stiffness or retention rating.
-- [Shell scope](shell-scope.json): the native front-top has zero added or removed volume outside X ±105, Y 78–188, Z 130–230 mm. Roof, display and other shell geometry match the input part.
-- [Aggregate refresh](aggregate-refresh.json): affected native members match their source geometry. Unrelated native bodies retain their geometry and colours; unrelated viewer arrays retain their fingerprints. The four formed tube solids stop at the known release faces. The [front-top service scene](scene-refresh.json) contains the same purchased elbows, junctions and tubing.
+[Native fit](native-fit.json) records all four elbow placements, the common junction geometry and the rerouted tube. [Aggregate refresh](aggregate-refresh.json) binds the changed members to their retained native component placements and verifies unchanged viewer arrays. [Shell scope](shell-scope.json) compares the native shell outside the dock and valve-tray edit region. The [front-top scene](scene-refresh.json) uses the published assembly geometry.
 
-The standalone manifold generator reports zero volume clashes. Junction manufacturing exports lie on a broad aft web landing. The inlet/upper lands stand 45 degrees from vertical; lower lands stand 20 degrees (inner) or 45 degrees (outer). Keeper exports lie flat on their wall faces. The [current manufacturing instructions](../README.md#manufacture) define the seven printed pieces and the scope of archived print projects.
+The nominal short valve tube is 28.7 mm, including estimated 15.7 mm elbow and 12 mm valve insertions. Actual fully seated marks govern purchased-fitting cuts. The bent tube has nominal 6.35 mm TPU engagement. Its interference grip is not positive axial capture, and pressure retention is physically unqualified. See the [assembly procedure](../../../../assembly/internal-plumbing.md).
 
-The [junction cavity reading](junction-cavity.json) records open socket axes, retained annular bearings and the flat print landing. Each junction has one continuous round inlet passage and one straight branch. The inner passage turns into the lower socket; the outer passage turns into the upper socket to clear its lower tube stop. Circular seal lands remain intact.
+Junction manufacturing exports stand on their broad aft web landing; all circular lands are 45 degrees from vertical. Keepers lie flat on their wall faces. Archived print projects apply only to their identified meshes. Native fit establishes geometry, not sealing, pressure capacity, support removal or lifetime.
 
-The [elbow-seat thickness reading](seat-thickness.json) resolves strict-threshold warnings at the nominal 3 mm cheeks. Separate front-top display, bay-end and interlocking-flank findings remain open at their exact picks in the [lint answers](../../../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Their geometry lies outside the dock edit region and retains its existing fit and physical-evidence scope.
-
-## Tube preparation
-
-Nominal short stubs are 23.05 mm. Each formed run uses R14 centerline bends, following the existing spool observation recorded in `_routing.STOCKS`. The elbow's nominal 15.7 mm insertion and valve's nominal 12 mm insertion are stock allowances; the scanned exterior establishes neither internal stop. Fully seated marks and the actual mounted span govern factory cuts and TPU engagement. See the [assembly sequence](../../../../assembly/internal-plumbing.md).
-
-The known native clearances do not establish actual female-connector fit, printed sealing quality, support removal, pressure capacity or lifetime. Existing physical observations keep their recorded geometry and material scope. No print was launched for this review.
+Separate inherited display, bay-end and interlocking-flank findings remain open at their exact picks in the [front-top lint answers](../../../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Their geometry retains its existing fit and physical-evidence scope.

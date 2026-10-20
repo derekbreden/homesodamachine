@@ -1,7 +1,6 @@
 {
-  "scope": "Native front-top comparison outside the authorized dock edit region: X[-105,105], Y[78,188], Z[130,230] mm. This checks prior roof, display and other shell geometry against the input native part.",
-  "input_volume_mm3": 1243968.279721573,
-  "output_volume_mm3": 1237626.8065782657,
+  "scope": "Native front-top comparison outside X[-105,105], Y[78,188], Z[130,250] mm. The edit region contains the dock and raised rear valve tray; roof, display and other shell geometry retain their input scope.",
+  "input_sha256": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
   "outside_region_added_mm3": 0.0,
   "outside_region_removed_mm3": 0.0
 }
