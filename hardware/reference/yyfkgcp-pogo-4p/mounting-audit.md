@@ -137,10 +137,13 @@ compression limits above remain controlling.
 
 Remove appliance power before cartridge insertion or withdrawal. Straight withdrawal
 separates the contacts head-on. The four cartridge leads remain on the pump tabs and move
-with the cap; the fixed leads stay in the bulkhead passage and ridge clip. Solder joints
-need individual insulation and mechanical strain relief. Keep neighboring tails, screws
-and magnets clear of the conductors. The printed crown grooves and bore provide routing
-space; their geometry does not prove assembled lead retention.
+with the cap; the fixed ribbon stays behind the bulkhead and along its crown, below
+the funnel frame. Insulate each solder joint and leave the lead exit relaxed. Support
+the free harness during assembly and repair; unplug J13 by its housing before
+separating enclosure pieces. Keep neighboring tails, screws and magnets clear of the
+conductors. The contact bodies' screws take the cartridge's contact-separation load.
+The printed crown grooves and bore provide routing space; their geometry does not
+establish wire pull-load capacity.
 
 ## Print and physical evidence
 
