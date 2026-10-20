@@ -5667,7 +5667,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     cx, cy = funnel_centre(box)
     lid, lid_carry = seat_body(import_step(str(FUNNEL_COVER_STEP)).val(),
                                seat="funnel-cover",
-                               station=(((0, 0, 0), (0, 0, 1)), (cx, cy, box.outer[5])))
+                               station=(((0, 0, 0), (0, 0, 1)),
+                                        (cx, cy, box.outer[5] + _funnel.apron_rise)))
     a.add(lid, name="funnel-cover", color=M_PETG_BLACK)
     a.pack_solids["funnel-cover"] = lid
     a.carries["funnel-cover"] = lid_carry

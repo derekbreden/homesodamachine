@@ -1,7 +1,8 @@
 # Flavor-fill funnel cover
 
 The black PETG cover closes the silicone funnel between fills. Its solid plate
-sits on the brim, adding [3 mm](PLATE) above the roof. A [6 mm](SKIRT) locating
+sits on the silicone apron, adding [3 mm](PLATE) above its Z358 seating plane.
+Its fitted top is Z361, 6 mm above the rigid enclosure roof. A [6 mm](SKIRT) locating
 skirt enters the existing mouth; four broad pads have [0.15 mm](PAD) nominal
 interference with the silicone. The skirt opposes sideways displacement, and
 the pads provide a provisional friction grip. Lift the broad front edge to remove it
@@ -21,16 +22,16 @@ the lifting recess opens only underneath the extended front edge.
 
 The cover lifts off vertically, so the refill does not require a horizontal
 slide or a hinge swing under the sink bowl. Its removed height does not enter
-the bottle's filling envelope. The funnel, mold, roof ledge and frame retain
-their geometry.
+the bottle's filling envelope.
 
 ## Water and cleaning
 
 Direct overhead drips and debris meet the plate instead of the open bowl.
-Runoff leaves at the plate perimeter onto the surrounding roof. This cover
-does not establish a watertight brim seal or a protected path past the
-front/back roof lap to the electrical bay. Those remain open in the
-[concerns register](/hardware/concerns.md). Remove external water and debris
+Runoff leaves at the plate perimeter onto the funnel's continuous silicone
+apron, which covers the exposed frame joints and reaches the exterior sides.
+The apron has an integral underside roof-contact rib. Physical water exclusion
+remains open in the [concerns register](/hardware/concerns.md).
+Remove external water and debris
 before opening it, and clean both faces separately from the funnel.
 
 Plain PETG is used for this part's underside and mouth-contacting skirt.
@@ -72,7 +73,7 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/check_cover
 
 `funnel-cover.step` and `funnel-cover.stl` use the assembled seating datum.
 `funnel-cover-print.step` and `funnel-cover-print.stl` use the flat exterior bed face. The appliance places
-the cover on the same roof and plan center as the silicone brim.
+the cover on the mouth's plan center and Z358 silicone seating plane.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -1,19 +1,19 @@
 {
   "dimensions_mm": {
     "cavity": [
-      211.0000002,
-      169.39151604656254,
-      59.150000000000006
+      247.0000002,
+      193.39151604656254,
+      62.150000000000006
     ],
     "core": [
-      211.00000000000006,
-      169.39151584656258,
-      42.34844392833588
+      247.00000000000034,
+      193.39151584656256,
+      45.351200351241886
     ],
     "funnel": [
-      179.0000002,
-      137.39151604656257,
-      48.950000200000005
+      215.0000002,
+      155.39151604656254,
+      51.950000200000005
     ],
     "rod": [
       6.0,
@@ -22,9 +22,9 @@
     ]
   },
   "volume_ml": {
-    "cavity": 817.9551152461999,
-    "core": 624.1184509496624,
-    "funnel": 228.72581947384444,
+    "cavity": 1391.5821202438433,
+    "core": 726.5115910406846,
+    "funnel": 274.90380442124047,
     "rod": 0.7068583470577037
   },
   "shell_thickness_mm": 5.0,
@@ -34,20 +34,20 @@
   "minimum_core_backing_mm": 7.372452093551324,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 720.5796255335125,
+      "retained_volume_ml": 820.730151913241,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 252.89445620847857,
+      "retained_volume_ml": 305.7934695063475,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 56.150000000000006,
+  "parting_z_mm": 59.150000000000006,
   "finish_allowance_mm": 0.3,
-  "casting_scope": "whole finished funnel with rectangular block, flat bearing face and straight 6 mm outlet",
+  "casting_scope": "whole finished funnel with integral roof apron and sealing rib, rectangular block, flat bearing face and straight 6 mm outlet",
   "flange_plan_mm": [
-    211.0,
-    169.39151584656256
+    247.0,
+    193.39151584656256
   ],
   "flange_margin_mm": 16.0,
   "plug_blank_mm": [
@@ -86,7 +86,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "bbe799d532607d6fbda515d4c75a68795275e2c90708a24a4f6ce837bb8a6312",
+  "finished_funnel_step_sha256": "b655912265baeb9df1fc11618df3a856d8a0d78d33e2ec6f87375f1085b5554b",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -94,11 +94,11 @@
     "slot_travel_each_way_mm": 1.5,
     "centres_xy_mm": [
       [
-        99.5,
+        117.5,
         22.0
       ],
       [
-        -99.5,
+        -117.5,
         -12.0
       ]
     ]
@@ -107,36 +107,36 @@
     "hole_diameter_mm": 5.0,
     "centres_xy_mm": [
       [
-        -99.5,
+        -117.5,
         -50.0
       ],
       [
-        -99.5,
+        -117.5,
         50.0
       ],
       [
-        99.5,
+        117.5,
         -50.0
       ],
       [
-        99.5,
+        117.5,
         50.0
       ],
       [
         -50.0,
-        -78.69575792328128
+        -90.69575792328128
       ],
       [
         50.0,
-        -78.69575792328128
+        -90.69575792328128
       ],
       [
         -50.0,
-        78.69575792328128
+        90.69575792328128
       ],
       [
         50.0,
-        78.69575792328128
+        90.69575792328128
       ]
     ],
     "fastener": "M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange"
@@ -145,63 +145,63 @@
     "fill_diameter_mm": 11.0,
     "vent_diameter_mm": 4.0,
     "fill_xy_mm": [
-      -83.0,
-      -62.19575792328128
+      -93.0,
+      -64.69575792328128
     ],
     "vent_xy_mm": [
       [
-        83.0,
-        -62.19575792328128
+        93.0,
+        -64.69575792328128
       ],
       [
-        76.99568901432423,
-        56.191446937605505
+        93.0,
+        68.69575792328128
       ],
       [
-        -76.99568901432423,
-        56.191446937605505
+        -93.0,
+        68.69575792328128
       ],
       [
-        -83.0,
+        -100.5,
         0
       ],
       [
-        83.0,
+        100.5,
         0
       ]
     ]
   },
   "print_bases": {
     "cavity_plan_mm": [
-      164.85,
-      123.24151584656255
+      197.85,
+      144.24151584656255
     ],
-    "cavity_corner_radius_mm": 0.9249999999999972,
+    "cavity_corner_radius_mm": 3.424999999999997,
     "base_thickness_mm": 5.0,
     "corbel_run_per_rise": 0.5,
     "corbel_angle_from_bed_deg": 63.43494882292202,
     "corbel_print_z_mm": [
       5.0,
-      51.150000000000006
+      54.150000000000006
     ],
     "bolt_access_pocket_width_mm": 12.0,
     "bolt_access_pocket_height_mm": 8.0,
     "core": "flat dry back with one circular tapered access hole"
   },
-  "dry_opening_mm": 41.08517935471506,
-  "dry_opening_depth_mm": 41.08517935471506,
+  "dry_opening_mm": 44.08517935471506,
+  "dry_opening_depth_mm": 44.08517935471506,
   "dry_opening_shape": "circular conical access to straight rod guide",
   "postprint_breathers": {
     "diameter_mm": 1.5,
     "cavity": {
       "entry_xyz_mm": [
         [
-          -82.425,
+          -98.925,
           -30,
           2.5
         ],
         [
-          82.425,
+          98.925,
           30,
           2.5
         ]
@@ -226,12 +226,12 @@
         [
           -40,
           -30,
-          61.150000000000006
+          64.15
         ],
         [
           40,
           30,
-          61.150000000000006
+          64.15
         ]
       ],
       "drill_axes": [
@@ -257,8 +257,8 @@
       32.66405370899494
     ],
     "core": [
-      28.485946291005064,
-      42.68517935471506
+      31.485946291005064,
+      45.68517935471506
     ]
   },
   "nominal_chamber_diameter_mm": 299.72,
@@ -267,23 +267,24 @@
     "span_mm": 165.0,
     "pressure_kpa": 1.0,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 53.95,
-    "head_pressure_kpa": 0.5980519350000001,
+    "maximum_silicone_head_mm": 56.95,
+    "head_pressure_kpa": 0.6313078350000001,
     "pressure_force_n": 27.225,
     "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
     "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
     "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
   },
   "status": "Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified",
-  "enclosing_diameter_mm": 251.23336091093293,
-  "chamber_radial_clearance_mm": 24.24331954453355,
+  "enclosing_diameter_mm": 291.28108558954824,
+  "chamber_radial_clearance_mm": 4.219457205225893,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "c5387ee74548ef9a12aca1e5898fd33976a2522891d6f1fefd77ebae9c6e25fa",
-    "cavity.stl": "0629a187c6471d7181a11ae4e62b049e3a998686b67a8c9d829186f083eb7fa6",
-    "cavity.step.mesh": "831a871de63348cd01b504dfbc2bc8a312353771630cfe13ba27ece09f3328bb",
-    "core.step": "c084407aad040b508e6ac9f3c3c2d9c9dae9f12b78d5757d57297addc690b136",
-    "core.stl": "cee3c9641e3e0d1e6b1645b4cebd2ff8a9e84f7b5cf94ca46711fec84796ec4b",
-    "core.step.mesh": "cfc6610c068a2e71238eec840294f04eac023627cd2575883a14bdff0cdafadb"
-  }
+    "cavity.step": "e0f7282e7c71ce569cba52e058fa6ced17821dcd5db8e3cb637ccd5a7f5017ab",
+    "cavity.stl": "06be2668bafbae86d615f9bedcc88a8bcba5ea5b7ea44fe82c65ac19d063c1c9",
+    "cavity.step.mesh": "be1c48f282f63001520e2bc2884b3fb87bb97b45345c8a96f01c4b85016c8baa",
+    "core.step": "752c94dfd023ff466143f0a5aeb5d66234e8732c9cde1c724391a95a9a2cb87a",
+    "core.stl": "02bd1ea506fd6d036cd0818feae9ff31364d4a2dc11f9d6d77aa36bd027e984f",
+    "core.step.mesh": "a7ccbb5e98b6eba9a038d001bd66390b62ef43e8f65652e3f22f8e06b34d77f8"
+  },
+  "flange_corner_radius_mm": 28.0
 }

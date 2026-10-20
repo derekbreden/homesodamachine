@@ -1793,7 +1793,7 @@ the piece beds on Z.
 
 ## Funnel opening
 
-The 480 mL silicone funnel sits in a separate solid PET-GF frame centered at
+The 531 mL silicone funnel sits in a separate solid PET-GF frame centered at
 Y161.70, with its outlet at the same Y centre. The frame's flat front and the brim's
 square-cornered front edge stand together one running fit behind the display wall.
 Its front rail pair slides into
@@ -1815,6 +1815,11 @@ envelope beneath the existing back-top roof. Front-top's opening clears the
 removable side strips and roof tongue, leaving no fixed inward brim-bearing
 ledge above the frame. The complete brim footprint retains 3 mm of frame
 bearing beneath Z349. The rail channels retain their separate functional profile.
+The funnel's integral silicone apron covers the exposed frame joints and
+upper seam screw wells, reaching both exterior sides. Its mouth and cover
+seat are Z358; the fitted cover reaches Z361. Its underside roof-contact rib
+and spill-path geometry are recorded in the
+[overflow review](../../zone-c/funnel/overflow-review/README.md).
 See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
 
 ## back-top's ceiling

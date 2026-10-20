@@ -7,9 +7,10 @@ drain stub over its full 5.015 mm insertion depth; the funnel lifts off for clea
 
 ![The two pieces in their print orientations](overview.png)
 
-The clamping flanges are **211 × 169.392 mm**, with 16 mm margin around the
-179 × 137.392 mm silicone brim. The cavity has a flat 164.85 × 123.242 mm base and a **63.4° corbel**
-supporting its flange. The core has a flat dry back and one **41.085 mm
+The clamping flanges are **247 × 193.392 mm**, with at least 16 mm margin around
+the 215 × 155.392 mm silicone apron. Their R28 corners leave a flat
+197.85 × 144.242 mm cavity base and a **63.4° corbel**
+supporting the flange. The core has a flat dry back and one **44.085 mm
 circular tapered access hole** leading to the straight rod guide. Both flanges
 are 5 mm thick. The core's 0.30 mm brim-finishing pocket retains
 4.70 mm backing. Eight 5 mm holes take M4 × 20 bolts, 9 mm OD washers and nuts;
@@ -42,7 +43,7 @@ with the block bottom. Keep the guide clear during filling and vacuum cycling.
 
 1. Remove the accessible bolt-pocket supports. Drill two **1.5 mm infill
    breather holes** in each body's bare dry side, using a depth stop:
-   cavity side walls at **X = ±82.425 mm, Y = ±30 mm, Z = 2.5 mm**,
+   cavity side walls at **X = ±98.925 mm, Y = ±30 mm, Z = 2.5 mm**,
    drilling **3.2 mm horizontally inward**; core flat back at
    **XY = (−40, −30) and (40, 30)**, drilling **1.8 mm inward**.
    XY is relative to the brim centre and Z is above the cavity bottom.
@@ -71,64 +72,55 @@ with the block bottom. Keep the guide clear during filling and vacuum cycling.
    the brim to admit air. Lift the core straight off the rod, then peel the
    casting and rod out of the cavity. Support the block and slide the released
    rod out along its axis. Trim seat, guide, fill and vent flash. Keep the 6 mm
-   cylindrical bore and flat bearing face intact.
+   cylindrical bore, flat bearing face and underside roof-contact rib intact.
 6. Clean the funnel and fit it over the drain stub until the brim and block are
-   seated. Check the normal filling, lift-out and refitting operation. Clean
+   seated, with the apron smoothed onto the roof. Check the normal filling,
+   lift-out and refitting operation. Clean
    the rod and tooling before another cast.
 
 ![Section through the two mold bodies, silicone and steel rod](section.png)
 
-The [illustrated Letter guide](../../../mold-guide/README.md) follows this
-procedure. The tooling uses equalized chamber pressure and gravity filling. The maximum
-54 mm silicone head produces about **0.60 kPa**. The sparse interior breathes
+The [illustrated Letter guide](../../../mold-guide/README.md) covers the general
+finishing and casting procedure; use this directory's native files and dimensions
+for the apron tooling. The tooling uses equalized chamber pressure and gravity filling. The maximum
+57 mm silicone head produces about **0.63 kPa**. The sparse interior breathes
 through the drilled dry-side holes; wall count and infill percentage do not
 establish a stiffness or lifetime rating. The [print log](print-log.md) records
 a successful 15% infill mold with Snug supports on September 16.
 
 The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
 **299.72 mm interior diameter and height**. The rounded mold fits within a
-**247.88 mm circle**, leaving **25.92 mm radial clearance**. With the specified
-M4 × 20 closure hardware it is about **70.35 mm high**. Use a catch tray no
+**291.28 mm circle**, leaving **4.22 mm radial clearance**. With the specified
+M4 × 20 closure hardware it is about **73.35 mm high**. Use a catch tray no
 larger than 260 mm across and keep it clear of the breathers. The
 [chamber check](chamber-check.json) binds these dimensions to the native parts
 and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
 
-[Mark1 editable two-plate Bambu project](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf) ·
-[Cavity STL](cavity.stl) · [Core STL](core.stl) ·
-[Current native slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
+[Cavity STL](cavity.stl) · [Core STL](core.stl) · [Native dimensions and closure/release readings](design.json)
 
 PETG Translucent Clear through Mark1's AMS HT-A, right 0.4 mm Standard nozzle, 0.88 flow,
 5.61702 mm³/s maximum volumetric speed, 0.20 mm first layer, 0.24 mm layers
 above, **six walls, 15% gyroid infill, six top/bottom layers** and Snug normal
 supports for the bolt pockets. The cavity
 prints upright; the core prints inverted on its dry back. The Textured PEI
-recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). The native
-slice estimates **28.99 hours and 589.79 g** for both pieces; the cavity is
-**17 h 24 min / 356.56 g**. The core has no
-supports; the cavity has eight accessible support columns at the bolt pockets.
-First-layer walls/infill run at 20/30 mm/s with an 8 mm outer brim. The full
-deposited footprint clears the usable bed edges by at least 45 mm on the
-cavity and 39.565 mm on the core. Probing clump checks remain Off. The retry
-launch receipt records Timelapse On and leveling, flow dynamic and nozzle offset
-calibration On for the replacement assembly and new nozzle. Mark1 accepted
-the cavity at **15:03:59 CDT on October 6**, task **1315124888**. The [matching core launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md)
-uses plate 2 of this frozen project, accepted at **09:30:52 CDT on October 7**,
-task **1317250748**. Derek identifies the completed cavity as its intended mate.
-Finished-core quality, assembled fit and casting results are unassessed.
-The [core runtime/storage inspection](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json)
-confirms runtime timelapse enabled at 09:50:36 CDT, with 97 clips on the card.
-The [count-based retention policy](../../../../tools/h2c-timelapse-gc.md) retains 96 clips per printer.
+recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). First-layer
+walls/infill run at 20/30 mm/s with an 8 mm outer brim. Probing clump checks
+remain Off. The apron tooling has no saved production slice or physical
+casting result. Its larger footprint needs a fresh native plate layout and
+support review before printing.
 
-[Rod and casting check](rod-check.json) verifies the straight stock profile,
-open guide, drop-in and withdrawal paths, and complete casting equality with
-the native funnel. [Closure check](containment-review.json) caps the intended
-fill, vent and rod-guide mouths only in its analysis and checks for other
-escape paths. The guide is open in both the CAD and printed parts.
-[Wall measurements](../funnel/wall-review.json) cover the funnel's surfaces.
-The [physical print log](print-log.md) and dated slice receipts retain the
-geometry and process scope of their recorded results.
+The generator's [design record](design.json) records closure with the intended
+fill, vent and rod-guide mouths capped for analysis, straight rod withdrawal,
+core lift and complete nominal casting equality with the funnel. The guide
+remains open in the native parts. The [overflow review](../funnel/overflow-review/README.md)
+binds the apron to its current source and assembly exports.
+
+The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
+[matching core launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
+[rod check](rod-check.json) and [closure check](containment-review.json) retain
+their identified artifact scope.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py
@@ -139,7 +131,7 @@ tools/cad-venv/bin/python tools/funnel-mold-print/review_containment.py \
 tools/cad-venv/bin/python tools/funnel-mold-print/review_chamber.py
 ```
 
-After publication, run `tools/funnel-mold-print/review_geometry.py` in the
+After publication, run `tools/funnel-mold-print/review_geometry.py --models hardware/printed-parts/zone-c/funnel-mold` in the
 recorded print orientations and address its findings.
 
 ## Sources
