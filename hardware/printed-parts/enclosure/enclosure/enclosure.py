@@ -7346,7 +7346,9 @@ def _vent_chute_courses(sx, y, west_cradle, airway):
     though both openings are individually valid, so where the strip would be thinner than `wall`
     the groove stays solid rather than opening further into the chute and trading the nib for a
     leak in the sensor well. Grooves crossing the chute itself keep their vents, because there is
-    no intervening material to protect.
+    no intervening material to protect — except a groove whose jamb the chute takes short of the
+    slot's centre: there the slot's 45° hip meets the chute's side in a knife edge, so that
+    groove stays solid through the chute's courses too.
 
     AND IT IS A HEIGHT AND NOT THE WHOLE COLUMN. What the strip is thin BESIDE is the chute, and
     `mq6_chute_reach` says where that stops — one card above the can's seat and a radius of gable
@@ -7365,6 +7367,8 @@ def _vent_chute_courses(sx, y, west_cradle, airway):
             gap = chute_lo - slot_hi
         elif chute_hi <= slot_lo:
             gap = slot_lo - chute_hi
+        elif chute_lo < slot_lo < chute_hi < y or y < chute_lo < slot_hi < chute_hi:
+            gap = 0.0
         else:
             continue
         if gap < wall - stated_bound_tol:
@@ -7395,9 +7399,9 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
     land in one course, that aperture stays fluted wall too. Two adjacent openings are a grille;
     one isolated slit is the same accidental-looking nick the full-segment rule removes in Z.
 
-    NO THIN STRIP BESIDE THE MQ-6 CHUTE. On the intake flank the two grooves whose slot jambs
-    would stop less than one wall from that chute stay whole through the courses the chute
-    reaches. The chute keeps its fitted outline and the wall keeps complete stock; neither
+    NO THIN STRIP BESIDE THE MQ-6 CHUTE. On the intake flank the grooves whose slot jambs
+    would stop less than one wall from that chute, or whose jamb alone it takes, stay whole
+    through the courses the chute reaches. The chute keeps its fitted outline and the wall keeps complete stock; neither
     opening is widened into the other merely to erase their narrow intersection — and above the
     chute both grooves vent like any other, there being nothing up there to leave a strip against.
 
@@ -8729,6 +8733,9 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
 # not draw it: `jg_bulkhead_union.panel_footprint` is the face it takes. The receptacle keeps
 # the assembly-clearance floor (`_scorecard.CLEARANCE_FLOOR`) off that envelope.
 keystone_nut_clear = 1.0
+# The swing ease leaves the jack face this far over the aperture's top edge, on a square
+# shoulder: run out on the edge itself, its 50° slope meets the face in a knife edge.
+keystone_ease_shoulder = 1.0
 
 
 def _keystone_pocket_cut(x, z, y_face):
@@ -8748,10 +8755,12 @@ def _keystone_pocket_cut(x, z, y_face):
                         y_back - 0.01, y_lip + 0.01)
     top = z + aperture_h / 2.0
     # The ease spans the lip as these two cut it, from the aperture's open end to the
-    # pocket's front, so it leaves the face on the aperture's own top edge.
+    # pocket's front, and leaves the face `keystone_ease_shoulder` over the aperture's top edge.
+    rise, shoulder = _keystone.ease_rise(), keystone_ease_shoulder
     ease = _yz_prism(x - aperture_w / 2.0, x + aperture_w / 2.0,
-                     [(y_face + 0.01, top), (y_lip + 0.01, top),
-                      (y_lip + 0.01, top + _keystone.ease_rise())])
+                     [(y_face + 0.01, top), (y_lip + 0.01, top), (y_lip + 0.01, top + rise),
+                      (y_face + 0.01 - shoulder * _keystone.LIP_D / rise, top + shoulder),
+                      (y_face + 0.01, top + shoulder)])
     return aperture.fuse(pocket).fuse(ease), (y_lip, y_back)
 
 

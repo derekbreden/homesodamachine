@@ -511,10 +511,10 @@
             ]
           },
           {
-            "material": "HSM-000034",
-            "quantity": 1,
+            "material": "HSM-000328",
+            "quantity": 8,
             "unit": "ea",
-            "note": "The fixed cartridge-retention ring is enclosed in front-top; the moving ring belongs to the pump cartridge."
+            "note": "Two four-high columns ride the printed rails of front-top's two bay-wall slots, loaded at its print pause; the moving blocks belong to the pump cartridge."
           },
           {
             "material": "HSM-000166",
@@ -2683,8 +2683,7 @@
       "kind": "purchased",
       "aliases": [
         "RC62",
-        "float magnet",
-        "cartridge retention magnet"
+        "float magnet"
       ],
       "models": [
         {
@@ -2696,10 +2695,23 @@
         {
           "title": "Float magnet installation",
           "path": "printed-parts/cold-core/magnetic-float/README.md"
-        },
+        }
+      ]
+    },
+    {
+      "id": "HSM-000328",
+      "description": "K&J Magnetics SB443-IN N42 stepped block magnet",
+      "kind": "purchased",
+      "aliases": [
+        "SB443-IN",
+        "SB443",
+        "cartridge retention magnet"
+      ],
+      "manufacturer_number": "SB443-IN",
+      "documents": [
         {
-          "title": "Cartridge retention pair",
-          "path": "printed-parts/enclosure/enclosure/magnet-retention/README.md"
+          "title": "Cartridge retention",
+          "path": "printed-parts/enclosure/pump-dock/magnet-retention.md"
         }
       ]
     },
@@ -4475,11 +4487,11 @@
         },
         {
           "title": "Cartridge retention",
-          "path": "printed-parts/enclosure/enclosure/magnet-retention/README.md"
+          "path": "printed-parts/enclosure/pump-dock/magnet-retention.md"
         }
       ],
       "bom": {
-        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, connecting tube ends, moving contacts and leads, retention ring and mounting hardware. Fixed tees, release mechanism and male contacts belong to the machine. Tube blanks are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, connecting tube ends, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. Fixed tees, release mechanism and male contacts belong to the machine. Tube blanks are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4520,10 +4532,10 @@
             ]
           },
           {
-            "material": "HSM-000034",
-            "quantity": 1,
+            "material": "HSM-000328",
+            "quantity": 8,
             "unit": "ea",
-            "note": "One RC62 is enclosed in the lower cradle during printing."
+            "note": "Two four-high columns ride the printed rails of the cradle's two slots, loaded at its print pause; no adhesive."
           },
           {
             "material": "HSM-000164",
@@ -4569,12 +4581,6 @@
             "quantity": 4,
             "unit": "ea",
             "note": "Two receptacles per pump. The per-device tab-size map is not yet recorded."
-          },
-          {
-            "material": "HSM-000171",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "One retaining tie at each silicone-to-LLDPE joint; final tie size follows the assembled joint."
           }
         ]
       }

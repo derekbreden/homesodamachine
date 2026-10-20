@@ -242,11 +242,13 @@ def fixed_features(plate):
         cuts.append(cq.Solid.makeCylinder(valve_tray._valve.port_radius+valve_tray.PORT_SLIP,
                     outlet[2]+3.0-bed,cq.Vector(outlet[0],outlet[1],bed-.01),cq.Vector(0,0,1)))
     _row,(tray_front,_back)=aft_tray(plate)
+    depth=BLOCK_SCREW_ENGAGEMENT+BLOCK_INSERT_RELIEF
     for x,y in block_screws(plate):
         stocks.append(box(x-BLOCK_BOSS_HALF,x+BLOCK_BOSS_HALF,tray_front-BLOCK_BOSS_DEPTH,tray_front+.01,
                           bed,bed+BLOCK_BOSS_HEIGHT))
-        cuts.append(cq.Solid.makeCylinder(BLOCK_INSERT_D/2,BLOCK_SCREW_ENGAGEMENT+BLOCK_INSERT_RELIEF+.01,
-                                          cq.Vector(x,y,bed-.01),cq.Vector(0,0,1)))
+        # Each insert pilot ends in a 45-degree cone over its relief, a roof the bed-up print draws.
+        cuts.append(cq.Solid.makeCylinder(BLOCK_INSERT_D/2,depth+.01,cq.Vector(x,y,bed-.01),cq.Vector(0,0,1))
+                    .fuse(cq.Solid.makeCone(BLOCK_INSERT_D/2,0.,BLOCK_INSERT_D/2,cq.Vector(x,y,bed+depth),cq.Vector(0,0,1))))
     return stocks,cuts
 
 
