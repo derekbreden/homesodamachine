@@ -109,9 +109,10 @@ supports for the bolt pockets. The cavity
 prints upright; the core prints inverted on its dry back. The Textured PEI
 recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). First-layer
 walls/infill run at 20/30 mm/s with an 8 mm outer brim. Probing clump checks
-remain Off. The apron tooling has no saved production slice or physical
-casting result. Its larger footprint needs a fresh native plate layout and
-support review before printing.
+remain Off. The apron tooling has no production slice qualification or physical
+casting result. The [corner path study](../funnel/overflow-review/corner-path-study/README.md)
+checks one local forming feature in a complete cavity slice. Its larger
+footprint needs a production plate layout and support review before printing.
 
 The generator's [design record](design.json) records closure with the intended
 fill, vent and rod-guide mouths capped for analysis, straight rod withdrawal,

@@ -1,0 +1,35 @@
+{
+  "checked_at_utc": "2026-10-20T07:50:01.782167+00:00",
+  "scope": "Post-publication review of the current tooling meshes in their print orientations; manual review, outside generators and builds.",
+  "artifacts": {
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "f6e49b8af365effc4673dcc9354d4965fd0a47a20ab5a9b5e144690762d8f1b0",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "d0e6b38f2bb17048c8784b50ffd82b0f1dcfc50a213260fd6f041b62425add93",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "3f59b417f650835bcd1672d45b4d510fc5d41fd9d396855ac3d4e2389202bb48",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "f5c3b6fc8fc7f21c8edbf0998cf5041287ecd57a1241573ab4947eeb7aa612e8"
+  },
+  "cavity": {
+    "facets": 97474,
+    "findings": 22,
+    "classes": {
+      "step": 1,
+      "sliver": 12,
+      "ceiling": 8,
+      "thin": 1
+    },
+    "retained_features": "Four 1 mm mold-opening entries, eight flat M4 clamp bearings, and one locally reviewed forming corner."
+  },
+  "core": {
+    "facets": 38910,
+    "findings": 4,
+    "classes": {
+      "sliver": 4
+    },
+    "retained_features": "Four 0.30 mm apron finishing-pocket boundaries."
+  },
+  "answers": [
+    "hardware/printed-parts/lint-answers/zone-c/funnel-mold/cavity.lint-answers",
+    "hardware/printed-parts/lint-answers/zone-c/funnel-mold/core.lint-answers"
+  ],
+  "corner_path_review": "corner-path-study/review.json",
+  "physical_status": "Current tooling has no physical casting result; local native paths do not qualify surface accuracy, support removal or water exclusion."
+}

@@ -43,6 +43,12 @@ The [chamber review](../../funnel-mold/chamber-check.json) includes M4 closure
 hardware and the dry-side breather drill paths. Current tooling needs its
 own production slice; dated print receipts apply to their identified artifacts.
 
+The [post-publication mesh review](mold-mesh-review.json) identifies the retained
+tool-entry notches, flat clamp bearings and 0.30 mm finishing pocket. One small
+forming corner has a [native filament-path study](corner-path-study/README.md):
+its wall paths connect through the solid layers below. The study records the
+slicer's local rounding and leaves physical forming accuracy unqualified.
+
 The native aggregate refresh replaces only the named front-top, funnel and
 cover members. The front-top uses its continuous display backing wall. Every
 other original STEP entity record remains unchanged; named native geometry,
