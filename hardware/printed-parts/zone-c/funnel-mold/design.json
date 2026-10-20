@@ -2,13 +2,13 @@
   "dimensions_mm": {
     "cavity": [
       247.0000002,
-      193.39151604656254,
+      193.39151604656257,
       62.150000000000006
     ],
     "core": [
-      247.00000000000034,
+      247.0,
       193.39151584656256,
-      45.351200351241886
+      45.35120035125623
     ],
     "funnel": [
       215.0000002,
@@ -22,8 +22,8 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1391.5821202438433,
-    "core": 726.5115910406846,
+    "cavity": 1388.0317732325052,
+    "core": 726.5089687123299,
     "funnel": 274.90380442124047,
     "rod": 0.7068583470577037
   },
@@ -38,7 +38,7 @@
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 305.7934695063475,
+      "retained_volume_ml": 305.7934693936477,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -49,6 +49,7 @@
     247.0,
     193.39151584656256
   ],
+  "flange_corner_radius_mm": 28.0,
   "flange_margin_mm": 16.0,
   "plug_blank_mm": [
     36.0,
@@ -94,12 +95,12 @@
     "slot_travel_each_way_mm": 1.5,
     "centres_xy_mm": [
       [
-        117.5,
-        22.0
+        25.0,
+        -85.69575792328128
       ],
       [
-        -117.5,
-        -12.0
+        -25.0,
+        -85.69575792328128
       ]
     ]
   },
@@ -185,7 +186,8 @@
       54.150000000000006
     ],
     "bolt_access_pocket_width_mm": 12.0,
-    "bolt_access_pocket_height_mm": 8.0,
+    "bolt_access_open_downward": true,
+    "bolt_access_inner_wall_height_mm": 21.2,
     "core": "flat dry back with one circular tapered access hole"
   },
   "dry_opening_mm": 44.08517935471506,
@@ -279,12 +281,11 @@
   "chamber_radial_clearance_mm": 4.219457205225893,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "e0f7282e7c71ce569cba52e058fa6ced17821dcd5db8e3cb637ccd5a7f5017ab",
-    "cavity.stl": "06be2668bafbae86d615f9bedcc88a8bcba5ea5b7ea44fe82c65ac19d063c1c9",
-    "cavity.step.mesh": "be1c48f282f63001520e2bc2884b3fb87bb97b45345c8a96f01c4b85016c8baa",
-    "core.step": "752c94dfd023ff466143f0a5aeb5d66234e8732c9cde1c724391a95a9a2cb87a",
-    "core.stl": "02bd1ea506fd6d036cd0818feae9ff31364d4a2dc11f9d6d77aa36bd027e984f",
-    "core.step.mesh": "a7ccbb5e98b6eba9a038d001bd66390b62ef43e8f65652e3f22f8e06b34d77f8"
-  },
-  "flange_corner_radius_mm": 28.0
+    "cavity.step": "0f55b21b708a3a0de3fcd9c29543e5bd11403eafc2b036c3ae45997ca5194076",
+    "cavity.stl": "a2631825fa36286ecdb0c56497beb1039e7acf2c2ff15d6afe017f7291ecc705",
+    "cavity.step.mesh": "b9c4730ea899d1861e8339db8500fe5475a702b55946cc0679730d524eaffdc1",
+    "core.step": "82ac6e22df1798d4d7c922119f313dc805a968ce8d62b0c314ee5a83cfc4b7f3",
+    "core.stl": "efe64bdc3d732df191bcfb2da7b172e2585a76b2c598f0dd7d4e43e642667cb8",
+    "core.step.mesh": "fd2174b2285f2ad17844eb04f0420ecb8e67da68511069abb2c8abead7874c08"
+  }
 }
