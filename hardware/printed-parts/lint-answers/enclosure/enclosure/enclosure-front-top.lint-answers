@@ -51,12 +51,18 @@ alternatives: The reader should not rank a closest point that lies on the edge w
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-104.250 y=200.029 z=299.301
 click: x=104.250 y=200.029 z=299.301
+click: x=-104.250 y=200.031 z=299.299
+click: x=-103.750 y=200.000 z=299.650
+click: x=104.250 y=200.031 z=299.299
+click: x=103.750 y=200.000 z=299.650
 
 [thin] Wrong material-thickness classification at an inside pocket corner: each pair joins the world-vertical support exit's fore face (Y19.132) to the seating-floor vertex where the inset's R6.15 lower round crosses the exit's inboard plane |X|62.65; the normals are exactly 120° apart and the material between is the inset's solid corner surround. Rays from the pair cross 9.1 mm and 6.2 mm of material (probe on the current STL). The real section here is the 1.80 mm wing-retention lip (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
 alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-63.394 y=19.131 z=308.466
 click: x=63.397 y=19.131 z=308.470
+click: x=-101.340 y=6.551 z=295.888
+click: x=-100.628 y=6.152 z=295.888
 
 [thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
 alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.

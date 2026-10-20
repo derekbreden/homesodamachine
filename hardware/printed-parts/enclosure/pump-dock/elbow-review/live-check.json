@@ -1,0 +1,206 @@
+{
+  "checked_at_utc": "2026-10-20T18:59:41.280242+00:00",
+  "method": "Fetch every changed CAD member through the live site object manifest or its STL object route, decompress, and compare SHA-256 with the published pointer file. Canonical manifest URLs are checked before downloading.",
+  "pointer_commit": "5b2ea6ce717dc9bada52f2c5c0dacaf0103c9122",
+  "members": [
+    {
+      "path": "hardware/assembly/scenes/glb/front-top.glb",
+      "sha256": "d763619ab2c71b490a3aa646932f84c750db1f3fda4ab7267681ac001aecdeb8",
+      "bytes": 9750572,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "1cefa05aa9bf01fca3805599534d727967fd294a00821caca5e7a3392f19e64f",
+      "bytes": 191235343,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "89e871874e3f73293c4336f655f261f5139c664c1b583b4945a4951b460ff265",
+      "bytes": 33830052,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/manifold-layout.step",
+      "sha256": "c9bc6252ad0aa0d1eabaa380bde08f100e611e7c2d53ab7eda95b625d82f075b",
+      "bytes": 22285178,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/manifold-layout.step.mesh",
+      "sha256": "8a5fca908ca85151e5b2afbca8e50b13004edbb448fef3b56142d9abdadb5a6c",
+      "bytes": 6646656,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
+      "bytes": 2618724,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "sha256": "135ca441ae1bf589ec61d7661134ce4565a94a3b754955e83eccccc52c9aa919",
+      "bytes": 2334068,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "sha256": "ffd5d371695c17ac189b3454059d341c8af8807d93436b0c12983c7df585eded",
+      "bytes": 27052484,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.step",
+      "sha256": "76ccc52fccd018d5469e21618d701fe883e84fed8dbe6297d4f5056bd5a41ea3",
+      "bytes": 47361,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.step.mesh",
+      "sha256": "ec05d7798f3a737d092a9f4fa813be3c24573ab0124ce9b639fafca1acc8f750",
+      "bytes": 38456,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.stl",
+      "sha256": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474",
+      "bytes": 52284,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step",
+      "sha256": "760c88c55d3a1c27c5458849588dbf62413fa6baa4023209f0a7e81cd5d9c41f",
+      "bytes": 32509,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step.mesh",
+      "sha256": "e1cad67db4f66b37d42bb727659f04cf59f6e1f154fb63698d987231386cb11e",
+      "bytes": 4500,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.stl",
+      "sha256": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5",
+      "bytes": 26484,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step",
+      "sha256": "b0795c547fcd5c4309461c7484278e5cb78dcc1e0559e76913bfe8a4f615f0f4",
+      "bytes": 318760,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh",
+      "sha256": "a25d660417f22054cd9a1aeba6d22e276ea2ce3b7334e9e1bc7ed6c15b0de910",
+      "bytes": 534400,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
+      "sha256": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5",
+      "bytes": 4608384,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step",
+      "sha256": "be6ae90b0caed687ba92c52a668c26b37dd3af2cdd9f35c3436983c7845abc89",
+      "bytes": 385324,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh",
+      "sha256": "f7c517f5bd0aed80319fe76dbf00455251aa5abde481c502d7495da5292ebc62",
+      "bytes": 568248,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
+      "sha256": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654",
+      "bytes": 4843184,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step",
+      "sha256": "6ec8fde829fb59376769915889153e606bfd11058bc87ea91fabf7c03ff28d76",
+      "bytes": 318760,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh",
+      "sha256": "1e87f21e5a14889e42b7cdfecc207413777a6c890b94531310946b4ce882b9ee",
+      "bytes": 534400,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
+      "sha256": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5",
+      "bytes": 4608384,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
+      "sha256": "ad3480cf934d633d4db0bb37811fa3b1b634243bb6e8f2a54f7060973def5e9b",
+      "bytes": 385324,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
+      "sha256": "896dd94375caae322b212269a012738eebaba6d3ffb3ace31b3772236ae6f558",
+      "bytes": 568248,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
+      "sha256": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654",
+      "bytes": 4843184,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
+      "sha256": "fe20d26777ed1339e13359b9656718e97b26df247f7d8810ecc21a9c67c6e7d4",
+      "bytes": 108412,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
+      "sha256": "efa7ea14a6debf5b987d33861598178678510144450fb277d91e8124d64f8dc3",
+      "bytes": 77432,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
+      "sha256": "07b72871bba3fe859ed3925899e2cb3cd0212e5018ad70747df604b62e56e480",
+      "bytes": 105484,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "sha256": "517fa3b4eafdf4daaa0d3939ee7e37a85fdf8a12c7291e885a848a384d03e024",
+      "bytes": 33591290,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "sha256": "f813fdf03339ce027ea42301387f9c96e50e5ac4def17e8dd5d242703b96101b",
+      "bytes": 15781824,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+      "sha256": "89eb0ca3421cbde4d4b5822500a01c50a86e1ff5c3ada70422a81ed545d7c609",
+      "bytes": 3336984,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel-mold/core.stl",
+      "sha256": "db5523a35eb747a2d968010ee6c787942a49a989878f247b6752d75c61cccfca",
+      "bytes": 1978584,
+      "pass": true
+    }
+  ],
+  "all_match": true
+}
