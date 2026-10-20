@@ -1,8 +1,8 @@
 """Dry wall structure for permanent junctions and purchased PP0308E elbows.
 
-Three flat keepers seat downward on the junction necks. Four broad integral
-U seats carry the fixed elbow collars; their mouths open aft for factory
-assembly. No seat contacts a release collet.
+Three flat keepers seat downward on the junction necks. The purchased elbows
+join the rear valve ports through short push-fit tubes. Round clearances in
+the tray foot leave their fixed bodies and release collets accessible.
 """
 from pathlib import Path
 import sys
@@ -122,34 +122,22 @@ def elbow_shape(layout):
     return cq.Compound.makeCompound([part.moved(pose) for part in _scanned_elbow()])
 
 
-def elbow_seat(plate, layout):
-    """Broad U cheeks below the fixed collar, with an aft assembly mouth."""
-    import math
-    x,y,z=layout['corner'];bed=plate['fixture_print_bed_z']
-    tilt=math.radians(layout['tilt_degrees']);half=plumbing.ELBOW_ROOT_HALF
-    station=plumbing.ELBOW_BEARING_STATION
-    fore=plate['wall_aft_y']-.01
-    # Top bearing plane is normal to the actual leg, so the tilted collar
-    # sees the same station across its width. End the cheeks at 3 mm stock.
-    aft=(y+(station-(bed+3.-z)*math.cos(tilt))/math.sin(tilt)
-         if tilt else y+half+2.)
-    def top(yy):return z+(station-(yy-y)*math.sin(tilt))/math.cos(tilt)
-    body=_yz_prism(x-half-3.,x+half+3.,[(fore,bed),(aft,bed),(aft,top(aft)),(fore,top(fore))])
-    frame=cq.Plane(origin=layout['corner'],xDir=(1,0,0),normal=layout['up_axis'])
-    channel=(cq.Workplane(frame).circle(half).extrude(300,both=True).val().fuse(
-        cq.Workplane(frame).center(0,100).rect(2*half,200).extrude(300,both=True).val()))
-    return body.cut(channel).clean()
+def elbow_clearances(plate):
+    """Round clearance through the rear tray foot for each elbow's upper leg."""
+    tools=[]
+    for data in plumbing.layouts(plate).values():
+        elbow=data['elbow'];x,y,z=elbow['corner']
+        tools.append(cq.Solid.makeCylinder(8.7, plumbing.ELBOW_FACE + .5,
+                     cq.Vector(x,y,z), cq.Vector(0,0,1)))
+    return fused(tools)
 
 
 def fixed_features(plate):
-    """Closed receiver wall, keeper bays and integral fixed-body elbow seats."""
+    """Closed receiver wall and downward-open keeper slots."""
     cuts=[keeper_bays(plate)]
-    stocks=[]
-    declared=plumbing.layouts(plate)
     for x,z in plate['holes']:
         cuts.append(receiver.receiver_wall_cut(plate['fore_y'],x,z))
-        stocks.append(elbow_seat(plate,declared[str(x)]['elbow']))
-    return stocks,cuts
+    return [],cuts
 
 
 def parts(plate,*,installed=True):

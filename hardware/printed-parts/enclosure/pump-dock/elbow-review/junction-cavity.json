@@ -1,336 +1,141 @@
 {
-  "scope": "Exact native connected cavity, socket-axis and annular-bearing witnesses; unchanged exterior envelopes. Geometric results only.",
-  "source_sha256": "6a2861ea42e60b32093b883fcff50f7b020acfb66b3f8729e11909abbc6608dc",
+  "scope": "Current relaxed manufacturing geometry: one connected body and cavity, circular seal axes and annular-bearing witnesses. No seal/pressure/lifetime qualification.",
+  "source_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "8732c1b619e7c2a34c98134ce4f0aee24cd2fdeb8db977d0b424367f56300dab",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "8026fa0313594b9a0785c4f138fe151931a8c2160a72a423ded76ba7a710d09c"
+  },
   "stations": {
     "west-outer": {
-      "upper": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
+      "body_valid": true,
+      "connected_cavity": true,
+      "ports": {
+        "upper": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "lower": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
       },
-      "lower": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
-      }
+      "flat_bed_landing_mm2": 118.79393923933998
     },
     "west-inner": {
-      "upper": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
+      "body_valid": true,
+      "connected_cavity": true,
+      "ports": {
+        "upper": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "lower": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
       },
-      "lower": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
-      }
+      "flat_bed_landing_mm2": 118.79393923933998
     },
     "east-inner": {
-      "upper": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
+      "body_valid": true,
+      "connected_cavity": true,
+      "ports": {
+        "upper": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "lower": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
       },
-      "lower": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
-      }
+      "flat_bed_landing_mm2": 118.79393923933998
     },
     "east-outer": {
-      "upper": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
+      "body_valid": true,
+      "connected_cavity": true,
+      "ports": {
+        "upper": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "lower": {
+          "socket_axis_clear_at_1_3_5_5_mm": [
+            true,
+            true,
+            true
+          ],
+          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
       },
-      "lower": {
-        "socket_axis_clear_at_1_3_5_5_mm": [
-          true,
-          true,
-          true
-        ],
-        "stop_material_present_at_four_radial_3_mm_witnesses": [
-          true,
-          true,
-          true,
-          true
-        ]
-      }
+      "flat_bed_landing_mm2": 118.79393923933998
     }
-  },
-  "print_pose": {
-    "x_rotation_degrees": -135.0,
-    "landing_area_mm2_min": 59.39696961967,
-    "inlet_upper_land_angle_from_vertical_degrees": [
-      45,
-      45
-    ],
-    "lower_land_angle_from_vertical_degrees": {
-      "inner": 20,
-      "outer": 45
-    }
-  },
-  "passage_construction": "One continuous round inlet trunk and one straight 4.3 mm branch. Inner trunk is 4.3 mm; outer trunk is 4.5 mm with a continuous 1 mm blend at its branch merge.",
-  "superseded_fin_locations": {
-    "west-outer": [
-      {
-        "previous_print_pick": [
-          "click: x=1.529 y=-8.554 z=10.012",
-          "click: x=1.578 y=-8.563 z=10.025"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-1.600 y=-8.531 z=10.097",
-          "click: x=-1.760 y=-8.572 z=10.126"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-0.017 y=-16.406 z=22.951",
-          "click: x=-0.016 y=-16.150 z=22.695"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.36167091284961295,
-        "current_native_continuous_material_chord_mm": 3.6050587181645213
-      }
-    ],
-    "west-inner": [
-      {
-        "previous_print_pick": [
-          "click: x=1.529 y=-8.554 z=10.012",
-          "click: x=1.578 y=-8.563 z=10.025"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 5.748810017281194
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-1.600 y=-8.531 z=10.097",
-          "click: x=-1.760 y=-8.572 z=10.126"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 5.6588747696527335
-      }
-    ],
-    "east-inner": [
-      {
-        "previous_print_pick": [
-          "click: x=1.529 y=-8.554 z=10.012",
-          "click: x=1.578 y=-8.563 z=10.025"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 5.748810017281194
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-1.600 y=-8.531 z=10.097",
-          "click: x=-1.760 y=-8.572 z=10.126"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 5.6588747696527335
-      }
-    ],
-    "east-outer": [
-      {
-        "previous_print_pick": [
-          "click: x=1.529 y=-8.554 z=10.012",
-          "click: x=1.578 y=-8.563 z=10.025"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.05053496378719302,
-        "current_native_continuous_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-1.600 y=-8.531 z=10.097",
-          "click: x=-1.760 y=-8.572 z=10.126"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.1648100149204179,
-        "current_native_continuous_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pick": [
-          "click: x=-0.017 y=-16.406 z=22.951",
-          "click: x=-0.016 y=-16.150 z=22.695"
-        ],
-        "previous_native_continuous_material_chord_mm": 0.36167091284961295,
-        "current_native_continuous_material_chord_mm": 3.6050587181645213
-      }
-    ]
-  },
-  "continuous_trunk_rejection_witnesses": {
-    "west-outer": [
-      {
-        "previous_print_pair_mm": [
-          [
-            -2.138,
-            -9.579,
-            26.532
-          ],
-          [
-            -2.137,
-            -9.584,
-            26.52
-          ]
-        ],
-        "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pair_mm": [
-          [
-            2.138,
-            -9.579,
-            26.532
-          ],
-          [
-            2.137,
-            -9.584,
-            26.52
-          ]
-        ],
-        "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 0.0
-      }
-    ],
-    "west-inner": [
-      {
-        "previous_print_pair_mm": [
-          [
-            0.452,
-            -25.812,
-            11.323
-          ],
-          [
-            0.32,
-            -25.055,
-            12.02
-          ]
-        ],
-        "previous_native_material_chord_mm": 1.0372812147463186,
-        "current_native_material_chord_mm": 4.033584833890432
-      }
-    ],
-    "east-inner": [
-      {
-        "previous_print_pair_mm": [
-          [
-            0.452,
-            -25.812,
-            11.323
-          ],
-          [
-            0.32,
-            -25.055,
-            12.02
-          ]
-        ],
-        "previous_native_material_chord_mm": 1.0372812147463186,
-        "current_native_material_chord_mm": 4.033584833890432
-      }
-    ],
-    "east-outer": [
-      {
-        "previous_print_pair_mm": [
-          [
-            -2.138,
-            -9.579,
-            26.532
-          ],
-          [
-            -2.137,
-            -9.584,
-            26.52
-          ]
-        ],
-        "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 0.0
-      },
-      {
-        "previous_print_pair_mm": [
-          [
-            2.138,
-            -9.579,
-            26.532
-          ],
-          [
-            2.137,
-            -9.584,
-            26.52
-          ]
-        ],
-        "previous_native_material_chord_mm": 0.013242079787501027,
-        "current_native_material_chord_mm": 0.0
-      }
-    ]
-  },
-  "outer_merge_witness": {
-    "unblended_print_pick_mm": [
-      0.572,
-      -13.101,
-      18.892
-    ],
-    "unblended_native_material_distance_mm": 3.0483284220077072e-05,
-    "blended_native_material_distance_mm": 0.7645167428109104
   }
 }
