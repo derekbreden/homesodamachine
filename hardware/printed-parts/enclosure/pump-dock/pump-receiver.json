@@ -15,6 +15,11 @@
   ],
   "crotch_web_half_width_mm": 7.0,
   "flow_passages": "One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
+  "inlet_trunk_bore_mm": {
+    "inner": 4.3,
+    "outer": 4.5
+  },
+  "outer_branch_merge_blend_radius_mm": 1.0,
   "groove_y_mm": [
     7.0,
     10.25

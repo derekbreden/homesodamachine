@@ -1,0 +1,12 @@
+{
+  "source-to-landed": {
+    "native_surface_vertex_samples": 460,
+    "max_native_distance_mm": 7.60353770204027e-12
+  },
+  "landed-to-source": {
+    "native_surface_vertex_samples": 460,
+    "max_native_distance_mm": 7.575598587814762e-12
+  },
+  "scope": "Outer blended junction source and landed assembly native surfaces. Independent source STEP round-trip has the same analytic fingerprint as the landed part. Native face/edge Boolean subtraction is numerically unstable at these coincident fillet surfaces.",
+  "source_sha256": "6a2861ea42e60b32093b883fcff50f7b020acfb66b3f8729e11909abbc6608dc"
+}
