@@ -36,7 +36,6 @@ forming_join_allowance = 0.01
 shell_thickness = 5.0
 corbel_run_per_rise = 0.5
 base_thickness = 5.0
-bolt_pocket_height = 8.0
 bolt_pocket_width = 12.0
 flange_thickness = 5.0
 flange_margin = 16.0
@@ -49,7 +48,8 @@ locator_height = 3.0
 locator_leadin = 1.0
 locator_clearance = 0.60
 locator_slot_travel = 1.5
-locator_y = (22.0, -12.0)
+locator_x = 25.0
+locator_front_land = 11.0
 rod_diameter = funnel.spout_id
 rod_length = 25.0
 rod_clearance = 0.40
@@ -214,7 +214,8 @@ def build():
                for side in (-1, 1) for station in (-1, 1)]
     bolt_xy += [(station*bolt_station, side*bolt_y)
                 for side in (-1, 1) for station in (-1, 1)]
-    locator_xy = [(bolt_x, locator_y[0]), (-bolt_x, locator_y[1])]
+    locator_front = funnel.apron_y - funnel.apron_depth / 2 - locator_front_land
+    locator_xy = [(locator_x, locator_front), (-locator_x, locator_front)]
 
     nominal_exterior = one(exterior, 'casting envelope')
     print('Constructing forming faces and solid print bases', flush=True)
@@ -320,13 +321,13 @@ def build():
             sign = 1 if px > 0 else -1
             inner, outer = bolt_x-4.6, flange_width/2+1
             pocket = box(outer-inner, bolt_pocket_width,
-                corbel_top-bolt_pocket_height, corbel_top,
+                floor-1, corbel_top,
                 sign*(inner+outer)/2, py)
         else:
             sign = 1 if py > 0 else -1
             inner, outer = bolt_y-4.6, flange_depth/2+1
             pocket = box(bolt_pocket_width, outer-inner,
-                corbel_top-bolt_pocket_height, corbel_top,
+                floor-1, corbel_top,
                 px, sign*(inner+outer)/2)
         bolt_pockets.append(pocket)
     cavity = one(cavity.cut(*bolt_pockets), 'cavity bolt head access')
@@ -425,7 +426,8 @@ def build():
             'corbel_angle_from_bed_deg': math.degrees(math.atan(1/corbel_run_per_rise)),
             'corbel_print_z_mm': [base_thickness, corbel_top-floor],
             'bolt_access_pocket_width_mm': bolt_pocket_width,
-            'bolt_access_pocket_height_mm': bolt_pocket_height,
+            'bolt_access_open_downward': True,
+            'bolt_access_inner_wall_height_mm': (bolt_edge_margin+4.6)/corbel_run_per_rise,
             'core': 'flat dry back with one circular tapered access hole'},
         'dry_opening_mm': 2*dry_radius,
         'dry_opening_depth_mm': 2*dry_radius,
