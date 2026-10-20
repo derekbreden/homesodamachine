@@ -520,14 +520,6 @@ def record_pump_dock_seats(box_spec, dock_parts, retention):
                 record_seat(name, planes={'cx': x, pole_face: interface.pole_y,
                                          'z0': mz - magnet_spec.BAR / 2.0},
                             got=box(features['magnets'][name]))
-        y0 = min(interface.pole_y + interface.into(side) * magnet_spec.BEDDING_FRONT,
-                 interface.floor(side))
-        name = f'pump-dock-potting-{side}'
-        record_seat(name, planes={
-            'cx': (min(x for x, _z in columns) + max(x for x, _z in columns)) / 2.0,
-            'y0': y0,
-            'z0': min(magnet_spec.column_limits(z)[0] for _x, z in columns)},
-            got=box(features['potting']))
 
 
 def note_room(name, what, want, got):
@@ -5763,13 +5755,12 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         retention = _enc.pump_retention_features(box)
         for name, part in dock_parts.items():
             a.add(part, name=name, color=_dock.part_color(name))
-        from _materials import M_NICKEL_PLATE, M_EPOXY_BLACK
+        from _materials import M_NICKEL_PLATE
         for side, features in retention.items():
             if side not in ("moving", "fixed"):
                 continue
             for name, magnet in features["magnets"].items():
                 a.add(magnet, name=name, color=M_NICKEL_PLATE)
-            a.add(features["potting"], name=f"pump-dock-potting-{side}",color=M_EPOXY_BLACK)
         record_pump_dock_seats(box, dock_parts, retention)
     if contacts is not None:
         _pump_contact_bound(contacts, pieces, box)
