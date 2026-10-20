@@ -220,7 +220,7 @@ Square-cut, deburr without scoring the outside sealing surface, and tag each seg
    `AM2`, `AM1`, `BM2`, `BM1` from +X to −X. Crimp their female Faston receptacles and
    connect them to the marked motor tabs. Keep all leads below the crown.
 
-6. **Verify the closed dock after chassis assembly.** Inspect both parts' printed-in
+6. **Verify the closed dock after chassis assembly.** Inspect both parts' bonded
    magnet columns and their exposed attracting faces. With power disconnected, slide the
    cartridge on its floor and present all four tube ends squarely to the TPU funnels. Push
    evenly until the magnets draw the cartridge onto its seat and it finishes flush. Confirm

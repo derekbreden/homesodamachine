@@ -106,48 +106,6 @@ click: x=98.320 y=177.050 z=265.639
 click: x=98.408 y=162.612 z=298.300
 click: x=97.675 y=177.006 z=298.300
 
-[slope] Unavoidable without moving the fore valve tray: the plate (Y90.24–99.44, floor Z230.40) overhangs the keeper access pocket, whose 45-degree roof roots at Z226.174 on the bay wall's aft face (Y89.515), 0.67 mm over the four keepers at the top of their 20 mm upward removal route (Z225.674, Y89.665–92.665). No 45-degree face rising off that wall reaches the plate's far edge without entering that route, so the strip aft of the roof has no wall to stand on. The keel under the plate's whole thickness hangs its apex line at Z225.80 between the side walls and takes tree support along that one line from the open interior before the dock is fitted; its fore face stands 2.30 mm over the lifted keepers. Support removal remains unqualified.
-alternatives: A 45-degree corbel from the wall to the plate's far edge roots at Z220.475, 2.05–5.05 mm inside the keepers' route. A 45-degree cut through the plate's lower aft corner opens the four valve port channels. A flat floor needs support across the whole 5.7 mm strip. Moving the tray moves its four valves and their links.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=93.415 z=227.225
-[sliver] Required by the purchased K&J SB443-IN's side grooves: each magnet column's slot in the receiver wall is the printed capture Derek specified for these stepped blocks, faces touching, loaded at one print pause. The 1.575 mm faces seat each block's 1.6 mm front band from the bay face to its rails, the 1.500 mm faces are the rails' tips standing in the 1.6 mm grooves, and the 0.797 mm faces are the rails' fore and aft bearing faces. Each runs the slot's 26 mm. pump-dock/magnet-retention.md gives the slot.
-alternatives: A wider or deeper rail does not enter the 1.6 × 0.79 mm groove. A cover across the pole face keeps the faces apart. Bonded blocks in plain pockets need DP420, two sequential 24 h cures and a seating fixture, which this capture replaces.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=55.500 y=83.303 z=186.452
-click: x=54.703 y=84.840 z=186.452
-click: x=-48.950 y=83.303 z=186.452
-click: x=-49.747 y=84.840 z=186.452
-click: x=-55.101 y=84.090 z=186.452
-click: x=55.101 y=84.090 z=186.452
-click: x=-49.349 y=84.090 z=186.452
-click: x=49.349 y=84.090 z=186.452
-click: x=-55.101 y=85.590 z=186.452
-click: x=55.101 y=85.590 z=186.452
-click: x=-49.349 y=85.590 z=186.452
-click: x=49.349 y=85.590 z=186.452
-click: x=-55.500 y=83.303 z=186.452
-click: x=-54.703 y=84.840 z=186.452
-click: x=48.950 y=83.303 z=186.452
-click: x=49.747 y=84.840 z=186.452
-
-[thin] Required by the purchased SB443-IN's side grooves: these are the four magnet rails in the receiver wall, each 1.5 mm thick (the 1.6 mm groove less 0.05 mm fore and aft) and 0.80 mm proud of its slot wall, printed solid with the wall over the slot's 26 mm. The pulled block bears on their fore faces.
-alternatives: A thicker rail does not enter the groove; dropping the rails leaves the block free to fall out of the face; bonding replaces one pause with DP420 and two cures.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-54.712 y=84.090 z=198.812
-click: x=-54.712 y=85.590 z=198.812
-click: x=-48.959 y=84.090 z=198.812
-click: x=-48.959 y=85.590 z=198.812
-click: x=49.738 y=84.090 z=198.812
-click: x=49.738 y=85.590 z=198.812
-click: x=55.491 y=84.090 z=198.812
-click: x=55.491 y=85.590 z=198.812
-
-[ceiling] Required by the print-pause capture: each slot's flat roof at Z199.430 is the first layer printed after front-top's one pause, bridging 6.55 mm across the slot onto the four loaded blocks with 0.15 mm of air over a drawing-maximum stack. The preparation blocks support inside both slots.
-alternatives: A 45-degree ridge over the stack leaves the blocks 3.3 mm of Z play under it; closing the slot before the pause leaves no way to load the blocks.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-52.225 y=85.010 z=199.430
-click: x=52.225 y=85.010 z=199.430
-
 [thin] Required by the M1.4 insert's installation: the 2.6 mm loading stadium has to carry the whole Ø2.3 knurl to the round Ø2 pilot, and each 0.1 mm² reading is the corner where the stadium's floor meets that pilot, 2.16 mm across.
 alternatives: Stopping the stadium short of the pilot leaves the knurl a printed lip to melt through; running the stadium into the pilot turns the grip zone's round hole into a slot.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step

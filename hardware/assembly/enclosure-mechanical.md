@@ -73,11 +73,10 @@ results.
 Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four closed receiver bores, recessed collar seats, the three keeper slots open at front-top's seam face and the four receiver bays behind them, and the three flat keepers. Inspect the return block's four slots and seats, its three counterbores and the aft tray foot's three insert bosses. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
 Front-top and the lower pump cradle carry eight attracting SB443-IN pairs, one
-four-high column on each pump's line, printed in: each part's print pauses once while its
-two slots are loaded down their printed rails
+four-high column on each pump's line, each block bedded in DP420 and pushed home to the
+floor of its column's pocket, both parts in one 24 h cure
 ([magnet record](/hardware/printed-parts/enclosure/pump-dock/magnet-retention.md)).
-Inspect each column's exposed pole faces for chips and check that every block is captured,
-moving no more than its 0.1 mm on the rails. The contact pair retains its own
+Inspect each column's exposed pole faces for chips and resin, and check that no block moves. The contact pair retains its own
 separate factory magnets. Installed cartridge retention is established on the completed
 dock rather than inferred from an individual magnet's advertised pull.
 
@@ -362,7 +361,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [138](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [140](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

@@ -48,11 +48,11 @@ for fixed-width brim types.
 
 | Piece | Printer | Read from the mesh | Recipe changes |
 | --- | --- | --- | --- |
-| `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers; magnet slots | Support XY 0.50 mm; one magnet pause |
+| `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers | Support XY 0.50 mm |
 | `front-bottom` | Mark1 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
 | `back-bottom` | Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset X −5.1, Y +18.8 mm |
 | `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
-| `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; magnet slots; cap crown-down | Support XY 1.0 mm; support on the model's layers; one magnet pause |
+| `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; cap crown-down | Support XY 1.0 mm; support on the model's layers |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2 | Tube tip setting jig as exported | — |
 | `dock-petgf` | Mark1 | Three keepers and the return block, manufacturing exports already in print pose; the keepers lie flat and the block lies on its top face | Six walls, 100% zig-zag per part |
@@ -89,12 +89,6 @@ measured extent leaves its range, stops the preparation and reports what was fou
   each fin on a flat foot of the same removable part, its own bed anchor; back-bottom's
   fins have feet.
 
-A part may also declare one **`pause`**: parts loaded into closed slots mid-print. Its slot
-boxes become support blockers, and `--slice` slices twice: the first slice gives the emitted
-layers, the pause (`M400 U1` with its loading text) goes on the first layer sliced above the
-slots' roof, and that layer's bottom must clear the loaded stack's top. Front-top and the
-cartridge each take one, for their SB443-IN columns.
-
 ## Review
 
 `review.py <directory>` reads the written project back against its record and the STLs
@@ -105,9 +99,8 @@ cartridge each take one, for their SB443-IN columns.
   ([`verify_round_layer_band.py`](../../../scripts/verify_round_layer_band.py)) and 0.24 mm
   layers through each six-wall band;
 - the complete model, support and brim bead envelope against the plate border;
-- support beads against the painted show faces, inside tie windows, ribbons and pause
-  slots, and the ribbons' own layers;
-- the one emitted pause opening its planned layer before any of that layer's moves;
+- support beads against the painted show faces, inside tie windows and inside ribbons, and
+  the ribbons' own layers;
 - sampled bead coverage of the model section inside each solid-host modifier;
 - unbacked model roads in the fine bands, and the second layer's beads over the first;
 - each object's support bodies, roots, build-up and interface islands, in plate and CAD

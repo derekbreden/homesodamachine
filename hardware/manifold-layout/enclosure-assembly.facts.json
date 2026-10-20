@@ -776,6 +776,22 @@
    82.39,
    198.87400000000002
   ],
+  "pump-dock-potting-fixed": [
+   -55.64999999999999,
+   83.7362,
+   173.0208,
+   55.64999999999999,
+   87.3025,
+   202.75220000000002
+  ],
+  "pump-dock-potting-moving": [
+   -55.64999999999999,
+   77.4775,
+   173.0208,
+   55.64999999999999,
+   81.0438,
+   202.75220000000002
+  ],
   "pump-elbow-discharge": [
    -47.56048265330623,
    320.72196439713565,
@@ -2823,7 +2839,7 @@
    true
   ]
  },
- "card": "5f8c40fef31678bcdac2ed599d3b97ff",
+ "card": "e699f0eeff96393f1cee401042c069ae",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3348,6 +3364,8 @@
   "pump-dock-SB443-moving-2-2",
   "pump-dock-SB443-moving-2-3",
   "pump-dock-SB443-moving-2-4",
+  "pump-dock-potting-fixed",
+  "pump-dock-potting-moving",
   "pump-keeper-east",
   "pump-keeper-middle",
   "pump-keeper-west",
@@ -3972,8 +3990,8 @@
   }
  ],
  "schema": 2,
- "sources": "233c9922bb1d178f5459c33e0d60a0e3",
- "step": "f57db7d7140762a44f2d096320b29a70",
+ "sources": "3ef73b0f51f3f49e465ff61e80e82615",
+ "step": "ec8e9b94ea7ea9a1a610d94f0cacfc1f",
  "valve_tray_stations": [
   [
    177.29,
