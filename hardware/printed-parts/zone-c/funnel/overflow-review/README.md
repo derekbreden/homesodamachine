@@ -19,10 +19,11 @@ The funnel, apron and rib are one casting and lift out together for cleaning.
 | Rib's bottom contact band | 1.5 mm wide, Z354.7 mm |
 | Nominal flat-roof seating interference | 0.3 mm |
 | Capacity to the mouth rim | 530.54 mL |
-| Finished casting volume | Approximately 274.9 mL |
+| Finished casting volume | Approximately 275.0 mL |
 
 The rib is a local cast-silicone sealing feature. Its nominal interference
 allows seating; it does not establish sealing force or water exclusion.
+The front rib merges into the bearing brim through a short sloping root.
 The surrounding apron can bend while the brim and outlet block bear on
 their existing frame/cradle seats. The drain stub, collar, frame and shell
 fits use their existing datums. Fit the silicone after closing the upper

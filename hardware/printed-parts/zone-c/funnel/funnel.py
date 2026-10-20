@@ -128,7 +128,7 @@ def apron_plan(grow, z0, z1):
 
 
 def roof_seal():
-    """Blunt continuous silicone rib; its free apron bends against the roof.
+    """Blunt continuous silicone rib with a sloping root into the front brim.
 
     The contact band is 1.5 mm wide. Its 0.3 mm nominal interference is a
     seating allowance, not a measured seal force or drip-exclusion result.
@@ -140,7 +140,18 @@ def roof_seal():
                                    seal_corner_r + grow, z, 0.0, seal_y))
         inner.append(_rounded_wire(seal_width - 2 * grow, seal_depth - 2 * grow,
                                    seal_corner_r - grow, z, 0.0, seal_y))
-    return cq.Solid.makeLoft(outer, True).cut(cq.Solid.makeLoft(inner, True)).clean()
+    rib = cq.Solid.makeLoft(outer, True).cut(cq.Solid.makeLoft(inner, True))
+    # Join the close front rib directly to the bearing brim. A separate gap
+    # here would require a long, thin printed ridge in the casting tool.
+    front = -collar_d / 2 - brim_overhang
+    contact = seal_y - seal_depth / 2 + 0.75
+    root = (cq.Workplane('YZ', origin=(-collar_w / 2 - brim_overhang, 0, 0))
+            .polyline([(contact, brim_thickness - seal_preload),
+                       (front, brim_thickness),
+                       (front, apron_floor + 0.05),
+                       (contact, apron_floor + 0.05)])
+            .close().extrude(collar_w + 2 * brim_overhang).val())
+    return rib.fuse(root).clean()
 
 
 def apron():
