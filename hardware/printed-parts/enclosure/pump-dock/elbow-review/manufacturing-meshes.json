@@ -1,0 +1,44 @@
+{
+  "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
+    "facets": 541048,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "ffd5d371695c17ac189b3454059d341c8af8807d93436b0c12983c7df585eded"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.stl": {
+    "facets": 528,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.stl": {
+    "facets": 1044,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl": {
+    "facets": 96862,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl": {
+    "facets": 92166,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl": {
+    "facets": 92166,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "28e2e1a67a5d5d13df06cc80a2f59fee03af387dec62d0f3e2d24e23652e56d5"
+  },
+  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl": {
+    "facets": 96862,
+    "watertight": true,
+    "winding_consistent": true,
+    "sha256": "34df875cd6d3096ea6a891e67031ed615fa2541e5254ad0bdf05216355510654"
+  }
+}

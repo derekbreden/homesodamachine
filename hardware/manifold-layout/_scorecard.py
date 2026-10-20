@@ -431,16 +431,14 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
-    # The wall locates each permanent TPU receiver in X/Z. A flat keeper, slid up its
-    # slot behind the wall and snapped onto the receiver necks, captures the grooves in Y.
+    # The wall locates X/Z; downward-open keepers seat on the necks and capture Y.
     *((f"pump-receiver-{port}",
        ("enclosure-front-top", f"pump-keeper-{keeper}"), "wall-seat-and-keeper")
       for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
-    *((f"pump-keeper-{keeper}", "enclosure-front-top", "slot-slide-and-neck-snap")
+    *((f"pump-keeper-{keeper}", "enclosure-front-top", "slot-slide-and-gravity-seat")
       for keeper in PUMP_DOCK_KEEPERS),
-    # Each return snaps into its channel in the one return block.
-    *((f"pump-return-{port}", "pump-return-block", "snap-seat") for port in PUMP_DOCK_PORTS),
-    ("pump-return-block", "enclosure-front-top", "three-M3-into-tray-foot"),
+    # The scanned fixed-body collars bear on the integral front-top U seats.
+    *((f"pump-elbow-{port}", "enclosure-front-top", "fixed-collar-seat") for port in PUMP_DOCK_PORTS),
     # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
     # closed in by the layer printed over the column at the part's one pause.
     *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
@@ -495,7 +493,7 @@ def derived_mounts() -> tuple:
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
     printed seats, the pump heads have their cartridge cradle and the permanent TPU
-    junctions/returns have wall seats and the return block. A remaining body no printed feature reaches is carried only
+    junctions and purchased elbows have wall seats and collar supports. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -649,10 +647,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # Intentional near-contact interfaces of the permanent receiver assembly.
     *((f"pump-receiver-{port}", f"pump-keeper-{keeper}")
       for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
-    # Each return seats in its block channel with only the seat air between.
-    *((f"pump-return-{port}", "pump-return-block") for port in PUMP_DOCK_PORTS),
-    # The block bears on the front-top's bed plane under the tray foot.
-    ("pump-return-block", "enclosure-front-top"),
+    # The fixed elbow collars bear on their dry wall seats.
+    *((f"pump-elbow-{port}", "enclosure-front-top") for port in PUMP_DOCK_PORTS),
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
@@ -760,7 +756,7 @@ MADE_AS = {
     "pump-dock": "made by a prepared pump's LLDPE stub in a permanent TPU junction",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
-    "printed-return": "made by a fixed TPU return and two straight links",
+    "elbow-and-tube": "purchased PP0308E elbow, captured stub and formed LLDPE tube",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
 }
@@ -771,10 +767,10 @@ def made_of(how: str) -> str:
     """One `manifold_layout.SEGMENTS` row's own `how` column, as one of `MADE_AS`'s names.
 
     `SEGMENTS` supplies the construction. Its compatibility names for the lower
-    and fore paths map to the fixed printed return and straight link labels."""
+    and fore paths identify purchased elbows with formed tubes and straight upper links."""
     import manifold_layout as ml
     if how == "spine":
-        return "printed-return"
+        return "elbow-and-tube"
     if how in ml.BARB_OF:
         return "pump-dock"
     if how in ml.FORE_STUBS:

@@ -1,0 +1,18 @@
+{
+  "west-outer": {
+    "collar_interference_at_0_2_mm_axial_motion_mm3": 0.02362418925144069,
+    "nominal_stub_stop_play_plus_contact_travel_bound_mm": 0.35
+  },
+  "west-inner": {
+    "collar_interference_at_0_2_mm_axial_motion_mm3": 0.0236242152030647,
+    "nominal_stub_stop_play_plus_contact_travel_bound_mm": 0.35
+  },
+  "east-inner": {
+    "collar_interference_at_0_2_mm_axial_motion_mm3": 0.02362421520306516,
+    "nominal_stub_stop_play_plus_contact_travel_bound_mm": 0.35
+  },
+  "east-outer": {
+    "collar_interference_at_0_2_mm_axial_motion_mm3": 0.023623476613897958,
+    "nominal_stub_stop_play_plus_contact_travel_bound_mm": 0.35
+  }
+}

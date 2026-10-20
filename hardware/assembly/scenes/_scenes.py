@@ -342,14 +342,12 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # The wall and its snapped-on flat keeper jointly retain each TPU receiver.
+    # The wall and its gravity-seated flat keeper jointly retain each TPU receiver.
     **{f"pump-receiver-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
-    # Each permanent return snaps into its channel in the one return block,
-    # and the block screws up into the front-top's tray foot.
-    **{f"pump-return-{port}": "pump-return-block"
+    # Each purchased fixed collar bears on its integral front-top seat.
+    **{f"pump-elbow-{port}": "enclosure-front-top"
        for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
-    "pump-return-block": "enclosure-front-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
@@ -382,8 +380,8 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # Prepared pump stubs ride the cartridge; all twelve straight pump links stay on
-    # front-top with their permanent junctions and returns.
+    # Prepared pump stubs ride the cartridge; the upper links, captured lower stubs and formed tubes stay on
+    # front-top with their permanent junctions and purchased elbows.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
         if how in _ml.BARB_OF:

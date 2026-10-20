@@ -31,7 +31,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -397,7 +396,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -575,7 +573,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -827,7 +824,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -1041,7 +1037,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -2641,21 +2636,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -2668,7 +2648,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -2961,7 +2940,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -3089,7 +3067,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4291,7 +4268,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -5125,7 +5101,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -5301,7 +5276,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -5393,21 +5367,6 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -5455,29 +5414,14 @@ O32=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O33=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step)
 O34=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh)
 O35=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl)
-O36=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step)
-O37=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step.mesh)
-O38=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl)
-O39=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step)
-O40=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh)
-O41=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl)
-O42=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step)
-O43=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh)
-O44=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl)
-O45=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step)
-O46=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh)
-O47=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl)
-O48=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step)
-O49=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh)
-O50=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl)
-O51=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O52=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O53=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O54=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O55=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O56=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O57=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O58=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O36=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O37=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O38=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O39=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O40=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O41=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O42=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O43=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5532,29 +5476,14 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step $$O33
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh $$O34
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl $$O35
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step $$O36
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step.mesh $$O37
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.stl $$O38
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step $$O39
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.step.mesh $$O40
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-inner.stl $$O41
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step $$O42
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.step.mesh $$O43
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-east-outer.stl $$O44
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step $$O45
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.step.mesh $$O46
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-inner.stl $$O47
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step $$O48
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.step.mesh $$O49
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-west-outer.stl $$O50
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O51
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O52
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O53
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O54
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O55
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O56
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O57
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O58
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O36
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O37
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O38
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O39
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O40
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O41
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O42
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O43
 """,
 )
 
@@ -5744,7 +5673,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
@@ -5924,7 +5852,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -6104,7 +6031,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -7130,7 +7056,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -7846,7 +7771,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -7955,7 +7879,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -9783,7 +9706,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-return-block.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -9795,7 +9717,6 @@ genrule(
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/native-review.json",
         "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/native-readback.json",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -10412,7 +10333,6 @@ genrule(
         "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -10612,7 +10532,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -10767,7 +10686,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/flow_roof.py",
         "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -12225,14 +12143,6 @@ genrule(
     name = "pysrc-6878b9fc858d",
     srcs = ["hardware/printed-parts/enclosure/pump-dock/pump_receiver.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-6697bfa97aee",
-    srcs = ["hardware/printed-parts/enclosure/pump-dock/pump_return.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/pump-dock/pump_return.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

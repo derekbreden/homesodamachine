@@ -2,15 +2,9 @@
 
 The ten flavor valves, both KPHM600 pumps and [2](TEE_COUNT) purchased source tees form the
 flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pumps' LLDPE
-stubs through the enclosure wall. Each junction has one straight upper link and one lower link to
-a fixed printed return. Each return contains its directional changes, so both of its LLDPE
-connections are straight.
+stubs through the enclosure wall. Each junction has one straight upper link and a lower socket over a purchased scanned PP0308E elbow. A captured stub and formed LLDPE run connect the lower socket to its aft valve.
 
-[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased
-hardware, the pump stubs, LLDPE members and eight printed wet bodies. The
-[complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, return block
-and magnet columns from the
-[permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
+[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, pump stubs, LLDPE members and four printed wet junctions. The [complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, integral fixed-collar seats and magnet columns from the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
 
 The connections follow [`fluid-topology.md`](/hardware/topology/fluid-topology.md).
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and 16/26 draw
@@ -24,9 +18,9 @@ from them. There are no reservoir junctions or segments 15/25.
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
 | [2](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| 4 × TPU junction | Permanent wall-mounted pump receivers with an upward outlet and an aft/downward 45° outlet. Six-millimetre sealing lands and the pump funnel share one printed wet body. |
-| 4 × TPU return | One permanent compound return per lower port. R[6](SPINE_R) internal turns and a horizontal passage join two straight tube links. |
-| [17](TUBE_COUNT2) × LLDPE cut | [12](STRAIGHT_LLDPE_COUNT) straight pump-junction links, two formed source links and three fully swallowed butt-joint blanks. The four 26 mm pump stubs are cut from the same LLDPE and supplied in prepared replacement pumps. |
+| 4 × TPU junction | Permanent wall inlet, upward outlet and lower socket aimed into its supported elbow. Six-millimetre sealing lands share one printed wet body. |
+| 4 × purchased elbow | John Guest PP0308E, using the [scanned exterior](/hardware/reference/jg-pp0308e-elbow/README.md). Fixed collars bear on integral shell seats; release collets remain free. |
+| [17](TUBE_COUNT2) × LLDPE cut | [8](STRAIGHT_LLDPE_COUNT) straight pump-junction links, four formed lower runs, two formed source links and three fully swallowed butt-joint blanks. The four 26 mm pump stubs are cut from the same LLDPE and supplied in prepared replacement pumps. |
 
 ## Frame
 
@@ -38,13 +32,11 @@ height, 0 at the pumps' own floor. The unshifted authoring deck references are z
 ## Four limbs, folded in two
 
 Each pump has two permanent wall junctions on its measured [59.75](BARB_PITCH2) mm port
-pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. The outer lower
-outlets are clocked slightly about the inlet axis to align their straight links with the
-inboard return valves. The upper outlets align with the fore valve ports.
+pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. The outer lower sockets point down; the inner sockets lean 25 degrees toward their supported elbows. The upper outlets align with the fore valve ports.
 
 The logical Y-C/D/F/G names identify these printed junctions. Y-A/B identify the two purchased
 source tees. The lane diagram describes connectivity and the valve placement construction;
-printed returns join the connections crossing its fold line.
+purchased elbows and formed tubes join the connections crossing its fold line.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
@@ -63,30 +55,9 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 
 ## The fixed lower returns
 
-Fluid-9, 17, 19 and 27 each use one permanently mounted TPU return and two straight LLDPE
-links. The return contains an approximately 45° entry turn, a horizontal flow passage and a
-90° upward turn, all with R[6](SPINE_R) internal flow radius. The printed-body radius describes
-the fluid passage, not a bend imposed on LLDPE.
+Fluid-9, 17, 19 and 27 each use one supported PP0308E elbow, one short captured stub and one formed LLDPE run. The exposed bends use R[14](SPINE_R), the spool observation recorded in `_routing.STOCKS`. The elbow grips the lower stub; the TPU socket supplies its seal. The valve collet grips the other end of the formed run.
 
-The inner links have 33.282 mm exposed between junction and return; the outer links have
-20.169 mm. Each return's upper mouth stands 2 mm below its purchased valve's collet face.
-The two LLDPE members therefore total [35.28](SPINE_LEN) mm exposed at each inner port and
-[22.17](OUTER_SPINE_LEN) mm at each outer port. The finished blanks also include the socket
-and valve insertion lengths.
-
-The junction-to-return link is captured between two supported bottoming shoulders. Its
-nominal insertion is 6.5 mm at each end, including the 0.5 mm entrance lead. Factory cutting
-references the actual mounted stop span; total axial play, including the complete assembled
-and loaded tolerance budget, is limited to 0.5 mm to retain at least 5.5 mm of either 6 mm
-sealing land. The PET-GF channel constrains bowing. The short return-to-valve link is anchored
-by the valve's commercial collet. These are geometric retention provisions; pressure holding,
-assembly force and endurance remain physical qualification limits.
-
-V-G/J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump ports. The outer return planes
-follow those port axes. The authoring deck separation is [60.95](DECK_SEP) mm. The
-[shared layout module](/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py) derives the
-junction mouths, return paths, socket stops and straight tube spans from the supplied wall
-and actual valve ports.
+The stub's nominal cut is 23.05 mm. Fully seated marks in the actual purchased fittings govern finished cuts; nominal CAD insertion lengths are 15.7 mm at the elbow and 12 mm at the valve. See the [dock assembly procedure](/hardware/assembly/internal-plumbing.md) and [native integration review](/hardware/printed-parts/enclosure/pump-dock/elbow-review/README.md).
 
 ## The quarter turns
 
@@ -202,7 +173,7 @@ hold. The stubs enter TPU funnels and six-millimetre tight lands. The wall locat
 permanent junction in X/Z and a flat interior keeper captures Y. Stub tips remain 0.50 mm
 short of their stops with the cartridge on its meeting magnet poles. Broad cartridge and wall planes have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the flat keepers, the return block and the printed-in
+The complete enclosure assembly supplies the flat keepers, integral collar seats and the printed-in
 SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 

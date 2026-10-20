@@ -1404,7 +1404,7 @@ y_seam = 200.0
 # that floor lies on (`bay-floor-bedded`); the pumps ride behind the pump cartridge face's own
 # reliefs (`pumps-in-bay`, `enclosure_assembly.PACK_Y`) and sweep out over the floor's top
 # (`heads-sweep-out`).
-z_seam = 160.0
+z_seam = _interface.z_seam
 
 # A seam landing in an open band keeps this much air off every body in its own column,
 # so a body there lands whole in one piece and its mounts have one piece to stand on.
@@ -1451,7 +1451,7 @@ def back_flank_start(y_joint):
 # a 45° roof where its mouth-down print has no bed beneath the channel. The arm's base falls
 # back to the lip's underwall at 45°; every sliding and bearing face remains vertical or
 # horizontal.
-slide_slip = fits.running       # per-face running clearance on every sliding face of a Z seam
+slide_slip = _interface.slide_slip       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
 hook_lap = 2.0               # the catch overlap before a thick flank spends its added section
 # Both columns spend the same three millimetres they gain past the six-millimetre lip wall on
