@@ -1328,7 +1328,7 @@ def report(assy: cq.Assembly) -> dict:
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
     print(f"source tube corners: {len(QUARTERS) + 2 * len(SBENDS) + 2 * hairpins}, at R{BEND_R:g}; "
           f"the recorded stock basis is {STOCK.source}. "
-          "Pump-junction links are straight; printed flow curves have a separate radius.")
+          "Pump-junction links use their documented straight or formed paths.")
 
     meets = turns_meet()
     worst_turn = max(d for _c, d in meets)

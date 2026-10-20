@@ -4,7 +4,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 7279.423703967311
+        "volume_mm3": 7727.305843447762
       },
       "elbow": {
         "valid": true,
@@ -340,7 +340,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9235.924572164644
+        "volume_mm3": 9990.340083893163
       },
       "elbow": {
         "valid": true,
@@ -721,7 +721,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 9235.924572164644
+        "volume_mm3": 9990.340083893163
       },
       "elbow": {
         "valid": true,
@@ -1102,7 +1102,7 @@
       "junction": {
         "valid": true,
         "solids": 1,
-        "volume_mm3": 7279.423703967311
+        "volume_mm3": 7727.305843447762
       },
       "elbow": {
         "valid": true,
@@ -1465,12 +1465,6 @@
     }
   },
   "scope": "Native affected parts against native front-top; FCL distances to retained current assembly payload. Connector boxes are assumed 8\u00d75\u00d721.5 mm and do not qualify the purchased terminals. Native valid/clearance results do not establish wet performance or lifetime.",
-  "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "35f763842379ae808b8849e1ce55c967cef4df6895b04510df54427bbd35ad29",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9963d41946eca360c47c5653c9b1e59ce7b90b7c088be9380f2ee5b26a331e6e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a221f213a4c10197c142b36ddde359e13fa2e7e8f90bb5d66814d2e6e183d1f7",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "aeed2b7cda862d39cf13df4df5b7ce083fa5b50905f0b0578b8853681e70b086",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "f4a1fc79a3d125b58402732e72a80b5629d82724b8e01115cea9a4ad420dd8bc",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "b444628a11365aae116a33f20eb430d6bc4bca365ff4a939bbe5bdf29855242e"
-  }
+  "source_sha256": "5c550962556bfcc61994065219145ff65acd52e0f375504246ad9655e8b0d215",
+  "interior_refresh_scope": "Straight internal bores. Native exterior envelopes equal the prior fit review in relaxed and occupied states; fit distances retain that exterior scope."
 }
