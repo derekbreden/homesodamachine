@@ -18,27 +18,27 @@
     "sha256": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474"
   },
   "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl": {
-    "facets": 50472,
+    "facets": 27416,
     "watertight": true,
     "winding_consistent": true,
-    "sha256": "12f12bcd53eea16d1e36a498574822926d46202b444b00baadd0cceadf6b8260"
+    "sha256": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3"
   },
   "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl": {
-    "facets": 47662,
+    "facets": 26896,
     "watertight": true,
     "winding_consistent": true,
-    "sha256": "ce075fb374bdaa53a9b0090a104c0c54201e9e2d47ddb4cbfccb0954c9589560"
+    "sha256": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106"
   },
   "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl": {
-    "facets": 47662,
+    "facets": 26896,
     "watertight": true,
     "winding_consistent": true,
-    "sha256": "ce075fb374bdaa53a9b0090a104c0c54201e9e2d47ddb4cbfccb0954c9589560"
+    "sha256": "792a0d2a926dc6eeca28aba820e5b7df53b81df4379dc4578b353c36e1970106"
   },
   "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl": {
-    "facets": 50472,
+    "facets": 27416,
     "watertight": true,
     "winding_consistent": true,
-    "sha256": "12f12bcd53eea16d1e36a498574822926d46202b444b00baadd0cceadf6b8260"
+    "sha256": "5d36e81d8ea6d72125272a9680e19a0706e77363e84e6f09bf6d9f4af04f50e3"
   }
 }

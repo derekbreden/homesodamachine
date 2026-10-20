@@ -16,7 +16,9 @@ The illustration highlights exact assembly meshes. The wall is hidden to show it
 
 The standalone manifold generator reports zero volume clashes. Junction manufacturing exports lie on a broad aft web landing. The inlet/upper lands stand 45 degrees from vertical; lower lands stand 20 degrees (inner) or 45 degrees (outer). Keeper exports lie flat on their wall faces. The [current manufacturing instructions](../README.md#manufacture) define the seven printed pieces and the scope of archived print projects.
 
-The [junction cavity reading](junction-cavity.json) records open socket axes, retained annular bearings, removed native fin witnesses and the flat print landing. The chamber stays within the web's 3 mm inset; circular seal lands remain intact.
+The [junction cavity reading](junction-cavity.json) records open socket axes, retained annular bearings and the flat print landing. Connected circular bores join the inlet and both outlets. The outer inlet rises inside the existing web to preserve 3 mm above its lower tube stop. Circular seal lands remain intact.
+
+The [elbow-seat thickness reading](seat-thickness.json) resolves strict-threshold warnings at the nominal 3 mm cheeks. Separate front-top display, bay-end and interlocking-flank findings remain open at their exact picks in the [lint answers](../../../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Their geometry lies outside the dock edit region and retains its existing fit and physical-evidence scope.
 
 ## Tube preparation
 

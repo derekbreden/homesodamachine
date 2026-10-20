@@ -86,8 +86,8 @@
     "pump-receiver-west-outer": {
       "valid": true,
       "solids": 1,
-      "native_symmetric_difference_mm3": 0.0,
-      "junction_scope": "Common internal chamber removes dividing fins; circular sealing lands and their stops are retained."
+      "native_symmetric_difference_mm3": null,
+      "junction_scope": "Connected circular straight bores; outer inlet rises within the web to preserve lower-stop stock. Exterior envelopes, circular sealing lands and stops retained."
     },
     "pump-elbow-west-outer": {
       "valid": true,
@@ -97,8 +97,8 @@
     "pump-receiver-west-inner": {
       "valid": true,
       "solids": 1,
-      "native_symmetric_difference_mm3": 0.0,
-      "junction_scope": "Common internal chamber removes dividing fins; circular sealing lands and their stops are retained."
+      "native_symmetric_difference_mm3": null,
+      "junction_scope": "Connected circular straight bores; outer inlet rises within the web to preserve lower-stop stock. Exterior envelopes, circular sealing lands and stops retained."
     },
     "pump-elbow-west-inner": {
       "valid": true,
@@ -108,8 +108,8 @@
     "pump-receiver-east-inner": {
       "valid": true,
       "solids": 1,
-      "native_symmetric_difference_mm3": 0.0,
-      "junction_scope": "Common internal chamber removes dividing fins; circular sealing lands and their stops are retained."
+      "native_symmetric_difference_mm3": null,
+      "junction_scope": "Connected circular straight bores; outer inlet rises within the web to preserve lower-stop stock. Exterior envelopes, circular sealing lands and stops retained."
     },
     "pump-elbow-east-inner": {
       "valid": true,
@@ -119,8 +119,8 @@
     "pump-receiver-east-outer": {
       "valid": true,
       "solids": 1,
-      "native_symmetric_difference_mm3": 0.0,
-      "junction_scope": "Common internal chamber removes dividing fins; circular sealing lands and their stops are retained."
+      "native_symmetric_difference_mm3": null,
+      "junction_scope": "Connected circular straight bores; outer inlet rises within the web to preserve lower-stop stock. Exterior envelopes, circular sealing lands and stops retained."
     },
     "pump-elbow-east-outer": {
       "valid": true,
@@ -807,8 +807,8 @@
   "restored_native_product_records": [],
   "component_placements": {},
   "files": {
-    "hardware/manifold-layout/enclosure-assembly.step": "35f763842379ae808b8849e1ce55c967cef4df6895b04510df54427bbd35ad29",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9963d41946eca360c47c5653c9b1e59ce7b90b7c088be9380f2ee5b26a331e6e",
+    "hardware/manifold-layout/enclosure-assembly.step": "e6702ef7b7afbe499278638a77d847c85d6ede8eee34915f31b589c1c5217edd",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c087c689ab0838241b7c70e9cb02b4a668dd0e218cfc40de215877c787af66c2",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "517fa3b4eafdf4daaa0d3939ee7e37a85fdf8a12c7291e885a848a384d03e024",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "f813fdf03339ce027ea42301387f9c96e50e5ac4def17e8dd5d242703b96101b"
   }
