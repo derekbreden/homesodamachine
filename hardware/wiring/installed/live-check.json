@@ -1,30 +1,66 @@
 {
-  "checked_at_utc": "2026-10-21T04:40:55.572706+00:00",
-  "method": "Fetch the populated and standalone native/viewer artifacts through the live site object manifest, decompress and compare SHA-256 with the published pointer.",
-  "pointer_commit": "facb32341e625944b788e014775a5f39bdb5bea0",
+  "checked_at_utc": "2026-10-21T09:52:48.667180+00:00",
+  "method": "Fetch the published populated and standalone wiring native/viewer artifacts, cap cup/lid native/viewer artifacts and both cold-core native hosts through the live object manifest, decompress and compare SHA-256 with the published pointer.",
+  "pointer_commit": "51d8530fa598782e82ecdcae52adbd1fd8679515",
   "members": [
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "sha256": "8e0576306103d1c7a31a8317bfe3ae7a816abf76754b429bf82f963260d396dd",
-      "bytes": 108198869,
+      "sha256": "d86aaac4606dac0df300b6ff67c051487758293ec1feaeb3f37a3e5210399c28",
+      "bytes": 109353552,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
-      "bytes": 37970048,
+      "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
+      "bytes": 47511920,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step",
-      "sha256": "9060d47bca1dadac1d33ede725f826f01f60c5b3fb23b0e44bb6bd3a7cd0bd33",
-      "bytes": 5981504,
+      "sha256": "91dcef105712f5abdc38bbccb3cc6b84ba53a39268798524965037340b02e5be",
+      "bytes": 6790497,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step.mesh",
-      "sha256": "9197ecf045af2cd4adf086bead2c23b100160cb5f21ab35372aa504b8be2d106",
-      "bytes": 6619328,
+      "sha256": "e1e1878fa68b15eda6c959d70a812517de94f09d5a3c3a92f08dc197182f3a08",
+      "bytes": 7391068,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "sha256": "5aa7dd2a960dcf46e58416aca98dd54f56c6de2ce1c15b96a544752bbfcd6800",
+      "bytes": 416709,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+      "sha256": "162f1ee3bda798d78799b7fe151d4da9645186e0878298b1da8d034529a79b23",
+      "bytes": 522076,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "57cb43b3e27533e0fec9456c81f7a56dc58c7895a6ff2f90e35a72275054f024",
+      "bytes": 750598,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "sha256": "54c89fbe948e1c678bb58330302d5fa74f7209b15ed00c5e8b3ae93ca5b5113c",
+      "bytes": 238064,
+      "pass": true
+    },
+    {
+      "path": "hardware/cold-core-layout/cold-core-assembly.step",
+      "sha256": "981bd397ba2bee28c6bee0bd6dde46f089313b063a7fbffe6cc4a7c437d9954e",
+      "bytes": 7604238,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "sha256": "5a93437d1668d990c935e0cfd12f928ba719bcdbcc4fa29523cbadf5fa278d4a",
+      "bytes": 3351150,
       "pass": true
     }
   ],
