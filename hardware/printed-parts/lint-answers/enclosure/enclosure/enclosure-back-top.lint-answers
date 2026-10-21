@@ -31,7 +31,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-55.655 y=372.535 z=344.400
 click: x=-55.655 y=418.935 z=344.400
 
-[thin] Wrong material-thickness classification: stepped-corner pairs. Each pairs two opposed faces that meet only at the edge of a stepped corner of solid stock: a rib crown with the slab underside past a tie band's end, a rib flank with a pocket wall above it, two pockets' roofs either side of a step, a channel floor with the flank face beside a band's end. A ray along each sample's inward normal crosses 7.9-22.7 mm of material (probe on the current STL).
+[thin] Wrong material-thickness classification: stepped-corner pairs. Each pairs two opposed faces that meet only at the edge of a stepped corner of solid stock: a rib crown with the slab underside past a tie band's end, a rib flank with a pocket wall above it, two pockets' roofs either side of a step, a channel floor with the flank face beside a band's end. A ray along each sample's inward normal crosses 5.9-122 mm of material (probe on the current STL).
 alternatives: Reject pairs whose sample's inward chord through the material reaches the search. No wall change addresses these readings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-83.990 y=448.510 z=348.685
@@ -49,6 +49,11 @@ click: x=-101.250 y=258.533 z=282.714
 click: x=-98.500 y=254.696 z=282.054
 click: x=-98.500 y=258.924 z=282.054
 click: x=-101.250 y=255.394 z=282.952
+click: x=-15.210 y=374.901 z=348.171
+click: x=7.612 y=368.726 z=343.334
+click: x=-13.694 y=368.861 z=343.286
+click: x=-15.935 y=367.689 z=342.840
+click: x=-87.370 y=358.721 z=321.671
 
 [ledge] Required Wago bearing tabs: each is a 2.0 mm end tab (`wago_roof_tab`) of a well's lid; on back-top the lid is the pocket's machine -Z face, so these flats are what the lever-nut rests on.
 alternatives: A sloped tab puts the lug on a ramp; a full lid is a 9.3 x 8.7 mm ceiling.
@@ -75,6 +80,7 @@ alternatives: 45° slot ends would change the receiver that the accepted namepla
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-19.462 y=468.550 z=260.553
 click: x=-58.077 y=468.550 z=295.002
+click: x=-23.541 y=468.550 z=295.002
 click: x=87.802 y=468.550 z=260.553
 
 [slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° across 3.6 mm of pad stock, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
@@ -249,3 +255,16 @@ click: x=-40.710 y=467.370 z=311.552
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-47.755 y=467.790 z=311.620
+
+[thin] The linter is wrong here: each pair runs across air. On the capped ribs, `carb-1`'s and `co2-2`'s under the ceiling and `fluid-28`'s on the wall, it spans the open mouth of the tube seat from the lip's 0.8 mm chamfer to the bore's edge, and none of 19 samples along it lies in material. Beside the -X back corner it runs from one flute land across a groove to the next, with 8 to 11 of its 19 samples in air.
+alternatives: Read a pair as thickness only when the segment between its two picks stands in material along its length, not only at its ends.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=59.481 y=267.275 z=332.103
+click: x=59.481 y=273.925 z=332.103
+click: x=62.206 y=403.328 z=335.963
+click: x=62.206 y=409.978 z=335.963
+click: x=-78.073 y=289.131 z=267.249
+click: x=-78.073 y=289.131 z=273.899
+click: x=-94.220 y=471.262 z=261.759
+click: x=-94.220 y=471.263 z=320.898
+click: x=-94.220 y=471.208 z=352.234

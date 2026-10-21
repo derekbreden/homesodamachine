@@ -13,7 +13,7 @@ click: x=19.548 y=65.024 z=280.674
 alternatives: Sloping the bearing removes flat contact under the screw head. A larger through hole loses its seat; moving the seat changes the M3×60 engagement and tip reserve. A closed top obstructs screw and driver access. Keep the flat annular bearing with its open counterbore.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=0.294 y=67.303 z=268.975
-click: x=0.038 y=31.324 z=268.975
+click: x=-0.423 y=31.280 z=268.975
 
 [thin] Required by the M1.4 insert's installation: the 2.6 mm loading stadium has to carry the whole Ø2.3 knurl to the round Ø2 pilot, and this 0.1 mm² reading is the corner where the stadium's floor meets that pilot, 2.16 mm across.
 alternatives: Stopping the stadium short of the pilot leaves the knurl a printed lip to melt through; running the stadium into the pilot turns the grip zone's round hole into a slot.
