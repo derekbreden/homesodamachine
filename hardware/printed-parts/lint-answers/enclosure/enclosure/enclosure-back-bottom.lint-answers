@@ -185,3 +185,14 @@ alternatives: An R4.5 handhold lifting-edge roll gives a 3.03 mm rim; a local bo
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=105.247 y=209.512 z=29.327
 click: x=-105.247 y=209.512 z=29.327
+
+[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses back-bottom's upper knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
+alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=95.719 y=208.900 z=140.148
+
+[thin] The linter is wrong here: each segment runs from the back rail's under-flare, at its end face on Y456.3, across the open notch between that face and the rear corner column's R15 arc to the column's top edge; its midpoint stands outside both, in air. The flare ends with the arm, so no 45° tip meets the mouth past the arm's end.
+alternatives: Running the flare on into the column fills the notch but carries its 45° tip to the mouth with no arm above it, a knife edge; filling the notch through the column's height leaves a 37° wedge where the arc meets the end plane. The rule could require material along the segment before classifying a thickness.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-94.362 y=456.203 z=159.388
+click: x=94.362 y=456.203 z=159.388
