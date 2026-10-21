@@ -1,15 +1,9 @@
 {
   "recorded_on": "2026-10-21",
-  "status": "Proposed only; no project, executable recipe or printer changed; no new print authorized or started.",
+  "status": "Discussion candidate only; flow 1.02 supported by Derek, brim declined. No project, executable recipe or printer changed.",
   "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
   "trigger": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
   "priority": [
-    {
-      "candidate": "Force a 10 mm outer brim on the body, 0.05 mm object gap.",
-      "purpose": "Increase corner anchorage beyond the present bare floor footprint.",
-      "evidence": "Failed native slice emits no Brim/Skirt despite saved auto_brim width 5 mm.",
-      "implementation_scope": "Review emitted connected brim paths and full bead envelope before launch. Maintain zero user Z trim, stock -0.02 mm textured compensation and 70 C bed. Current body/cap full-bead gap is only 10.042 mm; review/reposition the combined layout for brim clearance."
-    },
     {
       "candidate": "Flow ratio 1.02; 255 C first layer, 260 C thereafter.",
       "purpose": "Increase bead packing and fusion to address actual multi-place leakage.",
@@ -17,18 +11,16 @@
       "limits": "May result used a left 0.6 mm nozzle and supported slanted-floor geometry. September 0.8 mm / 0.97 articles also held water. This is a supported starting trial, not proof that 0.97 always leaks or that every current leak is porosity."
     },
     {
-      "candidate": "Keep first three layers fan-off, ordinary supported body paths at no more than 20%, auxiliary off; remove 90% bursts from supported floor/early body paths.",
-      "purpose": "Reduce abrupt cooling and support bead fusion at the floor-to-wall region.",
-      "evidence": "body-cooling-paths.json binds 90% commands to body internal solid floor, floor top and early outer walls, including layers 4 and 12–16.",
-      "implementation_scope": "Review actual support/unsupported width and fan inheritance in the new native slice. Retain localized higher cooling for verified bridges and unsupported cap/support features; avoid a whole-part fan-off override.",
-      "limits": "No observed cooling-to-lift onset link is established."
+      "candidate": "Use ordinary Bambu motion settings with the May Water recipe as the historical reference.",
+      "purpose": "Recover throughput from a demonstrated water-holding recipe.",
+      "evidence": "May 30 requests 200/300 mm/s outer/inner, 250 solid, 200 top with 21 mm3/s cap. Installed Basic 0.8 Standard profile also saves 21; Translucent 0.8 saves 16.",
+      "limits": "Requested speed is capped by extrusion, acceleration and cooling. Neither an arbitrary 12 mm3/s target nor the present 6 mm3/s limit is established necessary for sealing. Exact next-print ceiling is not yet selected."
     },
     {
-      "candidate": "Trial 12 mm3/s ceiling with 60 mm/s requested outer walls and 80 mm/s inner walls/solid fill; retain 0.24 mm layers.",
-      "purpose": "Recover throughput without increasing layer height or immediately adopting the historical 21 mm3/s ceiling.",
-      "evidence": "Current recipe requests 30 mm/s with 6 mm3/s ceiling. The successful May 30 project requests 200/300 mm/s outer/inner and caps flow at 21 mm3/s.",
-      "limits": "12 mm3/s and 60/80 are proposed current-nozzle trial targets, not previously qualified values. Effective motion is bounded by line cross-section, flow cap, acceleration and cooling. No runtime improvement is claimed without a fresh native estimate and physical result.",
-      "first_layer": "Keep first-layer deposition no faster than the failed native slice. Set explicit first-layer speeds from its emitted feedrates so raising the global ceiling does not accelerate bed deposition."
+      "candidate": "Compare walls-only construction with fully solid floor coverage.",
+      "purpose": "Follow Derek's sphere recollection while maintaining a continuous liquid boundary.",
+      "evidence": "Sphere result is founder recollection; exact native project unavailable. May reservoir explicitly saves 100% fill.",
+      "implementation_scope": "Enough wall loops to fill modeled sidewalls; complete 3 mm floor solid via shell thickness/layers or native-verified wall coverage. Preview actual coverage before treating zero sparse infill as solid."
     }
   ],
   "screen": {
@@ -36,7 +28,7 @@
     "decision": "Screen floor/corner distortion and lower-wall/floor seepage before committing another full-height body.",
     "tools": "Existing printer/build plate, water, dry tissue and a flat household surface; no purchase.",
     "procedure": [
-      "Use the proposed recipe and native-reviewed brim/cooling at the candidate production speeds; record actual elapsed time.",
+      "Use the selected candidate recipe and native-reviewed floor/wall coverage, with no brim; record actual elapsed time.",
       "Inspect exposed corner contact during printing where camera visibility permits. After complete cooling and removal, place the base on an existing flat surface and inspect each bottom corner for visible upward curl or rocking.",
       "Dry the outside, fill with water to 20 mm above the internal floor, place on dry tissue and inspect immediately, at 15 minutes and at 60 minutes."
     ],
@@ -75,9 +67,10 @@
       "requested_wall_fill_top_speed_mm_s": 30,
       "native_estimated_seconds": 69676.352
     },
-    "sphere_history": "Exact successful sphere preset was not recovered by the bounded filename/history search. Derek's report of faster high-flow sphere tests is retained; May 30 is the recovered quantified water-holding reference, not a claimed sphere recipe."
+    "sphere_history": "Preserve Derek's reported positive experience. Do not substitute May settings as the exact sphere recipe or interpret one NPT-port leak as a failed unpierced shell.",
+    "full_review": "historical-recipe-review.json"
   },
-  "interpretation": "The combined candidate targets useful outcome; changing brim, extrusion, temperature, cooling and speed together would not isolate which change caused an improvement.",
+  "interpretation": "A successful printed article supplies stronger evidence for its own recipe than a later untested optimization. Preserve May and September accepted results and Derek's sphere recollection; compare changes against that baseline.",
   "references": [
     {
       "url": "https://help.prusa3d.com/article/warping_2011",
@@ -95,5 +88,16 @@
       "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0198370",
       "scope": "Extrusion amount, wall structure and connected pores; parameter transfer requires physical confirmation."
     }
-  ]
+  ],
+  "founder_preferences": "historical-recipe-review.json",
+  "brim": {
+    "selected": false,
+    "reason": "Derek reports separation during curl, difficult bed cleanup and rough removal edges.",
+    "source": "historical-recipe-review.json"
+  },
+  "cooling_option": {
+    "status": "Separate hypothesis; no mandatory change selected.",
+    "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
+    "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
+  }
 }
