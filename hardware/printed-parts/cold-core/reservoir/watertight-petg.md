@@ -31,18 +31,20 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 | Supports | Tree auto, bed only, 30° threshold |
 | Support top / bottom gap | 0.18 / 0.18 mm |
 | Support interface top / bottom layers | Two / two |
-| Saved printer trim | Mark1 +0.18 mm over stock plate compensation |
+| Saved printer trim | Mark1 clear PETG: zero added user trim |
 
-The textured-plate compensation emits `G29.1 Z0.16` for this saved trim after
-the initial zero reset. A job on another printer must retain that printer's
-own calibrated trim; see [printer profiles](../../../../tools/bambu-printers.md).
+The start block clears user trim and emits **`G29.1 Z-0.02`**, the stock
+Textured PEI compensation for this 0.8 mm nozzle. This clear PETG recipe has no
+added Z lift. Its [first-layer failure record](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+and [retry](prints/2026-10-21-mark1-right08-z000/README.md) bind the correction to
+this material and article. PET-GF profiles retain their own trim settings.
 
 The project uses the September baseline, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
-Both plates explicitly assign the right nozzle in Manual mode. The active Mark1
-job starts on **A4**, with the printer choosing subsequent spools through automatic
-refill. Start the **next print on A2**;
+Both plates explicitly assign the right nozzle in Manual mode. The Mark1
+zero-trim retry starts on **A2**, with the printer choosing subsequent spools
+through automatic refill;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their

@@ -1,6 +1,6 @@
 {
   "project": "reservoir.3mf",
-  "project_sha256": "93e21e7c8cf52b74aae9dd4eef36657f1fe0eca264bbc41df4c2f2b182589baa",
+  "project_sha256": "aad6aa8e089d338f870f7a6d7af7013d3334aa858873772cb34ebc9c51dc5222",
   "recipe": "print-settings.json",
   "slicer_version": "02.08.02.61",
   "return_code": 0,
@@ -21,7 +21,7 @@
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "b554ef71424259334a56a881c2b268e569dc0f778ba818ea774212bb67c11f89",
+      "gcode_sha256": "6a76555dbff987a0ddd1f4d05a8e0cdd555614601f735119b6a5db4d13f329cd",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -30,9 +30,19 @@
       },
       "z_trim_commands": [
         "G29.1 Z0 ; clear z-trim value first",
-        "G29.1 Z0.16"
+        "G29.1 Z-0.02"
       ],
       "placement": {
+        "right_nozzle_usable_bed_bounds_mm": [
+          [
+            25.0,
+            0.0
+          ],
+          [
+            330.0,
+            320.0
+          ]
+        ],
         "model_support_brim_xy_bounds_mm": [
           [
             95.519003,
@@ -53,17 +63,7 @@
         "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
         "deposited_move_count": 1057961,
         "support_move_count": 5289,
-        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion.",
-        "right_nozzle_usable_bed_bounds_mm": [
-          [
-            25.0,
-            0.0
-          ],
-          [
-            330.0,
-            320.0
-          ]
-        ]
+        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
       "wall_cooling_above_cap_pwm_values": [
         51.0,
@@ -96,7 +96,7 @@
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "e8b4bafabe88966208e1892832addd5cb0688dcd6733d474b24f78fa1764abb8",
+      "gcode_sha256": "b9a2476c413a7a8a8110768d4595d1c107051499fa0c3c732b8d383604618d55",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -105,9 +105,19 @@
       },
       "z_trim_commands": [
         "G29.1 Z0 ; clear z-trim value first",
-        "G29.1 Z0.16"
+        "G29.1 Z-0.02"
       ],
       "placement": {
+        "right_nozzle_usable_bed_bounds_mm": [
+          [
+            25.0,
+            0.0
+          ],
+          [
+            330.0,
+            320.0
+          ]
+        ],
         "model_support_brim_xy_bounds_mm": [
           [
             95.525003,
@@ -128,17 +138,7 @@
         "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
         "deposited_move_count": 1047136,
         "support_move_count": 5256,
-        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion.",
-        "right_nozzle_usable_bed_bounds_mm": [
-          [
-            25.0,
-            0.0
-          ],
-          [
-            330.0,
-            320.0
-          ]
-        ]
+        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
       "wall_cooling_above_cap_pwm_values": [
         51.0,

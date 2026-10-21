@@ -1,0 +1,59 @@
+{
+  "reported_on": "2026-10-21",
+  "printer": "Mark1",
+  "job_id": "1359853920",
+  "disposition": "User stopped the print after first-layer non-adherence and lifted material; failed material removed and bed cleared for retry.",
+  "source": "Derek's observations and three photographs captured before peeling the failed print off the plate.",
+  "founder_quotes": [
+    "Oh interesting,  we do have a failure on the current print, one of the inner Wall layers did not adhere and got lifted up at some point. I've stopped the print.",
+    "That was really more about the PETGF and probably shouldn't apply to the PETG if we're using that here.",
+    "Those photos were from that last print before I peeled it off the plate. Maybe you can see what I'm talking about with that non-adherence. But in any case, Mark One is clear now and ready for us to start the next print with at least that first layer Z offset removed, and potentially something else if you have a good something else to bring me at this point."
+  ],
+  "photo_observations": [
+    "Photo 1 shows a loose raised strand at the cap perimeter beside the semicircular cutout; adjacent first-layer lines have visible separations.",
+    "Photo 2 shows the same cap region and the separate reservoir floor. Clear PETG reflections limit assessment of individual bead contact.",
+    "Photo 3 locates the cap on the left and body on the right. These still images do not establish when the strand first detached or establish later corner-warp onset."
+  ],
+  "settings": {
+    "user_z_trim_mm": 0.18,
+    "emitted_textured_pei_z_mm": 0.16,
+    "first_layer_mm": 0.3,
+    "normal_layer_mm": 0.24,
+    "nozzle_c": 255,
+    "bed_c": 70,
+    "material": "Bambu PETG Translucent Clear",
+    "nozzle": "right 0.8 mm Standard",
+    "start_slot": "A4"
+  },
+  "diagnostic_scope": "First-layer adhesion failure is reported and visible. Excess nozzle height is consistent with separated lines and the added trim; a photo does not isolate every possible cause. Earlier reservoir corner lifting is a separate reported observation with unverified timing.",
+  "retry": "Zero added user Z trim for this clear PETG recipe, retaining stock Textured PEI -0.02 mm compensation and all other physical process settings; start A2 with automatic refill.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "e17cdafcf4a044836b30b71cdc15f1ac8f523e7b1acea7b81bc4f4264c7e57b5",
+      "size_px": [
+        1280,
+        960
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged"
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "a10b1ee9b00f706c0092ab1aef2c85381ed032dda2b4fcbaef658febcfea3ef5",
+      "size_px": [
+        1280,
+        960
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged"
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "49f682be72b2a4b15d4ce6310dbf871084a618d744cb7f928bec8bdf1656bf64",
+      "size_px": [
+        1280,
+        960
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged"
+    }
+  ]
+}
