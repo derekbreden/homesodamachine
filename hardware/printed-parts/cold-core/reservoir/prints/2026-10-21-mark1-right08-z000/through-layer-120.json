@@ -1,0 +1,276 @@
+{
+  "printer": "Mark1",
+  "job_id": "1359909015",
+  "archive": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "checkpoint": "Stable visible-edge observation beyond layer 120; MQTT layer 125 and live UI layer 126.",
+  "readings": [
+    {
+      "observed_at": "2026-10-21T10:19:25.277925+00:00",
+      "observed_central": "2026-10-21T05:19:25.277925-05:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "mc_percent": 23,
+      "layer_num": 53,
+      "total_layer_num": 833,
+      "mc_remaining_time": 887,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "nozzle_target_temper": 255.0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "cooling_fan_speed": "2",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "heatbreak_fan_speed": "15",
+      "chamber_temper": 35,
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "right_extruder": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 1,
+          "filam_bak": [
+            15
+          ]
+        }
+      ],
+      "active_right_nozzle": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ],
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Bambu Studio Mark1 live chamber camera; exact reservoir archive confirmed in printing-progress UI",
+        "frames": [
+          {
+            "observed_at_utc": "2026-10-21T10:19:40.889Z",
+            "observed_central": "2026-10-21T05:19:40.889000-05:00",
+            "layer": 53
+          },
+          {
+            "observed_at_utc": "2026-10-21T10:19:46.499Z",
+            "observed_central": "2026-10-21T05:19:46.499000-05:00",
+            "layer": 53
+          }
+        ],
+        "camera_recovery": "Preview timed out for inactivity; camera Play restored live video with changed toolhead positions. No printer control changed.",
+        "body": "Exposed camera-right bottom edge/corner shows no discernible underside gap or upward curl across the sampled views. Other contact remains obscured by the toolhead, foreground cap or reflections.",
+        "cap": "Exposed foreground perimeter and near corners appear straight and flat in both frames. No discernible increasing gap or upward-curved bottom edge; reflected or occluded contact remains unassessable.",
+        "other": "No confirmed plate flex, nozzle strike or displaced material visible in these sampled frames.",
+        "assessment": "No newly confirmed lift at layer 53. This lies within the user-hypothesized 20-100 interval; no onset observed. Complete attached baseline and lift-onset bracket remain unavailable."
+      }
+    },
+    {
+      "observed_at": "2026-10-21T11:09:32.311306+00:00",
+      "observed_central": "2026-10-21T06:09:32.311306-05:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "mc_percent": 27,
+      "layer_num": 98,
+      "total_layer_num": 833,
+      "mc_remaining_time": 837,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "nozzle_target_temper": 255.0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "cooling_fan_speed": "3",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "heatbreak_fan_speed": "14",
+      "chamber_temper": 35,
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "right_extruder": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 1,
+          "filam_bak": [
+            15
+          ]
+        }
+      ],
+      "active_right_nozzle": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ],
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Bambu Studio Mark1 live chamber camera; exact reservoir archive confirmed in printing-progress UI",
+        "frames": [
+          {
+            "observed_at_utc": "2026-10-21T11:09:42.861Z",
+            "observed_central": "2026-10-21T06:09:42.861000-05:00",
+            "layer": 98
+          },
+          {
+            "observed_at_utc": "2026-10-21T11:09:54.264Z",
+            "observed_central": "2026-10-21T06:09:54.264000-05:00",
+            "layer": 98
+          }
+        ],
+        "body": "Exposed camera-right bottom edge/corner shows no discernible underside gap or upward curl in either frame. Far and camera-left contact remain obscured by toolhead, foreground cap or reflections.",
+        "cap": "Exposed foreground perimeter and near corners appear straight and flat across both views. No discernible increasing gap or upward-curved bottom edge; reflected or occluded contact remains unassessable.",
+        "other": "Changed toolhead positions confirm live video. No confirmed plate flex, nozzle strike or displaced material visible in these sampled frames.",
+        "assessment": "No newly confirmed lift at layer 98. This lies within the user-hypothesized 20-100 interval; no onset observed. Complete attached baseline and lift-onset bracket remain unavailable."
+      }
+    },
+    {
+      "observed_at": "2026-10-21T11:29:34.179096+00:00",
+      "observed_central": "2026-10-21T06:29:34.179096-05:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "mc_percent": 29,
+      "layer_num": 116,
+      "total_layer_num": 833,
+      "mc_remaining_time": 817,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "nozzle_target_temper": 255.0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "cooling_fan_speed": "3",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "heatbreak_fan_speed": "15",
+      "chamber_temper": 35,
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "right_extruder": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 1,
+          "filam_bak": [
+            15
+          ]
+        }
+      ],
+      "active_right_nozzle": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ],
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Bambu Studio Mark1 live chamber camera; exact reservoir archive confirmed in printing-progress UI",
+        "frames": [
+          {
+            "observed_at_utc": "2026-10-21T11:29:44.495Z",
+            "observed_central": "2026-10-21T06:29:44.495000-05:00",
+            "layer": 116
+          },
+          {
+            "observed_at_utc": "2026-10-21T11:29:55.280Z",
+            "observed_central": "2026-10-21T06:29:55.280000-05:00",
+            "layer": 116
+          }
+        ],
+        "body": "Exposed camera-right bottom edge/corner shows no discernible underside gap or upward curl in either frame. Remaining contact is obscured by toolhead, foreground cap or reflections.",
+        "cap": "Exposed foreground perimeter and near corners appear straight and flat across both views. No discernible increasing gap or upward-curved bottom edge; reflected or occluded contact remains unassessable.",
+        "other": "Changed toolhead positions confirm live video. No confirmed plate flex, nozzle strike or displaced material visible in these sampled frames.",
+        "assessment": "No newly confirmed lift at layer 116. No onset observed; incomplete contact visibility prevents a complete attached baseline or lift-onset bracket."
+      }
+    },
+    {
+      "observed_at": "2026-10-21T11:40:08.132169+00:00",
+      "observed_central": "2026-10-21T06:40:08.132169-05:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "mc_percent": 30,
+      "layer_num": 125,
+      "total_layer_num": 833,
+      "mc_remaining_time": 807,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "nozzle_target_temper": 255.0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "cooling_fan_speed": "2",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "heatbreak_fan_speed": "15",
+      "chamber_temper": 34,
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "right_extruder": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 1,
+          "filam_bak": [
+            15
+          ]
+        }
+      ],
+      "active_right_nozzle": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ],
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Bambu Studio Mark1 live chamber camera; exact reservoir archive confirmed in printing-progress UI",
+        "frames": [
+          {
+            "observed_at_utc": "2026-10-21T11:41:01.657Z",
+            "observed_central": "2026-10-21T06:41:01.657000-05:00",
+            "layer": 126
+          },
+          {
+            "observed_at_utc": "2026-10-21T11:41:17.940Z",
+            "observed_central": "2026-10-21T06:41:17.940000-05:00",
+            "layer": 126
+          }
+        ],
+        "camera_recovery": "Preview timed out for inactivity; camera Play restored live video with changed toolhead positions. No printer control changed.",
+        "body": "Exposed camera-right bottom edge/corner shows no discernible underside gap or upward curl in either frame. Far and camera-left contact remain obscured by toolhead, foreground cap or reflections.",
+        "cap": "Exposed foreground perimeter and near corners appear straight and flat across both views. No discernible increasing gap or upward-curved bottom edge; reflected or occluded contact remains unassessable.",
+        "other": "No confirmed plate flex, nozzle strike or displaced material visible in these sampled frames.",
+        "assessment": "No newly confirmed lift at layer 126, beyond layer 120. No onset observed; incomplete contact visibility prevents a complete attached baseline or lift-onset bracket."
+      }
+    }
+  ],
+  "last_visible_flat": {
+    "observed_at_utc": "2026-10-21T11:41:17.940Z",
+    "layer": 126,
+    "scope": "Exposed foreground cap perimeter/near corners and camera-right body bottom edge/corner; other contact occluded or reflective"
+  },
+  "last_completely_assessed_attached_corner_baseline": null,
+  "first_confirmed_lift": null,
+  "onset_bracket": null,
+  "scope": "Selected live samples from layers 53, 98, 116 and 126 show no discernible lift in named exposed areas. Far, occluded and reflected contact remains unassessed. No confirmed lift onset is observed; the earlier layer 20-100 estimate remains an unverified hypothesis. This does not establish complete adhesion, finished-part fit or water hold.",
+  "monitoring": "The same task-bound heartbeat checks every thirty minutes following the stable observation beyond layer 120; it stops when this task ends or changes."
+}

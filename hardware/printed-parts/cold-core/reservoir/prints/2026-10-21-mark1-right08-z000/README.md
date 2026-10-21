@@ -86,3 +86,15 @@ underside gap, curl or strike. Occluded and reflective contact remains
 unassessed. A2 and timelapse remain active; nozzle/bed read 255/70 °C.
 Part-cooling telemetry becomes nonzero at layer 4. No onset bracket or
 water-hold result is established. Checks continue every ten minutes.
+
+The [layer-120 checkpoint](through-layer-120.json) records this exact task at
+**06:40:08 CDT / 11:40:08 UTC**, MQTT layer **125/833**, followed by two live
+views at layer **126** through **06:41:17 CDT / 11:41:17 UTC**. The exposed
+camera-right body bottom edge/corner and near cap perimeter/corners show no
+discernible underside gap or upward curl. No plate flex, nozzle strike or
+displaced material is confirmed. Occluded and reflective contact remains
+unassessed; no complete attached baseline or lift-onset bracket is established.
+Selected earlier samples at layers 53, 98 and 116 preserve the same visibility
+limits. A2, the right 0.8 mm nozzle and timelapse remain active, with 255/70 °C
+nozzle/bed targets and no current print error or HMS alert. This same monitor
+checks every thirty minutes through the remainder of this task.
