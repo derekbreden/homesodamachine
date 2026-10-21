@@ -39,8 +39,12 @@ Derek's PET-GF print request is the go and the plate-clear: send the named revie
 black PET-GF mapping. There is no print order. A productive print keeps running while checks
 proceed; a concretely defective one is cancelled and replaced.
 
-New PET-GF jobs use the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left 0.4 mm
-nozzle and `auto_brim`. H2C uses +0.18 mm requested trim (+0.16 mm emitted for Textured PEI);
+New PET-GF jobs use the saved [PET-GF profile](../petgf.3mf): two ordinary wall loops,
+15% gyroid infill, black PET-GF on the fixed left 0.4 mm nozzle and `auto_brim`.
+The two-wall/15% gyroid baseline remains in use unless Derek explicitly requests a change;
+comparison-print results alone do not change it. Local solid reinforcement and six-wall
+surface bands retain their specified settings.
+H2C uses +0.18 mm requested trim (+0.16 mm emitted for Textured PEI);
 Mark2 uses +0.04 mm (+0.02 mm emitted). Both configured printable areas are 325 × 320 mm, with
 at least 15 mm model border. Use a 0.20 mm first bed layer and 0.24 mm layers on
 expanding print-down show edges, with an additive chamfer/taper and six walls locally.
