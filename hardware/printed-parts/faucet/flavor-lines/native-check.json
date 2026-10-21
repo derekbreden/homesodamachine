@@ -1,0 +1,36 @@
+{
+  "scope": "Native CAD geometry only; no black-stock fit, dispense, load or endurance observation.",
+  "flavor_od_mm": 4.0,
+  "flavor_id_mm": 2.5,
+  "soda_umbilical_od_mm": 6.35,
+  "external_flavor_cut_mm": 1963.0,
+  "neck_od_mm": 27.0,
+  "inner_joint_wall_mm": 2.209987078000001,
+  "intersections": {
+    "pos_x:shell_base": 0.0,
+    "pos_x:shell_tip": 0.0,
+    "pos_x:soda_faucet_tube": 0.0,
+    "pos_x:drain_tube": 0.0,
+    "pos_x:above_counter_plate": 0.0,
+    "pos_x:above_counter_gasket": 0.0,
+    "pos_x:under_counter_plate": 0.0,
+    "neg_x:shell_base": 0.0,
+    "neg_x:shell_tip": 0.0,
+    "neg_x:soda_faucet_tube": 6.370129550699585e-10,
+    "neg_x:drain_tube": 0.0,
+    "neg_x:above_counter_plate": 0.0,
+    "neg_x:above_counter_gasket": 0.0,
+    "neg_x:under_counter_plate": 0.0
+  },
+  "minimum_bend_radius_mm": {
+    "faucet": 27.784970723291753,
+    "-1": 27.784970723291753,
+    "1": 27.784970723291753
+  },
+  "sources": {
+    "hardware/faucet-layout/faucet-assembly.step": "0a8456113e631c8387854cf3b7f4b889cc81eeca54d3b76de1f17d785a21cc09",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "9769bc6844302f52a37623dca459ad9a1b64479ce85434db9cf1577e8a1d5ae5",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "ffe226a32be53b2d4b086d9acb819fc87164f4b92c59db5f19aa7b8bba006339",
+    "hardware/printed-parts/faucet/faucet_paths.py": "1f26379fede4e2bc2ef7292269c4d08e83f01b2ff6e892d3f5c224326377c701"
+  }
+}

@@ -84,3 +84,5 @@ length, a gap wide enough to print open, and the wings' strain against the fauce
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py`
+
+Flavor A's cap-lid support uses the [4 mm cap](anchor-cap-4mm.step) ([STL](anchor-cap-4mm.stl)), with a 4.30 mm bore and the shared exterior, wings and catches. Flavor B uses a 4.30 mm zip-tie saddle on back-top's west wall. Other capped lines use the 6.65 mm-bore part. Physical fit on the black 4 mm stock is unmeasured.

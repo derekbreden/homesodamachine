@@ -40,6 +40,7 @@ SHARED = {
     # The `copper` spool is NOT here and needs no entry — `M_COPPER` is declared as that spool's
     # own stock at that spool's own triple, so the two agree and nothing has to give way.
     "black": "M_PETG_BLACK",
+    "flavor-black-4mm": "M_PETG_BLACK",
 }
 
 

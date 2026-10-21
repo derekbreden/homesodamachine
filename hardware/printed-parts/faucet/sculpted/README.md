@@ -6,7 +6,7 @@ PET-GF plate contains the Sculpted base, shared tip, Sculpted display cover,
 matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 
-The [editable project](prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.3mf)
+The [editable project](../faucet-petgf.3mf)
 targets Mark2's right hardened standard-flow 0.4 mm hotend and white PET-GF in
 external slot 255. Its normal +0.04 mm requested Z trim emits +0.02 mm on
 Textured PEI. The right nozzle retains its recorded native XY registration.
@@ -74,12 +74,9 @@ and per-part seam CSVs bind the submitted commands. Physical white Sculpted
 finish, cleanup and fit remain a result of this complete print.
 
 The [selected print](selected-print.json) and [launch record](prints/2026-10-17-localized-cooling-display-clearance-mark2/launch.json)
-identify the current complete project and its submitted archive.
+identify the submitted October 17 article. The current 4 mm preparation is bound by [its print report](../faucet-petgf.print.json); its native slice and physical fit remain unmeasured.
 
-The display seat and cover bezel have 1.50 mm additional clearance along the
-display normal, giving 1.80064 mm nominal clearance to either flavor tube.
-Four bearing pads extend by 1.50 mm. Their 3.25 × 3.00 mm footprint
-has inner faces flush with the open channel. The neck opening,
-tube paths, snap datums and lower cover shoulder remain fixed. The
-[clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
-binds the geometry; physical assembly of this revision remains to be evaluated.
+The display seat, bearing pads and cover bezel use their shared mounted datums.
+The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+binds that print's geometry. Current 4 mm tubing and passage evidence are in
+[flavor dispense lines](../flavor-lines/README.md); physical assembly of the current preparation remains unmeasured.

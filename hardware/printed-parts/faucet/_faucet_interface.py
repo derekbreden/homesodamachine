@@ -19,9 +19,8 @@ import fits  # noqa: E402
 import faucet_paths as _paths  # noqa: E402
 
 
-# 1/4" LLDPE flavor tube — physical fact, set by the vinyl tube the
-# pumps push the syrup through.
-flavor_tube_od = 6.35
+# neoFlo 4 mm OD / 2.5 mm ID LLDPE, outlet valves to dispense face.
+flavor_tube_od = _paths.FLAVOR_OD
 
 # The mounting row is F1-D-F2. The flavor centers leave clearance around
 # the central 4 mm drain; the dispense face retains the tangent flavor pair.
@@ -35,11 +34,13 @@ dispense_flavor_x_offset = flavor_tube_od / 2.0
 flavor_tube_hole_clearance = 0.9
 
 # Per-tube hole diameter, derived.
-flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.25 mm](FLAVOR_TUBE_HOLE_DIA)
+flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [4.9 mm](FLAVOR_TUBE_HOLE_DIA)
 
 # One rounded mounting opening spans the widened flavor centers and D.
-pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [18.15 mm](PILL_LENGTH_X)
-pill_width_y = flavor_tube_hole_dia                                # [7.25 mm](PILL_WIDTH_Y)
+# The purchased steel mounting plate and its mating printed stack retain
+# this clearance envelope for F1-D-F2 and the flat signal ribbon.
+pill_length_x = 18.15  # [18.15 mm](PILL_LENGTH_X)
+pill_width_y = 7.25    # [7.25 mm](PILL_WIDTH_Y)
 
 # neoFlo LLDPE-4MM: 4 mm OD / 2.5 mm ID, R25 minimum.
 # https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf

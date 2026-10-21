@@ -2260,8 +2260,6 @@ def drain_reading(reading, f, assembly, parts):
                  "soda": assembly.build_soda_faucet_tube(),
                  "flavor_a": assembly.build_flavor_tube(+1),
                  "flavor_b": assembly.build_flavor_tube(-1),
-                 "union_a": assembly.build_flavor_union(+1),
-                 "union_b": assembly.build_flavor_union(-1),
                  "foam": assembly.build_foam(),
                  "sleeve": assembly.build_sleeve(),
                  "signal_ribbon": assembly.build_display_ribbon()}

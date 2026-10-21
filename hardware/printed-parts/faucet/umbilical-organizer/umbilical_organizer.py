@@ -1,7 +1,7 @@
 """PET-GF umbilical organizer, in its upright print frame.
 
-The three quarter-inch bores use the tested A sample's fit. The 4 mm drain
-bore uses the tested B sample's fit from the three-increment Mark2 plate.
+The quarter-inch soda bore uses the tested A sample's fit. The three 4 mm
+bores use the tested B drain-bore dimension; black flavor-stock fit is unmeasured.
 
 The print origin is the centre of the round stock; Z=0 is the bottom face.
 Tube-axis XY values below use the faucet assembly's coordinates. Placement
@@ -26,6 +26,7 @@ OD = 32.0
 LENGTH = 10.0
 TUBE_BORE = 6.65
 DRAIN_BORE = 4.40
+FLAVOR_BORE = DRAIN_BORE
 CABLE_SLOT_LENGTH = 5.4
 CABLE_SLOT_DEPTH = 1.8
 MIN_MATERIAL = 1.50
@@ -47,9 +48,9 @@ CENTRE_XY = (interface.bundle_mount_x,
 BORES = (
     ("S", (0.0, 0.0), TUBE_BORE),
     ("F1", (interface.bundle_mount_x + interface.flavor_tube_x_offset + FLAVOR_SPREAD,
-            _flavor_y), TUBE_BORE),
+            _flavor_y), FLAVOR_BORE),
     ("F2", (interface.bundle_mount_x - interface.flavor_tube_x_offset - FLAVOR_SPREAD,
-            _flavor_y), TUBE_BORE),
+            _flavor_y), FLAVOR_BORE),
     ("D", (interface.drain_tube_x, interface.drain_tube_y - DRAIN_FORWARD), DRAIN_BORE),
     ("SIG", CABLE_XY, CABLE_SLOT_LENGTH),
 )
@@ -106,6 +107,7 @@ def main():
         "ORGANIZER_LENGTH": f"{LENGTH:g} mm",
         "ORGANIZER_TUBE_BORE": f"{TUBE_BORE:.2f} mm",
         "ORGANIZER_DRAIN_BORE": f"{DRAIN_BORE:.2f} mm",
+        "ORGANIZER_FLAVOR_BORE": f"{FLAVOR_BORE:.2f} mm",
         "ORGANIZER_CABLE_SLOT": f"{CABLE_SLOT_LENGTH:g} × {CABLE_SLOT_DEPTH:g} mm",
         "ORGANIZER_ENTRY": f"{ENTRY:g} mm",
         "ORGANIZER_CONTACT": f"{LENGTH - 2 * ENTRY:g} mm",

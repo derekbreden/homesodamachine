@@ -229,7 +229,9 @@ def build_word(which: str):
 
 
 def bore_d(which):
-    return (4.0 + 0.05 + BORE_SHRINK + SLIP) if which == "drain" else BORE
+    # neoFlo publishes ±0.003 inch OD tolerance for its 4 mm stock.
+    return (4.0 + 0.0762 + BORE_SHRINK + SLIP) if which in (
+        "drain", "flavor-a", "flavor-b") else BORE
 
 
 def build_blank(which="water"):

@@ -262,7 +262,7 @@ def capped_lid_rib(lid, name, face_z):
     frame = _anchor_cap.Frame((cx, cy, face_z + b_face),
                               (1.0, 0.0, 0.0) if row.along == "x" else (0.0, 1.0, 0.0),
                               (0.0, 0.0, -1.0))
-    lid = lid.union(_anchor_cap.rib(frame, b_face).clean())
+    lid = lid.union(_anchor_cap.rib(frame, b_face, row.seat_r).clean())
     for cutter in (_anchor_cap.windows(frame, _anchor_cap.window_top(b_face))
                    + _anchor_cap.wing_room(frame, b_face)):
         lid = lid.cut(cutter)
@@ -276,7 +276,7 @@ def capped_lid_rib_volume(name):
     a = _anchor_cap
     b_face = cap_anchor_axis_over_face(name)
     post = a.RIB_LEN * (2.0 * a.RIB_R * b_face - a.RIB_CHAMFER ** 2
-                        - 0.5 * math.pi * a.SEAT_R ** 2)
+                        - 0.5 * math.pi * cap_anchors[name].seat_r ** 2)
     in_post = 2.0 * a.WINDOW_DEPTH * (b_face - a.WINDOW_B0) * a.WINDOW_LEN
     in_plate = (2.0 * (a.WINDOW_DEPTH + a.SLOT_W) * (a.SLOT_TOP - b_face) * a.WINDOW_LEN
                 if b_face < a.SLOT_TOP - a.HEADROOM / 2.0 else 0.0)

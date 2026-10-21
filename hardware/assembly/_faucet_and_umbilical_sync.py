@@ -95,6 +95,7 @@ def main():
         "ORGANIZER_TOP_Z": f"{faucet.organizer_top_z:g} mm",
         "ORGANIZER_LENGTH": f"{faucet.umbilical_organizer.LENGTH:g} mm",
         "ORGANIZER_TUBE_BORE": f"{faucet.umbilical_organizer.TUBE_BORE:.2f} mm",
+        "ORGANIZER_FLAVOR_BORE": f"{faucet.umbilical_organizer.FLAVOR_BORE:.2f} mm",
         "ORGANIZER_DRAIN_BORE": f"{faucet.umbilical_organizer.DRAIN_BORE:.2f} mm",
         "ORGANIZER_CABLE_SLOT": f"{faucet.umbilical_organizer.CABLE_SLOT_LENGTH:g} × {faucet.umbilical_organizer.CABLE_SLOT_DEPTH:g} mm",
         "ORGANIZER_MIN_MATERIAL": f"{faucet.umbilical_organizer.MIN_MATERIAL:g} mm",
@@ -120,30 +121,14 @@ def main():
         "FAUCET_PLATE_T": f"{faucet.above_counter_plate.plate_thickness:g}",
         "FLAVOR_NOMINAL": f"{1200 + faucet.countertop_thickness + plate_gasket + faucet.flavor_path_above_foot():.0f}",
         "BLUE_NOMINAL": f"{1200 + faucet.soda_umbilical_tube_z_top - faucet.countertop_bottom_z:.0f}",
-        # A White faucet's flavor pair, white through the faucet and black in the umbilical, and
-        # the 3/8" soda faucet tube either finish cuts from its own stock — §1.
-        "WHITE_A_CUT": f"{faucet.white_cut_length(+1):g}",
-        "WHITE_B_CUT": f"{faucet.white_cut_length(-1):g}",
-        "BLACK_A_CUT": f"{faucet.black_run_cut_length(+1):g}",
-        "BLACK_B_CUT": f"{faucet.black_run_cut_length(-1):g}",
         "SODA_FAUCET_CUT": f"{faucet.soda_faucet_cut_length:g}",
-        # The two unions that join them, end to end at the braid's top — §2 and §3. Source:
-        # `reference/jg-pp0408w/jg_pp0408w.py` through the assembly that stands them.
-        "UNION_GAP": f"{faucet.union_gap:.4g} mm",
-        "UNION_INSERTION": f"{faucet.union.INSERTION:g} mm",
-        "UNION_B_BELOW_PLATE": f"{faucet.under_counter_plate_bottom_z - faucet.union_b_top_z:.0f} mm",
-        "FLAVOR_A_STEP_LEAD": f"{faucet.flavor_a_step_lead:g} mm",
-        "FLAVOR_A_STEP_DELAY": f"{faucet.flavor_a_step_lead - faucet.flavor_b_step_lead:g} mm",
         "COUNTERTOP_MAX_THICKNESS": f"{faucet.countertop_max_thickness:g} mm",
-        "STEP_X": f"{faucet.step_x:.4g} mm",
-        "UNION_RING_D": f"{faucet.union.RING_D:.3g}",
-        "UNION_BESIDE_FOAM": f"{faucet.foam_od + faucet.union.RING_D:.3g} mm",
         # The foam's run from the pack's first plane, and the top braid segment carried on above
         # it over the unions — §3.
         "FOAM_LENGTH": f"{faucet.foam_length:.0f}",
         "FOAM_BARE_TOP": f"{faucet.foam_bare_at_westbrass:.0f} mm",
         "SLEEVE_ABOVE_FOAM": f"{faucet.sleeve_z_top - faucet.umbilical_z_bottom:.0f} mm",
-        "UNION_SLEEVE_BORE": f"{faucet.union_girth() / math.pi:.4g} mm",
+        "UNION_SLEEVE_BORE": f"{faucet.bare_bundle_girth() / math.pi:.4g} mm",
     }
 
     substitute_md(

@@ -17,7 +17,7 @@ let server, browser, baseUrl;
 
 function payload(file) {
   const names = file === machine ? ["display-cover"] : file.includes("faucet-layout/")
-    ? ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "westbrass", "above_counter_gasket", "faucet_display_screen", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x", "flavor_union_pos_x", "flavor_tube_bridge_pos_x", "flavor_umbilical_tube_pos_x", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate"]
+    ? ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "westbrass", "above_counter_gasket", "faucet_display_screen", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x", "flavor_umbilical_tube_pos_x", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate"]
     : ["part"];
   const chunks = [], meshes = [];
   let offset = 0;
@@ -103,8 +103,6 @@ test("style swaps actual geometry in place; finish covers the exterior, lever, d
   try {
     const initial = await materials(page);
     const blackBodies = await visible(page);
-    assert.equal(blackBodies.flavor_union_pos_x, false);
-    assert.equal(blackBodies.flavor_tube_bridge_pos_x, true);
     await page.evaluate(() => {
       const h = window.__hsm;
       h.camera.position.set(42, -127, 93); h.camera.up.set(.1, .15, .98).normalize();
@@ -113,11 +111,9 @@ test("style swaps actual geometry in place; finish covers the exterior, lever, d
     const before = await pose(page);
     await choose(page, "finish", "white");
     const white = await materials(page);
-    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "above_counter_gasket", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x"]) assert.ok(white[name][0] > .8, name);
-    for (const name of ["westbrass", "faucet_display_screen", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate", "flavor_umbilical_tube_pos_x"]) assert.deepEqual(white[name], initial[name], name);
+    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "above_counter_gasket", "lever", "soda_faucet_tube"]) assert.ok(white[name][0] > .8, name);
+    for (const name of ["westbrass", "faucet_display_screen", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate", "flavor_tube_pos_x", "flavor_tube_neg_x", "flavor_umbilical_tube_pos_x"]) assert.deepEqual(white[name], initial[name], name);
     const whiteBodies = await visible(page);
-    assert.equal(whiteBodies.flavor_union_pos_x, true);
-    assert.equal(whiteBodies.flavor_tube_bridge_pos_x, false);
     assert.equal(whiteBodies.flavor_umbilical_tube_pos_x, true);
     samePose(await pose(page), before);
     await choose(page, "style", "industrial");
