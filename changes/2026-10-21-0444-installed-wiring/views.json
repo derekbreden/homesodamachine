@@ -1,0 +1,245 @@
+{
+  "views": [
+    {
+      "name": "cartridge",
+      "caption": "Two wires per motor follow the existing cartridge grooves.",
+      "before": "cartridge-before.webp",
+      "after": "cartridge-after.webp",
+      "width": 1200,
+      "height": 760,
+      "marks": [
+        {
+          "x": 698.5,
+          "y": 400.6,
+          "r": 22.5,
+          "label": "Paired leads",
+          "at": [
+            35,
+            55,
+            282
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          89.0720571537189,
+          578.8006350413211
+        ],
+        "target": [
+          0,
+          62,
+          278
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 135,
+        "near": 203.40801718255574,
+        "far": 530.5924728464736,
+        "aspect": 1.5789473684210527
+      },
+      "highlight": [
+        "wire-cartridge-*",
+        "terminal-pogo-female-*"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-pump-cap",
+        "pump-contact-female",
+        "wire-cartridge-*",
+        "terminal-pogo-female-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5b96c7e401eb25b0a2dd96b3dd9759321deab8d43c0d8ba7171869dde09b4d4f",
+          "commit": "781d290cb0d62e78c359f128e26892c578ffdcb3",
+          "taken": "2026-10-21T05:40:41.060Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
+          "commit": "51d8530fa598782e82ecdcae52adbd1fd8679515",
+          "published": true
+        }
+      },
+      "changed": [
+        "anchor-cap-fluid-28",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "wire-J11-AOUT",
+        "wire-J6-earth-4",
+        "wire-J7-carb-earth-2",
+        "wire-PE-carbonator",
+        "wire-J4-IO26",
+        "wire-J4-3V3",
+        "anchor-cap-fluid-18",
+        "wire-temp-GND",
+        "wire-J7-CLO",
+        "wire-J6-RA3",
+        "wire-J7-CHI",
+        "wire-flow-GND",
+        "wire-J6-RA4",
+        "wire-J7-earth-4",
+        "wire-J6-RA2",
+        "tube-fluid-18",
+        "wire-J6-RA1",
+        "wire-J7-RB4",
+        "wire-temp-bus-GND",
+        "wire-temp-bus-DATA",
+        "wire-temp-bus-V",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-DC4-GND",
+        "wire-J7-RB3",
+        "wire-J7-RB1",
+        "wire-cartridge-AM2",
+        "wire-DC1-V12",
+        "wire-AC2-L",
+        "wire-cartridge-BM2",
+        "wire-J7-RB2",
+        "wire-J9-GND",
+        "wire-J5-IO2",
+        "wire-J5-V5",
+        "tube-fluid-28",
+        "wire-J2-positive-I",
+        "wire-J9-V12",
+        "enclosure-back-top",
+        "wire-J3-IO33",
+        "wire-AC2-N",
+        "wire-J3-V5",
+        "wire-J2-positive-J",
+        "cold-core/foam-cap-lid-top",
+        "wire-J9-B",
+        "wire-DC1-GND",
+        "wire-AC1-L",
+        "wire-J1-OUT1",
+        "cold-core/foam-cap-top",
+        "wire-J4-GND",
+        "wire-J9-A",
+        "wire-J3-IO35",
+        "wire-J7-earth-3",
+        "wire-J7-carb-earth-1",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "wire-J2-positive-fan",
+        "wire-DC4-V12",
+        "wire-J5-IO19",
+        "wire-J2-OUT1",
+        "wire-J5-GND",
+        "wire-J13-AM1",
+        "wire-J7-earth-2",
+        "wire-J7-earth-1",
+        "wire-AC1-N",
+        "wire-J3-GND",
+        "wire-J1-positive-B",
+        "wire-J1-COM",
+        "wire-J1-positive-H",
+        "wire-relay-bus-V5",
+        "wire-J11-GND",
+        "wire-J6-earth-1",
+        "wire-J6-earth-3",
+        "wire-J6-earth-2",
+        "wire-J1-positive-C",
+        "wire-J7-GND",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "wire-cartridge-AM1",
+        "wire-AC3-L",
+        "wire-J1-positive-A",
+        "wire-cartridge-BM1",
+        "wire-AC1-PE",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "terminal-pogo-male-2"
+      ],
+      "withinMeshing": [
+        "bulkhead-ring-flavor-b-word",
+        "bulkhead-ring-flavor-a-word",
+        "cold-core/foam-cap-bottom"
+      ]
+    },
+    {
+      "name": "sensor-passage",
+      "caption": "One shared passage opens into the main foam cavity for the internal sensor and earth leads.",
+      "before": "sensor-passage-before.webp",
+      "after": "sensor-passage-after.webp",
+      "width": 1200,
+      "height": 760,
+      "marks": [
+        {
+          "x": 600,
+          "y": 357.1,
+          "r": 50.7,
+          "label": "Shared cable passage",
+          "at": [
+            -36,
+            -74,
+            10
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -265.6136299078421,
+          -467.6233655563007,
+          220.2126563429962
+        ],
+        "target": [
+          -36,
+          -74,
+          7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 45,
+        "near": 368.77655537243885,
+        "far": 913.8142595484081,
+        "aspect": 1.5789473684210527
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-cap-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "6959278e7e933181a4528e64268871c2f1febbc6800ad61a01ebb22c5c262a3a",
+          "commit": "f071b761b8e35b2a402a5e97f680ae1a90f40066",
+          "taken": "2026-10-21T06:26:01.430Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+          "from": "tree",
+          "sha256": "162f1ee3bda798d78799b7fe151d4da9645186e0878298b1da8d034529a79b23",
+          "commit": "51d8530fa598782e82ecdcae52adbd1fd8679515",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-cap-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
