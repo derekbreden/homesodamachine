@@ -55,5 +55,40 @@
         "bore_probe_overlap_mm3": 0.0
       }
     }
+  },
+  "post_publication_lint": {
+    "piece": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+    "stl_sha256": "2c510d380cd35191006766e5ab8f44a69c708fc0ab88c06aa30fcd39946bb745",
+    "reported_findings": 5,
+    "displayed_unanswered_regions": [
+      {
+        "class": "thin",
+        "minimum_mm": 1.996,
+        "click_mm": [
+          137.774,
+          -51.024,
+          13.432
+        ]
+      },
+      {
+        "class": "thin",
+        "minimum_mm": 1.999,
+        "click_mm": [
+          -118.505,
+          -39.168,
+          7.013
+        ]
+      },
+      {
+        "class": "thin",
+        "minimum_mm": 1.999,
+        "click_mm": [
+          -118.505,
+          40.832,
+          7.013
+        ]
+      }
+    ],
+    "scope": "The lint flags the cap\u2019s broader approximately 2 mm stock. These findings remain open; this passage geometry reading supplies no thin-wall waiver or print acceptance."
   }
 }
