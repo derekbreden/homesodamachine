@@ -1819,6 +1819,8 @@
   },
   "hardware/manifold-layout/enclosure_assembly.py": {
     "reads": [
+      "hardware/assembly/harnesses/j13.json",
+      "hardware/assembly/harnesses/j2.json",
       "hardware/assembly/scenes/_scenes.py",
       "hardware/assembly/scenes/render_scenes.py",
       "hardware/cold-core-layout/_bom.py",
@@ -2049,6 +2051,7 @@
       "hardware/reference/riteav-keystone/riteav-keystone.step",
       "hardware/reference/riteav-keystone/riteav_keystone.py",
       "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+      "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
       "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
       "hardware/reference/tee-connector/tee-connector.step",
       "hardware/reference/tee-connector/tee_connector.py",
@@ -2059,6 +2062,7 @@
       "hardware/reference/wago-221/wago-221-420.step",
       "hardware/reference/wago-221/wago_221.py",
       "hardware/reference/water-split/water_split.py",
+      "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
       "hardware/reference/wr1110-regulator/wr1110-regulator.step",
       "hardware/reference/wr1110-regulator/wr1110_regulator.py",
@@ -2086,6 +2090,18 @@
       "hardware/scripts/flute_payload.py",
       "hardware/scripts/pick_text.py",
       "hardware/topology/fluid-topology.md",
+      "hardware/wiring/installed/__init__.py",
+      "hardware/wiring/installed/build.py",
+      "hardware/wiring/installed/bundle-routes.json",
+      "hardware/wiring/installed/bundles.py",
+      "hardware/wiring/installed/connections.py",
+      "hardware/wiring/installed/connector-map.json",
+      "hardware/wiring/installed/model.py",
+      "hardware/wiring/installed/route-overrides.json",
+      "hardware/wiring/installed/routes.py",
+      "hardware/wiring/installed/step_merge.py",
+      "hardware/wiring/installed/terminals.py",
+      "hardware/wiring/installed/terminations.py",
       "tools/bazel/graph.json",
       "tools/docgen/__init__.py"
     ],
@@ -2106,7 +2122,11 @@
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
       "hardware/manifold-layout/enclosure-assembly.step",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh"
+      "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "hardware/wiring/enclosure-wiring.csv",
+      "hardware/wiring/enclosure-wiring.json",
+      "hardware/wiring/enclosure-wiring.step",
+      "hardware/wiring/enclosure-wiring.step.mesh"
     ]
   },
   "hardware/manifold-layout/enclosure_box.py": {

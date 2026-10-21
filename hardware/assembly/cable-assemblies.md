@@ -59,6 +59,13 @@ display and the pumps — where the enclosure's columns slide apart and its halv
 side faces, and a loom that parts at the seam lets a quadrant come away without being unthreaded.
 Whether any loom is broken for that is Open item 4.
 
+The [installed wiring model](../wiring/README.md) gives each conductor a stable
+ID in the populated enclosure, including its attachment direction, proposed
+route and modeled length. Its [worksheet](../wiring/enclosure-wiring.csv) is a
+routing record, not a finished cut list. Each reservoir column uses one continuous
+common with four insulated reed taps; the carbonator pair shares a separate
+common. Their Wagos join the column/pair commons to the board return.
+
 ### XH contacts
 
 Every board-end termination inside the enclosure is hand-crimped: a ribbon conductor cannot arrive

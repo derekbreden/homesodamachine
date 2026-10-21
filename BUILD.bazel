@@ -2510,6 +2510,8 @@ cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O7
 genrule(
     name = "enclosure-assembly",
     srcs = [
+        "hardware/assembly/harnesses/j13.json",
+        "hardware/assembly/harnesses/j2.json",
         "pysrc/hardware/assembly/scenes/_scenes.py",
         "pysrc/hardware/assembly/scenes/render_scenes.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -2737,6 +2739,7 @@ genrule(
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+        ":out/sf76e-thermal-fuse/hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
@@ -2747,6 +2750,7 @@ genrule(
         ":out/wago-221/hardware/reference/wago-221/wago-221-420.step",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
+        ":out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
         ":out/wr1110-regulator/hardware/reference/wr1110-regulator/wr1110-regulator.step",
         "pysrc/hardware/reference/wr1110-regulator/wr1110_regulator.py",
@@ -2774,6 +2778,18 @@ genrule(
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
+        "pysrc/hardware/wiring/installed/__init__.py",
+        "pysrc/hardware/wiring/installed/build.py",
+        "hardware/wiring/installed/bundle-routes.json",
+        "pysrc/hardware/wiring/installed/bundles.py",
+        "pysrc/hardware/wiring/installed/connections.py",
+        "hardware/wiring/installed/connector-map.json",
+        "pysrc/hardware/wiring/installed/model.py",
+        "hardware/wiring/installed/route-overrides.json",
+        "pysrc/hardware/wiring/installed/routes.py",
+        "pysrc/hardware/wiring/installed/step_merge.py",
+        "pysrc/hardware/wiring/installed/terminals.py",
+        "pysrc/hardware/wiring/installed/terminations.py",
         "tools/bazel/graph.json",
         "pysrc/tools/docgen/__init__.py",
     ],
@@ -2794,6 +2810,10 @@ genrule(
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv",
+        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.json",
+        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step",
+        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh",
     ],
     cmd = """
 set -e
@@ -2813,6 +2833,10 @@ O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-a
 O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
 O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
 O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O16=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv)
+O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.json)
+O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
+O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2845,6 +2869,10 @@ cp hardware/manifold-layout/enclosure-assembly.facts.json $$O12
 cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O13
 cp hardware/manifold-layout/enclosure-assembly.step $$O14
 cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O15
+cp hardware/wiring/enclosure-wiring.csv $$O16
+cp hardware/wiring/enclosure-wiring.json $$O17
+cp hardware/wiring/enclosure-wiring.step $$O18
+cp hardware/wiring/enclosure-wiring.step.mesh $$O19
 """,
 )
 
@@ -13175,6 +13203,78 @@ genrule(
     name = "pysrc-8ba911d76f36",
     srcs = ["hardware/wiring/_ac_wiring_schedule_sync.py"],
     outs = ["pysrc/hardware/wiring/_ac_wiring_schedule_sync.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-bfc0f9365107",
+    srcs = ["hardware/wiring/installed/__init__.py"],
+    outs = ["pysrc/hardware/wiring/installed/__init__.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-b47aefe48866",
+    srcs = ["hardware/wiring/installed/build.py"],
+    outs = ["pysrc/hardware/wiring/installed/build.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-a10ea494785d",
+    srcs = ["hardware/wiring/installed/bundles.py"],
+    outs = ["pysrc/hardware/wiring/installed/bundles.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-e9501852844f",
+    srcs = ["hardware/wiring/installed/connections.py"],
+    outs = ["pysrc/hardware/wiring/installed/connections.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-113c2acc44f1",
+    srcs = ["hardware/wiring/installed/model.py"],
+    outs = ["pysrc/hardware/wiring/installed/model.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-215a5509fb9f",
+    srcs = ["hardware/wiring/installed/routes.py"],
+    outs = ["pysrc/hardware/wiring/installed/routes.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7059939ca10e",
+    srcs = ["hardware/wiring/installed/step_merge.py"],
+    outs = ["pysrc/hardware/wiring/installed/step_merge.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-38ecf2ec97c3",
+    srcs = ["hardware/wiring/installed/terminals.py"],
+    outs = ["pysrc/hardware/wiring/installed/terminals.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-04316b74c04b",
+    srcs = ["hardware/wiring/installed/terminations.py"],
+    outs = ["pysrc/hardware/wiring/installed/terminations.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

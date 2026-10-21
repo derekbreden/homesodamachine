@@ -119,8 +119,9 @@ def _split_placed(a) -> tuple:
     import manifold_layout as ml
 
     inside = getattr(a, "core_body_names", frozenset())
+    wires = getattr(a, "wiring_body_names", frozenset())
     for name, solid, _colour in ml.placed_leaves(a):
-        if name in inside:
+        if name in inside or name in wires:
             continue
         target = (pieces if name.startswith("enclosure-")
                   else tubes if name.startswith(TUBE_PREFIXES) else bodies)
