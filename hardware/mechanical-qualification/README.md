@@ -648,6 +648,11 @@ does not require a physical comparison before choosing a supported starting reci
 wall paths and local solid regions for the load path, choose the sparse pattern for the
 remaining interior, and preserve the identified accepted flexures and surface treatments.
 
+The [Mark2 gyroid comparison](../print-tests/enclosure-infill/README.md) compares
+two/four walls and 15%/25% infill on standing 3 mm wall strips and flat 6 mm floor
+strips. Its recipe and native readings describe those test pieces. The production
+baseline remains two walls and 15% gyroid unless Derek explicitly asks for a change.
+
 ## Other choices to assess
 
 | Choice | Current evidence or assumption | Customer outcome and design question |

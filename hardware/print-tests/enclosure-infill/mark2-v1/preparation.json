@@ -1,0 +1,334 @@
+{
+  "purpose": "Manual comparison of perceived stiffness and equal-load deflection; no automatic production-setting change.",
+  "printer": "Mark2",
+  "name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1",
+  "prepared_utc": "2026-10-21T05:28:31.905945+00:00",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "generator_sha256": "930a645194835134e20abc61af32a772ef6fe8d062e573f364146381aa69240a",
+  "project": "hardware/print-tests/enclosure-infill/mark2-v1/input.3mf",
+  "project_sha256": "cf075cd6ad918cc43d6693603eebe5aa9339a272d3d6b8651bc40e7f291dca90",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_z_trim_mm": 0.02,
+  "global_setting_edits": {
+    "filament_colour": [
+      "#161616"
+    ],
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "test_span_mm": 120.0,
+  "support_positions_from_plain_end_mm": [
+    15.0,
+    135.0
+  ],
+  "objects": [
+    {
+      "case": 1,
+      "kind": "wall",
+      "notches": 1,
+      "name": "1-wall-2walls-15gyroid",
+      "object_id": 2,
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/1-wall-2walls-15gyroid.stl",
+      "source_sha256": "b471e55e1429a05e38d5e8199be6389a6ef5ec01fd8306981c53ebdaa23f4dc0",
+      "dimensions_print_mm": [
+        150.0,
+        3.0,
+        25.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          86.5,
+          0.0
+        ],
+        [
+          237.5,
+          89.5,
+          25.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 1,
+      "kind": "floor",
+      "notches": 1,
+      "name": "1-floor-2walls-15gyroid",
+      "object_id": 4,
+      "identify_id": 1902,
+      "member": "3D/Objects/object_2.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/1-floor-2walls-15gyroid.stl",
+      "source_sha256": "93cf0210bd483f6c39188b086cb83c721a6f089aa34de583a05897ea83face21",
+      "dimensions_print_mm": [
+        150.0,
+        25.0,
+        6.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          94.5,
+          0.0
+        ],
+        [
+          237.5,
+          119.5,
+          6.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 2,
+      "kind": "wall",
+      "notches": 2,
+      "name": "2-wall-4walls-15gyroid",
+      "object_id": 6,
+      "identify_id": 1903,
+      "member": "3D/Objects/object_3.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/2-wall-4walls-15gyroid.stl",
+      "source_sha256": "b60b7ea5c8b5d5c5eb6d50ba2cc0c56e1bf9d5c6096da22606dcfac089422313",
+      "dimensions_print_mm": [
+        150.0,
+        3.0,
+        25.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          124.5,
+          0.0
+        ],
+        [
+          237.5,
+          127.5,
+          25.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "4",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 2,
+      "kind": "floor",
+      "notches": 2,
+      "name": "2-floor-4walls-15gyroid",
+      "object_id": 8,
+      "identify_id": 1904,
+      "member": "3D/Objects/object_4.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/2-floor-4walls-15gyroid.stl",
+      "source_sha256": "49efb386cbdfd1570f3a2f9498103c00200dd12c9be79c16e910ca4a45ccc235",
+      "dimensions_print_mm": [
+        150.0,
+        25.0,
+        6.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          132.5,
+          0.0
+        ],
+        [
+          237.5,
+          157.5,
+          6.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "4",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 3,
+      "kind": "wall",
+      "notches": 3,
+      "name": "3-wall-2walls-25gyroid",
+      "object_id": 10,
+      "identify_id": 1905,
+      "member": "3D/Objects/object_5.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/3-wall-2walls-25gyroid.stl",
+      "source_sha256": "66fba875aabddedadff3e602e86daf1fff6ee700b4679ec59de8316d50493883",
+      "dimensions_print_mm": [
+        150.0,
+        3.0,
+        25.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          162.5,
+          0.0
+        ],
+        [
+          237.5,
+          165.5,
+          25.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "2",
+        "sparse_infill_density": "25%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 3,
+      "kind": "floor",
+      "notches": 3,
+      "name": "3-floor-2walls-25gyroid",
+      "object_id": 12,
+      "identify_id": 1906,
+      "member": "3D/Objects/object_6.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/3-floor-2walls-25gyroid.stl",
+      "source_sha256": "920fe0832ed1f920bd7bc1b85e246fa4a28f8907d58ff192997d44f1f91ad4cd",
+      "dimensions_print_mm": [
+        150.0,
+        25.0,
+        6.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          170.5,
+          0.0
+        ],
+        [
+          237.5,
+          195.5,
+          6.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "2",
+        "sparse_infill_density": "25%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 4,
+      "kind": "wall",
+      "notches": 4,
+      "name": "4-wall-4walls-25gyroid",
+      "object_id": 14,
+      "identify_id": 1907,
+      "member": "3D/Objects/object_7.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/4-wall-4walls-25gyroid.stl",
+      "source_sha256": "342582f07d03ff2d4bb5eb04f4ccd81d19ba1ef4fc126fb8614db784bc78c2ad",
+      "dimensions_print_mm": [
+        150.0,
+        3.0,
+        25.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          200.5,
+          0.0
+        ],
+        [
+          237.5,
+          203.5,
+          25.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "4",
+        "sparse_infill_density": "25%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    },
+    {
+      "case": 4,
+      "kind": "floor",
+      "notches": 4,
+      "name": "4-floor-4walls-25gyroid",
+      "object_id": 16,
+      "identify_id": 1908,
+      "member": "3D/Objects/object_8.model",
+      "source": "hardware/print-tests/enclosure-infill/mark2-v1/parts/4-floor-4walls-25gyroid.stl",
+      "source_sha256": "7b97363979d55c341d3e3579517429823ac04b35f4ebbbb156efd1bed2fc0014",
+      "dimensions_print_mm": [
+        150.0,
+        25.0,
+        6.0
+      ],
+      "plate_bounds_mm": [
+        [
+          87.5,
+          208.5,
+          0.0
+        ],
+        [
+          237.5,
+          233.5,
+          6.0
+        ]
+      ],
+      "settings": {
+        "wall_loops": "4",
+        "sparse_infill_density": "25%",
+        "sparse_infill_pattern": "gyroid"
+      },
+      "watertight": true,
+      "body_count": 1
+    }
+  ],
+  "submitted": false
+}
