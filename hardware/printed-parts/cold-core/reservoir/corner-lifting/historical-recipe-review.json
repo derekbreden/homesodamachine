@@ -1,0 +1,232 @@
+{
+  "recorded_on": "2026-10-21",
+  "status": "Historical settings and founder preference review; no executable recipe or printer changed.",
+  "founder_quotes": [
+    "My experience has been that brims are useless for this problem, the larger objects breaks away from the brim easily as it curls up. You just get a brim stuck to the plate that is difficult to remove, and you get a brim stuck to the larger object that results in a rough edge where it is removed.",
+    "I'm a fan of going with 1.02 flow.",
+    "Talk to me about the other settings from that recovered May clear-PETG reservoir recipe, and talk to me about the settings from our spherical pressure vessel test (when we were considering printing the carbonator instead of welding it), which my recollection was it was essentially \"bambu defaults + higher flow ratio + no-infill-just-walls\".",
+    "Basically everything since then has been agents trying to explain why those choices weren't great, and the evidence all being the contrary."
+  ],
+  "brim_disposition": {
+    "selected": false,
+    "evidence": "Derek reports the large part separates from its brim during curl, difficult bed cleanup, and a rough removal edge on the object. No brim is proposed for this reservoir problem.",
+    "scope": "Reported experience; specific earlier articles and recipes not identified."
+  },
+  "may_30": {
+    "acceptance_id": "may-30-clear-06",
+    "native_project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
+    "native_application": "BambuStudio-02.07.00.55",
+    "active_nozzle": "left 0.6 mm Standard",
+    "actual_material": "Bambu PETG clear, as confirmed by Derek; saved identity is PETG Basic GFG00.",
+    "settings": {
+      "layer_height": "0.18",
+      "initial_layer_print_height": "0.3",
+      "line_width": "0.6",
+      "initial_layer_line_width": "0.6",
+      "outer_wall_line_width": "0.6",
+      "inner_wall_line_width": "0.6",
+      "wall_loops": "6",
+      "wall_generator": "arachne",
+      "wall_sequence": "inner wall/outer wall",
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "top_shell_layers": "3",
+      "top_shell_thickness": "0.8",
+      "bottom_shell_layers": "3",
+      "bottom_shell_thickness": "0",
+      "infill_wall_overlap": "15%",
+      "seam_position": "random",
+      "seam_gap": "15%",
+      "seam_slope_type": "all",
+      "seam_slope_conditional": "1",
+      "seam_slope_inner_walls": "1",
+      "seam_slope_start_height": "10%",
+      "override_filament_scarf_seam_setting": "1",
+      "ironing_type": "top",
+      "brim_type": "auto_brim",
+      "brim_width": "5",
+      "brim_object_gap": "0.1",
+      "support_type": "normal(auto)",
+      "support_top_z_distance": "0.25",
+      "support_bottom_z_distance": "0.18",
+      "filament_flow_ratio": "1.02",
+      "filament_max_volumetric_speed": "21",
+      "nozzle_temperature_initial_layer": "255",
+      "nozzle_temperature": "260",
+      "textured_plate_temp": "70",
+      "textured_plate_temp_initial_layer": "70",
+      "fan_min_speed": "10",
+      "fan_max_speed": "20",
+      "overhang_fan_speed": "90",
+      "overhang_fan_threshold": "10%",
+      "additional_cooling_fan_speed": "0",
+      "close_fan_the_first_x_layers": "3",
+      "initial_layer_speed": "50",
+      "initial_layer_infill_speed": "105",
+      "outer_wall_speed": "200",
+      "inner_wall_speed": "300",
+      "internal_solid_infill_speed": "250",
+      "sparse_infill_speed": "350",
+      "top_surface_speed": "200"
+    },
+    "settings_scope": "Active left/nozzle-0 values. Requested speeds are not achieved motion. Saved native project has no deposited G-code; no precise runtime or emitted brim is established.",
+    "reported_result": "Held water for several hours; supported floor released without tear-out.",
+    "surviving_water_filament_preset": {
+      "inherits": "Bambu PETG Basic @BBL H2C",
+      "version": "2.7.0.2",
+      "filament_flow_ratio": [
+        "1.02",
+        "nil"
+      ],
+      "nozzle_temperature_initial_layer": [
+        "255",
+        "nil"
+      ],
+      "nozzle_temperature": [
+        "260",
+        "nil"
+      ],
+      "fan_min_speed": [
+        "10"
+      ],
+      "fan_max_speed": [
+        "20"
+      ]
+    },
+    "preset_scope": "Surviving version 2.7.0.2 user preset: inherits PETG Basic and stores flow, nozzle temperatures and ordinary cooling overrides. Embedded May project, rather than present-day inheritance, determines historical resolved values."
+  },
+  "installed_bambu_08_profiles": [
+    {
+      "name": "Bambu PETG Basic @BBL H2C 0.8 nozzle.json",
+      "sha256": "59ab9f4e6fe83b5b93b125bd2088ce5731faa17565621f32b9ca925d25c0a568",
+      "settings": {
+        "inherits": "Bambu PETG Basic @base",
+        "filament_max_volumetric_speed": [
+          "21",
+          "28"
+        ],
+        "nozzle_temperature": [
+          "250",
+          "250"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "245",
+          "245"
+        ]
+      }
+    },
+    {
+      "name": "Bambu PETG Translucent @BBL H2C 0.8 nozzle.json",
+      "sha256": "5b285fb7b2a13300252b3418e8221f1d546407535cf9e6fe16017d0b21a9e4b8",
+      "settings": {
+        "inherits": "Bambu PETG Translucent @base",
+        "filament_max_volumetric_speed": [
+          "16",
+          "16"
+        ],
+        "nozzle_temperature": [
+          "245",
+          "245"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "250",
+          "250"
+        ]
+      }
+    },
+    {
+      "name": "0.24mm Balanced Quality @BBL H2C 0.8 nozzle.json",
+      "sha256": "9e3c361cea0cedc7f28fd68f64476d40cd0b6d6d366cd69234cbef8e340a3e00",
+      "settings": {
+        "inherits": "fdm_process_dual_0.24_nozzle_0.8",
+        "outer_wall_speed": [
+          "200",
+          "200",
+          "200",
+          "200"
+        ],
+        "inner_wall_speed": [
+          "300",
+          "300",
+          "300",
+          "300"
+        ],
+        "internal_solid_infill_speed": [
+          "250",
+          "250",
+          "250",
+          "250"
+        ],
+        "sparse_infill_speed": [
+          "350",
+          "350",
+          "350",
+          "350"
+        ],
+        "top_surface_speed": [
+          "200",
+          "200",
+          "200",
+          "200"
+        ],
+        "initial_layer_speed": [
+          "50",
+          "50",
+          "50",
+          "50"
+        ],
+        "initial_layer_infill_speed": [
+          "105",
+          "105",
+          "105",
+          "105"
+        ]
+      }
+    }
+  ],
+  "profile_scope": "Factory profile values read on 2026-10-21 from installed Bambu Studio. Basic Standard-flow ceiling is 21 mm3/s, Translucent is 16. Both preserve ordinary high requested process speeds. Neither supplies a physical result for this current article.",
+  "seam_override_review": {
+    "claim_reviewed": "A September 5 agent treated filament_scarf_seam_type none as disabling the process scarf despite override_filament_scarf_seam_setting enabled.",
+    "source_versions": [
+      "v02.07.00.55",
+      "v02.08.02.61"
+    ],
+    "source_url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode.cpp",
+    "finding": "With the override true, GCode::extrude_loop selects the process seam_slope_type instead of the filament setting. May requests all with conditional scarf; the first layer is excluded. Filament none or has_scarf_joint_seam 0 alone does not prove scarf disabled. Exact emitted historical ramp locations are unverified without historical G-code.",
+    "evidence_class": "Source-code behavior; the September assertion is agent interpretation, not a measured physical defect.",
+    "private_transcript_export_sha256": "666bf2b22a678ce2b2299c9029d73624324211bd2a156a17fff07712f9def8fe"
+  },
+  "sphere": {
+    "founder_recollection": "Bambu defaults + higher flow ratio + no-infill-just-walls; earlier spherical pressure trials performed better than current reservoir attempts.",
+    "exact_project_recovered": false,
+    "numeric_flow_ratio": null,
+    "nozzle_mm": null,
+    "layer_height_mm": null,
+    "speed_or_volumetric_ceiling": null,
+    "measured_pressure_hold": null,
+    "scope": "Preserve Derek's reported positive experience. Do not substitute May settings as the exact sphere recipe or interpret one NPT-port leak as a failed unpierced shell.",
+    "recovered_sources": [
+      "archive-plan-b:hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py",
+      "b7dc4d576e9dc38794d190f31473f31d71aa4aa1: one printed NPT port wept at 5 psi or less",
+      "April 20–22 published project posts: sphere development and change from printed threaded port to bulkhead seat",
+      "Private April 20 CDT chat: 3D printing pressure vessels with PETG; initial design discussion, no completed local test settings/result"
+    ],
+    "search_scope": "Git history and archived sphere tree; surviving project session transcripts/metadata; matching historical Claude.ai chat; local Bambu presets/saved projects; Mark1 card root filenames. No test-bound native sphere archive found.",
+    "interpretation": "A saved pressure-test recipe remains missing. This limits exact reconstruction and does not negate the reported result."
+  },
+  "walls_only": {
+    "meaning": "Fill the modeled pressure/fluid shell with perimeter paths rather than sparse infill, retaining a solid liquid boundary.",
+    "reservoir_application": "Set sufficient wall loops to cover the full modeled wall thickness and make the complete 3 mm floor solid using bottom-shell thickness/layers or verified perimeter coverage. Zero sparse infill is a coherent candidate when that coverage is present.",
+    "scope": "The May reservoir file explicitly saved 100% infill. The sphere recollection is a distinct recipe. A fresh native preview would establish emitted floor/corner/wall continuity; neither the words walls-only nor a nominal six-wall request proves it."
+  },
+  "current_direction": {
+    "flow_ratio": 1.02,
+    "brim": "None, per Derek's reported experience.",
+    "reference": "Use the successful May Water temperature/cooling and ordinary Bambu motion settings as the baseline for discussion.",
+    "volumetric_speed": "The previous proposed 12 mm3/s target has no supporting physical result. Compare native Basic 21 and Translucent 16 defaults explicitly rather than treating 6 or 12 as a sealing requirement. Exact next-print selection is not implemented.",
+    "cooling": "May success includes a 90% overhang override. Current 90% body/floor commands remain an observed fact, not proof they caused lift or a requirement to remove them. A localized cooling change remains a separate testable option.",
+    "ironing": "Retain Off according to Derek's physical finish preference; May top ironing is historical, not established necessary for sealing.",
+    "evidence_rule": "Retain settings demonstrated by successful articles as the baseline. Later proposed optimizations do not establish superior sealing or speed without a relevant physical comparison."
+  }
+}

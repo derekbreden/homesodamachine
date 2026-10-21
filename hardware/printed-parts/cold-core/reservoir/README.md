@@ -18,9 +18,12 @@ The zero-user-trim Mark1 article has **reported corner curl and water leakage
 at many places**. Derek stopped it. The
 [physical result and photographs](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
 bind that outcome to task 1359909015. The
-[next-trial options](corner-lifting/next-trial-options.json) propose a forced brim,
-flow 1.02, 260 °C after the first layer, scoped cooling and a 12 mm³/s speed
-trial. These options are not applied to the project or qualified by a print.
+[next-trial discussion](corner-lifting/next-trial-options.json) uses **flow 1.02**
+and the successful May Water recipe as its reference. Derek declines brims based
+on separation during curl and poor removal results. The
+[historical recipe review](corner-lifting/historical-recipe-review.json)
+identifies the recovered settings and remaining sphere-record limits.
+Discussion choices are not applied to the project or qualified by a print.
 
 **[reservoir.3mf](reservoir.3mf)** preserves the failed article's current body/cap
 pairs and **September 0.24 mm baseline with ironing off**. Plate 1 holds the left body and cap;
