@@ -98,19 +98,49 @@ def mesh_review():
                 point,depth=max(bad,key=lambda h:h[1])
                 packing.append({'a':a,'b':b,'point_mm':[round(v,3) for v in point],
                                 'mesh_penetration_mm':round(depth,4)})
-    report={'schema':1,'scope':'One manual full-scene mesh interference review of every wire and every wire pair. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.',
+    bundle_collisions=[]
+    for bundle in manifest.get('bundles',{}).values():
+        name=bundle['geometry_name']
+        for other in physical:
+            if name==other or not near(name,other):continue
+            bad=[hit for hit in contacts(objects[name],objects[other]) if hit.penetration_depth>.025]
+            if bad:
+                hit=max(bad,key=lambda h:h.penetration_depth)
+                bundle_collisions.append({'bundle':name,'part':other,
+                    'point_mm':[round(float(v),3) for v in hit.pos],
+                    'mesh_penetration_mm':round(float(hit.penetration_depth),4)})
+    termination_collisions=[]
+    for name,info in manifest.get('terminations',{}).items():
+        if not name.startswith('terminal-fuse-'):continue
+        for other in physical:
+            if name==other or not near(name,other):continue
+            bad=[]
+            for hit in contacts(objects[name],objects[other]):
+                if (base_name(other)=='thermal-fuse' and 'native_stub_tip_mm' in info and
+                        math.dist(hit.pos,info['native_stub_tip_mm'])<=2.5):continue
+                if hit.penetration_depth>.025:bad.append(hit)
+            if bad:
+                hit=max(bad,key=lambda h:h.penetration_depth)
+                termination_collisions.append({'termination':name,'part':other,
+                    'point_mm':[round(float(v),3) for v in hit.pos],
+                    'mesh_penetration_mm':round(float(hit.penetration_depth),4)})
+    report={'schema':1,'scope':'One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.',
             'manifest_sha256':hashlib.sha256(MANIFEST.read_bytes()).hexdigest(),
             'assembly_step_sha256':hashlib.sha256(HOST.read_bytes()).hexdigest(),
             'assembly_mesh_sha256':hashlib.sha256(Path(str(HOST)+'.mesh').read_bytes()).hexdigest(),
             'wire_count':len(wires),'physical_mesh_count':len(physical),
             'coverage_missing':sorted(set(rows)-set(wires)),
             'physical_interference_pairs':collisions,'wire_packing_pairs':packing,
+            'bundle_interference_pairs':bundle_collisions,
+            'termination_interference_pairs':termination_collisions,
             'wires_with_physical_interference':len({r['wire'] for r in collisions}),
             'endpoint_contact_scope':'Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.',
             'native':json.loads(OUTPUT.read_text()).get('native') if OUTPUT.exists() else None}
     OUTPUT.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({'wires':len(wires),'physical_pairs':len(collisions),
-                      'packing_pairs':len(packing),'missing':report['coverage_missing']}),flush=True)
+                      'packing_pairs':len(packing),'bundle_pairs':len(bundle_collisions),
+                      'fuse_termination_pairs':len(termination_collisions),
+                      'missing':report['coverage_missing']}),flush=True)
 
 
 def native_review():
@@ -143,8 +173,11 @@ def native_review():
         for core in b['cores']:
             try:overlaps[core]=wires['wire-'+core][0].intersect(jacket).Volume()
             except Exception as exc:overlaps[core]={'unanswered':str(exc)}
+        from itertools import combinations
+        packing={a+' / '+c:wires['wire-'+a][0].intersect(wires['wire-'+c][0]).Volume()
+                 for a,c in combinations(b['cores'],2)}
         native['bundles'][id]={'valid':jacket.isValid(),'solids':len(jacket.Solids()),
-                               'core_jacket_overlap_mm3':overlaps}
+                               'core_jacket_overlap_mm3':overlaps,'core_pair_overlap_mm3':packing}
     ids=[r['id'] for r in manifest['routes']]
     native['unique_connection_ids']=len(set(ids))==len(ids)
     populated={r[k] for r in manifest['routes'] for k in ('start','end') if r[k].startswith('J')}
