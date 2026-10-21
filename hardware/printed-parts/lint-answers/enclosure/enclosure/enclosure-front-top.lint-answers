@@ -43,7 +43,7 @@ click: x=101.125 y=152.261 z=307.400
 [ledge] These two 2 mm projection faces are the separated manifold-A Wago retention tabs at Z295.300. They retain the connector ends while leaving the center open for lever/wire access and the selected short roof profile. Physical retention and support cleanup remain unqualified.
 alternatives: Removing the tabs removes end retention. Joining their ends changes the open-center pocket, lever access and support treatment.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.300 y=175.717 z=295.300
+click: x=98.300 y=176.383 z=295.300
 click: x=98.300 y=161.617 z=295.300
 
 [thin] Wrong material-thickness classification across a concave corner: front-top's upper Y-stack knuckle face (|X|104.25, exposed aft of Y200, top on the frame datum Z299.65) meets the funnel-frame foot's running clearance (|X|103.75, floor Z299.65, ending on the rear-narrowing plane Y200) only at one shared edge. Between |X|103.75 and 104.25 three of the four quadrants about that edge are solid. A ray along the knuckle sample's inward normal crosses 12.75 mm of material, and from the clearance wall 3.74 mm, the flank beside the clearance (probe on the current STL).
