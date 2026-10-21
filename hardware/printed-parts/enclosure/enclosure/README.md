@@ -166,9 +166,10 @@ base. Its H capitals are [6.5 mm](DISPOSAL_CAP_HEIGHT) high, and the letters are
 [0.6 mm](DISPOSAL_RELIEF) from the wall.
 The generator measures every warning letter's outline against the 6.4 mm minimum.
 
-Back-bottom prints floor-down, so the letters stand on a vertical wall. Each letter's outline
-is raked: it is carried out of the wall and up at 45° at once, so every stroke's underside is
-a 45° face the layer beneath carries, and the letter's face keeps its whole outline.
+Back-bottom prints floor-down, so the letters stand on a vertical wall. Every stroke's
+underside is raked: it rises out of the wall at 45° to the letter's face, a face the layer
+beneath carries. Every top is level and meets the face square, and the face keeps the
+letter's whole outline.
 
 The wall stays flat beneath the text and its [5 mm](DISPOSAL_MARGIN) margin, over a
 [181.0 mm](DISPOSAL_FIELD_WIDTH) by [64.5 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
