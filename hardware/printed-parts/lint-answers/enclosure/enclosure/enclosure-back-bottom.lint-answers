@@ -3,8 +3,8 @@ alternatives: Lowering the surrounding platform changes unrelated floor datums. 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-90.733 y=458.372 z=0.000
 
-[sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall.
-alternatives: The raked legend keeps these 0.6 mm flanks; 3 mm strokes would need letters about 15 mm tall.
+[sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks, each stroke's level top among them, and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall.
+alternatives: Any legend standing 0.6 mm proud has these 0.6 mm flanks; 3 mm strokes would need letters about 15 mm tall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=58.339 y=471.598 z=49.347
 click: x=53.050 y=471.597 z=11.828
@@ -16,7 +16,6 @@ click: x=7.534 y=471.600 z=30.589
 click: x=-6.531 y=471.598 z=58.726
 click: x=-8.656 y=471.598 z=11.828
 click: x=-19.022 y=471.600 z=30.589
-click: x=-20.078 y=471.597 z=58.725
 click: x=-41.271 y=471.599 z=11.829
 click: x=-50.049 y=471.598 z=49.347
 click: x=-52.311 y=471.600 z=39.969
@@ -46,12 +45,10 @@ click: x=-20.503 y=471.599 z=21.209
 click: x=-20.358 y=471.600 z=30.589
 click: x=-18.479 y=471.599 z=39.969
 click: x=-16.986 y=471.600 z=11.831
-click: x=-14.799 y=471.597 z=58.724
 click: x=-13.972 y=471.599 z=21.209
 click: x=-12.208 y=471.600 z=49.348
 click: x=-7.307 y=471.600 z=11.831
 click: x=-5.916 y=471.599 z=21.209
-click: x=-5.181 y=471.597 z=58.725
 click: x=-4.932 y=471.599 z=39.969
 click: x=-3.168 y=471.599 z=49.347
 click: x=-0.922 y=471.597 z=11.828
@@ -93,34 +90,14 @@ click: x=-11.057 y=471.600 z=30.014
 click: x=-9.690 y=471.600 z=30.014
 click: x=-1.182 y=471.597 z=58.150
 click: x=4.857 y=471.600 z=30.014
-click: x=-38.376 y=471.599 z=40.553
-click: x=69.992 y=471.597 z=12.413
-click: x=42.396 y=471.600 z=21.794
-click: x=29.863 y=471.597 z=12.412
-click: x=18.312 y=471.599 z=21.794
-click: x=-41.392 y=471.600 z=21.794
-click: x=-48.779 y=471.600 z=31.174
-click: x=-76.371 y=471.600 z=31.174
-click: x=-31.598 y=471.600 z=49.932
 click: x=37.635 y=471.600 z=29.648
 click: x=-37.258 y=471.600 z=10.889
 click: x=-16.065 y=471.598 z=57.784
 click: x=-59.583 y=471.598 z=48.405
 click: x=-68.367 y=471.599 z=20.267
-click: x=68.023 y=471.599 z=21.209
-click: x=-70.450 y=471.598 z=11.829
-click: x=-57.567 y=471.600 z=40.950
-click: x=-18.812 y=471.597 z=59.706
-click: x=-71.114 y=471.600 z=22.191
-click: x=34.888 y=471.600 z=31.570
-click: x=-40.005 y=471.597 z=12.809
-click: x=-62.330 y=471.599 z=50.328
-click: x=50.604 y=471.600 z=30.589
-click: x=-58.833 y=471.599 z=21.209
 click: x=28.670 y=471.599 z=21.209
 click: x=18.911 y=471.598 z=49.347
 click: x=-57.484 y=471.599 z=21.209
-click: x=-54.181 y=471.600 z=30.589
 click: x=-52.831 y=471.600 z=30.589
 click: x=-13.787 y=471.600 z=30.589
 click: x=25.795 y=471.600 z=30.589
@@ -139,12 +116,61 @@ click: x=-49.374 y=471.900 z=49.648
 click: x=51.742 y=471.900 z=40.269
 click: x=-54.851 y=471.599 z=20.633
 click: x=-53.484 y=471.599 z=20.633
-click: x=-7.274 y=471.600 z=21.794
 click: x=-54.820 y=471.600 z=39.027
 click: x=-15.650 y=471.597 z=10.322
 click: x=-32.216 y=471.600 z=19.704
+click: x=-4.490 y=471.600 z=30.589
+click: x=8.883 y=471.600 z=30.589
+click: x=38.901 y=471.600 z=30.589
+click: x=58.833 y=471.599 z=39.969
+click: x=-48.779 y=471.600 z=31.474
+click: x=-76.371 y=471.600 z=31.474
+click: x=69.992 y=471.598 z=12.715
+click: x=29.863 y=471.597 z=12.715
+click: x=42.396 y=471.600 z=22.094
+click: x=18.312 y=471.599 z=22.094
+click: x=-7.274 y=471.600 z=22.094
+click: x=-31.598 y=471.600 z=50.232
+click: x=-38.376 y=471.599 z=40.853
+click: x=-41.392 y=471.600 z=22.094
+click: x=-44.627 y=471.598 z=15.380
+click: x=4.178 y=471.600 z=34.139
+click: x=-1.861 y=471.596 z=62.277
+click: x=-10.370 y=471.600 z=34.139
+click: x=-54.163 y=471.600 z=24.760
+click: x=23.411 y=471.600 z=34.139
+click: x=8.226 y=471.598 z=15.380
+click: x=9.997 y=471.598 z=52.896
+click: x=-19.370 y=471.598 z=15.380
+click: x=-65.531 y=471.598 z=15.380
+click: x=23.281 y=471.598 z=15.380
+click: x=-22.887 y=471.600 z=24.760
+click: x=60.396 y=471.600 z=24.760
+click: x=72.942 y=471.600 z=24.760
+click: x=-82.952 y=471.600 z=34.139
+click: x=-26.895 y=471.599 z=43.518
+click: x=22.283 y=471.599 z=43.518
+click: x=-14.592 y=471.598 z=52.896
+click: x=24.664 y=471.598 z=52.896
+click: x=32.690 y=471.598 z=52.896
+click: x=6.844 y=471.599 z=43.518
+click: x=2.322 y=471.598 z=15.380
+click: x=74.563 y=471.598 z=15.380
+click: x=78.578 y=471.600 z=24.760
+click: x=-18.812 y=471.597 z=60.008
+click: x=34.888 y=471.600 z=31.870
+click: x=-40.005 y=471.597 z=13.112
+click: x=-71.114 y=471.600 z=22.491
+click: x=-62.330 y=471.599 z=50.629
+click: x=-57.567 y=471.599 z=41.250
+click: x=-70.450 y=471.598 z=12.131
+click: x=68.023 y=471.599 z=21.510
+click: x=50.604 y=471.600 z=30.889
+click: x=-14.799 y=471.596 z=58.724
+click: x=-5.181 y=471.596 z=58.725
+click: x=-20.078 y=471.596 z=58.725
 
-[step] Specific required legend relief: the raised disposal warning's letters (hardware/markings/README.md) are raked, each carried out of back-bottom's +Y wall and up its caps at 45°, so a letter's face passes 0.6 mm over the wall just above the letter's own base. The two planes are that face and that wall; the relief is the 0.6 mm the legend stands proud, which is what makes them a step.
+[step] Specific required legend relief: the raised disposal warning's letters (hardware/markings/README.md) rise out of back-bottom's +Y wall at 45° along every stroke's underside, so a letter's face passes 0.6 mm over the wall just above the letter's own base. The two planes are that face and that wall; the relief is the 0.6 mm the legend stands proud, which is what makes them a step.
 alternatives: Raising the letters a millimetre or more removes the step and makes the warning a projection off the wall; carrying them straight out ends every stroke in the flat underside back-bottom's floor-down print sees as a shelf.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=42.011 y=471.900 z=49.657
@@ -196,3 +222,50 @@ alternatives: Running the flare on into the column fills the notch but carries i
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-94.362 y=456.203 z=159.388
 click: x=94.362 y=456.203 z=159.388
+
+[thin] Specific required legend relief: each reading is a stroke of the raised disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm), 6.5 mm Helvetica Bold caps standing 0.6 mm proud of back-bottom's +Y wall, or one of its full stops. At that size a bold stroke is 0.96-1.41 mm across; the readings run 0.93-1.43 mm, across a stroke at its face or from a stroke's level top to its 45° underside.
+alternatives: 3 mm strokes would need letters about 15 mm tall, and a lighter weight thins every stroke further.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=54.915 y=471.872 z=11.607
+click: x=-72.192 y=471.887 z=31.809
+click: x=14.995 y=471.825 z=31.343
+click: x=-61.036 y=471.742 z=50.629
+click: x=-69.820 y=471.739 z=22.491
+click: x=-17.518 y=471.735 z=60.008
+click: x=28.552 y=471.848 z=37.963
+click: x=-15.785 y=471.825 z=31.661
+click: x=5.659 y=471.796 z=40.873
+click: x=-1.995 y=471.669 z=20.716
+click: x=57.603 y=471.825 z=34.139
+click: x=81.351 y=471.862 z=33.324
+click: x=41.716 y=471.862 z=33.324
+click: x=37.042 y=471.850 z=33.378
+click: x=80.107 y=471.850 z=24.751
+click: x=-43.948 y=471.500 z=9.425
+click: x=84.621 y=471.787 z=30.086
+click: x=40.561 y=471.712 z=30.061
+
+[thin] Specific required legend relief: each reading is the tip of a letter's own outline in the raised disposal warning, 6.5 mm Helvetica Bold caps. Every R's leg ends on the baseline on a vertical terminal 0.16 mm tall, and the K's upper arm meets the cap line in a 45° point, so each tip is under 0.25 mm thick over its last few tenths of a millimetre. Each letter keeps that outline down to its 45° underside.
+alternatives: Cutting the tips back to a wider terminal changes Helvetica's outline on every R and on the K; another typeface changes the approved legend.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=60.667 y=471.872 z=46.572
+click: x=-8.575 y=471.872 z=46.572
+click: x=13.505 y=471.872 z=46.572
+click: x=53.007 y=471.872 z=27.814
+click: x=11.734 y=471.872 z=9.055
+click: x=-6.328 y=471.872 z=9.055
+click: x=-28.408 y=471.872 z=9.055
+click: x=23.263 y=471.872 z=18.435
+click: x=51.358 y=471.872 z=18.435
+click: x=-19.379 y=471.872 z=18.435
+click: x=-10.339 y=471.872 z=37.193
+click: x=-35.933 y=471.872 z=37.193
+click: x=45.470 y=471.586 z=52.898
+
+[thin] Specific cosmetic-flute land at a corner: each reading runs the height of one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80 mm.
+alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=95.799 y=471.295 z=127.621
+click: x=-95.799 y=471.295 z=-0.370
+click: x=106.916 y=462.990 z=127.621
+click: x=-106.916 y=462.990 z=-0.370
