@@ -99,3 +99,14 @@ alternatives: Sloping introduces a camming bearing. Filling the lane enters foot
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-100.875 y=144.168 z=169.200
 click: x=100.875 y=144.168 z=169.200
+
+[slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses front-bottom's knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
+alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=0.000 y=211.432 z=57.948
+
+[thin] The linter is wrong here: each segment runs from the knuckle's top face beside the relief slot over the lower Y-stack screw passage across the slot's air to its level floor; its midpoint stands in the slot above the floor. Beside the slot the knuckle keeps its full section, and the floor keeps 3.2 mm to the passage and to the knuckle's sliding face.
+alternatives: Closing the slot restores the 45° arris where the passage crosses the knuckle top. The rule could require material along the segment before classifying a thickness.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-102.279 y=205.863 z=128.171
+click: x=102.279 y=205.863 z=128.171
