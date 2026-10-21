@@ -171,7 +171,7 @@ is raked: it is carried out of the wall and up at 45° at once, so every stroke'
 a 45° face the layer beneath carries, and the letter's face keeps its whole outline.
 
 The wall stays flat beneath the text and its [5 mm](DISPOSAL_MARGIN) margin, over a
-[194.8 mm](DISPOSAL_FIELD_WIDTH) by [63.7 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
+[181.0 mm](DISPOSAL_FIELD_WIDTH) by [64.5 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
 flutes fade into this smooth area. It is the wall's own surface, without a border or a
 separate carrier. The raised text is fused into the STEP body and retained on the printable
 STL and viewer payload after the mesh flute cut.
@@ -1449,27 +1449,24 @@ The stubs enter [4](RECEIVER_COUNT) custom TPU funnels followed by
 locates the receivers in X/Z. Their recessed collars fit in the wall, and
 [3](KEEPER_COUNT) flat PET-GF keepers capture Y: one for each outer receiver and one for
 the inner pair, the magnet column between each pump's ports dividing the wall into three
-bays. Each keeper is [3 mm](DOCK_KEEPER_T) thick and slides up its slot behind the wall's
-interior face from the seam, [0.25 mm](DOCK_KEEPER_SLIDE_AIR) from each slot face, until
-each [11.7 mm](DOCK_NECK) receiver neck snaps through its keyhole's
-[10.4 mm](DOCK_NECK_MOUTH) mouth into the [11.9 mm](DOCK_NECK_GRIP) grip. The slot's faces
-back the keeper both ways in Y and the TPU neck holds it in X and Z; no screw, insert or
-washer. Each receiver is a complete asymmetric Y with
-90° between its pump inlet and upper branch, with a nominal 135° lower branch.
-Its upper link is straight. A one-piece compound TPU return supplies the lower
-45° and 90° turns, with straight LLDPE between the junction and return and a
-short straight tail into the original aft valve station.
-
-All four returns snap into one PET-GF return block under the seam: a straight slot
-per return, narrower than the TPU body, with a round seat along the return's path. Three M3×12 screws
-hold the block's top face to the aft tray foot. All permanent plumbing is
-assembled on loose front-top before that piece joins the compressor half.
+bays. Each keeper is [3 mm](DOCK_KEEPER_T) thick and runs in its slot behind the wall's
+interior face, [0.25 mm](DOCK_KEEPER_SLIDE_AIR) from each slot face. It goes in from the
+seam and parks above the collars while the receivers are fitted, then slides down until its
+downward-open [12.4 mm](DOCK_NECK_MOUTH) U seats on the [11.7 mm](DOCK_NECK) receiver necks
+by gravity, its [12.4 mm](DOCK_NECK_GRIP) crown resting on the occupied neck. The slot's
+faces back the keeper both ways in Y; no screw, insert or washer. Each receiver is a
+complete asymmetric Y with 90° between its pump inlet and upper branch, and a lower
+branch aimed 50° down and aft. Its upper link is straight. From the lower branch a 1/4"
+LLDPE tube makes one R28 bend into the forward leg of a purchased PP0308E elbow standing
+directly beneath its rear valve, and a short straight tube joins the elbow's upper leg to
+that valve. All permanent plumbing is assembled on loose front-top before that piece joins
+the compressor half.
 
 The meeting magnet poles set full insertion, with the stub tips
 [7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
 Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
-A straight pull withdraws the four stubs while every junction, keeper, return,
-the return block and every fixed tube remain in place. No commercial collet moves during a pump
+A straight pull withdraws the four stubs while every junction, keeper, elbow and
+fixed tube remains in place. No commercial collet moves during a pump
 change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
 parts, native geometry review, tube setting jig and material selections.
 
