@@ -27,7 +27,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 **A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. At the pump wall, each permanent TPU junction receives a prepared pump's LLDPE stub, connects upward to its fore valve through a straight LLDPE link and sends its lower arm aft at 45°. A fixed printed return connects that arm to the aft valve through two straight links.
 
-**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. Four compound TPU returns contain the lower changes of direction. Their straight LLDPE links do not make those bends. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
+**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. Four shallow R28 LLDPE runs reach purchased PP0308E elbows directly beneath the rear valves; the elbows supply the final 90-degree turns. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
 
 Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
@@ -73,7 +73,7 @@ a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
 [4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
 exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [2965.0 mm](FLUID_TOTAL); exposed lengths need
+links. Reported LLDPE paths total [2968.5 mm](FLUID_TOTAL); exposed lengths need
 their actual fitting insertions when making finished blanks. A butt joint still
 needs tube through both fittings despite its zero exposed length. The factory
 sets captive link lengths from the mounted stop spans and fully seats valve-side

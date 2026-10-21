@@ -1,32 +1,29 @@
 {
-  "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-    "sha256": "abb0af6e3bd384a3f38150dc80cd3156e78bf93bf31a38c9fc3f94688f519cda",
-    "facets": 540080,
-    "watertight": true,
-    "consistent_winding": true
-  },
-  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl": {
-    "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-    "facets": 64528,
-    "watertight": true,
-    "consistent_winding": true
-  },
-  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl": {
-    "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-    "facets": 64528,
-    "watertight": true,
-    "consistent_winding": true
-  },
-  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl": {
-    "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-    "facets": 64528,
-    "watertight": true,
-    "consistent_winding": true
-  },
-  "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl": {
-    "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-    "facets": 64528,
-    "watertight": true,
-    "consistent_winding": true
+  "scope": "Current four junction manufacturing exports; geometry only, not print or wet-service acceptance.",
+  "parts": {
+    "west-outer": {
+      "watertight": true,
+      "winding_consistent": true,
+      "stl_sha256": "3b1b457096d3565d8dbc13ceae35c7585b6667e42ff7dd327ba35844004cdb8a",
+      "step_sha256": "c658a50f3ffb7ae50572aea1c52d5428c91a3cfd8ce6ee4a19ddd73fe1ac39d1"
+    },
+    "west-inner": {
+      "watertight": true,
+      "winding_consistent": true,
+      "stl_sha256": "b101e07b8334f0d86ddea32356104d9609c878dc6450cc3759437aa014d51c88",
+      "step_sha256": "7df7ebb1ccecf514b45c84f61abb4eb98c160fbc6683420640f1447588dcc219"
+    },
+    "east-inner": {
+      "watertight": true,
+      "winding_consistent": true,
+      "stl_sha256": "b101e07b8334f0d86ddea32356104d9609c878dc6450cc3759437aa014d51c88",
+      "step_sha256": "1c047e1835ca3604950a8a19ca867de2b30007f695940e476414cb0c08c9d9c1"
+    },
+    "east-outer": {
+      "watertight": true,
+      "winding_consistent": true,
+      "stl_sha256": "c02fafb2ac51dbc75e9d711d250fa2d8170f38c777f8b9e0002a5e01ce804153",
+      "step_sha256": "41e008bca5556de10e2ed3e03186dee6485180ee5bc7e12581a8af563dfe3adf"
+    }
   }
 }
