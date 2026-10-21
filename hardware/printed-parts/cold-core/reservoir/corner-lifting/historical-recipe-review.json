@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-21",
-  "status": "Historical settings and founder preference review; no executable recipe or printer changed.",
+  "status": "Historical settings and founder preference review, with the current authorized May adaptation linked below.",
   "founder_quotes": [
     "My experience has been that brims are useless for this problem, the larger objects breaks away from the brim easily as it curls up. You just get a brim stuck to the plate that is difficult to remove, and you get a brim stuck to the larger object that results in a rough edge where it is removed.",
     "I'm a fan of going with 1.02 flow.",
@@ -209,7 +209,7 @@
     "recovered_sources": [
       "archive-plan-b:hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py",
       "b7dc4d576e9dc38794d190f31473f31d71aa4aa1: one printed NPT port wept at 5 psi or less",
-      "April 20–22 published project posts: sphere development and change from printed threaded port to bulkhead seat",
+      "April 20\u201322 published project posts: sphere development and change from printed threaded port to bulkhead seat",
       "Private April 20 CDT chat: 3D printing pressure vessels with PETG; initial design discussion, no completed local test settings/result"
     ],
     "search_scope": "Git history and archived sphere tree; surviving project session transcripts/metadata; matching historical Claude.ai chat; local Bambu presets/saved projects; Mark1 card root filenames. No test-bound native sphere archive found.",
@@ -223,10 +223,18 @@
   "current_direction": {
     "flow_ratio": 1.02,
     "brim": "None, per Derek's reported experience.",
-    "reference": "Use the successful May Water temperature/cooling and ordinary Bambu motion settings as the baseline for discussion.",
-    "volumetric_speed": "The previous proposed 12 mm3/s target has no supporting physical result. Compare native Basic 21 and Translucent 16 defaults explicitly rather than treating 6 or 12 as a sealing requirement. Exact next-print selection is not implemented.",
+    "reference": "The current authorized print uses the successful May Water temperature/cooling and ordinary Bambu motion settings adapted to right 0.8 mm.",
+    "volumetric_speed": "Selected 21 mm3/s for the May adaptation. Installed Basic Standard-flow also uses 21; Translucent uses 16. This article awaits its own physical result.",
     "cooling": "May success includes a 90% overhang override. Current 90% body/floor commands remain an observed fact, not proof they caused lift or a requirement to remove them. A localized cooling change remains a separate testable option.",
     "ironing": "Retain Off according to Derek's physical finish preference; May top ironing is historical, not established necessary for sealing.",
     "evidence_rule": "Retain settings demonstrated by successful articles as the baseline. Later proposed optimizations do not establish superior sealing or speed without a relevant physical comparison."
+  },
+  "current_trial": {
+    "job_id": "1362179138",
+    "printer": "Mark1",
+    "recipe": "May Water adapted to right 0.8 mm Standard",
+    "accepted_at_utc": "2026-10-21T21:42:02.180859+00:00",
+    "record": "../prints/2026-10-21-mark1-may-water-right08-z000/README.md",
+    "status": "Accepted; physical outcomes unassessed."
   }
 }

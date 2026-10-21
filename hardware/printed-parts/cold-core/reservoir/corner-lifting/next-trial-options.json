@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-21",
-  "status": "Discussion candidate only; flow 1.02 supported by Derek, brim declined. No project, executable recipe or printer changed.",
+  "status": "Authorized May Water adaptation launched as Mark1 task 1362179138; flow 1.02, no brim, zero user trim, ironing Off. Physical results unassessed.",
   "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
   "trigger": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
   "priority": [
@@ -14,7 +14,7 @@
       "candidate": "Use ordinary Bambu motion settings with the May Water recipe as the historical reference.",
       "purpose": "Recover throughput from a demonstrated water-holding recipe.",
       "evidence": "May 30 requests 200/300 mm/s outer/inner, 250 solid, 200 top with 21 mm3/s cap. Installed Basic 0.8 Standard profile also saves 21; Translucent 0.8 saves 16.",
-      "limits": "Requested speed is capped by extrusion, acceleration and cooling. Neither an arbitrary 12 mm3/s target nor the present 6 mm3/s limit is established necessary for sealing. Exact next-print ceiling is not yet selected."
+      "limits": "The authorized native adaptation uses the May Water 21 mm3/s ceiling, also saved in the installed Basic 0.8 mm Standard profile. Actual motion is bounded by flow, acceleration and cooling."
     },
     {
       "candidate": "Compare walls-only construction with fully solid floor coverage.",
@@ -96,8 +96,16 @@
     "source": "historical-recipe-review.json"
   },
   "cooling_option": {
-    "status": "Separate hypothesis; no mandatory change selected.",
+    "status": "Current trial retains May cooling; separate cooling changes remain unselected hypotheses.",
     "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
     "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
+  },
+  "current_trial": {
+    "job_id": "1362179138",
+    "printer": "Mark1",
+    "recipe": "May Water adapted to right 0.8 mm Standard",
+    "accepted_at_utc": "2026-10-21T21:42:02.180859+00:00",
+    "record": "../prints/2026-10-21-mark1-may-water-right08-z000/README.md",
+    "status": "Accepted; physical outcomes unassessed."
   }
 }

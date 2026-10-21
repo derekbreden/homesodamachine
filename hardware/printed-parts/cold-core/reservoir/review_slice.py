@@ -1,7 +1,7 @@
 """Verify the current reservoir's native slice, nozzle, trim and full bead inset.
 
 Run with tools/cad-venv/bin/python after slicing both plates into
-.cache/reservoir-mark1-right08-z000/slice and auditing their supports there.
+.cache/reservoir-may-water-right08/slice and auditing their supports there.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-FOLDER = ROOT / ".cache/reservoir-mark1-right08-z000/slice"
+FOLDER = ROOT / ".cache/reservoir-may-water-right08/slice"
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 
 
@@ -44,7 +44,7 @@ def arc_geometry(start, end, words, clockwise):
     return float(radius * sweep), np.array(points)
 
 
-def toolpaths(text, expected_ids, bed, minimum_margin):
+def toolpaths(text, expected_ids, bed, minimum_margin, ordinary_fan_pwm_range):
     if re.search(r"^; FEATURE: Ironing\s*$", text, re.MULTILINE):
         raise ValueError("Native slice contains an ironing feature")
     x = y = e = width = fan = 0.0
@@ -114,7 +114,8 @@ def toolpaths(text, expected_ids, bed, minimum_margin):
         raise ValueError("A body or cap has no deposited paths")
     first, second = map(np.array, boxes.values())
     gap = float(np.linalg.norm(np.maximum(np.maximum(first[0] - second[1], second[0] - first[1]), 0)))
-    if gap < 5 or 51.0 not in cooling:
+    if gap < 5 or not any(ordinary_fan_pwm_range[0] - 1e-6 <= pwm <= ordinary_fan_pwm_range[1] + 1e-6
+                          for pwm in cooling):
         raise ValueError("Body/cap separation or ordinary wall cooling differs")
     return {
         "right_nozzle_usable_bed_bounds_mm": bed.tolist(),
@@ -180,7 +181,8 @@ def main():
             if row["feature_type_times"].get("Ironing", 0) != 0:
                 raise ValueError("Native estimate includes ironing")
             placement, cooling = toolpaths(text, [2400 + 2 * i - 1, 2400 + 2 * i], bed,
-                                           generated["minimum_emitted_bead_edge_margin_mm"])
+                                           generated["minimum_emitted_bead_edge_margin_mm"],
+                                           [float(source[k][0]) * 2.55 for k in ("fan_min_speed", "fan_max_speed")])
             support = json.loads((FOLDER / f"plate_{i}-supports.json").read_text())["summary"]
             if support["bed_rooted_bodies"] != support["support_bodies"] or support["model_rooted_bodies"]:
                 raise ValueError("Native supports require roots on the model")
