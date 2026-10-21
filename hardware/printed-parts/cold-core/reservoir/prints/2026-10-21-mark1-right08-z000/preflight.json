@@ -1,0 +1,77 @@
+{
+  "observed_at": "2026-10-21T05:40:10.387072+00:00",
+  "Mark1": {
+    "job_id": "1359853920",
+    "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 45.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 51.0,
+    "bed_target_temper": 0.0
+  },
+  "ams_trays": [
+    {
+      "id": "0",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "1",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "2",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "3",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    }
+  ],
+  "right_extruder": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 3,
+      "filam_bak": [
+        15
+      ]
+    }
+  ],
+  "Mark2": {
+    "job_id": "1359897271",
+    "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 104,
+    "mc_remaining_time": 152,
+    "nozzle_temper": 37.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0
+  },
+  "bed_clear_report": "Derek removed the failed first layer and reports Mark One clear and ready for the next print.",
+  "start_slot": "A2",
+  "auto_refill": "Enabled; all four matching clear PETG trays form one backup group.",
+  "other_printer_start_observed_at": "2026-10-21T05:32:31.071003+00:00",
+  "other_printer_start_source": "hardware/print-tests/enclosure-infill/mark2-v1/launch.json",
+  "seconds_after_other_printer_start_at_preflight": 460.547791
+}

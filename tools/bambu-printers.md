@@ -90,14 +90,14 @@ records Derek's requirement to move that complete test plate toward the center.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in all four slots, feeding its right **0.8 mm Standard-flow** hotend.
-The active reservoir job starts on **A4**, with the printer choosing subsequent
-spools through automatic refill. Derek requests **A2 for the next print start**.
+The zero-trim reservoir retry starts on **A2**, with the printer choosing
+subsequent spools through automatic refill.
 Use every spool fully; remaining quantity is not a launch condition.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. AMS Auto-Refill is enabled and
 all four trays form one identical-filament backup group. Connect selects the
 starting slot; its AMS settings provide an Auto-Refill toggle.
-The [reservoir print record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/README.md)
+The [reservoir retry record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/README.md)
 records the launch disposition.
 
 ## Mark2 clear PETG spool order
@@ -130,10 +130,12 @@ names carry the requested value (`z004`, `z018`).
 | Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1 (`H2C` connection key) | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
-| Mark1 (`H2C` connection key) | 0.8 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.8 Standard +0.18 Z trim` |
+| Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
 
-Mark1's standard user Z trim is +0.18 mm. A different trim requires explicit
-authorization for the specific print and remains local to that print.
+Mark1's standard PET-GF user Z trim is +0.18 mm. The clear PETG reservoir uses
+zero added user trim, explicitly authorized by Derek for its first-layer adhesion
+retry. Keep this setting local to that PETG recipe. Other trim changes require
+explicit authorization for their specific print.
 
 Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
 the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared

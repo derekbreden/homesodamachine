@@ -1,0 +1,68 @@
+{
+  "reported_on": "2026-10-21",
+  "reported_condition": "Corner lifting on a previous reservoir print, assessed from the finished object by Derek. Specific affected article/corner is not established.",
+  "founder_quote": "But just based on, like, the shape of it, just looking at the final object afterwards, that's my guess. But again, that is just a guess.",
+  "onset_hypothesis": {
+    "after_layer": 20,
+    "before_layer": 100,
+    "source": "Derek's estimate from final shape, not observed timing"
+  },
+  "investigated_timelapses": [
+    {
+      "printer": "Mark2",
+      "job_id": "1314692596",
+      "clip": "video_2026-10-07_01-30-57.mp4",
+      "sha256": "f76bad3e14935fd76a32f80f5e6945d22be5a812d593b594abe9adddba45a012",
+      "bytes": 13465608,
+      "frames": 779,
+      "fps": 24,
+      "contact_sheet": "2026-10-06-left-contact-sheet.jpg"
+    },
+    {
+      "printer": "Mark2",
+      "job_id": "1317261284",
+      "clip": "video_2026-10-07_22-48-09.mp4",
+      "sha256": "088b623a79fdd28cab392b560ab4fae6ba20062b02342eab85a156f61b99e87d",
+      "bytes": 13479197,
+      "frames": 780,
+      "fps": 24,
+      "contact_sheet": "2026-10-07-right-contact-sheet.jpg"
+    }
+  ],
+  "binding": "Clip start times correspond to first-layer startup following each accepted task; mirrored geometry/cap shape agrees. Printer filename clock is UTC+8.",
+  "sampled_frame_numbers_one_based": [
+    1,
+    6,
+    11,
+    20,
+    30,
+    50,
+    80,
+    100,
+    150,
+    300,
+    600,
+    740
+  ],
+  "finding": "The fixed low camera angle, clear PETG reflections, moving nozzle and foreground cap obscure body/bed contact. Inspected frames do not establish a reliable last-attached/first-lifted bracket. No onset layer is established.",
+  "layer_mapping": "Each native job has 740 layers, while each clip has more frames. Exact frame-to-layer correspondence is unverified; frame numbers are not layer numbers.",
+  "current_failed_article": "../prints/2026-10-20-mark1-right08/physical-result/physical-result.json",
+  "next_print_strategy": "Apply only zero added user Z trim to address the current first-layer failure, retain the other physical settings, and observe early deposition plus later corner contact on the retry.",
+  "conditional_options": [
+    {
+      "candidate": "Explicit brim at lifting corners",
+      "purpose": "Increase the bed contact holding the reservoir floor down.",
+      "evidence": "Current G-code emits no Brim/Skirt feature despite auto_brim width 5 mm saved.",
+      "when": "Consider only after a continuous, attached first layer is demonstrated and later corner lift remains visible.",
+      "assessment": "Record attached baseline and first visible lift layer; assess brim attachment and corner contact through the suspect interval."
+    },
+    {
+      "candidate": "Review emitted local overhang cooling",
+      "purpose": "Reduce a thermal gradient if lift starts with a cooling change.",
+      "evidence": "Current ordinary cooling is off through layer 3, then 20%; 90% overhang bursts appear from layer 4. No timing link to corner lift is established.",
+      "when": "Only if a new last-attached/first-lifted interval supports examining the corresponding paths and fan transitions.",
+      "assessment": "Compare the exact affected feature and cooling transition; do not change whole-part cooling solely from this unverified association."
+    }
+  ],
+  "manufacturer_reference": "https://help.prusa3d.com/article/warping_2011"
+}

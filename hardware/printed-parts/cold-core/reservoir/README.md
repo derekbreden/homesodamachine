@@ -30,20 +30,22 @@ seams, zero seam gap, **no ironing** and the September support settings.
 [Native slice review](slice-review.json). Each current body/cap plate estimates
 about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
 model/support/brim envelope stays at least **70.5 mm inside the right nozzle's usable bed**.
-Filament assignment is Manual on the right nozzle. The active Mark1 job starts on
-**A4** with automatic refill. Start the **next print on A2**, as requested by Derek. See
+Filament assignment is Manual on the right nozzle. The Mark1 zero-trim retry starts on
+**A2** with automatic refill, as requested by Derek. See
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
-and the [Mark1 launch record](prints/2026-10-20-mark1-right08/README.md).
+and the [Mark1 retry record](prints/2026-10-21-mark1-right08-z000/README.md).
 
 The [flat-square finish record](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
 selects **OFF** as the smoothest and best-feeling finish. The
 [calibration record](ironing-study/README.md) preserves the tested settings and
 observations. This finish selection supplies no new reservoir water-hold result.
 
-The printer configuration carries Mark1's **+0.18 mm user Z trim** over stock plate
-compensation, emitting **G29.1 Z0.16** on Textured PEI. Retain the destination
-printer's own calibrated trim when assigning a job, per
-[printer profiles](../../../../tools/bambu-printers.md).
+This clear PETG recipe uses **zero added user Z trim**, retaining Bambu's stock
+Textured PEI compensation, emitted as **G29.1 Z-0.02**. The
+[first-layer failure and photographs](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+and [corner-lifting investigation](corner-lifting/README.md) identify the observed
+adhesion issues and evidence limits. PET-GF printer profiles retain their own
+settings; see [printer profiles](../../../../tools/bambu-printers.md).
 The September baseline's reported water hold is identified by `september-08-024` in the
 [acceptance record](water-hold-acceptance.json).
 

@@ -1,0 +1,15 @@
+{
+  "project": "reservoir.3mf",
+  "project_sha256": "aad6aa8e089d338f870f7a6d7af7013d3334aa858873772cb34ebc9c51dc5222",
+  "recipe": "print-settings.json",
+  "native_review": "native-review.json",
+  "executable_comparison": "command-diff.json",
+  "only_executable_change": "G29.1 Z0.16 -> G29.1 Z-0.02 on both plates",
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "nozzle": "Mark1 right 0.8 mm Standard",
+  "material": "Bambu PETG Translucent Clear",
+  "scope": "Corrective first-layer adhesion retry; no completed part, water-hold or later corner-lift result.",
+  "failed_article": "../2026-10-20-mark1-right08/physical-result/physical-result.json",
+  "packaged_native_gcode_sha256": "6a76555dbff987a0ddd1f4d05a8e0cdd555614601f735119b6a5db4d13f329cd"
+}
