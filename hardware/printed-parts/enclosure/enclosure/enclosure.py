@@ -466,6 +466,8 @@ y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the 
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
+y_stack_relief_run = 1.0       # past a passage wall, where its relief lands on the 45° knuckle
+                               # face the passage crosses (`_y_bore_reliefs`)
 y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
 y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
@@ -3729,17 +3731,18 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
             body = body.cut(corner)
     else:
         # Back-bottom's knuckle under the Z seam runs its whole depth on to the flank, where
-        # the back rail's arm stands; the others join the flank across its own section.
+        # the back rail's arm stands; the others join the flank across its own section. Only
+        # that section runs on past the flank's first plane, into the stock it joins there:
+        # inboard of it the rail's arm and under-flare begin on the plane itself.
         xa, xb = xs(-1.0, depth)
         full = piece == "back-bottom" and top == "level"
         body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb, y_joint,
-                                back_flank_start(y_joint) + 0.01 if full else y_joint + lip_len,
+                                back_flank_start(y_joint) if full else y_joint + lip_len,
                                 cap)
-        if not full:
-            xa, xb = xs(-1.0, back_bottom_flank_t - wall)
-            body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
-                                              y_joint + lip_len - 0.01,
-                                              back_flank_start(y_joint) + 0.01, cap))
+        xa, xb = xs(-1.0, back_bottom_flank_t - wall)
+        body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
+                                          y_joint + lip_len - 0.01,
+                                          back_flank_start(y_joint) + 0.01, cap))
     return body.intersect(_rounded_outer(outer))
 
 
@@ -3788,6 +3791,40 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
     )
 
 
+def _y_bore_reliefs(x_in, sx, y_joint, inner, name):
+    """Where the lower screw's passage crosses one of `name`'s 45° knuckle faces, at one corner.
+
+    A vertical bore through a 45° face meets it on a 45° arris over the half where the face
+    climbs away from the bore, when material stands above the face, or falls away from it, when
+    material stands below. On that half the passage runs on as a slot of its own width to a face
+    square to the knuckle face, landing on it `y_stack_relief_run` past the passage wall: a roof
+    rising 45° toward the bore over an underside, a floor falling 45° toward it under a top. The
+    slot's sides are tangent to the bore, so every edge left there is square or open. The upper
+    passage crosses only level faces."""
+    lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
+    rp = y_stack_clearance_dia / 2.0
+    run = rp + y_stack_relief_run
+    out = []
+    for piece, z0, z1, g0, g1 in y_stack(inner)[0]:
+        if piece != name:
+            continue
+        bottom, top = _y_knuckle_faces(piece, g0, g1)
+        for kind, level, t in ((bottom, z0, 1.0), (top, z1, -1.0)):
+            if kind == "level":
+                continue
+            f0 = _y_face_z(kind, level, x_in, sx, y_joint, lx, ly)
+            # `u` runs from the axis toward the arris: uphill under an underside (t = +1),
+            # downhill over a top (t = -1).
+            section = [(0.0, f0 - t), (0.0, f0 + 2.0 * t * run),
+                       (run, f0 + t * run), (run, f0 + t * (run - 1.0))]
+            if kind == "aft":
+                out.append(_yz_prism(lx - rp, lx + rp, [(ly + t * u, z) for u, z in section]))
+            else:
+                out.append(_xz_prism(ly - rp, ly + rp,
+                                     [(lx + sx * t * u, z) for u, z in section]))
+    return out
+
+
 def _y_stacks(piece, inner, outer, y_joint, name):
     """One finished piece with both corner stacks grown into it and the other half's knuckles
     cut out of it. No later fuse fills a fit or bore; the shared handhold finish trims the
@@ -3805,6 +3842,8 @@ def _y_stacks(piece, inner, outer, y_joint, name):
                 piece = piece.fuse(_y_knuckle(inner, outer, x_in, sx, y_joint, who, z0, z1,
                                               depth))
         for cutter in _y_stack_bores(x_in, sx, y_joint, inner):
+            piece = piece.cut(cutter)
+        for cutter in _y_bore_reliefs(x_in, sx, y_joint, inner, name):
             piece = piece.cut(cutter)
     return piece
 
@@ -4179,11 +4218,9 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         wall_face = _rail_nominal_foot_face(col, sx)
         x_uw = wall_face - sx * 0.5
         drop = rail_flare_drop                    # equals abs(x_h1 - x_uw): the fall is the run
-        # Under the mouth the back flare runs one `wall` past the open end into the rear corner
-        # column, as back-top's feet do over it (`_z_rail_feet`), so it meets the column's lip
-        # skin on its whole section instead of stopping square short of the arc.
-        flare_y0 = y0 - sy * wall if col == "back" else y0
-        arm = arm.fuse(_xz_prism(flare_y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
+        # The under-flare ends with the arm at both ends of the run. Past the arm's end nothing
+        # stands over the flare's inboard edge, which would meet the mouth there on a 45° arris.
+        arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
         # The plan taper at the OPEN end, whichever end that is: the head's lap falls back
         # to the arm's own sliding face over `rail_lead`, the cut reaching INTO the run,
         # every face of it vertical.
