@@ -1,0 +1,184 @@
+{
+  "archive": "hardware/print-tests/enclosure-infill/mark2-v1/native.gcode.3mf",
+  "archive_sha256": "887a187b73d3f13ae62ce66f4607e11e28e681af52bbe5204f816ce1c07a9e26",
+  "project_sha256": "cf075cd6ad918cc43d6693603eebe5aa9339a272d3d6b8651bc40e7f291dca90",
+  "gcode_sha256": "48ceb777c958ac61775f6cd8f3245fc10480756bc1c21219297c2a67f4df4e10",
+  "source_profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "archive_and_gcode_checksums_valid": true,
+  "all_eight_object_settings_match": true,
+  "production_baseline_unchanged": true,
+  "first_layer_mm": 0.2,
+  "normal_layer_mm": [
+    0.24
+  ],
+  "emitted_z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.02"
+  ],
+  "deposited_bounds_xy_mm": [
+    [
+      87.5,
+      86.5
+    ],
+    [
+      237.5,
+      233.5
+    ]
+  ],
+  "minimum_deposited_plate_border_mm": 86.5,
+  "support_extrusion_moves": 0,
+  "estimated_total_seconds": 9419.890625,
+  "slicer_estimated_mass_g_at_density_1_29": 104.56328582763672,
+  "estimated_mass_g_at_petgf15_density_1_43": 115.91123932831046,
+  "objects": {
+    "1-wall-2walls-15gyroid": {
+      "sample_z_mm": 10.04,
+      "wall_path_offsets_y_mm": [
+        -1.29,
+        -0.907,
+        0.907,
+        1.29
+      ],
+      "wall_paths_across_midspan": 4,
+      "sample_feature_length_mm": {
+        "Inner wall": 301.196,
+        "Outer wall": 304.26,
+        "Sparse infill": 211.7987423046843
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 138.53070377774645,
+      "total_object_extrusion_moves": 12744
+    },
+    "1-floor-2walls-15gyroid": {
+      "sample_z_mm": 3.08,
+      "wall_path_offsets_y_mm": [
+        -12.29,
+        -11.907,
+        11.907,
+        12.29
+      ],
+      "wall_paths_across_midspan": 4,
+      "sample_feature_length_mm": {
+        "Inner wall": 345.87375790857584,
+        "Outer wall": 348.8907410114318,
+        "Sparse infill": 1324.1393521169518
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 1385.2480449651798,
+      "total_object_extrusion_moves": 39217
+    },
+    "2-wall-4walls-15gyroid": {
+      "sample_z_mm": 10.04,
+      "wall_path_offsets_y_mm": [
+        -1.29,
+        -0.907,
+        -0.508,
+        0.508,
+        0.907,
+        1.29
+      ],
+      "wall_paths_across_midspan": 6,
+      "sample_feature_length_mm": {
+        "Inner wall": 597.652,
+        "Outer wall": 303.48599999999993,
+        "Gap infill": 147.231
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 0.0,
+      "total_object_extrusion_moves": 1742
+    },
+    "2-floor-4walls-15gyroid": {
+      "sample_z_mm": 3.08,
+      "wall_path_offsets_y_mm": [
+        -12.29,
+        -11.907,
+        -11.508,
+        -11.11,
+        11.11,
+        11.508,
+        11.907,
+        12.29
+      ],
+      "wall_paths_across_midspan": 8,
+      "sample_feature_length_mm": {
+        "Inner wall": 1030.3820749827812,
+        "Outer wall": 349.52138970477887,
+        "Sparse infill": 1245.6035570649967
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 1241.4912046431282,
+      "total_object_extrusion_moves": 36413
+    },
+    "3-wall-2walls-25gyroid": {
+      "sample_z_mm": 10.04,
+      "wall_path_offsets_y_mm": [
+        -1.29,
+        -0.907,
+        0.907,
+        1.29
+      ],
+      "wall_paths_across_midspan": 4,
+      "sample_feature_length_mm": {
+        "Inner wall": 300.4220000000001,
+        "Outer wall": 303.4859999999999,
+        "Sparse infill": 263.281246365231
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 286.3613067914575,
+      "total_object_extrusion_moves": 35414
+    },
+    "3-floor-2walls-25gyroid": {
+      "sample_z_mm": 3.08,
+      "wall_path_offsets_y_mm": [
+        -12.29,
+        -11.907,
+        11.907,
+        12.29
+      ],
+      "wall_paths_across_midspan": 4,
+      "sample_feature_length_mm": {
+        "Inner wall": 347.23019276561524,
+        "Outer wall": 350.152038398126,
+        "Sparse infill": 2053.0530137882056
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 2203.3522898161277,
+      "total_object_extrusion_moves": 67037
+    },
+    "4-wall-4walls-25gyroid": {
+      "sample_z_mm": 10.04,
+      "wall_path_offsets_y_mm": [
+        -1.29,
+        -0.907,
+        -0.508,
+        0.508,
+        0.907,
+        1.29
+      ],
+      "wall_paths_across_midspan": 6,
+      "sample_feature_length_mm": {
+        "Inner wall": 597.6520000000002,
+        "Outer wall": 303.4859999999999,
+        "Gap infill": 147.231
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 0.0,
+      "total_object_extrusion_moves": 1953
+    },
+    "4-floor-4walls-25gyroid": {
+      "sample_z_mm": 3.08,
+      "wall_path_offsets_y_mm": [
+        -12.29,
+        -11.907,
+        -11.508,
+        -11.11,
+        11.11,
+        11.508,
+        11.907,
+        12.29
+      ],
+      "wall_paths_across_midspan": 8,
+      "sample_feature_length_mm": {
+        "Inner wall": 1034.7435912347144,
+        "Outer wall": 350.7826870914732,
+        "Sparse infill": 1696.507115163799
+      },
+      "average_sparse_path_length_per_sampled_layer_mm": 2047.7293700637679,
+      "total_object_extrusion_moves": 62281
+    }
+  },
+  "scope": "Manual review for this archive only. No measured stiffness, strength or capacity result."
+}
