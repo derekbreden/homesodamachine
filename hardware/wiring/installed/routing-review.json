@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "964ef35713c6774a0a9a0770b037b70abd12dfd7711dd044fb940275037b8695",
-  "assembly_step_sha256": "ec74b5120cbf9ca0a4ecae4370433117afcf3ab7f23d99df0446f09cb9a8f226",
-  "assembly_mesh_sha256": "bc8123ca5720f763ba7ac6d44e715be7a4a5740a2d59b19e9f7ba6ea0cf1449b",
+  "manifest_sha256": "48e523b3600f3de409c4f7ac97d12a7ff66e8d56fc593195d87a44d308f52475",
+  "assembly_step_sha256": "8e0576306103d1c7a31a8317bfe3ae7a816abf76754b429bf82f963260d396dd",
+  "assembly_mesh_sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
   "wire_count": 103,
   "physical_mesh_count": 424,
   "coverage_missing": [],

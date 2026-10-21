@@ -17,6 +17,8 @@ contacts and each distribution bus are explicit electrical interfaces.
   retained physical assembly scope.
 - [Inspection overview](installed/enclosure-wiring-overview.png): the complete
   wiring and a closer front-assembly view, with unresolved routes dashed red.
+- [Compressor cable views](https://homesodamachine.com/changes/2026-10-20-2338-compressor-cable):
+  shared cable corridor and fuse fanout.
 
 The model covers the AC inlet, PSU, compressor/fuse lead, earth bonds, 12 V
 distribution, diaphragm pump, all eleven valves, condenser fan, both pump-contact

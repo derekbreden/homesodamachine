@@ -1,30 +1,30 @@
 {
-  "checked_at_utc": "2026-10-21T03:38:37.934446+00:00",
+  "checked_at_utc": "2026-10-21T04:40:55.572706+00:00",
   "method": "Fetch the populated and standalone native/viewer artifacts through the live site object manifest, decompress and compare SHA-256 with the published pointer.",
-  "pointer_commit": "c8b1481b3ec6ff5db16e326a11d56f0ae3a2f815",
+  "pointer_commit": "facb32341e625944b788e014775a5f39bdb5bea0",
   "members": [
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "sha256": "6fc533b9d960237c38688d23e2f4c55cb86c61085a9d1d28b4e6906397bbc854",
-      "bytes": 108001453,
+      "sha256": "8e0576306103d1c7a31a8317bfe3ae7a816abf76754b429bf82f963260d396dd",
+      "bytes": 108198869,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "69cd9013d12cb6e15370d9f288814938a0df136f7c5fefbf63bb23380ee72dcf",
-      "bytes": 37990056,
+      "sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
+      "bytes": 37970048,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step",
-      "sha256": "a6e1c025d67829f0c776faf44e01566dac433f56510e9589390a6f03dfcea56e",
-      "bytes": 5791595,
+      "sha256": "9060d47bca1dadac1d33ede725f826f01f60c5b3fb23b0e44bb6bd3a7cd0bd33",
+      "bytes": 5981504,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step.mesh",
-      "sha256": "4577447d34c3027f4420b3c1d20a8e09a64dc36f35a91da9885837c48792c4a7",
-      "bytes": 6565996,
+      "sha256": "9197ecf045af2cd4adf086bead2c23b100160cb5f21ab35372aa504b8be2d106",
+      "bytes": 6619328,
       "pass": true
     }
   ],
