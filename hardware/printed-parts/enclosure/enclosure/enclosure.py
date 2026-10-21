@@ -122,7 +122,15 @@ from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
-from OCP.BRepAdaptor import BRepAdaptor_Surface
+from OCP.BRep import BRep_Tool
+from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
+from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire
+from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
+from OCP.BRepTools import BRepTools_WireExplorer
+from OCP.GeomAbs import GeomAbs_Line
+from OCP.TopAbs import TopAbs_REVERSED
+from OCP.TopoDS import TopoDS
+from OCP.gp import gp_Pnt, gp_Vec
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -3192,15 +3200,80 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
+def _split_along_caps(edge):
+    """A glyph edge in pieces at each point inside it where it runs along the caps' +Y, so each
+    piece faces down the caps, or up them, over its whole length."""
+    curve = BRepAdaptor_Curve(edge)
+    t0, t1 = curve.FirstParameter(), curve.LastParameter()
+    if curve.GetType() == GeomAbs_Line:
+        return [edge]
+
+    def across(t):
+        point, tangent = gp_Pnt(), gp_Vec()
+        curve.D1(t, point, tangent)
+        return tangent.X()
+
+    samples = [t0] + [t0 + (t1 - t0) * (i + 0.5) / 64.0 for i in range(64)] + [t1]
+    cuts = []
+    for a, b in zip(samples, samples[1:]):
+        if across(a) * across(b) >= 0.0:
+            continue
+        for _ in range(60):
+            mid = 0.5 * (a + b)
+            a, b = (a, mid) if across(a) * across(mid) <= 0.0 else (mid, b)
+        cuts.append(0.5 * (a + b))
+    if not cuts:
+        return [edge]
+    geometry = BRep_Tool.Curve_s(edge, 0.0, 1.0)
+    bounds = [t0] + cuts + [t1]
+    pieces = [BRepBuilderAPI_MakeEdge(geometry, a, b).Edge() for a, b in zip(bounds, bounds[1:])]
+    if edge.Orientation() == TopAbs_REVERSED:
+        pieces = [TopoDS.Edge_s(piece.Reversed()) for piece in reversed(pieces)]
+    return pieces
+
+
+def _raked_letter(face, depth):
+    """One letter of `_disposal_flat`, from its outline `face` on the root plane: its outline at
+    the face, `depth` up its caps' +Y, carried straight back to the root, with a 45° wedge under
+    every edge that faces down its caps. Each wedge is that edge's side of the straight letter
+    carried back and down its caps at once, ended on the root plane."""
+    wires = []
+    for wire in [face.outerWire()] + face.innerWires():
+        made = BRepBuilderAPI_MakeWire()
+        edges = BRepTools_WireExplorer(wire.wrapped)
+        while edges.More():
+            for piece in _split_along_caps(edges.Current()):
+                made.Add(piece)
+            edges.Next()
+        wires.append(cq.Wire(made.Wire()))
+    outline = cq.Face.makeFromWires(wires[0], wires[1:]).translate(cq.Vector(0.0, depth, 0.0))
+    level = cq.Solid.extrudeLinear(outline, cq.Vector(0.0, 0.0, depth))
+    under = [side for side in level.Faces()
+             if abs(side.normalAt(side.Center()).z) < 1e-6 and side.normalAt(side.Center()).y < -1e-9]
+    if not under:
+        return level
+    wedges = cq.Shape.cast(BRepPrimAPI_MakePrism(cq.Compound.makeCompound(under).wrapped,
+                                                gp_Vec(0.0, -depth, -depth)).Shape())
+    box = level.BoundingBox()
+    root = cq.Solid.makeBox(box.xlen + 2.0, box.ylen + 2.0 * depth + 2.0, depth,
+                            cq.Vector(box.xmin - 1.0, box.ymin - depth - 1.0, 0.0))
+    # The wedges share their sides with the straight letter; an exact fuse of those faces
+    # leaves some letters invalid, a 0.1 µm fuzzy one none.
+    return level.fuse(*wedges.Solids(), tol=1e-4).clean().intersect(root).clean()
+
+
 @functools.lru_cache(maxsize=1)
 def _disposal_flat():
     """Centered warning outlines in XY, with their bottom at zero and relief along +Z.
 
-    EVERY LETTER IS RAKED. back-bottom prints floor-down, so the letters stand on a vertical
-    wall, and a stroke carried straight out of it ends in a flat underside the bed sees as a
-    shelf. Each letter's outline is instead carried out along +Z and up its caps' +Y at once,
-    at 45°: every underside is a 45° face the layer beneath it carries, the face keeps the
-    outline's whole height, and the letter stands the same `disposal_raise` proud."""
+    EVERY UNDERSIDE IS RAKED AND EVERY TOP IS LEVEL. back-bottom prints floor-down, so the
+    letters stand on a vertical wall, and a stroke carried straight out of it ends in a flat
+    underside the bed sees as a shelf. At every depth a letter is its outline at the face
+    swept down its caps' -Y as far as that depth lies behind the face: every top stays
+    level and meets the face square, and every underside rises 45° to the face, carried by the
+    layer beneath it. A stroke tip shallower down its caps than that reach is solid down to its
+    45° underside (`_raked_letter`). The face keeps the outline's whole height, and the letter
+    stands the same `disposal_raise` proud."""
     def text(line, size):
         return cq.Workplane("XY").text(
             line, size, disposal_raise + disposal_embed,
@@ -3222,12 +3295,20 @@ def _disposal_flat():
             -(bounds.xmin + bounds.xmax) / 2.0,
             index * leading + (row_height - bounds.ylen) / 2.0 - bounds.ymin, 0.0)))
     depth = disposal_raise + disposal_embed
-    raked = []
+    shapes, raked = {}, []
     for row in letters:
         for face in row.Faces():
             if abs(face.Center().z) > 1e-6 or face.normalAt().z > -0.99:
                 continue                                    # each letter's own outline only
-            raked.append(cq.Solid.extrudeLinear(face, cq.Vector(0.0, depth, depth)))
+            # A letter that recurs recurs exactly, so each shape is raked once and placed again.
+            box = face.BoundingBox()
+            corner = min((v.X, v.Y) for v in face.Vertices())
+            shape = (round(face.Area(), 6), round(box.xlen, 6), round(box.ylen, 6),
+                     len(face.Edges()))
+            if shape not in shapes:
+                shapes[shape] = (_raked_letter(face, depth), corner)
+            letter, at = shapes[shape]
+            raked.append(letter.translate(cq.Vector(corner[0] - at[0], corner[1] - at[1], 0.0)))
     return cq.Compound.makeCompound(raked)
 
 
@@ -3262,18 +3343,17 @@ def disposal_figures(outer):
     }
 
 
-def _disposal_clear_loose(mesh, outer):
-    """`mesh` without what its flute cut leaves of the raised letters in front of the wall.
+def _print_solid(name, solid, outer):
+    """The solid a piece's print mesh is cut from.
 
-    The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth is
-    zero, so over the plain field it takes each letter's root and leaves the rest of its relief
-    standing loose. `_export_pieces` carries the letters back on whole, once, after this."""
+    Back-bottom's is its own without the disposal letters' relief, ended exactly on the wall's
+    face. The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth
+    is zero; a relief it clipped would stand beside the whole letters `_export_pieces` joins
+    after it, two tessellations of one outline a few microns apart."""
+    if name != "back-bottom":
+        return solid
     fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
-    loose = trimesh.creation.box(bounds=(
-        (fx0, outer[3] + _flute_skin.cut_margin / 2.0, fz0),
-        (fx1, outer[3] + disposal_raise + 1.0, fz1)))
-    return trimesh.boolean.difference([_flute_skin.as_written(mesh), loose],
-                                      engine="manifold", check_volume=False)
+    return solid.cut(_ybox(fx0, fx1, outer[3], outer[3] + disposal_raise + 1.0, fz0, fz1))
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
@@ -9937,7 +10017,8 @@ def _export_pieces(pieces, assy):
     outer = box.outer
     # Every assembly piece is meshed once. The plate's envelope also contributes a
     # shadow mask over the bearing band behind the integral release face.
-    bodies = {name: _piece_mesh(piece.val()) for name, piece in pieces.items()}
+    bodies = {name: _piece_mesh(_print_solid(name, piece.val(), outer))
+              for name, piece in pieces.items()}
     steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
              if box.pack.collet_plate else [])
     for name, piece in pieces.items():
@@ -9960,10 +10041,9 @@ def _export_pieces(pieces, assy):
         mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
         if name == "back-bottom":
-            # The flute cutter closes outside the wall even where its depth is zero.
-            # Clear what it leaves of the letters, then carry the raised outlines onto the
-            # finished smooth field after that cut, once.
-            mesh = _disposal_clear_loose(mesh, outer)
+            # Its print mesh was cut without the letters' relief (`_print_solid`), so the
+            # flute cutter met none of it; the raised outlines join the finished smooth field
+            # whole, once.
             letters = _piece_mesh(disposal_letters(outer))
             mesh = trimesh.boolean.union(
                 [_flute_skin.as_written(mesh), _flute_skin.as_written(letters)],
