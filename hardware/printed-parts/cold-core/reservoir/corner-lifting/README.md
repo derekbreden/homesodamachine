@@ -1,5 +1,13 @@
 # Reservoir adhesion observations
 
+Mark1 task **1362179138** is the current
+[May Water adaptation](../prints/2026-10-21-mark1-may-water-right08-z000/README.md),
+accepted at **16:42:02 CDT / 21:42:02 UTC on October 21**. It uses the right
+0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
+**no brim**, zero added user trim and ironing Off. A1 starts the print with
+automatic refill. Startup supplies no corner-contact or water-hold result.
+The canceled job's task-bound scheduled monitor remains paused.
+
 The zero-user-trim Mark1 retry, task **1359909015**, has **reported corner curl
 and actual water leakage at many places**. Derek stopped it and identified
 the [two photographs](../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
@@ -51,18 +59,18 @@ bracket onset. Inspect every five minutes through layer 3, every ten minutes thr
 120, and then every thirty minutes if stable; stop the monitor when this specific task ends or
 changes. Ordinary unchanged progress does not need a notification.
 
-## Proposed next trial
+## Current recipe and investigation options
 
 **Flow 1.02** is supported by Derek. **No brim** is proposed: he reports the
 large object separates from the brim during curl, with difficult bed cleanup
 and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
-The [next-trial discussion](next-trial-options.json) takes the successful May
-Water recipe and ordinary Bambu motion settings as its reference. The saved
-project and executable recipe remain frozen.
+The [recipe discussion](next-trial-options.json) takes the successful May
+Water recipe and ordinary Bambu motion settings as its reference. The current
+project and native slice implement the [authorized adaptation](../prints/2026-10-21-mark1-may-water-right08-z000/adaptation.json).
 
-The current native G-code emits no brim despite the saved auto-brim setting.
-Its [body cooling paths](body-cooling-paths.json) also show **90% fan commands
+The preceding failed slice emitted no brim despite its saved auto-brim setting.
+Its [body cooling paths](body-cooling-paths.json) show **90% fan commands
 on the solid floor and early walls**, including layers 4 and 12–16. The
 successful May recipe also saves **90% overhang cooling**. A supported-path
 cooling review remains a hypothesis for the reported curl; no observed
@@ -71,7 +79,7 @@ fan-change-to-lift onset link establishes a required cooling change.
 The recovered May 30 water-holding recipe used clear PETG, flow **1.02**,
 **260 °C** after the first layer and a **21 mm³/s** ceiling through a 0.6 mm
 nozzle. It requested **200/300 mm/s** outer/inner walls; these are requested
-speeds, not measured motion. This failed recipe requests 30 mm/s with a
+speeds, not measured motion. The preceding failed recipe requested 30 mm/s with a
 6 mm³/s ceiling. Installed Bambu 0.8 mm Standard presets save a **21 mm³/s**
 ceiling for PETG Basic and **16 mm³/s** for Translucent, with ordinary high
 requested speeds. The earlier proposed 12 mm³/s intermediate target has no

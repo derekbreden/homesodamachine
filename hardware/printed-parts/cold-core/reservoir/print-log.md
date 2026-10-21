@@ -316,3 +316,28 @@ layer 0 is a reset status, not the stop layer. Bambu Studio displayed
 "The task was canceled." The final camera preview was unavailable. The
 [terminal observation](prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
 records these limits and the paused monitor.
+
+## Left reservoir and cap, May Water adapted to 0.8 mm (2026-10-21, Mark1 task 1362179138)
+
+Derek said:
+
+> Let's try the May Water recipe adapted to the 0.8 nozzle, with 1.02 flow, no brim, zero added Z trim, and ironing off. Mark1 is clear; go ahead and start the next reservoir print.
+
+Mark1 accepted one foreground Bambu Connect Send at **16:42:02 CDT** and acknowledged
+SUCCESS, entering PREPARE without print errors or HMS alerts. A1 feeds the right
+0.8 mm Standard nozzle with automatic refill. A2 is empty. The native recipe uses
+255/260 °C nozzle, 70 °C bed, flow 1.02, 21 mm³/s ceiling, 0.30/0.24 mm layers and
+0.80 mm lines. Requested outer/inner wall speeds are 200/300 mm/s; solid/top are
+250/200 mm/s. Six requested Arachne walls, 100% zig-zag fill, 15% overlap, random
+conditional scarf and 15% seam gap match the recovered May controls. Cooling is
+10–20%, off for the first three layers, with 90% overhang override and auxiliary off.
+
+No brim or ironing is emitted. Zero added user trim retains stock Textured PEI
+`G29.1 Z-0.02`. Current Tree(auto)/Default bed-only supports retain 0.18 mm gaps.
+Native plate-1 estimates: **5 h 42 min, 431.04 g, 833 layers**; no plate warnings.
+Send options for timelapse/bed leveling are On; flow dynamic/nozzle offset calibration are Auto.
+[Adaptation, native review and accepted job](prints/2026-10-21-mark1-may-water-right08-z000/README.md).
+The 16:48:41 CDT startup check found layer 0/833, no print error/HMS, bed 70 °C
+and the mounted right 0.8 mm nozzle. Live camera frames showed the empty plate
+during startup; runtime timelapse activation at deposition is unassessed.
+Finished-article corner contact and water hold are unassessed.

@@ -1,0 +1,655 @@
+{
+  "recorded_date": "2026-10-21",
+  "recipe": "../../print-settings.json",
+  "physical_recipe_source": {
+    "project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
+    "native_application": "BambuStudio-02.07.00.55",
+    "acceptance_id": "may-30-clear-06",
+    "active_source_nozzle": "left 0.6 mm Standard",
+    "adapted_to": "Mark1 right 0.8 mm Standard, current flat-floor body/cap geometry",
+    "material": "Actual May material was Bambu PETG clear; retain current GFG01 identity for the loaded clear Translucent spools."
+  },
+  "native_base": {
+    "commit": "67994c7efaed7589ff26db350b90eea089fbd3e8",
+    "path": "hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf",
+    "sha256": "3ff0f250b7dcdff49e2eb2a4cfcca4ccac2d32db3601c75177f88c7f577fd0af",
+    "project_settings_sha256": "ee53386dfc97caed9142b4b265ccc7b04dbb69dcd5a91ec39ccfdc7602721562",
+    "settings_hash_encoding": "UTF-8 JSON, sorted keys, compact separators"
+  },
+  "applied_may_controls": {
+    "additional_cooling_fan_speed": {
+      "may_active_value": "0",
+      "adapted_value": [
+        "0"
+      ]
+    },
+    "bottom_shell_layers": {
+      "may_active_value": "3",
+      "adapted_value": "3"
+    },
+    "bottom_shell_thickness": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "bridge_flow": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "bridge_speed": {
+      "may_active_value": "30",
+      "adapted_value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "close_fan_the_first_x_layers": {
+      "may_active_value": "3",
+      "adapted_value": [
+        "3"
+      ]
+    },
+    "default_acceleration": {
+      "may_active_value": "8000",
+      "adapted_value": [
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ]
+    },
+    "deretraction_speed": {
+      "may_active_value": "30",
+      "adapted_value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "enable_overhang_bridge_fan": {
+      "may_active_value": "1",
+      "adapted_value": [
+        "1"
+      ]
+    },
+    "enable_overhang_speed": {
+      "may_active_value": "1",
+      "adapted_value": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "fan_cooling_layer_time": {
+      "may_active_value": "30",
+      "adapted_value": [
+        "30"
+      ]
+    },
+    "fan_max_speed": {
+      "may_active_value": "20",
+      "adapted_value": [
+        "20"
+      ]
+    },
+    "fan_min_speed": {
+      "may_active_value": "10",
+      "adapted_value": [
+        "10"
+      ]
+    },
+    "filament_flow_ratio": {
+      "may_active_value": "1.02",
+      "adapted_value": [
+        "1.02",
+        "1.02"
+      ]
+    },
+    "filament_max_volumetric_speed": {
+      "may_active_value": "21",
+      "adapted_value": [
+        "21",
+        "21"
+      ]
+    },
+    "filament_retraction_length": {
+      "may_active_value": "0.4",
+      "adapted_value": [
+        "0.4",
+        "0.4"
+      ]
+    },
+    "filament_wipe_distance": {
+      "may_active_value": "2",
+      "adapted_value": [
+        "2",
+        "2"
+      ]
+    },
+    "filament_z_hop": {
+      "may_active_value": "0.2",
+      "adapted_value": [
+        "0.2",
+        "0.2"
+      ]
+    },
+    "gap_infill_speed": {
+      "may_active_value": "50",
+      "adapted_value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ]
+    },
+    "infill_wall_overlap": {
+      "may_active_value": "15%",
+      "adapted_value": "15%"
+    },
+    "initial_layer_acceleration": {
+      "may_active_value": "500",
+      "adapted_value": [
+        "500",
+        "500",
+        "500",
+        "500"
+      ]
+    },
+    "initial_layer_infill_speed": {
+      "may_active_value": "105",
+      "adapted_value": [
+        "105",
+        "105",
+        "105",
+        "105"
+      ]
+    },
+    "initial_layer_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "initial_layer_speed": {
+      "may_active_value": "50",
+      "adapted_value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ]
+    },
+    "initial_layer_travel_acceleration": {
+      "may_active_value": "6000",
+      "adapted_value": [
+        "6000",
+        "6000",
+        "6000",
+        "6000"
+      ]
+    },
+    "inner_wall_acceleration": {
+      "may_active_value": "0",
+      "adapted_value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "inner_wall_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "inner_wall_speed": {
+      "may_active_value": "300",
+      "adapted_value": [
+        "300",
+        "300",
+        "300",
+        "300"
+      ]
+    },
+    "internal_solid_infill_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "internal_solid_infill_pattern": {
+      "may_active_value": "zig-zag",
+      "adapted_value": "zig-zag"
+    },
+    "internal_solid_infill_speed": {
+      "may_active_value": "250",
+      "adapted_value": [
+        "250",
+        "250",
+        "250",
+        "250"
+      ]
+    },
+    "ironing_speed": {
+      "may_active_value": "30",
+      "adapted_value": "30"
+    },
+    "line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "nozzle_temperature": {
+      "may_active_value": "260",
+      "adapted_value": [
+        "260",
+        "260"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "may_active_value": "255",
+      "adapted_value": [
+        "255",
+        "255"
+      ]
+    },
+    "outer_wall_acceleration": {
+      "may_active_value": "5000",
+      "adapted_value": [
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ]
+    },
+    "outer_wall_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "outer_wall_speed": {
+      "may_active_value": "200",
+      "adapted_value": [
+        "200",
+        "200",
+        "200",
+        "200"
+      ]
+    },
+    "overhang_1_4_speed": {
+      "may_active_value": "0",
+      "adapted_value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "overhang_2_4_speed": {
+      "may_active_value": "50",
+      "adapted_value": [
+        "50",
+        "50",
+        "50",
+        "50"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "may_active_value": "30",
+      "adapted_value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "overhang_4_4_speed": {
+      "may_active_value": "10",
+      "adapted_value": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "overhang_fan_speed": {
+      "may_active_value": "90",
+      "adapted_value": [
+        "90"
+      ]
+    },
+    "overhang_fan_threshold": {
+      "may_active_value": "10%",
+      "adapted_value": [
+        "10%"
+      ]
+    },
+    "overhang_totally_speed": {
+      "may_active_value": "10",
+      "adapted_value": [
+        "10",
+        "10",
+        "10",
+        "10"
+      ]
+    },
+    "override_filament_scarf_seam_setting": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "prime_tower_lift_speed": {
+      "may_active_value": "90",
+      "adapted_value": "90"
+    },
+    "prime_tower_max_speed": {
+      "may_active_value": "90",
+      "adapted_value": "90"
+    },
+    "retraction_speed": {
+      "may_active_value": "30",
+      "adapted_value": [
+        "30",
+        "30",
+        "30",
+        "30"
+      ]
+    },
+    "role_base_wipe_speed": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "seam_gap": {
+      "may_active_value": "15%",
+      "adapted_value": "15%"
+    },
+    "seam_placement_away_from_overhangs": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "seam_position": {
+      "may_active_value": "random",
+      "adapted_value": "random"
+    },
+    "seam_slope_conditional": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "seam_slope_entire_loop": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "seam_slope_gap": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "seam_slope_inner_walls": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "seam_slope_min_length": {
+      "may_active_value": "10",
+      "adapted_value": "10"
+    },
+    "seam_slope_start_height": {
+      "may_active_value": "10%",
+      "adapted_value": "10%"
+    },
+    "seam_slope_steps": {
+      "may_active_value": "10",
+      "adapted_value": "10"
+    },
+    "seam_slope_type": {
+      "may_active_value": "all",
+      "adapted_value": "all"
+    },
+    "skeleton_infill_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "skin_infill_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "slow_down_for_layer_cooling": {
+      "may_active_value": "1",
+      "adapted_value": [
+        "1"
+      ]
+    },
+    "slow_down_layer_time": {
+      "may_active_value": "12",
+      "adapted_value": [
+        "12"
+      ]
+    },
+    "slow_down_min_speed": {
+      "may_active_value": "10",
+      "adapted_value": [
+        "10",
+        "10"
+      ]
+    },
+    "slowdown_end_speed": {
+      "may_active_value": "1000",
+      "adapted_value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ]
+    },
+    "slowdown_start_speed": {
+      "may_active_value": "1000",
+      "adapted_value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ]
+    },
+    "small_perimeter_speed": {
+      "may_active_value": "50%",
+      "adapted_value": [
+        "50%",
+        "50%",
+        "50%",
+        "50%"
+      ]
+    },
+    "smooth_speed_discontinuity_area": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "sparse_infill_acceleration": {
+      "may_active_value": "100%",
+      "adapted_value": [
+        "100%",
+        "100%",
+        "100%",
+        "100%"
+      ]
+    },
+    "sparse_infill_anchor": {
+      "may_active_value": "400%",
+      "adapted_value": "400%"
+    },
+    "sparse_infill_anchor_max": {
+      "may_active_value": "20",
+      "adapted_value": "20"
+    },
+    "sparse_infill_density": {
+      "may_active_value": "100%",
+      "adapted_value": "100%"
+    },
+    "sparse_infill_filament": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "sparse_infill_lattice_angle_1": {
+      "may_active_value": "-45",
+      "adapted_value": "-45"
+    },
+    "sparse_infill_lattice_angle_2": {
+      "may_active_value": "45",
+      "adapted_value": "45"
+    },
+    "sparse_infill_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "sparse_infill_pattern": {
+      "may_active_value": "zig-zag",
+      "adapted_value": "zig-zag"
+    },
+    "sparse_infill_speed": {
+      "may_active_value": "350",
+      "adapted_value": [
+        "350",
+        "350",
+        "350",
+        "350"
+      ]
+    },
+    "support_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "textured_plate_temp": {
+      "may_active_value": "70",
+      "adapted_value": [
+        "70"
+      ]
+    },
+    "textured_plate_temp_initial_layer": {
+      "may_active_value": "70",
+      "adapted_value": [
+        "70"
+      ]
+    },
+    "top_shell_layers": {
+      "may_active_value": "3",
+      "adapted_value": "3"
+    },
+    "top_shell_thickness": {
+      "may_active_value": "0.8",
+      "adapted_value": "0.8"
+    },
+    "top_surface_acceleration": {
+      "may_active_value": "2000",
+      "adapted_value": [
+        "2000",
+        "2000",
+        "2000",
+        "2000"
+      ]
+    },
+    "top_surface_line_width": {
+      "may_active_value": "0.6",
+      "adapted_value": "0.8"
+    },
+    "top_surface_speed": {
+      "may_active_value": "200",
+      "adapted_value": [
+        "200",
+        "200",
+        "200",
+        "200"
+      ]
+    },
+    "travel_acceleration": {
+      "may_active_value": "10000",
+      "adapted_value": [
+        "10000",
+        "10000",
+        "10000",
+        "10000"
+      ]
+    },
+    "travel_short_distance_acceleration": {
+      "may_active_value": "250",
+      "adapted_value": [
+        "250",
+        "250",
+        "250",
+        "250"
+      ]
+    },
+    "travel_speed": {
+      "may_active_value": "1000",
+      "adapted_value": [
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ]
+    },
+    "travel_speed_z": {
+      "may_active_value": "0",
+      "adapted_value": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "vertical_shell_speed": {
+      "may_active_value": "80%",
+      "adapted_value": [
+        "80%",
+        "80%",
+        "80%",
+        "80%"
+      ]
+    },
+    "wall_distribution_count": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    },
+    "wall_filament": {
+      "may_active_value": "0",
+      "adapted_value": "0"
+    },
+    "wall_generator": {
+      "may_active_value": "arachne",
+      "adapted_value": "arachne"
+    },
+    "wall_loops": {
+      "may_active_value": "6",
+      "adapted_value": "6"
+    },
+    "wall_sequence": {
+      "may_active_value": "inner wall/outer wall",
+      "adapted_value": "inner wall/outer wall"
+    },
+    "wall_transition_angle": {
+      "may_active_value": "10",
+      "adapted_value": "10"
+    },
+    "wall_transition_filter_deviation": {
+      "may_active_value": "25%",
+      "adapted_value": "25%"
+    },
+    "wall_transition_length": {
+      "may_active_value": "100%",
+      "adapted_value": "100%"
+    },
+    "wipe_speed": {
+      "may_active_value": "80%",
+      "adapted_value": "80%"
+    },
+    "z_direction_outwall_speed_continuous": {
+      "may_active_value": "1",
+      "adapted_value": "1"
+    }
+  },
+  "explicit_adaptations": {
+    "normal_layer_mm": 0.24,
+    "first_layer_mm": 0.3,
+    "line_widths_mm": 0.8,
+    "right_nozzle_mm": 0.8,
+    "flow": 1.02,
+    "brim": "None",
+    "ironing": "Off for model and support",
+    "user_z_trim_mm": 0,
+    "textured_stock_compensation_mm": -0.02,
+    "supports": "Current Tree(auto)/Default, bed-only, 0.18 mm contact gaps; May normal supports belonged to its raised slanted floor."
+  },
+  "founder_quote": "Let's try the May Water recipe adapted to the 0.8 nozzle, with 1.02 flow, no brim, zero added Z trim, and ironing off. Mark1 is clear; go ahead and start the next reservoir print."
+}

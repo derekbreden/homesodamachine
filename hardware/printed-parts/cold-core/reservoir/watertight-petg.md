@@ -1,18 +1,17 @@
 # Printing the reservoir in PETG
 
-[reservoir.3mf](reservoir.3mf) preserves the recipe of the current failed
-zero-user-trim article. Derek reports corner curl and water leakage at many
-places and stopped task 1359909015. See the
-[physical result](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
-and [proposed next trial](corner-lifting/next-trial-options.json). No replacement
-recipe is applied or physically qualified.
+[reservoir.3mf](reservoir.3mf) uses the **May Water recipe adapted to Mark1's
+right 0.8 mm Standard nozzle**, with **flow 1.02, no brim, zero added user Z
+trim and ironing Off**. The left body/cap pair is accepted as task
+**1362179138**. [Adaptation and launch](prints/2026-10-21-mark1-may-water-right08-z000/README.md).
 
 The project's two plates contain
-the current left and right body/cap pairs and the September 0.24 mm
-baseline **with ironing off**. [print-settings.json](print-settings.json) holds every saved machine,
+the current left and right body/cap pairs. [print-settings.json](print-settings.json) holds every saved machine,
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
-`september-08-024` in [water-hold-acceptance.json](water-hold-acceptance.json).
+`may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
+Its water hold belongs to the historical May article; this adaptation awaits
+its own physical sealing and corner-flatness results.
 
 ## Current recipe
 
@@ -21,24 +20,26 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 | Active nozzle | Mark1 right 0.8 mm, Standard flow |
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
-| Nozzle temperature, first / subsequent | 255 / 255 °C |
+| Nozzle temperature, first / subsequent | 255 / 260 °C |
 | Textured PEI bed, first / subsequent | 70 / 70 °C |
-| Flow ratio / maximum volumetric speed | 0.97 / 6 mm³/s |
-| Requested wall / fill / top speeds | 30 mm/s |
+| Flow ratio / maximum volumetric speed | 1.02 / 21 mm³/s |
+| Requested outer / inner wall speeds | 200 / 300 mm/s |
+| Requested solid fill / sparse fill / top speeds | 250 / 350 / 200 mm/s |
 | Requested wall width / wall loops | 0.80 mm / six, Arachne |
-| Fill / top / first-layer width | 0.90 mm |
+| Fill / top / first-layer width | 0.80 mm |
 | Fill / wall overlap | 100% zig-zag / 15% |
-| Top / bottom shells | 12 layers and 2 mm minimum thickness |
+| Top / bottom shell settings | Three layers; 0.8 / 0 mm minimum thickness; modeled 3 mm floor filled at 100% |
 | Top / bottom pattern | Zig-zag |
 | Ironing, model and supports | Off |
 | Wall order | Inner then outer |
-| Seam | Aligned scarf on all walls; inner walls included; unconditional; gap 0% |
-| Ordinary cooling | Part fan 20%; first three layers off; auxiliary off |
+| Seam | Random, scarf on all walls; inner walls included; conditional; gap 15% |
+| Ordinary cooling | Part fan 10–20%; first three layers off; auxiliary off |
 | Overhang cooling | 90% override |
 | Supports | Tree auto, bed only, 30° threshold |
 | Support top / bottom gap | 0.18 / 0.18 mm |
 | Support interface top / bottom layers | Two / two |
 | Saved printer trim | Mark1 clear PETG: zero added user trim |
+| Brim | None; no native brim paths |
 
 The start block clears user trim and emits **`G29.1 Z-0.02`**, the stock
 Textured PEI compensation for this 0.8 mm nozzle. This clear PETG recipe has no
@@ -46,11 +47,11 @@ added Z lift. Its [first-layer failure record](prints/2026-10-20-mark1-right08/p
 and [retry](prints/2026-10-21-mark1-right08-z000/README.md) bind the correction to
 this material and article. PET-GF profiles retain their own trim settings.
 
-The project uses the September baseline, with ironing disabled according to the
+The project uses the May Water controls, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
 Both plates explicitly assign the right nozzle in Manual mode. The Mark1
-zero-trim article started on **A2** and automatically refilled from **A1**;
+May Water article starts on **A1**, with matching-spool automatic refill;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
@@ -79,7 +80,7 @@ surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
 
-The current zero-user-trim left article leaks at many places, as reported by
+The preceding zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall
 transition. Neither the finished shape nor the limited live camera views
 establishes an onset layer. The stopped job's
@@ -89,7 +90,7 @@ records the visibility limit and paused task-bound monitor.
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that
 historical geometry. The [current native slice review](slice-review.json)
-estimates **19 h 21 min and 410 g** per body/cap plate, with **zero ironing**,
+estimates **5 h 42 min and 431 g** per body/cap plate, with **zero ironing**,
 833 layers and an empty plate-warning field. The model/support/brim full bead
 envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge**, including
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm

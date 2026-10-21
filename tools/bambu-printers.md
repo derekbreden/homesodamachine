@@ -90,14 +90,14 @@ records Derek's requirement to move that complete test plate toward the center.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in all four slots, feeding its right **0.8 mm Standard-flow** hotend.
-The zero-trim reservoir retry starts on **A2**, with the printer choosing
-subsequent spools through automatic refill.
+The May Water reservoir print starts on **A1**; A2 is empty. The printer chooses
+subsequent matching spools through automatic refill.
 Use every spool fully; remaining quantity is not a launch condition.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. AMS Auto-Refill is enabled and
 all four trays form one identical-filament backup group. Connect selects the
 starting slot; its AMS settings provide an Auto-Refill toggle.
-The [reservoir retry record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/README.md)
+The [May Water launch record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/README.md)
 records the launch disposition.
 
 ## Mark2 clear PETG spool order

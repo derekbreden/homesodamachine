@@ -12,59 +12,39 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Print status
+## Current print
 
-The zero-user-trim Mark1 article has **reported corner curl and water leakage
-at many places**. Derek stopped it. The
-[physical result and photographs](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
-bind that outcome to task 1359909015. The
-[next-trial discussion](corner-lifting/next-trial-options.json) uses **flow 1.02**
-and the successful May Water recipe as its reference. Derek declines brims based
-on separation during curl and poor removal results. The
-[historical recipe review](corner-lifting/historical-recipe-review.json)
-identifies the recovered settings and remaining sphere-record limits.
-Discussion choices are not applied to the project or qualified by a print.
+Mark1 task **1362179138** prints the current left reservoir and matching cap with the
+**May Water recipe adapted to the right 0.8 mm Standard nozzle**. It was accepted
+at **16:42:02 CDT on October 21, 2026**, starting on **A1** with automatic refill.
+[Launch, adaptation and native review](prints/2026-10-21-mark1-may-water-right08-z000/README.md).
 
-**[reservoir.3mf](reservoir.3mf)** preserves the failed article's current body/cap
-pairs and **September 0.24 mm baseline with ironing off**. Plate 1 holds the left body and cap;
-plate 2 holds the right body and cap. Bodies print mouth up and caps exterior
-face down. Both plates use Mark1's right **0.8 mm Standard-flow nozzle**, Bambu
-PETG Translucent Clear and the textured PEI plate.
+Use **[reservoir.3mf](reservoir.3mf)** for the current pairs: plate 1 is left,
+plate 2 is right. Bodies print mouth up; caps print exterior face down.
+Bambu PETG Translucent Clear uses **255/260 °C** first/subsequent nozzle,
+**70 °C** bed, **1.02 flow**, **21 mm³/s** ceiling, **0.30/0.24 mm** layers and
+**0.80 mm** lines. May's requested wall speeds are **200/300 mm/s** outer/inner,
+with **250/200 mm/s** solid/top speeds; actual motion is flow/acceleration limited.
+Ordinary cooling is **10–20%**, first three layers off, with 90% local overhang
+cooling and auxiliary off. Random conditional scarf seams retain the May 15% gap.
 
-The saved process uses a **0.30 mm first layer / 0.24 mm normal layer**,
-**255 °C** nozzle, **70 °C** bed, **0.97** flow, **6 mm³/s** volumetric ceiling,
-**30 mm/s** requested wall/fill speeds and **20%** ordinary cooling. It retains
-six requested Arachne walls, 100% zig-zag fill, aligned unconditional scarf
-seams, zero seam gap, **no ironing** and the September support settings.
-[Complete current settings](print-settings.json) ·
-[Printing guide](watertight-petg.md) · [Project verification](reservoir.print.json) ·
-[Native slice review](slice-review.json). Each current body/cap plate estimates
-about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
-model/support/brim envelope stays at least **70.5 mm inside the right nozzle's usable bed**.
-Filament assignment is Manual on the right nozzle. The Mark1 zero-trim article started on
-**A2** and automatically refilled from **A1**. See
-[printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
-and the [Mark1 retry record](prints/2026-10-21-mark1-right08-z000/README.md).
+**No brim, zero added user Z trim and ironing Off** are explicit selections.
+Stock Textured PEI compensation emits **`G29.1 Z-0.02`**. The
+[flat-square finish result](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
+supplies the ironing-Off preference; it supplies no water-hold result.
+Current automatic Tree/Default supports serve the flat-floor geometry.
 
-The [flat-square finish record](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
-selects **OFF** as the smoothest and best-feeling finish. The
-[calibration record](ironing-study/README.md) preserves the tested settings and
-observations. This finish selection supplies no new reservoir water-hold result.
+[Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
+[Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
+The left body/cap plate estimates **5 h 42 min and 431 g**, with a **70.5 mm**
+minimum full-bead bed-edge inset. This adaptation awaits its own physical result.
 
-This clear PETG recipe uses **zero added user Z trim**, retaining Bambu's stock
-Textured PEI compensation, emitted as **G29.1 Z-0.02**. The
-[first-layer failure and photographs](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
-and [corner-lifting investigation](corner-lifting/README.md) identify the observed
-adhesion issues and evidence limits. PET-GF printer profiles retain their own
-settings; see [printer profiles](../../../../tools/bambu-printers.md).
-The September baseline's reported water hold is identified by `september-08-024` in the
-[acceptance record](water-hold-acceptance.json).
-
-[Mark2 reservoir and cap launch](prints/2026-10-06-mark2-no-ironing-v1/launch.json),
-task **1314692596**, uses plate 1 with ironing off.
-The [right reservoir and cap launch](prints/2026-10-07-mark2-right-no-ironing-v1/README.md),
-task **1317261284**, uses the matching frozen plate 2, accepted at **09:34:45 CDT
-on October 7**. Finished-part and water-hold results are unassessed.
+The preceding zero-trim article has
+[reported corner curl and leaks at many places](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
+The [historical review](corner-lifting/historical-recipe-review.json) identifies
+the successful May source and exact limits of the recovered sphere record.
+Historical May and September water holds remain scoped to their tested articles
+in [water-hold-acceptance.json](water-hold-acceptance.json).
 
 ## Current print geometry
 
@@ -79,8 +59,8 @@ the shared [float interface](../_float_interface.py).
 STEP files and the complete frozen recipe. Run it with `tools/cad-venv/bin/python`;
 it checks source hashes against the
 [integration record](../magnetic-float/all-aero/integration-check.json), closed
-meshes, centered bed placement and preservation of the September baseline
-with the declared ironing and assignment settings.
+meshes, centered bed placement and preservation of the frozen native base
+with the declared May adaptation, ironing and assignment settings.
 [review_slice.py](review_slice.py) checks the native recipe, absence of ironing,
 right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports.
 
@@ -89,5 +69,5 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-left article failed its reported water hold; the matching right body is unassessed.
+May-adapted article awaits its water-hold result; the matching right body is unassessed.
 CAD clearance does not establish a print's sealing or finished float sliding.
