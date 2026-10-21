@@ -16,35 +16,25 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "BUILD.bazel",
-      "hardware/manifold-layout/_scorecard.py",
-      "hardware/manifold-layout/drain-clearance-check.json",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/manifold-layout/enclosure_assembly.py",
+      "AGENTS.md",
       "hardware/wiring/enclosure-wiring.csv",
       "hardware/wiring/enclosure-wiring.json",
-      "hardware/wiring/installed/__init__.py",
-      "hardware/wiring/installed/build.py",
       "hardware/wiring/installed/bundle-routes.json",
       "hardware/wiring/installed/bundles.py",
-      "hardware/wiring/installed/connections.py",
-      "hardware/wiring/installed/connector-map.json",
-      "hardware/wiring/installed/draw.py",
-      "hardware/wiring/installed/export_connector_map.py",
-      "hardware/wiring/installed/input-trace.json",
       "hardware/wiring/installed/integration-review.json",
-      "hardware/wiring/installed/model.py",
       "hardware/wiring/installed/review.py",
       "hardware/wiring/installed/route-overrides.json",
-      "hardware/wiring/installed/route_search.py",
       "hardware/wiring/installed/routes.py",
       "hardware/wiring/installed/routing-review.json",
-      "hardware/wiring/installed/step_merge.py",
       "hardware/wiring/installed/terminals.py",
-      "hardware/wiring/installed/terminations.py",
-      "tools/bazel/graph.json",
-      "tools/cad-artifacts/pack.py",
-      "tools/changes/change.mjs"
+      "tools/changes/change.mjs",
+      "web/contracts/icons.js",
+      "web/lib/changes.js",
+      "web/lib/icons.js",
+      "web/lib/latest.js",
+      "web/lib/shell.js",
+      "web/lib/updates.js",
+      "web/server.js"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1529,8 +1519,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "6fc533b9d960237c38688d23e2f4c55cb86c61085a9d1d28b4e6906397bbc854",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "69cd9013d12cb6e15370d9f288814938a0df136f7c5fefbf63bb23380ee72dcf",
+    "hardware/manifold-layout/enclosure-assembly.step": "0cdf4fbd0a3a49e99ef49438f421416c7d31ab3545576f544e0d72addd26cd93",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d90d98f0bc0dd76b53ce2fd5d6a4e980fb342916364a9a0fbd01f3a3f84c678c",
     "hardware/manifold-layout/manifold-layout.step": "0181e5fc18d8dc2fee51bf057e3f7667ef2d550d70554107b4611ea9600eb9a4",
     "hardware/manifold-layout/manifold-layout.step.mesh": "583897b21d79c696c87ced38041fb7d5a01951bbb18559b12029605adfe2491f",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2743,8 +2733,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
-    "hardware/wiring/enclosure-wiring.step": "a6e1c025d67829f0c776faf44e01566dac433f56510e9589390a6f03dfcea56e",
-    "hardware/wiring/enclosure-wiring.step.mesh": "4577447d34c3027f4420b3c1d20a8e09a64dc36f35a91da9885837c48792c4a7"
+    "hardware/wiring/enclosure-wiring.step": "3e54b96747a599797003abbc3e43e9e1e1d6d52eb4e698cde1101c3b3611982d",
+    "hardware/wiring/enclosure-wiring.step.mesh": "9a22cab4ec4fba276bd7038c937ccd85bfd9a8c50c6bdc5ec1f6baaefbbc4f46"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "8d243df90394222ca39bf2c07f218d7da3609bd4889702f97cddbf069280629c",
@@ -2830,8 +2820,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1792553559,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792553559,
+    "hardware/manifold-layout/enclosure-assembly.step": 1792555115,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792555115,
     "hardware/manifold-layout/manifold-layout.step": 1792542001,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792542001,
     "hardware/pcb/pcba/out/pcba.bom.csv": 1792442215,
@@ -4044,7 +4034,7 @@
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
-    "hardware/wiring/enclosure-wiring.step": 1792553559,
-    "hardware/wiring/enclosure-wiring.step.mesh": 1792553559
+    "hardware/wiring/enclosure-wiring.step": 1792555115,
+    "hardware/wiring/enclosure-wiring.step.mesh": 1792555115
   }
 }
