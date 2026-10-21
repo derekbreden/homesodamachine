@@ -4,9 +4,11 @@ body {
   --home-nav-inset: max(var(--home-gutter), calc((100vw - 78rem) / 2));
   background: var(--brand-navy);
 }
-.site-nav {
-  padding-left: calc(env(safe-area-inset-left, 0px) + var(--home-nav-inset));
-  padding-right: calc(env(safe-area-inset-right, 0px) + var(--home-nav-inset));
+@media (min-width: 601px) {
+  .site-nav {
+    padding-left: calc(env(safe-area-inset-left, 0px) + var(--home-nav-inset));
+    padding-right: calc(env(safe-area-inset-right, 0px) + var(--home-nav-inset));
+  }
 }
 .home-main { flex: 1; min-width: 0; }
 .home-inner {
@@ -85,10 +87,6 @@ body {
   .home-part-position span { width: 1.5rem; height: 1.5rem; font-size: 0.625rem; flex-shrink: 0; }
   .home-main h3 { font-size: 1.375rem; }
   .home-main .home-part-copy > p:last-child { font-size: 1rem; line-height: 1.65; margin-top: 0.625rem; }
-}
-@media (max-width: 400px) {
-  .site-nav, .site-nav .nav-right { gap: 0.25rem; }
-  .site-nav a.nav-icon { padding-inline: 0.25rem; }
 }
 @media (max-width: 360px) {
   .home-brand { width: 9.25rem; }
