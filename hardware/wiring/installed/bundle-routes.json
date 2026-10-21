@@ -4,23 +4,20 @@
     "outer_diameter_mm": 8.0,
     "inner_diameter_mm": 6.2,
     "diameter_basis": "Proposed layout envelope; actual purchased jacket OD remains unmeasured",
-    "bend_radius_mm": 8.0,
+    "bend_radius_mm": 24.0,
     "end_trim_mm": 12.0,
-    "route_status": "unresolved",
+    "route_status": "proposed",
     "cores": {
       "AC4-H": [
         1.6,
-        0.0,
         0.0
       ],
       "AC5-N": [
         -0.8,
-        0.0,
         1.38564
       ],
       "AC6-PE": [
         -0.8,
-        0.0,
         -1.38564
       ]
     },
@@ -33,9 +30,9 @@
           1
         ],
         "offset": [
-          -16.15,
-          7.2,
-          -4.2
+          -15.15,
+          -6.8,
+          -11.2
         ]
       },
       {
@@ -46,9 +43,9 @@
           1
         ],
         "offset": [
-          -23.15,
-          -17.8,
-          10.8
+          -33.15,
+          -86.8,
+          -22.2
         ]
       },
       {
@@ -59,9 +56,9 @@
           1
         ],
         "offset": [
-          -30.15,
-          -102.8,
-          10.8
+          -33.15,
+          -110.8,
+          -30.2
         ]
       },
       {
@@ -72,22 +69,9 @@
           1
         ],
         "offset": [
-          -30.15,
-          -113.8,
-          -35.2
-        ]
-      },
-      {
-        "part": "pcba",
-        "fraction": [
-          0,
-          1,
-          1
-        ],
-        "offset": [
-          -32.15,
-          -147.8,
-          -35.2
+          -21.15,
+          -122.8,
+          -42.2
         ]
       },
       {
@@ -98,9 +82,9 @@
           1
         ],
         "offset": [
-          13.1,
-          15,
-          22
+          14.1,
+          -67.0,
+          41.0
         ]
       },
       {
@@ -111,9 +95,9 @@
           1
         ],
         "offset": [
-          4.8,
-          -19,
-          22
+          14.1,
+          -67.0,
+          25.0
         ]
       },
       {
@@ -124,11 +108,169 @@
           1
         ],
         "offset": [
-          4.8,
-          -54,
-          10
+          2.1,
+          -79.0,
+          13.0
+        ]
+      },
+      {
+        "part": "compressor",
+        "fraction": [
+          1,
+          1,
+          1
+        ],
+        "offset": [
+          2.1,
+          -99.0,
+          -7.0
+        ]
+      },
+      {
+        "part": "compressor",
+        "fraction": [
+          1,
+          1,
+          1
+        ],
+        "offset": [
+          -15.9,
+          -141.0,
+          -53.0
         ]
       }
-    ]
+    ],
+    "core_section_frame": "Two perpendicular axes transported along the common centreline; first axis is projected world X at entry.",
+    "fanouts": {
+      "AC4-H": {
+        "end_lands_mm": [
+          6.0,
+          6.0
+        ],
+        "bend_radius_mm": 4.0,
+        "entry_stations": [
+          {
+            "terminal": "relay-1.NO",
+            "offset": [
+              -12.75,
+              67.2,
+              -5.7
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "terminal": "fuse.in",
+            "offset": [
+              10.0,
+              0.0,
+              5.0
+            ]
+          }
+        ]
+      },
+      "AC5-N": {
+        "end_lands_mm": [
+          6.0,
+          6.0
+        ],
+        "bend_radius_mm": 4.0,
+        "entry_stations": [],
+        "exit_stations": [
+          {
+            "terminal": "compressor.N",
+            "offset": [
+              8.6,
+              0.0,
+              6.0
+            ]
+          }
+        ]
+      },
+      "AC6-PE": {
+        "end_lands_mm": [
+          4.0,
+          6.0
+        ],
+        "bend_radius_mm": 4.0,
+        "entry_stations": [
+          {
+            "terminal": "ground.compressor",
+            "offset": [
+              -21.8147,
+              -5.53375,
+              -14.20582
+            ]
+          }
+        ],
+        "exit_stations": []
+      }
+    },
+    "fanout_tangent_mm": [
+      12.0,
+      6.0
+    ],
+    "fuse_leads": {
+      "in": {
+        "offsets_mm": [
+          [
+            0,
+            1.5,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            2.5,
+            -1.25,
+            2.5
+          ],
+          [
+            5.5,
+            -1.25,
+            5.5
+          ],
+          [
+            5.5,
+            17.75,
+            12.5
+          ],
+          [
+            8.5,
+            17.75,
+            12.5
+          ]
+        ],
+        "bend_radius_mm": 1.0
+      },
+      "out": {
+        "offsets_mm": [
+          [
+            0,
+            -1.5,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            5,
+            4.75,
+            11
+          ],
+          [
+            8,
+            4.75,
+            11
+          ]
+        ],
+        "bend_radius_mm": 1.0
+      }
+    }
   }
 }

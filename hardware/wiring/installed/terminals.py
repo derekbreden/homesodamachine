@@ -37,6 +37,7 @@ class Attachments:
         self.frames = {}
         self.frame_checks = {}
         self.parts = {}
+        self.fuse_leads = {}
 
     def part(self, name):
         if name in self.scene:
@@ -196,14 +197,26 @@ class Attachments:
             p,a=carry((x,-25.,z),(0,-1,0))
             self.put('c14.'+label,'c14-inlet',p,a,'solder-tab','Scanned tab positions; L/N assignment awaits physical moulded marks','nominal')
         carry=self.frame('thermal-fuse',HW/'reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step',ea.FUSE_TURN)
+        from .bundles import definitions
+        leads=definitions()['compressor-cord']['fuse_leads']
         for label,sign in (('in',-1),('out',1)):
-            p,a=carry((sign*8.5,0,2.1),(sign,0,0))
-            self.put('fuse.'+label,'thermal-fuse',p,a,'lead','SF76E lead ends after retained 3 mm straight')
+            p,a=carry((sign*(ea._fuse.BODY_L/2+ea._fuse.LEAD_STUB),0,ea._fuse.AXIS_Z),(sign,0,0))
+            lead=leads[label]
+            points=[add(p,offset) for offset in lead['offsets_mm']]
+            self.fuse_leads[label]={**lead,'points_mm':points,'native_stub_tip_mm':p,
+                                   'lead_diameter_mm':ea._fuse.LEAD_D,
+                                   'native_straight_mm':ea._fuse.LEAD_STUB,
+                                   'available_lead_mm':ea._fuse.LEAD_LONG if label=='in' else ea._fuse.LEAD_SHORT}
+            self.put('fuse.'+label,'thermal-fuse',points[-1],(1,0,0),'insulated-splice',
+                     'Proposed splice beyond dressed SF76E lead; native first 3 mm remain straight','nominal')
         carry=self.frame('ground-stack',ea.GND_STACK_STEP,ea.RELAY_TURN)
-        for i,label in enumerate(('inlet','compressor','carbonator')):
-            angle=math.radians(i*60)
-            p,a=carry((6*math.cos(angle),6*math.sin(angle),i*.8+2.1),(math.cos(angle),math.sin(angle),0))
-            self.put('ground.'+label,'ground-stack',p,a,'ring-barrel','Native ring stack barrel mouth')
+        gnd=ea._gnd;mouth=gnd.eye_od/2-1+gnd.barrel_len
+        for label,i in (('inlet',0),('compressor',4),('carbonator',2)):
+            angle=math.radians(i*gnd.fan_step)
+            p,a=carry((mouth*math.cos(angle),mouth*math.sin(angle),i*gnd.tongue_t+gnd.barrel_d/2),
+                      (math.cos(angle),math.sin(angle),0))
+            self.put('ground.'+label,'ground-stack',p,a,'ring-barrel',
+                     'Native crimp-barrel free end; compressor uses the downward-facing lug',pin=i+1)
 
     def contacts(self):
         for side,part,outward in (('male','pump-contact-male',(0,1,0)),('female','pump-contact-female',(0,-1,0))):
@@ -260,11 +273,15 @@ class Attachments:
                      'Native jack envelope; individual IDC locations nominal, electrical pin map from cable schedule','nominal',i)
 
     def boundaries(self):
-        lo,hi=bounds(self.part('compressor'));c=centre(self.part('compressor'))
-        # No invented access to the terminal block beneath the retained cover.
+        # The retained power-cover primitive is a distinct native solid. Keep the
+        # estimated donor landings beside that cover, not on the can's far flank.
+        power_box=next(s for s in self.part('compressor').Solids()
+                       if all(abs(a-b)<.1 for a,b in zip(
+                           sorted(y-x for x,y in zip(*bounds(s))),[27.5,45.,45.])))
+        lo,hi=bounds(power_box);c=centre(power_box)
         for i,label in enumerate(('H','N','PE')):
-            self.put('compressor.'+label,'compressor',(hi[0],c[1]+(i-1)*4.,hi[2]-20.),(1,0,0),'donor-interface',
-                     'Approach to donor power-cover region; Unit B interface/earth screw not located','unlocated')
+            self.put('compressor.'+label,'compressor',(hi[0],c[1]+(i-1)*5.,hi[2]-7.),(1,0,0),'donor-interface',
+                     'Proposed external landing region beside retained native power box; exact Unit B lead and earth contacts unlocated','unlocated')
         lo,hi=bounds(self.part('condenser+fan'))
         for i,label in enumerate(('positive','negative')):
             self.put('fan.'+label,'condenser+fan',(hi[0]-6-i*2.,lo[1]+30.,hi[2]+4.),(0,1,0),'donor-lead',

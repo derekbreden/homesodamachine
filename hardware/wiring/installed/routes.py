@@ -26,18 +26,16 @@ def routed(connections, attachments):
         groups.setdefault(c.harness,[]).append(c.id)
     result=[]
     for c in connections:
+        from .bundles import core_route
+        shared=core_route(c,attachments)
+        if shared is not None:
+            result.append(shared)
+            continue
         a,b=t[c.start],t[c.end]
         guide=guide_points(c,attachments,groups)
         saved=overrides.get(c.id,{})
-        from .bundles import core_guide
-        bundle=core_guide(c,attachments)
         if 'stations' in overrides.get(c.id,{}):
             guide=[station(p,attachments) for p in overrides[c.id]['stations']]
-        if bundle:
-            bundle_id,guide,radius=bundle
-            saved={**saved,'bend_radius_mm':radius,'preserve_stations':True,
-                   'end_lands_mm':[6.,6.],
-                   'note':'Three conductors share the modeled SJOOW jacket corridor; end fanouts are proposed.'}
         # Relaxed exits are explicit, including at the solder tails. The short
         # local land is not an assumed rigid connector keep-out envelope.
         lead=6.0 if STOCK[c.stock]['awg']==22 else 8.0
