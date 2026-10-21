@@ -1,5 +1,14 @@
 # Reservoir clear PETG retry on Mark1
 
+**Result: Derek stopped this article and reports corner curl plus water
+leakage at many places.** The
+[physical result](physical-result/physical-result.json) contains his exact
+reports and two photographs. The [terminal observation](terminal-observation.json)
+records cancellation, the last limited live views and the paused monitor.
+No live lift-onset bracket was established. The
+[proposed next trial](../../corner-lifting/next-trial-options.json) is not applied
+to this frozen recipe.
+
 Mark1 accepted task **1359909015** at **00:40:29 CDT on
 October 21, 2026**, through one Bambu Connect Send. The printer acknowledged
 `project_file` SUCCESS and entered PREPARE without errors or HMS alerts.
@@ -43,9 +52,9 @@ use Auto. Mark2's enclosure comparison was already running. The launch was
 exceeding the shared-circuit 180-second interval.
 
 The [adhesion investigation](../../corner-lifting/README.md) separates first-layer
-non-adherence from the reported later corner lifting. This task's first-layer
-attachment, later corner contact, finished-part fit and water hold await
-physical observation. Startup acceptance establishes none of those results.
+non-adherence from corner lifting. This article has a reported physical lift
+and water-hold failure; full first-layer attachment and finished-part fit are
+unassessed. Startup acceptance establishes none of those results.
 
 At **00:42:20 CDT**, the [startup observation](startup.json) reports this exact
 task RUNNING at layer 0/833 without errors or HMS alerts. Two updating Bambu
@@ -54,9 +63,9 @@ deposition. A2 is verified in the Send dialog; startup telemetry still reports
 the previously loaded A4 before material preparation. Runtime timelapse is
 disabled during this startup phase; verify activation at deposition.
 
-The thread's adhesion monitor checks every five minutes through layer 3,
-every ten minutes through layer 120, then every thirty minutes if stable.
-It observes this exact task and stops when the task ends or changes.
+The task-bound adhesion monitor is **paused** after cancellation. Its cadence
+was five minutes through layer 3, ten minutes through layer 120, then thirty
+minutes. It does not follow another task.
 
 At **00:52:14 CDT**, the [deposition-start observation](deposition-start.json)
 confirms layer **1/833**, **A2** current and target, the mounted right **0.8 mm**

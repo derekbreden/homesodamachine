@@ -1,0 +1,75 @@
+{
+  "reported_on": "2026-10-21",
+  "printer": "Mark1",
+  "job_id": "1359909015",
+  "archive": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "disposition": "Derek stopped the zero-user-trim retry after corner curling and water leakage at many places.",
+  "binding": "Derek explicitly identifies these photographs and the many-place water leak as the most recent print he just stopped.",
+  "founder_quotes": [
+    "It gets some curling up on the corner on that last print. You should be able to see in the photo there that the curling had to have occurred pretty early on, because we end up with this squished out right above the stop of the floor. And this squishing out clearly happens when it raises up. So what are your thoughts about what we can try next for that problem?",
+    "Also. I don’t think we’re as watertight here as we have been for example on our earlier sphere pressure tests where we increased the flow ratio, and certainly not as fast as we had been.",
+    "It leaked many places. It is from the most recent print i just stopped."
+  ],
+  "reported_results": {
+    "body_corner_lift": true,
+    "water_hold": "failed: leaked many places",
+    "cap_result": "not separately reported",
+    "leak_locations": null,
+    "water_fill_height_mm": null,
+    "hold_duration": null,
+    "stop_layer": null
+  },
+  "photo_observations": [
+    "Two views show a body corner and a pronounced uneven bulging/ridged band near the floor-to-wall transition. The article is photographed off the build plate.",
+    "Derek reports upward corner curl and attributes the local compressed band to the raised lower section. This is consistent with lift reducing nozzle clearance; a solid-floor-to-wall transition can also produce a band, so its height does not date onset on its own.",
+    "The pictured corner is not mapped to a printer-camera corner. These photographs do not establish a repeatable live bed-to-underside gap, exact lift layer, nozzle strike or plate flex."
+  ],
+  "settings": {
+    "user_z_trim_mm": 0.0,
+    "emitted_textured_pei_z_mm": -0.02,
+    "first_layer_mm": 0.3,
+    "normal_layer_mm": 0.24,
+    "nozzle_c": 255,
+    "bed_c": 70,
+    "flow_ratio": 0.97,
+    "volumetric_ceiling_mm3_s": 6,
+    "material": "Bambu PETG Translucent Clear",
+    "nozzle": "right 0.8 mm Standard-flow",
+    "start_slot": "A2",
+    "automatic_refill_observed_to": "A1",
+    "ironing": "Off",
+    "emitted_brim": false
+  },
+  "diagnostic_scope": "The current zero-user-trim article fails both reported corner-flatness and water-hold outcomes. The location/mechanism of each leak is unknown; all leaks cannot be attributed to the pictured corner. Earlier May/September accepted water holds retain their original scope.",
+  "onset": {
+    "layer": null,
+    "last_clearly_attached_full_corner_baseline": null,
+    "first_clearly_lifted_live_observation": null,
+    "bracket": null,
+    "limit": "Live checks through UI layer 526 assessed only exposed edges. They did not detect the reported lift and cannot exclude lifting on an obscured or reflective edge. The user's earlier layer 20–100 estimate remains a hypothesis, not an observed interval for this retry."
+  },
+  "terminal_record": "../terminal-observation.json",
+  "next_options": "../../../corner-lifting/next-trial-options.json",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "4c0eb95b5cd9d233915ffe0e7cc7d42b1da70e23bd7c7fff7b628645ae17c2e7",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "f286d969de7eaa542c2c7191f4762ea732363a9da3b4e2ec1c11d149cb922395",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    }
+  ]
+}

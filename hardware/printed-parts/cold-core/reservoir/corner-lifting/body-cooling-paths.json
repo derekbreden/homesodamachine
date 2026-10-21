@@ -1,0 +1,148 @@
+{
+  "recorded_date": "2026-10-21",
+  "source": "../prints/2026-10-21-mark1-right08-z000/native-review.json",
+  "gcode_sha256": "6a76555dbff987a0ddd1f4d05a8e0cdd555614601f735119b6a5db4d13f329cd",
+  "plate": 1,
+  "object_binding": {
+    "name": "reservoir-left",
+    "project_object_id": 2,
+    "native_identify_id": 2401,
+    "source": "Frozen native review archive Metadata/model_settings.config: plate 1 model_instance object_id 2 / identify_id 2401; object 2 name reservoir-left"
+  },
+  "method": "Track CHANGE_LAYER, Z_HEIGHT, FEATURE, object start/stop and part-fan M106 (default/P1). Count positive relative-E XY/arc moves at PWM >100 on body object through layer 45. Excludes retractions, startup, cap and P2/P3/P9 fans.",
+  "high_cooling_body_paths": [
+    {
+      "layer": 4,
+      "z_mm": 1.02,
+      "feature": "Internal solid infill",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 349,
+      "first_example": {
+        "line_number": 20184,
+        "command": "G1 X254.351 Y225.02 E.08998"
+      }
+    },
+    {
+      "layer": 6,
+      "z_mm": 1.5,
+      "feature": "Internal solid infill",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 351,
+      "first_example": {
+        "line_number": 33197,
+        "command": "G1 X254.394 Y224.963 E.09677"
+      }
+    },
+    {
+      "layer": 7,
+      "z_mm": 1.74,
+      "feature": "Internal solid infill",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 348,
+      "first_example": {
+        "line_number": 39806,
+        "command": "G1 X187.591 Y224.948 E.09841"
+      }
+    },
+    {
+      "layer": 8,
+      "z_mm": 1.98,
+      "feature": "Internal solid infill",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 349,
+      "first_example": {
+        "line_number": 46426,
+        "command": "G1 X254.349 Y225.022 E.08971"
+      }
+    },
+    {
+      "layer": 11,
+      "z_mm": 2.7,
+      "feature": "Internal solid infill",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 348,
+      "first_example": {
+        "line_number": 65320,
+        "command": "G1 X187.591 Y224.948 E.09842"
+      }
+    },
+    {
+      "layer": 12,
+      "z_mm": 2.94,
+      "feature": "Top surface",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 354,
+      "first_example": {
+        "line_number": 71549,
+        "command": "G1 X254.313 Y225.058 E.08464"
+      }
+    },
+    {
+      "layer": 13,
+      "z_mm": 3.18,
+      "feature": "Outer wall",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 93,
+      "first_example": {
+        "line_number": 78575,
+        "command": "G1 X202.441 Y191.582 Z3.174 E.05202"
+      }
+    },
+    {
+      "layer": 14,
+      "z_mm": 3.42,
+      "feature": "Outer wall",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 85,
+      "first_example": {
+        "line_number": 85653,
+        "command": "G1 X205.123 Y189.305 E.05933"
+      }
+    },
+    {
+      "layer": 15,
+      "z_mm": 3.66,
+      "feature": "Outer wall",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 91,
+      "first_example": {
+        "line_number": 92651,
+        "command": "G1 X202.531 Y191.352 Z3.66 E.03433"
+      }
+    },
+    {
+      "layer": 16,
+      "z_mm": 3.9,
+      "feature": "Outer wall",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 89,
+      "first_example": {
+        "line_number": 99736,
+        "command": "G1 X202.504 Y191.396 Z3.899 E.03858"
+      }
+    },
+    {
+      "layer": 31,
+      "z_mm": 7.5,
+      "feature": "Outer wall",
+      "part_fan_pwm": 229.5,
+      "part_fan_percent": 90.0,
+      "deposited_move_count": 87,
+      "first_example": {
+        "line_number": 213008,
+        "command": "G1 X202.405 Y191.693 E.01459"
+      }
+    }
+  ],
+  "assessment": "High cooling reaches the body solid floor and early floor-to-wall region, rather than only cap supports. This native command review does not establish fan actuation timing or a causal/onset link to the reported lift. Unsupported width is not established solely by the FEATURE label."
+}
