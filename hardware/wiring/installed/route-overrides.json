@@ -1,876 +1,403 @@
 {
-  "J6-RA1": {
-    "stations": [
-      {
-        "terminal": "J6.RA1",
-        "offset": [
-          -92.85,
-          88.3,
-          -2.9
-        ]
-      },
-      {
-        "terminal": "J6.RA1",
-        "offset": [
-          -104.85,
-          164.3,
-          -2.9
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-a-1.signal",
-        "offset": [
-          0.5,
-          1.7,
-          181.3
-        ]
-      },
-      {
-        "terminal": "reed-a-1.signal",
-        "offset": [
-          2.5,
-          1.7,
-          141.3
-        ]
-      },
-      {
-        "terminal": "reed-a-1.signal",
-        "offset": [
-          2.5,
-          1.7,
-          11.3
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "J6-RA2": {
-    "stations": [
-      {
-        "terminal": "J6.RA2",
-        "offset": [
-          -8.85,
-          2.7999,
-          1.1
-        ]
-      },
-      {
-        "terminal": "J6.RA2",
-        "offset": [
-          -94.85,
-          88.7999,
-          -2.9
-        ]
-      },
-      {
-        "terminal": "reed-a-2.signal",
-        "offset": [
-          10.5,
-          -8.3,
-          149.3
-        ]
-      },
-      {
-        "terminal": "reed-a-2.signal",
-        "offset": [
-          0.5,
-          -0.3,
-          149.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-a-2.signal",
-        "offset": [
-          -1.5,
-          1.7,
-          7.3
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "J6-RA4": {
-    "stations": [
-      {
-        "terminal": "J6.RA4",
-        "offset": [
-          -8.85,
-          -0.1999,
-          1.1
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          16.5,
-          -82.3,
-          41.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          12.5,
-          -10.3,
-          45.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          8.5,
-          -6.3,
-          45.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          0.5,
-          -6.3,
-          41.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          -1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          -1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          -1.8031,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-a-4.signal",
-        "offset": [
-          -1.8031,
-          -1.8031,
-          20.1
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "J7-RB1": {
-    "stations": [
-      {
-        "terminal": "J7.RB1",
-        "offset": [
-          -40.85,
-          -53.8,
-          -36.2
-        ]
-      },
-      {
-        "terminal": "J7.RB1",
-        "offset": [
-          -48.85,
-          -61.8,
-          -36.2
-        ]
-      },
-      {
-        "terminal": "J7.RB1",
-        "offset": [
-          -100.85,
-          -101.8,
-          -56.2
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          0.0,
-          2.55,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-1.signal",
-        "offset": [
-          0.5,
-          2.7,
-          11.3
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "J7-RB2": {
-    "stations": [
-      {
-        "terminal": "J7.RB2",
-        "offset": [
-          -36.85,
-          -38.3,
-          -30.2
-        ]
-      },
-      {
-        "terminal": "J7.RB2",
-        "offset": [
-          -42.85,
-          -56.3,
-          -34.2
-        ]
-      },
-      {
-        "terminal": "J7.RB2",
-        "offset": [
-          -52.85,
-          -66.3,
-          -34.2
-        ]
-      },
-      {
-        "terminal": "reed-b-2.signal",
-        "offset": [
-          0.5,
-          2.7,
-          151.3
-        ]
-      },
-      {
-        "terminal": "reed-b-2.signal",
-        "offset": [
-          -1.5,
-          2.7,
-          149.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -1.8031,
-          1.8031,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-2.signal",
-        "offset": [
-          0.5,
-          -1.3,
-          117.3
-        ]
-      },
-      {
-        "terminal": "reed-b-2.signal",
-        "offset": [
-          2.5,
-          -1.3,
-          111.3
-        ]
-      },
-      {
-        "terminal": "reed-b-2.signal",
-        "offset": [
-          2.5,
-          -1.3,
-          11.3
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "J7-RB3": {
-    "stations": [
-      {
-        "terminal": "J7.RB3",
-        "offset": [
-          -34.85,
-          -28.8,
-          -28.2
-        ]
-      },
-      {
-        "terminal": "J7.RB3",
-        "offset": [
-          -42.85,
-          -54.8,
-          -30.2
-        ]
-      },
-      {
-        "terminal": "J7.RB3",
-        "offset": [
-          -42.85,
-          -58.8,
-          -30.2
-        ]
-      },
-      {
-        "terminal": "J7.RB3",
-        "offset": [
-          -54.85,
-          -70.8,
-          -32.2
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          20.5,
-          8.7,
-          101.3
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          4.5,
-          2.7,
-          97.3
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          0.5,
-          -1.3,
-          95.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -2.55,
-          0.0,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -2.55,
-          0.0,
-          40.3
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -2.55,
-          0.0,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-4.signal",
-        "offset": [
-          -2.55,
-          0.0,
-          20.1
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          -1.5,
-          -1.3,
-          71.3
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          2.5,
-          -1.3,
-          67.3
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          2.5,
-          0.7,
-          59.3
-        ]
-      },
-      {
-        "terminal": "reed-b-3.signal",
-        "offset": [
-          2.5,
-          0.7,
-          11.3
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
   "cartridge-AM1": {
     "stations": [
       {
         "terminal": "pogo-female.2",
         "offset": [
-          2.73,
-          -2.64,
-          6.476
+          1.74175,
+          -2.28564,
+          6.7
         ]
       },
       {
-        "terminal": "pump-a.1",
+        "terminal": "pogo-female.2",
         "offset": [
-          -12.225,
-          9.141,
-          4.776
+          36.82375,
+          -24.08796,
+          6.7
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      6.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "cartridge-BM1": {
     "stations": [
       {
         "terminal": "pogo-female.4",
         "offset": [
-          -0.19,
-          -2.64,
-          6.476
+          -0.17825,
+          -0.71436,
+          6.7
+        ]
+      },
+      {
+        "terminal": "pogo-female.4",
+        "offset": [
+          -48.90325,
+          -30.99536,
+          6.7
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      5.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "DC1-GND": {
     "stations": [
       {
         "terminal": "psu.GND",
         "offset": [
-          -8.05,
-          -0.8,
-          0.6
+          -8.55,
+          -4.0,
+          0.0
         ]
       },
       {
         "terminal": "psu.GND",
         "offset": [
-          -8.05,
-          7.2,
-          24.6
+          -8.55,
+          -4.0,
+          26.1
         ]
       },
       {
-        "terminal": "wago-gnd.1",
+        "terminal": "psu.GND",
         "offset": [
-          -5.9,
-          -6.01,
-          -3.9833
+          -17.05,
+          -4.0,
+          26.1
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          -17.05,
+          73.21,
+          26.1
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          -17.05,
+          73.21,
+          32.58333
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
       4.0,
-      6.0
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "DC1-V12": {
     "stations": [
       {
         "terminal": "psu.V12",
         "offset": [
-          -8.05,
-          -0.8,
-          4.6
+          5.95,
+          -4.0,
+          0.0
         ]
       },
       {
         "terminal": "psu.V12",
         "offset": [
-          -12.05,
-          7.2,
-          12.6
+          5.95,
+          -4.0,
+          34.6
         ]
       },
       {
         "terminal": "psu.V12",
         "offset": [
-          -12.05,
-          7.2,
-          32.6
+          -13.05,
+          2.2,
+          34.6
         ]
       },
       {
-        "terminal": "wago-v12.1",
+        "terminal": "psu.V12",
         "offset": [
-          -9.9,
-          -9.76,
-          -3.9833
+          -13.05,
+          56.96,
+          34.6
         ]
       },
       {
-        "terminal": "wago-v12.1",
+        "terminal": "psu.V12",
         "offset": [
-          -5.9,
-          -5.76,
-          0.0167
+          -13.05,
+          56.96,
+          40.58333
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "DC4-GND": {
     "stations": [
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -7.9,
-          -26.01,
-          -4.51667
+          -31.4,
+          0.0,
+          1.48333
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -7.9,
-          -34.01,
-          -4.51667
+          -31.4,
+          -19.01,
+          -2.51667
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -3.9,
-          -48.01,
-          -16.51667
+          -31.4,
+          -83.01,
+          1.48333
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -3.9,
-          -80.01,
-          -16.51667
+          -31.4,
+          -98.01,
+          -14.61667
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -1.9,
-          -90.01,
-          -16.51667
+          -23.21,
+          -96.25995,
+          -16.61667
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          0.1,
-          -92.01,
-          -16.51667
+          -3.21,
+          -96.25995,
+          -14.61667
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "DC4-V12": {
     "stations": [
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -5.9,
-          -39.76,
-          -4.5167
+          -7.21,
+          -34.00995,
+          -3.61666
         ]
       },
       {
-        "terminal": "J10.V12",
+        "terminal": "wago-v12.3",
         "offset": [
-          -2.69,
-          14.2499,
-          -0.9
+          -5.21,
+          -46.00995,
+          -15.61666
+        ]
+      },
+      {
+        "terminal": "wago-v12.3",
+        "offset": [
+          -3.21,
+          -56.00995,
+          -15.61666
+        ]
+      },
+      {
+        "terminal": "wago-v12.3",
+        "offset": [
+          -1.21,
+          -64.00995,
+          -13.61666
+        ]
+      },
+      {
+        "terminal": "wago-v12.3",
+        "offset": [
+          -1.21,
+          -70.00995,
+          -19.61666
+        ]
+      },
+      {
+        "terminal": "wago-v12.3",
+        "offset": [
+          0.79,
+          -76.00995,
+          -19.61666
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC1-L": {
     "stations": [
       {
-        "terminal": "wago-h.1",
+        "terminal": "c14.L",
         "offset": [
-          -11.9,
-          18.99,
-          6.0167
+          9.8,
+          -4.0,
+          0.0
         ]
       },
       {
-        "terminal": "wago-h.1",
+        "terminal": "c14.L",
         "offset": [
-          -1.9,
-          2.99,
-          0.0167
+          9.8,
+          -69.2,
+          -22.67725
+        ]
+      },
+      {
+        "terminal": "c14.L",
+        "offset": [
+          9.8,
+          -75.2,
+          -22.67725
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      1.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC1-N": {
     "stations": [
       {
-        "terminal": "wago-n.1",
+        "terminal": "c14.N",
         "offset": [
-          -13.9,
-          26.74,
-          12.0167
+          -0.5,
+          -52.95,
+          -22.87725
         ]
       },
       {
-        "terminal": "wago-n.1",
+        "terminal": "c14.N",
         "offset": [
-          -13.9,
-          18.74,
-          8.0167
+          -0.5,
+          -58.95,
+          -22.87725
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC1-PE": {
-    "stations": [],
-    "bend_radius_mm": 3.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
+    "stations": [
+      {
+        "terminal": "c14.PE",
+        "offset": [
+          0.65,
+          -12.7,
+          -1.62725
+        ]
+      }
     ],
+    "end_lands_mm": [
+      4.0,
+      4.0
+    ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC3-L": {
     "stations": [
       {
-        "terminal": "relay-1.COM",
+        "terminal": "wago-h.3",
         "offset": [
-          -0.75,
-          45.2,
-          -4.7
+          -1.15,
+          -32.21,
+          0.18333
         ]
       },
       {
-        "terminal": "relay-1.COM",
+        "terminal": "wago-h.3",
         "offset": [
-          -0.75,
-          17.2,
-          -8.7
+          -3.15,
+          -38.21,
+          0.18333
+        ]
+      },
+      {
+        "terminal": "wago-h.3",
+        "offset": [
+          -3.15,
+          -80.21,
+          -1.81667
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      4.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with terminal-J4.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "DC2-V12": {
     "stations": [
@@ -1034,67 +561,60 @@
       {
         "terminal": "wago-h.2",
         "offset": [
-          -1.9,
-          4.99,
-          1.75
+          -15.9,
+          0.0,
+          -2.0
         ]
       },
       {
         "terminal": "wago-h.2",
         "offset": [
-          -1.9,
-          14.99,
-          -2.25
+          -19.9,
+          0.0,
+          0.0
         ]
       },
       {
         "terminal": "wago-h.2",
         "offset": [
-          -1.9,
-          16.99,
-          -2.25
+          -19.9,
+          84.99,
+          -3.25
         ]
       },
       {
         "terminal": "wago-h.2",
         "offset": [
-          -1.9,
-          32.99,
-          -10.25
+          -19.9,
+          88.99,
+          -5.25
         ]
       },
       {
-        "terminal": "psu.L",
+        "terminal": "wago-h.2",
         "offset": [
-          -4.05,
-          -9.8,
-          32.6
+          -6.9,
+          100.79,
+          -5.25
         ]
       },
       {
-        "terminal": "psu.L",
+        "terminal": "wago-h.2",
         "offset": [
-          -4.05,
-          2.2,
-          12.6
-        ]
-      },
-      {
-        "terminal": "psu.L",
-        "offset": [
-          -2.05,
-          2.2,
-          2.6
+          -6.9,
+          100.79,
+          -46.85
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      2.0,
+      4.0,
       4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC4-fuse": {
     "stations": [
@@ -1120,103 +640,88 @@
       {
         "terminal": "J1.COM",
         "offset": [
-          -0.85,
-          -4.8,
-          -3.42
+          -2.85,
+          -6.8,
+          -3.42002
         ]
       },
       {
         "terminal": "J1.COM",
         "offset": [
-          -0.85,
-          -16.8,
-          -3.42
-        ]
-      },
-      {
-        "terminal": "J1.COM",
-        "offset": [
-          -0.85,
-          -24.8,
-          0.58
-        ]
-      },
-      {
-        "terminal": "J1.COM",
-        "offset": [
-          3.15,
-          -72.8,
-          4.58
+          1.15,
+          -100.8,
+          2.57998
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      3.0,
+      4.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with pcba.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-OUT1": {
     "stations": [
       {
         "terminal": "J1.OUT1",
         "offset": [
-          -0.85,
-          3.2,
-          2.0799
+          -7.13,
+          -4.19,
+          0.27986
         ]
       },
       {
         "terminal": "J1.OUT1",
         "offset": [
-          -4.85,
-          7.2,
-          6.0799
+          -37.13,
+          -44.19,
+          22.27986
         ]
       },
       {
         "terminal": "J1.OUT1",
         "offset": [
-          -8.85,
-          7.2,
-          6.0799
+          -43.13,
+          -66.19,
+          28.27986
         ]
       },
       {
         "terminal": "J1.OUT1",
         "offset": [
-          -16.85,
-          -0.8,
-          10.0799
+          -43.13,
+          -69.19,
+          30.27986
         ]
       },
       {
-        "terminal": "V-A.negative",
+        "terminal": "J1.OUT1",
         "offset": [
-          20.28,
-          22.39,
-          -16.2
+          -43.13,
+          -73.19,
+          31.27986
         ]
       },
       {
-        "terminal": "V-A.negative",
+        "terminal": "J1.OUT1",
         "offset": [
-          8.28,
-          10.39,
-          -16.2
+          -53.13,
+          -97.8,
+          34.27986
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-OUT2": {
     "stations": [
@@ -1576,22 +1081,22 @@
   "J1-positive-A": {
     "stations": [
       {
-        "terminal": "V-A.positive",
+        "terminal": "wago-mana.2",
         "offset": [
-          15.18,
-          -13.61,
-          -4.2
+          -50.2,
+          43.05,
+          25.96
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Unresolved conductor packing with the display loom.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-positive-B": {
     "stations": [
@@ -1599,55 +1104,63 @@
         "terminal": "wago-mana.3",
         "offset": [
           -46.2,
-          31.05,
+          35.05,
           16.0
-        ]
-      },
-      {
-        "terminal": "V-B.positive",
-        "offset": [
-          6.9,
-          -9.61,
-          -4.2
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Unresolved conductor packing with the display loom.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-positive-C": {
     "stations": [
       {
         "terminal": "wago-mana.4",
         "offset": [
-          -46.2,
-          -28.95,
-          -55.96
+          -20.3,
+          -5.86,
+          -15.635
         ]
       },
       {
         "terminal": "wago-mana.4",
         "offset": [
-          -46.2,
-          -34.95,
-          -97.96
+          -44.3,
+          -32.86,
+          -57.635
+        ]
+      },
+      {
+        "terminal": "wago-mana.4",
+        "offset": [
+          -44.3,
+          -35.86,
+          -96.635
+        ]
+      },
+      {
+        "terminal": "wago-mana.4",
+        "offset": [
+          -68.3,
+          -47.86,
+          -117.635
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-positive-D": {
     "stations": [
@@ -1759,21 +1272,30 @@
   "J1-positive-H": {
     "stations": [
       {
-        "terminal": "V-H.positive",
+        "terminal": "wago-mana.9",
         "offset": [
-          10.9,
-          5.56,
-          -1.325
+          -23.1,
+          -0.61,
+          -11.635
+        ]
+      },
+      {
+        "terminal": "wago-mana.9",
+        "offset": [
+          -97.1,
+          -16.61,
+          -61.635
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J11-DOUT": {
     "stations": [
@@ -1968,6 +1490,14 @@
       {
         "terminal": "J11.GND",
         "offset": [
+          -18.85,
+          -77.79987,
+          -71.5
+        ]
+      },
+      {
+        "terminal": "J11.GND",
+        "offset": [
           -28.85,
           -107.79987,
           -99.5
@@ -2062,14 +1592,14 @@
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
       6.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Proposed installed route with separate conductor packing."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J11-V5": {
     "stations": [
@@ -2200,24 +1730,8 @@
         "terminal": "J13.AM1",
         "offset": [
           -8.85,
-          -0.3,
-          1.0999
-        ]
-      },
-      {
-        "terminal": "J13.AM1",
-        "offset": [
-          -12.85,
-          -8.3,
-          5.0999
-        ]
-      },
-      {
-        "terminal": "J13.AM1",
-        "offset": [
-          -12.85,
-          -24.3,
-          9.0999
+          -4.3,
+          5.09987
         ]
       },
       {
@@ -2225,7 +1739,7 @@
         "offset": [
           -20.85,
           -32.3,
-          17.0999
+          17.09987
         ]
       },
       {
@@ -2233,7 +1747,7 @@
         "offset": [
           -40.85,
           -52.3,
-          21.0999
+          21.09987
         ]
       },
       {
@@ -2241,25 +1755,50 @@
         "offset": [
           -44.85,
           -88.3,
-          21.0999
+          21.09987
         ]
       },
       {
-        "terminal": "pogo-male.2",
+        "terminal": "J13.AM1",
         "offset": [
-          38.73,
-          95.86,
-          4.476
+          -44.85,
+          -112.3,
+          21.09987
+        ]
+      },
+      {
+        "terminal": "J13.AM1",
+        "offset": [
+          -72.85,
+          -172.3,
+          13.09987
+        ]
+      },
+      {
+        "terminal": "J13.AM1",
+        "offset": [
+          -84.85,
+          -192.3,
+          13.09987
+        ]
+      },
+      {
+        "terminal": "J13.AM1",
+        "offset": [
+          -84.85,
+          -200.3,
+          13.09987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J13-AM2": {
     "stations": [
@@ -2665,43 +2204,52 @@
       {
         "terminal": "J2.OUT1",
         "offset": [
-          -12.85,
-          -16.8,
-          -1.4201
+          -4.4,
+          -2.36,
+          -0.89508
         ]
       },
       {
         "terminal": "J2.OUT1",
         "offset": [
-          -76.85,
-          -52.8,
-          -5.4201
+          -80.4,
+          -56.36,
+          -2.89508
         ]
       },
       {
         "terminal": "J2.OUT1",
         "offset": [
-          -88.85,
-          -68.8,
-          -1.4201
+          -90.4,
+          -74.36,
+          -2.89508
         ]
       },
       {
         "terminal": "J2.OUT1",
         "offset": [
-          -88.85,
-          -72.8,
-          -1.4201
+          -172.4,
+          -168.36,
+          -2.89508
+        ]
+      },
+      {
+        "terminal": "J2.OUT1",
+        "offset": [
+          -174.4,
+          -170.36,
+          -4.89508
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J2-OUT2": {
     "stations": [
@@ -2802,103 +2350,128 @@
       {
         "terminal": "wago-manb.2",
         "offset": [
-          -13.9,
-          3.0,
-          0.0
+          -4.55,
+          1.44,
+          4.525
         ]
       },
       {
         "terminal": "wago-manb.2",
         "offset": [
-          -37.9,
-          3.0,
-          0.0
+          -8.55,
+          5.44,
+          4.525
         ]
       },
       {
         "terminal": "wago-manb.2",
         "offset": [
-          -61.9,
-          -13.0,
-          16.0
+          -20.55,
+          5.44,
+          4.525
         ]
       },
       {
-        "terminal": "V-I.positive",
+        "terminal": "wago-manb.2",
         "offset": [
-          10.65,
-          5.56,
-          0.475
+          -24.55,
+          1.44,
+          8.525
+        ]
+      },
+      {
+        "terminal": "wago-manb.2",
+        "offset": [
+          -30.55,
+          -0.56,
+          14.525
+        ]
+      },
+      {
+        "terminal": "wago-manb.2",
+        "offset": [
+          -66.55,
+          -12.56,
+          16.525
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J2-positive-J": {
     "stations": [
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -13.9,
-          3.0,
-          0.0
+          -4.27,
+          -2.91,
+          -1.275
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -19.9,
-          3.0,
-          0.0
+          -4.27,
+          -6.91,
+          -1.275
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -29.9,
-          -7.0,
-          0.0
+          -8.27,
+          -10.91,
+          -1.275
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -63.9,
-          -11.0,
-          -2.0
+          -62.27,
+          -14.91,
+          -1.275
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -119.9,
-          -17.0,
-          -2.0
+          -68.27,
+          -16.91,
+          -1.275
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -123.9,
-          -19.0,
-          -6.0
+          -118.27,
+          -16.91,
+          -1.275
+        ]
+      },
+      {
+        "terminal": "wago-manb.3",
+        "offset": [
+          -120.27,
+          -16.91,
+          -3.275
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J2-positive-K": {
     "stations": [
@@ -2940,14 +2513,6 @@
       {
         "terminal": "wago-manb.4",
         "offset": [
-          -5.9,
-          -17.0,
-          -16.0
-        ]
-      },
-      {
-        "terminal": "wago-manb.4",
-        "offset": [
           6.1,
           -37.0,
           -36.0
@@ -2962,131 +2527,134 @@
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -1.5,
-          68.0,
-          36.0
+          4.1,
+          -57.0,
+          -66.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -1.5,
-          68.0,
-          30.0
+          4.1,
+          -57.0,
+          -72.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -1.5,
-          60.0,
-          22.0
+          4.1,
+          -65.0,
+          -80.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -7.5,
-          54.0,
-          10.0
+          -1.9,
+          -71.0,
+          -92.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -7.5,
-          52.0,
-          8.0
+          -1.9,
+          -73.0,
+          -94.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          -5.5,
-          20.0,
-          6.0
+          0.1,
+          -105.0,
+          -96.0
         ]
       },
       {
-        "terminal": "fan.positive",
+        "terminal": "wago-manb.4",
         "offset": [
-          0.5,
-          10.0,
-          2.0
+          6.1,
+          -115.0,
+          -100.0
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
+      3.0,
       6.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J3-GND": {
     "stations": [
       {
         "terminal": "J3.GND",
         "offset": [
-          -12.85,
+          -8.85,
           2.2,
-          -0.1999
+          -4.19987
         ]
       },
       {
-        "terminal": "keystone.3",
+        "terminal": "J3.GND",
         "offset": [
-          13.98,
-          -41.78,
-          11.9277
+          -108.85,
+          130.2,
+          -4.19987
+        ]
+      },
+      {
+        "terminal": "J3.GND",
+        "offset": [
+          -124.85,
+          178.2,
+          -12.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J3-IO33": {
     "stations": [
       {
         "terminal": "J3.IO33",
         "offset": [
-          -48.85,
-          46.7,
-          -4.2001
+          -16.85,
+          10.7,
+          -0.20013
         ]
       },
       {
-        "terminal": "keystone.5",
+        "terminal": "J3.IO33",
         "offset": [
-          28.9,
-          -85.78,
-          11.9277
-        ]
-      },
-      {
-        "terminal": "keystone.5",
-        "offset": [
-          8.9,
-          -25.78,
-          7.9277
+          -108.85,
+          138.7,
+          -4.20013
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J3-IO35": {
     "stations": [
@@ -3094,138 +2662,204 @@
         "terminal": "J3.IO35",
         "offset": [
           -8.85,
-          1.2,
-          -4.1999
+          5.2,
+          -4.19987
         ]
       },
       {
-        "terminal": "keystone.4",
+        "terminal": "J3.IO35",
         "offset": [
-          27.44,
-          -85.78,
-          11.9277
+          -100.85,
+          113.2,
+          -0.19987
         ]
       },
       {
-        "terminal": "keystone.4",
+        "terminal": "J3.IO35",
         "offset": [
-          11.44,
-          -33.78,
-          7.9277
+          -124.85,
+          173.2,
+          -16.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J3-V5": {
     "stations": [
       {
         "terminal": "J3.V5",
         "offset": [
-          -22.85,
-          15.7,
-          -2.19987
-        ]
-      },
-      {
-        "terminal": "J3.V5",
-        "offset": [
-          -52.85,
-          45.7,
+          -8.85,
+          3.7,
           -4.19987
         ]
       },
       {
         "terminal": "J3.V5",
         "offset": [
-          -100.85,
-          95.7,
+          -28.85,
+          31.7,
+          -16.19987
+        ]
+      },
+      {
+        "terminal": "J3.V5",
+        "offset": [
+          -76.85,
+          79.7,
           -4.19987
+        ]
+      },
+      {
+        "terminal": "J3.V5",
+        "offset": [
+          -112.85,
+          127.7,
+          -4.19987
+        ]
+      },
+      {
+        "terminal": "J3.V5",
+        "offset": [
+          -128.85,
+          171.7,
+          -16.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J4-GND": {
     "stations": [
       {
         "terminal": "J4.GND",
         "offset": [
-          -0.85,
+          -2.75,
           2.2,
-          3.8
+          -2.2
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -12.85,
-          10.2,
-          3.8
+          -5.75,
+          5.2,
+          -2.2
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -40.85,
-          18.2,
-          3.8
+          -31.75,
+          23.2,
+          -4.2
         ]
       },
       {
-        "terminal": "wago-sensors.1",
+        "terminal": "J4.GND",
         "offset": [
-          29.9,
-          -3.0,
-          10.0
+          -33.75,
+          24.2,
+          -5.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -40.75,
+          25.2,
+          -6.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -69.75,
+          28.2,
+          -9.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -103.75,
+          41.2,
+          -19.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -112.75,
+          44.2,
+          -22.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -139.75,
+          60.2,
+          -27.2
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -142.75,
+          62.2,
+          -29.2
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J5-GND": {
     "stations": [
       {
         "terminal": "J5.GND",
         "offset": [
-          -2.85,
-          5.9,
-          9.10013
+          -4.85,
+          -0.1,
+          5.10013
         ]
       },
       {
         "terminal": "J5.GND",
         "offset": [
-          -2.85,
-          21.9,
-          23.10013
+          -0.85,
+          7.9,
+          13.10013
         ]
       },
       {
         "terminal": "J5.GND",
         "offset": [
-          -6.85,
-          25.9,
-          27.10013
+          -8.85,
+          15.9,
+          21.10013
         ]
       },
       {
@@ -3247,28 +2881,28 @@
       {
         "terminal": "J5.GND",
         "offset": [
-          -6.85,
+          -4.85,
           51.9,
-          75.10013
+          73.10013
         ]
       },
       {
         "terminal": "J5.GND",
         "offset": [
-          -6.85,
+          -4.85,
           51.9,
           77.10013
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J5-IO19": {
     "stations": [
@@ -3284,111 +2918,95 @@
         "terminal": "J5.IO19",
         "offset": [
           -4.85,
+          34.4,
+          51.09987
+        ]
+      },
+      {
+        "terminal": "J5.IO19",
+        "offset": [
+          -6.85,
           36.4,
-          53.09987
+          55.09987
         ]
       },
       {
         "terminal": "J5.IO19",
         "offset": [
           -8.85,
-          44.4,
-          63.09987
+          36.4,
+          61.09987
         ]
       },
       {
         "terminal": "J5.IO19",
         "offset": [
-          -8.85,
-          44.4,
+          -6.85,
+          42.4,
           79.09987
+        ]
+      },
+      {
+        "terminal": "J5.IO19",
+        "offset": [
+          -4.85,
+          44.4,
+          81.09987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      2.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J5-V5": {
     "stations": [
       {
         "terminal": "J5.V5",
         "offset": [
-          -0.85,
-          1.4,
-          -2.9001
-        ]
-      },
-      {
-        "terminal": "J5.V5",
-        "offset": [
-          3.15,
-          5.4,
-          -2.9001
-        ]
-      },
-      {
-        "terminal": "J5.V5",
-        "offset": [
-          3.15,
-          5.4,
-          5.0999
-        ]
-      },
-      {
-        "terminal": "J5.V5",
-        "offset": [
-          3.15,
-          9.4,
-          5.0999
-        ]
-      },
-      {
-        "terminal": "J5.V5",
-        "offset": [
-          3.15,
-          13.4,
-          9.0999
-        ]
-      },
-      {
-        "terminal": "J5.V5",
-        "offset": [
           -8.85,
-          25.4,
-          21.0999
+          -2.6,
+          5.09987
         ]
       },
       {
-        "terminal": "relay-1.V5",
+        "terminal": "J5.V5",
         "offset": [
-          -8.75,
-          -9.8,
-          -39.16
+          -12.85,
+          1.4,
+          9.09987
         ]
       },
       {
-        "terminal": "relay-1.V5",
+        "terminal": "J5.V5",
         "offset": [
-          -8.75,
-          -1.8,
-          -11.16
+          -12.85,
+          45.4,
+          61.09987
+        ]
+      },
+      {
+        "terminal": "J5.V5",
+        "offset": [
+          -4.85,
+          53.4,
+          73.09987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with pcba, terminal-J5.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "relay-bus-GND": {
     "stations": [
@@ -3446,9 +3064,17 @@
       {
         "terminal": "relay-1.V5",
         "offset": [
-          -2.75,
+          -4.75,
           6.2,
-          -5.16
+          0.84
+        ]
+      },
+      {
+        "terminal": "relay-1.V5",
+        "offset": [
+          -0.75,
+          10.2,
+          -3.16
         ]
       },
       {
@@ -3456,34 +3082,26 @@
         "offset": [
           -4.75,
           14.2,
-          -13.16
+          -7.16
         ]
       },
       {
         "terminal": "relay-1.V5",
         "offset": [
-          -6.75,
-          18.2,
-          -15.16
-        ]
-      },
-      {
-        "terminal": "relay-1.V5",
-        "offset": [
-          -6.75,
+          -4.75,
           22.2,
-          -19.16
+          -15.16
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J6-GND": {
     "stations": [
@@ -3537,175 +3155,103 @@
     "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
   },
   "J6-earth-1": {
-    "stations": [
-      {
-        "terminal": "reed-a-1.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          13.3
-        ]
-      },
-      {
-        "terminal": "reed-a-1.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          -0.7
-        ]
-      }
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
     ],
     "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   },
   "J6-earth-2": {
-    "stations": [
-      {
-        "terminal": "reed-a-2.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          13.3
-        ]
-      },
-      {
-        "terminal": "reed-a-2.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          -0.7
-        ]
-      }
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
     ],
     "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   },
   "J6-earth-3": {
-    "stations": [
-      {
-        "terminal": "reed-a-3.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          13.3
-        ]
-      },
-      {
-        "terminal": "reed-a-3.GND",
-        "offset": [
-          0.5,
-          -2.3,
-          -0.7
-        ]
-      }
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
     ],
     "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   },
   "J7-GND": {
     "stations": [
       {
         "terminal": "J7.GND",
         "offset": [
-          -50.85,
-          -2.8,
-          -4.2
+          -54.05,
+          0.65,
+          -4.28
         ]
       },
       {
         "terminal": "J7.GND",
         "offset": [
-          -52.85,
-          -2.8,
-          -6.2
+          -56.05,
+          0.65,
+          -6.28
         ]
       },
       {
         "terminal": "J7.GND",
         "offset": [
-          -128.85,
-          -2.8,
-          -24.2
+          -134.05,
+          -0.35,
+          -25.28
+        ]
+      },
+      {
+        "terminal": "J7.GND",
+        "offset": [
+          -162.05,
+          -8.35,
+          -38.28
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
-      6.0
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J7-earth-1": {
-    "stations": [
-      {
-        "terminal": "reed-b-1.GND",
-        "offset": [
-          2.5,
-          -1.3,
-          7.3
-        ]
-      }
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
     ],
     "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   },
   "J7-earth-2": {
-    "stations": [
-      {
-        "terminal": "reed-b-2.GND",
-        "offset": [
-          2.5,
-          0.7,
-          25.3
-        ]
-      },
-      {
-        "terminal": "reed-b-2.GND",
-        "offset": [
-          2.5,
-          2.7,
-          -0.7
-        ]
-      },
-      {
-        "terminal": "reed-b-2.GND",
-        "offset": [
-          2.5,
-          0.7,
-          -2.7
-        ]
-      }
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
     ],
     "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   },
   "J9-A": {
     "stations": [
@@ -3713,383 +3259,1159 @@
         "terminal": "J9.A",
         "offset": [
           -8.85,
-          -2.8,
-          -0.19987
+          -6.8,
+          -4.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -20.85,
-          -32.8,
-          1.80013
-        ]
-      },
-      {
-        "terminal": "J9.A",
-        "offset": [
-          -36.85,
-          -48.8,
+          -28.85,
+          -34.8,
           -8.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -46.85,
-          -80.8,
-          -22.19987
+          -40.85,
+          -54.8,
+          -8.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -54.85,
-          -178.8,
-          -22.19987
+          -52.85,
+          -74.8,
+          -24.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
           -56.85,
-          -204.8,
+          -78.8,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.A",
+        "offset": [
+          -52.85,
+          -178.8,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.A",
+        "offset": [
+          -56.85,
+          -202.8,
+          -16.19987
+        ]
+      },
+      {
+        "terminal": "J9.A",
+        "offset": [
+          -56.85,
+          -206.8,
           -16.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J9-B": {
     "stations": [
       {
         "terminal": "J9.B",
         "offset": [
-          -18.85,
-          -32.3,
-          1.80013
-        ]
-      },
-      {
-        "terminal": "J9.B",
-        "offset": [
-          -36.85,
-          -62.3,
-          -6.19987
+          -28.85,
+          -36.3,
+          3.80013
         ]
       },
       {
         "terminal": "J9.B",
         "offset": [
           -48.85,
-          -76.3,
-          -20.19987
+          -56.3,
+          -12.19987
         ]
       },
       {
         "terminal": "J9.B",
         "offset": [
           -48.85,
-          -78.3,
-          -22.19987
+          -68.3,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.B",
+        "offset": [
+          -48.85,
+          -104.3,
+          -28.19987
+        ]
+      },
+      {
+        "terminal": "J9.B",
+        "offset": [
+          -48.85,
+          -176.3,
+          -24.19987
         ]
       },
       {
         "terminal": "J9.B",
         "offset": [
           -56.85,
-          -176.3,
-          -22.19987
-        ]
-      },
-      {
-        "terminal": "J9.B",
-        "offset": [
-          -58.85,
-          -202.3,
-          -14.19987
-        ]
-      },
-      {
-        "terminal": "J9.B",
-        "offset": [
-          -58.85,
           -204.3,
-          -14.19987
-        ]
-      },
-      {
-        "terminal": "J9.B",
-        "offset": [
-          -84.85,
-          -224.3,
           -12.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J9-GND": {
     "stations": [
       {
         "terminal": "J9.GND",
         "offset": [
-          -10.85,
-          -3.3,
-          -0.19987
-        ]
-      },
-      {
-        "terminal": "J9.GND",
-        "offset": [
-          -24.85,
-          -35.3,
-          1.80013
+          -8.85,
+          -5.3,
+          -4.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
           -36.85,
-          -63.3,
-          -6.19987
+          -41.3,
+          -8.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -42.85,
-          -83.3,
-          -22.19987
+          -48.85,
+          -57.3,
+          -8.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -50.85,
-          -181.3,
-          -22.19987
+          -48.85,
+          -65.3,
+          -12.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -54.85,
-          -207.3,
-          -18.19987
+          -52.85,
+          -73.3,
+          -20.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -56.85,
+          -77.3,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -60.85,
+          -85.3,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -68.85,
+          -189.3,
+          -24.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -56.85,
+          -201.3,
+          -12.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -56.85,
+          -205.3,
+          -12.19987
+        ]
+      },
+      {
+        "terminal": "J9.GND",
+        "offset": [
+          -56.85,
+          -209.3,
+          -8.19987
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J9-V12": {
     "stations": [
       {
         "terminal": "J9.V12",
         "offset": [
-          -6.85,
-          -1.8,
-          -2.20013
+          -8.85,
+          -7.8,
+          -8.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -14.85,
-          -29.8,
-          -6.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -32.85,
+          -44.85,
           -47.8,
-          -6.20013
+          -8.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -38.85,
-          -53.8,
-          -10.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -50.85,
-          -83.8,
-          -20.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -50.85,
-          -85.8,
-          -22.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -56.85,
-          -157.8,
-          -24.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -54.85,
-          -167.8,
-          -24.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -54.85,
-          -187.8,
-          -24.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -58.85,
-          -195.8,
-          -20.20013
+          -52.85,
+          -59.8,
+          -8.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
           -60.85,
-          -199.8,
+          -67.8,
           -16.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -58.85,
-          -201.8,
-          -14.20013
+          -60.85,
+          -79.8,
+          -24.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -58.85,
-          -209.8,
+          -64.85,
+          -95.8,
+          -24.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -68.85,
+          -187.8,
+          -28.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -52.85,
+          -203.8,
           -12.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -58.85,
+          -52.85,
           -211.8,
-          -12.20013
-        ]
-      },
-      {
-        "terminal": "J9.V12",
-        "offset": [
-          -76.85,
-          -229.8,
           -12.20013
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      3.0,
+      3.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "PE-carbonator": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          0.0,
+          4.0,
+          -12.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -5.75,
+          4.0,
+          -14.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -9.75,
+          4.0,
+          -12.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -12.75,
+          -1.8,
+          -16.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -17.75,
+          -3.8,
+          -14.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -107.75,
+          -3.8,
+          -16.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -111.75,
+          -3.8,
+          -14.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -161.75,
+          -1.8,
+          -16.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -161.75,
+          12.0,
+          -79.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -161.75,
+          12.0,
+          -106.09423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -161.75,
+          12.0,
+          -111.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -155.75,
+          12.0,
+          -111.04423
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -20.25,
+          -24.0,
+          -126.04423
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      4.0,
+      4.0
+    ],
+    "bend_radius_mm": 3.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J4-3V3": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -8.3,
+          -1.5,
+          -5.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -28.3,
+          16.5,
+          -19.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -78.3,
+          50.5,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -96.3,
+          52.5,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -102.3,
+          52.5,
+          -21.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -130.3,
+          66.5,
+          -37.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -136.3,
+          72.5,
+          -41.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -156.3,
+          92.5,
+          -61.2
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -156.3,
+          92.5,
+          -88.4
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -136.7,
+          72.947,
+          -87.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -134.7,
+          68.947,
+          -89.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -134.7,
+          62.947,
+          -89.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -130.7,
+          58.947,
+          -87.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -118.7,
+          46.947,
+          -87.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -86.7,
+          -17.053,
+          -107.93721
+        ]
+      },
+      {
+        "terminal": "J4.3V3",
+        "offset": [
+          -86.7,
+          -17.053,
+          -187.93721
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      0.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J4-IO26": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -13.575,
+          10.70836,
+          -3.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -27.575,
+          24.70836,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -87.575,
+          46.70836,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -97.575,
+          46.70836,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -105.575,
+          48.70836,
+          -23.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -127.575,
+          68.70836,
+          -33.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -155.575,
+          84.70836,
+          -61.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -157.575,
+          84.70836,
+          -61.2
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -157.575,
+          84.70836,
+          -88.4
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -154.85,
+          84.947,
+          -87.93721
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -106.85,
+          32.947,
+          -89.93721
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -84.85,
+          -23.053,
+          -103.93721
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -84.85,
+          -27.053,
+          -107.93721
+        ]
+      },
+      {
+        "terminal": "J4.IO26",
+        "offset": [
+          -84.85,
+          -27.053,
+          -187.93721
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      0.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "temp-GND": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J6-RA3": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J6-earth-4": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          5.175,
+          2.59164,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          13.175,
+          22.59164,
+          -17.0
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          13.175,
+          22.59164,
+          -44.2
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          54.75,
+          -19.753,
+          -43.73721
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          87.75,
+          -83.753,
+          -63.73721
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          87.75,
+          -84.753,
+          -144.73721
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      0.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J7-CHI": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -32.125,
+          9.70836,
+          -13.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -98.125,
+          9.70836,
+          -13.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -104.125,
+          9.70836,
+          -17.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -126.125,
+          27.70836,
+          -31.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -158.125,
+          47.70836,
+          -59.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -160.125,
+          47.70836,
+          -61.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -160.125,
+          47.70836,
+          -88.25
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -152.85,
+          55.25,
+          -88.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -142.85,
+          59.25,
+          -90.2
+        ]
+      },
+      {
+        "terminal": "J7.CHI",
+        "offset": [
+          -84.85,
+          85.25,
+          -108.2
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J7-CLO": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J7-RB4": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -31.4,
+          10.0,
+          -13.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -81.4,
+          10.0,
+          -13.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -97.4,
+          10.0,
+          -15.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -101.4,
+          10.0,
+          -19.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -127.4,
+          28.0,
+          -31.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -159.4,
+          44.0,
+          -57.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -161.4,
+          46.0,
+          -59.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -161.4,
+          48.0,
+          -61.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -161.4,
+          48.0,
+          -88.4
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -167.85,
+          48.0,
+          -88.4
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -167.85,
+          48.2,
+          -117.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -149.85,
+          48.2,
+          -117.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -124.85,
+          73.2,
+          -117.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -80.25,
+          85.75,
+          -117.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -78.25,
+          87.75,
+          -117.2
+        ]
+      },
+      {
+        "terminal": "J7.CLO",
+        "offset": [
+          -78.25,
+          87.75,
+          -202.86816
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J7-carb-earth-2": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J7-earth-4": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          8.925,
+          49.14164,
+          -11.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          10.925,
+          51.14164,
+          -11.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          10.925,
+          51.14164,
+          -38.05
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          12.4,
+          49.1,
+          -40.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          18.4,
+          53.1,
+          -40.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          84.4,
+          91.1,
+          -54.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          88.4,
+          93.1,
+          -58.0
+        ]
+      },
+      {
+        "terminal": "wago-reeds-b.3",
+        "offset": [
+          88.4,
+          93.1,
+          -138.51611
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "cartridge-AM2": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "pogo-female.1",
+        "offset": [
+          0.17825,
+          -0.71436,
+          6.7
+        ]
+      },
+      {
+        "terminal": "pogo-female.1",
+        "offset": [
+          48.90325,
+          -30.99536,
+          6.7
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      5.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "cartridge-BM2": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "pogo-female.3",
+        "offset": [
+          -1.74175,
+          -2.28564,
+          6.7
+        ]
+      },
+      {
+        "terminal": "pogo-female.3",
+        "offset": [
+          -36.82375,
+          -24.08796,
+          6.7
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      6.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "AC2-N": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [
+      {
+        "terminal": "wago-n.2",
+        "offset": [
+          -3.85,
+          23.54,
+          -13.85
+        ]
+      },
+      {
+        "terminal": "wago-n.2",
+        "offset": [
+          -3.85,
+          70.54,
+          -14.85
+        ]
+      },
+      {
+        "terminal": "wago-n.2",
+        "offset": [
+          2.15,
+          84.54,
+          -34.85
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      4.0,
+      4.0
+    ],
+    "bend_radius_mm": 3.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J1-OUT3": {
     "stations": [
@@ -4151,58 +4473,421 @@
     "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
   },
   "J11-AOUT": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J4-IO25": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J4-V5": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "flow-GND": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "temp-bus-DATA": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "temp-bus-GND": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "temp-bus-V": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J5-IO2": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "J7-carb-earth-1": {
     "stations": [
       {
-        "terminal": "reed-carb-1.GND",
+        "terminal": "J11.AOUT",
         "offset": [
-          4.0,
-          3.45,
-          8.6682
+          -4.85,
+          -3.8001,
+          -1.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -0.85,
+          -7.8001,
+          -5.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -0.85,
+          -31.8001,
+          -29.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -2.85,
+          -35.80013,
+          -31.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -20.85,
+          -59.80013,
+          -53.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -22.85,
+          -65.80013,
+          -55.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -26.85,
+          -79.80013,
+          -71.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -28.85,
+          -95.80013,
+          -89.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -28.85,
+          -99.80013,
+          -93.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -30.85,
+          -145.80013,
+          -139.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -36.85,
+          -149.80013,
+          -145.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -34.85,
+          -149.80013,
+          -151.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -50.85,
+          -165.80013,
+          -163.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -54.85,
+          -163.80013,
+          -167.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -52.85,
+          -167.80013,
+          -169.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -52.85,
+          -179.80013,
+          -179.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -54.85,
+          -175.80013,
+          -181.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -66.85,
+          -193.80013,
+          -199.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -84.85,
+          -207.80013,
+          -217.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -104.85,
+          -211.80013,
+          -233.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -120.85,
+          -211.80013,
+          -233.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -120.85,
+          -207.80013,
+          -233.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -124.85,
+          -207.80013,
+          -237.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -154.85,
+          -205.80013,
+          -293.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -154.85,
+          -205.80013,
+          -299.8
+        ]
+      },
+      {
+        "terminal": "J11.AOUT",
+        "offset": [
+          -156.85,
+          -203.80013,
+          -301.8
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
     "end_lands_mm": [
-      4.0,
-      4.0
+      6.0,
+      6.0
     ],
+    "bend_radius_mm": 2.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+  },
+  "J4-IO25": {
+    "stations": [
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          -9.56,
+          5.21,
+          -1.2
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          -47.56,
+          43.21,
+          -1.2
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          -97.56,
+          119.21,
+          -5.2
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          -99.56,
+          119.21,
+          -5.2
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          -99.56,
+          119.21,
+          20.7
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      2.5
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+  },
+  "J4-V5": {
+    "stations": [
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          -9.56,
+          5.91,
+          2.8
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          -95.56,
+          111.91,
+          -1.2
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          -99.56,
+          119.91,
+          -5.2
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          -99.56,
+          119.91,
+          20.7
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      2.5
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+  },
+  "flow-GND": {
+    "stations": [
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          69.19,
+          60.81,
+          45.0
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          71.19,
+          60.81,
+          45.0
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          71.19,
+          60.81,
+          70.9
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      2.5
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+  },
+  "J5-IO2": {
+    "stations": [
+      {
+        "terminal": "J5.IO2",
+        "offset": [
+          -3.1,
+          28.66,
+          29.49987
+        ]
+      },
+      {
+        "terminal": "J5.IO2",
+        "offset": [
+          -1.1,
+          36.66,
+          33.49987
+        ]
+      },
+      {
+        "terminal": "J5.IO2",
+        "offset": [
+          0.9,
+          44.66,
+          41.49987
+        ]
+      },
+      {
+        "terminal": "J5.IO2",
+        "offset": [
+          -1.1,
+          48.66,
+          45.49987
+        ]
+      }
+    ],
+    "end_lands_mm": [
+      3.0,
+      3.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+  },
+  "J7-carb-earth-1": {
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated carbonator-reed taps; local bare lead dressing remains within the sensor installation."
   },
   "J7-earth-3": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
+    "stations": [],
+    "end_lands_mm": [
+      0.0,
+      0.0
+    ],
+    "bend_radius_mm": 2.0,
+    "preserve_stations": true,
+    "route_status": "proposed",
+    "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
   }
 }

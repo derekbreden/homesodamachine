@@ -81,25 +81,32 @@ class Navigator:
         self.los=np.array(self.los);self.his=np.array(self.his)
         self.wires=[];self.wire_los=np.empty((0,3));self.wire_his=np.empty((0,3))
         self.cache={};self.probes=0
-        used={id for c in __import__('hardware.wiring.installed.connections',fromlist=['connections']).connections() for id in (c.start,c.end)}
-        self.keepout_ids=[];points=[]
+        graph=__import__('hardware.wiring.installed.connections',fromlist=['connections']).connections()
+        radii={}
+        for c in graph:
+            for id in (c.start,c.end):
+                radii[id]=max(radii.get(id,0.),STOCK[c.stock]['od_mm']/2)
+        self.keepout_ids=[];points=[];keepout_radii=[]
+        used=set(radii)
         for id in sorted(used):
             t=terminals[id]
-            for distance in (0.,3.,6.):
+            for distance in (0.,):
                 points.append(np.array(t['point'])+np.array(t['outward'])*distance);self.keepout_ids.append(id)
+                keepout_radii.append(radii[id])
         self.keepout_points=np.array(points)
+        self.keepout_radii=np.array(keepout_radii)
         self.actual_radius=None
 
     def clear(self,a,b,r,ends,packing=True):
         a,b=np.asarray(a),np.asarray(b)
         lo=np.minimum(a,b)-r;hi=np.maximum(a,b)+r
-        # Preserve the exits of not-yet-routed conductors. A greedy early route
-        # must not consume a later wire's only entrance to its connector.
+        # Preserve each actual mouth. Flexible dressing beyond it is supplied
+        # by the routed wire, rather than an invented straight keep-out tube.
         keep=np.array([id not in (ends[0]['id'],ends[1]['id']) for id in self.keepout_ids])
         points=self.keepout_points[keep];d=b-a;length=np.dot(d,d)
         fraction=np.clip((points-a).dot(d)/length,0,1) if length>1e-12 else np.zeros(len(points))
         packing_radius=self.actual_radius if self.actual_radius is not None else r
-        if np.any(np.sum((points-a-fraction[:,None]*d)**2,axis=1)<(packing_radius+.87)**2):return False
+        if np.any(np.sum((points-a-fraction[:,None]*d)**2,axis=1)<(packing_radius+self.keepout_radii[keep]+.02)**2):return False
         ids=np.flatnonzero(np.all(self.his>=lo,axis=1)&np.all(self.los<=hi,axis=1))
         obj=None
         for i in ids:
@@ -121,7 +128,7 @@ class Navigator:
                 previous,other=self.wires[i]
                 common=set(t['id'] for t in ends)&set(previous)
                 if any(max(np.linalg.norm(a-self.terminals[t]['point']),np.linalg.norm(b-self.terminals[t]['point']))<=8.5 for t in common):continue
-                packing_object=capsule(a,b,packing_radius+.015)
+                packing_object=capsule(a,b,r+.015)
                 if fcl.collide(packing_object,other,fcl.CollisionRequest(),fcl.CollisionResult())>0:return False
         self.probes+=1
         return True
@@ -133,7 +140,7 @@ class Navigator:
         self.wires.append(((row['start'],row['end']),fcl.CollisionObject(model)))
         self.wire_los=np.vstack((self.wire_los,v.min(0)));self.wire_his=np.vstack((self.wire_his,v.max(0)))
 
-    def path(self,start,goal,r,ends,step=4.,limit=12000,domain=None):
+    def path(self,start,goal,r,ends,step=4.,limit=12000,domain=None,grid_origin=None):
         start,goal=np.asarray(start),np.asarray(goal)
         if self.clear(start,goal,r,ends):return [tuple(start),tuple(goal)]
         low=np.array([-100.,8.,2.]);high=np.array([99.,464.,349.])
@@ -141,8 +148,11 @@ class Navigator:
         # Keep a bounded local search first; paths can still rise above a bank.
         low=np.maximum(low,np.minimum(start,goal)-np.array([65.,70.,65.]))
         high=np.minimum(high,np.maximum(start,goal)+np.array([65.,70.,65.]))
-        def coord(k):return np.array(k,dtype=float)*step
-        def key(p):return tuple(np.round(p/step).astype(int))
+        # A packed connector or conduit can have room for a wire but no room
+        # for a world-aligned grid node. Align the manual search to that mouth.
+        offset=np.zeros(3) if grid_origin is None else np.asarray(grid_origin)
+        def coord(k):return np.array(k,dtype=float)*step+offset
+        def key(p):return tuple(np.round((p-offset)/step).astype(int))
         origin=key(start);target=key(goal)
         near=[]
         for delta in itertools.product((-1,0,1),repeat=3):
@@ -183,24 +193,29 @@ class Navigator:
         return None
 
 
-def portal_assignments(rows,terms):
-    groups={'a':[],'b':[]}
+def portal_assignments(rows,terms,passages):
+    groups={'a':[],'b':[],'sensor':[]}
     for r in rows:
         if not terms[r['end']]['part'].startswith('cold-core/') or terms[r['start']]['part'].startswith('cold-core/'):continue
-        groups['b' if r['end'].startswith(('reed-b','reed-carb')) else 'a'].append(r['id'])
+        bank=('a' if r['end'].startswith('reed-a-') else
+              'b' if r['end'].startswith('reed-b-') else 'sensor')
+        groups[bank].append(r['id'])
     ports={}
     for bank,ids in groups.items():
-        centre=np.array(terms[f'reed-{bank}-4.signal']['point']);centre[2]=0
-        # The 3 mm earth core takes the centre of A; eight 1.7 mm
-        # conductors occupy a surrounding ring within its 7.5 mm conduit.
+        name='sensor-cable' if bank=='sensor' else 'reed-cable-'+bank
+        axis=np.array(passages[name]['points_mm'])
+        # Five reed conductors share each reservoir passage. The internal
+        # loom has its 3 mm earth core centrally and six 1.7 mm sensor cores
+        # around it, all inside the shared 7.5 mm bore.
         ids.sort(key=lambda id:(0 if id=='PE-carbonator' else 1,id))
         for i,id in enumerate(ids):
-            if bank=='a' and id=='PE-carbonator':offset=np.zeros(3)
+            if id=='PE-carbonator':offset=np.zeros(3)
             else:
-                angle=math.tau*(i-(1 if bank=='a' else 0))/8
-                offset=np.array([2.55*math.cos(angle),2.55*math.sin(angle),0.])
-            p=centre+offset
-            ports[id]=[(p[0],p[1],255.),(p[0],p[1],234.8)]
+                count=len(ids)-(1 if bank=='sensor' else 0)
+                angle=math.tau*(i-(1 if bank=='sensor' else 0))/count
+                radius=2.55 if bank=='sensor' else 1.65
+                offset=np.array([radius*math.cos(angle),radius*math.sin(angle),0.])
+            ports[id]=[tuple(p+offset) for p in axis]
     return ports
 
 
@@ -214,7 +229,7 @@ def main():
     rows=[vars(c) for c in connections()]
     meshes={n:m for n,m in load_mesh(str(ROOT/'hardware/manifold-layout/enclosure-assembly.step.mesh')).items()
             if not n.startswith(('wire-','wiring-'))}
-    nav=Navigator(meshes,terms,manifest.get('terminations'));portals=portal_assignments(rows,terms)
+    nav=Navigator(meshes,terms,manifest.get('terminations'));portals=portal_assignments(rows,terms,manifest['cable_passages'])
     overrides={}
     if '--retry' in sys.argv:
         overrides=json.loads(OUT.read_text())
@@ -245,13 +260,15 @@ def main():
         points=[tuple(p)];ok=True
         for a,b in zip(stations,stations[1:]):
             # Straight conduit segments retain their assigned packing lane.
-            conduit=row['id'] in portals and abs(a[2]-255)<.01 and abs(b[2]-234.8)<.01
+            conduit=(row['id'] in portals and tuple(a)==tuple(portals[row['id']][0])
+                     and tuple(b)==tuple(portals[row['id']][1]))
             if conduit:
                 path=[tuple(a),tuple(b)] if nav.clear(a,b,radius+.08,ends) else None
             else:
                 domain=([-88.,5.,220.],[88.,82.,283.5]) if row['harness']=='Cartridge' else None
                 path=nav.path(a,b,radius+.6,ends,domain=domain)
-                if path is None:path=nav.path(a,b,radius+.12,ends,step=2.,limit=15000,domain=domain)
+                if path is None:path=nav.path(a,b,radius+.12,ends,step=2.,limit=15000,
+                                            domain=domain,grid_origin=b)
             if path is None:
                 failed.append({'id':row['id'],'reason':'no route in search domain','from':list(a),'to':list(b)})
                 ok=False;break
@@ -264,8 +281,9 @@ def main():
         for pt in points[2:-2]:
             anchor=min(ends,key=lambda t:np.linalg.norm(np.array(pt)-t['point']))
             if row['id'] in portals and any(np.linalg.norm(np.array(pt)-port)<.01 for port in portals[row['id']]):
-                bank='b' if row['end'].startswith(('reed-b','reed-carb')) else 'a'
-                anchor=terms[f'reed-{bank}-4.signal']
+                bank='b' if row['end'].startswith('reed-b-') else 'a'
+                if row['end'].startswith(('reed-a-','reed-b-')):
+                    anchor=terms[f'reed-{bank}-4.signal']
             specs.append({'terminal':anchor['id'],'offset':[round(float(x-y),4) for x,y in zip(pt,anchor['point'])]})
         overrides[row['id']]={'stations':specs,'bend_radius_mm':2. if radius<1.4 else 3.,
                               'end_lands_mm':[float(np.linalg.norm(start-p)),float(np.linalg.norm(goal-q))],

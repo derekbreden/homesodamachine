@@ -13,6 +13,10 @@ contacts and each distribution bus are explicit electrical interfaces.
 - [Conductor worksheet](enclosure-wiring.csv): one row per physical conductor.
 - [Routing review](installed/routing-review.json): manually requested interference,
   native-solid and integration readings, bound to their actual artifact hashes.
+- [Exact contact follow-up](installed/contact-review.json): native-solid readings
+  of the remaining mesh contact witnesses and their local electrical endpoints.
+- [Cap passage review](installed/cap-passage-review.json): native cup/lid validity
+  and the shared bore through all three assembly hosts.
 - [Integration record](installed/integration-review.json): wiring subassembly and
   retained physical assembly scope.
 - [Inspection overview](installed/enclosure-wiring-overview.png): the complete
@@ -49,6 +53,10 @@ Their outer profiles and wire throats are layout envelopes; latch details and th
 on-hand copies' fit are unmeasured. Each pogo solder exit has its own proposed
 heat-shrink sleeve.
 
+The female pogo tails dress upward into the cartridge's motor wells. Each
+pogo-joint sleeve follows the first 4 mm of its wire, including the bend.
+Two conductors per motor follow the cartridge's existing paired-wire grooves.
+
 The compressor's three conductors share one jacket corridor below the funnel
 frame, through the gap between the valve banks and into the compressor bay.
 The annular jacket uses an 8 mm outside-diameter layout allowance. The three
@@ -70,7 +78,23 @@ The two temperature probes' bare leads and the carbonator reeds' leads terminate
 at proposed insulated splice regions outside the coil. Their detailed bare-lead
 dressing remains part of device integration. The reservoir columns carry four
 signals and one continuous common, with insulated local taps. The carbonator's
-reed pair also shares one common.
+reed pair also shares one common. Each reservoir column's common is a straight
+spine beside the reeds, with short local soldered taps.
+
+Each reservoir column's five conductors share a transported section through
+the cap bore and its upper turn. Below the cap, four signals descend around
+the reed envelopes and the common runs beside them. The temperature bus also
+has a shared three-conductor path between probes. Its tangential splice rows
+are proposed harness joints; they do not specify the TO-92 package pin order.
+The incoming feeds approach the first row from above, with the bus continuing
+below the taps toward the second probe.
+
+The two reservoir reed columns each use their own top-cap conduit. The three
+temperature-bus conductors, three carbonator-reed conductors and carbonator
+earth lead share the separate Ø7.5 mm `sensor-cable` conduit, west of the pump.
+Its axis comes from the cap reference and is recorded in `cable_passages` in
+the resolved model. These internal leads are laid in the foam annulus before
+the body pour, with their free ends threaded through the cap and lid.
 
 ## Routing and assembly
 
@@ -104,7 +128,7 @@ The editable source is under [`installed/`](installed/):
 | `model.py` | Stock profiles, tangent circular bends, native wire construction and lengths |
 | `routes.py` | Hardware-relative route families and override interpretation |
 | `route-overrides.json` | Individually editable hardware-relative stations and unresolved routing records |
-| `bundle-routes.json` / `bundles.py` | Shared jacket corridor, core placement and jacket geometry |
+| `bundle-routes.json` / `bundles.py` | Shared cable corridors, conductor sections, end fanouts and optional jackets |
 | `terminations.py` | Removable housings, dressed fuse leads and joint insulation |
 | `build.py` | Native wiring assembly, manifest, worksheet and enclosure integration |
 
@@ -139,12 +163,18 @@ the current physical meshes and earlier wires; `--retry` preserves saved routes
 and searches unresolved ones. Its output needs the same route and assembly review
 as hand-authored stations.
 
-The current model has 103 conductor runs. The linked mesh review identifies
-133 wire/body interference pairs across 26 conductors, plus 71 wire/wire pairs.
-The model carries 28 unresolved routes and 75 proposed routes. Sixteen device-terminal
-locations remain unlocated. Native readback finds all 103 wires valid, each a
-single solid, with identical installed bounds. The connector housings, pogo
-sleeves, dressed fuse leads, splice envelopes and shared jacket are also valid.
+The current model has 103 proposed conductor routes and no unresolved routes.
+Sixteen device-terminal locations remain unlocated. Native readback finds all
+103 wires valid, each a single solid, with identical installed bounds. All
+22 connector and insulation bodies are valid single solids. Shared bundle
+cores have zero native overlap with each other or the compressor jacket.
+
+The full mesh review reports two wire/body contacts at the PCB attachments and
+eight wire/wire contacts at continuous bus or splice nodes. Exact-solid follow-up
+finds zero overlap outside those local electrical endpoints. No jacket or
+pogo/fuse insulation interference appears in the mesh reading. These are
+installed-geometry readings; closing motions and physical harness dressing
+retain the scope described above.
 
 The [compressor-cable review](installed/compressor-review.json) records no
 hardware or neighboring-wire intersections for its jacket, three cores and
