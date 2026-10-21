@@ -8,5 +8,13 @@
   "wiring_meshes": 126,
   "all_retained_viewer_arrays_identical": true,
   "wiring_step_sha256": "9060d47bca1dadac1d33ede725f826f01f60c5b3fb23b0e44bb6bd3a7cd0bd33",
-  "connection_count": 103
+  "connection_count": 103,
+  "publication": {
+    "assembly_step_sha256": "8e0576306103d1c7a31a8317bfe3ae7a816abf76754b429bf82f963260d396dd",
+    "assembly_mesh_sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
+    "viewer_meshes_with_surface_changes": [
+      "enclosure-back-bottom"
+    ],
+    "scope": "Publisher PET-GF presentation repair and current fluted piece surfaces; installed wire geometry retained."
+  }
 }

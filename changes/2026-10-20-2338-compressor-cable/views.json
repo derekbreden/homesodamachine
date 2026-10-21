@@ -1,0 +1,215 @@
+{
+  "views": [
+    {
+      "name": "cable-path",
+      "caption": "The shared compressor cable passes below the funnel frame and between the existing valve banks.",
+      "before": "cable-path-before.webp",
+      "after": "cable-path-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 550.9,
+          "y": 416.1,
+          "r": 19.6,
+          "label": "Shared cable",
+          "at": [
+            52,
+            154,
+            230
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          309.8116374506635,
+          851.2271540515483,
+          609.7362924309289
+        ],
+        "target": [
+          35,
+          210,
+          225
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 541.64562702064,
+        "far": 1383.2293564864117,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "ghost": [],
+      "only": [
+        "terminal-compressor-cord-jacket",
+        "funnel-frame",
+        "compressor*",
+        "coil-v-c*",
+        "coil-v-e*",
+        "coil-v-f*",
+        "coil-v-g*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "69cd9013d12cb6e15370d9f288814938a0df136f7c5fefbf63bb23380ee72dcf",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
+          "commit": "facb32341e625944b788e014775a5f39bdb5bea0",
+          "taken": "2026-10-21T04:42:16.329Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "terminal-fuse-in-lead",
+        "terminal-fuse-out-lead",
+        "terminal-fuse-in-splice",
+        "terminal-fuse-out-splice",
+        "terminal-compressor-cord-jacket",
+        "wire-AC5-N",
+        "wire-AC6-PE",
+        "wire-AC4-fuse",
+        "wire-AC4-H",
+        "wire-J11-DOUT",
+        "wire-J2-positive-J",
+        "wire-J9-A",
+        "wire-J1-positive-C",
+        "wire-J9-GND",
+        "wire-DC4-GND",
+        "wire-J9-V12",
+        "wire-J9-B",
+        "wire-J11-GND",
+        "wire-PE-bus",
+        "wire-relay-bus-V5",
+        "wire-J5-IO19",
+        "wire-J3-V5",
+        "wire-J7-GND",
+        "wire-J5-GND",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": [
+        "enclosure-back-bottom"
+      ]
+    },
+    {
+      "name": "fuse-fanout",
+      "caption": "The thermal fuse leads reach separate insulated splice regions; the short hot link passes below the neutral and earth fanout.",
+      "before": "fuse-fanout-before.webp",
+      "after": "fuse-fanout-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 666,
+          "y": 414.5,
+          "r": 29.6,
+          "label": "Splice region",
+          "at": [
+            12,
+            34,
+            65
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          87.36263714937267,
+          -66.57227363389156,
+          141.3626371493727
+        ],
+        "target": [
+          8,
+          25,
+          62
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.5394713120763556,
+        "far": 781.7390344749422,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "terminal-fuse-*",
+        "wire-AC4-fuse"
+      ],
+      "ghost": [],
+      "only": [
+        "compressor/2",
+        "thermal-fuse",
+        "fuse-clamp",
+        "terminal-fuse-*",
+        "wire-AC4-fuse",
+        "wire-AC4-H",
+        "wire-AC5-N",
+        "wire-AC6-PE",
+        "terminal-compressor-cord-jacket"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "69cd9013d12cb6e15370d9f288814938a0df136f7c5fefbf63bb23380ee72dcf",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
+          "commit": "facb32341e625944b788e014775a5f39bdb5bea0",
+          "taken": "2026-10-21T04:42:16.329Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "terminal-fuse-in-lead",
+        "terminal-fuse-out-lead",
+        "terminal-fuse-in-splice",
+        "terminal-fuse-out-splice",
+        "terminal-compressor-cord-jacket",
+        "wire-AC5-N",
+        "wire-AC6-PE",
+        "wire-AC4-fuse",
+        "wire-AC4-H",
+        "wire-J11-DOUT",
+        "wire-J2-positive-J",
+        "wire-J9-A",
+        "wire-J1-positive-C",
+        "wire-J9-GND",
+        "wire-DC4-GND",
+        "wire-J9-V12",
+        "wire-J9-B",
+        "wire-J11-GND",
+        "wire-PE-bus",
+        "wire-relay-bus-V5",
+        "wire-J5-IO19",
+        "wire-J3-V5",
+        "wire-J7-GND",
+        "wire-J5-GND",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": [
+        "enclosure-back-bottom"
+      ]
+    }
+  ]
+}
