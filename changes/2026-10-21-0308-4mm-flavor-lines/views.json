@@ -1,0 +1,432 @@
+{
+  "views": [
+    {
+      "name": "faucet-tip",
+      "caption": "The shared dispense opening follows the 4 mm flavor tubes; the soda passage and 27 mm neck keep their working clearances.",
+      "before": "faucet-tip-before.webp",
+      "after": "faucet-tip-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 85.7,
+          "label": "Smaller flavor opening",
+          "at": [
+            0,
+            -137.1,
+            183
+          ]
+        }
+      ],
+      "model": "faucet-layout/faucet-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          -202.2915696719808,
+          105.33788123057964
+        ],
+        "target": [
+          0,
+          -137.1,
+          183
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31816437130407144,
+        "far": 619.5169459184358,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "shell_tip"
+      ],
+      "ghost": [],
+      "only": [
+        "shell_tip",
+        "flavor_tube_pos_x",
+        "flavor_tube_neg_x",
+        "soda_faucet_tube"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "faucet-layout/faucet-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "73cb34a5e1166ad95de6b25e94bbc0ef718bf138798f0ac09ff024df7a167ebe",
+          "commit": "82c09afa1662e3c9ca7787ba6a4ada7b910f7f30",
+          "taken": "2026-10-21T06:41:16.069Z",
+          "published": true
+        },
+        "after": {
+          "payload": "faucet-layout/faucet-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b3333351fe673e8edb1c6d3db0e93b3e52873603b9b30602426317a28c48f8ed",
+          "commit": "6bb27c4cfc740c7bf0a3e8f18998bf08decc8455",
+          "published": true
+        }
+      },
+      "changed": [
+        "flavor_union_neg_x",
+        "flavor_union_pos_x",
+        "flavor_tube_bridge_neg_x",
+        "flavor_tube_bridge_pos_x",
+        "cold_line_foam",
+        "flavor_umbilical_tube_pos_x",
+        "flavor_tube_pos_x",
+        "drain_tube",
+        "flavor_umbilical_tube_neg_x",
+        "umbilical_sleeve",
+        "flavor_tube_neg_x",
+        "shell_tip",
+        "shell_base",
+        "collar_flavor_b_word",
+        "collar_flavor_a_word",
+        "collar_flavor_b",
+        "collar_flavor_a",
+        "umbilical-organizer",
+        "countertop"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "rear-ports",
+      "caption": "Two ABU44M-E 4 mm sockets clamp through M15 openings and matching FLAVOR chips.",
+      "before": "rear-ports-before.webp",
+      "after": "rear-ports-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 494.2,
+          "y": 459.2,
+          "r": 50.9,
+          "label": "4 mm socket",
+          "at": [
+            -40.71,
+            486,
+            269
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -59.4,
+          675.550298655148,
+          299.0825447982722
+        ],
+        "target": [
+          -59.4,
+          475,
+          269
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 157.61163781211658,
+        "far": 296.2942886299027,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b"
+      ],
+      "ghost": [],
+      "only": [
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "bulkhead-ring-flavor-a-word",
+        "bulkhead-ring-flavor-b-word"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "07157f7ed43318ed5dfb16563eb1e17b869e0eaacb9cd8e5de3e81da13454325",
+          "commit": "1a3a39bc6c7b8a5d6e57a595727c92f417621ac6",
+          "taken": "2026-10-21T06:31:20.761Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1d7f38c3073d61a9f64733dc8d875ade53afc858d2377daaeb5df61b4b1f75e6",
+          "commit": "6bb27c4cfc740c7bf0a3e8f18998bf08decc8455",
+          "published": true
+        }
+      },
+      "changed": [
+        "anchor-cap-fluid-28",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "wire-J6-earth-4",
+        "wire-J7-carb-earth-2",
+        "wire-PE-carbonator",
+        "wire-J4-IO26",
+        "wire-J4-3V3",
+        "anchor-cap-fluid-18",
+        "wire-temp-GND",
+        "wire-J7-CHI",
+        "wire-flow-GND",
+        "wire-J7-RB4",
+        "wire-J6-RA3",
+        "tube-fluid-18",
+        "wire-temp-bus-GND",
+        "wire-J4-V5",
+        "wire-DC4-GND",
+        "wire-J6-RA2",
+        "wire-cartridge-AM2",
+        "wire-DC1-V12",
+        "wire-AC2-L",
+        "wire-cartridge-BM2",
+        "wire-J9-GND",
+        "wire-J5-IO2",
+        "wire-J5-V5",
+        "tube-fluid-28",
+        "wire-J9-V12",
+        "enclosure-back-top",
+        "wire-J3-IO33",
+        "wire-J3-V5",
+        "cold-core/foam-cap-lid-top",
+        "wire-J9-B",
+        "wire-DC1-GND",
+        "wire-AC1-L",
+        "wire-J4-GND",
+        "wire-J9-A",
+        "wire-J3-IO35",
+        "wire-J7-RB2",
+        "wire-J7-earth-3",
+        "wire-J7-earth-4",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "wire-DC4-V12",
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J13-AM1",
+        "wire-J7-earth-2",
+        "wire-J7-RB3",
+        "wire-J6-RA1",
+        "wire-J7-RB1",
+        "wire-J7-earth-1",
+        "wire-AC1-N",
+        "wire-J3-GND",
+        "wire-J1-positive-B",
+        "wire-J1-COM",
+        "wire-J2-OUT1",
+        "wire-relay-bus-V5",
+        "wire-J6-earth-1",
+        "wire-J6-earth-3",
+        "wire-J6-earth-2",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "wire-cartridge-AM1",
+        "wire-AC3-L",
+        "wire-J1-positive-A",
+        "wire-cartridge-BM1",
+        "wire-AC1-PE",
+        "wire-temp-bus-V",
+        "wire-AC2-N",
+        "wire-J7-CLO",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "terminal-pogo-male-2"
+      ],
+      "withinMeshing": [
+        "bulkhead-ring-flavor-b-word",
+        "bulkhead-ring-flavor-a-word",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-bottom"
+      ]
+    },
+    {
+      "name": "internal-routes",
+      "caption": "4 mm lines run from the valve stem reducers to metric rear bulkheads, with R25 bends and matching retention.",
+      "before": "internal-routes-before.webp",
+      "after": "internal-routes-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 688.1,
+          "y": 582.5,
+          "r": 17.9,
+          "label": "Stem reducers",
+          "at": [
+            73.82,
+            166.24,
+            246
+          ]
+        },
+        {
+          "x": 537.6,
+          "y": 622.8,
+          "r": 21.2,
+          "label": "R25 return",
+          "at": [
+            -50,
+            135,
+            283
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          186.11740565218878,
+          1162.825943478112
+        ],
+        "target": [
+          0,
+          275,
+          274
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 677.3547431852467,
+        "far": 1352.353310143657,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j"
+      ],
+      "ghost": [],
+      "only": [
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "valve-v-g",
+        "valve-v-j",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "anchor-cap-fluid-18"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "07157f7ed43318ed5dfb16563eb1e17b869e0eaacb9cd8e5de3e81da13454325",
+          "commit": "1a3a39bc6c7b8a5d6e57a595727c92f417621ac6",
+          "taken": "2026-10-21T06:31:20.761Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1d7f38c3073d61a9f64733dc8d875ade53afc858d2377daaeb5df61b4b1f75e6",
+          "commit": "6bb27c4cfc740c7bf0a3e8f18998bf08decc8455",
+          "published": true
+        }
+      },
+      "changed": [
+        "anchor-cap-fluid-28",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "wire-J6-earth-4",
+        "wire-J7-carb-earth-2",
+        "wire-PE-carbonator",
+        "wire-J4-IO26",
+        "wire-J4-3V3",
+        "anchor-cap-fluid-18",
+        "wire-temp-GND",
+        "wire-J7-CHI",
+        "wire-flow-GND",
+        "wire-J7-RB4",
+        "wire-J6-RA3",
+        "tube-fluid-18",
+        "wire-temp-bus-GND",
+        "wire-J4-V5",
+        "wire-DC4-GND",
+        "wire-J6-RA2",
+        "wire-cartridge-AM2",
+        "wire-DC1-V12",
+        "wire-AC2-L",
+        "wire-cartridge-BM2",
+        "wire-J9-GND",
+        "wire-J5-IO2",
+        "wire-J5-V5",
+        "tube-fluid-28",
+        "wire-J9-V12",
+        "enclosure-back-top",
+        "wire-J3-IO33",
+        "wire-J3-V5",
+        "cold-core/foam-cap-lid-top",
+        "wire-J9-B",
+        "wire-DC1-GND",
+        "wire-AC1-L",
+        "wire-J4-GND",
+        "wire-J9-A",
+        "wire-J3-IO35",
+        "wire-J7-RB2",
+        "wire-J7-earth-3",
+        "wire-J7-earth-4",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "wire-DC4-V12",
+        "wire-J5-IO19",
+        "wire-J5-GND",
+        "wire-J13-AM1",
+        "wire-J7-earth-2",
+        "wire-J7-RB3",
+        "wire-J6-RA1",
+        "wire-J7-RB1",
+        "wire-J7-earth-1",
+        "wire-AC1-N",
+        "wire-J3-GND",
+        "wire-J1-positive-B",
+        "wire-J1-COM",
+        "wire-J2-OUT1",
+        "wire-relay-bus-V5",
+        "wire-J6-earth-1",
+        "wire-J6-earth-3",
+        "wire-J6-earth-2",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "wire-cartridge-AM1",
+        "wire-AC3-L",
+        "wire-J1-positive-A",
+        "wire-cartridge-BM1",
+        "wire-AC1-PE",
+        "wire-temp-bus-V",
+        "wire-AC2-N",
+        "wire-J7-CLO",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-b",
+        "terminal-pogo-male-2"
+      ],
+      "withinMeshing": [
+        "bulkhead-ring-flavor-b-word",
+        "bulkhead-ring-flavor-a-word",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-bottom"
+      ]
+    }
+  ]
+}

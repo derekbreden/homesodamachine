@@ -1,0 +1,23 @@
+[sliver] These are the explicit 0.9 mm lip tips, 1.2 mm engagement faces and 1.5 mm wing ends of the shared snap interface, not remnants of intersecting solids. The 4 mm part changes the bore while keeping that interface. Release force and endurance on this article are unmeasured.
+alternatives: Thicker lip tips or wings change the catch/window engagement and spring motion. Removing these faces removes capture; a zip-tie closure is the available different construction, used for flavor B.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step
+click: x=5.275 y=7.772 z=5.000
+click: x=5.875 y=7.322 z=5.000
+click: x=-5.875 y=7.322 z=5.000
+click: x=7.225 y=10.300 z=5.000
+click: x=-7.225 y=10.300 z=5.000
+click: x=-5.275 y=7.772 z=5.000
+
+[sliver] The 0.610 mm strips are the two analytic 0.45 mm bore-mouth eases around the 4.30 mm seat. They guide a tube into the half-pipe and have the full 10 mm bearing length; no Boolean seam is left here. Black-stock insertion and retention are unmeasured.
+alternatives: A plain sharp seat removes the ease and changes insertion contact. A larger mouth changes the enclosing arc; a larger seat changes the required tube clearance.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step
+click: x=2.359 y=-0.187 z=5.000
+click: x=-2.359 y=-0.187 z=5.000
+
+[thin] The 1.499 mm mesh reading measures the nominal 1.5 mm spring wings. Their explicit exception supplies the lateral travel for 1.2 mm catch engagement. It is not a wall minimum, force or lifetime qualification for the assembled appliance.
+alternatives: Increasing wing thickness changes its spring response and the mating flank clearance. Increasing the whole latch requires a corresponding rib/window revision; the zip-tie construction avoids the spring and is used at flavor B.
+file: hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step
+click: x=7.231 y=-3.361 z=0.998
+click: x=5.872 y=-2.729 z=0.998
+click: x=-7.231 y=-3.361 z=9.002
+click: x=-5.872 y=-2.729 z=9.002
