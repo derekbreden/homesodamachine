@@ -1,204 +1,120 @@
 {
-  "checked_at_utc": "2026-10-20T21:09:18.075778+00:00",
+  "checked_at_utc": "2026-10-21T00:20:14.355347+00:00",
   "method": "Fetch every changed CAD member through the live site object manifest or its STL object route, decompress, and compare SHA-256 with the published pointer file. Canonical manifest URLs are checked before downloading.",
-  "pointer_commit": "f1385d39a677b5635aaec97794cab26f522ae0ae",
+  "pointer_commit": "2e2661d715fd78c99f8a8b17613e00bcae9f4925",
   "members": [
     {
       "path": "hardware/assembly/scenes/glb/front-top.glb",
-      "sha256": "6e8c1249dccc2d886b48a1775534a99d0be1d3ab2bace932f750e1241be81478",
-      "bytes": 10506808,
+      "sha256": "64ab8c93854ff15f38a1744728b0646d12aae3fa768e9d48e946651ea8a96ac2",
+      "bytes": 10302384,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "sha256": "e8a801d194db15d86204e20dc381852cfb478270e877c0a44c0289598cd18831",
-      "bytes": 218881652,
+      "sha256": "55a6893e70f71883c4c4d9cbdfb73593a943fde4a7cc71313ff594e73d046af7",
+      "bytes": 226820065,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "53e28965bd3f199cd245f114660f32f7a4142be34aed34221beb15aec0d1cece",
-      "bytes": 34663676,
+      "sha256": "2d4e0bea1072ff2ea171408be7262378a8b16346d75abe721c37fb0e571a0e3f",
+      "bytes": 34468160,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/manifold-layout.step",
-      "sha256": "510620602df8b20865ea8192e1ab1591f7c6db6a00958a83412f1ebcd514a45b",
-      "bytes": 21692326,
+      "sha256": "0181e5fc18d8dc2fee51bf057e3f7667ef2d550d70554107b4611ea9600eb9a4",
+      "bytes": 21492940,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/manifold-layout.step.mesh",
-      "sha256": "c37b28ab090b6e3684de15fbf38d058e86b367b61cc9712c75c563f2cd610ee5",
-      "bytes": 6560832,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-      "sha256": "e3d85f4da5a5c306623d827dbfc9cf930f7a928d58780528f1e490d7eaa6c69a",
-      "bytes": 2521342,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-      "sha256": "74283c358ba0ae1941c58d40ed215f86d19891a0f6679aa63fa720df0071c5c7",
-      "bytes": 2303500,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "sha256": "abb0af6e3bd384a3f38150dc80cd3156e78bf93bf31a38c9fc3f94688f519cda",
-      "bytes": 27004084,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.step",
-      "sha256": "76ccc52fccd018d5469e21618d701fe883e84fed8dbe6297d4f5056bd5a41ea3",
-      "bytes": 47361,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.step.mesh",
-      "sha256": "ec05d7798f3a737d092a9f4fa813be3c24573ab0124ce9b639fafca1acc8f750",
-      "bytes": 38456,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.stl",
-      "sha256": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474",
-      "bytes": 52284,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step",
-      "sha256": "760c88c55d3a1c27c5458849588dbf62413fa6baa4023209f0a7e81cd5d9c41f",
-      "bytes": 32509,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step.mesh",
-      "sha256": "e1cad67db4f66b37d42bb727659f04cf59f6e1f154fb63698d987231386cb11e",
-      "bytes": 4500,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.stl",
-      "sha256": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5",
-      "bytes": 26484,
+      "sha256": "583897b21d79c696c87ced38041fb7d5a01951bbb18559b12029605adfe2491f",
+      "bytes": 6500080,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step",
-      "sha256": "a0b93468c1b516d82438b748972dfeaa249f8a29afe08b5b373375086e5a038d",
-      "bytes": 226244,
+      "sha256": "a4b3ae581bad58428e5c091dac683c4a9810b7e181300526b347078c6a48696b",
+      "bytes": 166572,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step.mesh",
-      "sha256": "a5a21fc37bb1f5537ed60f53de6b9d9e0aa416ed4b34971fabca3b6e2ed95faf",
-      "bytes": 385960,
+      "sha256": "1130af48aebfb22ac885c533182217951e08111c5f53b25393e8af248f4c0465",
+      "bytes": 292080,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
-      "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-      "bytes": 3226484,
+      "sha256": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8",
+      "bytes": 1169084,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step",
-      "sha256": "a336526653fabf73cc514cb3ceba543e6188a5866eedff579c5524888d24bf67",
-      "bytes": 226244,
+      "sha256": "aff7c415ec9b66193be4b06504e4c046ac0673a490b18dd38869f31405111893",
+      "bytes": 194412,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.step.mesh",
-      "sha256": "200184bc9509982e51493da7445203fc2a5c93f2b9aaffb52d8fe3f23d1886c2",
-      "bytes": 385960,
+      "sha256": "e7fcf484a2c77b5ca3a4a0749b1ea9ef31cc36652c7c9dd47e39d1336e5067f8",
+      "bytes": 293192,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
-      "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-      "bytes": 3226484,
+      "sha256": "663adac8f7810df7368d13610fc20ef80bc527c89bca139cc528d37950cbd6b4",
+      "bytes": 1179284,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step",
-      "sha256": "ef10e91388904e4850e958982d44bf693496dce023a91d5a3cb32d833b5ae22a",
-      "bytes": 226244,
+      "sha256": "d0b3dc76999bb86dbaa153fda86f62142b561d868f0d51b88916749eb910b804",
+      "bytes": 166572,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.step.mesh",
-      "sha256": "179b9fdb2162ae11853f93a8ca924bcfc6b28e0287cf6e5fef16cca1fb6b8d91",
-      "bytes": 385960,
+      "sha256": "6e7cf6913ae6117d51ed447a2b72556bf6678d9baceda0e21206d04d2eb53609",
+      "bytes": 292080,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
-      "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-      "bytes": 3226484,
+      "sha256": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8",
+      "bytes": 1169084,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step",
-      "sha256": "d212fd113a6a91eca361f29585dcdad7383d485af6e8dca31520facbca187f49",
-      "bytes": 226244,
+      "sha256": "d0926e659d98f8fdab0bdb8254cb4e3a58cc3661314f419a8dbd3e5c86b88b58",
+      "bytes": 206583,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.step.mesh",
-      "sha256": "4cadd50ff36b18a0df344caa249315d670379a836a78d18574e3b07bfbb61a09",
-      "bytes": 385960,
+      "sha256": "49c14ddd12ed2d6f19ff543096159d36da702588f3547410c7a655994d096929",
+      "bytes": 293296,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
-      "sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
-      "bytes": 3226484,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
-      "sha256": "fe20d26777ed1339e13359b9656718e97b26df247f7d8810ecc21a9c67c6e7d4",
-      "bytes": 108412,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
-      "sha256": "efa7ea14a6debf5b987d33861598178678510144450fb277d91e8124d64f8dc3",
-      "bytes": 77432,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
-      "sha256": "07b72871bba3fe859ed3925899e2cb3cd0212e5018ad70747df604b62e56e480",
-      "bytes": 105484,
+      "sha256": "e8c6d0a912e0868f100408643e75c05bfcb7894eb0ee49aaf2ec3c3c422a9edb",
+      "bytes": 1179584,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-      "sha256": "f3c0a49d925809353e5ac1cec876dcc3df31d18a13aea428159a37d100b2232d",
-      "bytes": 41395389,
+      "sha256": "e63e29734ed3fcacabe5a7f244722a2d243a4267a0b2982dfe9b5e7cbe28e5ac",
+      "bytes": 42741209,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "sha256": "970a5503728fd3e1f07de639f4359c0e340e649bd84a5acf6a5a245c22e27ca2",
-      "bytes": 15751256,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
-      "sha256": "89eb0ca3421cbde4d4b5822500a01c50a86e1ff5c3ada70422a81ed545d7c609",
-      "bytes": 3336984,
-      "pass": true
-    },
-    {
-      "path": "hardware/printed-parts/zone-c/funnel-mold/core.stl",
-      "sha256": "db5523a35eb747a2d968010ee6c787942a49a989878f247b6752d75c61cccfca",
-      "bytes": 1978584,
+      "sha256": "068f543a6818f80317aae5416aed2024e2b2ddd44292ce68cea9961a37e51731",
+      "bytes": 15787692,
       "pass": true
     }
   ],
