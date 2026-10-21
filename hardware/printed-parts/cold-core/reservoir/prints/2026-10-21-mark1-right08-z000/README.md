@@ -66,3 +66,14 @@ print error or HMS alert is reported. Two live camera frames identify no
 confirmed lift or strike; the toolhead, clear PETG and reflected illumination
 prevent a complete body/cap corner-contact assessment. An attached-corner
 baseline is not established by this observation.
+
+At **00:57:17 CDT**, Mark1 reports a
+[dirty nozzle-camera-lens warning](nozzle-camera-warning.json), HMS attr
+201326848 / code 131095. Bambu Studio says this may affect AI monitoring.
+The task remains RUNNING at layer 1/833, with `print_error` zero and
+255/70 °C nozzle/bed targets. A2 and runtime timelapse remain selected.
+The chamber video continues updating. Studio's separate telemetry panel
+displays a connection failure from 00:57:55 CDT, while fresh LAN MQTT
+at 00:58:16 still identifies this exact RUNNING task. The exposed camera-right
+body-floor edge appears flat; cap contact and occluded edges remain unassessed.
+No confirmed lifting or nozzle strike is established by these observations.
