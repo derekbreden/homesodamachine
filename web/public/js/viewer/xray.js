@@ -23,22 +23,16 @@
 // step.js calls applyXray() on the group after every load (so switching
 // files keeps the mode) and inside renderThumbnail (so a grid card matches the
 // detail view it opens). The toggle re-applies to the live detail group only.
-// Faucet views default to solid; other models default to x-ray. An explicit
-// toggle is remembered across models.
+// Every model opens solid. Turning x-ray on is remembered across models.
 
 import { createXrayRenderer } from "./xray-render.js";
 import { state } from "./state.js";
 import { makeToolChip } from "./tool-rail.js";
-import { hasFaucetFinish } from "/contracts/faucet-options.js";
 
 const LS_KEY = "step-xray";
 let enabled = (() => {
-  try {
-    const value = localStorage.getItem(LS_KEY);
-    return value === null ? true : value === "1";
-  } catch { return true; }
+  try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
-let chosenInSession = false;
 const rendering = createXrayRenderer({
   enabled,
   isMeshVisible: mesh => !(mesh.name && state.hiddenComponents?.has(mesh.name)),
@@ -54,7 +48,6 @@ export function setMeshMaterial(group, mesh, material) {
 }
 
 export function setXrayEnabled(on, { persist = true } = {}) {
-  chosenInSession = true;
   enabled = !!on;
   rendering.setEnabled(enabled);
   if (persist) {
@@ -65,21 +58,6 @@ export function setXrayEnabled(on, { persist = true } = {}) {
 
 export function isXrayEnabled() {
   return enabled;
-}
-
-// A new faucet view presents the outside form and finish. A saved x-ray choice
-// applies to every model; other models keep the viewer's default ghost view.
-export function xrayForModel(file) {
-  if (chosenInSession) return enabled;
-  try { if (localStorage.getItem(LS_KEY) !== null) return enabled; } catch { /* session defaults */ }
-  return !hasFaucetFinish(file);
-}
-
-export function applyModelXrayDefault(file) {
-  enabled = xrayForModel(file);
-  rendering.setEnabled(enabled);
-  const toggle = document.querySelector(".xray-toggle");
-  if (toggle) toggle.refresh();
 }
 
 export function makeXrayToggle() {
