@@ -224,7 +224,7 @@ function versionOf(abs) {
   }
 }
 
-function imageUrl(changesDir, e, file) {
+export function imageUrl(changesDir, e, file) {
   const v = versionOf(path.join(changesDir, e.id, file));
   return `/changes/${e.id}/${encodeURIComponent(file)}${v ? `?v=${v}` : ""}`;
 }
@@ -684,6 +684,8 @@ export function makeCarry({ changesDir, fetchImpl = fetch, now = Date.now, log =
 
 // --- routes ----------------------------------------------------------------
 
+// Hands back the reader and the look it waits on, so another page showing entries (the /latest
+// hub) reads the same disk and spends the same call budget rather than a second one.
 export function mountChangesRoutes(app, { changesDir, carry = false } = {}) {
   const read = makeReader(changesDir);
   const look = carry ? makeCarry({ changesDir }) : null;
@@ -763,4 +765,6 @@ export function mountChangesRoutes(app, { changesDir, carry = false } = {}) {
       if (err && !res.headersSent) next();
     });
   });
+
+  return { read, fresh };
 }
