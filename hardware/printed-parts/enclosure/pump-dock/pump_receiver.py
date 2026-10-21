@@ -143,7 +143,8 @@ def _web_wire(junction):
     front=REAR_COLLAR_Y[1]
     aft=uy+r
     top=junction['upper']['point'][2]
-    foot=mouth.z-(aft-mouth.y)*axis.y/axis.z-r/abs(axis.z)
+    foot=(mouth.z+(aft-mouth.y)*axis.z/axis.y
+          -r*math.hypot(axis.y,axis.z)/abs(axis.y))
     # One flat 45-degree bed face at the fore/top corner, clear of all bores.
     outline=[(front,foot),(front,top-PRINT_FOOT_CORNER),
              (front+PRINT_FOOT_CORNER,top),(aft,top),(aft,foot)]
@@ -156,7 +157,8 @@ def crotch_web(junction=None):
     wire=_web_wire(junction)
     web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
     mouth=cq.Vector(*junction['lower']['point']);axis=cq.Vector(*junction['lower']['axis'])
-    behind=cq.Workplane(cq.Plane(origin=mouth,xDir=(1,0,0),normal=axis*-1)).box(
+    transverse=(cq.Vector(1.,0.,0.)-axis*axis.x).normalized()
+    behind=cq.Workplane(cq.Plane(origin=mouth,xDir=transverse,normal=axis*-1)).box(
         400,400,400,centered=(True,True,False)).val()
     # The lower wall is parallel to the lower socket, one cuff radius below it.
     radial=cq.Vector(0.,-axis.z,axis.y).normalized()
