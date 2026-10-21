@@ -38,6 +38,9 @@ SPEC.json:
       ]
     }
 
+A panel's own `"view"` is where that panel starts when the panels turn on their own
+(`"sync": false`): one feature seen from below, the next from its wall's outside.
+
 `only` keeps the solids whose names match and drops the rest from the page; `highlight` draws
 matches in the viewer's selection amber; `ghost` draws them translucent and leaves them out of
 the framing. Names are the solid names the viewer's picker shows; `--list-solids` prints them.
@@ -297,8 +300,9 @@ def normalise(spec: dict, base: Path) -> dict:
     spec["panels"] = panels
     if "fragment" in spec:
         spec["fragment"] = resolve(spec["fragment"])
-    if spec.get("view", "iso") not in VIEWS and not isinstance(spec.get("view"), dict):
-        raise VizError(f"view {spec['view']!r} is not one of {', '.join(VIEWS)}")
+    for v in [spec.get("view", "iso")] + [p["view"] for p in panels if "view" in p]:
+        if v not in VIEWS and not isinstance(v, dict):
+            raise VizError(f"view {v!r} is not one of {', '.join(VIEWS)}")
     if not spec.get("title"):
         raise VizError("the page needs a title (two to four words that name it)")
     return spec
@@ -359,6 +363,8 @@ def render(spec: dict) -> tuple[str, Models]:
     ref_box, ref_label = None, None
     for i, p in enumerate(spec["panels"]):
         entry = {"label": p["label"], "name": p.get("name", "")}
+        if "view" in p:
+            entry["view"] = p["view"]
         tag = esc(p["label"])
         name = esc(p.get("name", ""))
         pick = bool(p.get("pick"))
