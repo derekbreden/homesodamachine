@@ -8,8 +8,9 @@
 //   node tools/changes/change.mjs render <entry-dir> --view <name> --before <stash|payload>
 //        [--after <stash|payload>] [--model <rel>] [--caption "..."]
 //        [--cam x,y,z] [--target x,y,z] [--up x,y,z] [--span mm | --zoom f] [--ortho]
-//        [--size WxH] [--highlight names|changed] [--ghost names] [--only names] [--solid]
-//        [--mark "x,y,z[,r][:label]"]... [--no-fog] [--no-ground] [--bg #hex] [--quality q]
+//        [--size WxH] [--only names] [--section "x,y,z:nx,ny,nz"] [--highlight names|changed]
+//        [--ghost names] [--xray] [--mark "x,y,z[,r][:label]"]... [--no-fog] [--no-ground]
+//        [--bg #hex] [--quality q]
 //
 // `<rel>` is a STEP path under hardware/, the way /3d names it; the default is the machine,
 // `manifold-layout/enclosure-assembly.step`. What is drawn is its viewer payload, `<rel>.mesh`,
@@ -29,8 +30,9 @@
 // bytes moved, by surface: every vertex of one version is measured against the other version's
 // triangles, and the vertices that stand off it by more than `--tol` are the change. A part
 // whose bytes moved while its surface did not was re-meshed, not changed. What moved is grouped
-// into regions `--cell` mm apart, and each region is printed with a camera that frames it and the
-// `render` line that draws it. The deviation is the reading; the camera is a starting point.
+// into regions `--cell` mm apart, and each region is printed with a camera that frames it, the
+// `render` line that draws it, and a `--section` through it for a change inside a part. The
+// deviation is the reading; the camera is a starting point.
 //
 // `render` DRAWS ONE VIEW OF THE ENTRY. One browser, one page per picture, the /3d viewer as
 // `render-step-posed.js` stands it, with the payload the page asks for answered from the stash
@@ -40,9 +42,15 @@
 // versions — at one size, and the run fails if the two pages report different ones. Unaimed, it
 // takes the camera `changed` gives the first region that moved; with nothing moved, it looks from
 // the viewer's own front-right-above at the highlighted solids, or at everything shown.
+//
+// FEWER SOLIDS AND A CUT READ; SEE-THROUGH ONES DO NOT. The pictures are opaque. `--only` drops
+// every other solid and hands the page a payload of just those, so a part-sized view costs a
+// part's worth of parsing, and stands the part on no floor. `--section "x,y,z:nx,ny,nz"` cuts both pictures with one plane through
+// that point and removes the side its normal points to, so a camera on that side looks at the cut;
+// the cut faces are drawn filled in a flat section colour, a darker amber on a highlighted solid.
 // Highlight is the viewer's selection amber, and `--highlight changed` is the solids `changed`
-// stars; ghost is a faint shell left out of the framing; only drops every other solid, and hands
-// the page a payload of just those, so a part-sized view costs a part's worth of parsing.
+// stars. `--ghost` (a faint shell left out of the framing) and `--xray` (the viewer's see-through
+// mode) are there for the view that cannot be had by hiding or cutting, and only for that.
 //
 // It writes `<view>-before.webp` and `<view>-after.webp` into the entry and merges the view into
 // the entry's `views.json`, replacing a view of the same name; the first view is the one the feed
@@ -50,7 +58,8 @@
 // points in millimetres projected through the view's camera to pixels, drawn as a ring and a
 // label over both pictures. The rest is what was drawn and from what: `model`, `camera`,
 // `highlight`, `ghost`, `only`, `xray`, `source` (each payload's sha256 and the commit it stood
-// at) and `changed` / `withinMeshing` (the solids that moved, as `changed` reads them).
+// at) and `changed` / `withinMeshing` (the solids that moved, as `changed` reads them); a section
+// is recorded in `camera`.
 //
 // THIS DOES NOT EXTEND `render-step-posed.js`, AND IT DOES NOT LIVE BESIDE IT, BECAUSE BOTH OF
 // THOSE ARE INPUTS TO THE BUILD. `render-step-posed.js` and `browser.js` are named in the
@@ -81,6 +90,12 @@ const DEFAULT_MODEL = "manifold-layout/enclosure-assembly.step";
 // The viewer's own selection colour (component-picker.js SEL), drawn at the finish the viz pages
 // give a highlight (tools/viz/page.html).
 const AMBER = 0xffa733;
+// A cut face: the solid's own colour taken most of the way to a steel blue-grey, a hue no lit
+// surface here has, so a cut never reads as a face that was there — a black shell cuts a mid
+// blue-grey and a white body a pale one — and a highlighted solid cuts a darker amber.
+const SECTION_TINT = 0x8fa6bd;
+const SECTION_MIX = 0.7;
+const SECTION_AMBER = 0xb8700f;
 // What `_mesh_payload.py` meshes a model at: a ratio of the mean of its box's three extents.
 // Two meshings of one surface stand within about this of each other.
 const LINEAR_DEFLECTION_RATIO = 0.001;
@@ -96,7 +111,9 @@ function die(msg) {
 // --- arguments -------------------------------------------------------------------------------
 
 const REPEATED = new Set(["model", "highlight", "ghost", "only", "mark"]);
-const FLAGS = new Set(["ortho", "solid", "no-fog", "no-ground", "json"]);
+const FLAGS = new Set(["ortho", "xray", "no-fog", "no-ground", "json"]);
+const VALUES = new Set(["out", "before", "after", "tol", "cell", "top", "view", "caption", "cam", "target",
+                        "up", "span", "zoom", "size", "section", "bg", "quality"]);
 
 function parseArgs(argv) {
   const opts = { _: [] };
@@ -105,7 +122,9 @@ function parseArgs(argv) {
     if (!a.startsWith("--")) { opts._.push(a); continue; }
     const eq = a.indexOf("=");
     const key = a.slice(2, eq < 0 ? undefined : eq);
+    if (key === "solid") die("--solid is gone: the pictures are opaque unless --xray asks otherwise");
     if (FLAGS.has(key)) { opts[key] = true; continue; }
+    if (!VALUES.has(key) && !REPEATED.has(key)) die(`unknown option --${key} (the header of tools/changes/change.mjs has the options)`);
     const val = eq < 0 ? argv[++i] : a.slice(eq + 1);
     if (val === undefined) die(`--${key} needs a value`);
     if (REPEATED.has(key)) (opts[key] ||= []).push(val);
@@ -656,6 +675,16 @@ function changed(opts) {
     (rel !== DEFAULT_MODEL ? ` --model ${rel}` : "") +
     ` --target ${fmtv(r.camera.target)} --cam ${r.camera.cam.map((v) => v.toFixed(3)).join(",")}` +
     ` --up ${r.camera.up.join(",")} --span ${fmt(r.camera.span)} --highlight ${quote(r.bodies.join(","))}`;
+  // A cut for a change inside a part: through the region's centre, square to the machine axis
+  // nearest the camera's direction, removing the half the camera stands in.
+  const sectionFor = (r) => {
+    const d = r.camera.cam;
+    let a = 0;
+    for (let i = 1; i < 3; i++) if (Math.abs(d[i]) > Math.abs(d[a])) a = i;
+    const n = [0, 0, 0];
+    n[a] = Math.sign(d[a]) || 1;
+    return `${fmtv(centre(r.box))}:${n.join(",")}`;
+  };
 
   if (opts.json) {
     console.log(JSON.stringify({
@@ -664,7 +693,7 @@ function changed(opts) {
       after: { file: after.file, sha256: after.sha256, commit: after.commit },
       bodies: list.map(({ boxes, ...b }) => ({ ...b, clear: clear(b.dmax), box: union(boxes) })),
       recoloured: [...recoloured].sort(),
-      regions: found.map((r) => ({ ...r, render: command(r) })),
+      regions: found.map((r) => ({ ...r, render: command(r), section: sectionFor(r) })),
     }, null, 2));
     return;
   }
@@ -701,11 +730,25 @@ function changed(opts) {
     console.log(`    centre ${fmtv(centre(r.box))}  size ${size.map(fmt).join(" x ")} mm` +
       `  moved up to ${dist(r.dmax)}  (${r.before} before / ${r.after} after vertices)`);
     console.log(`    ${command(r)}`);
+    console.log(`    inside a part, add a cut through it facing the camera: --section ${sectionFor(r)}`);
   }
   if (found.length > top) console.log(`\n  ... and ${found.length - top} more (--top ${found.length} lists them)`);
 }
 
 // --- render ----------------------------------------------------------------------------------
+
+// `x,y,z:nx,ny,nz`: a plane through that point, in millimetres, with that normal. What the normal
+// points into is cut away.
+function parseSection(s) {
+  if (s == null) return null;
+  const m = String(s).match(/^([^:]+):([^:]+)$/);
+  const at = m && m[1].split(",").map((v) => Number(v.trim()));
+  const n = m && m[2].split(",").map((v) => Number(v.trim()));
+  if (!m || at.length !== 3 || n.length !== 3 || [...at, ...n].some((v) => !Number.isFinite(v)) || !Math.hypot(...n))
+    die(`bad --section: ${s} (x,y,z:nx,ny,nz — a point in mm and the normal of the side to cut away)`);
+  const len = Math.hypot(...n);
+  return { at, normal: n.map((v) => +(v / len).toFixed(6)) };
+}
 
 // `x,y,z`, `x,y,z:label` or `x,y,z,r:label`, in millimetres. A radius is the ring's, measured at
 // the point and drawn at whatever that comes to in pixels; without one the page sizes the ring.
@@ -734,7 +777,7 @@ async function shoot(page, o) {
     controls.enabled = false;
     if (!o.fog) scene.fog = null;
     if (!o.ground) sceneMod.fitGroundShadow(null);
-    if (xray.isXrayEnabled() === !!o.solid) xray.setXrayEnabled(!o.solid, { persist: false });
+    if (xray.isXrayEnabled() !== !!o.xray) xray.setXrayEnabled(!!o.xray, { persist: false });
 
     const re = (list) => list.map((s) => new RegExp(s));
     const only = re(o.only), ghost = re(o.ghost), hi = re(o.highlight);
@@ -760,6 +803,7 @@ async function shoot(page, o) {
       counts.shown++;
       if (any(hi, name)) {
         mesh.material = amber;
+        mesh.userData.highlighted = true;
         counts.highlighted++;
       } else if (any(ghost, name)) {
         const base = mesh.userData.baseMaterial || mesh.material;
@@ -771,6 +815,46 @@ async function shoot(page, o) {
         if (line) line.visible = false;
         counts.ghosted++;
       }
+    }
+
+    // THE CUT IS A CLIP AND A CAP. Every material drawn is clipped by the one plane, and each opaque
+    // solid draws its front faces only, with a second pass over the same triangles drawing their
+    // back faces flat in the section colour under the same clip. Where the plane opens a solid,
+    // what shows through the opening is the inside of its far walls — that pass — so the cut reads
+    // as a filled face; a passage the plane opens shows its own walls, lit, because those face the
+    // viewer. A see-through solid is clipped and not capped: its back faces show everywhere.
+    if (o.section) {
+      const n = new THREE.Vector3(...o.section.normal);
+      const plane = new THREE.Plane(n.clone().negate(), n.dot(new THREE.Vector3(...o.section.at)));
+      renderer.localClippingEnabled = true;
+      const caps = [];
+      for (const mesh of [...currentGroup.children]) {
+        if (!mesh.isMesh || mesh.visible === false) continue;
+        const list = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        if (mesh.userData?.isXrayEdge) {
+          // LineMaterial's clipping chunk compiles only without alpha-to-coverage (three 0.170).
+          for (const m of list) { m.clippingPlanes = [plane]; m.alphaToCoverage = false; m.needsUpdate = true; }
+          continue;
+        }
+        const cut = list.map((m) => {
+          const c = m.clone();
+          c.clippingPlanes = [plane];
+          if (!c.transparent) c.side = THREE.FrontSide;
+          return c;
+        });
+        mesh.material = Array.isArray(mesh.material) ? cut : cut[0];
+        if (cut.some((m) => m.transparent)) continue;
+        const colour = mesh.userData.highlighted ? new THREE.Color(o.sectionAmber)
+          : (cut[0].color ? cut[0].color.clone() : new THREE.Color(0x8899aa)).lerp(new THREE.Color(o.sectionTint), o.sectionMix);
+        const cap = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({ color: colour, side: THREE.BackSide, clippingPlanes: [plane] }));
+        cap.position.copy(mesh.position);
+        cap.quaternion.copy(mesh.quaternion);
+        cap.scale.copy(mesh.scale);
+        cap.userData.sectionCap = true;
+        caps.push(cap);
+      }
+      for (const cap of caps) currentGroup.add(cap);
+      counts.capped = caps.length;
     }
 
     const target = new THREE.Vector3(...o.target);
@@ -812,6 +896,7 @@ async function shoot(page, o) {
       position: cam.position.toArray(), target: target.toArray(), up: cam.up.toArray(),
       ...(o.ortho ? { half: o.half } : { fov: cam.fov }),
       near: cam.near, far: cam.far, aspect,
+      ...(o.section ? { section: { at: o.section.at, normal: o.section.normal, removes: "the side the normal points to" } } : {}),
     };
 
     renderer.setClearColor(o.bg, 1);
@@ -953,8 +1038,12 @@ async function render(opts) {
     ortho: !!opts.ortho, span, zoom, radius,
     half: span ?? radius * 1.1,
     wholeCentre: centre(whole), wholeRadius: Math.hypot(...extent(whole)) / 2,
-    solid: !!opts.solid, fog: !opts["no-fog"], ground: !opts["no-ground"],
+    // The floor's contact shadow is the machine standing on something; a part pulled out of it with
+    // --only stands on nothing, and the shadow under it is a dark blot in a close-up.
+    xray: !!opts.xray, fog: !opts["no-fog"], ground: !opts["no-ground"] && !only.length,
     bg: opts.bg || "#1a1a2e", amber: AMBER,
+    section: parseSection(opts.section),
+    sectionTint: SECTION_TINT, sectionMix: SECTION_MIX, sectionAmber: SECTION_AMBER,
     only: only.map((r) => r.source), ghost: ghost.map((r) => r.source), highlight: hi.map((r) => r.source),
     marks: parseMarks(opts.mark),
   };
@@ -977,7 +1066,8 @@ async function render(opts) {
         if (page.__errors.length) throw new Error(`the viewer threw drawing the ${side}: ${page.__errors.join("; ")}`);
         shots[side] = shot;
         console.log(`  ${side}: ${shot.counts.shown} of ${shot.counts.solids} solids shown, ` +
-          `${shot.counts.highlighted} highlighted, ${shot.counts.ghosted} ghosted; payload ${(bytes.length / 1e6).toFixed(1)} MB ` +
+          `${shot.counts.highlighted} highlighted, ${shot.counts.ghosted} ghosted` +
+          `${o.section ? `, ${shot.counts.capped} cut by the section` : ""}; payload ${(bytes.length / 1e6).toFixed(1)} MB ` +
           `asked for ${page.__served()}x (${((Date.now() - t0) / 1000).toFixed(1)} s)`);
       } finally {
         await page.close().catch(() => {});
@@ -990,7 +1080,8 @@ async function render(opts) {
 
   const a = shots.before.drawn, b = shots.after.drawn;
   const same = ["position", "target", "up"].every((k) => a[k].every((v, i) => Math.abs(v - b[k][i]) < 1e-6)) &&
-    a.near === b.near && a.far === b.far && a.fov === b.fov && a.half === b.half;
+    a.near === b.near && a.far === b.far && a.fov === b.fov && a.half === b.half &&
+    JSON.stringify(a.section) === JSON.stringify(b.section);
   if (!same) die(`the two pictures were not drawn from one camera:\n  before ${JSON.stringify(a)}\n  after  ${JSON.stringify(b)}`);
 
   fs.mkdirSync(entry, { recursive: true });
@@ -1028,7 +1119,7 @@ async function render(opts) {
     highlight: highlightNames,
     ghost: names(opts.ghost),
     only: names(opts.only),
-    xray: !o.solid,
+    xray: !!o.xray,
     source: { before: source(before, rel), after: source(after, rel) },
     changed: moved,
     withinMeshing: near,
