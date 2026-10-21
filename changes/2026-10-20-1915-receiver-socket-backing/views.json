@@ -1,0 +1,170 @@
+{
+  "views": [
+    {
+      "name": "section",
+      "caption": "Cut through the west outer receiver's passages at X −82.1, looking −X: the pump inlet at left, the upper socket at top, the angled lower socket at bottom right",
+      "before": "section-before.webp",
+      "after": "section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 522.9,
+          "y": 510,
+          "r": 53.6,
+          "label": "Lower socket throat",
+          "at": [
+            -82,
+            97.8,
+            185.2
+          ]
+        },
+        {
+          "x": 589.3,
+          "y": 812.1,
+          "r": 42.9,
+          "label": "Web foot",
+          "at": [
+            -89.1,
+            100.9,
+            171.1
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -7.0486062951055715,
+          101.4,
+          188
+        ],
+        "target": [
+          -82.1,
+          101.4,
+          188
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 21,
+        "near": 43.93670830258784,
+        "far": 125.24238481622346,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -82.1,
+            101.4,
+            188
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "pump-receiver-west-outer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "c14a60b5bb96b15286ea8519f6e4b7631a701106ed6ab57db809b4f532af426b",
+          "commit": "a417f77bc9630615a47fb070018005ed24b2ea46"
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
+          "commit": "0c8bbef50c2e316bd0eb541fdbd52d5e06088147"
+        }
+      },
+      "changed": [
+        "pump-receiver-west-outer",
+        "pump-receiver-east-outer",
+        "pump-receiver-east-inner",
+        "pump-receiver-west-inner"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "side",
+      "caption": "The west outer receiver from +X",
+      "before": "side-before.webp",
+      "after": "side-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 589.3,
+          "y": 812.1,
+          "r": 42.9,
+          "label": "Web foot",
+          "at": [
+            -89.1,
+            100.9,
+            171.1
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -7.0486062951055715,
+          101.4,
+          188
+        ],
+        "target": [
+          -82.1,
+          101.4,
+          188
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 21,
+        "near": 43.93670830258784,
+        "far": 125.24238481622346,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "pump-receiver-west-outer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "c14a60b5bb96b15286ea8519f6e4b7631a701106ed6ab57db809b4f532af426b",
+          "commit": "a417f77bc9630615a47fb070018005ed24b2ea46"
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
+          "commit": "0c8bbef50c2e316bd0eb541fdbd52d5e06088147"
+        }
+      },
+      "changed": [
+        "pump-receiver-west-outer",
+        "pump-receiver-east-outer",
+        "pump-receiver-east-inner",
+        "pump-receiver-west-inner"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
