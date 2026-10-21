@@ -1,5 +1,5 @@
 {
-  "unchanged_original_records": 3564590,
+  "unchanged_original_records": 3628596,
   "replaced_solid_roots": 20,
   "replacement_products": [
     "pump-elbow-east-inner/1",
@@ -24,7 +24,7 @@
     "tube-fluid-9-junction"
   ],
   "enclosure_host": {
-    "unchanged_original_records": 695878,
+    "unchanged_original_records": 706838,
     "replaced_solid_roots": 4,
     "replacement_products": [
       "pump-receiver-east-inner",
@@ -68,16 +68,16 @@
     "pump-receiver-west-outer": {
       "valid": true,
       "solids": 1,
-      "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8034.514228334744,
-      "landed_volume_mm3": 8034.514228334521
+      "max_bounds_error_mm": 3.211653165635653e-12,
+      "source_volume_mm3": 8063.492416554761,
+      "landed_volume_mm3": 8063.492416554522
     },
     "pump-elbow-west-outer": {
       "valid": true,
       "solids": 3,
       "max_bounds_error_mm": 3.979039320256561e-13,
-      "source_volume_mm3": 3935.904217382182,
-      "landed_volume_mm3": 3935.904217382213
+      "source_volume_mm3": 3935.9042173820485,
+      "landed_volume_mm3": 3935.904217382072
     },
     "tube-fluid-27-junction": {
       "valid": true,
@@ -90,15 +90,15 @@
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8033.639318484255,
-      "landed_volume_mm3": 8033.639318484251
+      "source_volume_mm3": 8059.396377600792,
+      "landed_volume_mm3": 8059.396377600784
     },
     "pump-elbow-west-inner": {
       "valid": true,
       "solids": 3,
       "max_bounds_error_mm": 5.400124791776761e-13,
       "source_volume_mm3": 3935.904217385401,
-      "landed_volume_mm3": 3935.9042173855214
+      "landed_volume_mm3": 3935.904217385518
     },
     "tube-fluid-19-junction": {
       "valid": true,
@@ -111,15 +111,15 @@
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8033.639318484255,
-      "landed_volume_mm3": 8033.639318484251
+      "source_volume_mm3": 8059.396377600796,
+      "landed_volume_mm3": 8059.396377600797
     },
     "pump-elbow-east-inner": {
       "valid": true,
       "solids": 3,
       "max_bounds_error_mm": 5.400124791776761e-13,
-      "source_volume_mm3": 3935.904217385461,
-      "landed_volume_mm3": 3935.9042173855814
+      "source_volume_mm3": 3935.904217385462,
+      "landed_volume_mm3": 3935.904217385579
     },
     "tube-fluid-9-junction": {
       "valid": true,
@@ -132,15 +132,15 @@
       "valid": true,
       "solids": 1,
       "max_bounds_error_mm": 0.0,
-      "source_volume_mm3": 8034.508431484155,
-      "landed_volume_mm3": 8034.508431484356
+      "source_volume_mm3": 8063.49265695666,
+      "landed_volume_mm3": 8063.492656956868
     },
     "pump-elbow-east-outer": {
       "valid": true,
       "solids": 3,
       "max_bounds_error_mm": 3.694822225952521e-13,
-      "source_volume_mm3": 3935.904217385398,
-      "landed_volume_mm3": 3935.90421738556
+      "source_volume_mm3": 3935.9042173854286,
+      "landed_volume_mm3": 3935.904217385592
     },
     "tube-fluid-17-junction": {
       "valid": true,
