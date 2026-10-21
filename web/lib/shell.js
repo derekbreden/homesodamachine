@@ -9,8 +9,8 @@
 //     anywhere else that wants the same delightful slide).
 //
 // All primary links are icon-only (Home included), and every page carries the
-// same set: Home, Updates, Changes, Parts, Charts, Drawings, Boards, Cost, then
-// the bell and the gear.
+// same set: Home, Latest, Parts, Charts, Drawings, Boards, Cost, then the bell
+// and the gear. Latest is where Changes and Updates both begin.
 //
 // Render flow:
 //   res.send(renderHead({title, ...}) + renderNav({active}) +
@@ -20,7 +20,7 @@ import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, CHANGES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` when it is run.
@@ -116,9 +116,8 @@ body {
 }
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
-   narrows — the full 0.75rem from 542px up, 0.25rem by 375px — so
-   all ten icons land inside a phone's width (364px of a 375px bar) and the
-   right cluster keeps its edge.
+   narrows, so all nine icons land inside a phone's width (364px of a 375px
+   bar) and the right cluster keeps its edge.
 
    iOS paints the status bar above in this bar's colour: Safari samples an
    opaque, full-width bar that is sticky or fixed at the top edge. A Home
@@ -126,7 +125,7 @@ body {
    which reaches down across the icons. */
 .site-nav {
   display: flex;
-  gap: clamp(0.25rem, 4.8vw - 0.875rem, 0.75rem);
+  gap: clamp(0.25rem, 2.2vw, 0.75rem);
   align-items: center;
   padding:
     env(safe-area-inset-top, 0px)
@@ -191,7 +190,7 @@ body {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: clamp(0.25rem, 4.8vw - 0.875rem, 0.75rem);
+  gap: clamp(0.25rem, 2.2vw, 0.75rem);
 }
 .site-nav .nav-bell {
   display: none; /* shown only when html.notifs-enabled */
@@ -491,8 +490,9 @@ export function renderChecksRows() {
 export function renderNav({ active = null } = {}) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
-    { href: "/updates", name: "updates", label: "Updates", svg: UPDATES_SVG },
-    { href: "/changes", name: "changes", label: "Changes", svg: CHANGES_SVG },
+    // One item for both feeds: it opens the /latest hub, and reads as the page you are on from
+    // anywhere in either feed.
+    { href: "/latest", name: "latest", label: "Latest", svg: LATEST_SVG, also: ["updates", "changes"] },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
@@ -501,8 +501,11 @@ export function renderNav({ active = null } = {}) {
   ];
   const iconItems = iconLinks
     .map((l) => {
-      const activeCls = l.name === active ? " active" : "";
-      return `  <a href="${l.href}" class="nav-icon${activeCls}"${activeCls ? ' aria-current="page"' : ""} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
+      const here = l.name === active;
+      const within = !here && Boolean(l.also?.includes(active));
+      const activeCls = here || within ? " active" : "";
+      const current = here ? ' aria-current="page"' : within ? ' aria-current="true"' : "";
+      return `  <a href="${l.href}" class="nav-icon${activeCls}"${current} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
     })
     .join("\n");
   const gearActive = active === "settings" ? " active" : "";

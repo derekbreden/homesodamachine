@@ -130,7 +130,7 @@ export function fmtRange(start, end) {
   return sy === ey ? `${s} – ${e}, ${ey}` : `${s}, ${sy} – ${e}, ${ey}`;
 }
 
-const KIND_LABEL = { week: "Week", period: "Four weeks" };
+export const KIND_LABEL = { week: "Week", period: "Four weeks" };
 
 const days = (p) => (Date.parse(p.end) - Date.parse(p.start)) / 86400000;
 
@@ -302,13 +302,17 @@ const UPDATES_CSS = `
 }
 ` + FIGURE_CSS;
 
-export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
-  // Posts name their images by URL path; the file behind one lives under the
-  // public root. Only the feed's own image directory resolves.
-  const imageSize = (src) => {
+// Posts name their images by URL path; the file behind one lives under the
+// public root. Only the feed's own image directory resolves.
+export function imageSizer(publicDir) {
+  return (src) => {
     if (!publicDir || !src.startsWith("/update-images/") || src.includes("..")) return null;
     return pngSize(path.join(publicDir, src));
   };
+}
+
+export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
+  const imageSize = imageSizer(publicDir);
 
   app.get("/api/updates", (_req, res) => {
     res.set("Cache-Control", "no-cache");

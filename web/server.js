@@ -16,6 +16,7 @@ import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountChangesRoutes } from "./lib/changes.js";
+import { mountLatestRoutes } from "./lib/latest.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountStyleGuideRoutes } from "./lib/style-guide.js";
 import { mountFirmwareRoutes } from "./lib/firmware.js";
@@ -302,10 +303,11 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // The feed's entries reach a deployed container without a deploy (web/lib/changes.js), and only
   // there: `RENDER_GIT_COMMIT` is Render's alone, for the reason `mountArtifactsLive` gives below.
   // Anywhere else the feed is the `changes/` on this disk.
-  mountChangesRoutes(app, {
+  const changes = mountChangesRoutes(app, {
     changesDir: CHANGES_DIR,
     carry: !dev && Boolean(process.env.RENDER_GIT_COMMIT),
   });
+  mountLatestRoutes(app, { changesDir: CHANGES_DIR, changes, updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   mountStyleGuideRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountFirmwareRoutes(app, { commit });
