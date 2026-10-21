@@ -15,6 +15,7 @@ import { mountWeldPositionRoutes } from "./lib/weld-position.js";
 import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
+import { mountChangesRoutes } from "./lib/changes.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountStyleGuideRoutes } from "./lib/style-guide.js";
 import { mountFirmwareRoutes } from "./lib/firmware.js";
@@ -42,6 +43,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, "..");
 const DEFAULT_HARDWARE_DIR = path.join(REPO_ROOT, "hardware");
 const UPDATES_DIR = path.join(REPO_ROOT, "updates");
+const CHANGES_DIR = path.join(REPO_ROOT, "changes");
 const LANDING_PUBLIC = path.join(__dirname, "public");
 // The cross-boundary contract definitions (web/contracts/) are served to the
 // browser at /contracts, so the viewer modules import the same event names and
@@ -297,6 +299,13 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountPositionerRoutes(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
+  // The feed's entries reach a deployed container without a deploy (web/lib/changes.js), and only
+  // there: `RENDER_GIT_COMMIT` is Render's alone, for the reason `mountArtifactsLive` gives below.
+  // Anywhere else the feed is the `changes/` on this disk.
+  mountChangesRoutes(app, {
+    changesDir: CHANGES_DIR,
+    carry: !dev && Boolean(process.env.RENDER_GIT_COMMIT),
+  });
   mountSettingsRoutes(app);
   mountStyleGuideRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountFirmwareRoutes(app, { commit });

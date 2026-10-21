@@ -53,6 +53,9 @@ services:
         - firmware/firmware-images.json
         - web/**
         - updates/**
+        # `changes/` is not here, and that is deliberate: a recorded change is data that lands many
+        # times a day, and `web/lib/changes.js` carries it onto the running container at request
+        # time, the way the pointer file is adopted, rather than a deploy per entry.
         - render.yaml
         # The cost page reads the ledgers from the deployed clone.
         - hardware/ledger/**
