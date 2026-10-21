@@ -1,0 +1,99 @@
+{
+  "recorded_on": "2026-10-21",
+  "status": "Proposed only; no project, executable recipe or printer changed; no new print authorized or started.",
+  "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
+  "trigger": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
+  "priority": [
+    {
+      "candidate": "Force a 10 mm outer brim on the body, 0.05 mm object gap.",
+      "purpose": "Increase corner anchorage beyond the present bare floor footprint.",
+      "evidence": "Failed native slice emits no Brim/Skirt despite saved auto_brim width 5 mm.",
+      "implementation_scope": "Review emitted connected brim paths and full bead envelope before launch. Maintain zero user Z trim, stock -0.02 mm textured compensation and 70 C bed. Current body/cap full-bead gap is only 10.042 mm; review/reposition the combined layout for brim clearance."
+    },
+    {
+      "candidate": "Flow ratio 1.02; 255 C first layer, 260 C thereafter.",
+      "purpose": "Increase bead packing and fusion to address actual multi-place leakage.",
+      "evidence": "May 30 confirmed Bambu clear PETG reservoir held water for several hours at these values. Flow 1.02 commands 5.1546% more extrusion than 0.97.",
+      "limits": "May result used a left 0.6 mm nozzle and supported slanted-floor geometry. September 0.8 mm / 0.97 articles also held water. This is a supported starting trial, not proof that 0.97 always leaks or that every current leak is porosity."
+    },
+    {
+      "candidate": "Keep first three layers fan-off, ordinary supported body paths at no more than 20%, auxiliary off; remove 90% bursts from supported floor/early body paths.",
+      "purpose": "Reduce abrupt cooling and support bead fusion at the floor-to-wall region.",
+      "evidence": "body-cooling-paths.json binds 90% commands to body internal solid floor, floor top and early outer walls, including layers 4 and 12–16.",
+      "implementation_scope": "Review actual support/unsupported width and fan inheritance in the new native slice. Retain localized higher cooling for verified bridges and unsupported cap/support features; avoid a whole-part fan-off override.",
+      "limits": "No observed cooling-to-lift onset link is established."
+    },
+    {
+      "candidate": "Trial 12 mm3/s ceiling with 60 mm/s requested outer walls and 80 mm/s inner walls/solid fill; retain 0.24 mm layers.",
+      "purpose": "Recover throughput without increasing layer height or immediately adopting the historical 21 mm3/s ceiling.",
+      "evidence": "Current recipe requests 30 mm/s with 6 mm3/s ceiling. The successful May 30 project requests 200/300 mm/s outer/inner and caps flow at 21 mm3/s.",
+      "limits": "12 mm3/s and 60/80 are proposed current-nozzle trial targets, not previously qualified values. Effective motion is bounded by line cross-section, flow cap, acceleration and cooling. No runtime improvement is claimed without a fresh native estimate and physical result.",
+      "first_layer": "Keep first-layer deposition no faster than the failed native slice. Set explicit first-layer speeds from its emitted feedrates so raising the global ceiling does not accelerate bed deposition."
+    }
+  ],
+  "screen": {
+    "candidate": "One 25 mm tall, full-footprint body base retaining the real 3 mm floor, 6 mm floor fillets, corners, wall thickness and seam; no reduced-footprint cube.",
+    "decision": "Screen floor/corner distortion and lower-wall/floor seepage before committing another full-height body.",
+    "tools": "Existing printer/build plate, water, dry tissue and a flat household surface; no purchase.",
+    "procedure": [
+      "Use the proposed recipe and native-reviewed brim/cooling at the candidate production speeds; record actual elapsed time.",
+      "Inspect exposed corner contact during printing where camera visibility permits. After complete cooling and removal, place the base on an existing flat surface and inspect each bottom corner for visible upward curl or rocking.",
+      "Dry the outside, fill with water to 20 mm above the internal floor, place on dry tissue and inspect immediately, at 15 minutes and at 60 minutes."
+    ],
+    "acceptance": "No visible upward-curved bottom corner or rocking on the flat surface; no wet spot or visible seepage through floor, corner, seam or lower wall during the one-hour hold. Record any failure location.",
+    "scope": "A pass is a low-head floor/lower-wall screen only. A short article cannot validate full-height stress, full reservoir hydrostatic head, cap/gasket seal or cold service. Full-height water hold remains necessary for reservoir acceptance."
+  },
+  "historical_comparison": {
+    "may_30": {
+      "acceptance_id": "may-30-clear-06",
+      "native_project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+      "native_project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
+      "actual_material": "Bambu PETG clear, confirmed by Derek; saved preset identifies PETG Basic GFG00",
+      "active_nozzle": "left 0.6 mm",
+      "flow_ratio": 1.02,
+      "nozzle_c_first_subsequent": [
+        255,
+        260
+      ],
+      "volumetric_ceiling_mm3_s": 21,
+      "requested_speeds_mm_s": {
+        "outer_wall": 200,
+        "inner_wall": 300,
+        "solid_infill": 250,
+        "sparse_infill": 350,
+        "top_surface": 200
+      },
+      "scope": "Recovered requested settings, not measured achieved motion; no per-plate time in the saved native project. Historical supported slanted floor differs from current geometry."
+    },
+    "current_failed": {
+      "flow_ratio": 0.97,
+      "nozzle_c_first_subsequent": [
+        255,
+        255
+      ],
+      "volumetric_ceiling_mm3_s": 6,
+      "requested_wall_fill_top_speed_mm_s": 30,
+      "native_estimated_seconds": 69676.352
+    },
+    "sphere_history": "Exact successful sphere preset was not recovered by the bounded filename/history search. Derek's report of faster high-flow sphere tests is retained; May 30 is the recovered quantified water-holding reference, not a claimed sphere recipe."
+  },
+  "interpretation": "The combined candidate targets useful outcome; changing brim, extrusion, temperature, cooling and speed together would not isolate which change caused an improvement.",
+  "references": [
+    {
+      "url": "https://help.prusa3d.com/article/warping_2011",
+      "scope": "Brim/contact and cooling as warping controls."
+    },
+    {
+      "url": "https://help.prusa3d.com/article/the-benchy-hull-line_124745",
+      "scope": "Solid-floor-to-wall transitions can create a band; finished band height alone does not establish warp onset."
+    },
+    {
+      "url": "https://blog.prusa3d.com/watertight-3d-printing-pt1-vases-cups-and-other-open-models_48949/",
+      "scope": "Deposited walls/flow and layer-height choices for water holding."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0198370",
+      "scope": "Extrusion amount, wall structure and connected pores; parameter transfer requires physical confirmation."
+    }
+  ]
+}

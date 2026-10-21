@@ -1,0 +1,88 @@
+{
+  "recorded_on": "2026-10-21",
+  "printer": "Mark1",
+  "job_id": "1359909015",
+  "archive": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "disposition": "Canceled by Derek; observation-only monitor paused.",
+  "telemetry": {
+    "observed_at": "2026-10-21T19:41:56.069029+00:00",
+    "observed_central": "2026-10-21T14:41:56.069029-05:00",
+    "job_id": "1359909015",
+    "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "FAILED",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "print_error": 50348044,
+    "hms": [],
+    "nozzle_temper": 46.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 56.0,
+    "bed_target_temper": 0.0,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "6",
+    "chamber_temper": 36,
+    "right_extruder": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 0,
+        "filam_bak": [
+          13
+        ]
+      }
+    ],
+    "active_right_nozzle": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ],
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "0",
+      "tray_exist_bits": "d"
+    },
+    "timelapse": "disable"
+  },
+  "layer_interpretation": "FAILED layer 0/833 and 0% are reset terminal values, not failure at first layer. Last observed RUNNING MQTT layer was 525 at 19:12:28 UTC; Bambu Studio displayed layer 526 at 19:13:05 and 19:13:18 UTC. Actual stop layer is unobserved.",
+  "last_live_observations": [
+    {
+      "utc": "2026-10-21T19:13:05.455Z",
+      "central": "2026-10-21T14:13:05.455-05:00",
+      "layer": 526,
+      "source": "Bambu Studio live Device camera, exact archive/Mark1 panel",
+      "body": "Exposed camera-right bottom edge/corner appeared flat; shadowed/occluded/reflected underside contact unassessable.",
+      "cap": "Exposed foreground outline/near corners appeared flat; complete underside contact unassessable."
+    },
+    {
+      "utc": "2026-10-21T19:13:18.789Z",
+      "central": "2026-10-21T14:13:18.789-05:00",
+      "layer": 526,
+      "source": "Second changing Bambu Studio live frame, same job",
+      "assessment": "Same limited visible-edge assessment; no confirmed lift, plate flex, strike or displaced material in view. Not a full attached baseline or onset bound."
+    }
+  ],
+  "final_camera_attempt": {
+    "utc": "2026-10-21T19:42:11.951Z",
+    "central": "2026-10-21T14:42:11.951-05:00",
+    "source": "Bambu Studio Device UI through cua_repl",
+    "visible_task_message": "The task was canceled. [0300-400C143321]",
+    "visible_printer": "Mark1",
+    "current_job_display": "N/A after cancellation; no current archive displayed",
+    "camera": "Blurred/temporarily closed; no usable final chamber frame. Two Play attempts after fresh AX/screenshot returned the same error.",
+    "error": "Computer Use server error -10005: windowNotFoundAtPosition((250.0, 564.0))",
+    "limit": "No final visual bed/corner assessment. Terminal identity comes from fresh retained-job MQTT, not attribution of a blurred image.",
+    "control_scope": "Only dismissed the cancellation notice and attempted camera Play; no print control or parameter changed."
+  },
+  "monitor": {
+    "automation_id": "watch-reservoir-corner-lifting",
+    "status": "PAUSED",
+    "reason": "This task is canceled and Derek has moved to physical failure diagnosis; original prompt and thread target preserved."
+  },
+  "physical_result": "physical-result/physical-result.json"
+}
