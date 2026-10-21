@@ -466,8 +466,6 @@ y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the 
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
-y_stack_relief_run = 1.0       # past a passage wall, where its relief lands on the 45° knuckle
-                               # face the passage crosses (`_y_bore_reliefs`)
 y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
 y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
@@ -3732,8 +3730,7 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
     else:
         # Back-bottom's knuckle under the Z seam runs its whole depth on to the flank, where
         # the back rail's arm stands; the others join the flank across its own section. Only
-        # that section runs on past the flank's first plane, into the stock it joins there:
-        # inboard of it the rail's arm and under-flare begin on the plane itself.
+        # that section runs on past the flank's first plane, into the stock it joins there.
         xa, xb = xs(-1.0, depth)
         full = piece == "back-bottom" and top == "level"
         body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb, y_joint,
@@ -3743,6 +3740,15 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
         body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
                                           y_joint + lip_len - 0.01,
                                           back_flank_start(y_joint) + 0.01, cap))
+        if full:
+            # Out to the arm's inboard face it runs on under the rail's stop block
+            # (`_z_rail_heads`), so the arm's closed end stands on it rather than meeting its
+            # top edge on edge over the under-flare's tip.
+            xa, xb = xs(-1.0, abs(_rail_x(x_in, sx, "back")[3] - x_in))
+            body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
+                                              back_flank_start(y_joint) - 0.01,
+                                              back_flank_start(y_joint) + rail_stop_len
+                                              - slide_slip, cap))
     return body.intersect(_rounded_outer(outer))
 
 
@@ -3796,14 +3802,20 @@ def _y_bore_reliefs(x_in, sx, y_joint, inner, name):
 
     A vertical bore through a 45° face meets it on a 45° arris over the half where the face
     climbs away from the bore, when material stands above the face, or falls away from it, when
-    material stands below. On that half the passage runs on as a slot of its own width to a face
-    square to the knuckle face, landing on it `y_stack_relief_run` past the passage wall: a roof
-    rising 45° toward the bore over an underside, a floor falling 45° toward it under a top. The
-    slot's sides are tangent to the bore, so every edge left there is square or open. The upper
-    passage crosses only level faces."""
+    material stands below. On that half the passage runs on as a slot of its own width, its
+    sides tangent to the bore, and the slot keeps at least the stock the passage already has
+    to the front knuckle's sliding face between itself and the knuckle face:
+
+      * over an underside, a roof square to the face, rising 45° toward the bore;
+      * under a top, a level floor where the face reaches the knuckle's own edge on that side,
+        or that stock over the lower screw's head seat, whichever stands higher.
+
+    The upper passage crosses only level faces."""
     lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
     rp = y_stack_clearance_dia / 2.0
-    run = rp + y_stack_relief_run
+    stock = y_stack_lower_axis_in - fits.running - rp
+    seat = y_stack_rods(inner)[0][1]
+    run = rp + stock / math.sqrt(2.0)
     out = []
     for piece, z0, z1, g0, g1 in y_stack(inner)[0]:
         if piece != name:
@@ -3815,8 +3827,16 @@ def _y_bore_reliefs(x_in, sx, y_joint, inner, name):
             f0 = _y_face_z(kind, level, x_in, sx, y_joint, lx, ly)
             # `u` runs from the axis toward the arris: uphill under an underside (t = +1),
             # downhill over a top (t = -1).
-            section = [(0.0, f0 - t), (0.0, f0 + 2.0 * t * run),
-                       (run, f0 + t * run), (run, f0 + t * (run - 1.0))]
+            if t > 0:
+                section = [(0.0, f0 - 1.0), (0.0, f0 + 2.0 * run),
+                           (run, f0 + run), (run, f0 + run - 1.0)]
+            else:
+                # The knuckle's own face on the downhill side: a front knuckle's sliding face
+                # outboard, a back knuckle's seam face fore.
+                edge = (abs(lx - x_in) - fits.running if kind == "in" else ly - y_joint)
+                floor = max(f0 - edge, seat + stock)
+                reach = f0 - floor + 1.0
+                section = [(0.0, floor), (reach, floor), (reach, f0 + 1.0), (0.0, f0 + 1.0)]
             if kind == "aft":
                 out.append(_yz_prism(lx - rp, lx + rp, [(ly + t * u, z) for u, z in section]))
             else:
