@@ -17,7 +17,7 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 Use **[reservoir.3mf](reservoir.3mf)**, the current body/cap pairs with the
 **September 0.24 mm baseline with ironing off**. Plate 1 holds the left body and cap;
 plate 2 holds the right body and cap. Bodies print mouth up and caps exterior
-face down. Both plates use the left **0.8 mm Standard-flow nozzle**, Bambu
+face down. Both plates use Mark1's right **0.8 mm Standard-flow nozzle**, Bambu
 PETG Translucent Clear and the textured PEI plate.
 
 The saved process uses a **0.30 mm first layer / 0.24 mm normal layer**,
@@ -29,19 +29,22 @@ seams, zero seam gap, **no ironing** and the September support settings.
 [Printing guide](watertight-petg.md) · [Project verification](reservoir.print.json) ·
 [Native slice review](slice-review.json). Each current body/cap plate estimates
 about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
-model/support/brim envelope stays at least **80.5 mm inside the usable bed**.
-Filament assignment is Manual on the left nozzle. Start Mark2 on **A4**, with
-the preferred **A4 → A3 → A1** consumption order in the
-[printer guidance](../../../../tools/bambu-printers.md#mark2-clear-petg-spool-order).
+model/support/brim envelope stays at least **70.5 mm inside the right nozzle's usable bed**.
+Filament assignment is Manual on the right nozzle. Start Mark1 on **A4**.
+The requested consumption order is **A4 → A2 → A3 → A1**; the refill controls
+provide no custom backup-priority editor. See
+[printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
+and the [Mark1 print preparation](prints/2026-10-20-mark1-right08/README.md).
 
 The [flat-square finish record](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
 selects **OFF** as the smoothest and best-feeling finish. The
 [calibration record](ironing-study/README.md) preserves the tested settings and
 observations. This finish selection supplies no new reservoir water-hold result.
 
-The printer configuration carries the accepted Mark2 **+0.04 mm user Z trim**
-over stock plate compensation. Retain the destination printer's own calibrated
-trim when assigning a job, per [printer profiles](../../../../tools/bambu-printers.md).
+The printer configuration carries Mark1's **+0.18 mm user Z trim** over stock plate
+compensation, emitting **G29.1 Z0.16** on Textured PEI. Retain the destination
+printer's own calibrated trim when assigning a job, per
+[printer profiles](../../../../tools/bambu-printers.md).
 The September baseline's reported water hold is identified by `september-08-024` in the
 [acceptance record](water-hold-acceptance.json).
 
@@ -67,7 +70,7 @@ it checks source hashes against the
 meshes, centered bed placement and preservation of the September baseline
 with the declared ironing and assignment settings.
 [review_slice.py](review_slice.py) checks the native recipe, absence of ironing,
-left-nozzle assignment, Z trim, full bead inset and bed-rooted supports.
+right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports.
 
 Past settings, reported outcomes and source commits are in the
 [print log](print-log.md) and [September inspection record](history/seal-trial.md).

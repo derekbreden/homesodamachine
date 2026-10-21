@@ -1,0 +1,31 @@
+{
+  "status": "ready_to_print_pending_spool_order_choice",
+  "project_sha256": "93e21e7c8cf52b74aae9dd4eef36657f1fe0eca264bbc41df4c2f2b182589baa",
+  "project_matches_current_source_exports": true,
+  "native_slice_review": "../../slice-review.json",
+  "float_integration_review": "../../../magnetic-float/all-aero/integration-check.json",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "active_nozzle": "right",
+  "nozzle_diameter_mm": 0.8,
+  "nozzle_flow": "Standard",
+  "start_slot": "A4",
+  "requested_consumption_order": [
+    "A4",
+    "A2",
+    "A3",
+    "A1"
+  ],
+  "custom_backup_priority_control_available": false,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "native_estimated_seconds": 69676.352,
+  "native_estimated_mass_g": 410.284,
+  "native_layer_count": 833,
+  "minimum_full_bead_edge_margin_mm": 70.519003,
+  "physical_scope": "Ready for the requested print. No water-hold, cap-seal or installed float-motion acceptance for this article."
+}

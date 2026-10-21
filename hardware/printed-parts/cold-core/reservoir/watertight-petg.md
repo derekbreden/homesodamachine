@@ -11,7 +11,7 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 
 | Parameter | Value |
 | --- | --- |
-| Active nozzle | Left 0.8 mm, Standard flow |
+| Active nozzle | Mark1 right 0.8 mm, Standard flow |
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
 | Nozzle temperature, first / subsequent | 255 / 255 °C |
@@ -31,19 +31,19 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 | Supports | Tree auto, bed only, 30° threshold |
 | Support top / bottom gap | 0.18 / 0.18 mm |
 | Support interface top / bottom layers | Two / two |
-| Saved printer trim | +0.04 mm over stock plate compensation, from the accepted Mark2 job |
+| Saved printer trim | Mark1 +0.18 mm over stock plate compensation |
 
-The textured-plate compensation emits `G29.1 Z0.02` for this saved trim after
+The textured-plate compensation emits `G29.1 Z0.16` for this saved trim after
 the initial zero reset. A job on another printer must retain that printer's
 own calibrated trim; see [printer profiles](../../../../tools/bambu-printers.md).
 
 The project uses the September baseline, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
-Both plates explicitly assign the left nozzle in Manual mode. Mark2 starts on
-A4, with **A4 → A3 → A1** preferred as each spool runs out;
-[printer guidance](../../../../tools/bambu-printers.md#mark2-clear-petg-spool-order)
-records the loaded material and refill scope. Bodies print mouth up
+Both plates explicitly assign the right nozzle in Manual mode. Mark1 starts on
+A4, with **A4 → A2 → A3 → A1** requested as each spool runs out;
+[printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
+records the loaded material and the absence of a custom backup-priority control. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
 gasket rims up. The matching cap belongs with its named left or right body.
 
@@ -73,9 +73,9 @@ surrounding air rather than residual moisture in the filament.
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that
 historical geometry. The [current native slice review](slice-review.json)
-estimates **19 h 23 min and 419 g** per body/cap plate, with **zero ironing**,
-740 layers and an empty plate-warning field. The model/support/brim full bead
-envelope stays at least **80.5 mm from the nearest usable bed edge**, including
+estimates **19 h 21 min and 410 g** per body/cap plate, with **zero ironing**,
+833 layers and an empty plate-warning field. The model/support/brim full bead
+envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge**, including
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm
 apart.
 The historical May and September results and complete source identifiers are

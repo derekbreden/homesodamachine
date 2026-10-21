@@ -1,7 +1,7 @@
 """Verify the current reservoir's native slice, nozzle, trim and full bead inset.
 
 Run with tools/cad-venv/bin/python after slicing both plates into
-.cache/reservoir-no-ironing/slice and auditing their supports there.
+.cache/reservoir-mark1-right08/slice and auditing their supports there.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-FOLDER = ROOT / ".cache/reservoir-no-ironing/slice"
+FOLDER = ROOT / ".cache/reservoir-mark1-right08/slice"
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 
 
@@ -117,7 +117,7 @@ def toolpaths(text, expected_ids, bed, minimum_margin):
     if gap < 5 or 51.0 not in cooling:
         raise ValueError("Body/cap separation or ordinary wall cooling differs")
     return {
-        "left_nozzle_usable_bed_bounds_mm": bed.tolist(),
+        "right_nozzle_usable_bed_bounds_mm": bed.tolist(),
         "model_support_brim_xy_bounds_mm": [low.tolist(), high.tolist()],
         "edge_margins_left_front_right_back_mm": margins.tolist(),
         "minimum_full_bead_edge_margin_mm": float(min(margins)),
@@ -140,7 +140,7 @@ def main():
     if source["ironing_type"] != "no ironing" or source["enable_support_ironing"] != "0":
         raise ValueError("Current model and support ironing must be off")
     area = np.array([[float(v) for v in point.split("x")]
-                     for point in source["extruder_printable_area"][0].split(",")])
+                     for point in source["extruder_printable_area"][1].split(",")])
     bed = np.array([area.min(axis=0), area.max(axis=0)])
     review = dict(project="reservoir.3mf", project_sha256=sha(project.read_bytes()),
                   recipe="print-settings.json", slicer_version="02.08.02.61", return_code=0,
@@ -163,14 +163,14 @@ def main():
                 raise ValueError("Embedded G-code checksum failed")
             text = data.decode()
             assignment = {}
-            for key, expected in (("filament_map", "1"), ("filament_nozzle_map", "0"), ("nozzle_diameter", "0.8,0.8")):
+            for key, expected in (("filament_map", "2"), ("filament_nozzle_map", "1"), ("nozzle_diameter", "0.8,0.8")):
                 match = re.search(r"^; " + key + r" = (.+)$", text, re.MULTILINE)
                 if not match or match[1].strip() != expected:
-                    raise ValueError(f"Native {key} differs from the left 0.8 mm assignment")
+                    raise ValueError(f"Native {key} differs from the right 0.8 mm assignment")
                 assignment[key] = match[1].strip()
             trims = re.findall(r"^\s*(G29\.1 Z[^\r\n]*)", text, re.MULTILINE)
-            if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0.02"]:
-                raise ValueError(f"Native Mark2 Z trim differs: {trims}")
+            if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0.16"]:
+                raise ValueError(f"Native Mark1 Z trim differs: {trims}")
             layers = re.findall(r"^; CHANGE_LAYER\n; Z_HEIGHT: ([0-9.]+)\n; LAYER_HEIGHT: ([0-9.]+)", text, re.MULTILINE)
             # The layers climb from the bed to within one layer of the plate's tallest part.
             top = max(p["plate_bounds_mm"][1][2] for p in parts)

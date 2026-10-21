@@ -20,7 +20,7 @@ import trimesh
 HERE = Path(__file__).resolve().parent
 ROOT = next(path for path in HERE.parents if (path / "tools/cad-venv").is_dir())
 CACHE = ROOT / ".cache/reservoir-current-print"
-MIN_EDGE_MARGIN = 80.0
+MIN_EDGE_MARGIN = 70.0
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 PROD = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -69,7 +69,7 @@ def main():
     settings = recipe["project_settings"]
     restored = settings.copy()
     for changes in (recipe["identity_changes"], recipe.get("process_changes", {}),
-                    recipe.get("assignment_changes", {})):
+                    recipe.get("assignment_changes", {}), recipe.get("machine_changes", {})):
         for key, change in changes.items():
             if settings[key] != change["to"]:
                 raise ValueError(f"Unexpected declared setting: {key}")
@@ -78,13 +78,14 @@ def main():
         raise ValueError("Undeclared settings differ from the accepted September recipe")
     if settings["ironing_type"] != "no ironing" or settings["enable_support_ironing"] != "0":
         raise ValueError("The current reservoir recipe must disable model and support ironing")
-    if (settings["filament_map_mode"] != "Manual" or settings["filament_map"] != ["1"]
-            or settings["filament_nozzle_map"] != ["0"]):
-        raise ValueError("The current reservoir recipe must select the left nozzle manually")
+    if (settings["filament_map_mode"] != "Manual" or settings["filament_map"] != ["2"]
+            or settings["filament_nozzle_map"] != ["1"]):
+        raise ValueError("The current reservoir recipe must select the right nozzle manually")
     integration = json.loads((HERE.parent / "magnetic-float/all-aero/integration-check.json").read_text())
     area = np.array([[float(v) for v in point.split("x")]
-                     for point in settings["extruder_printable_area"][0].split(",")])
+                     for point in settings["extruder_printable_area"][1].split(",")])
     usable_low, usable_high = area.min(axis=0), area.max(axis=0)
+    bed_center = (usable_low + usable_high) / 2
     model = ET.Element(qn("model"), unit="millimeter", requiredextensions="p",
                        **{"xmlns:BambuStudio": "http://schemas.bambulab.com/package/2021"})
     ET.SubElement(model, qn("metadata"), name="Application").text = "BambuStudio-02.08.02.61"
@@ -104,6 +105,7 @@ def main():
         "identity_changes": recipe["identity_changes"],
         "process_changes": recipe.get("process_changes", {}),
         "assignment_changes": recipe.get("assignment_changes", {}),
+        "machine_changes": recipe.get("machine_changes", {}),
         "minimum_emitted_bead_edge_margin_mm": MIN_EDGE_MARGIN,
         "plate_count": 2, "mesh_tolerance_mm": 0.025,
         "mesh_angular_tolerance_rad": 0.08, "parts": [],
@@ -114,7 +116,7 @@ def main():
         plate = ET.SubElement(config, "plate")
         for key, value in {"plater_id": plate_id, "plater_name": f"{side.title()} body and cap",
                            "locked": "false", "bed_type": settings["curr_bed_type"],
-                           "filament_map_mode": "Manual", "filament_maps": "1",
+                           "filament_map_mode": "Manual", "filament_maps": "2",
                            "filament_volume_maps": "0"}.items():
             metadata(plate, key, value)
         # Bambu Studio's horizontal plate spacing is 1.2 times the 330 mm bed.
@@ -139,12 +141,13 @@ def main():
             rotated = local_vertices @ rotation.T
             low, high = rotated.min(axis=0), rotated.max(axis=0)
             # Center the matching pair with a 10 mm gap between 77 mm envelopes.
-            translation = np.array([119.0 if cap else 206.0, 160.0, -low[2]])
+            translation = np.array([bed_center[0] + (-43.5 if cap else 43.5),
+                                    bed_center[1], -low[2]])
             placed = rotated + translation
             if (np.any(placed[:, :2].min(axis=0) < usable_low + MIN_EDGE_MARGIN) or
                     np.any(placed[:, :2].max(axis=0) > usable_high - MIN_EDGE_MARGIN) or
                     placed[:, 2].max() > float(settings["printable_height"])):
-                raise ValueError(f"{name} exceeds the left nozzle's usable bed/height")
+                raise ValueError(f"{name} exceeds the right nozzle's usable bed/height")
             part_id, object_id = str(number * 2 - 1), str(number * 2)
             member = f"3D/Objects/object_{number}.model"
             child = ET.Element(qn("model"), unit="millimeter")
