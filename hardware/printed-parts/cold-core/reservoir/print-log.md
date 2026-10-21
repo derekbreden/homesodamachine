@@ -255,3 +255,19 @@ Finished-part, gasket seal and water-hold results are unassessed.
 At 09:50:35 CDT, the right pair is RUNNING at layer 1/740 without faults.
 Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
 [Timelapse observation](prints/2026-10-07-mark2-right-no-ironing-v1/timelapse-review.json).
+
+## Left reservoir and cap, Mark1 right 0.8 mm (2026-10-21, task 1359853920)
+
+Mark1 accepted the current flat-floor left body and matching top-fill/top-draw cap
+at **00:02:36 CDT** through one Bambu Connect Send. The right 0.8 mm Standard-flow
+hotend starts on **A4**, with automatic refill choosing subsequent spools. Derek
+requests **A2 for the next print start**.
+
+The September 0.24 mm baseline uses ironing Off, 255 °C nozzle, 70 °C Textured PEI
+bed and Mark1's +0.18 mm user trim, emitted as `G29.1 Z0.16`. Native estimates are
+**19 h 21 min, 410.28 g and 833 layers**. Timelapse and bed leveling are On; flow
+dynamic and nozzle offset calibration use Auto. The printer acknowledges SUCCESS
+and reports the new job in PREPARE without faults. Finished-part and water-hold
+results are unassessed.
+
+[Native review, preflight, packaging and launch](prints/2026-10-20-mark1-right08/README.md).

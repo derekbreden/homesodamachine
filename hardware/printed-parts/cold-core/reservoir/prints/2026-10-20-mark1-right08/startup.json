@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-10-21T05:03:35.648148+00:00",
+  "job_id": "1359853920",
+  "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 833,
+  "mc_remaining_time": 1161,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 175.0,
+  "nozzle_target_temper": 175.0,
+  "bed_temper": 25.0,
+  "bed_target_temper": 25.0,
+  "ams": {
+    "tray_now": "3",
+    "tray_tar": "3",
+    "tray_exist_bits": "f"
+  },
+  "right_extruder": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 3,
+      "filam_bak": [
+        15
+      ]
+    }
+  ],
+  "runtime_timelapse": "disable",
+  "scope": "RUNNING at layer 0 during startup; no deposited first layer or finished-part assessment."
+}

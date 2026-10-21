@@ -30,11 +30,10 @@ seams, zero seam gap, **no ironing** and the September support settings.
 [Native slice review](slice-review.json). Each current body/cap plate estimates
 about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
 model/support/brim envelope stays at least **70.5 mm inside the right nozzle's usable bed**.
-Filament assignment is Manual on the right nozzle. Start Mark1 on **A4**.
-The requested consumption order is **A4 → A2 → A3 → A1**; the refill controls
-provide no custom backup-priority editor. See
+Filament assignment is Manual on the right nozzle. The active Mark1 job starts on
+**A4** with automatic refill. Start the **next print on A2**, as requested by Derek. See
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
-and the [Mark1 print preparation](prints/2026-10-20-mark1-right08/README.md).
+and the [Mark1 launch record](prints/2026-10-20-mark1-right08/README.md).
 
 The [flat-square finish record](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
 selects **OFF** as the smoothest and best-feeling finish. The
