@@ -80,12 +80,11 @@ _routes_gen = load_module(
 _prv_vent_mm = _routes_gen.route_wire(
     _routes_gen.routes["prv-vent"], _routes_gen.route_bend_radius).Length()
 
-# The faucet's finish-bound tubes (§9), off the assembly that routes them: a White faucet's white
-# flavor runs and its union on each, and the 3/8" soda faucet tube either finish cuts from its own
-# stock. The cut lengths are the ones `faucet-and-umbilical.md` §1 hands the bench.
+# The continuous black 4 mm flavor runs and finish-matched 3/8" soda tube (§9). The cut lengths are the ones `faucet-and-umbilical.md` §1 hands the bench.
 _faucet_gen = load_module(
     "bom_faucet_assembly_gen", _here.parent / "faucet-layout" / "faucet_assembly.py")
-_white_flavor_mm = sum(_faucet_gen.white_cut_length(x) for x in _faucet_gen.flavor_sides)
+_flavor_4mm_mm = (2 * _faucet_gen.flavor_cut_length
+                  + sum(r.length for r in _f.runs if r.id in ("fluid-18", "fluid-28")))
 
 
 # Pressure vessel geometry: two laser-welded SS endcap plates per
@@ -116,10 +115,8 @@ four_inch_ties_per_build = 20
 # Meter (two), water check chain, regulator and CO2 check.
 six_inch_ties_per_build = 5
 
-# PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
-# (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
-# panel hole (the customer-facing 1/4" QC potable-water inlet).
-panel_umbilical_bulkheads = 3
+# PP1208E bulkheads: soda umbilical and tap-water inlet. The flavor pair uses 4 mm ABU44M-E.
+panel_umbilical_bulkheads = 1
 panel_water_inlet_bulkheads = 1
 
 # Per-cap insert counts.
@@ -142,7 +139,7 @@ vent_filters_per_reservoir_cap = 1
 reservoir_reeds_total = reeds_per_reservoir * reservoirs_per_build
 total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 
-# PP1208E per build: umbilical cluster (3) + water inlet (1) = 4.
+# PP1208E per build: soda umbilical (1) + water inlet (1) = 2.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # Four dock elbows and the funnel drain use purchased PP0308E stock.
@@ -638,13 +635,11 @@ def main(*, only_bom=False):
         "PRV_VENT_MM": f"{_prv_vent_mm:.0f} mm",
         # A White faucet's flavor runs, unions and soda faucet tube (§9). The cut names are the
         # ones `_faucet_and_umbilical_sync` writes into §1 of the bench, so the two cannot drift.
-        "WHITE_A_CUT": f"{_faucet_gen.white_cut_length(+1):g}",
-        "WHITE_B_CUT": f"{_faucet_gen.white_cut_length(-1):g}",
-        "WHITE_FLAVOR_FT": f"{_white_flavor_mm / 304.8:.2f}",
-        "WHITE_FLAVOR_COST": f"${_white_flavor_mm / 304.8 * 0.14002:.2f}",
+        "FLAVOR_CUT": f"{_faucet_gen.flavor_cut_length:g}",
+        "FLAVOR_4MM_FT": f"{_flavor_4mm_mm / 304.8:.2f}",
+        "FLAVOR_4MM_COST": f"${_flavor_4mm_mm / 304.8 * 0.13:.2f}",
         "SODA_FAUCET_CUT": f"{_faucet_gen.soda_faucet_cut_length:g}",
         "SODA_FAUCET_FT": f"{_faucet_gen.soda_faucet_cut_length / 304.8:.2f}",
-        "FAUCET_UNIONS": f"{len(_faucet_gen.flavor_sides):d}",
     }
 
     substitute_md(

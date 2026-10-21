@@ -109,8 +109,8 @@ STATIONS = {
     "water": Chip("union", "TAP", True),
     "carb": Chip("union", "SODA", True),
     "co2": Chip("neofit", "CO2", True),
-    "flavor-a": Chip("union", "FLAVOR", False),
-    "flavor-b": Chip("union", "FLAVOR", False),
+    "flavor-a": Chip("drain", "FLAVOR", False),
+    "flavor-b": Chip("drain", "FLAVOR", False),
     "drain": Chip("drain", "OVER", False),
 }
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES. The part is one print in two filaments — a chip

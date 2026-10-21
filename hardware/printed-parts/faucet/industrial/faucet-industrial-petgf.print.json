@@ -308,8 +308,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
-      "triangles": 143108,
+      "stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+      "triangles": 142556,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.0,
@@ -364,8 +364,8 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
-      "triangles": 171436,
+      "stl_sha256": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
+      "triangles": 185790,
       "rotation_x_degrees": -105.0,
       "source_center_mm": [
         0.0,
@@ -581,7 +581,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "b7dee5a01488462501b59a23330974455df015f00499610d658213ef985f130c",
+  "project_sha256": "a1171fe55e0e10ef7d06ab1ca2d3955793e129b48f0cec41166a824a4ec8980a",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -1320,17 +1320,17 @@
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
     "hardware/printed-parts/faucet/refresh_print_project.py": "3f50932f08de677e414ccab4ef4cb50f1a4bd04d80f9db3af85356658584a9b9",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
-    "hardware/printed-parts/faucet/faucet_paths.py": "6f716f7d3f5e4dd237d82adc69cecc0225d7500c14f87b7a89d8613269c62c27",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "7c561070a6ee966519b2bb29c6dec0860fd128d647210493fa626c97fb73a2f3",
+    "hardware/printed-parts/faucet/faucet_paths.py": "1f26379fede4e2bc2ef7292269c4d08e83f01b2ff6e892d3f5c224326377c701",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/vent_seals.py": "2a234324193fdaaf82ab713835cc03347414ebfe97b43f4196c3712066fd3283",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "72e73db7df4a40fd98cf663f5d5fb1db784af4d5b9095ab7b0abd9575fe411bd",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7f3dd1f885342701c3c667d48880fedb3f03f069338dc7091687988f7c613e71",
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
     "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "954e83c1d5ca2f6816d59d8f406ec055e5706869406e10c2a71a429f4995a9e3",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",

@@ -1,5 +1,5 @@
 {
-  "status": "infill-only reinforcement prepared; current meshes and native slice require refresh",
+  "status": "Current 4 mm flavor meshes prepared; native slice and support review pending.",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "project_sha256": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
   "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
@@ -202,5 +202,16 @@
   },
   "printer_submission": {
     "performed_by_this_preparation": false
-  }
+  },
+  "current_4mm_project": {
+    "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+    "project_sha256": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
+    "print_report_sha256": "5c340eda872ef27accb10f0e2ba8692b00cb55be466258efae13102d03fc79d3",
+    "mesh_binding": "Source meshes and the selected rim/tip support aids are bound by the print report. Native slicing is pending.",
+    "native_slice_reviewed": false,
+    "physical_fit_on_black_4mm_stock": "unmeasured",
+    "rigid_parts": 5,
+    "printer": "Mark2 right hardened 0.4 mm"
+  },
+  "retained_native_record_scope": "The source_sha256, native and toolpath fields below retain their identified earlier article and do not qualify the current 4 mm project."
 }

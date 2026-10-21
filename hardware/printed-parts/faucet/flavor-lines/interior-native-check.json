@@ -1,0 +1,71 @@
+{
+  "scope": "Manual native CAD reading of the 4 mm dispense paths and A cap. Fixed plumbing clearance is distinct from flexible harness dressing and physical fit.",
+  "checks": {
+    "tube-fluid-18": {
+      "valid": true,
+      "solids": 1,
+      "centerline_radii_mm": [
+        25.0
+      ],
+      "fixed_body_overlaps": [],
+      "wire_envelope_overlaps": [
+        {
+          "body": "wire-J1-positive-C",
+          "overlap_mm3": 2.9244935282721722
+        },
+        {
+          "body": "wire-J1-positive-H",
+          "overlap_mm3": 3.6724644258526946
+        },
+        {
+          "body": "wire-J2-OUT1",
+          "overlap_mm3": 9.928312716010018
+        }
+      ]
+    },
+    "tube-fluid-28": {
+      "valid": true,
+      "solids": 1,
+      "centerline_radii_mm": [
+        25.0,
+        25.4
+      ],
+      "fixed_body_overlaps": [],
+      "wire_envelope_overlaps": [
+        {
+          "body": "wire-J7-GND",
+          "overlap_mm3": 2.7889987948805954
+        }
+      ]
+    },
+    "anchor-cap-fluid-18": {
+      "valid": true,
+      "solids": 1,
+      "centerline_radii_mm": [],
+      "fixed_body_overlaps": [],
+      "wire_envelope_overlaps": []
+    }
+  },
+  "connected_stem_envelopes": {
+    "flavor-reducer-v-g": {
+      "connected_valve": "valve-v-g",
+      "nominal_inserted_overlap_mm3": 257.9992287062813,
+      "overlap_outside_stem_envelope_mm3": 0.0,
+      "physical_insertion_depth": "unmeasured"
+    },
+    "flavor-reducer-v-j": {
+      "connected_valve": "valve-v-j",
+      "nominal_inserted_overlap_mm3": 257.9992287062813,
+      "overlap_outside_stem_envelope_mm3": 0.0,
+      "physical_insertion_depth": "unmeasured"
+    }
+  },
+  "wire_assembly_action": "Dress the listed flexible lead segments clear of the front crossing and reducers, as specified by internal-plumbing.md. Their native wiring envelopes are a separate workstream.",
+  "sources": {
+    "hardware/manifold-layout/enclosure-assembly.step": "d0f5dbaae70a0ca6d1955489f2819d09776699c9f55bf5af0567e09670d5e2e5",
+    "hardware/manifold-layout/_lines.py": "be59432491e98bcfcae34544927893498dc7bc69518405e2342fe2113e66697f",
+    "hardware/manifold-layout/enclosure_assembly.py": "7aa9982d1ce1daa6d24f855560a306565c70ec2fa5081101bd6e4c3728428b7b",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "57cb43b3e27533e0fec9456c81f7a56dc58c7895a6ff2f90e35a72275054f024",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "c08fd64ec738f9ff70ebb2db3eb69f01d5430863d32e388971d84607ad502661"
+  }
+}

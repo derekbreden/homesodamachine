@@ -1767,14 +1767,17 @@ def build_bulkhead(asse_carry):
                               (inlet[0], bulkhead_mouth_y(), inlet[2])))
 
 
-def y_wall_ports(*bulkhead_carries):
+def y_wall_ports(bulkhead_carry, panel_carries):
     """Through-holes the +Y wall of back-top carries, as `(kind, x, z, *size)` on its own plane.
 
     One per union: the bore its threading passes. Each is struck on the fitting's own inboard
     collet, so hole and barrel cannot land on two different columns, and it is bored one
     `PORT_HOLE_SLIP` over the barrel that goes through it."""
-    return [("round", carry(_jg.port(-1.0))[0][0], carry(_jg.port(-1.0))[0][2],
-             _jg.panel_hole_d(PORT_HOLE_SLIP)) for carry in bulkhead_carries]
+    carries = {"bulkhead-water": bulkhead_carry, **panel_carries}
+    return [("round", carry(Y_WALL_FITTINGS[name][0].port(-1.0))[0][0],
+             carry(Y_WALL_FITTINGS[name][0].port(-1.0))[0][2],
+             Y_WALL_FITTINGS[name][0].panel_hole_d(PORT_HOLE_SLIP))
+            for name, carry in carries.items()]
 
 
 # EVERY CROSSING THE +Y WALL OF BACK-TOP PASSES A TUBE THROUGH, as `station -> (the module that states
@@ -1791,8 +1794,8 @@ def y_wall_ports(*bulkhead_carries):
 Y_WALL_FITTINGS = {
     "bulkhead-water": (_jg, "union", "water", "water"),
     "bulkhead-carb": (_jg, "union", "carb", "carb"),
-    "bulkhead-flavor-a": (_jg, "union", "flavor-a", "flavor"),
-    "bulkhead-flavor-b": (_jg, "union", "flavor-b", "flavor"),
+    "bulkhead-flavor-a": (_drain_bulkhead, "drain", "flavor-a", "flavor"),
+    "bulkhead-flavor-b": (_drain_bulkhead, "drain", "flavor-b", "flavor"),
     "co2-inlet": (_neofit, "neofit", "co2", "co2"),
     "bulkhead-drain": (_drain_bulkhead, "drain", "drain", "drain"),
 }
@@ -2193,16 +2196,16 @@ def panel_z(name: str, deck: float, gate: float) -> float:
     return gate if name in PANEL_ON_GATE_LANE else deck
 
 
-def build_panel_bulkhead(name: str, x: float, z: float):
-    """One union clamped through the +Y wall of back-top on `(x, z)`, seated on its INBOARD COLLET.
+def build_panel_bulkhead(name: str, x: float, z: float, *, seat=True):
+    """One fitting clamped through the +Y wall at its flange seating plane.
 
-    The same fitting and the same seating as the tap-water union: the flange bears on the wall's
-    outer face, the threading passes through, and the nut clamps inside. What it reaches inboard
-    is `jg_bulkhead_union.far_ring_face_y`, and `bulkhead_mouth_y` is where that leaves the
-    collet the run pushes into."""
-    body = import_step(str(BULKHEAD_STEP)).val()
-    return seat_body(body, (), seat=name,
-                     station=(_jg.port(-1.0), (x, bulkhead_mouth_y(), z)))
+    SODA uses PP1208E; the two FLAVOR ports use the metric ABU44M-E body.
+    Each fitting's own port function supplies its inboard collet station.
+    """
+    fitting = Y_WALL_FITTINGS.get(name, (_jg,))[0]
+    body = fitting.build() if fitting is _drain_bulkhead else import_step(str(BULKHEAD_STEP)).val()
+    return seat_body(body, (), seat=name if seat else None,
+                     station=(((0, 0, 0), (0, 1, 0)), (x, bulkhead_seat_y(), z)))
 
 
 # --- the DIGITEN meter, inline on the carb riser ---------------------------
@@ -2348,7 +2351,7 @@ FLAVOR_B_ANCHOR_WELL_CLEAR = 1.0
 TUBE_ANCHOR_CLOSURES = {
     "carb-1": "cap",
     "co2-2": "cap",
-    "fluid-28": "cap",
+    "fluid-28": "tie",
 }
 ANCHOR_CLOSURES = ("tie", "cap")
 
@@ -2663,7 +2666,7 @@ def build_deck(z: float, gate: float, seat: bool = False):
     solids, carries = {}, {}
     for name, px in PANEL_X.items():
         solids[name], carries[name] = build_panel_bulkhead(
-            name if seat else None, px, panel_z(name, z, gate))
+            name, px, panel_z(name, z, gate), seat=seat)
     solids["digiten-flow"], carries["digiten-flow"] = build_digiten(
         carries["bulkhead-carb"], seat=seat)
     return solids, carries
@@ -4303,6 +4306,12 @@ def build_pack() -> cq.Assembly:
             continue
         a.add(solid, name=name, color=color)
         in_pack.append(name)
+    for valve in ("V-G", "V-J"):
+        end = _lines.valve_ends(valve)[1]
+        mouth, axis = mcarry((ml.port(valve, end), ml.port_axis(valve, end)))
+        name = f"flavor-reducer-{valve.lower()}"
+        a.add(_lines._flavor_reducer.placed(mouth, axis), name=name, color=M_NEOFIT_ACETAL)
+        record_seat(name, station=mouth, got=mouth, members=(name,))
     # The pump head's front plane locates the whole manifold independently of
     # the lowest fixed tube or return. Read that face from the placed head.
     pump_head = next(s for n, s, _c in stood if n == 'pump-a-head')
@@ -5352,7 +5361,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=(),
-                     back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+                     back_ports=(y_wall_ports(a.bulkhead_carry, a.panel_carries)
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
                                     ("round", a.wall_stations["bulkhead-drain"][0],
                                      a.wall_stations["bulkhead-drain"][1],
@@ -5732,11 +5741,11 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     for rid, station in a.tube_anchor_sites:
         if station[5:6] == ("cap",):
             mid, u, root = station[:3]
-            a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, root)), name=f"anchor-cap-{rid}",
+            a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, root), station[3]), name=f"anchor-cap-{rid}",
                   color=C_ANCHOR_CAP)
     # And the cold core lid's, on the ribs its own table closes with a cap.
     for name, mid, u in lid_cap_stations(a.carries["foam-assembly"], a.runs):
-        a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, (0.0, 0.0, -1.0))),
+        a.add(_anchor_cap.cap(_anchor_cap.Frame(mid, u, (0.0, 0.0, -1.0)), _cci.cap_anchors[name].seat_r),
               name=f"anchor-cap-{name}", color=C_ANCHOR_CAP)
     if box.pack.collet_plate:
         dock_parts = _dock.parts(box.pack.collet_plate)

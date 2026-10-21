@@ -358,9 +358,10 @@ MOUNTS = (
     # lies in the pipe the pair makes (`enclosure._capped_anchor`, `foam_cap.capped_lid_rib`).
     ("anchor-cap-carb-1", "enclosure-back-top", "snap-capture"),
     ("anchor-cap-co2-2", "enclosure-back-top", "snap-capture"),
-    ("anchor-cap-fluid-28", "enclosure-back-top", "snap-capture"),
     ("anchor-cap-fluid-14", "foam-assembly", "snap-capture"),
     ("anchor-cap-fluid-18", "foam-assembly", "snap-capture"),
+    ("flavor-reducer-v-g", "valve-v-g", "collet"),
+    ("flavor-reducer-v-j", "valve-v-j", "collet"),
     ("data-ring", "enclosure-back-top", "snap"),
     ("data-ring-word", "data-ring", "well"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
@@ -1165,12 +1166,13 @@ def run_world(a, runs) -> tuple:
 
     `clearance-floor` reads how far each run STANDS off every other run and off `rest`, through
     `run_clearances`."""
+    import _lines
     bodies, drawn, pieces = _split_placed(a)
     tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
     ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
     for r in runs:
         for anchor in (r.frm, r.to):
-            if adapter := _gas_chain.PORT_ADAPTERS.get(anchor):
+            if adapter := _lines.PORT_ADAPTERS.get(anchor):
                 ends[r.id].add(adapter)
     rest = {**bodies, **pieces,
             **{n: s for n, s in drawn.items() if n not in {f"tube-{i}" for i in tubes}}}

@@ -545,6 +545,8 @@ class Stock:
 
 
 STOCKS = (
+    Stock("4 mm LLDPE", 4.0, 25.0, ("fluid",),
+          "neoFlo LLDPE tubing sell sheet, metric 4 mm OD / 2.5 mm ID: R25 mm"),
     Stock("1/4\" LLDPE", 6.35, 14.0, ("fluid", "water", "co2"),
           "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""),
     Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
@@ -592,6 +594,8 @@ class Spool:
 
 
 SPOOLS = {
+    "flavor-black-4mm": Spool("neoFlo black 4 mm OD / 2.5 mm ID LLDPE (LLDPE4M-BLACK)",
+                              _rear.port_colors["flavor"], "flavor dispense"),
     "drain-white": Spool("white 4 mm OD / 2.5 mm ID LLDPE",
                          _rear.port_colors["drain"], "ASSE vent discharge"),
     "white": Spool("neoFlo white 1/4\" LLDPE (LLDPE4-WHITE)",
@@ -617,7 +621,8 @@ SPOOLS = {
 #
 # The cold core's own potted routes carry their own names and name their spools in
 # `foam_assembly.ROUTE_SPOOLS`.
-SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white"}
+SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white",
+            "fluid-18": "flavor-black-4mm", "fluid-28": "flavor-black-4mm"}
 _BY_PREFIX = {"water": "white", "fluid": "black", "co2": "red", "carb": "blue",
               "refrig": "copper"}
 
